@@ -136,9 +136,25 @@ export default function Login() {
           </form>
         </div>
 
+        <div className="mt-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-3 text-center">
+          <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-2">Admin Access (Demo)</p>
+          <button
+            type="button"
+            onClick={() => {
+              setEmail("admin@mocktestpro.com");
+              setPassword("admin123");
+              setTab("login");
+            }}
+            className="text-xs bg-amber-100 dark:bg-amber-900/40 hover:bg-amber-200 dark:hover:bg-amber-900/60 text-amber-800 dark:text-amber-300 px-3 py-1.5 rounded-lg font-medium transition-colors"
+            data-testid="btn-admin-quick-login"
+          >
+            Fill Admin Credentials
+          </button>
+        </div>
+
         <button
           onClick={() => setLocation("/")}
-          className="flex items-center gap-1.5 mx-auto mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="flex items-center gap-1.5 mx-auto mt-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
           data-testid="btn-back"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
