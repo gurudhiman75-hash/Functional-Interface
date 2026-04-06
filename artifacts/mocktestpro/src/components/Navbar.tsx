@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
-import { BookOpen, Trophy, LogOut, Menu, X, User, LayoutDashboard, FlaskConical, ShieldCheck } from "lucide-react";
+import { BookOpen, Trophy, LogOut, Menu, X, User, LayoutDashboard, FlaskConical } from "lucide-react";
 import { getUser, clearAuth } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,6 @@ export function Navbar({ onLoginClick }: NavbarProps) {
         { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
         { href: "/tests", label: "Tests", icon: <FlaskConical className="w-4 h-4" /> },
         { href: "/leaderboard", label: "Leaderboard", icon: <Trophy className="w-4 h-4" /> },
-        { href: "/admin", label: "Admin", icon: <ShieldCheck className="w-4 h-4" /> },
       ]
     : [
         { href: "/leaderboard", label: "Leaderboard", icon: <Trophy className="w-4 h-4" /> },

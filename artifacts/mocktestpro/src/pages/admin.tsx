@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { allTests, categories } from "@/lib/data";
 
+const ADMIN_EMAIL = "admin@mocktestpro.com";
+
 const stats = [
   { label: "Total Users", value: "12,450", icon: <Users className="w-5 h-5" />, color: "text-primary", bg: "bg-primary/10" },
   { label: "Total Tests", value: "542", icon: <BookOpen className="w-5 h-5" />, color: "text-secondary", bg: "bg-secondary/10" },
@@ -24,12 +26,12 @@ export default function Admin() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (!user) {
-      setLocation("/login");
+    if (!user || user.email !== ADMIN_EMAIL) {
+      setLocation("/");
     }
   }, [user, setLocation]);
 
-  if (!user) return null;
+  if (!user || user.email !== ADMIN_EMAIL) return null;
 
   const filteredTests = allTests.filter((t) =>
     t.name.toLowerCase().includes(search.toLowerCase())
