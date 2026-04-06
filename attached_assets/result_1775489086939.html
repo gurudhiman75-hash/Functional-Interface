@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result | MockTestPro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100">
+  
+  <nav class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="flex items-center gap-2 font-bold text-xl">
+          <span class="material-icons">quiz</span>
+          <span class="hidden sm:inline">MockTestPro</span>
+        </a>
+        <a href="dashboard.html" class="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg">Back to Dashboard</a>
+      </div>
+    </div>
+  </nav>
+  
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-12 text-white text-center mb-8">
+      <p class="text-blue-100 mb-2">Your Score</p>
+      <h1 class="text-6xl font-bold mb-4">85.50</h1>
+      <p class="text-xl text-blue-100">Rank: #1250</p>
+      <p class="text-lg mt-4">Excellent Performance!</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <p class="text-slate-600 text-sm">Correct Answers</p>
+        <p class="text-3xl font-bold text-emerald-600 mt-2">85</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <p class="text-slate-600 text-sm">Wrong Answers</p>
+        <p class="text-3xl font-bold text-red-600 mt-2">10</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <p class="text-slate-600 text-sm">Unanswered</p>
+        <p class="text-3xl font-bold text-slate-600 mt-2">5</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <p class="text-slate-600 text-sm">Time Spent</p>
+        <p class="text-3xl font-bold text-violet-600 mt-2">45 min</p>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200 mb-8">
+      <h2 class="text-2xl font-bold mb-6">Section Performance</h2>
+      <div class="space-y-6">
+        <div>
+          <div class="flex justify-between mb-2">
+            <h4 class="font-semibold">Mathematics</h4>
+            <span class="text-emerald-600 font-bold">87.5%</span>
+          </div>
+          <div class="w-full bg-slate-200 rounded-full h-3">
+            <div class="bg-emerald-600 h-3 rounded-full" style="width: 87.5%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between mb-2">
+            <h4 class="font-semibold">Physics</h4>
+            <span class="text-amber-600 font-bold">72.0%</span>
+          </div>
+          <div class="w-full bg-slate-200 rounded-full h-3">
+            <div class="bg-amber-600 h-3 rounded-full" style="width: 72%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between mb-2">
+            <h4 class="font-semibold">Chemistry</h4>
+            <span class="text-emerald-600 font-bold">85.0%</span>
+          </div>
+          <div class="w-full bg-slate-200 rounded-full h-3">
+            <div class="bg-emerald-600 h-3 rounded-full" style="width: 85%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200 mb-8">
+      <h2 class="text-2xl font-bold mb-6">Percentile Comparison</h2>
+      <canvas id="percentile-chart"></canvas>
+    </div>
+    
+    <div class="flex flex-col md:flex-row gap-4 justify-center">
+      <button onclick="window.location='tests.html'" class="px-8 py-3 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700">Take Another Test</button>
+      <button onclick="window.location='leaderboard.html'" class="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full font-bold hover:bg-blue-50">View Leaderboard</button>
+    </div>
+  </main>
+
+  <script>
+    const ctx = document.getElementById("percentile-chart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Your Score", "Average", "75th Percentile", "90th Percentile"],
+        datasets: [{
+          label: "Score",
+          data: [85.5, 72.5, 80, 88],
+          backgroundColor: ["#2563eb", "#94a3b8", "#f59e0b", "#10b981"],
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true, max: 100 } }
+      }
+    });
+  </script>
+</body>
+</html>

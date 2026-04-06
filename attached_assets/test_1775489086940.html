@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test | MockTestPro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100">
+  
+  <div class="flex gap-0 min-h-screen">
+    <aside class="hidden lg:block w-72 bg-white border-r border-slate-200 p-6 overflow-y-auto">
+      <h3 class="text-lg font-bold mb-4">Questions</h3>
+      <div id="question-palette" class="grid grid-cols-4 gap-2"></div>
+    </aside>
+    
+    <main class="flex-1 overflow-auto p-6">
+      <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow-sm">
+        <h1 id="test-title" class="text-2xl font-bold">Test</h1>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 bg-red-50 px-4 py-2 rounded-lg">
+            <span class="material-icons text-red-600">schedule</span>
+            <span id="timer" class="font-mono font-bold text-red-600">02:00:00</span>
+          </div>
+          <button onclick="if(confirm('Exit test?')) window.location='dashboard.html'" class="px-4 py-2 border border-slate-300 rounded-lg">Exit</button>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200 max-w-4xl">
+        <div class="flex justify-between items-center mb-6">
+          <span class="text-sm text-slate-600">Question <span id="current-q">1</span> of <span id="total-q">10</span></span>
+          <button onclick="toggleFlag()" class="px-4 py-2 border border-amber-300 text-amber-600 rounded-lg">Flag</button>
+        </div>
+        
+        <h2 id="question-text" class="text-xl font-semibold mb-8">What is the capital of France?</h2>
+        
+        <div id="options-container" class="space-y-3 mb-8">
+          <div class="p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-blue-500" onclick="selectOption(0)">
+            <label class="flex items-center gap-3">
+              <input type="radio" name="option" class="w-5 h-5">
+              <span>London</span>
+            </label>
+          </div>
+          <div class="p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-blue-500" onclick="selectOption(1)">
+            <label class="flex items-center gap-3">
+              <input type="radio" name="option" class="w-5 h-5">
+              <span>Paris</span>
+            </label>
+          </div>
+          <div class="p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-blue-500" onclick="selectOption(2)">
+            <label class="flex items-center gap-3">
+              <input type="radio" name="option" class="w-5 h-5">
+              <span>Berlin</span>
+            </label>
+          </div>
+          <div class="p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-blue-500" onclick="selectOption(3)">
+            <label class="flex items-center gap-3">
+              <input type="radio" name="option" class="w-5 h-5">
+              <span>Madrid</span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="flex justify-between pt-6 border-t">
+          <button onclick="previousQuestion()" class="px-6 py-2 border border-slate-300 rounded-lg hover:bg-slate-100">Previous</button>
+          <button onclick="nextQuestion()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Next</button>
+        </div>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <button onclick="submitTest()" class="px-8 py-3 bg-emerald-600 text-white rounded-full font-bold hover:bg-emerald-700">Submit Test</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let currentQuestion = 0;
+    let timeRemaining = 7200;
+
+    const questions = [
+      { text: "What is the capital of France?", options: ["London", "Paris", "Berlin", "Madrid"], correct: 1 },
+      { text: "Which planet is largest?", options: ["Saturn", "Jupiter", "Neptune", "Uranus"], correct: 1 },
+      { text: "What is H2O?", options: ["Oxygen", "Water", "Nitrogen", "Carbon"], correct: 1 },
+      { text: "Who wrote Romeo & Juliet?", options: ["Austen", "Dickens", "Shakespeare", "Twain"], correct: 2 },
+      { text: "What is the chemical symbol for Gold?", options: ["Go", "Gd", "Au", "Ag"], correct: 2 },
+      { text: "Which is the largest ocean?", options: ["Atlantic", "Arctic", "Pacific", "Indian"], correct: 2 },
+      { text: "What is 15 × 12?", options: ["170", "180", "190", "200"], correct: 1 },
+      { text: "What is sin(90°)?", options: ["0", "1", "-1", "undefined"], correct: 1 },
+      { text: "Which country has most population?", options: ["India", "China", "USA", "Indonesia"], correct: 0 },
+      { text: "What is the speed of light?", options: ["3×10^8", "3×10^7", "3×10^9", "3×10^10"], correct: 0 },
+    ];
+
+    function displayQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("current-q").textContent = currentQuestion + 1;
+      document.getElementById("question-text").textContent = q.text;
+      document.getElementById("test-title").textContent = "Test - Question " + (currentQuestion + 1);
+    }
+
+    window.selectOption = (idx) => {
+      const options = document.querySelectorAll("input[name='option']");
+      options.forEach(o => o.checked = false);
+      options[idx].checked = true;
+    };
+
+    window.nextQuestion = () => {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        displayQuestion();
+        window.scrollTo(0, 0);
+      }
+    };
+
+    window.previousQuestion = () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        displayQuestion();
+        window.scrollTo(0, 0);
+      }
+    };
+
+    window.toggleFlag = () => alert("Question flagged!");
+
+    window.submitTest = () => {
+      if (confirm("Submit test?")) {
+        window.location.href = "result.html";
+      }
+    };
+
+    setInterval(() => {
+      timeRemaining--;
+      const h = Math.floor(timeRemaining / 3600);
+      const m = Math.floor((timeRemaining % 3600) / 60);
+      const s = timeRemaining % 60;
+      document.getElementById("timer").textContent = 
+        String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+      if (timeRemaining <= 0) window.location.href = "result.html";
+    }, 1000);
+
+    document.getElementById("total-q").textContent = questions.length;
+    displayQuestion();
+  </script>
+</body>
+</html>
