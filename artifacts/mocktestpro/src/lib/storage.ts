@@ -59,12 +59,20 @@ export interface AdminTest {
   duration: number;
   totalQuestions: number;
   difficulty: "Easy" | "Medium" | "Hard";
+  sections: string[];
   attempts: number;
   avgScore: number;
 }
 
 const ADMIN_CATEGORIES_KEY = "admin_categories";
 const ADMIN_TESTS_KEY = "admin_tests";
+const ADMIN_VERSION_KEY = "admin_data_version";
+const CURRENT_VERSION = "2"; // bump to force re-seed
+
+export const needsReseed = (): boolean =>
+  Storage.get<string>(ADMIN_VERSION_KEY) !== CURRENT_VERSION;
+
+export const markSeeded = () => Storage.set(ADMIN_VERSION_KEY, CURRENT_VERSION);
 
 export const getAdminCategories = (): AdminCategory[] =>
   Storage.get<AdminCategory[]>(ADMIN_CATEGORIES_KEY) ?? [];
@@ -72,9 +80,12 @@ export const getAdminCategories = (): AdminCategory[] =>
 export const saveAdminCategories = (cats: AdminCategory[]) =>
   Storage.set(ADMIN_CATEGORIES_KEY, cats);
 
+let _idCounter = 0;
+const uid = () => `${Date.now()}-${++_idCounter}-${Math.random().toString(36).slice(2, 7)}`;
+
 export const addAdminCategory = (cat: Omit<AdminCategory, "id">) => {
   const cats = getAdminCategories();
-  const newCat = { ...cat, id: Date.now().toString() };
+  const newCat = { ...cat, id: uid() };
   cats.push(newCat);
   saveAdminCategories(cats);
   return newCat;
@@ -98,7 +109,7 @@ export const saveAdminTests = (tests: AdminTest[]) =>
 
 export const addAdminTest = (test: Omit<AdminTest, "id" | "attempts" | "avgScore">) => {
   const tests = getAdminTests();
-  const newTest = { ...test, id: Date.now().toString(), attempts: 0, avgScore: 0 };
+  const newTest = { ...test, sections: test.sections ?? [], id: uid(), attempts: 0, avgScore: 0 };
   tests.push(newTest);
   saveAdminTests(tests);
   return newTest;
