@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "EXAMTREE"
+version = "1.0.0"
+id = "artifacts/examtree"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21348
+
+[services.development]
+run = "pnpm --filter @workspace/examtree run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/examtree", "run", "build" ]
+publicDir = "artifacts/examtree/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21348"
+BASE_PATH = "/"

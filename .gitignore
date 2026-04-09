@@ -47,3 +47,17 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# Local app env and dev logs
+artifacts/*/.env.local
+artifacts/*/vite-dev.out.log
+artifacts/*/vite-dev.err.log
+artifacts/*/src.zip
+
+# TypeScript build outputs emitted next to source in workspace libs
+lib/**/src/**/*.js
+lib/**/src/**/*.d.ts

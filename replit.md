@@ -24,7 +24,7 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
 
-## MockTestPro App (`artifacts/mocktestpro`)
+## EXAMTREE App (`artifacts/examtree`)
 
 A fully functional, professional exam preparation platform.
 
@@ -38,7 +38,7 @@ A fully functional, professional exam preparation platform.
 - `/test/:id` — Full test-taking interface with timer, palette, flagging
 - `/result` — Detailed results with charts and section analytics
 - `/leaderboard` — Global leaderboard with user standing
-- `/admin` — Admin panel (requires admin@mocktestpro.com login)
+- `/admin` — Admin panel (requires admin@examtree.com login)
 
 ### Tech
 
