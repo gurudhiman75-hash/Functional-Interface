@@ -76,14 +76,14 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.10),transparent_28%)]">
         <div className="absolute inset-0 aurora-bg -z-10" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent -z-10" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="max-w-3xl">
-              <Badge variant="secondary" className="mb-5 rounded-full border border-white/70 bg-white/80 px-4 py-1.5 text-xs font-semibold shadow-sm animate-fadeInUp">
+              <Badge variant="secondary" className="mb-5 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-semibold shadow-sm animate-fadeInUp text-muted-foreground">
                 {runtimeTests.length} live mocks across {runtimeCategories.length} categories
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 animate-fadeInUp" data-testid="hero-title">
@@ -118,7 +118,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="glass-panel relative overflow-hidden rounded-[2rem] border border-white/60 p-6 shadow-[0_30px_90px_-45px_rgba(15,23,42,0.55)]">
+            <div className="glass-panel relative overflow-hidden rounded-[2rem] border border-white/10 p-6 shadow-[0_30px_90px_-45px_rgba(0,0,0,0.55)]">
               <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-br from-primary/15 via-transparent to-secondary/15" />
               <div className="relative space-y-5">
                 <div className="flex items-center justify-between">
@@ -126,7 +126,7 @@ export default function Home() {
                     <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/80">Live Snapshot</p>
                     <h2 className="mt-2 text-2xl font-bold text-foreground">Today on EXAMTREE</h2>
                   </div>
-                  <div className="rounded-2xl bg-white/80 px-3 py-2 text-right shadow-sm">
+                  <div className="rounded-2xl bg-white/10 px-3 py-2 text-right shadow-sm border border-white/10">
                     <p className="text-xs text-muted-foreground">Available tests</p>
                     <p className="text-lg font-bold text-foreground">{runtimeTests.length}</p>
                   </div>
@@ -147,8 +147,8 @@ export default function Home() {
                       icon: <TrendingUp className="w-5 h-5" />,
                     },
                   ].map((panel) => (
-                    <div key={panel.title} className="rounded-2xl border border-white/70 bg-white/75 p-4 shadow-sm">
-                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-primary">{panel.icon}</div>
+                    <div key={panel.title} className="rounded-2xl border border-white/10 bg-card/90 p-4 shadow-sm">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted/80 text-primary">{panel.icon}</div>
                       <h3 className="font-semibold text-foreground">{panel.title}</h3>
                       <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{panel.text}</p>
                     </div>
@@ -232,7 +232,7 @@ export default function Home() {
           })}
         </div>
         <div className="text-center mt-6">
-          <Button variant="outline" className="rounded-2xl border-white/70 bg-white/75" onClick={() => setLocation("/tests")} data-testid="btn-view-all-tests">
+          <Button variant="outline" className="rounded-2xl border-white/30 bg-card/90 text-foreground" onClick={() => setLocation("/tests")} data-testid="btn-view-all-tests">
             View All Tests
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>

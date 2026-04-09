@@ -74,7 +74,7 @@ export default function Result() {
       <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-gradient-to-br from-primary to-secondary rounded-3xl p-8 text-white text-center mb-8 animate-fadeInUp shadow-xl" data-testid="result-hero">
+        <div className="hero-panel rounded-[2.5rem] p-8 text-white text-center mb-8 animate-fadeInUp shadow-xl" data-testid="result-hero">
           <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold mb-4 ${grade.bg} ${grade.color}`}>
             <Award className="w-4 h-4" />
             {grade.label}

@@ -79,7 +79,7 @@ export default function Subcategory() {
             <button
               key={exam.id}
               onClick={() => setLocation("/tests")}
-              className="group bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 text-left"
+              className="group glass-panel surface-hover rounded-[1.7rem] border border-white/20 p-6 shadow-lg transition-transform hover:-translate-y-1 text-left"
               data-testid={`exam-card-${exam.id}`}
             >
               <div className="flex items-start justify-between mb-3">

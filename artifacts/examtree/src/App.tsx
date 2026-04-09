@@ -1,10 +1,11 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { syncAuthSession } from "@/lib/auth";
+import { hydrateAdminDataFromCloud } from "@/lib/storage";
 
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
@@ -63,18 +64,49 @@ function RouteSkeleton() {
 }
 
 function App() {
+  const [isBootstrapped, setIsBootstrapped] = useState(false);
+
   useEffect(() => {
+    let isActive = true;
     const unsubscribe = syncAuthSession();
-    return () => unsubscribe();
+
+    // Bootstrap with automatic fallback timeout
+    const bootstrapPromise = (async () => {
+      try {
+        await hydrateAdminDataFromCloud();
+      } catch (error) {
+        console.error("Admin data hydration failed:", error);
+      }
+      if (isActive) {
+        setIsBootstrapped(true);
+      }
+    })();
+
+    // Safety timeout - if hydration takes > 5 seconds, proceed anyway
+    const timeoutId = setTimeout(() => {
+      if (isActive) {
+        setIsBootstrapped(true);
+      }
+    }, 5000);
+
+    return () => {
+      isActive = false;
+      clearTimeout(timeoutId);
+      unsubscribe();
+    };
   }, []);
 
   return (
     <AppErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
-          </WouterRouter>
+          {isBootstrapped ? (
+            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+              <Router />
+            </WouterRouter>
+          ) : (
+            <RouteSkeleton />
+          )}
           <Toaster />
         </TooltipProvider>
       </QueryClientProvider>

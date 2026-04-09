@@ -809,7 +809,7 @@ export default function Admin() {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map((s) => (
-            <div key={s.label} className="bg-card/80 border border-border/70 rounded-2xl p-5 shadow-sm surface-hover">
+            <div key={s.label} className="glass-panel rounded-2xl p-5 shadow-sm surface-hover">
               <div className={`w-10 h-10 ${s.bg} rounded-lg flex items-center justify-center ${s.color} mb-3`}>{s.icon}</div>
               <p className="text-xl font-bold text-foreground">{s.value}</p>
               <p className="text-xs text-muted-foreground">{s.label}</p>
@@ -837,7 +837,7 @@ export default function Admin() {
         {/* ── CATEGORIES TAB ── */}
         {tab === "categories" && (
           <div className="space-y-5 animate-fadeIn">
-            <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+            <div className="glass-panel rounded-2xl p-6 shadow-sm">
               <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Plus className="w-4 h-4 text-primary" /> Add New Category
               </h3>
@@ -856,7 +856,7 @@ export default function Admin() {
               </form>
             </div>
 
-            <div className="bg-card/85 border border-border/70 rounded-2xl shadow-sm overflow-hidden">
+            <div className="glass-panel rounded-2xl shadow-sm overflow-hidden">
               <div className="px-6 py-4 border-b border-border">
                 <h3 className="font-semibold text-foreground">Categories <span className="text-muted-foreground font-normal text-sm">({cats.length})</span></h3>
               </div>
@@ -897,7 +897,7 @@ export default function Admin() {
 
         {tab === "subcategories" && (
           <div className="space-y-5 animate-fadeIn">
-            <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+            <div className="glass-panel rounded-2xl p-6 shadow-sm">
               <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Plus className="w-4 h-4 text-primary" /> Add New Subcategory
               </h3>
@@ -923,7 +923,7 @@ export default function Admin() {
               </form>
             </div>
 
-            <div className="bg-card/85 border border-border/70 rounded-2xl shadow-sm overflow-hidden">
+            <div className="glass-panel rounded-2xl shadow-sm overflow-hidden">
               <div className="px-6 py-4 border-b border-border">
                 <h3 className="font-semibold text-foreground">Subcategories ({subcats.length})</h3>
               </div>

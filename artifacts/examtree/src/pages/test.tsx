@@ -22,10 +22,10 @@ function formatTime(seconds: number) {
 }
 
 function getPaletteStyle(answered: boolean, flagged: boolean, current: boolean) {
-  if (current) return "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-1";
-  if (flagged) return "bg-amber-100 text-amber-800 border border-amber-300";
-  if (answered) return "bg-emerald-100 text-emerald-800 border border-emerald-200";
-  return "bg-muted text-muted-foreground border border-border hover:bg-accent hover:text-accent-foreground";
+  if (current) return "bg-primary/20 text-primary border-2 border-primary";
+  if (flagged) return "bg-yellow-100 text-yellow-800 border border-yellow-300";
+  if (answered) return "bg-green-100 text-green-800 border border-green-300";
+  return "bg-gray-100 text-gray-600 border border-gray-300 hover:bg-gray-200";
 }
 
 export default function Test() {
@@ -33,8 +33,8 @@ export default function Test() {
   const [, setLocation] = useLocation();
   const user = getUser();
   const { toast } = useToast();
-  const allTests = getRuntimeTests();
-  const test = allTests.find((item) => item.id === id) ?? allTests[0];
+  const allTests = useMemo(() => getRuntimeTests(), []);
+  const test = useMemo(() => allTests.find((item) => item.id === id) ?? allTests[0], [allTests, id]);
 
   if (!test) return null;
 
@@ -379,14 +379,16 @@ export default function Test() {
   if (!user || !q) return null;
 
   return (
-    <div className="relative isolate z-[200] min-h-screen exam-app-bg">
+    <div className="relative isolate z-[200] min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(192,132,252,0.14),transparent_25%),hsl(var(--background))]">
       <header className="exam-header sticky top-0 z-[210] border-b px-4">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4">
           <h1 className="truncate text-sm font-semibold text-foreground">{test.name}</h1>
           <div className="flex items-center gap-3">
             <div
               className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-mono text-sm font-bold ${
-                isLowTime ? "border-red-200 bg-red-50 text-red-600" : "border-slate-200 bg-white text-foreground"
+                isLowTime
+                  ? "border-red-500/20 bg-red-500/10 text-red-200"
+                  : "border-white/10 bg-white/5 text-foreground"
               }`}
               data-testid="timer"
             >
@@ -396,7 +398,7 @@ export default function Test() {
             <button
               type="button"
               onClick={() => setShowSubmitModal(true)}
-              className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-[#fffdf9] px-3 py-2 text-xs font-semibold text-slate-700"
+              className="inline-flex items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-foreground hover:bg-white/10"
               data-testid="btn-exit"
             >
               <X className="mr-1 h-3.5 w-3.5" /> Exit
@@ -408,16 +410,16 @@ export default function Test() {
       <main className="relative z-[205] mx-auto max-w-7xl px-4 py-6">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="min-w-0">
-            <div className="mb-4 rounded-[1.5rem] exam-paper p-5">
+            <div className="mb-4 glass-panel rounded-[1.75rem] p-6 shadow-lg">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm text-muted-foreground">
                   Question <span className="font-bold text-foreground">{currentQuestionNumber}</span> of {totalQuestions}
                 </span>
-                <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-foreground">
                   {currentSection.name}
                 </span>
                 {hasSectionalTiming && (
-                  <span className="rounded-full border border-blue-100 bg-blue-50 px-2.5 py-1 text-xs font-medium text-primary">
+                  <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
                     {currentSectionMinutes} min section
                   </span>
                 )}
@@ -425,19 +427,19 @@ export default function Test() {
 
               <div className="mt-4 grid gap-3 md:grid-cols-3">
                 {[
-                  { label: "Answered", value: answered, tone: "border-emerald-100 bg-emerald-50 text-emerald-700" },
-                  { label: "Unanswered", value: unanswered, tone: "border-slate-200 bg-slate-50 text-slate-700" },
-                  { label: "Flagged", value: flagged, tone: "border-amber-100 bg-amber-50 text-amber-700" },
+                  { label: "Answered", value: answered, tone: "border border-emerald-500/20 bg-emerald-500/10 text-emerald-200" },
+                  { label: "Unanswered", value: unanswered, tone: "border border-white/10 bg-white/5 text-muted-foreground" },
+                  { label: "Flagged", value: flagged, tone: "border border-amber-500/20 bg-amber-500/10 text-amber-200" },
                 ].map((item) => (
-                  <div key={item.label} className={`rounded-2xl border p-3 ${item.tone}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em]">{item.label}</p>
-                    <p className="mt-2 text-2xl font-bold">{item.value}</p>
+                  <div key={item.label} className={`rounded-2xl p-3 ${item.tone}`}>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{item.label}</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">{item.value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="mb-4 rounded-[1.5rem] exam-muted-panel p-5">
+            <div className="mb-4 glass-panel rounded-[1.5rem] p-5 shadow-sm">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 {hasSectionalTiming ? "Section Timer" : "Section Progress"}
               </p>
@@ -449,7 +451,7 @@ export default function Test() {
                   ? `${Math.round(currentSectionElapsedSeconds / 60)} of ${currentSectionMinutes} minutes used`
                   : "questions in this section"}
               </p>
-              <div className="mt-4 h-2 rounded-full bg-slate-200">
+              <div className="mt-4 h-2 rounded-full bg-white/10">
                 <div
                   className="h-full rounded-full bg-primary"
                   style={{
@@ -463,14 +465,14 @@ export default function Test() {
               </div>
             </div>
 
-            <div className="mb-4 rounded-[1.7rem] exam-paper p-6">
+            <div className="mb-4 glass-panel rounded-[1.7rem] p-6 shadow-lg">
               <div className="mb-3 flex items-center justify-between gap-3">
                 <p className="text-sm font-semibold text-primary">{currentSection.name} Section</p>
                 <p className="text-xs text-muted-foreground">
                   {currentQuestionIndex + 1} / {questions.length} in this section
                 </p>
               </div>
-              <p className="text-xl font-medium leading-relaxed text-slate-900">{q.text}</p>
+              <p className="text-xl font-medium leading-relaxed text-foreground">{q.text}</p>
             </div>
 
             <div className="mb-6 space-y-3">
@@ -481,16 +483,16 @@ export default function Test() {
                     key={index}
                     type="button"
                     onClick={() => setAnswers((current) => ({ ...current, [q.id]: index }))}
-                    className={`flex w-full items-center gap-3 rounded-[1.5rem] border-2 p-4 text-left transition-all ${
+                    className={`flex w-full items-center gap-3 rounded-lg border p-4 text-left transition-all ${
                       selected
-                        ? "border-primary bg-blue-50/70 text-foreground"
-                        : "border-slate-200 bg-[#fffdf9] text-foreground hover:border-slate-400 hover:bg-slate-50/70"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-gray-200 bg-white text-foreground hover:border-primary/50 hover:bg-gray-50"
                     }`}
                     data-testid={`option-${index}`}
                   >
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold ${
-                        selected ? "border-primary bg-primary text-white" : "border-slate-300 text-muted-foreground"
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
+                        selected ? "border-primary bg-primary text-white" : "border-gray-300 bg-gray-100 text-gray-600"
                       }`}
                     >
                       {String.fromCharCode(65 + index)}
@@ -502,7 +504,7 @@ export default function Test() {
               })}
             </div>
 
-            <div className="mb-6 rounded-[1.5rem] exam-muted-panel p-4">
+            <div className="mb-6 glass-panel rounded-[1.5rem] p-4 shadow-sm">
               <div className="mb-4">
                 <p className="text-sm font-semibold text-foreground">Question Actions</p>
                 <p className="text-xs text-muted-foreground">Clear your answer or mark the question to revisit later.</p>
@@ -511,7 +513,7 @@ export default function Test() {
                 <button
                   type="button"
                   onClick={clearResponse}
-                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-[#fffdf9] px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                  className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-foreground hover:bg-white/10"
                   data-testid="btn-clear-response"
                 >
                   Clear Response
@@ -521,8 +523,8 @@ export default function Test() {
                   onClick={toggleReview}
                   className={`inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${
                     currentQuestionFlagged
-                      ? "border-amber-200 bg-amber-100 text-amber-800"
-                      : "border-slate-300 bg-[#fffdf9] text-slate-700 hover:bg-slate-100"
+                      ? "border-amber-500/20 bg-amber-500/10 text-amber-200"
+                      : "border-white/10 bg-white/5 text-foreground hover:bg-white/10"
                   }`}
                   data-testid="btn-mark-review"
                 >
@@ -532,12 +534,12 @@ export default function Test() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between border-t border-border pt-4">
+            <div className="flex items-center justify-between border-t border-white/10 pt-4">
               <button
                 type="button"
                 onClick={goToPrevious}
                 disabled={isFirstQuestion}
-                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-[#fffdf9] px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-foreground hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
                 data-testid="btn-prev"
               >
                 <ChevronLeft className="mr-1 h-4 w-4" /> Previous
@@ -546,7 +548,7 @@ export default function Test() {
               <button
                 type="button"
                 onClick={goToNext}
-                className="inline-flex items-center justify-center rounded-xl border border-emerald-700 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-95"
+                className="inline-flex items-center justify-center rounded-xl border border-primary bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:brightness-95"
                 data-testid="btn-next"
               >
                 {primaryAdvanceLabel}
@@ -556,7 +558,7 @@ export default function Test() {
           </div>
 
           <aside className="space-y-4">
-            <div className="rounded-[1.35rem] exam-paper p-4">
+            <div className="glass-panel rounded-[1.35rem] p-4 shadow-lg">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Navigator</p>
               <h3 className="mt-2 text-xl font-bold text-foreground">Question Palette</h3>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -573,8 +575,8 @@ export default function Test() {
                 return (
                   <div
                     key={section.id}
-                    className={`rounded-[1.2rem] border p-3 ${
-                      isCurrentSection ? "border-primary/30 bg-blue-50/60 shadow-sm" : "border-slate-200/80 bg-[#fcfaf5]"
+                    className={`rounded-lg border p-3 ${
+                      isCurrentSection ? "border-primary/50 bg-primary/5" : "border-gray-200 bg-gray-50"
                     }`}
                   >
                     <button
@@ -593,7 +595,7 @@ export default function Test() {
                             {hasLockedSections && sectionIndex !== currentSectionIndex ? " • locked" : ""}
                           </p>
                         </div>
-                        <span className={`rounded-full px-2 py-0.5 text-[11px] ${isCurrentSection ? "bg-primary text-white" : hasLockedSections && sectionIndex !== currentSectionIndex ? "bg-slate-200 text-slate-500" : "bg-slate-100 text-slate-600"}`}>
+                        <span className={`rounded-full px-2 py-0.5 text-[11px] ${isCurrentSection ? "bg-primary text-white" : hasLockedSections && sectionIndex !== currentSectionIndex ? "bg-gray-200 text-gray-500" : "bg-gray-100 text-gray-600"}`}>
                           {sectionAnswered}/{section.questions.length}
                         </span>
                       </div>
@@ -627,45 +629,47 @@ export default function Test() {
               })}
             </div>
 
-            <div className="rounded-[1.35rem] exam-paper p-4">
-              <div className="space-y-2">
-                {[
-                  { label: "Answered", count: answered, color: "bg-emerald-500" },
-                  { label: "Marked", count: flagged, color: "bg-amber-500" },
-                  { label: "Unanswered", count: unanswered, color: "bg-slate-300" },
-                  ...(hasLockedSections
-                    ? [{ label: "Locked", count: Math.max(0, test.sections.length - 1), color: "bg-slate-500" }]
-                    : []),
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <div className={`h-2.5 w-2.5 rounded-sm ${item.color}`} />
-                      <span className="text-muted-foreground">{item.label}</span>
-                    </div>
-                    <span className="font-semibold text-foreground">{item.count}</span>
+            <div className="glass-panel rounded-[1.35rem] p-4 shadow-lg">
+              {[
+                { label: "Answered", count: answered, color: "bg-green-500" },
+                { label: "Marked", count: flagged, color: "bg-yellow-500" },
+                { label: "Unanswered", count: unanswered, color: "bg-gray-300" },
+                { label: "Marked", count: flagged, color: "bg-yellow-500" },
+                { label: "Unanswered", count: unanswered, color: "bg-gray-300" },
+                { label: "Marked", count: flagged, color: "bg-amber-500" },
+                { label: "Unanswered", count: unanswered, color: "bg-slate-300" },
+                ...(hasLockedSections
+                  ? [{ label: "Locked", count: Math.max(0, test.sections.length - 1), color: "bg-slate-500" }]
+                  : []),
+              ].map((item) => (
+                <div key={item.label} className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className={`h-2.5 w-2.5 rounded-sm ${item.color}`} />
+                    <span className="text-muted-foreground">{item.label}</span>
                   </div>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setShowSubmitModal(true)}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-emerald-700 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-95"
-                data-testid="btn-submit-sidebar"
-              >
-                Submit Test
-              </button>
+                  <span className="font-semibold text-foreground">{item.count}</span>
+                </div>
+              ))}
             </div>
+
+            <button
+              type="button"
+              onClick={() => setShowSubmitModal(true)}
+              className="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-secondary bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground hover:brightness-95"
+              data-testid="btn-submit-sidebar"
+            >
+              Submit Test
+            </button>
           </aside>
         </div>
       </main>
 
       {showSubmitModal && (
         <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/50 p-4" data-testid="submit-modal">
-          <div className="w-full max-w-sm rounded-2xl exam-paper p-6">
+          <div className="w-full max-w-sm rounded-2xl glass-panel p-6">
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-                <AlertCircle className="h-5 w-5 text-amber-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-100 text-yellow-600">
+                <AlertCircle className="h-5 w-5" />
               </div>
               <div>
                 <h3 className="font-bold text-foreground">Submit Test?</h3>
@@ -673,18 +677,18 @@ export default function Test() {
               </div>
             </div>
 
-            <div className="mb-5 grid grid-cols-3 gap-2 rounded-lg exam-muted-panel p-3 text-center text-xs">
+            <div className="mb-5 grid grid-cols-3 gap-2 rounded-lg bg-gray-50 p-3 text-center text-xs">
               <div>
-                <p className="text-base font-bold text-emerald-600">{answered}</p>
-                <p className="text-muted-foreground">Answered</p>
+                <p className="text-base font-bold text-green-600">{answered}</p>
+                <p className="text-gray-500">Answered</p>
               </div>
               <div>
                 <p className="text-base font-bold text-red-600">{unanswered}</p>
-                <p className="text-muted-foreground">Unanswered</p>
+                <p className="text-gray-500">Unanswered</p>
               </div>
               <div>
-                <p className="text-base font-bold text-amber-600">{flagged}</p>
-                <p className="text-muted-foreground">Marked</p>
+                <p className="text-base font-bold text-yellow-600">{flagged}</p>
+                <p className="text-gray-500">Marked</p>
               </div>
             </div>
 
@@ -692,7 +696,7 @@ export default function Test() {
               <button
                 type="button"
                 onClick={() => setShowSubmitModal(false)}
-                className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700"
+                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 data-testid="btn-cancel-submit"
               >
                 Continue Test
@@ -700,7 +704,7 @@ export default function Test() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="flex-1 rounded-lg border border-primary bg-primary px-4 py-2 text-sm font-semibold text-white"
+                className="flex-1 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                 data-testid="btn-confirm-submit"
               >
                 Submit

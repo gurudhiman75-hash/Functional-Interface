@@ -75,8 +75,8 @@ export default function Tests() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8 rounded-[2rem] border border-white/60 bg-[linear-gradient(135deg,hsl(var(--card)/0.92),hsl(var(--card)/0.72))] p-6 shadow-[0_22px_65px_-42px_rgba(15,23,42,0.55)] animate-fadeInUp">
-          <Badge variant="secondary" className="mb-3 rounded-full border border-white/70 bg-white/75 px-3 py-1 text-[11px] uppercase tracking-[0.18em]">
+        <div className="mb-8 glass-panel hero-panel rounded-[2rem] p-6 shadow-[0_22px_65px_-42px_rgba(0,0,0,0.55)] animate-fadeInUp">
+          <Badge variant="secondary" className="mb-3 rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
             Mock Test Library
           </Badge>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Available Tests</h1>
@@ -117,9 +117,9 @@ export default function Tests() {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="empty-state">
-            <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-40" />
-            <p className="font-medium">No tests found</p>
+          <div className="empty-state glass-panel rounded-[1.8rem] border-dashed border-border/70 p-10 text-center text-muted-foreground shadow-lg">
+            <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-50" />
+            <p className="font-semibold text-foreground">No tests found</p>
             <p className="text-sm mt-1">Try adjusting your search or filters</p>
           </div>
         ) : (
@@ -127,7 +127,7 @@ export default function Tests() {
             {filtered.map((test) => (
               <div
                 key={test.id}
-                className="bg-card/92 border border-border/70 rounded-2xl p-6 shadow-md surface-hover list-item-animate"
+                className="glass-panel surface-hover rounded-[1.8rem] border border-white/30 p-6 shadow-lg list-item-animate"
                 data-testid={`test-card-${test.id}`}
               >
                 <div className="flex items-start justify-between mb-3">
@@ -175,7 +175,7 @@ export default function Tests() {
                 </div>
 
                 {activeSessions[test.id] && (
-                  <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-700">
+                  <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-foreground">
                     Saved progress available. Resume where you left off.
                   </div>
                 )}

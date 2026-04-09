@@ -33,18 +33,18 @@ export default function Leaderboard() {
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 text-white mb-8 animate-fadeInUp" data-testid="your-stats">
-          <h3 className="text-white/70 text-xs font-semibold uppercase tracking-wide mb-4">Your Progress Snapshot</h3>
+        <div className="glass-panel hero-panel rounded-[2rem] p-6 text-foreground mb-8 animate-fadeInUp" data-testid="your-stats">
+          <h3 className="text-muted-foreground text-xs font-semibold uppercase tracking-wide mb-4">Your Progress Snapshot</h3>
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <div className="flex items-center justify-center gap-1 mb-1 text-white/70 text-xs">
+              <div className="flex items-center justify-center gap-1 mb-1 text-muted-foreground text-xs">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>Tests</span>
               </div>
               <p className="text-3xl font-bold" data-testid="your-tests">{testsTaken}</p>
             </div>
-            <div className="border-x border-white/20">
-              <div className="flex items-center justify-center gap-1 mb-1 text-white/70 text-xs">
+            <div className="border-x border-border">
+              <div className="flex items-center justify-center gap-1 mb-1 text-muted-foreground text-xs">
                 <TrendingUp className="w-3.5 h-3.5" />
                 <span>Avg. Score</span>
               </div>
@@ -53,7 +53,7 @@ export default function Leaderboard() {
               </p>
             </div>
             <div>
-              <div className="flex items-center justify-center gap-1 mb-1 text-white/70 text-xs">
+              <div className="flex items-center justify-center gap-1 mb-1 text-muted-foreground text-xs">
                 <Medal className="w-3.5 h-3.5" />
                 <span>Accuracy</span>
               </div>
@@ -75,7 +75,7 @@ export default function Leaderboard() {
             </p>
           </div>
         ) : (
-          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+          <div className="glass-panel rounded-xl border border-border shadow-sm overflow-hidden">
             <div className="grid grid-cols-12 px-6 py-3 bg-muted/50 border-b border-border text-xs font-semibold text-muted-foreground uppercase tracking-wide">
               <div className="col-span-1">Rank</div>
               <div className="col-span-5">Test</div>
