@@ -1,7 +1,7 @@
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import { Search, Clock, Users, ChevronRight, Filter, BookOpen } from "lucide-react";
-import { getAdminTests, getUser } from "@/lib/storage";
+import { getActiveTestSessions, getAdminTests, getUser } from "@/lib/storage";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
@@ -47,6 +47,7 @@ export default function Tests() {
   const allTests = getRuntimeTests();
   const categories = getRuntimeCategories();
   const testVisibilityById = new Map(getAdminTests().map((t) => [t.id, t.showDifficulty]));
+  const activeSessions = getActiveTestSessions();
 
   useEffect(() => {
     if (user) return;
@@ -173,13 +174,23 @@ export default function Tests() {
                   </div>
                 </div>
 
+                {activeSessions[test.id] && (
+                  <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-700">
+                    Saved progress available. Resume where you left off.
+                  </div>
+                )}
+
                 <Button
                   className="w-full"
                   disabled={test.totalQuestions === 0}
                   onClick={() => setLocation(`/test/${test.id}`)}
                   data-testid={`btn-start-test-${test.id}`}
                 >
-                  {test.totalQuestions === 0 ? "No Questions Yet" : "Start Test"}
+                  {test.totalQuestions === 0
+                    ? "No Questions Yet"
+                    : activeSessions[test.id]
+                      ? "Resume Test"
+                      : "Start Test"}
                 </Button>
               </div>
             ))}

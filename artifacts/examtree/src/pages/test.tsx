@@ -4,8 +4,15 @@ import { AlertCircle, CheckCircle, ChevronLeft, ChevronRight, Clock, Flag, X } f
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
-import { addAttempt, getUser } from "@/lib/storage";
+import {
+  addAttempt,
+  clearActiveTestSession,
+  getActiveTestSession,
+  getUser,
+  saveActiveTestSession,
+} from "@/lib/storage";
 import { getRuntimeTests } from "@/lib/test-bank";
+import { useToast } from "@/hooks/use-toast";
 
 function formatTime(seconds: number) {
   const h = Math.floor(seconds / 3600);
@@ -25,6 +32,7 @@ export default function Test() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const user = getUser();
+  const { toast } = useToast();
   const allTests = getRuntimeTests();
   const test = allTests.find((item) => item.id === id) ?? allTests[0];
 
@@ -59,6 +67,7 @@ export default function Test() {
   const [timeLeft, setTimeLeft] = useState(totalTime);
   const [sectionTimeLeftByName, setSectionTimeLeftByName] = useState<Record<string, number>>({});
   const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [draftLoaded, setDraftLoaded] = useState(false);
 
   const currentSection = test.sections[currentSectionIndex];
   const questions = currentSection.questions;
@@ -105,16 +114,106 @@ export default function Test() {
   }, [user, setLocation]);
 
   useEffect(() => {
+    const defaultSectionTimes = Object.fromEntries(
+      test.sections.map((section, index) => [section.name, getSectionLimitSeconds(index)]),
+    );
+    const draft = getActiveTestSession(test.id);
+
+    if (draft) {
+      setCurrentSectionIndex(
+        Math.min(Math.max(draft.currentSectionIndex, 0), Math.max(0, test.sections.length - 1)),
+      );
+      setCurrentQuestionIndex(Math.max(draft.currentQuestionIndex, 0));
+      setAnswers(draft.answers);
+      setFlags(draft.flags);
+      setTimeLeft(Math.max(0, Math.min(draft.timeLeft, totalTime)));
+      setSectionTimeLeftByName({ ...defaultSectionTimes, ...draft.sectionTimeLeftByName });
+      setShowSubmitModal(false);
+      setDraftLoaded(true);
+      toast({
+        title: "Saved test resumed",
+        description: `Restored your in-progress attempt for ${test.name}.`,
+      });
+      return;
+    }
+
     setCurrentSectionIndex(0);
     setCurrentQuestionIndex(0);
     setAnswers({});
     setFlags({});
     setTimeLeft(totalTime);
     setShowSubmitModal(false);
-    setSectionTimeLeftByName(
-      Object.fromEntries(test.sections.map((section, index) => [section.name, getSectionLimitSeconds(index)])),
+    setSectionTimeLeftByName(defaultSectionTimes);
+    setDraftLoaded(false);
+  }, [getSectionLimitSeconds, id, test.id, test.name, test.sections, toast, totalTime]);
+
+  useEffect(() => {
+    const normalizedQuestionIndex = Math.min(
+      currentQuestionIndex,
+      Math.max(0, questions.length - 1),
     );
-  }, [getSectionLimitSeconds, id, test.sections, totalTime]);
+
+    if (normalizedQuestionIndex !== currentQuestionIndex) {
+      setCurrentQuestionIndex(normalizedQuestionIndex);
+    }
+  }, [currentQuestionIndex, questions.length]);
+
+  useEffect(() => {
+    if (!user || !q) return;
+
+    const hasProgress =
+      Object.keys(answers).length > 0 ||
+      Object.keys(flags).length > 0 ||
+      timeLeft < totalTime ||
+      draftLoaded;
+
+    if (!hasProgress) return;
+
+    saveActiveTestSession({
+      testId: test.id,
+      testName: test.name,
+      category: test.category,
+      currentSectionIndex,
+      currentQuestionIndex,
+      answers,
+      flags,
+      timeLeft,
+      sectionTimeLeftByName,
+      updatedAt: Date.now(),
+    });
+  }, [
+    answers,
+    currentQuestionIndex,
+    currentSectionIndex,
+    draftLoaded,
+    flags,
+    q,
+    sectionTimeLeftByName,
+    test.category,
+    test.id,
+    test.name,
+    timeLeft,
+    totalTime,
+    user,
+  ]);
+
+  useEffect(() => {
+    const hasProgress =
+      Object.keys(answers).length > 0 ||
+      Object.keys(flags).length > 0 ||
+      timeLeft < totalTime ||
+      draftLoaded;
+
+    if (!hasProgress) return;
+
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [answers, draftLoaded, flags, timeLeft, totalTime]);
 
   const handleSubmit = useCallback(() => {
     const correct = allQuestions.filter((question) => answers[question.id] === question.correct).length;
@@ -178,6 +277,7 @@ export default function Test() {
         : undefined,
     });
 
+    clearActiveTestSession(test.id);
     setLocation("/result");
   }, [
     allQuestions,

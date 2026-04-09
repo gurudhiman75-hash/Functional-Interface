@@ -46,6 +46,19 @@ export interface TestAttempt {
   }[];
 }
 
+export interface ActiveTestSession {
+  testId: string;
+  testName: string;
+  category: string;
+  currentSectionIndex: number;
+  currentQuestionIndex: number;
+  answers: Record<number, number | null>;
+  flags: Record<number, boolean>;
+  timeLeft: number;
+  sectionTimeLeftByName: Record<string, number>;
+  updatedAt: number;
+}
+
 export const getUser = (): User | null => Storage.get<User>("user");
 export const setUser = (user: User) => Storage.set("user", user);
 export const clearAuth = () => {
@@ -57,6 +70,26 @@ export const addAttempt = (attempt: TestAttempt) => {
   const attempts = getAttempts();
   attempts.unshift(attempt);
   Storage.set("attempts", attempts);
+};
+
+const ACTIVE_TEST_SESSIONS_KEY = "active_test_sessions";
+
+export const getActiveTestSessions = (): Record<string, ActiveTestSession> =>
+  Storage.get<Record<string, ActiveTestSession>>(ACTIVE_TEST_SESSIONS_KEY) ?? {};
+
+export const getActiveTestSession = (testId: string): ActiveTestSession | null =>
+  getActiveTestSessions()[testId] ?? null;
+
+export const saveActiveTestSession = (session: ActiveTestSession) => {
+  const sessions = getActiveTestSessions();
+  sessions[session.testId] = session;
+  Storage.set(ACTIVE_TEST_SESSIONS_KEY, sessions);
+};
+
+export const clearActiveTestSession = (testId: string) => {
+  const sessions = getActiveTestSessions();
+  delete sessions[testId];
+  Storage.set(ACTIVE_TEST_SESSIONS_KEY, sessions);
 };
 
 // ----- Admin: Categories -----

@@ -40,6 +40,26 @@ type AdminSnapshot = {
   questions: AdminQuestion[];
 };
 
+function toAdminRepoError(error: unknown): Error {
+  const code =
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    typeof (error as { code?: unknown }).code === "string"
+      ? (error as { code: string }).code
+      : "";
+
+  if (code === "permission-denied") {
+    return new Error("You do not have permission to modify admin data.");
+  }
+
+  if (error instanceof Error) {
+    return error;
+  }
+
+  return new Error("Admin data request failed.");
+}
+
 const COL_CATEGORIES = "admin_categories";
 const COL_SUBCATEGORIES = "admin_subcategories";
 const COL_TESTS = "admin_tests";
@@ -93,19 +113,24 @@ export async function addCategory(cat: Omit<AdminCategory, "id">): Promise<Admin
   const created = addLocalCategory(cat);
   try {
     await setCollectionDoc(COL_CATEGORIES, created);
-  } catch {
-    // Local fallback already persisted.
+    return created;
+  } catch (error) {
+    deleteLocalCategory(created.id);
+    throw toAdminRepoError(error);
   }
-  return created;
 }
 
 export async function updateCategory(id: string, updates: Partial<AdminCategory>): Promise<void> {
+  const previous = getLocalCategories().find((c) => c.id === id);
+  if (!previous) return;
+
   updateLocalCategory(id, updates);
   try {
     const latest = getLocalCategories().find((c) => c.id === id);
     if (latest) await setCollectionDoc(COL_CATEGORIES, latest);
-  } catch {
-    // Local fallback already persisted.
+  } catch (error) {
+    updateLocalCategory(id, previous);
+    throw toAdminRepoError(error);
   }
 }
 
@@ -128,8 +153,8 @@ export async function deleteCategory(id: string): Promise<void> {
       ...testIds.map((testId) => removeCollectionDoc(COL_TESTS, testId)),
       ...questionIds.map((qId) => removeCollectionDoc(COL_QUESTIONS, qId)),
     ]);
-  } catch {
-    // Local fallback already persisted.
+  } catch (error) {
+    throw toAdminRepoError(error);
   }
 }
 
@@ -137,16 +162,25 @@ export async function addSubcategory(item: Omit<AdminSubcategory, "id">): Promis
   const created = addLocalSubcategory(item);
   try {
     await setCollectionDoc(COL_SUBCATEGORIES, created);
-  } catch {}
-  return created;
+    return created;
+  } catch (error) {
+    deleteLocalSubcategory(created.id);
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function updateSubcategory(id: string, updates: Partial<AdminSubcategory>): Promise<void> {
+  const previous = getLocalSubcategories().find((s) => s.id === id);
+  if (!previous) return;
+
   updateLocalSubcategory(id, updates);
   try {
     const latest = getLocalSubcategories().find((s) => s.id === id);
     if (latest) await setCollectionDoc(COL_SUBCATEGORIES, latest);
-  } catch {}
+  } catch (error) {
+    updateLocalSubcategory(id, previous);
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function deleteSubcategory(id: string): Promise<void> {
@@ -159,23 +193,34 @@ export async function deleteSubcategory(id: string): Promise<void> {
       ...testIds.map((testId) => removeCollectionDoc(COL_TESTS, testId)),
       ...questionIds.map((qId) => removeCollectionDoc(COL_QUESTIONS, qId)),
     ]);
-  } catch {}
+  } catch (error) {
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function addTest(test: Omit<AdminTest, "id" | "attempts" | "avgScore">): Promise<AdminTest> {
   const created = addLocalTest(test);
   try {
     await setCollectionDoc(COL_TESTS, created);
-  } catch {}
-  return created;
+    return created;
+  } catch (error) {
+    deleteLocalTest(created.id);
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function updateTest(id: string, updates: Partial<AdminTest>): Promise<void> {
+  const previous = getLocalTests().find((t) => t.id === id);
+  if (!previous) return;
+
   updateLocalTest(id, updates);
   try {
     const latest = getLocalTests().find((t) => t.id === id);
     if (latest) await setCollectionDoc(COL_TESTS, latest);
-  } catch {}
+  } catch (error) {
+    updateLocalTest(id, previous);
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function deleteTest(id: string): Promise<void> {
@@ -186,28 +231,41 @@ export async function deleteTest(id: string): Promise<void> {
       removeCollectionDoc(COL_TESTS, id),
       ...questionIds.map((qId) => removeCollectionDoc(COL_QUESTIONS, qId)),
     ]);
-  } catch {}
+  } catch (error) {
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function addQuestion(question: Omit<AdminQuestion, "id" | "createdAt">): Promise<AdminQuestion> {
   const created = addLocalQuestion(question);
   try {
     await setCollectionDoc(COL_QUESTIONS, created);
-  } catch {}
-  return created;
+    return created;
+  } catch (error) {
+    deleteLocalQuestion(created.id);
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function updateQuestion(id: string, updates: Partial<AdminQuestion>): Promise<void> {
+  const previous = getLocalQuestions().find((q) => q.id === id);
+  if (!previous) return;
+
   updateLocalQuestion(id, updates);
   try {
     const latest = getLocalQuestions().find((q) => q.id === id);
     if (latest) await setCollectionDoc(COL_QUESTIONS, latest);
-  } catch {}
+  } catch (error) {
+    updateLocalQuestion(id, previous);
+    throw toAdminRepoError(error);
+  }
 }
 
 export async function deleteQuestion(id: string): Promise<void> {
   deleteLocalQuestion(id);
   try {
     await removeCollectionDoc(COL_QUESTIONS, id);
-  } catch {}
+  } catch (error) {
+    throw toAdminRepoError(error);
+  }
 }

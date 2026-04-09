@@ -41,6 +41,10 @@ import { useToast } from "@/hooks/use-toast";
 
 const isAdminUser = (role?: string) => role === "admin";
 
+function getAdminActionErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : "Admin action failed.";
+}
+
 const DIFFICULTY_COLORS: Record<string, string> = {
   Easy: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
   Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
@@ -429,9 +433,17 @@ export default function Admin() {
 
   const handleReset = async () => {
     if (!confirm("This will clear all admin data and restore defaults. Continue?")) return;
-    seedDefaults();
-    await reload();
-    toast({ title: "Data reset", description: "Restored to default categories and tests" });
+    try {
+      seedDefaults();
+      await reload();
+      toast({ title: "Data reset", description: "Restored to default categories and tests" });
+    } catch (error) {
+      toast({
+        title: "Reset failed",
+        description: getAdminActionErrorMessage(error),
+        variant: "destructive",
+      });
+    }
   };
 
   useEffect(() => {
@@ -484,63 +496,87 @@ export default function Admin() {
   const handleAddCat = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!catForm.name.trim()) return;
-    await addCategory({ name: catForm.name.trim(), description: catForm.description.trim(), testsCount: 0 });
-    await reload();
-    toast({ title: "Category added", description: `"${catForm.name}" created successfully` });
-    setCatForm({ name: "", description: "" });
+    try {
+      await addCategory({ name: catForm.name.trim(), description: catForm.description.trim(), testsCount: 0 });
+      await reload();
+      toast({ title: "Category added", description: `"${catForm.name}" created successfully` });
+      setCatForm({ name: "", description: "" });
+    } catch (error) {
+      toast({ title: "Category add failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleSaveEditCat = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingCat) return;
-    await updateCategory(editingCat.id, { name: editingCat.name, description: editingCat.description });
-    await reload();
-    toast({ title: "Category updated" });
-    setEditingCat(null);
+    try {
+      await updateCategory(editingCat.id, { name: editingCat.name, description: editingCat.description });
+      await reload();
+      toast({ title: "Category updated" });
+      setEditingCat(null);
+    } catch (error) {
+      toast({ title: "Category update failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleDeleteCat = async () => {
     if (!deletingCat) return;
-    await deleteCategory(deletingCat.id);
-    await reload();
-    toast({ title: "Category deleted", variant: "destructive" });
-    setDeletingCat(null);
+    try {
+      await deleteCategory(deletingCat.id);
+      await reload();
+      toast({ title: "Category deleted", variant: "destructive" });
+      setDeletingCat(null);
+    } catch (error) {
+      toast({ title: "Category delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleAddSubcat = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!subcatForm.categoryId || !subcatForm.name.trim()) return;
     const cat = cats.find((c) => c.id === subcatForm.categoryId);
-    await addSubcategory({
-      categoryId: subcatForm.categoryId,
-      categoryName: cat?.name ?? "",
-      name: subcatForm.name.trim(),
-      description: subcatForm.description.trim(),
-    });
-    await reload();
-    setSubcatForm({ categoryId: "", name: "", description: "" });
-    toast({ title: "Subcategory added" });
+    try {
+      await addSubcategory({
+        categoryId: subcatForm.categoryId,
+        categoryName: cat?.name ?? "",
+        name: subcatForm.name.trim(),
+        description: subcatForm.description.trim(),
+      });
+      await reload();
+      setSubcatForm({ categoryId: "", name: "", description: "" });
+      toast({ title: "Subcategory added" });
+    } catch (error) {
+      toast({ title: "Subcategory add failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleSaveEditSubcat = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingSubcat) return;
     const cat = cats.find((c) => c.id === editingSubcat.categoryId);
-    await updateSubcategory(editingSubcat.id, {
-      ...editingSubcat,
-      categoryName: cat?.name ?? editingSubcat.categoryName,
-    });
-    await reload();
-    setEditingSubcat(null);
-    toast({ title: "Subcategory updated" });
+    try {
+      await updateSubcategory(editingSubcat.id, {
+        ...editingSubcat,
+        categoryName: cat?.name ?? editingSubcat.categoryName,
+      });
+      await reload();
+      setEditingSubcat(null);
+      toast({ title: "Subcategory updated" });
+    } catch (error) {
+      toast({ title: "Subcategory update failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleDeleteSubcat = async () => {
     if (!deletingSubcat) return;
-    await deleteSubcategory(deletingSubcat.id);
-    await reload();
-    setDeletingSubcat(null);
-    toast({ title: "Subcategory deleted", variant: "destructive" });
+    try {
+      await deleteSubcategory(deletingSubcat.id);
+      await reload();
+      setDeletingSubcat(null);
+      toast({ title: "Subcategory deleted", variant: "destructive" });
+    } catch (error) {
+      toast({ title: "Subcategory delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   // ── Test handlers ──
@@ -560,25 +596,29 @@ export default function Admin() {
     const subcat = subcats.find((s) => s.id === testForm.subcategoryId);
     const sectionSettings = buildSectionSettings(normalizedSections);
     const sectionTimings = buildSectionTimings(normalizedSections, testForm.sectionTimingMode, testForm.sectionTimings);
-    await addTest({
-      name: testForm.name.trim(),
-      categoryId: testForm.categoryId,
-      categoryName: cat?.name ?? "",
-      subcategoryId: testForm.subcategoryId,
-      subcategoryName: subcat?.name ?? "",
-      duration: Number(testForm.duration) || 180,
-      totalQuestions: Number(testForm.totalQuestions) || 90,
-      difficulty: testForm.difficulty,
-      showDifficulty: testForm.showDifficulty,
-      sectionTimingMode: testForm.sectionTimingMode,
-      sectionTimings,
-      sections: normalizedSections,
-      sectionSettings,
-    });
-    await updateCategory(testForm.categoryId, { testsCount: (cat?.testsCount ?? 0) + 1 });
-    await reload();
-    toast({ title: "Test created", description: `"${testForm.name}" added` });
-    setTestForm(blankTestForm());
+    try {
+      await addTest({
+        name: testForm.name.trim(),
+        categoryId: testForm.categoryId,
+        categoryName: cat?.name ?? "",
+        subcategoryId: testForm.subcategoryId,
+        subcategoryName: subcat?.name ?? "",
+        duration: Number(testForm.duration) || 180,
+        totalQuestions: Number(testForm.totalQuestions) || 90,
+        difficulty: testForm.difficulty,
+        showDifficulty: testForm.showDifficulty,
+        sectionTimingMode: testForm.sectionTimingMode,
+        sectionTimings,
+        sections: normalizedSections,
+        sectionSettings,
+      });
+      await updateCategory(testForm.categoryId, { testsCount: (cat?.testsCount ?? 0) + 1 });
+      await reload();
+      toast({ title: "Test created", description: `"${testForm.name}" added` });
+      setTestForm(blankTestForm());
+    } catch (error) {
+      toast({ title: "Test create failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleSaveEditTest = async (e: React.FormEvent) => {
@@ -595,32 +635,40 @@ export default function Admin() {
     }
     const cat = cats.find((c) => c.id === editingTest.categoryId);
     const subcat = subcats.find((s) => s.id === editingTest.subcategoryId);
-    await updateTest(editingTest.id, {
-      ...editingTest,
-      sections: normalizedSections,
-      categoryName: cat?.name ?? editingTest.categoryName,
-      subcategoryName: subcat?.name ?? editingTest.subcategoryName,
-      sectionSettings: buildSectionSettings(normalizedSections, editingTest.sectionSettings),
-      sectionTimingMode: editingTest.sectionTimingMode ?? "none",
-      sectionTimings: buildSectionTimings(
-        normalizedSections,
-        editingTest.sectionTimingMode ?? "none",
-        editingTest.sectionTimings,
-      ),
-    });
-    await reload();
-    toast({ title: "Test updated" });
-    setEditingTest(null);
+    try {
+      await updateTest(editingTest.id, {
+        ...editingTest,
+        sections: normalizedSections,
+        categoryName: cat?.name ?? editingTest.categoryName,
+        subcategoryName: subcat?.name ?? editingTest.subcategoryName,
+        sectionSettings: buildSectionSettings(normalizedSections, editingTest.sectionSettings),
+        sectionTimingMode: editingTest.sectionTimingMode ?? "none",
+        sectionTimings: buildSectionTimings(
+          normalizedSections,
+          editingTest.sectionTimingMode ?? "none",
+          editingTest.sectionTimings,
+        ),
+      });
+      await reload();
+      toast({ title: "Test updated" });
+      setEditingTest(null);
+    } catch (error) {
+      toast({ title: "Test update failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleDeleteTest = async () => {
     if (!deletingTest) return;
-    await deleteTest(deletingTest.id);
-    const cat = cats.find((c) => c.id === deletingTest.categoryId);
-    if (cat) await updateCategory(cat.id, { testsCount: Math.max(0, (cat.testsCount ?? 1) - 1) });
-    await reload();
-    toast({ title: "Test deleted", variant: "destructive" });
-    setDeletingTest(null);
+    try {
+      await deleteTest(deletingTest.id);
+      const cat = cats.find((c) => c.id === deletingTest.categoryId);
+      if (cat) await updateCategory(cat.id, { testsCount: Math.max(0, (cat.testsCount ?? 1) - 1) });
+      await reload();
+      toast({ title: "Test deleted", variant: "destructive" });
+      setDeletingTest(null);
+    } catch (error) {
+      toast({ title: "Test delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleAddQuestion = async (e: React.FormEvent) => {
@@ -636,35 +684,43 @@ export default function Admin() {
       return;
     }
     if (questionForm.options.some((o) => !o.trim())) return;
-    if (editingQuestion) {
-      await updateQuestion(editingQuestion.id, {
-        section,
-        text: questionForm.text.trim(),
-        options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
-        correct: questionForm.correct,
-        explanation: questionForm.explanation.trim(),
-      });
-      setEditingQuestion(null);
-      toast({ title: "Question updated" });
-    } else {
-      await addQuestion({
-        testId: questionTestId,
-        section,
-        text: questionForm.text.trim(),
-        options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
-        correct: questionForm.correct,
-        explanation: questionForm.explanation.trim(),
-      });
-      toast({ title: "Question added", description: "New question saved to this test" });
+    try {
+      if (editingQuestion) {
+        await updateQuestion(editingQuestion.id, {
+          section,
+          text: questionForm.text.trim(),
+          options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
+          correct: questionForm.correct,
+          explanation: questionForm.explanation.trim(),
+        });
+        setEditingQuestion(null);
+        toast({ title: "Question updated" });
+      } else {
+        await addQuestion({
+          testId: questionTestId,
+          section,
+          text: questionForm.text.trim(),
+          options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
+          correct: questionForm.correct,
+          explanation: questionForm.explanation.trim(),
+        });
+        toast({ title: "Question added", description: "New question saved to this test" });
+      }
+      await reload();
+      setQuestionForm(blankQuestionForm(availableQuestionSections[0] ?? ""));
+    } catch (error) {
+      toast({ title: "Question save failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
     }
-    await reload();
-    setQuestionForm(blankQuestionForm(availableQuestionSections[0] ?? ""));
   };
 
   const handleDeleteQuestion = async (id: string) => {
-    await deleteQuestion(id);
-    await reload();
-    toast({ title: "Question deleted", variant: "destructive" });
+    try {
+      await deleteQuestion(id);
+      await reload();
+      toast({ title: "Question deleted", variant: "destructive" });
+    } catch (error) {
+      toast({ title: "Question delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
   };
 
   const handleBulkUpload = async () => {

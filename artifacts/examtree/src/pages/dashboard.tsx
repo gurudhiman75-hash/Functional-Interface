@@ -1,7 +1,7 @@
 import { useLocation } from "wouter";
 import { useEffect } from "react";
 import { TrendingUp, BookOpen, Award, Target, ArrowRight, Calendar, ChevronRight, BarChart2, Clock } from "lucide-react";
-import { getUser, getAttempts } from "@/lib/storage";
+import { getActiveTestSessions, getUser, getAttempts } from "@/lib/storage";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
 import { onAuthStateChanged } from "firebase/auth";
@@ -33,6 +33,8 @@ export default function Dashboard() {
   const [, setLocation] = useLocation();
   const user = getUser();
   const attempts = getAttempts();
+  const activeSession = Object.values(getActiveTestSessions())
+    .sort((a, b) => b.updatedAt - a.updatedAt)[0] ?? null;
 
   useEffect(() => {
     if (user) return;
@@ -102,6 +104,26 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+
+        {activeSession && (
+          <div className="mb-8 rounded-[2rem] border border-blue-100 bg-blue-50/80 p-5 shadow-sm">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
+                  In Progress
+                </p>
+                <h2 className="mt-2 text-lg font-bold text-foreground">{activeSession.testName}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Your progress is saved automatically. Continue from where you left off.
+                </p>
+              </div>
+              <Button onClick={() => setLocation(`/test/${activeSession.testId}`)} className="gap-2 shrink-0">
+                Resume Test
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
