@@ -1,18 +1,25 @@
-import { Trophy, Medal, TrendingUp, Users, BookOpen } from "lucide-react";
-import { leaderboardData } from "@/lib/data";
+import { Trophy, Medal, TrendingUp, BookOpen, Target } from "lucide-react";
+import { getAttempts } from "@/lib/storage";
 import { Navbar } from "@/components/Navbar";
 import { Badge } from "@/components/ui/badge";
 
-function RankMedal({ rank }: { rank: number }) {
-  if (rank === 1) return <span className="text-xl">🥇</span>;
-  if (rank === 2) return <span className="text-xl">🥈</span>;
-  if (rank === 3) return <span className="text-xl">🥉</span>;
-  return <span className="text-sm font-bold text-muted-foreground">#{rank.toLocaleString()}</span>;
-}
-
 export default function Leaderboard() {
-  const topEntries = leaderboardData.filter((e) => !e.isYou && e.rank <= 9);
-  const userEntry = leaderboardData.find((e) => e.isYou);
+  const attempts = getAttempts();
+  const testsTaken = attempts.length;
+  const bestScore = testsTaken > 0
+    ? Math.max(...attempts.map((attempt) => attempt.score))
+    : 0;
+  const averageScore = testsTaken > 0
+    ? attempts.reduce((sum, attempt) => sum + attempt.score, 0) / testsTaken
+    : 0;
+  const totalCorrect = attempts.reduce((sum, attempt) => sum + attempt.correct, 0);
+  const totalWrong = attempts.reduce((sum, attempt) => sum + attempt.wrong, 0);
+  const accuracy = totalCorrect + totalWrong > 0
+    ? (totalCorrect / (totalCorrect + totalWrong)) * 100
+    : 0;
+  const bestAttempts = [...attempts]
+    .sort((a, b) => b.score - a.score || b.correct - a.correct)
+    .slice(0, 5);
 
   return (
     <div className="min-h-screen bg-background">
@@ -20,111 +27,113 @@ export default function Leaderboard() {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8 animate-fadeInUp">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Leaderboard</h1>
-          <p className="text-muted-foreground text-sm">Top performers across all exams</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Performance Board</h1>
+          <p className="text-muted-foreground text-sm">
+            A live summary of your completed test history on this device.
+          </p>
         </div>
 
         <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 text-white mb-8 animate-fadeInUp" data-testid="your-stats">
-          <h3 className="text-white/70 text-xs font-semibold uppercase tracking-wide mb-4">Your Standing</h3>
+          <h3 className="text-white/70 text-xs font-semibold uppercase tracking-wide mb-4">Your Progress Snapshot</h3>
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <div className="flex items-center justify-center gap-1 mb-1 text-white/70 text-xs">
-                <Trophy className="w-3.5 h-3.5" />
-                <span>Rank</span>
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Tests</span>
               </div>
-              <p className="text-3xl font-bold" data-testid="your-rank">#1,250</p>
+              <p className="text-3xl font-bold" data-testid="your-tests">{testsTaken}</p>
             </div>
             <div className="border-x border-white/20">
               <div className="flex items-center justify-center gap-1 mb-1 text-white/70 text-xs">
                 <TrendingUp className="w-3.5 h-3.5" />
-                <span>Score</span>
+                <span>Avg. Score</span>
               </div>
-              <p className="text-3xl font-bold" data-testid="your-score">85.50</p>
+              <p className="text-3xl font-bold" data-testid="your-score">
+                {testsTaken > 0 ? averageScore.toFixed(1) : "N/A"}
+              </p>
             </div>
             <div>
               <div className="flex items-center justify-center gap-1 mb-1 text-white/70 text-xs">
                 <Medal className="w-3.5 h-3.5" />
-                <span>Percentile</span>
+                <span>Accuracy</span>
               </div>
-              <p className="text-3xl font-bold" data-testid="your-percentile">92.5%</p>
+              <p className="text-3xl font-bold" data-testid="your-accuracy">
+                {testsTaken > 0 ? `${accuracy.toFixed(1)}%` : "N/A"}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-          <div className="grid grid-cols-12 px-6 py-3 bg-muted/50 border-b border-border text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-            <div className="col-span-1">Rank</div>
-            <div className="col-span-5">Student</div>
-            <div className="col-span-2 text-right">Score</div>
-            <div className="col-span-2 text-right">Accuracy</div>
-            <div className="col-span-2 text-right">Tests</div>
+        {bestAttempts.length === 0 ? (
+          <div className="rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Trophy className="w-6 h-6" />
+            </div>
+            <h2 className="text-xl font-semibold text-foreground">No completed attempts yet</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Finish a test and we&apos;ll show your strongest performances here instead of fake global rankings.
+            </p>
           </div>
-
-          <div className="divide-y divide-border">
-            {topEntries.map((entry) => (
-              <div
-                key={entry.rank}
-                className="grid grid-cols-12 px-6 py-4 items-center hover:bg-muted/30 transition-colors"
-                data-testid={`leaderboard-row-${entry.rank}`}
-              >
-                <div className="col-span-1 flex items-center">
-                  <RankMedal rank={entry.rank} />
-                </div>
-                <div className="col-span-5 flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/60 to-secondary/60 flex items-center justify-center text-white text-sm font-bold shrink-0">
-                    {entry.name.charAt(0)}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-semibold text-foreground text-sm truncate">{entry.name}</p>
-                    <p className="text-xs text-muted-foreground">{entry.city}</p>
-                  </div>
-                </div>
-                <div className="col-span-2 text-right">
-                  <span className="font-bold text-foreground">{entry.score}</span>
-                </div>
-                <div className="col-span-2 text-right text-sm text-muted-foreground">
-                  {entry.accuracy}%
-                </div>
-                <div className="col-span-2 text-right">
-                  <Badge variant="secondary" className="text-xs">{entry.testsCount}</Badge>
-                </div>
-              </div>
-            ))}
-
-            <div className="flex items-center justify-center py-2 bg-muted/30">
-              <span className="text-xs text-muted-foreground">• • •</span>
+        ) : (
+          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+            <div className="grid grid-cols-12 px-6 py-3 bg-muted/50 border-b border-border text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              <div className="col-span-1">Rank</div>
+              <div className="col-span-5">Test</div>
+              <div className="col-span-2 text-right">Score</div>
+              <div className="col-span-2 text-right">Accuracy</div>
+              <div className="col-span-2 text-right">Correct</div>
             </div>
 
-            {userEntry && (
-              <div className="grid grid-cols-12 px-6 py-4 items-center bg-primary/5 border-l-4 border-l-primary" data-testid="leaderboard-row-you">
-                <div className="col-span-1">
-                  <span className="text-sm font-bold text-primary">#{userEntry.rank.toLocaleString()}</span>
-                </div>
-                <div className="col-span-5 flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-sm font-bold shrink-0">
-                    Y
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <p className="font-bold text-foreground text-sm">You</p>
-                      <Badge className="text-[10px] py-0 px-1.5">You</Badge>
+            <div className="divide-y divide-border">
+              {bestAttempts.map((attempt, index) => {
+                const attemptAccuracy = attempt.correct + attempt.wrong > 0
+                  ? (attempt.correct / (attempt.correct + attempt.wrong)) * 100
+                  : 0;
+
+                return (
+                  <div
+                    key={`${attempt.testId}-${attempt.date}-${index}`}
+                    className="grid grid-cols-12 px-6 py-4 items-center hover:bg-muted/30 transition-colors"
+                    data-testid={`leaderboard-row-${index + 1}`}
+                  >
+                    <div className="col-span-1 flex items-center">
+                      <span className="text-sm font-bold text-muted-foreground">#{index + 1}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">{userEntry.city}</p>
+                    <div className="col-span-5 min-w-0">
+                      <p className="font-semibold text-foreground text-sm truncate">{attempt.testName}</p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <Badge variant="secondary" className="text-[10px]">{attempt.category}</Badge>
+                        <span className="text-xs text-muted-foreground">{attempt.date}</span>
+                      </div>
+                    </div>
+                    <div className="col-span-2 text-right">
+                      <span className="font-bold text-foreground">{attempt.score.toFixed(1)}%</span>
+                    </div>
+                    <div className="col-span-2 text-right text-sm text-muted-foreground">
+                      {attemptAccuracy.toFixed(1)}%
+                    </div>
+                    <div className="col-span-2 text-right">
+                      <div className="inline-flex items-center gap-1 text-sm font-medium text-foreground">
+                        <Target className="w-3.5 h-3.5 text-primary" />
+                        <span>{attempt.correct}</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="col-span-2 text-right">
-                  <span className="font-bold text-foreground">{userEntry.score}</span>
-                </div>
-                <div className="col-span-2 text-right text-sm text-muted-foreground">
-                  {userEntry.accuracy}%
-                </div>
-                <div className="col-span-2 text-right">
-                  <Badge variant="secondary" className="text-xs">{userEntry.testsCount}</Badge>
-                </div>
-              </div>
-            )}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
+
+        {testsTaken > 0 && (
+          <div className="mt-6 rounded-2xl border border-border bg-card/80 p-5 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Best Score</p>
+            <p className="mt-2 text-3xl font-bold text-foreground">{bestScore.toFixed(1)}%</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Based on your completed attempts stored on this device.
+            </p>
+          </div>
+        )}
       </main>
     </div>
   );

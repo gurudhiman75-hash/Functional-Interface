@@ -1,5 +1,6 @@
 import {
   GoogleAuthProvider,
+  deleteUser,
   getRedirectResult,
   onAuthStateChanged,
   signInWithRedirect,
@@ -8,7 +9,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getFirebaseAuth, getFirebaseDb } from "@/lib/firebase";
-import { clearAuth, setUser, type User } from "@/lib/storage";
+import { clearAuth, clearStudentLocalData, getUser, setUser, type User } from "@/lib/storage";
 
 type UserProfile = {
   email: string;
@@ -120,4 +121,22 @@ export function syncAuthSession() {
       // Keep session resilient if profile fetch fails.
     }
   });
+}
+
+export async function deleteCurrentStudentAccount() {
+  const auth = getFirebaseAuth();
+  const firebaseUser = auth.currentUser;
+  const appUser = getUser();
+
+  if (!firebaseUser || !appUser) {
+    throw new Error("No signed-in account was found.");
+  }
+
+  if (appUser.role === "admin") {
+    throw new Error("Admin accounts cannot be deleted from the student dashboard.");
+  }
+
+  await deleteUser(firebaseUser);
+  clearStudentLocalData();
+  clearAuth();
 }

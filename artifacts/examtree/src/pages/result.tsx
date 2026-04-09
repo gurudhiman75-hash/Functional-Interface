@@ -3,14 +3,6 @@ import { CheckCircle, XCircle, MinusCircle, Clock, Award, TrendingUp, RotateCcw,
 import { getAttempts } from "@/lib/storage";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
-
-const percentileData = [
-  { name: "You", score: 85.5, color: "#2563eb" },
-  { name: "Average", score: 72.5, color: "#94a3b8" },
-  { name: "75th %ile", score: 80.0, color: "#f59e0b" },
-  { name: "90th %ile", score: 88.0, color: "#10b981" },
-];
 
 function getGrade(score: number) {
   if (score >= 90) return { label: "Outstanding", color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-900/20" };
@@ -23,21 +15,46 @@ function getGrade(score: number) {
 export default function Result() {
   const [, setLocation] = useLocation();
   const attempts = getAttempts();
+  const latest = attempts[0];
 
-  const latest = attempts[0] ?? {
-    testName: "JEE Main Mock 1",
-    category: "JEE",
-    score: 85,
-    correct: 85,
-    wrong: 10,
-    unanswered: 5,
-    totalQuestions: 100,
-    timeSpent: 45,
-    sectionStats: undefined as any,
-  };
+  if (!latest) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="rounded-[2rem] border border-border bg-card/85 p-10 text-center shadow-sm">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Target className="w-6 h-6" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground">No result available yet</h1>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Complete a test first and this page will show your real score breakdown, section analysis, and timing data.
+            </p>
+            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+              <Button onClick={() => setLocation("/tests")} className="gap-2">
+                <RotateCcw className="w-4 h-4" />
+                Start a Test
+              </Button>
+              <Button variant="outline" onClick={() => setLocation("/dashboard")}>
+                Back to Dashboard
+              </Button>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   const grade = getGrade(latest.score);
   const accuracy = Math.round((latest.correct / (latest.correct + latest.wrong)) * 100) || 0;
+  const averageScore = attempts.length > 0
+    ? attempts.reduce((sum, attempt) => sum + attempt.score, 0) / attempts.length
+    : latest.score;
+  const bestScore = attempts.length > 0
+    ? Math.max(...attempts.map((attempt) => attempt.score))
+    : latest.score;
+  const totalAttempts = attempts.length;
 
   const sectionStats = latest.sectionStats ?? [];
   const sectionTimeSpent = latest.sectionTimeSpent ?? [];
@@ -65,9 +82,10 @@ export default function Result() {
           <p className="text-blue-100 text-sm mb-1">Your Score</p>
           <h1 className="text-6xl sm:text-7xl font-bold mb-2" data-testid="result-score">{latest.score}%</h1>
           <p className="text-blue-100">{latest.testName}</p>
-          <div className="flex items-center justify-center gap-1 mt-2">
-            <Trophy className="w-4 h-4 text-amber-300" />
-            <span className="text-sm font-semibold text-blue-100">Global Rank: <span className="text-white">#1,250</span></span>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-blue-100">
+            <span>{latest.category}</span>
+            <span className="text-white/60">•</span>
+            <span>{totalAttempts} completed {totalAttempts === 1 ? "attempt" : "attempts"} on this device</span>
           </div>
         </div>
 
@@ -151,25 +169,26 @@ export default function Result() {
 
           <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
             <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
-              <Award className="w-4 h-4 text-primary" />
-              Percentile Comparison
+              <Trophy className="w-4 h-4 text-primary" />
+              Attempt Summary
             </h2>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={percentileData} barSize={32}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-                <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "12px" }}
-                  formatter={(v) => [`${v}%`, "Score"]}
-                />
-                <Bar dataKey="score" radius={[4, 4, 0, 0]}>
-                  {percentileData.map((entry, i) => (
-                    <Cell key={i} fill={entry.color} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Latest Score</p>
+                <p className="mt-2 text-2xl font-bold text-foreground">{latest.score}%</p>
+              </div>
+              <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Average Score</p>
+                <p className="mt-2 text-2xl font-bold text-foreground">{averageScore.toFixed(1)}%</p>
+              </div>
+              <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Best Score</p>
+                <p className="mt-2 text-2xl font-bold text-foreground">{bestScore.toFixed(1)}%</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              These values come from the completed attempts currently stored on this device. No global percentile or cross-user rank is shown because the app does not have a real ranking backend yet.
+            </p>
           </div>
         </div>
 

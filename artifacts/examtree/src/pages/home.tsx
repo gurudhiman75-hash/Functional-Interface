@@ -1,7 +1,6 @@
 import { useLocation } from "wouter";
 import {
   ArrowRight,
-  Users,
   BookOpen,
   Target,
   TrendingUp,
@@ -15,32 +14,28 @@ import {
   Clock3,
 } from "lucide-react";
 import { getUser } from "@/lib/storage";
+import { getAttempts, getActiveTestSessions } from "@/lib/storage";
+import { getRuntimeCategories, getRuntimeTests } from "@/lib/test-bank";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/Navbar";
 
-const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  "1": <Cpu className="w-7 h-7" />,
-  "2": <Heart className="w-7 h-7" />,
-  "3": <BarChart3 className="w-7 h-7" />,
-};
-
-const CATEGORY_COLORS: Record<string, string> = {
-  "1": "from-blue-500 to-sky-500",
-  "2": "from-emerald-500 to-teal-500",
-  "3": "from-cyan-500 to-indigo-500",
-};
-
-const CATEGORY_BG: Record<string, string> = {
-  "1": "bg-blue-50 border-blue-100 dark:bg-blue-950/30 dark:border-blue-900/40",
-  "2": "bg-emerald-50 border-emerald-100 dark:bg-emerald-950/30 dark:border-emerald-900/40",
-  "3": "bg-cyan-50 border-cyan-100 dark:bg-cyan-950/30 dark:border-cyan-900/40",
-};
-
-const featuredCategories = [
-  { id: "1", name: "JEE Main", description: "Joint Entrance Examination for top engineering colleges", testsCount: 50 },
-  { id: "2", name: "NEET", description: "National Eligibility cum Entrance Test", testsCount: 45 },
-  { id: "3", name: "CAT", description: "Common Admission Test for MBA aspirants", testsCount: 40 },
+const CATEGORY_STYLES = [
+  {
+    icon: <Cpu className="w-7 h-7" />,
+    gradient: "from-blue-500 to-sky-500",
+    card: "bg-blue-50 border-blue-100 dark:bg-blue-950/30 dark:border-blue-900/40",
+  },
+  {
+    icon: <Heart className="w-7 h-7" />,
+    gradient: "from-emerald-500 to-teal-500",
+    card: "bg-emerald-50 border-emerald-100 dark:bg-emerald-950/30 dark:border-emerald-900/40",
+  },
+  {
+    icon: <BarChart3 className="w-7 h-7" />,
+    gradient: "from-cyan-500 to-indigo-500",
+    card: "bg-cyan-50 border-cyan-100 dark:bg-cyan-950/30 dark:border-cyan-900/40",
+  },
 ];
 
 const features = [
@@ -53,6 +48,21 @@ const features = [
 export default function Home() {
   const [, setLocation] = useLocation();
   const user = getUser();
+  const attempts = getAttempts();
+  const activeSessionsCount = Object.keys(getActiveTestSessions()).length;
+  const runtimeCategories = getRuntimeCategories();
+  const runtimeTests = getRuntimeTests();
+  const totalQuestions = runtimeTests.reduce((sum, test) => sum + test.totalQuestions, 0);
+  const totalAttempts = runtimeTests.reduce((sum, test) => sum + test.attempts, 0);
+  const averageScore =
+    runtimeTests.length > 0
+      ? Math.round(runtimeTests.reduce((sum, test) => sum + test.avgScore, 0) / runtimeTests.length)
+      : 0;
+  const featuredCategories = runtimeCategories.slice(0, 3);
+  const topCategories = [...runtimeCategories]
+    .sort((a, b) => (b.testsCount ?? 0) - (a.testsCount ?? 0))
+    .slice(0, 4);
+  const topCategoryMax = Math.max(...topCategories.map((category) => category.testsCount), 1);
 
   const handleStartTest = () => {
     if (user) {
@@ -74,7 +84,7 @@ export default function Home() {
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="max-w-3xl">
               <Badge variant="secondary" className="mb-5 rounded-full border border-white/70 bg-white/80 px-4 py-1.5 text-xs font-semibold shadow-sm animate-fadeInUp">
-                Trusted by 100K+ students across India
+                {runtimeTests.length} live mocks across {runtimeCategories.length} categories
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 animate-fadeInUp" data-testid="hero-title">
                 One platform for
@@ -117,14 +127,25 @@ export default function Home() {
                     <h2 className="mt-2 text-2xl font-bold text-foreground">Today on EXAMTREE</h2>
                   </div>
                   <div className="rounded-2xl bg-white/80 px-3 py-2 text-right shadow-sm">
-                    <p className="text-xs text-muted-foreground">Active now</p>
-                    <p className="text-lg font-bold text-foreground">12,842</p>
+                    <p className="text-xs text-muted-foreground">Available tests</p>
+                    <p className="text-lg font-bold text-foreground">{runtimeTests.length}</p>
                   </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {[
-                    { title: "Student login", text: "Clean sign-in, faster mock access, and clearer test navigation.", icon: <BookOpen className="w-5 h-5" /> },
-                    { title: "Exam flow", text: "Track pace, answers, and navigation with less friction during tests.", icon: <TrendingUp className="w-5 h-5" /> },
+                    {
+                      title: "Question bank",
+                      text: `${totalQuestions} runtime questions are available across the current mock library.`,
+                      icon: <BookOpen className="w-5 h-5" />,
+                    },
+                    {
+                      title: "Saved progress",
+                      text:
+                        activeSessionsCount > 0
+                          ? `${activeSessionsCount} in-progress test ${activeSessionsCount === 1 ? "session is" : "sessions are"} ready to resume on this device.`
+                          : "New attempts and saved progress appear here once you start practicing.",
+                      icon: <TrendingUp className="w-5 h-5" />,
+                    },
                   ].map((panel) => (
                     <div key={panel.title} className="rounded-2xl border border-white/70 bg-white/75 p-4 shadow-sm">
                       <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-primary">{panel.icon}</div>
@@ -136,18 +157,24 @@ export default function Home() {
                 <div className="rounded-2xl border border-white/70 bg-slate-950 p-5 text-white shadow-lg">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/60">Weekly momentum</p>
-                      <p className="text-lg font-semibold">Average score uplift</p>
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/60">Catalog coverage</p>
+                      <p className="text-lg font-semibold">Top categories by test count</p>
                     </div>
-                    <p className="text-3xl font-bold text-emerald-300">+14%</p>
+                    <p className="text-3xl font-bold text-emerald-300">{totalQuestions}</p>
                   </div>
                   <div className="grid grid-cols-4 gap-2 items-end">
-                    {[52, 60, 68, 81].map((v, index) => (
-                      <div key={v} className="rounded-xl bg-white/8 p-3">
-                        <p className="text-[10px] uppercase tracking-[0.16em] text-white/45">W{index + 1}</p>
+                    {topCategories.map((category) => (
+                      <div key={category.id} className="rounded-xl bg-white/8 p-3">
+                        <p className="text-[10px] uppercase tracking-[0.16em] text-white/45">
+                          {category.name.slice(0, 3)}
+                        </p>
                         <div className="mt-3 flex h-20 items-end rounded-full bg-white/8 p-1">
-                          <div className="w-full rounded-full bg-gradient-to-t from-secondary to-sky-400" style={{ height: `${v}%` }} />
+                          <div
+                            className="w-full rounded-full bg-gradient-to-t from-secondary to-sky-400"
+                            style={{ height: `${Math.max(20, Math.round((category.testsCount / topCategoryMax) * 100))}%` }}
+                          />
                         </div>
+                        <p className="mt-2 text-[10px] text-white/70">{category.testsCount} tests</p>
                       </div>
                     ))}
                   </div>
@@ -162,9 +189,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             {[
-              { value: "100K+", label: "Active Students", icon: <Users className="w-5 h-5" />, color: "text-primary" },
-              { value: "500+", label: "Mock Tests", icon: <BookOpen className="w-5 h-5" />, color: "text-secondary" },
-              { value: "95%", label: "Success Rate", icon: <Target className="w-5 h-5" />, color: "text-emerald-600" },
+              { value: runtimeCategories.length.toString(), label: "Categories", icon: <BookOpen className="w-5 h-5" />, color: "text-primary" },
+              { value: runtimeTests.length.toString(), label: "Mock Tests", icon: <TrendingUp className="w-5 h-5" />, color: "text-secondary" },
+              { value: averageScore > 0 ? `${averageScore}%` : "N/A", label: "Average Score", icon: <Target className="w-5 h-5" />, color: "text-emerald-600" },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col items-center gap-2 bg-card/70 border border-white/60 rounded-[1.6rem] py-5 shadow-sm" data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}>
                 <div className={`${stat.color} mb-1`}>{stat.icon}</div>
@@ -179,18 +206,20 @@ export default function Home() {
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Popular Exams</h2>
-          <p className="text-muted-foreground">Choose from India's top competitive exams</p>
+          <p className="text-muted-foreground">Browse the current categories from the live test library</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {featuredCategories.map((cat) => (
+          {featuredCategories.map((cat, index) => {
+            const style = CATEGORY_STYLES[index % CATEGORY_STYLES.length];
+            return (
             <button
               key={cat.id}
               onClick={() => setLocation(`/subcategory/${cat.id}`)}
-              className={`group text-left p-6 rounded-[1.7rem] border-2 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 ${CATEGORY_BG[cat.id]}`}
+              className={`group text-left p-6 rounded-[1.7rem] border-2 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 ${style.card}`}
               data-testid={`category-card-${cat.id}`}
             >
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${CATEGORY_COLORS[cat.id]} flex items-center justify-center text-white mb-4 shadow-sm group-hover:shadow-md transition-shadow`}>
-                {CATEGORY_ICONS[cat.id]}
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${style.gradient} flex items-center justify-center text-white mb-4 shadow-sm group-hover:shadow-md transition-shadow`}>
+                {style.icon}
               </div>
               <h3 className="text-lg font-bold text-foreground mb-1">{cat.name}</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{cat.description}</p>
@@ -199,7 +228,8 @@ export default function Home() {
                 <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </div>
             </button>
-          ))}
+            );
+          })}
         </div>
         <div className="text-center mt-6">
           <Button variant="outline" className="rounded-2xl border-white/70 bg-white/75" onClick={() => setLocation("/tests")} data-testid="btn-view-all-tests">
@@ -233,7 +263,9 @@ export default function Home() {
         <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-gradient-to-br from-primary/12 via-background to-secondary/12 rounded-[2rem] p-12 border border-white/70 shadow-lg">
             <h2 className="text-2xl sm:text-3xl font-bold mb-3">Ready to Begin?</h2>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto">Join thousands of students already practicing on EXAMTREE.</p>
+            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+              Start with {runtimeTests.length} currently available mock tests and track your own progress from the first attempt.
+            </p>
             <Button size="lg" onClick={() => setLocation("/login/student")} data-testid="btn-cta-login">
               Get Started Free
               <ArrowRight className="w-4 h-4 ml-2" />

@@ -13,7 +13,7 @@ import {
   addAdminTest,
   updateAdminCategory,
   saveAdminCategories, saveAdminSubcategories, saveAdminTests, saveAdminQuestions,
-  needsReseed, markSeeded, hydrateAdminDataFromCloud, pauseAdminCloudSync, resumeAdminCloudSync,
+  markSeeded, hydrateAdminDataFromCloud, pauseAdminCloudSync, resumeAdminCloudSync,
   type AdminCategory, type AdminSubcategory, type AdminTest, type AdminQuestion,
 } from "@/lib/storage";
 import {
@@ -136,7 +136,7 @@ function DeleteModal({ name, onConfirm, onCancel }: { name: string; onConfirm: (
 }
 
 // ── Seed helper (clears + re-seeds from defaults) ────────────────────────────
-function seedDefaults() {
+async function seedDefaults() {
   pauseAdminCloudSync();
   try {
     saveAdminCategories([]);
@@ -331,7 +331,7 @@ function seedDefaults() {
 
     markSeeded();
   } finally {
-    void resumeAdminCloudSync();
+    await resumeAdminCloudSync();
   }
 }
 
@@ -434,7 +434,7 @@ export default function Admin() {
   const handleReset = async () => {
     if (!confirm("This will clear all admin data and restore defaults. Continue?")) return;
     try {
-      seedDefaults();
+      await seedDefaults();
       await reload();
       toast({ title: "Data reset", description: "Restored to default categories and tests" });
     } catch (error) {
@@ -463,9 +463,13 @@ export default function Admin() {
           return;
         }
 
-        await hydrateAdminDataFromCloud();
-        if (needsReseed()) {
-          seedDefaults();
+        const hydrated = await hydrateAdminDataFromCloud();
+        if (!hydrated) {
+          toast({
+            title: "Cloud sync unavailable",
+            description: "Loaded cached admin data locally. Firebase could not be reached.",
+            variant: "destructive",
+          });
         }
         await reload();
       } finally {
@@ -474,7 +478,7 @@ export default function Admin() {
     });
 
     return () => unsub();
-  }, [setLocation]);
+  }, [setLocation, toast]);
 
   useEffect(() => {
     setQuestionForm((current) => {

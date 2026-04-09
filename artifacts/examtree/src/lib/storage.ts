@@ -92,6 +92,11 @@ export const clearActiveTestSession = (testId: string) => {
   Storage.set(ACTIVE_TEST_SESSIONS_KEY, sessions);
 };
 
+export const clearStudentLocalData = () => {
+  Storage.remove("attempts");
+  Storage.remove(ACTIVE_TEST_SESSIONS_KEY);
+};
+
 // ----- Admin: Categories -----
 export interface AdminCategory {
   id: string;
@@ -165,7 +170,7 @@ export const pauseAdminCloudSync = () => {
 
 export const resumeAdminCloudSync = async () => {
   ADMIN_CLOUD_SYNC_PAUSED = false;
-  await persistAdminDataToCloud();
+  await syncAdminDataToCloudOrThrow();
 };
 
 export const needsReseed = (): boolean =>
@@ -318,30 +323,34 @@ export const deleteAdminSubcategory = (id: string) => {
   void persistAdminDataToCloud();
 };
 
+export async function syncAdminDataToCloudOrThrow() {
+  const db = getFirebaseDb();
+  await setDoc(doc(db, ADMIN_CLOUD_COLLECTION, ADMIN_CLOUD_DOC), {
+    version: CURRENT_VERSION,
+    categories: getAdminCategories(),
+    subcategories: getAdminSubcategories(),
+    tests: getAdminTests(),
+    questions: getAdminQuestions(),
+    updatedAt: Date.now(),
+  } satisfies CloudAdminData);
+}
+
 async function persistAdminDataToCloud() {
   if (ADMIN_CLOUD_SYNC_PAUSED) return;
   try {
-    const db = getFirebaseDb();
-    await setDoc(doc(db, ADMIN_CLOUD_COLLECTION, ADMIN_CLOUD_DOC), {
-      version: CURRENT_VERSION,
-      categories: getAdminCategories(),
-      subcategories: getAdminSubcategories(),
-      tests: getAdminTests(),
-      questions: getAdminQuestions(),
-      updatedAt: Date.now(),
-    } satisfies CloudAdminData);
+    await syncAdminDataToCloudOrThrow();
   } catch {
     // Keep local mode working even if cloud write fails.
   }
 }
 
-export async function hydrateAdminDataFromCloud() {
+export async function hydrateAdminDataFromCloud(): Promise<boolean> {
   try {
     const db = getFirebaseDb();
     const snap = await getDoc(doc(db, ADMIN_CLOUD_COLLECTION, ADMIN_CLOUD_DOC));
     if (!snap.exists()) {
-      await persistAdminDataToCloud();
-      return;
+      await syncAdminDataToCloudOrThrow();
+      return true;
     }
 
     const data = snap.data() as Partial<CloudAdminData>;
@@ -350,7 +359,8 @@ export async function hydrateAdminDataFromCloud() {
     if (Array.isArray(data.tests)) saveAdminTests(data.tests);
     if (Array.isArray(data.questions)) saveAdminQuestions(data.questions);
     if (typeof data.version === "string") Storage.set(ADMIN_VERSION_KEY, data.version);
+    return true;
   } catch {
-    // Ignore cloud read errors and continue with local data.
+    return false;
   }
 }

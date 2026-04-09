@@ -129,15 +129,6 @@ export default function Login() {
       toast({ title: "Name required", description: "Please enter your full name", variant: "destructive" });
       return;
     }
-    if (isAdminMode && email.trim().toLowerCase() !== "admin@examtree.com") {
-      toast({
-        title: "Admin email required",
-        description: "Use the configured admin email to access the admin console.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setLoading(true);
     try {
       const auth = getFirebaseAuth();
@@ -358,7 +349,7 @@ export default function Login() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder={isAdminMode ? "admin@examtree.com" : "you@example.com"}
+                  placeholder={isAdminMode ? "Enter your admin email" : "you@example.com"}
                   className="pl-10"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
