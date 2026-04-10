@@ -1,1 +1,64 @@
-export {};
+import { pgTable, text, integer, timestamp, jsonb, serial } from "drizzle-orm/pg-core";
+
+export const users = pgTable("users", {
+  id: text("id").primaryKey(),
+  email: text("email").notNull(),
+  name: text("name").notNull(),
+  role: text("role").$type<"admin" | "student">().notNull().default("student"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const categories = pgTable("categories", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  icon: text("icon").notNull(),
+  color: text("color").notNull(),
+  testsCount: integer("tests_count").notNull().default(0),
+});
+
+export const tests = pgTable("tests", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  category: text("category").notNull(),
+  categoryId: text("category_id").notNull(),
+  duration: integer("duration").notNull(),
+  totalQuestions: integer("total_questions").notNull(),
+  attempts: integer("attempts").notNull().default(0),
+  avgScore: integer("avg_score").notNull().default(0),
+  difficulty: text("difficulty").$type<"Easy" | "Medium" | "Hard">().notNull(),
+  sectionTimingMode: text("section_timing_mode").$type<"none" | "fixed">(),
+  sectionTimings: jsonb("section_timings"),
+  sectionSettings: jsonb("section_settings"),
+  sections: jsonb("sections").notNull(),
+});
+
+export const questions = pgTable("questions", {
+  id: serial("id").primaryKey(),
+  testId: text("test_id").notNull(),
+  text: text("text").notNull(),
+  options: jsonb("options").notNull(),
+  correct: integer("correct").notNull(),
+  section: text("section").notNull(),
+  explanation: text("explanation").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const attempts = pgTable("attempts", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  testId: text("test_id").notNull(),
+  testName: text("test_name").notNull(),
+  category: text("category").notNull(),
+  score: integer("score").notNull(),
+  correct: integer("correct").notNull(),
+  wrong: integer("wrong").notNull(),
+  unanswered: integer("unanswered").notNull(),
+  totalQuestions: integer("total_questions").notNull(),
+  timeSpent: integer("time_spent").notNull(),
+  date: text("date").notNull(),
+  sectionStats: jsonb("section_stats"),
+  sectionTimeSpent: jsonb("section_time_spent"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});

@@ -409,49 +409,46 @@ export default function Test() {
 
       <main className="relative z-[205] mx-auto max-w-7xl px-4 py-6">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div className="min-w-0">
-            <div className="mb-4 glass-panel rounded-[1.75rem] p-6 shadow-lg">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-sm text-muted-foreground">
-                  Question <span className="font-bold text-foreground">{currentQuestionNumber}</span> of {totalQuestions}
-                </span>
-                <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-foreground">
-                  {currentSection.name}
-                </span>
-                {hasSectionalTiming && (
-                  <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-                    {currentSectionMinutes} min section
-                  </span>
-                )}
-              </div>
-
-              <div className="mt-4 grid gap-3 md:grid-cols-3">
-                {[
-                  { label: "Answered", value: answered, tone: "border border-emerald-500/20 bg-emerald-500/10 text-emerald-200" },
-                  { label: "Unanswered", value: unanswered, tone: "border border-white/10 bg-white/5 text-muted-foreground" },
-                  { label: "Flagged", value: flagged, tone: "border border-amber-500/20 bg-amber-500/10 text-amber-200" },
-                ].map((item) => (
-                  <div key={item.label} className={`rounded-2xl p-3 ${item.tone}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{item.label}</p>
-                    <p className="mt-2 text-2xl font-bold text-foreground">{item.value}</p>
+          <div className="min-w-0 space-y-5">
+            <section className="glass-panel rounded-[1.5rem] p-5 shadow-sm">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-1.5">
+                  <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                    {currentSection.name}
                   </div>
-                ))}
+                  <h2 className="text-xl font-semibold text-foreground">Question {currentQuestionNumber} of {totalQuestions}</h2>
+                  <p className="text-sm text-muted-foreground">Answer carefully and use the navigator to move directly between questions.</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {[
+                    { label: "Answered", value: answered, tone: "bg-emerald-50 text-emerald-900" },
+                    { label: "Flagged", value: flagged, tone: "bg-amber-50 text-amber-900" },
+                    { label: "Remaining", value: unanswered, tone: "bg-slate-50 text-slate-900" },
+                  ].map((item) => (
+                    <div key={item.label} className={`rounded-2xl border border-white/10 p-3 ${item.tone}`}>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em]">{item.label}</p>
+                      <p className="mt-2 text-xl font-bold">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </section>
 
-            <div className="mb-4 glass-panel rounded-[1.5rem] p-5 shadow-sm">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                {hasSectionalTiming ? "Section Timer" : "Section Progress"}
-              </p>
-              <p className="mt-2 text-xl font-bold text-foreground">
-                {hasSectionalTiming ? formatTime(sectionTimeLeft) : `${currentQuestionIndex + 1} / ${questions.length}`}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {hasSectionalTiming
-                  ? `${Math.round(currentSectionElapsedSeconds / 60)} of ${currentSectionMinutes} minutes used`
-                  : "questions in this section"}
-              </p>
-              <div className="mt-4 h-2 rounded-full bg-white/10">
+            <section className="glass-panel rounded-[1.5rem] p-5 shadow-sm">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{hasSectionalTiming ? "Section timer" : "Section progress"}</p>
+                  <p className="mt-2 text-base font-semibold text-foreground">
+                    {hasSectionalTiming ? formatTime(sectionTimeLeft) : `${currentQuestionIndex + 1} / ${questions.length}`}
+                  </p>
+                </div>
+                {hasSectionalTiming ? (
+                  <div className="rounded-3xl bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+                    {Math.round(currentSectionElapsedSeconds / 60)} / {currentSectionMinutes} min used
+                  </div>
+                ) : null}
+              </div>
+              <div className="mt-5 h-2 rounded-full bg-white/10">
                 <div
                   className="h-full rounded-full bg-primary"
                   style={{
@@ -463,106 +460,105 @@ export default function Test() {
                   }}
                 />
               </div>
-            </div>
+            </section>
 
-            <div className="mb-4 glass-panel rounded-[1.7rem] p-6 shadow-lg">
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <p className="text-sm font-semibold text-primary">{currentSection.name} Section</p>
-                <p className="text-xs text-muted-foreground">
-                  {currentQuestionIndex + 1} / {questions.length} in this section
-                </p>
+            <section className="glass-panel rounded-[1.5rem] p-5 shadow-sm">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="max-w-3xl">
+                  <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Question</p>
+                  <h3 className="mt-3 text-2xl font-semibold leading-snug text-foreground">{q.text}</h3>
+                </div>
+                <div className="rounded-2xl bg-slate-50 px-3 py-2 text-sm text-slate-700 shadow-sm">
+                  <p className="font-semibold">Section summary</p>
+                  <p className="mt-2 text-xs text-muted-foreground">{questions.length} questions · {answered} answered · {flagged} marked</p>
+                </div>
               </div>
-              <p className="text-xl font-medium leading-relaxed text-foreground">{q.text}</p>
-            </div>
 
-            <div className="mb-6 space-y-3">
-              {q.options.map((option, index) => {
-                const selected = answers[q.id] === index;
-                return (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setAnswers((current) => ({ ...current, [q.id]: index }))}
-                    className={`flex w-full items-center gap-3 rounded-lg border p-4 text-left transition-all ${
-                      selected
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-gray-200 bg-white text-foreground hover:border-primary/50 hover:bg-gray-50"
-                    }`}
-                    data-testid={`option-${index}`}
-                  >
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
-                        selected ? "border-primary bg-primary text-white" : "border-gray-300 bg-gray-100 text-gray-600"
+              <div className="mt-4 grid gap-2">
+                {q.options.map((option, index) => {
+                  const selected = answers[q.id] === index;
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => setAnswers((current) => ({ ...current, [q.id]: index }))}
+                      className={`group flex w-full items-start gap-3 rounded-2xl border p-3 text-left transition-all duration-200 ${
+                        selected
+                          ? "border-primary bg-primary/10 shadow-sm"
+                          : "border-gray-200 bg-white hover:border-primary/50 hover:bg-gray-50"
                       }`}
+                      data-testid={`option-${index}`}
                     >
-                      {String.fromCharCode(65 + index)}
-                    </span>
-                    <span className="text-sm leading-relaxed">{option}</span>
-                    {selected && <CheckCircle className="ml-auto h-4 w-4 shrink-0 text-primary" />}
+                      <span
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${
+                          selected ? "border-primary bg-primary text-white" : "border-gray-300 bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {String.fromCharCode(65 + index)}
+                      </span>
+                      <span className="text-sm leading-relaxed text-foreground">{option}</span>
+                      {selected && <CheckCircle className="ml-auto h-5 w-5 text-primary" />}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={clearResponse}
+                    className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                    data-testid="btn-clear-response"
+                  >
+                    Clear Response
                   </button>
-                );
-              })}
-            </div>
-
-            <div className="mb-6 glass-panel rounded-[1.5rem] p-4 shadow-sm">
-              <div className="mb-4">
-                <p className="text-sm font-semibold text-foreground">Question Actions</p>
-                <p className="text-xs text-muted-foreground">Clear your answer or mark the question to revisit later.</p>
+                  <button
+                    type="button"
+                    onClick={toggleReview}
+                    className={`inline-flex items-center justify-center rounded-2xl border px-3 py-2 text-sm font-semibold ${
+                      currentQuestionFlagged
+                        ? "border-amber-200 bg-amber-50 text-amber-900"
+                        : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    }`}
+                    data-testid="btn-mark-review"
+                  >
+                    <Flag className="mr-2 h-4 w-4" />
+                    {currentQuestionFlagged ? "Marked for Review" : "Mark for Review"}
+                  </button>
+                </div>
+                <p className="text-sm text-muted-foreground">Your answer is saved automatically when selected.</p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={clearResponse}
-                  className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-foreground hover:bg-white/10"
-                  data-testid="btn-clear-response"
-                >
-                  Clear Response
-                </button>
-                <button
-                  type="button"
-                  onClick={toggleReview}
-                  className={`inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${
-                    currentQuestionFlagged
-                      ? "border-amber-500/20 bg-amber-500/10 text-amber-200"
-                      : "border-white/10 bg-white/5 text-foreground hover:bg-white/10"
-                  }`}
-                  data-testid="btn-mark-review"
-                >
-                  <Flag className="mr-1.5 h-4 w-4" />
-                  {currentQuestionFlagged ? "Marked for Review" : "Mark for Review"}
-                </button>
-              </div>
-            </div>
+            </section>
 
-            <div className="flex items-center justify-between border-t border-white/10 pt-4">
+            <div className="flex items-center justify-between border-t border-white/10 pt-3">
               <button
                 type="button"
                 onClick={goToPrevious}
                 disabled={isFirstQuestion}
-                className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-foreground hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-foreground hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
                 data-testid="btn-prev"
               >
-                <ChevronLeft className="mr-1 h-4 w-4" /> Previous
+                <ChevronLeft className="mr-2 h-4 w-4" /> Previous
               </button>
-
               <button
                 type="button"
                 onClick={goToNext}
-                className="inline-flex items-center justify-center rounded-xl border border-primary bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:brightness-95"
+                className="inline-flex items-center justify-center rounded-2xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
                 data-testid="btn-next"
               >
                 {primaryAdvanceLabel}
-                <ChevronRight className="ml-1 h-4 w-4" />
+                <ChevronRight className="ml-2 h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <aside className="space-y-4">
-            <div className="glass-panel rounded-[1.35rem] p-4 shadow-lg">
+          <aside className="space-y-4 lg:sticky lg:top-6">
+            <div className="glass-panel rounded-[1.25rem] p-4 shadow-sm">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Navigator</p>
-              <h3 className="mt-2 text-xl font-bold text-foreground">Question Palette</h3>
+              <h3 className="mt-2 text-lg font-bold text-foreground">Question Palette</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                {hasLockedSections ? "Use the palette within the active section." : "Jump to any section or question."}
+                {hasLockedSections ? "Only the active section is available while section locking is enabled." : "Jump directly to any question in the test."}
               </p>
             </div>
 
@@ -575,7 +571,7 @@ export default function Test() {
                 return (
                   <div
                     key={section.id}
-                    className={`rounded-lg border p-3 ${
+                    className={`rounded-2xl border p-4 ${
                       isCurrentSection ? "border-primary/50 bg-primary/5" : "border-gray-200 bg-gray-50"
                     }`}
                   >
@@ -589,7 +585,7 @@ export default function Test() {
                       <div className="flex items-center justify-between gap-3">
                         <div>
                           <p className="text-sm font-semibold text-foreground">{section.name}</p>
-                          <p className="mt-0.5 text-xs text-muted-foreground">
+                          <p className="mt-1 text-xs text-muted-foreground">
                             {section.questions.length} questions
                             {hasSectionalTiming ? ` • ${Math.round(getSectionLimitSeconds(sectionIndex) / 60)} min` : ""}
                             {hasLockedSections && sectionIndex !== currentSectionIndex ? " • locked" : ""}
@@ -629,38 +625,68 @@ export default function Test() {
               })}
             </div>
 
-            <div className="glass-panel rounded-[1.35rem] p-4 shadow-lg">
-              {[
-                { label: "Answered", count: answered, color: "bg-green-500" },
-                { label: "Marked", count: flagged, color: "bg-yellow-500" },
-                { label: "Unanswered", count: unanswered, color: "bg-gray-300" },
-                { label: "Marked", count: flagged, color: "bg-yellow-500" },
-                { label: "Unanswered", count: unanswered, color: "bg-gray-300" },
-                { label: "Marked", count: flagged, color: "bg-amber-500" },
-                { label: "Unanswered", count: unanswered, color: "bg-slate-300" },
-                ...(hasLockedSections
-                  ? [{ label: "Locked", count: Math.max(0, test.sections.length - 1), color: "bg-slate-500" }]
-                  : []),
-              ].map((item) => (
-                <div key={item.label} className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <div className={`h-2.5 w-2.5 rounded-sm ${item.color}`} />
-                    <span className="text-muted-foreground">{item.label}</span>
+            <div className="glass-panel rounded-[1.25rem] p-4 shadow-sm">
+              <div className="grid gap-2 sm:grid-cols-3">
+                {[{
+                  label: "Answered",
+                  count: answered,
+                  color: "bg-emerald-500 text-emerald-900",
+                }, {
+                  label: "Flagged",
+                  count: flagged,
+                  color: "bg-amber-500 text-amber-900",
+                }, {
+                  label: "Unanswered",
+                  count: unanswered,
+                  color: "bg-slate-200 text-slate-900",
+                }].map((item) => (
+                  <div key={item.label} className="rounded-3xl bg-white/80 p-4 text-center shadow-sm">
+                    <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${item.color}`}>{item.label}</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">{item.count}</p>
                   </div>
-                  <span className="font-semibold text-foreground">{item.count}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <button
               type="button"
               onClick={() => setShowSubmitModal(true)}
-              className="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-secondary bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground hover:brightness-95"
+              className="inline-flex w-full items-center justify-center rounded-2xl border border-secondary bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground shadow-sm transition hover:brightness-95"
               data-testid="btn-submit-sidebar"
             >
               Submit Test
             </button>
           </aside>
+        </div>
+
+        <div className="sticky bottom-0 left-0 right-0 z-[210] border-t border-white/10 bg-[hsl(var(--background))]/95 px-4 py-4 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+              <span>Question {currentQuestionNumber}/{totalQuestions}</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">{currentSection.name}</span>
+              {hasSectionalTiming ? <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-primary">{formatTime(sectionTimeLeft)} left</span> : null}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={goToPrevious}
+                disabled={isFirstQuestion}
+                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-foreground hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                data-testid="btn-prev"
+              >
+                <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+              </button>
+              <button
+                type="button"
+                onClick={goToNext}
+                className="inline-flex items-center justify-center rounded-2xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                data-testid="btn-next"
+              >
+                {primaryAdvanceLabel}
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </main>
 

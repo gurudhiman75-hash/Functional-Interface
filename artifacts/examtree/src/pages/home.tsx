@@ -13,9 +13,10 @@ import {
   Sparkles,
   Clock3,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { getUser } from "@/lib/storage";
 import { getAttempts, getActiveTestSessions } from "@/lib/storage";
-import { getRuntimeCategories, getRuntimeTests } from "@/lib/test-bank";
+import { getCategories, getTests, type Category, type Test } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/Navbar";
@@ -50,16 +51,41 @@ export default function Home() {
   const user = getUser();
   const attempts = getAttempts();
   const activeSessionsCount = Object.keys(getActiveTestSessions()).length;
-  const runtimeCategories = getRuntimeCategories();
-  const runtimeTests = getRuntimeTests();
-  const totalQuestions = runtimeTests.reduce((sum, test) => sum + test.totalQuestions, 0);
-  const totalAttempts = runtimeTests.reduce((sum, test) => sum + test.attempts, 0);
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [tests, setTests] = useState<Test[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [categoriesData, testsData] = await Promise.all([
+          getCategories(),
+          getTests(),
+        ]);
+        setCategories(categoriesData);
+        setTests(testsData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+        // Fallback to empty arrays
+        setCategories([]);
+        setTests([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const totalQuestions = tests.reduce((sum, test) => sum + test.totalQuestions, 0);
+  const totalAttempts = tests.reduce((sum, test) => sum + test.attempts, 0);
   const averageScore =
-    runtimeTests.length > 0
-      ? Math.round(runtimeTests.reduce((sum, test) => sum + test.avgScore, 0) / runtimeTests.length)
+    tests.length > 0
+      ? Math.round(tests.reduce((sum, test) => sum + test.avgScore, 0) / tests.length)
       : 0;
-  const featuredCategories = runtimeCategories.slice(0, 3);
-  const topCategories = [...runtimeCategories]
+  const featuredCategories = categories.slice(0, 3);
+  const topCategories = [...categories]
     .sort((a, b) => (b.testsCount ?? 0) - (a.testsCount ?? 0))
     .slice(0, 4);
   const topCategoryMax = Math.max(...topCategories.map((category) => category.testsCount), 1);
@@ -71,6 +97,20 @@ export default function Home() {
       setLocation("/login/student");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -84,7 +124,7 @@ export default function Home() {
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="max-w-3xl">
               <Badge variant="secondary" className="mb-5 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-semibold shadow-sm animate-fadeInUp text-muted-foreground">
-                {runtimeTests.length} live mocks across {runtimeCategories.length} categories
+                {tests.length} live mocks across {categories.length} categories
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 animate-fadeInUp" data-testid="hero-title">
                 One platform for
@@ -128,7 +168,7 @@ export default function Home() {
                   </div>
                   <div className="rounded-2xl bg-white/10 px-3 py-2 text-right shadow-sm border border-white/10">
                     <p className="text-xs text-muted-foreground">Available tests</p>
-                    <p className="text-lg font-bold text-foreground">{runtimeTests.length}</p>
+                    <p className="text-lg font-bold text-foreground">{tests.length}</p>
                   </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -189,8 +229,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             {[
-              { value: runtimeCategories.length.toString(), label: "Categories", icon: <BookOpen className="w-5 h-5" />, color: "text-primary" },
-              { value: runtimeTests.length.toString(), label: "Mock Tests", icon: <TrendingUp className="w-5 h-5" />, color: "text-secondary" },
+              { value: categories.length.toString(), label: "Categories", icon: <BookOpen className="w-5 h-5" />, color: "text-primary" },
+              { value: tests.length.toString(), label: "Mock Tests", icon: <TrendingUp className="w-5 h-5" />, color: "text-secondary" },
               { value: averageScore > 0 ? `${averageScore}%` : "N/A", label: "Average Score", icon: <Target className="w-5 h-5" />, color: "text-emerald-600" },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col items-center gap-2 bg-card/70 border border-white/60 rounded-[1.6rem] py-5 shadow-sm" data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}>
@@ -264,7 +304,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-primary/12 via-background to-secondary/12 rounded-[2rem] p-12 border border-white/70 shadow-lg">
             <h2 className="text-2xl sm:text-3xl font-bold mb-3">Ready to Begin?</h2>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Start with {runtimeTests.length} currently available mock tests and track your own progress from the first attempt.
+              Start with {tests.length} currently available mock tests and track your own progress from the first attempt.
             </p>
             <Button size="lg" onClick={() => setLocation("/login/student")} data-testid="btn-cta-login">
               Get Started Free
