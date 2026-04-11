@@ -408,286 +408,247 @@ export default function Test() {
       </header>
 
       <main className="relative z-[205] mx-auto max-w-7xl px-4 py-6">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div className="min-w-0 space-y-5">
-            <section className="glass-panel rounded-[1.5rem] p-5 shadow-sm">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="space-y-1.5">
-                  <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                    {currentSection.name}
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="min-w-0 space-y-6">
+            {/* Question Header */}
+            <section className="glass-panel rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    Q{currentQuestionNumber}
                   </div>
-                  <h2 className="text-xl font-semibold text-foreground">Question {currentQuestionNumber} of {totalQuestions}</h2>
-                  <p className="text-sm text-muted-foreground">Answer carefully and use the navigator to move directly between questions.</p>
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground">{currentSection.name}</h2>
+                    <p className="text-sm text-muted-foreground">Question {currentQuestionNumber} of {totalQuestions}</p>
+                  </div>
                 </div>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {[
-                    { label: "Answered", value: answered, tone: "bg-emerald-50 text-emerald-900" },
-                    { label: "Flagged", value: flagged, tone: "bg-amber-50 text-amber-900" },
-                    { label: "Remaining", value: unanswered, tone: "bg-slate-50 text-slate-900" },
-                  ].map((item) => (
-                    <div key={item.label} className={`rounded-2xl border border-white/10 p-3 ${item.tone}`}>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em]">{item.label}</p>
-                      <p className="mt-2 text-xl font-bold">{item.value}</p>
-                    </div>
-                  ))}
+                <div className="flex items-center gap-2">
+                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${
+                    isLowTime ? "bg-red-50 text-red-700 border border-red-200" : "bg-primary/5 text-primary border border-primary/20"
+                  }`}>
+                    <Clock className="h-4 w-4" />
+                    {formatTime(activeTimeLeft)}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowSubmitModal(true)}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
+                  >
+                    <X className="h-4 w-4" />
+                    Exit
+                  </button>
                 </div>
               </div>
-            </section>
 
-            <section className="glass-panel rounded-[1.5rem] p-5 shadow-sm">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{hasSectionalTiming ? "Section timer" : "Section progress"}</p>
-                  <p className="mt-2 text-base font-semibold text-foreground">
-                    {hasSectionalTiming ? formatTime(sectionTimeLeft) : `${currentQuestionIndex + 1} / ${questions.length}`}
-                  </p>
-                </div>
-                {hasSectionalTiming ? (
-                  <div className="rounded-3xl bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                    {Math.round(currentSectionElapsedSeconds / 60)} / {currentSectionMinutes} min used
-                  </div>
-                ) : null}
-              </div>
-              <div className="mt-5 h-2 rounded-full bg-white/10">
+              {/* Progress Bar */}
+              <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
                 <div
-                  className="h-full rounded-full bg-primary"
-                  style={{
-                    width: `${
-                      hasSectionalTiming
-                        ? Math.max(8, (currentSectionElapsedSeconds / Math.max(1, currentSectionLimitSeconds)) * 100)
-                        : Math.max(8, ((currentQuestionIndex + 1) / questions.length) * 100)
-                    }%`,
-                  }}
+                  className="bg-primary h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${(currentQuestionNumber / totalQuestions) * 100}%` }}
                 />
               </div>
+
+              {/* Stats */}
+              <div className="flex items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="text-muted-foreground">Answered: <span className="font-semibold text-green-600">{answered}</span></span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <span className="text-muted-foreground">Marked: <span className="font-semibold text-yellow-600">{flagged}</span></span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                  <span className="text-muted-foreground">Not Visited: <span className="font-semibold text-gray-600">{unanswered}</span></span>
+                </div>
+              </div>
             </section>
 
-            <section className="glass-panel rounded-[1.5rem] p-5 shadow-sm">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div className="max-w-3xl">
-                  <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Question</p>
-                  <h3 className="mt-3 text-2xl font-semibold leading-snug text-foreground">{q.text}</h3>
-                </div>
-                <div className="rounded-2xl bg-slate-50 px-3 py-2 text-sm text-slate-700 shadow-sm">
-                  <p className="font-semibold">Section summary</p>
-                  <p className="mt-2 text-xs text-muted-foreground">{questions.length} questions · {answered} answered · {flagged} marked</p>
-                </div>
-              </div>
 
-              <div className="mt-4 grid gap-2">
-                {q.options.map((option, index) => {
-                  const selected = answers[q.id] === index;
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => setAnswers((current) => ({ ...current, [q.id]: index }))}
-                      className={`group flex w-full items-start gap-3 rounded-2xl border p-3 text-left transition-all duration-200 ${
-                        selected
-                          ? "border-primary bg-primary/10 shadow-sm"
-                          : "border-gray-200 bg-white hover:border-primary/50 hover:bg-gray-50"
-                      }`}
-                      data-testid={`option-${index}`}
-                    >
-                      <span
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${
-                          selected ? "border-primary bg-primary text-white" : "border-gray-300 bg-gray-100 text-gray-600"
+            {/* Question Content */}
+            <section className="glass-panel rounded-2xl p-6 shadow-sm">
+              <div className="mb-6">
+                <h3 className="text-xl font-medium text-foreground leading-relaxed mb-6">{q.text}</h3>
+
+                <div className="grid gap-3">
+                  {q.options.map((option, index) => {
+                    const selected = answers[q.id] === index;
+                    const isMarked = Boolean(flags[q.id]);
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => setAnswers((current) => ({ ...current, [q.id]: index }))}
+                        className={`group relative w-full p-4 text-left border-2 rounded-xl transition-all duration-200 ${
+                          selected
+                            ? "border-primary bg-primary/5 shadow-md"
+                            : "border-gray-200 bg-white hover:border-primary/30 hover:shadow-sm"
                         }`}
                       >
-                        {String.fromCharCode(65 + index)}
-                      </span>
-                      <span className="text-sm leading-relaxed text-foreground">{option}</span>
-                      {selected && <CheckCircle className="ml-auto h-5 w-5 text-primary" />}
-                    </button>
-                  );
-                })}
+                        <div className="flex items-center gap-4">
+                          <div className={`flex h-8 w-8 items-center justify-center rounded-lg border-2 font-bold text-sm transition-colors ${
+                            selected
+                              ? "border-primary bg-primary text-white"
+                              : "border-gray-300 bg-gray-50 text-gray-600 group-hover:border-primary/50"
+                          }`}>
+                            {String.fromCharCode(65 + index)}
+                          </div>
+                          <span className="text-base leading-relaxed text-foreground flex-1">{option}</span>
+                          {selected && (
+                            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
+                              <CheckCircle className="h-4 w-4 text-white" />
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                <div className="flex flex-wrap gap-2">
+              {/* Action Buttons */}
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={clearResponse}
-                    className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-                    data-testid="btn-clear-response"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
                   >
-                    Clear Response
+                    <X className="h-4 w-4" />
+                    Clear
                   </button>
                   <button
                     type="button"
                     onClick={toggleReview}
-                    className={`inline-flex items-center justify-center rounded-2xl border px-3 py-2 text-sm font-semibold ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium ${
                       currentQuestionFlagged
-                        ? "border-amber-200 bg-amber-50 text-amber-900"
-                        : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                        ? "border-yellow-200 bg-yellow-50 text-yellow-700"
+                        : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
                     }`}
-                    data-testid="btn-mark-review"
                   >
-                    <Flag className="mr-2 h-4 w-4" />
-                    {currentQuestionFlagged ? "Marked for Review" : "Mark for Review"}
+                    <Flag className="h-4 w-4" />
+                    {currentQuestionFlagged ? "Marked" : "Mark for Review"}
                   </button>
                 </div>
-                <p className="text-sm text-muted-foreground">Your answer is saved automatically when selected.</p>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={goToPrevious}
+                    disabled={isFirstQuestion}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goToNext}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 text-sm font-medium"
+                  >
+                    {primaryAdvanceLabel}
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
             </section>
 
-            <div className="flex items-center justify-between border-t border-white/10 pt-3">
-              <button
-                type="button"
-                onClick={goToPrevious}
-                disabled={isFirstQuestion}
-                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-foreground hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
-                data-testid="btn-prev"
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" /> Previous
-              </button>
-              <button
-                type="button"
-                onClick={goToNext}
-                className="inline-flex items-center justify-center rounded-2xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-                data-testid="btn-next"
-              >
-                {primaryAdvanceLabel}
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </button>
-            </div>
+
           </div>
 
           <aside className="space-y-4 lg:sticky lg:top-6">
-            <div className="glass-panel rounded-[1.25rem] p-4 shadow-sm">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Navigator</p>
-              <h3 className="mt-2 text-lg font-bold text-foreground">Question Palette</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {hasLockedSections ? "Only the active section is available while section locking is enabled." : "Jump directly to any question in the test."}
-              </p>
-            </div>
+            {/* Question Palette */}
+            <div className="glass-panel rounded-2xl p-5 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-foreground">Question Palette</h3>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span>{answered} Answered</span>
+                  <span>•</span>
+                  <span>{flagged} Marked</span>
+                </div>
+              </div>
 
-            <div className="space-y-3">
-              {test.sections.map((section, sectionIndex) => {
-                const sectionAnswered = section.questions.filter((question) => answers[question.id] !== null && answers[question.id] !== undefined).length;
-                const sectionFlagged = section.questions.filter((question) => Boolean(flags[question.id])).length;
-                const isCurrentSection = sectionIndex === currentSectionIndex;
+              <div className="space-y-4">
+                {test.sections.map((section, sectionIndex) => {
+                  const sectionAnswered = section.questions.filter((question) => answers[question.id] !== null && answers[question.id] !== undefined).length;
+                  const sectionFlagged = section.questions.filter((question) => Boolean(flags[question.id])).length;
+                  const isCurrentSection = sectionIndex === currentSectionIndex;
 
-                return (
-                  <div
-                    key={section.id}
-                    className={`rounded-2xl border p-4 ${
-                      isCurrentSection ? "border-primary/50 bg-primary/5" : "border-gray-200 bg-gray-50"
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => goToSection(sectionIndex, 0)}
-                      className="w-full text-left disabled:cursor-not-allowed disabled:opacity-50"
-                      disabled={hasLockedSections && sectionIndex !== currentSectionIndex}
-                      data-testid={`section-tab-${section.id}`}
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <div>
-                          <p className="text-sm font-semibold text-foreground">{section.name}</p>
-                          <p className="mt-1 text-xs text-muted-foreground">
-                            {section.questions.length} questions
-                            {hasSectionalTiming ? ` • ${Math.round(getSectionLimitSeconds(sectionIndex) / 60)} min` : ""}
-                            {hasLockedSections && sectionIndex !== currentSectionIndex ? " • locked" : ""}
-                          </p>
-                        </div>
-                        <span className={`rounded-full px-2 py-0.5 text-[11px] ${isCurrentSection ? "bg-primary text-white" : hasLockedSections && sectionIndex !== currentSectionIndex ? "bg-gray-200 text-gray-500" : "bg-gray-100 text-gray-600"}`}>
+                  return (
+                    <div key={section.id} className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className={`text-sm font-medium ${isCurrentSection ? 'text-primary' : 'text-foreground'}`}>
+                          {section.name}
+                        </h4>
+                        <span className="text-xs text-muted-foreground">
                           {sectionAnswered}/{section.questions.length}
                         </span>
                       </div>
-                    </button>
 
-                    <div className="mt-3 grid grid-cols-5 gap-1.5">
-                      {section.questions.map((question, questionIndex) => (
-                        <button
-                          key={question.id}
-                          type="button"
-                          onClick={() => goToSection(sectionIndex, questionIndex)}
-                          disabled={hasLockedSections && sectionIndex !== currentSectionIndex}
-                          className={`h-9 rounded-lg text-[11px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${getPaletteStyle(
-                            answers[question.id] !== null && answers[question.id] !== undefined,
-                            Boolean(flags[question.id]),
-                            isCurrentSection && questionIndex === currentQuestionIndex,
-                          )}`}
-                          data-testid={`palette-q-${question.id}`}
-                        >
-                          {questionIndex + 1}
-                        </button>
-                      ))}
+                      <div className="grid grid-cols-6 gap-2">
+                        {section.questions.map((question, questionIndex) => {
+                          const isAnswered = answers[question.id] !== null && answers[question.id] !== undefined;
+                          const isFlagged = Boolean(flags[question.id]);
+                          const isCurrent = isCurrentSection && questionIndex === currentQuestionIndex;
+
+                          return (
+                            <button
+                              key={question.id}
+                              type="button"
+                              onClick={() => goToSection(sectionIndex, questionIndex)}
+                              disabled={hasLockedSections && sectionIndex !== currentSectionIndex}
+                              className={`h-10 w-10 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
+                                isCurrent
+                                  ? "bg-primary text-white ring-2 ring-primary/30"
+                                  : isFlagged
+                                    ? "bg-yellow-100 text-yellow-800 border-2 border-yellow-300"
+                                    : isAnswered
+                                      ? "bg-green-100 text-green-800 border-2 border-green-300"
+                                      : "bg-gray-100 text-gray-600 border-2 border-gray-200 hover:border-primary/50"
+                              }`}
+                            >
+                              {questionIndex + 1}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-
-                    <div className="mt-2 flex items-center justify-between text-[10px] text-muted-foreground">
-                      <span>{sectionAnswered} answered</span>
-                      <span>{sectionFlagged} flagged</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="glass-panel rounded-[1.25rem] p-4 shadow-sm">
-              <div className="grid gap-2 sm:grid-cols-3">
-                {[{
-                  label: "Answered",
-                  count: answered,
-                  color: "bg-emerald-500 text-emerald-900",
-                }, {
-                  label: "Flagged",
-                  count: flagged,
-                  color: "bg-amber-500 text-amber-900",
-                }, {
-                  label: "Unanswered",
-                  count: unanswered,
-                  color: "bg-slate-200 text-slate-900",
-                }].map((item) => (
-                  <div key={item.label} className="rounded-3xl bg-white/80 p-4 text-center shadow-sm">
-                    <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${item.color}`}>{item.label}</p>
-                    <p className="mt-2 text-2xl font-bold text-foreground">{item.count}</p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setShowSubmitModal(true)}
-              className="inline-flex w-full items-center justify-center rounded-2xl border border-secondary bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground shadow-sm transition hover:brightness-95"
-              data-testid="btn-submit-sidebar"
-            >
-              Submit Test
-            </button>
+            {/* Test Summary */}
+            <div className="glass-panel rounded-2xl p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Test Summary</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <span className="text-sm font-medium text-green-800">Answered</span>
+                  <span className="text-lg font-bold text-green-600">{answered}</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                  <span className="text-sm font-medium text-yellow-800">Marked for Review</span>
+                  <span className="text-lg font-bold text-yellow-600">{flagged}</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <span className="text-sm font-medium text-gray-800">Not Answered</span>
+                  <span className="text-lg font-bold text-gray-600">{unanswered}</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowSubmitModal(true)}
+                className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/90 font-medium"
+              >
+                Submit Test
+              </button>
+            </div>
           </aside>
         </div>
 
-        <div className="sticky bottom-0 left-0 right-0 z-[210] border-t border-white/10 bg-[hsl(var(--background))]/95 px-4 py-4 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-              <span>Question {currentQuestionNumber}/{totalQuestions}</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">{currentSection.name}</span>
-              {hasSectionalTiming ? <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-primary">{formatTime(sectionTimeLeft)} left</span> : null}
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={goToPrevious}
-                disabled={isFirstQuestion}
-                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-foreground hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
-                data-testid="btn-prev"
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" /> Previous
-              </button>
-              <button
-                type="button"
-                onClick={goToNext}
-                className="inline-flex items-center justify-center rounded-2xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-                data-testid="btn-next"
-              >
-                {primaryAdvanceLabel}
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+
       </main>
 
       {showSubmitModal && (

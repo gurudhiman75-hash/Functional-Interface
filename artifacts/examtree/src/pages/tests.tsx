@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
 import { getRuntimeCategories, getRuntimeTests } from "@/lib/test-bank";
+import { getCategories, getTests, type Category, type Test } from "@/lib/data";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,13 +45,34 @@ export default function Tests() {
   const user = getUser();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const allTests = getRuntimeTests();
-  const categories = getRuntimeCategories();
+  const [allTests, setAllTests] = useState<Test[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
   const testVisibilityById = new Map(getAdminTests().map((t) => [t.id, t.showDifficulty]));
   const activeSessions = getActiveTestSessions();
 
   useEffect(() => {
-    if (user) return;
+    if (user) {
+      // Fetch data from API when user is available
+      const fetchData = async () => {
+        try {
+          const [testsData, categoriesData] = await Promise.all([
+            getTests(),
+            getCategories(),
+          ]);
+          setAllTests(testsData);
+          setCategories(categoriesData);
+        } catch (error) {
+          console.error("Failed to fetch tests:", error);
+          setAllTests([]);
+          setCategories([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+      return;
+    }
     const auth = getFirebaseAuth();
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (!firebaseUser) {

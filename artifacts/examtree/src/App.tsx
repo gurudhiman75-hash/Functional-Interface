@@ -11,6 +11,7 @@ const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Tests = lazy(() => import("@/pages/tests"));
+const Category = lazy(() => import("@/pages/category"));
 const Subcategory = lazy(() => import("@/pages/subcategory"));
 const Test = lazy(() => import("@/pages/test"));
 const Result = lazy(() => import("@/pages/result"));
@@ -18,10 +19,14 @@ const Leaderboard = lazy(() => import("@/pages/leaderboard"));
 const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
+console.log("App.tsx loaded");
+
 const queryClient = new QueryClient();
 
 function Router() {
   const [location] = useLocation();
+
+  console.log("Router component rendered, location:", location);
 
   return (
     <Suspense fallback={<RouteSkeleton />}>
@@ -33,6 +38,7 @@ function Router() {
           <Route path="/login/admin" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/tests" component={Tests} />
+          <Route path="/category/:id" component={Category} />
           <Route path="/subcategory/:id" component={Subcategory} />
           <Route path="/test/:id" component={Test} />
           <Route path="/result" component={Result} />
@@ -68,7 +74,14 @@ function App() {
 
   useEffect(() => {
     let isActive = true;
-    const unsubscribe = syncAuthSession();
+    let unsubscribe = () => {};
+
+    // Try to sync auth session, but don't fail if Firebase is not available
+    try {
+      unsubscribe = syncAuthSession();
+    } catch (error) {
+      console.warn("Auth sync failed, continuing without auth:", error);
+    }
 
     // Bootstrap with automatic fallback timeout
     const bootstrapPromise = (async () => {

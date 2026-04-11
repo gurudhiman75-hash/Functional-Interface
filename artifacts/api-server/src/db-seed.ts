@@ -5,6 +5,13 @@ async function seedDatabase() {
   try {
     console.log("Seeding database...\n");
 
+    // Clear all existing data
+    console.log("Clearing existing data...");
+    await db.execute(`DELETE FROM "questions"`);
+    await db.execute(`DELETE FROM "tests"`);
+    await db.execute(`DELETE FROM "categories"`);
+    console.log("✓ Cleared existing data");
+
     // Add categories
     const categoryData = [
       { id: "1", name: "JEE Main", description: "Joint Entrance Examination for top engineering colleges", icon: "Cpu", color: "blue", testsCount: 3 },
@@ -13,12 +20,14 @@ async function seedDatabase() {
       { id: "4", name: "UPSC", description: "Civil Services Examination for government positions", icon: "Building2", color: "amber", testsCount: 1 },
       { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
       { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 1 },
+      { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
+      { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "MapPin", color: "red", testsCount: 2 },
     ];
 
     for (const cat of categoryData) {
-      await db.insert(categories).values(cat).onConflictDoNothing();
+      await db.insert(categories).values(cat);
     }
-    console.log("✓ Added 6 categories");
+    console.log("✓ Added 8 categories");
 
     // Add sample tests
     const testData = [
@@ -28,12 +37,16 @@ async function seedDatabase() {
       { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]) },
       { id: "5", name: "CAT Mock 1", category: "CAT", categoryId: "3", duration: 120, totalQuestions: 9, attempts: 1500, avgScore: 65, difficulty: "Medium" as const, sections: JSON.stringify([]) },
       { id: "6", name: "UPSC GS Paper 1", category: "UPSC", categoryId: "4", duration: 120, totalQuestions: 9, attempts: 890, avgScore: 58, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+      { id: "7", name: "IBPS PO Prelims", category: "Banking", categoryId: "7", duration: 60, totalQuestions: 9, attempts: 3200, avgScore: 62, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+      { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", duration: 45, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+      { id: "9", name: "Punjab PSC Mock", category: "Punjab", categoryId: "8", duration: 120, totalQuestions: 9, attempts: 1200, avgScore: 60, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+      { id: "10", name: "PSSSB Exam Mock", category: "Punjab", categoryId: "8", duration: 90, totalQuestions: 9, attempts: 980, avgScore: 64, difficulty: "Medium" as const, sections: JSON.stringify([]) },
     ];
 
     for (const test of testData) {
       await db.insert(tests).values(test as any).onConflictDoNothing();
     }
-    console.log("✓ Added 6 sample tests");
+    console.log("✓ Added 10 sample tests");
 
     // Add sample questions
     const questionData = [

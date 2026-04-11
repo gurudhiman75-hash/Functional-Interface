@@ -1,5 +1,5 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { getFirebaseDb } from "@/lib/firebase";
+// import { doc, getDoc, setDoc } from "firebase/firestore";
+// import { getFirebaseDb } from "@/lib/firebase";
 
 export const Storage = {
   set: (k: string, v: unknown) => localStorage.setItem(k, JSON.stringify(v)),
@@ -324,15 +324,8 @@ export const deleteAdminSubcategory = (id: string) => {
 };
 
 export async function syncAdminDataToCloudOrThrow() {
-  const db = getFirebaseDb();
-  await setDoc(doc(db, ADMIN_CLOUD_COLLECTION, ADMIN_CLOUD_DOC), {
-    version: CURRENT_VERSION,
-    categories: getAdminCategories(),
-    subcategories: getAdminSubcategories(),
-    tests: getAdminTests(),
-    questions: getAdminQuestions(),
-    updatedAt: Date.now(),
-  } satisfies CloudAdminData);
+  // Firebase disabled for development
+  throw new Error("Firebase not available");
 }
 
 async function persistAdminDataToCloud() {
@@ -345,22 +338,7 @@ async function persistAdminDataToCloud() {
 }
 
 export async function hydrateAdminDataFromCloud(): Promise<boolean> {
-  try {
-    const db = getFirebaseDb();
-    const snap = await getDoc(doc(db, ADMIN_CLOUD_COLLECTION, ADMIN_CLOUD_DOC));
-    if (!snap.exists()) {
-      await syncAdminDataToCloudOrThrow();
-      return true;
-    }
-
-    const data = snap.data() as Partial<CloudAdminData>;
-    if (Array.isArray(data.categories)) saveAdminCategories(data.categories);
-    if (Array.isArray(data.subcategories)) saveAdminSubcategories(data.subcategories);
-    if (Array.isArray(data.tests)) saveAdminTests(data.tests);
-    if (Array.isArray(data.questions)) saveAdminQuestions(data.questions);
-    if (typeof data.version === "string") Storage.set(ADMIN_VERSION_KEY, data.version);
-    return true;
-  } catch {
-    return false;
-  }
+  // Firebase disabled for development
+  console.warn("Firebase not available, skipping admin data hydration");
+  return false;
 }

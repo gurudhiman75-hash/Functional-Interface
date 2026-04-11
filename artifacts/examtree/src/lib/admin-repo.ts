@@ -1,11 +1,11 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  setDoc,
-} from "firebase/firestore";
-import { getFirebaseDb } from "@/lib/firebase";
+// import {
+//   collection,
+//   deleteDoc,
+//   doc,
+//   getDocs,
+//   setDoc,
+// } from "firebase/firestore";
+// import { getFirebaseDb } from "@/lib/firebase";
 import {
   addAdminCategory as addLocalCategory,
   addAdminQuestion as addLocalQuestion,
@@ -66,19 +66,18 @@ const COL_TESTS = "admin_tests";
 const COL_QUESTIONS = "admin_questions";
 
 async function listCollection<T>(name: string): Promise<T[]> {
-  const db = getFirebaseDb();
-  const snap = await getDocs(collection(db, name));
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as T);
+  // Firebase disabled for development
+  throw new Error("Firebase not available");
 }
 
 async function setCollectionDoc<T extends { id: string }>(name: string, item: T): Promise<void> {
-  const db = getFirebaseDb();
-  await setDoc(doc(db, name, item.id), item);
+  // Firebase disabled for development
+  throw new Error("Firebase not available");
 }
 
 async function removeCollectionDoc(name: string, id: string): Promise<void> {
-  const db = getFirebaseDb();
-  await deleteDoc(doc(db, name, id));
+  // Firebase disabled for development
+  throw new Error("Firebase not available");
 }
 
 function syncLocal(snapshot: AdminSnapshot) {

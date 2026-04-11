@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/Navbar";
 
+console.log("home.tsx loaded");
+
 const CATEGORY_STYLES = [
   {
     icon: <Cpu className="w-7 h-7" />,
@@ -57,12 +59,15 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Home component mounted, starting data fetch");
     const fetchData = async () => {
       try {
+        console.log("Fetching categories and tests...");
         const [categoriesData, testsData] = await Promise.all([
           getCategories(),
           getTests(),
         ]);
+        console.log("Data fetched successfully:", { categoriesData, testsData });
         setCategories(categoriesData);
         setTests(testsData);
       } catch (error) {
@@ -245,16 +250,16 @@ export default function Home() {
 
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Popular Exams</h2>
-          <p className="text-muted-foreground">Browse the current categories from the live test library</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Choose Your Exam Category</h2>
+          <p className="text-muted-foreground">Select from our comprehensive range of competitive exams</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {featuredCategories.map((cat, index) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {categories.map((cat, index) => {
             const style = CATEGORY_STYLES[index % CATEGORY_STYLES.length];
             return (
             <button
               key={cat.id}
-              onClick={() => setLocation(`/subcategory/${cat.id}`)}
+              onClick={() => setLocation(`/category/${cat.id}`)}
               className={`group text-left p-6 rounded-[1.7rem] border-2 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 ${style.card}`}
               data-testid={`category-card-${cat.id}`}
             >
@@ -262,7 +267,7 @@ export default function Home() {
                 {style.icon}
               </div>
               <h3 className="text-lg font-bold text-foreground mb-1">{cat.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{cat.description}</p>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">{cat.description}</p>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold text-primary">{cat.testsCount} tests available</span>
                 <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -271,9 +276,9 @@ export default function Home() {
             );
           })}
         </div>
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <Button variant="outline" className="rounded-2xl border-white/30 bg-card/90 text-foreground" onClick={() => setLocation("/tests")} data-testid="btn-view-all-tests">
-            View All Tests
+            Browse All Tests
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>

@@ -18,6 +18,20 @@ export const categories = pgTable("categories", {
   testsCount: integer("tests_count").notNull().default(0),
 });
 
+export const bundles = pgTable("bundles", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  categoryId: text("category_id").notNull(),
+  price: integer("price").notNull().default(0), // Price in cents
+  originalPrice: integer("original_price"),
+  testsCount: integer("tests_count").notNull().default(0),
+  features: jsonb("features").notNull(), // Array of features like ["Detailed Solutions", "Performance Analytics", etc.]
+  isPopular: integer("is_popular").notNull().default(0), // 0 = false, 1 = true
+  order: integer("order").notNull().default(0), // Display order
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 export const tests = pgTable("tests", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),

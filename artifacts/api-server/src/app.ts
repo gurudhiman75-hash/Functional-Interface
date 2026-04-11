@@ -27,7 +27,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://192.168.1.2:5173", "http://localhost:3000"],
+    origin: true, // Allow all origins for development
     credentials: true,
   }),
 );
