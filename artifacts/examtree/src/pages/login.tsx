@@ -14,7 +14,12 @@ import {
   UserPlus,
 } from "lucide-react";
 import { getFirebaseAuth } from "@/lib/firebase";
-import { completeGoogleRedirectSignIn, signInWithGoogle, upsertUserProfile } from "@/lib/auth";
+import {
+  completeGoogleRedirectSignIn,
+  createDevelopmentSession,
+  signInWithGoogle,
+  upsertUserProfile,
+} from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,11 +63,11 @@ function getAuthErrorMessage(error: unknown): string {
   }
 }
 
-type AuthMode = "student" | "admin";
+const FIREBASE_UNAVAILABLE_MESSAGE =
+  "Firebase auth is turned off, so this screen uses a local development login instead.";
 
 export default function Login() {
   const [location, setLocation] = useLocation();
-  const mode: AuthMode = location.startsWith("/login/admin") ? "admin" : "student";
   const [tab, setTab] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,7 +75,7 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const isAdminMode = mode === "admin";
+  const isAdminMode = false;
 
   useEffect(() => {
     if (isAdminMode) {
@@ -80,6 +85,10 @@ export default function Login() {
 
   useEffect(() => {
     const auth = getFirebaseAuth();
+    if (!auth) {
+      return;
+    }
+
     void completeGoogleRedirectSignIn()
       .then((user) => {
         if (!user) return;
@@ -111,7 +120,7 @@ export default function Login() {
         const appUser = await upsertUserProfile(firebaseUser);
         setLocation(appUser.role === "admin" ? "/admin" : "/dashboard");
       } catch {
-        setLocation(isAdminMode ? "/admin" : "/dashboard");
+        setLocation("/dashboard");
       }
     });
 
@@ -132,6 +141,19 @@ export default function Login() {
     setLoading(true);
     try {
       const auth = getFirebaseAuth();
+      if (!auth) {
+        const devUser = createDevelopmentSession({
+          email,
+          name: tab === "signup" ? name : undefined,
+          role: "student",
+        });
+        toast({
+          title: tab === "signup" ? "Development account created" : "Development login successful",
+          description: `Signed in locally as ${devUser.name}.`,
+        });
+        routeAfterAuth(devUser.role);
+        return;
+      }
 
       if (tab === "signup") {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
@@ -146,14 +168,6 @@ export default function Login() {
       } else {
         const cred = await signInWithEmailAndPassword(auth, email, password);
         const appUser = await upsertUserProfile(cred.user);
-        if (isAdminMode && appUser.role !== "admin") {
-          toast({
-            title: "Access denied",
-            description: "This account does not have admin permissions.",
-            variant: "destructive",
-          });
-          return;
-        }
         toast({
           title: appUser.role === "admin" ? "Admin access granted" : "Welcome back!",
           description: `Logged in as ${appUser.name}`,
@@ -171,15 +185,21 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      const user = await signInWithGoogle();
-      if (isAdminMode && user.role !== "admin") {
-        toast({
-          title: "Admin access only",
-          description: "That Google account is not an admin account.",
-          variant: "destructive",
+      if (!getFirebaseAuth()) {
+        const devUser = createDevelopmentSession({
+          email: email.trim() || (isAdminMode ? "admin@local.dev" : "student@local.dev"),
+          name: name.trim() || undefined,
+          role: isAdminMode ? "admin" : "student",
         });
+        toast({
+          title: "Development login successful",
+          description: `Signed in locally as ${devUser.name}.`,
+        });
+        routeAfterAuth(devUser.role);
         return;
       }
+
+      const user = await signInWithGoogle();
       toast({
         title: tab === "signup" ? "Account created!" : "Welcome back!",
         description: `Signed in as ${user.name}`,
@@ -208,6 +228,13 @@ export default function Login() {
     setLoading(true);
     try {
       const auth = getFirebaseAuth();
+      if (!auth) {
+        toast({
+          title: "Password reset unavailable",
+          description: "Development login does not send reset emails.",
+        });
+        return;
+      }
       await sendPasswordResetEmail(auth, email.trim());
       toast({
         title: "Reset email sent",
@@ -435,6 +462,18 @@ export default function Login() {
                   <p className="mt-1 text-xs text-muted-foreground">Cleaner navigation across tests, dashboard, and results.</p>
                 </div>
               </div>
+            </div>
+          )}
+
+          {!getFirebaseAuth() && (
+            <div className="mt-6 rounded-2xl border border-dashed border-border bg-muted/40 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Development mode
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">{FIREBASE_UNAVAILABLE_MESSAGE}</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Any email and password will create a local session on this device.
+              </p>
             </div>
           )}
 

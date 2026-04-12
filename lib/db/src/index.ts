@@ -32,11 +32,23 @@ export const bundles = pgTable("bundles", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const subcategories = pgTable("subcategories", {
+  id: text("id").primaryKey(),
+  categoryId: text("category_id").notNull(),
+  categoryName: text("category_name").notNull(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+});
+
 export const tests = pgTable("tests", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   category: text("category").notNull(),
   categoryId: text("category_id").notNull(),
+  subcategoryId: text("subcategory_id").notNull().default(""),
+  subcategoryName: text("subcategory_name").notNull().default(""),
+  access: text("access").$type<"free" | "paid">().notNull().default("free"),
+  kind: text("kind").$type<"full-length" | "sectional" | "topic-wise">().notNull().default("full-length"),
   duration: integer("duration").notNull(),
   totalQuestions: integer("total_questions").notNull(),
   attempts: integer("attempts").notNull().default(0),
@@ -50,6 +62,7 @@ export const tests = pgTable("tests", {
 
 export const questions = pgTable("questions", {
   id: serial("id").primaryKey(),
+  clientId: text("client_id").notNull().default(""),
   testId: text("test_id").notNull(),
   text: text("text").notNull(),
   options: jsonb("options").notNull(),

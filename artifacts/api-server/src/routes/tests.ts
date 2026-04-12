@@ -7,9 +7,9 @@ import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (_req, res) => {
   const allTests = await db.select().from(tests);
-  res.json(allTests.map(Test.parse));
+  return res.json(allTests.map(Test.parse));
 });
 
 router.get("/:id", authenticate, async (req, res) => {
@@ -31,7 +31,7 @@ router.get("/:id", authenticate, async (req, res) => {
       explanation: q.explanation,
     })),
   }));
-  res.json(parsedTest);
+  return res.json(parsedTest);
 });
 
 export default router;

@@ -1,5 +1,4 @@
-// import { doc, getDoc, setDoc } from "firebase/firestore";
-// import { getFirebaseDb } from "@/lib/firebase";
+import { apiRequest } from "@/lib/api";
 
 export const Storage = {
   set: (k: string, v: unknown) => localStorage.setItem(k, JSON.stringify(v)),
@@ -43,6 +42,16 @@ export interface TestAttempt {
   sectionTimeSpent?: {
     name: string;
     minutesSpent: number;
+  }[];
+  questionReview?: {
+    questionId: number;
+    section: string;
+    text: string;
+    options: string[];
+    selected: number | null;
+    correct: number;
+    flagged: boolean;
+    explanation: string;
   }[];
 }
 
@@ -113,6 +122,9 @@ export interface AdminSubcategory {
   description: string;
 }
 
+export type TestAccess = "free" | "paid";
+export type TestKind = "full-length" | "sectional" | "topic-wise";
+
 export interface AdminSectionSetting {
   name: string;
   locked: boolean;
@@ -130,6 +142,8 @@ export interface AdminTest {
   categoryName: string;
   subcategoryId: string;
   subcategoryName: string;
+  access: TestAccess;
+  kind: TestKind;
   duration: number;
   totalQuestions: number;
   difficulty: "Easy" | "Medium" | "Hard";
@@ -158,7 +172,7 @@ const ADMIN_SUBCATEGORIES_KEY = "admin_subcategories";
 const ADMIN_TESTS_KEY = "admin_tests";
 const ADMIN_QUESTIONS_KEY = "admin_questions";
 const ADMIN_VERSION_KEY = "admin_data_version";
-const CURRENT_VERSION = "4"; // bump to force re-seed
+const CURRENT_VERSION = "5"; // bump to force re-seed
 const ADMIN_CLOUD_COLLECTION = "admin_data";
 const ADMIN_CLOUD_DOC = "main";
 
@@ -215,6 +229,8 @@ export const getAdminTests = (): AdminTest[] =>
     ...t,
     subcategoryId: t.subcategoryId ?? "",
     subcategoryName: t.subcategoryName ?? "",
+    access: t.access ?? "free",
+    kind: t.kind ?? "full-length",
     showDifficulty: t.showDifficulty ?? true,
     sectionSettings:
       t.sectionSettings ??
@@ -232,6 +248,8 @@ export const addAdminTest = (test: Omit<AdminTest, "id" | "attempts" | "avgScore
   const tests = getAdminTests();
   const newTest = {
     ...test,
+    access: test.access ?? "free",
+    kind: test.kind ?? "full-length",
     sections: test.sections ?? [],
     sectionSettings: test.sectionSettings ?? (test.sections ?? []).map((name) => ({ name, locked: false })),
     sectionTimingMode: test.sectionTimingMode ?? "none",
@@ -323,9 +341,22 @@ export const deleteAdminSubcategory = (id: string) => {
   void persistAdminDataToCloud();
 };
 
+function buildAdminSnapshot() {
+  return {
+    version: CURRENT_VERSION,
+    categories: getAdminCategories(),
+    subcategories: getAdminSubcategories(),
+    tests: getAdminTests(),
+    questions: getAdminQuestions(),
+    updatedAt: Date.now(),
+  };
+}
+
 export async function syncAdminDataToCloudOrThrow() {
-  // Firebase disabled for development
-  throw new Error("Firebase not available");
+  await apiRequest("/admin-data", {
+    method: "PUT",
+    body: JSON.stringify(buildAdminSnapshot()),
+  });
 }
 
 async function persistAdminDataToCloud() {
@@ -338,7 +369,20 @@ async function persistAdminDataToCloud() {
 }
 
 export async function hydrateAdminDataFromCloud(): Promise<boolean> {
-  // Firebase disabled for development
-  console.warn("Firebase not available, skipping admin data hydration");
-  return false;
+  try {
+    const snapshot = await apiRequest<{
+      categories: AdminCategory[];
+      subcategories: AdminSubcategory[];
+      tests: AdminTest[];
+      questions: AdminQuestion[];
+    }>("/admin-data");
+    saveAdminCategories(snapshot.categories);
+    saveAdminSubcategories(snapshot.subcategories);
+    saveAdminTests(snapshot.tests);
+    saveAdminQuestions(snapshot.questions);
+    return true;
+  } catch (error) {
+    console.warn("Admin data hydration failed, using local cache:", error);
+    return false;
+  }
 }

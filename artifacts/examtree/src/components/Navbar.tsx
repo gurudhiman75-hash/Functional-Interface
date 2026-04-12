@@ -28,8 +28,11 @@ export function Navbar({ onLoginClick }: NavbarProps) {
   const { toast } = useToast();
 
   const handleLogout = async () => {
+    const auth = getFirebaseAuth();
     try {
-      await signOut(getFirebaseAuth());
+      if (auth) {
+        await signOut(auth);
+      }
     } catch {
       // Keep local logout resilient.
     } finally {
@@ -44,7 +47,7 @@ export function Navbar({ onLoginClick }: NavbarProps) {
   const navLinks = user
     ? [
         { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
-        { href: "/tests", label: "Tests", icon: <FlaskConical className="w-4 h-4" /> },
+        { href: "/exams", label: "Exams", icon: <FlaskConical className="w-4 h-4" /> },
         { href: "/leaderboard", label: "Leaderboard", icon: <Trophy className="w-4 h-4" /> },
         ...(isAdmin ? [{ href: "/admin", label: "Admin", icon: <ShieldCheck className="w-4 h-4" /> }] : []),
       ]

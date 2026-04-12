@@ -9,6 +9,7 @@ async function resetDatabase() {
     await db.execute(`DROP TABLE IF EXISTS "questions"`);
     await db.execute(`DROP TABLE IF EXISTS "tests"`);
     await db.execute(`DROP TABLE IF EXISTS "bundles"`);
+    await db.execute(`DROP TABLE IF EXISTS "subcategories"`);
     await db.execute(`DROP TABLE IF EXISTS "categories"`);
     await db.execute(`DROP TABLE IF EXISTS "users"`);
 
@@ -40,6 +41,16 @@ async function resetDatabase() {
     `);
 
     await db.execute(`
+      CREATE TABLE IF NOT EXISTS "subcategories" (
+        "id" text PRIMARY KEY,
+        "category_id" text NOT NULL REFERENCES "categories"("id") ON DELETE CASCADE,
+        "category_name" text NOT NULL,
+        "name" text NOT NULL,
+        "description" text NOT NULL
+      )
+    `);
+
+    await db.execute(`
       CREATE TABLE IF NOT EXISTS "bundles" (
         "id" text PRIMARY KEY,
         "name" text NOT NULL,
@@ -61,6 +72,8 @@ async function resetDatabase() {
         "name" text NOT NULL,
         "category" text NOT NULL,
         "category_id" text NOT NULL REFERENCES "categories"("id") ON DELETE CASCADE,
+        "subcategory_id" text NOT NULL DEFAULT '',
+        "subcategory_name" text NOT NULL DEFAULT '',
         "bundle_id" text REFERENCES "bundles"("id") ON DELETE SET NULL,
         "duration" integer NOT NULL,
         "total_questions" integer NOT NULL,
@@ -77,6 +90,7 @@ async function resetDatabase() {
     await db.execute(`
       CREATE TABLE IF NOT EXISTS "questions" (
         "id" serial PRIMARY KEY,
+        "client_id" text NOT NULL DEFAULT '',
         "test_id" text NOT NULL REFERENCES "tests"("id") ON DELETE CASCADE,
         "text" text NOT NULL,
         "options" jsonb NOT NULL,

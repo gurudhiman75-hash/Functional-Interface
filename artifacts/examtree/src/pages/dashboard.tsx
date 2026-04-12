@@ -54,6 +54,10 @@ export default function Dashboard() {
   useEffect(() => {
     if (user) return;
     const auth = getFirebaseAuth();
+    if (!auth) {
+      setLocation("/login/student");
+      return;
+    }
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (!firebaseUser) {
         setLocation("/login/student");
@@ -135,8 +139,8 @@ export default function Dashboard() {
             </h1>
             <p className="text-muted-foreground text-sm mt-1">Here's your performance overview</p>
           </div>
-          <Button onClick={() => setLocation("/tests")} className="gap-2 shrink-0 rounded-2xl shadow-[0_16px_35px_-24px_hsl(var(--primary)/0.8)]" data-testid="btn-new-test">
-            Start New Test
+          <Button onClick={() => setLocation("/exams")} className="gap-2 shrink-0 rounded-2xl shadow-[0_16px_35px_-24px_hsl(var(--primary)/0.8)]" data-testid="btn-new-test">
+            Explore Exams
             <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
@@ -241,8 +245,8 @@ export default function Dashboard() {
         <div className="bg-card/85 border border-border/70 rounded-2xl shadow-sm overflow-hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border">
             <h3 className="font-semibold text-foreground">Recent Test Attempts</h3>
-            <Button variant="ghost" size="sm" onClick={() => setLocation("/tests")} className="text-primary gap-1">
-              All Tests <ChevronRight className="w-3 h-3" />
+            <Button variant="ghost" size="sm" onClick={() => setLocation("/exams")} className="text-primary gap-1">
+              All Exams <ChevronRight className="w-3 h-3" />
             </Button>
           </div>
 
@@ -250,8 +254,8 @@ export default function Dashboard() {
             <div className="py-12 text-center text-muted-foreground">
               <BookOpen className="w-8 h-8 mx-auto mb-2 opacity-50" />
               <p className="text-sm">No tests attempted yet</p>
-              <Button variant="link" onClick={() => setLocation("/tests")} className="mt-2 text-primary">
-                Start your first test
+              <Button variant="link" onClick={() => setLocation("/exams")} className="mt-2 text-primary">
+                Start your first exam
               </Button>
             </div>
           ) : (

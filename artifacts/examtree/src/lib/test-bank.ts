@@ -1,5 +1,12 @@
 import { allTests, categories, type Category, type Test } from "@/lib/data";
-import { getAdminCategories, getAdminQuestions, getAdminTests } from "@/lib/storage";
+import {
+  getAdminCategories,
+  getAdminQuestions,
+  getAdminSubcategories,
+  getAdminTests,
+  type AdminSubcategory,
+  type TestKind,
+} from "@/lib/storage";
 
 const toSectionId = (value: string) =>
   value
@@ -9,6 +16,13 @@ const toSectionId = (value: string) =>
     .replace(/^-+|-+$/g, "") || "section";
 
 const normalizeSectionName = (value: string) => value.trim().toLowerCase();
+
+export type RuntimeExamGroup = AdminSubcategory & {
+  totalTests: number;
+  fullLengthCount: number;
+  sectionalCount: number;
+  topicWiseCount: number;
+};
 
 export function getRuntimeTests(): Test[] {
   const adminTests = getAdminTests();
@@ -55,7 +69,12 @@ export function getRuntimeTests(): Test[] {
       id: test.id,
       name: test.name,
       category: test.categoryName,
+      categoryName: test.categoryName,
       categoryId: test.categoryId,
+      subcategoryId: test.subcategoryId ?? "",
+      subcategoryName: test.subcategoryName ?? "",
+      access: test.access ?? "free",
+      kind: test.kind ?? "full-length",
       duration: test.duration,
       totalQuestions: totalQuestions || test.totalQuestions,
       attempts: test.attempts,
@@ -96,4 +115,60 @@ export function getRuntimeCategories(): Category[] {
       },
     ],
   }));
+}
+
+function countByKind(tests: Test[], kind: TestKind) {
+  return tests.filter((test) => (test.kind ?? "full-length") === kind).length;
+}
+
+function buildSyntheticExam(category: Category, tests: Test[]): RuntimeExamGroup {
+  return {
+    id: `general-${category.id}`,
+    categoryId: category.id,
+    categoryName: category.name,
+    name: `${category.name} General`,
+    description: `All available ${category.name} mocks in one place.`,
+    totalTests: tests.length,
+    fullLengthCount: countByKind(tests, "full-length"),
+    sectionalCount: countByKind(tests, "sectional"),
+    topicWiseCount: countByKind(tests, "topic-wise"),
+  };
+}
+
+export function getRuntimeExamGroups(categoryId: string): RuntimeExamGroup[] {
+  const category = getRuntimeCategories().find((item) => item.id === categoryId);
+  const tests = getRuntimeTests().filter((test) => test.categoryId === categoryId);
+  if (!category) return [];
+
+  const adminSubcategories = getAdminSubcategories().filter((item) => item.categoryId === categoryId);
+  const groups = adminSubcategories.map((subcategory) => {
+    const examTests = tests.filter((test) => test.subcategoryId === subcategory.id);
+    return {
+      ...subcategory,
+      totalTests: examTests.length,
+      fullLengthCount: countByKind(examTests, "full-length"),
+      sectionalCount: countByKind(examTests, "sectional"),
+      topicWiseCount: countByKind(examTests, "topic-wise"),
+    };
+  });
+
+  const testsWithoutExam = tests.filter((test) => !test.subcategoryId);
+  if (groups.length === 0 && tests.length > 0) {
+    return [buildSyntheticExam(category, tests)];
+  }
+
+  if (testsWithoutExam.length > 0) {
+    groups.push(buildSyntheticExam(category, testsWithoutExam));
+  }
+
+  return groups.sort((left, right) => right.totalTests - left.totalTests || left.name.localeCompare(right.name));
+}
+
+export function getRuntimeExamGroup(examId: string): RuntimeExamGroup | null {
+  const categories = getRuntimeCategories();
+  for (const category of categories) {
+    const group = getRuntimeExamGroups(category.id).find((item) => item.id === examId);
+    if (group) return group;
+  }
+  return null;
 }

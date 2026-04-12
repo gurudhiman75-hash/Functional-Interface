@@ -13,10 +13,11 @@ import {
   Sparkles,
   Clock3,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { getUser } from "@/lib/storage";
 import { getAttempts, getActiveTestSessions } from "@/lib/storage";
-import { getCategories, getTests, type Category, type Test } from "@/lib/data";
+import { getRuntimeCategories, getRuntimeTests } from "@/lib/test-bank";
+import type { Category, Test } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/Navbar";
@@ -53,35 +54,8 @@ export default function Home() {
   const user = getUser();
   const attempts = getAttempts();
   const activeSessionsCount = Object.keys(getActiveTestSessions()).length;
-
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [tests, setTests] = useState<Test[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    console.log("Home component mounted, starting data fetch");
-    const fetchData = async () => {
-      try {
-        console.log("Fetching categories and tests...");
-        const [categoriesData, testsData] = await Promise.all([
-          getCategories(),
-          getTests(),
-        ]);
-        console.log("Data fetched successfully:", { categoriesData, testsData });
-        setCategories(categoriesData);
-        setTests(testsData);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-        // Fallback to empty arrays
-        setCategories([]);
-        setTests([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const categories = useMemo(() => getRuntimeCategories(), []);
+  const tests = useMemo(() => getRuntimeTests(), []);
 
   const totalQuestions = tests.reduce((sum, test) => sum + test.totalQuestions, 0);
   const totalAttempts = tests.reduce((sum, test) => sum + test.attempts, 0);
@@ -94,28 +68,18 @@ export default function Home() {
     .sort((a, b) => (b.testsCount ?? 0) - (a.testsCount ?? 0))
     .slice(0, 4);
   const topCategoryMax = Math.max(...topCategories.map((category) => category.testsCount), 1);
+  const latestAttempt = attempts[0] ?? null;
+  const latestAttemptTest = latestAttempt
+    ? tests.find((test) => test.id === latestAttempt.testId) ?? null
+    : null;
 
   const handleStartTest = () => {
     if (user) {
-      setLocation("/tests");
+      setLocation("/exams");
     } else {
       setLocation("/login/student");
     }
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Loading...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,13 +102,27 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground/95 mb-8 leading-relaxed animate-fadeInUp max-w-2xl">
-                Practice with expert-built mocks, review mistakes faster, and track progress with a cleaner workflow built around students.
+                Practice with refined mocks, revisit every solution, and track progress with a cleaner workflow built around students.
               </p>
-              <div className="flex animate-fadeInUp">
+              <div className="flex flex-col sm:flex-row animate-fadeInUp gap-3">
                 <Button size="lg" onClick={handleStartTest} className="gap-2 text-base rounded-2xl px-6 shadow-[0_20px_45px_-24px_hsl(var(--primary)/0.8)]" data-testid="btn-start-test">
                   Start Student Practice
                   <ArrowRight className="w-4 h-4" />
                 </Button>
+                <Button size="lg" variant="outline" onClick={() => setLocation("/exams")} className="rounded-2xl px-6 bg-white/80" data-testid="btn-browse-home-tests">
+                  Browse Exams
+                </Button>
+                {latestAttemptTest && (
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    onClick={() => setLocation(`/result?testId=${latestAttemptTest.id}&tab=review`)}
+                    className="rounded-2xl px-6"
+                    data-testid="btn-latest-solution"
+                  >
+                    Latest Solution
+                  </Button>
+                )}
               </div>
               <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {[
@@ -191,6 +169,13 @@ export default function Home() {
                           : "New attempts and saved progress appear here once you start practicing.",
                       icon: <TrendingUp className="w-5 h-5" />,
                     },
+                    {
+                      title: "Latest review",
+                      text: latestAttempt
+                        ? `Your last score was ${latestAttempt.score}% on ${latestAttempt.testName}. Open the solution review to revisit missed questions.`
+                        : "Your latest attempt and solution review will appear here after you complete a test.",
+                      icon: <Sparkles className="w-5 h-5" />,
+                    },
                   ].map((panel) => (
                     <div key={panel.title} className="rounded-2xl border border-white/10 bg-card/90 p-4 shadow-sm">
                       <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted/80 text-primary">{panel.icon}</div>
@@ -207,6 +192,26 @@ export default function Home() {
                     </div>
                     <p className="text-3xl font-bold text-emerald-300">{totalQuestions}</p>
                   </div>
+                  {latestAttempt && (
+                    <div className="mb-4 rounded-2xl border border-white/10 bg-white/8 p-4">
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">Recent attempt</p>
+                      <div className="mt-2 flex items-center justify-between gap-3">
+                        <div>
+                          <p className="font-semibold text-white">{latestAttempt.testName}</p>
+                          <p className="text-xs text-white/65">{latestAttempt.score}% score • {latestAttempt.timeSpent} min</p>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="rounded-xl"
+                          onClick={() => setLocation(`/result?testId=${latestAttempt.testId}&tab=review`)}
+                          data-testid="btn-home-review"
+                        >
+                          Review
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                   <div className="grid grid-cols-4 gap-2 items-end">
                     {topCategories.map((category) => (
                       <div key={category.id} className="rounded-xl bg-white/8 p-3">
@@ -277,8 +282,8 @@ export default function Home() {
           })}
         </div>
         <div className="text-center mt-8">
-          <Button variant="outline" className="rounded-2xl border-white/30 bg-card/90 text-foreground" onClick={() => setLocation("/tests")} data-testid="btn-view-all-tests">
-            Browse All Tests
+          <Button variant="outline" className="rounded-2xl border-white/30 bg-card/90 text-foreground" onClick={() => setLocation("/exams")} data-testid="btn-view-all-tests">
+            Browse All Exams
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>

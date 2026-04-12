@@ -5,6 +5,7 @@ import testsRouter from "./tests";
 import attemptsRouter from "./attempts";
 import categoriesRouter from "./categories";
 import bundlesRouter from "./bundles";
+import adminDataRouter from "./admin-data";
 
 const router: IRouter = Router();
 
@@ -14,5 +15,6 @@ router.use("/tests", testsRouter);
 router.use("/attempts", attemptsRouter);
 router.use("/categories", categoriesRouter);
 router.use("/bundles", bundlesRouter);
+router.use("/admin-data", adminDataRouter);
 
 export default router;

@@ -12,14 +12,14 @@ declare global {
   }
 }
 
-export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   if (!auth) {
-    return res.status(500).json({ error: "Authentication not configured" });
+    return void res.status(500).json({ error: "Authentication not configured" });
   }
 
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "No token provided" });
+    return void res.status(401).json({ error: "No token provided" });
   }
 
   const token = authHeader.substring(7);
@@ -30,7 +30,8 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
       email: decodedToken.email,
     };
     next();
+    return;
   } catch (error) {
-    res.status(401).json({ error: "Invalid token" });
+    return void res.status(401).json({ error: "Invalid token" });
   }
 };

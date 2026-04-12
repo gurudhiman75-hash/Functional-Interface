@@ -103,6 +103,10 @@ export default function Test() {
   useEffect(() => {
     if (user) return;
     const auth = getFirebaseAuth();
+    if (!auth) {
+      setLocation("/login/student");
+      return;
+    }
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (!firebaseUser) {
         setLocation("/login/student");
@@ -253,6 +257,17 @@ export default function Test() {
         )
       : Math.round((totalTime - timeLeft) / 60);
 
+    const questionReview = allQuestions.map((question) => ({
+      questionId: question.id,
+      section: question.section,
+      text: question.text,
+      options: question.options,
+      selected: answers[question.id] ?? null,
+      correct: question.correct,
+      flagged: Boolean(flags[question.id]),
+      explanation: question.explanation,
+    }));
+
     addAttempt({
       testId: test.id,
       testName: test.name,
@@ -275,6 +290,7 @@ export default function Test() {
             };
           })
         : undefined,
+      questionReview,
     });
 
     clearActiveTestSession(test.id);
@@ -333,13 +349,6 @@ export default function Test() {
     handleSubmit();
   }, [currentSectionIndex, handleSubmit, hasSectionalTiming, sectionTimeLeft, test.sections.length]);
 
-  const goToSection = (sectionIndex: number, questionIndex = 0) => {
-    if (hasLockedSections && sectionIndex !== currentSectionIndex) return;
-    setCurrentSectionIndex(sectionIndex);
-    setCurrentQuestionIndex(questionIndex);
-    window.scrollTo(0, 0);
-  };
-
   const goToPrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((value) => value - 1);
@@ -349,7 +358,7 @@ export default function Test() {
 
     if (!hasLockedSections && currentSectionIndex > 0) {
       const previousSectionIndex = currentSectionIndex - 1;
-      goToSection(previousSectionIndex, test.sections[previousSectionIndex].questions.length - 1);
+      navigateToSection(previousSectionIndex, test.sections[previousSectionIndex].questions.length - 1);
     }
   };
 
@@ -361,7 +370,7 @@ export default function Test() {
     }
 
     if (currentSectionIndex < test.sections.length - 1) {
-      goToSection(currentSectionIndex + 1, 0);
+      navigateToSection(currentSectionIndex + 1, 0);
       return;
     }
 
@@ -374,6 +383,13 @@ export default function Test() {
 
   const toggleReview = () => {
     setFlags((current) => ({ ...current, [q.id]: !current[q.id] }));
+  };
+
+  const navigateToSection = (sectionIndex: number, questionIndex = 0) => {
+    if (hasLockedSections && sectionIndex !== currentSectionIndex) return;
+    setCurrentSectionIndex(sectionIndex);
+    setCurrentQuestionIndex(questionIndex);
+    window.scrollTo(0, 0);
   };
 
   if (!user || !q) return null;
@@ -410,6 +426,36 @@ export default function Test() {
       <main className="relative z-[205] mx-auto max-w-7xl px-4 py-6">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
             <div className="min-w-0 space-y-6">
+            <section className="glass-panel rounded-2xl p-4 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Sections</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Move through the paper with a cleaner section flow.</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {test.sections.map((section, sectionIndex) => {
+                    const isActive = sectionIndex === currentSectionIndex;
+                    return (
+                      <button
+                        key={section.id}
+                        type="button"
+                        onClick={() => navigateToSection(sectionIndex, 0)}
+                        disabled={hasLockedSections && sectionIndex !== currentSectionIndex}
+                        className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                          isActive
+                            ? "bg-primary text-primary-foreground shadow-sm"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80"
+                        } disabled:cursor-not-allowed disabled:opacity-50`}
+                        data-testid={`section-tab-${section.id}`}
+                      >
+                        {section.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+
             {/* Question Header */}
             <section className="glass-panel rounded-2xl p-6 shadow-sm">
               <div className="flex items-center justify-between mb-4">
@@ -596,7 +642,7 @@ export default function Test() {
                             <button
                               key={question.id}
                               type="button"
-                              onClick={() => goToSection(sectionIndex, questionIndex)}
+                              onClick={() => navigateToSection(sectionIndex, questionIndex)}
                               disabled={hasLockedSections && sectionIndex !== currentSectionIndex}
                               className={`h-10 w-10 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
                                 isCurrent

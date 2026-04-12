@@ -14,7 +14,7 @@ import {
   updateAdminCategory,
   saveAdminCategories, saveAdminSubcategories, saveAdminTests, saveAdminQuestions,
   markSeeded, hydrateAdminDataFromCloud, pauseAdminCloudSync, resumeAdminCloudSync,
-  type AdminCategory, type AdminSubcategory, type AdminTest, type AdminQuestion,
+  type AdminCategory, type AdminSubcategory, type AdminTest, type AdminQuestion, type TestAccess, type TestKind,
 } from "@/lib/storage";
 import {
   addCategory,
@@ -49,6 +49,17 @@ const DIFFICULTY_COLORS: Record<string, string> = {
   Easy: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
   Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
   Hard: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+};
+
+const TEST_KIND_LABELS: Record<TestKind, string> = {
+  "full-length": "Full Length",
+  sectional: "Sectional",
+  "topic-wise": "Topic Wise",
+};
+
+const TEST_ACCESS_LABELS: Record<TestAccess, string> = {
+  free: "Free",
+  paid: "Paid",
 };
 
 // ── Sections tag-input component ──────────────────────────────────────────────
@@ -291,6 +302,8 @@ async function seedDefaults() {
           categoryName: s.categoryName,
           subcategoryId: subcatId,
           subcategoryName: s.name,
+          access: mockIdx <= 2 ? "free" : "paid",
+          kind: mockIdx <= 2 ? "full-length" : mockIdx % 2 === 0 ? "sectional" : "topic-wise",
           duration,
           totalQuestions: sections.length * questionsPerSection,
           difficulty,
@@ -340,6 +353,8 @@ const blankTestForm = () => ({
   name: "",
   categoryId: "",
   subcategoryId: "",
+  access: "free" as TestAccess,
+  kind: "full-length" as TestKind,
   duration: "",
   totalQuestions: "",
   difficulty: "Medium" as AdminTest["difficulty"],
@@ -448,6 +463,11 @@ export default function Admin() {
 
   useEffect(() => {
     const auth = getFirebaseAuth();
+    if (!auth) {
+      setIsAuthorizing(false);
+      setLocation("/login/student");
+      return;
+    }
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (!firebaseUser) {
         setIsAuthorizing(false);
@@ -607,6 +627,8 @@ export default function Admin() {
         categoryName: cat?.name ?? "",
         subcategoryId: testForm.subcategoryId,
         subcategoryName: subcat?.name ?? "",
+        access: testForm.access,
+        kind: testForm.kind,
         duration: Number(testForm.duration) || 180,
         totalQuestions: Number(testForm.totalQuestions) || 90,
         difficulty: testForm.difficulty,
@@ -899,7 +921,7 @@ export default function Admin() {
           <div className="space-y-5 animate-fadeIn">
             <div className="glass-panel rounded-2xl p-6 shadow-sm">
               <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                <Plus className="w-4 h-4 text-primary" /> Add New Subcategory
+                <Plus className="w-4 h-4 text-primary" /> Add New Exam
               </h3>
               <form onSubmit={handleAddSubcat} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
@@ -918,14 +940,14 @@ export default function Admin() {
                   <Input className="mt-1" value={subcatForm.description} onChange={(e) => setSubcatForm({ ...subcatForm, description: e.target.value })} />
                 </div>
                 <div className="sm:col-span-3">
-                  <Button type="submit"><Plus className="w-4 h-4 mr-1.5" /> Add Subcategory</Button>
+                  <Button type="submit"><Plus className="w-4 h-4 mr-1.5" /> Add Exam</Button>
                 </div>
               </form>
             </div>
 
             <div className="glass-panel rounded-2xl shadow-sm overflow-hidden">
               <div className="px-6 py-4 border-b border-border">
-                <h3 className="font-semibold text-foreground">Subcategories ({subcats.length})</h3>
+                <h3 className="font-semibold text-foreground">Exams ({subcats.length})</h3>
               </div>
               <div className="divide-y divide-border">
                 {subcats.map((s) => (
@@ -987,7 +1009,7 @@ export default function Admin() {
                   </select>
                 </div>
                 <div>
-                  <Label htmlFor="test-subcategory">Subcategory *</Label>
+                  <Label htmlFor="test-subcategory">Exam *</Label>
                   <select
                     id="test-subcategory"
                     className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
@@ -995,8 +1017,33 @@ export default function Admin() {
                     onChange={(e) => setTestForm({ ...testForm, subcategoryId: e.target.value })}
                     required
                   >
-                    <option value="">Select subcategory</option>
+                    <option value="">Select exam</option>
                     {subcats.filter((s) => s.categoryId === testForm.categoryId).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <Label htmlFor="test-kind">Test Type</Label>
+                  <select
+                    id="test-kind"
+                    className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    value={testForm.kind}
+                    onChange={(e) => setTestForm({ ...testForm, kind: e.target.value as TestKind })}
+                  >
+                    <option value="full-length">Full Length</option>
+                    <option value="sectional">Sectional</option>
+                    <option value="topic-wise">Topic Wise</option>
+                  </select>
+                </div>
+                <div>
+                  <Label htmlFor="test-access">Access</Label>
+                  <select
+                    id="test-access"
+                    className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    value={testForm.access}
+                    onChange={(e) => setTestForm({ ...testForm, access: e.target.value as TestAccess })}
+                  >
+                    <option value="free">Free</option>
+                    <option value="paid">Paid</option>
                   </select>
                 </div>
                 <div>
@@ -1148,13 +1195,36 @@ export default function Admin() {
                             </select>
                           </div>
                           <div>
-                            <Label className="text-xs">Subcategory</Label>
+                            <Label className="text-xs">Exam</Label>
                             <select
                               className="mt-0.5 w-full h-8 px-2 bg-background border border-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-ring"
                               value={editingTest.subcategoryId}
                               onChange={(e) => setEditingTest({ ...editingTest, subcategoryId: e.target.value })}
                             >
                               {subcats.filter((s) => s.categoryId === editingTest.categoryId).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                            </select>
+                          </div>
+                          <div>
+                            <Label className="text-xs">Test Type</Label>
+                            <select
+                              className="mt-0.5 w-full h-8 px-2 bg-background border border-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-ring"
+                              value={editingTest.kind}
+                              onChange={(e) => setEditingTest({ ...editingTest, kind: e.target.value as TestKind })}
+                            >
+                              <option value="full-length">Full Length</option>
+                              <option value="sectional">Sectional</option>
+                              <option value="topic-wise">Topic Wise</option>
+                            </select>
+                          </div>
+                          <div>
+                            <Label className="text-xs">Access</Label>
+                            <select
+                              className="mt-0.5 w-full h-8 px-2 bg-background border border-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-ring"
+                              value={editingTest.access}
+                              onChange={(e) => setEditingTest({ ...editingTest, access: e.target.value as TestAccess })}
+                            >
+                              <option value="free">Free</option>
+                              <option value="paid">Paid</option>
                             </select>
                           </div>
                           <div>
@@ -1306,6 +1376,16 @@ export default function Admin() {
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap mb-1">
                               <p className="font-medium text-foreground text-sm">{test.name}</p>
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary/10 text-primary">
+                                {TEST_KIND_LABELS[test.kind ?? "full-length"]}
+                              </span>
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                                (test.access ?? "free") === "free"
+                                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                                  : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                              }`}>
+                                {TEST_ACCESS_LABELS[test.access ?? "free"]}
+                              </span>
                               <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${DIFFICULTY_COLORS[test.difficulty]}`}>{test.difficulty}</span>
                             </div>
                             <p className="text-xs text-muted-foreground mb-1.5">

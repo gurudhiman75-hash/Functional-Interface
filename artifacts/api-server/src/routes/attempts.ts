@@ -12,7 +12,7 @@ router.get("/", authenticate, async (req, res) => {
   if (!userId) return res.status(401).json({ error: "Unauthorized" });
 
   const userAttempts = await db.select().from(attempts).where(eq(attempts.userId, userId));
-  res.json(userAttempts.map(TestAttempt.parse));
+  return res.json(userAttempts.map(TestAttempt.parse));
 });
 
 router.post("/", authenticate, async (req, res) => {
@@ -21,7 +21,7 @@ router.post("/", authenticate, async (req, res) => {
 
   const attemptData = { ...req.body, userId, id: `${userId}-${Date.now()}` };
   const newAttempt = await db.insert(attempts).values(attemptData).returning();
-  res.json(TestAttempt.parse(newAttempt[0]));
+  return res.json(TestAttempt.parse(newAttempt[0]));
 });
 
 export default router;

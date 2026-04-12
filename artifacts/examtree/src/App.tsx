@@ -37,6 +37,7 @@ function Router() {
           <Route path="/login/student" component={Login} />
           <Route path="/login/admin" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/exams" component={Tests} />
           <Route path="/tests" component={Tests} />
           <Route path="/category/:id" component={Category} />
           <Route path="/subcategory/:id" component={Subcategory} />

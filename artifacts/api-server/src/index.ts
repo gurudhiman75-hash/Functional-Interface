@@ -18,9 +18,48 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+async function ensureSchema() {
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS "subcategories" (
+      "id" text PRIMARY KEY,
+      "category_id" text NOT NULL REFERENCES "categories"("id") ON DELETE CASCADE,
+      "category_name" text NOT NULL,
+      "name" text NOT NULL,
+      "description" text NOT NULL
+    )
+  `);
+
+  await db.execute(`
+    ALTER TABLE "tests"
+    ADD COLUMN IF NOT EXISTS "subcategory_id" text NOT NULL DEFAULT ''
+  `);
+
+  await db.execute(`
+    ALTER TABLE "tests"
+    ADD COLUMN IF NOT EXISTS "subcategory_name" text NOT NULL DEFAULT ''
+  `);
+
+  await db.execute(`
+    ALTER TABLE "tests"
+    ADD COLUMN IF NOT EXISTS "access" text NOT NULL DEFAULT 'free'
+  `);
+
+  await db.execute(`
+    ALTER TABLE "tests"
+    ADD COLUMN IF NOT EXISTS "kind" text NOT NULL DEFAULT 'full-length'
+  `);
+
+  await db.execute(`
+    ALTER TABLE "questions"
+    ADD COLUMN IF NOT EXISTS "client_id" text NOT NULL DEFAULT ''
+  `);
+}
+
 // Initialize database and seed data
 async function initializeAndSeed() {
   try {
+    await ensureSchema();
+
     const existingCategories = await db.select().from(categories);
     const existingTests = await db.select().from(tests);
     
@@ -52,16 +91,16 @@ async function initializeAndSeed() {
 
       // Seed tests
       const testData = [
-        { id: "1", name: "JEE Main Mock 1", category: "JEE", categoryId: "1", duration: 180, totalQuestions: 9, attempts: 5421, avgScore: 72, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "2", name: "JEE Main Mock 2", category: "JEE", categoryId: "1", duration: 180, totalQuestions: 9, attempts: 4230, avgScore: 69, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "3", name: "NEET Mock 1", category: "NEET", categoryId: "2", duration: 180, totalQuestions: 9, attempts: 4100, avgScore: 75, difficulty: "Medium" as const, sections: JSON.stringify([]) },
-        { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "5", name: "CAT Mock 1", category: "CAT", categoryId: "3", duration: 120, totalQuestions: 9, attempts: 1500, avgScore: 65, difficulty: "Medium" as const, sections: JSON.stringify([]) },
-        { id: "6", name: "UPSC GS Paper 1", category: "UPSC", categoryId: "4", duration: 120, totalQuestions: 9, attempts: 890, avgScore: 58, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "7", name: "IBPS PO Prelims", category: "Banking", categoryId: "7", duration: 60, totalQuestions: 9, attempts: 3200, avgScore: 62, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", duration: 45, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]) },
-        { id: "9", name: "Punjab PSC Mock", category: "Punjab", categoryId: "8", duration: 120, totalQuestions: 9, attempts: 1200, avgScore: 60, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "10", name: "PSSSB Exam Mock", category: "Punjab", categoryId: "8", duration: 90, totalQuestions: 9, attempts: 980, avgScore: 64, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+        { id: "1", name: "JEE Main Mock 1", category: "JEE", categoryId: "1", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 5421, avgScore: 72, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "2", name: "JEE Main Mock 2", category: "JEE", categoryId: "1", access: "paid" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4230, avgScore: 69, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "3", name: "NEET Mock 1", category: "NEET", categoryId: "2", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4100, avgScore: 75, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+        { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", access: "paid" as const, kind: "sectional" as const, duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "5", name: "CAT Mock 1", category: "CAT", categoryId: "3", access: "free" as const, kind: "topic-wise" as const, duration: 120, totalQuestions: 9, attempts: 1500, avgScore: 65, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+        { id: "6", name: "UPSC GS Paper 1", category: "UPSC", categoryId: "4", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 890, avgScore: 58, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "7", name: "IBPS PO Prelims", category: "Banking", categoryId: "7", access: "free" as const, kind: "full-length" as const, duration: 60, totalQuestions: 9, attempts: 3200, avgScore: 62, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", access: "paid" as const, kind: "sectional" as const, duration: 45, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+        { id: "9", name: "Punjab PSC Mock", category: "Punjab", categoryId: "8", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 1200, avgScore: 60, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "10", name: "PSSSB Exam Mock", category: "Punjab", categoryId: "8", access: "paid" as const, kind: "topic-wise" as const, duration: 90, totalQuestions: 9, attempts: 980, avgScore: 64, difficulty: "Medium" as const, sections: JSON.stringify([]) },
       ];
 
       for (const test of testData) {

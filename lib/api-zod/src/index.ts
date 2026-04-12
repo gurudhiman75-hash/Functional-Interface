@@ -26,6 +26,16 @@ export type User = {
   updatedAt: number;
 };
 
+function normalizeTimestamp(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string") {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? null : parsed;
+  }
+  if (value instanceof Date) return value.getTime();
+  return null;
+}
+
 export const User = {
   parse(value: unknown): User {
     if (
@@ -40,11 +50,15 @@ export const User = {
       "role" in value &&
       (value.role === "admin" || value.role === "student") &&
       "createdAt" in value &&
-      typeof value.createdAt === "number" &&
+      normalizeTimestamp(value.createdAt) !== null &&
       "updatedAt" in value &&
-      typeof value.updatedAt === "number"
+      normalizeTimestamp(value.updatedAt) !== null
     ) {
-      return value as User;
+      return {
+        ...(value as User),
+        createdAt: normalizeTimestamp(value.createdAt)!,
+        updatedAt: normalizeTimestamp(value.updatedAt)!,
+      };
     }
     throw new Error("Invalid user");
   },

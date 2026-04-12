@@ -1,32 +1,13 @@
-// import {
-//   collection,
-//   deleteDoc,
-//   doc,
-//   getDocs,
-//   setDoc,
-// } from "firebase/firestore";
-// import { getFirebaseDb } from "@/lib/firebase";
+import { hydrateAdminDataFromCloud, syncAdminDataToCloudOrThrow } from "@/lib/storage";
 import {
-  addAdminCategory as addLocalCategory,
-  addAdminQuestion as addLocalQuestion,
-  addAdminSubcategory as addLocalSubcategory,
-  addAdminTest as addLocalTest,
-  deleteAdminCategory as deleteLocalCategory,
-  deleteAdminQuestion as deleteLocalQuestion,
-  deleteAdminSubcategory as deleteLocalSubcategory,
-  deleteAdminTest as deleteLocalTest,
-  getAdminCategories as getLocalCategories,
-  getAdminQuestions as getLocalQuestions,
-  getAdminSubcategories as getLocalSubcategories,
-  getAdminTests as getLocalTests,
+  getAdminCategories,
+  getAdminQuestions,
+  getAdminSubcategories,
+  getAdminTests,
   saveAdminCategories,
   saveAdminQuestions,
   saveAdminSubcategories,
   saveAdminTests,
-  updateAdminCategory as updateLocalCategory,
-  updateAdminQuestion as updateLocalQuestion,
-  updateAdminSubcategory as updateLocalSubcategory,
-  updateAdminTest as updateLocalTest,
   type AdminCategory,
   type AdminQuestion,
   type AdminSubcategory,
@@ -40,231 +21,182 @@ type AdminSnapshot = {
   questions: AdminQuestion[];
 };
 
-function toAdminRepoError(error: unknown): Error {
-  const code =
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    typeof (error as { code?: unknown }).code === "string"
-      ? (error as { code: string }).code
-      : "";
-
-  if (code === "permission-denied") {
-    return new Error("You do not have permission to modify admin data.");
-  }
-
-  if (error instanceof Error) {
-    return error;
-  }
-
-  return new Error("Admin data request failed.");
+function getSnapshot(): AdminSnapshot {
+  return {
+    categories: getAdminCategories(),
+    subcategories: getAdminSubcategories(),
+    tests: getAdminTests(),
+    questions: getAdminQuestions(),
+  };
 }
 
-const COL_CATEGORIES = "admin_categories";
-const COL_SUBCATEGORIES = "admin_subcategories";
-const COL_TESTS = "admin_tests";
-const COL_QUESTIONS = "admin_questions";
-
-async function listCollection<T>(name: string): Promise<T[]> {
-  // Firebase disabled for development
-  throw new Error("Firebase not available");
-}
-
-async function setCollectionDoc<T extends { id: string }>(name: string, item: T): Promise<void> {
-  // Firebase disabled for development
-  throw new Error("Firebase not available");
-}
-
-async function removeCollectionDoc(name: string, id: string): Promise<void> {
-  // Firebase disabled for development
-  throw new Error("Firebase not available");
-}
-
-function syncLocal(snapshot: AdminSnapshot) {
+function setSnapshot(snapshot: AdminSnapshot) {
   saveAdminCategories(snapshot.categories);
   saveAdminSubcategories(snapshot.subcategories);
   saveAdminTests(snapshot.tests);
   saveAdminQuestions(snapshot.questions);
 }
 
-export async function loadAdminSnapshot(): Promise<AdminSnapshot> {
+async function withPersistedUpdate(mutator: (snapshot: AdminSnapshot) => AdminSnapshot) {
+  const previous = getSnapshot();
+  const next = mutator({
+    categories: [...previous.categories],
+    subcategories: [...previous.subcategories],
+    tests: [...previous.tests],
+    questions: [...previous.questions],
+  });
+
+  setSnapshot(next);
   try {
-    const [categories, subcategories, tests, questions] = await Promise.all([
-      listCollection<AdminCategory>(COL_CATEGORIES),
-      listCollection<AdminSubcategory>(COL_SUBCATEGORIES),
-      listCollection<AdminTest>(COL_TESTS),
-      listCollection<AdminQuestion>(COL_QUESTIONS),
-    ]);
-    const snapshot = { categories, subcategories, tests, questions };
-    syncLocal(snapshot);
-    return snapshot;
-  } catch {
-    return {
-      categories: getLocalCategories(),
-      subcategories: getLocalSubcategories(),
-      tests: getLocalTests(),
-      questions: getLocalQuestions(),
-    };
+    await syncAdminDataToCloudOrThrow();
+  } catch (error) {
+    setSnapshot(previous);
+    throw error;
   }
+}
+
+export async function loadAdminSnapshot(): Promise<AdminSnapshot> {
+  const hydrated = await hydrateAdminDataFromCloud();
+  if (hydrated) {
+    return getSnapshot();
+  }
+  return getSnapshot();
 }
 
 export async function addCategory(cat: Omit<AdminCategory, "id">): Promise<AdminCategory> {
-  const created = addLocalCategory(cat);
-  try {
-    await setCollectionDoc(COL_CATEGORIES, created);
-    return created;
-  } catch (error) {
-    deleteLocalCategory(created.id);
-    throw toAdminRepoError(error);
-  }
+  let created!: AdminCategory;
+  await withPersistedUpdate((snapshot) => {
+    created = {
+      ...cat,
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    };
+    snapshot.categories.push(created);
+    return snapshot;
+  });
+  return created;
 }
 
 export async function updateCategory(id: string, updates: Partial<AdminCategory>): Promise<void> {
-  const previous = getLocalCategories().find((c) => c.id === id);
-  if (!previous) return;
-
-  updateLocalCategory(id, updates);
-  try {
-    const latest = getLocalCategories().find((c) => c.id === id);
-    if (latest) await setCollectionDoc(COL_CATEGORIES, latest);
-  } catch (error) {
-    updateLocalCategory(id, previous);
-    throw toAdminRepoError(error);
-  }
+  await withPersistedUpdate((snapshot) => {
+    snapshot.categories = snapshot.categories.map((category) =>
+      category.id === id ? { ...category, ...updates } : category,
+    );
+    return snapshot;
+  });
 }
 
 export async function deleteCategory(id: string): Promise<void> {
-  const subcategoryIds = getLocalSubcategories()
-    .filter((s) => s.categoryId === id)
-    .map((s) => s.id);
-  const testIds = getLocalTests()
-    .filter((t) => t.categoryId === id || subcategoryIds.includes(t.subcategoryId))
-    .map((t) => t.id);
-  const questionIds = getLocalQuestions()
-    .filter((q) => testIds.includes(q.testId))
-    .map((q) => q.id);
+  await withPersistedUpdate((snapshot) => {
+    const subcategoryIds = snapshot.subcategories
+      .filter((subcategory) => subcategory.categoryId === id)
+      .map((subcategory) => subcategory.id);
+    const testIds = snapshot.tests
+      .filter((test) => test.categoryId === id || subcategoryIds.includes(test.subcategoryId))
+      .map((test) => test.id);
 
-  deleteLocalCategory(id);
-  try {
-    await Promise.all([
-      removeCollectionDoc(COL_CATEGORIES, id),
-      ...subcategoryIds.map((subId) => removeCollectionDoc(COL_SUBCATEGORIES, subId)),
-      ...testIds.map((testId) => removeCollectionDoc(COL_TESTS, testId)),
-      ...questionIds.map((qId) => removeCollectionDoc(COL_QUESTIONS, qId)),
-    ]);
-  } catch (error) {
-    throw toAdminRepoError(error);
-  }
+    snapshot.categories = snapshot.categories.filter((category) => category.id !== id);
+    snapshot.subcategories = snapshot.subcategories.filter((subcategory) => subcategory.categoryId !== id);
+    snapshot.tests = snapshot.tests.filter((test) => test.categoryId !== id && !subcategoryIds.includes(test.subcategoryId));
+    snapshot.questions = snapshot.questions.filter((question) => !testIds.includes(question.testId));
+    return snapshot;
+  });
 }
 
 export async function addSubcategory(item: Omit<AdminSubcategory, "id">): Promise<AdminSubcategory> {
-  const created = addLocalSubcategory(item);
-  try {
-    await setCollectionDoc(COL_SUBCATEGORIES, created);
-    return created;
-  } catch (error) {
-    deleteLocalSubcategory(created.id);
-    throw toAdminRepoError(error);
-  }
+  let created!: AdminSubcategory;
+  await withPersistedUpdate((snapshot) => {
+    created = {
+      ...item,
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    };
+    snapshot.subcategories.push(created);
+    return snapshot;
+  });
+  return created;
 }
 
-export async function updateSubcategory(id: string, updates: Partial<AdminSubcategory>): Promise<void> {
-  const previous = getLocalSubcategories().find((s) => s.id === id);
-  if (!previous) return;
-
-  updateLocalSubcategory(id, updates);
-  try {
-    const latest = getLocalSubcategories().find((s) => s.id === id);
-    if (latest) await setCollectionDoc(COL_SUBCATEGORIES, latest);
-  } catch (error) {
-    updateLocalSubcategory(id, previous);
-    throw toAdminRepoError(error);
-  }
+export async function updateSubcategory(
+  id: string,
+  updates: Partial<AdminSubcategory>,
+): Promise<void> {
+  await withPersistedUpdate((snapshot) => {
+    snapshot.subcategories = snapshot.subcategories.map((subcategory) =>
+      subcategory.id === id ? { ...subcategory, ...updates } : subcategory,
+    );
+    return snapshot;
+  });
 }
 
 export async function deleteSubcategory(id: string): Promise<void> {
-  const testIds = getLocalTests().filter((t) => t.subcategoryId === id).map((t) => t.id);
-  const questionIds = getLocalQuestions().filter((q) => testIds.includes(q.testId)).map((q) => q.id);
-  deleteLocalSubcategory(id);
-  try {
-    await Promise.all([
-      removeCollectionDoc(COL_SUBCATEGORIES, id),
-      ...testIds.map((testId) => removeCollectionDoc(COL_TESTS, testId)),
-      ...questionIds.map((qId) => removeCollectionDoc(COL_QUESTIONS, qId)),
-    ]);
-  } catch (error) {
-    throw toAdminRepoError(error);
-  }
+  await withPersistedUpdate((snapshot) => {
+    const testIds = snapshot.tests.filter((test) => test.subcategoryId === id).map((test) => test.id);
+    snapshot.subcategories = snapshot.subcategories.filter((subcategory) => subcategory.id !== id);
+    snapshot.tests = snapshot.tests.filter((test) => test.subcategoryId !== id);
+    snapshot.questions = snapshot.questions.filter((question) => !testIds.includes(question.testId));
+    return snapshot;
+  });
 }
 
-export async function addTest(test: Omit<AdminTest, "id" | "attempts" | "avgScore">): Promise<AdminTest> {
-  const created = addLocalTest(test);
-  try {
-    await setCollectionDoc(COL_TESTS, created);
-    return created;
-  } catch (error) {
-    deleteLocalTest(created.id);
-    throw toAdminRepoError(error);
-  }
+export async function addTest(
+  test: Omit<AdminTest, "id" | "attempts" | "avgScore">,
+): Promise<AdminTest> {
+  let created!: AdminTest;
+  await withPersistedUpdate((snapshot) => {
+    created = {
+      ...test,
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      attempts: 0,
+      avgScore: 0,
+    };
+    snapshot.tests.push(created);
+    return snapshot;
+  });
+  return created;
 }
 
 export async function updateTest(id: string, updates: Partial<AdminTest>): Promise<void> {
-  const previous = getLocalTests().find((t) => t.id === id);
-  if (!previous) return;
-
-  updateLocalTest(id, updates);
-  try {
-    const latest = getLocalTests().find((t) => t.id === id);
-    if (latest) await setCollectionDoc(COL_TESTS, latest);
-  } catch (error) {
-    updateLocalTest(id, previous);
-    throw toAdminRepoError(error);
-  }
+  await withPersistedUpdate((snapshot) => {
+    snapshot.tests = snapshot.tests.map((test) => (test.id === id ? { ...test, ...updates } : test));
+    return snapshot;
+  });
 }
 
 export async function deleteTest(id: string): Promise<void> {
-  const questionIds = getLocalQuestions().filter((q) => q.testId === id).map((q) => q.id);
-  deleteLocalTest(id);
-  try {
-    await Promise.all([
-      removeCollectionDoc(COL_TESTS, id),
-      ...questionIds.map((qId) => removeCollectionDoc(COL_QUESTIONS, qId)),
-    ]);
-  } catch (error) {
-    throw toAdminRepoError(error);
-  }
+  await withPersistedUpdate((snapshot) => {
+    snapshot.tests = snapshot.tests.filter((test) => test.id !== id);
+    snapshot.questions = snapshot.questions.filter((question) => question.testId !== id);
+    return snapshot;
+  });
 }
 
-export async function addQuestion(question: Omit<AdminQuestion, "id" | "createdAt">): Promise<AdminQuestion> {
-  const created = addLocalQuestion(question);
-  try {
-    await setCollectionDoc(COL_QUESTIONS, created);
-    return created;
-  } catch (error) {
-    deleteLocalQuestion(created.id);
-    throw toAdminRepoError(error);
-  }
+export async function addQuestion(
+  question: Omit<AdminQuestion, "id" | "createdAt">,
+): Promise<AdminQuestion> {
+  let created!: AdminQuestion;
+  await withPersistedUpdate((snapshot) => {
+    created = {
+      ...question,
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      createdAt: Date.now(),
+    };
+    snapshot.questions.push(created);
+    return snapshot;
+  });
+  return created;
 }
 
 export async function updateQuestion(id: string, updates: Partial<AdminQuestion>): Promise<void> {
-  const previous = getLocalQuestions().find((q) => q.id === id);
-  if (!previous) return;
-
-  updateLocalQuestion(id, updates);
-  try {
-    const latest = getLocalQuestions().find((q) => q.id === id);
-    if (latest) await setCollectionDoc(COL_QUESTIONS, latest);
-  } catch (error) {
-    updateLocalQuestion(id, previous);
-    throw toAdminRepoError(error);
-  }
+  await withPersistedUpdate((snapshot) => {
+    snapshot.questions = snapshot.questions.map((question) =>
+      question.id === id ? { ...question, ...updates } : question,
+    );
+    return snapshot;
+  });
 }
 
 export async function deleteQuestion(id: string): Promise<void> {
-  deleteLocalQuestion(id);
-  try {
-    await removeCollectionDoc(COL_QUESTIONS, id);
-  } catch (error) {
-    throw toAdminRepoError(error);
-  }
+  await withPersistedUpdate((snapshot) => {
+    snapshot.questions = snapshot.questions.filter((question) => question.id !== id);
+    return snapshot;
+  });
 }
