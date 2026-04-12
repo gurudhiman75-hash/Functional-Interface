@@ -58,7 +58,7 @@ export const tests = pgTable("tests", {
   sectionTimings: jsonb("section_timings"),
   sectionSettings: jsonb("section_settings"),
   sections: jsonb("sections").notNull(),
-  /** Display/checkout amount in cents for paid tests; ignored when access is free */
+  /** Amount in smallest currency unit (paise for INR, cents for USD, etc.) */
   priceCents: integer("price_cents"),
 });
 
@@ -71,8 +71,9 @@ export const userTestEntitlements = pgTable(
     testId: text("test_id")
       .notNull()
       .references(() => tests.id, { onDelete: "cascade" }),
-    source: text("source").$type<"stripe" | "mock" | "admin">().notNull().default("stripe"),
-    stripeCheckoutSessionId: text("stripe_checkout_session_id"),
+    source: text("source").$type<"razorpay" | "mock" | "admin">().notNull().default("razorpay"),
+    razorpayOrderId: text("razorpay_order_id"),
+    razorpayPaymentId: text("razorpay_payment_id"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (t) => ({

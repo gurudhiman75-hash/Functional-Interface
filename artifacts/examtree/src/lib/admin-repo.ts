@@ -37,29 +37,67 @@ function setSnapshot(snapshot: AdminSnapshot) {
   saveAdminQuestions(snapshot.questions);
 }
 
-async function withPersistedUpdate(mutator: (snapshot: AdminSnapshot) => AdminSnapshot) {
-  const previous = getSnapshot();
-  const next = mutator({
-    categories: [...previous.categories],
-    subcategories: [...previous.subcategories],
-    tests: [...previous.tests],
-    questions: [...previous.questions],
-  });
+/** Full snapshot PUT is slow; coalesce writes and run in the background so the UI stays responsive. */
+const SYNC_DEBOUNCE_MS = 200;
 
-  setSnapshot(next);
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+let syncRunning = false;
+let syncQueued = false;
+
+function dispatchSyncFailed(detail: string) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent("admin-cloud-sync-failed", { detail }));
+}
+
+async function runAdminCloudSync(): Promise<void> {
+  if (syncRunning) {
+    syncQueued = true;
+    return;
+  }
+  syncRunning = true;
+  syncQueued = false;
   try {
     await syncAdminDataToCloudOrThrow();
   } catch (error) {
-    setSnapshot(previous);
-    throw error;
+    try {
+      await hydrateAdminDataFromCloud();
+    } catch {
+      /* keep local cache if GET also fails */
+    }
+    const message = error instanceof Error ? error.message : "Could not save admin data to the server.";
+    dispatchSyncFailed(message);
+  } finally {
+    syncRunning = false;
+    if (syncQueued) {
+      syncQueued = false;
+      void runAdminCloudSync();
+    }
   }
 }
 
-export async function loadAdminSnapshot(): Promise<AdminSnapshot> {
-  const hydrated = await hydrateAdminDataFromCloud();
-  if (hydrated) {
-    return getSnapshot();
-  }
+function scheduleAdminCloudSync() {
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    debounceTimer = null;
+    void runAdminCloudSync();
+  }, SYNC_DEBOUNCE_MS);
+}
+
+function withPersistedUpdate(mutator: (snapshot: AdminSnapshot) => AdminSnapshot) {
+  const base = getSnapshot();
+  const next = mutator({
+    categories: [...base.categories],
+    subcategories: [...base.subcategories],
+    tests: [...base.tests],
+    questions: [...base.questions],
+  });
+
+  setSnapshot(next);
+  scheduleAdminCloudSync();
+}
+
+/** Read the current admin snapshot from local storage (no network). */
+export function getAdminSnapshot(): AdminSnapshot {
   return getSnapshot();
 }
 
@@ -183,6 +221,21 @@ export async function addQuestion(
     return snapshot;
   });
   return created;
+}
+
+/** One cloud sync for many questions (avoids N full snapshot PUTs). */
+export async function bulkAddQuestions(items: Omit<AdminQuestion, "id" | "createdAt">[]): Promise<void> {
+  if (items.length === 0) return;
+  await withPersistedUpdate((snapshot) => {
+    for (const item of items) {
+      snapshot.questions.push({
+        ...item,
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        createdAt: Date.now(),
+      });
+    }
+    return snapshot;
+  });
 }
 
 export async function updateQuestion(id: string, updates: Partial<AdminQuestion>): Promise<void> {

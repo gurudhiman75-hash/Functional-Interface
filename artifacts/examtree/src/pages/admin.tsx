@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation } from "wouter";
 import { onAuthStateChanged } from "firebase/auth";
 import {
@@ -19,13 +19,14 @@ import {
 import {
   addCategory,
   addQuestion,
+  bulkAddQuestions,
   addSubcategory,
   addTest,
   deleteCategory,
   deleteQuestion,
   deleteSubcategory,
   deleteTest,
-  loadAdminSnapshot,
+  getAdminSnapshot,
   updateCategory,
   updateQuestion,
   updateSubcategory,
@@ -438,19 +439,19 @@ export default function Admin() {
   const selectedQuestionTest = tests.find((t) => t.id === questionTestId) ?? null;
   const availableQuestionSections = selectedQuestionTest?.sections ?? [];
 
-  const reload = async () => {
-    const snapshot = await loadAdminSnapshot();
+  const reload = useCallback(() => {
+    const snapshot = getAdminSnapshot();
     setCats(snapshot.categories);
     setSubcats(snapshot.subcategories);
     setTests(snapshot.tests);
     setQuestions(snapshot.questions);
-  };
+  }, []);
 
   const handleReset = async () => {
     if (!confirm("This will clear all admin data and restore defaults. Continue?")) return;
     try {
       await seedDefaults();
-      await reload();
+      reload();
       toast({ title: "Data reset", description: "Restored to default categories and tests" });
     } catch (error) {
       toast({
@@ -491,14 +492,28 @@ export default function Admin() {
             variant: "destructive",
           });
         }
-        await reload();
+        reload();
       } finally {
         setIsAuthorizing(false);
       }
     });
 
     return () => unsub();
-  }, [setLocation, toast]);
+  }, [setLocation, toast, reload]);
+
+  useEffect(() => {
+    const onSyncFailed = (ev: Event) => {
+      const detail = (ev as CustomEvent<string>).detail ?? "Sync failed.";
+      reload();
+      toast({
+        title: "Could not save to server",
+        description: detail,
+        variant: "destructive",
+      });
+    };
+    window.addEventListener("admin-cloud-sync-failed", onSyncFailed);
+    return () => window.removeEventListener("admin-cloud-sync-failed", onSyncFailed);
+  }, [toast, reload]);
 
   useEffect(() => {
     setQuestionForm((current) => {
@@ -522,7 +537,7 @@ export default function Admin() {
     if (!catForm.name.trim()) return;
     try {
       await addCategory({ name: catForm.name.trim(), description: catForm.description.trim(), testsCount: 0 });
-      await reload();
+      reload();
       toast({ title: "Category added", description: `"${catForm.name}" created successfully` });
       setCatForm({ name: "", description: "" });
     } catch (error) {
@@ -535,7 +550,7 @@ export default function Admin() {
     if (!editingCat) return;
     try {
       await updateCategory(editingCat.id, { name: editingCat.name, description: editingCat.description });
-      await reload();
+      reload();
       toast({ title: "Category updated" });
       setEditingCat(null);
     } catch (error) {
@@ -547,7 +562,7 @@ export default function Admin() {
     if (!deletingCat) return;
     try {
       await deleteCategory(deletingCat.id);
-      await reload();
+      reload();
       toast({ title: "Category deleted", variant: "destructive" });
       setDeletingCat(null);
     } catch (error) {
@@ -566,7 +581,7 @@ export default function Admin() {
         name: subcatForm.name.trim(),
         description: subcatForm.description.trim(),
       });
-      await reload();
+      reload();
       setSubcatForm({ categoryId: "", name: "", description: "" });
       toast({ title: "Subcategory added" });
     } catch (error) {
@@ -583,7 +598,7 @@ export default function Admin() {
         ...editingSubcat,
         categoryName: cat?.name ?? editingSubcat.categoryName,
       });
-      await reload();
+      reload();
       setEditingSubcat(null);
       toast({ title: "Subcategory updated" });
     } catch (error) {
@@ -595,7 +610,7 @@ export default function Admin() {
     if (!deletingSubcat) return;
     try {
       await deleteSubcategory(deletingSubcat.id);
-      await reload();
+      reload();
       setDeletingSubcat(null);
       toast({ title: "Subcategory deleted", variant: "destructive" });
     } catch (error) {
@@ -638,8 +653,7 @@ export default function Admin() {
         sections: normalizedSections,
         sectionSettings,
       });
-      await updateCategory(testForm.categoryId, { testsCount: (cat?.testsCount ?? 0) + 1 });
-      await reload();
+      reload();
       toast({ title: "Test created", description: `"${testForm.name}" added` });
       setTestForm(blankTestForm());
     } catch (error) {
@@ -675,7 +689,7 @@ export default function Admin() {
           editingTest.sectionTimings,
         ),
       });
-      await reload();
+      reload();
       toast({ title: "Test updated" });
       setEditingTest(null);
     } catch (error) {
@@ -687,9 +701,7 @@ export default function Admin() {
     if (!deletingTest) return;
     try {
       await deleteTest(deletingTest.id);
-      const cat = cats.find((c) => c.id === deletingTest.categoryId);
-      if (cat) await updateCategory(cat.id, { testsCount: Math.max(0, (cat.testsCount ?? 1) - 1) });
-      await reload();
+      reload();
       toast({ title: "Test deleted", variant: "destructive" });
       setDeletingTest(null);
     } catch (error) {
@@ -732,7 +744,7 @@ export default function Admin() {
         });
         toast({ title: "Question added", description: "New question saved to this test" });
       }
-      await reload();
+      reload();
       setQuestionForm(blankQuestionForm(availableQuestionSections[0] ?? ""));
     } catch (error) {
       toast({ title: "Question save failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
@@ -742,7 +754,7 @@ export default function Admin() {
   const handleDeleteQuestion = async (id: string) => {
     try {
       await deleteQuestion(id);
-      await reload();
+      reload();
       toast({ title: "Question deleted", variant: "destructive" });
     } catch (error) {
       toast({ title: "Question delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
@@ -760,8 +772,8 @@ export default function Admin() {
       if (!Array.isArray(parsed)) {
         throw new Error("JSON must be an array of questions.");
       }
-      let added = 0;
       let skipped = 0;
+      const toAdd: Parameters<typeof bulkAddQuestions>[0] = [];
       for (const item of parsed) {
         if (!item || typeof item !== "object") continue;
         const section = String((item as any).section ?? "").trim();
@@ -775,7 +787,7 @@ export default function Admin() {
           skipped += 1;
           continue;
         }
-        await addQuestion({
+        toAdd.push({
           testId: questionTestId,
           section,
           text,
@@ -783,9 +795,10 @@ export default function Admin() {
           correct: Number.isFinite(correct) ? correct : 0,
           explanation,
         });
-        added += 1;
       }
-      await reload();
+      await bulkAddQuestions(toAdd);
+      const added = toAdd.length;
+      reload();
       toast({
         title: "Bulk upload complete",
         description:

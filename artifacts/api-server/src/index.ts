@@ -64,11 +64,26 @@ async function ensureSchema() {
     CREATE TABLE IF NOT EXISTS "user_test_entitlements" (
       "user_id" text NOT NULL REFERENCES "users"("id") ON DELETE CASCADE,
       "test_id" text NOT NULL REFERENCES "tests"("id") ON DELETE CASCADE,
-      "source" text NOT NULL DEFAULT 'stripe',
+      "source" text NOT NULL DEFAULT 'razorpay',
       "stripe_checkout_session_id" text,
       "created_at" timestamp DEFAULT now() NOT NULL,
       PRIMARY KEY ("user_id", "test_id")
     )
+  `);
+
+  await db.execute(`
+    ALTER TABLE "user_test_entitlements"
+    ADD COLUMN IF NOT EXISTS "razorpay_order_id" text
+  `);
+
+  await db.execute(`
+    ALTER TABLE "user_test_entitlements"
+    ADD COLUMN IF NOT EXISTS "razorpay_payment_id" text
+  `);
+
+  await db.execute(`
+    ALTER TABLE "user_test_entitlements"
+    ALTER COLUMN "source" SET DEFAULT 'razorpay'
   `);
 
   await db.execute(`

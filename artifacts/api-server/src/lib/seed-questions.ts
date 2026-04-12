@@ -1,0 +1,157 @@
+import { db } from "./db";
+import { questions } from "@workspace/db";
+import { logger } from "./logger";
+
+const SAMPLE_FOR_TEST_1 = [
+  {
+    testId: "1",
+    text: "A body of mass 2 kg is moving with velocity 3 m/s. What is its kinetic energy?",
+    options: ["9 J", "6 J", "18 J", "12 J"],
+    correct: 0,
+    section: "Physics",
+    explanation: "KE = 1/2 x m x v^2 = 9 J",
+  },
+  {
+    testId: "1",
+    text: "Which planet has the most moons in our solar system?",
+    options: ["Jupiter", "Saturn", "Uranus", "Neptune"],
+    correct: 1,
+    section: "Physics",
+    explanation: "Saturn currently has the most confirmed moons.",
+  },
+  {
+    testId: "1",
+    text: "The speed of light in vacuum is approximately:",
+    options: ["3 x 10^6 m/s", "3 x 10^8 m/s", "3 x 10^10 m/s", "3 x 10^4 m/s"],
+    correct: 1,
+    section: "Physics",
+    explanation: "The accepted value is about 3 x 10^8 m/s.",
+  },
+  {
+    testId: "1",
+    text: "The chemical formula of Baking Soda is:",
+    options: ["Na2CO3", "NaHCO3", "NaCl", "NaOH"],
+    correct: 1,
+    section: "Chemistry",
+    explanation: "Baking soda is sodium bicarbonate, NaHCO3.",
+  },
+  {
+    testId: "1",
+    text: "Which element has atomic number 79?",
+    options: ["Silver", "Platinum", "Gold", "Copper"],
+    correct: 2,
+    section: "Chemistry",
+    explanation: "Gold has atomic number 79.",
+  },
+  {
+    testId: "1",
+    text: "Water is chemically represented as:",
+    options: ["H2O", "CO2", "O2", "NaCl"],
+    correct: 0,
+    section: "Chemistry",
+    explanation: "A water molecule contains two hydrogen atoms and one oxygen atom.",
+  },
+  {
+    testId: "1",
+    text: "If sin theta = 3/5, then cos theta equals:",
+    options: ["4/5", "3/4", "5/4", "5/3"],
+    correct: 0,
+    section: "Mathematics",
+    explanation: "Using the Pythagorean identity, cos theta = 4/5.",
+  },
+  {
+    testId: "1",
+    text: "What is the derivative of sin(x)?",
+    options: ["-cos(x)", "cos(x)", "-sin(x)", "tan(x)"],
+    correct: 1,
+    section: "Mathematics",
+    explanation: "The derivative of sin(x) is cos(x).",
+  },
+  {
+    testId: "1",
+    text: "What is the value of log10(1000)?",
+    options: ["2", "3", "4", "10"],
+    correct: 1,
+    section: "Mathematics",
+    explanation: "Since 1000 = 10^3, log10(1000) = 3.",
+  },
+];
+
+const SAMPLE_FOR_TEST_3 = [
+  {
+    testId: "3",
+    text: "The process by which plants make food using sunlight is called:",
+    options: ["Respiration", "Transpiration", "Photosynthesis", "Germination"],
+    correct: 2,
+    section: "Biology",
+    explanation: "Photosynthesis converts sunlight into chemical energy.",
+  },
+  {
+    testId: "3",
+    text: "Which part of the cell contains genetic material?",
+    options: ["Nucleus", "Ribosome", "Cell wall", "Cytoplasm"],
+    correct: 0,
+    section: "Biology",
+    explanation: "The nucleus stores most of the cell's genetic material.",
+  },
+  {
+    testId: "3",
+    text: "Human blood is red because it contains:",
+    options: ["Chlorophyll", "Hemoglobin", "Platelets", "Plasma"],
+    correct: 1,
+    section: "Biology",
+    explanation: "Hemoglobin gives blood its red color.",
+  },
+];
+
+function genericBlock(testId: string, count: number, section: string) {
+  return Array.from({ length: count }, (_, i) => ({
+    testId,
+    text: `Practice question ${i + 1}: What is ${2 + i} + ${3 + i}?`,
+    options: [`${4 + i}`, `${5 + 2 * i}`, `${6 + i}`, `${7 + i}`],
+    correct: 1,
+    section,
+    explanation: `The sum is ${5 + 2 * i}.`,
+  }));
+}
+
+/** Minimum rows to consider the question bank complete for the default 10 tests (9 Q each). */
+const MIN_QUESTION_ROWS = 80;
+
+export async function ensureSampleQuestions(): Promise<void> {
+  const existing = await db.select().from(questions);
+  if (existing.length >= MIN_QUESTION_ROWS) {
+    return;
+  }
+
+  logger.info(
+    { existing: existing.length },
+    "Seeding sample questions (bank missing or incomplete)",
+  );
+
+  await db.execute(`DELETE FROM "questions"`);
+
+  const bulk: {
+    testId: string;
+    text: string;
+    options: string[];
+    correct: number;
+    section: string;
+    explanation: string;
+  }[] = [
+    ...SAMPLE_FOR_TEST_1,
+    ...SAMPLE_FOR_TEST_3,
+    ...genericBlock("3", 6, "Biology"),
+    ...genericBlock("2", 9, "General"),
+    ...genericBlock("4", 9, "General"),
+    ...genericBlock("5", 9, "General"),
+    ...genericBlock("6", 9, "General"),
+    ...genericBlock("7", 9, "General"),
+    ...genericBlock("8", 9, "General"),
+    ...genericBlock("9", 9, "General"),
+    ...genericBlock("10", 9, "General"),
+  ];
+
+  await db.insert(questions).values(bulk);
+  logger.info({ count: bulk.length }, "Sample questions seeded");
+}

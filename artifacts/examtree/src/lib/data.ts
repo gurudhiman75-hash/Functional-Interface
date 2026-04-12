@@ -105,12 +105,29 @@ export async function fetchMyEntitlements(): Promise<{ testIds: string[] }> {
   return apiRequest<{ testIds: string[] }>("/users/me/entitlements");
 }
 
-export async function createTestCheckoutSession(body: {
+export async function createRazorpayOrder(body: {
   testId: string;
   successPath?: string;
-  cancelPath?: string;
-}): Promise<{ url: string }> {
-  return apiRequest<{ url: string }>("/billing/checkout-session", {
+}): Promise<{
+  orderId: string;
+  amount: number;
+  currency: string;
+  keyId: string;
+  testName: string;
+}> {
+  return apiRequest("/billing/razorpay/create-order", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function verifyRazorpayPayment(body: {
+  testId: string;
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}): Promise<{ ok: boolean }> {
+  return apiRequest("/billing/razorpay/verify", {
     method: "POST",
     body: JSON.stringify(body),
   });

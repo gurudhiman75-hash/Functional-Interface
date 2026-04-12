@@ -61,6 +61,8 @@ type AdminSnapshot = {
 
 const router: IRouter = Router();
 
+const INSERT_CHUNK = 400;
+
 async function assertAdmin(userId: string) {
   const rows = await db.select().from(users).where(eq(users.id, userId)).limit(1);
   if (rows.length === 0 || rows[0].role !== "admin") {
@@ -174,64 +176,71 @@ router.put("/", authenticate, async (req, res) => {
       await tx.execute(`DELETE FROM "subcategories"`);
       await tx.execute(`DELETE FROM "categories"`);
 
-      for (const category of snapshot.categories ?? []) {
+      const categoryRows = (snapshot.categories ?? []).map((category) => {
         const defaults = defaultCategoryIcon(category.name);
         const prior = existingCategoryMap.get(category.id);
-        await tx.insert(categories).values({
+        return {
           id: category.id,
           name: category.name,
           description: category.description,
           icon: prior?.icon ?? defaults.icon,
           color: prior?.color ?? defaults.color,
           testsCount: 0,
-        });
+        };
+      });
+      if (categoryRows.length > 0) {
+        await tx.insert(categories).values(categoryRows);
       }
 
-      for (const subcategory of snapshot.subcategories ?? []) {
-        await tx.insert(subcategories).values({
-          id: subcategory.id,
-          categoryId: subcategory.categoryId,
-          categoryName: subcategory.categoryName,
-          name: subcategory.name,
-          description: subcategory.description,
-        });
+      const subcategoryRows = (snapshot.subcategories ?? []).map((subcategory) => ({
+        id: subcategory.id,
+        categoryId: subcategory.categoryId,
+        categoryName: subcategory.categoryName,
+        name: subcategory.name,
+        description: subcategory.description,
+      }));
+      if (subcategoryRows.length > 0) {
+        await tx.insert(subcategories).values(subcategoryRows);
       }
 
-      for (const test of snapshot.tests ?? []) {
-        await tx.insert(tests).values({
-          id: test.id,
-          name: test.name,
-          category: test.categoryName,
-          categoryId: test.categoryId,
-          subcategoryId: test.subcategoryId ?? "",
-          subcategoryName: test.subcategoryName ?? "",
-          access: test.access ?? "free",
-          kind: test.kind ?? "full-length",
-          duration: test.duration,
-          totalQuestions: test.totalQuestions,
-          attempts: test.attempts ?? 0,
-          avgScore: test.avgScore ?? 0,
-          difficulty: test.difficulty,
-          sectionTimingMode: test.sectionTimingMode ?? "none",
-          sectionTimings: test.sectionTimings ?? [],
-          sectionSettings: test.sectionSettings ?? [],
-          sections: test.sections ?? [],
-          priceCents:
-            test.priceCents ??
-            (test.access === "paid" ? 499 : null),
-        });
+      const testRows = (snapshot.tests ?? []).map((test) => ({
+        id: test.id,
+        name: test.name,
+        category: test.categoryName,
+        categoryId: test.categoryId,
+        subcategoryId: test.subcategoryId ?? "",
+        subcategoryName: test.subcategoryName ?? "",
+        access: test.access ?? "free",
+        kind: test.kind ?? "full-length",
+        duration: test.duration,
+        totalQuestions: test.totalQuestions,
+        attempts: test.attempts ?? 0,
+        avgScore: test.avgScore ?? 0,
+        difficulty: test.difficulty,
+        sectionTimingMode: test.sectionTimingMode ?? "none",
+        sectionTimings: test.sectionTimings ?? [],
+        sectionSettings: test.sectionSettings ?? [],
+        sections: test.sections ?? [],
+        priceCents: test.priceCents ?? (test.access === "paid" ? 499 : null),
+      }));
+      if (testRows.length > 0) {
+        await tx.insert(tests).values(testRows);
       }
 
-      for (const question of snapshot.questions ?? []) {
-        await tx.insert(questions).values({
-          clientId: question.id,
-          testId: question.testId,
-          text: question.text,
-          options: question.options,
-          correct: question.correct,
-          section: question.section,
-          explanation: question.explanation,
-        });
+      const questionRows = (snapshot.questions ?? []).map((question) => ({
+        clientId: question.id,
+        testId: question.testId,
+        text: question.text,
+        options: question.options,
+        correct: question.correct,
+        section: question.section,
+        explanation: question.explanation,
+      }));
+      for (let i = 0; i < questionRows.length; i += INSERT_CHUNK) {
+        const chunk = questionRows.slice(i, i + INSERT_CHUNK);
+        if (chunk.length > 0) {
+          await tx.insert(questions).values(chunk);
+        }
       }
 
       const refreshedTests = await tx.select().from(tests);
@@ -245,7 +254,7 @@ router.put("/", authenticate, async (req, res) => {
       }
     });
 
-    return res.json(await buildSnapshot());
+    return res.status(204).end();
   } catch (error) {
     if (error instanceof Error && error.message === "forbidden") {
       return res.status(403).json({ error: "Admin access required" });

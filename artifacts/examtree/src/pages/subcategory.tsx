@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState, type KeyboardEvent } from "react";
 import { useLocation, useParams } from "wouter";
 import {
@@ -17,7 +18,8 @@ import {
   Unlock,
 } from "lucide-react";
 import { getActiveTestSessions, getAttempts, getUser } from "@/lib/storage";
-import { createTestCheckoutSession, mockUnlockTest, type Test } from "@/lib/data";
+import { mockUnlockTest, type Test } from "@/lib/data";
+import { openRazorpayCheckoutForTest } from "@/lib/razorpay-checkout";
 import { getRuntimeExamGroup } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
@@ -77,6 +79,7 @@ function sortTests(
 export default function SubcategoryPage() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<ExamTab>("full-length");
 
@@ -169,28 +172,43 @@ export default function SubcategoryPage() {
       return;
     }
     try {
-      const { url } = await createTestCheckoutSession({
+      await openRazorpayCheckoutForTest({
         testId: testItem.id,
         successPath: `/test/${testItem.id}?checkout=success`,
-        cancelPath: `/subcategory/${exam.id}`,
+        onPaid: async () => {
+          await queryClient.invalidateQueries({ queryKey: ["me", "entitlements"] });
+          await refetchEntitlements();
+          toast({
+            title: "Payment successful",
+            description: `${testItem.name} is now unlocked on your account.`,
+          });
+          setLocation(`/test/${testItem.id}?checkout=success`);
+        },
+        onError: (message) => {
+          toast({
+            title: "Payment could not be verified",
+            description: message,
+            variant: "destructive",
+          });
+        },
       });
-      window.location.href = url;
     } catch (e) {
       if (
         import.meta.env.DEV &&
         e instanceof ApiError &&
-        getApiErrorCode(e.body) === "STRIPE_NOT_CONFIGURED"
+        getApiErrorCode(e.body) === "RAZORPAY_NOT_CONFIGURED"
       ) {
         await mockUnlockTest(testItem.id);
         await refetchEntitlements();
+        await queryClient.invalidateQueries({ queryKey: ["me", "entitlements"] });
         toast({
           title: "Unlocked (development)",
-          description: `${testItem.name} is available without Stripe while you develop.`,
+          description: `${testItem.name} is available without Razorpay keys while you develop.`,
         });
         return;
       }
       toast({
-        title: "Could not start checkout",
+        title: "Could not start payment",
         description: e instanceof Error ? e.message : "Try again later.",
         variant: "destructive",
       });
