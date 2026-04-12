@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { eq } from "drizzle-orm";
 import { db } from "../lib/db";
-import { users } from "@workspace/db";
+import { users, userTestEntitlements } from "@workspace/db";
 import { User } from "@workspace/api-zod";
 import { authenticate } from "../middlewares/auth";
 
@@ -62,6 +62,15 @@ async function upsertUserFromRequest(payload: {
 
   return User.parse(normalizeUserRow(record));
 }
+
+router.get("/me/entitlements", authenticate, async (req, res) => {
+  const userId = req.user!.id;
+  const rows = await db
+    .select({ testId: userTestEntitlements.testId })
+    .from(userTestEntitlements)
+    .where(eq(userTestEntitlements.userId, userId));
+  return res.json({ testIds: rows.map((r) => r.testId) });
+});
 
 router.get("/me", authenticate, async (req, res) => {
   const userId = req.user!.id;

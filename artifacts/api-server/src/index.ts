@@ -3,6 +3,7 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { db } from "./lib/db";
 import { categories, tests, bundles } from "@workspace/db";
+import { ensureSampleQuestions } from "./lib/seed-questions";
 
 const rawPort = process.env["PORT"];
 
@@ -53,6 +54,28 @@ async function ensureSchema() {
     ALTER TABLE "questions"
     ADD COLUMN IF NOT EXISTS "client_id" text NOT NULL DEFAULT ''
   `);
+
+  await db.execute(`
+    ALTER TABLE "tests"
+    ADD COLUMN IF NOT EXISTS "price_cents" integer
+  `);
+
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS "user_test_entitlements" (
+      "user_id" text NOT NULL REFERENCES "users"("id") ON DELETE CASCADE,
+      "test_id" text NOT NULL REFERENCES "tests"("id") ON DELETE CASCADE,
+      "source" text NOT NULL DEFAULT 'stripe',
+      "stripe_checkout_session_id" text,
+      "created_at" timestamp DEFAULT now() NOT NULL,
+      PRIMARY KEY ("user_id", "test_id")
+    )
+  `);
+
+  await db.execute(`
+    UPDATE "tests"
+    SET "price_cents" = 499
+    WHERE "access" = 'paid' AND ("price_cents" IS NULL OR "price_cents" = 0)
+  `);
 }
 
 // Initialize database and seed data
@@ -92,15 +115,15 @@ async function initializeAndSeed() {
       // Seed tests
       const testData = [
         { id: "1", name: "JEE Main Mock 1", category: "JEE", categoryId: "1", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 5421, avgScore: 72, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "2", name: "JEE Main Mock 2", category: "JEE", categoryId: "1", access: "paid" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4230, avgScore: 69, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "2", name: "JEE Main Mock 2", category: "JEE", categoryId: "1", access: "paid" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4230, avgScore: 69, difficulty: "Hard" as const, sections: JSON.stringify([]), priceCents: 499 },
         { id: "3", name: "NEET Mock 1", category: "NEET", categoryId: "2", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4100, avgScore: 75, difficulty: "Medium" as const, sections: JSON.stringify([]) },
-        { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", access: "paid" as const, kind: "sectional" as const, duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+        { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", access: "paid" as const, kind: "sectional" as const, duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]), priceCents: 499 },
         { id: "5", name: "CAT Mock 1", category: "CAT", categoryId: "3", access: "free" as const, kind: "topic-wise" as const, duration: 120, totalQuestions: 9, attempts: 1500, avgScore: 65, difficulty: "Medium" as const, sections: JSON.stringify([]) },
         { id: "6", name: "UPSC GS Paper 1", category: "UPSC", categoryId: "4", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 890, avgScore: 58, difficulty: "Hard" as const, sections: JSON.stringify([]) },
         { id: "7", name: "IBPS PO Prelims", category: "Banking", categoryId: "7", access: "free" as const, kind: "full-length" as const, duration: 60, totalQuestions: 9, attempts: 3200, avgScore: 62, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", access: "paid" as const, kind: "sectional" as const, duration: 45, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+        { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", access: "paid" as const, kind: "sectional" as const, duration: 45, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]), priceCents: 499 },
         { id: "9", name: "Punjab PSC Mock", category: "Punjab", categoryId: "8", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 1200, avgScore: 60, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "10", name: "PSSSB Exam Mock", category: "Punjab", categoryId: "8", access: "paid" as const, kind: "topic-wise" as const, duration: 90, totalQuestions: 9, attempts: 980, avgScore: 64, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+        { id: "10", name: "PSSSB Exam Mock", category: "Punjab", categoryId: "8", access: "paid" as const, kind: "topic-wise" as const, duration: 90, totalQuestions: 9, attempts: 980, avgScore: 64, difficulty: "Medium" as const, sections: JSON.stringify([]), priceCents: 499 },
       ];
 
       for (const test of testData) {
@@ -126,16 +149,19 @@ async function initializeAndSeed() {
 }
 
 // Initialize before starting server
-initializeAndSeed().then(() => {
-  app.listen(port, (err) => {
-    if (err) {
-      logger.error({ err }, "Error listening on port");
-      process.exit(1);
-    }
+initializeAndSeed()
+  .then(() => ensureSampleQuestions())
+  .then(() => {
+    app.listen(port, (err) => {
+      if (err) {
+        logger.error({ err }, "Error listening on port");
+        process.exit(1);
+      }
 
-    logger.info({ port }, "Server listening");
+      logger.info({ port }, "Server listening");
+    });
+  })
+  .catch((err) => {
+    logger.error({ err }, "Failed to initialize");
+    process.exit(1);
   });
-}).catch((err) => {
-  logger.error({ err }, "Failed to initialize");
-  process.exit(1);
-});

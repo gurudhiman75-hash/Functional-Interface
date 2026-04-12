@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { BookOpen, ChevronRight, Files, Layers3, Search, Target } from "lucide-react";
-import { getRuntimeCategories, getRuntimeExamGroups } from "@/lib/test-bank";
+import { getRuntimeExamGroups } from "@/lib/test-bank";
+import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import { API_BASE_URL } from "@/lib/api";
 import { Navbar } from "@/components/Navbar";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -21,11 +23,11 @@ const CATEGORY_STYLES: Record<string, string> = {
 export default function Tests() {
   const [, setLocation] = useLocation();
   const [search, setSearch] = useState("");
-  const categories = useMemo(() => getRuntimeCategories(), []);
+  const { categories, tests, isLoading, error } = useExamCatalog();
 
   const categoryCards = useMemo(() => (
     categories.map((category) => {
-      const exams = getRuntimeExamGroups(category.id);
+      const exams = getRuntimeExamGroups(category.id, categories, tests);
       return {
         ...category,
         totalExams: exams.length,
@@ -34,7 +36,7 @@ export default function Tests() {
         totalTopicWise: exams.reduce((sum, exam) => sum + exam.topicWiseCount, 0),
       };
     })
-  ), [categories]);
+  ), [categories, tests]);
 
   const filteredCategories = categoryCards.filter((category) => {
     const query = search.trim().toLowerCase();
@@ -44,6 +46,36 @@ export default function Tests() {
 
   const totalExams = categoryCards.reduce((sum, category) => sum + category.totalExams, 0);
   const totalTests = categoryCards.reduce((sum, category) => sum + category.testsCount, 0);
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="mx-auto max-w-lg px-4 py-24 text-center">
+          <h1 className="text-xl font-semibold text-foreground">Could not load exams</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            API expected at <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+          </p>
+        </main>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="mx-auto max-w-7xl animate-pulse px-4 py-12">
+          <div className="h-10 w-1/2 rounded-xl bg-muted" />
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="h-48 rounded-3xl bg-muted" />
+            <div className="h-48 rounded-3xl bg-muted" />
+            <div className="h-48 rounded-3xl bg-muted" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

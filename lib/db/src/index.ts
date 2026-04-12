@@ -1,4 +1,4 @@
-import { pgTable, text, integer, timestamp, jsonb, serial } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, timestamp, jsonb, serial, primaryKey } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -58,7 +58,27 @@ export const tests = pgTable("tests", {
   sectionTimings: jsonb("section_timings"),
   sectionSettings: jsonb("section_settings"),
   sections: jsonb("sections").notNull(),
+  /** Display/checkout amount in cents for paid tests; ignored when access is free */
+  priceCents: integer("price_cents"),
 });
+
+export const userTestEntitlements = pgTable(
+  "user_test_entitlements",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    testId: text("test_id")
+      .notNull()
+      .references(() => tests.id, { onDelete: "cascade" }),
+    source: text("source").$type<"stripe" | "mock" | "admin">().notNull().default("stripe"),
+    stripeCheckoutSessionId: text("stripe_checkout_session_id"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.testId] }),
+  }),
+);
 
 export const questions = pgTable("questions", {
   id: serial("id").primaryKey(),

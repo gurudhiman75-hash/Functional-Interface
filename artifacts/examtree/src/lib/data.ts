@@ -26,6 +26,8 @@ export type Test = {
   subcategoryId?: string;
   subcategoryName?: string;
   access?: "free" | "paid";
+  /** Checkout amount in cents when access is paid */
+  priceCents?: number | null;
   kind?: "full-length" | "sectional" | "topic-wise";
   duration: number;
   totalQuestions: number;
@@ -97,6 +99,28 @@ export async function getTests(): Promise<Test[]> {
 
 export async function getTest(id: string): Promise<Test> {
   return apiRequest<Test>(`/tests/${id}`);
+}
+
+export async function fetchMyEntitlements(): Promise<{ testIds: string[] }> {
+  return apiRequest<{ testIds: string[] }>("/users/me/entitlements");
+}
+
+export async function createTestCheckoutSession(body: {
+  testId: string;
+  successPath?: string;
+  cancelPath?: string;
+}): Promise<{ url: string }> {
+  return apiRequest<{ url: string }>("/billing/checkout-session", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function mockUnlockTest(testId: string): Promise<{ ok: boolean }> {
+  return apiRequest<{ ok: boolean }>("/billing/mock-unlock", {
+    method: "POST",
+    body: JSON.stringify({ testId }),
+  });
 }
 
 export async function getUserAttempts(): Promise<TestAttempt[]> {

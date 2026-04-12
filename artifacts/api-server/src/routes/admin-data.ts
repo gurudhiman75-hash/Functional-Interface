@@ -38,6 +38,7 @@ type AdminTest = {
   sectionTimings: { name: string; minutes: number }[];
   attempts: number;
   avgScore: number;
+  priceCents?: number | null;
 };
 
 type AdminQuestion = {
@@ -130,6 +131,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
         : [],
       attempts: row.attempts,
       avgScore: row.avgScore,
+      priceCents: row.priceCents ?? null,
     })),
     questions: questionRows.map((row) => ({
       id: row.clientId || `q-${row.id}`,
@@ -214,6 +216,9 @@ router.put("/", authenticate, async (req, res) => {
           sectionTimings: test.sectionTimings ?? [],
           sectionSettings: test.sectionSettings ?? [],
           sections: test.sections ?? [],
+          priceCents:
+            test.priceCents ??
+            (test.access === "paid" ? 499 : null),
         });
       }
 

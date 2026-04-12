@@ -6,6 +6,23 @@ import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { syncAuthSession } from "@/lib/auth";
 import { hydrateAdminDataFromCloud } from "@/lib/storage";
+import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
+import { MathJaxContext } from "better-react-mathjax";
+
+const MATH_JAX_CONFIG = {
+  loader: { load: ["input/tex", "output/chtml"] },
+  tex: {
+    inlineMath: [
+      ["$", "$"],
+      ["\\(", "\\)"],
+    ],
+    displayMath: [
+      ["$$", "$$"],
+      ["\\[", "\\]"],
+    ],
+    processEscapes: true,
+  },
+};
 
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
@@ -112,18 +129,22 @@ function App() {
 
   return (
     <AppErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          {isBootstrapped ? (
-            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-              <Router />
-            </WouterRouter>
-          ) : (
-            <RouteSkeleton />
-          )}
-          <Toaster />
-        </TooltipProvider>
-      </QueryClientProvider>
+      <MathJaxContext version={3} config={MATH_JAX_CONFIG}>
+        <QueryClientProvider client={queryClient}>
+          <ExamCatalogProvider>
+            <TooltipProvider>
+              {isBootstrapped ? (
+                <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                  <Router />
+                </WouterRouter>
+              ) : (
+                <RouteSkeleton />
+              )}
+              <Toaster />
+            </TooltipProvider>
+          </ExamCatalogProvider>
+        </QueryClientProvider>
+      </MathJaxContext>
     </AppErrorBoundary>
   );
 }

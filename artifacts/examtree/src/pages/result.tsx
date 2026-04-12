@@ -17,6 +17,7 @@ import { getAttempts } from "@/lib/storage";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { QuestionRichText } from "@/components/QuestionRichText";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
 type ReviewItem = {
@@ -411,7 +412,9 @@ export default function Result() {
                         </div>
                       </div>
 
-                      <h3 className="mt-4 text-lg font-semibold leading-relaxed text-foreground">{item.text}</h3>
+                      <div className="mt-4 text-lg font-semibold leading-relaxed text-foreground">
+                        <QuestionRichText content={item.text} />
+                      </div>
 
                       <div className="mt-5 space-y-3">
                         {item.options.map((option, index) => {
@@ -429,7 +432,7 @@ export default function Result() {
                                 {getAnswerLabel(index)}
                               </div>
                               <div className="min-w-0 flex-1">
-                                <p className="text-sm leading-relaxed">{option}</p>
+                                <QuestionRichText content={option} inline className="text-sm" />
                                 {isCorrect && (
                                   <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em]">Correct answer</p>
                                 )}
@@ -445,21 +448,31 @@ export default function Result() {
                       <div className="mt-5 grid gap-3 md:grid-cols-2">
                         <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
                           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Your Answer</p>
-                          <p className="mt-2 text-sm font-medium text-foreground">{yourAnswer}</p>
+                          <div className="mt-2 text-sm font-medium text-foreground">
+                            {item.selected === null ? (
+                              yourAnswer
+                            ) : (
+                              <QuestionRichText content={yourAnswer} inline />
+                            )}
+                          </div>
                         </div>
                         <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
                           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Correct Answer</p>
-                          <p className="mt-2 text-sm font-medium text-foreground">{correctAnswer}</p>
+                          <div className="mt-2 text-sm font-medium text-foreground">
+                            <QuestionRichText content={correctAnswer} inline />
+                          </div>
                         </div>
                       </div>
 
                       <div className="mt-5 rounded-xl border border-border/70 bg-muted/30 p-4">
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Solution</p>
-                        <p className="mt-2 text-sm leading-relaxed text-foreground">
-                          {item.explanation?.trim()
-                            ? item.explanation
-                            : "No explanation was provided for this question."}
-                        </p>
+                        <div className="mt-2 text-sm leading-relaxed text-foreground">
+                          {item.explanation?.trim() ? (
+                            <QuestionRichText content={item.explanation} />
+                          ) : (
+                            "No explanation was provided for this question."
+                          )}
+                        </div>
                       </div>
                     </article>
                   );

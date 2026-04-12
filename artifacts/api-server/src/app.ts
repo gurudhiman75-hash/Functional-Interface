@@ -3,6 +3,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import billingWebhookHandler from "./routes/billing-webhook";
 
 const app: Express = express();
 
@@ -31,6 +32,8 @@ app.use(
     credentials: true,
   }),
 );
+app.post("/api/billing/webhook", express.raw({ type: "application/json" }), billingWebhookHandler);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

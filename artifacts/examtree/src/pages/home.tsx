@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
@@ -5,48 +6,65 @@ import {
   Target,
   TrendingUp,
   Award,
-  Zap,
   ChevronRight,
   Cpu,
   Heart,
   BarChart3,
   Sparkles,
   Clock3,
+  CheckCircle2,
+  FileQuestion,
+  Timer,
+  Shield,
+  LineChart,
+  HelpCircle,
 } from "lucide-react";
-import { useMemo } from "react";
 import { getUser } from "@/lib/storage";
 import { getAttempts, getActiveTestSessions } from "@/lib/storage";
-import { getRuntimeCategories, getRuntimeTests } from "@/lib/test-bank";
-import type { Category, Test } from "@/lib/data";
+import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/Navbar";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
-console.log("home.tsx loaded");
+const CATEGORY_ACCENT: Record<string, { gradient: string; ring: string }> = {
+  blue: { gradient: "from-sky-500 to-blue-600", ring: "ring-blue-500/20" },
+  emerald: { gradient: "from-emerald-500 to-teal-600", ring: "ring-emerald-500/20" },
+  violet: { gradient: "from-violet-500 to-indigo-600", ring: "ring-violet-500/20" },
+  amber: { gradient: "from-amber-500 to-orange-600", ring: "ring-amber-500/20" },
+  orange: { gradient: "from-orange-500 to-rose-500", ring: "ring-orange-500/20" },
+  rose: { gradient: "from-rose-500 to-pink-600", ring: "ring-rose-500/20" },
+  indigo: { gradient: "from-indigo-500 to-blue-600", ring: "ring-indigo-500/20" },
+  red: { gradient: "from-red-500 to-rose-600", ring: "ring-red-500/20" },
+};
 
-const CATEGORY_STYLES = [
+function categoryAccent(color: string) {
+  return CATEGORY_ACCENT[color] ?? CATEGORY_ACCENT.blue;
+}
+
+const FAQ_ITEMS = [
   {
-    icon: <Cpu className="w-7 h-7" />,
-    gradient: "from-blue-500 to-sky-500",
-    card: "bg-blue-50 border-blue-100 dark:bg-blue-950/30 dark:border-blue-900/40",
+    q: "Is EXAMTREE free to use?",
+    a: "Many mocks are free to practice. Some tests may be marked as paid as we expand the catalog—you will always see access before you start.",
   },
   {
-    icon: <Heart className="w-7 h-7" />,
-    gradient: "from-emerald-500 to-teal-500",
-    card: "bg-emerald-50 border-emerald-100 dark:bg-emerald-950/30 dark:border-emerald-900/40",
+    q: "Do I need to create an account?",
+    a: "You can explore the catalog freely. To attempt tests and save progress on this device, sign in with Google or use the development login when Firebase is not configured.",
   },
   {
-    icon: <BarChart3 className="w-7 h-7" />,
-    gradient: "from-cyan-500 to-indigo-500",
-    card: "bg-cyan-50 border-cyan-100 dark:bg-cyan-950/30 dark:border-cyan-900/40",
+    q: "Can I pause a test?",
+    a: "Yes. Your attempt is saved locally while you are signed in, so you can resume from the same browser unless you clear site data.",
   },
-];
-
-const features = [
-  { icon: <Zap className="w-5 h-5 text-primary" />, title: "Instant Results", desc: "Get detailed analytics right after completing each test" },
-  { icon: <TrendingUp className="w-5 h-5 text-emerald-600" />, title: "Performance Tracking", desc: "Monitor your progress with detailed charts and trends" },
-  { icon: <Award className="w-5 h-5 text-amber-600" />, title: "Competitive Rankings", desc: "Compare scores and compete with thousands of students" },
-  { icon: <Target className="w-5 h-5 text-cyan-700" />, title: "Section Analytics", desc: "Identify weak areas with subject-wise performance breakdown" },
+  {
+    q: "Where do I see solutions?",
+    a: "After you submit, open the result screen and switch to the review tab for per-question explanations when available.",
+  },
 ];
 
 export default function Home() {
@@ -54,20 +72,30 @@ export default function Home() {
   const user = getUser();
   const attempts = getAttempts();
   const activeSessionsCount = Object.keys(getActiveTestSessions()).length;
-  const categories = useMemo(() => getRuntimeCategories(), []);
-  const tests = useMemo(() => getRuntimeTests(), []);
+  const { categories, tests, isLoading, error } = useExamCatalog();
 
   const totalQuestions = tests.reduce((sum, test) => sum + test.totalQuestions, 0);
-  const totalAttempts = tests.reduce((sum, test) => sum + test.attempts, 0);
   const averageScore =
     tests.length > 0
       ? Math.round(tests.reduce((sum, test) => sum + test.avgScore, 0) / tests.length)
       : 0;
-  const featuredCategories = categories.slice(0, 3);
-  const topCategories = [...categories]
-    .sort((a, b) => (b.testsCount ?? 0) - (a.testsCount ?? 0))
-    .slice(0, 4);
-  const topCategoryMax = Math.max(...topCategories.map((category) => category.testsCount), 1);
+
+  const topCategory = useMemo(() => {
+    if (categories.length === 0) return null;
+    return [...categories].sort((a, b) => (b.testsCount ?? 0) - (a.testsCount ?? 0))[0];
+  }, [categories]);
+
+  const featuredTests = useMemo(() => {
+    return [...tests]
+      .sort((a, b) => {
+        const af = (a.access ?? "free") === "free" ? 0 : 1;
+        const bf = (b.access ?? "free") === "free" ? 0 : 1;
+        if (af !== bf) return af - bf;
+        return (b.attempts ?? 0) - (a.attempts ?? 0);
+      })
+      .slice(0, 4);
+  }, [tests]);
+
   const latestAttempt = attempts[0] ?? null;
   const latestAttemptTest = latestAttempt
     ? tests.find((test) => test.id === latestAttempt.testId) ?? null
@@ -81,253 +109,398 @@ export default function Home() {
     }
   };
 
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="mx-auto max-w-lg px-4 py-24 text-center">
+          <h1 className="text-xl font-semibold text-foreground">Could not load the exam catalog</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Start the API server and check{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+          </p>
+          <p className="mt-4 text-xs text-muted-foreground">{error.message}</p>
+        </main>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="animate-pulse space-y-6">
+            <div className="h-14 w-2/3 max-w-md rounded-2xl bg-muted" />
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="h-36 rounded-3xl bg-muted" />
+              <div className="h-36 rounded-3xl bg-muted" />
+              <div className="h-36 rounded-3xl bg-muted" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.10),transparent_28%)]">
-        <div className="absolute inset-0 aurora-bg -z-10" />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent -z-10" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="max-w-3xl">
-              <Badge variant="secondary" className="mb-5 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-semibold shadow-sm animate-fadeInUp text-muted-foreground">
-                {tests.length} live mocks across {categories.length} categories
-              </Badge>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 animate-fadeInUp" data-testid="hero-title">
-                One platform for
-                <span className="block bg-gradient-to-r from-primary via-sky-500 to-secondary bg-clip-text text-transparent">
-                  sharper practice, calmer exams
-                </span>
-              </h1>
-              <p className="text-lg text-muted-foreground/95 mb-8 leading-relaxed animate-fadeInUp max-w-2xl">
-                Practice with refined mocks, revisit every solution, and track progress with a cleaner workflow built around students.
-              </p>
-              <div className="flex flex-col sm:flex-row animate-fadeInUp gap-3">
-                <Button size="lg" onClick={handleStartTest} className="gap-2 text-base rounded-2xl px-6 shadow-[0_20px_45px_-24px_hsl(var(--primary)/0.8)]" data-testid="btn-start-test">
-                  Start Student Practice
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => setLocation("/exams")} className="rounded-2xl px-6 bg-white/80" data-testid="btn-browse-home-tests">
-                  Browse Exams
-                </Button>
-                {latestAttemptTest && (
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    onClick={() => setLocation(`/result?testId=${latestAttemptTest.id}&tab=review`)}
-                    className="rounded-2xl px-6"
-                    data-testid="btn-latest-solution"
-                  >
-                    Latest Solution
-                  </Button>
-                )}
-              </div>
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {[
-                  { icon: <Sparkles className="w-4 h-4" />, label: "Student-first flow", value: "Focused sign-in and practice" },
-                  { icon: <Clock3 className="w-4 h-4" />, label: "Timed tests", value: "Sectional control ready" },
-                  { icon: <TrendingUp className="w-4 h-4" />, label: "Progress insight", value: "Fast performance review" },
-                ].map((item) => (
-                  <div key={item.label} className="glass-panel rounded-2xl p-4 shadow-sm">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      {item.icon}
-                    </div>
-                    <p className="text-sm font-semibold text-foreground">{item.value}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{item.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass-panel relative overflow-hidden rounded-[2rem] border border-white/10 p-6 shadow-[0_30px_90px_-45px_rgba(0,0,0,0.55)]">
-              <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-br from-primary/15 via-transparent to-secondary/15" />
-              <div className="relative space-y-5">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/80">Live Snapshot</p>
-                    <h2 className="mt-2 text-2xl font-bold text-foreground">Today on EXAMTREE</h2>
-                  </div>
-                  <div className="rounded-2xl bg-white/10 px-3 py-2 text-right shadow-sm border border-white/10">
-                    <p className="text-xs text-muted-foreground">Available tests</p>
-                    <p className="text-lg font-bold text-foreground">{tests.length}</p>
-                  </div>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {[
-                    {
-                      title: "Question bank",
-                      text: `${totalQuestions} runtime questions are available across the current mock library.`,
-                      icon: <BookOpen className="w-5 h-5" />,
-                    },
-                    {
-                      title: "Saved progress",
-                      text:
-                        activeSessionsCount > 0
-                          ? `${activeSessionsCount} in-progress test ${activeSessionsCount === 1 ? "session is" : "sessions are"} ready to resume on this device.`
-                          : "New attempts and saved progress appear here once you start practicing.",
-                      icon: <TrendingUp className="w-5 h-5" />,
-                    },
-                    {
-                      title: "Latest review",
-                      text: latestAttempt
-                        ? `Your last score was ${latestAttempt.score}% on ${latestAttempt.testName}. Open the solution review to revisit missed questions.`
-                        : "Your latest attempt and solution review will appear here after you complete a test.",
-                      icon: <Sparkles className="w-5 h-5" />,
-                    },
-                  ].map((panel) => (
-                    <div key={panel.title} className="rounded-2xl border border-white/10 bg-card/90 p-4 shadow-sm">
-                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-muted/80 text-primary">{panel.icon}</div>
-                      <h3 className="font-semibold text-foreground">{panel.title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{panel.text}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="rounded-2xl border border-white/70 bg-slate-950 p-5 text-white shadow-lg">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/60">Catalog coverage</p>
-                      <p className="text-lg font-semibold">Top categories by test count</p>
-                    </div>
-                    <p className="text-3xl font-bold text-emerald-300">{totalQuestions}</p>
-                  </div>
-                  {latestAttempt && (
-                    <div className="mb-4 rounded-2xl border border-white/10 bg-white/8 p-4">
-                      <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">Recent attempt</p>
-                      <div className="mt-2 flex items-center justify-between gap-3">
-                        <div>
-                          <p className="font-semibold text-white">{latestAttempt.testName}</p>
-                          <p className="text-xs text-white/65">{latestAttempt.score}% score • {latestAttempt.timeSpent} min</p>
-                        </div>
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          className="rounded-xl"
-                          onClick={() => setLocation(`/result?testId=${latestAttempt.testId}&tab=review`)}
-                          data-testid="btn-home-review"
-                        >
-                          Review
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                  <div className="grid grid-cols-4 gap-2 items-end">
-                    {topCategories.map((category) => (
-                      <div key={category.id} className="rounded-xl bg-white/8 p-3">
-                        <p className="text-[10px] uppercase tracking-[0.16em] text-white/45">
-                          {category.name.slice(0, 3)}
-                        </p>
-                        <div className="mt-3 flex h-20 items-end rounded-full bg-white/8 p-1">
-                          <div
-                            className="w-full rounded-full bg-gradient-to-t from-secondary to-sky-400"
-                            style={{ height: `${Math.max(20, Math.round((category.testsCount / topCategoryMax) * 100))}%` }}
-                          />
-                        </div>
-                        <p className="mt-2 text-[10px] text-white/70">{category.testsCount} tests</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Hero */}
+      <section className="relative border-b border-border/60 bg-gradient-to-b from-muted/50 via-background to-background">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute -right-20 top-32 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
         </div>
-      </section>
-
-      <section className="py-12 bg-muted/35 border-y border-border/70">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-            {[
-              { value: categories.length.toString(), label: "Categories", icon: <BookOpen className="w-5 h-5" />, color: "text-primary" },
-              { value: tests.length.toString(), label: "Mock Tests", icon: <TrendingUp className="w-5 h-5" />, color: "text-secondary" },
-              { value: averageScore > 0 ? `${averageScore}%` : "N/A", label: "Average Score", icon: <Target className="w-5 h-5" />, color: "text-emerald-600" },
-            ].map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center gap-2 bg-card/70 border border-white/60 rounded-[1.6rem] py-5 shadow-sm" data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}>
-                <div className={`${stat.color} mb-1`}>{stat.icon}</div>
-                <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
-                <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Choose Your Exam Category</h2>
-          <p className="text-muted-foreground">Select from our comprehensive range of competitive exams</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {categories.map((cat, index) => {
-            const style = CATEGORY_STYLES[index % CATEGORY_STYLES.length];
-            return (
-            <button
-              key={cat.id}
-              onClick={() => setLocation(`/category/${cat.id}`)}
-              className={`group text-left p-6 rounded-[1.7rem] border-2 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 ${style.card}`}
-              data-testid={`category-card-${cat.id}`}
+        <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <Badge
+              variant="secondary"
+              className="mb-6 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium shadow-sm"
             >
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${style.gradient} flex items-center justify-center text-white mb-4 shadow-sm group-hover:shadow-md transition-shadow`}>
-                {style.icon}
-              </div>
-              <h3 className="text-lg font-bold text-foreground mb-1">{cat.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">{cat.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-primary">{cat.testsCount} tests available</span>
-                <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </div>
-            </button>
-            );
-          })}
-        </div>
-        <div className="text-center mt-8">
-          <Button variant="outline" className="rounded-2xl border-white/30 bg-card/90 text-foreground" onClick={() => setLocation("/exams")} data-testid="btn-view-all-tests">
-            Browse All Exams
-            <ChevronRight className="w-4 h-4 ml-1" />
-          </Button>
-        </div>
-      </section>
-
-      <section className="py-16 bg-muted/25 border-y border-border/70">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Everything You Need to Succeed</h2>
-            <p className="text-muted-foreground">Powerful tools designed for serious exam preparation</p>
+              <Sparkles className="mr-1.5 inline h-3.5 w-3.5 text-amber-500" />
+              {tests.length} mocks · {categories.length} exam categories · {totalQuestions}+ questions
+            </Badge>
+            <h1
+              className="text-balance text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1]"
+              data-testid="hero-title"
+            >
+              Mock tests that feel like the{" "}
+              <span className="bg-gradient-to-r from-primary via-emerald-600 to-sky-600 bg-clip-text text-transparent">
+                real exam hall
+              </span>
+            </h1>
+            <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Timed papers, section-wise flow, instant scoring, and solution review—built for JEE, NEET, banking,
+              state exams, and more in one focused workspace.
+            </p>
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+              <Button
+                size="lg"
+                className="h-12 rounded-xl px-8 text-base shadow-lg shadow-primary/25"
+                onClick={handleStartTest}
+                data-testid="btn-start-test"
+              >
+                {user ? "Continue practice" : "Start practicing free"}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 rounded-xl border-border bg-card px-8 text-base"
+                onClick={() => setLocation("/exams")}
+                data-testid="btn-browse-home-tests"
+              >
+                Browse catalog
+              </Button>
+              {latestAttemptTest ? (
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="h-12 rounded-xl px-6"
+                  onClick={() => setLocation(`/result?testId=${latestAttemptTest.id}&tab=review`)}
+                  data-testid="btn-latest-solution"
+                >
+                  Last review
+                </Button>
+              ) : null}
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map((feat) => (
-              <div key={feat.title} className="bg-card/90 rounded-[1.6rem] p-5 border border-white/70 shadow-sm hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center mb-3">
-                  {feat.icon}
-                </div>
-                <h3 className="font-semibold text-foreground mb-1">{feat.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feat.desc}</p>
+
+          {/* Trust strip */}
+          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 rounded-2xl border border-border/80 bg-card/80 p-4 shadow-sm backdrop-blur-sm sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-border">
+            {[
+              { label: "Categories", value: String(categories.length), icon: BookOpen },
+              { label: "Full mocks", value: String(tests.length), icon: FileQuestion },
+              { label: "Avg. difficulty mix", value: averageScore > 0 ? `${averageScore}% avg` : "Curated", icon: LineChart },
+              { label: "Saved sessions", value: activeSessionsCount > 0 ? String(activeSessionsCount) : "—", icon: Clock3 },
+            ].map(({ label, value, icon: Icon }) => (
+              <div key={label} className="flex flex-col items-center gap-1 px-2 py-2 text-center sm:py-0">
+                <Icon className="h-4 w-4 text-muted-foreground" />
+                <p className="text-lg font-bold tabular-nums text-foreground sm:text-xl">{value}</p>
+                <p className="text-xs font-medium text-muted-foreground">{label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {!user && (
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-primary/12 via-background to-secondary/12 rounded-[2rem] p-12 border border-white/70 shadow-lg">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3">Ready to Begin?</h2>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Start with {tests.length} currently available mock tests and track your own progress from the first attempt.
-            </p>
-            <Button size="lg" onClick={() => setLocation("/login/student")} data-testid="btn-cta-login">
-              Get Started Free
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+      {/* How it works */}
+      <section className="border-b border-border/60 bg-muted/30 py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">How it works</h2>
+            <p className="mt-2 text-muted-foreground">Same rhythm as leading test-prep platforms—minimal friction.</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                step: "01",
+                title: "Pick your exam",
+                desc: "Choose a category and mock—full-length, sectional, or topic-wise where available.",
+                icon: Target,
+              },
+              {
+                step: "02",
+                title: "Attempt under time",
+                desc: "Timer, palette, and section tabs mirror real online exam consoles.",
+                icon: Timer,
+              },
+              {
+                step: "03",
+                title: "Review & improve",
+                desc: "See score breakdown, revisit flagged questions, and track history on your dashboard.",
+                icon: TrendingUp,
+              },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="relative rounded-2xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <span className="text-xs font-bold tabular-nums text-primary">{item.step}</span>
+                <div className="mt-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Popular mocks */}
+      {featuredTests.length > 0 ? (
+        <section className="py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Popular mocks</h2>
+                <p className="mt-1 text-muted-foreground">Start with tests other students attempt most often.</p>
+              </div>
+              <Button variant="outline" className="w-fit rounded-xl" onClick={() => setLocation("/exams")}>
+                View all
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Button>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {featuredTests.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setLocation(`/test/${t.id}`)}
+                  className="group flex flex-col rounded-2xl border border-border bg-card p-5 text-left shadow-sm transition-all hover:border-primary/40 hover:shadow-md"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <Badge variant="secondary" className="rounded-lg text-[10px] uppercase tracking-wider">
+                      {(t.access ?? "free") === "free" ? "Free" : "Pro"}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">{t.difficulty}</span>
+                  </div>
+                  <p className="mt-3 line-clamp-2 min-h-10 text-sm font-semibold leading-snug text-foreground group-hover:text-primary">
+                    {t.name}
+                  </p>
+                  <div className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
+                    <span className="inline-flex items-center gap-1">
+                      <Timer className="h-3.5 w-3.5" />
+                      {t.duration} min
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <FileQuestion className="h-3.5 w-3.5" />
+                      {t.totalQuestions} Q
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
-      )}
+      ) : null}
 
-      <footer className="border-t border-border py-8 bg-card/90">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-muted-foreground">
-          <p>© 2026 EXAMTREE. Helping students achieve their dreams.</p>
+      {/* Bento categories */}
+      <section className="border-t border-border/60 bg-muted/20 py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Explore by exam</h2>
+            <p className="mt-2 max-w-2xl text-muted-foreground">
+              Jump into the category you are preparing for—each hub lists mocks and tracks.
+            </p>
+          </div>
+
+          <div
+            className={
+              topCategory
+                ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                : "grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            }
+          >
+            {topCategory ? (
+              <button
+                type="button"
+                onClick={() => setLocation(`/category/${topCategory.id}`)}
+                className={`group relative overflow-hidden rounded-3xl border border-border bg-card p-8 text-left shadow-sm ring-1 transition-all hover:shadow-lg sm:col-span-2 lg:row-span-2 lg:col-span-1 ${categoryAccent(topCategory.color).ring}`}
+              >
+                <div
+                  className={`pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-gradient-to-br opacity-30 blur-2xl ${categoryAccent(topCategory.color).gradient}`}
+                />
+                <Badge className="relative rounded-lg bg-primary/15 text-primary hover:bg-primary/20">Top pick</Badge>
+                <h3 className="relative mt-4 text-2xl font-bold text-foreground">{topCategory.name}</h3>
+                <p className="relative mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                  {topCategory.description}
+                </p>
+                <div className="relative mt-6 flex items-center gap-2 text-sm font-semibold text-primary">
+                  {topCategory.testsCount} tests
+                  <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </div>
+              </button>
+            ) : null}
+
+            {categories
+              .filter((c) => !topCategory || c.id !== topCategory.id)
+              .slice(0, topCategory ? 4 : 8)
+              .map((cat) => {
+                const acc = categoryAccent(cat.color);
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setLocation(`/category/${cat.id}`)}
+                    className="flex flex-col rounded-2xl border border-border bg-card p-5 text-left shadow-sm transition-all hover:border-primary/30 hover:shadow-md"
+                    data-testid={`category-card-${cat.id}`}
+                  >
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm ${acc.gradient}`}
+                    >
+                      {cat.color === "emerald" ? (
+                        <Heart className="h-5 w-5" />
+                      ) : cat.color === "violet" ? (
+                        <BarChart3 className="h-5 w-5" />
+                      ) : (
+                        <Cpu className="h-5 w-5" />
+                      )}
+                    </div>
+                    <h3 className="mt-3 font-semibold text-foreground">{cat.name}</h3>
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{cat.description}</p>
+                    <span className="mt-3 text-xs font-medium text-primary">{cat.testsCount} mocks</span>
+                  </button>
+                );
+              })}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Button variant="outline" className="rounded-xl" onClick={() => setLocation("/exams")} data-testid="btn-view-all-tests">
+              Open full catalog
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+          </div>
         </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Built for serious prep</h2>
+            <p className="mt-2 text-muted-foreground">Features you will recognize from top mock-test experiences.</p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { icon: Sparkles, title: "Instant results", desc: "Score and breakdown as soon as you submit." },
+              { icon: Award, title: "Rank-ready practice", desc: "Structured attempts you can repeat to improve." },
+              { icon: Shield, title: "Session safety", desc: "Autosave while you attempt (signed-in sessions)." },
+              { icon: Target, title: "Section focus", desc: "Tabs and timing that respect multi-section papers." },
+            ].map((f) => (
+              <div key={f.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+                  <f.icon className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="mt-3 font-semibold text-foreground">{f.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-t border-border/60 bg-muted/25 py-14 sm:py-16">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 flex items-center gap-2">
+            <HelpCircle className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-bold text-foreground">FAQ</h2>
+          </div>
+          <Accordion type="single" collapsible className="w-full rounded-2xl border border-border bg-card px-4">
+            {FAQ_ITEMS.map((item, i) => (
+              <AccordionItem key={item.q} value={`item-${i}`} className="border-border/80">
+                <AccordionTrigger className="text-left text-sm font-medium hover:no-underline">{item.q}</AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{item.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* CTA */}
+      {!user ? (
+        <section className="py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-card to-sky-500/5 p-10 text-center shadow-lg sm:p-14">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.15),transparent_50%)]" />
+              <h2 className="relative text-2xl font-bold text-foreground sm:text-3xl">Start your next mock today</h2>
+              <p className="relative mx-auto mt-3 max-w-lg text-muted-foreground">
+                Sign in to sync attempts, or browse the catalog and pick a free test to try first.
+              </p>
+              <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button size="lg" className="h-12 rounded-xl px-8" onClick={() => setLocation("/login/student")} data-testid="btn-cta-login">
+                  Create free account
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button size="lg" variant="outline" className="h-12 rounded-xl border-border bg-background/80 px-8" onClick={() => setLocation("/exams")}>
+                  Browse as guest
+                </Button>
+              </div>
+              <p className="relative mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                No credit card required for free mocks
+              </p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <footer className="border-t border-border bg-card/50 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
+          <div>
+            <p className="font-semibold text-foreground">EXAMTREE</p>
+            <p className="mt-2 max-w-xs text-sm text-muted-foreground">Mock tests and review for competitive exams—clear flow, honest progress.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
+            <div>
+              <p className="font-medium text-foreground">Product</p>
+              <button type="button" className="mt-2 block text-muted-foreground hover:text-foreground" onClick={() => setLocation("/exams")}>
+                Catalog
+              </button>
+              <button type="button" className="mt-1 block text-muted-foreground hover:text-foreground" onClick={() => setLocation("/dashboard")}>
+                Dashboard
+              </button>
+            </div>
+            <div>
+              <p className="font-medium text-foreground">Practice</p>
+              <button type="button" className="mt-2 block text-muted-foreground hover:text-foreground" onClick={() => setLocation("/leaderboard")}>
+                Leaderboard
+              </button>
+              <button type="button" className="mt-1 block text-muted-foreground hover:text-foreground" onClick={() => setLocation("/login/student")}>
+                Sign in
+              </button>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <p className="font-medium text-foreground">Note</p>
+              <p className="mt-2 text-muted-foreground">Content is for practice only; always follow your official exam guidelines.</p>
+            </div>
+          </div>
+        </div>
+        <p className="mt-8 text-center text-xs text-muted-foreground">© 2026 EXAMTREE</p>
       </footer>
     </div>
   );

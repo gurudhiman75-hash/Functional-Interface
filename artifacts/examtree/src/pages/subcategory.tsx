@@ -1,12 +1,14 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type KeyboardEvent } from "react";
 import { useLocation, useParams } from "wouter";
 import {
   ArrowLeft,
   BookOpen,
   ChevronRight,
   Clock3,
+  CreditCard,
   Crown,
   Lock,
+  LogIn,
   Play,
   RotateCcw,
   ShieldCheck,
@@ -14,8 +16,12 @@ import {
   Target,
   Unlock,
 } from "lucide-react";
-import { getActiveTestSessions, getAttempts } from "@/lib/storage";
-import { getRuntimeCategories, getRuntimeExamGroup, getRuntimeTests } from "@/lib/test-bank";
+import { getActiveTestSessions, getAttempts, getUser } from "@/lib/storage";
+import { createTestCheckoutSession, mockUnlockTest, type Test } from "@/lib/data";
+import { getRuntimeExamGroup } from "@/lib/test-bank";
+import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
+import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Navbar } from "@/components/Navbar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -47,7 +53,7 @@ const CATEGORY_STYLES: Record<string, string> = {
 };
 
 function sortTests(
-  examTests: ReturnType<typeof getRuntimeTests>,
+  examTests: Test[],
   attemptsByTestId: Map<string, ReturnType<typeof getAttempts>[number]>,
   activeSessions: ReturnType<typeof getActiveTestSessions>,
 ) {
@@ -77,9 +83,14 @@ export default function SubcategoryPage() {
   const attempts = useMemo(() => getAttempts(), []);
   const attemptsByTestId = useMemo(() => new Map(attempts.map((attempt) => [attempt.testId, attempt])), [attempts]);
   const activeSessions = useMemo(() => getActiveTestSessions(), []);
-  const tests = useMemo(() => getRuntimeTests(), []);
-  const exam = useMemo(() => (id ? getRuntimeExamGroup(id) : null), [id]);
-  const categories = useMemo(() => getRuntimeCategories(), []);
+  const { categories, tests, isLoading, error } = useExamCatalog();
+  const { data: entitlementPayload, refetch: refetchEntitlements } = useMyEntitlements();
+  const entitledIds = useMemo(
+    () => new Set(entitlementPayload?.testIds ?? []),
+    [entitlementPayload],
+  );
+  const user = getUser();
+  const exam = useMemo(() => (id ? getRuntimeExamGroup(id, categories, tests) : null), [id, categories, tests]);
   const category = categories.find((item) => item.id === exam?.categoryId);
   const gradient = CATEGORY_STYLES[category?.color ?? "blue"] ?? CATEGORY_STYLES.blue;
 
@@ -100,6 +111,35 @@ export default function SubcategoryPage() {
   const tabTests = examTests.filter((test) => (test.kind ?? "full-length") === activeTab);
   const freeCount = tabTests.filter((test) => (test.access ?? "free") === "free").length;
   const paidCount = tabTests.length - freeCount;
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="mx-auto max-w-lg px-4 py-24 text-center">
+          <h1 className="text-xl font-semibold text-foreground">Could not load exam</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            API expected at <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+          </p>
+        </main>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="mx-auto max-w-7xl animate-pulse px-4 py-12">
+          <div className="h-8 w-48 rounded-lg bg-muted" />
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            <div className="h-40 rounded-2xl bg-muted" />
+            <div className="h-40 rounded-2xl bg-muted" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!exam) {
     return (
@@ -123,11 +163,38 @@ export default function SubcategoryPage() {
     );
   }
 
-  const handleLockedClick = (testName: string) => {
-    toast({
-      title: "Paid exam",
-      description: `${testName} is marked as paid. We can wire the purchase flow next.`,
-    });
+  const startPaidCheckout = async (testItem: Test) => {
+    if (!user) {
+      setLocation("/login/student");
+      return;
+    }
+    try {
+      const { url } = await createTestCheckoutSession({
+        testId: testItem.id,
+        successPath: `/test/${testItem.id}?checkout=success`,
+        cancelPath: `/subcategory/${exam.id}`,
+      });
+      window.location.href = url;
+    } catch (e) {
+      if (
+        import.meta.env.DEV &&
+        e instanceof ApiError &&
+        getApiErrorCode(e.body) === "STRIPE_NOT_CONFIGURED"
+      ) {
+        await mockUnlockTest(testItem.id);
+        await refetchEntitlements();
+        toast({
+          title: "Unlocked (development)",
+          description: `${testItem.name} is available without Stripe while you develop.`,
+        });
+        return;
+      }
+      toast({
+        title: "Could not start checkout",
+        description: e instanceof Error ? e.message : "Try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -284,111 +351,216 @@ export default function SubcategoryPage() {
               const attempted = attemptsByTestId.has(test.id);
               const activeSession = activeSessions[test.id];
               const isFree = (test.access ?? "free") === "free";
-              const isLocked = !isFree && !attempted && !activeSession;
+              const hasEntitlement = entitledIds.has(test.id);
+              const hasAccess = isFree || hasEntitlement;
+              const isLocked = !hasAccess;
+
+              const openTest = () => setLocation(`/test/${test.id}`);
+              const onCardActivate = () => {
+                if (isLocked) void startPaidCheckout(test);
+                else openTest();
+              };
+              const onCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onCardActivate();
+                }
+              };
 
               return (
-                <article
+                <div
                   key={test.id}
-                  className={`rounded-[1.8rem] border p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
-                    isLocked ? "border-amber-200 bg-amber-50/50" : "border-border/70 bg-card"
+                  role="button"
+                  tabIndex={0}
+                  onClick={onCardActivate}
+                  onKeyDown={onCardKeyDown}
+                  aria-label={
+                    isLocked
+                      ? `${test.name}, premium test. Press Enter to ${user ? "open checkout" : "sign in and unlock"}.`
+                      : `${test.name}. Press Enter to ${activeSession ? "resume" : attempted ? "retry" : "start"}.`
+                  }
+                  className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-[1.85rem] border p-6 pl-7 shadow-sm ring-offset-background transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-28px_rgba(59,130,246,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                    isLocked
+                      ? "border-amber-200/80 bg-gradient-to-br from-amber-50/90 to-card dark:from-amber-950/20"
+                      : "border-border/60 bg-card hover:border-primary/20"
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-3">
+                  <div
+                    className={`pointer-events-none absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b ${gradient} opacity-90 transition-all group-hover:w-2`}
+                    aria-hidden
+                  />
+                  <div className="pointer-events-none absolute -right-14 -top-16 h-36 w-36 rounded-full bg-primary/[0.05] blur-2xl" aria-hidden />
+
+                  <div className="relative flex items-start justify-between gap-3">
                     <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary" className="rounded-full px-2.5 py-1 text-[11px] uppercase tracking-[0.16em]">
+                      <Badge variant="secondary" className="rounded-full border border-border/50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]">
                         {TAB_LABELS[activeTab]}
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className={`rounded-full px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] ${
-                          isFree ? "border border-emerald-200 bg-emerald-50 text-emerald-700" : "border border-amber-200 bg-amber-50 text-amber-700"
+                        className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
+                          isFree ? "border border-emerald-200/80 bg-emerald-50 text-emerald-800" : "border border-amber-200/80 bg-amber-50 text-amber-900"
                         }`}
                       >
                         {isFree ? "Free" : "Paid"}
                       </Badge>
                       {attempted && (
-                        <Badge variant="secondary" className="rounded-full border border-sky-200 bg-sky-50 text-[11px] text-sky-700">
+                        <Badge variant="secondary" className="rounded-full border border-sky-200/80 bg-sky-50 text-[11px] font-semibold text-sky-800">
                           Attempted
                         </Badge>
                       )}
                     </div>
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${isLocked ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
+                    <div
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl shadow-inner ring-1 transition-transform duration-300 group-hover:scale-105 ${
+                        isLocked ? "bg-amber-100 text-amber-700 ring-amber-200/50" : "bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-primary/10"
+                      }`}
+                    >
                       {isLocked ? <Crown className="h-5 w-5" /> : <ShieldCheck className="h-5 w-5" />}
                     </div>
                   </div>
 
-                  <h3 className="mt-4 text-xl font-bold text-foreground">{test.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  <h3 className="relative mt-4 text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">{test.name}</h3>
+                  <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
                     {isLocked
                       ? "Premium mock. Unlock this paper to access the complete attempt flow."
-                      : "Ready to launch with attempt tracking, saved progress, retry, and solution review."}
+                      : "Tap anywhere on this card to start, or use the shortcuts below for solution and browsing."}
                   </p>
 
-                  <div className="mt-5 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-                    <div className="rounded-xl bg-muted/40 px-3 py-2">
-                      <Clock3 className="mb-1 h-4 w-4 text-primary" />
-                      {test.duration} min
+                  <div className="relative mt-5 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2 rounded-xl border border-border/35 bg-muted/25 px-3 py-2.5">
+                      <Clock3 className="h-4 w-4 shrink-0 text-primary" />
+                      <span>
+                        <span className="font-semibold text-foreground">{test.duration}</span> min
+                      </span>
                     </div>
-                    <div className="rounded-xl bg-muted/40 px-3 py-2">
-                      <BookOpen className="mb-1 h-4 w-4 text-secondary" />
-                      {test.totalQuestions} questions
+                    <div className="flex items-center gap-2 rounded-xl border border-border/35 bg-muted/25 px-3 py-2.5">
+                      <BookOpen className="h-4 w-4 shrink-0 text-secondary" />
+                      <span>
+                        <span className="font-semibold text-foreground">{test.totalQuestions}</span> Qs
+                      </span>
                     </div>
-                    <div className="rounded-xl bg-muted/40 px-3 py-2">
-                      <Target className="mb-1 h-4 w-4 text-amber-600" />
-                      Avg {test.avgScore}%
+                    <div className="flex items-center gap-2 rounded-xl border border-border/35 bg-muted/25 px-3 py-2.5">
+                      <Target className="h-4 w-4 shrink-0 text-amber-600" />
+                      <span>
+                        Avg <span className="font-semibold text-foreground">{test.avgScore}%</span>
+                      </span>
                     </div>
-                    <div className="rounded-xl bg-muted/40 px-3 py-2">
-                      <Sparkles className="mb-1 h-4 w-4 text-emerald-600" />
-                      {test.attempts.toLocaleString()} attempts
+                    <div className="flex items-center gap-2 rounded-xl border border-border/35 bg-muted/25 px-3 py-2.5">
+                      <Sparkles className="h-4 w-4 shrink-0 text-emerald-600" />
+                      <span className="font-semibold text-foreground">{test.attempts.toLocaleString()}</span>
+                      <span className="text-muted-foreground">attempts</span>
                     </div>
                   </div>
 
-                  <div className="mt-5 space-y-3">
+                  <div className="relative mt-5 space-y-3">
                     {activeSession && (
-                      <div className="rounded-2xl border border-sky-200 bg-sky-50 px-3 py-2 text-xs text-sky-800">
-                        Saved progress is available. Resume from where you left off.
+                      <div className="rounded-2xl border border-sky-200/80 bg-sky-50 px-3 py-2 text-xs text-sky-900 dark:border-sky-900/40 dark:bg-sky-950/30 dark:text-sky-200">
+                        Saved progress — resume from where you left off.
                       </div>
                     )}
                     {attempted && !activeSession && (
-                      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
-                        This mock was already attempted. You can retry it or jump straight to the solution review.
+                      <div className="rounded-2xl border border-emerald-200/80 bg-emerald-50 px-3 py-2 text-xs text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-200">
+                        Completed before — retry or open the solution walkthrough.
                       </div>
                     )}
                     {isLocked && (
-                      <div className="rounded-2xl border border-dashed border-amber-300 bg-amber-100/60 px-3 py-3 text-xs text-amber-800">
-                        Locked premium test. Students should see this as paid until a purchase unlock is added.
+                      <div className="rounded-2xl border border-dashed border-amber-300/90 bg-amber-100/50 px-3 py-3 text-xs text-amber-950 dark:bg-amber-950/25 dark:text-amber-100">
+                        {user
+                          ? "One-time purchase unlocks this mock on your account (start, resume, and retry)."
+                          : "Sign in with Google, then complete checkout to unlock this premium mock."}
                       </div>
                     )}
 
-                    <div className="grid gap-2 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-dashed border-primary/20 bg-primary/[0.04] px-4 py-3 text-center text-sm font-semibold text-primary">
+                      {isLocked
+                        ? user
+                          ? "Tap card to open secure checkout"
+                          : "Tap card to sign in and unlock"
+                        : activeSession
+                          ? "Tap card to resume"
+                          : attempted
+                            ? "Tap card to retry"
+                            : "Tap card to start"}
+                    </div>
+
+                    <div className="grid gap-2 sm:grid-cols-2" onClick={(event) => event.stopPropagation()}>
                       {isLocked ? (
                         <>
-                          <Button className="w-full rounded-xl" onClick={() => handleLockedClick(test.name)} data-testid={`btn-locked-${test.id}`}>
-                            Locked
-                            <Lock className="ml-2 h-4 w-4" />
+                          <Button
+                            className="w-full rounded-xl"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              if (!user) setLocation("/login/student");
+                              else void startPaidCheckout(test);
+                            }}
+                            data-testid={`btn-unlock-${test.id}`}
+                          >
+                            {!user ? (
+                              <>
+                                <LogIn className="mr-2 h-4 w-4" />
+                                Sign in to unlock
+                              </>
+                            ) : (
+                              <>
+                                <CreditCard className="mr-2 h-4 w-4" />
+                                Unlock
+                              </>
+                            )}
                           </Button>
-                          <Button type="button" variant="outline" className="w-full rounded-xl bg-white/70" onClick={() => setLocation("/exams")}>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full rounded-xl bg-background/80"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              setLocation("/exams");
+                            }}
+                          >
                             Browse Exams
                           </Button>
                         </>
                       ) : (
                         <>
-                          <Button className="w-full rounded-xl" onClick={() => setLocation(`/test/${test.id}`)} data-testid={`btn-start-${test.id}`}>
+                          <Button
+                            className="w-full rounded-xl"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              openTest();
+                            }}
+                            data-testid={`btn-start-${test.id}`}
+                          >
                             {activeSession ? "Resume" : attempted ? "Retry" : "Start"}
-                            {activeSession ? <Play className="ml-2 h-4 w-4" /> : attempted ? <RotateCcw className="ml-2 h-4 w-4" /> : <ChevronRight className="ml-2 h-4 w-4" />}
+                            {activeSession ? (
+                              <Play className="ml-2 h-4 w-4" />
+                            ) : attempted ? (
+                              <RotateCcw className="ml-2 h-4 w-4" />
+                            ) : (
+                              <ChevronRight className="ml-2 h-4 w-4" />
+                            )}
                           </Button>
                           {attempted ? (
                             <Button
                               type="button"
                               variant="outline"
-                              className="w-full rounded-xl bg-white/70"
-                              onClick={() => setLocation(`/result?testId=${test.id}&tab=review`)}
+                              className="w-full rounded-xl bg-background/80"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                setLocation(`/result?testId=${test.id}&tab=review`);
+                              }}
                               data-testid={`btn-solution-${test.id}`}
                             >
                               Solution
                             </Button>
                           ) : (
-                            <Button type="button" variant="outline" className="w-full rounded-xl bg-white/70" onClick={() => setLocation(`/category/${exam.categoryId}`)}>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              className="w-full rounded-xl bg-background/80"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                setLocation(`/category/${exam.categoryId}`);
+                              }}
+                            >
                               More Exams
                             </Button>
                           )}
@@ -396,7 +568,7 @@ export default function SubcategoryPage() {
                       )}
                     </div>
                   </div>
-                </article>
+                </div>
               );
             })}
           </div>

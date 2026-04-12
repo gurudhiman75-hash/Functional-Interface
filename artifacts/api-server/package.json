@@ -21,7 +21,8 @@
     "firebase-admin": "^12.0.0",
     "pino": "^9",
     "pino-http": "^10",
-    "postgres": "^3.4.4"
+    "postgres": "^3.4.4",
+    "stripe": "^22.0.1"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
