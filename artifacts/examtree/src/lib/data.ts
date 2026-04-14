@@ -40,8 +40,26 @@ export type Test = {
   sections: TestSection[];
 };
 
-export type TestAttempt = any;
-export type User = any;
+export type PurchasedTest = {
+  id: string;
+  name: string;
+  category: string;
+  categoryId: string;
+  subcategoryId?: string;
+  subcategoryName?: string;
+  access: "free" | "paid";
+  priceCents: number | null;
+  kind: "full-length" | "sectional" | "topic-wise";
+  duration: number;
+  totalQuestions: number;
+  attempts: number;
+  avgScore: number;
+  difficulty: "Easy" | "Medium" | "Hard";
+  purchasedAt: string;
+  source: "razorpay" | "mock" | "admin";
+  razorpayOrderId: string | null;
+  razorpayPaymentId: string | null;
+};
 
 export interface Exam {
   id: string;
@@ -130,6 +148,23 @@ export async function verifyRazorpayPayment(body: {
   return apiRequest("/billing/razorpay/verify", {
     method: "POST",
     body: JSON.stringify(body),
+  });
+}
+
+export async function checkPurchase(testId: string): Promise<{
+  purchased: boolean;
+  testId: string;
+  access: "free" | "paid";
+  priceCents: number | null;
+}> {
+  return apiRequest(`/billing/check-purchase?testId=${encodeURIComponent(testId)}`, {
+    method: "GET",
+  });
+}
+
+export async function getMyTests(): Promise<{ purchasedTests: PurchasedTest[] }> {
+  return apiRequest("/tests/my-tests", {
+    method: "GET",
   });
 }
 

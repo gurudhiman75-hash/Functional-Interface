@@ -18,12 +18,18 @@ export function ExamCatalogProvider({ children }: { children: ReactNode }) {
     queryFn: getCategories,
     staleTime: 60_000,
     retry: 2,
+    refetchInterval: 5000,
+    refetchIntervalInBackground: true,
+    refetchOnWindowFocus: true,
   });
   const testsQuery = useQuery({
     queryKey: ["exam-catalog", "tests"],
     queryFn: getTests,
     staleTime: 60_000,
     retry: 2,
+    refetchInterval: 5000,
+    refetchIntervalInBackground: true,
+    refetchOnWindowFocus: true,
   });
 
   const value = useMemo((): ExamCatalogContextValue => {

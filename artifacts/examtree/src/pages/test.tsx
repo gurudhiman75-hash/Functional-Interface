@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "wouter";
+import { useLocation, useParams, useSearch } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import {
   AlertCircle,
@@ -28,6 +28,7 @@ import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
+import { checkPurchase } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
@@ -49,7 +50,7 @@ function formatTime(seconds: number) {
   return [h, m, s].map((value) => String(value).padStart(2, "0")).join(":");
 }
 
-function TestRunner({ test }: { test: Test }) {
+function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessage?: boolean }) {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const user = getUser();
@@ -426,6 +427,14 @@ function TestRunner({ test }: { test: Test }) {
 
   return (
     <div className="relative isolate z-[200] min-h-screen bg-muted/50 pb-24 lg:pb-6">
+      {showSuccessMessage && (
+        <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 shadow-lg dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4" />
+            Payment successful! Test unlocked.
+          </div>
+        </div>
+      )}
       <header className="sticky top-0 z-[210] border-b border-border bg-card/95 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-card/85">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-3 py-2.5 sm:px-4">
           <button
@@ -816,8 +825,25 @@ function TestRunner({ test }: { test: Test }) {
 export default function Test() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
+  const search = useSearch();
   const { tests: catalogTests, isLoading: catalogLoading, error: catalogError } = useExamCatalog();
   const { data: entitlements } = useMyEntitlements();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  // Check for successful checkout
+  useEffect(() => {
+    if (search.includes("checkout=success")) {
+      setShowSuccessMessage(true);
+      // Remove the query parameter from URL
+      setLocation(`/test/${id}`, { replace: true });
+      // Hide success message after 5 seconds
+      const timer = setTimeout(() => setShowSuccessMessage(false), 5000);
+      return () => clearTimeout(timer);
+    } else {
+      // No cleanup needed when condition is false
+      return undefined;
+    }
+  }, [search, id, setLocation]);
   const listCandidate = useMemo(
     () => catalogTests.find((item) => item.id === id),
     [catalogTests, id],
@@ -832,6 +858,17 @@ export default function Test() {
   } = useQuery({
     queryKey: ["exam", "test-detail", id, entitlements?.testIds?.slice().sort().join(",") ?? ""],
     queryFn: () => getTest(id!),
+    enabled: Boolean(id) && !hasInlineQuestions,
+  });
+
+  // Check purchase status for paid tests
+  const {
+    data: purchaseStatus,
+    isLoading: purchaseLoading,
+    refetch: refetchPurchase,
+  } = useQuery({
+    queryKey: ["purchase", "status", id],
+    queryFn: () => checkPurchase(id!),
     enabled: Boolean(id) && !hasInlineQuestions,
   });
 
@@ -855,7 +892,7 @@ export default function Test() {
     );
   }
 
-  const loading = catalogLoading || (!hasInlineQuestions && remoteLoading);
+  const loading = catalogLoading || (!hasInlineQuestions && (remoteLoading || purchaseLoading));
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
@@ -868,6 +905,24 @@ export default function Test() {
     const code = getApiErrorCode(remoteError.body);
     const testName = listCandidate?.name ?? "This test";
     const price = priceFromPaywallBody(remoteError.body, listCandidate?.priceCents ?? 499);
+
+    // Check if user has purchased the test
+    if (purchaseStatus?.purchased) {
+      // User has purchased but API still returns error - this shouldn't happen
+      // but let's show a retry option
+      return (
+        <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-4">
+          <p className="text-lg font-semibold text-foreground">Access granted but test failed to load</p>
+          <p className="text-center text-sm text-muted-foreground">
+            You have purchased this test. Please try refreshing the page.
+          </p>
+          <Button variant="outline" onClick={() => window.location.reload()}>
+            Refresh page
+          </Button>
+        </div>
+      );
+    }
+
     if (remoteError.status === 401 && code === "LOGIN_REQUIRED") {
       return <TestPaywall testId={id!} testName={testName} priceCents={price} reason="login" />;
     }
@@ -890,5 +945,5 @@ export default function Test() {
     );
   }
 
-  return <TestRunner test={resolvedTest} />;
+  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} />;
 }

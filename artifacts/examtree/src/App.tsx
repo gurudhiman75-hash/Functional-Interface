@@ -6,6 +6,8 @@ import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { syncAuthSession } from "@/lib/auth";
 import { hydrateAdminDataFromCloud } from "@/lib/storage";
+import { getFirebaseAuth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 import { MathJaxContext } from "better-react-mathjax";
 
@@ -101,17 +103,36 @@ function App() {
       console.warn("Auth sync failed, continuing without auth:", error);
     }
 
-    // Bootstrap with automatic fallback timeout
-    const bootstrapPromise = (async () => {
+    const auth = getFirebaseAuth();
+    let unsubscribeAuth = () => {};
+
+    const bootstrap = async () => {
       try {
-        await hydrateAdminDataFromCloud();
+        if (auth) {
+          const currentUser = auth.currentUser;
+          if (currentUser) {
+            await hydrateAdminDataFromCloud();
+          } else {
+            await new Promise<void>((resolve) => {
+              unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
+                if (firebaseUser) {
+                  await hydrateAdminDataFromCloud();
+                }
+                resolve();
+              });
+            });
+          }
+        }
       } catch (error) {
         console.error("Admin data hydration failed:", error);
+      } finally {
+        if (isActive) {
+          setIsBootstrapped(true);
+        }
       }
-      if (isActive) {
-        setIsBootstrapped(true);
-      }
-    })();
+    };
+
+    void bootstrap();
 
     // Safety timeout - if hydration takes > 5 seconds, proceed anyway
     const timeoutId = setTimeout(() => {
@@ -124,6 +145,7 @@ function App() {
       isActive = false;
       clearTimeout(timeoutId);
       unsubscribe();
+      unsubscribeAuth();
     };
   }, []);
 

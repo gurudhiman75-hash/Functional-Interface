@@ -4,6 +4,7 @@ import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
+import { webhookRateLimit } from "./middlewares/rateLimit";
 
 const app: Express = express();
 
@@ -32,7 +33,7 @@ app.use(
     credentials: true,
   }),
 );
-app.post("/api/billing/webhook", express.raw({ type: "application/json" }), billingWebhookHandler);
+app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

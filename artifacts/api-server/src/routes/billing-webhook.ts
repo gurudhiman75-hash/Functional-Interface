@@ -1,6 +1,10 @@
 import { type Request, type Response } from "express";
 import Razorpay from "razorpay";
+import { eq } from "drizzle-orm";
+import { db } from "../lib/db";
+import { tests } from "@workspace/db";
 import { logger } from "../lib/logger";
+import { webhookRateLimit } from "../middlewares/rateLimit";
 import { grantTestEntitlement } from "../lib/razorpay-billing";
 
 type RazorpayWebhookPayload = {
@@ -10,6 +14,7 @@ type RazorpayWebhookPayload = {
       entity?: {
         id?: string;
         order_id?: string;
+        amount?: number;
         notes?: Record<string, string>;
       };
     };
@@ -62,22 +67,125 @@ export default async function billingWebhookHandler(req: Request, res: Response)
     const entity = body.payload?.payment?.entity;
     const paymentId = entity?.id;
     const orderId = entity?.order_id;
+    const amount = entity?.amount;
     const notes = entity?.notes;
     const userId = notes?.userId;
     const testId = notes?.testId;
 
+    logger.info({
+      event,
+      paymentId,
+      orderId,
+      userId,
+      testId,
+      amount,
+      action: "webhook_payment_captured_received"
+    });
+
     if (!paymentId || !orderId || !userId || !testId) {
-      logger.warn({ event }, "Razorpay webhook missing payment/order/notes");
+      logger.warn({
+        event,
+        paymentId,
+        orderId,
+        userId,
+        testId,
+        error: "webhook_missing_required_data"
+      });
       res.json({ ok: true });
       return;
     }
 
-    await grantTestEntitlement({
-      userId,
-      testId,
-      source: "razorpay",
-      razorpayOrderId: orderId,
-      razorpayPaymentId: paymentId,
+    // 🔥 PAYMENT AMOUNT VALIDATION (VERY IMPORTANT)
+    try {
+      const testRows = await db.select().from(tests).where(eq(tests.id, testId)).limit(1);
+      const test = testRows[0];
+      if (!test) {
+        logger.warn({
+          event,
+          paymentId,
+          orderId,
+          userId,
+          testId,
+          error: "webhook_test_not_found"
+        });
+        res.json({ ok: true });
+        return;
+      }
+
+      const expectedAmount = test.priceCents && test.priceCents > 0 ? test.priceCents : 499;
+      if (amount !== expectedAmount) {
+        logger.error({
+          event,
+          paymentId,
+          orderId,
+          userId,
+          testId,
+          amount,
+          expectedAmount,
+          error: "webhook_amount_mismatch"
+        });
+        res.json({ ok: true }); // Don't return error to webhook, just log
+        return;
+      }
+    } catch (err) {
+      logger.error({
+        event,
+        paymentId,
+        orderId,
+        userId,
+        testId,
+        error: "webhook_amount_validation_error",
+        err
+      });
+      res.json({ ok: true });
+      return;
+    }
+
+    try {
+      const success = await grantTestEntitlement({
+        userId,
+        testId,
+        source: "razorpay",
+        razorpayOrderId: orderId,
+        razorpayPaymentId: paymentId,
+      });
+
+      if (success) {
+        logger.info({
+          event,
+          paymentId,
+          orderId,
+          userId,
+          testId,
+          amount,
+          status: "webhook_entitlement_granted_successfully"
+        });
+      } else {
+        logger.warn({
+          event,
+          paymentId,
+          orderId,
+          userId,
+          testId,
+          amount,
+          error: "webhook_entitlement_grant_failed"
+        });
+      }
+    } catch (err) {
+      logger.error({
+        event,
+        paymentId,
+        orderId,
+        userId,
+        testId,
+        error: "webhook_entitlement_grant_error",
+        err
+      });
+    }
+  } else {
+    logger.info({
+      event,
+      action: "webhook_ignored_non_payment_captured_event"
     });
   }
 

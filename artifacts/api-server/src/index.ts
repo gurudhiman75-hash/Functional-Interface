@@ -1,4 +1,6 @@
-import "dotenv/config";
+
+import dotenv from 'dotenv';
+dotenv.config(); // Loads .env file
 import app from "./app";
 import { logger } from "./lib/logger";
 import { db } from "./lib/db";
@@ -19,6 +21,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+// Initialize database schema
 async function ensureSchema() {
   await db.execute(`
     CREATE TABLE IF NOT EXISTS "subcategories" (
@@ -93,90 +96,74 @@ async function ensureSchema() {
   `);
 }
 
-// Initialize database and seed data
-async function initializeAndSeed() {
+// Seed default data only if database is empty
+async function seedDefaultDataOnce() {
   try {
-    await ensureSchema();
-
     const existingCategories = await db.select().from(categories);
-    const existingTests = await db.select().from(tests);
     
-    // If categories or tests don't match what we expect, replace them
-    if (existingCategories.length !== 8 || existingTests.length !== 10) {
-      logger.info(`Seeding database with 8 categories (currently have ${existingCategories.length}) and 10 tests (currently have ${existingTests.length})`);
-      
-      // Delete all data in order (respecting foreign keys)
-      await db.execute(`DELETE FROM "attempts"`);
-      await db.execute(`DELETE FROM "questions"`);
-      await db.execute(`DELETE FROM "tests"`);
-      await db.execute(`DELETE FROM "categories"`);
-      
-      const categoryData = [
-        { id: "1", name: "JEE Main", description: "Joint Entrance Examination for top engineering colleges", icon: "Cpu", color: "blue", testsCount: 3 },
-        { id: "2", name: "NEET", description: "National Eligibility cum Entrance Test for medical aspirants", icon: "Heart", color: "emerald", testsCount: 2 },
-        { id: "3", name: "CAT", description: "Common Admission Test for top management institutes", icon: "BarChart3", color: "violet", testsCount: 2 },
-        { id: "4", name: "UPSC", description: "Civil Services Examination for government positions", icon: "Building2", color: "amber", testsCount: 1 },
-        { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
-        { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 1 },
-        { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
-        { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "MapPin", color: "red", testsCount: 2 },
-      ];
-
-      for (const cat of categoryData) {
-        await db.insert(categories).values(cat);
-      }
-      logger.info("✓ Seeded 8 categories");
-
-      // Seed tests
-      const testData = [
-        { id: "1", name: "JEE Main Mock 1", category: "JEE", categoryId: "1", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 5421, avgScore: 72, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "2", name: "JEE Main Mock 2", category: "JEE", categoryId: "1", access: "paid" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4230, avgScore: 69, difficulty: "Hard" as const, sections: JSON.stringify([]), priceCents: 499 },
-        { id: "3", name: "NEET Mock 1", category: "NEET", categoryId: "2", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4100, avgScore: 75, difficulty: "Medium" as const, sections: JSON.stringify([]) },
-        { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", access: "paid" as const, kind: "sectional" as const, duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]), priceCents: 499 },
-        { id: "5", name: "CAT Mock 1", category: "CAT", categoryId: "3", access: "free" as const, kind: "topic-wise" as const, duration: 120, totalQuestions: 9, attempts: 1500, avgScore: 65, difficulty: "Medium" as const, sections: JSON.stringify([]) },
-        { id: "6", name: "UPSC GS Paper 1", category: "UPSC", categoryId: "4", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 890, avgScore: 58, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "7", name: "IBPS PO Prelims", category: "Banking", categoryId: "7", access: "free" as const, kind: "full-length" as const, duration: 60, totalQuestions: 9, attempts: 3200, avgScore: 62, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", access: "paid" as const, kind: "sectional" as const, duration: 45, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]), priceCents: 499 },
-        { id: "9", name: "Punjab PSC Mock", category: "Punjab", categoryId: "8", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 1200, avgScore: 60, difficulty: "Hard" as const, sections: JSON.stringify([]) },
-        { id: "10", name: "PSSSB Exam Mock", category: "Punjab", categoryId: "8", access: "paid" as const, kind: "topic-wise" as const, duration: 90, totalQuestions: 9, attempts: 980, avgScore: 64, difficulty: "Medium" as const, sections: JSON.stringify([]), priceCents: 499 },
-      ];
-
-      for (const test of testData) {
-        await db.insert(tests).values(test as any);
-      }
-      logger.info("✓ Seeded 10 tests");
+    // Only seed if no categories exist (database is empty)
+    if (existingCategories.length > 0) {
+      logger.info(`Database already contains ${existingCategories.length} categories. Skipping seed.`);
+      return;
     }
+    
+    logger.info("Database is empty. Seeding with default data...");
+    
+    const categoryData = [
+      { id: "1", name: "JEE Main", description: "Joint Entrance Examination for top engineering colleges", icon: "Cpu", color: "blue", testsCount: 3 },
+      { id: "2", name: "NEET", description: "National Eligibility cum Entrance Test for medical aspirants", icon: "Heart", color: "emerald", testsCount: 2 },
+      { id: "3", name: "CAT", description: "Common Admission Test for top management institutes", icon: "BarChart3", color: "violet", testsCount: 2 },
+      { id: "4", name: "UPSC", description: "Civil Services Examination for government positions", icon: "Building2", color: "amber", testsCount: 1 },
+      { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
+      { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 1 },
+      { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
+      { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "MapPin", color: "red", testsCount: 2 },
+    ];
 
-    // Try to seed bundles if the table exists
-    try {
-      const existingBundles = await db.select().from(bundles);
-      if (existingBundles.length === 0) {
-        logger.info("Seeding bundles...");
-        // Bundle seeding code here
-        logger.info("✓ Seeded bundles");
-      }
-    } catch (err) {
-      logger.info("Bundles table not yet created, skipping bundle seeding");
+    for (const cat of categoryData) {
+      await db.insert(categories).values(cat);
     }
-  } catch (err) {
-    logger.error({ err }, "Failed to seed database");
+    logger.info("✓ Seeded 8 default categories");
+
+    // Seed default tests
+    const testData = [
+      { id: "1", name: "JEE Main Mock 1", category: "JEE", categoryId: "1", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 5421, avgScore: 72, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+      { id: "2", name: "JEE Main Mock 2", category: "JEE", categoryId: "1", access: "paid" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4230, avgScore: 69, difficulty: "Hard" as const, sections: JSON.stringify([]), priceCents: 499 },
+      { id: "3", name: "NEET Mock 1", category: "NEET", categoryId: "2", access: "free" as const, kind: "full-length" as const, duration: 180, totalQuestions: 9, attempts: 4100, avgScore: 75, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+      { id: "4", name: "NEET Mock 2", category: "NEET", categoryId: "2", access: "paid" as const, kind: "sectional" as const, duration: 180, totalQuestions: 9, attempts: 3800, avgScore: 71, difficulty: "Hard" as const, sections: JSON.stringify([]), priceCents: 499 },
+      { id: "5", name: "CAT Mock 1", category: "CAT", categoryId: "3", access: "free" as const, kind: "topic-wise" as const, duration: 120, totalQuestions: 9, attempts: 1500, avgScore: 65, difficulty: "Medium" as const, sections: JSON.stringify([]) },
+      { id: "6", name: "UPSC GS Paper 1", category: "UPSC", categoryId: "4", access: "free" as const, kind: "full-length" as const, duration: 120, totalQuestions: 9, attempts: 890, avgScore: 58, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+      { id: "7", name: "IBPS PO Prelims", category: "Banking", categoryId: "7", access: "free" as const, kind: "full-length" as const, duration: 60, totalQuestions: 9, attempts: 3200, avgScore: 62, difficulty: "Hard" as const, sections: JSON.stringify([]) },
+      { id: "8", name: "IBPS Clerk Mock", category: "Banking", categoryId: "7", access: "paid" as const, kind: "full-length" as const, duration: 60, totalQuestions: 9, attempts: 2800, avgScore: 68, difficulty: "Medium" as const, sections: JSON.stringify([]), priceCents: 499 },
+    ];
+
+    await db.insert(tests).values(testData);
+    logger.info("✓ Seeded 8 default tests");
+    
+    // Seed sample questions for tests
+    await ensureSampleQuestions();
+    logger.info("✓ Database initialization complete");
+  } catch (error) {
+    logger.error({ error }, "Database seeding failed");
+    throw error;
   }
 }
 
-// Initialize before starting server
-initializeAndSeed()
-  .then(() => ensureSampleQuestions())
-  .then(() => {
-    app.listen(port, (err) => {
-      if (err) {
-        logger.error({ err }, "Error listening on port");
-        process.exit(1);
-      }
+// Initialize database on startup (schema only, data only if empty)
+async function initializeDatabase() {
+  await ensureSchema();
+  await seedDefaultDataOnce();
+}
 
-      logger.info({ port }, "Server listening");
+// Start server
+(async () => {
+  try {
+    await initializeDatabase();
+    app.listen(port, "0.0.0.0", () => {
+      logger.info(`API server running on http://0.0.0.0:${port}`);
     });
-  })
-  .catch((err) => {
-    logger.error({ err }, "Failed to initialize");
+  } catch (error) {
+    logger.error({ error }, "Failed to start server");
     process.exit(1);
-  });
+  }
+})();

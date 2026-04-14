@@ -5,6 +5,7 @@ import { tests, questions, users, userTestEntitlements } from "@workspace/db";
 import { Test, type TestSection } from "@workspace/api-zod";
 import { buildSectionsWithQuestions } from "../lib/test-sections";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
+import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
 
@@ -93,6 +94,67 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
     access,
     priceCents: row.priceCents ?? null,
   });
+});
+
+router.get("/my-tests", authenticate, async (req, res) => {
+  const userId = req.user!.id;
+
+  try {
+    // Get all purchased tests for the user
+    const purchasedTests = await db
+      .select({
+        testId: userTestEntitlements.testId,
+        purchasedAt: userTestEntitlements.createdAt,
+        source: userTestEntitlements.source,
+        razorpayOrderId: userTestEntitlements.razorpayOrderId,
+        razorpayPaymentId: userTestEntitlements.razorpayPaymentId,
+        // Join with tests table
+        name: tests.name,
+        category: tests.category,
+        categoryId: tests.categoryId,
+        subcategoryId: tests.subcategoryId,
+        subcategoryName: tests.subcategoryName,
+        access: tests.access,
+        priceCents: tests.priceCents,
+        kind: tests.kind,
+        duration: tests.duration,
+        totalQuestions: tests.totalQuestions,
+        attempts: tests.attempts,
+        avgScore: tests.avgScore,
+        difficulty: tests.difficulty,
+      })
+      .from(userTestEntitlements)
+      .innerJoin(tests, eq(userTestEntitlements.testId, tests.id))
+      .where(eq(userTestEntitlements.userId, userId))
+      .orderBy(userTestEntitlements.createdAt);
+
+    return res.json({
+      purchasedTests: purchasedTests.map(test => ({
+        id: test.testId,
+        name: test.name,
+        category: test.category,
+        categoryId: test.categoryId,
+        subcategoryId: test.subcategoryId,
+        subcategoryName: test.subcategoryName,
+        access: test.access,
+        priceCents: test.priceCents,
+        kind: test.kind,
+        duration: test.duration,
+        totalQuestions: test.totalQuestions,
+        attempts: test.attempts,
+        avgScore: test.avgScore,
+        difficulty: test.difficulty,
+        purchasedAt: test.purchasedAt,
+        source: test.source,
+        razorpayOrderId: test.razorpayOrderId,
+        razorpayPaymentId: test.razorpayPaymentId,
+      }))
+    });
+
+  } catch (error) {
+    console.error("Error fetching user's purchased tests:", error);
+    return res.status(500).json({ error: "Failed to fetch purchased tests" });
+  }
 });
 
 export default router;

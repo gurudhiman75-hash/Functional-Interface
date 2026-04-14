@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { BookOpen, ChevronRight, Files, Layers3, Search, Target } from "lucide-react";
 import { getRuntimeExamGroups } from "@/lib/test-bank";
@@ -23,7 +24,12 @@ const CATEGORY_STYLES: Record<string, string> = {
 export default function Tests() {
   const [, setLocation] = useLocation();
   const [search, setSearch] = useState("");
+  const queryClient = useQueryClient();
   const { categories, tests, isLoading, error } = useExamCatalog();
+
+  const handleRefresh = async () => {
+    await queryClient.invalidateQueries(["exam-catalog"]);
+  };
 
   const categoryCards = useMemo(() => (
     categories.map((category) => {
@@ -123,6 +129,11 @@ export default function Tests() {
               placeholder="Search categories like SSC, Banking, NEET..."
               className="h-12 rounded-2xl border-white/60 bg-card/90 pl-11"
             />
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button className="rounded-2xl" onClick={handleRefresh}>
+              Refresh catalog
+            </Button>
           </div>
         </div>
       </section>

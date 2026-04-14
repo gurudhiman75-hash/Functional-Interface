@@ -34,6 +34,7 @@ export function TestPaywall({ testId, testName, priceCents, reason }: TestPaywal
         successPath: `/test/${testId}?checkout=success`,
         onPaid: async () => {
           await queryClient.invalidateQueries({ queryKey: ["me", "entitlements"] });
+          await queryClient.invalidateQueries({ queryKey: ["purchase", "status", testId] });
           setLocation(`/test/${testId}?checkout=success`);
         },
         onError: (message) => console.error(message),
@@ -46,6 +47,7 @@ export function TestPaywall({ testId, testName, priceCents, reason }: TestPaywal
       ) {
         await mockUnlockTest(testId);
         await queryClient.invalidateQueries({ queryKey: ["me", "entitlements"] });
+        await queryClient.invalidateQueries({ queryKey: ["purchase", "status", testId] });
         setLocation(`/test/${testId}`);
         return;
       }

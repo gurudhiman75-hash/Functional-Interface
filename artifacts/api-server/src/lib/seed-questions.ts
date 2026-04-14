@@ -115,21 +115,20 @@ function genericBlock(testId: string, count: number, section: string) {
   }));
 }
 
-/** Minimum rows to consider the question bank complete for the default 10 tests (9 Q each). */
-const MIN_QUESTION_ROWS = 80;
-
+/** Seed sample questions only once when database is empty */
 export async function ensureSampleQuestions(): Promise<void> {
   const existing = await db.select().from(questions);
-  if (existing.length >= MIN_QUESTION_ROWS) {
+  
+  // Only seed if no questions exist (database is empty)
+  if (existing.length > 0) {
+    logger.info(
+      { existing: existing.length },
+      "Question bank already populated. Skipping seed.",
+    );
     return;
   }
 
-  logger.info(
-    { existing: existing.length },
-    "Seeding sample questions (bank missing or incomplete)",
-  );
-
-  await db.execute(`DELETE FROM "questions"`);
+  logger.info("Question bank is empty. Seeding sample questions...");
 
   const bulk: {
     testId: string;
@@ -153,5 +152,5 @@ export async function ensureSampleQuestions(): Promise<void> {
   ];
 
   await db.insert(questions).values(bulk);
-  logger.info({ count: bulk.length }, "Sample questions seeded");
+  logger.info({ count: bulk.length }, "✓ Sample questions seeded");
 }
