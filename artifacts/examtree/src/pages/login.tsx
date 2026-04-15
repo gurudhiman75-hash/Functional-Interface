@@ -253,9 +253,9 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      <div className="absolute inset-0 aurora-bg opacity-70" />
+      <div className="absolute inset-0 aurora-bg opacity-20" />
       <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-        <section className="glass-panel rounded-[2rem] border border-white/60 p-8 shadow-[0_30px_90px_-45px_rgba(15,23,42,0.55)] lg:p-10">
+        <section className="rounded-xl border border-border/70 bg-card p-8 shadow-sm lg:p-10">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className={`text-xs font-semibold uppercase tracking-[0.3em] ${isAdminMode ? "text-amber-700" : "text-primary/80"}`}>
@@ -297,7 +297,7 @@ export default function Login() {
             ))}
           </div>
 
-          <div className="mt-8 glass-panel rounded-[1.75rem] border border-white/60 bg-slate-950/90 p-6 text-white shadow-lg">
+          <div className="mt-8 rounded-xl border border-border/70 bg-muted/80 p-6 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55">
               {isAdminMode ? "Admin readiness" : "Student momentum"}
             </p>
@@ -320,7 +320,7 @@ export default function Login() {
           </div>
         </section>
 
-        <section className="glass-panel rounded-[2rem] border border-white/60 p-8 shadow-[0_30px_90px_-45px_rgba(15,23,42,0.55)]">
+        <section className="rounded-xl border border-border/70 bg-card p-8 shadow-sm">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${isAdminMode ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>

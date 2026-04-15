@@ -1,4 +1,4 @@
-import { pgTable, text, integer, timestamp, jsonb, serial, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, timestamp, jsonb, serial, primaryKey, unique } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -110,3 +110,55 @@ export const attempts = pgTable("attempts", {
   sectionTimeSpent: jsonb("section_time_spent"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+// Package system tables
+export const packages = pgTable("packages", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  originalPriceCents: integer("original_price_cents").notNull(),
+  discountPercent: integer("discount_percent").notNull().default(0),
+  finalPriceCents: integer("final_price_cents").notNull(),
+  testCount: integer("test_count").notNull().default(0),
+  features: jsonb("features"),
+  isPopular: integer("is_popular").notNull().default(0),
+  order: integer("order").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const packageTests = pgTable(
+  "package_tests",
+  {
+    id: text("id").primaryKey(),
+    packageId: text("package_id")
+      .notNull()
+      .references(() => packages.id, { onDelete: "cascade" }),
+    testId: text("test_id")
+      .notNull()
+      .references(() => tests.id, { onDelete: "cascade" }),
+    isFree: integer("is_free").notNull().default(0),
+  },
+  (t) => ({
+    uniquePackageTest: unique({ columns: [t.packageId, t.testId] }),
+  }),
+);
+
+export const userPackages = pgTable(
+  "user_packages",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    packageId: text("package_id")
+      .notNull()
+      .references(() => packages.id, { onDelete: "cascade" }),
+    razorpayOrderId: text("razorpay_order_id"),
+    razorpayPaymentId: text("razorpay_payment_id"),
+    purchasedAt: timestamp("purchased_at").notNull().defaultNow(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    uniqueUserPackage: unique({ columns: [t.userId, t.packageId] }),
+  }),
+);

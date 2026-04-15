@@ -19,10 +19,12 @@ import {
   addAttempt,
   clearActiveTestSession,
   getActiveTestSession,
+  getAttempts,
   getUser,
   saveActiveTestSession,
+  type TestAttempt,
 } from "@/lib/storage";
-import { getTest, type Test } from "@/lib/data";
+import { createAttempt, getTest, type Test } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
@@ -86,6 +88,14 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
   const [sectionTimeLeftByName, setSectionTimeLeftByName] = useState<Record<string, number>>({});
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [draftLoaded, setDraftLoaded] = useState(false);
+  const [attemptType, setAttemptType] = useState<"REAL" | "PRACTICE">("REAL");
+  const [lockedSections, setLockedSections] = useState<number[]>([]);
+  const [originalAttemptId, setOriginalAttemptId] = useState<string | undefined>();
+  const [sectionCompletionTimes, setSectionCompletionTimes] = useState<Record<string, number>>({});
+  const [showSectionSwitchWarning, setShowSectionSwitchWarning] = useState(false);
+  const [pendingSectionSwitch, setPendingSectionSwitch] = useState<number | null>(null);
+  const [practiceAnswers, setPracticeAnswers] = useState<Record<number, number | null>>({}); // User's answers in practice mode
+  const [showPracticeAnswer, setShowPracticeAnswer] = useState(false);
 
   const currentSection = test.sections[currentSectionIndex];
   const questions = currentSection.questions;
@@ -113,6 +123,44 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
   const flagged = allQuestions.filter((question) => Boolean(flags[question.id])).length;
   const unanswered = totalQuestions - answered;
   const currentQuestionFlagged = Boolean(flags[q?.id]);
+  const [visitedQuestionIds, setVisitedQuestionIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!q) return;
+    setVisitedQuestionIds((current) =>
+      current.includes(q.id) ? current : [...current, q.id],
+    );
+  }, [q]);
+
+  type QuestionStatus = "NOT_VISITED" | "NOT_ANSWERED" | "ANSWERED" | "MARKED";
+
+  const getQuestionStatus = (question: { id: number }): QuestionStatus => {
+    const answer = answers[question.id];
+    const isFlagged = Boolean(flags[question.id]);
+    const isVisited = visitedQuestionIds.includes(question.id);
+
+    if (isFlagged) return "MARKED";
+    if (answer !== null && answer !== undefined) return "ANSWERED";
+    if (isVisited) return "NOT_ANSWERED";
+    return "NOT_VISITED";
+  };
+
+  const statusCounts = useMemo(() => {
+    return allQuestions.reduce(
+      (counts, question) => {
+        const status = getQuestionStatus(question);
+        counts[status] += 1;
+        return counts;
+      },
+      {
+        NOT_VISITED: 0,
+        NOT_ANSWERED: 0,
+        ANSWERED: 0,
+        MARKED: 0,
+      } as Record<QuestionStatus, number>,
+    );
+  }, [allQuestions, answers, flags, visitedQuestionIds]);
+
   const isFirstQuestion = currentSectionIndex === 0 && currentQuestionIndex === 0;
   const isLastQuestion =
     currentSectionIndex === test.sections.length - 1 && currentQuestionIndex === questions.length - 1;
@@ -150,13 +198,49 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       setFlags(draft.flags);
       setTimeLeft(Math.max(0, Math.min(draft.timeLeft, totalTime)));
       setSectionTimeLeftByName({ ...defaultSectionTimes, ...draft.sectionTimeLeftByName });
+      setAttemptType(draft.attemptType ?? "REAL");
+      setLockedSections(draft.lockedSections ?? []);
+      setOriginalAttemptId(draft.originalAttemptId);
+      setSectionCompletionTimes(draft.sectionCompletionTimes ?? {});
       setShowSubmitModal(false);
       setDraftLoaded(true);
       toast({
         title: "Saved test resumed",
-        description: `Restored your in-progress attempt for ${test.name}.`,
+        description: `Restored your ${draft.attemptType?.toLowerCase() ?? 'saved'} attempt for ${test.name}.`,
       });
       return;
+    }
+
+    // Check if this is a practice attempt (has originalAttemptId in URL params)
+    const searchParams = new URLSearchParams(window.location.search);
+    const practiceParam = searchParams.get('practice');
+    const originalId = searchParams.get('originalAttemptId');
+
+    if (practiceParam === 'true' && originalId) {
+      // Load original attempt data for practice mode
+      const attempts = getAttempts();
+      const originalAttempt = attempts.find((a: TestAttempt) => a.testId === test.id && a.attemptType === 'REAL');
+      
+      if (originalAttempt) {
+        setAttemptType("PRACTICE");
+        setOriginalAttemptId(originalId);
+        // Load original answers and flags for comparison
+        // Note: In practice mode, we'll start fresh but show original answers
+        setAnswers({});
+        setFlags({});
+        setTimeLeft(totalTime); // No timer in practice mode
+        setSectionTimeLeftByName(defaultSectionTimes);
+        setLockedSections([]);
+        setSectionCompletionTimes(originalAttempt.sectionTimeSpent?.reduce((acc: Record<string, number>, s: any) => {
+          acc[s.name] = s.minutesSpent;
+          return acc;
+        }, {} as Record<string, number>) ?? {});
+      } else {
+        // Fallback to real attempt if no original found
+        setAttemptType("REAL");
+      }
+    } else {
+      setAttemptType("REAL");
     }
 
     setCurrentSectionIndex(0);
@@ -166,6 +250,8 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     setTimeLeft(totalTime);
     setShowSubmitModal(false);
     setSectionTimeLeftByName(defaultSectionTimes);
+    setLockedSections([]);
+    setSectionCompletionTimes({});
     setDraftLoaded(false);
   }, [getSectionLimitSeconds, id, test.id, test.name, test.sections, toast, totalTime]);
 
@@ -202,6 +288,10 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       timeLeft,
       sectionTimeLeftByName,
       updatedAt: Date.now(),
+      attemptType,
+      lockedSections,
+      originalAttemptId,
+      sectionCompletionTimes,
     });
   }, [
     answers,
@@ -237,7 +327,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [answers, draftLoaded, flags, timeLeft, totalTime]);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     const correct = allQuestions.filter((question) => answers[question.id] === question.correct).length;
     const wrong = allQuestions.filter((question) => {
       const answer = answers[question.id];
@@ -286,7 +376,8 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       explanation: question.explanation,
     }));
 
-    addAttempt({
+    const attempt = {
+      userId: user?.id ?? "unknown",
       testId: test.id,
       testName: test.name,
       category: test.category,
@@ -297,6 +388,9 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       totalQuestions,
       timeSpent,
       date: new Date().toLocaleDateString("en-CA"),
+      attemptType,
+      isFirstAttempt: attemptType === "REAL",
+      originalAttemptId: attemptType === "PRACTICE" ? originalAttemptId : undefined,
       sectionStats,
       sectionTimeSpent: hasSectionalTiming
         ? test.sections.map((section, index) => {
@@ -309,10 +403,24 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
           })
         : undefined,
       questionReview,
-    });
+    };
+
+    addAttempt(attempt);
+
+    if (getFirebaseAuth()?.currentUser) {
+      void createAttempt(attempt).catch(() => {
+        console.warn("Failed to sync attempt to backend. Local result is still available.");
+      });
+    }
 
     clearActiveTestSession(test.id);
-    setLocation("/result");
+    
+    // For practice attempts, show practice results; for real attempts, show standard results
+    if (attemptType === "PRACTICE") {
+      setLocation(`/result?practiceAttemptId=${test.id}`);
+    } else {
+      setLocation("/result");
+    }
   }, [
     allQuestions,
     answers,
@@ -327,6 +435,9 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
   ]);
 
   useEffect(() => {
+    // Don't run timer in practice mode
+    if (attemptType === "PRACTICE") return;
+
     const interval = setInterval(() => {
       if (hasSectionalTiming) {
         setSectionTimeLeftByName((current) => {
@@ -351,7 +462,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [currentSectionIndex, getSectionLimitSeconds, handleSubmit, hasSectionalTiming, test.sections]);
+  }, [attemptType, currentSectionIndex, getSectionLimitSeconds, handleSubmit, hasSectionalTiming, test.sections]);
 
   useEffect(() => {
     if (!hasSectionalTiming) return;
@@ -404,10 +515,56 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
   };
 
   const navigateToSection = (sectionIndex: number, questionIndex = 0) => {
-    if (hasLockedSections && sectionIndex !== currentSectionIndex) return;
-    setCurrentSectionIndex(sectionIndex);
-    setCurrentQuestionIndex(questionIndex);
-    window.scrollTo(0, 0);
+    // Check if trying to navigate to a locked section
+    if (lockedSections.includes(sectionIndex)) {
+      toast({
+        title: "Section Locked",
+        description: "This section has been completed and is now locked.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // If moving to a new section forward, show warning and lock current section
+    if (sectionIndex > currentSectionIndex) {
+      setPendingSectionSwitch(sectionIndex);
+      setShowSectionSwitchWarning(true);
+      return;
+    }
+
+    // Allow navigation within current section or to unlocked previous sections
+    if (sectionIndex <= currentSectionIndex || !lockedSections.includes(sectionIndex)) {
+      setCurrentSectionIndex(sectionIndex);
+      setCurrentQuestionIndex(questionIndex);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const confirmSectionSwitch = () => {
+    if (pendingSectionSwitch !== null) {
+      // Lock the current section
+      setLockedSections(prev => [...prev, currentSectionIndex]);
+      
+      // Record completion time for current section (for real attempts)
+      if (attemptType === "REAL") {
+        const sectionName = currentSection.name;
+        const timeSpent = hasSectionalTiming 
+          ? currentSectionLimitSeconds - sectionTimeLeft
+          : totalTime - timeLeft;
+        setSectionCompletionTimes(prev => ({
+          ...prev,
+          [sectionName]: Math.round(timeSpent / 60) // minutes
+        }));
+      }
+
+      // Navigate to new section
+      setCurrentSectionIndex(pendingSectionSwitch);
+      setCurrentQuestionIndex(0);
+      window.scrollTo(0, 0);
+      
+      setShowSectionSwitchWarning(false);
+      setPendingSectionSwitch(null);
+    }
   };
 
   /** First unanswered question in a section, or 0 if all have a selection. */
@@ -426,58 +583,29 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     totalQuestions > 0 ? Math.min(100, Math.round((currentQuestionNumber / totalQuestions) * 100)) : 0;
 
   return (
-    <div className="relative isolate z-[200] min-h-screen bg-muted/50 pb-24 lg:pb-6">
+    <div className="relative isolate z-[200] min-h-screen bg-gray-100 text-gray-900">
       {showSuccessMessage && (
-        <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 shadow-lg dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200">
+        <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 shadow-lg">
           <div className="flex items-center gap-2">
             <CheckCircle className="h-4 w-4" />
             Payment successful! Test unlocked.
           </div>
         </div>
       )}
-      <header className="sticky top-0 z-[210] border-b border-border bg-card/95 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-card/85">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-3 py-2.5 sm:px-4">
-          <button
-            type="button"
-            onClick={() => setShowSubmitModal(true)}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            data-testid="btn-exit"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Leave</span>
-          </button>
-          <div className="min-w-0 flex-1">
-            <h1 className="truncate text-sm font-semibold text-foreground sm:text-base">{test.name}</h1>
-            <p className="truncate text-xs text-muted-foreground">
-              {currentSection.name} · Q {currentQuestionNumber}/{totalQuestions}
-            </p>
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <div
-              className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-xs font-bold tabular-nums sm:text-sm ${
-                isLowTime
-                  ? "border-destructive/40 bg-destructive/10 text-destructive"
-                  : "border-border bg-muted/80 text-foreground"
-              }`}
-              data-testid="timer"
-            >
-              <Clock className="h-3.5 w-3.5 shrink-0 opacity-80" />
-              {formatTime(activeTimeLeft)}
-            </div>
-            <Button
-              size="sm"
-              className="hidden h-9 rounded-lg sm:inline-flex"
-              onClick={() => setShowSubmitModal(true)}
-            >
-              Submit
-            </Button>
+
+      {/* Blue top bar */}
+      <header className="sticky top-0 z-[210] bg-blue-600 shadow-md">
+        <div className="flex items-center justify-between px-4 py-2.5 sm:px-6">
+          <h1 className="text-base font-bold text-white sm:text-lg">{test.name}</h1>
+          <div className={`font-mono text-sm font-semibold tabular-nums text-white ${isLowTime ? "text-red-200" : ""}`}>
+            Time Left: {formatTime(activeTimeLeft)}
           </div>
         </div>
-        <div className="px-3 sm:px-4">
-          <Progress value={progressPercent} className="h-1 rounded-none bg-muted" />
-        </div>
-        <div className="border-t border-border/60 bg-muted/30">
-          <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-3 py-2 sm:px-4">
+
+        {/* Sections row */}
+        <div className="border-t border-blue-500/60 bg-white px-4 py-1.5 sm:px-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-gray-500">Sections</span>
             {test.sections.map((section, sectionIndex) => {
               const isActive = sectionIndex === currentSectionIndex;
               const sectionLocked = hasLockedSections && sectionIndex !== currentSectionIndex;
@@ -487,10 +615,10 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
                   type="button"
                   onClick={() => navigateToSection(sectionIndex, resumeQuestionIndexInSection(sectionIndex))}
                   disabled={sectionLocked}
-                  className={`flex min-h-10 min-w-0 shrink-0 items-center gap-1.5 rounded-xl px-4 py-2 text-left text-xs font-semibold transition-all sm:text-sm ${
+                  className={`flex min-h-8 min-w-0 shrink-0 items-center gap-1.5 rounded px-3 py-1 text-xs font-semibold transition-all ${
                     isActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "bg-card text-muted-foreground ring-1 ring-border hover:bg-muted/80 hover:text-foreground"
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "bg-white text-gray-600 border border-gray-300 hover:bg-gray-50"
                   } disabled:cursor-not-allowed disabled:opacity-40`}
                   aria-label={
                     sectionLocked
@@ -499,8 +627,8 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
                   }
                   data-testid={`section-tab-${section.id}`}
                 >
-                  {sectionLocked ? <Lock className="h-3.5 w-3.5 shrink-0 opacity-70" aria-hidden /> : null}
-                  <span className="max-w-[10rem] truncate sm:max-w-[14rem]">{section.name}</span>
+                  {sectionLocked ? <Lock className="h-3 w-3 shrink-0" aria-hidden /> : null}
+                  <span className="max-w-[10rem] truncate">{section.name}</span>
                 </button>
               );
             })}
@@ -508,225 +636,244 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-3 py-4 sm:px-4">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start lg:gap-6">
-          <div className="min-w-0 space-y-4">
-            <div className="lg:hidden">
-              <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Sections</p>
-              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                {test.sections.map((section, sectionIndex) => {
-                  const isActive = sectionIndex === currentSectionIndex;
-                  const sectionLocked = hasLockedSections && sectionIndex !== currentSectionIndex;
-                  return (
-                    <button
-                      key={section.id}
-                      type="button"
-                      onClick={() => navigateToSection(sectionIndex, resumeQuestionIndexInSection(sectionIndex))}
-                      disabled={sectionLocked}
-                      className={`flex min-h-11 w-full items-center justify-between gap-2 rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition-colors sm:min-w-[200px] sm:max-w-[calc(50%-0.25rem)] sm:flex-1 ${
-                        isActive
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border bg-card text-foreground hover:bg-muted/60"
-                      } disabled:cursor-not-allowed disabled:opacity-40`}
-                      aria-label={`Switch to ${section.name}`}
-                    >
-                      <span className="line-clamp-2">{section.name}</span>
-                      {sectionLocked ? (
-                        <Lock className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-                      ) : (
-                        <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-                      )}
-                    </button>
-                  );
-                })}
+      <main className="px-3 py-4 sm:px-5 lg:py-5">
+        <div className="grid gap-4 lg:grid-cols-[1fr_280px] lg:items-start">
+          <section className="min-w-0">
+            {/* Question card */}
+            <div className="rounded border border-gray-300 bg-white shadow-sm">
+              <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3">
+                <p className="text-sm font-bold text-gray-700">Question No {currentQuestionNumber}</p>
+                {hasSectionalTiming && (
+                  <span className="text-xs font-semibold text-gray-500">Section time: {formatTime(sectionTimeLeft)}</span>
+                )}
               </div>
-            </div>
+              <div className="space-y-5 px-5 py-5">
 
-            <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-7">
-              <div className="mb-5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                <span className="rounded-md bg-muted px-2 py-0.5 font-medium text-foreground">Question {currentQuestionNumber}</span>
-                <span className="hidden sm:inline">·</span>
-                <span className="line-clamp-1">{currentSection.name}</span>
-                {hasSectionalTiming ? (
-                  <>
-                    <span>·</span>
-                    <span className="tabular-nums">
-                      Section time {formatTime(sectionTimeLeft)} / {formatTime(currentSectionLimitSeconds)}
-                    </span>
-                  </>
-                ) : null}
-              </div>
-              <div className="text-pretty text-lg font-medium leading-relaxed text-foreground sm:text-xl">
+              <div className="text-sm leading-7 text-gray-800 sm:text-base">
                 <QuestionRichText content={q.text} />
               </div>
 
-              <div className="mt-6 space-y-2.5">
+              <div className="grid gap-2">
                 {q.options.map((option, index) => {
                   const selected = answers[q.id] === index;
                   return (
                     <button
                       key={index}
                       type="button"
-                      onClick={() => setAnswers((current) => ({ ...current, [q.id]: index }))}
-                      className={`flex w-full items-start gap-3 rounded-xl border-2 p-3.5 text-left transition-all sm:p-4 ${
+                      onClick={() => {
+                        if (attemptType === "PRACTICE") {
+                          setPracticeAnswers((current) => ({ ...current, [q.id]: index }));
+                          setShowPracticeAnswer(true);
+                        } else {
+                          setAnswers((current) => ({ ...current, [q.id]: index }));
+                        }
+                      }}
+                      className={`flex w-full items-center gap-3 rounded-md border p-3 text-left text-sm transition-all ${
                         selected
-                          ? "border-primary bg-primary/5 shadow-sm ring-1 ring-primary/20"
-                          : "border-border bg-background hover:border-primary/35 hover:bg-muted/40"
+                          ? "border-blue-500 bg-blue-50 text-blue-900"
+                          : "border-gray-200 bg-white hover:border-gray-400 hover:bg-gray-50 text-gray-800"
                       }`}
                     >
                       <span
-                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
+                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-xs font-bold ${
                           selected
-                            ? "bg-primary text-primary-foreground"
-                            : "border border-border bg-muted/50 text-muted-foreground"
+                            ? "bg-blue-600 text-white"
+                            : "border border-gray-300 bg-gray-100 text-gray-600"
                         }`}
                       >
                         {String.fromCharCode(65 + index)}
                       </span>
-                      <div className="min-w-0 flex-1 pt-1">
+                      <div className="min-w-0 flex-1">
                         <QuestionRichText content={option} inline />
                       </div>
-                      {selected ? (
-                        <CheckCircle className="mt-1 h-5 w-5 shrink-0 text-primary" aria-hidden />
-                      ) : null}
+                      {selected ? <CheckCircle className="h-4 w-4 shrink-0 text-blue-600" aria-hidden /> : null}
                     </button>
                   );
                 })}
               </div>
 
-              <Separator className="my-6" />
+              {attemptType === "PRACTICE" && showPracticeAnswer && (
+                <div className="mt-6 rounded-2xl border border-border bg-blue-50 p-4">
+                  <h3 className="text-sm font-semibold text-blue-900 mb-3">Practice Mode Analysis</h3>
+                  
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Your Answer</p>
+                      <div className="flex items-center gap-2">
+                        <span className={`flex h-8 w-8 items-center justify-center rounded-xl text-sm font-bold ${
+                          practiceAnswers[q.id] === q.correct
+                            ? "bg-green-500 text-white"
+                            : "bg-red-500 text-white"
+                        }`}>
+                          {practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined 
+                            ? String.fromCharCode(65 + practiceAnswers[q.id]!)
+                            : "?"}
+                        </span>
+                        <span className="text-sm text-blue-900">
+                          {practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined 
+                            ? q.options[practiceAnswers[q.id]!]
+                            : "Not answered"}
+                        </span>
+                      </div>
+                    </div>
 
-              <div className="hidden flex-wrap items-center justify-between gap-3 lg:flex">
-                <div className="flex flex-wrap gap-2">
-                  <Button type="button" variant="outline" size="sm" className="rounded-lg" onClick={clearResponse}>
-                    Clear response
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={currentQuestionFlagged ? "secondary" : "outline"}
-                    size="sm"
-                    className="rounded-lg"
-                    onClick={toggleReview}
-                  >
-                    <Flag className="mr-1.5 h-3.5 w-3.5" />
-                    {currentQuestionFlagged ? "Marked" : "Mark for review"}
-                  </Button>
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Correct Answer</p>
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-green-500 text-sm font-bold text-white">
+                          {String.fromCharCode(65 + q.correct)}
+                        </span>
+                        <span className="text-sm text-blue-900">{q.options[q.correct]}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {originalAttemptId && (
+                    <div className="mt-4 pt-4 border-t border-blue-200">
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Your Real Exam Answer</p>
+                          <div className="flex items-center gap-2">
+                            <span className={`flex h-8 w-8 items-center justify-center rounded-xl text-sm font-bold ${
+                              answers[q.id] === q.correct
+                                ? "bg-green-500 text-white"
+                                : answers[q.id] !== null && answers[q.id] !== undefined
+                                ? "bg-red-500 text-white"
+                                : "bg-muted/50 text-muted-foreground"
+                            }`}>
+                              {answers[q.id] !== null && answers[q.id] !== undefined 
+                                ? String.fromCharCode(65 + answers[q.id]!)
+                                : "?"}
+                            </span>
+                            <span className="text-sm text-blue-900">
+                              {answers[q.id] !== null && answers[q.id] !== undefined 
+                                ? q.options[answers[q.id]!]
+                                : "Not answered in real exam"}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Time Comparison</p>
+                          <div className="text-sm text-blue-900">
+                            <p>Real exam: {sectionCompletionTimes[currentSection.name] || 0} min</p>
+                            <p>Practice: No time limit</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mt-4">
+                    <p className="text-sm text-blue-800">{q.explanation}</p>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="rounded-lg"
-                    disabled={isFirstQuestion}
-                    onClick={goToPrevious}
-                  >
-                    <ChevronLeft className="mr-1 h-4 w-4" />
-                    Previous
-                  </Button>
-                  <Button type="button" size="sm" className="rounded-lg" onClick={goToNext}>
-                    {primaryAdvanceLabel}
-                    <ChevronRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
+              )}
+              </div>{/* end .space-y-5 inner */}
+            </div>{/* end question card white box */}
+
+            {/* Bottom action bar - part of question card */}
+            <div className="mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3">
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={toggleReview}
+                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                    currentQuestionFlagged
+                      ? "border-violet-400 bg-violet-50 text-violet-700"
+                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  {currentQuestionFlagged ? "Marked for review" : "Mark for Review & Next"}
+                </button>
+                <button
+                  type="button"
+                  onClick={clearResponse}
+                  className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
+                >
+                  Clear Response
+                </button>
               </div>
+              <button
+                type="button"
+                onClick={goToNext}
+                className="rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+              >
+                Save & Next
+              </button>
+            </div>
+          </section>
 
-              <div className="mt-4 flex flex-wrap gap-4 text-xs text-muted-foreground lg:hidden">
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                  Done {answered}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-amber-400" />
-                  Marked {flagged}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-muted-foreground/40" />
-                  Left {unanswered}
-                </span>
+
+
+          <aside className="min-w-0 space-y-3">
+            {/* Legend */}
+            <div className="rounded border border-gray-300 bg-white shadow-sm">
+              <div className="border-b border-gray-200 px-4 py-2.5">
+                <p className="text-sm font-bold text-gray-700">Legend</p>
+              </div>
+              <div className="grid grid-cols-2 gap-x-3 gap-y-2 p-3 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-[10px] font-bold text-white">{statusCounts.ANSWERED}</span>
+                  <span className="text-gray-700">Answered</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">{statusCounts.NOT_ANSWERED}</span>
+                  <span className="text-gray-700">Not Answered</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[10px] font-bold text-white">{statusCounts.MARKED}</span>
+                  <span className="text-gray-700">Marked</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-[10px] font-bold text-gray-500">{statusCounts.NOT_VISITED}</span>
+                  <span className="text-gray-700">Not Visited</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <aside className="space-y-4 lg:sticky lg:top-[7.5rem] lg:self-start">
-            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
-              <div className="mb-3 flex items-center justify-between gap-2">
-                <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                  <ListOrdered className="h-4 w-4 text-primary" />
-                  Navigator
-                </h3>
-                <span className="text-xs text-muted-foreground">
-                  {answered}/{totalQuestions}
-                </span>
+            {/* Question Palette */}
+            <div className="rounded border border-gray-300 bg-white shadow-sm">
+              <div className="flex items-center justify-between border-b border-gray-200 px-4 py-2.5">
+                <p className="text-sm font-bold text-gray-700">Question Palette:</p>
+                <span className="text-xs text-gray-500">{answered}/{totalQuestions}</span>
               </div>
-              <p className="mb-3 flex flex-wrap gap-3 text-[10px] uppercase tracking-wide text-muted-foreground">
-                <span className="inline-flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-sm bg-primary" /> Current
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-sm bg-emerald-500/80" /> Done
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-sm bg-amber-400" /> Flag
-                </span>
-              </p>
-              <div className="max-h-[min(52vh,420px)] space-y-3 overflow-y-auto pr-1">
+              <div className="space-y-4 p-3">
                 {test.sections.map((section, sectionIndex) => {
-                  const isCurrentSection = sectionIndex === currentSectionIndex;
-                  const sectionLocked = hasLockedSections && sectionIndex !== currentSectionIndex;
-                  const answeredInSection = section.questions.filter(
-                    (qq) => answers[qq.id] !== null && answers[qq.id] !== undefined,
-                  ).length;
+                  const isLocked = lockedSections.includes(sectionIndex);
+                  const isActive = sectionIndex === currentSectionIndex;
+                  const isCompleted = sectionIndex < currentSectionIndex;
+                  const sectionStatus = isLocked ? "Locked" : isActive ? "Active" : isCompleted ? "Completed" : "Pending";
+                  const statusColor = isLocked ? "text-red-600" : isActive ? "text-blue-600" : isCompleted ? "text-green-600" : "text-gray-400";
+
                   return (
-                    <div
-                      key={section.id}
-                      className={`rounded-xl border p-1.5 ${
-                        isCurrentSection ? "border-primary/40 bg-primary/5" : "border-border bg-muted/20"
-                      }`}
-                    >
-                      <button
-                        type="button"
-                        disabled={sectionLocked}
-                        onClick={() => navigateToSection(sectionIndex, resumeQuestionIndexInSection(sectionIndex))}
-                        className="flex w-full items-center gap-2 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-muted/70 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
-                        aria-label={`Open section ${section.name}`}
-                      >
-                        <div className="min-w-0 flex-1">
-                          <p
-                            className={`text-sm font-semibold leading-tight ${isCurrentSection ? "text-primary" : "text-foreground"}`}
-                          >
-                            {section.name}
-                          </p>
-                          <p className="mt-0.5 text-[10px] text-muted-foreground">
-                            {answeredInSection}/{section.questions.length} answered
-                          </p>
-                        </div>
-                        {sectionLocked ? (
-                          <Lock className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-                        ) : (
-                          <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-                        )}
-                      </button>
-                      <div className="grid grid-cols-5 gap-1.5 px-1 pb-1 sm:grid-cols-6">
+                    <div key={section.id}>
+                      <div className="mb-2 flex items-center justify-between">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-gray-500">{section.name}</p>
+                        <span className={`text-[10px] font-semibold ${statusColor}`}>{sectionStatus}</span>
+                      </div>
+                      <div className="grid grid-cols-5 gap-1.5">
                         {section.questions.map((question, questionIndex) => {
-                          const isAnswered = answers[question.id] !== null && answers[question.id] !== undefined;
-                          const isFlagged = Boolean(flags[question.id]);
-                          const isCurrent = isCurrentSection && questionIndex === currentQuestionIndex;
+                          const status = getQuestionStatus(question);
+                          const isCurrent = sectionIndex === currentSectionIndex && questionIndex === currentQuestionIndex;
+                          const isMarked = status === "MARKED";
+                          const paletteClass = isCurrent
+                            ? "bg-blue-600 text-white"
+                            : isMarked
+                            ? "bg-violet-600 text-white"
+                            : status === "ANSWERED"
+                            ? "bg-green-500 text-white"
+                            : status === "NOT_ANSWERED"
+                            ? "bg-red-500 text-white"
+                            : "border border-gray-300 bg-white text-gray-600 hover:bg-gray-100";
+
                           return (
                             <button
                               key={question.id}
                               type="button"
+                              disabled={isLocked && !isActive}
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
-                              disabled={sectionLocked}
-                              className={`flex h-9 items-center justify-center rounded-md text-xs font-bold tabular-nums transition-all disabled:opacity-40 ${
-                                isCurrent
-                                  ? "bg-primary text-primary-foreground shadow-md ring-2 ring-primary/25"
-                                  : isFlagged
-                                    ? "bg-amber-100 text-amber-900 ring-1 ring-amber-300 dark:bg-amber-950/50 dark:text-amber-100"
-                                    : isAnswered
-                                      ? "bg-emerald-100 text-emerald-900 ring-1 ring-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-100"
-                                      : "bg-muted/80 text-muted-foreground ring-1 ring-border hover:bg-muted"
-                              }`}
+                              className={`flex h-8 w-full items-center justify-center rounded-md text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${paletteClass}`}
                             >
                               {questionIndex + 1}
                             </button>
@@ -737,87 +884,95 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
                   );
                 })}
               </div>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
-              <h3 className="text-sm font-semibold text-foreground">Paper status</h3>
-              <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-                <div className="rounded-lg bg-emerald-500/10 py-2">
-                  <p className="text-lg font-bold text-emerald-700 dark:text-emerald-400">{answered}</p>
-                  <p className="text-[10px] font-medium uppercase text-muted-foreground">Done</p>
-                </div>
-                <div className="rounded-lg bg-amber-500/10 py-2">
-                  <p className="text-lg font-bold text-amber-700 dark:text-amber-400">{flagged}</p>
-                  <p className="text-[10px] font-medium uppercase text-muted-foreground">Flag</p>
-                </div>
-                <div className="rounded-lg bg-muted py-2">
-                  <p className="text-lg font-bold text-foreground">{unanswered}</p>
-                  <p className="text-[10px] font-medium uppercase text-muted-foreground">Left</p>
-                </div>
+              <div className="border-t border-gray-200 p-3">
+                <button
+                  type="button"
+                  onClick={() => setShowSubmitModal(true)}
+                  className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+                >
+                  Submit test
+                </button>
               </div>
-              <Button className="mt-4 w-full rounded-xl" onClick={() => setShowSubmitModal(true)}>
-                Submit test
-              </Button>
             </div>
           </aside>
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-[205] border-t border-border bg-card/95 p-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md supports-[backdrop-filter]:bg-card/90 lg:hidden">
-        <div className="mx-auto flex max-w-lg items-center gap-2">
-          <Button type="button" variant="outline" size="sm" className="flex-1 rounded-xl" disabled={isFirstQuestion} onClick={goToPrevious}>
-            <ChevronLeft className="mr-1 h-4 w-4" />
-            Prev
-          </Button>
-          <Button type="button" size="sm" className="flex-1 rounded-xl" onClick={goToNext}>
-            Next
-            <ChevronRight className="ml-1 h-4 w-4" />
-          </Button>
-          <Button type="button" variant="secondary" size="sm" className="shrink-0 rounded-xl px-3" onClick={() => setShowSubmitModal(true)}>
+      <div className="fixed bottom-0 left-0 right-0 z-[205] border-t border-gray-300 bg-gray-50 p-2 shadow-sm lg:hidden">
+        <div className="mx-auto flex max-w-lg gap-2">
+          <button type="button" className="flex-1 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700" disabled={isFirstQuestion} onClick={goToPrevious}>
+            <ChevronLeft className="mr-1 inline h-4 w-4" />Prev
+          </button>
+          <button type="button" className="flex-1 rounded-md bg-blue-600 py-2 text-sm font-semibold text-white" onClick={goToNext}>
+            Next<ChevronRight className="ml-1 inline h-4 w-4" />
+          </button>
+          <button type="button" className="shrink-0 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700" onClick={() => setShowSubmitModal(true)}>
             Submit
-          </Button>
+          </button>
         </div>
       </div>
 
-      {showSubmitModal ? (
-        <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/60 p-4 backdrop-blur-[2px]" data-testid="submit-modal">
-          <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-2xl">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400">
-                <AlertCircle className="h-5 w-5" />
-              </div>
+      {showSectionSwitchWarning && (
+        <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-md rounded border border-gray-200 bg-white p-6 shadow-2xl">
+            <div className="mb-4 flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
               <div>
-                <h3 className="text-lg font-bold text-foreground">Submit this attempt?</h3>
-                <p className="text-sm text-muted-foreground">You will not be able to change answers after submitting.</p>
+                <h3 className="text-base font-bold text-gray-900">Switch to Next Section?</h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  You will not be able to return to this section once you proceed.
+                </p>
               </div>
             </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-2 rounded-xl bg-muted/50 p-3 text-center">
-              <div>
-                <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{answered}</p>
-                <p className="text-xs text-muted-foreground">Answered</p>
-              </div>
-              <div>
-                <p className="text-xl font-bold text-foreground">{unanswered}</p>
-                <p className="text-xs text-muted-foreground">Skipped</p>
-              </div>
-              <div>
-                <p className="text-xl font-bold text-amber-600 dark:text-amber-400">{flagged}</p>
-                <p className="text-xs text-muted-foreground">Marked</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button type="button" variant="outline" className="flex-1 rounded-xl" onClick={() => setShowSubmitModal(false)} data-testid="btn-cancel-submit">
-                Continue test
-              </Button>
-              <Button type="button" className="flex-1 rounded-xl" onClick={handleSubmit} data-testid="btn-confirm-submit">
-                Submit now
-              </Button>
+            <div className="flex gap-2">
+              <button type="button" className="flex-1 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" onClick={() => { setShowSectionSwitchWarning(false); setPendingSectionSwitch(null); }}>
+                Stay Here
+              </button>
+              <button type="button" className="flex-1 rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700" onClick={confirmSectionSwitch}>
+                Proceed
+              </button>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
+
+      {showSubmitModal && (
+        <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/60 p-4" data-testid="submit-modal">
+          <div className="w-full max-w-md rounded border border-gray-200 bg-white p-6 shadow-2xl">
+            <div className="mb-4 flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+              <div>
+                <h3 className="text-base font-bold text-gray-900">Submit this attempt?</h3>
+                <p className="mt-1 text-sm text-gray-600">You will not be able to change answers after submitting.</p>
+              </div>
+            </div>
+
+            <div className="mb-5 grid grid-cols-3 gap-2 rounded bg-gray-50 p-3 text-center">
+              <div>
+                <p className="text-xl font-bold text-green-600">{answered}</p>
+                <p className="text-xs text-gray-500">Answered</p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-gray-700">{unanswered}</p>
+                <p className="text-xs text-gray-500">Skipped</p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-amber-600">{flagged}</p>
+                <p className="text-xs text-gray-500">Marked</p>
+              </div>
+            </div>
+
+            <div className="flex gap-2">
+              <button type="button" className="flex-1 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" onClick={() => setShowSubmitModal(false)} data-testid="btn-cancel-submit">
+                Continue test
+              </button>
+              <button type="button" className="flex-1 rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700" onClick={handleSubmit} data-testid="btn-confirm-submit">
+                Submit now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -905,6 +1060,18 @@ export default function Test() {
     const code = getApiErrorCode(remoteError.body);
     const testName = listCandidate?.name ?? "This test";
     const price = priceFromPaywallBody(remoteError.body, listCandidate?.priceCents ?? 499);
+
+    if (remoteError.status === 404 && code === "NO_QUESTIONS") {
+      return (
+        <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-4">
+          <p className="text-lg font-semibold text-foreground">This test is not ready yet</p>
+          <p className="text-center text-sm text-muted-foreground">
+            The purchase completed, but this test currently has no questions available. Please try again later or contact support.
+          </p>
+          <Button variant="outline" onClick={() => setLocation("/exams")}>Back to exams</Button>
+        </div>
+      );
+    }
 
     // Check if user has purchased the test
     if (purchaseStatus?.purchased) {

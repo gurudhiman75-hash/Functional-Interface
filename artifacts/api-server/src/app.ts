@@ -27,9 +27,14 @@ app.use(
     },
   }),
 );
+const allowedOrigins = (process.env.CORS_ORIGINS ?? "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: true, // Allow all origins for development
+    origin: allowedOrigins.length ? allowedOrigins : true,
     credentials: true,
   }),
 );
@@ -37,6 +42,10 @@ app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webh
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 app.use("/api", router);
 

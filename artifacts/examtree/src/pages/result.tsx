@@ -13,8 +13,9 @@ import {
   TrendingUp,
   XCircle,
 } from "lucide-react";
-import { getAttempts } from "@/lib/storage";
-import { Navbar } from "@/components/Navbar";
+import { useQuery } from "@tanstack/react-query";
+import { getAttempts, getUser } from "@/lib/storage";
+import { getLeaderboard } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuestionRichText } from "@/components/QuestionRichText";
@@ -51,6 +52,7 @@ function getReviewState(item: ReviewItem) {
 
 export default function Result() {
   const [, setLocation] = useLocation();
+  const user = getUser();
   const attempts = getAttempts();
   const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const requestedTestId = query?.get("testId");
@@ -59,6 +61,13 @@ export default function Result() {
     ? attempts.filter((attempt) => attempt.testId === requestedTestId)
     : attempts;
   const latest = relevantAttempts[0] ?? null;
+  const activeTestId = requestedTestId ?? latest?.testId ?? "";
+  const { data: leaderboardData, isLoading: isLeaderboardLoading } = useQuery({
+    queryKey: ["leaderboard-rank", activeTestId],
+    queryFn: () => getLeaderboard(activeTestId),
+    enabled: Boolean(activeTestId && user),
+    staleTime: 60_000,
+  });
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>("all");
   const questionReview = latest?.questionReview ?? [];
 
@@ -89,7 +98,6 @@ export default function Result() {
   if (!latest) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
 
         <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="rounded-[2rem] border border-border bg-card/85 p-10 text-center shadow-sm">
@@ -153,10 +161,9 @@ export default function Result() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="hero-panel rounded-[2.5rem] p-8 text-white text-center mb-8 animate-fadeInUp shadow-xl" data-testid="result-hero">
+        <div className="rounded-[2rem] border border-border bg-card p-8 text-center mb-8 shadow-sm" data-testid="result-hero">
           <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold mb-4 ${grade.bg} ${grade.color}`}>
             <Award className="w-4 h-4" />
             {grade.label}
@@ -281,8 +288,35 @@ export default function Result() {
                     </div>
                   </div>
                   <p className="mt-4 text-sm text-muted-foreground">
-                    These values come from the completed attempts currently stored on this device. No global percentile or cross-user rank is shown because the app does not have a real ranking backend yet.
+                    These values come from the completed attempts currently stored on this device. For cross-user comparison, visit the Performance page and sign in to see your global rank.
                   </p>
+                  {user ? (
+                    <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Global rank</p>
+                      <p className="mt-2 text-2xl font-bold text-foreground">
+                        {isLeaderboardLoading
+                          ? "Checking your leaderboard rank..."
+                          : leaderboardData?.currentUserRank
+                          ? `#${leaderboardData.currentUserRank}`
+                          : "Not ranked yet"}
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {isLeaderboardLoading
+                          ? "One moment while we fetch your global position."
+                          : leaderboardData?.currentUserRank
+                          ? "Your best score is being compared globally for this test."
+                          : "Complete this test while signed in to appear on the global leaderboard."}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Global rank</p>
+                      <p className="mt-2 text-2xl font-bold text-foreground">Sign in to see your rank</p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Logging in will let you sync this score and compare it against other users globally.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
@@ -353,7 +387,7 @@ export default function Result() {
                       }`}
                     >
                       {chip.label}
-                      <span className={`rounded-full px-1.5 py-0.5 text-xs ${reviewFilter === chip.key ? "bg-white/20" : "bg-muted"}`}>
+                      <span className={`rounded-full px-1.5 py-0.5 text-xs ${reviewFilter === chip.key ? "bg-card-20" : "bg-muted"}`}>
                         {chip.count}
                       </span>
                     </button>
@@ -487,7 +521,7 @@ export default function Result() {
             <RotateCcw className="w-4 h-4" />
             Take Another Test
           </Button>
-          <Button size="lg" variant="outline" onClick={() => setLocation("/leaderboard")} className="gap-2" data-testid="btn-view-leaderboard">
+          <Button size="lg" variant="outline" onClick={() => setLocation("/performance")} className="gap-2" data-testid="btn-view-leaderboard">
             <Trophy className="w-4 h-4" />
             View Leaderboard
           </Button>

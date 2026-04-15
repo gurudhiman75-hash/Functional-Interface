@@ -13,42 +13,27 @@ export type ExamCatalogContextValue = {
 const ExamCatalogContext = createContext<ExamCatalogContextValue | null>(null);
 
 export function ExamCatalogProvider({ children }: { children: ReactNode }) {
-  const categoriesQuery = useQuery({
-    queryKey: ["exam-catalog", "categories"],
-    queryFn: getCategories,
+  const examCatalogQuery = useQuery({
+    queryKey: ["exam-catalog"],
+    queryFn: async () => {
+      const [categories, tests] = await Promise.all([getCategories(), getTests()]);
+      return { categories, tests };
+    },
     staleTime: 60_000,
     retry: 2,
-    refetchInterval: 5000,
-    refetchIntervalInBackground: true,
-    refetchOnWindowFocus: true,
-  });
-  const testsQuery = useQuery({
-    queryKey: ["exam-catalog", "tests"],
-    queryFn: getTests,
-    staleTime: 60_000,
-    retry: 2,
-    refetchInterval: 5000,
-    refetchIntervalInBackground: true,
     refetchOnWindowFocus: true,
   });
 
   const value = useMemo((): ExamCatalogContextValue => {
-    const apiCategories = categoriesQuery.data ?? [];
-    const apiTests = testsQuery.data ?? [];
+    const apiCategories = examCatalogQuery.data?.categories ?? [];
+    const apiTests = examCatalogQuery.data?.tests ?? [];
     return {
       categories: mergeRuntimeCategoriesFromApi(apiCategories),
       tests: mergeRuntimeTestsFromApi(apiTests),
-      isLoading: categoriesQuery.isLoading || testsQuery.isLoading,
-      error: (categoriesQuery.error ?? testsQuery.error) as Error | null,
+      isLoading: examCatalogQuery.isLoading,
+      error: examCatalogQuery.error as Error | null,
     };
-  }, [
-    categoriesQuery.data,
-    categoriesQuery.isLoading,
-    categoriesQuery.error,
-    testsQuery.data,
-    testsQuery.isLoading,
-    testsQuery.error,
-  ]);
+  }, [examCatalogQuery.data, examCatalogQuery.isLoading, examCatalogQuery.error]);
 
   return <ExamCatalogContext.Provider value={value}>{children}</ExamCatalogContext.Provider>;
 }

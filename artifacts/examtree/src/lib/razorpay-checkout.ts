@@ -14,25 +14,9 @@ type RazorpaySuccess = {
   razorpay_signature: string;
 };
 
-declare global {
-  interface Window {
-    Razorpay?: new (options: {
-      key: string;
-      amount: number;
-      currency: string;
-      order_id: string;
-      name: string;
-      description: string;
-      handler: (response: RazorpaySuccess) => void | Promise<void>;
-      modal?: { ondismiss?: () => void };
-      theme?: { color?: string };
-    }) => { open: () => void };
-  }
-}
-
 export function loadRazorpayScript(): Promise<void> {
   if (typeof window === "undefined") return Promise.resolve();
-  if (window.Razorpay) return Promise.resolve();
+  if ((window as any).Razorpay) return Promise.resolve();
 
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
@@ -60,7 +44,7 @@ export async function openRazorpayCheckoutForTest(params: {
   })) as RazorpayOrderResponse;
 
   await loadRazorpayScript();
-  const RZP = window.Razorpay;
+  const RZP = (window as any).Razorpay;
   if (!RZP) {
     params.onError?.("Razorpay failed to initialize");
     return;

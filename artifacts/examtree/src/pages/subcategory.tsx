@@ -24,7 +24,6 @@ import { getRuntimeExamGroup } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
-import { Navbar } from "@/components/Navbar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -118,7 +117,6 @@ export default function SubcategoryPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
         <main className="mx-auto max-w-lg px-4 py-24 text-center">
           <h1 className="text-xl font-semibold text-foreground">Could not load exam</h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -132,7 +130,6 @@ export default function SubcategoryPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
         <div className="mx-auto max-w-7xl animate-pulse px-4 py-12">
           <div className="h-8 w-48 rounded-lg bg-muted" />
           <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -147,7 +144,6 @@ export default function SubcategoryPage() {
   if (!exam) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
         <main className="mx-auto flex min-h-[70vh] max-w-5xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
           <div className="glass-panel max-w-xl rounded-[2rem] border border-border/60 p-10 text-center shadow-lg">
             <Badge variant="secondary" className="mb-4 rounded-full px-3 py-1 text-xs uppercase tracking-[0.2em]">
@@ -217,14 +213,12 @@ export default function SubcategoryPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
-      <section className="relative overflow-hidden border-b border-border/70 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.14),transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.12),transparent_26%)]">
-        <div className="absolute inset-0 -z-10 aurora-bg" />
+      <section className="border-b border-border/70 bg-background">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
           <button
             onClick={() => setLocation(`/category/${exam.categoryId}`)}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/5 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             data-testid="btn-back-category"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -233,7 +227,7 @@ export default function SubcategoryPage() {
 
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div className="max-w-3xl">
-              <Badge variant="secondary" className="mb-4 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <Badge variant="secondary" className="mb-4 rounded-full border border-border/50 bg-muted/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Exam Detail
               </Badge>
               <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">{exam.name}</h1>
@@ -242,49 +236,48 @@ export default function SubcategoryPage() {
               </p>
 
               <div className="mt-8 grid gap-3 sm:grid-cols-4">
-                <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-muted-foreground">
+                <div className="rounded-2xl border border-border/50 bg-muted/5 px-4 py-3 text-sm text-muted-foreground">
                   <span className="block text-lg font-bold text-foreground">{exam.totalTests}</span>
                   total tests
                 </div>
-                <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-muted-foreground">
+                <div className="rounded-2xl border border-border/50 bg-muted/5 px-4 py-3 text-sm text-muted-foreground">
                   <span className="block text-lg font-bold text-foreground">{exam.fullLengthCount}</span>
                   full-length
                 </div>
-                <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-muted-foreground">
+                <div className="rounded-2xl border border-border/50 bg-muted/5 px-4 py-3 text-sm text-muted-foreground">
                   <span className="block text-lg font-bold text-foreground">{exam.sectionalCount}</span>
                   sectional
                 </div>
-                <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-muted-foreground">
+                <div className="rounded-2xl border border-border/50 bg-muted/5 px-4 py-3 text-sm text-muted-foreground">
                   <span className="block text-lg font-bold text-foreground">{exam.topicWiseCount}</span>
                   topic-wise
                 </div>
               </div>
             </div>
 
-            <div className={`glass-panel relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br ${gradient} p-6 text-white shadow-[0_30px_90px_-45px_rgba(0,0,0,0.55)]`}>
-              <div className="absolute inset-x-0 top-0 h-28 bg-white/10" />
+            <div className="rounded-xl border border-border/70 bg-card p-6 text-foreground shadow-sm">
               <div className="relative">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-white/70">Student view</p>
                     <h2 className="mt-2 text-2xl font-bold">{exam.name}</h2>
                   </div>
-                  <div className="rounded-2xl border border-white/20 bg-white/10 px-3 py-2 text-right">
-                    <p className="text-xs text-white/70">Free now</p>
-                    <p className="text-xl font-bold">{examTests.filter((test) => (test.access ?? "free") === "free").length}</p>
+                  <div className="rounded-xl border border-border/70 bg-muted/60 px-3 py-2 text-right">
+                    <p className="text-xs text-muted-foreground">Free now</p>
+                    <p className="text-xl font-bold text-foreground">{examTests.filter((test) => (test.access ?? "free") === "free").length}</p>
                   </div>
                 </div>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/15">
+                  <div className="rounded-xl border border-border/70 bg-muted/75 p-4">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-muted/65">
                       <Unlock className="h-5 w-5" />
                     </div>
                     <p className="text-sm font-semibold">Free tests open instantly</p>
                     <p className="mt-1 text-sm text-white/75">Students can start unlocked mocks directly from the exam tabs.</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/15">
+                  <div className="rounded-xl border border-border/70 bg-muted/75 p-4">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-muted/65">
                       <Sparkles className="h-5 w-5" />
                     </div>
                     <p className="text-sm font-semibold">Attempt-aware actions</p>
@@ -292,7 +285,7 @@ export default function SubcategoryPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                <div className="mt-6 rounded-xl border border-border/70 bg-muted/75 p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs uppercase tracking-[0.2em] text-white/60">Catalog mix</p>
@@ -329,7 +322,7 @@ export default function SubcategoryPage() {
                         {TAB_DESCRIPTIONS[tab]}
                       </p>
                     </div>
-                    <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${isActive ? "bg-white/15" : "bg-card"}`}>
+                    <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${isActive ? "bg-card-15" : "bg-card"}`}>
                       {count}
                     </span>
                   </div>
@@ -361,7 +354,7 @@ export default function SubcategoryPage() {
           <div className="rounded-[1.8rem] border border-dashed border-border/70 bg-card/70 px-6 py-12 text-center">
             <BookOpen className="mx-auto h-10 w-10 text-muted-foreground/60" />
             <h2 className="mt-4 text-xl font-semibold text-foreground">No {TAB_LABELS[activeTab].toLowerCase()} tests yet</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Add this test type from admin and it will show here automatically.</p>
+            <p className="mt-2 text-sm text-muted-foreground">More tests coming soon....</p>
           </div>
         ) : (
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

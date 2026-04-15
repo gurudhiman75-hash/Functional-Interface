@@ -132,6 +132,12 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     ...commonConfig,
     entryPoints: [path.resolve(artifactDir, "src/db-reset.ts")],
   });
+
+  // Build db-init script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "src/db-init.ts")],
+  });
 }
 
 buildAll().catch((err) => {

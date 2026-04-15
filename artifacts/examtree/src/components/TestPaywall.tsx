@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { CreditCard, LogIn, Lock } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ApiError, getApiErrorCode } from "@/lib/api";
 import { mockUnlockTest } from "@/lib/data";
@@ -59,7 +58,6 @@ export function TestPaywall({ testId, testName, priceCents, reason }: TestPaywal
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       <main className="mx-auto flex max-w-lg flex-col items-center px-4 py-20 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <Lock className="h-8 w-8" />

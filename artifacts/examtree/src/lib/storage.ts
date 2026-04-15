@@ -31,6 +31,9 @@ export interface TestAttempt {
   totalQuestions: number;
   timeSpent: number;
   date: string;
+  attemptType: "REAL" | "PRACTICE";
+  isFirstAttempt?: boolean; // Only first real attempt counts for leaderboard
+  originalAttemptId?: string; // For practice mode, reference to original real attempt
   sectionStats?: {
     name: string;
     correct: number;
@@ -66,6 +69,10 @@ export interface ActiveTestSession {
   timeLeft: number;
   sectionTimeLeftByName: Record<string, number>;
   updatedAt: number;
+  attemptType: "REAL" | "PRACTICE";
+  lockedSections: number[]; // Indices of sections that are permanently locked
+  originalAttemptId?: string; // For practice mode
+  sectionCompletionTimes?: Record<string, number>; // Time spent per section in real attempt
 }
 
 export const getUser = (): User | null => Storage.get<User>("user");

@@ -25,7 +25,6 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Navbar } from "@/components/Navbar";
 import {
   Accordion,
   AccordionContent,
@@ -112,7 +111,6 @@ export default function Home() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
         <main className="mx-auto max-w-lg px-4 py-24 text-center">
           <h1 className="text-xl font-semibold text-foreground">Could not load the exam catalog</h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -128,7 +126,6 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="animate-pulse space-y-6">
             <div className="h-14 w-2/3 max-w-md rounded-2xl bg-muted" />
@@ -145,7 +142,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       {/* Hero */}
       <section className="relative border-b border-border/60 bg-gradient-to-b from-muted/50 via-background to-background">
@@ -342,7 +338,7 @@ export default function Home() {
                 className={`group relative overflow-hidden rounded-3xl border border-border bg-card p-8 text-left shadow-sm ring-1 transition-all hover:shadow-lg sm:col-span-2 lg:row-span-2 lg:col-span-1 ${categoryAccent(topCategory.color).ring}`}
               >
                 <div
-                  className={`pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-gradient-to-br opacity-30 blur-2xl ${categoryAccent(topCategory.color).gradient}`}
+                  className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-primary/10 opacity-70"
                 />
                 <Badge className="relative rounded-lg bg-primary/15 text-primary hover:bg-primary/20">Top pick</Badge>
                 <h3 className="relative mt-4 text-2xl font-bold text-foreground">{topCategory.name}</h3>
@@ -370,7 +366,7 @@ export default function Home() {
                     data-testid={`category-card-${cat.id}`}
                   >
                     <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm ${acc.gradient}`}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-sm"
                     >
                       {cat.color === "emerald" ? (
                         <Heart className="h-5 w-5" />
@@ -445,8 +441,8 @@ export default function Home() {
       {!user ? (
         <section className="py-14 sm:py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-card to-sky-500/5 p-10 text-center shadow-lg sm:p-14">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.15),transparent_50%)]" />
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 text-center shadow-sm sm:p-14">
+              <div className="pointer-events-none absolute inset-0 bg-primary/5" />
               <h2 className="relative text-2xl font-bold text-foreground sm:text-3xl">Start your next mock today</h2>
               <p className="relative mx-auto mt-3 max-w-lg text-muted-foreground">
                 Sign in to sync attempts, or browse the catalog and pick a free test to try first.

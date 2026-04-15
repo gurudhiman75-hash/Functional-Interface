@@ -16,6 +16,28 @@ function stripQuestionsFromSections(sections: TestSection[]): TestSection[] {
   }));
 }
 
+function normalizeSections(rawSections: unknown): TestSection[] {
+  if (!Array.isArray(rawSections)) return [];
+  return rawSections
+    .filter((item): item is Record<string, unknown> | string => 
+      (typeof item === "object" && item !== null && "name" in item) || typeof item === "string"
+    )
+    .map((item, idx) => {
+      if (typeof item === "string") {
+        return {
+          id: `${item.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${idx}`,
+          name: item,
+          questions: [],
+        };
+      }
+      return {
+        id: typeof item.id === "string" && item.id ? item.id : `section-${idx}`,
+        name: String(item.name ?? `Section ${idx + 1}`),
+        questions: [],
+      };
+    });
+}
+
 async function canAccessPaidTest(userId: string | undefined, testId: string): Promise<boolean> {
   if (!userId) return false;
   const profile = await db.select().from(users).where(eq(users.id, userId)).limit(1);
@@ -32,19 +54,21 @@ router.get("/", async (_req, res) => {
   const allTests = await db.select().from(tests);
   const payload = allTests.map((row) => {
     const parsed = Test.parse(row);
+    const normalizedSections = normalizeSections(parsed.sections);
     const access = row.access ?? "free";
     if (access === "paid") {
       return {
         ...parsed,
         access: "paid" as const,
         priceCents: row.priceCents ?? 499,
-        sections: stripQuestionsFromSections(parsed.sections),
+        sections: stripQuestionsFromSections(normalizedSections),
       };
     }
     return {
       ...parsed,
       access: "free" as const,
       priceCents: row.priceCents ?? null,
+      sections: normalizedSections,
     };
   });
   return res.json(payload);
@@ -84,7 +108,11 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
 
   const testQuestions = await db.select().from(questions).where(eq(questions.testId, id));
   if (testQuestions.length === 0) {
-    return res.status(404).json({ error: "Test has no questions yet" });
+    return res.status(404).json({
+      error: "Test has no questions yet",
+      code: "NO_QUESTIONS",
+      testId: id,
+    });
   }
 
   const parsedTest = Test.parse(row);

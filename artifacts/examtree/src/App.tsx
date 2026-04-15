@@ -8,6 +8,7 @@ import { syncAuthSession } from "@/lib/auth";
 import { hydrateAdminDataFromCloud } from "@/lib/storage";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { AppLayout } from "@/components/AppLayout";
 import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 import { MathJaxContext } from "better-react-mathjax";
 
@@ -34,7 +35,12 @@ const Category = lazy(() => import("@/pages/category"));
 const Subcategory = lazy(() => import("@/pages/subcategory"));
 const Test = lazy(() => import("@/pages/test"));
 const Result = lazy(() => import("@/pages/result"));
-const Leaderboard = lazy(() => import("@/pages/leaderboard"));
+const Performance = lazy(() => import("@/pages/performance"));
+const Packages = lazy(() => import("@/pages/packages"));
+const PackageCheckout = lazy(() => import("@/pages/package-checkout"));
+const PackageSuccess = lazy(() => import("@/pages/package-success"));
+const MyPackages = lazy(() => import("@/pages/my-packages"));
+const Profile = lazy(() => import("@/pages/profile"));
 const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
@@ -47,24 +53,37 @@ function Router() {
 
   console.log("Router component rendered, location:", location);
 
+  const renderRoute = (Component: React.ComponentType) => {
+    return (
+      <AppLayout>
+        <Component />
+      </AppLayout>
+    );
+  };
+
   return (
     <Suspense fallback={<RouteSkeleton />}>
       <div key={location} className="animate-fadeInUp">
         <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/login/student" component={Login} />
-          <Route path="/login/admin" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/exams" component={Tests} />
-          <Route path="/tests" component={Tests} />
-          <Route path="/category/:id" component={Category} />
-          <Route path="/subcategory/:id" component={Subcategory} />
-          <Route path="/test/:id" component={Test} />
-          <Route path="/result" component={Result} />
-          <Route path="/leaderboard" component={Leaderboard} />
-          <Route path="/admin" component={Admin} />
-          <Route component={NotFound} />
+          <Route path="/" component={() => renderRoute(Home)} />
+          <Route path="/login" component={() => renderRoute(Login)} />
+          <Route path="/login/student" component={() => renderRoute(Login)} />
+          <Route path="/login/admin" component={() => renderRoute(Login)} />
+          <Route path="/dashboard" component={() => renderRoute(Dashboard)} />
+          <Route path="/exams" component={() => renderRoute(Tests)} />
+          <Route path="/tests" component={() => renderRoute(Tests)} />
+          <Route path="/category/:id" component={() => renderRoute(Category)} />
+          <Route path="/subcategory/:id" component={() => renderRoute(Subcategory)} />
+          <Route path="/test/:id" component={() => <Test />} />
+          <Route path="/result" component={() => renderRoute(Result)} />
+          <Route path="/performance" component={() => renderRoute(Performance)} />
+          <Route path="/packages" component={() => renderRoute(Packages)} />
+          <Route path="/packages/success/:id" component={() => renderRoute(PackageSuccess)} />
+          <Route path="/packages/:id" component={() => renderRoute(PackageCheckout)} />
+          <Route path="/my-packages" component={() => renderRoute(MyPackages)} />
+          <Route path="/profile" component={() => renderRoute(Profile)} />
+          <Route path="/admin" component={() => renderRoute(Admin)} />
+          <Route component={() => renderRoute(NotFound)} />
         </Switch>
       </div>
     </Suspense>
