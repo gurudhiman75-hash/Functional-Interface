@@ -1,34 +1,49 @@
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getCategories, getTests, type Category, type Test } from "@/lib/data";
-import { mergeRuntimeCategoriesFromApi, mergeRuntimeTestsFromApi } from "@/lib/test-bank";
+import { getCategories, getSubcategories, getTests, type Category, type Subcategory, type Test } from "@/lib/data";
+import { mergeRuntimeTestsFromApi } from "@/lib/test-bank";
 
 export type ExamCatalogContextValue = {
   categories: Category[];
+  subcategories: Subcategory[];
   tests: Test[];
   isLoading: boolean;
   error: Error | null;
 };
 
-const ExamCatalogContext = createContext<ExamCatalogContextValue | null>(null);
+const defaultCatalog: ExamCatalogContextValue = {
+  categories: [],
+  subcategories: [],
+  tests: [],
+  isLoading: true,
+  error: null,
+};
+
+const ExamCatalogContext = createContext<ExamCatalogContextValue>(defaultCatalog);
 
 export function ExamCatalogProvider({ children }: { children: ReactNode }) {
   const examCatalogQuery = useQuery({
     queryKey: ["exam-catalog"],
     queryFn: async () => {
-      const [categories, tests] = await Promise.all([getCategories(), getTests()]);
-      return { categories, tests };
+      const [categories, subcategories, tests] = await Promise.all([
+        getCategories(),
+        getSubcategories(),
+        getTests(),
+      ]);
+      return { categories, subcategories, tests };
     },
-    staleTime: 60_000,
-    retry: 2,
-    refetchOnWindowFocus: true,
+    staleTime: 0,
+    retry: 1,
+    refetchOnWindowFocus: false,
   });
 
   const value = useMemo((): ExamCatalogContextValue => {
     const apiCategories = examCatalogQuery.data?.categories ?? [];
+    const apiSubcategories = examCatalogQuery.data?.subcategories ?? [];
     const apiTests = examCatalogQuery.data?.tests ?? [];
     return {
-      categories: mergeRuntimeCategoriesFromApi(apiCategories),
+      categories: apiCategories,
+      subcategories: apiSubcategories,
       tests: mergeRuntimeTestsFromApi(apiTests),
       isLoading: examCatalogQuery.isLoading,
       error: examCatalogQuery.error as Error | null,
@@ -39,9 +54,5 @@ export function ExamCatalogProvider({ children }: { children: ReactNode }) {
 }
 
 export function useExamCatalog(): ExamCatalogContextValue {
-  const ctx = useContext(ExamCatalogContext);
-  if (!ctx) {
-    throw new Error("useExamCatalog must be used within ExamCatalogProvider");
-  }
-  return ctx;
+  return useContext(ExamCatalogContext);
 }

@@ -11,6 +11,9 @@ import {
   Flag,
   ListOrdered,
   Lock,
+  RotateCcw,
+  Target,
+  XCircle,
 } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase";
@@ -18,13 +21,18 @@ import { upsertUserProfile } from "@/lib/auth";
 import {
   addAttempt,
   clearActiveTestSession,
+  countPriorAttempts,
   getActiveTestSession,
+  getAttemptRecords,
+  getAttemptResponses,
   getAttempts,
   getUser,
   saveActiveTestSession,
+  saveAttemptRecord,
+  saveQuestionResponse,
   type TestAttempt,
 } from "@/lib/storage";
-import { createAttempt, getTest, type Test } from "@/lib/data";
+import { createAttempt, postResponses, getPackagesByTest, getTest, type Test } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
@@ -36,6 +44,8 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { QuestionRichText } from "@/components/QuestionRichText";
+import { AppLayout } from "@/components/AppLayout";
+import { getLocalizedQuestion, LANGUAGE_LABELS, type Language } from "@/lib/lang-utils";
 
 function priceFromPaywallBody(body: unknown, fallback: number): number {
   if (typeof body === "object" && body !== null && "priceCents" in body) {
@@ -52,13 +62,26 @@ function formatTime(seconds: number) {
   return [h, m, s].map((value) => String(value).padStart(2, "0")).join(":");
 }
 
-function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessage?: boolean }) {
+function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguages, wrongOnly, sectionParam }: { test: Test; showSuccessMessage?: boolean; initialMode?: "REAL" | "PRACTICE"; subcategoryLanguages?: string[]; wrongOnly?: boolean; sectionParam?: string | null }) {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const user = getUser();
   const { toast } = useToast();
 
-  const totalQuestions = test.sections.reduce((sum, section) => sum + section.questions.length, 0);
+  // Section-based practice filtering: filter + shuffle + sample up to 15
+  const effectiveSections = useMemo(() => {
+    if (!sectionParam) return test.sections;
+    const matched = test.sections.filter(
+      (sec) => sec.name.toLowerCase() === sectionParam.toLowerCase()
+    );
+    if (matched.length === 0) return test.sections;
+    return matched.map((sec) => {
+      const shuffled = [...sec.questions].sort(() => Math.random() - 0.5);
+      return { ...sec, questions: shuffled.slice(0, 15) };
+    });
+  }, [test.sections, sectionParam]);
+
+  const totalQuestions = effectiveSections.reduce((sum, section) => sum + section.questions.length, 0);
   const totalTime = test.duration * 60;
   const sectionLimitByName = useMemo(
     () =>
@@ -67,17 +90,17 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       ) as Record<string, number>,
     [test.sectionTimings],
   );
-  const hasSectionalTiming = test.sectionTimingMode === "fixed" && test.sections.length > 0;
-  const hasLockedSections = Boolean(test.sectionSettings?.some((section) => section.locked));
+  const hasSectionalTiming = test.sectionTimingMode === "fixed" && effectiveSections.length > 0 && !sectionParam;
+  const hasLockedSections = Boolean(test.sectionSettings?.some((section) => section.locked)) && initialMode !== "PRACTICE" && !sectionParam;
 
   const getSectionLimitSeconds = useCallback(
     (sectionIndex: number) => {
-      const sectionName = test.sections[sectionIndex]?.name.trim().toLowerCase() ?? "";
+      const sectionName = effectiveSections[sectionIndex]?.name.trim().toLowerCase() ?? "";
       const configuredMinutes = sectionLimitByName[sectionName];
       const minutes = configuredMinutes && configuredMinutes > 0 ? configuredMinutes : 1;
       return Math.round(minutes * 60);
     },
-    [sectionLimitByName, test.sections],
+    [sectionLimitByName, effectiveSections],
   );
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -94,16 +117,52 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
   const [sectionCompletionTimes, setSectionCompletionTimes] = useState<Record<string, number>>({});
   const [showSectionSwitchWarning, setShowSectionSwitchWarning] = useState(false);
   const [pendingSectionSwitch, setPendingSectionSwitch] = useState<number | null>(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showPauseModal, setShowPauseModal] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<number, number | null>>({}); // User's answers in practice mode
-  const [showPracticeAnswer, setShowPracticeAnswer] = useState(false);
+  const [revealedPracticeQuestions, setRevealedPracticeQuestions] = useState<Set<number>>(new Set());
+  const [realExamAnswers, setRealExamAnswers] = useState<Record<number, number | null>>({});
+  const [realExamTimes, setRealExamTimes] = useState<Record<number, number>>({}); // questionId → seconds from real attempt
+  const [practiceTimeTaken, setPracticeTimeTaken] = useState<Record<number, number>>({}); // questionId → seconds in this practice session
+  const [questionOpenedAt, setQuestionOpenedAt] = useState<number>(() => Date.now());
+  const [attemptRecordId] = useState<string>(() => `${test.id}_${getUser()?.id ?? "anon"}_${Date.now()}`);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const currentSection = test.sections[currentSectionIndex];
-  const questions = currentSection.questions;
+  // ── Language availability ──────────────────────────────────────────────────
+  // Priority 1: explicit config (subcategory or test) with > 1 lang
+  // Priority 2: auto-detect from question translation fields (fallback)
+  const availableLangs: Language[] = useMemo(() => {
+    const explicitCfg =
+      subcategoryLanguages && subcategoryLanguages.length > 1
+        ? (subcategoryLanguages as Language[])
+        : test.languages && test.languages.length > 1
+          ? (test.languages as Language[])
+          : null;
+    if (explicitCfg) return explicitCfg;
+
+    // Fallback: scan questions for populated translation fields
+    const allQ = effectiveSections.flatMap((s) => s.questions);
+    const langs: Language[] = ["en"];
+    if (allQ.some((q) => Boolean(q.textHi))) langs.push("hi");
+    if (allQ.some((q) => Boolean(q.textPa))) langs.push("pa");
+    return langs;
+  }, [subcategoryLanguages, test.languages, effectiveSections]);
+
+  const [lang, setLang] = useState<Language>("en");
+
+  // Reset language to "en" if the selected language is no longer available
+  // (e.g. user navigated to a different test)
+  useEffect(() => {
+    if (!availableLangs.includes(lang)) setLang("en");
+  }, [availableLangs, lang]);
+
+  const currentSection = effectiveSections[currentSectionIndex];
+  const questions = currentSection?.questions ?? [];
   const q = questions[currentQuestionIndex];
-  const allQuestions = test.sections.flatMap((section) => section.questions);
+  const allQuestions = effectiveSections.flatMap((section) => section.questions);
 
   const currentQuestionNumber =
-    test.sections
+    effectiveSections
       .slice(0, currentSectionIndex)
       .reduce((sum, section) => sum + section.questions.length, 0) +
     currentQuestionIndex +
@@ -118,7 +177,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     ? Math.max(0, currentSectionLimitSeconds - sectionTimeLeft)
     : 0;
   const activeTimeLeft = hasSectionalTiming ? sectionTimeLeft : timeLeft;
-  const isLowTime = activeTimeLeft < 300;
+  const isLowTime = activeTimeLeft < 120;
   const answered = allQuestions.filter((question) => answers[question.id] !== null && answers[question.id] !== undefined).length;
   const flagged = allQuestions.filter((question) => Boolean(flags[question.id])).length;
   const unanswered = totalQuestions - answered;
@@ -130,7 +189,45 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     setVisitedQuestionIds((current) =>
       current.includes(q.id) ? current : [...current, q.id],
     );
-  }, [q]);
+    // Only reset the timer for unanswered practice questions so new time is tracked accurately
+    if (attemptType !== "PRACTICE" || practiceAnswers[q.id] === undefined) {
+      setQuestionOpenedAt(Date.now());
+    }
+  }, [q?.id]);
+
+  // Load the user's first REAL attempt answers + times for comparison in practice mode
+  useEffect(() => {
+    if (attemptType !== "PRACTICE") return;
+    const currentUserId = getUser()?.id;
+
+    // Answers from TestAttempt.questionReview
+    const firstReal = getAttempts().find(
+      (a) => a.testId === test.id && a.attemptType === "REAL" && Array.isArray(a.questionReview),
+    );
+    if (firstReal?.questionReview) {
+      const map: Record<number, number | null> = {};
+      for (const qr of firstReal.questionReview) {
+        map[qr.questionId] = qr.selected;
+      }
+      setRealExamAnswers(map);
+    }
+
+    // Per-question times from QuestionResponse records
+    const realRecord = getAttemptRecords().find(
+      (r) =>
+        r.testId === test.id &&
+        r.mode === "REAL" &&
+        (!currentUserId || r.userId === currentUserId),
+    );
+    if (realRecord) {
+      const responses = getAttemptResponses(realRecord.id) ?? [];
+      const times: Record<number, number> = {};
+      for (const resp of responses) {
+        times[resp.questionId] = resp.timeTaken;
+      }
+      setRealExamTimes(times);
+    }
+  }, [attemptType, test.id]);
 
   type QuestionStatus = "NOT_VISITED" | "NOT_ANSWERED" | "ANSWERED" | "MARKED";
 
@@ -163,7 +260,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
 
   const isFirstQuestion = currentSectionIndex === 0 && currentQuestionIndex === 0;
   const isLastQuestion =
-    currentSectionIndex === test.sections.length - 1 && currentQuestionIndex === questions.length - 1;
+    currentSectionIndex === effectiveSections.length - 1 && currentQuestionIndex === questions.length - 1;
   const primaryAdvanceLabel = isLastQuestion ? "Review & Submit" : "Save & Next";
 
   useEffect(() => {
@@ -185,13 +282,13 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
 
   useEffect(() => {
     const defaultSectionTimes = Object.fromEntries(
-      test.sections.map((section, index) => [section.name, getSectionLimitSeconds(index)]),
+      effectiveSections.map((section, index) => [section.name, getSectionLimitSeconds(index)]),
     );
     const draft = getActiveTestSession(test.id);
 
     if (draft) {
       setCurrentSectionIndex(
-        Math.min(Math.max(draft.currentSectionIndex, 0), Math.max(0, test.sections.length - 1)),
+        Math.min(Math.max(draft.currentSectionIndex, 0), Math.max(0, effectiveSections.length - 1)),
       );
       setCurrentQuestionIndex(Math.max(draft.currentQuestionIndex, 0));
       setAnswers(draft.answers);
@@ -240,7 +337,20 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
         setAttemptType("REAL");
       }
     } else {
-      setAttemptType("REAL");
+      const finalMode = initialMode ?? "REAL";
+      setAttemptType(finalMode);
+      if (finalMode === "REAL") {
+        const uid = getUser()?.id ?? "unknown";
+        saveAttemptRecord({
+          id: attemptRecordId,
+          userId: uid,
+          testId: test.id,
+          mode: "REAL",
+          attemptNumber: countPriorAttempts(uid, test.id, "REAL") + 1,
+          startTime: Date.now(),
+          endTime: null,
+        });
+      }
     }
 
     setCurrentSectionIndex(0);
@@ -253,7 +363,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     setLockedSections([]);
     setSectionCompletionTimes({});
     setDraftLoaded(false);
-  }, [getSectionLimitSeconds, id, test.id, test.name, test.sections, toast, totalTime]);
+  }, [getSectionLimitSeconds, id, test.id, test.name, effectiveSections, toast, totalTime]);
 
   useEffect(() => {
     const normalizedQuestionIndex = Math.min(
@@ -327,16 +437,45 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [answers, draftLoaded, flags, timeLeft, totalTime]);
 
+  // Intercept browser back button — show pause modal instead of silently navigating away
+  useEffect(() => {
+    const hasProgress =
+      Object.keys(answers).length > 0 ||
+      Object.keys(flags).length > 0 ||
+      timeLeft < totalTime ||
+      draftLoaded;
+
+    if (!hasProgress) return;
+
+    // Push a dummy history entry so we can catch the back navigation
+    window.history.pushState({ testGuard: true }, "");
+
+    const handlePopState = () => {
+      // Re-push so the guard stays active if user dismisses the modal
+      window.history.pushState({ testGuard: true }, "");
+      setShowPauseModal(true);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draftLoaded]);
+
   const handleSubmit = useCallback(async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
     const correct = allQuestions.filter((question) => answers[question.id] === question.correct).length;
     const wrong = allQuestions.filter((question) => {
       const answer = answers[question.id];
       return answer !== null && answer !== undefined && answer !== question.correct;
     }).length;
     const unansweredCount = totalQuestions - correct - wrong;
-    const score = Math.round((correct / totalQuestions) * 100);
+    const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
 
-    const sectionStats = test.sections.map((section) => {
+    const sectionStats = effectiveSections.map((section) => {
       const sectionCorrect = section.questions.filter((question) => answers[question.id] === question.correct).length;
       const sectionWrong = section.questions.filter((question) => {
         const answer = answers[question.id];
@@ -357,7 +496,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
 
     const timeSpent = hasSectionalTiming
       ? Math.round(
-          test.sections.reduce((sum, section, index) => {
+          effectiveSections.reduce((sum, section, index) => {
             const limit = getSectionLimitSeconds(index);
             const remaining = sectionTimeLeftByName[section.name] ?? limit;
             return sum + Math.max(0, limit - remaining);
@@ -370,6 +509,12 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       section: question.section,
       text: question.text,
       options: question.options,
+      ...(question.textHi ? { textHi: question.textHi } : {}),
+      ...(question.textPa ? { textPa: question.textPa } : {}),
+      ...(question.optionsHi && question.optionsHi.length > 0 ? { optionsHi: question.optionsHi } : {}),
+      ...(question.optionsPa && question.optionsPa.length > 0 ? { optionsPa: question.optionsPa } : {}),
+      ...(question.explanationHi ? { explanationHi: question.explanationHi } : {}),
+      ...(question.explanationPa ? { explanationPa: question.explanationPa } : {}),
       selected: answers[question.id] ?? null,
       correct: question.correct,
       flagged: Boolean(flags[question.id]),
@@ -393,7 +538,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       originalAttemptId: attemptType === "PRACTICE" ? originalAttemptId : undefined,
       sectionStats,
       sectionTimeSpent: hasSectionalTiming
-        ? test.sections.map((section, index) => {
+        ? effectiveSections.map((section, index) => {
             const limit = getSectionLimitSeconds(index);
             const remaining = sectionTimeLeftByName[section.name] ?? limit;
             return {
@@ -405,25 +550,85 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       questionReview,
     };
 
+    // Save to localStorage first (always — acts as fallback)
     addAttempt(attempt);
 
-    if (getFirebaseAuth()?.currentUser) {
-      void createAttempt(attempt).catch(() => {
-        console.warn("Failed to sync attempt to backend. Local result is still available.");
-      });
+    // Finalise the attempt record with endTime
+    const attemptRecord = getAttemptRecords().find(
+      (r) => r.testId === test.id && r.mode === attemptType,
+    );
+    if (attemptType === "REAL" && attemptRecord) {
+      saveAttemptRecord({ ...attemptRecord, endTime: Date.now() });
     }
 
     clearActiveTestSession(test.id);
-    
-    // For practice attempts, show practice results; for real attempts, show standard results
+    document.exitFullscreen?.().catch(() => {});
+
+    // Try to sync to backend API; navigate with server attemptId on success
+    if (getFirebaseAuth()?.currentUser) {
+      try {
+        const saved = await createAttempt(attempt);
+        const serverAttemptId = (saved as { id?: string }).id;
+
+        if (serverAttemptId) {
+          // Build response payload from in-memory state — do NOT read from localStorage
+          const responsePayload = allQuestions.map((q) => ({
+            questionId: q.id,
+            selectedOption: answers[q.id] ?? null,
+            timeTaken: realExamTimes[q.id] ?? 0,
+          }));
+
+          if (responsePayload.length > 0) {
+            try {
+              await postResponses(serverAttemptId, responsePayload);
+            } catch (firstErr) {
+              console.error("Failed to sync responses (attempt 1):", firstErr);
+              // Retry once
+              try {
+                await postResponses(serverAttemptId, responsePayload);
+              } catch (retryErr) {
+                console.error("Failed to sync responses (attempt 2, giving up):", retryErr);
+                // Do not block navigation — local data is still available
+              }
+            }
+          }
+
+          if (attemptType === "PRACTICE") {
+            const woParam = wrongOnly ? "&wrongOnly=true" : "";
+            const secParam = sectionParam ? `&section=${encodeURIComponent(sectionParam)}` : "";
+            setLocation(`/result?testId=${encodeURIComponent(test.id)}&practiceAttemptId=${test.id}&attemptId=${encodeURIComponent(serverAttemptId)}${woParam}${secParam}`);
+          } else {
+            setLocation(`/result?testId=${encodeURIComponent(test.id)}&attemptId=${encodeURIComponent(serverAttemptId)}`);
+          }
+          return;
+        }
+      } catch {
+        console.warn("Failed to sync attempt to backend. Falling back to local result.");
+      }
+    }
+
+    // Fallback: navigate using local storage only
     if (attemptType === "PRACTICE") {
-      setLocation(`/result?practiceAttemptId=${test.id}`);
+      const woParam = wrongOnly ? "&wrongOnly=true" : "";
+      const secParam = sectionParam ? `&section=${encodeURIComponent(sectionParam)}` : "";
+      setLocation(`/result?testId=${encodeURIComponent(test.id)}&practiceAttemptId=${test.id}${woParam}${secParam}`);
     } else {
-      setLocation("/result");
+      setLocation(`/result?testId=${encodeURIComponent(test.id)}`);
+    }
+    } finally {
+      setIsSubmitting(false);
     }
   }, [
+    isSubmitting,
     allQuestions,
     answers,
+    flags,
+    attemptType,
+    user,
+    originalAttemptId,
+    sectionParam,
+    wrongOnly,
+    effectiveSections,
     getSectionLimitSeconds,
     hasSectionalTiming,
     sectionTimeLeftByName,
@@ -432,6 +637,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     timeLeft,
     totalQuestions,
     totalTime,
+    realExamTimes,
   ]);
 
   useEffect(() => {
@@ -441,7 +647,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     const interval = setInterval(() => {
       if (hasSectionalTiming) {
         setSectionTimeLeftByName((current) => {
-          const activeSectionName = test.sections[currentSectionIndex]?.name ?? "";
+          const activeSectionName = effectiveSections[currentSectionIndex]?.name ?? "";
           const currentValue = current[activeSectionName] ?? getSectionLimitSeconds(currentSectionIndex);
           return {
             ...current,
@@ -462,43 +668,46 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [attemptType, currentSectionIndex, getSectionLimitSeconds, handleSubmit, hasSectionalTiming, test.sections]);
+  }, [attemptType, currentSectionIndex, getSectionLimitSeconds, handleSubmit, hasSectionalTiming, effectiveSections]);
 
   useEffect(() => {
     if (!hasSectionalTiming) return;
     if (sectionTimeLeft > 0) return;
 
-    if (currentSectionIndex < test.sections.length - 1) {
+    if (currentSectionIndex < effectiveSections.length - 1) {
       setCurrentSectionIndex((value) => value + 1);
       setCurrentQuestionIndex(0);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
     handleSubmit();
-  }, [currentSectionIndex, handleSubmit, hasSectionalTiming, sectionTimeLeft, test.sections.length]);
+  }, [currentSectionIndex, handleSubmit, hasSectionalTiming, sectionTimeLeft, effectiveSections.length]);
 
   const goToPrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((value) => value - 1);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
     if (!hasLockedSections && currentSectionIndex > 0) {
       const previousSectionIndex = currentSectionIndex - 1;
-      navigateToSection(previousSectionIndex, test.sections[previousSectionIndex].questions.length - 1);
+      const prevSectionLastIdx = Math.max(0, (effectiveSections[previousSectionIndex]?.questions.length ?? 1) - 1);
+      navigateToSection(previousSectionIndex, prevSectionLastIdx);
     }
   };
 
   const goToNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((value) => value + 1);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    if (currentSectionIndex < test.sections.length - 1) {
+    if (currentSectionIndex < effectiveSections.length - 1) {
+      // In locked-section exams, user must use the sidebar "Jump to Next Section" button
+      if (hasLockedSections) return;
       navigateToSection(currentSectionIndex + 1, 0);
       return;
     }
@@ -514,37 +723,76 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     setFlags((current) => ({ ...current, [q.id]: !current[q.id] }));
   };
 
+  const goToNextWrongQuestion = useCallback(() => {
+    if (attemptType !== "PRACTICE" || Object.keys(realExamAnswers).length === 0) return;
+    const currentGlobal =
+      effectiveSections.slice(0, currentSectionIndex).reduce((sum, sec) => sum + sec.questions.length, 0) +
+      currentQuestionIndex;
+    for (let secIdx = 0; secIdx < effectiveSections.length; secIdx++) {
+      const sec = effectiveSections[secIdx];
+      const secOffset = effectiveSections.slice(0, secIdx).reduce((s, sec2) => s + sec2.questions.length, 0);
+      for (let qIdx = 0; qIdx < sec.questions.length; qIdx++) {
+        if (secOffset + qIdx <= currentGlobal) continue;
+        const question = sec.questions[qIdx];
+        const examAns = realExamAnswers[question.id];
+        const isWrongOrSkipped = examAns === null || examAns === undefined || examAns !== question.correct;
+        if (isWrongOrSkipped) {
+          setCurrentSectionIndex(secIdx);
+          setCurrentQuestionIndex(qIdx);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+      }
+    }
+    toast({ title: "All questions reviewed", description: "No more wrong or skipped questions ahead." });
+  }, [attemptType, realExamAnswers, effectiveSections, currentSectionIndex, currentQuestionIndex, toast]);
+
   const navigateToSection = (sectionIndex: number, questionIndex = 0) => {
-    // Check if trying to navigate to a locked section
+    // Practice mode: always allow free navigation
+    if (attemptType === "PRACTICE") {
+      setCurrentSectionIndex(sectionIndex);
+      setCurrentQuestionIndex(questionIndex);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    // Block locked (completed) sections
     if (lockedSections.includes(sectionIndex)) {
       toast({
         title: "Section Locked",
-        description: "This section has been completed and is now locked.",
+        description: "This section has been completed and cannot be revisited.",
         variant: "destructive",
       });
       return;
     }
 
-    // If moving to a new section forward, show warning and lock current section
-    if (sectionIndex > currentSectionIndex) {
+    // For locked-section exams, block any backward navigation
+    if (hasLockedSections && sectionIndex < currentSectionIndex) {
+      return;
+    }
+
+    // Moving forward in a locked-section exam — show warning first
+    if (hasLockedSections && sectionIndex > currentSectionIndex) {
       setPendingSectionSwitch(sectionIndex);
       setShowSectionSwitchWarning(true);
       return;
     }
 
-    // Allow navigation within current section or to unlocked previous sections
-    if (sectionIndex <= currentSectionIndex || !lockedSections.includes(sectionIndex)) {
-      setCurrentSectionIndex(sectionIndex);
-      setCurrentQuestionIndex(questionIndex);
-      window.scrollTo(0, 0);
-    }
+    // Any other navigation (non-locked exam, same section)
+    setCurrentSectionIndex(sectionIndex);
+    setCurrentQuestionIndex(questionIndex);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const confirmSectionSwitch = () => {
     if (pendingSectionSwitch !== null) {
-      // Lock the current section
-      setLockedSections(prev => [...prev, currentSectionIndex]);
-      
+      // Lock all sections from current up to (not including) the target
+      const newLocked: number[] = [];
+      for (let i = currentSectionIndex; i < pendingSectionSwitch; i++) {
+        if (!lockedSections.includes(i)) newLocked.push(i);
+      }
+      setLockedSections(prev => [...prev, ...newLocked]);
+
       // Record completion time for current section (for real attempts)
       if (attemptType === "REAL") {
         const sectionName = currentSection.name;
@@ -560,7 +808,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       // Navigate to new section
       setCurrentSectionIndex(pendingSectionSwitch);
       setCurrentQuestionIndex(0);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       
       setShowSectionSwitchWarning(false);
       setPendingSectionSwitch(null);
@@ -569,7 +817,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
 
   /** First unanswered question in a section, or 0 if all have a selection. */
   const resumeQuestionIndexInSection = (sectionIndex: number) => {
-    const section = test.sections[sectionIndex];
+    const section = effectiveSections[sectionIndex];
     if (!section) return 0;
     const idx = section.questions.findIndex(
       (qq) => answers[qq.id] === null || answers[qq.id] === undefined,
@@ -577,13 +825,43 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
     return idx === -1 ? 0 : idx;
   };
 
-  if (!user || !q) return null;
+  if (!user) return null;
+  if (!q) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-100 px-4">
+        <p className="text-lg font-semibold text-gray-700">No questions available</p>
+        <p className="text-sm text-gray-500">This test has no questions to display.</p>
+      </div>
+    );
+ }
 
   const progressPercent =
     totalQuestions > 0 ? Math.min(100, Math.round((currentQuestionNumber / totalQuestions) * 100)) : 0;
 
   return (
     <div className="relative isolate z-[200] min-h-screen bg-gray-100 text-gray-900">
+      {attemptType === "PRACTICE" && !wrongOnly && !sectionParam && (
+        <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-800 shadow-md">
+          Practice Mode &mdash; answers will not count toward your score
+        </div>
+      )}
+      {wrongOnly && (
+        <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-800 shadow-lg">
+          <div className="flex items-center gap-2">
+            <RotateCcw className="h-4 w-4" />
+            Retrying weak questions &mdash; {totalQuestions} question{totalQuestions !== 1 ? "s" : ""} shuffled
+          </div>
+        </div>
+      )}
+      {sectionParam && (
+        <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-800 shadow-lg">
+          <div className="flex items-center gap-2">
+            <Target className="h-4 w-4" />
+            Practice Mode &mdash; {sectionParam}
+          </div>
+        </div>
+      )}
+
       {showSuccessMessage && (
         <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 shadow-lg">
           <div className="flex items-center gap-2">
@@ -597,8 +875,17 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       <header className="sticky top-0 z-[210] bg-blue-600 shadow-md">
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-6">
           <h1 className="text-base font-bold text-white sm:text-lg">{test.name}</h1>
-          <div className={`font-mono text-sm font-semibold tabular-nums text-white ${isLowTime ? "text-red-200" : ""}`}>
-            Time Left: {formatTime(activeTimeLeft)}
+          <div className="flex items-center gap-3">
+            <div className={`font-mono text-sm font-semibold tabular-nums ${isLowTime ? "animate-pulse text-red-200" : "text-white"}`}>
+              Time Left: {formatTime(activeTimeLeft)}
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowPauseModal(true)}
+              className="rounded-md border border-white/40 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/20 transition"
+            >
+              Pause &amp; Exit
+            </button>
           </div>
         </div>
 
@@ -608,26 +895,41 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
             <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-gray-500">Sections</span>
             {test.sections.map((section, sectionIndex) => {
               const isActive = sectionIndex === currentSectionIndex;
-              const sectionLocked = hasLockedSections && sectionIndex !== currentSectionIndex;
+              const isCompleted = lockedSections.includes(sectionIndex);
+
+              if (hasLockedSections) {
+                // Display-only — no clicking in locked-section exams
+                return (
+                  <span
+                    key={section.id}
+                    className={`flex min-h-8 min-w-0 shrink-0 items-center gap-1.5 rounded px-3 py-1 text-xs font-semibold ${
+                      isActive
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : isCompleted
+                        ? "border border-gray-200 bg-gray-100 text-gray-400"
+                        : "border border-gray-300 bg-white text-gray-500 opacity-60"
+                    }`}
+                    data-testid={`section-tab-${section.id}`}
+                  >
+                    {isCompleted ? <Lock className="h-3 w-3 shrink-0" aria-hidden /> : null}
+                    <span className="max-w-[10rem] truncate">{section.name}</span>
+                  </span>
+                );
+              }
+
               return (
                 <button
                   key={section.id}
                   type="button"
                   onClick={() => navigateToSection(sectionIndex, resumeQuestionIndexInSection(sectionIndex))}
-                  disabled={sectionLocked}
                   className={`flex min-h-8 min-w-0 shrink-0 items-center gap-1.5 rounded px-3 py-1 text-xs font-semibold transition-all ${
                     isActive
                       ? "bg-blue-600 text-white shadow-sm"
                       : "bg-white text-gray-600 border border-gray-300 hover:bg-gray-50"
-                  } disabled:cursor-not-allowed disabled:opacity-40`}
-                  aria-label={
-                    sectionLocked
-                      ? `${section.name} (locked until current section is finished)`
-                      : `Switch to ${section.name}`
-                  }
+                  }`}
+                  aria-label={`Switch to ${section.name}`}
                   data-testid={`section-tab-${section.id}`}
                 >
-                  {sectionLocked ? <Lock className="h-3 w-3 shrink-0" aria-hidden /> : null}
                   <span className="max-w-[10rem] truncate">{section.name}</span>
                 </button>
               );
@@ -637,138 +939,224 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
       </header>
 
       <main className="px-3 py-4 sm:px-5 lg:py-5">
-        <div className="grid gap-4 lg:grid-cols-[1fr_280px] lg:items-start">
+        <div className={`grid gap-0 lg:items-start ${sidebarCollapsed ? "lg:grid-cols-[1fr_auto]" : "lg:grid-cols-[1fr_auto_280px]"}`}>
           <section className="min-w-0">
             {/* Question card */}
             <div className="rounded border border-gray-300 bg-white shadow-sm">
               <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3">
                 <p className="text-sm font-bold text-gray-700">Question No {currentQuestionNumber}</p>
-                {hasSectionalTiming && (
-                  <span className="text-xs font-semibold text-gray-500">Section time: {formatTime(sectionTimeLeft)}</span>
-                )}
+                <div className="flex items-center gap-3">
+                  {hasSectionalTiming && (
+                    <span className="text-xs font-semibold text-gray-500">Section time: {formatTime(sectionTimeLeft)}</span>
+                  )}
+                  {availableLangs.length > 1 && (
+                    <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-100 p-1">
+                      {availableLangs.map((l) => (
+                        <button
+                          key={l}
+                          type="button"
+                          onClick={() => setLang(l)}
+                          className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+                            lang === l
+                              ? "bg-white text-blue-700 shadow-sm ring-1 ring-blue-200"
+                              : "text-gray-500 hover:text-gray-800"
+                          }`}
+                        >
+                          {LANGUAGE_LABELS[l]}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="space-y-5 px-5 py-5">
 
               <div className="text-sm leading-7 text-gray-800 sm:text-base">
-                <QuestionRichText content={q.text} />
+                <QuestionRichText content={getLocalizedQuestion(q, lang).text} />
               </div>
 
               <div className="grid gap-2">
-                {q.options.map((option, index) => {
-                  const selected = answers[q.id] === index;
+                {getLocalizedQuestion(q, lang).options.map((option, index) => {
+                  const isPracticeRevealed = attemptType === "PRACTICE" && revealedPracticeQuestions.has(q.id);
+                  const isCorrectOption = index === q.correct;
+                  const isUserPracticeSelection = attemptType === "PRACTICE" && practiceAnswers[q.id] === index;
+                  const isWrongSelection = isPracticeRevealed && isUserPracticeSelection && !isCorrectOption;
+                  const isExamAnswer = isPracticeRevealed && realExamAnswers[q.id] === index;
+                  const realSelected = attemptType === "REAL" && answers[q.id] === index;
+
+                  let btnCls = "flex w-full items-center gap-3 rounded-md border p-3 text-left text-sm transition-all active:scale-[0.98] ";
+                  let badgeCls = "flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-xs font-bold ";
+
+                  if (isPracticeRevealed && isCorrectOption) {
+                    btnCls += "border-green-500 bg-green-50 text-green-900";
+                    badgeCls += "bg-green-600 text-white";
+                  } else if (isWrongSelection) {
+                    btnCls += "border-red-400 bg-red-50 text-red-900";
+                    badgeCls += "bg-red-500 text-white";
+                  } else if (isExamAnswer && isPracticeRevealed) {
+                    // Exam answer that was neither correct nor the practice selection
+                    btnCls += "border-amber-400 bg-amber-50 text-amber-900";
+                    badgeCls += "bg-amber-500 text-white";
+                  } else if (realSelected) {
+                    btnCls += "border-blue-500 bg-blue-50 text-blue-900";
+                    badgeCls += "bg-blue-600 text-white";
+                  } else {
+                    btnCls += isPracticeRevealed
+                      ? "border-gray-200 bg-white text-gray-400 opacity-50"
+                      : "border-gray-200 bg-white hover:border-gray-400 hover:bg-gray-50 text-gray-800";
+                    badgeCls += "border border-gray-300 bg-gray-100 text-gray-600";
+                  }
+
                   return (
                     <button
                       key={index}
                       type="button"
+                      disabled={isPracticeRevealed}
                       onClick={() => {
+                        const timeTaken = Math.round((Date.now() - questionOpenedAt) / 1000);
+                        saveQuestionResponse({ attemptId: attemptRecordId, questionId: q.id, selectedOption: index, timeTaken });
                         if (attemptType === "PRACTICE") {
                           setPracticeAnswers((current) => ({ ...current, [q.id]: index }));
-                          setShowPracticeAnswer(true);
+                          setPracticeTimeTaken((current) => ({ ...current, [q.id]: timeTaken }));
+                          setRevealedPracticeQuestions((current) => new Set([...current, q.id]));
                         } else {
                           setAnswers((current) => ({ ...current, [q.id]: index }));
                         }
                       }}
-                      className={`flex w-full items-center gap-3 rounded-md border p-3 text-left text-sm transition-all ${
-                        selected
-                          ? "border-blue-500 bg-blue-50 text-blue-900"
-                          : "border-gray-200 bg-white hover:border-gray-400 hover:bg-gray-50 text-gray-800"
-                      }`}
+                      className={btnCls}
                     >
-                      <span
-                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-xs font-bold ${
-                          selected
-                            ? "bg-blue-600 text-white"
-                            : "border border-gray-300 bg-gray-100 text-gray-600"
-                        }`}
-                      >
+                      <span className={badgeCls}>
                         {String.fromCharCode(65 + index)}
                       </span>
                       <div className="min-w-0 flex-1">
                         <QuestionRichText content={option} inline />
                       </div>
-                      {selected ? <CheckCircle className="h-4 w-4 shrink-0 text-blue-600" aria-hidden /> : null}
+                      <div className="flex shrink-0 items-center gap-1">
+                        {isPracticeRevealed && isExamAnswer && (
+                          <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-amber-100 text-amber-700 border border-amber-300">
+                            Exam
+                          </span>
+                        )}
+                        {isPracticeRevealed && isCorrectOption && (
+                          <CheckCircle className="h-4 w-4 text-green-600" aria-hidden />
+                        )}
+                        {isWrongSelection && (
+                          <XCircle className="h-4 w-4 text-red-500" aria-hidden />
+                        )}
+                        {realSelected && (
+                          <CheckCircle className="h-4 w-4 text-blue-600" aria-hidden />
+                        )}
+                      </div>
                     </button>
                   );
                 })}
               </div>
 
-              {attemptType === "PRACTICE" && showPracticeAnswer && (
-                <div className="mt-6 rounded-2xl border border-border bg-blue-50 p-4">
-                  <h3 className="text-sm font-semibold text-blue-900 mb-3">Practice Mode Analysis</h3>
-                  
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Your Answer</p>
-                      <div className="flex items-center gap-2">
-                        <span className={`flex h-8 w-8 items-center justify-center rounded-xl text-sm font-bold ${
-                          practiceAnswers[q.id] === q.correct
-                            ? "bg-green-500 text-white"
-                            : "bg-red-500 text-white"
-                        }`}>
-                          {practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined 
-                            ? String.fromCharCode(65 + practiceAnswers[q.id]!)
-                            : "?"}
-                        </span>
-                        <span className="text-sm text-blue-900">
-                          {practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined 
-                            ? q.options[practiceAnswers[q.id]!]
-                            : "Not answered"}
-                        </span>
-                      </div>
+              {attemptType === "PRACTICE" && revealedPracticeQuestions.has(q.id) && (() => {
+                const practiceSelected = practiceAnswers[q.id];
+                const examSelected = realExamAnswers[q.id];
+                const isCorrect = practiceSelected === q.correct;
+                const hasExamData = examSelected !== null && examSelected !== undefined;
+
+                const optionLabel = (idx: number | null | undefined) =>
+                  idx !== null && idx !== undefined
+                    ? `${String.fromCharCode(65 + idx)}`
+                    : "–";
+
+                return (
+                  <div className={`mt-4 rounded-lg border ${
+                    isCorrect ? "border-green-300 bg-green-50" : "border-red-300 bg-red-50"
+                  }`}>
+                    {/* Correct / Incorrect header */}
+                    <div className={`flex items-center gap-2 px-4 py-2.5 ${
+                      isCorrect ? "text-green-800" : "text-red-800"
+                    }`}>
+                      {isCorrect
+                        ? <CheckCircle className="h-4 w-4 shrink-0" />
+                        : <XCircle className="h-4 w-4 shrink-0" />}
+                      <span className="text-sm font-semibold">{isCorrect ? "Correct!" : "Incorrect"}</span>
                     </div>
 
-                    <div className="space-y-2">
-                      <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Correct Answer</p>
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-green-500 text-sm font-bold text-white">
-                          {String.fromCharCode(65 + q.correct)}
+                    {/* Answer comparison rows */}
+                    <div className="border-t border-gray-200 divide-y divide-gray-100 bg-white rounded-b-lg">
+                      {hasExamData && (
+                        <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
+                          <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Your exam answer</span>
+                          <span className={`flex h-6 w-6 items-center justify-center rounded text-xs font-bold ${
+                            examSelected === q.correct ? "bg-green-500 text-white" : "bg-amber-500 text-white"
+                          }`}>{optionLabel(examSelected)}</span>
+                          <span className="truncate text-gray-700">
+                            {examSelected !== null && examSelected !== undefined ? q.options[examSelected] : "Not answered"}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
+                        <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Your practice answer</span>
+                        <span className={`flex h-6 w-6 items-center justify-center rounded text-xs font-bold ${
+                          isCorrect ? "bg-green-500 text-white" : "bg-red-500 text-white"
+                        }`}>{optionLabel(practiceSelected)}</span>
+                        <span className="truncate text-gray-700">
+                          {practiceSelected !== null && practiceSelected !== undefined ? q.options[practiceSelected] : "Not answered"}
                         </span>
-                        <span className="text-sm text-blue-900">{q.options[q.correct]}</span>
                       </div>
-                    </div>
-                  </div>
-
-                  {originalAttemptId && (
-                    <div className="mt-4 pt-4 border-t border-blue-200">
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Your Real Exam Answer</p>
-                          <div className="flex items-center gap-2">
-                            <span className={`flex h-8 w-8 items-center justify-center rounded-xl text-sm font-bold ${
-                              answers[q.id] === q.correct
-                                ? "bg-green-500 text-white"
-                                : answers[q.id] !== null && answers[q.id] !== undefined
-                                ? "bg-red-500 text-white"
-                                : "bg-muted/50 text-muted-foreground"
-                            }`}>
-                              {answers[q.id] !== null && answers[q.id] !== undefined 
-                                ? String.fromCharCode(65 + answers[q.id]!)
-                                : "?"}
-                            </span>
-                            <span className="text-sm text-blue-900">
-                              {answers[q.id] !== null && answers[q.id] !== undefined 
-                                ? q.options[answers[q.id]!]
-                                : "Not answered in real exam"}
-                            </span>
+                      <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
+                        <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Correct answer</span>
+                        <span className="flex h-6 w-6 items-center justify-center rounded bg-green-500 text-xs font-bold text-white">
+                          {optionLabel(q.correct)}
+                        </span>
+                        <span className="truncate text-gray-700">{q.options[q.correct]}</span>
+                      </div>
+                      {(realExamTimes[q.id] !== undefined || practiceTimeTaken[q.id] !== undefined) && (
+                        <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
+                          <span className="w-36 shrink-0 text-xs font-medium text-gray-500 flex items-center gap-1">
+                            <Clock className="h-3 w-3" /> Time taken
+                          </span>
+                          <div className="flex flex-wrap items-center gap-2">
+                            {realExamTimes[q.id] !== undefined && (
+                              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                                Exam: {realExamTimes[q.id]}s
+                              </span>
+                            )}
+                            {practiceTimeTaken[q.id] !== undefined && (
+                              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
+                                Practice: {practiceTimeTaken[q.id]}s
+                              </span>
+                            )}
                           </div>
                         </div>
-
-                        <div className="space-y-2">
-                          <p className="text-xs font-medium text-blue-700 uppercase tracking-wide">Time Comparison</p>
-                          <div className="text-sm text-blue-900">
-                            <p>Real exam: {sectionCompletionTimes[currentSection.name] || 0} min</p>
-                            <p>Practice: No time limit</p>
-                          </div>
-                        </div>
-                      </div>
+                      )}
+                      {(() => {
+                        const t = practiceTimeTaken[q.id];
+                        if (t === undefined) return null;
+                        if (t > 90) {
+                          return (
+                            <div className="flex items-center gap-2 px-4 py-2 text-xs text-amber-700 bg-amber-50 border-t border-amber-100">
+                              <span>⏱</span>
+                              <span>You spent too much time on this question</span>
+                            </div>
+                          );
+                        }
+                        if (isCorrect && t <= 30) {
+                          return (
+                            <div className="flex items-center gap-2 px-4 py-2 text-xs text-green-700 bg-green-50 border-t border-green-100">
+                              <span>⚡</span>
+                              <span>Good speed and accuracy</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
                     </div>
-                  )}
 
-                  <div className="mt-4">
-                    <p className="text-sm text-blue-800">{q.explanation}</p>
+                    {/* Explanation */}
+                    {q.explanation && (
+                      <div className="px-4 py-3 border-t border-gray-200">
+                        <p className="text-sm leading-relaxed text-gray-600">{getLocalizedQuestion(q, lang).explanation}</p>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                );
+              })()}
               </div>{/* end .space-y-5 inner */}
             </div>{/* end question card white box */}
 
@@ -793,6 +1181,15 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
                 >
                   Clear Response
                 </button>
+                {attemptType === "PRACTICE" && Object.keys(realExamAnswers).length > 0 && (
+                  <button
+                    type="button"
+                    onClick={goToNextWrongQuestion}
+                    className="rounded-md border border-orange-300 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-700 hover:bg-orange-100 transition"
+                  >
+                    Next Wrong Question
+                  </button>
+                )}
               </div>
               <button
                 type="button"
@@ -804,9 +1201,32 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
             </div>
           </section>
 
+          {/* Sidebar toggle — between question and sidebar */}
+          <div className="hidden lg:flex lg:items-start lg:justify-center lg:px-1 lg:pt-1">
+            <button
+              type="button"
+              aria-label={sidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
+              onClick={() => setSidebarCollapsed((v) => !v)}
+              className="flex h-8 w-5 items-center justify-center rounded border border-gray-300 bg-white text-gray-400 shadow-sm hover:bg-gray-50 hover:text-gray-600 transition"
+            >
+              {sidebarCollapsed ? <ChevronLeft className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
+            </button>
+          </div>
 
-
+          {!sidebarCollapsed && (
           <aside className="min-w-0 space-y-3">
+            {/* Jump to Next Section */}
+            {currentSectionIndex < effectiveSections.length - 1 && (
+              <button
+                type="button"
+                onClick={() => navigateToSection(currentSectionIndex + 1, 0)}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 transition"
+              >
+                <ChevronRight className="h-4 w-4" />
+                Jump to Next Section
+              </button>
+            )}
+
             {/* Legend */}
             <div className="rounded border border-gray-300 bg-white shadow-sm">
               <div className="border-b border-gray-200 px-4 py-2.5">
@@ -839,7 +1259,7 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
                 <span className="text-xs text-gray-500">{answered}/{totalQuestions}</span>
               </div>
               <div className="space-y-4 p-3">
-                {test.sections.map((section, sectionIndex) => {
+                {effectiveSections.map((section, sectionIndex) => {
                   const isLocked = lockedSections.includes(sectionIndex);
                   const isActive = sectionIndex === currentSectionIndex;
                   const isCompleted = sectionIndex < currentSectionIndex;
@@ -888,13 +1308,15 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
                 <button
                   type="button"
                   onClick={() => setShowSubmitModal(true)}
-                  className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+                  disabled={isSubmitting}
+                  className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-60"
                 >
-                  Submit test
+                  {isSubmitting ? "Submitting test…" : "Submit test"}
                 </button>
               </div>
             </div>
           </aside>
+          )}
         </div>
       </main>
 
@@ -906,11 +1328,47 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
           <button type="button" className="flex-1 rounded-md bg-blue-600 py-2 text-sm font-semibold text-white" onClick={goToNext}>
             Next<ChevronRight className="ml-1 inline h-4 w-4" />
           </button>
-          <button type="button" className="shrink-0 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700" onClick={() => setShowSubmitModal(true)}>
-            Submit
+          <button type="button" className="shrink-0 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 disabled:opacity-60" disabled={isSubmitting} onClick={() => setShowSubmitModal(true)}>
+            {isSubmitting ? "Submitting…" : "Submit"}
           </button>
         </div>
       </div>
+
+      {showPauseModal && (
+        <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-sm rounded border border-gray-200 bg-white p-6 shadow-2xl">
+            <div className="mb-4 flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+              <div>
+                <h3 className="text-base font-bold text-gray-900">Pause &amp; Exit?</h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Your progress will be saved. You can resume this test later from where you left off.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                className="flex-1 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                onClick={() => setShowPauseModal(false)}
+              >
+                Continue Test
+              </button>
+              <button
+                type="button"
+                className="flex-1 rounded-md bg-amber-500 py-2 text-sm font-semibold text-white hover:bg-amber-600"
+                onClick={() => {
+                  setShowPauseModal(false);
+                  document.exitFullscreen?.().catch(() => {});
+                  setLocation("/exams");
+                }}
+              >
+                Save &amp; Exit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showSectionSwitchWarning && (
         <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/60 p-4">
@@ -918,9 +1376,9 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
             <div className="mb-4 flex items-start gap-3">
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
               <div>
-                <h3 className="text-base font-bold text-gray-900">Switch to Next Section?</h3>
+                <h3 className="text-base font-bold text-gray-900">Move to Next Section?</h3>
                 <p className="mt-1 text-sm text-gray-600">
-                  You will not be able to return to this section once you proceed.
+                  Once you move to the next section, you <strong>cannot return</strong> to this section. All your answers in this section will be saved.
                 </p>
               </div>
             </div>
@@ -966,8 +1424,8 @@ function TestRunner({ test, showSuccessMessage }: { test: Test; showSuccessMessa
               <button type="button" className="flex-1 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" onClick={() => setShowSubmitModal(false)} data-testid="btn-cancel-submit">
                 Continue test
               </button>
-              <button type="button" className="flex-1 rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700" onClick={handleSubmit} data-testid="btn-confirm-submit">
-                Submit now
+              <button type="button" className="flex-1 rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60" disabled={isSubmitting} onClick={handleSubmit} data-testid="btn-confirm-submit">
+                {isSubmitting ? "Submitting test…" : "Submit now"}
               </button>
             </div>
           </div>
@@ -981,9 +1439,16 @@ export default function Test() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const search = useSearch();
-  const { tests: catalogTests, isLoading: catalogLoading, error: catalogError } = useExamCatalog();
+  const { tests: catalogTests, subcategories: catalogSubcategories, isLoading: catalogLoading, error: catalogError } = useExamCatalog();
   const { data: entitlements } = useMyEntitlements();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [started, setStarted] = useState(false);
+  const isWrongOnlyMode = search.includes("wrongOnly=true");
+  const sectionFilterParam = useMemo(() => {
+    const params = new URLSearchParams(search);
+    return params.get("section") ?? null;
+  }, [search]);
+  const [selectedMode, setSelectedMode] = useState<"REAL" | "PRACTICE" | "PRACTICE_WRONG">(isWrongOnlyMode ? "PRACTICE_WRONG" : "REAL");
 
   // Check for successful checkout
   useEffect(() => {
@@ -1027,11 +1492,91 @@ export default function Test() {
     enabled: Boolean(id) && !hasInlineQuestions,
   });
 
+  // Find packages containing this test (used for locked UI)
+  const { data: testPackages } = useQuery({
+    queryKey: ["packages", "by-test", id],
+    queryFn: () => getPackagesByTest(id!),
+    enabled: Boolean(id) && !hasInlineQuestions,
+    staleTime: 60_000,
+  });
+
   const resolvedTest = useMemo(() => {
     if (hasInlineQuestions && listCandidate) return listCandidate;
     if (remoteTest) return remoteTest as Test;
     return null;
   }, [hasInlineQuestions, listCandidate, remoteTest]);
+
+  const firstRealAttempt = useMemo(
+    () => getAttempts().find((a) => a.testId === id && a.attemptType === "REAL" && Array.isArray(a.questionReview)),
+    [id],
+  );
+
+  const wrongQuestionIds = useMemo<Set<number>>(() => {
+    if (!firstRealAttempt?.questionReview) return new Set();
+    return new Set(
+      firstRealAttempt.questionReview
+        .filter((qr) => qr.selected === null || qr.selected === undefined || qr.selected !== qr.correct)
+        .map((qr) => qr.questionId),
+    );
+  }, [firstRealAttempt]);
+
+  const subcategoryLangs = useMemo<string[]>(() => {
+    const subId = resolvedTest?.subcategoryId;
+    if (subId) {
+      const sub = catalogSubcategories.find((s) => s.id === subId);
+      if (sub?.languages && sub.languages.length > 0) return sub.languages;
+    }
+    // Fall back to test.languages from API (which inherits from subcategory via join)
+    if (resolvedTest?.languages && resolvedTest.languages.length > 0) return resolvedTest.languages;
+    return ["en"];
+  }, [resolvedTest, catalogSubcategories]);
+
+  const filteredTest = useMemo<Test | null>(() => {
+    if (!resolvedTest || wrongQuestionIds.size === 0) return null;
+    const filteredSections = resolvedTest.sections
+      .map((sec) => {
+        const qs = sec.questions.filter((q) => wrongQuestionIds.has(q.id));
+        // Shuffle for smart retry
+        const shuffled = [...qs].sort(() => Math.random() - 0.5);
+        return { ...sec, questions: shuffled };
+      })
+      .filter((sec) => sec.questions.length > 0);
+    if (filteredSections.length === 0) return null;
+    const totalFiltered = filteredSections.reduce((s, sec) => s + sec.questions.length, 0);
+    return { ...resolvedTest, sections: filteredSections, totalQuestions: totalFiltered };
+  }, [resolvedTest, wrongQuestionIds]);
+
+  // Section practice filter (from performance page weak areas)
+  const sectionFilteredTest = useMemo<Test | null>(() => {
+    if (!resolvedTest || !sectionFilterParam) return null;
+    const filtered = resolvedTest.sections.filter(
+      (sec) => sec.name.toLowerCase() === sectionFilterParam.toLowerCase()
+    );
+    if (filtered.length === 0) return null;
+    // Randomly sample up to 15 questions per section
+    const sampledSections = filtered.map((sec) => {
+      const shuffled = [...sec.questions].sort(() => Math.random() - 0.5);
+      const sampled = shuffled.slice(0, 15);
+      return { ...sec, questions: sampled };
+    });
+    const total = sampledSections.reduce((s, sec) => s + sec.questions.length, 0);
+    return { ...resolvedTest, sections: sampledSections, totalQuestions: total };
+  }, [resolvedTest, sectionFilterParam]);
+
+  // Auto-start in wrongOnly mode (bypass pre-start screen)
+  useEffect(() => {
+    if (isWrongOnlyMode && resolvedTest && !started) {
+      setStarted(true);
+    }
+  }, [isWrongOnlyMode, resolvedTest, started]);
+
+  // Auto-start in section practice mode (bypass pre-start screen)
+  useEffect(() => {
+    if (sectionFilterParam && sectionFilteredTest && !started) {
+      setStarted(true);
+      setSelectedMode("PRACTICE");
+    }
+  }, [sectionFilterParam, sectionFilteredTest, started]);
 
   if (!id) return null;
 
@@ -1094,6 +1639,37 @@ export default function Test() {
       return <TestPaywall testId={id!} testName={testName} priceCents={price} reason="login" />;
     }
     if (remoteError.status === 403 && code === "PAYMENT_REQUIRED") {
+      const containingPackage = testPackages && testPackages.length > 0 ? testPackages[0] : null;
+      if (containingPackage) {
+        return (
+          <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-4">
+            <Lock className="h-12 w-12 text-gray-400" />
+            <p className="text-lg font-semibold text-foreground">{testName}</p>
+            <p className="text-center text-sm text-muted-foreground">
+              This test is part of a paid package
+            </p>
+            <div className="mt-2 rounded-lg border border-gray-200 bg-gray-50 px-6 py-4 text-center">
+              <p className="font-semibold text-gray-800">{containingPackage.name}</p>
+              <p className="mt-1 text-sm text-gray-500">{containingPackage.description}</p>
+              <p className="mt-2 text-xl font-bold text-gray-900">
+                ₹{(containingPackage.finalPriceCents / 100).toFixed(0)}
+                {containingPackage.originalPriceCents > containingPackage.finalPriceCents && (
+                  <span className="ml-2 text-sm font-normal text-gray-400 line-through">
+                    ₹{(containingPackage.originalPriceCents / 100).toFixed(0)}
+                  </span>
+                )}
+              </p>
+            </div>
+            <Button
+              className="bg-blue-600 text-white hover:bg-blue-700"
+              onClick={() => setLocation(`/packages/${containingPackage.id}`)}
+            >
+              Buy Package
+            </Button>
+            <Button variant="outline" onClick={() => setLocation("/exams")}>Back to exams</Button>
+          </div>
+        );
+      }
       return <TestPaywall testId={id!} testName={testName} priceCents={price} reason="payment" />;
     }
   }
@@ -1112,5 +1688,146 @@ export default function Test() {
     );
   }
 
-  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} />;
+  if (!started) {
+    const totalQ = resolvedTest.sections.reduce((s, sec) => s + sec.questions.length, 0);
+    const hasDraft = Boolean(getActiveTestSession(id!));
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+        <div className="w-full max-w-lg rounded-lg border border-gray-200 bg-white p-8 shadow-lg">
+          <h1 className="text-xl font-bold text-gray-900">{resolvedTest.name}</h1>
+          <div className="mt-4 grid grid-cols-3 gap-3 rounded-md bg-gray-50 p-4 text-center text-sm">
+            <div>
+              <p className="text-xs text-gray-500">Duration</p>
+              <p className="mt-0.5 font-semibold text-gray-800">{resolvedTest.duration} min</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Questions</p>
+              <p className="mt-0.5 font-semibold text-gray-800">{totalQ}</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Sections</p>
+              <p className="mt-0.5 font-semibold text-gray-800">{resolvedTest.sections.length}</p>
+            </div>
+          </div>
+          {resolvedTest.sections.length > 1 && (
+            <div className="mt-4 space-y-1.5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Sections</p>
+              {resolvedTest.sections.map((sec) => (
+                <div key={sec.id} className="flex items-center justify-between rounded border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+                  <span className="text-gray-700">{sec.name}</span>
+                  <span className="text-xs text-gray-500">{sec.questions.length} questions</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {hasDraft && (
+            <p className="mt-4 rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
+              You have a saved session for this test. Clicking Resume will continue from where you left off.
+            </p>
+          )}
+
+          {!hasDraft && (
+            <div className="mt-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Select Mode</p>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setSelectedMode("REAL")}
+                  className={`rounded-lg border p-3 text-left transition ${
+                    selectedMode === "REAL"
+                      ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                >
+                  <p className="text-sm font-semibold text-gray-800">Real Exam</p>
+                  <p className="mt-0.5 text-xs text-gray-500">Timed · Section rules apply</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedMode("PRACTICE")}
+                  className={`rounded-lg border p-3 text-left transition ${
+                    selectedMode === "PRACTICE"
+                      ? "border-green-500 bg-green-50 ring-1 ring-green-500"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                >
+                  <p className="text-sm font-semibold text-gray-800">Practice</p>
+                  <p className="mt-0.5 text-xs text-gray-500">No timer · Free navigation</p>
+                </button>
+              </div>
+              {filteredTest && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedMode("PRACTICE_WRONG")}
+                  className={`mt-3 w-full rounded-lg border p-3 text-left transition ${
+                    selectedMode === "PRACTICE_WRONG"
+                      ? "border-orange-500 bg-orange-50 ring-1 ring-orange-500"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                >
+                  <p className="text-sm font-semibold text-gray-800">Practice Wrong Questions</p>
+                  <p className="mt-0.5 text-xs text-gray-500">
+                    {wrongQuestionIds.size} question{wrongQuestionIds.size !== 1 ? "s" : ""} you got wrong or skipped · No timer
+                  </p>
+                </button>
+              )}
+            </div>
+          )}
+          <div className="mt-6 flex gap-3">
+            <Button variant="outline" onClick={() => setLocation("/exams")}>Back</Button>
+            <Button
+              className="flex-1 bg-blue-600 text-white hover:bg-blue-700"
+              onClick={() => {
+                if (selectedMode === "REAL") {
+                  document.documentElement.requestFullscreen?.().catch(() => {});
+                }
+                setStarted(true);
+              }}
+            >
+              {hasDraft ? "Resume Test" : "Start Test"}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (selectedMode === "PRACTICE") {
+    return (
+      <AppLayout>
+        <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} sectionParam={sectionFilterParam} />
+      </AppLayout>
+    );
+  }
+
+  if (selectedMode === "PRACTICE_WRONG") {
+    if (!filteredTest) {
+      // No wrong questions found — show friendly message
+      return (
+        <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-background px-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+            <CheckCircle className="h-7 w-7" />
+          </div>
+          <div className="text-center">
+            <h2 className="text-xl font-bold text-foreground">No wrong questions to practice</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              You answered all questions correctly in your last attempt. Nothing to retry!
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <Button variant="outline" onClick={() => setLocation("/exams")}>Back to Tests</Button>
+            <Button onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}`)}>View Result</Button>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <AppLayout>
+        <TestRunner test={filteredTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} wrongOnly={true} />
+      </AppLayout>
+    );
+  }
+
+  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="REAL" subcategoryLanguages={subcategoryLangs} />;
 }
+

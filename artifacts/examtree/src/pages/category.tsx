@@ -1,32 +1,60 @@
-import { useMemo } from "react";
+﻿import { useMemo, useState } from "react";
 import { useLocation, useParams } from "wouter";
-import { ArrowLeft, BookOpen, ChevronRight, Clock3, Files, Layers3, Target } from "lucide-react";
+import { ArrowLeft, BookOpen, ChevronRight, Clock3, Hash, LayoutGrid, Lock, Package, RotateCcw, ShieldCheck } from "lucide-react";
 import { getRuntimeExamGroups } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import { getAttempts } from "@/lib/storage";
 import { API_BASE_URL } from "@/lib/api";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 const CATEGORY_STYLES: Record<string, string> = {
-  blue: "from-sky-500 via-blue-500 to-indigo-500",
-  emerald: "from-emerald-500 via-teal-500 to-cyan-500",
-  violet: "from-violet-500 via-fuchsia-500 to-pink-500",
-  amber: "from-amber-500 via-orange-500 to-rose-500",
-  orange: "from-orange-500 via-amber-500 to-yellow-500",
-  rose: "from-rose-500 via-pink-500 to-fuchsia-500",
-  indigo: "from-indigo-500 via-blue-500 to-cyan-500",
-  red: "from-red-500 via-rose-500 to-orange-500",
+  blue: "linear-gradient(to right, #0ea5e9, #3b82f6, #6366f1)",
+  emerald: "linear-gradient(to right, #10b981, #14b8a6, #06b6d4)",
+  violet: "linear-gradient(to right, #8b5cf6, #d946ef, #ec4899)",
+  amber: "linear-gradient(to right, #f59e0b, #f97316, #f43f5e)",
+  orange: "linear-gradient(to right, #f97316, #f59e0b, #eab308)",
+  rose: "linear-gradient(to right, #f43f5e, #ec4899, #d946ef)",
+  indigo: "linear-gradient(to right, #6366f1, #3b82f6, #06b6d4)",
+  red: "linear-gradient(to right, #ef4444, #f43f5e, #f97316)",
 };
 
 export default function CategoryPage() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
-  const { categories, tests, isLoading, error } = useExamCatalog();
+  const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
   const category = categories.find((item) => item.id === id);
   const exams = useMemo(
-    () => (id ? getRuntimeExamGroups(id, categories, tests) : []),
-    [id, categories, tests],
+    () => (id ? getRuntimeExamGroups(id, categories, tests, subcategories) : []),
+    [id, categories, tests, subcategories],
   );
+
+  const attempts = useMemo(() => getAttempts(), []);
+  const attemptedTestIds = useMemo(() => new Set(attempts.map((a) => a.testId)), [attempts]);
+
+  const examMetaMap = useMemo(() => {
+    const map = new Map<string, {
+      freeCount: number; paidCount: number;
+      avgDuration: number | null; avgQuestions: number | null;
+      attemptedCount: number; totalCount: number;
+    }>();
+    for (const exam of exams) {
+      const examTests = exam.id.startsWith("general-")
+        ? tests.filter((t) => t.categoryId === exam.categoryId && !t.subcategoryId)
+        : tests.filter((t) => t.subcategoryId === exam.id);
+      const withDuration = examTests.filter((t) => t.duration);
+      const withQuestions = examTests.filter((t) => t.totalQuestions);
+      map.set(exam.id, {
+        freeCount: examTests.filter((t) => (t.access ?? "free") === "free").length,
+        paidCount: examTests.filter((t) => (t.access ?? "free") !== "free").length,
+        avgDuration: withDuration.length > 0 ? Math.round(withDuration.reduce((s, t) => s + t.duration, 0) / withDuration.length) : null,
+        avgQuestions: withQuestions.length > 0 ? Math.round(withQuestions.reduce((s, t) => s + t.totalQuestions, 0) / withQuestions.length) : null,
+        attemptedCount: examTests.filter((t) => attemptedTestIds.has(t.id)).length,
+        totalCount: examTests.length,
+      });
+    }
+    return map;
+  }, [exams, tests, attemptedTestIds]);
+
   const gradient = CATEGORY_STYLES[category?.color ?? "blue"] ?? CATEGORY_STYLES.blue;
 
   if (error) {
@@ -45,9 +73,12 @@ export default function CategoryPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="mx-auto max-w-7xl animate-pulse px-4 py-12">
+        <div className="mx-auto max-w-4xl animate-pulse px-4 py-12">
           <div className="h-8 w-40 rounded-lg bg-muted" />
-          <div className="mt-8 h-64 rounded-3xl bg-muted" />
+          <div className="mt-6 h-20 rounded-xl bg-muted" />
+          <div className="mt-4 space-y-3">
+            {[1,2,3].map(i => <div key={i} className="h-16 rounded-xl bg-muted" />)}
+          </div>
         </div>
       </div>
     );
@@ -56,18 +87,11 @@ export default function CategoryPage() {
   if (!category) {
     return (
       <div className="min-h-screen bg-background">
-        <main className="mx-auto flex min-h-[70vh] max-w-5xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
-          <div className="rounded-xl border border-border/70 bg-card p-10 text-center shadow-sm">
-            <Badge variant="secondary" className="mb-4 rounded-full px-3 py-1 text-xs uppercase tracking-[0.2em]">
-              Category unavailable
-            </Badge>
+        <main className="mx-auto flex min-h-[70vh] max-w-5xl items-center justify-center px-4 py-10">
+          <div className="rounded-xl border border-border/60 bg-card p-10 text-center shadow-sm">
             <h1 className="text-2xl font-bold text-foreground">Category not found</h1>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              This category is not available right now.
-            </p>
-            <Button className="mt-6 rounded-md" onClick={() => setLocation("/exams")}>
-              Back to Exams
-            </Button>
+            <p className="mt-3 text-sm text-muted-foreground">This category is not available right now.</p>
+            <Button className="mt-6 rounded-lg" onClick={() => setLocation("/exams")}>Back to Exams</Button>
           </div>
         </main>
       </div>
@@ -75,179 +99,164 @@ export default function CategoryPage() {
   }
 
   const totalTests = exams.reduce((sum, exam) => sum + exam.totalTests, 0);
-  const totalFullLength = exams.reduce((sum, exam) => sum + exam.fullLengthCount, 0);
-  const totalSectional = exams.reduce((sum, exam) => sum + exam.sectionalCount, 0);
-  const totalTopicWise = exams.reduce((sum, exam) => sum + exam.topicWiseCount, 0);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
 
-      <section className="border-b border-border/70 bg-background">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      {/* Top nav */}
+      <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
+        <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
           <button
             onClick={() => setLocation("/exams")}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-card-15 bg-card-5 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
             data-testid="btn-back-exams"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to exams
+            All exams
           </button>
+        </div>
+      </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div className="max-w-3xl">
-              <Badge variant="secondary" className="mb-4 rounded-full border border-card-20 bg-card-5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Category Hub
-              </Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">{category.name}</h1>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-                {category.description}
+      {/* Category header — subtle hero banner */}
+      <div className="mx-auto max-w-5xl px-4 pt-6 pb-2 sm:px-6">
+        <div className="rounded-2xl overflow-hidden border border-sky-100 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="inline-flex items-center rounded-full px-3 py-1 mb-3" style={{ backgroundImage: gradient }}>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">Category</span>
+              </div>
+              <h1 className="text-[38px] font-black tracking-tight text-foreground leading-tight sm:text-[48px]">
+                {category.name}
+              </h1>
+              <p className="mt-2 text-[17px] leading-[1.7] text-slate-500 max-w-xl">
+                {category.description || `Practice tests for ${category.name} — full-length, sectional, and topic-wise.`}
               </p>
-
-              <div className="mt-8 grid gap-3 sm:grid-cols-4">
-                <div className="rounded-2xl border border-card-15 bg-card-5 px-4 py-3 text-sm text-muted-foreground">
-                  <span className="block text-lg font-bold text-foreground">{exams.length}</span>
-                  exams
-                </div>
-                <div className="rounded-2xl border border-card-15 bg-card-5 px-4 py-3 text-sm text-muted-foreground">
-                  <span className="block text-lg font-bold text-foreground">{totalFullLength}</span>
-                  full-length
-                </div>
-                <div className="rounded-2xl border border-card-15 bg-card-5 px-4 py-3 text-sm text-muted-foreground">
-                  <span className="block text-lg font-bold text-foreground">{totalSectional}</span>
-                  sectional
-                </div>
-                <div className="rounded-2xl border border-card-15 bg-card-5 px-4 py-3 text-sm text-muted-foreground">
-                  <span className="block text-lg font-bold text-foreground">{totalTopicWise}</span>
-                  topic-wise
-                </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[15px] font-semibold text-slate-700">
+                  <BookOpen className="h-3.5 w-3.5 text-primary/70" />{exams.length} exams
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[15px] font-semibold text-slate-700">
+                  <LayoutGrid className="h-3.5 w-3.5 text-primary/70" />{totalTests} total tests
+                </span>
               </div>
             </div>
-
-            <div className="card-experimental text-foreground">
-              <div className="relative">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Quick view</p>
-                    <h2 className="mt-2 text-2xl font-bold">{category.name} exams</h2>
-                  </div>
-                  <div className="rounded-2xl border border-card-20 bg-card-10 px-3 py-2 text-right">
-                    <p className="text-xs text-muted-foreground">Mocks</p>
-                    <p className="text-xl font-bold">{totalTests}</p>
-                  </div>
-                </div>
-
-                <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-card-10 bg-card-10 p-4">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-card-15">
-                      <Files className="h-5 w-5" />
-                    </div>
-                    <p className="text-sm font-semibold">Exam-specific pages</p>
-                    <p className="mt-1 text-sm text-muted-foreground">Open the exact exam a student is preparing for.</p>
-                  </div>
-                  <div className="rounded-2xl border border-card-10 bg-card-10 p-4">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-card-15">
-                      <Layers3 className="h-5 w-5" />
-                    </div>
-                    <p className="text-sm font-semibold">Three practice modes</p>
-                    <p className="mt-1 text-sm text-muted-foreground">Full-length, sectional, and topic-wise tests are separated.</p>
-                  </div>
-                </div>
-
-                <div className="mt-6 rounded-xl border border-border/70 bg-muted/75 p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Catalog strength</p>
-                      <p className="mt-1 text-sm text-muted-foreground">Total exam cards in this category</p>
-                    </div>
-                    <p className="text-3xl font-bold text-emerald-300">{exams.length}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Button
+              variant="outline"
+              className="shrink-0 rounded-xl border-violet-300 text-violet-700 hover:bg-violet-50 font-semibold hidden sm:flex text-[14px] px-4 h-auto py-2"
+              onClick={() => setLocation("/packages")}
+            >
+              <Package className="mr-1.5 h-4 w-4" />Buy Bundle
+            </Button>
           </div>
         </div>
-      </section>
+      </div>
 
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary/80">Available exams</p>
-            <h2 className="mt-2 text-2xl font-bold text-foreground">Choose the exact exam under {category.name}</h2>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Clock3 className="h-4 w-4 text-primary" />
-            Select an exam to view its full-length, sectional, and topic-wise mocks
-          </div>
-        </div>
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
 
+        {/* Mobile bundle CTA */}
+        <Button
+          variant="outline"
+          className="mb-6 w-full rounded-xl border-violet-300 text-violet-700 hover:bg-violet-50 font-semibold sm:hidden text-[14px]"
+          onClick={() => setLocation("/packages")}
+        >
+          <Package className="mr-1.5 h-4 w-4" />Buy a Bundle & Save
+        </Button>
+
+        {/* Exam grid */}
         {exams.length === 0 ? (
-          <div className="rounded-[1.8rem] border border-dashed border-border/70 bg-card/70 px-6 py-12 text-center">
-            <BookOpen className="mx-auto h-10 w-10 text-muted-foreground/60" />
-            <h2 className="mt-4 text-xl font-semibold text-foreground">No exams configured yet</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Add exams from the admin panel and they will appear here automatically.</p>
+          <div className="rounded-xl border border-dashed border-border/60 px-6 py-14 text-center">
+            <BookOpen className="mx-auto h-9 w-9 text-muted-foreground/40" />
+            <p className="mt-3 text-[15px] text-muted-foreground">No exams available yet</p>
           </div>
         ) : (
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {exams.map((exam) => (
-              <button
-                key={exam.id}
-                type="button"
-                onClick={() => setLocation(`/subcategory/${exam.id}`)}
-                data-testid={`btn-open-exam-${exam.id}`}
-                className="group relative flex w-full flex-col overflow-hidden rounded-xl border border-border/60 bg-card text-left shadow-sm ring-offset-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              >
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {exams.map((exam) => {
+              const meta = examMetaMap.get(exam.id);
+              return (
                 <div
-                  className="pointer-events-none absolute inset-y-0 left-0 w-1.5 bg-primary/70 opacity-80 transition-all group-hover:w-2"
-                  aria-hidden
-                />
-                <div className="pointer-events-none absolute -right-12 -top-16 h-32 w-32 rounded-full bg-primary/[0.08] blur-2xl transition-opacity group-hover:opacity-100" aria-hidden />
-                <div className="relative flex flex-1 flex-col p-6 pl-7">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <Badge
-                        variant="secondary"
-                        className="rounded-full border border-border/50 bg-muted/50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
-                      >
-                        {exam.totalTests} tests
-                      </Badge>
-                      <h3 className="mt-3 text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
-                        {exam.name}
-                      </h3>
+                  key={exam.id}
+                  className="group relative flex flex-col rounded-2xl border border-slate-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-all duration-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)] hover:-translate-y-1 cursor-pointer overflow-hidden"
+                  onClick={() => setLocation(`/subcategory/${exam.id}`)}
+                  data-testid={`btn-open-exam-${exam.id}`}
+                >
+                  {/* Gradient top strip */}
+                  <div className="h-1.5 w-full" style={{ backgroundImage: gradient }} />
+
+                  {/* Card body */}
+                  <div className="flex flex-col gap-3.5 p-5">
+                    {/* Icon + title */}
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white shadow-sm" style={{ backgroundImage: gradient }}>
+                        <BookOpen className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[20px] font-bold text-slate-800 leading-snug">{exam.name}</p>
+                        <span className="mt-1 inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-600">Latest Pattern</span>
+                      </div>
                     </div>
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary shadow-inner ring-1 ring-primary/10 transition-transform duration-300 group-hover:scale-105">
-                      <Target className="h-5 w-5" />
+
+                    {/* Meta row 1: test counts */}
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-slate-500">
+                      <span className="flex items-center gap-1 font-semibold text-slate-700"><LayoutGrid className="h-3.5 w-3.5 text-primary/60" />{exam.totalTests} tests</span>
+                      {exam.fullLengthCount > 0 && <span>{exam.fullLengthCount} full-length</span>}
+                      {exam.sectionalCount > 0 && <span>{exam.sectionalCount} sectional</span>}
+                      {exam.topicWiseCount > 0 && <span>{exam.topicWiseCount} topic-wise</span>}
+                    </div>
+
+                    {/* Meta row 2: avg duration + questions */}
+                    {(meta?.avgDuration || meta?.avgQuestions) && (
+                      <div className="flex items-center gap-3 text-[14px] text-slate-400">
+                        {meta.avgDuration && <span className="flex items-center gap-1"><Clock3 className="h-3.5 w-3.5 text-sky-400" />~{meta.avgDuration} min</span>}
+                        {meta.avgQuestions && <span className="flex items-center gap-1"><Hash className="h-3.5 w-3.5 text-slate-400" />~{meta.avgQuestions} Qs</span>}
+                      </div>
+                    )}
+
+                    {/* Progress bar */}
+                    {meta && meta.totalCount > 0 && meta.attemptedCount > 0 && (
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="flex items-center gap-1 text-[12px] text-slate-400"><RotateCcw className="h-3 w-3 text-sky-400" />Progress</span>
+                          <span className="text-[13px] font-bold text-sky-600">{meta.attemptedCount}/{meta.totalCount}</span>
+                        </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-sky-500 to-indigo-500"
+                            style={{ width: `${Math.round((meta.attemptedCount / meta.totalCount) * 100)}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Access badges */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {meta && meta.freeCount > 0 && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-[12px] font-medium text-emerald-700">
+                          <ShieldCheck className="h-3 w-3" />{meta.freeCount} free
+                        </span>
+                      )}
+                      {meta && meta.paidCount > 0 && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-[12px] font-medium text-amber-700">
+                          <Lock className="h-3 w-3" />{meta.paidCount} locked
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  <p className="mt-4 min-h-[4.5rem] text-sm leading-relaxed text-muted-foreground">
-                    {exam.description || `${exam.name} exam page with separate full-length, sectional, and topic-wise practice.`}
-                  </p>
-
-                  <div className="mt-5 grid grid-cols-3 gap-2">
-                    <div className="rounded-2xl border border-border/40 bg-muted/25 px-2 py-3 text-center transition-colors group-hover:bg-muted/40">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Full</p>
-                      <p className="mt-1 text-lg font-bold tabular-nums text-foreground">{exam.fullLengthCount}</p>
-                    </div>
-                    <div className="rounded-2xl border border-border/40 bg-muted/25 px-2 py-3 text-center transition-colors group-hover:bg-muted/40">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Section</p>
-                      <p className="mt-1 text-lg font-bold tabular-nums text-foreground">{exam.sectionalCount}</p>
-                    </div>
-                    <div className="rounded-2xl border border-border/40 bg-muted/25 px-2 py-3 text-center transition-colors group-hover:bg-muted/40">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Topic</p>
-                      <p className="mt-1 text-lg font-bold tabular-nums text-foreground">{exam.topicWiseCount}</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-center justify-between rounded-2xl border border-dashed border-border/60 bg-muted/15 px-4 py-3 text-sm font-semibold text-primary">
-                    <span>Open exam hub</span>
-                    <ChevronRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                  {/* CTA footer */}
+                  <div className="mt-auto border-t border-slate-100 bg-slate-50 px-5 py-3.5">
+                    <Button
+                      className="w-full rounded-xl text-[15px] font-semibold shadow-none h-10"
+                      onClick={(e) => { e.stopPropagation(); setLocation(`/subcategory/${exam.id}`); }}
+                    >
+                      View Tests<ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </Button>
                   </div>
                 </div>
-              </button>
-            ))}
+              );
+            })}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

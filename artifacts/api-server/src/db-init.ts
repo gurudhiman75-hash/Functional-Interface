@@ -80,6 +80,7 @@ async function initializeDatabase() {
         "date" text NOT NULL,
         "section_stats" jsonb,
         "section_time_spent" jsonb,
+        "question_review" jsonb,
         "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
     `);

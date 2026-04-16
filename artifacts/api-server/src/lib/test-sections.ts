@@ -7,6 +7,12 @@ type QuestionRow = {
   correct: number;
   section: string;
   explanation: string;
+  textHi?: string | null;
+  optionsHi?: unknown | null;
+  explanationHi?: string | null;
+  textPa?: string | null;
+  optionsPa?: unknown | null;
+  explanationPa?: string | null;
 };
 
 function toOptions(value: unknown): string[] {
@@ -30,6 +36,12 @@ export function toApiQuestions(rows: QuestionRow[]): ApiQuestion[] {
     correct: q.correct,
     section: q.section,
     explanation: q.explanation,
+    textHi: q.textHi ?? null,
+    optionsHi: q.optionsHi != null ? toOptions(q.optionsHi) : null,
+    explanationHi: q.explanationHi ?? null,
+    textPa: q.textPa ?? null,
+    optionsPa: q.optionsPa != null ? toOptions(q.optionsPa) : null,
+    explanationPa: q.explanationPa ?? null,
   }));
 }
 

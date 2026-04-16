@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { onAuthStateChanged } from "firebase/auth";
 import {
   Users, BookOpen, HelpCircle, Activity, Plus, Edit, Trash2, Search,
-  X, Check, AlertTriangle, Tag,
+  X, Check, AlertTriangle, Tag, Package,
 } from "lucide-react";
 import {
   getUser,
@@ -14,6 +15,7 @@ import {
   updateAdminCategory,
   saveAdminCategories, saveAdminSubcategories, saveAdminTests, saveAdminQuestions,
   markSeeded, hydrateAdminDataFromCloud, pauseAdminCloudSync, resumeAdminCloudSync,
+  getAdminQuestions,
   type AdminCategory, type AdminSubcategory, type AdminTest, type AdminQuestion, type TestAccess, type TestKind,
 } from "@/lib/storage";
 import {
@@ -32,6 +34,7 @@ import {
   updateSubcategory,
   updateTest,
 } from "@/lib/admin-repo";
+import { createPackage, getTests as fetchBackendTests, getPackages, createBundle, getBundles } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -370,6 +373,13 @@ const blankQuestionForm = (section = "") => ({
   options: ["", "", "", ""] as [string, string, string, string],
   correct: 0,
   explanation: "",
+  // Translation fields (optional)
+  textHi: "",
+  optionsHi: ["", "", "", ""] as [string, string, string, string],
+  explanationHi: "",
+  textPa: "",
+  optionsPa: ["", "", "", ""] as [string, string, string, string],
+  explanationPa: "",
 });
 
 function normalizeSections(sections: string[]) {
@@ -413,7 +423,7 @@ export default function Admin() {
   const user = getUser();
   const { toast } = useToast();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions">("categories");
+  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles">("categories");
   const [search, setSearch] = useState("");
 
   const [cats, setCats] = useState<AdminCategory[]>([]);
@@ -421,7 +431,7 @@ export default function Admin() {
   const [editingCat, setEditingCat] = useState<AdminCategory | null>(null);
   const [deletingCat, setDeletingCat] = useState<AdminCategory | null>(null);
   const [subcats, setSubcats] = useState<AdminSubcategory[]>([]);
-  const [subcatForm, setSubcatForm] = useState({ categoryId: "", name: "", description: "" });
+  const [subcatForm, setSubcatForm] = useState({ categoryId: "", name: "", description: "", languages: ["en"] as string[] });
   const [editingSubcat, setEditingSubcat] = useState<AdminSubcategory | null>(null);
   const [deletingSubcat, setDeletingSubcat] = useState<AdminSubcategory | null>(null);
 
@@ -433,10 +443,75 @@ export default function Admin() {
   const [questionTestId, setQuestionTestId] = useState("");
   const [questionForm, setQuestionForm] = useState(blankQuestionForm());
   const [editingQuestion, setEditingQuestion] = useState<AdminQuestion | null>(null);
+  const [qLangTab, setQLangTab] = useState<"en" | "hi" | "pa">("en");
   const [bulkJson, setBulkJson] = useState("");
   const [bulkError, setBulkError] = useState<string | null>(null);
+  const [csvError, setCsvError] = useState<string | null>(null);
+  // Direct CSV import state
+  type DirectCsvPreviewRow = { rowNum: number; cells: Record<string, string>; valid: boolean; errors: string[] };
+  const [directCsvFile, setDirectCsvFile] = useState<File | null>(null);
+  const [directCsvSection, setDirectCsvSection] = useState("");
+  const [directCsvUploading, setDirectCsvUploading] = useState(false);
+  const [directCsvResult, setDirectCsvResult] = useState<{ inserted: number; skipped: number; errors: { row: number; reason: string }[] } | null>(null);
+  const [directCsvError, setDirectCsvError] = useState<string | null>(null);
+  const [directCsvParsed, setDirectCsvParsed] = useState<DirectCsvPreviewRow[] | null>(null);
+  const [directCsvShowErrors, setDirectCsvShowErrors] = useState(false);
+
+  // ── Package state ──
+  type BackendTest = { id: string; name: string; category: string };
+  type AdminPackageItem = { id: string; name: string; finalPriceCents: number; testCount: number };
+  const { data: packagesList = [], isLoading: packagesListLoading } = useQuery<AdminPackageItem[]>({
+    queryKey: ["admin-packages-list"],
+    queryFn: () => getPackages() as Promise<AdminPackageItem[]>,
+    staleTime: 0,
+    enabled: tab === "packages",
+  });
+
+  const { data: backendTests = [], isLoading: testsLoading } = useQuery<BackendTest[]>({
+    queryKey: ["admin-tests"],
+    queryFn: () => fetchBackendTests() as Promise<BackendTest[]>,
+    staleTime: 60_000,
+    enabled: tab === "packages",
+  });
+  const [pkgForm, setPkgForm] = useState({
+    name: "",
+    description: "",
+    originalPriceCents: "",
+    discountPercent: "0",
+    testIds: [] as string[],
+    features: "",
+    isPopular: false,
+    order: "0",
+  });
+  const [pkgBusy, setPkgBusy] = useState(false);
+
+  // ── Bundle state ──
+  type AdminBundleItem = { id: string; name: string; price: number; packageCount: number };
+  const queryClient = useQueryClient();
+  const { data: bundlesList = [], isLoading: bundlesListLoading } = useQuery<AdminBundleItem[]>({
+    queryKey: ["admin-bundles-list"],
+    queryFn: () => getBundles() as unknown as Promise<AdminBundleItem[]>,
+    staleTime: 0,
+    enabled: tab === "bundles",
+  });
+  const [bundleForm, setBundleForm] = useState({
+    name: "",
+    description: "",
+    priceCents: "",
+    packageIds: [] as string[],
+  });
+  const [bundleBusy, setBundleBusy] = useState(false);
+  const pkgFinalPrice = Math.round(
+    Number(pkgForm.originalPriceCents) * (1 - Number(pkgForm.discountPercent) / 100),
+  );
   const selectedQuestionTest = tests.find((t) => t.id === questionTestId) ?? null;
   const availableQuestionSections = selectedQuestionTest?.sections ?? [];
+  const questionSubcatLangs: string[] = (() => {
+    if (!selectedQuestionTest) return ["en"];
+    const subcat = subcats.find((s) => s.id === selectedQuestionTest.subcategoryId);
+    return subcat?.languages && subcat.languages.length > 0 ? subcat.languages : ["en"];
+  })();
+
 
   const reload = useCallback(() => {
     const snapshot = getAdminSnapshot();
@@ -572,6 +647,10 @@ export default function Admin() {
   const handleAddSubcat = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!subcatForm.categoryId || !subcatForm.name.trim()) return;
+    if (subcatForm.languages.length === 0) {
+      toast({ title: "Select at least one language", variant: "destructive" });
+      return;
+    }
     const cat = cats.find((c) => c.id === subcatForm.categoryId);
     try {
       await addSubcategory({
@@ -579,9 +658,10 @@ export default function Admin() {
         categoryName: cat?.name ?? "",
         name: subcatForm.name.trim(),
         description: subcatForm.description.trim(),
+        languages: subcatForm.languages.length > 0 ? subcatForm.languages : undefined,
       });
       reload();
-      setSubcatForm({ categoryId: "", name: "", description: "" });
+      setSubcatForm({ categoryId: "", name: "", description: "", languages: ["en"] });
       toast({ title: "Subcategory added" });
     } catch (error) {
       toast({ title: "Subcategory add failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
@@ -591,6 +671,10 @@ export default function Admin() {
   const handleSaveEditSubcat = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingSubcat) return;
+    if ((editingSubcat.languages ?? []).length === 0) {
+      toast({ title: "Select at least one language", variant: "destructive" });
+      return;
+    }
     const cat = cats.find((c) => c.id === editingSubcat.categoryId);
     try {
       await updateSubcategory(editingSubcat.id, {
@@ -721,6 +805,45 @@ export default function Admin() {
       return;
     }
     if (questionForm.options.some((o) => !o.trim())) return;
+
+    // Validate required language fields based on subcategory languages
+    if (questionSubcatLangs.includes("hi")) {
+      if (!questionForm.textHi.trim()) {
+        toast({ title: "Hindi translation required", description: "This exam requires a Hindi question text.", variant: "destructive" });
+        setQLangTab("hi");
+        return;
+      }
+      if (questionForm.optionsHi.some((o) => !o.trim())) {
+        toast({ title: "Hindi options incomplete", description: "Fill all 4 Hindi options.", variant: "destructive" });
+        setQLangTab("hi");
+        return;
+      }
+    }
+    if (questionSubcatLangs.includes("pa")) {
+      if (!questionForm.textPa.trim()) {
+        toast({ title: "Punjabi translation required", description: "This exam requires a Punjabi question text.", variant: "destructive" });
+        setQLangTab("pa");
+        return;
+      }
+      if (questionForm.optionsPa.some((o) => !o.trim())) {
+        toast({ title: "Punjabi options incomplete", description: "Fill all 4 Punjabi options.", variant: "destructive" });
+        setQLangTab("pa");
+        return;
+      }
+    }
+
+    // Build translation payloads — required langs always included, others only if filled
+    const translationHi = (questionSubcatLangs.includes("hi") || questionForm.textHi.trim()) ? {
+      textHi: questionForm.textHi.trim() || undefined,
+      optionsHi: questionForm.optionsHi.map((o) => o.trim()) as [string, string, string, string],
+      explanationHi: questionForm.explanationHi.trim() || undefined,
+    } : {};
+    const translationPa = (questionSubcatLangs.includes("pa") || questionForm.textPa.trim()) ? {
+      textPa: questionForm.textPa.trim() || undefined,
+      optionsPa: questionForm.optionsPa.map((o) => o.trim()) as [string, string, string, string],
+      explanationPa: questionForm.explanationPa.trim() || undefined,
+    } : {};
+
     try {
       if (editingQuestion) {
         await updateQuestion(editingQuestion.id, {
@@ -729,6 +852,8 @@ export default function Admin() {
           options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
           correct: questionForm.correct,
           explanation: questionForm.explanation.trim(),
+          ...translationHi,
+          ...translationPa,
         });
         setEditingQuestion(null);
         toast({ title: "Question updated" });
@@ -740,11 +865,30 @@ export default function Admin() {
           options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
           correct: questionForm.correct,
           explanation: questionForm.explanation.trim(),
+          ...translationHi,
+          ...translationPa,
         });
         toast({ title: "Question added", description: "New question saved to this test" });
       }
       reload();
       setQuestionForm(blankQuestionForm(availableQuestionSections[0] ?? ""));
+      setQLangTab("en");
+
+      // Warn if subcategory requires translations that some questions are missing
+      if (questionSubcatLangs.length > 1) {
+        const testQs = getAdminQuestions().filter((q) => q.testId === questionTestId);
+        const missingHi = questionSubcatLangs.includes("hi") && testQs.some((q) => !q.textHi?.trim());
+        const missingPa = questionSubcatLangs.includes("pa") && testQs.some((q) => !q.textPa?.trim());
+        if (missingHi || missingPa) {
+          const missing = [missingHi && "Hindi", missingPa && "Punjabi"].filter(Boolean).join(" & ");
+          console.warn(`[Admin] Some questions are missing ${missing} translations for this exam.`);
+          toast({
+            title: `⚠️ Missing ${missing} translations`,
+            description: `Some questions in this test lack ${missing} translations. Students may see English fallback.`,
+            variant: "destructive",
+          });
+        }
+      }
     } catch (error) {
       toast({ title: "Question save failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
     }
@@ -757,6 +901,68 @@ export default function Admin() {
       toast({ title: "Question deleted", variant: "destructive" });
     } catch (error) {
       toast({ title: "Question delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
+  };
+
+  const handleCreatePackage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!pkgForm.name.trim() || !pkgForm.description.trim()) return;
+    if (!pkgForm.originalPriceCents || Number(pkgForm.originalPriceCents) <= 0) {
+      toast({ title: "Invalid price", description: "Original price must be greater than 0", variant: "destructive" });
+      return;
+    }
+    if (pkgForm.testIds.length === 0) {
+      toast({ title: "No tests selected", description: "Select at least one test for the package", variant: "destructive" });
+      return;
+    }
+    setPkgBusy(true);
+    try {
+      await createPackage({
+        name: pkgForm.name.trim(),
+        description: pkgForm.description.trim(),
+        originalPriceCents: Number(pkgForm.originalPriceCents),
+        discountPercent: Number(pkgForm.discountPercent),
+        finalPriceCents: pkgFinalPrice,
+        testIds: pkgForm.testIds,
+        features: pkgForm.features.split("\n").map((f) => f.trim()).filter(Boolean),
+        isPopular: pkgForm.isPopular ? 1 : 0,
+        order: Number(pkgForm.order) || 0,
+      });
+      toast({ title: "Package created", description: `"${pkgForm.name}" saved successfully` });
+      setPkgForm({ name: "", description: "", originalPriceCents: "", discountPercent: "0", testIds: [], features: "", isPopular: false, order: "0" });
+    } catch (error) {
+      toast({ title: "Package create failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    } finally {
+      setPkgBusy(false);
+    }
+  };
+
+  const handleCreateBundle = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bundleForm.name.trim() || !bundleForm.description.trim()) return;
+    if (!bundleForm.priceCents || Number(bundleForm.priceCents) <= 0) {
+      toast({ title: "Invalid price", description: "Price must be greater than 0", variant: "destructive" });
+      return;
+    }
+    if (bundleForm.packageIds.length === 0) {
+      toast({ title: "No packages selected", description: "Select at least one package", variant: "destructive" });
+      return;
+    }
+    setBundleBusy(true);
+    try {
+      await createBundle({
+        name: bundleForm.name.trim(),
+        description: bundleForm.description.trim(),
+        price: Number(bundleForm.priceCents),
+        packageIds: bundleForm.packageIds,
+      });
+      toast({ title: "Bundle created", description: `"${bundleForm.name}" saved successfully` });
+      setBundleForm({ name: "", description: "", priceCents: "", packageIds: [] });
+      queryClient.invalidateQueries({ queryKey: ["admin-bundles-list"] });
+    } catch (error) {
+      toast({ title: "Bundle create failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    } finally {
+      setBundleBusy(false);
     }
   };
 
@@ -811,6 +1017,278 @@ export default function Admin() {
     }
   };
 
+  const csvLangLabel = (lang: string) => lang === "en" ? "English" : lang === "hi" ? "Hindi" : lang === "pa" ? "Punjabi" : lang;
+
+  /** Build CSV header columns based on the available langs for the selected test's subcategory */
+  const buildCsvColumns = (langs: string[]) => {
+    const cols = ["section", "text", "option_a", "option_b", "option_c", "option_d", "correct(0-3)", "explanation"];
+    for (const lang of langs) {
+      if (lang === "en") continue;
+      cols.push(`text_${lang}`, `option_a_${lang}`, `option_b_${lang}`, `option_c_${lang}`, `option_d_${lang}`, `explanation_${lang}`);
+    }
+    return cols;
+  };
+
+  const downloadCsvTemplate = () => {
+    const cols = buildCsvColumns(questionSubcatLangs);
+    const csv = cols.join(",") + "\n";
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "questions-template.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleCsvUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCsvError(null);
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!questionTestId) { setCsvError("Select a test first."); return; }
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+      try {
+        const text = (ev.target?.result as string) ?? "";
+        const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").filter(Boolean);
+        if (lines.length < 2) throw new Error("CSV must have a header row and at least one data row.");
+
+        const header = lines[0].split(",").map((h) => h.trim().toLowerCase());
+        const expectCols = buildCsvColumns(questionSubcatLangs);
+        // Validate that all required columns (section, text, option_a-d, correct) are present
+        const requiredCols = ["section", "text", "option_a", "option_b", "option_c", "option_d", "correct(0-3)"];
+        for (const req of requiredCols) {
+          if (!header.includes(req)) throw new Error(`Missing required column: "${req}"`);
+        }
+
+        const toAdd: Parameters<typeof bulkAddQuestions>[0] = [];
+        let skipped = 0;
+        for (let i = 1; i < lines.length; i++) {
+          const raw = lines[i];
+          // Simple CSV split (handles quoted fields with commas)
+          const cells: string[] = [];
+          let cur = "", inQuote = false;
+          for (let ci = 0; ci < raw.length; ci++) {
+            const ch = raw[ci];
+            if (ch === '"') { inQuote = !inQuote; }
+            else if (ch === "," && !inQuote) { cells.push(cur.trim()); cur = ""; }
+            else { cur += ch; }
+          }
+          cells.push(cur.trim());
+
+          const get = (col: string) => (cells[header.indexOf(col)] ?? "").trim();
+
+          const section = get("section");
+          const text = get("text");
+          const option_a = get("option_a");
+          const option_b = get("option_b");
+          const option_c = get("option_c");
+          const option_d = get("option_d");
+          const correct = parseInt(get("correct(0-3)"), 10);
+          const explanation = get("explanation");
+
+          const isValidSection = availableQuestionSections.length === 0 || availableQuestionSections.includes(section);
+          if (!section || !text || !option_a || !option_b || !option_c || !option_d || !isValidSection || isNaN(correct)) {
+            skipped++;
+            continue;
+          }
+
+          const entry: Parameters<typeof bulkAddQuestions>[0][number] = {
+            testId: questionTestId,
+            section,
+            text,
+            options: [option_a, option_b, option_c, option_d],
+            correct: Math.max(0, Math.min(3, correct)),
+            explanation,
+          };
+
+          // Optional language fields — only if subcategory supports them
+          if (questionSubcatLangs.includes("hi") && header.includes("text_hi")) {
+            const textHi = get("text_hi");
+            if (textHi) {
+              entry.textHi = textHi;
+              entry.optionsHi = [get("option_a_hi") || option_a, get("option_b_hi") || option_b, get("option_c_hi") || option_c, get("option_d_hi") || option_d];
+              entry.explanationHi = get("explanation_hi") || undefined;
+            }
+          }
+          if (questionSubcatLangs.includes("pa") && header.includes("text_pa")) {
+            const textPa = get("text_pa");
+            if (textPa) {
+              entry.textPa = textPa;
+              entry.optionsPa = [get("option_a_pa") || option_a, get("option_b_pa") || option_b, get("option_c_pa") || option_c, get("option_d_pa") || option_d];
+              entry.explanationPa = get("explanation_pa") || undefined;
+            }
+          }
+
+          toAdd.push(entry);
+        }
+
+        await bulkAddQuestions(toAdd);
+        reload();
+        toast({
+          title: "CSV import complete",
+          description: skipped > 0
+            ? `Imported ${toAdd.length} questions, skipped ${skipped} invalid rows.`
+            : `Imported ${toAdd.length} questions.`,
+        });
+      } catch (err) {
+        setCsvError(err instanceof Error ? err.message : "CSV parse failed.");
+      } finally {
+        e.target.value = "";
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  /** Download the template for the direct CSV import format */
+  const downloadDirectCsvTemplate = () => {
+    const langs = questionSubcatLangs;
+    const langHeaders: string[] = [];
+    for (const l of ["en", "hi", "pa"]) {
+      if (!langs.includes(l)) continue;
+      langHeaders.push(`question_${l}`, `optionA_${l}`, `optionB_${l}`, `optionC_${l}`, `optionD_${l}`);
+    }
+    const headers = [...langHeaders, "correct_option", "explanation_en"];
+    if (langs.includes("hi")) headers.push("explanation_hi");
+    if (langs.includes("pa")) headers.push("explanation_pa");
+
+    const exRow: string[] = [];
+    for (const l of ["en", "hi", "pa"]) {
+      if (!langs.includes(l)) continue;
+      exRow.push(`What is 2+2?`, `3`, `4 ✓`, `5`, `6`);
+    }
+    exRow.push("B", "Because 2+2=4");
+    if (langs.includes("hi")) exRow.push("क्योंकि 2+2=4");
+    if (langs.includes("pa")) exRow.push("ਕਿਉਂਕਿ 2+2=4");
+
+    const csv = [headers.join(","), exRow.map((v) => `"${v}"`).join(",")].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "direct-upload-template.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  /** Parse a CSV line handling quoted fields */
+  const parseCsvLineClient = (line: string): string[] => {
+    const cells: string[] = [];
+    let cur = "";
+    let inQuote = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuote && line[i + 1] === '"') { cur += '"'; i++; }
+        else { inQuote = !inQuote; }
+      } else if (ch === "," && !inQuote) { cells.push(cur.trim()); cur = ""; }
+      else { cur += ch; }
+    }
+    cells.push(cur.trim());
+    return cells;
+  };
+
+  /** Read and validate a CSV file client-side for preview */
+  const handleDirectCsvFileChange = (file: File) => {
+    setDirectCsvFile(file);
+    setDirectCsvResult(null);
+    setDirectCsvError(null);
+    setDirectCsvParsed(null);
+    setDirectCsvShowErrors(false);
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = (e.target?.result as string) ?? "";
+      const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").map((l) => l.trim()).filter(Boolean);
+      if (lines.length < 2) { setDirectCsvError("CSV must have a header row and at least one data row"); return; }
+
+      const headerLine = parseCsvLineClient(lines[0]);
+      const header = headerLine.map((h) => h.toLowerCase().trim().replace(/[^a-z0-9_]/g, ""));
+
+      const get = (cells: string[], col: string) => (cells[header.indexOf(col)] ?? "").trim();
+
+      const langs = questionSubcatLangs;
+      const needHi = langs.includes("hi");
+      const needPa = langs.includes("pa");
+
+      const parsed: DirectCsvPreviewRow[] = [];
+      for (let i = 1; i < Math.min(lines.length, 51); i++) {
+        const cells = parseCsvLineClient(lines[i]);
+        const rowNum = i + 1;
+        const rowErrors: string[] = [];
+        const cellMap: Record<string, string> = {};
+        header.forEach((h, idx) => { cellMap[h] = cells[idx] ?? ""; });
+
+        if (!get(cells, "question_en")) rowErrors.push("question_en missing");
+        const opts = ["optiona_en", "optionb_en", "optionc_en", "optiond_en"];
+        if (opts.some((o) => !get(cells, o))) rowErrors.push("English option(s) missing");
+        const correct = get(cells, "correct_option").toUpperCase();
+        if (!["A", "B", "C", "D"].includes(correct)) rowErrors.push(`correct_option "${correct}" invalid`);
+        if (needHi) {
+          const hiCols = ["question_hi", "optiona_hi", "optionb_hi", "optionc_hi", "optiond_hi"];
+          if (hiCols.some((c) => !get(cells, c))) rowErrors.push("Hindi fields required");
+        }
+        if (needPa) {
+          const paCols = ["question_pa", "optiona_pa", "optionb_pa", "optionc_pa", "optiond_pa"];
+          if (paCols.some((c) => !get(cells, c))) rowErrors.push("Punjabi fields required");
+        }
+
+        parsed.push({ rowNum, cells: cellMap, valid: rowErrors.length === 0, errors: rowErrors });
+      }
+      setDirectCsvParsed(parsed);
+    };
+    reader.readAsText(file);
+  };
+
+  const handleDirectCsvUpload = async () => {
+    setDirectCsvError(null);
+    setDirectCsvResult(null);
+
+    if (!questionTestId) { setDirectCsvError("Select a test first."); return; }
+    if (!directCsvFile) { setDirectCsvError("Select a CSV file first."); return; }
+    const section = directCsvSection.trim() || (availableQuestionSections[0] ?? "General");
+
+    setDirectCsvUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", directCsvFile);
+      formData.append("testId", questionTestId);
+      formData.append("section", section);
+      if (selectedQuestionTest?.subcategoryId) {
+        formData.append("subcategoryId", selectedQuestionTest.subcategoryId);
+      }
+
+      const { getFirebaseAuth } = await import("@/lib/firebase");
+      const auth = getFirebaseAuth();
+      const token = auth?.currentUser ? await auth.currentUser.getIdToken() : "";
+
+      const resp = await fetch(`${import.meta.env.VITE_API_BASE_URL ?? "/api"}/upload-questions`, {
+        method: "POST",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: formData,
+      });
+
+      if (!resp.ok) {
+        const errBody = await resp.json().catch(() => ({ error: "Upload failed" })) as { error?: string };
+        throw new Error(errBody.error ?? `Upload failed (${resp.status})`);
+      }
+
+      const result = await resp.json() as { inserted: number; skipped: number; errors: { row: number; reason: string }[] };
+      setDirectCsvResult(result);
+      setDirectCsvFile(null);
+      setDirectCsvParsed(null);
+      reload();
+      toast({
+        title: "Direct CSV import complete",
+        description: `${result.inserted} question${result.inserted !== 1 ? "s" : ""} inserted${result.skipped > 0 ? `, ${result.skipped} skipped` : ""}.`,
+      });
+    } catch (err) {
+      setDirectCsvError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setDirectCsvUploading(false);
+    }
+  };
+
   const filteredTests = tests.filter(
     (t) =>
       t.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -852,7 +1330,7 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 glass-panel border border-border/70 rounded-2xl w-fit mb-6 shadow-sm">
-          {(["categories", "subcategories", "tests", "questions"] as const).map((t) => (
+          {(["categories", "subcategories", "tests", "questions", "packages", "bundles"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -950,6 +1428,18 @@ export default function Admin() {
                   <Label>Description</Label>
                   <Input className="mt-1" value={subcatForm.description} onChange={(e) => setSubcatForm({ ...subcatForm, description: e.target.value })} />
                 </div>
+                <div>
+                  <Label>Languages</Label>
+                  <div className="mt-1 flex gap-3">
+                    {(["en","hi","pa"] as const).map((lang) => (
+                      <label key={lang} className="flex items-center gap-1.5 text-sm cursor-pointer">
+                        <input type="checkbox" checked={subcatForm.languages.includes(lang)}
+                          onChange={(e) => setSubcatForm({ ...subcatForm, languages: e.target.checked ? [...subcatForm.languages, lang] : subcatForm.languages.filter(l => l !== lang) })} />
+                        {lang === "en" ? "English" : lang === "hi" ? "हिंदी" : "ਪੰਜਾਬੀ"}
+                      </label>
+                    ))}
+                  </div>
+                </div>
                 <div className="sm:col-span-3">
                   <Button type="submit"><Plus className="w-4 h-4 mr-1.5" /> Add Exam</Button>
                 </div>
@@ -970,6 +1460,15 @@ export default function Admin() {
                         </select>
                         <Input className="h-8 text-sm" value={editingSubcat.name} onChange={(e) => setEditingSubcat({ ...editingSubcat, name: e.target.value })} />
                         <Input className="h-8 text-sm" value={editingSubcat.description} onChange={(e) => setEditingSubcat({ ...editingSubcat, description: e.target.value })} />
+                        <div className="flex gap-2 items-center">
+                          {(["en","hi","pa"] as const).map((lang) => (
+                            <label key={lang} className="flex items-center gap-1 text-xs cursor-pointer">
+                              <input type="checkbox" checked={(editingSubcat.languages ?? ["en"]).includes(lang)}
+                                onChange={(e) => setEditingSubcat({ ...editingSubcat, languages: e.target.checked ? [...(editingSubcat.languages ?? []), lang] : (editingSubcat.languages ?? ["en"]).filter(l => l !== lang) })} />
+                              {lang === "en" ? "EN" : lang === "hi" ? "HI" : "PA"}
+                            </label>
+                          ))}
+                        </div>
                         <div className="flex gap-1">
                           <Button type="submit" size="sm" className="h-8 px-2"><Check className="w-3.5 h-3.5" /></Button>
                           <Button type="button" variant="ghost" size="sm" className="h-8 px-2" onClick={() => setEditingSubcat(null)}><X className="w-3.5 h-3.5" /></Button>
@@ -979,7 +1478,7 @@ export default function Admin() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-foreground">{s.name}</p>
-                          <p className="text-xs text-muted-foreground">{s.categoryName} • {s.description || "—"}</p>
+                          <p className="text-xs text-muted-foreground">{s.categoryName} • {s.description || "—"} • {(s.languages ?? ["en"]).join(", ")}</p>
                         </div>
                         <div className="flex items-center gap-1">
                           <Button variant="ghost" size="sm" className="h-8 px-2 text-primary hover:text-primary" onClick={() => setEditingSubcat(s)}><Edit className="w-3.5 h-3.5" /></Button>
@@ -1439,7 +1938,14 @@ export default function Admin() {
                     id="q-test"
                     className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                     value={questionTestId}
-                    onChange={(e) => setQuestionTestId(e.target.value)}
+                    onChange={(e) => {
+                      const newTestId = e.target.value;
+                      setQuestionTestId(newTestId);
+                      const newTest = tests.find((t) => t.id === newTestId);
+                      const newSubcat = subcats.find((s) => s.id === newTest?.subcategoryId);
+                      const newLangs = newSubcat?.languages && newSubcat.languages.length > 0 ? newSubcat.languages : ["en"];
+                      if (!newLangs.includes(qLangTab)) setQLangTab("en");
+                    }}
                     required
                   >
                     <option value="">Select test</option>
@@ -1487,30 +1993,124 @@ export default function Admin() {
                     <option value={3}>Option D</option>
                   </select>
                 </div>
+
+                {/* ── Language tabs ── */}
                 <div className="sm:col-span-2">
-                  <Label htmlFor="q-text">Question *</Label>
-                  <Input id="q-text" className="mt-1" placeholder="Enter question statement" value={questionForm.text} onChange={(e) => setQuestionForm({ ...questionForm, text: e.target.value })} required />
-                </div>
-                {questionForm.options.map((opt, index) => (
-                  <div key={index}>
-                    <Label htmlFor={`q-opt-${index}`}>Option {String.fromCharCode(65 + index)} *</Label>
-                    <Input
-                      id={`q-opt-${index}`}
-                      className="mt-1"
-                      value={opt}
-                      onChange={(e) => {
-                        const next = [...questionForm.options] as [string, string, string, string];
-                        next[index] = e.target.value;
-                        setQuestionForm({ ...questionForm, options: next });
-                      }}
-                      required
-                    />
+                  <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-100 p-1 w-fit mb-4">
+                    {(["en", "hi", "pa"] as const).filter((l) => questionSubcatLangs.includes(l)).map((l) => (
+                      <button
+                        key={l}
+                        type="button"
+                        onClick={() => setQLangTab(l)}
+                        className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+                          qLangTab === l
+                            ? "bg-white text-blue-700 shadow-sm ring-1 ring-blue-200"
+                            : "text-gray-500 hover:text-gray-800"
+                        }`}
+                      >
+                        {l === "en" ? "English" : l === "hi" ? "हिंदी" : "ਪੰਜਾਬੀ"}
+                        {l !== "en" && !questionSubcatLangs.includes(l) && (
+                          <span className="ml-1 text-[9px] font-normal text-gray-400">(optional)</span>
+                        )}
+                      </button>
+                    ))}
                   </div>
-                ))}
-                <div className="sm:col-span-2">
-                  <Label htmlFor="q-exp">Explanation</Label>
-                  <Input id="q-exp" className="mt-1" placeholder="Why this option is correct" value={questionForm.explanation} onChange={(e) => setQuestionForm({ ...questionForm, explanation: e.target.value })} />
+
+                  {/* English fields (required) */}
+                  {qLangTab === "en" && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="sm:col-span-2">
+                        <Label htmlFor="q-text">Question *</Label>
+                        <Input id="q-text" className="mt-1" placeholder="Enter question statement" value={questionForm.text} onChange={(e) => setQuestionForm({ ...questionForm, text: e.target.value })} required />
+                      </div>
+                      {questionForm.options.map((opt, index) => (
+                        <div key={index}>
+                          <Label htmlFor={`q-opt-${index}`}>Option {String.fromCharCode(65 + index)} *</Label>
+                          <Input
+                            id={`q-opt-${index}`}
+                            className="mt-1"
+                            value={opt}
+                            onChange={(e) => {
+                              const next = [...questionForm.options] as [string, string, string, string];
+                              next[index] = e.target.value;
+                              setQuestionForm({ ...questionForm, options: next });
+                            }}
+                            required
+                          />
+                        </div>
+                      ))}
+                      <div className="sm:col-span-2">
+                        <Label htmlFor="q-exp">Explanation</Label>
+                        <Input id="q-exp" className="mt-1" placeholder="Why this option is correct" value={questionForm.explanation} onChange={(e) => setQuestionForm({ ...questionForm, explanation: e.target.value })} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Hindi fields (optional) */}
+                  {qLangTab === "hi" && questionSubcatLangs.includes("hi") && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="sm:col-span-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
+                        हिंदी अनुवाद वैकल्पिक है। यदि प्रश्न खाली छोड़ा गया तो हिंदी का विकल्प नहीं दिखाया जाएगा।
+                      </div>
+                      <div className="sm:col-span-2">
+                        <Label htmlFor="q-text-hi">प्रश्न (हिंदी)</Label>
+                        <Input id="q-text-hi" className="mt-1" placeholder="प्रश्न यहाँ लिखें" value={questionForm.textHi} onChange={(e) => setQuestionForm({ ...questionForm, textHi: e.target.value })} />
+                      </div>
+                      {questionForm.optionsHi.map((opt, index) => (
+                        <div key={index}>
+                          <Label htmlFor={`q-opt-hi-${index}`}>विकल्प {String.fromCharCode(65 + index)}</Label>
+                          <Input
+                            id={`q-opt-hi-${index}`}
+                            className="mt-1"
+                            value={opt}
+                            onChange={(e) => {
+                              const next = [...questionForm.optionsHi] as [string, string, string, string];
+                              next[index] = e.target.value;
+                              setQuestionForm({ ...questionForm, optionsHi: next });
+                            }}
+                          />
+                        </div>
+                      ))}
+                      <div className="sm:col-span-2">
+                        <Label htmlFor="q-exp-hi">व्याख्या (हिंदी)</Label>
+                        <Input id="q-exp-hi" className="mt-1" placeholder="सही उत्तर की व्याख्या" value={questionForm.explanationHi} onChange={(e) => setQuestionForm({ ...questionForm, explanationHi: e.target.value })} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Punjabi fields (optional) */}
+                  {qLangTab === "pa" && questionSubcatLangs.includes("pa") && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="sm:col-span-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
+                        ਪੰਜਾਬੀ ਅਨੁਵਾਦ ਵਿਕਲਪਿਕ ਹੈ। ਜੇਕਰ ਸਵਾਲ ਖਾਲੀ ਛੱਡਿਆ ਗਿਆ ਤਾਂ ਪੰਜਾਬੀ ਵਿਕਲਪ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਵੇਗਾ।
+                      </div>
+                      <div className="sm:col-span-2">
+                        <Label htmlFor="q-text-pa">ਸਵਾਲ (ਪੰਜਾਬੀ)</Label>
+                        <Input id="q-text-pa" className="mt-1" placeholder="ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ" value={questionForm.textPa} onChange={(e) => setQuestionForm({ ...questionForm, textPa: e.target.value })} />
+                      </div>
+                      {questionForm.optionsPa.map((opt, index) => (
+                        <div key={index}>
+                          <Label htmlFor={`q-opt-pa-${index}`}>ਵਿਕਲਪ {String.fromCharCode(65 + index)}</Label>
+                          <Input
+                            id={`q-opt-pa-${index}`}
+                            className="mt-1"
+                            value={opt}
+                            onChange={(e) => {
+                              const next = [...questionForm.optionsPa] as [string, string, string, string];
+                              next[index] = e.target.value;
+                              setQuestionForm({ ...questionForm, optionsPa: next });
+                            }}
+                          />
+                        </div>
+                      ))}
+                      <div className="sm:col-span-2">
+                        <Label htmlFor="q-exp-pa">ਵਿਆਖਿਆ (ਪੰਜਾਬੀ)</Label>
+                        <Input id="q-exp-pa" className="mt-1" placeholder="ਸਹੀ ਜਵਾਬ ਦੀ ਵਿਆਖਿਆ" value={questionForm.explanationPa} onChange={(e) => setQuestionForm({ ...questionForm, explanationPa: e.target.value })} />
+                      </div>
+                    </div>
+                  )}
                 </div>
+
                 <div className="sm:col-span-2 flex gap-2">
                   <Button type="submit">
                     {editingQuestion ? (
@@ -1570,7 +2170,14 @@ export default function Admin() {
                                 options: [...q.options] as [string, string, string, string],
                                 correct: q.correct,
                                 explanation: q.explanation,
+                                textHi: q.textHi ?? "",
+                                optionsHi: q.optionsHi ? [...q.optionsHi] as [string, string, string, string] : ["", "", "", ""],
+                                explanationHi: q.explanationHi ?? "",
+                                textPa: q.textPa ?? "",
+                                optionsPa: q.optionsPa ? [...q.optionsPa] as [string, string, string, string] : ["", "", "", ""],
+                                explanationPa: q.explanationPa ?? "",
                               });
+                              setQLangTab("en");
                               window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
                           >
@@ -1609,6 +2216,420 @@ export default function Admin() {
                   Import Questions
                 </Button>
               </div>
+            </div>
+
+            <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-1">Bulk Upload (CSV)</h3>
+              <p className="text-xs text-muted-foreground mb-3">
+                Upload a CSV file. Columns adapt to the subcategory languages.
+                {questionSubcatLangs.length > 1 && (
+                  <span className="ml-1 font-medium text-foreground">
+                    Active langs: {questionSubcatLangs.map(csvLangLabel).join(", ")}
+                  </span>
+                )}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                <Button type="button" variant="outline" size="sm" onClick={downloadCsvTemplate} disabled={!questionTestId}>
+                  Download Template
+                </Button>
+                <label className={`inline-flex items-center gap-1.5 cursor-pointer rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground ${!questionTestId ? "opacity-50 pointer-events-none" : ""}`}>
+                  <input type="file" accept=".csv" className="sr-only" onChange={handleCsvUpload} disabled={!questionTestId} />
+                  Upload CSV
+                </label>
+              </div>
+              {csvError && <p className="text-xs text-destructive">{csvError}</p>}
+              {questionTestId && (
+                <p className="text-[11px] text-muted-foreground font-mono">
+                  Required columns: {buildCsvColumns(questionSubcatLangs).join(", ")}
+                </p>
+              )}
+            </div>
+
+            {/* ── Direct CSV Import (uploads straight to DB) ── */}
+            <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                Direct CSV Import
+                <span className="text-[10px] font-semibold bg-primary/10 text-primary px-2 py-0.5 rounded-full">Writes directly to DB</span>
+              </h3>
+              <p className="text-xs text-muted-foreground mb-3">
+                Upload 100–1000+ questions in one shot. EN questions are required
+                {questionSubcatLangs.includes("hi") && "; Hindi required for this subcategory"}
+                {questionSubcatLangs.includes("pa") && "; Punjabi required for this subcategory"}
+                . Preview shown before confirming.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                <div>
+                  <Label className="text-xs mb-1 block">Section</Label>
+                  {availableQuestionSections.length > 0 ? (
+                    <select
+                      className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
+                      value={directCsvSection}
+                      onChange={(e) => setDirectCsvSection(e.target.value)}
+                    >
+                      <option value="">— pick section —</option>
+                      {availableQuestionSections.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <Input
+                      placeholder="e.g. General"
+                      value={directCsvSection}
+                      onChange={(e) => setDirectCsvSection(e.target.value)}
+                    />
+                  )}
+                </div>
+                <div className="flex flex-col justify-end">
+                  <Label className="text-xs mb-1 block">CSV File</Label>
+                  <label className={`inline-flex items-center gap-1.5 cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground truncate ${!questionTestId ? "opacity-50 pointer-events-none" : ""}`}>
+                    <input
+                      type="file"
+                      accept=".csv"
+                      className="sr-only"
+                      disabled={!questionTestId}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) handleDirectCsvFileChange(f);
+                        e.target.value = "";
+                      }}
+                    />
+                    {directCsvFile ? directCsvFile.name : "Choose file…"}
+                  </label>
+                </div>
+              </div>
+
+              {/* Validation summary bar */}
+              {directCsvParsed && (() => {
+                const validCount = directCsvParsed.filter((r) => r.valid).length;
+                const invalidCount = directCsvParsed.filter((r) => !r.valid).length;
+                return (
+                  <div className="flex items-center gap-3 text-xs mb-3 rounded-lg border border-border bg-muted/40 px-3 py-2">
+                    <span className="text-emerald-600 font-semibold">✓ {validCount} valid</span>
+                    {invalidCount > 0 && <span className="text-destructive font-semibold">✗ {invalidCount} invalid</span>}
+                    <span className="text-muted-foreground">(previewing first {directCsvParsed.length} rows)</span>
+                  </div>
+                );
+              })()}
+
+              {/* Preview table */}
+              {directCsvParsed && directCsvParsed.length > 0 && (
+                <div className="overflow-x-auto rounded-lg border border-border mb-3 max-h-64 overflow-y-auto text-xs">
+                  <table className="min-w-full divide-y divide-border">
+                    <thead className="bg-muted/60 sticky top-0">
+                      <tr>
+                        <th className="px-2 py-1.5 text-left font-semibold">#</th>
+                        <th className="px-2 py-1.5 text-left font-semibold">question_en</th>
+                        <th className="px-2 py-1.5 text-left font-semibold">correct</th>
+                        <th className="px-2 py-1.5 text-left font-semibold">status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {directCsvParsed.map((row) => (
+                        <tr key={row.rowNum} className={row.valid ? "" : "bg-destructive/10"}>
+                          <td className="px-2 py-1 text-muted-foreground">{row.rowNum}</td>
+                          <td className="px-2 py-1 max-w-xs truncate" title={row.cells["question_en"] ?? ""}>{row.cells["question_en"] ?? "—"}</td>
+                          <td className="px-2 py-1">{(row.cells["correct_option"] ?? "").toUpperCase() || "—"}</td>
+                          <td className="px-2 py-1">
+                            {row.valid
+                              ? <span className="text-emerald-600">✓</span>
+                              : <span className="text-destructive" title={row.errors.join("; ")}>✗ {row.errors[0]}</span>
+                            }
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-2 mb-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={downloadDirectCsvTemplate}
+                >
+                  Download Template
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  disabled={!questionTestId || !directCsvFile || directCsvUploading || (directCsvParsed !== null && directCsvParsed.every((r) => !r.valid))}
+                  onClick={handleDirectCsvUpload}
+                >
+                  {directCsvUploading ? "Uploading…" : directCsvParsed ? "Confirm Upload" : "Upload to DB"}
+                </Button>
+              </div>
+
+              {directCsvError && (
+                <p className="text-xs text-destructive mt-2">{directCsvError}</p>
+              )}
+
+              {directCsvResult && (
+                <div className="mt-3 rounded-lg border border-border bg-muted/40 p-3 text-xs space-y-1">
+                  <p className="font-semibold text-foreground">
+                    ✅ {directCsvResult.inserted} inserted
+                    {directCsvResult.skipped > 0 && `, ⚠️ ${directCsvResult.skipped} skipped`}
+                  </p>
+                  {directCsvResult.errors.length > 0 && (
+                    <div>
+                      <button
+                        type="button"
+                        className="text-muted-foreground underline underline-offset-2 text-[11px]"
+                        onClick={() => setDirectCsvShowErrors((v) => !v)}
+                      >
+                        {directCsvShowErrors ? "Hide" : "Show"} {directCsvResult.errors.length} error{directCsvResult.errors.length !== 1 ? "s" : ""}
+                      </button>
+                      {directCsvShowErrors && (
+                        <div className="mt-1 space-y-0.5 text-muted-foreground max-h-40 overflow-y-auto">
+                          {directCsvResult.errors.map((e) => (
+                            <p key={e.row}>Row {e.row}: {e.reason}</p>
+                          ))}
+                          {directCsvResult.skipped > directCsvResult.errors.length && (
+                            <p>…and {directCsvResult.skipped - directCsvResult.errors.length} more</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <p className="text-[11px] text-muted-foreground font-mono mt-3">
+                Required: question_en, optionA/B/C/D_en, correct_option (A/B/C/D)
+                {questionSubcatLangs.includes("hi") && " + _hi fields"}
+                {questionSubcatLangs.includes("pa") && " + _pa fields"}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── PACKAGES TAB ── */}
+        {tab === "packages" && (
+          <div className="space-y-5 animate-fadeIn">
+            <div className="glass-panel rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                <Plus className="w-4 h-4 text-primary" /> Create New Package
+              </h3>
+              <form onSubmit={handleCreatePackage} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <Label>Name *</Label>
+                    <Input className="mt-1" placeholder="e.g., Railways Full Pack" value={pkgForm.name} onChange={(e) => setPkgForm({ ...pkgForm, name: e.target.value })} required />
+                  </div>
+                  <div>
+                    <Label>Display Order</Label>
+                    <Input type="number" min="0" className="mt-1" placeholder="0" value={pkgForm.order} onChange={(e) => setPkgForm({ ...pkgForm, order: e.target.value })} />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <Label>Description *</Label>
+                    <Input className="mt-1" placeholder="Brief description of the package" value={pkgForm.description} onChange={(e) => setPkgForm({ ...pkgForm, description: e.target.value })} required />
+                  </div>
+                  <div>
+                    <Label>Original Price (₹, in paise) *</Label>
+                    <Input type="number" min="1" className="mt-1" placeholder="e.g. 49900 for ₹499" value={pkgForm.originalPriceCents} onChange={(e) => setPkgForm({ ...pkgForm, originalPriceCents: e.target.value })} required />
+                  </div>
+                  <div>
+                    <Label>Discount %</Label>
+                    <Input type="number" min="0" max="100" className="mt-1" placeholder="0" value={pkgForm.discountPercent} onChange={(e) => setPkgForm({ ...pkgForm, discountPercent: e.target.value })} />
+                  </div>
+                  {pkgForm.originalPriceCents && (
+                    <div className="sm:col-span-2">
+                      <p className="text-sm text-muted-foreground">
+                        Final price: <span className="font-semibold text-foreground">₹{(pkgFinalPrice / 100).toFixed(2)}</span>
+                        {Number(pkgForm.discountPercent) > 0 && (
+                          <span className="ml-2 text-emerald-600">({pkgForm.discountPercent}% off)</span>
+                        )}
+                      </p>
+                    </div>
+                  )}
+                  <div className="sm:col-span-2">
+                    <Label>Features (one per line)</Label>
+                    <textarea
+                      className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring min-h-[80px]"
+                      placeholder="Includes 10 full-length tests&#10;Detailed solutions&#10;Valid for 1 year"
+                      value={pkgForm.features}
+                      onChange={(e) => setPkgForm({ ...pkgForm, features: e.target.value })}
+                    />
+                  </div>
+                  <div className="sm:col-span-2 flex items-center gap-2">
+                    <input type="checkbox" id="pkg-popular" checked={pkgForm.isPopular} onChange={(e) => setPkgForm({ ...pkgForm, isPopular: e.target.checked })} />
+                    <Label htmlFor="pkg-popular" className="cursor-pointer">Mark as Popular</Label>
+                  </div>
+                </div>
+
+                {/* Test selector */}
+                <div>
+                  <Label>Select Tests *</Label>
+                  <p className="text-xs text-muted-foreground mt-0.5 mb-2">{pkgForm.testIds.length} selected</p>
+                  {testsLoading ? (
+                    <p className="text-sm text-muted-foreground">Loading tests…</p>
+                  ) : (
+                    <div className="max-h-64 overflow-y-auto rounded-lg border border-input divide-y divide-border">
+                      {backendTests.map((t) => (
+                        <label key={t.id} className="flex items-center gap-3 px-4 py-2.5 hover:bg-muted/40 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={pkgForm.testIds.includes(t.id)}
+                            onChange={(e) => {
+                              const next = e.target.checked
+                                ? [...pkgForm.testIds, t.id]
+                                : pkgForm.testIds.filter((id) => id !== t.id);
+                              setPkgForm({ ...pkgForm, testIds: next });
+                            }}
+                          />
+                          <span className="text-sm font-medium leading-snug">{t.name}</span>
+                          <span className="ml-auto text-xs text-muted-foreground shrink-0">{t.category}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-end">
+                  <Button type="submit" disabled={pkgBusy}>
+                    <Package className="w-4 h-4 mr-1.5" />
+                    {pkgBusy ? "Creating…" : "Create Package"}
+                  </Button>
+                </div>
+              </form>
+            </div>
+          {/* Packages list */}
+          <div className="glass-panel rounded-2xl p-6 shadow-sm">
+            <h3 className="font-semibold text-foreground mb-4">All Packages</h3>
+            {packagesListLoading ? (
+              <p className="text-sm text-muted-foreground">Loading…</p>
+            ) : packagesList.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No packages yet.</p>
+            ) : (
+              <div className="divide-y divide-border rounded-lg border border-input overflow-hidden">
+                {packagesList.map((pkg) => (
+                  <div key={pkg.id} className="flex items-center justify-between px-4 py-3">
+                    <span className="text-sm font-medium">{pkg.name}</span>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <span>{pkg.testCount} test{pkg.testCount !== 1 ? "s" : ""}</span>
+                      <span className="font-semibold text-foreground">₹{(pkg.finalPriceCents / 100).toFixed(0)}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        )}
+
+        {/* ── BUNDLES TAB ── */}
+        {tab === "bundles" && (
+          <div className="space-y-5 animate-fadeIn">
+            <div className="glass-panel rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                <Plus className="w-4 h-4 text-primary" /> Create New Bundle
+              </h3>
+              <form onSubmit={handleCreateBundle} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="sm:col-span-2">
+                    <Label>Name *</Label>
+                    <Input
+                      className="mt-1"
+                      placeholder="e.g., Ultimate Prep Bundle"
+                      value={bundleForm.name}
+                      onChange={(e) => setBundleForm({ ...bundleForm, name: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <Label>Description *</Label>
+                    <Input
+                      className="mt-1"
+                      placeholder="Brief description of the bundle"
+                      value={bundleForm.description}
+                      onChange={(e) => setBundleForm({ ...bundleForm, description: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label>Price (₹, in paise) *</Label>
+                    <Input
+                      type="number"
+                      min="1"
+                      className="mt-1"
+                      placeholder="e.g. 99900 for ₹999"
+                      value={bundleForm.priceCents}
+                      onChange={(e) => setBundleForm({ ...bundleForm, priceCents: e.target.value })}
+                      required
+                    />
+                    {bundleForm.priceCents && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        = ₹{(Number(bundleForm.priceCents) / 100).toFixed(0)}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Package selector */}
+                <div>
+                  <Label>Select Packages *</Label>
+                  <p className="text-xs text-muted-foreground mt-0.5 mb-2">
+                    {bundleForm.packageIds.length} selected
+                  </p>
+                  {packagesListLoading ? (
+                    <p className="text-sm text-muted-foreground">Loading packages…</p>
+                  ) : packagesList.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No packages available. Create packages first.</p>
+                  ) : (
+                    <div className="max-h-64 overflow-y-auto rounded-lg border border-input divide-y divide-border">
+                      {packagesList.map((pkg) => (
+                        <label key={pkg.id} className="flex items-center gap-3 px-4 py-2.5 hover:bg-muted/40 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={bundleForm.packageIds.includes(pkg.id)}
+                            onChange={(e) => {
+                              const next = e.target.checked
+                                ? [...bundleForm.packageIds, pkg.id]
+                                : bundleForm.packageIds.filter((id) => id !== pkg.id);
+                              setBundleForm({ ...bundleForm, packageIds: next });
+                            }}
+                          />
+                          <span className="text-sm font-medium leading-snug">{pkg.name}</span>
+                          <span className="ml-auto text-xs text-muted-foreground shrink-0">
+                            ₹{(pkg.finalPriceCents / 100).toFixed(0)}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-end">
+                  <Button type="submit" disabled={bundleBusy}>
+                    <Plus className="w-4 h-4 mr-1.5" />
+                    {bundleBusy ? "Creating…" : "Create Bundle"}
+                  </Button>
+                </div>
+              </form>
+            </div>
+
+            {/* Bundles list */}
+            <div className="glass-panel rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-4">All Bundles</h3>
+              {bundlesListLoading ? (
+                <p className="text-sm text-muted-foreground">Loading…</p>
+              ) : bundlesList.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No bundles yet.</p>
+              ) : (
+                <div className="divide-y divide-border rounded-lg border border-input overflow-hidden">
+                  {bundlesList.map((b) => (
+                    <div key={b.id} className="flex items-center justify-between px-4 py-3">
+                      <span className="text-sm font-medium">{b.name}</span>
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <span>{b.packageCount} package{b.packageCount !== 1 ? "s" : ""}</span>
+                        <span className="font-semibold text-foreground">₹{(b.price / 100).toFixed(0)}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}

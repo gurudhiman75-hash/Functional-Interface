@@ -89,6 +89,11 @@ async function ensureSchema() {
   `);
 
   await db.execute(`
+    ALTER TABLE "attempts"
+    ADD COLUMN IF NOT EXISTS "question_review" jsonb
+  `);
+
+  await db.execute(`
     UPDATE "tests"
     SET "price_cents" = 499
     WHERE "access" = 'paid' AND ("price_cents" IS NULL OR "price_cents" = 0)

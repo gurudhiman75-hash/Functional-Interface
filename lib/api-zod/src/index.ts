@@ -111,6 +111,8 @@ export type Test = {
   sectionTimings?: { name: string; minutes: number }[];
   sectionSettings?: { name: string; locked: boolean }[];
   sections: TestSection[];
+  /** Languages available for this test. Defaults to ["en"] when absent. */
+  languages?: Language[];
 };
 
 export const Test = {
@@ -129,6 +131,8 @@ export type TestSection = {
   questions: Question[];
 };
 
+export type Language = "en" | "hi" | "pa";
+
 export type Question = {
   id: number;
   text: string;
@@ -136,6 +140,13 @@ export type Question = {
   correct: number;
   section: string;
   explanation: string;
+  // Optional translation fields — present when the test has multi-language support
+  textHi?: string | null;
+  optionsHi?: string[] | null;
+  explanationHi?: string | null;
+  textPa?: string | null;
+  optionsPa?: string[] | null;
+  explanationPa?: string | null;
 };
 
 export type TestAttempt = {
@@ -151,6 +162,8 @@ export type TestAttempt = {
   totalQuestions: number;
   timeSpent: number;
   date: string;
+  /** "REAL" | "PRACTICE" — absent/null means legacy row, treated as REAL */
+  attemptType?: "REAL" | "PRACTICE" | null;
   sectionStats?: {
     name: string;
     correct: number;
@@ -162,6 +175,16 @@ export type TestAttempt = {
   sectionTimeSpent?: {
     name: string;
     minutesSpent: number;
+  }[];
+  questionReview?: {
+    questionId: number;
+    section: string;
+    text: string;
+    options: string[];
+    selected: number | null;
+    correct: number;
+    flagged: boolean;
+    explanation: string;
   }[];
 };
 

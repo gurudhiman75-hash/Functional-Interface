@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
-import { eq, desc, avg, max, count } from "drizzle-orm";
+import { asc, eq, isNull, or, and } from "drizzle-orm";
 import { db } from "../lib/db";
-import { attempts, tests } from "@workspace/db";
+import { attempts } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -22,36 +22,47 @@ router.get("/", authenticate, async (req, res) => {
     const userId = req.user?.id;
     if (!userId) return res.status(400).json({ error: "Missing userId" });
 
-    // Compute statistics in the database and fetch only the latest 10 attempts
-    const statsResult = await db
+    // Fetch all REAL attempts for the user ordered oldest-first
+    // (treat NULL attemptType as REAL for legacy rows)
+    const rawAttempts = await db
       .select({
-        averageScore: avg(attempts.score).as("averageScore"),
-        highestScore: max(attempts.score).as("highestScore"),
-        totalAttempts: count().as("totalAttempts"),
-      })
-      .from(attempts)
-      .where(eq(attempts.userId, userId));
-
-    const stats = statsResult[0] ?? {
-      averageScore: 0,
-      highestScore: 0,
-      totalAttempts: 0,
-    };
-
-    const recentAttempts = await db
-      .select({
+        testId: attempts.testId,
         testName: attempts.testName,
         score: attempts.score,
         date: attempts.date,
+        createdAt: attempts.createdAt,
       })
       .from(attempts)
-      .where(eq(attempts.userId, userId))
-      .orderBy(desc(attempts.createdAt))
-      .limit(10);
+      .where(
+        and(
+          eq(attempts.userId, userId),
+          or(eq(attempts.attemptType, "REAL"), isNull(attempts.attemptType)),
+        ),
+      )
+      .orderBy(asc(attempts.createdAt));
 
-    const averageScore = stats.averageScore ? Math.round(Number(stats.averageScore)) : 0;
-    const highestScore = stats.highestScore ? Number(stats.highestScore) : 0;
-    const totalAttempts = Number(stats.totalAttempts ?? 0);
+    // Deduplicate: keep only the FIRST attempt per testId
+    const seenTests = new Set<string>();
+    const firstPerTest: typeof rawAttempts = [];
+    for (const attempt of rawAttempts) {
+      if (!seenTests.has(attempt.testId)) {
+        seenTests.add(attempt.testId);
+        firstPerTest.push(attempt);
+      }
+    }
+
+    const scores = firstPerTest.map((a) => a.score);
+    const averageScore = scores.length
+      ? Math.round(scores.reduce((sum, s) => sum + s, 0) / scores.length)
+      : 0;
+    const highestScore = scores.length ? Math.max(...scores) : 0;
+    const totalAttempts = firstPerTest.length;
+
+    // Recent = last 10 in completion order
+    const recentAttempts = firstPerTest
+      .slice(-10)
+      .reverse()
+      .map((a) => ({ testName: a.testName, score: a.score, date: a.date }));
 
     const response: AnalyticsResponse = {
       averageScore,

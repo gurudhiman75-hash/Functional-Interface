@@ -1,4 +1,5 @@
 import { apiRequest } from "@/lib/api";
+import type { TestAttempt } from "@/lib/storage";
 
 // Define types locally for now
 export type Category = {
@@ -38,6 +39,8 @@ export type Test = {
   sectionTimings?: { name: string; minutes: number }[];
   sectionSettings?: { name: string; locked: boolean }[];
   sections: TestSection[];
+  /** Languages available for this test, e.g. ["en"], ["en","hi"], ["en","pa"] */
+  languages?: string[];
 };
 
 export type PurchasedTest = {
@@ -77,6 +80,13 @@ export interface Question {
   correct: number;
   section: string;
   explanation: string;
+  // Bilingual translation fields
+  textHi?: string | null;
+  optionsHi?: string[] | null;
+  explanationHi?: string | null;
+  textPa?: string | null;
+  optionsPa?: string[] | null;
+  explanationPa?: string | null;
 }
 
 export type Bundle = {
@@ -104,10 +114,24 @@ export interface LeaderboardEntry {
   isYou?: boolean;
 }
 
+export interface Subcategory {
+  id: string;
+  categoryId: string;
+  categoryName: string;
+  name: string;
+  description: string;
+  /** Languages available for exams in this subcategory */
+  languages?: string[];
+}
+
 // API functions
 export async function getCategories(): Promise<Category[]> {
   console.log("getCategories called");
   return apiRequest<Category[]>("/categories");
+}
+
+export async function getSubcategories(): Promise<Subcategory[]> {
+  return apiRequest<Subcategory[]>("/subcategories");
 }
 
 export async function getTests(): Promise<Test[]> {
@@ -206,6 +230,33 @@ export async function createAttempt(attempt: Omit<TestAttempt, "id">): Promise<T
   });
 }
 
+export async function postResponses(
+  attemptId: string,
+  responses: { questionId: number; selectedOption: number | null; timeTaken: number }[],
+): Promise<void> {
+  await apiRequest<unknown>("/responses", {
+    method: "POST",
+    body: JSON.stringify({ attemptId, responses }),
+  });
+}
+
+export async function getAttemptById(attemptId: string): Promise<TestAttempt> {
+  return apiRequest<TestAttempt>(`/attempts/${encodeURIComponent(attemptId)}`);
+}
+
+export interface ResponseRow {
+  id: number;
+  attemptId: string;
+  questionId: number;
+  selectedOption: number | null;
+  timeTaken: number;
+  createdAt: string;
+}
+
+export async function getResponsesByAttemptId(attemptId: string): Promise<ResponseRow[]> {
+  return apiRequest<ResponseRow[]>(`/responses?attemptId=${encodeURIComponent(attemptId)}`);
+}
+
 export async function getBundles(): Promise<Bundle[]> {
   console.log("getBundles called");
   return apiRequest<Bundle[]>("/bundles");
@@ -217,6 +268,18 @@ export async function getBundle(id: string): Promise<Bundle> {
 
 export async function getBundlesByCategory(categoryId: string): Promise<Bundle[]> {
   return apiRequest<Bundle[]>(`/bundles/category/${categoryId}`);
+}
+
+export async function createBundle(body: {
+  name: string;
+  description: string;
+  price: number;
+  packageIds: string[];
+}): Promise<{ id: string }> {
+  return apiRequest<{ id: string }>("/bundles", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
 }
 
 // Analytics types and functions
@@ -244,6 +307,8 @@ export interface TestAttempt {
   totalQuestions: number;
   timeSpent: number;
   date: string;
+  /** "REAL" | "PRACTICE" — null/absent means legacy row, treated as REAL */
+  attemptType?: "REAL" | "PRACTICE" | null;
   sectionStats?: {
     name: string;
     correct: number;
@@ -255,6 +320,22 @@ export interface TestAttempt {
   sectionTimeSpent?: {
     name: string;
     minutesSpent: number;
+  }[];
+  questionReview?: {
+    questionId: number;
+    section: string;
+    text: string;
+    options: string[];
+    textHi?: string;
+    textPa?: string;
+    optionsHi?: string[];
+    optionsPa?: string[];
+    explanationHi?: string;
+    explanationPa?: string;
+    selected: number | null;
+    correct: number;
+    flagged: boolean;
+    explanation: string;
   }[];
 }
 
@@ -298,6 +379,14 @@ export async function getPackage(id: string): Promise<Package> {
   return apiRequest<Package>(`/packages/${id}`);
 }
 
+export async function getPackagesByExam(examId: string): Promise<{ id: string; name: string; finalPriceCents: number; originalPriceCents: number | null; discountPercent: number; testIds: string[] }[]> {
+  return apiRequest(`/packages/by-exam/${encodeURIComponent(examId)}`);
+}
+
+export async function getPackagesByTest(testId: string): Promise<Pick<Package, "id" | "name" | "description" | "finalPriceCents" | "originalPriceCents" | "discountPercent" | "isPopular">[]> {
+  return apiRequest(`/packages/by-test/${encodeURIComponent(testId)}`);
+}
+
 export async function createPackageOrder(packageId: string): Promise<{
   orderId: string;
   amount: number;
@@ -327,6 +416,23 @@ export async function verifyPackagePayment(body: {
 export async function getUserPackages(userId?: string): Promise<UserPackage[]> {
   const query = userId ? `?userId=${encodeURIComponent(userId)}` : "";
   return apiRequest<UserPackage[]>(`/packages/user/my-packages${query}`);
+}
+
+export async function createPackage(body: {
+  name: string;
+  description: string;
+  originalPriceCents: number;
+  discountPercent: number;
+  finalPriceCents: number;
+  testIds: string[];
+  features: string[];
+  isPopular: number;
+  order: number;
+}): Promise<Package> {
+  return apiRequest<Package>("/packages", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
 }
 
 // Legacy compatibility - these will be removed once frontend is fully migrated

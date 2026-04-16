@@ -17,6 +17,7 @@ type AdminSubcategory = {
   categoryName: string;
   name: string;
   description: string;
+  languages?: string[];
 };
 
 type AdminTest = {
@@ -49,6 +50,12 @@ type AdminQuestion = {
   options: [string, string, string, string];
   correct: number;
   explanation: string;
+  textHi?: string;
+  optionsHi?: [string, string, string, string];
+  explanationHi?: string;
+  textPa?: string;
+  optionsPa?: [string, string, string, string];
+  explanationPa?: string;
   createdAt: number;
 };
 
@@ -63,7 +70,7 @@ const router: IRouter = Router();
 
 const INSERT_CHUNK = 400;
 
-async function assertAdmin(userId: string) {
+export async function assertAdmin(userId: string) {
   const rows = await db.select().from(users).where(eq(users.id, userId)).limit(1);
   if (rows.length === 0 || rows[0].role !== "admin") {
     throw new Error("forbidden");
@@ -109,6 +116,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       categoryName: row.categoryName,
       name: row.name,
       description: row.description,
+      languages: Array.isArray(row.languages) ? (row.languages as string[]) : ["en"],
     })),
     tests: testRows.map((row) => ({
       id: row.id,
@@ -143,6 +151,12 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       options: row.options as [string, string, string, string],
       correct: row.correct,
       explanation: row.explanation,
+      textHi: row.textHi ?? undefined,
+      optionsHi: row.optionsHi ? (row.optionsHi as [string, string, string, string]) : undefined,
+      explanationHi: row.explanationHi ?? undefined,
+      textPa: row.textPa ?? undefined,
+      optionsPa: row.optionsPa ? (row.optionsPa as [string, string, string, string]) : undefined,
+      explanationPa: row.explanationPa ?? undefined,
       createdAt: row.createdAt.getTime(),
     })),
   };
@@ -167,8 +181,12 @@ router.put("/", authenticate, async (req, res) => {
     await assertAdmin(req.user.id);
 
     const snapshot = req.body as AdminSnapshot;
-    const existingCategories = await db.select().from(categories);
+    const [existingCategories, existingSubcategories] = await Promise.all([
+      db.select().from(categories),
+      db.select().from(subcategories),
+    ]);
     const existingCategoryMap = new Map(existingCategories.map((cat) => [cat.id, cat]));
+    const existingSubcategoryMap = new Map(existingSubcategories.map((sub) => [sub.id, sub]));
 
     await db.transaction(async (tx) => {
       await tx.execute(`DELETE FROM "questions"`);
@@ -198,6 +216,8 @@ router.put("/", authenticate, async (req, res) => {
         categoryName: subcategory.categoryName,
         name: subcategory.name,
         description: subcategory.description,
+        // Preserve existing languages from DB if the snapshot doesn't have them set
+        languages: subcategory.languages ?? existingSubcategoryMap.get(subcategory.id)?.languages ?? null,
       }));
       if (subcategoryRows.length > 0) {
         await tx.insert(subcategories).values(subcategoryRows);
@@ -235,6 +255,12 @@ router.put("/", authenticate, async (req, res) => {
         correct: question.correct,
         section: question.section,
         explanation: question.explanation,
+        textHi: question.textHi ?? null,
+        optionsHi: question.optionsHi ?? null,
+        explanationHi: question.explanationHi ?? null,
+        textPa: question.textPa ?? null,
+        optionsPa: question.optionsPa ?? null,
+        explanationPa: question.explanationPa ?? null,
       }));
       for (let i = 0; i < questionRows.length; i += INSERT_CHUNK) {
         const chunk = questionRows.slice(i, i + INSERT_CHUNK);

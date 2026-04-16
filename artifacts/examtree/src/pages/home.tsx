@@ -50,15 +50,15 @@ function categoryAccent(color: string) {
 const FAQ_ITEMS = [
   {
     q: "Is EXAMTREE free to use?",
-    a: "Many mocks are free to practice. Some tests may be marked as paid as we expand the catalog—you will always see access before you start.",
+    a: "Many mocks are free to practice. Some tests may be marked as paid ",
   },
   {
     q: "Do I need to create an account?",
-    a: "You can explore the catalog freely. To attempt tests and save progress on this device, sign in with Google or use the development login when Firebase is not configured.",
+    a: "To attempt tests and save progress on this device, sign in with Google or use the development login when Firebase is not configured.",
   },
   {
     q: "Can I pause a test?",
-    a: "Yes. Your attempt is saved locally while you are signed in, so you can resume from the same browser unless you clear site data.",
+    a: "Yes. Your attempt is saved automatically if you leave mid-test, and you can resume from where you left off whenever you want.",
   },
   {
     q: "Where do I see solutions?",
@@ -112,7 +112,7 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-background">
         <main className="mx-auto max-w-lg px-4 py-24 text-center">
-          <h1 className="text-xl font-semibold text-foreground">Could not load the exam catalog</h1>
+          <h1 className="text-xl font-semibold text-foreground">Could not load the Exams</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Start the API server and check{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
@@ -188,7 +188,7 @@ export default function Home() {
                 onClick={() => setLocation("/exams")}
                 data-testid="btn-browse-home-tests"
               >
-                Browse catalog
+                Browse All Exams
               </Button>
               {latestAttemptTest ? (
                 <Button
@@ -198,7 +198,7 @@ export default function Home() {
                   onClick={() => setLocation(`/result?testId=${latestAttemptTest.id}&tab=review`)}
                   data-testid="btn-latest-solution"
                 >
-                  Last review
+                  Review your last attempt
                 </Button>
               ) : null}
             </div>
@@ -386,7 +386,7 @@ export default function Home() {
 
           <div className="mt-8 text-center">
             <Button variant="outline" className="rounded-xl" onClick={() => setLocation("/exams")} data-testid="btn-view-all-tests">
-              Open full catalog
+              Browse all exams
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
@@ -445,7 +445,7 @@ export default function Home() {
               <div className="pointer-events-none absolute inset-0 bg-primary/5" />
               <h2 className="relative text-2xl font-bold text-foreground sm:text-3xl">Start your next mock today</h2>
               <p className="relative mx-auto mt-3 max-w-lg text-muted-foreground">
-                Sign in to sync attempts, or browse the catalog and pick a free test to try first.
+                Sign in to sync attempts, or browse all exams and pick a free test to try first.
               </p>
               <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Button size="lg" className="h-12 rounded-xl px-8" onClick={() => setLocation("/login/student")} data-testid="btn-cta-login">

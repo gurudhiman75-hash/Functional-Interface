@@ -1,8 +1,7 @@
-import type { Category, Test } from "@/lib/data";
+import type { Category, Subcategory, Test } from "@/lib/data";
 import {
   getAdminCategories,
   getAdminQuestions,
-  getAdminSubcategories,
   getAdminTests,
   type AdminSubcategory,
   type TestKind,
@@ -106,50 +105,14 @@ function normalizeApiTest(t: Test): Test {
   };
 }
 
-/** Merge API catalog with optional admin-authored content (admin wins when present). */
+/** Always return tests from the backend API — never use localStorage. */
 export function mergeRuntimeTestsFromApi(apiTests: Test[]): Test[] {
-  if (getAdminTests().length > 0) {
-    return buildTestsFromAdmin();
-  }
   return apiTests.map(normalizeApiTest);
 }
 
+/** Always return categories from the backend API — never use localStorage. */
 export function mergeRuntimeCategoriesFromApi(apiCategories: Category[]): Category[] {
-  const adminCategories = getAdminCategories();
-  if (adminCategories.length === 0) {
-    return apiCategories.map((cat) => ({
-      ...cat,
-      exams: [
-        {
-          id: `${cat.id}-all`,
-          name: `${cat.name} Tests`,
-          year: new Date().getFullYear(),
-          testsCount: cat.testsCount,
-          avgScore: 0,
-          categoryId: cat.id,
-        },
-      ],
-    }));
-  }
-
-  return adminCategories.map((cat) => ({
-    id: cat.id,
-    name: cat.name,
-    description: cat.description,
-    icon: "BookOpen",
-    color: "blue",
-    testsCount: cat.testsCount,
-    exams: [
-      {
-        id: `${cat.id}-all`,
-        name: `${cat.name} Tests`,
-        year: new Date().getFullYear(),
-        testsCount: cat.testsCount,
-        avgScore: 0,
-        categoryId: cat.id,
-      },
-    ],
-  }));
+  return apiCategories;
 }
 
 function countByKind(testList: Test[], kind: TestKind) {
@@ -174,16 +137,39 @@ export function getRuntimeExamGroups(
   categoryId: string,
   categories: Category[],
   tests: Test[],
+  subcategories: Subcategory[] = [],
 ): RuntimeExamGroup[] {
   const category = categories.find((item) => item.id === categoryId);
   const categoryTests = tests.filter((test) => test.categoryId === categoryId);
   if (!category) return [];
 
-  const adminSubcategories = getAdminSubcategories().filter((item) => item.categoryId === categoryId);
-  const groups = adminSubcategories.map((subcategory) => {
-    const examTests = categoryTests.filter((test) => test.subcategoryId === subcategory.id);
+  // Use backend subcategories for this category as the source of truth.
+  // This ensures subcategories show even when they have no tests yet.
+  const backendSubs = subcategories.filter((s) => s.categoryId === categoryId);
+
+  let subcategorySource: { id: string; name: string; description: string }[];
+
+  if (backendSubs.length > 0) {
+    subcategorySource = backendSubs;
+  } else {
+    // Fall back to subcategories inferred from API tests
+    const map = new Map<string, { id: string; name: string; description: string }>();
+    for (const test of categoryTests) {
+      if (test.subcategoryId && !map.has(test.subcategoryId)) {
+        map.set(test.subcategoryId, { id: test.subcategoryId, name: test.subcategoryName || test.subcategoryId, description: "" });
+      }
+    }
+    subcategorySource = Array.from(map.values());
+  }
+
+  const groups: RuntimeExamGroup[] = subcategorySource.map((sub) => {
+    const examTests = categoryTests.filter((test) => test.subcategoryId === sub.id);
     return {
-      ...subcategory,
+      id: sub.id,
+      categoryId,
+      categoryName: category.name,
+      name: sub.name,
+      description: sub.description ?? "",
       totalTests: examTests.length,
       fullLengthCount: countByKind(examTests, "full-length"),
       sectionalCount: countByKind(examTests, "sectional"),
@@ -207,9 +193,10 @@ export function getRuntimeExamGroup(
   examId: string,
   categories: Category[],
   tests: Test[],
+  subcategories: Subcategory[] = [],
 ): RuntimeExamGroup | null {
   for (const category of categories) {
-    const group = getRuntimeExamGroups(category.id, categories, tests).find((item) => item.id === examId);
+    const group = getRuntimeExamGroups(category.id, categories, tests, subcategories).find((item) => item.id === examId);
     if (group) return group;
   }
   return null;

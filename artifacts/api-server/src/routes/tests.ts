@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { and, eq } from "drizzle-orm";
 import { db } from "../lib/db";
-import { tests, questions, users, userTestEntitlements } from "@workspace/db";
+import { tests, questions, users, userTestEntitlements, subcategories } from "@workspace/db";
 import { Test, type TestSection } from "@workspace/api-zod";
 import { buildSectionsWithQuestions } from "../lib/test-sections";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
@@ -51,17 +51,22 @@ async function canAccessPaidTest(userId: string | undefined, testId: string): Pr
 }
 
 router.get("/", async (_req, res) => {
-  const allTests = await db.select().from(tests);
-  const payload = allTests.map((row) => {
+  const allTests = await db
+    .select({ test: tests, subcategoryLanguages: subcategories.languages })
+    .from(tests)
+    .leftJoin(subcategories, eq(tests.subcategoryId, subcategories.id));
+  const payload = allTests.map(({ test: row, subcategoryLanguages }) => {
     const parsed = Test.parse(row);
     const normalizedSections = normalizeSections(parsed.sections);
     const access = row.access ?? "free";
+    const langs = Array.isArray(subcategoryLanguages) ? subcategoryLanguages as string[] : ["en"];
     if (access === "paid") {
       return {
         ...parsed,
         access: "paid" as const,
         priceCents: row.priceCents ?? 499,
         sections: stripQuestionsFromSections(normalizedSections),
+        languages: langs,
       };
     }
     return {
@@ -69,59 +74,10 @@ router.get("/", async (_req, res) => {
       access: "free" as const,
       priceCents: row.priceCents ?? null,
       sections: normalizedSections,
+      languages: langs,
     };
   });
   return res.json(payload);
-});
-
-router.get("/:id", optionalAuthenticate, async (req, res) => {
-  const idParam = req.params["id"];
-  const id = typeof idParam === "string" ? idParam : idParam?.[0];
-  if (!id) return res.status(400).json({ error: "Missing test id" });
-
-  const testRows = await db.select().from(tests).where(eq(tests.id, id)).limit(1);
-  if (testRows.length === 0) return res.status(404).json({ error: "Test not found" });
-
-  const row = testRows[0];
-  const access = row.access ?? "free";
-
-  if (access === "paid") {
-    const userId = req.user?.id;
-    if (!userId) {
-      return res.status(401).json({
-        error: "Sign in required to open this paid test",
-        code: "LOGIN_REQUIRED",
-        testId: id,
-        priceCents: row.priceCents ?? 499,
-      });
-    }
-    const allowed = await canAccessPaidTest(userId, id);
-    if (!allowed) {
-      return res.status(403).json({
-        error: "Purchase required to access this test",
-        code: "PAYMENT_REQUIRED",
-        testId: id,
-        priceCents: row.priceCents ?? 499,
-      });
-    }
-  }
-
-  const testQuestions = await db.select().from(questions).where(eq(questions.testId, id));
-  if (testQuestions.length === 0) {
-    return res.status(404).json({
-      error: "Test has no questions yet",
-      code: "NO_QUESTIONS",
-      testId: id,
-    });
-  }
-
-  const parsedTest = Test.parse(row);
-  parsedTest.sections = buildSectionsWithQuestions(parsedTest.sections, testQuestions);
-  return res.json({
-    ...parsedTest,
-    access,
-    priceCents: row.priceCents ?? null,
-  });
 });
 
 router.get("/my-tests", authenticate, async (req, res) => {
@@ -183,6 +139,63 @@ router.get("/my-tests", authenticate, async (req, res) => {
     console.error("Error fetching user's purchased tests:", error);
     return res.status(500).json({ error: "Failed to fetch purchased tests" });
   }
+});
+
+router.get("/:id", optionalAuthenticate, async (req, res) => {
+  const idParam = req.params["id"];
+  const id = typeof idParam === "string" ? idParam : idParam?.[0];
+  if (!id) return res.status(400).json({ error: "Missing test id" });
+
+  const testRows = await db
+    .select({ test: tests, subcategoryLanguages: subcategories.languages })
+    .from(tests)
+    .leftJoin(subcategories, eq(tests.subcategoryId, subcategories.id))
+    .where(eq(tests.id, id))
+    .limit(1);
+  if (testRows.length === 0) return res.status(404).json({ error: "Test not found" });
+
+  const { test: row, subcategoryLanguages } = testRows[0];
+  const access = row.access ?? "free";
+
+  if (access === "paid") {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({
+        error: "Sign in required to open this paid test",
+        code: "LOGIN_REQUIRED",
+        testId: id,
+        priceCents: row.priceCents ?? 499,
+      });
+    }
+    const allowed = await canAccessPaidTest(userId, id);
+    if (!allowed) {
+      return res.status(403).json({
+        error: "Purchase required to access this test",
+        code: "PAYMENT_REQUIRED",
+        testId: id,
+        priceCents: row.priceCents ?? 499,
+      });
+    }
+  }
+
+  const testQuestions = await db.select().from(questions).where(eq(questions.testId, id));
+  if (testQuestions.length === 0) {
+    return res.status(404).json({
+      error: "Test has no questions yet",
+      code: "NO_QUESTIONS",
+      testId: id,
+    });
+  }
+
+  const parsedTest = Test.parse(row);
+  parsedTest.sections = buildSectionsWithQuestions(parsedTest.sections, testQuestions);
+  const langs = Array.isArray(subcategoryLanguages) ? subcategoryLanguages as string[] : ["en"];
+  return res.json({
+    ...parsedTest,
+    access,
+    priceCents: row.priceCents ?? null,
+    languages: langs,
+  });
 });
 
 export default router;

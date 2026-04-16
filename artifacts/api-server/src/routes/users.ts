@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { eq } from "drizzle-orm";
 import { db } from "../lib/db";
-import { users, userTestEntitlements } from "@workspace/db";
+import { users, userTestEntitlements, userPackages, packages, userBundles, bundles, bundlePackages } from "@workspace/db";
 import { User } from "@workspace/api-zod";
 import { authenticate } from "../middlewares/auth";
 
@@ -96,6 +96,48 @@ router.post("/", async (req, res) => {
   const { id, email, name, role } = req.body;
   const user = await upsertUserFromRequest({ id, email, name, role });
   return res.json(user);
+});
+
+// GET /api/users/my-packages - Return current user's purchased packages
+router.get("/my-packages", authenticate, async (req, res) => {
+  try {
+    const userId = req.user!.id;
+    const rows = await db
+      .select({
+        id: packages.id,
+        name: packages.name,
+        description: packages.description,
+        finalPriceCents: packages.finalPriceCents,
+        purchasedAt: userPackages.purchasedAt,
+      })
+      .from(userPackages)
+      .innerJoin(packages, eq(userPackages.packageId, packages.id))
+      .where(eq(userPackages.userId, userId));
+    return res.json(rows);
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to fetch purchased packages" });
+  }
+});
+
+// GET /api/users/my-bundles - Return current user's purchased bundles
+router.get("/my-bundles", authenticate, async (req, res) => {
+  try {
+    const userId = req.user!.id;
+    const rows = await db
+      .select({
+        id: bundles.id,
+        name: bundles.name,
+        description: bundles.description,
+        price: bundles.price,
+        purchasedAt: userBundles.purchasedAt,
+      })
+      .from(userBundles)
+      .innerJoin(bundles, eq(userBundles.bundleId, bundles.id))
+      .where(eq(userBundles.userId, userId));
+    return res.json(rows);
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to fetch purchased bundles" });
+  }
 });
 
 export default router;

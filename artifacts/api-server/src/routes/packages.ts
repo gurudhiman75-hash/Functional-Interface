@@ -1,9 +1,9 @@
 import { Router, type IRouter } from "express";
 import Razorpay from "razorpay";
 import { randomUUID } from "crypto";
-import { eq, and } from "drizzle-orm";
+import { eq, and, inArray } from "drizzle-orm";
 import { db } from "../lib/db";
-import { packages, packageTests, tests, userPackages, userTestEntitlements } from "@workspace/db";
+import { packages, packageTests, tests, userPackages, userTestEntitlements, users } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { paymentRateLimit } from "../middlewares/rateLimit";
 import { getRazorpayCurrency, verifyPaymentSignature } from "../lib/razorpay-billing";
@@ -99,6 +99,90 @@ router.get("/user/my-packages", authenticate, async (req, res) => {
   } catch (error) {
     logger.error({ error }, "Failed to fetch user packages");
     return res.status(500).json({ error: "Failed to fetch your packages" });
+  }
+});
+
+// GET /api/packages/by-test/:testId - Find packages containing a specific test (public)
+router.get("/by-test/:testId", async (req, res) => {
+  try {
+    const testId = req.params.testId;
+
+    const rows = await db
+      .select({
+        id: packages.id,
+        name: packages.name,
+        description: packages.description,
+        finalPriceCents: packages.finalPriceCents,
+        originalPriceCents: packages.originalPriceCents,
+        discountPercent: packages.discountPercent,
+        isPopular: packages.isPopular,
+      })
+      .from(packages)
+      .innerJoin(packageTests, eq(packageTests.packageId, packages.id))
+      .where(eq(packageTests.testId, testId))
+      .orderBy(packages.order);
+
+    return res.json(rows);
+  } catch (error) {
+    logger.error({ error }, "Failed to fetch packages by test");
+    return res.status(500).json({ error: "Failed to fetch packages for this test" });
+  }
+});
+
+// GET /api/packages/by-exam/:examId - Get packages containing tests from a given exam/subcategory
+router.get("/by-exam/:examId", async (req, res) => {
+  try {
+    const { examId } = req.params;
+
+    // examId is either "general-{categoryId}" or a subcategoryId
+    const isGeneral = examId.startsWith("general-");
+    const categoryId = isGeneral ? examId.slice("general-".length) : null;
+
+    // Find test IDs belonging to this exam
+    const examTests = await db
+      .select({ id: tests.id })
+      .from(tests)
+      .where(
+        isGeneral
+          ? and(eq(tests.categoryId, categoryId!), eq(tests.subcategoryId, ""))
+          : eq(tests.subcategoryId, examId)
+      );
+
+    if (examTests.length === 0) return res.json([]);
+
+    const examTestIds = examTests.map((t) => t.id);
+
+    // Find packages that contain any of these tests
+    const rows = await db
+      .select({
+        id: packages.id,
+        name: packages.name,
+        finalPriceCents: packages.finalPriceCents,
+        originalPriceCents: packages.originalPriceCents,
+        discountPercent: packages.discountPercent,
+        order: packages.order,
+      })
+      .from(packages)
+      .innerJoin(packageTests, eq(packageTests.packageId, packages.id))
+      .where(inArray(packageTests.testId, examTestIds))
+      .groupBy(packages.id)
+      .orderBy(packages.order);
+
+    // Attach testIds for each returned package (only those belonging to this exam)
+    const result = await Promise.all(
+      rows.map(async (pkg) => {
+        const pkgTestIds = await db
+          .select({ testId: packageTests.testId })
+          .from(packageTests)
+          .where(and(eq(packageTests.packageId, pkg.id), inArray(packageTests.testId, examTestIds)));
+        return { ...pkg, testIds: pkgTestIds.map((r) => r.testId) };
+      })
+    );
+
+    return res.json(result);
+  } catch (error) {
+    logger.error({ error }, "Failed to fetch packages by exam");
+    return res.status(500).json({ error: "Failed to fetch packages for this exam" });
   }
 });
 
@@ -375,5 +459,105 @@ function getRazorpay(): Razorpay | null {
   if (!keyId || !keySecret) return null;
   return new Razorpay({ key_id: keyId, key_secret: keySecret });
 }
+
+async function assertAdmin(userId: string) {
+  const rows = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  if (rows.length === 0 || rows[0].role !== "admin") {
+    throw new Error("forbidden");
+  }
+}
+
+// POST /api/packages - Admin: create a package with test mappings
+router.post("/", authenticate, async (req, res) => {
+  try {
+    await assertAdmin(req.user!.id);
+  } catch {
+    return res.status(403).json({ error: "Admin access required" });
+  }
+
+  const {
+    name,
+    description,
+    originalPriceCents,
+    discountPercent,
+    finalPriceCents,
+    testIds,
+    features,
+    isPopular,
+    order: displayOrder,
+  } = req.body as {
+    name?: string;
+    description?: string;
+    originalPriceCents?: number;
+    discountPercent?: number;
+    finalPriceCents?: number;
+    testIds?: string[];
+    features?: string[];
+    isPopular?: number;
+    order?: number;
+  };
+
+  if (!name || typeof name !== "string" || !name.trim()) {
+    return res.status(400).json({ error: "name is required" });
+  }
+  if (!description || typeof description !== "string") {
+    return res.status(400).json({ error: "description is required" });
+  }
+  if (typeof originalPriceCents !== "number" || originalPriceCents < 0) {
+    return res.status(400).json({ error: "originalPriceCents must be a non-negative number" });
+  }
+  if (typeof finalPriceCents !== "number" || finalPriceCents < 0) {
+    return res.status(400).json({ error: "finalPriceCents must be a non-negative number" });
+  }
+  if (!Array.isArray(testIds) || testIds.length === 0) {
+    return res.status(400).json({ error: "testIds must be a non-empty array" });
+  }
+  for (const tid of testIds) {
+    if (typeof tid !== "string" || !tid.trim()) {
+      return res.status(400).json({ error: "each testId must be a non-empty string" });
+    }
+  }
+
+  try {
+    const packageId = randomUUID();
+
+    await db.transaction(async (tx) => {
+      await tx.insert(packages).values({
+        id: packageId,
+        name: name.trim(),
+        description: description.trim(),
+        originalPriceCents,
+        discountPercent: typeof discountPercent === "number" ? discountPercent : 0,
+        finalPriceCents,
+        testCount: testIds.length,
+        features: features ?? null,
+        isPopular: isPopular ?? 0,
+        order: typeof displayOrder === "number" ? displayOrder : 0,
+      });
+
+      for (const testId of testIds) {
+        await tx.insert(packageTests).values({
+          id: randomUUID(),
+          packageId,
+          testId: testId.trim(),
+          isFree: 0,
+        }).onConflictDoNothing();
+      }
+    });
+
+    logger.info({ packageId, name, testCount: testIds.length, action: "package_created" });
+
+    const created = await db
+      .select()
+      .from(packages)
+      .where(eq(packages.id, packageId))
+      .limit(1);
+
+    return res.status(201).json(created[0]);
+  } catch (error) {
+    logger.error({ error }, "Failed to create package");
+    return res.status(500).json({ error: "Failed to create package" });
+  }
+});
 
 export default router;

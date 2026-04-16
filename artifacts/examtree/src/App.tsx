@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { syncAuthSession } from "@/lib/auth";
-import { hydrateAdminDataFromCloud } from "@/lib/storage";
+import { hydrateAdminDataFromCloud, getUser } from "@/lib/storage";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { AppLayout } from "@/components/AppLayout";
@@ -130,11 +130,13 @@ function App() {
         if (auth) {
           const currentUser = auth.currentUser;
           if (currentUser) {
-            await hydrateAdminDataFromCloud();
+            if (getUser()?.role === "admin") {
+              await hydrateAdminDataFromCloud();
+            }
           } else {
             await new Promise<void>((resolve) => {
               unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
-                if (firebaseUser) {
+                if (firebaseUser && getUser()?.role === "admin") {
                   await hydrateAdminDataFromCloud();
                 }
                 resolve();

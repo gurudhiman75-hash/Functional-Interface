@@ -51,6 +51,12 @@ export interface TestAttempt {
     section: string;
     text: string;
     options: string[];
+    textHi?: string;
+    textPa?: string;
+    optionsHi?: string[];
+    optionsPa?: string[];
+    explanationHi?: string;
+    explanationPa?: string;
     selected: number | null;
     correct: number;
     flagged: boolean;
@@ -87,6 +93,64 @@ export const addAttempt = (attempt: TestAttempt) => {
   attempts.unshift(attempt);
   Storage.set("attempts", attempts);
 };
+
+// ----- Attempt + Response tracking -----
+
+export interface AttemptRecord {
+  id: string;           // uuid-style: `${userId}-${testId}-${Date.now()}`
+  userId: string;
+  testId: string;
+  mode: "REAL" | "PRACTICE";
+  attemptNumber: number; // 1-based count of this user+test+mode combo
+  startTime: number;    // epoch ms
+  endTime: number | null;
+}
+
+export interface QuestionResponse {
+  attemptId: string;
+  questionId: number;
+  selectedOption: number | null;
+  timeTaken: number;    // seconds spent on this question before selecting
+}
+
+const ATTEMPT_RECORDS_KEY = "attempt_records";
+const QUESTION_RESPONSES_KEY = "question_responses";
+
+export const getAttemptRecords = (): AttemptRecord[] =>
+  Storage.get<AttemptRecord[]>(ATTEMPT_RECORDS_KEY) ?? [];
+
+export const saveAttemptRecord = (record: AttemptRecord): void => {
+  const records = getAttemptRecords();
+  const idx = records.findIndex((r) => r.id === record.id);
+  if (idx >= 0) records[idx] = record;
+  else records.unshift(record);
+  Storage.set(ATTEMPT_RECORDS_KEY, records);
+};
+
+export const getAttemptResponses = (attemptId: string): QuestionResponse[] =>
+  (Storage.get<QuestionResponse[]>(QUESTION_RESPONSES_KEY) ?? []).filter(
+    (r) => r.attemptId === attemptId,
+  );
+
+export const saveQuestionResponse = (response: QuestionResponse): void => {
+  const all = Storage.get<QuestionResponse[]>(QUESTION_RESPONSES_KEY) ?? [];
+  const idx = all.findIndex(
+    (r) => r.attemptId === response.attemptId && r.questionId === response.questionId,
+  );
+  if (idx >= 0) all[idx] = response;
+  else all.push(response);
+  Storage.set(QUESTION_RESPONSES_KEY, all);
+};
+
+/** How many times this user has attempted this test in the given mode. */
+export const countPriorAttempts = (
+  userId: string,
+  testId: string,
+  mode: "REAL" | "PRACTICE",
+): number =>
+  getAttemptRecords().filter(
+    (r) => r.userId === userId && r.testId === testId && r.mode === mode,
+  ).length;
 
 const ACTIVE_TEST_SESSIONS_KEY = "active_test_sessions";
 
@@ -127,6 +191,8 @@ export interface AdminSubcategory {
   categoryName: string;
   name: string;
   description: string;
+  /** Languages available for exams in this subcategory */
+  languages?: string[];
 }
 
 export type TestAccess = "free" | "paid";
@@ -171,6 +237,13 @@ export interface AdminQuestion {
   options: [string, string, string, string];
   correct: number;
   explanation: string;
+  // Bilingual translation fields (optional)
+  textHi?: string;
+  optionsHi?: [string, string, string, string];
+  explanationHi?: string;
+  textPa?: string;
+  optionsPa?: [string, string, string, string];
+  explanationPa?: string;
   createdAt: number;
 }
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { eq } from "drizzle-orm";
+import { and, eq, isNull, or } from "drizzle-orm";
 import { db } from "../lib/db";
 import { attempts, users } from "@workspace/db";
 import { auth } from "../lib/firebase-admin";
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
       }
     }
 
-    // Fetch all attempts for the test with user names
+    // Fetch only REAL attempts for the test (treat NULL attemptType as REAL for legacy rows)
     const allAttempts = await db
       .select({
         userId: attempts.userId,
@@ -38,10 +38,15 @@ router.get("/", async (req, res) => {
       })
       .from(attempts)
       .innerJoin(users, eq(attempts.userId, users.id))
-      .where(eq(attempts.testId, testId));
+      .where(
+        and(
+          eq(attempts.testId, testId),
+          or(eq(attempts.attemptType, "REAL"), isNull(attempts.attemptType)),
+        ),
+      );
 
-    // Group by user and get best score (highest score, earliest attempt)
-    const bestByUser = new Map<
+    // Per user: keep the FIRST attempt only (earliest createdAt)
+    const firstByUser = new Map<
       string,
       {
         userId: string;
@@ -54,27 +59,20 @@ router.get("/", async (req, res) => {
     >();
 
     for (const attempt of allAttempts) {
-      const key = attempt.userId;
-      const existing = bestByUser.get(key);
-      if (
-        !existing ||
-        attempt.score > existing.score ||
-        (attempt.score === existing.score && attempt.createdAt < existing.createdAt)
-      ) {
-        bestByUser.set(key, attempt);
+      const existing = firstByUser.get(attempt.userId);
+      if (!existing || attempt.createdAt < existing.createdAt) {
+        firstByUser.set(attempt.userId, attempt);
       }
     }
 
     // Sort by score desc, then by createdAt asc for tiebreaker
-    const sortedBest = Array.from(bestByUser.values()).sort((a, b) => {
-      if (b.score !== a.score) {
-        return b.score - a.score;
-      }
+    const sorted = Array.from(firstByUser.values()).sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
       return a.createdAt.getTime() - b.createdAt.getTime();
     });
 
     // Take top 10 and add ranks
-    const leaderboard = sortedBest.slice(0, 10).map((row, index) => ({
+    const leaderboard = sorted.slice(0, 10).map((row, index) => ({
       rank: index + 1,
       userId: row.userId,
       userName: row.userName,
@@ -86,8 +84,8 @@ router.get("/", async (req, res) => {
 
     let currentUserRank: number | null = null;
 
-    if (currentUserId && bestByUser.has(currentUserId)) {
-      const rankIndex = sortedBest.findIndex((entry) => entry.userId === currentUserId);
+    if (currentUserId && firstByUser.has(currentUserId)) {
+      const rankIndex = sorted.findIndex((entry) => entry.userId === currentUserId);
       if (rankIndex !== -1) {
         currentUserRank = rankIndex + 1;
       }

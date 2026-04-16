@@ -3,13 +3,17 @@ import healthRouter from "./health";
 import usersRouter from "./users";
 import testsRouter from "./tests";
 import attemptsRouter from "./attempts";
+import responsesRouter from "./responses";
 import leaderboardRouter from "./leaderboard";
 import categoriesRouter from "./categories";
+import subcategoriesRouter from "./subcategories";
 import bundlesRouter from "./bundles";
 import adminDataRouter from "./admin-data";
 import billingRouter from "./billing";
 import analyticsRouter from "./analytics";
 import packagesRouter from "./packages";
+import purchaseRouter from "./purchase";
+import uploadQuestionsRouter from "./upload-questions";
 
 const router: IRouter = Router();
 
@@ -18,11 +22,15 @@ router.use("/users", usersRouter);
 router.use("/billing", billingRouter);
 router.use("/tests", testsRouter);
 router.use("/attempts", attemptsRouter);
+router.use("/responses", responsesRouter);
 router.use("/analytics", analyticsRouter);
 router.use("/packages", packagesRouter);
+router.use("/purchase", purchaseRouter);
 router.use("/leaderboard", leaderboardRouter);
 router.use("/categories", categoriesRouter);
+router.use("/subcategories", subcategoriesRouter);
 router.use("/bundles", bundlesRouter);
 router.use("/admin-data", adminDataRouter);
+router.use("/upload-questions", uploadQuestionsRouter);
 
 export default router;
