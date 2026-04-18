@@ -51,25 +51,3 @@ services:
         sync: false
       - key: UPSTASH_REDIS_REST_TOKEN
         sync: false
-
-  # ── Frontend static site ───────────────────────────────────────────────────
-  - type: web
-    name: examtree-new
-    runtime: static
-    rootDir: .
-    buildCommand: >-
-      corepack enable &&
-      corepack prepare pnpm@10.33.0 --activate &&
-      pnpm install --no-frozen-lockfile --prod=false &&
-      pnpm --filter examtree build
-    staticPublishPath: ./artifacts/examtree/dist/public
-    # SPA: serve index.html for every path that doesn't match a static file
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      # API URL is derived from the API service name above (examtree-api).
-      # Render static sites cannot auto-reference sibling services, so it is hardcoded here.
-      - key: VITE_API_BASE_URL
-        value: https://examtree-api.onrender.com/api

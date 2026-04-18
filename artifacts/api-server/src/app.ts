@@ -1,10 +1,14 @@
 import express, { type Express } from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
+import path from "path";
+import { fileURLToPath } from "url";
 import router from "./routes";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
 import { webhookRateLimit } from "./middlewares/rateLimit";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app: Express = express();
 
@@ -48,5 +52,16 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api", router);
+
+// ── Serve frontend static files ───────────────────────────────────────────────
+// In production, serve the built Vite output so one Render service handles both.
+if (process.env.NODE_ENV === "production") {
+  const staticDir = path.resolve(__dirname, "../../examtree/dist/public");
+  app.use(express.static(staticDir));
+  // SPA fallback: all non-API routes return index.html
+  app.get("*", (_req, res) => {
+    res.sendFile(path.join(staticDir, "index.html"));
+  });
+}
 
 export default app;
