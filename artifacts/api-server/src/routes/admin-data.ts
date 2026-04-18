@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 import { asc, eq } from "drizzle-orm";
+import { sql as rawSql } from "drizzle-orm";
 import { db } from "../lib/db";
 import { categories, questions, subcategories, tests, users, sections, topicsGlobal } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
@@ -98,26 +99,50 @@ function defaultCategoryIcon(name: string) {
 }
 
 async function buildSnapshot(): Promise<AdminSnapshot> {
-  const [categoryRows, subcategoryRows, testRows, questionRows] = await Promise.all([
+  // Fetch questions with raw SQL — try full column list first, fall back to base columns
+  // if optional columns (global_topic_id, difficulty) haven't been migrated yet.
+  let questionRowsRaw: any[];
+  try {
+    questionRowsRaw = (await db.execute(rawSql`
+      SELECT id, client_id, test_id, text, options, correct, section,
+             COALESCE(topic, 'General') AS topic, explanation,
+             section_id, topic_id, global_topic_id, difficulty,
+             text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+             created_at
+      FROM questions ORDER BY id ASC
+    `)) as any[];
+  } catch {
+    // global_topic_id or difficulty column missing — fetch without them
+    questionRowsRaw = (await db.execute(rawSql`
+      SELECT id, client_id, test_id, text, options, correct, section,
+             COALESCE(topic, 'General') AS topic, explanation,
+             section_id, topic_id,
+             NULL::text AS global_topic_id, NULL::text AS difficulty,
+             text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+             created_at
+      FROM questions ORDER BY id ASC
+    `)) as any[];
+  }
+
+  const [categoryRows, subcategoryRows, testRows] = await Promise.all([
     db.select().from(categories),
     db.select().from(subcategories),
     db.select().from(tests),
-    db.select().from(questions).orderBy(asc(questions.id)),
   ]);
 
   const categoryCounts = new Map<string, number>();
   for (const test of testRows) {
-    categoryCounts.set(test.categoryId, (categoryCounts.get(test.categoryId) ?? 0) + 1);
+    categoryCounts.set((test as any).categoryId, (categoryCounts.get((test as any).categoryId) ?? 0) + 1);
   }
 
   return {
-    categories: categoryRows.map((row) => ({
+    categories: (categoryRows as any[]).map((row) => ({
       id: row.id,
       name: row.name,
       description: row.description,
       testsCount: categoryCounts.get(row.id) ?? row.testsCount ?? 0,
     })),
-    subcategories: subcategoryRows.map((row) => ({
+    subcategories: (subcategoryRows as any[]).map((row) => ({
       id: row.id,
       categoryId: row.categoryId,
       categoryName: row.categoryName,
@@ -125,7 +150,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       description: row.description,
       languages: Array.isArray(row.languages) ? (row.languages as string[]) : ["en"],
     })),
-    tests: testRows.map((row) => ({
+    tests: (testRows as any[]).map((row) => ({
       id: row.id,
       name: row.name,
       categoryId: row.categoryId,
@@ -149,29 +174,28 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       attempts: row.attempts,
       avgScore: row.avgScore,
       priceCents: row.priceCents ?? null,
-      topicId: (row as any).topicId ?? null,
-      topicName: (row as any).topicName ?? null,
+      topicId: row.topicId ?? null,
+      topicName: row.topicName ?? null,
       languages: Array.isArray(row.languages) ? (row.languages as string[]) : null,
     })),
-    questions: questionRows.map((row) => ({
-      id: row.clientId || `q-${row.id}`,
-      testId: row.testId,
+    questions: questionRowsRaw.map((row) => ({
+      id: row.client_id || `q-${row.id}`,
+      testId: row.test_id,
       section: row.section,
-      sectionId: row.sectionId ?? undefined,
+      sectionId: row.section_id ?? undefined,
       topic: row.topic ?? undefined,
-      // expose globalTopicId as topicId for backward-compat with the admin frontend
-      topicId: row.globalTopicId ?? undefined,
+      topicId: row.global_topic_id ?? undefined,
       text: row.text,
       options: row.options as [string, string, string, string],
       correct: row.correct,
       explanation: row.explanation,
-      textHi: row.textHi ?? undefined,
-      optionsHi: row.optionsHi ? (row.optionsHi as [string, string, string, string]) : undefined,
-      explanationHi: row.explanationHi ?? undefined,
-      textPa: row.textPa ?? undefined,
-      optionsPa: row.optionsPa ? (row.optionsPa as [string, string, string, string]) : undefined,
-      explanationPa: row.explanationPa ?? undefined,
-      createdAt: row.createdAt.getTime(),
+      textHi: row.text_hi ?? undefined,
+      optionsHi: row.options_hi ? (row.options_hi as [string, string, string, string]) : undefined,
+      explanationHi: row.explanation_hi ?? undefined,
+      textPa: row.text_pa ?? undefined,
+      optionsPa: row.options_pa ? (row.options_pa as [string, string, string, string]) : undefined,
+      explanationPa: row.explanation_pa ?? undefined,
+      createdAt: new Date(row.created_at).getTime(),
     })),
   };
 }
@@ -186,7 +210,10 @@ router.get("/", authenticate, async (req, res) => {
       return res.status(403).json({ error: "Admin access required" });
     }
     console.error("[admin-data] GET / error:", error);
-    return res.status(500).json({ error: "Could not load admin data", detail: error instanceof Error ? error.message : String(error) });
+    const detail = error instanceof Error
+      ? `${error.message}${(error as any).cause ? ` | cause: ${(error as any).cause}` : ""}${(error as any).detail ? ` | detail: ${(error as any).detail}` : ""}`
+      : String(error);
+    return res.status(500).json({ error: "Could not load admin data", detail });
   }
 });
 
