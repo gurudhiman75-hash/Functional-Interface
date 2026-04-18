@@ -17,6 +17,7 @@ import uploadQuestionsRouter from "./upload-questions";
 import dailyChallengeRouter from "./daily-challenge";
 import sectionsRouter from "./sections";
 import topicsRouter from "./topics";
+import questionBankRouter from "./question-bank";
 
 const router: IRouter = Router();
 
@@ -38,5 +39,6 @@ router.use("/admin-data", adminDataRouter);
 router.use("/upload-questions", uploadQuestionsRouter);
 router.use("/sections", sectionsRouter);
 router.use("/topics", topicsRouter);
+router.use(questionBankRouter);
 
 export default router;

@@ -145,6 +145,8 @@ export const questions = pgTable("questions", {
   /** FK to topics_global — preferred over topicId for new data */
   globalTopicId: text("global_topic_id").notNull().references(() => topicsGlobal.id, { onDelete: "restrict" }),
   explanation: text("explanation").notNull(),
+  /** Difficulty level for smart question selection */
+  difficulty: text("difficulty").$type<"Easy" | "Medium" | "Hard">(),
   // Translation columns — nullable; null means no translation available for that language
   textHi: text("text_hi"),
   optionsHi: jsonb("options_hi"),
@@ -278,6 +280,29 @@ export const responses = pgTable(
     uniqueAttemptQuestion: unique().on(t.attemptId, t.questionId),
     attemptIdIdx: index("responses_attempt_id_idx").on(t.attemptId),
     questionIdIdx: index("responses_question_id_idx").on(t.questionId),
+  }),
+);
+
+/**
+ * test_questions — maps questions from the bank to tests.
+ * Allows the same question to appear in multiple tests (controlled reuse).
+ */
+export const testQuestions = pgTable(
+  "test_questions",
+  {
+    id: serial("id").primaryKey(),
+    testId: text("test_id")
+      .notNull()
+      .references(() => tests.id, { onDelete: "cascade" }),
+    questionId: integer("question_id")
+      .notNull()
+      .references(() => questions.id, { onDelete: "cascade" }),
+    addedAt: timestamp("added_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    uniqueTestQuestion: unique().on(t.testId, t.questionId),
+    questionIdIdx: index("test_questions_question_id_idx").on(t.questionId),
+    testIdIdx: index("test_questions_test_id_idx").on(t.testId),
   }),
 );
 

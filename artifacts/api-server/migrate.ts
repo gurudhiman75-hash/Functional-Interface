@@ -463,6 +463,38 @@ async function migrate() {
 
   console.log("✓ indexes");
 
+  // ── Add difficulty column to questions ────────────────────────────────
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS difficulty TEXT CHECK (difficulty IN ('Easy', 'Medium', 'Hard'));
+  `);
+  console.log("✓ questions.difficulty column");
+
+  // ── Create test_questions mapping table ───────────────────────────────
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS test_questions (
+      id          SERIAL    PRIMARY KEY,
+      test_id     TEXT      NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
+      question_id INTEGER   NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+      added_at    TIMESTAMP NOT NULL DEFAULT NOW(),
+      UNIQUE (test_id, question_id)
+    );
+  `);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS test_questions_question_id_idx ON test_questions(question_id);`);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS test_questions_test_id_idx ON test_questions(test_id);`);
+  console.log("✓ test_questions table + indexes");
+
+  // ── Ensure questions.global_topic_id NOT NULL (previously allowed NULL) ─
+  // Backfill with a fallback topic before applying constraint, only if needed.
+  // This step is optional — schema defines NOT NULL but older rows may be NULL.
+  // We log a warning rather than failing.
+  const nullTopicCount = await db.execute(sql`
+    SELECT count(*)::int AS cnt FROM questions WHERE global_topic_id IS NULL;
+  `);
+  const nullTopicCnt = (nullTopicCount.rows?.[0] as any)?.cnt ?? 0;
+  if (nullTopicCnt > 0) {
+    console.warn(`⚠  ${nullTopicCnt} question(s) still have global_topic_id = NULL — assign topics before enforcing NOT NULL`);
+  }
+
   console.log("\n✅ Migration complete.");
   process.exit(0);
 }

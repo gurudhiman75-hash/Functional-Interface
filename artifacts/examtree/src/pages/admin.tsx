@@ -42,6 +42,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import QuestionBankTab from "@/components/QuestionBankTab";
 
 const isAdminUser = (role?: string) => role === "admin";
 
@@ -787,7 +788,7 @@ export default function Admin() {
   const user = getUser();
   const { toast } = useToast();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "sections">("categories");
+  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "sections" | "question-bank">("categories");
   const [search, setSearch] = useState("");
 
   const [cats, setCats] = useState<AdminCategory[]>([]);
@@ -1837,8 +1838,8 @@ export default function Admin() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 glass-panel border border-border/70 rounded-2xl w-fit mb-6 shadow-sm">
-          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "sections"] as const).map((t) => (
+        <div className="flex gap-1 p-1 glass-panel border border-border/70 rounded-2xl w-fit mb-6 shadow-sm flex-wrap">
+          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "sections", "question-bank"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -1848,7 +1849,7 @@ export default function Admin() {
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent"
               }`}
             >
-              {t}
+              {t === "question-bank" ? "Question Bank" : t}
             </button>
           ))}
         </div>
@@ -3476,6 +3477,11 @@ export default function Admin() {
         {/* ── SECTIONS TAB ── */}
         {tab === "sections" && (
           <SectionsManager masterSections={masterSections} queryClient={queryClient} toast={toast} />
+        )}
+
+        {/* ── QUESTION BANK TAB ── */}
+        {tab === "question-bank" && (
+          <QuestionBankTab />
         )}
       </main>
 

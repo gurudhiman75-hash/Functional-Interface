@@ -547,6 +547,151 @@ export async function createPackage(body: {
   });
 }
 
+// ── Question Bank API ──────────────────────────────────────────────────────────
+
+export type QuestionDifficulty = "Easy" | "Medium" | "Hard";
+
+export interface BankQuestion {
+  id: number;
+  testId: string;
+  text: string;
+  options: [string, string, string, string];
+  correct: number;
+  section: string;
+  sectionId: string | null;
+  topic: string;
+  topicId: string | null;
+  globalTopicId: string;
+  difficulty: QuestionDifficulty | null;
+  explanation: string;
+  textHi?: string | null;
+  optionsHi?: [string, string, string, string] | null;
+  explanationHi?: string | null;
+  textPa?: string | null;
+  optionsPa?: [string, string, string, string] | null;
+  explanationPa?: string | null;
+  createdAt: string;
+  usageCount: number;
+  lastUsedAt: string | null;
+}
+
+export interface BankQuestionUsage {
+  testId: string;
+  testName: string;
+  testCategory: string;
+  testDifficulty: QuestionDifficulty;
+  addedAt: string;
+}
+
+export interface QuestionBankPage {
+  items: BankQuestion[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface SmartSelectResult {
+  questions: BankQuestion[];
+  requestedCount: number;
+  returnedCount: number;
+}
+
+export async function getQuestionBank(params: {
+  page?: number;
+  pageSize?: number;
+  search?: string;
+  section?: string;
+  topic?: string;
+  difficulty?: QuestionDifficulty;
+}): Promise<QuestionBankPage> {
+  const qs = new URLSearchParams();
+  if (params.page) qs.set("page", String(params.page));
+  if (params.pageSize) qs.set("pageSize", String(params.pageSize));
+  if (params.search) qs.set("search", params.search);
+  if (params.section) qs.set("section", params.section);
+  if (params.topic) qs.set("topic", params.topic);
+  if (params.difficulty) qs.set("difficulty", params.difficulty);
+  return apiRequest(`/question-bank?${qs.toString()}`);
+}
+
+export async function getBankQuestion(id: number): Promise<BankQuestion & { usageCount: number; lastUsedAt: string | null }> {
+  return apiRequest(`/question-bank/${id}`);
+}
+
+export async function getBankQuestionTests(id: number): Promise<BankQuestionUsage[]> {
+  return apiRequest(`/question-bank/${id}/tests`);
+}
+
+export async function createBankQuestion(body: {
+  testId?: string;
+  text: string;
+  options: [string, string, string, string];
+  correct: number;
+  section: string;
+  sectionId?: string;
+  topic?: string;
+  topicId?: string;
+  globalTopicId: string;
+  explanation: string;
+  difficulty?: QuestionDifficulty;
+  textHi?: string;
+  optionsHi?: [string, string, string, string];
+  explanationHi?: string;
+  textPa?: string;
+  optionsPa?: [string, string, string, string];
+  explanationPa?: string;
+}): Promise<BankQuestion> {
+  return apiRequest("/question-bank", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function updateBankQuestion(
+  id: number,
+  body: Partial<Omit<BankQuestion, "id" | "createdAt" | "usageCount" | "lastUsedAt">>,
+): Promise<BankQuestion> {
+  return apiRequest(`/question-bank/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function deleteBankQuestion(id: number): Promise<void> {
+  return apiRequest(`/question-bank/${id}`, { method: "DELETE" });
+}
+
+export async function addQuestionsToTest(
+  testId: string,
+  questionIds: number[],
+): Promise<{ added: number[]; alreadyPresent: number[]; total: number }> {
+  return apiRequest("/question-bank/add-to-test", {
+    method: "POST",
+    body: JSON.stringify({ testId, questionIds }),
+  });
+}
+
+export async function removeQuestionFromTest(testId: string, questionId: number): Promise<void> {
+  return apiRequest("/question-bank/remove-from-test", {
+    method: "DELETE",
+    body: JSON.stringify({ testId, questionId }),
+  });
+}
+
+export async function smartSelectQuestions(params: {
+  testId?: string;
+  count?: number;
+  section?: string;
+  topic?: string;
+}): Promise<SmartSelectResult> {
+  const qs = new URLSearchParams();
+  if (params.testId) qs.set("testId", params.testId);
+  if (params.count) qs.set("count", String(params.count));
+  if (params.section) qs.set("section", params.section);
+  if (params.topic) qs.set("topic", params.topic);
+  return apiRequest(`/question-bank/smart-select?${qs.toString()}`);
+}
+
 // Legacy compatibility - these will be removed once frontend is fully migrated
 export const categories: Category[] = [];
 export const allTests: Test[] = [];
