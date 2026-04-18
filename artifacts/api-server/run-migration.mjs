@@ -1,6 +1,7 @@
 import postgres from 'postgres';
 
-const DB_URL = process.env.DATABASE_URL ?? 'postgresql://neondb_owner:npg_jrClF89HhBNc@ep-royal-lake-an4mjn23-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+const DB_URL = process.env.DATABASE_URL;
+if (!DB_URL) throw new Error("DATABASE_URL environment variable is required");
 const sql = postgres(DB_URL);
 
 console.log('Running bilingual migration...');
