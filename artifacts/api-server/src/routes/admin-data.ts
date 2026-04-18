@@ -437,7 +437,7 @@ router.delete("/categories/:id", authenticate, async (req, res) => {
     if (!req.user?.id) return res.status(401).json({ error: "Unauthorized" });
     await assertAdmin(req.user.id);
 
-    const categoryId = req.params.id;
+    const categoryId = req.params.id as string;
     if (!categoryId) return res.status(400).json({ error: "categoryId is required" });
 
     const existing = await db.select().from(categories).where(eq(categories.id, categoryId)).limit(1);
@@ -487,7 +487,7 @@ router.delete("/subcategories/:id", authenticate, async (req, res) => {
     if (!req.user?.id) return res.status(401).json({ error: "Unauthorized" });
     await assertAdmin(req.user.id);
 
-    const subcategoryId = req.params.id;
+    const subcategoryId = req.params.id as string;
     if (!subcategoryId) return res.status(400).json({ error: "subcategoryId is required" });
 
     const existing = await db.select().from(subcategories).where(eq(subcategories.id, subcategoryId)).limit(1);
@@ -536,7 +536,7 @@ router.delete("/tests/:id", authenticate, async (req, res) => {
     if (!req.user?.id) return res.status(401).json({ error: "Unauthorized" });
     await assertAdmin(req.user.id);
 
-    const testId = req.params.id;
+    const testId = req.params.id as string;
     if (!testId) return res.status(400).json({ error: "testId is required" });
 
     // Verify the test exists before attempting deletion

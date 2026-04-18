@@ -40,6 +40,104 @@ const CORRECT_LETTER: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
 
 const router: IRouter = Router();
 
+type QuestionColumnState = {
+  hasSectionId: boolean;
+  hasTopicId: boolean;
+  hasGlobalTopicId: boolean;
+  hasDifficulty: boolean;
+  hasTextHi: boolean;
+  hasOptionsHi: boolean;
+  hasExplanationHi: boolean;
+  hasTextPa: boolean;
+  hasOptionsPa: boolean;
+  hasExplanationPa: boolean;
+};
+
+let questionColumnStatePromise: Promise<QuestionColumnState> | null = null;
+
+async function getQuestionColumnState(): Promise<QuestionColumnState> {
+  if (!questionColumnStatePromise) {
+    questionColumnStatePromise = (async () => {
+      const rows = (await db.execute(sql`
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'questions'
+      `)) as any[];
+      const names = new Set(
+        rows.map((row) => String(row.column_name ?? row.COLUMN_NAME ?? "").toLowerCase()),
+      );
+      return {
+        hasSectionId: names.has("section_id"),
+        hasTopicId: names.has("topic_id"),
+        hasGlobalTopicId: names.has("global_topic_id"),
+        hasDifficulty: names.has("difficulty"),
+        hasTextHi: names.has("text_hi"),
+        hasOptionsHi: names.has("options_hi"),
+        hasExplanationHi: names.has("explanation_hi"),
+        hasTextPa: names.has("text_pa"),
+        hasOptionsPa: names.has("options_pa"),
+        hasExplanationPa: names.has("explanation_pa"),
+      };
+    })();
+  }
+  return questionColumnStatePromise;
+}
+
+function buildQuestionSelectSql(columns: QuestionColumnState) {
+  return sql.join(
+    [
+      sql`id`,
+      sql`client_id`,
+      sql`test_id`,
+      sql`text`,
+      sql`options`,
+      sql`correct`,
+      sql`section`,
+      columns.hasSectionId ? sql`section_id` : sql`NULL::text AS section_id`,
+      sql`COALESCE(topic, 'General') AS topic`,
+      columns.hasTopicId ? sql`topic_id` : sql`NULL::text AS topic_id`,
+      columns.hasGlobalTopicId ? sql`global_topic_id` : sql`NULL::text AS global_topic_id`,
+      columns.hasDifficulty ? sql`difficulty` : sql`NULL::text AS difficulty`,
+      sql`explanation`,
+      columns.hasTextHi ? sql`text_hi` : sql`NULL::text AS text_hi`,
+      columns.hasOptionsHi ? sql`options_hi` : sql`NULL::jsonb AS options_hi`,
+      columns.hasExplanationHi ? sql`explanation_hi` : sql`NULL::text AS explanation_hi`,
+      columns.hasTextPa ? sql`text_pa` : sql`NULL::text AS text_pa`,
+      columns.hasOptionsPa ? sql`options_pa` : sql`NULL::jsonb AS options_pa`,
+      columns.hasExplanationPa ? sql`explanation_pa` : sql`NULL::text AS explanation_pa`,
+      sql`created_at`,
+    ],
+    sql`, `,
+  );
+}
+
+function buildQuestionWhereSql(columns: QuestionColumnState, req: any) {
+  const searchQ = req.query.search as string | undefined;
+  const sectionQ = req.query.section as string | undefined;
+  const topicQ = req.query.topic as string | undefined;
+  const difficultyQ = req.query.difficulty as Difficulty | undefined;
+
+  const parts: any[] = [];
+  if (searchQ?.trim()) {
+    const term = `%${searchQ.trim()}%`;
+    parts.push(sql`(text ILIKE ${term} OR explanation ILIKE ${term})`);
+  }
+  if (sectionQ?.trim()) parts.push(sql`section = ${sectionQ.trim()}`);
+  if (topicQ?.trim()) {
+    const topicColumn = columns.hasGlobalTopicId
+      ? sql`global_topic_id`
+      : columns.hasTopicId
+        ? sql`topic_id`
+        : sql`topic`;
+    parts.push(sql`${topicColumn} = ${topicQ.trim()}`);
+  }
+  if (difficultyQ && ["Easy", "Medium", "Hard"].includes(difficultyQ) && columns.hasDifficulty) {
+    parts.push(sql`difficulty = ${difficultyQ}`);
+  }
+
+  return parts.length > 0 ? parts.reduce((a, b) => sql`${a} AND ${b}`) : null;
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type Difficulty = "Easy" | "Medium" | "Hard";
@@ -92,36 +190,17 @@ async function fetchUsageStats(
 
 // ── GET /question-bank ────────────────────────────────────────────────────────
 /** Paginated list with filters and usage stats */
-router.get("/question-bank", authenticate, async (req, res) => {
+router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
+    const columns = await getQuestionColumnState();
 
     const page = Math.max(1, parseInt((req.query.page as string) ?? "1", 10));
     const pageSize = Math.min(100, Math.max(1, parseInt((req.query.pageSize as string) ?? "20", 10)));
     const offset = (page - 1) * pageSize;
-
-    const searchQ = req.query.search as string | undefined;
-    const sectionQ = req.query.section as string | undefined;
-    const topicQ = req.query.topic as string | undefined;
-    const difficultyQ = req.query.difficulty as Difficulty | undefined;
-
-    // Build composable WHERE using drizzle sql`` tagged template (same as admin-data.ts)
-    type SQLPart = ReturnType<typeof sql>;
-    const parts: SQLPart[] = [];
-    if (searchQ?.trim()) {
-      const term = `%${searchQ.trim()}%`;
-      parts.push(sql`(text ILIKE ${term} OR explanation ILIKE ${term})`);
-    }
-    if (sectionQ?.trim()) parts.push(sql`section = ${sectionQ.trim()}`);
-    if (topicQ?.trim())   parts.push(sql`global_topic_id = ${topicQ.trim()}`);
-    if (difficultyQ && ["Easy", "Medium", "Hard"].includes(difficultyQ)) {
-      parts.push(sql`difficulty = ${difficultyQ}`);
-    }
-
-    const whereFrag = parts.length > 0
-      ? parts.reduce((a, b) => sql`${a} AND ${b}`)
-      : null;
+    const whereFrag = buildQuestionWhereSql(columns, req);
     const whereClause = whereFrag ? sql`WHERE ${whereFrag}` : sql``;
+    const selectColumns = buildQuestionSelectSql(columns);
 
     // Primary query — includes optional columns (global_topic_id, difficulty)
     let rows: any[];
@@ -129,11 +208,7 @@ router.get("/question-bank", authenticate, async (req, res) => {
     try {
       const [rowResult, countResult] = (await Promise.all([
         db.execute(sql`
-          SELECT id, client_id, test_id, text, options, correct, section, section_id,
-                 COALESCE(topic, 'General') AS topic, topic_id, global_topic_id,
-                 difficulty, explanation,
-                 text_hi, options_hi, explanation_hi,
-                 text_pa, options_pa, explanation_pa, created_at
+          SELECT ${selectColumns}
           FROM questions ${whereClause}
           ORDER BY created_at DESC
           LIMIT ${pageSize} OFFSET ${offset}
@@ -142,16 +217,36 @@ router.get("/question-bank", authenticate, async (req, res) => {
       ])) as [any[], any[]];
       rows = rowResult;
       totalCount = countResult[0]?.total ?? 0;
-    } catch (colErr) {
-      console.warn("[question-bank] optional columns missing, using fallback query", colErr);
-      // Fallback: global_topic_id / difficulty columns not yet migrated
+    } catch (err) {
+      console.warn("[question-bank] list query failed, using broad fallback", err);
+      const fallbackSelect = sql.join(
+        [
+          sql`id`,
+          sql`client_id`,
+          sql`test_id`,
+          sql`text`,
+          sql`options`,
+          sql`correct`,
+          sql`section`,
+          sql`COALESCE(topic, 'General') AS topic`,
+          sql`explanation`,
+          sql`created_at`,
+          sql`NULL::text AS section_id`,
+          sql`NULL::text AS topic_id`,
+          sql`NULL::text AS global_topic_id`,
+          sql`NULL::text AS difficulty`,
+          sql`NULL::text AS text_hi`,
+          sql`NULL::jsonb AS options_hi`,
+          sql`NULL::text AS explanation_hi`,
+          sql`NULL::text AS text_pa`,
+          sql`NULL::jsonb AS options_pa`,
+          sql`NULL::text AS explanation_pa`,
+        ],
+        sql`, `,
+      );
       const [rowResult, countResult] = (await Promise.all([
         db.execute(sql`
-          SELECT id, client_id, test_id, text, options, correct, section, section_id,
-                 COALESCE(topic, 'General') AS topic, topic_id,
-                 NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
-                 text_hi, options_hi, explanation_hi,
-                 text_pa, options_pa, explanation_pa, created_at
+          SELECT ${fallbackSelect}
           FROM questions
           ORDER BY created_at DESC
           LIMIT ${pageSize} OFFSET ${offset}
@@ -177,7 +272,7 @@ router.get("/question-bank", authenticate, async (req, res) => {
         sectionId: q.section_id ?? null,
         topic: q.topic ?? "General",
         topicId: q.topic_id ?? null,
-        globalTopicId: q.global_topic_id ?? "",
+        globalTopicId: q.global_topic_id ?? q.topic_id ?? "",
         difficulty: q.difficulty ?? null,
         explanation: q.explanation,
         textHi: q.text_hi ?? null,
@@ -194,48 +289,68 @@ router.get("/question-bank", authenticate, async (req, res) => {
 
     res.json({ items, total: totalCount, page, pageSize });
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] GET /question-bank error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // ── GET /question-bank/:id ────────────────────────────────────────────────────
-router.get("/question-bank/:id", authenticate, async (req, res) => {
+router.get("/question-bank/:id", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
+    const columns = await getQuestionColumnState();
+    const id = parseInt(req.params.id as string, 10);
+    if (isNaN(id)) return void res.status(400).json({ error: "Invalid id" });
+
+    const selectColumns = buildQuestionSelectSql(columns);
+    const fallbackSelect = sql.join(
+      [
+        sql`id`,
+        sql`client_id`,
+        sql`test_id`,
+        sql`text`,
+        sql`options`,
+        sql`correct`,
+        sql`section`,
+        sql`COALESCE(topic, 'General') AS topic`,
+        sql`explanation`,
+        sql`created_at`,
+        sql`NULL::text AS section_id`,
+        sql`NULL::text AS topic_id`,
+        sql`NULL::text AS global_topic_id`,
+        sql`NULL::text AS difficulty`,
+        sql`NULL::text AS text_hi`,
+        sql`NULL::jsonb AS options_hi`,
+        sql`NULL::text AS explanation_hi`,
+        sql`NULL::text AS text_pa`,
+        sql`NULL::jsonb AS options_pa`,
+        sql`NULL::text AS explanation_pa`,
+      ],
+      sql`, `,
+    );
 
     let rows: any[];
     try {
       rows = (await db.execute(sql`
-        SELECT id, client_id, test_id, text, options, correct, section, section_id,
-               COALESCE(topic,'General') AS topic, topic_id, global_topic_id,
-               difficulty, explanation,
-               text_hi, options_hi, explanation_hi,
-               text_pa, options_pa, explanation_pa, created_at
+        SELECT ${selectColumns}
         FROM questions WHERE id = ${id} LIMIT 1
       `)) as any[];
     } catch {
       rows = (await db.execute(sql`
-        SELECT id, client_id, test_id, text, options, correct, section, section_id,
-               COALESCE(topic,'General') AS topic, topic_id,
-               NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
-               text_hi, options_hi, explanation_hi,
-               text_pa, options_pa, explanation_pa, created_at
+        SELECT ${fallbackSelect}
         FROM questions WHERE id = ${id} LIMIT 1
       `)) as any[];
     }
     const q = rows[0];
-    if (!q) return res.status(404).json({ error: "Not found" });
+    if (!q) return void res.status(404).json({ error: "Not found" });
 
     const usageMap = await fetchUsageStats([id]);
     const usage = usageMap.get(id) ?? { usageCount: 0, lastUsedAt: null };
 
     res.json({ ...q, ...usage });
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] GET /question-bank/:id", err);
     res.status(500).json({ error: "Internal server error" });
   }
@@ -243,11 +358,11 @@ router.get("/question-bank/:id", authenticate, async (req, res) => {
 
 // ── GET /question-bank/:id/tests ──────────────────────────────────────────────
 /** Returns list of tests this question is used in */
-router.get("/question-bank/:id/tests", authenticate, async (req, res) => {
+router.get("/question-bank/:id/tests", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
+    const id = parseInt(req.params.id as string, 10);
+    if (isNaN(id)) return void res.status(400).json({ error: "Invalid id" });
 
     const rows = await db
       .select({
@@ -264,7 +379,7 @@ router.get("/question-bank/:id/tests", authenticate, async (req, res) => {
 
     res.json(rows);
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] GET /question-bank/:id/tests", err);
     res.status(500).json({ error: "Internal server error" });
   }
@@ -272,7 +387,7 @@ router.get("/question-bank/:id/tests", authenticate, async (req, res) => {
 
 // ── POST /question-bank ───────────────────────────────────────────────────────
 /** Create a bank question (standalone — not necessarily in a test) */
-router.post("/question-bank", authenticate, async (req, res) => {
+router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
     const {
@@ -282,16 +397,16 @@ router.post("/question-bank", authenticate, async (req, res) => {
     } = req.body;
 
     if (!text || !options || correct === undefined || !section || !globalTopicId || !explanation) {
-      return res.status(400).json({ error: "Missing required fields: text, options, correct, section, globalTopicId, explanation" });
+      return void res.status(400).json({ error: "Missing required fields: text, options, correct, section, globalTopicId, explanation" });
     }
     if (!Array.isArray(options) || options.length !== 4) {
-      return res.status(400).json({ error: "options must be an array of 4 strings" });
+      return void res.status(400).json({ error: "options must be an array of 4 strings" });
     }
     if (typeof correct !== "number" || correct < 0 || correct > 3) {
-      return res.status(400).json({ error: "correct must be 0-3" });
+      return void res.status(400).json({ error: "correct must be 0-3" });
     }
     if (difficulty && !["Easy", "Medium", "Hard"].includes(difficulty)) {
-      return res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
+      return void res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
     }
 
     // Bank questions use a placeholder testId to satisfy NOT NULL FK
@@ -329,18 +444,18 @@ router.post("/question-bank", authenticate, async (req, res) => {
 
     res.status(201).json(inserted);
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] POST /question-bank", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // ── PUT /question-bank/:id ────────────────────────────────────────────────────
-router.put("/question-bank/:id", authenticate, async (req, res) => {
+router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
+    const id = parseInt(req.params.id as string, 10);
+    if (isNaN(id)) return void res.status(400).json({ error: "Invalid id" });
 
     const {
       text, options, correct, section, sectionId, topic, topicId, globalTopicId,
@@ -349,7 +464,7 @@ router.put("/question-bank/:id", authenticate, async (req, res) => {
     } = req.body;
 
     if (difficulty && !["Easy", "Medium", "Hard"].includes(difficulty)) {
-      return res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
+      return void res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
     }
 
     const updateData: Partial<typeof questions.$inferInsert> = {};
@@ -371,7 +486,7 @@ router.put("/question-bank/:id", authenticate, async (req, res) => {
     if (explanationPa !== undefined) updateData.explanationPa = explanationPa;
 
     if (Object.keys(updateData).length === 0) {
-      return res.status(400).json({ error: "No fields to update" });
+      return void res.status(400).json({ error: "No fields to update" });
     }
 
     const [updated] = await db
@@ -380,28 +495,28 @@ router.put("/question-bank/:id", authenticate, async (req, res) => {
       .where(eq(questions.id, id))
       .returning();
 
-    if (!updated) return res.status(404).json({ error: "Question not found" });
+    if (!updated) return void res.status(404).json({ error: "Question not found" });
 
     res.json(updated);
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] PUT /question-bank/:id", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // ── DELETE /question-bank/:id ─────────────────────────────────────────────────
-router.delete("/question-bank/:id", authenticate, async (req, res) => {
+router.delete("/question-bank/:id", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
+    const id = parseInt(req.params.id as string, 10);
+    if (isNaN(id)) return void res.status(400).json({ error: "Invalid id" });
 
     // Check usage
     const usageMap = await fetchUsageStats([id]);
     const usage = usageMap.get(id);
     if (usage && usage.usageCount > 0) {
-      return res.status(409).json({
+      return void res.status(409).json({
         error: "Cannot delete question that is used in tests. Remove it from all tests first.",
         usageCount: usage.usageCount,
       });
@@ -410,7 +525,7 @@ router.delete("/question-bank/:id", authenticate, async (req, res) => {
     await db.delete(questions).where(eq(questions.id, id));
     res.status(204).end();
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] DELETE /question-bank/:id", err);
     res.status(500).json({ error: "Internal server error" });
   }
@@ -422,18 +537,18 @@ router.delete("/question-bank/:id", authenticate, async (req, res) => {
  * Body: { testId: string, questionIds: number[] }
  * Returns: { added: number[], alreadyPresent: number[], errors: any[] }
  */
-router.post("/question-bank/add-to-test", authenticate, async (req, res) => {
+router.post("/question-bank/add-to-test", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
     const { testId, questionIds } = req.body as { testId: string; questionIds: number[] };
 
     if (!testId || !Array.isArray(questionIds) || questionIds.length === 0) {
-      return res.status(400).json({ error: "testId and a non-empty questionIds array are required" });
+      return void res.status(400).json({ error: "testId and a non-empty questionIds array are required" });
     }
 
     // Validate test exists
     const [testRow] = await db.select({ id: tests.id }).from(tests).where(eq(tests.id, testId)).limit(1);
-    if (!testRow) return res.status(404).json({ error: "Test not found" });
+    if (!testRow) return void res.status(404).json({ error: "Test not found" });
 
     // Check which questions are already in this test
     const existing = await db
@@ -452,7 +567,7 @@ router.post("/question-bank/add-to-test", authenticate, async (req, res) => {
 
     res.json({ added: toAdd, alreadyPresent, total: toAdd.length });
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] POST /question-bank/add-to-test", err);
     res.status(500).json({ error: "Internal server error" });
   }
@@ -463,13 +578,13 @@ router.post("/question-bank/add-to-test", authenticate, async (req, res) => {
  * Remove a question from a test (test_questions row).
  * Body: { testId: string, questionId: number }
  */
-router.delete("/question-bank/remove-from-test", authenticate, async (req, res) => {
+router.delete("/question-bank/remove-from-test", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
     const { testId, questionId } = req.body as { testId: string; questionId: number };
 
     if (!testId || !questionId) {
-      return res.status(400).json({ error: "testId and questionId are required" });
+      return void res.status(400).json({ error: "testId and questionId are required" });
     }
 
     await db
@@ -478,7 +593,7 @@ router.delete("/question-bank/remove-from-test", authenticate, async (req, res) 
 
     res.status(204).end();
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] DELETE /question-bank/remove-from-test", err);
     res.status(500).json({ error: "Internal server error" });
   }
@@ -494,7 +609,7 @@ router.delete("/question-bank/remove-from-test", authenticate, async (req, res) 
  *   - Difficulty balance: Easy 30%, Medium 50%, Hard 20%
  *   - Priority: lowest usageCount first, then oldest lastUsedAt
  */
-router.get("/question-bank/smart-select", authenticate, async (req, res) => {
+router.get("/question-bank/smart-select", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
 
@@ -608,7 +723,7 @@ router.get("/question-bank/smart-select", authenticate, async (req, res) => {
       returnedCount: allSelected.length,
     });
   } catch (err: any) {
-    if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] GET /question-bank/smart-select", err);
     res.status(500).json({ error: "Internal server error" });
   }
@@ -633,14 +748,14 @@ router.get("/question-bank/smart-select", authenticate, async (req, res) => {
  *   - section: batch-level section name (used when per-row "section" column absent)
  *   - topic: batch-level topic name (used when per-row "topic" column absent)
  */
-router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"), async (req, res) => {
+router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"), async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
   } catch {
-    return res.status(403).json({ error: "Admin access required" });
+    return void res.status(403).json({ error: "Admin access required" });
   }
 
-  if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+  if (!req.file) return void res.status(400).json({ error: "No file uploaded" });
 
   const batchSection = (req.body.section as string | undefined)?.trim() ?? "";
   const batchTopic   = (req.body.topic   as string | undefined)?.trim() ?? "";
@@ -655,7 +770,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
 
   const csvText = req.file.buffer.toString("utf-8");
   const lines = csvText.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").map((l) => l.trim()).filter(Boolean);
-  if (lines.length < 2) return res.status(400).json({ error: "CSV must have a header row and at least one data row" });
+  if (lines.length < 2) return void res.status(400).json({ error: "CSV must have a header row and at least one data row" });
 
   const rawHeader = parseCsvLine(lines[0]);
   const header = rawHeader.map((h) => h.toLowerCase().trim().replace(/[^a-z0-9_]/g, ""));
@@ -669,7 +784,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   // Validate required EN columns
   const requiredCols = ["question_en", "optiona_en", "optionb_en", "optionc_en", "optiond_en", "correct_option", "explanation_en"];
   for (const col of requiredCols) {
-    if (!header.includes(col)) return res.status(400).json({ error: `Missing required column: "${col}"` });
+    if (!header.includes(col)) return void res.status(400).json({ error: `Missing required column: "${col}"` });
   }
 
   const toInsert: (typeof questions.$inferInsert)[] = [];

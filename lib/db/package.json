@@ -6,7 +6,10 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "dependencies": {
+  "peerDependencies": {
+    "drizzle-orm": "^0.45.1"
+  },
+  "devDependencies": {
     "drizzle-orm": "catalog:"
   }
 }
