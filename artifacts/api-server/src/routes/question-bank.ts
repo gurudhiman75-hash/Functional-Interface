@@ -94,7 +94,7 @@ async function fetchUsageStats(
 /** Paginated list with filters and usage stats */
 router.get("/question-bank", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
 
     const page = Math.max(1, parseInt((req.query.page as string) ?? "1", 10));
     const pageSize = Math.min(100, Math.max(1, parseInt((req.query.pageSize as string) ?? "20", 10)));
@@ -105,48 +105,95 @@ router.get("/question-bank", authenticate, async (req, res) => {
     const topicQ = req.query.topic as string | undefined;
     const difficultyQ = req.query.difficulty as Difficulty | undefined;
 
-    // Build filter conditions
-    const conditions: ReturnType<typeof eq>[] = [];
+    // Build WHERE clause with raw SQL to avoid issues with optional columns
+    const whereParts: string[] = [];
+    const params: unknown[] = [];
+    let paramIdx = 1;
+
     if (searchQ?.trim()) {
-      conditions.push(
-        or(
-          ilike(questions.text, `%${searchQ.trim()}%`),
-          ilike(questions.explanation, `%${searchQ.trim()}%`),
-        ) as ReturnType<typeof eq>,
-      );
+      whereParts.push(`(text ILIKE $${paramIdx} OR explanation ILIKE $${paramIdx + 1})`);
+      params.push(`%${searchQ.trim()}%`, `%${searchQ.trim()}%`);
+      paramIdx += 2;
     }
     if (sectionQ?.trim()) {
-      conditions.push(eq(questions.section, sectionQ.trim()) as ReturnType<typeof eq>);
+      whereParts.push(`section = $${paramIdx}`);
+      params.push(sectionQ.trim());
+      paramIdx++;
     }
     if (topicQ?.trim()) {
-      conditions.push(eq(questions.globalTopicId, topicQ.trim()) as ReturnType<typeof eq>);
+      whereParts.push(`global_topic_id = $${paramIdx}`);
+      params.push(topicQ.trim());
+      paramIdx++;
     }
     if (difficultyQ && ["Easy", "Medium", "Hard"].includes(difficultyQ)) {
-      conditions.push(eq(questions.difficulty, difficultyQ) as ReturnType<typeof eq>);
+      whereParts.push(`difficulty = $${paramIdx}`);
+      params.push(difficultyQ);
+      paramIdx++;
     }
 
-    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+    const whereSQL = whereParts.length > 0 ? `WHERE ${whereParts.join(" AND ")}` : "";
 
-    const [rows, totalRows] = await Promise.all([
-      db
-        .select()
-        .from(questions)
-        .where(whereClause)
-        .orderBy(desc(questions.createdAt))
-        .limit(pageSize)
-        .offset(offset),
-      db
-        .select({ total: count() })
-        .from(questions)
-        .where(whereClause),
-    ]);
+    // Use raw SQL — fallback if optional columns missing
+    let rows: any[];
+    let totalCount: number;
+    try {
+      const [rowResult, countResult] = await Promise.all([
+        db.execute(sql.raw(
+          `SELECT id, client_id, test_id, text, options, correct, section, section_id,
+                  COALESCE(topic, 'General') AS topic, topic_id, global_topic_id,
+                  difficulty, explanation,
+                  text_hi, options_hi, explanation_hi,
+                  text_pa, options_pa, explanation_pa,
+                  created_at
+           FROM questions ${whereSQL} ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`,
+        )),
+        db.execute(sql.raw(`SELECT COUNT(*)::int AS total FROM questions ${whereSQL}`)),
+      ]);
+      rows = rowResult as any[];
+      totalCount = (countResult as any[])[0]?.total ?? 0;
+    } catch {
+      // Fallback: columns global_topic_id or difficulty may not exist yet
+      const [rowResult, countResult] = await Promise.all([
+        db.execute(sql.raw(
+          `SELECT id, client_id, test_id, text, options, correct, section, section_id,
+                  COALESCE(topic, 'General') AS topic, topic_id,
+                  NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
+                  text_hi, options_hi, explanation_hi,
+                  text_pa, options_pa, explanation_pa,
+                  created_at
+           FROM questions ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`,
+        )),
+        db.execute(sql.raw(`SELECT COUNT(*)::int AS total FROM questions`)),
+      ]);
+      rows = rowResult as any[];
+      totalCount = (countResult as any[])[0]?.total ?? 0;
+    }
 
-    const usageMap = await fetchUsageStats(rows.map((r) => r.id));
+    const usageMap = await fetchUsageStats(rows.map((r: any) => r.id));
 
-    const items: QuestionBankItem[] = rows.map((q) => {
+    const items = rows.map((q: any) => {
       const usage = usageMap.get(q.id) ?? { usageCount: 0, lastUsedAt: null };
       return {
-        ...q,
+        id: q.id,
+        testId: q.test_id,
+        clientId: q.client_id,
+        text: q.text,
+        options: q.options,
+        correct: q.correct,
+        section: q.section,
+        sectionId: q.section_id ?? null,
+        topic: q.topic ?? "General",
+        topicId: q.topic_id ?? null,
+        globalTopicId: q.global_topic_id ?? "",
+        difficulty: q.difficulty ?? null,
+        explanation: q.explanation,
+        textHi: q.text_hi ?? null,
+        optionsHi: q.options_hi ?? null,
+        explanationHi: q.explanation_hi ?? null,
+        textPa: q.text_pa ?? null,
+        optionsPa: q.options_pa ?? null,
+        explanationPa: q.explanation_pa ?? null,
+        createdAt: q.created_at,
         usageCount: usage.usageCount,
         lastUsedAt: usage.lastUsedAt,
       };
@@ -154,7 +201,7 @@ router.get("/question-bank", authenticate, async (req, res) => {
 
     res.json({
       items,
-      total: totalRows[0]?.total ?? 0,
+      total: totalCount,
       page,
       pageSize,
     });
@@ -168,11 +215,31 @@ router.get("/question-bank", authenticate, async (req, res) => {
 // ── GET /question-bank/:id ────────────────────────────────────────────────────
 router.get("/question-bank/:id", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
 
-    const [q] = await db.select().from(questions).where(eq(questions.id, id)).limit(1);
+    let rows: any[];
+    try {
+      rows = (await db.execute(sql.raw(
+        `SELECT id, client_id, test_id, text, options, correct, section, section_id,
+                COALESCE(topic,'General') AS topic, topic_id, global_topic_id,
+                difficulty, explanation,
+                text_hi, options_hi, explanation_hi,
+                text_pa, options_pa, explanation_pa, created_at
+         FROM questions WHERE id = ${id} LIMIT 1`,
+      ))) as any[];
+    } catch {
+      rows = (await db.execute(sql.raw(
+        `SELECT id, client_id, test_id, text, options, correct, section, section_id,
+                COALESCE(topic,'General') AS topic, topic_id,
+                NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
+                text_hi, options_hi, explanation_hi,
+                text_pa, options_pa, explanation_pa, created_at
+         FROM questions WHERE id = ${id} LIMIT 1`,
+      ))) as any[];
+    }
+    const q = rows[0];
     if (!q) return res.status(404).json({ error: "Not found" });
 
     const usageMap = await fetchUsageStats([id]);
@@ -190,7 +257,7 @@ router.get("/question-bank/:id", authenticate, async (req, res) => {
 /** Returns list of tests this question is used in */
 router.get("/question-bank/:id/tests", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
 
@@ -219,7 +286,7 @@ router.get("/question-bank/:id/tests", authenticate, async (req, res) => {
 /** Create a bank question (standalone — not necessarily in a test) */
 router.post("/question-bank", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const {
       text, options, correct, section, topic, globalTopicId, explanation, difficulty,
       textHi, optionsHi, explanationHi, textPa, optionsPa, explanationPa,
@@ -283,7 +350,7 @@ router.post("/question-bank", authenticate, async (req, res) => {
 // ── PUT /question-bank/:id ────────────────────────────────────────────────────
 router.put("/question-bank/:id", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
 
@@ -338,7 +405,7 @@ router.put("/question-bank/:id", authenticate, async (req, res) => {
 // ── DELETE /question-bank/:id ─────────────────────────────────────────────────
 router.delete("/question-bank/:id", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
 
@@ -369,7 +436,7 @@ router.delete("/question-bank/:id", authenticate, async (req, res) => {
  */
 router.post("/question-bank/add-to-test", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const { testId, questionIds } = req.body as { testId: string; questionIds: number[] };
 
     if (!testId || !Array.isArray(questionIds) || questionIds.length === 0) {
@@ -410,7 +477,7 @@ router.post("/question-bank/add-to-test", authenticate, async (req, res) => {
  */
 router.delete("/question-bank/remove-from-test", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
     const { testId, questionId } = req.body as { testId: string; questionId: number };
 
     if (!testId || !questionId) {
@@ -441,7 +508,7 @@ router.delete("/question-bank/remove-from-test", authenticate, async (req, res) 
  */
 router.get("/question-bank/smart-select", authenticate, async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
 
     const targetTestId = req.query.testId as string | undefined;
     const desiredCount = Math.max(1, parseInt((req.query.count as string) ?? "10", 10));
@@ -580,7 +647,7 @@ router.get("/question-bank/smart-select", authenticate, async (req, res) => {
  */
 router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"), async (req, res) => {
   try {
-    await assertAdmin(req.user!.uid);
+    await assertAdmin(req.user!.id);
   } catch {
     return res.status(403).json({ error: "Admin access required" });
   }
