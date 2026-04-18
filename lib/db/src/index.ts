@@ -142,8 +142,8 @@ export const questions = pgTable("questions", {
   sectionId: text("section_id").references(() => sections.id, { onDelete: "set null" }),
   /** FK to topics master table — nullable so existing rows are unaffected */
   topicId: text("topic_id").references(() => topics.id, { onDelete: "set null" }),
-  /** FK to topics_global — preferred over topicId for new data */
-  globalTopicId: text("global_topic_id").notNull().references(() => topicsGlobal.id, { onDelete: "restrict" }),
+  /** FK to topics_global — preferred over topicId for new data; nullable for backward compat */
+  globalTopicId: text("global_topic_id").references(() => topicsGlobal.id, { onDelete: "set null" }),
   explanation: text("explanation").notNull(),
   /** Difficulty level for smart question selection */
   difficulty: text("difficulty").$type<"Easy" | "Medium" | "Hard">(),

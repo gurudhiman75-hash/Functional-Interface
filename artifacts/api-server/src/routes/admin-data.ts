@@ -185,7 +185,8 @@ router.get("/", authenticate, async (req, res) => {
     if (error instanceof Error && error.message === "forbidden") {
       return res.status(403).json({ error: "Admin access required" });
     }
-    return res.status(500).json({ error: "Could not load admin data" });
+    console.error("[admin-data] GET / error:", error);
+    return res.status(500).json({ error: "Could not load admin data", detail: error instanceof Error ? error.message : String(error) });
   }
 });
 
