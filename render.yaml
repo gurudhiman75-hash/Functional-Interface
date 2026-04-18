@@ -5,9 +5,9 @@ services:
     rootDir: .
     buildCommand: >-
       npm install -g pnpm@10 &&
-      pnpm install --no-frozen-lockfile &&
+      pnpm install --no-frozen-lockfile --prod=false &&
       pnpm --filter @workspace/api-server build
-    startCommand: node --enable-source-maps artifacts/api-server/dist/index.mjs
+    startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/index.mjs
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
