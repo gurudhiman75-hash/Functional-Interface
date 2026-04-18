@@ -3,7 +3,10 @@ services:
     name: examtree-api
     runtime: node
     rootDir: .
-    buildCommand: npm install -g pnpm && pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server build
+    buildCommand: >-
+      npm install -g pnpm@10 &&
+      pnpm install --no-frozen-lockfile &&
+      pnpm --filter @workspace/api-server build
     startCommand: node --enable-source-maps artifacts/api-server/dist/index.mjs
     healthCheckPath: /health
     envVars:
