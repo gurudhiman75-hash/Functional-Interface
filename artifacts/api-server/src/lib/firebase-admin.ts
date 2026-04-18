@@ -1,4 +1,6 @@
-import * as admin from "firebase-admin";
+import adminPkg from "firebase-admin";
+// ESM/CJS interop: firebase-admin v12 exposes its API on the default export
+const admin = (adminPkg as unknown as { default?: typeof adminPkg }).default ?? adminPkg;
 
 const isProd = process.env.NODE_ENV === "production";
 
