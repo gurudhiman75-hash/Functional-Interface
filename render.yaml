@@ -69,8 +69,7 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      # Must point at your deployed API service URL (no trailing slash).
-      # Replace with the actual URL shown in your Render API service dashboard.
-      # Example: https://examtree-api.onrender.com/api
+      # API URL is derived from the API service name above (examtree-api).
+      # Render static sites cannot auto-reference sibling services, so it is hardcoded here.
       - key: VITE_API_BASE_URL
-        sync: false   # set in Render dashboard: https://examtree-api.onrender.com/api
+        value: https://examtree-api.onrender.com/api
