@@ -161,7 +161,7 @@ export type TestAttempt = {
   unanswered: number;
   totalQuestions: number;
   timeSpent: number;
-  date: string;
+  createdAt: string | Date;
   /** "REAL" | "PRACTICE" — absent/null means legacy row, treated as REAL */
   attemptType?: "REAL" | "PRACTICE" | null;
   sectionStats?: {

@@ -9,11 +9,14 @@ import {
   CheckCircle,
   ChevronDown,
   Clock,
+  ExternalLink,
   Flag,
   Lightbulb,
+  Lock,
   Map,
   MinusCircle,
   RotateCcw,
+  Sparkles,
   Target,
   TimerReset,
   Trophy,
@@ -21,8 +24,10 @@ import {
   XCircle,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { getAttemptRecords, getAttemptResponses, getAttempts, getUser, type TestAttempt } from "@/lib/storage";
-import { getAttemptById, getLeaderboard, getResponsesByAttemptId } from "@/lib/data";
+import { getAttemptRecords, getAttemptResponses, getAttempts, getPercentileHistory, getStreak, acknowledgeStreakCelebration, getUser, recordPercentile, recordDailyChallengeCompleted, isDailyChallengeCompletedToday, type TestAttempt } from "@/lib/storage";
+import { MicroReward, type Reward } from "@/components/MicroReward";
+import { getAttemptById, getCategoryFreeTestIds, getDailyChallenge, getLeaderboard, getPackagesByCategory, getPackagesByTest, getResponsesByAttemptId, getTests, getWeakAreaAnalysis } from "@/lib/data";
+import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuestionRichText } from "@/components/QuestionRichText";
@@ -66,6 +71,7 @@ function getReviewState(item: ReviewItem) {
 export default function Result() {
   const [, setLocation] = useLocation();
   const user = getUser();
+  const { data: entitlements } = useMyEntitlements();
   const attempts = getAttempts();
   const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const requestedTestId = query?.get("testId");
@@ -86,6 +92,20 @@ export default function Result() {
     staleTime: 60_000,
   });
 
+  const { data: dailyChallenge } = useQuery({
+    queryKey: ["daily-challenge"],
+    queryFn: getDailyChallenge,
+    staleTime: 300_000,
+    retry: false,
+  });
+
+  // Fetch all tests to get the global avgScore for this test
+  const { data: allTests } = useQuery({
+    queryKey: ["tests"],
+    queryFn: getTests,
+    staleTime: 300_000,
+  });
+
   // Backend fetch when attemptId is present in URL
   const { data: backendAttempt, isLoading: backendAttemptLoading } = useQuery({
     queryKey: ["attempt-by-id", serverAttemptId],
@@ -101,6 +121,42 @@ export default function Result() {
     enabled: Boolean(serverAttemptId && user),
     retry: false,
     staleTime: 60_000,
+  });
+
+  const { data: weakAreaData, isLoading: weakAreaLoading } = useQuery({
+    queryKey: ["weak-areas", serverAttemptId ?? "aggregate"],
+    queryFn: () => getWeakAreaAnalysis(serverAttemptId ?? undefined),
+    enabled: Boolean(user),
+    retry: false,
+    staleTime: 300_000,
+  });
+
+  const { data: suggestedPackages } = useQuery({
+    queryKey: ["packages-by-test", activeTestId],
+    queryFn: () => getPackagesByTest(activeTestId),
+    enabled: Boolean(activeTestId && user),
+    retry: false,
+    staleTime: 600_000,
+  });
+
+  // Fallback: category-level packages when the test isn't part of any package
+  // Use localLatest here because `latest` is declared further down
+  const categoryName = localLatest?.category ?? "";
+  const { data: categoryPackages } = useQuery({
+    queryKey: ["packages-by-category", categoryName],
+    queryFn: () => getPackagesByCategory(categoryName),
+    enabled: Boolean(categoryName && user && suggestedPackages !== undefined && suggestedPackages.length === 0),
+    retry: false,
+    staleTime: 600_000,
+  });
+
+  // Free test access limit tracking — fetch all free test IDs in this category
+  const { data: categoryFreeTests } = useQuery({
+    queryKey: ["category-free-ids", categoryName],
+    queryFn: () => getCategoryFreeTestIds(categoryName),
+    enabled: Boolean(categoryName),
+    retry: false,
+    staleTime: 600_000,
   });
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>(
     query?.get("filter") === "wrong" ? "wrong" : "all",
@@ -235,6 +291,34 @@ export default function Result() {
     );
   }
 
+  // ── Improvement vs previous attempt for this test ─────────────────────────
+  // relevantAttempts is ordered newest-first; localLatest is index 0, previous is index 1.
+  const lastRealAttemptForTest = useMemo(() => {
+    const realOnes = relevantAttempts.filter(
+      (a) => (!a.attemptType || a.attemptType === "REAL") && a !== localLatest,
+    );
+    return realOnes[0] ?? null;
+  }, [relevantAttempts, localLatest]);
+
+  const scoreImprovementDelta = useMemo(() => {
+    if (!lastRealAttemptForTest || !latest) return null;
+    return Math.round((latest.score - lastRealAttemptForTest.score) * 10) / 10;
+  }, [latest, lastRealAttemptForTest]);
+
+  // Per-section accuracy delta: current – previous (positive = improved)
+  const sectionImprovements = useMemo(() => {
+    if (!lastRealAttemptForTest?.sectionStats || !latest?.sectionStats) return null;
+    type SectionStat = { name: string; accuracy: number };
+    const prevMap: Record<string, SectionStat> = {};
+    for (const s of lastRealAttemptForTest.sectionStats) prevMap[s.name] = s;
+    return latest.sectionStats
+      .filter((s) => s.name in prevMap)
+      .map((s) => {
+        const delta = Math.round((s.accuracy - prevMap[s.name].accuracy) * 10) / 10;
+        return { name: s.name, current: s.accuracy, previous: prevMap[s.name].accuracy, delta };
+      });
+  }, [latest, lastRealAttemptForTest]);
+
   if (!latest) {
     return (
       <div className="min-h-screen bg-background">
@@ -299,18 +383,104 @@ export default function Result() {
   const bestScore = attempts.length > 0 ? Math.max(...attempts.map((attempt) => attempt.score)) : latest.score;
   const totalAttempts = attempts.length;
 
+  // Global average score for this test (from the tests catalogue: updated server-side after each attempt)
+  const globalAvgScore = useMemo(() => {
+    if (!allTests || !activeTestId) return null;
+    const testMeta = allTests.find((t) => t.id === activeTestId);
+    return testMeta?.avgScore ?? null;
+  }, [allTests, activeTestId]);
+
+  // ── Percentile derived from leaderboard data ──────────────────────────────
+  // topPercent: lower = better. 5 means "you beat 95% of participants".
+  const currentPercentile = useMemo(() => {
+    const rank = leaderboardData?.currentUserRank;
+    const total = leaderboardData?.totalParticipants;
+    if (!rank || !total || total < 1) return null;
+    return Math.max(1, Math.ceil((rank / total) * 100));
+  }, [leaderboardData]);
+
+  // Persist & compare for improvement banner
+  const previousPercentile = useMemo(() => {
+    if (!activeTestId) return null;
+    return getPercentileHistory()[activeTestId] ?? null;
+  }, [activeTestId]);
+
+  // Record current percentile whenever it resolves and differs
+  // ---- Micro rewards ----
+  const [rewards, setRewards] = useState<Reward[]>([]);
+
+  useEffect(() => {
+    const pending: Reward[] = [];
+
+    // Streak increase
+    const streak = getStreak();
+    if (streak.justIncremented) {
+      pending.push({
+        id: "streak",
+        emoji: "🔥",
+        title: `${streak.currentStreak}-day streak!`,
+        subtitle: "Keep it up — you're on a roll.",
+      });
+      acknowledgeStreakCelebration();
+    }
+
+    // Score improvement
+    if (scoreImprovementDelta !== null && scoreImprovementDelta > 0) {
+      pending.push({
+        id: "improvement",
+        emoji: "📈",
+        title: `Up +${scoreImprovementDelta}% from last time`,
+        subtitle: "Great improvement!",
+      });
+    }
+
+    // High percentile (top 10%)
+    if (currentPercentile !== null && currentPercentile <= 10) {
+      pending.push({
+        id: "percentile",
+        emoji: "🏅",
+        title: `Top ${currentPercentile}%`,
+        subtitle: "You're among the best!",
+      });
+    }
+
+    if (pending.length > 0) setRewards(pending);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (currentPercentile !== null && activeTestId) {
+      recordPercentile(activeTestId, currentPercentile);
+    }
+  }, [currentPercentile, activeTestId]);
+
+  // Daily challenge: record completion when this test is today's challenge
+  const isCompletedDailyChallenge = Boolean(
+    dailyChallenge &&
+      activeTestId === dailyChallenge.testId &&
+      latest?.attemptType === "REAL",
+  );
+  useEffect(() => {
+    if (isCompletedDailyChallenge && dailyChallenge) {
+      recordDailyChallengeCompleted(dailyChallenge.testId);
+    }
+  }, [isCompletedDailyChallenge, dailyChallenge]);
+
+  // Whether this challenge was already done before opening results (already stored)
+  const wasChallengeAlreadyDone = Boolean(
+    dailyChallenge && isDailyChallengeCompletedToday(dailyChallenge.testId),
+  );
+
+
+  // "Improvement" means moving to a lower (better) percentile band
+  const percentileImproved =
+    currentPercentile !== null &&
+    previousPercentile !== null &&
+    currentPercentile < previousPercentile;
+
+
   const sectionStats = latest.sectionStats ?? [];
   const sectionTimeSpent = latest.sectionTimeSpent ?? [];
-  const sorted = [...sectionStats].sort((a, b) => b.accuracy - a.accuracy);
-  const strong = sorted.slice(0, 3);
-  const weak = sorted.slice(-3).reverse();
-  const recommendations = weak.map((section) => ({
-    name: section.name,
-    advice:
-      section.accuracy < 40
-        ? "Rebuild fundamentals and retry untimed practice for this section."
-        : "Practice a short revision set and review wrong attempts before the next mock.",
-  }));
 
   const reviewChips: { key: ReviewFilter; label: string; count: number }[] = [
     { key: "all", label: "All", count: reviewCounts.all },
@@ -321,6 +491,10 @@ export default function Result() {
 
   return (
     <div className="min-h-screen bg-background">
+      <MicroReward
+        rewards={rewards}
+        onDismiss={(id) => setRewards((prev) => prev.filter((r) => r.id !== id))}
+      />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="rounded-[2rem] border border-border bg-card p-8 text-center mb-8 shadow-sm" data-testid="result-hero">
@@ -336,6 +510,22 @@ export default function Result() {
             <span className="text-white/60">•</span>
             <span>{totalAttempts} completed {totalAttempts === 1 ? "attempt" : "attempts"} on this device</span>
           </div>
+          {scoreImprovementDelta !== null && (
+            <div className={`mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold ${
+              scoreImprovementDelta > 0
+                ? "bg-emerald-500/20 text-emerald-200"
+                : scoreImprovementDelta < 0
+                ? "bg-red-500/20 text-red-200"
+                : "bg-white/10 text-blue-100"
+            }`}>
+              {scoreImprovementDelta > 0 ? "↑" : scoreImprovementDelta < 0 ? "↓" : "→"}
+              {scoreImprovementDelta > 0
+                ? `You improved by +${scoreImprovementDelta}%`
+                : scoreImprovementDelta < 0
+                ? `Down ${scoreImprovementDelta}% from last attempt`
+                : "Same score as last attempt"}
+            </div>
+          )}
         </div>
 
         <Tabs defaultValue={requestedTab} className="space-y-8">
@@ -352,6 +542,34 @@ export default function Result() {
           </TabsList>
 
           <TabsContent value="summary" className="space-y-8">
+
+            {/* ── Daily challenge completion banner ── */}
+            {(isCompletedDailyChallenge || wasChallengeAlreadyDone) && dailyChallenge && (
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-amber-300 dark:border-amber-700 bg-amber-50/70 dark:bg-amber-950/20 p-5 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center shrink-0 text-xl">
+                  🎯
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-foreground">You completed today's challenge!</p>
+                  <p className="text-sm text-muted-foreground">{dailyChallenge.testName}</p>
+                  {dailyChallenge.totalParticipants > 0 && (
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {dailyChallenge.totalParticipants.toLocaleString()} participant{dailyChallenge.totalParticipants !== 1 ? "s" : ""} attempted today
+                      {leaderboardData?.currentUserRank
+                        ? ` · You rank #${leaderboardData.currentUserRank}`
+                        : ""}
+                      {currentPercentile !== null
+                        ? ` · Top ${currentPercentile}%`
+                        : ""}
+                    </p>
+                  )}
+                </div>
+                <span className="shrink-0 rounded-full bg-amber-500 px-3 py-1 text-xs font-bold text-white">
+                  🏆 Completed
+                </span>
+              </div>
+            )}
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { icon: <CheckCircle className="w-5 h-5" />, label: "Correct", value: latest.correct, color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
@@ -372,157 +590,372 @@ export default function Result() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
                 <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                  Strong & Weak Areas
+                  <Trophy className="w-4 h-4 text-primary" />
+                  Attempt Summary
                 </h2>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Latest Score</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">{latest.score}%</p>
+                  </div>
+                  <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Average Score</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">{averageScore.toFixed(1)}%</p>
+                  </div>
+                  <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Best Score</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">{bestScore.toFixed(1)}%</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  These values come from the completed attempts currently stored on this device. For cross-user comparison, visit the Performance page and sign in to see your global rank.
+                </p>
 
-                {sectionStats.length === 0 ? (
-                  <p className="empty-state text-sm">
-                    Take a test to see strong/weak analysis for each section.
-                  </p>
+                {/* ── vs. Global average ── */}
+                {globalAvgScore !== null && globalAvgScore > 0 && (
+                  <div className={`mt-4 rounded-2xl border p-4 ${
+                    latest.score >= globalAvgScore
+                      ? "border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/20"
+                      : "border-red-200 dark:border-red-800 bg-red-50/60 dark:bg-red-950/20"
+                  }`}>
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        vs. All users
+                      </p>
+                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                        latest.score >= globalAvgScore
+                          ? "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300"
+                          : "bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300"
+                      }`}>
+                        {latest.score >= globalAvgScore ? "Above average" : "Below average"}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-xl bg-card/60 border border-border/60 p-3 text-center">
+                        <p className="text-xs text-muted-foreground mb-1">Your score</p>
+                        <p className={`text-xl font-bold ${latest.score >= globalAvgScore ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+                          {latest.score}%
+                        </p>
+                      </div>
+                      <div className="rounded-xl bg-card/60 border border-border/60 p-3 text-center">
+                        <p className="text-xs text-muted-foreground mb-1">Average score</p>
+                        <p className="text-xl font-bold text-foreground">{globalAvgScore}%</p>
+                      </div>
+                    </div>
+                    {/* Progress bar comparing the two */}
+                    <div className="mt-3 space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-20 text-right text-xs text-muted-foreground shrink-0">You</span>
+                        <div className="flex-1 bg-muted rounded-full h-2 overflow-hidden">
+                          <div
+                            className={`h-2 rounded-full transition-all duration-700 ${latest.score >= globalAvgScore ? "bg-emerald-500" : "bg-red-500"}`}
+                            style={{ width: `${Math.min(100, latest.score)}%` }}
+                          />
+                        </div>
+                        <span className="w-8 text-xs font-semibold text-foreground shrink-0">{latest.score}%</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="w-20 text-right text-xs text-muted-foreground shrink-0">Average</span>
+                        <div className="flex-1 bg-muted rounded-full h-2 overflow-hidden">
+                          <div
+                            className="h-2 rounded-full transition-all duration-700 bg-muted-foreground/50"
+                            style={{ width: `${Math.min(100, globalAvgScore)}%` }}
+                          />
+                        </div>
+                        <span className="w-8 text-xs font-semibold text-foreground shrink-0">{globalAvgScore}%</span>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {latest.score >= globalAvgScore
+                        ? `You scored ${(latest.score - globalAvgScore).toFixed(1)} percentage points above the average.`
+                        : `You scored ${(globalAvgScore - latest.score).toFixed(1)} percentage points below the average.`}
+                    </p>
+                  </div>
+                )}
+                {user ? (
+                  <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Global rank</p>
+                    {isLeaderboardLoading ? (
+                      <p className="mt-2 text-2xl font-bold text-foreground animate-pulse">Fetching…</p>
+                    ) : leaderboardData?.currentUserRank ? (
+                      <>
+                        <div className="mt-2 flex items-baseline gap-3 flex-wrap">
+                          <p className="text-2xl font-bold text-foreground">
+                            #{leaderboardData.currentUserRank}
+                          </p>
+                          {currentPercentile !== null && (
+                            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-sm font-bold text-primary">
+                              Top {currentPercentile}%
+                            </span>
+                          )}
+                        </div>
+                        {leaderboardData.totalParticipants && (
+                          <p className="mt-0.5 text-xs text-muted-foreground">
+                            out of {leaderboardData.totalParticipants.toLocaleString()} participant{leaderboardData.totalParticipants !== 1 ? "s" : ""}
+                          </p>
+                        )}
+                        {percentileImproved && currentPercentile !== null && previousPercentile !== null && (
+                          <div className="mt-3 flex items-center gap-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 px-3 py-2">
+                            <span className="text-base">📈</span>
+                            <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                              You moved from top {previousPercentile}% → top {currentPercentile}%
+                            </p>
+                          </div>
+                        )}
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          Your best score is being compared globally for this test.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="mt-2 text-2xl font-bold text-foreground">Not ranked yet</p>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Complete this test while signed in to appear on the global leaderboard.
+                        </p>
+                      </>
+                    )}
+                  </div>
                 ) : (
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-sm font-semibold text-emerald-700 dark:text-emerald-300 mb-3">
-                        Strong Areas
-                      </h3>
-                      <div className="space-y-3">
-                        {strong.map((s) => (
-                          <div key={s.name}>
-                            <div className="flex justify-between items-center mb-1.5">
-                              <span className="text-sm font-medium text-foreground">{s.name}</span>
-                              <span className="text-sm font-bold text-emerald-600">{s.accuracy}%</span>
-                            </div>
-                            <div className="w-full bg-muted rounded-full h-2.5">
-                              <div className="h-2.5 rounded-full transition-all duration-700" style={{ width: `${s.accuracy}%`, backgroundColor: "#10b981" }} />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="text-sm font-semibold text-red-700 dark:text-red-300 mb-3">
-                        Weak Areas
-                      </h3>
-                      <div className="space-y-3">
-                        {weak.map((s) => (
-                          <div key={s.name}>
-                            <div className="flex justify-between items-center mb-1.5">
-                              <span className="text-sm font-medium text-foreground">{s.name}</span>
-                              <span className="text-sm font-bold text-red-600">{s.accuracy}%</span>
-                            </div>
-                            <div className="w-full bg-muted rounded-full h-2.5">
-                              <div className="h-2.5 rounded-full transition-all duration-700" style={{ width: `${s.accuracy}%`, backgroundColor: "#ef4444" }} />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-border">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Overall Accuracy</span>
-                        <span className="font-bold text-primary">{accuracy}%</span>
-                      </div>
-                    </div>
+                  <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Global rank</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">Sign in to see your rank</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Logging in will let you sync this score and compare it against other users globally.
+                    </p>
                   </div>
                 )}
               </div>
 
-              <div className="space-y-6">
-                <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
-                  <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
-                    <Trophy className="w-4 h-4 text-primary" />
-                    Attempt Summary
-                  </h2>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Latest Score</p>
-                      <p className="mt-2 text-2xl font-bold text-foreground">{latest.score}%</p>
-                    </div>
-                    <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Average Score</p>
-                      <p className="mt-2 text-2xl font-bold text-foreground">{averageScore.toFixed(1)}%</p>
-                    </div>
-                    <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Best Score</p>
-                      <p className="mt-2 text-2xl font-bold text-foreground">{bestScore.toFixed(1)}%</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm text-muted-foreground">
-                    These values come from the completed attempts currently stored on this device. For cross-user comparison, visit the Performance page and sign in to see your global rank.
-                  </p>
-                  {user ? (
-                    <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Global rank</p>
-                      <p className="mt-2 text-2xl font-bold text-foreground">
-                        {isLeaderboardLoading
-                          ? "Checking your leaderboard rank..."
-                          : leaderboardData?.currentUserRank
-                          ? `#${leaderboardData.currentUserRank}`
-                          : "Not ranked yet"}
-                      </p>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {isLeaderboardLoading
-                          ? "One moment while we fetch your global position."
-                          : leaderboardData?.currentUserRank
-                          ? "Your best score is being compared globally for this test."
-                          : "Complete this test while signed in to appear on the global leaderboard."}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Global rank</p>
-                      <p className="mt-2 text-2xl font-bold text-foreground">Sign in to see your rank</p>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Logging in will let you sync this score and compare it against other users globally.
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
-                  <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
-                    <TimerReset className="w-4 h-4 text-primary" />
-                    Section Timing
-                  </h2>
-                  {sectionTimeSpent.length === 0 ? (
-                    <p className="empty-state text-sm">No sectional timing data was recorded for this attempt.</p>
-                  ) : (
-                    <div className="space-y-3">
-                      {sectionTimeSpent.map((section) => (
-                        <div key={section.name} className="rounded-xl border border-border/70 bg-muted/40 p-4">
-                          <div className="flex items-center justify-between gap-3">
-                            <div>
-                              <p className="font-medium text-foreground">{section.name}</p>
-                              <p className="text-xs text-muted-foreground">Time invested in this section</p>
-                            </div>
-                            <span className="text-sm font-bold text-primary">{section.minutesSpent} min</span>
+              <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+                <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
+                  <TimerReset className="w-4 h-4 text-primary" />
+                  Section Timing
+                </h2>
+                {sectionTimeSpent.length === 0 ? (
+                  <p className="empty-state text-sm">No sectional timing data was recorded for this attempt.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {sectionTimeSpent.map((section) => (
+                      <div key={section.name} className="rounded-xl border border-border/70 bg-muted/40 p-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <div>
+                            <p className="font-medium text-foreground">{section.name}</p>
+                            <p className="text-xs text-muted-foreground">Time invested in this section</p>
                           </div>
+                          <span className="text-sm font-bold text-primary">{section.minutesSpent} min</span>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
+            {/* ── Improvement vs Last Attempt ── */}
+            {lastRealAttemptForTest && (
+              <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+                <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  Improvement vs Last Attempt
+                </h2>
+
+                {/* Overall score delta */}
+                <div className={`flex items-center justify-between rounded-xl border px-5 py-4 mb-4 ${
+                  scoreImprovementDelta === null
+                    ? "border-border/70 bg-muted/40"
+                    : scoreImprovementDelta > 0
+                    ? "border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20"
+                    : scoreImprovementDelta < 0
+                    ? "border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20"
+                    : "border-border/70 bg-muted/40"
+                }`}>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-1">
+                      Overall score
+                    </p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-sm text-muted-foreground line-through">
+                        {lastRealAttemptForTest.score}%
+                      </span>
+                      <span className="text-2xl font-bold text-foreground">{latest.score}%</span>
+                    </div>
+                  </div>
+                  {scoreImprovementDelta !== null && (
+                    <span className={`text-lg font-bold ${
+                      scoreImprovementDelta > 0
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : scoreImprovementDelta < 0
+                        ? "text-red-600 dark:text-red-400"
+                        : "text-muted-foreground"
+                    }`}>
+                      {scoreImprovementDelta > 0 ? "+" : ""}{scoreImprovementDelta}%
+                    </span>
+                  )}
+                </div>
+
+                {/* Per-section breakdown */}
+                {sectionImprovements && sectionImprovements.length > 0 ? (
+                  <div className="space-y-2.5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-3">
+                      Section-wise
+                    </p>
+                    {sectionImprovements.map(({ name, current, previous, delta }) => (
+                      <div key={name} className="flex items-center gap-3">
+                        <p className="flex-1 text-sm font-medium text-foreground truncate">{name}</p>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-xs text-muted-foreground">{previous}%</span>
+                          <span className="text-muted-foreground text-xs">→</span>
+                          <span className="text-sm font-semibold text-foreground">{current}%</span>
+                          <span className={`min-w-[3rem] text-right text-sm font-bold ${
+                            delta > 0
+                              ? "text-emerald-600 dark:text-emerald-400"
+                              : delta < 0
+                              ? "text-red-600 dark:text-red-400"
+                              : "text-muted-foreground"
+                          }`}>
+                            {delta > 0 ? "+" : ""}{delta}%
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Section-by-section data not available for the previous attempt.
+                  </p>
+                )}
+              </div>
+            )}
+
             <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
               <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
-                <Target className="w-4 h-4 text-primary" />
-                Next Focus
+                <TrendingUp className="w-4 h-4 text-primary" />
+                Strong &amp; Weak Areas
               </h2>
-              {recommendations.length === 0 ? (
-                <p className="empty-state text-sm">Complete more tests to unlock section-specific recommendations.</p>
+              {weakAreaLoading ? (
+                <p className="text-sm text-muted-foreground">Analysing sections…</p>
+              ) : !weakAreaData || (weakAreaData.weakestSections.length === 0 && weakAreaData.strongestSections.length === 0) ? (
+                <p className="empty-state text-sm">Complete an exam to see your strong and weak section analysis.</p>
               ) : (
-                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                  {recommendations.map((section) => (
-                    <div key={section.name} className="rounded-xl border border-border/70 bg-muted/40 p-4">
-                      <p className="font-medium text-foreground">{section.name}</p>
-                      <p className="mt-1 text-sm text-muted-foreground">{section.advice}</p>
+                <div className="space-y-5">
+                  {weakAreaData.strongestSections.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-emerald-700 dark:text-emerald-300 mb-3">Strong Areas</h3>
+                      <div className="space-y-3">
+                        {weakAreaData.strongestSections.map((s) => (
+                          <div key={s.section}>
+                            <div className="flex justify-between items-center mb-1.5">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium text-foreground">{s.section}</span>
+                                {s.trend && (
+                                  <span className={`text-xs font-semibold ${
+                                    s.trend === "improving" ? "text-emerald-600" :
+                                    s.trend === "declining" ? "text-red-600" : "text-muted-foreground"
+                                  }`}>{s.trend === "improving" ? "↑" : s.trend === "declining" ? "↓" : "→"} {s.trendLabel}</span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-bold text-emerald-600">{s.accuracy}%</span>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-7 gap-1 border-emerald-300 text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 text-xs px-2"
+                                  onClick={() => setLocation(activeTestId ? `/test/${encodeURIComponent(activeTestId)}?section=${encodeURIComponent(s.section)}` : "/exams")}
+                                >
+                                  <RotateCcw className="w-3 h-3" />
+                                  Practice
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="w-full bg-muted rounded-full h-2.5">
+                              <div className="h-2.5 rounded-full transition-all duration-700 bg-emerald-500" style={{ width: `${s.accuracy}%` }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
+                  )}
+                  {weakAreaData.weakestSections.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-red-700 dark:text-red-300 mb-3">Weak Areas</h3>
+                      <div className="space-y-3">
+                        {weakAreaData.weakestSections.map((s) => (
+                          <div key={s.section}>
+                            <div className="flex justify-between items-center mb-1.5">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium text-foreground">{s.section}</span>
+                                {s.trend && (
+                                  <span className={`text-xs font-semibold ${
+                                    s.trend === "improving" ? "text-emerald-600" :
+                                    s.trend === "declining" ? "text-red-600" : "text-muted-foreground"
+                                  }`}>{s.trend === "improving" ? "↑" : s.trend === "declining" ? "↓" : "→"} {s.trendLabel}</span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-bold text-red-600">{s.accuracy}%</span>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-7 gap-1 border-red-300 text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 text-xs px-2"
+                                  onClick={() => setLocation(activeTestId ? `/test/${encodeURIComponent(activeTestId)}?section=${encodeURIComponent(s.section)}` : "/exams")}
+                                >
+                                  <RotateCcw className="w-3 h-3" />
+                                  Practice
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="w-full bg-muted rounded-full h-2.5">
+                              <div className="h-2.5 rounded-full transition-all duration-700 bg-red-500" style={{ width: `${s.accuracy}%` }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* ── Topic Insights (grouped by section) ── */}
+                  {(weakAreaData.weakestTopics?.length > 0 || weakAreaData.strongestTopics?.length > 0) && (() => {
+                    type TaggedTopic = (typeof weakAreaData.weakestTopics)[0] & { kind: "weak" | "strong" };
+                    const allTopics: TaggedTopic[] = [
+                      ...(weakAreaData.weakestTopics ?? []).map(t => ({ ...t, kind: "weak" as const })),
+                      ...(weakAreaData.strongestTopics ?? []).map(t => ({ ...t, kind: "strong" as const })),
+                    ];
+                    const bySection = allTopics.reduce<Record<string, TaggedTopic[]>>((acc, t) => {
+                      (acc[t.section] ??= []).push(t);
+                      return acc;
+                    }, {});
+                    return (
+                      <div className="pt-3 border-t border-border space-y-2">
+                        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-1">
+                          <Target className="w-3 h-3" /> Topics
+                        </p>
+                        {Object.entries(bySection).map(([section, topics]) => (
+                          <div key={section}>
+                            <p className="text-[10px] text-muted-foreground/70 font-medium uppercase tracking-wider mb-1">{section}</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {topics.map(t => (
+                                <span
+                                  key={t.topic}
+                                  className={`inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-0.5 ${
+                                    t.kind === "weak"
+                                      ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
+                                      : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+                                  }`}
+                                >
+                                  {t.kind === "weak" ? "⚠️" : "🔥"} {t.topic} ({t.accuracy}%)
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                  <div className="pt-3 border-t border-border">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Overall Accuracy</span>
+                      <span className="font-bold text-primary">{accuracy}%</span>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -538,11 +971,19 @@ export default function Result() {
                 });
               }
 
-              if (weak.length > 0) {
-                const weakest = weak[0];
+              // Section-based insights from the API
+              if (weakAreaData?.weakestSections.length) {
+                const weakest = weakAreaData.weakestSections[0];
                 insights.push({
                   icon: <TrendingUp className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />,
-                  text: `"${weakest.name}" is your weakest section at ${weakest.accuracy}% accuracy. Dedicate focused revision time here before your next attempt.`,
+                  text: `"${weakest.section}" is your weakest section at ${weakest.accuracy}% accuracy. Dedicate focused revision time here before your next attempt.`,
+                });
+              }
+              if (weakAreaData?.recommendations.length) {
+                const rec = weakAreaData.recommendations[0];
+                insights.push({
+                  icon: <Lightbulb className="w-4 h-4 text-primary shrink-0 mt-0.5" />,
+                  text: rec,
                 });
               }
 
@@ -754,6 +1195,149 @@ export default function Result() {
                 Reattempt Test
               </Button>
             </div>
+
+            {/* Free test access limit banner */}
+            {(() => {
+              if (!categoryFreeTests || categoryFreeTests.length === 0) return null;
+
+              // Count unique free tests the user has already attempted in this category (REAL attempts only)
+              const freeTestIds = new Set(categoryFreeTests.map((t) => t.id));
+              const attemptedFreeIds = new Set(
+                attempts
+                  .filter((a) => a.attemptType === "REAL" && freeTestIds.has(a.testId))
+                  .map((a) => a.testId),
+              );
+
+              const totalFree = categoryFreeTests.length;
+              const attemptedFree = attemptedFreeIds.size;
+              const remaining = totalFree - attemptedFree;
+
+              // Only show when the user has used at least 1 free test and has 0 or 1 left
+              if (remaining > 1) return null;
+
+              // Premium users (those with any purchased entitlement) don't need this nudge
+              const isPremium = Boolean(entitlements?.testIds && entitlements.testIds.length > 0);
+              if (isPremium) return null;
+
+              const upsellPool =
+                suggestedPackages && suggestedPackages.length > 0
+                  ? suggestedPackages
+                  : categoryPackages && categoryPackages.length > 0
+                  ? categoryPackages
+                  : null;
+
+              const isLast = remaining === 0;
+
+              return (
+                <div className={`rounded-2xl border p-5 shadow-sm ${
+                  isLast
+                    ? "border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20"
+                    : "border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-900/10"
+                }`}>
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center shrink-0">
+                      <Lock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-foreground">
+                        {isLast
+                          ? `This was your last free test in ${latest.category}.`
+                          : `Only 1 free test remaining in ${latest.category}.`}
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {isLast
+                          ? "You've completed all free mocks in this category. Unlock the full series to keep practising."
+                          : "Make the most of your remaining free test, or unlock the full series now."}
+                      </p>
+                      {upsellPool && upsellPool.length > 0 ? (
+                        <div className="mt-3 flex items-center gap-3 flex-wrap">
+                          <Button
+                            className="gap-2 bg-amber-600 hover:bg-amber-700 text-white"
+                            onClick={() => setLocation(`/packages/${upsellPool[0].id}`)}
+                          >
+                            <Trophy className="w-4 h-4" />
+                            Unlock full test series
+                          </Button>
+                          <span className="text-xs text-muted-foreground font-medium">
+                            {totalFree} free mock{totalFree !== 1 ? "s" : ""} · {upsellPool[0].discountPercent > 0 ? `${upsellPool[0].discountPercent}% off` : ""}
+                          </span>
+                        </div>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          className="mt-3 gap-2 border-amber-400 text-amber-700 hover:bg-amber-100 dark:hover:bg-amber-900/30"
+                          onClick={() => setLocation("/exams")}
+                        >
+                          <Trophy className="w-4 h-4" />
+                          Explore more tests
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Progression-based upsell — shown after 2+ attempts on any test in this category */}
+            {relevantAttempts.length >= 2 && (() => {
+              const prevScore = relevantAttempts[1]?.score ?? 0;
+              const delta = latest.score - prevScore;
+              const isImproving = delta > 0;
+              const isConsistent = Math.abs(delta) <= 3;
+
+              const headline = isImproving
+                ? `You're improving! +${delta}% since your last attempt.`
+                : isConsistent
+                ? `You're staying consistent. Ready for a bigger challenge?`
+                : `Keep going — every attempt sharpens your skills.`;
+
+              const subText = isImproving
+                ? `Tackle advanced mock tests to keep the momentum going.`
+                : `Push further with a full test series and targeted practice.`;
+
+              const upsellPool =
+                suggestedPackages && suggestedPackages.length > 0
+                  ? suggestedPackages
+                  : categoryPackages && categoryPackages.length > 0
+                  ? categoryPackages
+                  : null;
+
+              return (
+                <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-gradient-to-br from-emerald-50 to-emerald-50/30 dark:from-emerald-900/20 dark:to-emerald-900/10 p-6 shadow-sm">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
+                      <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="font-bold text-foreground">{headline}</p>
+                        <span className="text-[11px] font-semibold rounded-full px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
+                          {relevantAttempts.length} attempts
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">{subText}</p>
+                      {upsellPool && upsellPool.length > 0 ? (
+                        <Button
+                          className="mt-4 gap-2 bg-emerald-600 hover:bg-emerald-700 text-white"
+                          onClick={() => setLocation(`/packages/${upsellPool[0].id}`)}
+                        >
+                          <Trophy className="w-4 h-4" />
+                          Unlock full test series
+                        </Button>
+                      ) : (
+                        <Button
+                          className="mt-4 gap-2 bg-emerald-600 hover:bg-emerald-700 text-white"
+                          onClick={() => setLocation("/exams")}
+                        >
+                          <Trophy className="w-4 h-4" />
+                          Explore more tests
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </TabsContent>
 
           <TabsContent value="analysis" className="space-y-6">
@@ -986,6 +1570,328 @@ export default function Result() {
                 );
               })()}
             </div>
+
+            {/* Weak Area Analysis — only shown when a server attemptId is available */}
+            {serverAttemptId && (
+              <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+                <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
+                  <Target className="w-4 h-4 text-primary" />
+                  Weak Area Analysis
+                </h2>
+
+                {weakAreaLoading ? (
+                  <p className="text-sm text-muted-foreground">Analysing your sections…</p>
+                ) : !weakAreaData ? (
+                  <p className="text-sm text-muted-foreground">Could not load weak area data.</p>
+                ) : (
+                  <div className="space-y-6">
+                    {/* Weakest sections */}
+                    {weakAreaData.weakestSections.length > 0 && (
+                      <div>
+                        <h3 className="text-sm font-semibold text-red-600 dark:text-red-400 mb-3">
+                          Weakest Sections
+                        </h3>
+                        <div className="space-y-3">
+                          {weakAreaData.weakestSections.map((s) => (
+                            <div
+                              key={s.section}
+                              className="rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 p-4"
+                            >
+                              <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0 flex-1">
+                                  <p className="font-semibold text-foreground">{s.section}</p>
+                                  <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                                    <span>{s.totalQuestions} questions</span>
+                                    <span className="text-amber-600 font-medium">
+                                      avg {s.avgTimeSecs}s / question
+                                    </span>
+                                    {s.trend && (
+                                      <span className={`font-semibold ${
+                                        s.trend === "improving" ? "text-emerald-600" :
+                                        s.trend === "declining" ? "text-red-600" :
+                                        "text-muted-foreground"
+                                      }`}>
+                                        {s.trend === "improving" ? "↑" : s.trend === "declining" ? "↓" : "→"} {s.trendLabel}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="shrink-0 text-right">
+                                  <p className="text-xl font-bold text-red-600">{s.accuracy}%</p>
+                                  <p className="text-xs text-muted-foreground">accuracy</p>
+                                </div>
+                              </div>
+                              <div className="mt-3 w-full bg-red-100 dark:bg-red-900/40 rounded-full h-2">
+                                <div
+                                  className="h-2 rounded-full bg-red-500 transition-all duration-700"
+                                  style={{ width: `${s.accuracy}%` }}
+                                />
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="mt-3 gap-1.5 border-red-300 text-red-700 hover:bg-red-100 dark:hover:bg-red-900/30 text-xs"
+                                onClick={() =>
+                                  setLocation(
+                                    activeTestId
+                                      ? `/test/${encodeURIComponent(activeTestId)}?section=${encodeURIComponent(s.section)}`
+                                      : "/exams",
+                                  )
+                                }
+                              >
+                                <RotateCcw className="w-3.5 h-3.5" />
+                                Practice this section
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Strongest sections */}
+                    {weakAreaData.strongestSections.length > 0 && (
+                      <div>
+                        <h3 className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+                          Strongest Sections
+                        </h3>
+                        <div className="space-y-3">
+                          {weakAreaData.strongestSections.map((s) => (
+                            <div
+                              key={s.section}
+                              className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800 p-4"
+                            >
+                              <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0 flex-1">
+                                  <p className="font-semibold text-foreground">{s.section}</p>
+                                  <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                                    <span>{s.totalQuestions} questions</span>
+                                    <span className="text-amber-600 font-medium">
+                                      avg {s.avgTimeSecs}s / question
+                                    </span>
+                                    {s.trend && (
+                                      <span className={`font-semibold ${
+                                        s.trend === "improving" ? "text-emerald-600" :
+                                        s.trend === "declining" ? "text-red-600" :
+                                        "text-muted-foreground"
+                                      }`}>
+                                        {s.trend === "improving" ? "↑" : s.trend === "declining" ? "↓" : "→"} {s.trendLabel}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="shrink-0 text-right">
+                                  <p className="text-xl font-bold text-emerald-600">{s.accuracy}%</p>
+                                  <p className="text-xs text-muted-foreground">accuracy</p>
+                                </div>
+                              </div>
+                              <div className="mt-3 w-full bg-emerald-100 dark:bg-emerald-900/40 rounded-full h-2">
+                                <div
+                                  className="h-2 rounded-full bg-emerald-500 transition-all duration-700"
+                                  style={{ width: `${s.accuracy}%` }}
+                                />
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="mt-3 gap-1.5 border-emerald-300 text-emerald-700 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 text-xs"
+                                onClick={() =>
+                                  setLocation(
+                                    activeTestId
+                                      ? `/test/${encodeURIComponent(activeTestId)}?section=${encodeURIComponent(s.section)}`
+                                      : "/exams",
+                                  )
+                                }
+                              >
+                                <RotateCcw className="w-3.5 h-3.5" />
+                                Practice this section
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── Topic Breakdown (grouped by section) ── */}
+                    {(weakAreaData.weakestTopics?.length > 0 || weakAreaData.strongestTopics?.length > 0) && (() => {
+                      type TaggedTopic = (typeof weakAreaData.weakestTopics)[0] & { kind: "weak" | "strong" };
+                      const allTopics: TaggedTopic[] = [
+                        ...(weakAreaData.weakestTopics ?? []).map(t => ({ ...t, kind: "weak" as const })),
+                        ...(weakAreaData.strongestTopics ?? []).map(t => ({ ...t, kind: "strong" as const })),
+                      ];
+                      const bySection = allTopics.reduce<Record<string, TaggedTopic[]>>((acc, t) => {
+                        (acc[t.section] ??= []).push(t);
+                        return acc;
+                      }, {});
+                      return (
+                        <div className="pt-4 border-t border-border">
+                          <h3 className="text-sm font-semibold text-muted-foreground flex items-center gap-2 mb-3">
+                            <Target className="w-4 h-4" /> Topic Breakdown
+                          </h3>
+                          <div className="space-y-4">
+                            {Object.entries(bySection).map(([section, topics]) => (
+                              <div key={section}>
+                                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-2">{section}</p>
+                                <div className="space-y-2">
+                                  {topics.map(t => (
+                                    <div key={t.topic} className={`rounded-lg border px-3 py-2 ${
+                                      t.kind === "weak"
+                                        ? "border-red-200 bg-red-50/60 dark:bg-red-900/15 dark:border-red-800/60"
+                                        : "border-emerald-200 bg-emerald-50/60 dark:bg-emerald-900/15 dark:border-emerald-800/60"
+                                    }`}>
+                                      <div className="flex items-center justify-between">
+                                        <span className={`text-sm font-medium ${
+                                          t.kind === "weak" ? "text-red-800 dark:text-red-200" : "text-emerald-800 dark:text-emerald-200"
+                                        }`}>
+                                          {t.kind === "weak" ? "⚠️" : "🔥"} {t.topic}
+                                        </span>
+                                        <span className={`text-sm font-bold ${
+                                          t.kind === "weak" ? "text-red-600" : "text-emerald-600"
+                                        }`}>{t.accuracy}%</span>
+                                      </div>
+                                      <div className={`mt-1.5 w-full rounded-full h-1 ${
+                                        t.kind === "weak" ? "bg-red-100 dark:bg-red-900/40" : "bg-emerald-100 dark:bg-emerald-900/40"
+                                      }`}>
+                                        <div
+                                          className={`h-1 rounded-full transition-all duration-700 ${
+                                            t.kind === "weak" ? "bg-red-500" : "bg-emerald-500"
+                                          }`}
+                                          style={{ width: `${t.accuracy}%` }}
+                                        />
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Recommendations */}
+                    {weakAreaData.recommendations.length > 0 && (
+                      <div className="pt-4 border-t border-border space-y-2">
+                        <h3 className="text-sm font-semibold text-muted-foreground mb-2 flex items-center gap-2">
+                          <Lightbulb className="w-4 h-4" />
+                          Recommendations
+                        </h3>
+                        {weakAreaData.recommendations.map((rec, i) => (
+                          <div
+                            key={i}
+                            className="flex gap-2 rounded-xl border border-border/70 bg-muted/40 p-3 text-sm text-foreground"
+                          >
+                            <ArrowRight className="w-4 h-4 shrink-0 mt-0.5 text-primary" />
+                            {rec}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+{/* Contextual package recommendation */}
+            {(() => {
+              // Pick the most relevant package pool:
+              // 1st priority: packages that directly contain this test
+              // 2nd priority (fallback): packages from the same category
+              const pool =
+                suggestedPackages && suggestedPackages.length > 0
+                  ? suggestedPackages
+                  : categoryPackages && categoryPackages.length > 0
+                  ? categoryPackages
+                  : null;
+
+              if (!pool || pool.length === 0) return null;
+
+              const isExactMatch = Boolean(suggestedPackages && suggestedPackages.length > 0);
+
+              // Derive reason tags per package based on weak section keyword matching
+              const weakSection = weakAreaData?.weakestSections?.[0]?.section ?? "";
+              const weakTokens = weakSection
+                .toLowerCase()
+                .split(/\s+/)
+                .filter((w) => w.length > 3);
+
+              function reasonFor(pkg: { name: string; description: string }) {
+                const haystack = `${pkg.name} ${pkg.description}`.toLowerCase();
+                const hasWeakSectionMatch =
+                  weakTokens.length > 0 && weakTokens.some((tok) => haystack.includes(tok));
+                if (hasWeakSectionMatch) {
+                  return `Includes ${weakSection} practice`;
+                }
+                if (isExactMatch) return `Contains this exam`;
+                return `Matches ${latest?.category ?? ""} exams`;
+              }
+
+              // Header copy — personalised if we know the weak section
+              const headerLine = weakSection
+                ? `You're weak in ${weakSection} — get more practice with a full test series.`
+                : `Get the full ${latest.category || latest.testName} test series and practise more.`;
+
+              return (
+                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6 shadow-sm">
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-foreground">Want to improve faster?</p>
+                      <p className="text-sm text-muted-foreground mt-0.5">{headerLine}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    {pool.slice(0, 2).map((pkg) => {
+                      const reason = reasonFor(pkg);
+                      return (
+                        <div
+                          key={pkg.id}
+                          className="flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-card p-4"
+                        >
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <p className="font-semibold text-foreground truncate">{pkg.name}</p>
+                              {Boolean(pkg.isPopular) && (
+                                <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                                  Popular
+                                </span>
+                              )}
+                            </div>
+                            {/* Contextual reason tag */}
+                            <p className="mt-0.5 text-[11px] font-medium text-primary/80">{reason}</p>
+                            {pkg.description && (
+                              <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{pkg.description}</p>
+                            )}
+                            <div className="mt-1.5 flex items-baseline gap-1.5">
+                              <span className="text-lg font-bold text-primary">
+                                ₹{(pkg.finalPriceCents / 100).toLocaleString("en-IN")}
+                              </span>
+                              {(pkg.originalPriceCents ?? 0) > pkg.finalPriceCents && (
+                                <span className="text-xs line-through text-muted-foreground">
+                                  ₹{((pkg.originalPriceCents ?? 0) / 100).toLocaleString("en-IN")}
+                                </span>
+                              )}
+                              {pkg.discountPercent > 0 && (
+                                <span className="text-xs font-semibold text-emerald-600">{pkg.discountPercent}% off</span>
+                              )}
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            className="shrink-0 gap-1.5"
+                            onClick={() => setLocation(`/packages/${pkg.id}`)}
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            View
+                          </Button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
           </TabsContent>
 
           <TabsContent value="review" className="space-y-4">
@@ -1327,7 +2233,65 @@ export default function Result() {
           </TabsContent>
         </Tabs>
 
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        {/* What to do next */}
+        {(() => {
+          const weakSection = sectionStats.length > 0
+            ? [...sectionStats].sort((a, b) => (a.accuracy ?? 0) - (b.accuracy ?? 0))[0]
+            : null;
+
+          const nextSteps: { icon: React.ReactNode; label: string; description: string; onClick: () => void }[] = [
+            {
+              icon: <RotateCcw className="w-5 h-5 text-blue-500" />,
+              label: "Attempt next test",
+              description: "Keep your momentum going",
+              onClick: () => setLocation("/exams"),
+            },
+            ...(weakSection
+              ? [{
+                  icon: <Target className="w-5 h-5 text-orange-500" />,
+                  label: `Practice ${weakSection.name}`,
+                  description: `Your weakest section — ${weakSection.accuracy ?? 0}% accuracy`,
+                  onClick: () =>
+                    setLocation(
+                      activeTestId
+                        ? `/test/${encodeURIComponent(activeTestId)}?section=${encodeURIComponent(weakSection.name)}`
+                        : "/exams"
+                    ),
+                }]
+              : []),
+            {
+              icon: <BarChart2 className="w-5 h-5 text-emerald-500" />,
+              label: "Review your performance",
+              description: "See trends and improvement areas",
+              onClick: () => setLocation("/performance"),
+            },
+          ];
+
+          return (
+            <div className="mt-8 rounded-2xl border border-border bg-card p-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Next step</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {nextSteps.map((step) => (
+                  <button
+                    key={step.label}
+                    onClick={step.onClick}
+                    className="flex items-center gap-3 rounded-xl border border-border bg-background hover:bg-accent hover:border-primary/40 transition-colors p-4 text-left group"
+                  >
+                    <span className="shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-muted group-hover:scale-110 transition-transform">
+                      {step.icon}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-semibold text-sm text-foreground">{step.label}</span>
+                      <span className="block text-xs text-muted-foreground truncate">{step.description}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
+        <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
           <Button size="lg" onClick={() => setLocation("/exams")} className="gap-2" data-testid="btn-take-another">
             <RotateCcw className="w-4 h-4" />
             Take Another Test

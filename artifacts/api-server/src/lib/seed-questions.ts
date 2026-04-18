@@ -9,6 +9,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["9 J", "6 J", "18 J", "12 J"],
     correct: 0,
     section: "Physics",
+    topic: "Mechanics",
     explanation: "KE = 1/2 x m x v^2 = 9 J",
   },
   {
@@ -17,6 +18,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["Jupiter", "Saturn", "Uranus", "Neptune"],
     correct: 1,
     section: "Physics",
+    topic: "Astronomy",
     explanation: "Saturn currently has the most confirmed moons.",
   },
   {
@@ -25,6 +27,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["3 x 10^6 m/s", "3 x 10^8 m/s", "3 x 10^10 m/s", "3 x 10^4 m/s"],
     correct: 1,
     section: "Physics",
+    topic: "Optics",
     explanation: "The accepted value is about 3 x 10^8 m/s.",
   },
   {
@@ -33,6 +36,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["Na2CO3", "NaHCO3", "NaCl", "NaOH"],
     correct: 1,
     section: "Chemistry",
+    topic: "Inorganic Chemistry",
     explanation: "Baking soda is sodium bicarbonate, NaHCO3.",
   },
   {
@@ -41,6 +45,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["Silver", "Platinum", "Gold", "Copper"],
     correct: 2,
     section: "Chemistry",
+    topic: "Periodic Table",
     explanation: "Gold has atomic number 79.",
   },
   {
@@ -49,6 +54,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["H2O", "CO2", "O2", "NaCl"],
     correct: 0,
     section: "Chemistry",
+    topic: "Inorganic Chemistry",
     explanation: "A water molecule contains two hydrogen atoms and one oxygen atom.",
   },
   {
@@ -57,6 +63,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["4/5", "3/4", "5/4", "5/3"],
     correct: 0,
     section: "Mathematics",
+    topic: "Trigonometry",
     explanation: "Using the Pythagorean identity, cos theta = 4/5.",
   },
   {
@@ -65,6 +72,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["-cos(x)", "cos(x)", "-sin(x)", "tan(x)"],
     correct: 1,
     section: "Mathematics",
+    topic: "Calculus",
     explanation: "The derivative of sin(x) is cos(x).",
   },
   {
@@ -73,6 +81,7 @@ const SAMPLE_FOR_TEST_1 = [
     options: ["2", "3", "4", "10"],
     correct: 1,
     section: "Mathematics",
+    topic: "Arithmetic",
     explanation: "Since 1000 = 10^3, log10(1000) = 3.",
   },
 ];
@@ -84,6 +93,7 @@ const SAMPLE_FOR_TEST_3 = [
     options: ["Respiration", "Transpiration", "Photosynthesis", "Germination"],
     correct: 2,
     section: "Biology",
+    topic: "Plant Biology",
     explanation: "Photosynthesis converts sunlight into chemical energy.",
   },
   {
@@ -92,6 +102,7 @@ const SAMPLE_FOR_TEST_3 = [
     options: ["Nucleus", "Ribosome", "Cell wall", "Cytoplasm"],
     correct: 0,
     section: "Biology",
+    topic: "Cell Biology",
     explanation: "The nucleus stores most of the cell's genetic material.",
   },
   {
@@ -100,17 +111,19 @@ const SAMPLE_FOR_TEST_3 = [
     options: ["Chlorophyll", "Hemoglobin", "Platelets", "Plasma"],
     correct: 1,
     section: "Biology",
+    topic: "Human Physiology",
     explanation: "Hemoglobin gives blood its red color.",
   },
 ];
 
-function genericBlock(testId: string, count: number, section: string) {
+function genericBlock(testId: string, count: number, section: string, topic = "General") {
   return Array.from({ length: count }, (_, i) => ({
     testId,
     text: `Practice question ${i + 1}: What is ${2 + i} + ${3 + i}?`,
     options: [`${4 + i}`, `${5 + 2 * i}`, `${6 + i}`, `${7 + i}`],
     correct: 1,
     section,
+    topic,
     explanation: `The sum is ${5 + 2 * i}.`,
   }));
 }
@@ -136,19 +149,20 @@ export async function ensureSampleQuestions(): Promise<void> {
     options: string[];
     correct: number;
     section: string;
+    topic: string;
     explanation: string;
   }[] = [
     ...SAMPLE_FOR_TEST_1,
     ...SAMPLE_FOR_TEST_3,
-    ...genericBlock("3", 6, "Biology"),
-    ...genericBlock("2", 9, "General"),
-    ...genericBlock("4", 9, "General"),
-    ...genericBlock("5", 9, "General"),
-    ...genericBlock("6", 9, "General"),
-    ...genericBlock("7", 9, "General"),
-    ...genericBlock("8", 9, "General"),
-    ...genericBlock("9", 9, "General"),
-    ...genericBlock("10", 9, "General"),
+    ...genericBlock("3", 6, "Biology", "Cell Biology"),
+    ...genericBlock("2", 9, "General", "General"),
+    ...genericBlock("4", 9, "General", "General"),
+    ...genericBlock("5", 9, "General", "General"),
+    ...genericBlock("6", 9, "General", "General"),
+    ...genericBlock("7", 9, "General", "General"),
+    ...genericBlock("8", 9, "General", "General"),
+    ...genericBlock("9", 9, "General", "General"),
+    ...genericBlock("10", 9, "General", "General"),
   ];
 
   await db.insert(questions).values(bulk);

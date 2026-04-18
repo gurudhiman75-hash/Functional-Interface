@@ -139,6 +139,10 @@ export async function getTests(): Promise<Test[]> {
   return apiRequest<Test[]>("/tests");
 }
 
+export async function getCategoryFreeTestIds(category: string): Promise<{ id: string; name: string }[]> {
+  return apiRequest<{ id: string; name: string }[]>(`/tests/category-free-ids?category=${encodeURIComponent(category)}`);
+}
+
 export async function getTest(id: string): Promise<Test> {
   return apiRequest<Test>(`/tests/${id}`);
 }
@@ -217,10 +221,42 @@ export interface LeaderboardRow {
 export interface LeaderboardResponse {
   leaderboard: LeaderboardRow[];
   currentUserRank?: number;
+  /** Total number of users ranked for this test (used for accurate percentile calculation). */
+  totalParticipants?: number;
 }
 
 export async function getLeaderboard(testId: string): Promise<LeaderboardResponse> {
   return apiRequest<LeaderboardResponse>(`/leaderboard?testId=${encodeURIComponent(testId)}`);
+}
+
+export interface DailyChallenge {
+  testId: string;
+  testName: string;
+  date: string; // "YYYY-MM-DD"
+  totalParticipants: number;
+}
+
+export async function getDailyChallenge(): Promise<DailyChallenge> {
+  return apiRequest<DailyChallenge>("/daily-challenge");
+}
+
+export interface SubmitAttemptPayload {
+  testId: string;
+  testName: string;
+  category: string;
+  attemptType: "REAL" | "PRACTICE";
+  timeSpent: number;
+  responses: { questionId: number; selectedOption: number | null; timeTaken: number }[];
+  flags?: Record<number, boolean>;
+  sectionTimeSpent?: { name: string; minutesSpent: number }[];
+  originalAttemptId?: string;
+}
+
+export async function submitAttempt(payload: SubmitAttemptPayload): Promise<TestAttempt> {
+  return apiRequest<TestAttempt>("/attempts", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
 }
 
 export async function createAttempt(attempt: Omit<TestAttempt, "id">): Promise<TestAttempt> {
@@ -239,6 +275,7 @@ export async function postResponses(
     body: JSON.stringify({ attemptId, responses }),
   });
 }
+
 
 export async function getAttemptById(attemptId: string): Promise<TestAttempt> {
   return apiRequest<TestAttempt>(`/attempts/${encodeURIComponent(attemptId)}`);
@@ -290,7 +327,7 @@ export interface AnalyticsResponse {
   recentAttempts: {
     testName: string;
     score: number;
-    date: string;
+    createdAt: string;
   }[];
 }
 
@@ -306,7 +343,7 @@ export interface TestAttempt {
   unanswered: number;
   totalQuestions: number;
   timeSpent: number;
-  date: string;
+  createdAt: string;
   /** "REAL" | "PRACTICE" — null/absent means legacy row, treated as REAL */
   attemptType?: "REAL" | "PRACTICE" | null;
   sectionStats?: {
@@ -342,6 +379,35 @@ export interface TestAttempt {
 export async function getAnalytics(userId?: string): Promise<AnalyticsResponse> {
   const query = userId ? `?userId=${encodeURIComponent(userId)}` : "";
   return apiRequest<AnalyticsResponse>(`/analytics${query}`);
+}
+
+export interface WeakAreaSection {
+  section: string;
+  accuracy: number;
+  avgTimeSecs: number;
+  totalQuestions: number;
+  trend?: "improving" | "declining" | "stable";
+  trendLabel?: string;
+}
+
+export interface WeakAreaTopic {
+  topic: string;
+  section: string;
+  accuracy: number;
+  totalQuestions: number;
+}
+
+export interface WeakAreasResponse {
+  weakestSections: WeakAreaSection[];
+  strongestSections: WeakAreaSection[];
+  weakestTopics: WeakAreaTopic[];
+  strongestTopics: WeakAreaTopic[];
+  recommendations: string[];
+}
+
+export async function getWeakAreaAnalysis(attemptId?: string): Promise<WeakAreasResponse> {
+  const qs = attemptId ? `?attemptId=${encodeURIComponent(attemptId)}` : "";
+  return apiRequest<WeakAreasResponse>(`/analytics/weak-areas${qs}`);
 }
 
 // Package types and functions
@@ -385,6 +451,52 @@ export async function getPackagesByExam(examId: string): Promise<{ id: string; n
 
 export async function getPackagesByTest(testId: string): Promise<Pick<Package, "id" | "name" | "description" | "finalPriceCents" | "originalPriceCents" | "discountPercent" | "isPopular">[]> {
   return apiRequest(`/packages/by-test/${encodeURIComponent(testId)}`);
+}
+
+export interface MasterSection { id: string; name: string; }
+export interface MasterTopic { id: string; name: string; }
+
+export async function getSections(): Promise<MasterSection[]> {
+  return apiRequest("/sections");
+}
+
+export async function createSection(name: string): Promise<MasterSection> {
+  return apiRequest("/sections", {
+    method: "POST",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function deleteSection(sectionId: string): Promise<void> {
+  return apiRequest(`/sections/${encodeURIComponent(sectionId)}`, { method: "DELETE" });
+}
+
+export async function getAllTopics(): Promise<MasterTopic[]> {
+  return apiRequest("/topics");
+}
+
+export async function createTopic(name: string): Promise<MasterTopic> {
+  return apiRequest("/topics", {
+    method: "POST",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function renameTopic(topicId: string, name: string): Promise<MasterTopic> {
+  return apiRequest(`/topics/${encodeURIComponent(topicId)}`, {
+    method: "PATCH",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function deleteTopic(topicId: string): Promise<void> {
+  return apiRequest(`/topics/${encodeURIComponent(topicId)}`, {
+    method: "DELETE",
+  });
+}
+
+export async function getPackagesByCategory(categoryName: string): Promise<Pick<Package, "id" | "name" | "description" | "finalPriceCents" | "originalPriceCents" | "discountPercent" | "isPopular">[]> {
+  return apiRequest(`/packages/by-category/${encodeURIComponent(categoryName)}`);
 }
 
 export async function createPackageOrder(packageId: string): Promise<{

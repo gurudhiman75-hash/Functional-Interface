@@ -1,4 +1,5 @@
-import { hydrateAdminDataFromCloud, syncAdminDataToCloudOrThrow } from "@/lib/storage";
+import { hydrateAdminDataFromCloud, syncAdminDataToCloudOrThrow, deleteTestFromCloud,
+  deleteCategoryFromCloud, deleteSubcategoryFromCloud } from "@/lib/storage";
 import {
   getAdminCategories,
   getAdminQuestions,
@@ -124,20 +125,19 @@ export async function updateCategory(id: string, updates: Partial<AdminCategory>
 }
 
 export async function deleteCategory(id: string): Promise<void> {
-  await withPersistedUpdate((snapshot) => {
-    const subcategoryIds = snapshot.subcategories
-      .filter((subcategory) => subcategory.categoryId === id)
-      .map((subcategory) => subcategory.id);
-    const testIds = snapshot.tests
-      .filter((test) => test.categoryId === id || subcategoryIds.includes(test.subcategoryId))
-      .map((test) => test.id);
-
-    snapshot.categories = snapshot.categories.filter((category) => category.id !== id);
-    snapshot.subcategories = snapshot.subcategories.filter((subcategory) => subcategory.categoryId !== id);
-    snapshot.tests = snapshot.tests.filter((test) => test.categoryId !== id && !subcategoryIds.includes(test.subcategoryId));
-    snapshot.questions = snapshot.questions.filter((question) => !testIds.includes(question.testId));
-    return snapshot;
-  });
+  // Update local cache without scheduling a full snapshot PUT
+  const subcategoryIds = getAdminSubcategories()
+    .filter((s) => s.categoryId === id)
+    .map((s) => s.id);
+  const testIds = getAdminTests()
+    .filter((t) => t.categoryId === id || subcategoryIds.includes(t.subcategoryId))
+    .map((t) => t.id);
+  saveAdminCategories(getAdminCategories().filter((c) => c.id !== id));
+  saveAdminSubcategories(getAdminSubcategories().filter((s) => s.categoryId !== id));
+  saveAdminTests(getAdminTests().filter((t) => t.categoryId !== id && !subcategoryIds.includes(t.subcategoryId)));
+  saveAdminQuestions(getAdminQuestions().filter((q) => !testIds.includes(q.testId)));
+  // Call dedicated DELETE endpoint — no create/update validation triggered
+  await deleteCategoryFromCloud(id);
 }
 
 export async function addSubcategory(item: Omit<AdminSubcategory, "id">): Promise<AdminSubcategory> {
@@ -166,13 +166,13 @@ export async function updateSubcategory(
 }
 
 export async function deleteSubcategory(id: string): Promise<void> {
-  await withPersistedUpdate((snapshot) => {
-    const testIds = snapshot.tests.filter((test) => test.subcategoryId === id).map((test) => test.id);
-    snapshot.subcategories = snapshot.subcategories.filter((subcategory) => subcategory.id !== id);
-    snapshot.tests = snapshot.tests.filter((test) => test.subcategoryId !== id);
-    snapshot.questions = snapshot.questions.filter((question) => !testIds.includes(question.testId));
-    return snapshot;
-  });
+  // Update local cache without scheduling a full snapshot PUT
+  const testIds = getAdminTests().filter((t) => t.subcategoryId === id).map((t) => t.id);
+  saveAdminSubcategories(getAdminSubcategories().filter((s) => s.id !== id));
+  saveAdminTests(getAdminTests().filter((t) => t.subcategoryId !== id));
+  saveAdminQuestions(getAdminQuestions().filter((q) => !testIds.includes(q.testId)));
+  // Call dedicated DELETE endpoint — no create/update validation triggered
+  await deleteSubcategoryFromCloud(id);
 }
 
 export async function addTest(
@@ -200,11 +200,11 @@ export async function updateTest(id: string, updates: Partial<AdminTest>): Promi
 }
 
 export async function deleteTest(id: string): Promise<void> {
-  await withPersistedUpdate((snapshot) => {
-    snapshot.tests = snapshot.tests.filter((test) => test.id !== id);
-    snapshot.questions = snapshot.questions.filter((question) => question.testId !== id);
-    return snapshot;
-  });
+  // Update local cache synchronously — no full snapshot PUT, no create/update validation
+  saveAdminTests(getAdminTests().filter((test) => test.id !== id));
+  saveAdminQuestions(getAdminQuestions().filter((question) => question.testId !== id));
+  // Call dedicated DELETE endpoint — only validates testId exists
+  await deleteTestFromCloud(id);
 }
 
 export async function addQuestion(

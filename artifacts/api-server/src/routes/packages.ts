@@ -129,6 +129,44 @@ router.get("/by-test/:testId", async (req, res) => {
   }
 });
 
+// GET /api/packages/by-category/:categoryName - Find packages containing tests from a given category (public)
+router.get("/by-category/:categoryName", async (req, res) => {
+  try {
+    const categoryName = decodeURIComponent(req.params.categoryName);
+
+    // Find tests in this category
+    const categoryTests = await db
+      .select({ id: tests.id })
+      .from(tests)
+      .where(eq(tests.category, categoryName));
+
+    if (categoryTests.length === 0) return res.json([]);
+
+    const testIds = categoryTests.map((t) => t.id);
+
+    const rows = await db
+      .select({
+        id: packages.id,
+        name: packages.name,
+        description: packages.description,
+        finalPriceCents: packages.finalPriceCents,
+        originalPriceCents: packages.originalPriceCents,
+        discountPercent: packages.discountPercent,
+        isPopular: packages.isPopular,
+      })
+      .from(packages)
+      .innerJoin(packageTests, eq(packageTests.packageId, packages.id))
+      .where(inArray(packageTests.testId, testIds))
+      .groupBy(packages.id, packages.name, packages.description, packages.finalPriceCents, packages.originalPriceCents, packages.discountPercent, packages.isPopular, packages.order)
+      .orderBy(packages.order);
+
+    return res.json(rows);
+  } catch (error) {
+    logger.error({ error }, "Failed to fetch packages by category");
+    return res.status(500).json({ error: "Failed to fetch packages for this category" });
+  }
+});
+
 // GET /api/packages/by-exam/:examId - Get packages containing tests from a given exam/subcategory
 router.get("/by-exam/:examId", async (req, res) => {
   try {

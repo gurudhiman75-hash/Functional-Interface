@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { and, eq, isNull, or } from "drizzle-orm";
+import { asc, count, eq } from "drizzle-orm";
 import { db } from "../lib/db";
-import { attempts, users } from "@workspace/db";
+import { leaderboard } from "@workspace/db";
 import { auth } from "../lib/firebase-admin";
+import { cacheGet, cacheSet, CacheKey, TTL } from "../lib/cache";
 
 const router = Router();
 
@@ -26,72 +27,42 @@ router.get("/", async (req, res) => {
       }
     }
 
-    // Fetch only REAL attempts for the test (treat NULL attemptType as REAL for legacy rows)
-    const allAttempts = await db
-      .select({
-        userId: attempts.userId,
-        userName: users.name,
-        score: attempts.score,
-        testName: attempts.testName,
-        category: attempts.category,
-        createdAt: attempts.createdAt,
-      })
-      .from(attempts)
-      .innerJoin(users, eq(attempts.userId, users.id))
-      .where(
-        and(
-          eq(attempts.testId, testId),
-          or(eq(attempts.attemptType, "REAL"), isNull(attempts.attemptType)),
-        ),
-      );
+    // Leaderboard top-10 + totalParticipants is cached; currentUserRank is appended per-request
+    // from the same cached row data so we don't need a separate user query.
+    const cacheKey = CacheKey.leaderboard(testId);
 
-    // Per user: keep the FIRST attempt only (earliest createdAt)
-    const firstByUser = new Map<
-      string,
-      {
-        userId: string;
-        userName: string;
-        score: number;
-        testName: string;
-        category: string;
-        createdAt: Date;
-      }
-    >();
+    type CachedLeaderboard = { top10: LeaderboardRow[]; totalParticipants: number };
+    type LeaderboardRow = { rank: number; userId: string; userName: string; score: number; createdAt: string };
+    let cached = await cacheGet<CachedLeaderboard>(cacheKey);
 
-    for (const attempt of allAttempts) {
-      const existing = firstByUser.get(attempt.userId);
-      if (!existing || attempt.createdAt < existing.createdAt) {
-        firstByUser.set(attempt.userId, attempt);
-      }
+    if (!cached) {
+      // Single query: ORDER BY rank, no LIMIT so we get the full count cheaply
+      const rows = await db
+        .select()
+        .from(leaderboard)
+        .where(eq(leaderboard.testId, testId))
+        .orderBy(asc(leaderboard.rank));
+
+      const top10 = rows.slice(0, 10).map((row) => ({
+        rank: row.rank,
+        userId: row.userId,
+        userName: row.userName,
+        score: row.score,
+        createdAt: row.createdAt.toISOString(),
+      }));
+      cached = { top10, totalParticipants: rows.length };
+      await cacheSet(cacheKey, cached, TTL.LEADERBOARD);
     }
 
-    // Sort by score desc, then by createdAt asc for tiebreaker
-    const sorted = Array.from(firstByUser.values()).sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      return a.createdAt.getTime() - b.createdAt.getTime();
-    });
-
-    // Take top 10 and add ranks
-    const leaderboard = sorted.slice(0, 10).map((row, index) => ({
-      rank: index + 1,
-      userId: row.userId,
-      userName: row.userName,
-      score: row.score,
-      testName: row.testName,
-      category: row.category,
-      createdAt: row.createdAt.toISOString(),
-    }));
+    const { top10, totalParticipants } = cached;
 
     let currentUserRank: number | null = null;
-
-    if (currentUserId && firstByUser.has(currentUserId)) {
-      const rankIndex = sorted.findIndex((entry) => entry.userId === currentUserId);
-      if (rankIndex !== -1) {
-        currentUserRank = rankIndex + 1;
-      }
+    if (currentUserId) {
+      const userEntry = top10.find((r) => r.userId === currentUserId);
+      if (userEntry) currentUserRank = userEntry.rank;
     }
 
-    return res.json({ leaderboard, currentUserRank });
+    return res.json({ leaderboard: top10, currentUserRank, totalParticipants });
   } catch (error) {
     console.error("Leaderboard error:", error);
     return res.status(500).json({ error: "Could not load leaderboard" });

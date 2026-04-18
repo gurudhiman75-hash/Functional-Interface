@@ -4,7 +4,15 @@ import { getPackage, createPackageOrder, verifyPackagePayment, Package } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { AlertCircle, ArrowLeft, Check, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, Check, Lock, Loader2, ShieldCheck, Star, Trophy, Zap } from "lucide-react";
+
+const COMPARISON_ROWS = [
+  { label: "Mock tests", free: "2–3 per category", paid: "Full series" },
+  { label: "Section analytics", free: "Basic", paid: "Deep insights" },
+  { label: "Weak area detection", free: "✗", paid: "✓" },
+  { label: "Progress tracking", free: "Limited", paid: "Full history" },
+  { label: "Leaderboard", free: "✓", paid: "✓" },
+];
 import { useToast } from "@/hooks/use-toast";
 import { getFirebaseAuth } from "@/lib/firebase";
 
@@ -196,21 +204,82 @@ export default function PackageCheckout() {
         {/* Main Card */}
         <Card className="mt-6">
           <CardHeader>
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between gap-3">
               <div>
+                {Boolean(pkg.isPopular) && (
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-0.5 text-xs font-bold text-primary-foreground">
+                      <Star className="w-3 h-3 fill-current" />
+                      Most Popular
+                    </span>
+                  </div>
+                )}
                 <CardTitle className="text-3xl">{pkg.name}</CardTitle>
-                <p className="text-gray-600 mt-2">{pkg.description}</p>
+                <p className="text-muted-foreground mt-2">{pkg.description}</p>
               </div>
-              {pkg.isPopular ? (
-                <Badge className="bg-blue-100 text-blue-700">POPULAR</Badge>
-              ) : null}
             </div>
           </CardHeader>
 
           <CardContent className="space-y-8">
+
+            {/* Value statement */}
+            {(() => {
+              const testCount = pkg.tests?.length ?? pkg.testCount ?? 0;
+              const perTestPrice = testCount > 0
+                ? (pkg.finalPriceCents / testCount / 100).toFixed(0)
+                : null;
+              return testCount > 0 ? (
+                <div className="rounded-xl bg-primary/5 border border-primary/15 px-5 py-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Trophy className="w-4 h-4 text-primary" />
+                    <p className="font-bold text-primary text-lg">
+                      {testCount} test{testCount !== 1 ? "s" : ""} for ₹{(pkg.finalPriceCents / 100).toLocaleString("en-IN")}
+                    </p>
+                  </div>
+                  {perTestPrice && (
+                    <p className="text-sm text-muted-foreground">
+                      Just ₹{perTestPrice} per test — less than a coffee
+                    </p>
+                  )}
+                </div>
+              ) : null;
+            })()}
+
+            {/* Free vs Package mini comparison */}
+            <div>
+              <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                <Zap className="w-4 h-4 text-primary" />
+                What you unlock
+              </h3>
+              <div className="rounded-xl border border-border/70 overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-muted/40 border-b border-border/60">
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Feature</th>
+                      <th className="px-4 py-2.5 text-center font-medium text-muted-foreground">
+                        <span className="flex items-center justify-center gap-1"><Lock className="w-3 h-3" />Free</span>
+                      </th>
+                      <th className="px-4 py-2.5 text-center font-semibold text-primary">
+                        <span className="flex items-center justify-center gap-1"><ShieldCheck className="w-3 h-3" />This package</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {COMPARISON_ROWS.map((row, i) => (
+                      <tr key={row.label} className={`border-b border-border/40 ${i % 2 === 0 ? "" : "bg-muted/20"}`}>
+                        <td className="px-4 py-2.5 font-medium text-foreground">{row.label}</td>
+                        <td className="px-4 py-2.5 text-center text-muted-foreground">{row.free}</td>
+                        <td className="px-4 py-2.5 text-center font-semibold text-emerald-600 dark:text-emerald-400">{row.paid}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             {/* Package Details */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Package Contents</h3>
+              <h3 className="font-semibold text-foreground mb-4">Included Tests ({pkg.tests?.length ?? 0})</h3>
               <ul className="space-y-2">
                 {pkg.tests && pkg.tests.length > 0 ? (
                   pkg.tests.map((test) => (
@@ -279,24 +348,31 @@ export default function PackageCheckout() {
             )}
 
             {/* Payment Button */}
-            <Button
-              onClick={handlePayment}
-              disabled={processingPayment}
-              className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700"
-            >
-              {processingPayment ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                `Pay ₹${(pkg.finalPriceCents / 100).toFixed(0)} Now`
-              )}
-            </Button>
-
-            <p className="text-xs text-gray-500 text-center">
-              You will be redirected to Razorpay for a secure payment
-            </p>
+            <div className="space-y-3">
+              <Button
+                onClick={handlePayment}
+                disabled={processingPayment}
+                className="w-full py-6 text-lg gap-2 shadow-md"
+                size="lg"
+              >
+                {processingPayment ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="w-5 h-5" />
+                    Unlock all tests — ₹{(pkg.finalPriceCents / 100).toLocaleString("en-IN")}
+                  </>
+                )}
+              </Button>
+              <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-emerald-500" />Secure payment</span>
+                <span className="flex items-center gap-1"><Zap className="w-3 h-3 text-primary" />Instant access</span>
+                <span className="flex items-center gap-1"><Trophy className="w-3 h-3 text-amber-500" />All tests included</span>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>

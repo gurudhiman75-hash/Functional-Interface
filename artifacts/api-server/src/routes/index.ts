@@ -14,6 +14,9 @@ import analyticsRouter from "./analytics";
 import packagesRouter from "./packages";
 import purchaseRouter from "./purchase";
 import uploadQuestionsRouter from "./upload-questions";
+import dailyChallengeRouter from "./daily-challenge";
+import sectionsRouter from "./sections";
+import topicsRouter from "./topics";
 
 const router: IRouter = Router();
 
@@ -27,10 +30,13 @@ router.use("/analytics", analyticsRouter);
 router.use("/packages", packagesRouter);
 router.use("/purchase", purchaseRouter);
 router.use("/leaderboard", leaderboardRouter);
+  router.use("/daily-challenge", dailyChallengeRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
 router.use("/bundles", bundlesRouter);
 router.use("/admin-data", adminDataRouter);
 router.use("/upload-questions", uploadQuestionsRouter);
+router.use("/sections", sectionsRouter);
+router.use("/topics", topicsRouter);
 
 export default router;

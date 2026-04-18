@@ -1,5 +1,27 @@
 import { pgTable, text, integer, real, timestamp, jsonb, serial, primaryKey, unique, index } from "drizzle-orm/pg-core";
 
+// ── Question taxonomy ─────────────────────────────────────────────────────────
+/** Master list of question sections (e.g. Quant, Reasoning, English). */
+export const sections = pgTable("sections", {
+  id: text("id").primaryKey(),        // uuid, set by application
+  name: text("name").notNull().unique(),
+});
+
+/** Global topics (e.g. Arithmetic, Coding-Decoding). Independent of section. */
+export const topics = pgTable("topics", {
+  id: text("id").primaryKey(),      // uuid, set by application
+  name: text("name").notNull().unique(),
+});
+
+/**
+ * topics_global — canonical global topics table (independent of section).
+ * Coexists with `topics` during migration; eventually replaces it.
+ */
+export const topicsGlobal = pgTable("topics_global", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull().unique(),
+});
+
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
   email: text("email").notNull(),
@@ -82,6 +104,10 @@ export const tests = pgTable("tests", {
   priceCents: integer("price_cents"),
   /** Whether this test is freely accessible without purchase */
   isFree: integer("is_free").notNull().default(0),
+  /** For topic-wise tests: FK to the master topics table */
+  topicId: text("topic_id"),
+  /** For topic-wise tests: resolved topic name (denormalized for quick reads) */
+  topicName: text("topic_name"),
 });
 
 export const userTestEntitlements = pgTable(
@@ -111,6 +137,13 @@ export const questions = pgTable("questions", {
   options: jsonb("options").notNull(),
   correct: integer("correct").notNull(),
   section: text("section").notNull(),
+  topic: text("topic").notNull().default("General"),
+  /** FK to sections master table — nullable so existing rows are unaffected */
+  sectionId: text("section_id").references(() => sections.id, { onDelete: "set null" }),
+  /** FK to topics master table — nullable so existing rows are unaffected */
+  topicId: text("topic_id").references(() => topics.id, { onDelete: "set null" }),
+  /** FK to topics_global — preferred over topicId for new data */
+  globalTopicId: text("global_topic_id").notNull().references(() => topicsGlobal.id, { onDelete: "restrict" }),
   explanation: text("explanation").notNull(),
   // Translation columns — nullable; null means no translation available for that language
   textHi: text("text_hi"),
@@ -122,26 +155,38 @@ export const questions = pgTable("questions", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const attempts = pgTable("attempts", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").notNull(),
-  testId: text("test_id").notNull(),
-  testName: text("test_name").notNull(),
-  category: text("category").notNull(),
-  score: real("score").notNull(),
-  correct: integer("correct").notNull(),
-  wrong: integer("wrong").notNull(),
-  unanswered: integer("unanswered").notNull(),
-  totalQuestions: integer("total_questions").notNull(),
-  timeSpent: integer("time_spent").notNull(),
-  date: text("date").notNull(),
-  /** "REAL" | "PRACTICE" — null means legacy row, treated as REAL */
-  attemptType: text("attempt_type").$type<"REAL" | "PRACTICE">(),
-  sectionStats: jsonb("section_stats"),
-  sectionTimeSpent: jsonb("section_time_spent"),
-  questionReview: jsonb("question_review"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+export const attempts = pgTable(
+  "attempts",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    testId: text("test_id")
+      .notNull()
+      .references(() => tests.id, { onDelete: "cascade" }),
+    testName: text("test_name").notNull(),
+    category: text("category").notNull(),
+    score: real("score").notNull(),
+    correct: integer("correct").notNull(),
+    wrong: integer("wrong").notNull(),
+    unanswered: integer("unanswered").notNull(),
+    totalQuestions: integer("total_questions").notNull(),
+    timeSpent: integer("time_spent").notNull(),
+    /** "REAL" | "PRACTICE" — null means legacy row, treated as REAL */
+    attemptType: text("attempt_type").$type<"REAL" | "PRACTICE">(),
+    sectionStats: jsonb("section_stats"),
+    sectionTimeSpent: jsonb("section_time_spent"),
+    questionReview: jsonb("question_review"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    userIdIdx: index("attempts_user_id_idx").on(t.userId),
+    testIdIdx: index("attempts_test_id_idx").on(t.testId),
+    // Composite index for leaderboard queries: filter by test, order by score
+    testIdScoreIdx: index("attempts_test_id_score_idx").on(t.testId, t.score),
+  }),
+);
 
 // Package system tables
 export const packages = pgTable("packages", {
@@ -215,28 +260,13 @@ export const userBundles = pgTable(
   }),
 );
 
-export const attemptRecords = pgTable("attempt_records", {
-  id: text("id").primaryKey(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  testId: text("test_id")
-    .notNull()
-    .references(() => tests.id, { onDelete: "cascade" }),
-  mode: text("mode").$type<"REAL" | "PRACTICE">().notNull(),
-  attemptNumber: integer("attempt_number").notNull().default(1),
-  startTime: timestamp("start_time").notNull(),
-  endTime: timestamp("end_time"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
 export const responses = pgTable(
   "responses",
   {
     id: serial("id").primaryKey(),
     attemptId: text("attempt_id")
       .notNull()
-      .references(() => attemptRecords.id, { onDelete: "cascade" }),
+      .references(() => attempts.id, { onDelete: "cascade" }),
     questionId: integer("question_id")
       .notNull()
       .references(() => questions.id, { onDelete: "cascade" }),
@@ -247,5 +277,26 @@ export const responses = pgTable(
   (t) => ({
     uniqueAttemptQuestion: unique().on(t.attemptId, t.questionId),
     attemptIdIdx: index("responses_attempt_id_idx").on(t.attemptId),
+    questionIdIdx: index("responses_question_id_idx").on(t.questionId),
+  }),
+);
+
+export const leaderboard = pgTable(
+  "leaderboard",
+  {
+    testId: text("test_id")
+      .notNull()
+      .references(() => tests.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    userName: text("user_name").notNull(),
+    score: real("score").notNull(),
+    rank: integer("rank").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.testId, t.userId] }),
+    testIdRankIdx: index("leaderboard_test_id_rank_idx").on(t.testId, t.rank),
   }),
 );

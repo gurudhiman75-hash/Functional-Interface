@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect, useCallback, type ChangeEvent } from "react";
 import { useLocation } from "wouter";
-import { getAnalytics, getUserAttempts, getLeaderboard, type TestAttempt } from "@/lib/data";
+import { getAnalytics, getUserAttempts, getLeaderboard, getWeakAreaAnalysis, type TestAttempt } from "@/lib/data";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar, Cell, ReferenceLine,
@@ -141,6 +141,14 @@ export default function PerformancePage() {
     staleTime: 60_000,
   });
 
+  const { data: weakAreaData } = useQuery({
+    queryKey: ["weak-areas", "aggregate", user?.id],
+    queryFn: () => getWeakAreaAnalysis(),
+    enabled: !!user?.id,
+    retry: false,
+    staleTime: 120_000,
+  });
+
   const leaderboard = leaderboardData?.leaderboard ?? [];
   const currentUserRow = user ? leaderboard.find((row) => row.userId === user.id) : undefined;
   const showUserRank = Boolean(user && leaderboardData?.currentUserRank && !currentUserRow);
@@ -159,7 +167,7 @@ export default function PerformancePage() {
     () =>
       [...filteredAttempts]
         .filter((a) => !a.attemptType || a.attemptType === "REAL")
-        .sort((a, b) => (a.date < b.date ? -1 : 1)),
+        .sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1)),
     [filteredAttempts],
   );
 
@@ -167,7 +175,7 @@ export default function PerformancePage() {
   const chartData = useMemo(
     () =>
       realAttempts.map((a, i) => ({
-        label: new Date(a.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
+        label: new Date(a.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
         score: a.score,
         testName: a.testName,
         change: i > 0 ? +(a.score - realAttempts[i - 1].score).toFixed(1) : null,
@@ -254,13 +262,14 @@ export default function PerformancePage() {
       ? +(currentUserRow.score - topperScore).toFixed(1)
       : null;
 
-  // percentile = ((totalUsers - rank) / totalUsers) * 100
-  // We estimate totalUsers as max(leaderboardSize, currentUserRank)
+  // Percentile: lower = better. "Top X%" means you beat (100-X)% of participants.
+  // Uses totalParticipants from the API for accuracy; falls back to leaderboard list size.
   const percentile = useMemo(() => {
     if (!leaderboardData?.currentUserRank) return null;
     const rank = leaderboardData.currentUserRank;
-    const total = Math.max(leaderboard.length, rank);
-    return Math.min(100, Math.max(0, Math.round(((total - rank) / total) * 100)));
+    const total = leaderboardData.totalParticipants ?? Math.max(leaderboard.length, rank);
+    if (total < 1) return null;
+    return Math.max(1, Math.ceil((rank / total) * 100));
   }, [leaderboardData, leaderboard.length]);
 
   const leaderboardSize = leaderboard.length;
@@ -320,7 +329,7 @@ export default function PerformancePage() {
         list.push({ icon: <BarChart2 size={14} />, text: `High score variance detected — consistency score ${consistencyScore}/100. Focus on steady performance.`, color: "text-amber-500 bg-amber-50 border-amber-200" });
     }
     if (percentile !== null)
-      list.push({ icon: <Users size={14} />, text: `You are ahead of ${percentile}% of users on the selected test`, color: "text-primary bg-primary/10 border-primary/20" });
+      list.push({ icon: <Users size={14} />, text: `You are in the top ${percentile}% of all participants on the selected test`, color: "text-primary bg-primary/10 border-primary/20" });
     if (timeStats && timeStats.avgSecondsPerQ > 0)
       list.push({ icon: <Clock size={14} />, text: `You spend an average of ${formatSeconds(timeStats.avgSecondsPerQ)} per question`, color: "text-muted-foreground bg-muted/30 border-border" });
     if (analytics && analytics.totalAttempts >= 5 && analytics.averageScore >= 80)
@@ -707,6 +716,65 @@ export default function PerformancePage() {
           </CardContent>
         </Card>
 
+        {/* ── Topic-level insights ── */}
+        {(weakAreaData?.weakestTopics?.length || weakAreaData?.strongestTopics?.length) ? (
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Target className="w-4 h-4 text-amber-500" /> Topic Insights
+              </CardTitle>
+              <p className="text-xs text-muted-foreground">Based on all your real attempts</p>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              {weakAreaData?.weakestTopics?.length ? (
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide mb-2.5 text-red-600">Needs Work</p>
+                  <div className="space-y-2.5">
+                    {weakAreaData.weakestTopics.map((t) => (
+                      <div key={`${t.section}||${t.topic}`} className="flex items-center gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs text-foreground font-medium truncate" title={t.topic}>{t.topic}</p>
+                          <p className="text-[10px] text-muted-foreground">{t.section}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all duration-500 ${t.accuracy >= 50 ? "bg-amber-400" : "bg-red-500"}`}
+                              style={{ width: `${t.accuracy}%` }}
+                            />
+                          </div>
+                          <span className={`text-xs font-semibold w-10 text-right ${t.accuracy >= 50 ? "text-amber-600" : "text-red-500"}`}>{t.accuracy}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              {weakAreaData?.strongestTopics?.length ? (
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide mb-2.5 text-emerald-600">Strongest Topics</p>
+                  <div className="space-y-2.5">
+                    {weakAreaData.strongestTopics.map((t) => (
+                      <div key={`${t.section}||${t.topic}`} className="flex items-center gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs text-foreground font-medium truncate" title={t.topic}>{t.topic}</p>
+                          <p className="text-[10px] text-muted-foreground">{t.section}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
+                            <div className="h-full rounded-full bg-emerald-500 transition-all duration-500" style={{ width: `${t.accuracy}%` }} />
+                          </div>
+                          <span className="text-xs font-semibold w-10 text-right text-emerald-600">{t.accuracy}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </CardContent>
+          </Card>
+        ) : null}
+
         {/* ── Score Trend Chart ── */}
         {chartData.length >= 2 && (
           <Card>
@@ -859,7 +927,7 @@ export default function PerformancePage() {
                         ? Math.round(attempt.timeSpent / attempt.totalQuestions)
                         : null;
                       return (
-                        <tr key={`${attempt.testId}-${attempt.date}-${idx}`} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                        <tr key={`${attempt.testId}-${attempt.createdAt}-${idx}`} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
                           <td className="py-3 px-3 text-foreground font-medium text-sm">{attempt.testName}</td>
                           <td className="text-right py-3 px-3">
                             <span className={`font-bold text-sm ${scoreColor(attempt.score)}`}>{attempt.score}%</span>
@@ -873,7 +941,7 @@ export default function PerformancePage() {
                             {avgTime != null ? <span title="Avg time per question">{formatSeconds(avgTime)}/q</span> : "—"}
                           </td>
                           <td className="text-right py-3 px-3 text-muted-foreground text-xs hidden sm:table-cell">
-                            {new Date(attempt.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                            {new Date(attempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                           </td>
                         </tr>
                       );
@@ -971,11 +1039,11 @@ export default function PerformancePage() {
                 {percentile !== null && (
                   <div
                     className="flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-xs"
-                    title="Percentile = ((total users − your rank) / total users) × 100"
+                    title={`You rank in the top ${percentile}% of all ${leaderboardData?.totalParticipants ?? leaderboard.length} participants`}
                   >
                     <Users size={12} className="text-primary" />
-                    <span className="text-muted-foreground">Percentile:</span>
-                    <span className="font-bold text-foreground">{percentile}th</span>
+                    <span className="text-muted-foreground">Top</span>
+                    <span className="font-bold text-foreground">{percentile}%</span>
                   </div>
                 )}
               </div>

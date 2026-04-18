@@ -1,7 +1,6 @@
 import * as admin from "firebase-admin";
 
-let authInstance: any = null;
-let firestoreInstance: any = null;
+const isProd = process.env.NODE_ENV === "production";
 
 function decodeJwtPayload(token: string) {
   const payload = token.split(".")[1];
@@ -16,55 +15,49 @@ function decodeJwtPayload(token: string) {
   }
 }
 
-try {
-  if (!admin.apps || admin.apps.length === 0) {
-    // For development, skip initialization if credentials are not available
-    if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
-      admin.initializeApp({
-        credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)),
-      });
-      authInstance = admin.auth();
-      firestoreInstance = admin.firestore();
-    } else {
-      console.warn("Firebase Admin not initialized - no FIREBASE_SERVICE_ACCOUNT_KEY provided");
-      // Create mock instances for development
-      authInstance = {
-        verifyIdToken: async (token: string) => {
-          const payload = decodeJwtPayload(token);
-          if (!payload) {
-            throw new Error("Invalid token");
-          }
+const serviceAccountKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 
-          return {
-            uid: String(payload.user_id ?? payload.sub ?? "mock-user"),
-            email: typeof payload.email === "string" ? payload.email : "mock@example.com",
-          };
-        },
-      };
-      firestoreInstance = null;
-    }
-  } else {
-    authInstance = admin.auth();
-    firestoreInstance = admin.firestore();
+if (!serviceAccountKey) {
+  if (isProd) {
+    throw new Error(
+      "FIREBASE_SERVICE_ACCOUNT_KEY is required in production. " +
+      "Set this environment variable to a valid Firebase service account JSON string.",
+    );
   }
-} catch (error) {
-  console.warn("Firebase Admin initialization failed:", error);
-  // Create mock instances for development
+  console.warn(
+    "[firebase-admin] FIREBASE_SERVICE_ACCOUNT_KEY not set. " +
+    "Using mock auth — development only.",
+  );
+}
+
+let authInstance: admin.auth.Auth | { verifyIdToken: (token: string) => Promise<{ uid: string; email: string }> };
+let firestoreInstance: admin.firestore.Firestore | null = null;
+
+if (serviceAccountKey) {
+  if (!admin.apps || admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.parse(serviceAccountKey)),
+    });
+  }
+  authInstance = admin.auth();
+  firestoreInstance = admin.firestore();
+} else {
+  // Development mock — decodes the JWT locally without signature verification.
+  // This path is unreachable in production (error thrown above).
   authInstance = {
     verifyIdToken: async (token: string) => {
       const payload = decodeJwtPayload(token);
       if (!payload) {
         throw new Error("Invalid token");
       }
-
       return {
         uid: String(payload.user_id ?? payload.sub ?? "mock-user"),
         email: typeof payload.email === "string" ? payload.email : "mock@example.com",
       };
     },
   };
-  firestoreInstance = null;
 }
 
 export const auth = authInstance;
 export const firestore = firestoreInstance;
+

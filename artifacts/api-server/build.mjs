@@ -121,22 +121,46 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     entryPoints: [path.resolve(artifactDir, "src/index.ts")],
   });
 
-  // Build db-seed script
+  // Build db:migrate script
   await esbuild({
     ...commonConfig,
-    entryPoints: [path.resolve(artifactDir, "src/db-seed.ts")],
+    entryPoints: [path.resolve(artifactDir, "migrate.ts")],
   });
 
-  // Build db-reset script
+  // Build db:seed script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "src/db-init.ts")],
+  });
+
+  // Build db:reset script
   await esbuild({
     ...commonConfig,
     entryPoints: [path.resolve(artifactDir, "src/db-reset.ts")],
   });
 
-  // Build db-init script
+  // Build db-seed script (legacy alias)
   await esbuild({
     ...commonConfig,
-    entryPoints: [path.resolve(artifactDir, "src/db-init.ts")],
+    entryPoints: [path.resolve(artifactDir, "src/db-seed.ts")],
+  });
+
+  // Build normalize-questions script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "normalize-questions.ts")],
+  });
+
+  // Build check-normalization script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "check-normalization.ts")],
+  });
+
+  // Build populate-global-topics migration script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "populate-global-topics.ts")],
   });
 }
 

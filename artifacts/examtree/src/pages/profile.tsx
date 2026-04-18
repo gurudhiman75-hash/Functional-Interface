@@ -239,7 +239,7 @@ export default function ProfilePage() {
                 ) : (
                   <div className="space-y-3">
                     {attempts.slice(0, 4).map((attempt) => (
-                      <div key={`${attempt.testId}-${attempt.date}`} className="rounded-2xl border border-border bg-card p-4">
+                      <div key={`${attempt.testId}-${attempt.createdAt}`} className="rounded-2xl border border-border bg-card p-4">
                         <div className="flex items-center justify-between gap-3">
                           <div>
                             <p className="font-semibold text-foreground">{attempt.testName}</p>
@@ -249,7 +249,7 @@ export default function ProfilePage() {
                         </div>
                         <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
                           <span>{attempt.correct}/{attempt.totalQuestions} correct</span>
-                          <span>{new Date(attempt.date).toLocaleDateString()}</span>
+                          <span>{new Date(attempt.createdAt).toLocaleDateString()}</span>
                         </div>
                       </div>
                     ))}

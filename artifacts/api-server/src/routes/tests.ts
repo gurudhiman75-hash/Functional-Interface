@@ -6,6 +6,7 @@ import { Test, type TestSection } from "@workspace/api-zod";
 import { buildSectionsWithQuestions } from "../lib/test-sections";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
 import { authenticate } from "../middlewares/auth";
+import { cacheGet, cacheSet, CacheKey, TTL } from "../lib/cache";
 
 const router: IRouter = Router();
 
@@ -50,7 +51,25 @@ async function canAccessPaidTest(userId: string | undefined, testId: string): Pr
   return ent.length > 0;
 }
 
+// GET /api/tests/category-free-ids?category=SSC
+// Returns IDs+names of all free tests in a given category (lightweight, no questions)
+router.get("/category-free-ids", async (req, res) => {
+  const category = req.query.category as string | undefined;
+  if (!category) return res.status(400).json({ error: "category query param is required" });
+
+  const rows = await db
+    .select({ id: tests.id, name: tests.name })
+    .from(tests)
+    .where(and(eq(tests.category, category), eq(tests.access, "free")));
+
+  return res.json(rows);
+});
+
 router.get("/", async (_req, res) => {
+  const cacheKey = CacheKey.testsList();
+  const cached = await cacheGet<unknown[]>(cacheKey);
+  if (cached) return res.json(cached);
+
   const allTests = await db
     .select({ test: tests, subcategoryLanguages: subcategories.languages })
     .from(tests)
@@ -77,6 +96,7 @@ router.get("/", async (_req, res) => {
       languages: langs,
     };
   });
+  await cacheSet(cacheKey, payload, TTL.TESTS_LIST);
   return res.json(payload);
 });
 

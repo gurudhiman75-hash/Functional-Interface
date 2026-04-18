@@ -1,10 +1,16 @@
 import { Router, type IRouter } from "express";
 import multer from "multer";
 import { eq } from "drizzle-orm";
+import { randomUUID } from "crypto";
 import { db } from "../lib/db";
-import { questions, subcategories } from "@workspace/db";
+import { questions, sections, topicsGlobal, tests as testsTable } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
+
+/** Trim + lowercase for case-insensitive matching */
+function normaliseKey(v: string): string {
+  return v.trim().toLowerCase().replace(/\s+/g, " ");
+}
 
 const router: IRouter = Router();
 
@@ -51,14 +57,24 @@ function parseCsvLine(line: string): string[] {
 
 const CORRECT_MAP: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
 
-const REQUIRED_HEADERS = [
-  "question_en",
-  "optiona_en",
-  "optionb_en",
-  "optionc_en",
-  "optiond_en",
-  "correct_option",
-];
+/** Always-required columns regardless of language */
+const BASE_REQUIRED_HEADERS = ["correct_option"];
+
+/** Build the list of required column names for the given language set */
+function buildRequiredHeaders(langs: string[]): string[] {
+  const cols = [...BASE_REQUIRED_HEADERS];
+  for (const lang of ["en", "hi", "pa"]) {
+    if (!langs.includes(lang)) continue;
+    cols.push(
+      `question_${lang}`,
+      `optiona_${lang}`,
+      `optionb_${lang}`,
+      `optionc_${lang}`,
+      `optiond_${lang}`,
+    );
+  }
+  return cols;
+}
 
 /**
  * POST /api/upload-questions
@@ -66,7 +82,11 @@ const REQUIRED_HEADERS = [
  *   - file: the CSV file
  *   - testId: string (required)
  *   - subcategoryId: string (optional — used to enforce language columns)
- *   - section: string (optional, defaults to "General")
+ *   - sectionId: string (optional, batch-level ID; per-row 'section_id' column takes precedence)
+ *   - section: string (optional, batch-level name fallback when sectionId absent)
+ *   - topicId: string (optional, batch-level ID; per-row 'topic_id' column takes precedence)
+ *   - topic: string (optional, batch-level name fallback when topicId absent)
+ *   - createMissingTopics: "true"|"false" (optional; when "true", auto-create topics not in master)
  */
 router.post("/", authenticate, upload.single("file"), async (req, res) => {
   try {
@@ -79,20 +99,44 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
 
   const testId = (req.body.testId as string | undefined)?.trim();
   const subcategoryId = (req.body.subcategoryId as string | undefined)?.trim() || null;
-  const section = (req.body.section as string | undefined)?.trim() ?? "General";
 
-  // Fetch subcategory languages to enforce bilingual columns
-  let requiredLangs: string[] = ["en"];
-  if (subcategoryId) {
-    const [sub] = await db.select().from(subcategories).where(eq(subcategories.id, subcategoryId)).limit(1);
-    if (sub && Array.isArray(sub.languages) && sub.languages.length > 0) {
-      requiredLangs = sub.languages as string[];
-    }
-  }
-  const needHi = requiredLangs.includes("hi");
-  const needPa = requiredLangs.includes("pa");
+  // Batch-level overrides: prefer ID, fall back to name string
+  const batchSectionId = (req.body.sectionId as string | undefined)?.trim() ?? "";
+  const batchSection   = (req.body.section   as string | undefined)?.trim() ?? "";
+  const batchTopicId   = (req.body.topicId   as string | undefined)?.trim() ?? "";
+  const batchTopic     = (req.body.topic     as string | undefined)?.trim() ?? "";
+  const createMissingTopics = (req.body.createMissingTopics as string | undefined)?.trim() === "true";
+
+  // ── Load master tables once for this request ─────────────────────────────
+  const [allSections, allTopicsGlobalRaw] = await Promise.all([
+    db.select().from(sections),
+    db.select().from(topicsGlobal),
+  ]);
+  // Mutable array — grows when topics are auto-created during this request
+  const allGlobalTopics = [...allTopicsGlobalRaw];
+
+  // Build lookup maps: normalised name → row
+  const sectionByName = new Map(allSections.map((s) => [normaliseKey(s.name), s]));
+  const sectionById   = new Map(allSections.map((s) => [s.id, s]));
+  // topics_global lookup by normalised name → row
+  const topicsGlobalByName = new Map(allTopicsGlobalRaw.map((t) => [normaliseKey(t.name), t]));
+  const topicsGlobalById   = new Map(allTopicsGlobalRaw.map((t) => [t.id, t]));
 
   if (!testId) return res.status(400).json({ error: "testId is required" });
+
+  // ── Resolve required languages from the test record ──────────────────────
+  // Priority: test.languages → default ["en"]
+  // We do NOT inherit from subcategory — if a test needs bilingual validation
+  // its own languages field must be explicitly set (e.g. ["en","pa"]).
+  const [testRow] = await db.select().from(testsTable).where(eq(testsTable.id, testId)).limit(1);
+  if (!testRow) return res.status(404).json({ error: `Test "${testId}" not found` });
+
+  const requiredLangs: string[] =
+    Array.isArray(testRow.languages) && (testRow.languages as string[]).length > 0
+      ? (testRow.languages as string[])
+      : ["en"];
+  const needHi = requiredLangs.includes("hi");
+  const needPa = requiredLangs.includes("pa");
 
   const csvText = req.file.buffer.toString("utf-8");
   const lines = csvText
@@ -110,10 +154,11 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
   const rawHeader = parseCsvLine(lines[0]);
   const header = rawHeader.map((h) => h.toLowerCase().trim());
 
-  // Validate required columns
-  for (const req_col of REQUIRED_HEADERS) {
+  // Validate required columns — dynamically based on resolved languages
+  const requiredHeaders = buildRequiredHeaders(requiredLangs);
+  for (const req_col of requiredHeaders) {
     if (!header.includes(req_col)) {
-      return res.status(400).json({ error: `Missing required column: "${req_col}"` });
+      return res.status(400).json({ error: `Missing required column: "${req_col}" (required for languages: ${requiredLangs.join(", ")})` });
     }
   }
 
@@ -126,19 +171,22 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
     const rowNum = i + 1; // 1-based for user display
     const cells = parseCsvLine(lines[i]);
 
-    const questionEn = get(cells, "question_en");
-    const optionAEn = get(cells, "optiona_en");
-    const optionBEn = get(cells, "optionb_en");
-    const optionCEn = get(cells, "optionc_en");
-    const optionDEn = get(cells, "optiond_en");
     const correctRaw = get(cells, "correct_option").toUpperCase();
 
-    // Validate required fields
-    if (!questionEn) {
+    // ── Per-row validation: only require fields for active languages ───────
+    // English (always required when "en" in requiredLangs)
+    const needEn = requiredLangs.includes("en");
+    const questionEn = needEn ? get(cells, "question_en") : (get(cells, "question_en") || "");
+    const optionAEn = needEn ? get(cells, "optiona_en") : (get(cells, "optiona_en") || "");
+    const optionBEn = needEn ? get(cells, "optionb_en") : (get(cells, "optionb_en") || "");
+    const optionCEn = needEn ? get(cells, "optionc_en") : (get(cells, "optionc_en") || "");
+    const optionDEn = needEn ? get(cells, "optiond_en") : (get(cells, "optiond_en") || "");
+
+    if (needEn && !questionEn) {
       errors.push({ row: rowNum, reason: "question_en is missing" });
       continue;
     }
-    if (!optionAEn || !optionBEn || !optionCEn || !optionDEn) {
+    if (needEn && (!optionAEn || !optionBEn || !optionCEn || !optionDEn)) {
       errors.push({ row: rowNum, reason: "One or more English options are missing" });
       continue;
     }
@@ -147,7 +195,88 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
       continue;
     }
 
-    // Language enforcement based on subcategory configuration
+    // ── Section / Topic resolution against master tables ───────────────────
+    // Per-row columns take precedence over batch-level body fields.
+    // IDs (section_id / topic_id columns) take precedence over name strings.
+    const rowSectionId = get(cells, "section_id");
+    const rowSection   = get(cells, "section");
+    const rowTopicId   = get(cells, "topic_id");
+    const rowTopic     = get(cells, "topic");
+
+    const effectiveSectionId = rowSectionId || batchSectionId;
+    const effectiveSectionName = rowSection || batchSection;
+    const effectiveTopicId   = rowTopicId   || batchTopicId;
+    const effectiveTopicName  = rowTopic    || batchTopic;
+
+    // ── Resolve section ────────────────────────────────────────────────────
+    let sectionRow: (typeof allSections)[number] | undefined;
+    if (effectiveSectionId) {
+      // ID provided — look up directly
+      sectionRow = sectionById.get(effectiveSectionId);
+      if (!sectionRow) {
+        errors.push({ row: rowNum, reason: `sectionId "${effectiveSectionId}" not found in master sections table` });
+        continue;
+      }
+    } else if (effectiveSectionName) {
+      // Name provided — case-insensitive match
+      sectionRow = sectionByName.get(normaliseKey(effectiveSectionName));
+      if (!sectionRow) {
+        errors.push({ row: rowNum, reason: `Section "${effectiveSectionName}" not found in master table. Valid sections: ${allSections.map((s) => s.name).join(", ")}` });
+        continue;
+      }
+    } else {
+      errors.push({ row: rowNum, reason: "section is missing — provide a 'section_id' or 'section' column in the CSV, or a sectionId / section field in the request" });
+      continue;
+    }
+
+    // ── Resolve topic from topics_global (primary source) ─────────────────
+    let globalTopicRow: (typeof allGlobalTopics)[number] | undefined;
+    if (effectiveTopicId) {
+      // ID provided — look up by id first, then fall back to name in topics_global
+      globalTopicRow = topicsGlobalById.get(effectiveTopicId)
+        ?? allGlobalTopics.find((t) => normaliseKey(t.name) === normaliseKey(effectiveTopicId));
+    }
+    if (!globalTopicRow && effectiveTopicName) {
+      // Name match (case-insensitive)
+      globalTopicRow = topicsGlobalByName.get(normaliseKey(effectiveTopicName));
+    }
+    if (!globalTopicRow) {
+      // Determine the canonical name to create under
+      const nameToCreate = effectiveTopicName || effectiveTopicId;
+      if (!nameToCreate) {
+        errors.push({ row: rowNum, reason: "topic is missing — provide a 'topic_id' or 'topic' column in the CSV, or a topicId / topic field in the request" });
+        continue;
+      }
+      // Auto-create idempotently in topics_global (ON CONFLICT DO NOTHING ensures no duplicates)
+      const newId = `topic-${nameToCreate.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`;
+      await db
+        .insert(topicsGlobal)
+        .values({ id: newId, name: nameToCreate })
+        .onConflictDoNothing();
+      // Re-fetch canonical row (may have pre-existed with a different id)
+      const [created] = await db
+        .select()
+        .from(topicsGlobal)
+        .where(eq(topicsGlobal.name, nameToCreate))
+        .limit(1);
+      if (!created) {
+        errors.push({ row: rowNum, reason: `Failed to create topic "${nameToCreate}" in topics_global` });
+        continue;
+      }
+      globalTopicRow = created;
+      // Cache for subsequent rows in this upload
+      allGlobalTopics.push(created);
+      topicsGlobalByName.set(normaliseKey(created.name), created);
+      topicsGlobalById.set(created.id, created);
+    }
+
+    // Use canonical names from master tables (maintains consistency)
+    const section   = sectionRow.name;
+    const topic     = globalTopicRow.name;
+    const sectionId = sectionRow.id;
+    const globalTopicId = globalTopicRow.id;
+
+    // Language enforcement based on test (or subcategory) language configuration
     if (needHi) {
       const qHi = get(cells, "question_hi");
       const oAHi = get(cells, "optiona_hi");
@@ -212,9 +341,13 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
       clientId: `csv-${Date.now()}-${i}-${Math.random().toString(36).slice(2, 6)}`,
       testId,
       section,
+      topic,
+      sectionId,
+      topicId: null,
+      globalTopicId,
       text: questionEn,
       options: [optionAEn, optionBEn, optionCEn, optionDEn],
-      correct: correctIndex,
+      correct: CORRECT_MAP[correctRaw],
       explanation: explanationEn,
       textHi: questionHi,
       optionsHi: optionsHi as string[] | null,
@@ -225,21 +358,37 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
     });
   }
 
-  let inserted = 0;
-  // Insert in batches to avoid hitting query limits
-  const BATCH = 100;
-  for (let b = 0; b < toInsert.length; b += BATCH) {
-    const batch = toInsert.slice(b, b + BATCH);
-    if (batch.length > 0) {
-      await db.insert(questions).values(batch);
-      inserted += batch.length;
-    }
+  const totalRows = lines.length - 1; // exclude header
+
+  // If ANY row failed validation, reject the entire upload — no partial inserts
+  if (errors.length > 0) {
+    return res.status(422).json({
+      error: "Upload rejected: validation errors found. No rows were inserted.",
+      totalRows,
+      successCount: 0,
+      errorCount: errors.length,
+      errors,
+    });
   }
 
-  return res.json({
-    inserted,
-    skipped: errors.length,
-    errors: errors.slice(0, 50), // cap error list at 50
+  if (toInsert.length === 0) {
+    return res.status(400).json({ error: "No valid rows to insert" });
+  }
+
+  // Insert all rows atomically — any DB error rolls back the entire upload
+  const BATCH = 100;
+  await db.transaction(async (tx) => {
+    for (let b = 0; b < toInsert.length; b += BATCH) {
+      const batch = toInsert.slice(b, b + BATCH);
+      await tx.insert(questions).values(batch);
+    }
+  });
+
+  return res.status(201).json({
+    totalRows,
+    successCount: toInsert.length,
+    errorCount: 0,
+    errors: [],
   });
 });
 

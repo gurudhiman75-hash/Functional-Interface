@@ -482,7 +482,7 @@ export default function SubcategoryPage() {
                         if (!att) return null;
                         return (
                           <p className="text-[11px] text-muted-foreground/70">
-                            Last attempt: {new Date(att.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                            Last attempt: {new Date(att.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                             {att.score != null && <> &middot; <span className={att.score >= 70 ? "text-emerald-600" : att.score >= 40 ? "text-amber-600" : "text-rose-600"}>{att.score}%</span></>}
                           </p>
                         );
@@ -499,6 +499,7 @@ export default function SubcategoryPage() {
                           onStart={() => setLocation(`/test/${test.id}`)}
                           onBuy={() => setLocation("/packages")}
                           onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
+                          onReview={() => setLocation(`/result?testId=${encodeURIComponent(test.id)}`)}
                         />
                       </div>
                     </div>
@@ -552,7 +553,7 @@ export default function SubcategoryPage() {
                           if (!att) return null;
                           return (
                             <p className="mt-0.5 text-[11px] text-muted-foreground/70">
-                              {new Date(att.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                              {new Date(att.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                               {att.score != null && <> &middot; <span className={att.score >= 70 ? "text-emerald-600 font-medium" : att.score >= 40 ? "text-amber-600 font-medium" : "text-rose-600 font-medium"}>{att.score}%</span></>}
                             </p>
                           );
@@ -572,6 +573,7 @@ export default function SubcategoryPage() {
                           onStart={() => setLocation(`/test/${test.id}`)}
                           onBuy={() => setLocation("/packages")}
                           onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
+                          onReview={() => setLocation(`/result?testId=${encodeURIComponent(test.id)}`)}
                         />
                       </div>
                     </div>
@@ -717,9 +719,10 @@ type TestActionButtonProps = {
   onStart: () => void;
   onBuy: () => void;
   onUnlock: () => void;
+  onReview: () => void;
 };
 
-function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, user, onStart, onBuy, onUnlock }: TestActionButtonProps) {
+function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, user, onStart, onBuy, onUnlock, onReview }: TestActionButtonProps) {
   if (!isLocked || pkgOwned) {
     // If already completed, always show Retry (even if a stale active session exists)
     if (activeSession && !attempted) {
@@ -731,9 +734,14 @@ function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, u
     }
     if (attempted) {
       return (
-        <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 hover:border-foreground/40 font-medium" onClick={onStart}>
-          <RotateCcw className="mr-1.5 h-3.5 w-3.5" />Retry
-        </Button>
+        <div className="flex gap-1.5">
+          <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 hover:border-foreground/40 font-medium" onClick={onStart}>
+            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />Retry
+          </Button>
+          <Button size="sm" variant="outline" className="rounded-lg border-purple-300 text-purple-700 hover:bg-purple-50 font-medium" onClick={onReview}>
+            <BookOpen className="mr-1.5 h-3.5 w-3.5" />Review
+          </Button>
+        </div>
       );
     }
     return (

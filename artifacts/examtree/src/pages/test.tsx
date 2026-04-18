@@ -32,7 +32,7 @@ import {
   saveQuestionResponse,
   type TestAttempt,
 } from "@/lib/storage";
-import { createAttempt, postResponses, getPackagesByTest, getTest, type Test } from "@/lib/data";
+import { submitAttempt, getPackagesByTest, getTest, type Test } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
@@ -299,6 +299,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       setLockedSections(draft.lockedSections ?? []);
       setOriginalAttemptId(draft.originalAttemptId);
       setSectionCompletionTimes(draft.sectionCompletionTimes ?? {});
+      if (Array.isArray(draft.visitedQuestionIds)) {
+        setVisitedQuestionIds(draft.visitedQuestionIds);
+      }
       setShowSubmitModal(false);
       setDraftLoaded(true);
       toast({
@@ -402,6 +405,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       lockedSections,
       originalAttemptId,
       sectionCompletionTimes,
+      visitedQuestionIds,
     });
   }, [
     answers,
@@ -467,33 +471,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
-    const correct = allQuestions.filter((question) => answers[question.id] === question.correct).length;
-    const wrong = allQuestions.filter((question) => {
-      const answer = answers[question.id];
-      return answer !== null && answer !== undefined && answer !== question.correct;
-    }).length;
-    const unansweredCount = totalQuestions - correct - wrong;
-    const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
-
-    const sectionStats = effectiveSections.map((section) => {
-      const sectionCorrect = section.questions.filter((question) => answers[question.id] === question.correct).length;
-      const sectionWrong = section.questions.filter((question) => {
-        const answer = answers[question.id];
-        return answer !== null && answer !== undefined && answer !== question.correct;
-      }).length;
-      const sectionUnanswered = section.questions.length - sectionCorrect - sectionWrong;
-      const answeredForAccuracy = sectionCorrect + sectionWrong;
-
-      return {
-        name: section.name,
-        correct: sectionCorrect,
-        wrong: sectionWrong,
-        unanswered: sectionUnanswered,
-        totalQuestions: section.questions.length,
-        accuracy: answeredForAccuracy > 0 ? Math.round((sectionCorrect / answeredForAccuracy) * 100) : 0,
-      };
-    });
-
     const timeSpent = hasSectionalTiming
       ? Math.round(
           effectiveSections.reduce((sum, section, index) => {
@@ -504,56 +481,24 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         )
       : Math.round((totalTime - timeLeft) / 60);
 
-    const questionReview = allQuestions.map((question) => ({
-      questionId: question.id,
-      section: question.section,
-      text: question.text,
-      options: question.options,
-      ...(question.textHi ? { textHi: question.textHi } : {}),
-      ...(question.textPa ? { textPa: question.textPa } : {}),
-      ...(question.optionsHi && question.optionsHi.length > 0 ? { optionsHi: question.optionsHi } : {}),
-      ...(question.optionsPa && question.optionsPa.length > 0 ? { optionsPa: question.optionsPa } : {}),
-      ...(question.explanationHi ? { explanationHi: question.explanationHi } : {}),
-      ...(question.explanationPa ? { explanationPa: question.explanationPa } : {}),
-      selected: answers[question.id] ?? null,
-      correct: question.correct,
-      flagged: Boolean(flags[question.id]),
-      explanation: question.explanation,
+    const responsePayload = allQuestions.map((q) => ({
+      questionId: q.id,
+      selectedOption: answers[q.id] ?? null,
+      timeTaken: realExamTimes[q.id] ?? 0,
     }));
 
-    const attempt = {
-      userId: user?.id ?? "unknown",
-      testId: test.id,
-      testName: test.name,
-      category: test.category,
-      score,
-      correct,
-      wrong,
-      unanswered: unansweredCount,
-      totalQuestions,
-      timeSpent,
-      date: new Date().toLocaleDateString("en-CA"),
-      attemptType,
-      isFirstAttempt: attemptType === "REAL",
-      originalAttemptId: attemptType === "PRACTICE" ? originalAttemptId : undefined,
-      sectionStats,
-      sectionTimeSpent: hasSectionalTiming
-        ? effectiveSections.map((section, index) => {
-            const limit = getSectionLimitSeconds(index);
-            const remaining = sectionTimeLeftByName[section.name] ?? limit;
-            return {
-              name: section.name,
-              minutesSpent: Math.round(Math.max(0, limit - remaining) / 60),
-            };
-          })
-        : undefined,
-      questionReview,
-    };
+    const sectionTimeSpentPayload = hasSectionalTiming
+      ? effectiveSections.map((section, index) => {
+          const limit = getSectionLimitSeconds(index);
+          const remaining = sectionTimeLeftByName[section.name] ?? limit;
+          return {
+            name: section.name,
+            minutesSpent: Math.round(Math.max(0, limit - remaining) / 60),
+          };
+        })
+      : undefined;
 
-    // Save to localStorage first (always — acts as fallback)
-    addAttempt(attempt);
-
-    // Finalise the attempt record with endTime
+    // Finalise the attempt record with endTime (local tracking)
     const attemptRecord = getAttemptRecords().find(
       (r) => r.testId === test.id && r.mode === attemptType,
     );
@@ -564,50 +509,40 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     clearActiveTestSession(test.id);
     document.exitFullscreen?.().catch(() => {});
 
-    // Try to sync to backend API; navigate with server attemptId on success
+    // Submit to backend — server calculates and stores the authoritative score
     if (getFirebaseAuth()?.currentUser) {
       try {
-        const saved = await createAttempt(attempt);
-        const serverAttemptId = (saved as { id?: string }).id;
+        const saved = await submitAttempt({
+          testId: test.id,
+          testName: test.name,
+          category: test.category,
+          attemptType,
+          timeSpent,
+          responses: responsePayload,
+          flags,
+          sectionTimeSpent: sectionTimeSpentPayload,
+          originalAttemptId: attemptType === "PRACTICE" ? originalAttemptId : undefined,
+        });
 
-        if (serverAttemptId) {
-          // Build response payload from in-memory state — do NOT read from localStorage
-          const responsePayload = allQuestions.map((q) => ({
-            questionId: q.id,
-            selectedOption: answers[q.id] ?? null,
-            timeTaken: realExamTimes[q.id] ?? 0,
-          }));
+        // Also persist locally using the server-computed result as source of truth
+        addAttempt(saved as unknown as Parameters<typeof addAttempt>[0]);
 
-          if (responsePayload.length > 0) {
-            try {
-              await postResponses(serverAttemptId, responsePayload);
-            } catch (firstErr) {
-              console.error("Failed to sync responses (attempt 1):", firstErr);
-              // Retry once
-              try {
-                await postResponses(serverAttemptId, responsePayload);
-              } catch (retryErr) {
-                console.error("Failed to sync responses (attempt 2, giving up):", retryErr);
-                // Do not block navigation — local data is still available
-              }
-            }
-          }
-
-          if (attemptType === "PRACTICE") {
-            const woParam = wrongOnly ? "&wrongOnly=true" : "";
-            const secParam = sectionParam ? `&section=${encodeURIComponent(sectionParam)}` : "";
-            setLocation(`/result?testId=${encodeURIComponent(test.id)}&practiceAttemptId=${test.id}&attemptId=${encodeURIComponent(serverAttemptId)}${woParam}${secParam}`);
-          } else {
-            setLocation(`/result?testId=${encodeURIComponent(test.id)}&attemptId=${encodeURIComponent(serverAttemptId)}`);
-          }
-          return;
+        const serverAttemptId = saved.id!;
+        if (attemptType === "PRACTICE") {
+          const woParam = wrongOnly ? "&wrongOnly=true" : "";
+          const secParam = sectionParam ? `&section=${encodeURIComponent(sectionParam)}` : "";
+          setLocation(`/result?testId=${encodeURIComponent(test.id)}&practiceAttemptId=${test.id}&attemptId=${encodeURIComponent(serverAttemptId)}${woParam}${secParam}`);
+        } else {
+          setLocation(`/result?testId=${encodeURIComponent(test.id)}&attemptId=${encodeURIComponent(serverAttemptId)}`);
         }
-      } catch {
-        console.warn("Failed to sync attempt to backend. Falling back to local result.");
+        return;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Unknown error";
+        console.warn("Failed to submit attempt to backend. Falling back to local result.", msg);
       }
     }
 
-    // Fallback: navigate using local storage only
+    // Fallback: navigate using local storage only (offline / unauthenticated)
     if (attemptType === "PRACTICE") {
       const woParam = wrongOnly ? "&wrongOnly=true" : "";
       const secParam = sectionParam ? `&section=${encodeURIComponent(sectionParam)}` : "";
@@ -624,7 +559,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     answers,
     flags,
     attemptType,
-    user,
     originalAttemptId,
     sectionParam,
     wrongOnly,
@@ -635,7 +569,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     setLocation,
     test,
     timeLeft,
-    totalQuestions,
     totalTime,
     realExamTimes,
   ]);
@@ -1238,7 +1171,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   <span className="text-gray-700">Answered</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">{statusCounts.NOT_ANSWERED}</span>
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-yellow-400 text-[10px] font-bold text-gray-900">{statusCounts.NOT_ANSWERED}</span>
                   <span className="text-gray-700">Not Answered</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1284,7 +1217,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                             : status === "ANSWERED"
                             ? "bg-green-500 text-white"
                             : status === "NOT_ANSWERED"
-                            ? "bg-red-500 text-white"
+                            ? "bg-yellow-400 text-gray-900"
                             : "border border-gray-300 bg-white text-gray-600 hover:bg-gray-100";
 
                           return (
@@ -1773,7 +1706,18 @@ export default function Test() {
               )}
             </div>
           )}
-          <div className="mt-6 flex gap-3">
+          {firstRealAttempt && (
+            <div className="mt-5">
+              <Button
+                variant="outline"
+                className="w-full border-purple-300 text-purple-700 hover:bg-purple-50"
+                onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}`)}
+              >
+                View Solutions &amp; Review
+              </Button>
+            </div>
+          )}
+          <div className="mt-4 flex gap-3">
             <Button variant="outline" onClick={() => setLocation("/exams")}>Back</Button>
             <Button
               className="flex-1 bg-blue-600 text-white hover:bg-blue-700"

@@ -34,12 +34,13 @@ import {
   updateSubcategory,
   updateTest,
 } from "@/lib/admin-repo";
-import { createPackage, getTests as fetchBackendTests, getPackages, createBundle, getBundles } from "@/lib/data";
+import { createPackage, getTests as fetchBackendTests, getPackages, createBundle, getBundles, getSections, getAllTopics, createTopic, renameTopic, deleteTopic, createSection, deleteSection, type MasterSection, type MasterTopic } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 
 const isAdminUser = (role?: string) => role === "admin";
@@ -119,6 +120,108 @@ function SectionsInput({
         />
       </div>
       <p className="text-[11px] text-muted-foreground mt-1">Press Enter or comma to add. Backspace removes last.</p>
+    </div>
+  );
+}
+
+// ── Sections picker (master-table backed, no free text) ───────────────────────
+function SectionsPicker({
+  selected,       // selected section names
+  selectedIds,    // selected section IDs (parallel array)
+  masterSections, // from master table
+  onChange,       // (names, ids) => void
+  required,       // show asterisk / required styling
+  single,         // single-select mode (for topic-wise tests)
+}: {
+  selected: string[];
+  selectedIds: string[];
+  masterSections: { id: string; name: string }[];
+  onChange: (names: string[], ids: string[]) => void;
+  required?: boolean;
+  single?: boolean;
+}) {
+  const addSection = (id: string) => {
+    if (selectedIds.includes(id)) return;
+    const sec = masterSections.find((s) => s.id === id);
+    if (!sec) return;
+    onChange([...selected, sec.name], [...selectedIds, id]);
+  };
+
+  const removeSection = (id: string) => {
+    const idx = selectedIds.indexOf(id);
+    if (idx === -1) return;
+    const names = selected.filter((_, i) => i !== idx);
+    const ids = selectedIds.filter((_, i) => i !== idx);
+    onChange(names, ids);
+  };
+
+  const unselected = masterSections.filter((s) => !selectedIds.includes(s.id));
+
+  // Single-select mode: plain dropdown for topic-wise
+  if (single) {
+    const currentId = selectedIds[0] ?? "";
+    return (
+      <div>
+        <Label>Section{required && <span className="text-destructive ml-0.5">*</span>}</Label>
+        <select
+          className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          value={currentId}
+          onChange={(e) => {
+            const sec = masterSections.find((s) => s.id === e.target.value);
+            if (sec) onChange([sec.name], [sec.id]);
+            else onChange([], []);
+          }}
+        >
+          <option value="">Pick a section…</option>
+          {masterSections.map((s) => (
+            <option key={s.id} value={s.id}>{s.name}</option>
+          ))}
+        </select>
+        {masterSections.length === 0 && (
+          <p className="text-[11px] text-amber-600 mt-1">No master sections found. Ensure sections are seeded.</p>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <Label>Sections{required && <span className="text-destructive ml-0.5">*</span>}</Label>
+      <div className="mt-1 min-h-[38px] flex flex-wrap gap-1.5 items-center px-3 py-1.5 bg-background border border-input rounded-lg">
+        {selected.map((name, i) => (
+          <span
+            key={selectedIds[i]}
+            className="flex items-center gap-1 bg-primary/10 text-primary text-xs font-medium px-2 py-0.5 rounded-md"
+          >
+            {name}
+            <button
+              type="button"
+              onClick={() => removeSection(selectedIds[i])}
+              className="hover:text-destructive transition-colors"
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </span>
+        ))}
+        {unselected.length > 0 && (
+          <select
+            className="flex-1 min-w-32 bg-transparent text-sm outline-none text-muted-foreground"
+            value=""
+            onChange={(e) => { if (e.target.value) addSection(e.target.value); }}
+          >
+            <option value="">{selected.length === 0 ? "Pick a section…" : "Add section…"}</option>
+            {unselected.map((s) => (
+              <option key={s.id} value={s.id}>{s.name}</option>
+            ))}
+          </select>
+        )}
+        {unselected.length === 0 && selected.length === masterSections.length && (
+          <span className="text-xs text-muted-foreground">All sections selected</span>
+        )}
+      </div>
+      {masterSections.length === 0 && (
+        <p className="text-[11px] text-amber-600 mt-1">No master sections found. Ensure sections are seeded.</p>
+      )}
     </div>
   );
 }
@@ -365,10 +468,13 @@ const blankTestForm = () => ({
   sectionTimingMode: "none" as "none" | "fixed",
   sectionTimings: [] as { name: string; minutes: number }[],
   sections: [] as string[],
+  sectionIds: [] as string[],
+  sectionTopics: {} as Record<string, string[]>, // sectionId → topicIds[]
 });
 
-const blankQuestionForm = (section = "") => ({
+const blankQuestionForm = (section = "", topic = "") => ({
   section,
+  topic,
   text: "",
   options: ["", "", "", ""] as [string, string, string, string],
   correct: 0,
@@ -417,13 +523,271 @@ function buildSectionTimings(
   });
 }
 
+// ── Sections manager tab ──────────────────────────────────────────────────────
+function SectionsManager({
+  masterSections,
+  queryClient,
+  toast,
+}: {
+  masterSections: MasterSection[];
+  queryClient: ReturnType<typeof useQueryClient>;
+  toast: ReturnType<typeof useToast>["toast"];
+}) {
+  // ── Section creation ──────────────────────────────────────────────────────
+  const [newSectionName, setNewSectionName] = useState("");
+  const [creatingSection, setCreatingSection] = useState(false);
+  const [deletingSectionId, setDeletingSectionId] = useState<string | null>(null);
+
+  // ── Topic creation ────────────────────────────────────────────────────────
+  const [newTopicName, setNewTopicName] = useState("");
+  const [creatingTopic, setCreatingTopic] = useState(false);
+
+  // ── Topic editing ─────────────────────────────────────────────────────────
+  const [editingTopicId, setEditingTopicId] = useState<string | null>(null);
+  const [editingTopicName, setEditingTopicName] = useState("");
+  const [savingTopicId, setSavingTopicId] = useState<string | null>(null);
+  const [deletingTopicId, setDeletingTopicId] = useState<string | null>(null);
+
+  // ── All topics ────────────────────────────────────────────────────────────
+  const { data: allTopics = [] } = useQuery<MasterTopic[]>({
+    queryKey: ["all-topics"],
+    queryFn: getAllTopics,
+    staleTime: 0,
+  });
+
+  const invalidateTopics = () => {
+    queryClient.invalidateQueries({ queryKey: ["all-topics"] });
+    queryClient.invalidateQueries({ queryKey: ["master-topics"] });
+  };
+
+  // ── Handlers ──────────────────────────────────────────────────────────────
+  const handleCreateSection = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const name = newSectionName.trim();
+    if (!name) return;
+    setCreatingSection(true);
+    try {
+      await createSection(name);
+      await queryClient.invalidateQueries({ queryKey: ["master-sections"] });
+      setNewSectionName("");
+      toast({ title: "Section created" });
+    } catch {
+      toast({ title: "Failed to create section", variant: "destructive" });
+    } finally {
+      setCreatingSection(false);
+    }
+  };
+
+  const handleDeleteSection = async (id: string, name: string) => {
+    setDeletingSectionId(id);
+    try {
+      await deleteSection(id);
+      await queryClient.invalidateQueries({ queryKey: ["master-sections"] });
+      await invalidateTopics();
+      toast({ title: `Section "${name}" deleted`, variant: "destructive" });
+    } catch {
+      toast({ title: "Failed to delete section", variant: "destructive" });
+    } finally {
+      setDeletingSectionId(null);
+    }
+  };
+
+  const handleCreateTopic = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const name = newTopicName.trim();
+    if (!name) return;
+    setCreatingTopic(true);
+    try {
+      await createTopic(name);
+      await invalidateTopics();
+      setNewTopicName("");
+      toast({ title: "Topic added" });
+    } catch (err: any) {
+      toast({ title: err?.message ?? "Failed to add topic", variant: "destructive" });
+    } finally {
+      setCreatingTopic(false);
+    }
+  };
+
+  const handleRenameStart = (topic: MasterTopic) => {
+    setEditingTopicId(topic.id);
+    setEditingTopicName(topic.name);
+  };
+
+  const handleRenameSave = async (topic: MasterTopic) => {
+    const name = editingTopicName.trim();
+    if (!name || name === topic.name) { setEditingTopicId(null); return; }
+    setSavingTopicId(topic.id);
+    try {
+      await renameTopic(topic.id, name);
+      await invalidateTopics();
+      setEditingTopicId(null);
+      toast({ title: "Topic renamed" });
+    } catch (err: any) {
+      toast({ title: err?.message ?? "Failed to rename topic", variant: "destructive" });
+    } finally {
+      setSavingTopicId(null);
+    }
+  };
+
+  const handleDeleteTopic = async (topic: MasterTopic) => {
+    setDeletingTopicId(topic.id);
+    try {
+      await deleteTopic(topic.id);
+      await invalidateTopics();
+      toast({ title: `Topic "${topic.name}" deleted`, variant: "destructive" });
+    } catch {
+      toast({ title: "Failed to delete topic", variant: "destructive" });
+    } finally {
+      setDeletingTopicId(null);
+    }
+  };
+
+  const totalTopics = allTopics.length;
+
+  return (
+    <div className="space-y-5 animate-fadeIn">
+      {/* ── Add forms row ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Add section */}
+        <div className="glass-panel rounded-2xl p-5 shadow-sm">
+          <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
+            <Plus className="w-4 h-4 text-primary" /> New Section
+          </h3>
+          <form onSubmit={handleCreateSection} className="flex gap-2">
+            <Input
+              className="h-9 text-sm"
+              placeholder="e.g. Quantitative Aptitude"
+              value={newSectionName}
+              onChange={(e) => setNewSectionName(e.target.value)}
+              required
+            />
+            <Button type="submit" size="sm" className="h-9 shrink-0" disabled={creatingSection || !newSectionName.trim()}>
+              <Plus className="w-3.5 h-3.5 mr-1" /> Add
+            </Button>
+          </form>
+        </div>
+
+        {/* Add topic */}
+        <div className="glass-panel rounded-2xl p-5 shadow-sm">
+          <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
+            <Plus className="w-4 h-4 text-primary" /> New Topic
+          </h3>
+          <form onSubmit={handleCreateTopic} className="flex gap-2">
+            <Input
+              className="h-9 text-sm min-w-0"
+              placeholder="Topic name"
+              value={newTopicName}
+              onChange={(e) => setNewTopicName(e.target.value)}
+              required
+            />
+            <Button type="submit" size="sm" className="h-9 shrink-0" disabled={creatingTopic || !newTopicName.trim()}>
+              <Plus className="w-3.5 h-3.5 mr-1" /> Add
+            </Button>
+          </form>
+        </div>
+      </div>
+
+      {/* ── Sections table ── */}
+      <div className="glass-panel rounded-2xl shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-border">
+          <h3 className="font-semibold text-foreground">Sections</h3>
+          <p className="text-xs text-muted-foreground mt-0.5">{masterSections.length} section{masterSections.length !== 1 ? "s" : ""}</p>
+        </div>
+        {masterSections.length === 0 ? (
+          <div className="px-6 py-10 text-center text-muted-foreground text-sm">No sections yet. Add your first section above.</div>
+        ) : (
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border bg-muted/30">
+                <th className="text-left px-6 py-2.5 font-medium text-muted-foreground text-xs">Name</th>
+                <th className="py-2.5 w-20"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {masterSections.map((section) => (
+                <tr key={section.id} className="hover:bg-muted/20 transition-colors">
+                  <td className="px-6 py-3 font-medium text-foreground">{section.name}</td>
+                  <td className="px-4 py-3 text-right">
+                    <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-destructive hover:text-destructive" disabled={deletingSectionId === section.id} onClick={() => handleDeleteSection(section.id, section.name)}>
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* ── Topics table ── */}
+      <div className="glass-panel rounded-2xl shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-border">
+          <h3 className="font-semibold text-foreground">Topics</h3>
+          <p className="text-xs text-muted-foreground mt-0.5">{totalTopics} topic{totalTopics !== 1 ? "s" : ""} (global)</p>
+        </div>
+        {allTopics.length === 0 ? (
+          <div className="px-6 py-10 text-center text-muted-foreground text-sm">No topics yet. Add your first topic above.</div>
+        ) : (
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border bg-muted/30">
+                <th className="text-left px-6 py-2.5 font-medium text-muted-foreground text-xs">Name</th>
+                <th className="py-2.5 w-24"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {allTopics.map((topic) => (
+                <tr key={topic.id} className="hover:bg-muted/20 transition-colors">
+                  <td className="px-6 py-2">
+                    {editingTopicId === topic.id ? (
+                      <div className="flex gap-1.5 items-center">
+                        <Input
+                          autoFocus
+                          className="h-7 text-sm"
+                          value={editingTopicName}
+                          onChange={(e) => setEditingTopicName(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") handleRenameSave(topic);
+                            if (e.key === "Escape") setEditingTopicId(null);
+                          }}
+                        />
+                        <Button size="sm" className="h-7 px-2 text-xs shrink-0" disabled={savingTopicId === topic.id || !editingTopicName.trim()} onClick={() => handleRenameSave(topic)}>Save</Button>
+                        <Button size="sm" variant="ghost" className="h-7 px-1.5 shrink-0" onClick={() => setEditingTopicId(null)}>✕</Button>
+                      </div>
+                    ) : (
+                      <span className="text-foreground">{topic.name}</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-2 text-right whitespace-nowrap">
+                    {editingTopicId !== topic.id && (
+                      <>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-primary hover:text-primary" onClick={() => handleRenameStart(topic)}>
+                          <Edit className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-destructive hover:text-destructive" disabled={deletingTopicId === topic.id} onClick={() => handleDeleteTopic(topic)}>
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Main admin page ───────────────────────────────────────────────────────────
 export default function Admin() {
   const [, setLocation] = useLocation();
   const user = getUser();
   const { toast } = useToast();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles">("categories");
+  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "sections">("categories");
   const [search, setSearch] = useState("");
 
   const [cats, setCats] = useState<AdminCategory[]>([]);
@@ -444,6 +808,22 @@ export default function Admin() {
   const [questionForm, setQuestionForm] = useState(blankQuestionForm());
   const [editingQuestion, setEditingQuestion] = useState<AdminQuestion | null>(null);
   const [qLangTab, setQLangTab] = useState<"en" | "hi" | "pa">("en");
+  const [qFormNewTopicInput, setQFormNewTopicInput] = useState("");
+  const [qFormAddingTopic, setQFormAddingTopic] = useState(false);
+
+  // ── Master sections/topics — declared early so qFormSectionId can use them ──
+  const { data: masterSections = [] } = useQuery<MasterSection[]>({
+    queryKey: ["master-sections"],
+    queryFn: getSections,
+    staleTime: Infinity,
+  });
+
+  const qFormSectionId = masterSections.find((s) => s.name === questionForm.section)?.id ?? "";
+  const { data: qFormTopics = [], isLoading: qFormTopicsLoading } = useQuery<MasterTopic[]>({
+    queryKey: ["master-topics"],
+    queryFn: getAllTopics,
+    staleTime: 0,
+  });
   const [bulkJson, setBulkJson] = useState("");
   const [bulkError, setBulkError] = useState<string | null>(null);
   const [csvError, setCsvError] = useState<string | null>(null);
@@ -451,6 +831,10 @@ export default function Admin() {
   type DirectCsvPreviewRow = { rowNum: number; cells: Record<string, string>; valid: boolean; errors: string[] };
   const [directCsvFile, setDirectCsvFile] = useState<File | null>(null);
   const [directCsvSection, setDirectCsvSection] = useState("");
+  const [directCsvTopic, setDirectCsvTopic] = useState("");
+  const [directCsvNewTopicInput, setDirectCsvNewTopicInput] = useState("");
+  const [directCsvAddingTopic, setDirectCsvAddingTopic] = useState(false);
+  const [directCsvCreateMissingTopics, setDirectCsvCreateMissingTopics] = useState(false);
   const [directCsvUploading, setDirectCsvUploading] = useState(false);
   const [directCsvResult, setDirectCsvResult] = useState<{ inserted: number; skipped: number; errors: { row: number; reason: string }[] } | null>(null);
   const [directCsvError, setDirectCsvError] = useState<string | null>(null);
@@ -506,10 +890,73 @@ export default function Admin() {
   );
   const selectedQuestionTest = tests.find((t) => t.id === questionTestId) ?? null;
   const availableQuestionSections = selectedQuestionTest?.sections ?? [];
+
+  const directCsvSectionId = masterSections.find((s) => s.name === directCsvSection)?.id ?? "";
+  const { data: masterTopics = [] } = useQuery<MasterTopic[]>({
+    queryKey: ["master-topics"],
+    queryFn: getAllTopics,
+    staleTime: 0,
+  });
+  const directCsvTopicId = masterTopics.find((t) => t.name === directCsvTopic)?.id ?? "";
+
+  // Topics for test-form (topic-wise mode) — same global list
+  const { data: testFormSectionTopics = [] } = useQuery<MasterTopic[]>({
+    queryKey: ["master-topics"],
+    queryFn: getAllTopics,
+    staleTime: 0,
+  });
+
+  // Topics for edit-test form (topic-wise mode) — same global list
+  const { data: editTestSectionTopics = [] } = useQuery<MasterTopic[]>({
+    queryKey: ["master-topics"],
+    queryFn: getAllTopics,
+    staleTime: 0,
+  });
+
+  // Quick-add topic modal state
+  const [addTopicModal, setAddTopicModal] = useState<{
+    open: boolean;
+    name: string;
+    busy: boolean;
+    error: string | null;
+    onSave: (topic: MasterTopic) => void;
+  }>({
+    open: false,
+    name: "",
+    busy: false,
+    error: null,
+    onSave: () => {},
+  });
+
+  const openAddTopicModal = (onSave: (t: MasterTopic) => void) => {
+    setAddTopicModal({ open: true, name: "", busy: false, error: null, onSave });
+  };
+
+  const handleAddTopicModalSave = async () => {
+    const name = addTopicModal.name.trim();
+    if (!name) return;
+    setAddTopicModal((m) => ({ ...m, busy: true, error: null }));
+    try {
+      const created = await createTopic(name);
+      await queryClient.invalidateQueries({ queryKey: ["master-topics"] });
+      await queryClient.invalidateQueries({ queryKey: ["all-topics"] });
+      addTopicModal.onSave(created);
+      setAddTopicModal((m) => ({ ...m, open: false }));
+      toast({ title: `Topic "${created.name}" added` });
+    } catch (err: any) {
+      setAddTopicModal((m) => ({ ...m, busy: false, error: err?.message ?? "Failed to add topic" }));
+    }
+  };
+
   const questionSubcatLangs: string[] = (() => {
     if (!selectedQuestionTest) return ["en"];
-    const subcat = subcats.find((s) => s.id === selectedQuestionTest.subcategoryId);
-    return subcat?.languages && subcat.languages.length > 0 ? subcat.languages : ["en"];
+    // Use the test's own language setting if set, otherwise default to ["en"].
+    // Do NOT inherit from subcategory — bilingual tests must explicitly set
+    // their own languages field (e.g. ["en", "pa"]).
+    if (Array.isArray(selectedQuestionTest.languages) && selectedQuestionTest.languages.length > 0) {
+      return selectedQuestionTest.languages as string[];
+    }
+    return ["en"];
   })();
 
 
@@ -567,6 +1014,13 @@ export default function Admin() {
           });
         }
         reload();
+      } catch (err) {
+        console.error("Admin auth error:", err);
+        toast({
+          title: "Could not connect to server",
+          description: "Make sure the API server is running, then refresh.",
+          variant: "destructive",
+        });
       } finally {
         setIsAuthorizing(false);
       }
@@ -706,12 +1160,12 @@ export default function Admin() {
     e.preventDefault();
     if (!testForm.name.trim() || !testForm.categoryId || !testForm.subcategoryId) return;
     const normalizedSections = normalizeSections(testForm.sections);
-    if (normalizedSections.length === 0) {
-      toast({
-        title: "Sections required",
-        description: "Add at least one valid section before creating a test.",
-        variant: "destructive",
-      });
+    if (testForm.kind === "sectional" && normalizedSections.length === 0) {
+      toast({ title: "Sections required", description: "Sectional tests require at least one section.", variant: "destructive" });
+      return;
+    }
+    if (testForm.kind === "topic-wise" && (normalizedSections.length === 0 || !Object.values(testForm.sectionTopics).some((tids) => tids.length > 0))) {
+      toast({ title: "Section & topics required", description: "Topic-wise tests require at least one section with at least one topic.", variant: "destructive" });
       return;
     }
     const cat = cats.find((c) => c.id === testForm.categoryId);
@@ -734,7 +1188,15 @@ export default function Admin() {
         sectionTimingMode: testForm.sectionTimingMode,
         sectionTimings,
         sections: normalizedSections,
+        sectionIds: testForm.sectionIds,
         sectionSettings,
+        ...(testForm.kind === "topic-wise" && (() => {
+          const allTopicIds = [...new Set(Object.values(testForm.sectionTopics).flat())];
+          return {
+            topicId: allTopicIds.join(","),
+            topicName: allTopicIds.map((id) => testFormSectionTopics.find((t) => t.id === id)?.name ?? id).join(","),
+          };
+        })()),
       });
       reload();
       toast({ title: "Test created", description: `"${testForm.name}" added` });
@@ -748,12 +1210,12 @@ export default function Admin() {
     e.preventDefault();
     if (!editingTest) return;
     const normalizedSections = normalizeSections(editingTest.sections ?? []);
-    if (normalizedSections.length === 0) {
-      toast({
-        title: "Sections required",
-        description: "A test must keep at least one valid section.",
-        variant: "destructive",
-      });
+    if (editingTest.kind === "sectional" && normalizedSections.length === 0) {
+      toast({ title: "Sections required", description: "Sectional tests require at least one section.", variant: "destructive" });
+      return;
+    }
+    if (editingTest.kind === "topic-wise" && (normalizedSections.length === 0 || !(editingTest.topicId ?? "").split(",").filter(Boolean).length)) {
+      toast({ title: "Section & topic required", description: "Topic-wise tests require a section and at least one topic.", variant: "destructive" });
       return;
     }
     const cat = cats.find((c) => c.id === editingTest.categoryId);
@@ -795,6 +1257,7 @@ export default function Admin() {
   const handleAddQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     const section = questionForm.section.trim();
+    const topic = questionForm.topic?.trim() ?? "";
     if (!questionTestId || !section || !questionForm.text.trim()) return;
     if (availableQuestionSections.length > 0 && !availableQuestionSections.includes(section)) {
       toast({
@@ -803,6 +1266,20 @@ export default function Admin() {
         variant: "destructive",
       });
       return;
+    }
+    // Validate topic exists in global topics list
+    if (topic && qFormTopics.length > 0) {
+      const topicMatch = qFormTopics.find(
+        (t) => t.name.trim().toLowerCase() === topic.toLowerCase()
+      );
+      if (!topicMatch) {
+        toast({
+          title: "Invalid topic",
+          description: `"${topic}" is not in the global topics list. Select a topic from the dropdown.`,
+          variant: "destructive",
+        });
+        return;
+      }
     }
     if (questionForm.options.some((o) => !o.trim())) return;
 
@@ -848,6 +1325,7 @@ export default function Admin() {
       if (editingQuestion) {
         await updateQuestion(editingQuestion.id, {
           section,
+          topic: topic || undefined,
           text: questionForm.text.trim(),
           options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
           correct: questionForm.correct,
@@ -861,6 +1339,7 @@ export default function Admin() {
         await addQuestion({
           testId: questionTestId,
           section,
+          topic: topic || undefined,
           text: questionForm.text.trim(),
           options: questionForm.options.map((o) => o.trim()) as [string, string, string, string],
           correct: questionForm.correct,
@@ -871,7 +1350,9 @@ export default function Admin() {
         toast({ title: "Question added", description: "New question saved to this test" });
       }
       reload();
-      setQuestionForm(blankQuestionForm(availableQuestionSections[0] ?? ""));
+      setQuestionForm(blankQuestionForm(availableQuestionSections[0] ?? "", ""));
+      setQFormAddingTopic(false);
+      setQFormNewTopicInput("");
       setQLangTab("en");
 
       // Warn if subcategory requires translations that some questions are missing
@@ -1233,6 +1714,27 @@ export default function Admin() {
           if (paCols.some((c) => !get(cells, c))) rowErrors.push("Punjabi fields required");
         }
 
+        // ── Per-row section / topic validation (client-side preview) ──────
+        // Only validate rows that specify their own section/topic column
+        // (batch-level selection is validated on submit, not here)
+        const rowSectionVal = get(cells, "section") || get(cells, "section_id");
+        const rowTopicVal   = get(cells, "topic")   || get(cells, "topic_id");
+        if (rowSectionVal) {
+          const normSec = rowSectionVal.trim().toLowerCase().replace(/\s+/g, " ");
+          // Check by name (case-insensitive) or raw ID match
+          const secMatch = masterSections.some(
+            (s) => s.name.trim().toLowerCase().replace(/\s+/g, " ") === normSec || s.id === rowSectionVal.trim()
+          );
+          if (!secMatch) rowErrors.push(`section "${rowSectionVal}" not in master table`);
+        }
+        if (rowTopicVal && masterTopics.length > 0) {
+          const normTop = rowTopicVal.trim().toLowerCase().replace(/\s+/g, " ");
+          const topMatch = masterTopics.some(
+            (t) => t.name.trim().toLowerCase().replace(/\s+/g, " ") === normTop || t.id === rowTopicVal.trim()
+          );
+          if (!topMatch) rowErrors.push(`topic "${rowTopicVal}" not found in global topics table`);
+        }
+
         parsed.push({ rowNum, cells: cellMap, valid: rowErrors.length === 0, errors: rowErrors });
       }
       setDirectCsvParsed(parsed);
@@ -1246,14 +1748,20 @@ export default function Admin() {
 
     if (!questionTestId) { setDirectCsvError("Select a test first."); return; }
     if (!directCsvFile) { setDirectCsvError("Select a CSV file first."); return; }
-    const section = directCsvSection.trim() || (availableQuestionSections[0] ?? "General");
+    if (!directCsvSection) { setDirectCsvError("Select a section first."); return; }
+    if (!directCsvTopic) { setDirectCsvError("Select a topic first."); return; }
 
     setDirectCsvUploading(true);
     try {
       const formData = new FormData();
       formData.append("file", directCsvFile);
       formData.append("testId", questionTestId);
-      formData.append("section", section);
+      // Send both name (for display fallback) and ID (for authoritative lookup)
+      formData.append("section", directCsvSection);
+      formData.append("topic", directCsvTopic);
+      if (directCsvSectionId) formData.append("sectionId", directCsvSectionId);
+      if (directCsvTopicId)   formData.append("topicId",   directCsvTopicId);
+      formData.append("createMissingTopics", directCsvCreateMissingTopics ? "true" : "false");
       if (selectedQuestionTest?.subcategoryId) {
         formData.append("subcategoryId", selectedQuestionTest.subcategoryId);
       }
@@ -1330,7 +1838,7 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 glass-panel border border-border/70 rounded-2xl w-fit mb-6 shadow-sm">
-          {(["categories", "subcategories", "tests", "questions", "packages", "bundles"] as const).map((t) => (
+          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "sections"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -1537,7 +2045,26 @@ export default function Admin() {
                     id="test-kind"
                     className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                     value={testForm.kind}
-                    onChange={(e) => setTestForm({ ...testForm, kind: e.target.value as TestKind })}
+                    onChange={(e) => {
+                      const newKind = e.target.value as TestKind;
+                      setTestForm({
+                        ...testForm,
+                        kind: newKind,
+                        // Full-length: clear all section/topic data
+                        ...(newKind === "full-length" && { sections: [], sectionIds: [], topicId: "", topicName: "", sectionTimingMode: "none", sectionTimings: [] }),
+                        // Sectional: clear any topic data, keep sections
+                        ...(newKind === "sectional" && { topicId: "", topicName: "" }),
+                        // Topic-wise: keep at most one section, clear topic
+                        ...(newKind === "topic-wise" && {
+                          sections: testForm.sections.slice(0, 1),
+                          sectionIds: testForm.sectionIds.slice(0, 1),
+                          topicId: "",
+                          topicName: "",
+                          sectionTimingMode: "none",
+                          sectionTimings: [],
+                        }),
+                      });
+                    }}
                   >
                     <option value="full-length">Full Length</option>
                     <option value="sectional">Sectional</option>
@@ -1584,57 +2111,132 @@ export default function Admin() {
                   <Input id="test-questions" type="number" min="1" className="mt-1" placeholder="90" value={testForm.totalQuestions} onChange={(e) => setTestForm({ ...testForm, totalQuestions: e.target.value })} />
                 </div>
 
-                {/* Sections tag input */}
-                <div className="sm:col-span-2 lg:col-span-3">
-                  <SectionsInput
-                    sections={testForm.sections}
-                    onChange={(s) => {
-                      const nextSections = normalizeSections(s);
-                      setTestForm({
-                        ...testForm,
-                        sections: nextSections,
-                        sectionTimings: buildSectionTimings(nextSections, testForm.sectionTimingMode, testForm.sectionTimings),
-                      });
-                    }}
-                  />
-                  <p className="mt-1 text-[11px] text-muted-foreground">Empty and duplicate section names are removed automatically.</p>
-                </div>
-
-                <div className="sm:col-span-2 lg:col-span-3">
-                  <Label className="text-xs">Section Timing</Label>
-                  <div className="mt-1 flex items-center gap-3">
-                    <label className="inline-flex items-center gap-2 text-sm">
-                      <input
-                        type="radio"
-                        checked={testForm.sectionTimingMode === "none"}
-                        onChange={() =>
-                          setTestForm({
-                            ...testForm,
-                            sectionTimingMode: "none",
-                            sectionTimings: buildSectionTimings(testForm.sections, "none", testForm.sectionTimings),
-                          })
-                        }
-                      />
-                      No sectional timing
-                    </label>
-                    <label className="inline-flex items-center gap-2 text-sm">
-                      <input
-                        type="radio"
-                        checked={testForm.sectionTimingMode === "fixed"}
-                        onChange={() =>
-                          setTestForm({
-                            ...testForm,
-                            sectionTimingMode: "fixed",
-                            sectionTimings: buildSectionTimings(testForm.sections, "fixed", testForm.sectionTimings),
-                          })
-                        }
-                      />
-                      Fixed per section
-                    </label>
+                {/* Section / topic fields — hidden for full-length */}
+                {testForm.kind !== "full-length" && (
+                  <div className="sm:col-span-2 lg:col-span-3">
+                    <SectionsPicker
+                      selected={testForm.sections}
+                      selectedIds={testForm.sectionIds}
+                      masterSections={masterSections ?? []}
+                      single={false}
+                      onChange={(names, ids) => {
+                        const nextSections = normalizeSections(names);
+                        // Prune sectionTopics: remove entries for sections no longer selected
+                        const pruned: Record<string, string[]> = {};
+                        ids.forEach((id) => { pruned[id] = testForm.sectionTopics[id] ?? []; });
+                        setTestForm({
+                          ...testForm,
+                          sections: nextSections,
+                          sectionIds: ids,
+                          sectionTopics: pruned,
+                          sectionTimings: buildSectionTimings(nextSections, testForm.sectionTimingMode, testForm.sectionTimings),
+                        });
+                      }}
+                      required
+                    />
                   </div>
-                </div>
+                )}
 
-                {testForm.sectionTimingMode === "fixed" && testForm.sections.length > 0 && (
+                {/* Per-section topic pickers — topic-wise only */}
+                {testForm.kind === "topic-wise" && testForm.sectionIds.length > 0 && (
+                  <div className="sm:col-span-2 lg:col-span-3 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label>Topics per Section <span className="text-destructive ml-0.5">*</span></Label>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        className="h-6 px-2 text-xs text-primary hover:text-primary gap-1"
+                        onClick={() => openAddTopicModal(
+                          (created) => setTestForm((f) => ({
+                            ...f,
+                            sectionTopics: Object.fromEntries(
+                              f.sectionIds.map((sid) => [sid, f.sectionTopics[sid] ?? []])
+                            ),
+                          })),
+                        )}
+                      >
+                        <Plus className="w-3 h-3" /> Add Topic
+                      </Button>
+                    </div>
+                    {testFormSectionTopics.length === 0 ? (
+                      <p className="text-[11px] text-amber-600">No topics yet — click <strong>Add Topic</strong> above to create one.</p>
+                    ) : (
+                      testForm.sectionIds.map((sectionId, si) => {
+                        const sectionName = testForm.sections[si] ?? sectionId;
+                        const picked = testForm.sectionTopics[sectionId] ?? [];
+                        return (
+                          <div key={sectionId} className="border border-input rounded-lg overflow-hidden">
+                            <div className="flex items-center justify-between px-3 py-1.5 bg-muted/50">
+                              <span className="text-xs font-medium">{sectionName}</span>
+                              <span className="text-[11px] text-muted-foreground">{picked.length} topic{picked.length !== 1 ? "s" : ""}</span>
+                            </div>
+                            <div className="p-2 max-h-36 overflow-y-auto grid grid-cols-2 gap-0.5">
+                              {testFormSectionTopics.map((t) => (
+                                <label key={t.id} className="flex items-center gap-1.5 text-xs cursor-pointer hover:bg-muted rounded px-1.5 py-1">
+                                  <input
+                                    type="checkbox"
+                                    className="accent-primary"
+                                    checked={picked.includes(t.id)}
+                                    onChange={(e) => {
+                                      const updated = e.target.checked
+                                        ? [...picked, t.id]
+                                        : picked.filter((id) => id !== t.id);
+                                      setTestForm({
+                                        ...testForm,
+                                        sectionTopics: { ...testForm.sectionTopics, [sectionId]: updated },
+                                      });
+                                    }}
+                                  />
+                                  {t.name}
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                )}
+
+                {/* Section timing — sectional only */}
+                {testForm.kind === "sectional" && (
+                  <div className="sm:col-span-2 lg:col-span-3">
+                    <Label className="text-xs">Section Timing</Label>
+                    <div className="mt-1 flex items-center gap-3">
+                      <label className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          checked={testForm.sectionTimingMode === "none"}
+                          onChange={() =>
+                            setTestForm({
+                              ...testForm,
+                              sectionTimingMode: "none",
+                              sectionTimings: buildSectionTimings(testForm.sections, "none", testForm.sectionTimings),
+                            })
+                          }
+                        />
+                        No sectional timing
+                      </label>
+                      <label className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          checked={testForm.sectionTimingMode === "fixed"}
+                          onChange={() =>
+                            setTestForm({
+                              ...testForm,
+                              sectionTimingMode: "fixed",
+                              sectionTimings: buildSectionTimings(testForm.sections, "fixed", testForm.sectionTimings),
+                            })
+                          }
+                        />
+                        Fixed per section
+                      </label>
+                    </div>
+                  </div>
+                )}
+
+                {testForm.kind === "sectional" && testForm.sectionTimingMode === "fixed" && testForm.sections.length > 0 && (
                   <div className="sm:col-span-2 lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {testForm.sections.map((sectionName) => {
                       const timing = testForm.sectionTimings.find((t) => t.name === sectionName);
@@ -1719,7 +2321,24 @@ export default function Admin() {
                             <select
                               className="mt-0.5 w-full h-8 px-2 bg-background border border-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-ring"
                               value={editingTest.kind}
-                              onChange={(e) => setEditingTest({ ...editingTest, kind: e.target.value as TestKind })}
+                              onChange={(e) => {
+                                const newKind = e.target.value as TestKind;
+                                setEditingTest({
+                                  ...editingTest,
+                                  kind: newKind,
+                                  ...(newKind === "full-length" && { sections: [], sectionIds: [], topicId: "", topicName: "", sectionTimingMode: "none", sectionTimings: [], sectionSettings: [] }),
+                                  ...(newKind === "sectional" && { topicId: "", topicName: "" }),
+                                  ...(newKind === "topic-wise" && {
+                                    sections: (editingTest.sections ?? []).slice(0, 1),
+                                    sectionIds: (editingTest.sectionIds ?? []).slice(0, 1),
+                                    topicId: "",
+                                    topicName: "",
+                                    sectionTimingMode: "none",
+                                    sectionTimings: [],
+                                    sectionSettings: [],
+                                  }),
+                                });
+                              }}
                             >
                               <option value="full-length">Full Length</option>
                               <option value="sectional">Sectional</option>
@@ -1757,47 +2376,50 @@ export default function Admin() {
                               Show difficulty
                             </label>
                           </div>
-                          <div className="col-span-2 sm:col-span-3">
-                            <Label className="text-xs">Section Timing</Label>
-                            <div className="mt-0.5 flex items-center gap-3">
-                              <label className="inline-flex items-center gap-2 text-xs">
-                                <input
-                                  type="radio"
-                                  checked={(editingTest.sectionTimingMode ?? "none") === "none"}
-                                  onChange={() =>
-                                    setEditingTest({
-                                      ...editingTest,
-                                      sectionTimingMode: "none",
-                                      sectionTimings: buildSectionTimings(
-                                        normalizeSections(editingTest.sections ?? []),
-                                        "none",
-                                        editingTest.sectionTimings,
-                                      ),
-                                    })
-                                  }
-                                />
-                                No sectional timing
-                              </label>
-                              <label className="inline-flex items-center gap-2 text-xs">
-                                <input
-                                  type="radio"
-                                  checked={(editingTest.sectionTimingMode ?? "none") === "fixed"}
-                                  onChange={() =>
-                                    setEditingTest({
-                                      ...editingTest,
-                                      sectionTimingMode: "fixed",
-                                      sectionTimings: buildSectionTimings(
-                                        normalizeSections(editingTest.sections ?? []),
-                                        "fixed",
-                                        editingTest.sectionTimings,
-                                      ),
-                                    })
-                                  }
-                                />
-                                Fixed per section
-                              </label>
+                          {/* Section timing — sectional only */}
+                          {editingTest.kind === "sectional" && (
+                            <div className="col-span-2 sm:col-span-3">
+                              <Label className="text-xs">Section Timing</Label>
+                              <div className="mt-0.5 flex items-center gap-3">
+                                <label className="inline-flex items-center gap-2 text-xs">
+                                  <input
+                                    type="radio"
+                                    checked={(editingTest.sectionTimingMode ?? "none") === "none"}
+                                    onChange={() =>
+                                      setEditingTest({
+                                        ...editingTest,
+                                        sectionTimingMode: "none",
+                                        sectionTimings: buildSectionTimings(
+                                          normalizeSections(editingTest.sections ?? []),
+                                          "none",
+                                          editingTest.sectionTimings,
+                                        ),
+                                      })
+                                    }
+                                  />
+                                  No sectional timing
+                                </label>
+                                <label className="inline-flex items-center gap-2 text-xs">
+                                  <input
+                                    type="radio"
+                                    checked={(editingTest.sectionTimingMode ?? "none") === "fixed"}
+                                    onChange={() =>
+                                      setEditingTest({
+                                        ...editingTest,
+                                        sectionTimingMode: "fixed",
+                                        sectionTimings: buildSectionTimings(
+                                          normalizeSections(editingTest.sections ?? []),
+                                          "fixed",
+                                          editingTest.sectionTimings,
+                                        ),
+                                      })
+                                    }
+                                  />
+                                  Fixed per section
+                                </label>
+                              </div>
                             </div>
-                          </div>
+                          )}
                           <div>
                             <Label className="text-xs">Duration (min)</Label>
                             <Input type="number" className="mt-0.5 h-8 text-sm" value={editingTest.duration} onChange={(e) => setEditingTest({ ...editingTest, duration: Number(e.target.value) })} />
@@ -1806,26 +2428,89 @@ export default function Admin() {
                             <Label className="text-xs">Questions</Label>
                             <Input type="number" className="mt-0.5 h-8 text-sm" value={editingTest.totalQuestions} onChange={(e) => setEditingTest({ ...editingTest, totalQuestions: Number(e.target.value) })} />
                           </div>
-                          <div className="col-span-2 sm:col-span-3">
-                            <SectionsInput
-                              sections={editingTest.sections ?? []}
-                              onChange={(s) => {
-                                const nextSections = normalizeSections(s);
-                                setEditingTest({
-                                  ...editingTest,
-                                  sections: nextSections,
-                                  sectionSettings: buildSectionSettings(nextSections, editingTest.sectionSettings),
-                                  sectionTimings: buildSectionTimings(
-                                    nextSections,
-                                    editingTest.sectionTimingMode ?? "none",
-                                    editingTest.sectionTimings,
-                                  ),
-                                });
-                              }}
-                            />
-                            <p className="mt-1 text-[11px] text-muted-foreground">Empty and duplicate section names are removed automatically.</p>
-                          </div>
-                          {(editingTest.sectionTimingMode ?? "none") === "fixed" && (
+                          {/* Section picker — hidden for full-length */}
+                          {editingTest.kind !== "full-length" && (
+                            <div className="col-span-2 sm:col-span-3">
+                              <SectionsPicker
+                                selected={editingTest.sections ?? []}
+                                selectedIds={editingTest.sectionIds ?? []}
+                                masterSections={masterSections ?? []}
+                                single={false}
+                                onChange={(names, ids) => {
+                                  const nextSections = normalizeSections(names);
+                                  // Keep existing topicId assignment; no need to clear
+                                  setEditingTest({
+                                    ...editingTest,
+                                    sections: nextSections,
+                                    sectionIds: ids,
+                                    sectionSettings: buildSectionSettings(nextSections, editingTest.sectionSettings),
+                                    sectionTimings: buildSectionTimings(
+                                      nextSections,
+                                      editingTest.sectionTimingMode ?? "none",
+                                      editingTest.sectionTimings,
+                                    ),
+                                  });
+                                }}
+                                required
+                              />
+                            </div>
+                          )}
+                          {/* Per-section topic pickers — topic-wise only */}
+                          {editingTest.kind === "topic-wise" && (editingTest.sectionIds ?? []).length > 0 && (
+                            <div className="col-span-2 sm:col-span-3 space-y-2">
+                              <div className="flex items-center justify-between">
+                                <Label className="text-xs">Topics per Section <span className="text-destructive ml-0.5">*</span></Label>
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="ghost"
+                                  className="h-5 px-1.5 text-[11px] text-primary hover:text-primary gap-1"
+                                  onClick={() => openAddTopicModal(() => {/* topic list auto-refreshes */})}
+                                >
+                                  <Plus className="w-3 h-3" /> Add Topic
+                                </Button>
+                              </div>
+                              {editTestSectionTopics.length === 0 ? (
+                                <p className="text-[11px] text-amber-600">No topics yet — click <strong>Add Topic</strong> above to create one.</p>
+                              ) : (
+                                (editingTest.sectionIds ?? []).map((sectionId, si) => {
+                                  const sectionName = (editingTest.sections ?? [])[si] ?? sectionId;
+                                  const allSelectedIds = (editingTest.topicId ?? "").split(",").filter(Boolean);
+                                  return (
+                                    <div key={sectionId} className="border border-input rounded-lg overflow-hidden">
+                                      <div className="flex items-center justify-between px-3 py-1.5 bg-muted/50">
+                                        <span className="text-xs font-medium">{sectionName}</span>
+                                        <span className="text-[11px] text-muted-foreground">
+                                          {allSelectedIds.length} topic{allSelectedIds.length !== 1 ? "s" : ""} selected
+                                        </span>
+                                      </div>
+                                      <div className="p-1.5 max-h-32 overflow-y-auto grid grid-cols-2 gap-0.5">
+                                        {editTestSectionTopics.map((t) => (
+                                          <label key={t.id} className="flex items-center gap-1.5 text-xs cursor-pointer hover:bg-muted rounded px-1.5 py-1">
+                                            <input
+                                              type="checkbox"
+                                              className="accent-primary"
+                                              checked={allSelectedIds.includes(t.id)}
+                                              onChange={(e) => {
+                                                const updatedIds = e.target.checked
+                                                  ? [...allSelectedIds, t.id]
+                                                  : allSelectedIds.filter((id) => id !== t.id);
+                                                const updatedNames = updatedIds.map((id) => editTestSectionTopics.find((tp) => tp.id === id)?.name ?? id);
+                                                setEditingTest({ ...editingTest, topicId: updatedIds.join(","), topicName: updatedNames.join(",") });
+                                              }}
+                                            />
+                                            {t.name}
+                                          </label>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  );
+                                })
+                              )}
+                            </div>
+                          )}
+                          {/* Section timing per-section minutes — sectional only */}
+                          {editingTest.kind === "sectional" && (editingTest.sectionTimingMode ?? "none") === "fixed" && (
                             <div className="col-span-2 sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                               {(editingTest.sections ?? []).map((sectionName) => {
                                 const timing = editingTest.sectionTimings?.find((t) => t.name === sectionName);
@@ -1857,25 +2542,28 @@ export default function Admin() {
                               })}
                             </div>
                           )}
-                          <div className="col-span-2 sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            {(editingTest.sectionSettings ?? []).map((section) => (
-                              <label key={section.name} className="inline-flex items-center gap-2 text-xs">
-                                <input
-                                  type="checkbox"
-                                  checked={!section.locked}
-                                  onChange={(e) =>
-                                    setEditingTest({
-                                      ...editingTest,
-                                      sectionSettings: (editingTest.sectionSettings ?? []).map((s) =>
-                                        s.name === section.name ? { ...s, locked: !e.target.checked } : s,
-                                      ),
-                                    })
-                                  }
-                                />
-                                {section.name} ({section.locked ? "Locked" : "Unlocked"})
-                              </label>
-                            ))}
-                          </div>
+                          {/* Section lock settings — sectional only */}
+                          {editingTest.kind === "sectional" && (
+                            <div className="col-span-2 sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {(editingTest.sectionSettings ?? []).map((section) => (
+                                <label key={section.name} className="inline-flex items-center gap-2 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={!section.locked}
+                                    onChange={(e) =>
+                                      setEditingTest({
+                                        ...editingTest,
+                                        sectionSettings: (editingTest.sectionSettings ?? []).map((s) =>
+                                          s.name === section.name ? { ...s, locked: !e.target.checked } : s,
+                                        ),
+                                      })
+                                    }
+                                  />
+                                  {section.name} ({section.locked ? "Locked" : "Unlocked"})
+                                </label>
+                              ))}
+                            </div>
+                          )}
                           <div className="col-span-2 sm:col-span-3 flex gap-1.5">
                             <Button type="submit" size="sm"><Check className="w-3.5 h-3.5 mr-1" /> Save</Button>
                             <Button type="button" variant="outline" size="sm" onClick={() => setEditingTest(null)}><X className="w-3.5 h-3.5 mr-1" /> Cancel</Button>
@@ -1901,17 +2589,20 @@ export default function Admin() {
                             <p className="text-xs text-muted-foreground mb-1.5">
                               {test.categoryName} • {test.subcategoryName || "General"} • {test.totalQuestions} questions • {test.duration} min • {test.attempts.toLocaleString()} attempts
                             </p>
-                            {test.sections && test.sections.length > 0 && (
-                              <div className="flex flex-wrap gap-1">
+                            {test.kind !== "full-length" && test.sections && test.sections.length > 0 && (
+                              <div className="flex flex-wrap gap-1 items-center">
                                 <Tag className="w-3 h-3 text-muted-foreground mt-0.5 shrink-0" />
                                 {test.sections.map((s) => (
                                   <span key={s} className="text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded">{s}</span>
                                 ))}
+                                {test.kind === "topic-wise" && test.topicName && (
+                                  <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-medium">{test.topicName}</span>
+                                )}
                               </div>
                             )}
                           </div>
                           <div className="flex items-center gap-1 shrink-0">
-                            <Button variant="ghost" size="sm" className="h-8 px-2 text-primary hover:text-primary" onClick={() => setEditingTest(test)}><Edit className="w-3.5 h-3.5" /></Button>
+                            <Button variant="ghost" size="sm" className="h-8 px-2 text-primary hover:text-primary" onClick={() => setEditingTest({ ...test, sectionIds: (test.sections ?? []).map((name) => masterSections?.find((s) => s.name === name)?.id ?? "").filter(Boolean) })}><Edit className="w-3.5 h-3.5" /></Button>
                             <Button variant="ghost" size="sm" className="h-8 px-2 text-destructive hover:text-destructive" onClick={() => setDeletingTest(test)}><Trash2 className="w-3.5 h-3.5" /></Button>
                           </div>
                         </div>
@@ -1958,26 +2649,85 @@ export default function Admin() {
                     id="q-section"
                     className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-60"
                     value={questionForm.section}
-                    onChange={(e) => setQuestionForm({ ...questionForm, section: e.target.value })}
-                    disabled={!questionTestId || availableQuestionSections.length === 0}
+                    onChange={(e) => {
+                      setQuestionForm({ ...questionForm, section: e.target.value, topic: "" });
+                      setQFormAddingTopic(false);
+                      setQFormNewTopicInput("");
+                    }}
                     required
                   >
-                    <option value="">
-                      {!questionTestId
-                        ? "Select a test first"
-                        : availableQuestionSections.length === 0
-                          ? "No sections defined for this test"
-                          : "Select section"}
-                    </option>
-                    {availableQuestionSections.map((section) => (
-                      <option key={section} value={section}>
-                        {section}
-                      </option>
+                    <option value="">— pick section —</option>
+                    {masterSections.map((s) => (
+                      <option key={s.id} value={s.name}>{s.name}</option>
                     ))}
                   </select>
-                  <p className="mt-1 text-[11px] text-muted-foreground">
-                    Only predefined sections from the selected test can be used.
-                  </p>
+                </div>
+                <div>
+                  <Label htmlFor="q-topic">Topic</Label>
+                  <select
+                    id="q-topic"
+                    className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-60"
+                    value={qFormAddingTopic ? "__add_new__" : (questionForm.topic ?? "")}
+                    onChange={(e) => {
+                      if (e.target.value === "__add_new__") {
+                        setQFormAddingTopic(true);
+                        setQFormNewTopicInput("");
+                        setQuestionForm({ ...questionForm, topic: "" });
+                      } else {
+                        setQFormAddingTopic(false);
+                        setQuestionForm({ ...questionForm, topic: e.target.value });
+                      }
+                    }}
+                    disabled={qFormTopicsLoading}
+                  >
+                    <option value="">{qFormTopicsLoading ? "Loading…" : "— pick topic (optional) —"}</option>
+                    {qFormTopics.map((t) => (
+                      <option key={t.id} value={t.name}>{t.name}</option>
+                    ))}
+                    <option value="__add_new__">＋ Add new topic…</option>
+                  </select>
+                  {qFormAddingTopic && (
+                    <div className="flex gap-1.5 mt-1.5">
+                      <Input
+                        autoFocus
+                        placeholder="New topic name"
+                        className="h-8 text-sm"
+                        value={qFormNewTopicInput}
+                        onChange={(e) => setQFormNewTopicInput(e.target.value)}
+                        onKeyDown={(e) => { if (e.key === "Escape") { setQFormAddingTopic(false); setQFormNewTopicInput(""); } }}
+                      />
+                      <Button
+                        type="button"
+                        size="sm"
+                        className="h-8 px-3 shrink-0"
+                        disabled={!qFormNewTopicInput.trim()}
+                        onClick={async () => {
+                          const name = qFormNewTopicInput.trim();
+                          if (!name) return;
+                          try {
+                            const created = await createTopic(name);
+                            await queryClient.invalidateQueries({ queryKey: ["master-topics"] });
+                            setQuestionForm({ ...questionForm, topic: created.name });
+                            setQFormAddingTopic(false);
+                            setQFormNewTopicInput("");
+                          } catch {
+                            toast({ title: "Failed to create topic", variant: "destructive" });
+                          }
+                        }}
+                      >
+                        Add
+                      </Button>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        className="h-8 px-2 shrink-0"
+                        onClick={() => { setQFormAddingTopic(false); setQFormNewTopicInput(""); }}
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="q-correct">Correct Option</Label>
@@ -2164,8 +2914,11 @@ export default function Admin() {
                             onClick={() => {
                               setEditingQuestion(q);
                               setQuestionTestId(q.testId);
+                              setQFormAddingTopic(false);
+                              setQFormNewTopicInput("");
                               setQuestionForm({
                                 section: q.section,
+                                topic: q.topic ?? "",
                                 text: q.text,
                                 options: [...q.options] as [string, string, string, string],
                                 correct: q.correct,
@@ -2232,10 +2985,22 @@ export default function Admin() {
                 <Button type="button" variant="outline" size="sm" onClick={downloadCsvTemplate} disabled={!questionTestId}>
                   Download Template
                 </Button>
-                <label className={`inline-flex items-center gap-1.5 cursor-pointer rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground ${!questionTestId ? "opacity-50 pointer-events-none" : ""}`}>
-                  <input type="file" accept=".csv" className="sr-only" onChange={handleCsvUpload} disabled={!questionTestId} />
+                <input
+                  type="file"
+                  id="csvUpload"
+                  accept=".csv"
+                  style={{ display: "none" }}
+                  onChange={handleCsvUpload}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={!questionTestId}
+                  onClick={() => (document.getElementById("csvUpload") as HTMLInputElement | null)?.click()}
+                >
                   Upload CSV
-                </label>
+                </Button>
               </div>
               {csvError && <p className="text-xs text-destructive">{csvError}</p>}
               {questionTestId && (
@@ -2261,25 +3026,99 @@ export default function Admin() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                 <div>
                   <Label className="text-xs mb-1 block">Section</Label>
-                  {availableQuestionSections.length > 0 ? (
-                    <select
-                      className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
-                      value={directCsvSection}
-                      onChange={(e) => setDirectCsvSection(e.target.value)}
-                    >
-                      <option value="">— pick section —</option>
-                      {availableQuestionSections.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <Input
-                      placeholder="e.g. General"
-                      value={directCsvSection}
-                      onChange={(e) => setDirectCsvSection(e.target.value)}
-                    />
+                  <select
+                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    value={directCsvSection}
+                    onChange={(e) => { setDirectCsvSection(e.target.value); setDirectCsvTopic(""); setDirectCsvAddingTopic(false); setDirectCsvNewTopicInput(""); }}
+                  >
+                    <option value="">— pick section —</option>
+                    {masterSections.map((s) => (
+                      <option key={s.id} value={s.name}>{s.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label className="text-xs mb-1 block">Topic</Label>
+                  <select
+                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm disabled:opacity-50"
+                    value={directCsvTopic}
+                    onChange={(e) => {
+                      if (e.target.value === "__add_new__") {
+                        setDirectCsvTopic("");
+                        setDirectCsvNewTopicInput("");
+                        setDirectCsvAddingTopic(true);
+                      } else {
+                        setDirectCsvAddingTopic(false);
+                        setDirectCsvTopic(e.target.value);
+                      }
+                    }}
+                    disabled={!directCsvSectionId}
+                  >
+                    <option value="">— pick topic —</option>
+                    {masterTopics.map((t) => (
+                      <option key={t.id} value={t.name}>{t.name}</option>
+                    ))}
+                    <option value="__add_new__">＋ Add new topic…</option>
+                  </select>
+                  {directCsvAddingTopic && (
+                    <div className="flex gap-1.5 mt-1.5">
+                      <Input
+                        autoFocus
+                        placeholder="New topic name"
+                        className="h-8 text-sm"
+                        value={directCsvNewTopicInput}
+                        onChange={(e) => setDirectCsvNewTopicInput(e.target.value)}
+                        onKeyDown={(e) => { if (e.key === "Escape") { setDirectCsvAddingTopic(false); setDirectCsvNewTopicInput(""); } }}
+                      />
+                      <Button
+                        type="button"
+                        size="sm"
+                        className="h-8 px-3 shrink-0"
+                        disabled={!directCsvNewTopicInput.trim()}
+                        onClick={async () => {
+                          const name = directCsvNewTopicInput.trim();
+                          if (!name) return;
+                          try {
+                            const created = await createTopic(name);
+                            await queryClient.invalidateQueries({ queryKey: ["master-topics"] });
+                            setDirectCsvTopic(created.name);
+                            setDirectCsvAddingTopic(false);
+                            setDirectCsvNewTopicInput("");
+                          } catch {
+                            toast({ title: "Failed to create topic", variant: "destructive" });
+                          }
+                        }}
+                      >
+                        Add
+                      </Button>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        className="h-8 px-2 shrink-0"
+                        onClick={() => { setDirectCsvAddingTopic(false); setDirectCsvNewTopicInput(""); }}
+                      >
+                        ✕
+                      </Button>
+                    </div>
                   )}
                 </div>
+              </div>
+              {/* Auto-create missing topics toggle */}
+              <div className="mb-3 flex items-center gap-2">
+                <input
+                  id="csvCreateMissingTopics"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-input accent-primary cursor-pointer"
+                  checked={directCsvCreateMissingTopics}
+                  onChange={(e) => setDirectCsvCreateMissingTopics(e.target.checked)}
+                />
+                <Label htmlFor="csvCreateMissingTopics" className="text-xs cursor-pointer select-none">
+                  Auto-create topics not in master table
+                  <span className="ml-1 text-muted-foreground">(per-row <code className="font-mono">topic</code> column)</span>
+                </Label>
+              </div>
+              <div className="mb-3">
                 <div className="flex flex-col justify-end">
                   <Label className="text-xs mb-1 block">CSV File</Label>
                   <label className={`inline-flex items-center gap-1.5 cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground truncate ${!questionTestId ? "opacity-50 pointer-events-none" : ""}`}>
@@ -2633,11 +3472,51 @@ export default function Admin() {
             </div>
           </div>
         )}
+
+        {/* ── SECTIONS TAB ── */}
+        {tab === "sections" && (
+          <SectionsManager masterSections={masterSections} queryClient={queryClient} toast={toast} />
+        )}
       </main>
 
       {deletingCat && <DeleteModal name={deletingCat.name} onConfirm={handleDeleteCat} onCancel={() => setDeletingCat(null)} />}
       {deletingSubcat && <DeleteModal name={deletingSubcat.name} onConfirm={handleDeleteSubcat} onCancel={() => setDeletingSubcat(null)} />}
       {deletingTest && <DeleteModal name={deletingTest.name} onConfirm={handleDeleteTest} onCancel={() => setDeletingTest(null)} />}
+
+      {/* Quick-add topic modal */}
+      <Dialog open={addTopicModal.open} onOpenChange={(open) => !addTopicModal.busy && setAddTopicModal((m) => ({ ...m, open }))}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Add Topic</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 py-1">
+            <div>
+              <Label htmlFor="quick-topic-name">Topic Name <span className="text-destructive">*</span></Label>
+              <Input
+                id="quick-topic-name"
+                autoFocus
+                className="mt-1"
+                placeholder="e.g. Algebra"
+                value={addTopicModal.name}
+                onChange={(e) => setAddTopicModal((m) => ({ ...m, name: e.target.value, error: null }))}
+                onKeyDown={(e) => { if (e.key === "Enter" && addTopicModal.name.trim()) handleAddTopicModalSave(); }}
+                disabled={addTopicModal.busy}
+              />
+              {addTopicModal.error && (
+                <p className="text-xs text-destructive mt-1">{addTopicModal.error}</p>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" size="sm" disabled={addTopicModal.busy} onClick={() => setAddTopicModal((m) => ({ ...m, open: false }))}>
+              Cancel
+            </Button>
+            <Button size="sm" disabled={addTopicModal.busy || !addTopicModal.name.trim()} onClick={handleAddTopicModalSave}>
+              {addTopicModal.busy ? "Saving…" : "Save"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

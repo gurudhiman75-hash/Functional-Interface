@@ -21,6 +21,8 @@ export interface User {
 }
 
 export interface TestAttempt {
+  id?: string;      // server-assigned UUID; absent for locally-stored attempts
+  userId?: string;
   testId: string;
   testName: string;
   category: string;
@@ -30,7 +32,7 @@ export interface TestAttempt {
   unanswered: number;
   totalQuestions: number;
   timeSpent: number;
-  date: string;
+  createdAt: string;
   attemptType: "REAL" | "PRACTICE";
   isFirstAttempt?: boolean; // Only first real attempt counts for leaderboard
   originalAttemptId?: string; // For practice mode, reference to original real attempt
@@ -79,6 +81,7 @@ export interface ActiveTestSession {
   lockedSections: number[]; // Indices of sections that are permanently locked
   originalAttemptId?: string; // For practice mode
   sectionCompletionTimes?: Record<string, number>; // Time spent per section in real attempt
+  visitedQuestionIds?: number[]; // Track which questions have been opened
 }
 
 export const getUser = (): User | null => Storage.get<User>("user");
@@ -88,10 +91,143 @@ export const clearAuth = () => {
   Storage.remove("authToken");
 };
 export const getAttempts = (): TestAttempt[] => Storage.get<TestAttempt[]>("attempts") ?? [];
+
+// ----- Daily Streak -----
+
+export interface StreakData {
+  currentStreak: number;
+  longestStreak: number;
+  /** ISO date string "YYYY-MM-DD" of the last day a REAL test was completed (local timezone) */
+  lastAttemptDate: string | null;
+  /** Whether the streak was just incremented (used for celebration trigger) */
+  justIncremented: boolean;
+}
+
+const STREAK_KEY = "streak_data";
+
+/** Returns today's date as "YYYY-MM-DD" in the user's local timezone (timezone-safe). */
+function localDateString(date = new Date()): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+export const getStreak = (): StreakData =>
+  Storage.get<StreakData>(STREAK_KEY) ?? {
+    currentStreak: 0,
+    longestStreak: 0,
+    lastAttemptDate: null,
+    justIncremented: false,
+  };
+
+/**
+ * Called after a REAL test attempt is saved.
+ * Recalculates currentStreak / longestStreak based on today's local date.
+ * Returns the updated StreakData.
+ */
+export function updateStreak(): StreakData {
+  const today = localDateString();
+  const data = getStreak();
+
+  // Already counted today — just clear any stale celebration flag and return
+  if (data.lastAttemptDate === today) {
+    const updated: StreakData = { ...data, justIncremented: false };
+    Storage.set(STREAK_KEY, updated);
+    return updated;
+  }
+
+  let newCurrent: number;
+  let justIncremented = false;
+
+  if (data.lastAttemptDate === null) {
+    // First ever attempt
+    newCurrent = 1;
+    justIncremented = true;
+  } else {
+    // Check if yesterday
+    const yesterday = localDateString(new Date(Date.now() - 86_400_000));
+    if (data.lastAttemptDate === yesterday) {
+      newCurrent = data.currentStreak + 1;
+      justIncremented = true;
+    } else {
+      // Gap of 2+ days → reset
+      newCurrent = 1;
+      justIncremented = true; // new streak starting
+    }
+  }
+
+  const updated: StreakData = {
+    currentStreak: newCurrent,
+    longestStreak: Math.max(data.longestStreak, newCurrent),
+    lastAttemptDate: today,
+    justIncremented,
+  };
+  Storage.set(STREAK_KEY, updated);
+  return updated;
+}
+
+/** Clears the justIncremented flag once the celebration has been shown. */
+export function acknowledgeStreakCelebration(): void {
+  const data = getStreak();
+  if (data.justIncremented) {
+    Storage.set(STREAK_KEY, { ...data, justIncremented: false });
+  }
+}
+
 export const addAttempt = (attempt: TestAttempt) => {
   const attempts = getAttempts();
   attempts.unshift(attempt);
   Storage.set("attempts", attempts);
+  // Update daily streak for REAL attempts only
+  if (attempt.attemptType === "REAL") {
+    updateStreak();
+  }
+};
+
+// ----- Percentile history (per-test leaderboard percentile tracking) -----
+
+const PERCENTILE_HISTORY_KEY = "percentile_history";
+
+/**
+ * Returns the stored percentile map: { [testId]: topPercent }
+ * topPercent is a 1-100 number where lower = better (e.g. 5 means "top 5%").
+ */
+export const getPercentileHistory = (): Record<string, number> =>
+  Storage.get<Record<string, number>>(PERCENTILE_HISTORY_KEY) ?? {};
+
+/** Stores/updates the percentile for a given test. */
+export const recordPercentile = (testId: string, topPercent: number): void => {
+  const history = getPercentileHistory();
+  history[testId] = topPercent;
+  Storage.set(PERCENTILE_HISTORY_KEY, history);
+};
+
+// ----- Daily challenge completion tracking -----
+
+const DAILY_CHALLENGE_KEY = "daily_challenge_status";
+
+export interface DailyChallengeStatus {
+  /** "YYYY-MM-DD" local date of the last completed daily challenge */
+  completedDate: string | null;
+  /** The testId that was completed */
+  completedTestId: string | null;
+}
+
+export const getDailyChallengeStatus = (): DailyChallengeStatus =>
+  Storage.get<DailyChallengeStatus>(DAILY_CHALLENGE_KEY) ?? {
+    completedDate: null,
+    completedTestId: null,
+  };
+
+/** Call after a REAL attempt on the daily challenge test. */
+export const recordDailyChallengeCompleted = (testId: string): void => {
+  const today = new Date().toISOString().slice(0, 10);
+  Storage.set(DAILY_CHALLENGE_KEY, { completedDate: today, completedTestId: testId });
+};
+
+/** Returns true if today's challenge has already been completed. */
+export const isDailyChallengeCompletedToday = (challengeTestId: string): boolean => {
+  const today = new Date().toISOString().slice(0, 10);
+  const status = getDailyChallengeStatus();
+  return status.completedDate === today && status.completedTestId === challengeTestId;
 };
 
 // ----- Attempt + Response tracking -----
@@ -222,17 +358,23 @@ export interface AdminTest {
   difficulty: "Easy" | "Medium" | "Hard";
   showDifficulty: boolean;
   sections: string[];
+  sectionIds?: string[];
+  topicId?: string;
+  topicName?: string;
   sectionSettings: AdminSectionSetting[];
   sectionTimingMode: "none" | "fixed";
   sectionTimings: AdminSectionTiming[];
   attempts: number;
   avgScore: number;
+  /** Languages available for this test, e.g. ["en"], ["en","pa"]. Overrides subcategory languages for upload validation. */
+  languages?: string[];
 }
 
 export interface AdminQuestion {
   id: string;
   testId: string;
   section: string;
+  topic?: string;
   text: string;
   options: [string, string, string, string];
   correct: number;
@@ -437,6 +579,30 @@ export async function syncAdminDataToCloudOrThrow() {
     method: "PUT",
     body: JSON.stringify(buildAdminSnapshot()),
   });
+}
+
+/**
+ * Delete a single test (and its questions) on the server without triggering
+ * a full snapshot PUT — avoids create/update validation firing on delete.
+ */
+export async function deleteTestFromCloud(id: string): Promise<void> {
+  await apiRequest(`/admin-data/tests/${id}`, { method: "DELETE" });
+}
+
+/**
+ * Delete a single category (and all its subcategories, tests, questions) on
+ * the server without triggering a full snapshot PUT.
+ */
+export async function deleteCategoryFromCloud(id: string): Promise<void> {
+  await apiRequest(`/admin-data/categories/${id}`, { method: "DELETE" });
+}
+
+/**
+ * Delete a single subcategory (and all its tests, questions) on the server
+ * without triggering a full snapshot PUT.
+ */
+export async function deleteSubcategoryFromCloud(id: string): Promise<void> {
+  await apiRequest(`/admin-data/subcategories/${id}`, { method: "DELETE" });
 }
 
 async function persistAdminDataToCloud() {
