@@ -171,15 +171,26 @@ async function fetchUsageStats(
   questionIds: number[],
 ): Promise<Map<number, { usageCount: number; lastUsedAt: Date | null }>> {
   if (questionIds.length === 0) return new Map();
-  const rows = await db
-    .select({
-      questionId: testQuestions.questionId,
-      usageCount: count(testQuestions.id),
-      lastUsedAt: max(testQuestions.addedAt),
-    })
-    .from(testQuestions)
-    .where(inArray(testQuestions.questionId, questionIds))
-    .groupBy(testQuestions.questionId);
+  let rows: Array<{ questionId: number; usageCount: number; lastUsedAt: Date | null }>;
+  try {
+    rows = await db
+      .select({
+        questionId: testQuestions.questionId,
+        usageCount: count(testQuestions.id),
+        lastUsedAt: max(testQuestions.addedAt),
+      })
+      .from(testQuestions)
+      .where(inArray(testQuestions.questionId, questionIds))
+      .groupBy(testQuestions.questionId);
+  } catch (err: any) {
+    // Older/partially-migrated DB: test_questions table missing.
+    // Keep Question Bank usable by treating usage as zero.
+    if (err?.code === "42P01") {
+      console.warn("[question-bank] test_questions table missing; usage stats defaulting to zero");
+      return new Map();
+    }
+    throw err;
+  }
 
   const map = new Map<number, { usageCount: number; lastUsedAt: Date | null }>();
   for (const r of rows) {
@@ -379,6 +390,10 @@ router.get("/question-bank/:id/tests", authenticate, async (req, res): Promise<v
 
     res.json(rows);
   } catch (err: any) {
+    if (err?.code === "42P01") {
+      console.warn("[question-bank] test_questions table missing; returning empty usage list");
+      return void res.json([]);
+    }
     if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] GET /question-bank/:id/tests", err);
     res.status(500).json({ error: "Internal server error" });
