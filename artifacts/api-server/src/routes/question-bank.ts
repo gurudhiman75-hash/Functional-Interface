@@ -41,6 +41,9 @@ const CORRECT_LETTER: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
 const router: IRouter = Router();
 
 type QuestionColumnState = {
+  hasClientId: boolean;
+  hasTestId: boolean;
+  hasCreatedAt: boolean;
   hasSectionId: boolean;
   hasTopicId: boolean;
   hasGlobalTopicId: boolean;
@@ -67,6 +70,9 @@ async function getQuestionColumnState(): Promise<QuestionColumnState> {
         rows.map((row) => String(row.column_name ?? row.COLUMN_NAME ?? "").toLowerCase()),
       );
       return {
+        hasClientId: names.has("client_id"),
+        hasTestId: names.has("test_id"),
+        hasCreatedAt: names.has("created_at"),
         hasSectionId: names.has("section_id"),
         hasTopicId: names.has("topic_id"),
         hasGlobalTopicId: names.has("global_topic_id"),
@@ -87,8 +93,8 @@ function buildQuestionSelectSql(columns: QuestionColumnState) {
   return sql.join(
     [
       sql`id`,
-      sql`client_id`,
-      sql`test_id`,
+      columns.hasClientId ? sql`client_id` : sql`''::text AS client_id`,
+      columns.hasTestId ? sql`test_id` : sql`''::text AS test_id`,
       sql`text`,
       sql`options`,
       sql`correct`,
@@ -105,7 +111,7 @@ function buildQuestionSelectSql(columns: QuestionColumnState) {
       columns.hasTextPa ? sql`text_pa` : sql`NULL::text AS text_pa`,
       columns.hasOptionsPa ? sql`options_pa` : sql`NULL::jsonb AS options_pa`,
       columns.hasExplanationPa ? sql`explanation_pa` : sql`NULL::text AS explanation_pa`,
-      sql`created_at`,
+      columns.hasCreatedAt ? sql`created_at` : sql`NOW() AS created_at`,
     ],
     sql`, `,
   );
@@ -212,6 +218,7 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
     const whereFrag = buildQuestionWhereSql(columns, req);
     const whereClause = whereFrag ? sql`WHERE ${whereFrag}` : sql``;
     const selectColumns = buildQuestionSelectSql(columns);
+    const orderBy = columns.hasCreatedAt ? sql`created_at DESC` : sql`id DESC`;
 
     // Primary query — includes optional columns (global_topic_id, difficulty)
     let rows: any[];
@@ -221,7 +228,7 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
         db.execute(sql`
           SELECT ${selectColumns}
           FROM questions ${whereClause}
-          ORDER BY created_at DESC
+          ORDER BY ${orderBy}
           LIMIT ${pageSize} OFFSET ${offset}
         `),
         db.execute(sql`SELECT COUNT(*)::int AS total FROM questions ${whereClause}`),
@@ -233,15 +240,15 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
       const fallbackSelect = sql.join(
         [
           sql`id`,
-          sql`client_id`,
-          sql`test_id`,
+          sql`''::text AS client_id`,
+          sql`''::text AS test_id`,
           sql`text`,
           sql`options`,
           sql`correct`,
           sql`section`,
           sql`COALESCE(topic, 'General') AS topic`,
           sql`explanation`,
-          sql`created_at`,
+          sql`NOW() AS created_at`,
           sql`NULL::text AS section_id`,
           sql`NULL::text AS topic_id`,
           sql`NULL::text AS global_topic_id`,
@@ -259,7 +266,7 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
         db.execute(sql`
           SELECT ${fallbackSelect}
           FROM questions
-          ORDER BY created_at DESC
+          ORDER BY id DESC
           LIMIT ${pageSize} OFFSET ${offset}
         `),
         db.execute(sql`SELECT COUNT(*)::int AS total FROM questions`),
@@ -318,15 +325,15 @@ router.get("/question-bank/:id", authenticate, async (req, res): Promise<void> =
     const fallbackSelect = sql.join(
       [
         sql`id`,
-        sql`client_id`,
-        sql`test_id`,
+        sql`''::text AS client_id`,
+        sql`''::text AS test_id`,
         sql`text`,
         sql`options`,
         sql`correct`,
         sql`section`,
         sql`COALESCE(topic, 'General') AS topic`,
         sql`explanation`,
-        sql`created_at`,
+        sql`NOW() AS created_at`,
         sql`NULL::text AS section_id`,
         sql`NULL::text AS topic_id`,
         sql`NULL::text AS global_topic_id`,
