@@ -13,7 +13,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Plus, Edit, Trash2, Search, X, ChevronDown, ChevronRight,
-  BookOpen, AlertTriangle, Check, Loader2, ExternalLink,
+  BookOpen, AlertTriangle, Check, Loader2, ExternalLink, Upload, Download, FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,9 +28,11 @@ import {
   deleteBankQuestion,
   addQuestionsToTest,
   removeQuestionFromTest,
+  importBankQuestionsFromCsv,
   type BankQuestion,
   type QuestionDifficulty,
   type BankQuestionUsage,
+  type BankCsvImportResult,
 } from "@/lib/data";
 import { getSections, getAllTopics, type MasterSection, type MasterTopic } from "@/lib/data";
 import { getTests as fetchBackendTests } from "@/lib/data";
@@ -540,6 +542,289 @@ function DeleteModal({
   );
 }
 
+// ── Import CSV modal ──────────────────────────────────────────────────────────
+
+interface ImportBankCsvModalProps {
+  open: boolean;
+  masterSections: MasterSection[];
+  masterTopics: MasterTopic[];
+  onClose: () => void;
+  onImported: () => void;
+}
+
+function ImportBankCsvModal({ open, masterSections, masterTopics, onClose, onImported }: ImportBankCsvModalProps) {
+  const { toast } = useToast();
+  const [file, setFile] = useState<File | null>(null);
+  const [batchSection, setBatchSection] = useState("");
+  const [batchTopic, setBatchTopic] = useState("");
+  const [importing, setImporting] = useState(false);
+  const [result, setResult] = useState<BankCsvImportResult | null>(null);
+  const [previewRows, setPreviewRows] = useState<string[][] | null>(null);
+  const [previewHeaders, setPreviewHeaders] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!open) {
+      setFile(null);
+      setBatchSection("");
+      setBatchTopic("");
+      setResult(null);
+      setPreviewRows(null);
+      setPreviewHeaders([]);
+    }
+  }, [open]);
+
+  const handleFileChange = (f: File) => {
+    setFile(f);
+    setResult(null);
+    // Quick client-side preview (first 5 data rows)
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = (e.target?.result as string) ?? "";
+      const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").filter(Boolean);
+      if (lines.length < 1) return;
+      const parseLine = (l: string) => {
+        const cells: string[] = [];
+        let cur = "", inQ = false;
+        for (let i = 0; i < l.length; i++) {
+          const ch = l[i];
+          if (ch === '"') { if (inQ && l[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+          else if (ch === ',' && !inQ) { cells.push(cur.trim()); cur = ""; }
+          else cur += ch;
+        }
+        cells.push(cur.trim());
+        return cells;
+      };
+      const headers = parseLine(lines[0]);
+      setPreviewHeaders(headers);
+      setPreviewRows(lines.slice(1, 6).map(parseLine));
+    };
+    reader.readAsText(f);
+  };
+
+  const handleImport = async () => {
+    if (!file) { toast({ title: "Select a CSV file first", variant: "destructive" }); return; }
+    setImporting(true);
+    try {
+      const res = await importBankQuestionsFromCsv(file, {
+        section: batchSection || undefined,
+        topic: batchTopic || undefined,
+      });
+      setResult(res);
+      if (res.inserted > 0) {
+        toast({ title: `Imported ${res.inserted} question${res.inserted !== 1 ? "s" : ""}` });
+        onImported();
+      }
+    } catch (err: any) {
+      toast({ title: "Import failed", description: err?.message, variant: "destructive" });
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  const downloadTemplate = () => {
+    const headers = [
+      "section", "topic", "difficulty",
+      "question_en", "optionA_en", "optionB_en", "optionC_en", "optionD_en",
+      "correct_option", "explanation_en",
+      "question_hi", "optionA_hi", "optionB_hi", "optionC_hi", "optionD_hi", "explanation_hi",
+      "question_pa", "optionA_pa", "optionB_pa", "optionC_pa", "optionD_pa", "explanation_pa",
+    ];
+    const example = [
+      "Quantitative Aptitude", "Arithmetic", "Easy",
+      "What is 2+2?", "3", "4", "5", "6",
+      "B", "Because 2+2=4",
+      "2+2 क्या है?", "3", "4", "5", "6", "क्योंकि 2+2=4",
+      "2+2 ਕੀ ਹੈ?", "3", "4", "5", "6", "ਕਿਉਂਕਿ 2+2=4",
+    ];
+    const csv = [headers.join(","), example.map((v) => `"${v}"`).join(",")].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "question-bank-template.csv"; a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const detectedLangs = (() => {
+    if (!previewHeaders.length) return null;
+    const h = previewHeaders.map((x) => x.toLowerCase());
+    const langs: string[] = ["English"];
+    if (h.some((c) => c.includes("_hi"))) langs.push("Hindi");
+    if (h.some((c) => c.includes("_pa"))) langs.push("Punjabi");
+    return langs;
+  })();
+
+  return (
+    <Dialog open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Upload className="w-4 h-4 text-primary" /> Import Questions from CSV
+          </DialogTitle>
+        </DialogHeader>
+
+        {result ? (
+          <div className="space-y-3 mt-2">
+            <div className={`rounded-lg p-4 ${result.inserted > 0 ? "bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800" : "bg-muted border border-border"}`}>
+              <p className="text-sm font-medium text-foreground flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-600" />
+                Import complete: <span className="text-emerald-600">{result.inserted} inserted</span>
+                {result.skipped > 0 && <span className="text-amber-600 ml-1">, {result.skipped} skipped</span>}
+              </p>
+              {detectedLangs && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Languages detected: {detectedLangs.join(", ")}
+                </p>
+              )}
+            </div>
+            {result.errors.length > 0 && (
+              <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-3">
+                <p className="text-xs font-semibold text-destructive mb-2 flex items-center gap-1">
+                  <AlertTriangle className="w-3 h-3" /> {result.errors.length} row error{result.errors.length !== 1 ? "s" : ""}
+                </p>
+                <ul className="space-y-1 max-h-32 overflow-y-auto">
+                  {result.errors.map((e, i) => (
+                    <li key={i} className="text-xs text-muted-foreground">Row {e.row}: {e.reason}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <DialogFooter>
+              <Button onClick={onClose}>Done</Button>
+            </DialogFooter>
+          </div>
+        ) : (
+          <div className="space-y-4 mt-2">
+            {/* Template download */}
+            <div className="flex items-start gap-3 bg-muted/40 rounded-lg p-3">
+              <FileText className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-muted-foreground">
+                  Download the template CSV. English columns are required; Hindi (
+                  <span className="font-medium">_hi</span>) and Punjabi (
+                  <span className="font-medium">_pa</span>) columns are optional — they are auto-detected.
+                </p>
+              </div>
+              <Button type="button" variant="outline" size="sm" className="shrink-0" onClick={downloadTemplate}>
+                <Download className="w-3.5 h-3.5 mr-1" /> Template
+              </Button>
+            </div>
+
+            {/* Batch-level overrides */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <Label className="text-xs">Default Section <span className="text-muted-foreground">(used when row has none)</span></Label>
+                <select
+                  className="mt-1 w-full h-9 px-3 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  value={batchSection}
+                  onChange={(e) => setBatchSection(e.target.value)}
+                >
+                  <option value="">— optional —</option>
+                  {masterSections.map((s) => <option key={s.id} value={s.name}>{s.name}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label className="text-xs">Default Topic <span className="text-muted-foreground">(used when row has none)</span></Label>
+                <select
+                  className="mt-1 w-full h-9 px-3 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  value={batchTopic}
+                  onChange={(e) => setBatchTopic(e.target.value)}
+                >
+                  <option value="">— optional —</option>
+                  {masterTopics.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
+                </select>
+              </div>
+            </div>
+
+            {/* File picker */}
+            <div>
+              <Label className="text-xs mb-1 block">CSV File *</Label>
+              <div
+                className="border-2 border-dashed border-border rounded-lg p-6 text-center cursor-pointer hover:border-primary/50 transition-colors"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {file ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <FileText className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-foreground">{file.name}</span>
+                    <span className="text-xs text-muted-foreground">({(file.size / 1024).toFixed(1)} KB)</span>
+                    <button
+                      type="button"
+                      className="ml-2 text-muted-foreground hover:text-destructive"
+                      onClick={(e) => { e.stopPropagation(); setFile(null); setPreviewRows(null); setPreviewHeaders([]); }}
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="text-muted-foreground">
+                    <Upload className="w-6 h-6 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">Click to select a CSV file</p>
+                  </div>
+                )}
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv"
+                className="hidden"
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileChange(f); e.target.value = ""; }}
+              />
+            </div>
+
+            {/* Detected languages badge */}
+            {detectedLangs && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-muted-foreground">Detected languages:</span>
+                {detectedLangs.map((l) => (
+                  <span key={l} className="text-[11px] font-semibold bg-primary/10 text-primary px-2 py-0.5 rounded-full">{l}</span>
+                ))}
+              </div>
+            )}
+
+            {/* Preview table */}
+            {previewRows && previewRows.length > 0 && (
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground mb-1.5">Preview (first {previewRows.length} rows)</p>
+                <div className="overflow-x-auto rounded border border-border">
+                  <table className="text-[11px] w-max min-w-full">
+                    <thead>
+                      <tr className="bg-muted/50">
+                        {previewHeaders.slice(0, 10).map((h, i) => (
+                          <th key={i} className="px-2 py-1 text-left font-medium text-muted-foreground whitespace-nowrap border-r border-border last:border-0">{h}</th>
+                        ))}
+                        {previewHeaders.length > 10 && <th className="px-2 py-1 text-muted-foreground">+{previewHeaders.length - 10} more</th>}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {previewRows.map((row, ri) => (
+                        <tr key={ri} className="border-t border-border">
+                          {previewHeaders.slice(0, 10).map((_, ci) => (
+                            <td key={ci} className="px-2 py-1 max-w-[120px] truncate border-r border-border last:border-0" title={row[ci]}>{row[ci] ?? ""}</td>
+                          ))}
+                          {previewHeaders.length > 10 && <td className="px-2 py-1 text-muted-foreground">…</td>}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
+              <Button onClick={handleImport} disabled={!file || importing}>
+                {importing ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Upload className="w-4 h-4 mr-1" />}
+                Import
+              </Button>
+            </DialogFooter>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 // ── Main QuestionBankTab component ────────────────────────────────────────────
 
 export default function QuestionBankTab() {
@@ -567,6 +852,7 @@ export default function QuestionBankTab() {
   const [editingQuestion, setEditingQuestion] = useState<BankQuestion | null>(null);
   const [deletingQuestion, setDeletingQuestion] = useState<BankQuestion | null>(null);
   const [showAddToTest, setShowAddToTest] = useState(false);
+  const [showImport, setShowImport] = useState(false);
 
   // Master data
   const { data: masterSections = [] } = useQuery<MasterSection[]>({
@@ -675,6 +961,13 @@ export default function QuestionBankTab() {
               Add {selectedIds.size} to Test
             </Button>
           )}
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setShowImport(true)}
+          >
+            <Upload className="w-3.5 h-3.5 mr-1" /> Import CSV
+          </Button>
           <Button
             size="sm"
             onClick={() => { setEditingQuestion(null); setShowForm(true); }}
@@ -910,6 +1203,14 @@ export default function QuestionBankTab() {
         selectedIds={[...selectedIds]}
         onClose={() => setShowAddToTest(false)}
         onDone={() => setSelectedIds(new Set())}
+      />
+
+      <ImportBankCsvModal
+        open={showImport}
+        masterSections={masterSections}
+        masterTopics={masterTopics}
+        onClose={() => setShowImport(false)}
+        onImported={invalidateBank}
       />
 
       <DeleteModal

@@ -1,9 +1,42 @@
 import { Router, type IRouter } from "express";
 import { and, asc, count, desc, eq, ilike, inArray, max, or, sql } from "drizzle-orm";
+import multer from "multer";
 import { db } from "../lib/db";
 import { questions, testQuestions, tests, sections, topicsGlobal } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
+
+// Multer for CSV uploads (memory storage, 10 MB limit)
+const csvUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter(_req, file, cb) {
+    if (file.mimetype === "text/csv" || file.originalname.endsWith(".csv")) cb(null, true);
+    else cb(new Error("Only .csv files are accepted"));
+  },
+});
+
+function parseCsvLine(line: string): string[] {
+  const cells: string[] = [];
+  let cur = "";
+  let inQuote = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuote && line[i + 1] === '"') { cur += '"'; i++; }
+      else inQuote = !inQuote;
+    } else if (ch === "," && !inQuote) { cells.push(cur.trim()); cur = ""; }
+    else cur += ch;
+  }
+  cells.push(cur.trim());
+  return cells;
+}
+
+function normaliseKey(v: string) {
+  return v.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+const CORRECT_LETTER: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
 
 const router: IRouter = Router();
 
@@ -524,6 +557,157 @@ router.get("/question-bank/smart-select", authenticate, async (req, res) => {
     console.error("[question-bank] GET /question-bank/smart-select", err);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// ── POST /question-bank/import-csv ────────────────────────────────────────────
+/**
+ * Import questions from a CSV file directly into the question bank (no test required).
+ *
+ * CSV columns:
+ *   Required: question_en, optionA_en, optionB_en, optionC_en, optionD_en,
+ *             correct_option (A/B/C/D), explanation_en
+ *   Required (row or batch): section (per-row column OR body field "section")
+ *   Optional per-row: topic, difficulty (Easy/Medium/Hard)
+ *   Optional: question_hi, optionA_hi … optionD_hi, explanation_hi
+ *   Optional: question_pa, optionA_pa … optionD_pa, explanation_pa
+ *
+ * Languages are detected automatically from column presence in the header.
+ *
+ * Multipart body:
+ *   - file: CSV
+ *   - section: batch-level section name (used when per-row "section" column absent)
+ *   - topic: batch-level topic name (used when per-row "topic" column absent)
+ */
+router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"), async (req, res) => {
+  try {
+    await assertAdmin(req.user!.uid);
+  } catch {
+    return res.status(403).json({ error: "Admin access required" });
+  }
+
+  if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+  const batchSection = (req.body.section as string | undefined)?.trim() ?? "";
+  const batchTopic   = (req.body.topic   as string | undefined)?.trim() ?? "";
+
+  // Load master tables once
+  const [allSections, allTopicsGlobal] = await Promise.all([
+    db.select().from(sections),
+    db.select().from(topicsGlobal),
+  ]);
+  const sectionByName = new Map(allSections.map((s) => [normaliseKey(s.name), s]));
+  const topicByName   = new Map(allTopicsGlobal.map((t) => [normaliseKey(t.name), t]));
+
+  const csvText = req.file.buffer.toString("utf-8");
+  const lines = csvText.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").map((l) => l.trim()).filter(Boolean);
+  if (lines.length < 2) return res.status(400).json({ error: "CSV must have a header row and at least one data row" });
+
+  const rawHeader = parseCsvLine(lines[0]);
+  const header = rawHeader.map((h) => h.toLowerCase().trim().replace(/[^a-z0-9_]/g, ""));
+  const get = (cells: string[], col: string) => (cells[header.indexOf(col)] ?? "").trim();
+
+  // Auto-detect languages from header
+  const hasHi = header.includes("question_hi");
+  const hasPa = header.includes("question_pa");
+  const detectedLanguages = ["en", ...(hasHi ? ["hi"] : []), ...(hasPa ? ["pa"] : [])];
+
+  // Validate required EN columns
+  const requiredCols = ["question_en", "optiona_en", "optionb_en", "optionc_en", "optiond_en", "correct_option", "explanation_en"];
+  for (const col of requiredCols) {
+    if (!header.includes(col)) return res.status(400).json({ error: `Missing required column: "${col}"` });
+  }
+
+  const toInsert: (typeof questions.$inferInsert)[] = [];
+  const errors: { row: number; reason: string }[] = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const rowNum = i + 1;
+    const cells = parseCsvLine(lines[i]);
+
+    const questionEn  = get(cells, "question_en");
+    const optionAEn   = get(cells, "optiona_en");
+    const optionBEn   = get(cells, "optionb_en");
+    const optionCEn   = get(cells, "optionc_en");
+    const optionDEn   = get(cells, "optiond_en");
+    const correctRaw  = get(cells, "correct_option").toUpperCase();
+    const explanationEn = get(cells, "explanation_en");
+    const difficultyRaw = get(cells, "difficulty");
+
+    if (!questionEn)  { errors.push({ row: rowNum, reason: "question_en is empty" }); continue; }
+    if (!optionAEn || !optionBEn || !optionCEn || !optionDEn) { errors.push({ row: rowNum, reason: "One or more English options are empty" }); continue; }
+    if (!(correctRaw in CORRECT_LETTER)) { errors.push({ row: rowNum, reason: `correct_option "${correctRaw}" is not A/B/C/D` }); continue; }
+    if (!explanationEn) { errors.push({ row: rowNum, reason: "explanation_en is empty" }); continue; }
+    if (difficultyRaw && !["Easy", "Medium", "Hard"].includes(difficultyRaw)) {
+      errors.push({ row: rowNum, reason: `difficulty "${difficultyRaw}" must be Easy, Medium, or Hard` }); continue;
+    }
+
+    // Resolve section
+    const rowSection = get(cells, "section") || batchSection;
+    if (!rowSection) { errors.push({ row: rowNum, reason: "section is required (add per-row column or batch param)" }); continue; }
+    const sectionRow = sectionByName.get(normaliseKey(rowSection));
+    if (!sectionRow) { errors.push({ row: rowNum, reason: `section "${rowSection}" not found in master sections table` }); continue; }
+
+    // Resolve topic (optional)
+    const rowTopic = get(cells, "topic") || batchTopic;
+    let topicRow: (typeof allTopicsGlobal)[number] | undefined;
+    if (rowTopic) {
+      topicRow = topicByName.get(normaliseKey(rowTopic));
+      if (!topicRow) { errors.push({ row: rowNum, reason: `topic "${rowTopic}" not found in global topics table` }); continue; }
+    }
+
+    // Optional Hindi fields
+    const questionHi = hasHi ? get(cells, "question_hi") : "";
+    const optionAHi  = hasHi ? get(cells, "optiona_hi") : "";
+    const optionBHi  = hasHi ? get(cells, "optionb_hi") : "";
+    const optionCHi  = hasHi ? get(cells, "optionc_hi") : "";
+    const optionDHi  = hasHi ? get(cells, "optiond_hi") : "";
+    const explanationHi = hasHi ? get(cells, "explanation_hi") : "";
+
+    // Optional Punjabi fields
+    const questionPa = hasPa ? get(cells, "question_pa") : "";
+    const optionAPa  = hasPa ? get(cells, "optiona_pa") : "";
+    const optionBPa  = hasPa ? get(cells, "optionb_pa") : "";
+    const optionCPa  = hasPa ? get(cells, "optionc_pa") : "";
+    const optionDPa  = hasPa ? get(cells, "optiond_pa") : "";
+    const explanationPa = hasPa ? get(cells, "explanation_pa") : "";
+
+    toInsert.push({
+      testId: "",
+      clientId: "",
+      text: questionEn,
+      options: [optionAEn, optionBEn, optionCEn, optionDEn] as unknown as string,
+      correct: CORRECT_LETTER[correctRaw],
+      section: sectionRow.name,
+      sectionId: sectionRow.id,
+      topic: topicRow?.name ?? "General",
+      topicId: topicRow?.id ?? null,
+      globalTopicId: topicRow?.id ?? "",
+      explanation: explanationEn,
+      difficulty: (difficultyRaw as "Easy" | "Medium" | "Hard") || null,
+      textHi: questionHi || null,
+      optionsHi: questionHi ? [optionAHi || optionAEn, optionBHi || optionBEn, optionCHi || optionCEn, optionDHi || optionDEn] as unknown as string : null,
+      explanationHi: explanationHi || null,
+      textPa: questionPa || null,
+      optionsPa: questionPa ? [optionAPa || optionAEn, optionBPa || optionBEn, optionCPa || optionCEn, optionDPa || optionDEn] as unknown as string : null,
+      explanationPa: explanationPa || null,
+    });
+  }
+
+  // Bulk insert in chunks of 200
+  let inserted = 0;
+  const CHUNK = 200;
+  for (let i = 0; i < toInsert.length; i += CHUNK) {
+    const chunk = toInsert.slice(i, i + CHUNK);
+    await db.insert(questions).values(chunk);
+    inserted += chunk.length;
+  }
+
+  res.json({
+    inserted,
+    skipped: lines.length - 1 - toInsert.length,
+    errors,
+    detectedLanguages,
+  });
 });
 
 export default router;

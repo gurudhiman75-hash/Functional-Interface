@@ -692,6 +692,44 @@ export async function smartSelectQuestions(params: {
   return apiRequest(`/question-bank/smart-select?${qs.toString()}`);
 }
 
+export interface BankCsvImportResult {
+  inserted: number;
+  skipped: number;
+  errors: { row: number; reason: string }[];
+  detectedLanguages: string[];
+}
+
+/**
+ * Import questions from a CSV file into the question bank.
+ * section / topic can be provided as batch-level overrides (used when per-row
+ * columns are absent).
+ */
+export async function importBankQuestionsFromCsv(
+  file: File,
+  opts: { section?: string; topic?: string } = {},
+): Promise<BankCsvImportResult> {
+  const { getFirebaseAuth } = await import("@/lib/firebase");
+  const auth = getFirebaseAuth();
+  const token = auth?.currentUser ? await auth.currentUser.getIdToken() : "";
+
+  const formData = new FormData();
+  formData.append("file", file);
+  if (opts.section) formData.append("section", opts.section);
+  if (opts.topic) formData.append("topic", opts.topic);
+
+  const base = (import.meta as any).env?.VITE_API_BASE_URL ?? "/api";
+  const resp = await fetch(`${base}/question-bank/import-csv`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData,
+  });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({ error: "Import failed" })) as { error?: string };
+    throw new Error(err.error ?? `Import failed (${resp.status})`);
+  }
+  return resp.json();
+}
+
 // Legacy compatibility - these will be removed once frontend is fully migrated
 export const categories: Category[] = [];
 export const allTests: Test[] = [];
