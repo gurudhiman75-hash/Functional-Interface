@@ -17,15 +17,22 @@ function decodeJwtPayload(token: string) {
 
 const serviceAccountKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 
-if (!serviceAccountKey) {
+// Also support separate env vars (FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL)
+const firebaseProjectId = process.env.FIREBASE_PROJECT_ID;
+const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY;
+const firebaseClientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+
+const hasSeparateVars = firebaseProjectId && firebasePrivateKey && firebaseClientEmail;
+
+if (!serviceAccountKey && !hasSeparateVars) {
   if (isProd) {
     throw new Error(
-      "FIREBASE_SERVICE_ACCOUNT_KEY is required in production. " +
-      "Set this environment variable to a valid Firebase service account JSON string.",
+      "Firebase credentials are required in production. " +
+      "Set FIREBASE_SERVICE_ACCOUNT_KEY (full JSON) OR set FIREBASE_PROJECT_ID + FIREBASE_PRIVATE_KEY + FIREBASE_CLIENT_EMAIL.",
     );
   }
   console.warn(
-    "[firebase-admin] FIREBASE_SERVICE_ACCOUNT_KEY not set. " +
+    "[firebase-admin] Firebase credentials not set. " +
     "Using mock auth — development only.",
   );
 }
@@ -37,6 +44,19 @@ if (serviceAccountKey) {
   if (!admin.apps || admin.apps.length === 0) {
     admin.initializeApp({
       credential: admin.credential.cert(JSON.parse(serviceAccountKey)),
+    });
+  }
+  authInstance = admin.auth();
+  firestoreInstance = admin.firestore();
+} else if (hasSeparateVars) {
+  if (!admin.apps || admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: firebaseProjectId,
+        // Render stores the key with literal \n — convert to real newlines
+        privateKey: firebasePrivateKey!.replace(/\\n/g, "\n"),
+        clientEmail: firebaseClientEmail,
+      }),
     });
   }
   authInstance = admin.auth();
