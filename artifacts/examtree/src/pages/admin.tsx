@@ -43,6 +43,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import QuestionBankTab from "@/components/QuestionBankTab";
+import AssignFromBankDialog from "@/components/AssignFromBankDialog";
 
 const isAdminUser = (role?: string) => role === "admin";
 
@@ -841,6 +842,11 @@ export default function Admin() {
   const [directCsvError, setDirectCsvError] = useState<string | null>(null);
   const [directCsvParsed, setDirectCsvParsed] = useState<DirectCsvPreviewRow[] | null>(null);
   const [directCsvShowErrors, setDirectCsvShowErrors] = useState(false);
+
+  // ── Assign from Bank dialog state ──
+  const [bankPickerOpen, setBankPickerOpen] = useState(false);
+  const [bankPickerTestId, setBankPickerTestId] = useState("");
+  const [bankPickerTestName, setBankPickerTestName] = useState("");
 
   // ── Package state ──
   type BackendTest = { id: string; name: string; category: string };
@@ -3011,6 +3017,42 @@ export default function Admin() {
               )}
             </div>
 
+            {/* ── Assign from Question Bank ── */}
+            <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-primary" /> Assign from Question Bank
+              </h3>
+              <p className="text-xs text-muted-foreground mb-3">
+                Pick questions from the global bank and add them to a test. Already-assigned questions are shown greyed out.
+              </p>
+              <div className="flex flex-wrap items-end gap-3">
+                <div className="flex-1 min-w-48">
+                  <Label className="text-xs mb-1 block">Select Test</Label>
+                  <select
+                    className="w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    value={bankPickerTestId}
+                    onChange={(e) => {
+                      setBankPickerTestId(e.target.value);
+                      setBankPickerTestName(tests.find((t) => t.id === e.target.value)?.name ?? "");
+                    }}
+                  >
+                    <option value="">— select a test —</option>
+                    {tests.map((t) => (
+                      <option key={t.id} value={t.id}>{t.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <Button
+                  type="button"
+                  size="sm"
+                  disabled={!bankPickerTestId}
+                  onClick={() => setBankPickerOpen(true)}
+                >
+                  <BookOpen className="w-3.5 h-3.5 mr-1.5" /> Browse &amp; Assign
+                </Button>
+              </div>
+            </div>
+
             {/* ── Direct CSV Import (uploads straight to DB) ── */}
             <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
               <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
@@ -3484,6 +3526,15 @@ export default function Admin() {
           <QuestionBankTab />
         )}
       </main>
+
+      {/* ── Assign from Bank Dialog ── */}
+      <AssignFromBankDialog
+        testId={bankPickerTestId}
+        testName={bankPickerTestName}
+        open={bankPickerOpen}
+        onClose={() => setBankPickerOpen(false)}
+        onAdded={() => {/* tests list will reflect updated count on next load */}}
+      />
 
       {deletingCat && <DeleteModal name={deletingCat.name} onConfirm={handleDeleteCat} onCancel={() => setDeletingCat(null)} />}
       {deletingSubcat && <DeleteModal name={deletingSubcat.name} onConfirm={handleDeleteSubcat} onCancel={() => setDeletingSubcat(null)} />}
