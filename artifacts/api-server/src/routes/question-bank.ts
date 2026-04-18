@@ -105,68 +105,61 @@ router.get("/question-bank", authenticate, async (req, res) => {
     const topicQ = req.query.topic as string | undefined;
     const difficultyQ = req.query.difficulty as Difficulty | undefined;
 
-    // Build WHERE clause with raw SQL to avoid issues with optional columns
-    const whereParts: string[] = [];
-    const params: unknown[] = [];
-    let paramIdx = 1;
-
+    // Build composable WHERE using drizzle sql`` tagged template (same as admin-data.ts)
+    type SQLPart = ReturnType<typeof sql>;
+    const parts: SQLPart[] = [];
     if (searchQ?.trim()) {
-      whereParts.push(`(text ILIKE $${paramIdx} OR explanation ILIKE $${paramIdx + 1})`);
-      params.push(`%${searchQ.trim()}%`, `%${searchQ.trim()}%`);
-      paramIdx += 2;
+      const term = `%${searchQ.trim()}%`;
+      parts.push(sql`(text ILIKE ${term} OR explanation ILIKE ${term})`);
     }
-    if (sectionQ?.trim()) {
-      whereParts.push(`section = $${paramIdx}`);
-      params.push(sectionQ.trim());
-      paramIdx++;
-    }
-    if (topicQ?.trim()) {
-      whereParts.push(`global_topic_id = $${paramIdx}`);
-      params.push(topicQ.trim());
-      paramIdx++;
-    }
+    if (sectionQ?.trim()) parts.push(sql`section = ${sectionQ.trim()}`);
+    if (topicQ?.trim())   parts.push(sql`global_topic_id = ${topicQ.trim()}`);
     if (difficultyQ && ["Easy", "Medium", "Hard"].includes(difficultyQ)) {
-      whereParts.push(`difficulty = $${paramIdx}`);
-      params.push(difficultyQ);
-      paramIdx++;
+      parts.push(sql`difficulty = ${difficultyQ}`);
     }
 
-    const whereSQL = whereParts.length > 0 ? `WHERE ${whereParts.join(" AND ")}` : "";
+    const whereFrag = parts.length > 0
+      ? parts.reduce((a, b) => sql`${a} AND ${b}`)
+      : null;
+    const whereClause = whereFrag ? sql`WHERE ${whereFrag}` : sql``;
 
-    // Use raw SQL — fallback if optional columns missing
+    // Primary query — includes optional columns (global_topic_id, difficulty)
     let rows: any[];
     let totalCount: number;
     try {
-      const [rowResult, countResult] = await Promise.all([
-        db.execute(sql.raw(
-          `SELECT id, client_id, test_id, text, options, correct, section, section_id,
-                  COALESCE(topic, 'General') AS topic, topic_id, global_topic_id,
-                  difficulty, explanation,
-                  text_hi, options_hi, explanation_hi,
-                  text_pa, options_pa, explanation_pa,
-                  created_at
-           FROM questions ${whereSQL} ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`,
-        )),
-        db.execute(sql.raw(`SELECT COUNT(*)::int AS total FROM questions ${whereSQL}`)),
-      ]);
-      rows = rowResult as any[];
-      totalCount = (countResult as any[])[0]?.total ?? 0;
-    } catch {
-      // Fallback: columns global_topic_id or difficulty may not exist yet
-      const [rowResult, countResult] = await Promise.all([
-        db.execute(sql.raw(
-          `SELECT id, client_id, test_id, text, options, correct, section, section_id,
-                  COALESCE(topic, 'General') AS topic, topic_id,
-                  NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
-                  text_hi, options_hi, explanation_hi,
-                  text_pa, options_pa, explanation_pa,
-                  created_at
-           FROM questions ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`,
-        )),
-        db.execute(sql.raw(`SELECT COUNT(*)::int AS total FROM questions`)),
-      ]);
-      rows = rowResult as any[];
-      totalCount = (countResult as any[])[0]?.total ?? 0;
+      const [rowResult, countResult] = (await Promise.all([
+        db.execute(sql`
+          SELECT id, client_id, test_id, text, options, correct, section, section_id,
+                 COALESCE(topic, 'General') AS topic, topic_id, global_topic_id,
+                 difficulty, explanation,
+                 text_hi, options_hi, explanation_hi,
+                 text_pa, options_pa, explanation_pa, created_at
+          FROM questions ${whereClause}
+          ORDER BY created_at DESC
+          LIMIT ${pageSize} OFFSET ${offset}
+        `),
+        db.execute(sql`SELECT COUNT(*)::int AS total FROM questions ${whereClause}`),
+      ])) as [any[], any[]];
+      rows = rowResult;
+      totalCount = countResult[0]?.total ?? 0;
+    } catch (colErr) {
+      console.warn("[question-bank] optional columns missing, using fallback query", colErr);
+      // Fallback: global_topic_id / difficulty columns not yet migrated
+      const [rowResult, countResult] = (await Promise.all([
+        db.execute(sql`
+          SELECT id, client_id, test_id, text, options, correct, section, section_id,
+                 COALESCE(topic, 'General') AS topic, topic_id,
+                 NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
+                 text_hi, options_hi, explanation_hi,
+                 text_pa, options_pa, explanation_pa, created_at
+          FROM questions
+          ORDER BY created_at DESC
+          LIMIT ${pageSize} OFFSET ${offset}
+        `),
+        db.execute(sql`SELECT COUNT(*)::int AS total FROM questions`),
+      ])) as [any[], any[]];
+      rows = rowResult;
+      totalCount = countResult[0]?.total ?? 0;
     }
 
     const usageMap = await fetchUsageStats(rows.map((r: any) => r.id));
@@ -199,15 +192,10 @@ router.get("/question-bank", authenticate, async (req, res) => {
       };
     });
 
-    res.json({
-      items,
-      total: totalCount,
-      page,
-      pageSize,
-    });
+    res.json({ items, total: totalCount, page, pageSize });
   } catch (err: any) {
     if (err.message === "forbidden") return res.status(403).json({ error: "Forbidden" });
-    console.error("[question-bank] GET /question-bank", err);
+    console.error("[question-bank] GET /question-bank error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -221,23 +209,23 @@ router.get("/question-bank/:id", authenticate, async (req, res) => {
 
     let rows: any[];
     try {
-      rows = (await db.execute(sql.raw(
-        `SELECT id, client_id, test_id, text, options, correct, section, section_id,
-                COALESCE(topic,'General') AS topic, topic_id, global_topic_id,
-                difficulty, explanation,
-                text_hi, options_hi, explanation_hi,
-                text_pa, options_pa, explanation_pa, created_at
-         FROM questions WHERE id = ${id} LIMIT 1`,
-      ))) as any[];
+      rows = (await db.execute(sql`
+        SELECT id, client_id, test_id, text, options, correct, section, section_id,
+               COALESCE(topic,'General') AS topic, topic_id, global_topic_id,
+               difficulty, explanation,
+               text_hi, options_hi, explanation_hi,
+               text_pa, options_pa, explanation_pa, created_at
+        FROM questions WHERE id = ${id} LIMIT 1
+      `)) as any[];
     } catch {
-      rows = (await db.execute(sql.raw(
-        `SELECT id, client_id, test_id, text, options, correct, section, section_id,
-                COALESCE(topic,'General') AS topic, topic_id,
-                NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
-                text_hi, options_hi, explanation_hi,
-                text_pa, options_pa, explanation_pa, created_at
-         FROM questions WHERE id = ${id} LIMIT 1`,
-      ))) as any[];
+      rows = (await db.execute(sql`
+        SELECT id, client_id, test_id, text, options, correct, section, section_id,
+               COALESCE(topic,'General') AS topic, topic_id,
+               NULL::text AS global_topic_id, NULL::text AS difficulty, explanation,
+               text_hi, options_hi, explanation_hi,
+               text_pa, options_pa, explanation_pa, created_at
+        FROM questions WHERE id = ${id} LIMIT 1
+      `)) as any[];
     }
     const q = rows[0];
     if (!q) return res.status(404).json({ error: "Not found" });
