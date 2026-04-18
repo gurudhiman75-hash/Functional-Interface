@@ -166,6 +166,7 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
   const id = typeof idParam === "string" ? idParam : idParam?.[0];
   if (!id) return res.status(400).json({ error: "Missing test id" });
 
+  try {
   const testRows = await db
     .select({ test: tests, subcategoryLanguages: subcategories.languages })
     .from(tests)
@@ -216,6 +217,10 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
     priceCents: row.priceCents ?? null,
     languages: langs,
   });
+  } catch (err) {
+    console.error(`[tests] GET /:id error for id=${id}:`, err);
+    return res.status(500).json({ error: "Failed to load test", detail: err instanceof Error ? err.message : String(err) });
+  }
 });
 
 export default router;
