@@ -144,6 +144,13 @@ function buildQuestionWhereSql(columns: QuestionColumnState, req: any) {
   return parts.length > 0 ? parts.reduce((a, b) => sql`${a} AND ${b}`) : null;
 }
 
+function isMissingRelationError(err: any, relation: string) {
+  const code = err?.code ?? err?.cause?.code;
+  const message = String(err?.message ?? "");
+  const causeMessage = String(err?.cause?.message ?? "");
+  return code === "42P01" || message.includes(`relation "${relation}" does not exist`) || causeMessage.includes(`relation "${relation}" does not exist`);
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type Difficulty = "Easy" | "Medium" | "Hard";
@@ -191,7 +198,7 @@ async function fetchUsageStats(
   } catch (err: any) {
     // Older/partially-migrated DB: test_questions table missing.
     // Keep Question Bank usable by treating usage as zero.
-    if (err?.code === "42P01") {
+    if (isMissingRelationError(err, "test_questions")) {
       console.warn("[question-bank] test_questions table missing; usage stats defaulting to zero");
       return new Map();
     }
@@ -397,7 +404,7 @@ router.get("/question-bank/:id/tests", authenticate, async (req, res): Promise<v
 
     res.json(rows);
   } catch (err: any) {
-    if (err?.code === "42P01") {
+    if (isMissingRelationError(err, "test_questions")) {
       console.warn("[question-bank] test_questions table missing; returning empty usage list");
       return void res.json([]);
     }
