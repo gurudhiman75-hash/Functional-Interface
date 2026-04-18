@@ -51,3 +51,26 @@ services:
         sync: false
       - key: UPSTASH_REDIS_REST_TOKEN
         sync: false
+
+  # ── Frontend static site ───────────────────────────────────────────────────
+  - type: web
+    name: examtree-new
+    runtime: static
+    rootDir: .
+    buildCommand: >-
+      corepack enable &&
+      corepack prepare pnpm@10.33.0 --activate &&
+      pnpm install --no-frozen-lockfile --prod=false &&
+      pnpm --filter examtree build
+    staticPublishPath: ./artifacts/examtree/dist/public
+    # SPA: serve index.html for every path that doesn't match a static file
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # Must point at your deployed API service URL (no trailing slash).
+      # Replace with the actual URL shown in your Render API service dashboard.
+      # Example: https://examtree-api.onrender.com/api
+      - key: VITE_API_BASE_URL
+        sync: false   # set in Render dashboard: https://examtree-api.onrender.com/api
