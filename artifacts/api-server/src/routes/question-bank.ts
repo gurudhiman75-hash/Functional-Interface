@@ -425,8 +425,8 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
       sectionId, topicId,
     } = req.body;
 
-    if (!text || !options || correct === undefined || !section || !globalTopicId || !explanation) {
-      return void res.status(400).json({ error: "Missing required fields: text, options, correct, section, globalTopicId, explanation" });
+    if (!text || !options || correct === undefined || !section || !explanation) {
+      return void res.status(400).json({ error: "Missing required fields: text, options, correct, section, explanation" });
     }
     if (!Array.isArray(options) || options.length !== 4) {
       return void res.status(400).json({ error: "options must be an array of 4 strings" });
@@ -438,44 +438,41 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
       return void res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
     }
 
-    // Bank questions use a placeholder testId to satisfy NOT NULL FK
-    // We use a convention: bank questions have testId = "__bank__"
-    // Note: this requires a tests row with id="__bank__" or we can use the globalTopicId test
-    // Actually, looking at the schema, testId is NOT NULL. We need a real test reference.
-    // For standalone bank questions, we'll use testId = "" (empty) if we modify schema,
-    // but since it's NOT NULL with no default, let's accept an optional testId (defaults to "").
-    // Better: let the caller pass a testId (or we accept "" and set it to empty string via the schema default "")
     const testId = req.body.testId ?? "";
+    const columns = await getQuestionColumnState();
+
+    // Build insert values — only include columns that exist in the DB
+    const baseValues: Record<string, any> = {
+      text: text.trim(),
+      options,
+      correct,
+      section: section.trim(),
+      topic: topic?.trim() ?? "General",
+      explanation: explanation.trim(),
+    };
+    if (columns.hasClientId) baseValues.clientId = "";
+    if (columns.hasTestId)   baseValues.testId = testId;
+    if (columns.hasSectionId && sectionId !== undefined) baseValues.sectionId = sectionId ?? null;
+    if (columns.hasTopicId && topicId !== undefined) baseValues.topicId = topicId ?? null;
+    if (columns.hasGlobalTopicId) baseValues.globalTopicId = globalTopicId ?? null;
+    if (columns.hasDifficulty) baseValues.difficulty = difficulty ?? null;
+    if (columns.hasTextHi) baseValues.textHi = textHi ?? null;
+    if (columns.hasOptionsHi) baseValues.optionsHi = optionsHi ?? null;
+    if (columns.hasExplanationHi) baseValues.explanationHi = explanationHi ?? null;
+    if (columns.hasTextPa) baseValues.textPa = textPa ?? null;
+    if (columns.hasOptionsPa) baseValues.optionsPa = optionsPa ?? null;
+    if (columns.hasExplanationPa) baseValues.explanationPa = explanationPa ?? null;
 
     const [inserted] = await db
       .insert(questions)
-      .values({
-        testId,
-        text: text.trim(),
-        options,
-        correct,
-        section: section.trim(),
-        sectionId: sectionId ?? null,
-        topic: topic?.trim() ?? "General",
-        topicId: topicId ?? null,
-        globalTopicId,
-        explanation: explanation.trim(),
-        difficulty: difficulty ?? null,
-        textHi: textHi ?? null,
-        optionsHi: optionsHi ?? null,
-        explanationHi: explanationHi ?? null,
-        textPa: textPa ?? null,
-        optionsPa: optionsPa ?? null,
-        explanationPa: explanationPa ?? null,
-        clientId: "",
-      })
+      .values(baseValues as typeof questions.$inferInsert)
       .returning();
 
     res.status(201).json(inserted);
   } catch (err: any) {
     if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] POST /question-bank", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error", detail: (err as any)?.detail ?? (err as any)?.message });
   }
 });
 
@@ -496,23 +493,24 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
       return void res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
     }
 
-    const updateData: Partial<typeof questions.$inferInsert> = {};
+    const columns = await getQuestionColumnState();
+    const updateData: Record<string, any> = {};
     if (text !== undefined) updateData.text = text.trim();
     if (options !== undefined) updateData.options = options;
     if (correct !== undefined) updateData.correct = correct;
     if (section !== undefined) updateData.section = section.trim();
-    if (sectionId !== undefined) updateData.sectionId = sectionId;
+    if (columns.hasSectionId && sectionId !== undefined) updateData.sectionId = sectionId;
     if (topic !== undefined) updateData.topic = topic.trim();
-    if (topicId !== undefined) updateData.topicId = topicId;
-    if (globalTopicId !== undefined) updateData.globalTopicId = globalTopicId;
+    if (columns.hasTopicId && topicId !== undefined) updateData.topicId = topicId;
+    if (columns.hasGlobalTopicId && globalTopicId !== undefined) updateData.globalTopicId = globalTopicId;
     if (explanation !== undefined) updateData.explanation = explanation.trim();
-    if (difficulty !== undefined) updateData.difficulty = difficulty;
-    if (textHi !== undefined) updateData.textHi = textHi;
-    if (optionsHi !== undefined) updateData.optionsHi = optionsHi;
-    if (explanationHi !== undefined) updateData.explanationHi = explanationHi;
-    if (textPa !== undefined) updateData.textPa = textPa;
-    if (optionsPa !== undefined) updateData.optionsPa = optionsPa;
-    if (explanationPa !== undefined) updateData.explanationPa = explanationPa;
+    if (columns.hasDifficulty && difficulty !== undefined) updateData.difficulty = difficulty;
+    if (columns.hasTextHi && textHi !== undefined) updateData.textHi = textHi;
+    if (columns.hasOptionsHi && optionsHi !== undefined) updateData.optionsHi = optionsHi;
+    if (columns.hasExplanationHi && explanationHi !== undefined) updateData.explanationHi = explanationHi;
+    if (columns.hasTextPa && textPa !== undefined) updateData.textPa = textPa;
+    if (columns.hasOptionsPa && optionsPa !== undefined) updateData.optionsPa = optionsPa;
+    if (columns.hasExplanationPa && explanationPa !== undefined) updateData.explanationPa = explanationPa;
 
     if (Object.keys(updateData).length === 0) {
       return void res.status(400).json({ error: "No fields to update" });
@@ -520,7 +518,7 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
 
     const [updated] = await db
       .update(questions)
-      .set(updateData)
+      .set(updateData as Partial<typeof questions.$inferInsert>)
       .where(eq(questions.id, id))
       .returning();
 
@@ -530,7 +528,7 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
   } catch (err: any) {
     if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
     console.error("[question-bank] PUT /question-bank/:id", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error", detail: (err as any)?.detail ?? (err as any)?.message });
   }
 });
 
