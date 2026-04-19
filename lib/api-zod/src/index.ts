@@ -135,11 +135,11 @@ export type Language = "en" | "hi" | "pa";
 
 export type Question = {
   id: number;
-  text: string;
+  text: string | null;
   options: string[];
   correct: number;
   section: string;
-  explanation: string;
+  explanation: string | null;
   // Optional translation fields — present when the test has multi-language support
   textHi?: string | null;
   optionsHi?: string[] | null;

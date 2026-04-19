@@ -142,7 +142,8 @@ export const questions = pgTable("questions", {
   id: serial("id").primaryKey(),
   clientId: text("client_id").notNull().default(""),
   testId: text("test_id").notNull(),
-  text: text("text").notNull(),
+  /** Primary question text (English). Nullable — multilingual questions may only have textPa or textHi. */
+  text: text("text"),
   options: jsonb("options").notNull(),
   correct: integer("correct").notNull(),
   section: text("section").notNull(),
@@ -153,7 +154,8 @@ export const questions = pgTable("questions", {
   topicId: text("topic_id").references(() => topics.id, { onDelete: "set null" }),
   /** FK to topics_global — preferred over topicId for new data; nullable for backward compat */
   globalTopicId: text("global_topic_id").references(() => topicsGlobal.id, { onDelete: "set null" }),
-  explanation: text("explanation").notNull(),
+  /** English explanation. Nullable when question is non-English only. */
+  explanation: text("explanation"),
   /** Difficulty level for smart question selection */
   difficulty: text("difficulty").$type<"Easy" | "Medium" | "Hard">(),
   // Translation columns — nullable; null means no translation available for that language

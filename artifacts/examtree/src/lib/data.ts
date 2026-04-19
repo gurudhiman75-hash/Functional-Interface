@@ -562,7 +562,7 @@ export type QuestionDifficulty = "Easy" | "Medium" | "Hard";
 export interface BankQuestion {
   id: number;
   testId: string;
-  text: string;
+  text: string | null;
   options: [string, string, string, string];
   correct: number;
   section: string;
@@ -571,7 +571,7 @@ export interface BankQuestion {
   topicId: string | null;
   globalTopicId: string;
   difficulty: QuestionDifficulty | null;
-  explanation: string;
+  explanation: string | null;
   textHi?: string | null;
   optionsHi?: [string, string, string, string] | null;
   explanationHi?: string | null;
@@ -636,7 +636,7 @@ export async function getBankQuestionTests(id: number): Promise<BankQuestionUsag
 
 export async function createBankQuestion(body: {
   testId?: string;
-  text: string;
+  text?: string;
   options: [string, string, string, string];
   correct: number;
   section: string;
@@ -644,7 +644,7 @@ export async function createBankQuestion(body: {
   topic?: string;
   topicId?: string;
   globalTopicId: string;
-  explanation: string;
+  explanation?: string;
   difficulty?: QuestionDifficulty;
   textHi?: string;
   optionsHi?: [string, string, string, string];

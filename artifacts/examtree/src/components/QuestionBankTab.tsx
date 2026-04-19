@@ -102,6 +102,7 @@ function blankForm() {
     imageUrl: "",
     questionType: "text" as "text" | "image" | "di",
     diSetId: "" as string,
+    langMode: "en" as "en" | "pa" | "multi",
   };
 }
 
@@ -150,7 +151,7 @@ interface QuestionFormModalProps {
 function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets: diSetsList, onClose, onSaved }: QuestionFormModalProps) {
   const { toast } = useToast();
   const [form, setForm] = useState(blankForm());
-  const [langTab, setLangTab] = useState<"en" | "hi" | "pa">("en");
+  const [langTabMulti, setLangTabMulti] = useState<"en" | "hi" | "pa">("en");
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -159,14 +160,14 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
   useEffect(() => {
     if (editing) {
       setForm({
-        text: editing.text,
+        text: editing.text ?? "",
         options: [...(editing.options as [string, string, string, string])] as [string, string, string, string],
         correct: editing.correct,
         section: editing.section,
         sectionId: editing.sectionId ?? "",
         globalTopicId: editing.globalTopicId,
         topic: editing.topic,
-        explanation: editing.explanation,
+        explanation: editing.explanation ?? "",
         difficulty: editing.difficulty ?? "",
         textHi: editing.textHi ?? "",
         optionsHi: [...((editing.optionsHi as [string, string, string, string]) ?? ["", "", "", ""])] as [string, string, string, string],
@@ -177,29 +178,39 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
         imageUrl: editing.imageUrl ?? "",
         questionType: editing.questionType ?? "text",
         diSetId: editing.diSetId != null ? String(editing.diSetId) : "",
+        langMode: editing.textPa && editing.text ? "multi" : editing.textPa ? "pa" : editing.textHi ? "multi" : "en",
       });
     } else {
       setForm(blankForm());
     }
-    setLangTab("en");
+    setLangTabMulti("en");
   }, [editing, open]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.text.trim() || !form.section || !form.globalTopicId || !form.explanation.trim()) {
-      toast({ title: "Required fields missing", variant: "destructive" });
+    const hasEn = Boolean(form.text.trim());
+    const hasPa = Boolean(form.textPa?.trim());
+    const hasHi = Boolean(form.textHi?.trim());
+    if (!hasEn && !hasPa && !hasHi) {
+      toast({ title: "At least one language question is required", variant: "destructive" });
       return;
     }
+    if (!form.section || !form.globalTopicId) {
+      toast({ title: "Section and Topic are required", variant: "destructive" });
+      return;
+    }
+    // Validate options for the primary language
+    const primaryOptions = hasEn ? form.options : hasPa ? form.optionsPa : form.optionsHi;
     for (let i = 0; i < 4; i++) {
-      if (!form.options[i]?.trim()) {
+      if (!primaryOptions[i]?.trim()) {
         toast({ title: `Option ${i + 1} is empty`, variant: "destructive" });
         return;
       }
     }
 
     const payload = {
-      text: form.text.trim(),
-      options: form.options.map((o) => o.trim()) as [string, string, string, string],
+      text: form.text.trim() || undefined,
+      options: (form.text.trim() ? form.options : form.textPa?.trim() ? form.optionsPa : form.optionsHi).map((o) => o.trim()) as [string, string, string, string],
       correct: form.correct,
       section: form.section,
       sectionId: form.sectionId || undefined,
@@ -256,6 +267,9 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
   const sectionTopics = masterTopics; // global topics, not section-scoped
 
   const optionKeys: [string, string, string, string] = ["A", "B", "C", "D"];
+
+  // Derive which language tabs to show in multi mode
+  const langTab = form.langMode === "en" ? "en" : form.langMode === "pa" ? "pa" : (langTabMulti as "en" | "hi" | "pa");
 
   return (
     <Dialog open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
@@ -386,31 +400,53 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
             )}
           </div>
 
-          {/* Language tabs */}
-          <div className="flex gap-2 border-b border-border pb-1">
-            {(["en", "hi", "pa"] as const).map((l) => (
-              <button
-                key={l}
-                type="button"
-                className={`text-xs px-3 py-1 rounded-t font-medium transition-colors ${
-                  langTab === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
-                onClick={() => setLangTab(l)}
-              >
-                {l === "en" ? "English" : l === "hi" ? "हिन्दी" : "ਪੰਜਾਬੀ"}
-              </button>
-            ))}
+          {/* Language mode selector */}
+          <div>
+            <Label>Language Mode *</Label>
+            <div className="mt-1 flex gap-2 flex-wrap">
+              {(["en", "pa", "multi"] as const).map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                    form.langMode === mode
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "border-input text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                  }`}
+                  onClick={() => setForm((f) => ({ ...f, langMode: mode }))}
+                >
+                  {mode === "en" ? "English Only" : mode === "pa" ? "ਪੰਜਾਬੀ Only" : "Multi-language (EN + PA + HI)"}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {/* Multi-language sub-tab selector */}
+          {form.langMode === "multi" && (
+            <div className="flex gap-2 border-b border-border pb-1">
+              {(["en", "hi", "pa"] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  className={`text-xs px-3 py-1 rounded-t font-medium transition-colors ${
+                    langTabMulti === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  onClick={() => setLangTabMulti(l)}
+                >
+                  {l === "en" ? "English" : l === "hi" ? "हिन्दी" : "ਪੰਜਾਬੀ"}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Question text */}
           {langTab === "en" && (
             <div>
-              <Label>Question Text *</Label>
+              <Label>Question Text{form.langMode !== "multi" ? " *" : ""}</Label>
               <textarea
                 className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring min-h-[80px]"
                 value={form.text}
                 onChange={(e) => setForm((f) => ({ ...f, text: e.target.value }))}
-                required
               />
             </div>
           )}
@@ -426,7 +462,7 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
           )}
           {langTab === "pa" && (
             <div>
-              <Label>Question Text (Punjabi)</Label>
+              <Label>Question Text (Punjabi){form.langMode === "pa" ? " *" : ""}</Label>
               <textarea
                 className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring min-h-[80px]"
                 value={form.textPa}
@@ -472,7 +508,7 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
                       setForm((f) => ({ ...f, optionsPa: opts }));
                     }
                   }}
-                  placeholder={`Option ${key}${langTab === "en" ? " *" : ""}`}
+                  placeholder={`Option ${key}${(langTab === "en" && form.langMode !== "multi") || (langTab === "pa" && form.langMode === "pa") ? " *" : ""}`}
                   className="flex-1 text-sm"
                 />
               </div>
@@ -482,7 +518,7 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
 
           {/* Explanation */}
           <div>
-            <Label>{langTab === "en" ? "Explanation *" : langTab === "hi" ? "Explanation (Hindi)" : "Explanation (Punjabi)"}</Label>
+            <Label>{langTab === "en" ? `Explanation${form.langMode !== "multi" ? " *" : ""}` : langTab === "hi" ? "Explanation (Hindi)" : `Explanation (Punjabi)${form.langMode === "pa" ? " *" : ""}`}</Label>
             <textarea
               className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring min-h-[60px]"
               value={langTab === "en" ? form.explanation : langTab === "hi" ? form.explanationHi : form.explanationPa}
@@ -1181,7 +1217,7 @@ export default function QuestionBankTab() {
                       </button>
                     </div>
                     <div>
-                      <p className="text-sm text-foreground leading-snug">{truncate(q.text)}</p>
+                      <p className="text-sm text-foreground leading-snug">{truncate(q.text ?? q.textPa ?? q.textHi ?? "")}</p>
                       <p className="text-[10px] text-muted-foreground mt-0.5">{q.section} • ID {q.id}</p>
                     </div>
                     <div className="text-right">

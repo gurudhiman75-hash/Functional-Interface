@@ -351,8 +351,15 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
       sectionId, topicId, imageUrl, questionType, diSetId,
     } = req.body;
 
-    if (!text || !options || correct === undefined || !section || !explanation) {
-      return void res.status(400).json({ error: "Missing required fields: text, options, correct, section, explanation" });
+    if (!options || correct === undefined || !section) {
+      return void res.status(400).json({ error: "Missing required fields: options, correct, section" });
+    }
+    // At least one language must be present
+    const hasEn = Boolean(text?.trim());
+    const hasHi = Boolean(textHi?.trim());
+    const hasPa = Boolean(textPa?.trim());
+    if (!hasEn && !hasHi && !hasPa) {
+      return void res.status(400).json({ error: "At least one language question text is required (text / textHi / textPa)" });
     }
     if (!Array.isArray(options) || options.length !== 4) {
       return void res.status(400).json({ error: "options must be an array of 4 strings" });
@@ -369,12 +376,12 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
 
     // Build insert values — only include columns that exist in the DB
     const baseValues: Record<string, any> = {
-      text: text.trim(),
+      text: text?.trim() || null,
       options,
       correct,
       section: section.trim(),
       topic: topic?.trim() ?? "General",
-      explanation: explanation.trim(),
+      explanation: explanation?.trim() || null,
     };
     if (columns.hasClientId) baseValues.clientId = "";
     if (columns.hasTestId)   baseValues.testId = testId;
@@ -382,12 +389,12 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
     if (columns.hasTopicId && topicId !== undefined) baseValues.topicId = topicId ?? null;
     if (columns.hasGlobalTopicId) baseValues.globalTopicId = globalTopicId ?? null;
     if (columns.hasDifficulty) baseValues.difficulty = difficulty ?? null;
-    if (columns.hasTextHi) baseValues.textHi = textHi ?? null;
+    if (columns.hasTextHi) baseValues.textHi = textHi?.trim() || null;
     if (columns.hasOptionsHi) baseValues.optionsHi = optionsHi ?? null;
-    if (columns.hasExplanationHi) baseValues.explanationHi = explanationHi ?? null;
-    if (columns.hasTextPa) baseValues.textPa = textPa ?? null;
+    if (columns.hasExplanationHi) baseValues.explanationHi = explanationHi?.trim() || null;
+    if (columns.hasTextPa) baseValues.textPa = textPa?.trim() || null;
     if (columns.hasOptionsPa) baseValues.optionsPa = optionsPa ?? null;
-    if (columns.hasExplanationPa) baseValues.explanationPa = explanationPa ?? null;
+    if (columns.hasExplanationPa) baseValues.explanationPa = explanationPa?.trim() || null;
     if (columns.hasImageUrl) baseValues.imageUrl = imageUrl?.trim() || null;
     if (columns.hasQuestionType) baseValues.questionType = questionType ?? "text";
     if (columns.hasDiSetId) baseValues.diSetId = diSetId ?? null;
@@ -738,14 +745,34 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   const get = (cells: string[], col: string) => (cells[header.indexOf(col)] ?? "").trim();
 
   // Auto-detect languages from header
+  const hasEn = header.includes("question_en");
   const hasHi = header.includes("question_hi");
   const hasPa = header.includes("question_pa");
-  const detectedLanguages = ["en", ...(hasHi ? ["hi"] : []), ...(hasPa ? ["pa"] : [])];
+  const detectedLanguages = [...(hasEn ? ["en"] : []), ...(hasHi ? ["hi"] : []), ...(hasPa ? ["pa"] : [])];
 
-  // Validate required EN columns
-  const requiredCols = ["question_en", "optiona_en", "optionb_en", "optionc_en", "optiond_en", "correct_option", "explanation_en"];
-  for (const col of requiredCols) {
-    if (!header.includes(col)) return void res.status(400).json({ error: `Missing required column: "${col}"` });
+  if (detectedLanguages.length === 0) {
+    return void res.status(400).json({ error: "CSV must have at least one language column: question_en, question_hi, or question_pa" });
+  }
+
+  // Validate that per-language option/explanation columns exist if the question column is present
+  if (hasEn) {
+    for (const col of ["optiona_en", "optionb_en", "optionc_en", "optiond_en", "explanation_en"]) {
+      if (!header.includes(col)) return void res.status(400).json({ error: `Missing column "${col}" required alongside question_en` });
+    }
+  }
+  if (hasHi) {
+    for (const col of ["optiona_hi", "optionb_hi", "optionc_hi", "optiond_hi"]) {
+      if (!header.includes(col)) return void res.status(400).json({ error: `Missing column "${col}" required alongside question_hi` });
+    }
+  }
+  if (hasPa) {
+    for (const col of ["optiona_pa", "optionb_pa", "optionc_pa", "optiond_pa"]) {
+      if (!header.includes(col)) return void res.status(400).json({ error: `Missing column "${col}" required alongside question_pa` });
+    }
+  }
+  // correct_option is always required
+  if (!header.includes("correct_option")) {
+    return void res.status(400).json({ error: 'Missing required column: "correct_option"' });
   }
 
   const toInsert: (typeof questions.$inferInsert)[] = [];
@@ -755,19 +782,25 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
     const rowNum = i + 1;
     const cells = parseCsvLine(lines[i]);
 
-    const questionEn  = get(cells, "question_en");
-    const optionAEn   = get(cells, "optiona_en");
-    const optionBEn   = get(cells, "optionb_en");
-    const optionCEn   = get(cells, "optionc_en");
-    const optionDEn   = get(cells, "optiond_en");
+    const questionEn  = hasEn ? get(cells, "question_en") : "";
+    const optionAEn   = hasEn ? get(cells, "optiona_en") : "";
+    const optionBEn   = hasEn ? get(cells, "optionb_en") : "";
+    const optionCEn   = hasEn ? get(cells, "optionc_en") : "";
+    const optionDEn   = hasEn ? get(cells, "optiond_en") : "";
     const correctRaw  = get(cells, "correct_option").toUpperCase();
-    const explanationEn = get(cells, "explanation_en");
+    const explanationEn = hasEn ? get(cells, "explanation_en") : "";
     const difficultyRaw = get(cells, "difficulty");
 
-    if (!questionEn)  { errors.push({ row: rowNum, reason: "question_en is empty" }); continue; }
-    if (!optionAEn || !optionBEn || !optionCEn || !optionDEn) { errors.push({ row: rowNum, reason: "One or more English options are empty" }); continue; }
+    // At least one language question text must be present
+    const questionHi = hasHi ? get(cells, "question_hi") : "";
+    const questionPa = hasPa ? get(cells, "question_pa") : "";
+    if (!questionEn && !questionHi && !questionPa) {
+      errors.push({ row: rowNum, reason: "No question text in any language (question_en / question_hi / question_pa all empty)" }); continue;
+    }
+    if (hasEn && questionEn && (!optionAEn || !optionBEn || !optionCEn || !optionDEn)) {
+      errors.push({ row: rowNum, reason: "One or more English options are empty for a row that has question_en" }); continue;
+    }
     if (!(correctRaw in CORRECT_LETTER)) { errors.push({ row: rowNum, reason: `correct_option "${correctRaw}" is not A/B/C/D` }); continue; }
-    if (!explanationEn) { errors.push({ row: rowNum, reason: "explanation_en is empty" }); continue; }
     if (difficultyRaw && !["Easy", "Medium", "Hard"].includes(difficultyRaw)) {
       errors.push({ row: rowNum, reason: `difficulty "${difficultyRaw}" must be Easy, Medium, or Hard` }); continue;
     }
@@ -787,7 +820,6 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
     }
 
     // Optional Hindi fields
-    const questionHi = hasHi ? get(cells, "question_hi") : "";
     const optionAHi  = hasHi ? get(cells, "optiona_hi") : "";
     const optionBHi  = hasHi ? get(cells, "optionb_hi") : "";
     const optionCHi  = hasHi ? get(cells, "optionc_hi") : "";
@@ -795,25 +827,31 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
     const explanationHi = hasHi ? get(cells, "explanation_hi") : "";
 
     // Optional Punjabi fields
-    const questionPa = hasPa ? get(cells, "question_pa") : "";
     const optionAPa  = hasPa ? get(cells, "optiona_pa") : "";
     const optionBPa  = hasPa ? get(cells, "optionb_pa") : "";
     const optionCPa  = hasPa ? get(cells, "optionc_pa") : "";
     const optionDPa  = hasPa ? get(cells, "optiond_pa") : "";
     const explanationPa = hasPa ? get(cells, "explanation_pa") : "";
 
+    // Base options: use English if available, otherwise fall back to the first available language's options
+    const baseOptions = questionEn
+      ? [optionAEn, optionBEn, optionCEn, optionDEn]
+      : questionPa
+        ? [optionAPa, optionBPa, optionCPa, optionDPa]
+        : [optionAHi, optionBHi, optionCHi, optionDHi];
+
     toInsert.push({
       testId: "",
       clientId: "",
-      text: questionEn,
-      options: [optionAEn, optionBEn, optionCEn, optionDEn] as unknown as string,
+      text: questionEn || null,
+      options: baseOptions as unknown as string,
       correct: CORRECT_LETTER[correctRaw],
       section: sectionRow.name,
       sectionId: sectionRow.id,
       topic: topicRow?.name ?? "General",
       topicId: topicRow?.id ?? null,
       globalTopicId: topicRow?.id ?? "",
-      explanation: explanationEn,
+      explanation: explanationEn || null,
       difficulty: (difficultyRaw as "Easy" | "Medium" | "Hard") || null,
       textHi: questionHi || null,
       optionsHi: questionHi ? [optionAHi || optionAEn, optionBHi || optionBEn, optionCHi || optionCEn, optionDHi || optionDEn] as unknown as string : null,

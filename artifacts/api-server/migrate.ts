@@ -94,12 +94,12 @@ async function migrate() {
       id              SERIAL    PRIMARY KEY,
       client_id       TEXT      NOT NULL DEFAULT '',
       test_id         TEXT      NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
-      text            TEXT      NOT NULL,
+      text            TEXT,
       options         JSONB     NOT NULL,
       correct         INTEGER   NOT NULL,
       section         TEXT      NOT NULL,
       topic           TEXT      NOT NULL DEFAULT 'General',
-      explanation     TEXT      NOT NULL,
+      explanation     TEXT,
       text_hi         TEXT,
       options_hi      JSONB,
       explanation_hi  TEXT,
@@ -113,6 +113,9 @@ async function migrate() {
   await db.execute(sql`
     ALTER TABLE questions ADD COLUMN IF NOT EXISTS topic TEXT NOT NULL DEFAULT 'General';
   `);
+  // Allow text and explanation to be NULL (multilingual questions may omit English)
+  await db.execute(sql`ALTER TABLE questions ALTER COLUMN text DROP NOT NULL;`);
+  await db.execute(sql`ALTER TABLE questions ALTER COLUMN explanation DROP NOT NULL;`);
   console.log("✓ questions");
 
   // ── attempts ──────────────────────────────────────────────────────────

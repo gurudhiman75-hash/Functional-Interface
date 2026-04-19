@@ -142,18 +142,19 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
     // Fallback: scan questions for populated translation fields
     const allQ = effectiveSections.flatMap((s) => s.questions);
-    const langs: Language[] = ["en"];
+    const langs: Language[] = [];
+    if (allQ.some((q) => Boolean(q.text))) langs.push("en");
     if (allQ.some((q) => Boolean(q.textHi))) langs.push("hi");
     if (allQ.some((q) => Boolean(q.textPa))) langs.push("pa");
+    if (langs.length === 0) langs.push("en"); // safety fallback
     return langs;
   }, [subcategoryLanguages, test.languages, effectiveSections]);
 
-  const [lang, setLang] = useState<Language>("en");
+  const [lang, setLang] = useState<Language>(() => availableLangs[0] ?? "en");
 
-  // Reset language to "en" if the selected language is no longer available
-  // (e.g. user navigated to a different test)
+  // Reset language if the selected language is no longer available
   useEffect(() => {
-    if (!availableLangs.includes(lang)) setLang("en");
+    if (!availableLangs.includes(lang)) setLang(availableLangs[0] ?? "en");
   }, [availableLangs, lang]);
 
   const currentSection = effectiveSections[currentSectionIndex];
