@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, and, inArray } from "drizzle-orm";
+import { eq, and, inArray, sql } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { db } from "../lib/db";
 import { attempts, questions, responses, tests } from "@workspace/db";
@@ -7,6 +7,7 @@ import { TestAttempt } from "@workspace/api-zod";
 import { authenticate } from "../middlewares/auth";
 import { refreshLeaderboard } from "../lib/refresh-leaderboard";
 import { cacheDel, CacheKey } from "../lib/cache";
+import { getQuestionColumnState } from "../lib/question-columns";
 
 const router: IRouter = Router();
 
@@ -107,25 +108,27 @@ router.post("/", authenticate, async (req, res) => {
 
   // Fetch authoritative question data from the database
   const questionIds = responseItems.map((r) => r.questionId);
-  const dbQuestions =
+  const columns = await getQuestionColumnState();
+  const dbQuestions: {
+    id: number; correct: number; section: string; text: string;
+    options: unknown; explanation: string;
+    textHi?: string | null; optionsHi?: unknown; explanationHi?: string | null;
+    textPa?: string | null; optionsPa?: unknown; explanationPa?: string | null;
+  }[] =
     questionIds.length > 0
-      ? await db
-          .select({
-            id: questions.id,
-            correct: questions.correct,
-            section: questions.section,
-            text: questions.text,
-            options: questions.options,
-            explanation: questions.explanation,
-            textHi: questions.textHi,
-            optionsHi: questions.optionsHi,
-            explanationHi: questions.explanationHi,
-            textPa: questions.textPa,
-            optionsPa: questions.optionsPa,
-            explanationPa: questions.explanationPa,
-          })
-          .from(questions)
-          .where(and(eq(questions.testId, testId), inArray(questions.id, questionIds)))
+      ? (await db.execute(sql`
+          SELECT
+            id, correct, section, text, options, explanation
+            ${columns.hasTextHi ? sql`, text_hi AS "textHi"` : sql`, NULL::text AS "textHi"`}
+            ${columns.hasOptionsHi ? sql`, options_hi AS "optionsHi"` : sql`, NULL::jsonb AS "optionsHi"`}
+            ${columns.hasExplanationHi ? sql`, explanation_hi AS "explanationHi"` : sql`, NULL::text AS "explanationHi"`}
+            ${columns.hasTextPa ? sql`, text_pa AS "textPa"` : sql`, NULL::text AS "textPa"`}
+            ${columns.hasOptionsPa ? sql`, options_pa AS "optionsPa"` : sql`, NULL::jsonb AS "optionsPa"`}
+            ${columns.hasExplanationPa ? sql`, explanation_pa AS "explanationPa"` : sql`, NULL::text AS "explanationPa"`}
+          FROM questions
+          WHERE test_id = ${testId}
+          AND id = ANY(${questionIds})
+        `) as any[])
       : [];
 
   const questionMap = new Map(dbQuestions.map((q) => [q.id, q]));
