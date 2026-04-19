@@ -168,6 +168,12 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     ...commonConfig,
     entryPoints: [path.resolve(artifactDir, "check-schema-drift.ts")],
   });
+
+  // Build seed-english-topics script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "seed-english-topics.ts")],
+  });
 }
 
 buildAll().catch((err) => {
