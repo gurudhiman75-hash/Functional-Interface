@@ -162,6 +162,12 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     ...commonConfig,
     entryPoints: [path.resolve(artifactDir, "populate-global-topics.ts")],
   });
+
+  // Build check-schema-drift script
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "check-schema-drift.ts")],
+  });
 }
 
 buildAll().catch((err) => {

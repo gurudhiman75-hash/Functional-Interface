@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development pnpm exec nodemon --watch src --ext ts --exec \"pnpm run build && pnpm run start\"",
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
+    "db:check": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/check-schema-drift.mjs",
     "db:migrate": "node ./build.mjs && node --enable-source-maps ./dist/migrate.mjs",
     "db:seed": "node ./build.mjs && node --enable-source-maps ./dist/db-init.mjs",
     "db:reset": "node ./build.mjs && node --enable-source-maps ./dist/db-reset.mjs",
