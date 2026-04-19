@@ -126,8 +126,11 @@ router.post("/", authenticate, async (req, res) => {
             ${columns.hasOptionsPa ? sql`, options_pa AS "optionsPa"` : sql`, NULL::jsonb AS "optionsPa"`}
             ${columns.hasExplanationPa ? sql`, explanation_pa AS "explanationPa"` : sql`, NULL::text AS "explanationPa"`}
           FROM questions
-          WHERE test_id = ${testId}
-          AND id IN (${sql.join(questionIds.map(id => sql`${id}`), sql`, `)})
+          WHERE id IN (${sql.join(questionIds.map(id => sql`${id}`), sql`, `)})
+          AND (
+            test_id = ${testId}
+            OR id IN (SELECT question_id FROM test_questions WHERE test_id = ${testId})
+          )
         `) as any[])
       : [];
 

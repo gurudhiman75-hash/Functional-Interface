@@ -203,7 +203,9 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
   const columns = await getQuestionColumnState();
   const selectCols = buildQuestionSelectSql(columns);
   const testQuestions = await db.execute(
-    sql`SELECT ${selectCols} FROM questions WHERE test_id = ${id}`
+    sql`SELECT ${selectCols} FROM questions
+        WHERE test_id = ${id}
+           OR id IN (SELECT question_id FROM test_questions WHERE test_id = ${id})`
   ) as any[];
   if (testQuestions.length === 0) {
     return res.status(404).json({

@@ -116,15 +116,11 @@ async function migrate() {
   console.log("✓ questions");
 
   // ── attempts ──────────────────────────────────────────────────────────
-  await db.execute(sql`ALTER TABLE attempts ADD COLUMN IF NOT EXISTS date DATE NOT NULL DEFAULT NOW();`);
-  console.log("✓ attempts.date column");
-
-  // ── attempts ──────────────────────────────────────────────────────────
   await db.execute(sql`
     CREATE TABLE IF NOT EXISTS attempts (
       id                TEXT      PRIMARY KEY,
-      user_id           TEXT      NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      test_id           TEXT      NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
+      user_id           TEXT      NOT NULL,
+      test_id           TEXT      NOT NULL,
       test_name         TEXT      NOT NULL,
       category          TEXT      NOT NULL,
       score             REAL      NOT NULL,
@@ -133,12 +129,55 @@ async function migrate() {
       unanswered        INTEGER   NOT NULL,
       total_questions   INTEGER   NOT NULL,
       time_spent        INTEGER   NOT NULL,
+      date              DATE      NOT NULL DEFAULT CURRENT_DATE,
       attempt_type      TEXT,
       section_stats     JSONB,
       section_time_spent JSONB,
       question_review   JSONB,
       created_at        TIMESTAMP NOT NULL DEFAULT NOW()
     );
+  `);
+  // Idempotent column add for existing DBs that were created before date column
+  await db.execute(sql`ALTER TABLE attempts ADD COLUMN IF NOT EXISTS date DATE NOT NULL DEFAULT CURRENT_DATE;`);
+  // Idempotent FK constraints for existing DBs that were created without them
+  // First clean up orphan rows that would violate the FK constraints
+  await db.execute(sql`
+    DELETE FROM responses WHERE attempt_id IN (
+      SELECT id FROM attempts WHERE test_id NOT IN (SELECT id FROM tests)
+    );
+  `);
+  await db.execute(sql`
+    DELETE FROM attempts WHERE test_id NOT IN (SELECT id FROM tests);
+  `);
+  await db.execute(sql`
+    DELETE FROM responses WHERE attempt_id IN (
+      SELECT id FROM attempts WHERE user_id NOT IN (SELECT id FROM users)
+    );
+  `);
+  await db.execute(sql`
+    DELETE FROM attempts WHERE user_id NOT IN (SELECT id FROM users);
+  `);
+  await db.execute(sql`
+    DO $$ BEGIN
+      IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'attempts_user_id_fk' AND conrelid = 'attempts'::regclass
+      ) THEN
+        ALTER TABLE attempts ADD CONSTRAINT attempts_user_id_fk
+          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+      END IF;
+    END $$;
+  `);
+  await db.execute(sql`
+    DO $$ BEGIN
+      IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'attempts_test_id_fk' AND conrelid = 'attempts'::regclass
+      ) THEN
+        ALTER TABLE attempts ADD CONSTRAINT attempts_test_id_fk
+          FOREIGN KEY (test_id) REFERENCES tests(id) ON DELETE CASCADE;
+      END IF;
+    END $$;
   `);
   console.log("✓ attempts");
 
