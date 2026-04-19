@@ -2124,7 +2124,7 @@ export default function Result() {
                       </div>
 
                       <div className="mt-4 text-lg font-semibold leading-relaxed text-foreground">
-                        <QuestionRichText content={localizedText} />
+                        <QuestionRichText content={localizedText} lang={reviewLang} />
                       </div>
 
                       <div className="mt-5 space-y-3">
@@ -2143,7 +2143,7 @@ export default function Result() {
                                 {getAnswerLabel(index)}
                               </div>
                               <div className="min-w-0 flex-1">
-                                <QuestionRichText content={option} inline className="text-sm" />
+                                <QuestionRichText content={option} inline className="text-sm" lang={reviewLang} />
                                 {isCorrect && (
                                   <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em]">Correct answer</p>
                                 )}
@@ -2163,14 +2163,14 @@ export default function Result() {
                             {item.selected === null ? (
                               yourAnswer
                             ) : (
-                              <QuestionRichText content={yourAnswer} inline />
+                              <QuestionRichText content={yourAnswer} inline lang={reviewLang} />
                             )}
                           </div>
                         </div>
                         <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
                           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Correct Answer</p>
                           <div className="mt-2 text-sm font-medium text-foreground">
-                            <QuestionRichText content={correctAnswer} inline />
+                            <QuestionRichText content={correctAnswer} inline lang={reviewLang} />
                           </div>
                         </div>
                       </div>
@@ -2179,7 +2179,7 @@ export default function Result() {
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Solution</p>
                         <div className="mt-2 text-sm leading-relaxed text-foreground">
                           {localizedExplanation?.trim() ? (
-                            <QuestionRichText content={localizedExplanation} />
+                            <QuestionRichText content={localizedExplanation} lang={reviewLang} />
                           ) : (
                             "No explanation was provided for this question."
                           )}

@@ -6,6 +6,7 @@ import { db } from "../lib/db";
 import { questions, sections, topicsGlobal, tests as testsTable } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
+import { cleanPunjabiText } from "../lib/punjabi-utils";
 
 /** Trim + lowercase for case-insensitive matching */
 function normaliseKey(v: string): string {
@@ -317,11 +318,11 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
         : null;
 
     // Optional Punjabi
-    const questionPa = get(cells, "question_pa") || null;
-    const optionAPa = get(cells, "optiona_pa");
-    const optionBPa = get(cells, "optionb_pa");
-    const optionCPa = get(cells, "optionc_pa");
-    const optionDPa = get(cells, "optiond_pa");
+    const questionPa = cleanPunjabiText(get(cells, "question_pa")) || null;
+    const optionAPa = cleanPunjabiText(get(cells, "optiona_pa")) || "";
+    const optionBPa = cleanPunjabiText(get(cells, "optionb_pa")) || "";
+    const optionCPa = cleanPunjabiText(get(cells, "optionc_pa")) || "";
+    const optionDPa = cleanPunjabiText(get(cells, "optiond_pa")) || "";
     const optionsPa =
       questionPa && (optionAPa || optionBPa || optionCPa || optionDPa)
         ? [
@@ -335,7 +336,7 @@ router.post("/", authenticate, upload.single("file"), async (req, res) => {
     // Optional explanation
     const explanationEn = get(cells, "explanation_en") || get(cells, "explanation") || "";
     const explanationHi = get(cells, "explanation_hi") || null;
-    const explanationPa = get(cells, "explanation_pa") || null;
+    const explanationPa = cleanPunjabiText(get(cells, "explanation_pa")) || null;
 
     toInsert.push({
       clientId: `csv-${Date.now()}-${i}-${Math.random().toString(36).slice(2, 6)}`,

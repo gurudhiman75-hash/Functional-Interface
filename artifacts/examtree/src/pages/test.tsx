@@ -932,7 +932,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               )}
 
               <div className="text-sm leading-7 text-gray-800 sm:text-base">
-                <QuestionRichText content={getLocalizedQuestion(q, lang).text} />
+                <QuestionRichText content={getLocalizedQuestion(q, lang).text} lang={lang} />
               </div>
 
               <div className="grid gap-2">
@@ -989,7 +989,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         {String.fromCharCode(65 + index)}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <QuestionRichText content={option} inline />
+                        <QuestionRichText content={option} inline lang={lang} />
                       </div>
                       <div className="flex shrink-0 items-center gap-1">
                         {isPracticeRevealed && isExamAnswer && (

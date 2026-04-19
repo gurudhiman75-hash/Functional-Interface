@@ -92,11 +92,14 @@ export function QuestionRichText({
   content,
   className,
   inline = false,
+  lang,
 }: {
   content: string;
   className?: string;
   /** Slightly tighter spacing when used inside option rows */
   inline?: boolean;
+  /** Language of the content — used to apply correct font/whitespace for Gurmukhi */
+  lang?: string;
 }) {
   const pieces = useMemo(() => {
     const html = tryHtmlFragment(content);
@@ -133,7 +136,8 @@ export function QuestionRichText({
           <MathJax key={i} dynamic hideUntilTypeset="first">
             <div
               className={cn(
-                "whitespace-pre-wrap break-words text-foreground leading-relaxed",
+                "break-words text-foreground leading-relaxed",
+                lang === "pa" ? "whitespace-normal punjabi-text" : "whitespace-pre-wrap",
                 inline && "text-sm sm:text-base",
               )}
             >

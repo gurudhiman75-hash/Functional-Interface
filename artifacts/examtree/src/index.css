@@ -207,6 +207,14 @@
 .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
 .animate-slideInRight { animation: slideInRight 0.3s ease-out; }
 
+/* Punjabi (Gurmukhi) text rendering */
+.punjabi-text {
+  font-family: 'Noto Sans Gurmukhi', sans-serif;
+  white-space: normal;
+  word-break: break-words;
+  line-height: 1.8;
+}
+
 @layer utilities {
   .glass-panel {
     backdrop-filter: blur(12px);

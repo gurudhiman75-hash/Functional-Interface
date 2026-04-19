@@ -37,6 +37,7 @@ import {
 import { createPackage, getTests as fetchBackendTests, getPackages, createBundle, getBundles, getSections, getAllTopics, createTopic, renameTopic, deleteTopic, createSection, deleteSection, type MasterSection, type MasterTopic } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
+import { cleanPunjabiText } from "@/lib/punjabi-utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -1328,9 +1329,9 @@ export default function Admin() {
       explanationHi: questionForm.explanationHi.trim() || undefined,
     } : {};
     const translationPa = (questionSubcatLangs.includes("pa") || questionForm.textPa.trim()) ? {
-      textPa: questionForm.textPa.trim() || undefined,
-      optionsPa: questionForm.optionsPa.map((o) => o.trim()) as [string, string, string, string],
-      explanationPa: questionForm.explanationPa.trim() || undefined,
+      textPa: cleanPunjabiText(questionForm.textPa) || undefined,
+      optionsPa: questionForm.optionsPa.map((o) => cleanPunjabiText(o) ?? o.trim()) as [string, string, string, string],
+      explanationPa: cleanPunjabiText(questionForm.explanationPa) || undefined,
     } : {};
 
     try {
@@ -1605,11 +1606,11 @@ export default function Admin() {
             }
           }
           if (questionSubcatLangs.includes("pa") && header.includes("text_pa")) {
-            const textPa = get("text_pa");
+            const textPa = cleanPunjabiText(get("text_pa"));
             if (textPa) {
               entry.textPa = textPa;
-              entry.optionsPa = [get("option_a_pa") || option_a, get("option_b_pa") || option_b, get("option_c_pa") || option_c, get("option_d_pa") || option_d];
-              entry.explanationPa = get("explanation_pa") || undefined;
+              entry.optionsPa = [cleanPunjabiText(get("option_a_pa")) || option_a, cleanPunjabiText(get("option_b_pa")) || option_b, cleanPunjabiText(get("option_c_pa")) || option_c, cleanPunjabiText(get("option_d_pa")) || option_d];
+              entry.explanationPa = cleanPunjabiText(get("explanation_pa")) || undefined;
             }
           }
 
