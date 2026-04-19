@@ -231,6 +231,7 @@ router.post("/", authenticate, async (req, res) => {
         sectionTimeSpent: sectionTimeSpent ?? null,
         questionReview,
         createdAt: new Date(),
+        date: new Date().toISOString().split("T")[0],
       })
       .returning();
 

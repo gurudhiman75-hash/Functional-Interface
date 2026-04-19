@@ -116,6 +116,10 @@ async function migrate() {
   console.log("✓ questions");
 
   // ── attempts ──────────────────────────────────────────────────────────
+  await db.execute(sql`ALTER TABLE attempts ADD COLUMN IF NOT EXISTS date DATE NOT NULL DEFAULT NOW();`);
+  console.log("✓ attempts.date column");
+
+  // ── attempts ──────────────────────────────────────────────────────────
   await db.execute(sql`
     CREATE TABLE IF NOT EXISTS attempts (
       id                TEXT      PRIMARY KEY,

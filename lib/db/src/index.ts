@@ -1,4 +1,4 @@
-import { pgTable, text, integer, real, timestamp, jsonb, serial, primaryKey, unique, index } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, real, timestamp, date, jsonb, serial, primaryKey, unique, index } from "drizzle-orm/pg-core";
 
 // ── Question taxonomy ─────────────────────────────────────────────────────────
 /** Master list of question sections (e.g. Quant, Reasoning, English). */
@@ -175,6 +175,8 @@ export const attempts = pgTable(
     unanswered: integer("unanswered").notNull(),
     totalQuestions: integer("total_questions").notNull(),
     timeSpent: integer("time_spent").notNull(),
+    /** Legacy date column (date-only). Kept for backward-compat with older DB rows. */
+    date: date("date"),
     /** "REAL" | "PRACTICE" — null means legacy row, treated as REAL */
     attemptType: text("attempt_type").$type<"REAL" | "PRACTICE">(),
     sectionStats: jsonb("section_stats"),
