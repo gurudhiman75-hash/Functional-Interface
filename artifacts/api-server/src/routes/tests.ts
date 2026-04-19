@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "../lib/db";
 import { tests, questions, users, userTestEntitlements, subcategories } from "@workspace/db";
 import { Test, type TestSection } from "@workspace/api-zod";
@@ -7,6 +7,7 @@ import { buildSectionsWithQuestions } from "../lib/test-sections";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
 import { authenticate } from "../middlewares/auth";
 import { cacheGet, cacheSet, CacheKey, TTL } from "../lib/cache";
+import { getQuestionColumnState, buildQuestionSelectSql } from "../lib/question-columns";
 
 const router: IRouter = Router();
 
@@ -199,7 +200,11 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
     }
   }
 
-  const testQuestions = await db.select().from(questions).where(eq(questions.testId, id));
+  const columns = await getQuestionColumnState();
+  const selectCols = buildQuestionSelectSql(columns);
+  const testQuestions = await db.execute(
+    sql`SELECT ${selectCols} FROM questions WHERE test_id = ${id}`
+  ) as any[];
   if (testQuestions.length === 0) {
     return res.status(404).json({
       error: "Test has no questions yet",
