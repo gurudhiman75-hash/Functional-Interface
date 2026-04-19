@@ -14,6 +14,7 @@
     "db:normalize-questions": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/normalize-questions.mjs",
     "db:check-normalization": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/check-normalization.mjs",
     "db:populate-global-topics": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/populate-global-topics.mjs",
+    "db:seed-taxonomy": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/seed-sections-topics.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

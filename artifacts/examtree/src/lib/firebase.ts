@@ -1,6 +1,7 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
+import { getStorage, type FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig =
   import.meta.env.VITE_FIREBASE_API_KEY &&
@@ -21,6 +22,7 @@ const firebaseConfig =
 
 let authInstance: Auth | null = null;
 let dbInstance: Firestore | null = null;
+let storageInstance: FirebaseStorage | null = null;
 
 function ensureFirebase() {
   if (!firebaseConfig) return;
@@ -28,6 +30,7 @@ function ensureFirebase() {
   const app = getApps().length > 0 ? getApps()[0] : initializeApp(firebaseConfig);
   if (!authInstance) authInstance = getAuth(app);
   if (!dbInstance) dbInstance = getFirestore(app);
+  if (!storageInstance) storageInstance = getStorage(app);
 }
 
 export function getFirebaseAuth(): Auth | null {
@@ -38,4 +41,9 @@ export function getFirebaseAuth(): Auth | null {
 export function getFirebaseDb(): Firestore | null {
   ensureFirebase();
   return dbInstance;
+}
+
+export function getFirebaseStorage(): FirebaseStorage | null {
+  ensureFirebase();
+  return storageInstance;
 }

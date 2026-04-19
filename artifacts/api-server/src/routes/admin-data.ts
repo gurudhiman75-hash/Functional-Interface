@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express";
 import { asc, eq } from "drizzle-orm";
 import { sql as rawSql } from "drizzle-orm";
 import { db } from "../lib/db";
-import { categories, questions, subcategories, tests, users, sections, topicsGlobal } from "@workspace/db";
+import { categories, questions, subcategories, tests, users, sections, topicsGlobal, diSets } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { cacheDel, CacheKey } from "../lib/cache";
 
@@ -64,6 +64,13 @@ type AdminQuestion = {
   textPa?: string;
   optionsPa?: [string, string, string, string];
   explanationPa?: string;
+  imageUrl?: string;
+  questionType?: "text" | "image" | "di";
+  diSetId?: number;
+  /** Denormalized DI set fields (read-only from snapshot; not persisted directly) */
+  diSetTitle?: string;
+  diSetImageUrl?: string;
+  diSetDescription?: string;
   createdAt: number;
 };
 
@@ -108,20 +115,46 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
              COALESCE(topic, 'General') AS topic, explanation,
              section_id, topic_id, global_topic_id, difficulty,
              text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+             image_url, question_type, di_set_id,
              created_at
       FROM questions ORDER BY id ASC
     `)) as any[];
   } catch {
-    // global_topic_id or difficulty column missing — fetch without them
-    questionRowsRaw = (await db.execute(rawSql`
-      SELECT id, client_id, test_id, text, options, correct, section,
-             COALESCE(topic, 'General') AS topic, explanation,
-             section_id, topic_id,
-             NULL::text AS global_topic_id, NULL::text AS difficulty,
-             text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
-             created_at
-      FROM questions ORDER BY id ASC
-    `)) as any[];
+    // Some optional columns may be missing on older DBs — fall back to a safe select
+    try {
+      questionRowsRaw = (await db.execute(rawSql`
+        SELECT id, client_id, test_id, text, options, correct, section,
+               COALESCE(topic, 'General') AS topic, explanation,
+               section_id, topic_id, global_topic_id, difficulty,
+               text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+               NULL::text AS image_url, 'text'::text AS question_type, NULL::integer AS di_set_id,
+               created_at
+        FROM questions ORDER BY id ASC
+      `)) as any[];
+    } catch {
+      // global_topic_id or difficulty column missing — fetch without them
+      questionRowsRaw = (await db.execute(rawSql`
+        SELECT id, client_id, test_id, text, options, correct, section,
+               COALESCE(topic, 'General') AS topic, explanation,
+               section_id, topic_id,
+               NULL::text AS global_topic_id, NULL::text AS difficulty,
+               text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+               NULL::text AS image_url, 'text'::text AS question_type, NULL::integer AS di_set_id,
+               created_at
+        FROM questions ORDER BY id ASC
+      `)) as any[];
+    }
+  }
+
+  // Build a DI set lookup map for denormalizing into question rows
+  let diSetMap = new Map<number, { title: string; imageUrl: string | null; description: string | null }>();
+  try {
+    const diSetRows = await db.select().from(diSets);
+    for (const ds of diSetRows) {
+      diSetMap.set(ds.id, { title: ds.title, imageUrl: ds.imageUrl ?? null, description: ds.description ?? null });
+    }
+  } catch {
+    // di_sets table not yet migrated — safe to ignore
   }
 
   const [categoryRows, subcategoryRows, testRows] = await Promise.all([
@@ -178,25 +211,34 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       topicName: row.topicName ?? null,
       languages: Array.isArray(row.languages) ? (row.languages as string[]) : null,
     })),
-    questions: questionRowsRaw.map((row) => ({
-      id: row.client_id || `q-${row.id}`,
-      testId: row.test_id,
-      section: row.section,
-      sectionId: row.section_id ?? undefined,
-      topic: row.topic ?? undefined,
-      topicId: row.global_topic_id ?? undefined,
-      text: row.text,
-      options: row.options as [string, string, string, string],
-      correct: row.correct,
-      explanation: row.explanation,
-      textHi: row.text_hi ?? undefined,
-      optionsHi: row.options_hi ? (row.options_hi as [string, string, string, string]) : undefined,
-      explanationHi: row.explanation_hi ?? undefined,
-      textPa: row.text_pa ?? undefined,
-      optionsPa: row.options_pa ? (row.options_pa as [string, string, string, string]) : undefined,
-      explanationPa: row.explanation_pa ?? undefined,
-      createdAt: new Date(row.created_at).getTime(),
-    })),
+    questions: questionRowsRaw.map((row) => {
+      const diSet = row.di_set_id ? diSetMap.get(Number(row.di_set_id)) : undefined;
+      return {
+        id: row.client_id || `q-${row.id}`,
+        testId: row.test_id,
+        section: row.section,
+        sectionId: row.section_id ?? undefined,
+        topic: row.topic ?? undefined,
+        topicId: row.global_topic_id ?? undefined,
+        text: row.text,
+        options: row.options as [string, string, string, string],
+        correct: row.correct,
+        explanation: row.explanation,
+        textHi: row.text_hi ?? undefined,
+        optionsHi: row.options_hi ? (row.options_hi as [string, string, string, string]) : undefined,
+        explanationHi: row.explanation_hi ?? undefined,
+        textPa: row.text_pa ?? undefined,
+        optionsPa: row.options_pa ? (row.options_pa as [string, string, string, string]) : undefined,
+        explanationPa: row.explanation_pa ?? undefined,
+        imageUrl: row.image_url ?? undefined,
+        questionType: row.question_type ?? "text",
+        diSetId: row.di_set_id ?? undefined,
+        diSetTitle: diSet?.title ?? undefined,
+        diSetImageUrl: diSet?.imageUrl ?? undefined,
+        diSetDescription: diSet?.description ?? undefined,
+        createdAt: new Date(row.created_at).getTime(),
+      };
+    }),
   };
 }
 
@@ -231,10 +273,10 @@ router.put("/", authenticate, async (req, res) => {
     const existingSubcategoryMap = new Map(existingSubcategories.map((sub) => [sub.id, sub]));
 
     await db.transaction(async (tx) => {
-      await tx.execute(`DELETE FROM "questions"`);
-      await tx.execute(`DELETE FROM "tests"`);
-      await tx.execute(`DELETE FROM "subcategories"`);
-      await tx.execute(`DELETE FROM "categories"`);
+      await tx.execute(rawSql`DELETE FROM "questions"`);
+      await tx.execute(rawSql`DELETE FROM "tests"`);
+      await tx.execute(rawSql`DELETE FROM "subcategories"`);
+      await tx.execute(rawSql`DELETE FROM "categories"`);
 
       const categoryRows = (snapshot.categories ?? []).map((category) => {
         const defaults = defaultCategoryIcon(category.name);
@@ -378,6 +420,9 @@ router.put("/", authenticate, async (req, res) => {
           textPa: question.textPa ?? null,
           optionsPa: question.optionsPa ?? null,
           explanationPa: question.explanationPa ?? null,
+          imageUrl: question.imageUrl ?? null,
+          questionType: question.questionType ?? "text",
+          diSetId: question.diSetId ?? null,
         };
       });
       if (questionValidationErrors.length > 0) {
@@ -422,7 +467,11 @@ router.put("/", authenticate, async (req, res) => {
         details: (error as any).details ?? [],
       });
     }
-    return res.status(500).json({ error: "Could not save admin data" });
+    console.error("[admin-data] PUT / error:", error);
+    const detail = error instanceof Error
+      ? `${error.message}${(error as any).cause ? ` | cause: ${(error as any).cause}` : ""}${(error as any).detail ? ` | detail: ${(error as any).detail}` : ""}`
+      : String(error);
+    return res.status(500).json({ error: "Could not save admin data", detail });
   }
 });
 

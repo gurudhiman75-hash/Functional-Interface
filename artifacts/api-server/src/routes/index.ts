@@ -18,6 +18,7 @@ import dailyChallengeRouter from "./daily-challenge";
 import sectionsRouter from "./sections";
 import topicsRouter from "./topics";
 import questionBankRouter from "./question-bank";
+import diSetsRouter from "./di-sets";
 
 const router: IRouter = Router();
 
@@ -40,5 +41,6 @@ router.use("/upload-questions", uploadQuestionsRouter);
 router.use("/sections", sectionsRouter);
 router.use("/topics", topicsRouter);
 router.use(questionBankRouter);
+router.use(diSetsRouter);
 
 export default router;

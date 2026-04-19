@@ -43,6 +43,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import QuestionBankTab from "@/components/QuestionBankTab";
+import { DiSetManager } from "@/components/DiSetManager";
 import AssignFromBankDialog from "@/components/AssignFromBankDialog";
 
 const isAdminUser = (role?: string) => role === "admin";
@@ -789,7 +790,7 @@ export default function Admin() {
   const user = getUser();
   const { toast } = useToast();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "sections" | "question-bank">("categories");
+  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "sections" | "question-bank" | "di-sets">("categories");
   const [search, setSearch] = useState("");
 
   const [cats, setCats] = useState<AdminCategory[]>([]);
@@ -1845,7 +1846,7 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 glass-panel border border-border/70 rounded-2xl w-fit mb-6 shadow-sm flex-wrap">
-          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "sections", "question-bank"] as const).map((t) => (
+          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "sections", "question-bank", "di-sets"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -1855,7 +1856,7 @@ export default function Admin() {
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent"
               }`}
             >
-              {t === "question-bank" ? "Question Bank" : t}
+              {t === "question-bank" ? "Question Bank" : t === "di-sets" ? "DI Sets" : t}
             </button>
           ))}
         </div>
@@ -3524,6 +3525,11 @@ export default function Admin() {
         {/* ── QUESTION BANK TAB ── */}
         {tab === "question-bank" && (
           <QuestionBankTab />
+        )}
+
+        {/* ── DI SETS TAB ── */}
+        {tab === "di-sets" && (
+          <DiSetManager />
         )}
       </main>
 

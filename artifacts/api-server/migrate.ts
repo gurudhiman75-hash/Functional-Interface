@@ -538,6 +538,31 @@ async function migrate() {
     console.warn(`⚠  ${nullTopicCnt} question(s) still have global_topic_id = NULL — assign topics before enforcing NOT NULL`);
   }
 
+  // ── di_sets (Data Interpretation / diagram sets) ─────────────────────
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS di_sets (
+      id           SERIAL     PRIMARY KEY,
+      title        TEXT       NOT NULL,
+      image_url    TEXT,
+      description  TEXT,
+      created_at   TIMESTAMP  NOT NULL DEFAULT NOW()
+    );
+  `);
+  console.log("✓ di_sets");
+
+  // ── Add image / DI columns to questions ───────────────────────────────
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS image_url TEXT;
+  `);
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS question_type TEXT NOT NULL DEFAULT 'text';
+  `);
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS di_set_id INTEGER REFERENCES di_sets(id) ON DELETE SET NULL;
+  `);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS questions_di_set_id_idx ON questions(di_set_id);`);
+  console.log("✓ questions.image_url / question_type / di_set_id columns");
+
   // ── Fix responses FK pointing to old 'attempt_records' table ────────
   // The production DB was originally created with 'attempt_records' as the table
   // name. The FK constraint on 'responses.attempt_id' still points there.

@@ -110,6 +110,15 @@ export const tests = pgTable("tests", {
   topicName: text("topic_name"),
 });
 
+/** DI Sets — shared context (image + description) for Data Interpretation question groups */
+export const diSets = pgTable("di_sets", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  imageUrl: text("image_url"),
+  description: text("description"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 export const userTestEntitlements = pgTable(
   "user_test_entitlements",
   {
@@ -154,6 +163,12 @@ export const questions = pgTable("questions", {
   textPa: text("text_pa"),
   optionsPa: jsonb("options_pa"),
   explanationPa: text("explanation_pa"),
+  /** Optional image URL (Firebase Storage) to display above question text */
+  imageUrl: text("image_url"),
+  /** Question type: 'text' | 'image' | 'di' */
+  questionType: text("question_type").$type<"text" | "image" | "di">().notNull().default("text"),
+  /** FK to di_sets — populated for DI/Data-Interpretation questions */
+  diSetId: integer("di_set_id").references(() => diSets.id, { onDelete: "set null" }),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

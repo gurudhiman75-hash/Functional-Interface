@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express";
 import { and, asc, count, desc, eq, ilike, inArray, max, or, sql } from "drizzle-orm";
 import multer from "multer";
 import { db } from "../lib/db";
-import { questions, testQuestions, tests, sections, topicsGlobal } from "@workspace/db";
+import { questions, testQuestions, tests, sections, topicsGlobal, diSets } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
 import { type QuestionColumnState, getQuestionColumnState, buildQuestionSelectSql } from "../lib/question-columns";
@@ -230,7 +230,9 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
         textPa: q.text_pa ?? null,
         optionsPa: q.options_pa ?? null,
         explanationPa: q.explanation_pa ?? null,
-        createdAt: q.created_at,
+        imageUrl: q.image_url ?? null,
+        questionType: q.question_type ?? "text",
+        diSetId: q.di_set_id ?? null,
         usageCount: usage.usageCount,
         lastUsedAt: usage.lastUsedAt,
       };
@@ -239,7 +241,7 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
     res.json({ items, total: totalCount, page, pageSize });
   } catch (err: any) {
     if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
-    console.error("[question-bank] GET /question-bank error:", err);
+    console.error("[question-bank] GET /question-bank", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -248,10 +250,10 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
 router.get("/question-bank/:id", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const columns = await getQuestionColumnState();
     const id = parseInt(req.params.id as string, 10);
     if (isNaN(id)) return void res.status(400).json({ error: "Invalid id" });
 
+    const columns = await getQuestionColumnState();
     const selectColumns = buildQuestionSelectSql(columns);
     const fallbackSelect = sql.join(
       [
@@ -346,7 +348,7 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
     const {
       text, options, correct, section, topic, globalTopicId, explanation, difficulty,
       textHi, optionsHi, explanationHi, textPa, optionsPa, explanationPa,
-      sectionId, topicId,
+      sectionId, topicId, imageUrl, questionType, diSetId,
     } = req.body;
 
     if (!text || !options || correct === undefined || !section || !explanation) {
@@ -386,6 +388,9 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
     if (columns.hasTextPa) baseValues.textPa = textPa ?? null;
     if (columns.hasOptionsPa) baseValues.optionsPa = optionsPa ?? null;
     if (columns.hasExplanationPa) baseValues.explanationPa = explanationPa ?? null;
+    if (columns.hasImageUrl) baseValues.imageUrl = imageUrl?.trim() || null;
+    if (columns.hasQuestionType) baseValues.questionType = questionType ?? "text";
+    if (columns.hasDiSetId) baseValues.diSetId = diSetId ?? null;
 
     const [inserted] = await db
       .insert(questions)
@@ -411,6 +416,7 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
       text, options, correct, section, sectionId, topic, topicId, globalTopicId,
       explanation, difficulty,
       textHi, optionsHi, explanationHi, textPa, optionsPa, explanationPa,
+      imageUrl, questionType, diSetId,
     } = req.body;
 
     if (difficulty && !["Easy", "Medium", "Hard"].includes(difficulty)) {
@@ -435,6 +441,9 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
     if (columns.hasTextPa && textPa !== undefined) updateData.textPa = textPa;
     if (columns.hasOptionsPa && optionsPa !== undefined) updateData.optionsPa = optionsPa;
     if (columns.hasExplanationPa && explanationPa !== undefined) updateData.explanationPa = explanationPa;
+    if (columns.hasImageUrl && imageUrl !== undefined) updateData.imageUrl = imageUrl?.trim() || null;
+    if (columns.hasQuestionType && questionType !== undefined) updateData.questionType = questionType;
+    if (columns.hasDiSetId && diSetId !== undefined) updateData.diSetId = diSetId ?? null;
 
     if (Object.keys(updateData).length === 0) {
       return void res.status(400).json({ error: "No fields to update" });
@@ -710,6 +719,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
 
   const batchSection = (req.body.section as string | undefined)?.trim() ?? "";
   const batchTopic   = (req.body.topic   as string | undefined)?.trim() ?? "";
+  const batchDiSetId = req.body.diSetId ? parseInt(req.body.diSetId as string, 10) : null;
 
   // Load master tables once
   const [allSections, allTopicsGlobal] = await Promise.all([
@@ -810,8 +820,9 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       explanationHi: explanationHi || null,
       textPa: questionPa || null,
       optionsPa: questionPa ? [optionAPa || optionAEn, optionBPa || optionBEn, optionCPa || optionCEn, optionDPa || optionDEn] as unknown as string : null,
-      explanationPa: explanationPa || null,
-    });
+      explanationPa: explanationPa || null,      imageUrl: null,
+      questionType: batchDiSetId ? "di" : "text",
+      diSetId: batchDiSetId ?? null,    });
   }
 
   // Bulk insert in chunks of 200

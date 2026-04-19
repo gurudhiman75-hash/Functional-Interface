@@ -87,6 +87,14 @@ export interface Question {
   textPa?: string | null;
   optionsPa?: string[] | null;
   explanationPa?: string | null;
+  /** Optional image URL displayed above the question */
+  imageUrl?: string | null;
+  questionType?: "text" | "image" | "di";
+  diSetId?: number | null;
+  /** Denormalized DI set data (from snapshot join) */
+  diSetTitle?: string | null;
+  diSetImageUrl?: string | null;
+  diSetDescription?: string | null;
 }
 
 export type Bundle = {
@@ -570,6 +578,10 @@ export interface BankQuestion {
   textPa?: string | null;
   optionsPa?: [string, string, string, string] | null;
   explanationPa?: string | null;
+  /** Firebase Storage URL for question image */
+  imageUrl?: string | null;
+  questionType?: "text" | "image" | "di";
+  diSetId?: number | null;
   createdAt: string;
   usageCount: number;
   lastUsedAt: string | null;
@@ -735,3 +747,68 @@ export const categories: Category[] = [];
 export const allTests: Test[] = [];
 export const sampleQuestions: Question[] = [];
 export const leaderboardData: LeaderboardEntry[] = [];
+
+// ── DI Sets API ────────────────────────────────────────────────────────────────
+
+export interface DiSet {
+  id: number;
+  title: string;
+  imageUrl: string | null;
+  description: string | null;
+  createdAt: string;
+}
+
+export async function getDiSets(): Promise<DiSet[]> {
+  return apiRequest("/di-sets");
+}
+
+export async function getDiSet(id: number): Promise<DiSet> {
+  return apiRequest(`/di-sets/${id}`);
+}
+
+export async function createDiSet(body: {
+  title: string;
+  imageUrl?: string | null;
+  description?: string | null;
+}): Promise<DiSet> {
+  return apiRequest("/di-sets", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function updateDiSet(
+  id: number,
+  body: Partial<Omit<DiSet, "id" | "createdAt">>,
+): Promise<DiSet> {
+  return apiRequest(`/di-sets/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function deleteDiSet(id: number): Promise<void> {
+  return apiRequest(`/di-sets/${id}`, { method: "DELETE" });
+}
+
+// ── Firebase Storage upload helper ────────────────────────────────────────────
+
+/**
+ * Upload a file to Firebase Storage and return the public download URL.
+ * Path format: `question-images/{timestamp}-{filename}`
+ */
+export async function uploadImageToStorage(
+  file: File,
+  folder: "question-images" | "di-set-images" = "question-images",
+): Promise<string> {
+  const { getFirebaseStorage } = await import("@/lib/firebase");
+  const { ref, uploadBytes, getDownloadURL } = await import("firebase/storage");
+  const storage = getFirebaseStorage();
+  if (!storage) throw new Error("Firebase Storage is not configured");
+
+  const ext = file.name.split(".").pop() ?? "bin";
+  const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file, { contentType: file.type });
+  return getDownloadURL(storageRef);
+}

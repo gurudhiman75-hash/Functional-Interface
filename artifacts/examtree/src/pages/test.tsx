@@ -904,6 +904,32 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
               <div className="space-y-5 px-5 py-5">
 
+              {/* DI Set context panel */}
+              {q.diSetId && (q.diSetImageUrl || q.diSetDescription) && (
+                <div className="mb-1 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  {q.diSetTitle && <p className="text-xs font-semibold text-blue-700 mb-2">{q.diSetTitle}</p>}
+                  {q.diSetImageUrl && (
+                    <img
+                      src={q.diSetImageUrl}
+                      alt={q.diSetTitle ?? "DI diagram"}
+                      className="max-w-full rounded mb-2"
+                    />
+                  )}
+                  {q.diSetDescription && (
+                    <p className="text-sm text-blue-900 whitespace-pre-wrap">{q.diSetDescription}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Question image */}
+              {q.imageUrl && (
+                <img
+                  src={q.imageUrl}
+                  alt="Question diagram"
+                  className="max-w-full rounded-md border border-border mb-1"
+                />
+              )}
+
               <div className="text-sm leading-7 text-gray-800 sm:text-base">
                 <QuestionRichText content={getLocalizedQuestion(q, lang).text} />
               </div>

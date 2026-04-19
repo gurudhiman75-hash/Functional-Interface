@@ -13,7 +13,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Plus, Edit, Trash2, Search, X, ChevronDown, ChevronRight,
-  BookOpen, AlertTriangle, Check, Loader2, ExternalLink, Upload, Download, FileText,
+  BookOpen, AlertTriangle, Check, Loader2, ExternalLink, Upload, Download, FileText, ImageIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,10 +29,13 @@ import {
   addQuestionsToTest,
   removeQuestionFromTest,
   importBankQuestionsFromCsv,
+  getDiSets,
+  uploadImageToStorage,
   type BankQuestion,
   type QuestionDifficulty,
   type BankQuestionUsage,
   type BankCsvImportResult,
+  type DiSet,
 } from "@/lib/data";
 import { getSections, getAllTopics, type MasterSection, type MasterTopic } from "@/lib/data";
 import { getTests as fetchBackendTests } from "@/lib/data";
@@ -96,6 +99,9 @@ function blankForm() {
     textPa: "",
     optionsPa: ["", "", "", ""] as [string, string, string, string],
     explanationPa: "",
+    imageUrl: "",
+    questionType: "text" as "text" | "image" | "di",
+    diSetId: "" as string,
   };
 }
 
@@ -136,15 +142,18 @@ interface QuestionFormModalProps {
   editing: BankQuestion | null;
   masterSections: MasterSection[];
   masterTopics: MasterTopic[];
+  diSets: DiSet[];
   onClose: () => void;
   onSaved: () => void;
 }
 
-function QuestionFormModal({ open, editing, masterSections, masterTopics, onClose, onSaved }: QuestionFormModalProps) {
+function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets: diSetsList, onClose, onSaved }: QuestionFormModalProps) {
   const { toast } = useToast();
   const [form, setForm] = useState(blankForm());
   const [langTab, setLangTab] = useState<"en" | "hi" | "pa">("en");
   const [saving, setSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   // Sync form when editing changes
   useEffect(() => {
@@ -165,6 +174,9 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, onClos
         textPa: editing.textPa ?? "",
         optionsPa: [...((editing.optionsPa as [string, string, string, string]) ?? ["", "", "", ""])] as [string, string, string, string],
         explanationPa: editing.explanationPa ?? "",
+        imageUrl: editing.imageUrl ?? "",
+        questionType: editing.questionType ?? "text",
+        diSetId: editing.diSetId != null ? String(editing.diSetId) : "",
       });
     } else {
       setForm(blankForm());
@@ -205,6 +217,9 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, onClos
         ? (form.optionsPa.map((o) => o.trim()) as [string, string, string, string])
         : undefined,
       explanationPa: form.explanationPa?.trim() || undefined,
+      imageUrl: form.imageUrl?.trim() || undefined,
+      questionType: form.questionType || "text",
+      diSetId: form.diSetId ? parseInt(form.diSetId, 10) : undefined,
     };
 
     setSaving(true);
@@ -222,6 +237,19 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, onClos
       toast({ title: "Save failed", description: err?.message ?? "Unknown error", variant: "destructive" });
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleImageUpload = async (file: File) => {
+    setImageUploading(true);
+    try {
+      const url = await uploadImageToStorage(file, "question-images");
+      setForm((f) => ({ ...f, imageUrl: url, questionType: f.questionType === "text" ? "image" : f.questionType }));
+      toast({ title: "Image uploaded" });
+    } catch (err: any) {
+      toast({ title: "Upload failed", description: err?.message, variant: "destructive" });
+    } finally {
+      setImageUploading(false);
     }
   };
 
@@ -279,6 +307,83 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, onClos
                 {DIFFICULTY_OPTIONS.map((d) => <option key={d} value={d}>{d}</option>)}
               </select>
             </div>
+          </div>
+
+          {/* Question Type + DI Set + Image */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <Label>Question Type</Label>
+              <select
+                className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                value={form.questionType}
+                onChange={(e) => setForm((f) => ({ ...f, questionType: e.target.value as "text" | "image" | "di" }))}
+              >
+                <option value="text">Text only</option>
+                <option value="image">Image question</option>
+                <option value="di">Data Interpretation (DI)</option>
+              </select>
+            </div>
+            <div>
+              <Label>DI Set</Label>
+              <select
+                className="mt-1 w-full px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                value={form.diSetId}
+                onChange={(e) => setForm((f) => ({
+                  ...f,
+                  diSetId: e.target.value,
+                  questionType: e.target.value ? "di" : f.questionType === "di" ? "text" : f.questionType,
+                }))}
+              >
+                <option value="">None</option>
+                {diSetsList.map((ds) => <option key={ds.id} value={String(ds.id)}>{ds.title}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* Image upload */}
+          <div>
+            <Label>Question Image (optional)</Label>
+            <div className="mt-1 flex items-center gap-2">
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleImageUpload(f);
+                  e.target.value = "";
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={imageUploading}
+                onClick={() => imageInputRef.current?.click()}
+              >
+                {imageUploading ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" /> : <ImageIcon className="w-3.5 h-3.5 mr-1.5" />}
+                {imageUploading ? "Uploading…" : "Upload image"}
+              </Button>
+              {form.imageUrl && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="text-destructive hover:text-destructive"
+                  onClick={() => setForm((f) => ({ ...f, imageUrl: "", questionType: f.questionType === "image" ? "text" : f.questionType }))}
+                >
+                  <X className="w-3.5 h-3.5 mr-1" /> Remove
+                </Button>
+              )}
+            </div>
+            {form.imageUrl && (
+              <img
+                src={form.imageUrl}
+                alt="Question image preview"
+                className="mt-2 max-h-40 rounded-md border border-border object-contain"
+              />
+            )}
           </div>
 
           {/* Language tabs */}
@@ -865,6 +970,11 @@ export default function QuestionBankTab() {
     queryFn: getAllTopics,
     staleTime: 0,
   });
+  const { data: diSetsData = [] } = useQuery<DiSet[]>({
+    queryKey: ["di-sets"],
+    queryFn: getDiSets,
+    staleTime: 0,
+  });
 
   // Question bank data
   const bankKey = ["question-bank", page, PAGE_SIZE, debouncedSearch, filterSection, filterTopic, filterDifficulty];
@@ -1194,6 +1304,7 @@ export default function QuestionBankTab() {
         editing={editingQuestion}
         masterSections={masterSections}
         masterTopics={masterTopics}
+        diSets={diSetsData}
         onClose={() => { setShowForm(false); setEditingQuestion(null); }}
         onSaved={invalidateBank}
       />
