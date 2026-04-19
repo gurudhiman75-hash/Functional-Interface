@@ -283,14 +283,6 @@ export default function Result() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [filteredReview]);
 
-  if (serverAttemptId && (backendAttemptLoading || backendResponsesLoading)) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg text-muted-foreground">Loading result...</div>
-      </div>
-    );
-  }
-
   // ── Improvement vs previous attempt for this test ─────────────────────────
   // relevantAttempts is ordered newest-first; localLatest is index 0, previous is index 1.
   const lastRealAttemptForTest = useMemo(() => {
@@ -318,6 +310,96 @@ export default function Result() {
         return { name: s.name, current: s.accuracy, previous: prevMap[s.name].accuracy, delta };
       });
   }, [latest, lastRealAttemptForTest]);
+
+  // Global average score for this test (from the tests catalogue: updated server-side after each attempt)
+  const globalAvgScore = useMemo(() => {
+    if (!allTests || !activeTestId) return null;
+    const testMeta = allTests.find((t) => t.id === activeTestId);
+    return testMeta?.avgScore ?? null;
+  }, [allTests, activeTestId]);
+
+  // ── Percentile derived from leaderboard data ──────────────────────────────
+  // topPercent: lower = better. 5 means "you beat 95% of participants".
+  const currentPercentile = useMemo(() => {
+    const rank = leaderboardData?.currentUserRank;
+    const total = leaderboardData?.totalParticipants;
+    if (!rank || !total || total < 1) return null;
+    return Math.max(1, Math.ceil((rank / total) * 100));
+  }, [leaderboardData]);
+
+  // Persist & compare for improvement banner
+  const previousPercentile = useMemo(() => {
+    if (!activeTestId) return null;
+    return getPercentileHistory()[activeTestId] ?? null;
+  }, [activeTestId]);
+
+  // ---- Micro rewards ----
+  const [rewards, setRewards] = useState<Reward[]>([]);
+
+  useEffect(() => {
+    const pending: Reward[] = [];
+
+    // Streak increase
+    const streak = getStreak();
+    if (streak.justIncremented) {
+      pending.push({
+        id: "streak",
+        emoji: "🔥",
+        title: `${streak.currentStreak}-day streak!`,
+        subtitle: "Keep it up — you're on a roll.",
+      });
+      acknowledgeStreakCelebration();
+    }
+
+    // Score improvement
+    if (scoreImprovementDelta !== null && scoreImprovementDelta > 0) {
+      pending.push({
+        id: "improvement",
+        emoji: "📈",
+        title: `Up +${scoreImprovementDelta}% from last time`,
+        subtitle: "Great improvement!",
+      });
+    }
+
+    // High percentile (top 10%)
+    if (currentPercentile !== null && currentPercentile <= 10) {
+      pending.push({
+        id: "percentile",
+        emoji: "🏅",
+        title: `Top ${currentPercentile}%`,
+        subtitle: "You're among the best!",
+      });
+    }
+
+    if (pending.length > 0) setRewards(pending);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (currentPercentile !== null && activeTestId) {
+      recordPercentile(activeTestId, currentPercentile);
+    }
+  }, [currentPercentile, activeTestId]);
+
+  // Daily challenge: record completion when this test is today's challenge
+  const isCompletedDailyChallenge = Boolean(
+    dailyChallenge &&
+      activeTestId === dailyChallenge.testId &&
+      latest?.attemptType === "REAL",
+  );
+  useEffect(() => {
+    if (isCompletedDailyChallenge && dailyChallenge) {
+      recordDailyChallengeCompleted(dailyChallenge.testId);
+    }
+  }, [isCompletedDailyChallenge, dailyChallenge]);
+
+  if (serverAttemptId && (backendAttemptLoading || backendResponsesLoading)) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg text-muted-foreground">Loading result...</div>
+      </div>
+    );
+  }
 
   if (!latest) {
     return (
@@ -382,89 +464,6 @@ export default function Result() {
     attempts.length > 0 ? attempts.reduce((sum, attempt) => sum + attempt.score, 0) / attempts.length : latest.score;
   const bestScore = attempts.length > 0 ? Math.max(...attempts.map((attempt) => attempt.score)) : latest.score;
   const totalAttempts = attempts.length;
-
-  // Global average score for this test (from the tests catalogue: updated server-side after each attempt)
-  const globalAvgScore = useMemo(() => {
-    if (!allTests || !activeTestId) return null;
-    const testMeta = allTests.find((t) => t.id === activeTestId);
-    return testMeta?.avgScore ?? null;
-  }, [allTests, activeTestId]);
-
-  // ── Percentile derived from leaderboard data ──────────────────────────────
-  // topPercent: lower = better. 5 means "you beat 95% of participants".
-  const currentPercentile = useMemo(() => {
-    const rank = leaderboardData?.currentUserRank;
-    const total = leaderboardData?.totalParticipants;
-    if (!rank || !total || total < 1) return null;
-    return Math.max(1, Math.ceil((rank / total) * 100));
-  }, [leaderboardData]);
-
-  // Persist & compare for improvement banner
-  const previousPercentile = useMemo(() => {
-    if (!activeTestId) return null;
-    return getPercentileHistory()[activeTestId] ?? null;
-  }, [activeTestId]);
-
-  // Record current percentile whenever it resolves and differs
-  // ---- Micro rewards ----
-  const [rewards, setRewards] = useState<Reward[]>([]);
-
-  useEffect(() => {
-    const pending: Reward[] = [];
-
-    // Streak increase
-    const streak = getStreak();
-    if (streak.justIncremented) {
-      pending.push({
-        id: "streak",
-        emoji: "🔥",
-        title: `${streak.currentStreak}-day streak!`,
-        subtitle: "Keep it up — you're on a roll.",
-      });
-      acknowledgeStreakCelebration();
-    }
-
-    // Score improvement
-    if (scoreImprovementDelta !== null && scoreImprovementDelta > 0) {
-      pending.push({
-        id: "improvement",
-        emoji: "📈",
-        title: `Up +${scoreImprovementDelta}% from last time`,
-        subtitle: "Great improvement!",
-      });
-    }
-
-    // High percentile (top 10%)
-    if (currentPercentile !== null && currentPercentile <= 10) {
-      pending.push({
-        id: "percentile",
-        emoji: "🏅",
-        title: `Top ${currentPercentile}%`,
-        subtitle: "You're among the best!",
-      });
-    }
-
-    if (pending.length > 0) setRewards(pending);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (currentPercentile !== null && activeTestId) {
-      recordPercentile(activeTestId, currentPercentile);
-    }
-  }, [currentPercentile, activeTestId]);
-
-  // Daily challenge: record completion when this test is today's challenge
-  const isCompletedDailyChallenge = Boolean(
-    dailyChallenge &&
-      activeTestId === dailyChallenge.testId &&
-      latest?.attemptType === "REAL",
-  );
-  useEffect(() => {
-    if (isCompletedDailyChallenge && dailyChallenge) {
-      recordDailyChallengeCompleted(dailyChallenge.testId);
-    }
-  }, [isCompletedDailyChallenge, dailyChallenge]);
 
   // Whether this challenge was already done before opening results (already stored)
   const wasChallengeAlreadyDone = Boolean(
