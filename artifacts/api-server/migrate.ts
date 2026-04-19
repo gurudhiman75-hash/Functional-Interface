@@ -499,6 +499,25 @@ async function migrate() {
     console.warn(`⚠  ${nullTopicCnt} question(s) still have global_topic_id = NULL — assign topics before enforcing NOT NULL`);
   }
 
+  // ── Fix responses FK pointing to old 'attempt_records' table ────────
+  // The production DB was originally created with 'attempt_records' as the table
+  // name. The FK constraint on 'responses.attempt_id' still points there.
+  // Drop the stale constraint and re-add it pointing to 'attempts'.
+  await db.execute(sql`
+    ALTER TABLE responses
+      DROP CONSTRAINT IF EXISTS responses_attempt_id_attempt_records_id_fk;
+  `);
+  await db.execute(sql`
+    ALTER TABLE responses
+      DROP CONSTRAINT IF EXISTS responses_attempt_id_fk;
+  `);
+  await db.execute(sql`
+    ALTER TABLE responses
+      ADD CONSTRAINT responses_attempt_id_fk
+      FOREIGN KEY (attempt_id) REFERENCES attempts(id) ON DELETE CASCADE;
+  `);
+  console.log("✓ responses.attempt_id FK repaired → attempts(id)");
+
   console.log("\n✅ Migration complete.");
   process.exit(0);
 }

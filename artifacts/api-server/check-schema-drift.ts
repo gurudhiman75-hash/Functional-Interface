@@ -161,6 +161,62 @@ for (const row of rows) {
   });
 }
 
+// ── Expected FK constraints ───────────────────────────────────────────────────
+// Format: { table, column, referencesTable } — just the critical ones that
+// have caused production 500s in the past.
+const EXPECTED_FKS: Array<{ table: string; column: string; referencesTable: string }> = [
+  { table: "responses",           column: "attempt_id",  referencesTable: "attempts" },
+  { table: "responses",           column: "question_id", referencesTable: "questions" },
+  { table: "attempts",            column: "user_id",     referencesTable: "users" },
+  { table: "attempts",            column: "test_id",     referencesTable: "tests" },
+  { table: "test_questions",      column: "test_id",     referencesTable: "tests" },
+  { table: "test_questions",      column: "question_id", referencesTable: "questions" },
+  { table: "user_test_entitlements", column: "user_id",  referencesTable: "users" },
+  { table: "user_test_entitlements", column: "test_id",  referencesTable: "tests" },
+];
+
+type FkRow = { table_name: string; column_name: string; foreign_table_name: string };
+
+const fkRows = await db.execute(sql`
+  SELECT
+    kcu.table_name,
+    kcu.column_name,
+    ccu.table_name AS foreign_table_name
+  FROM information_schema.table_constraints AS tc
+  JOIN information_schema.key_column_usage AS kcu
+    ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema
+  JOIN information_schema.constraint_column_usage AS ccu
+    ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema
+  WHERE tc.constraint_type = 'FOREIGN KEY' AND tc.table_schema = 'public'
+`) as unknown as FkRow[];
+
+// Build lookup: "table.column" → set of referenced tables
+const fkMap = new Map<string, Set<string>>();
+for (const row of fkRows) {
+  const key = `${row.table_name}.${row.column_name}`;
+  if (!fkMap.has(key)) fkMap.set(key, new Set());
+  fkMap.get(key)!.add(row.foreign_table_name);
+}
+
+console.log("\n=== Foreign Key Check ===\n");
+
+for (const expected of EXPECTED_FKS) {
+  const key = `${expected.table}.${expected.column}`;
+  const referencedTables = fkMap.get(key);
+  if (!referencedTables) {
+    console.warn(`⚠️  MISSING FK: ${key} → ${expected.referencesTable}  (no FK constraint found)`);
+    warnings++;
+  } else if (!referencedTables.has(expected.referencesTable)) {
+    const actual = [...referencedTables].join(", ");
+    console.error(`❌ WRONG FK TARGET: ${key} → ${actual}  (expected → ${expected.referencesTable})`);
+    issues++;
+  }
+}
+
+if (issues === 0 && warnings === 0) {
+  console.log("✅ All FK constraints look correct.");
+}
+
 // ── Compare ───────────────────────────────────────────────────────────────────
 
 let issues = 0;
