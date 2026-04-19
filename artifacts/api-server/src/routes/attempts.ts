@@ -127,7 +127,7 @@ router.post("/", authenticate, async (req, res) => {
             ${columns.hasExplanationPa ? sql`, explanation_pa AS "explanationPa"` : sql`, NULL::text AS "explanationPa"`}
           FROM questions
           WHERE test_id = ${testId}
-          AND id = ANY(${questionIds})
+          AND id IN (${sql.join(questionIds.map(id => sql`${id}`), sql`, `)})
         `) as any[])
       : [];
 
@@ -269,7 +269,7 @@ router.post("/", authenticate, async (req, res) => {
   return res.status(201).json(TestAttempt.parse(result));
   } catch (err) {
     console.error("[attempts] POST /attempts error:", err);
-    return res.status(500).json({ error: "Failed to save attempt" });
+    return res.status(500).json({ error: "Failed to save attempt", detail: err instanceof Error ? err.message : String(err) });
   }
 });
 
