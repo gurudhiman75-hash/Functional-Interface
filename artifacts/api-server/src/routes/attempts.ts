@@ -96,15 +96,28 @@ router.post("/", authenticate, async (req, res) => {
     return res.status(400).json({ error: "responses must be an array" });
   }
 
-  // Verify the test exists in the DB (avoids FK violation on insert)
-  const [testRow] = await db
-    .select({ id: tests.id })
-    .from(tests)
-    .where(eq(tests.id, testId))
-    .limit(1);
+  // Verify the test exists in the DB and fetch its marks config
+  // Use raw SQL with defensive column check to handle pre-migration DBs gracefully
+  let testRow: { id: string; marksPerQuestion: number | null; negativeMarks: number | null } | undefined;
+  try {
+    const rows = await db.execute(sql`
+      SELECT id,
+        COALESCE(marks_per_question, 1) AS "marksPerQuestion",
+        COALESCE(negative_marks, 0) AS "negativeMarks"
+      FROM tests WHERE id = ${testId} LIMIT 1
+    `) as any[];
+    testRow = rows[0] as typeof testRow;
+  } catch {
+    // marks columns not yet migrated — fall back to id-only select
+    const [row] = await db.select({ id: tests.id }).from(tests).where(eq(tests.id, testId)).limit(1);
+    if (row) testRow = { id: row.id, marksPerQuestion: null, negativeMarks: null };
+  }
   if (!testRow) {
     return res.status(404).json({ error: `Test "${testId}" not found in database. Ensure the test has been synced before taking it.` });
   }
+
+  const testMarksPerQ = testRow.marksPerQuestion ?? 1;
+  const testNegMarks = testRow.negativeMarks ?? 0;
 
   // Fetch authoritative question data from the database
   const questionIds = responseItems.map((r) => r.questionId);
@@ -112,6 +125,7 @@ router.post("/", authenticate, async (req, res) => {
   const dbQuestions: {
     id: number; correct: number; section: string; text: string;
     options: unknown; explanation: string;
+    marks?: number | null; negativeMarks?: number | null;
     textHi?: string | null; optionsHi?: unknown; explanationHi?: string | null;
     textPa?: string | null; optionsPa?: unknown; explanationPa?: string | null;
   }[] =
@@ -125,6 +139,8 @@ router.post("/", authenticate, async (req, res) => {
             ${columns.hasTextPa ? sql`, text_pa AS "textPa"` : sql`, NULL::text AS "textPa"`}
             ${columns.hasOptionsPa ? sql`, options_pa AS "optionsPa"` : sql`, NULL::jsonb AS "optionsPa"`}
             ${columns.hasExplanationPa ? sql`, explanation_pa AS "explanationPa"` : sql`, NULL::text AS "explanationPa"`}
+            ${columns.hasMarks ? sql`, marks` : sql`, NULL::float AS marks`}
+            ${columns.hasNegativeMarks ? sql`, negative_marks AS "negativeMarks"` : sql`, NULL::float AS "negativeMarks"`}
           FROM questions
           WHERE id IN (${sql.join(questionIds.map(id => sql`${id}`), sql`, `)})
           AND (
@@ -142,18 +158,27 @@ router.post("/", authenticate, async (req, res) => {
   );
 
   // ── Score calculation (server-authoritative) ────────────────────────
+  // score     = percentage (0-100) for backward compat with leaderboard / analytics
+  // actualScore = marks-based score using per-question or test-level marks config
   let correct = 0;
   let wrong = 0;
+  let actualScore = 0;
 
   for (const q of dbQuestions) {
     const selected = answerMap.get(q.id) ?? null;
+    const qMarks = q.marks ?? testMarksPerQ;
+    const qNeg = q.negativeMarks ?? testNegMarks;
     if (selected === null) continue; // unanswered
     if (selected === q.correct) {
       correct++;
+      actualScore += qMarks;
     } else {
       wrong++;
+      actualScore -= qNeg;
     }
   }
+  // Round to 2 decimal places
+  actualScore = Math.round(actualScore * 100) / 100;
 
   const totalQuestions = dbQuestions.length;
   const unanswered = totalQuestions - correct - wrong;
@@ -214,29 +239,40 @@ router.post("/", authenticate, async (req, res) => {
   // ── Persist attempt + responses atomically ────────────────────────────
   const attemptId = randomUUID();
 
+  const baseValues = {
+    id: attemptId,
+    userId,
+    testId,
+    testName,
+    category,
+    score,
+    correct,
+    wrong,
+    unanswered,
+    totalQuestions,
+    timeSpent,
+    attemptType,
+    sectionStats,
+    sectionTimeSpent: sectionTimeSpent ?? null,
+    questionReview,
+    createdAt: new Date(),
+    date: new Date().toISOString().split("T")[0],
+  };
+
   const result = await db.transaction(async (tx) => {
-    const [savedAttempt] = await tx
-      .insert(attempts)
-      .values({
-        id: attemptId,
-        userId,
-        testId,
-        testName,
-        category,
-        score,
-        correct,
-        wrong,
-        unanswered,
-        totalQuestions,
-        timeSpent,
-        attemptType,
-        sectionStats,
-        sectionTimeSpent: sectionTimeSpent ?? null,
-        questionReview,
-        createdAt: new Date(),
-        date: new Date().toISOString().split("T")[0],
-      })
-      .returning();
+    let savedAttempt: typeof baseValues & { actualScore?: number | null };
+    try {
+      [savedAttempt] = await tx
+        .insert(attempts)
+        .values({ ...baseValues, actualScore })
+        .returning();
+    } catch {
+      // actual_score column not yet migrated — insert without it
+      [savedAttempt] = await tx
+        .insert(attempts)
+        .values(baseValues as any)
+        .returning();
+    }
 
     if (responseItems.length > 0) {
       // Only insert responses for questions that exist in the DB (avoids FK violation)
@@ -270,7 +306,11 @@ router.post("/", authenticate, async (req, res) => {
     CacheKey.analyticsWeakAreas(attemptUserId),
   ).catch(() => {});
 
-  return res.status(201).json(TestAttempt.parse(result));
+  return res.status(201).json({
+    ...TestAttempt.parse(result),
+    marksPerQuestion: testMarksPerQ,
+    negativeMarks: testNegMarks,
+  });
   } catch (err) {
     console.error("[attempts] POST /attempts error:", err);
     return res.status(500).json({ error: "Failed to save attempt", detail: err instanceof Error ? err.message : String(err) });

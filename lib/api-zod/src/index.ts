@@ -113,6 +113,12 @@ export type Test = {
   sections: TestSection[];
   /** Languages available for this test. Defaults to ["en"] when absent. */
   languages?: Language[];
+  /** Marks per correct answer (test-level default). Defaults to 1 when absent. */
+  marksPerQuestion?: number;
+  /** Marks deducted per wrong answer (non-negative). Defaults to 0 when absent. */
+  negativeMarks?: number;
+  /** Marks for unattempted questions. Defaults to 0 when absent. */
+  unattemptedMarks?: number;
 };
 
 export const Test = {
@@ -156,6 +162,8 @@ export type TestAttempt = {
   testName: string;
   category: string;
   score: number;
+  /** Marks-based score: sum of +marksPerQuestion for correct and -negativeMarks for wrong */
+  actualScore?: number | null;
   correct: number;
   wrong: number;
   unanswered: number;

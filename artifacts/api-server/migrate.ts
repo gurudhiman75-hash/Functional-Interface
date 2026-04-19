@@ -585,6 +585,18 @@ async function migrate() {
   `);
   console.log("✓ responses.attempt_id FK repaired → attempts(id)");
 
+  // ── Flexible marking system ───────────────────────────────────────────
+  // marks_per_question / negative_marks / unattempted_marks on tests
+  await db.execute(sql`ALTER TABLE tests ADD COLUMN IF NOT EXISTS marks_per_question FLOAT DEFAULT 1;`);
+  await db.execute(sql`ALTER TABLE tests ADD COLUMN IF NOT EXISTS negative_marks FLOAT DEFAULT 0;`);
+  await db.execute(sql`ALTER TABLE tests ADD COLUMN IF NOT EXISTS unattempted_marks FLOAT DEFAULT 0;`);
+  // Per-question overrides (nullable — null means use test-level default)
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS marks FLOAT;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS negative_marks FLOAT;`);
+  // Store the marks-based (raw) score alongside the existing percentage score
+  await db.execute(sql`ALTER TABLE attempts ADD COLUMN IF NOT EXISTS actual_score FLOAT;`);
+  console.log("✓ flexible marking system columns");
+
   console.log("\n✅ Migration complete.");
   process.exit(0);
 }

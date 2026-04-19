@@ -1680,6 +1680,19 @@ export default function Test() {
               ))}
             </div>
           )}
+          {/* Marking scheme */}
+          {((resolvedTest.marksPerQuestion ?? 1) !== 1 || (resolvedTest.negativeMarks ?? 0) !== 0) && (
+            <div className="mt-4 rounded border border-blue-100 bg-blue-50 px-4 py-3 text-sm">
+              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-blue-600">Marking Scheme</p>
+              <div className="flex flex-wrap gap-4">
+                <span className="font-semibold text-emerald-700">+{resolvedTest.marksPerQuestion ?? 1} correct</span>
+                {(resolvedTest.negativeMarks ?? 0) > 0 && (
+                  <span className="font-semibold text-red-600">−{resolvedTest.negativeMarks} wrong</span>
+                )}
+                <span className="text-gray-500">0 skipped</span>
+              </div>
+            </div>
+          )}
           {hasDraft && (
             <p className="mt-4 rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
               You have a saved session for this test. Clicking Resume will continue from where you left off.

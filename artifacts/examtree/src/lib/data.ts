@@ -41,6 +41,12 @@ export type Test = {
   sections: TestSection[];
   /** Languages available for this test, e.g. ["en"], ["en","hi"], ["en","pa"] */
   languages?: string[];
+  /** Marks awarded per correct answer (defaults to 1 when absent) */
+  marksPerQuestion?: number;
+  /** Marks deducted per wrong answer, non-negative (defaults to 0 when absent) */
+  negativeMarks?: number;
+  /** Marks for unattempted questions (defaults to 0 when absent) */
+  unattemptedMarks?: number;
 };
 
 export type PurchasedTest = {

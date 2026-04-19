@@ -502,7 +502,14 @@ export default function Result() {
             {grade.label}
           </div>
           <p className="text-blue-100 text-sm mb-1">Your Score</p>
-          <h1 className="text-6xl sm:text-7xl font-bold mb-2" data-testid="result-score">{latest.score}%</h1>
+          {latest.actualScore != null ? (
+            <>
+              <h1 className="text-6xl sm:text-7xl font-bold mb-1" data-testid="result-score">{latest.actualScore}</h1>
+              <p className="text-sm text-blue-200 mb-2">{latest.score}% accuracy</p>
+            </>
+          ) : (
+            <h1 className="text-6xl sm:text-7xl font-bold mb-2" data-testid="result-score">{latest.score}%</h1>
+          )}
           <p className="text-blue-100">{latest.testName}</p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-blue-100">
             <span>{latest.category}</span>
@@ -586,6 +593,30 @@ export default function Result() {
               ))}
             </div>
 
+            {/* Marks breakdown — shown only when marks-based scoring is active */}
+            {latest.actualScore != null && latest.marksPerQuestion != null && (
+              <div className="bg-card/85 border border-border/70 rounded-2xl p-5 shadow-sm">
+                <h3 className="text-sm font-bold text-foreground mb-3">Marks Breakdown</h3>
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/20 p-3">
+                    <p className="text-xs text-muted-foreground mb-1">Correct</p>
+                    <p className="font-bold text-emerald-700 dark:text-emerald-400 text-lg">+{(latest.correct * latest.marksPerQuestion).toFixed(2)}</p>
+                    <p className="text-xs text-muted-foreground">{latest.correct} × +{latest.marksPerQuestion}</p>
+                  </div>
+                  <div className="rounded-xl bg-red-50 dark:bg-red-900/20 p-3">
+                    <p className="text-xs text-muted-foreground mb-1">Wrong</p>
+                    <p className="font-bold text-red-600 dark:text-red-400 text-lg">−{((latest.negativeMarks ?? 0) * latest.wrong).toFixed(2)}</p>
+                    <p className="text-xs text-muted-foreground">{latest.wrong} × −{latest.negativeMarks ?? 0}</p>
+                  </div>
+                  <div className="rounded-xl bg-muted p-3">
+                    <p className="text-xs text-muted-foreground mb-1">Final Score</p>
+                    <p className="font-bold text-foreground text-lg">{latest.actualScore}</p>
+                    <p className="text-xs text-muted-foreground">marks</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-card/85 border border-border/70 rounded-2xl p-6 shadow-sm">
                 <h2 className="font-bold text-foreground flex items-center gap-2 mb-5">
@@ -595,7 +626,14 @@ export default function Result() {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Latest Score</p>
-                    <p className="mt-2 text-2xl font-bold text-foreground">{latest.score}%</p>
+                    {latest.actualScore != null ? (
+                      <>
+                        <p className="mt-2 text-2xl font-bold text-foreground">{latest.actualScore}</p>
+                        <p className="text-xs text-muted-foreground">{latest.score}%</p>
+                      </>
+                    ) : (
+                      <p className="mt-2 text-2xl font-bold text-foreground">{latest.score}%</p>
+                    )}
                   </div>
                   <div className="rounded-xl border border-border/70 bg-muted/40 p-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Average Score</p>

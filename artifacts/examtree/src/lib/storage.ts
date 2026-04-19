@@ -27,6 +27,11 @@ export interface TestAttempt {
   testName: string;
   category: string;
   score: number;
+  /** Marks-based score: sum of +marksPerQuestion for correct and -negativeMarks for wrong */
+  actualScore?: number | null;
+  /** Marks config at time of attempt — returned by server */
+  marksPerQuestion?: number;
+  negativeMarks?: number;
   correct: number;
   wrong: number;
   unanswered: number;
@@ -368,6 +373,12 @@ export interface AdminTest {
   avgScore: number;
   /** Languages available for this test, e.g. ["en"], ["en","pa"]. Overrides subcategory languages for upload validation. */
   languages?: string[];
+  /** Marks awarded per correct answer (defaults to 1) */
+  marksPerQuestion?: number;
+  /** Marks deducted per wrong answer, non-negative (defaults to 0) */
+  negativeMarks?: number;
+  /** Marks for unattempted questions (defaults to 0) */
+  unattemptedMarks?: number;
 }
 
 export interface AdminQuestion {

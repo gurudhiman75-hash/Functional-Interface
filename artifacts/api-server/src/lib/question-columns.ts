@@ -18,6 +18,8 @@ export type QuestionColumnState = {
   hasImageUrl: boolean;
   hasQuestionType: boolean;
   hasDiSetId: boolean;
+  hasMarks: boolean;
+  hasNegativeMarks: boolean;
 };
 
 let questionColumnStatePromise: Promise<QuestionColumnState> | null = null;
@@ -50,6 +52,8 @@ export async function getQuestionColumnState(): Promise<QuestionColumnState> {
         hasImageUrl: names.has("image_url"),
         hasQuestionType: names.has("question_type"),
         hasDiSetId: names.has("di_set_id"),
+        hasMarks: names.has("marks"),
+        hasNegativeMarks: names.has("negative_marks"),
       };
     })();
   }

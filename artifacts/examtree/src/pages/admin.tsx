@@ -473,6 +473,8 @@ const blankTestForm = () => ({
   sections: [] as string[],
   sectionIds: [] as string[],
   sectionTopics: {} as Record<string, string[]>, // sectionId → topicIds[]
+  marksPerQuestion: 1 as number,
+  negativeMarks: 0 as number,
 });
 
 const blankQuestionForm = (section = "", topic = "") => ({
@@ -1205,6 +1207,8 @@ export default function Admin() {
             topicName: allTopicIds.map((id) => testFormSectionTopics.find((t) => t.id === id)?.name ?? id).join(","),
           };
         })()),
+        marksPerQuestion: testForm.marksPerQuestion ?? 1,
+        negativeMarks: testForm.negativeMarks ?? 0,
       });
       reload();
       toast({ title: "Test created", description: `"${testForm.name}" added` });
@@ -2118,6 +2122,14 @@ export default function Admin() {
                   <Label htmlFor="test-questions">Total Questions</Label>
                   <Input id="test-questions" type="number" min="1" className="mt-1" placeholder="90" value={testForm.totalQuestions} onChange={(e) => setTestForm({ ...testForm, totalQuestions: e.target.value })} />
                 </div>
+                <div>
+                  <Label htmlFor="test-marks-per-q">Marks / Correct</Label>
+                  <Input id="test-marks-per-q" type="number" step="0.25" min="0" className="mt-1" placeholder="1" value={testForm.marksPerQuestion} onChange={(e) => setTestForm({ ...testForm, marksPerQuestion: Number(e.target.value) })} />
+                </div>
+                <div>
+                  <Label htmlFor="test-neg-marks">Negative Marks</Label>
+                  <Input id="test-neg-marks" type="number" step="0.25" min="0" className="mt-1" placeholder="0" value={testForm.negativeMarks} onChange={(e) => setTestForm({ ...testForm, negativeMarks: Number(e.target.value) })} />
+                </div>
 
                 {/* Section / topic fields — hidden for full-length */}
                 {testForm.kind !== "full-length" && (
@@ -2435,6 +2447,14 @@ export default function Admin() {
                           <div>
                             <Label className="text-xs">Questions</Label>
                             <Input type="number" className="mt-0.5 h-8 text-sm" value={editingTest.totalQuestions} onChange={(e) => setEditingTest({ ...editingTest, totalQuestions: Number(e.target.value) })} />
+                          </div>
+                          <div>
+                            <Label className="text-xs">Marks / Correct</Label>
+                            <Input type="number" step="0.25" min="0" className="mt-0.5 h-8 text-sm" value={editingTest.marksPerQuestion ?? 1} onChange={(e) => setEditingTest({ ...editingTest, marksPerQuestion: Number(e.target.value) })} />
+                          </div>
+                          <div>
+                            <Label className="text-xs">Negative Marks</Label>
+                            <Input type="number" step="0.25" min="0" className="mt-0.5 h-8 text-sm" value={editingTest.negativeMarks ?? 0} onChange={(e) => setEditingTest({ ...editingTest, negativeMarks: Number(e.target.value) })} />
                           </div>
                           {/* Section picker — hidden for full-length */}
                           {editingTest.kind !== "full-length" && (

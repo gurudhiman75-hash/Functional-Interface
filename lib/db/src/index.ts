@@ -1,4 +1,4 @@
-import { pgTable, text, integer, real, timestamp, date, jsonb, serial, primaryKey, unique, index } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, real, doublePrecision, timestamp, date, jsonb, serial, primaryKey, unique, index } from "drizzle-orm/pg-core";
 
 // ── Question taxonomy ─────────────────────────────────────────────────────────
 /** Master list of question sections (e.g. Quant, Reasoning, English). */
@@ -108,6 +108,12 @@ export const tests = pgTable("tests", {
   topicId: text("topic_id"),
   /** For topic-wise tests: resolved topic name (denormalized for quick reads) */
   topicName: text("topic_name"),
+  /** Marks awarded for each correct answer (test-level default; question-level override takes precedence) */
+  marksPerQuestion: doublePrecision("marks_per_question").default(1),
+  /** Marks deducted for each wrong answer (non-negative value, e.g. 0.25 means minus 0.25) */
+  negativeMarks: doublePrecision("negative_marks").default(0),
+  /** Marks for unattempted questions (usually 0) */
+  unattemptedMarks: doublePrecision("unattempted_marks").default(0),
 });
 
 /** DI Sets — shared context (image + description) for Data Interpretation question groups */
@@ -171,6 +177,10 @@ export const questions = pgTable("questions", {
   questionType: text("question_type").$type<"text" | "image" | "di">().notNull().default("text"),
   /** FK to di_sets — populated for DI/Data-Interpretation questions */
   diSetId: integer("di_set_id").references(() => diSets.id, { onDelete: "set null" }),
+  /** Optional per-question marks override (null = use test-level default) */
+  marks: doublePrecision("marks"),
+  /** Optional per-question negative marks override (null = use test-level default) */
+  negativeMarks: doublePrecision("negative_marks"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -199,6 +209,8 @@ export const attempts = pgTable(
     sectionStats: jsonb("section_stats"),
     sectionTimeSpent: jsonb("section_time_spent"),
     questionReview: jsonb("question_review"),
+    /** Marks-based score: sum of +marksPerQuestion for correct and -negativeMarks for wrong */
+    actualScore: doublePrecision("actual_score"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (t) => ({

@@ -45,6 +45,9 @@ type AdminTest = {
   priceCents?: number | null;
   topicId?: string | null;
   topicName?: string | null;
+  marksPerQuestion?: number;
+  negativeMarks?: number;
+  unattemptedMarks?: number;
 };
 
 type AdminQuestion = {
@@ -209,6 +212,9 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       priceCents: row.priceCents ?? null,
       topicId: row.topicId ?? null,
       topicName: row.topicName ?? null,
+      marksPerQuestion: row.marksPerQuestion ?? 1,
+      negativeMarks: row.negativeMarks ?? 0,
+      unattemptedMarks: row.unattemptedMarks ?? 0,
       languages: Array.isArray(row.languages) ? (row.languages as string[]) : null,
     })),
     questions: questionRowsRaw.map((row) => {
@@ -365,6 +371,9 @@ router.put("/", authenticate, async (req, res) => {
         priceCents: test.priceCents ?? (test.access === "paid" ? 499 : null),
         topicId: test.topicId ?? null,
         topicName: test.topicName ?? null,
+        marksPerQuestion: test.marksPerQuestion ?? 1,
+        negativeMarks: test.negativeMarks ?? 0,
+        unattemptedMarks: test.unattemptedMarks ?? 0,
         languages: Array.isArray((test as any).languages) ? (test as any).languages : null,
       }));
       if (testRows.length > 0) {
