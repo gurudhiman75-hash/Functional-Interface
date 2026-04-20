@@ -87,7 +87,7 @@ export function AppSidebar() {
                     asChild
                     isActive={location === link.href}
                     tooltip={link.label}
-                    className="rounded-2xl border border-transparent bg-transparent px-3 py-2 transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm data-[active=true]:border-l-4 data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary"
+                    className="rounded-2xl border border-transparent bg-transparent px-3 py-2 text-sidebar-foreground transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm data-[active=true]:border-l-4 data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary"
                   >
                     <Link href={link.href} className="flex w-full items-center gap-3">
                       <link.icon className="w-4 h-4 transition-transform duration-200 ease-out group-hover/menu-item:scale-110" />
@@ -112,7 +112,7 @@ export function AppSidebar() {
                     asChild
                     isActive={location === link.href}
                     tooltip={link.label}
-                    className="rounded-2xl border border-transparent bg-transparent px-3 py-2 transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm data-[active=true]:border-l-4 data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary"
+                    className="rounded-2xl border border-transparent bg-transparent px-3 py-2 text-sidebar-foreground transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm data-[active=true]:border-l-4 data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary"
                   >
                     <Link href={link.href} className="flex w-full items-center gap-3">
                       <link.icon className="w-4 h-4 transition-transform duration-200 ease-out group-hover/menu-item:scale-110" />

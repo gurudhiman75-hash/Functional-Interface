@@ -97,6 +97,15 @@
   --muted: 214 16% 92%;
   --muted-foreground: 214 18% 55%;
 
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 217 18% 18.5%;
+  --sidebar-border: 215 18% 88%;
+  --sidebar-primary: 215 88% 52%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 214 16% 92%;
+  --sidebar-accent-foreground: 217 18% 18.5%;
+  --sidebar-ring: 216 88% 53%;
+
   --radius: 0.75rem;
 }
 .dark {
