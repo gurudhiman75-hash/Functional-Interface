@@ -597,6 +597,15 @@ async function migrate() {
   await db.execute(sql`ALTER TABLE attempts ADD COLUMN IF NOT EXISTS actual_score FLOAT;`);
   console.log("✓ flexible marking system columns");
 
+  // ── Fix tests.topic_id FK (was pointing to old 'topics' table, should be unconstrained) ──
+  // The original migration added: ALTER TABLE tests ADD COLUMN topic_id TEXT REFERENCES topics(id)
+  // But topic_id values stored are topics_global IDs, causing FK violations on save.
+  // Drop the stale constraint so topic_id is a plain TEXT column (denormalized via topic_name).
+  await db.execute(sql`
+    ALTER TABLE tests DROP CONSTRAINT IF EXISTS tests_topic_id_fkey;
+  `);
+  console.log("✓ tests.topic_id FK constraint removed (was referencing wrong table)");
+
   console.log("\n✅ Migration complete.");
   process.exit(0);
 }
