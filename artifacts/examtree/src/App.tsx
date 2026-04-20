@@ -13,7 +13,7 @@ import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 import { MathJaxContext } from "better-react-mathjax";
 
 const MATH_JAX_CONFIG = {
-  loader: { load: ["input/tex", "output/chtml"] },
+  loader: { load: ["input/tex", "output/chtml", "[tex]/ams", "[tex]/boldsymbol"] },
   tex: {
     inlineMath: [
       ["$", "$"],
@@ -24,6 +24,7 @@ const MATH_JAX_CONFIG = {
       ["\\[", "\\]"],
     ],
     processEscapes: true,
+    packages: { "[+]": ["ams", "boldsymbol"] },
   },
 };
 
