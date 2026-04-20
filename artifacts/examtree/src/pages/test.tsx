@@ -62,7 +62,7 @@ function formatTime(seconds: number) {
   return [h, m, s].map((value) => String(value).padStart(2, "0")).join(":");
 }
 
-function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguages, wrongOnly, sectionParam }: { test: Test; showSuccessMessage?: boolean; initialMode?: "REAL" | "PRACTICE"; subcategoryLanguages?: string[]; wrongOnly?: boolean; sectionParam?: string | null }) {
+function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguages, wrongOnly, sectionParam, backUrl }: { test: Test; showSuccessMessage?: boolean; initialMode?: "REAL" | "PRACTICE"; subcategoryLanguages?: string[]; wrongOnly?: boolean; sectionParam?: string | null; backUrl?: string }) {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const user = getUser();
@@ -1320,7 +1320,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                 onClick={() => {
                   setShowPauseModal(false);
                   document.exitFullscreen?.().catch(() => {});
-                  setLocation("/exams");
+                  setLocation(backUrl ?? "/exams");
                 }}
               >
                 Save &amp; Exit
@@ -1490,6 +1490,13 @@ export default function Test() {
     if (resolvedTest?.languages && resolvedTest.languages.length > 0) return resolvedTest.languages;
     return ["en"];
   }, [resolvedTest, catalogSubcategories]);
+
+  // Build back URL: go to the subcategory page where the Start button was clicked
+  const backUrl = useMemo(() => {
+    if (resolvedTest?.subcategoryId) return `/subcategory/${resolvedTest.subcategoryId}`;
+    if (resolvedTest?.categoryId) return `/category/${resolvedTest.categoryId}`;
+    return "/exams";
+  }, [resolvedTest]);
 
   const filteredTest = useMemo<Test | null>(() => {
     if (!resolvedTest || wrongQuestionIds.size === 0) return null;
@@ -1758,7 +1765,7 @@ export default function Test() {
             </div>
           )}
           <div className="mt-4 flex gap-3">
-            <Button variant="outline" onClick={() => setLocation("/exams")}>Back</Button>
+            <Button variant="outline" onClick={() => setLocation(backUrl)}>Back</Button>
             <Button
               className="flex-1 bg-blue-600 text-white hover:bg-blue-700"
               onClick={() => {
@@ -1779,7 +1786,7 @@ export default function Test() {
   if (selectedMode === "PRACTICE") {
     return (
       <AppLayout>
-        <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} sectionParam={sectionFilterParam} />
+        <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} sectionParam={sectionFilterParam} backUrl={backUrl} />
       </AppLayout>
     );
   }
@@ -1807,11 +1814,11 @@ export default function Test() {
     }
     return (
       <AppLayout>
-        <TestRunner test={filteredTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} wrongOnly={true} />
+        <TestRunner test={filteredTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} wrongOnly={true} backUrl={backUrl} />
       </AppLayout>
     );
   }
 
-  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="REAL" subcategoryLanguages={subcategoryLangs} />;
+  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="REAL" subcategoryLanguages={subcategoryLangs} backUrl={backUrl} />;
 }
 
