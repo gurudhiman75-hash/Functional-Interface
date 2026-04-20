@@ -1,9 +1,8 @@
 import { Router, type IRouter } from "express";
 import multer from "multer";
-import path from "path";
 import { authenticate } from "../middlewares/auth";
-import { storage } from "../lib/firebase-admin";
 import { assertAdmin } from "./admin-data";
+import { v2 as cloudinary } from "cloudinary";
 
 const router: IRouter = Router();
 
@@ -25,7 +24,7 @@ const ALLOWED_FOLDERS = new Set(["question-images", "di-set-images"]);
 /**
  * POST /upload
  * Admin-only. Accepts a multipart/form-data "file" field and an optional "folder" field.
- * Uploads to Firebase Storage and returns the public download URL.
+ * Uploads to Cloudinary and returns the public download URL.
  */
 router.post("/upload", authenticate, upload.single("file"), async (req, res) => {
   try {
@@ -40,35 +39,29 @@ router.post("/upload", authenticate, upload.single("file"), async (req, res) => 
       return res.status(400).json({ error: `Invalid folder. Allowed: ${[...ALLOWED_FOLDERS].join(", ")}` });
     }
 
-    if (!storage) {
-      return res.status(503).json({ error: "Firebase Storage is not configured on this server" });
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      return res.status(503).json({ error: "Cloudinary env vars not set (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET)" });
     }
 
-    const bucketName =
-      process.env.VITE_FIREBASE_STORAGE_BUCKET ??
-      process.env.FIREBASE_STORAGE_BUCKET ??
-      (process.env.FIREBASE_PROJECT_ID ? `${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app` : undefined);
-    if (!bucketName) {
-      return res.status(503).json({ error: "Cannot determine Firebase Storage bucket name. Set FIREBASE_STORAGE_BUCKET env var." });
-    }
+    cloudinary.config({ cloud_name: cloudName, api_key: apiKey, api_secret: apiSecret });
 
-    console.log(`[upload] Using bucket: ${bucketName}`);
-
-    const ext = path.extname(req.file.originalname) || `.${req.file.mimetype.split("/")[1] ?? "bin"}`;
-    const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
-
-    const bucket = storage.bucket(bucketName);
-    const fileRef = bucket.file(filename);
-
-    await fileRef.save(req.file.buffer, {
-      metadata: { contentType: req.file.mimetype },
+    // Upload buffer to Cloudinary via stream
+    const result = await new Promise<{ secure_url: string }>((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder, resource_type: "image" },
+        (error, result) => {
+          if (error || !result) return reject(error ?? new Error("Cloudinary upload failed"));
+          resolve(result as { secure_url: string });
+        },
+      );
+      stream.end(req.file!.buffer);
     });
 
-    // Make file publicly readable
-    await fileRef.makePublic();
-    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
-
-    return res.json({ url: publicUrl });
+    return res.json({ url: result.secure_url });
   } catch (err: any) {
     if (err?.message === "forbidden") return res.status(403).json({ error: "Admin access required" });
     console.error("[upload] Error:", err);
