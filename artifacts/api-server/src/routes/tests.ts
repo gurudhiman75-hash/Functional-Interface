@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "../lib/db";
-import { tests, questions, users, userTestEntitlements, subcategories } from "@workspace/db";
+import { tests, questions, users, userTestEntitlements, subcategories, diSets } from "@workspace/db";
 import { Test, type TestSection } from "@workspace/api-zod";
 import { buildSectionsWithQuestions } from "../lib/test-sections";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
@@ -215,8 +215,36 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
     });
   }
 
+  // Build di_set lookup for questions that reference one
+  let diSetMap = new Map<number, { title: string; imageUrl: string | null; description: string | null }>();
+  if (columns.hasDiSetId) {
+    const diSetIds = [...new Set(
+      testQuestions.map((q: any) => q.di_set_id ?? null).filter((x: any) => x != null) as number[]
+    )];
+    if (diSetIds.length > 0) {
+      try {
+        const dsRows = await db.select().from(diSets).where(sql`id IN (${sql.join(diSetIds.map(id => sql`${id}`), sql`, `)})`);
+        for (const ds of dsRows) {
+          diSetMap.set(ds.id, { title: ds.title, imageUrl: ds.imageUrl ?? null, description: ds.description ?? null });
+        }
+      } catch {
+        // di_sets not yet migrated — ignore
+      }
+    }
+  }
+
+  // Attach di_set info to each question row
+  const augmentedQuestions = testQuestions.map((q: any) => {
+    const diSetId = q.di_set_id ?? null;
+    if (diSetId && diSetMap.has(Number(diSetId))) {
+      const ds = diSetMap.get(Number(diSetId))!;
+      return { ...q, diSetTitle: ds.title, diSetImageUrl: ds.imageUrl, diSetDescription: ds.description };
+    }
+    return q;
+  });
+
   const parsedTest = Test.parse(row);
-  parsedTest.sections = buildSectionsWithQuestions(parsedTest.sections, testQuestions);
+  parsedTest.sections = buildSectionsWithQuestions(parsedTest.sections, augmentedQuestions);
   const langs = Array.isArray(subcategoryLanguages) ? subcategoryLanguages as string[] : ["en"];
   return res.json({
     ...parsedTest,

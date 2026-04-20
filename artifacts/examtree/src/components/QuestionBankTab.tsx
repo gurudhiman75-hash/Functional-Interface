@@ -351,6 +351,19 @@ function QuestionFormModal({ open, editing, masterSections, masterTopics, diSets
                 <option value="">None</option>
                 {diSetsList.map((ds) => <option key={ds.id} value={String(ds.id)}>{ds.title}</option>)}
               </select>
+              {/* Preview the selected DI set's image */}
+              {form.diSetId && (() => {
+                const selectedDs = diSetsList.find((ds) => String(ds.id) === form.diSetId);
+                return selectedDs?.imageUrl ? (
+                  <img
+                    src={selectedDs.imageUrl}
+                    alt={selectedDs.title}
+                    className="mt-2 max-h-48 rounded border border-border object-contain"
+                  />
+                ) : selectedDs?.description ? (
+                  <p className="mt-1 text-xs text-muted-foreground whitespace-pre-wrap">{selectedDs.description}</p>
+                ) : null;
+              })()}
             </div>
           </div>
 
