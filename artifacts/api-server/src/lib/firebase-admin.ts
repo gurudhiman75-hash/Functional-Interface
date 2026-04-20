@@ -51,18 +51,41 @@ if (serviceAccountKey) {
   authInstance = admin.auth();
   firestoreInstance = admin.firestore();
 } else if (hasSeparateVars) {
-  if (!admin.apps || admin.apps.length === 0) {
-    admin.initializeApp({
-      credential: admin.credential.cert({
-        projectId: firebaseProjectId,
-        // Render stores the key with literal \n — convert to real newlines
-        privateKey: firebasePrivateKey!.replace(/\\n/g, "\n"),
-        clientEmail: firebaseClientEmail,
-      }),
-    });
+  let initialized = false;
+  try {
+    if (!admin.apps || admin.apps.length === 0) {
+      admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: firebaseProjectId,
+          // Render stores the key with literal \n — convert to real newlines
+          privateKey: firebasePrivateKey!.replace(/\\n/g, "\n"),
+          clientEmail: firebaseClientEmail,
+        }),
+      });
+    }
+    authInstance = admin.auth();
+    firestoreInstance = admin.firestore();
+    initialized = true;
+  } catch (err) {
+    if (isProd) throw err; // hard fail in production
+    console.warn(
+      "[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). " +
+      "Falling back to mock auth — development only.\n",
+      (err as Error).message,
+    );
   }
-  authInstance = admin.auth();
-  firestoreInstance = admin.firestore();
+  if (!initialized) {
+    authInstance = {
+      verifyIdToken: async (token: string) => {
+        const payload = decodeJwtPayload(token);
+        if (!payload) throw new Error("Invalid token");
+        return {
+          uid: String(payload.user_id ?? payload.sub ?? "mock-user"),
+          email: typeof payload.email === "string" ? payload.email : "mock@example.com",
+        };
+      },
+    };
+  }
 } else {
   // Development mock — decodes the JWT locally without signature verification.
   // This path is unreachable in production (error thrown above).
