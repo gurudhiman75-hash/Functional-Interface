@@ -39,17 +39,22 @@ if (!serviceAccountKey && !hasSeparateVars) {
   );
 }
 
+const storageBucket = process.env.VITE_FIREBASE_STORAGE_BUCKET ?? process.env.FIREBASE_STORAGE_BUCKET ?? undefined;
+
 let authInstance: admin.auth.Auth | { verifyIdToken: (token: string) => Promise<{ uid: string; email: string }> };
 let firestoreInstance: admin.firestore.Firestore | null = null;
+let storageInstance: admin.storage.Storage | null = null;
 
 if (serviceAccountKey) {
   if (!admin.apps || admin.apps.length === 0) {
     admin.initializeApp({
       credential: admin.credential.cert(JSON.parse(serviceAccountKey)),
+      storageBucket,
     });
   }
   authInstance = admin.auth();
   firestoreInstance = admin.firestore();
+  storageInstance = admin.storage();
 } else if (hasSeparateVars) {
   let initialized = false;
   try {
@@ -61,10 +66,12 @@ if (serviceAccountKey) {
           privateKey: firebasePrivateKey!.replace(/\\n/g, "\n"),
           clientEmail: firebaseClientEmail,
         }),
+        storageBucket,
       });
     }
     authInstance = admin.auth();
     firestoreInstance = admin.firestore();
+    storageInstance = admin.storage();
     initialized = true;
   } catch (err) {
     if (isProd) throw err; // hard fail in production
@@ -105,4 +112,5 @@ if (serviceAccountKey) {
 
 export const auth = authInstance;
 export const firestore = firestoreInstance;
+export const storage = storageInstance;
 

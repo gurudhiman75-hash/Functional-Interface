@@ -19,6 +19,7 @@ import sectionsRouter from "./sections";
 import topicsRouter from "./topics";
 import questionBankRouter from "./question-bank";
 import diSetsRouter from "./di-sets";
+import uploadRouter from "./upload";
 
 const router: IRouter = Router();
 
@@ -42,5 +43,6 @@ router.use("/sections", sectionsRouter);
 router.use("/topics", topicsRouter);
 router.use(questionBankRouter);
 router.use(diSetsRouter);
+router.use(uploadRouter);
 
 export default router;

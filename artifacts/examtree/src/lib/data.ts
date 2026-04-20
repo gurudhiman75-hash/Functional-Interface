@@ -800,21 +800,36 @@ export async function deleteDiSet(id: number): Promise<void> {
 // ── Firebase Storage upload helper ────────────────────────────────────────────
 
 /**
- * Upload a file to Firebase Storage and return the public download URL.
- * Path format: `question-images/{timestamp}-{filename}`
+ * Upload a file via the API server proxy (POST /api/upload).
+ * This avoids Firebase Storage CORS restrictions when the app is served from a non-Firebase domain.
  */
 export async function uploadImageToStorage(
   file: File,
   folder: "question-images" | "di-set-images" = "question-images",
 ): Promise<string> {
-  const { getFirebaseStorage } = await import("@/lib/firebase");
-  const { ref, uploadBytes, getDownloadURL } = await import("firebase/storage");
-  const storage = getFirebaseStorage();
-  if (!storage) throw new Error("Firebase Storage is not configured");
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("folder", folder);
 
-  const ext = file.name.split(".").pop() ?? "bin";
-  const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-  const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file, { contentType: file.type });
-  return getDownloadURL(storageRef);
+  const { getFirebaseAuth } = await import("@/lib/firebase");
+  const auth = getFirebaseAuth();
+  const token = auth?.currentUser ? await auth.currentUser.getIdToken() : "";
+
+  const headers: Record<string, string> = {};
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  const base = import.meta.env.VITE_API_BASE_URL ?? "/api";
+  const response = await fetch(`${base}/upload`, {
+    method: "POST",
+    headers,
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({ error: "Upload failed" }));
+    throw new Error(err?.error ?? "Upload failed");
+  }
+
+  const { url } = await response.json();
+  return url;
 }
