@@ -778,20 +778,31 @@ function ImportBankCsvModal({ open, masterSections, masterTopics, onClose, onImp
 
   const downloadTemplate = () => {
     const headers = [
-      "section", "topic", "difficulty",
+      "section", "topic", "difficulty", "di_set_id",
       "question_en", "optionA_en", "optionB_en", "optionC_en", "optionD_en",
       "correct_option", "explanation_en",
       "question_hi", "optionA_hi", "optionB_hi", "optionC_hi", "optionD_hi", "explanation_hi",
       "question_pa", "optionA_pa", "optionB_pa", "optionC_pa", "optionD_pa", "explanation_pa",
     ];
     const example = [
-      "Quantitative Aptitude", "Arithmetic", "Easy",
+      "Quantitative Aptitude", "Arithmetic", "Easy", "",
       "What is 2+2?", "3", "4", "5", "6",
       "B", "Because 2+2=4",
       "2+2 क्या है?", "3", "4", "5", "6", "क्योंकि 2+2=4",
       "2+2 ਕੀ ਹੈ?", "3", "4", "5", "6", "ਕਿਉਂਕਿ 2+2=4",
     ];
-    const csv = [headers.join(","), example.map((v) => `"${v}"`).join(",")].join("\n");
+    const diExample = [
+      "Quantitative Aptitude", "Data Interpretation", "Medium", "1",
+      "Based on the chart, what is the value for 2020?", "100", "200", "300", "400",
+      "B", "As shown in the chart, 2020 value is 200",
+      "", "", "", "", "", "",
+      "", "", "", "", "", "",
+    ];
+    const csv = [
+      headers.join(","),
+      example.map((v) => `"${v}"`).join(","),
+      diExample.map((v) => `"${v}"`).join(","),
+    ].join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

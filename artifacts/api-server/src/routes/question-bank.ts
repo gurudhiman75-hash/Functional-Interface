@@ -704,7 +704,7 @@ router.get("/question-bank/smart-select", authenticate, async (req, res): Promis
  *   Required: question_en, optionA_en, optionB_en, optionC_en, optionD_en,
  *             correct_option (A/B/C/D), explanation_en
  *   Required (row or batch): section (per-row column OR body field "section")
- *   Optional per-row: topic, difficulty (Easy/Medium/Hard)
+ *   Optional per-row: topic, difficulty (Easy/Medium/Hard), di_set_id (DI Set ID or title)
  *   Optional: question_hi, optionA_hi … optionD_hi, explanation_hi
  *   Optional: question_pa, optionA_pa … optionD_pa, explanation_pa
  *
@@ -729,10 +729,13 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   const batchDiSetId = req.body.diSetId ? parseInt(req.body.diSetId as string, 10) : null;
 
   // Load master tables once
-  const [allSections, allTopicsGlobal] = await Promise.all([
+  const [allSections, allTopicsGlobal, allDiSets] = await Promise.all([
     db.select().from(sections),
     db.select().from(topicsGlobal),
+    db.select().from(diSets).catch(() => [] as (typeof diSets.$inferSelect)[]),
   ]);
+  const diSetById = new Map(allDiSets.map((ds) => [ds.id, ds]));
+  const diSetByTitle = new Map(allDiSets.map((ds) => [ds.title.trim().toLowerCase(), ds.id]));
   const sectionByName = new Map(allSections.map((s) => [normaliseKey(s.name), s]));
   const topicByName   = new Map(allTopicsGlobal.map((t) => [normaliseKey(t.name), t]));
 
@@ -840,6 +843,24 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
         ? [optionAPa, optionBPa, optionCPa, optionDPa]
         : [optionAHi, optionBHi, optionCHi, optionDHi];
 
+    // Resolve DI set: per-row di_set_id column overrides batch
+    let rowDiSetId: number | null = batchDiSetId;
+    const rawDiSetId = get(cells, "di_set_id").trim();
+    if (rawDiSetId) {
+      const numId = parseInt(rawDiSetId, 10);
+      if (!isNaN(numId) && diSetById.has(numId)) {
+        rowDiSetId = numId;
+      } else {
+        // Try matching by title
+        const byTitle = diSetByTitle.get(rawDiSetId.toLowerCase());
+        if (byTitle != null) {
+          rowDiSetId = byTitle;
+        } else {
+          errors.push({ row: rowNum, reason: `di_set_id "${rawDiSetId}" not found — use a valid DI Set ID number or title` }); continue;
+        }
+      }
+    }
+
     toInsert.push({
       testId: "",
       clientId: "",
@@ -858,9 +879,11 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       explanationHi: explanationHi || null,
       textPa: questionPa || null,
       optionsPa: questionPa ? [optionAPa || optionAEn, optionBPa || optionBEn, optionCPa || optionCEn, optionDPa || optionDEn] as unknown as string : null,
-      explanationPa: explanationPa || null,      imageUrl: null,
-      questionType: batchDiSetId ? "di" : "text",
-      diSetId: batchDiSetId ?? null,    });
+      explanationPa: explanationPa || null,
+      imageUrl: null,
+      questionType: rowDiSetId ? "di" : "text",
+      diSetId: rowDiSetId ?? null,
+    });
   }
 
   // Bulk insert in chunks of 200
