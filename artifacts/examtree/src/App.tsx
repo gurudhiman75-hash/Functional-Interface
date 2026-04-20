@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { Switch, Route, Router as WouterRouter, useLocation, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
@@ -48,6 +48,17 @@ console.log("App.tsx loaded");
 
 const queryClient = new QueryClient();
 
+/** Redirects to /login/student immediately if the user is not signed in. */
+function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
+  const user = getUser();
+  const [location] = useLocation();
+  if (!user) {
+    const redirectTo = encodeURIComponent(location);
+    return <Redirect to={`/login/student?next=${redirectTo}`} />;
+  }
+  return <Component />;
+}
+
 function Router() {
   const [location] = useLocation();
 
@@ -74,7 +85,7 @@ function Router() {
           <Route path="/tests" component={() => renderRoute(Tests)} />
           <Route path="/category/:id" component={() => renderRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderRoute(Subcategory)} />
-          <Route path="/test/:id" component={() => <Test />} />
+          <Route path="/test/:id" component={() => <ProtectedRoute component={Test} />} />
           <Route path="/result" component={() => renderRoute(Result)} />
           <Route path="/performance" component={() => renderRoute(Performance)} />
           <Route path="/packages" component={() => renderRoute(Packages)} />

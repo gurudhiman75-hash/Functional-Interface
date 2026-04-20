@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import {
   BookOpen,
   Mail,
@@ -68,6 +68,8 @@ const FIREBASE_UNAVAILABLE_MESSAGE =
 
 export default function Login() {
   const [location, setLocation] = useLocation();
+  const search = useSearch();
+  const nextPath = new URLSearchParams(search).get("next");
   const [tab, setTab] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -118,9 +120,9 @@ export default function Login() {
       if (!firebaseUser) return;
       try {
         const appUser = await upsertUserProfile(firebaseUser);
-        setLocation(appUser.role === "admin" ? "/admin" : "/dashboard");
+        routeAfterAuth(appUser.role);
       } catch {
-        setLocation("/dashboard");
+        routeAfterAuth();
       }
     });
 
@@ -128,7 +130,11 @@ export default function Login() {
   }, [isAdminMode, setLocation, toast]);
 
   const routeAfterAuth = (role?: string) => {
-    setLocation(role === "admin" ? "/admin" : "/dashboard");
+    if (nextPath) {
+      setLocation(decodeURIComponent(nextPath));
+    } else {
+      setLocation(role === "admin" ? "/admin" : "/dashboard");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
