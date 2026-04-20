@@ -73,8 +73,14 @@ const EXPECTED: Array<{
       "access", "kind", "duration", "total_questions", "attempts", "avg_score",
       "difficulty", "section_timing_mode", "section_timings", "section_settings",
       "sections", "languages", "price_cents", "is_free", "topic_id", "topic_name",
+      "marks_per_question", "negative_marks", "unattempted_marks",
     ],
     notNullNoDefault: ["id", "name", "category", "category_id", "duration", "total_questions", "difficulty", "sections"],
+  },
+  {
+    table: "di_sets",
+    columns: ["id", "title", "image_url", "description", "created_at"],
+    notNullNoDefault: ["title"],
   },
   {
     table: "user_test_entitlements",
@@ -87,7 +93,7 @@ const EXPECTED: Array<{
       "id", "client_id", "test_id", "text", "options", "correct", "section", "topic",
       "section_id", "topic_id", "global_topic_id", "explanation", "difficulty",
       "text_hi", "options_hi", "explanation_hi", "text_pa", "options_pa", "explanation_pa",
-      "created_at",
+      "created_at", "image_url", "question_type", "di_set_id", "marks", "negative_marks",
     ],
     notNullNoDefault: ["test_id", "text", "options", "correct", "section", "explanation"],
   },
@@ -96,7 +102,7 @@ const EXPECTED: Array<{
     columns: [
       "id", "user_id", "test_id", "test_name", "category", "score", "correct", "wrong",
       "unanswered", "total_questions", "time_spent", "date", "attempt_type",
-      "section_stats", "section_time_spent", "question_review", "created_at",
+      "section_stats", "section_time_spent", "question_review", "created_at", "actual_score",
     ],
     notNullNoDefault: ["id", "user_id", "test_id", "test_name", "category", "score", "correct", "wrong", "unanswered", "total_questions", "time_spent"],
   },
