@@ -240,7 +240,7 @@ export function DiSetManager() {
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm">{ds.title}</p>
+                  <p className="font-medium text-sm">{ds.title} <span className="text-xs text-muted-foreground font-mono">(ID: {ds.id})</span></p>
                   {ds.description && (
                     <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{ds.description}</p>
                   )}
