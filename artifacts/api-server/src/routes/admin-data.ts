@@ -392,12 +392,8 @@ router.put("/", authenticate, async (req, res) => {
         // question.topicId is the globalTopicId (mapped from buildSnapshot for backward compat)
         const resolvedGlobalTopicId: string | null = question.topicId ?? null;
 
-        // Validate globalTopicId is present and exists in topics_global
-        if (!resolvedGlobalTopicId) {
-          questionValidationErrors.push(
-            `Question ${idx + 1} (id: ${question.id}): topicId is required (global_topic_id is NOT NULL).`
-          );
-        } else if (!globalTopicById.has(resolvedGlobalTopicId)) {
+        // Validate globalTopicId if provided — it must exist in topics_global
+        if (resolvedGlobalTopicId && !globalTopicById.has(resolvedGlobalTopicId)) {
           questionValidationErrors.push(
             `Question ${idx + 1} (id: ${question.id}): topicId "${resolvedGlobalTopicId}" not found in topics_global.`
           );
