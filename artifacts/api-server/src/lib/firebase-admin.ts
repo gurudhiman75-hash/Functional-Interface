@@ -39,7 +39,10 @@ if (!serviceAccountKey && !hasSeparateVars) {
   );
 }
 
-const storageBucket = process.env.VITE_FIREBASE_STORAGE_BUCKET ?? process.env.FIREBASE_STORAGE_BUCKET ?? undefined;
+const storageBucket =
+  process.env.VITE_FIREBASE_STORAGE_BUCKET ??
+  process.env.FIREBASE_STORAGE_BUCKET ??
+  (process.env.FIREBASE_PROJECT_ID ? `${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app` : undefined);
 
 let authInstance: admin.auth.Auth | { verifyIdToken: (token: string) => Promise<{ uid: string; email: string }> };
 let firestoreInstance: admin.firestore.Firestore | null = null;

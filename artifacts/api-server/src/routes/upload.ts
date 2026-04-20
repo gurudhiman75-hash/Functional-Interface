@@ -44,10 +44,15 @@ router.post("/upload", authenticate, upload.single("file"), async (req, res) => 
       return res.status(503).json({ error: "Firebase Storage is not configured on this server" });
     }
 
-    const bucketName = process.env.VITE_FIREBASE_STORAGE_BUCKET ?? process.env.FIREBASE_STORAGE_BUCKET;
+    const bucketName =
+      process.env.VITE_FIREBASE_STORAGE_BUCKET ??
+      process.env.FIREBASE_STORAGE_BUCKET ??
+      (process.env.FIREBASE_PROJECT_ID ? `${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app` : undefined);
     if (!bucketName) {
-      return res.status(503).json({ error: "VITE_FIREBASE_STORAGE_BUCKET env var is not set" });
+      return res.status(503).json({ error: "Cannot determine Firebase Storage bucket name. Set FIREBASE_STORAGE_BUCKET env var." });
     }
+
+    console.log(`[upload] Using bucket: ${bucketName}`);
 
     const ext = path.extname(req.file.originalname) || `.${req.file.mimetype.split("/")[1] ?? "bin"}`;
     const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
