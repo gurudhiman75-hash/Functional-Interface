@@ -1001,6 +1001,7 @@ export default function QuestionBankTab() {
   const [filterSection, setFilterSection] = useState("");
   const [filterTopic, setFilterTopic] = useState("");
   const [filterDifficulty, setFilterDifficulty] = useState<QuestionDifficulty | "">("");
+  const [filterDiSetId, setFilterDiSetId] = useState<string>("");
   const debouncedSearch = useDebounce(searchInput);
 
   // Pagination
@@ -1037,7 +1038,7 @@ export default function QuestionBankTab() {
   });
 
   // Question bank data
-  const bankKey = ["question-bank", page, PAGE_SIZE, debouncedSearch, filterSection, filterTopic, filterDifficulty];
+  const bankKey = ["question-bank", page, PAGE_SIZE, debouncedSearch, filterSection, filterTopic, filterDifficulty, filterDiSetId];
   const { data: bankPage, isLoading, isFetching } = useQuery({
     queryKey: bankKey,
     queryFn: () =>
@@ -1048,6 +1049,7 @@ export default function QuestionBankTab() {
         section: filterSection || undefined,
         topic: filterTopic || undefined,
         difficulty: (filterDifficulty || undefined) as QuestionDifficulty | undefined,
+        diSetId: filterDiSetId ? parseInt(filterDiSetId, 10) : undefined,
       }),
     staleTime: 15_000,
     placeholderData: (prev) => prev,
@@ -1056,12 +1058,12 @@ export default function QuestionBankTab() {
   // Reset page on filter change
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch, filterSection, filterTopic, filterDifficulty]);
+  }, [debouncedSearch, filterSection, filterTopic, filterDifficulty, filterDiSetId]);
 
   // Reset selection on page change
   useEffect(() => {
     setSelectedIds(new Set());
-  }, [page, debouncedSearch, filterSection, filterTopic, filterDifficulty]);
+  }, [page, debouncedSearch, filterSection, filterTopic, filterDifficulty, filterDiSetId]);
 
   const invalidateBank = () => queryClient.invalidateQueries({ queryKey: ["question-bank"] });
 
@@ -1149,7 +1151,7 @@ export default function QuestionBankTab() {
 
       {/* ── Filter bar ── */}
       <div className="bg-card/85 border border-border/70 rounded-2xl p-4 shadow-sm">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
             <Input
@@ -1188,6 +1190,14 @@ export default function QuestionBankTab() {
             <option value="">All Difficulties</option>
             {DIFFICULTY_OPTIONS.map((d) => <option key={d} value={d}>{d}</option>)}
           </select>
+          <select
+            className="px-3 py-2 bg-background border border-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring h-9"
+            value={filterDiSetId}
+            onChange={(e) => setFilterDiSetId(e.target.value)}
+          >
+            <option value="">All DI Sets</option>
+            {diSetsData.map((ds) => <option key={ds.id} value={String(ds.id)}>{`#${ds.id} ${ds.title}`}</option>)}
+          </select>
         </div>
       </div>
 
@@ -1199,7 +1209,7 @@ export default function QuestionBankTab() {
           </div>
         ) : items.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground text-sm">
-            No questions found. {(debouncedSearch || filterSection || filterTopic || filterDifficulty) && "Try clearing filters."}
+            No questions found. {(debouncedSearch || filterSection || filterTopic || filterDifficulty || filterDiSetId) && "Try clearing filters."}
           </div>
         ) : (
           <>
