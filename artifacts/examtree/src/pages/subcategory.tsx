@@ -315,7 +315,7 @@ export default function SubcategoryPage() {
           <div className="min-w-0 flex-1">
 
             {/* Exam header — subtle hero banner */}
-            <div className="mb-6 rounded-2xl overflow-hidden border border-sky-100 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
+            <div className="mb-6 rounded-2xl overflow-hidden border border-sky-80 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
               <div className="inline-flex items-center rounded-full px-3 py-1 mb-3" style={{ backgroundImage: gradient }}>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">{category?.name}</span>
               </div>
