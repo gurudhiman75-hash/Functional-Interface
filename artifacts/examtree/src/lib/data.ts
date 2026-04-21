@@ -621,6 +621,7 @@ export async function getQuestionBank(params: {
   section?: string;
   topic?: string;
   difficulty?: QuestionDifficulty;
+  diSetId?: number;
 }): Promise<QuestionBankPage> {
   const qs = new URLSearchParams();
   if (params.page) qs.set("page", String(params.page));
@@ -629,6 +630,7 @@ export async function getQuestionBank(params: {
   if (params.section) qs.set("section", params.section);
   if (params.topic) qs.set("topic", params.topic);
   if (params.difficulty) qs.set("difficulty", params.difficulty);
+  if (params.diSetId !== undefined) qs.set("diSetId", String(params.diSetId));
   return apiRequest(`/question-bank?${qs.toString()}`);
 }
 

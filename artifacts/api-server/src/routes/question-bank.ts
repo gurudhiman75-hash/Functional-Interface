@@ -47,6 +47,8 @@ function buildQuestionWhereSql(columns: QuestionColumnState, req: any) {
   const sectionQ = req.query.section as string | undefined;
   const topicQ = req.query.topic as string | undefined;
   const difficultyQ = req.query.difficulty as Difficulty | undefined;
+  const diSetIdQRaw = req.query.diSetId as string | undefined;
+  const diSetIdQ = diSetIdQRaw ? parseInt(diSetIdQRaw, 10) : NaN;
 
   const parts: any[] = [];
   if (searchQ?.trim()) {
@@ -64,6 +66,9 @@ function buildQuestionWhereSql(columns: QuestionColumnState, req: any) {
   }
   if (difficultyQ && ["Easy", "Medium", "Hard"].includes(difficultyQ) && columns.hasDifficulty) {
     parts.push(sql`difficulty = ${difficultyQ}`);
+  }
+  if (!isNaN(diSetIdQ) && columns.hasDiSetId) {
+    parts.push(sql`di_set_id = ${diSetIdQ}`);
   }
 
   return parts.length > 0 ? parts.reduce((a, b) => sql`${a} AND ${b}`) : null;

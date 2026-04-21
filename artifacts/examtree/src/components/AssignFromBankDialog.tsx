@@ -19,9 +19,11 @@ import {
   addQuestionsToTest,
   getTest,
   getSections,
+  getDiSets,
   type BankQuestion,
   type QuestionDifficulty,
   type MasterSection,
+  type DiSet,
 } from "@/lib/data";
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -65,6 +67,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
   const [search, setSearch] = useState("");
   const [sectionFilter, setSectionFilter] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<QuestionDifficulty | "">("");
+  const [diSetFilter, setDiSetFilter] = useState<string>("");
   const debouncedSearch = useDebounce(search);
 
   // ── pagination ─────────────────────────────────────────────────────────────
@@ -81,6 +84,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
 
   // Master sections for filter dropdown
   const [sections, setSections] = useState<MasterSection[]>([]);
+  const [diSets, setDiSets] = useState<DiSet[]>([]);
 
   // ── selection ──────────────────────────────────────────────────────────────
   const [selected, setSelected] = useState<Set<number>>(new Set());
@@ -107,6 +111,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
   useEffect(() => {
     if (!open) return;
     getSections().then(setSections).catch(() => setSections([]));
+    getDiSets().then(setDiSets).catch(() => setDiSets([]));
   }, [open]);
 
   // ── load bank questions ────────────────────────────────────────────────────
@@ -119,6 +124,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
         search: debouncedSearch || undefined,
         section: sectionFilter || undefined,
         difficulty: difficultyFilter || undefined,
+        diSetId: diSetFilter ? parseInt(diSetFilter, 10) : undefined,
       });
       setQuestions(result.items);
       setTotal(result.total);
@@ -127,7 +133,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
     } finally {
       setLoadingQuestions(false);
     }
-  }, [page, debouncedSearch, sectionFilter, difficultyFilter, toast]);
+  }, [page, debouncedSearch, sectionFilter, difficultyFilter, diSetFilter, toast]);
 
   useEffect(() => {
     if (open) loadQuestions();
@@ -136,7 +142,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
   // reset page when filters change
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch, sectionFilter, difficultyFilter]);
+  }, [debouncedSearch, sectionFilter, difficultyFilter, diSetFilter]);
 
   // ── reset when dialog closes ───────────────────────────────────────────────
   useEffect(() => {
@@ -145,6 +151,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
       setSearch("");
       setSectionFilter("");
       setDifficultyFilter("");
+      setDiSetFilter("");
       setPage(1);
     }
   }, [open]);
@@ -254,6 +261,16 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
+          </select>
+          <select
+            className="h-8 px-2 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            value={diSetFilter}
+            onChange={(e) => setDiSetFilter(e.target.value)}
+          >
+            <option value="">All DI Sets</option>
+            {diSets.map((ds) => (
+              <option key={ds.id} value={String(ds.id)}>{`#${ds.id} ${ds.title}`}</option>
+            ))}
           </select>
         </div>
 
