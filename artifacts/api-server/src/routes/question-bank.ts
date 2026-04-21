@@ -824,6 +824,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   const diSetByTitle = new Map(allDiSets.map((ds) => [ds.title.trim().toLowerCase(), ds.id]));
   const sectionByName = new Map(allSections.map((s) => [normaliseKey(s.name), s]));
   const topicByName   = new Map(allTopicsGlobal.map((t) => [normaliseKey(t.name), t]));
+  const fallbackGlobalTopicId = allTopicsGlobal[0]?.id ?? null;
 
   const csvText = req.file.buffer.toString("utf-8");
   const lines = csvText.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").map((l) => l.trim()).filter(Boolean);
@@ -867,6 +868,18 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   const toInsert: (typeof questions.$inferInsert)[] = [];
   const errors: { row: number; reason: string }[] = [];
   const questionColumns = await getQuestionColumnState();
+
+  if (questionColumns.hasGlobalTopicId && !fallbackGlobalTopicId) {
+    return void res.status(400).json({
+      error: "No global topics found. Create at least one topic before importing to question bank.",
+    });
+  }
+
+  if (batchDiSetId != null && allDiSets.length > 0 && !diSetById.has(batchDiSetId)) {
+    return void res.status(400).json({
+      error: `diSetId "${batchDiSetId}" not found. Select a valid DI set before importing.`,
+    });
+  }
 
   // Legacy schema note:
   // In many deployments, questions.test_id is NOT NULL and FK -> tests(id).
@@ -972,6 +985,12 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       }
     }
 
+    const resolvedGlobalTopicId = topicRow?.id ?? fallbackGlobalTopicId ?? null;
+    if (questionColumns.hasGlobalTopicId && !resolvedGlobalTopicId) {
+      errors.push({ row: rowNum, reason: "No valid global topic id could be resolved for this row" });
+      continue;
+    }
+
     toInsert.push({
       testId: resolvedImportTestId,
       clientId: "",
@@ -982,7 +1001,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       sectionId: sectionRow?.id ?? null,
       topic: topicRow?.name ?? rowTopic ?? "General",
       topicId: topicRow?.id ?? null,
-      globalTopicId: topicRow?.id ?? "",
+      globalTopicId: resolvedGlobalTopicId ?? "",
       explanation: explanationEn || explanationHi || explanationPa || "",
       difficulty: (difficultyRaw as "Easy" | "Medium" | "Hard") || null,
       textHi: questionHi || null,
@@ -1008,6 +1027,12 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       if (isUndefinedColumnError(err)) {
         console.warn("[question-bank/import-csv] questions insert hit undefined column; using compatibility insert");
         await insertQuestionChunkCompat(chunk, questionColumns);
+      } else if ((err?.code ?? err?.cause?.code) === "23503" || (err?.code ?? err?.cause?.code) === "23502") {
+        const detail = String(err?.detail ?? err?.cause?.detail ?? err?.message ?? "constraint failure");
+        return void res.status(400).json({
+          error: "CSV import failed due to invalid DB references or required fields",
+          detail,
+        });
       } else {
         throw err;
       }
