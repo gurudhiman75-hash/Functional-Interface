@@ -728,12 +728,26 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   const batchTopic   = (req.body.topic   as string | undefined)?.trim() ?? "";
   const batchDiSetId = req.body.diSetId ? parseInt(req.body.diSetId as string, 10) : null;
 
-  // Load master tables once
+  // Load master tables once (tolerate partially-migrated DBs)
   const [allSections, allTopicsGlobal, allDiSets] = await Promise.all([
-    db.select().from(sections),
-    db.select().from(topicsGlobal),
+    db.select().from(sections).catch((err: any) => {
+      if (isMissingRelationError(err, "sections")) {
+        console.warn("[question-bank/import-csv] sections table missing; section FK validation disabled");
+        return [] as (typeof sections.$inferSelect)[];
+      }
+      throw err;
+    }),
+    db.select().from(topicsGlobal).catch((err: any) => {
+      if (isMissingRelationError(err, "topics_global")) {
+        console.warn("[question-bank/import-csv] topics_global table missing; topic FK validation disabled");
+        return [] as (typeof topicsGlobal.$inferSelect)[];
+      }
+      throw err;
+    }),
     db.select().from(diSets).catch(() => [] as (typeof diSets.$inferSelect)[]),
   ]);
+  const hasSectionMaster = allSections.length > 0;
+  const hasTopicMaster = allTopicsGlobal.length > 0;
   const diSetById = new Map(allDiSets.map((ds) => [ds.id, ds]));
   const diSetByTitle = new Map(allDiSets.map((ds) => [ds.title.trim().toLowerCase(), ds.id]));
   const sectionByName = new Map(allSections.map((s) => [normaliseKey(s.name), s]));
@@ -812,12 +826,15 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
     const rowSection = get(cells, "section") || batchSection;
     if (!rowSection) { errors.push({ row: rowNum, reason: "section is required (add per-row column or batch param)" }); continue; }
     const sectionRow = sectionByName.get(normaliseKey(rowSection));
-    if (!sectionRow) { errors.push({ row: rowNum, reason: `section "${rowSection}" not found in master sections table` }); continue; }
+    if (hasSectionMaster && !sectionRow) {
+      errors.push({ row: rowNum, reason: `section "${rowSection}" not found in master sections table` });
+      continue;
+    }
 
     // Resolve topic (optional)
     const rowTopic = get(cells, "topic") || batchTopic;
     let topicRow: (typeof allTopicsGlobal)[number] | undefined;
-    if (rowTopic) {
+    if (rowTopic && hasTopicMaster) {
       topicRow = topicByName.get(normaliseKey(rowTopic));
       if (!topicRow) { errors.push({ row: rowNum, reason: `topic "${rowTopic}" not found in global topics table` }); continue; }
     }
@@ -867,9 +884,9 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       text: questionEn || null,
       options: baseOptions as unknown as string,
       correct: CORRECT_LETTER[correctRaw],
-      section: sectionRow.name,
-      sectionId: sectionRow.id,
-      topic: topicRow?.name ?? "General",
+      section: sectionRow?.name ?? rowSection,
+      sectionId: sectionRow?.id ?? null,
+      topic: topicRow?.name ?? rowTopic ?? "General",
       topicId: topicRow?.id ?? null,
       globalTopicId: topicRow?.id ?? "",
       explanation: explanationEn || null,
