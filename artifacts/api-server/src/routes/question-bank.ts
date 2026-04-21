@@ -866,6 +866,28 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
 
   const toInsert: (typeof questions.$inferInsert)[] = [];
   const errors: { row: number; reason: string }[] = [];
+  const questionColumns = await getQuestionColumnState();
+
+  // Legacy schema note:
+  // In many deployments, questions.test_id is NOT NULL and FK -> tests(id).
+  // CSV import is "bank" style, so resolve a stable fallback test id.
+  let resolvedImportTestId = "";
+  if (questionColumns.hasTestId) {
+    const requestedTestId = (req.body.testId as string | undefined)?.trim();
+    if (requestedTestId) {
+      const [testRow] = await db.select({ id: tests.id }).from(tests).where(eq(tests.id, requestedTestId)).limit(1);
+      if (!testRow) {
+        return void res.status(400).json({ error: `testId "${requestedTestId}" not found` });
+      }
+      resolvedImportTestId = testRow.id;
+    } else {
+      const [fallbackTest] = await db.select({ id: tests.id }).from(tests).limit(1);
+      if (!fallbackTest) {
+        return void res.status(400).json({ error: "No tests exist in database. Create at least one test or provide a valid testId for CSV import." });
+      }
+      resolvedImportTestId = fallbackTest.id;
+    }
+  }
 
   for (let i = 1; i < lines.length; i++) {
     const rowNum = i + 1;
@@ -951,7 +973,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
     }
 
     toInsert.push({
-      testId: "",
+      testId: resolvedImportTestId,
       clientId: "",
       text: questionEn || questionHi || questionPa || "",
       options: baseOptions as unknown as string,
@@ -978,7 +1000,6 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   // Bulk insert in chunks of 200
   let inserted = 0;
   const CHUNK = 200;
-  const questionColumns = await getQuestionColumnState();
   for (let i = 0; i < toInsert.length; i += CHUNK) {
     const chunk = toInsert.slice(i, i + CHUNK);
     try {
