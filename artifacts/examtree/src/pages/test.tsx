@@ -121,6 +121,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<number, number | null>>({}); // User's answers in practice mode
   const [revealedPracticeQuestions, setRevealedPracticeQuestions] = useState<Set<number>>(new Set());
+  const [showSolutionQuestions, setShowSolutionQuestions] = useState<Set<number>>(new Set()); // Track which practice questions show solutions
   const [realExamAnswers, setRealExamAnswers] = useState<Record<number, number | null>>({});
   const [realExamTimes, setRealExamTimes] = useState<Record<number, number>>({}); // questionId → seconds from real attempt
   const [practiceTimeTaken, setPracticeTimeTaken] = useState<Record<number, number>>({}); // questionId → seconds in this practice session
@@ -937,7 +938,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
               <div className="grid gap-2">
                 {getLocalizedQuestion(q, lang).options.map((option, index) => {
-                  const isPracticeRevealed = attemptType === "PRACTICE" && revealedPracticeQuestions.has(q.id);
+                  const isPracticeRevealed = attemptType === "PRACTICE" && showSolutionQuestions.has(q.id);
+                  const isAnswered = attemptType === "PRACTICE" && practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined;
                   const isCorrectOption = index === q.correct;
                   const isUserPracticeSelection = attemptType === "PRACTICE" && practiceAnswers[q.id] === index;
                   const isWrongSelection = isPracticeRevealed && isUserPracticeSelection && !isCorrectOption;
@@ -948,22 +950,23 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   let badgeCls = "flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-xs font-bold ";
 
                   if (isPracticeRevealed && isCorrectOption) {
-                    btnCls += "border-green-500 bg-green-50 text-green-900";
-                    badgeCls += "bg-green-600 text-white";
+                    btnCls += "border-yellow-500 bg-yellow-50 text-yellow-900";
+                    badgeCls += "bg-yellow-600 text-white";
                   } else if (isWrongSelection) {
                     btnCls += "border-red-400 bg-red-50 text-red-900";
                     badgeCls += "bg-red-500 text-white";
                   } else if (isExamAnswer && isPracticeRevealed) {
                     // Exam answer that was neither correct nor the practice selection
-                    btnCls += "border-amber-400 bg-amber-50 text-amber-900";
-                    badgeCls += "bg-amber-500 text-white";
+                    btnCls += "border-orange-400 bg-orange-50 text-orange-900";
+                    badgeCls += "bg-orange-500 text-white";
                   } else if (realSelected) {
                     btnCls += "border-blue-500 bg-blue-50 text-blue-900";
                     badgeCls += "bg-blue-600 text-white";
+                  } else if (isUserPracticeSelection && !isPracticeRevealed) {
+                    btnCls += "border-blue-500 bg-blue-50 text-blue-900";
+                    badgeCls += "bg-blue-600 text-white";
                   } else {
-                    btnCls += isPracticeRevealed
-                      ? "border-gray-200 bg-white text-gray-400 opacity-50"
-                      : "border-gray-200 bg-white hover:border-gray-400 hover:bg-gray-50 text-gray-800";
+                    btnCls += "border-gray-200 bg-white hover:border-gray-400 hover:bg-gray-50 text-gray-800";
                     badgeCls += "border border-gray-300 bg-gray-100 text-gray-600";
                   }
 
@@ -978,7 +981,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         if (attemptType === "PRACTICE") {
                           setPracticeAnswers((current) => ({ ...current, [q.id]: index }));
                           setPracticeTimeTaken((current) => ({ ...current, [q.id]: timeTaken }));
-                          setRevealedPracticeQuestions((current) => new Set([...current, q.id]));
                         } else {
                           setAnswers((current) => ({ ...current, [q.id]: index }));
                         }
@@ -1012,7 +1014,28 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                 })}
               </div>
 
-              {attemptType === "PRACTICE" && revealedPracticeQuestions.has(q.id) && (() => {
+              {attemptType === "PRACTICE" && practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowSolutionQuestions((current) => 
+                      current.has(q.id) 
+                        ? new Set([...current].filter(id => id !== q.id))
+                        : new Set([...current, q.id])
+                    );
+                  }}
+                  className="mt-4 w-full rounded-lg border border-blue-300 bg-blue-50 px-4 py-2.5 text-sm font-semibold text-blue-700 hover:bg-blue-100 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span>
+                    {showSolutionQuestions.has(q.id) ? "Hide" : "Show"} Solution
+                  </span>
+                  <span className="text-xs">
+                    {showSolutionQuestions.has(q.id) ? "▲" : "▼"}
+                  </span>
+                </button>
+              )}
+
+              {attemptType === "PRACTICE" && showSolutionQuestions.has(q.id) && (() => {
                 const practiceSelected = practiceAnswers[q.id];
                 const examSelected = realExamAnswers[q.id];
                 const isCorrect = practiceSelected === q.correct;
@@ -1025,11 +1048,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
                 return (
                   <div className={`mt-4 rounded-lg border ${
-                    isCorrect ? "border-green-300 bg-green-50" : "border-red-300 bg-red-50"
+                    isCorrect ? "border-yellow-300 bg-yellow-50" : "border-red-300 bg-red-50"
                   }`}>
                     {/* Correct / Incorrect header */}
                     <div className={`flex items-center gap-2 px-4 py-2.5 ${
-                      isCorrect ? "text-green-800" : "text-red-800"
+                      isCorrect ? "text-yellow-800" : "text-red-800"
                     }`}>
                       {isCorrect
                         ? <CheckCircle className="h-4 w-4 shrink-0" />
@@ -1043,7 +1066,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
                           <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Your exam answer</span>
                           <span className={`flex h-6 w-6 items-center justify-center rounded text-xs font-bold ${
-                            examSelected === q.correct ? "bg-green-500 text-white" : "bg-amber-500 text-white"
+                            examSelected === q.correct ? "bg-yellow-500 text-white" : "bg-orange-500 text-white"
                           }`}>{optionLabel(examSelected)}</span>
                           <span className="truncate text-gray-700">
                             {examSelected !== null && examSelected !== undefined ? q.options[examSelected] : "Not answered"}
@@ -1053,7 +1076,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                       <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
                         <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Your practice answer</span>
                         <span className={`flex h-6 w-6 items-center justify-center rounded text-xs font-bold ${
-                          isCorrect ? "bg-green-500 text-white" : "bg-red-500 text-white"
+                          isCorrect ? "bg-yellow-500 text-white" : "bg-red-500 text-white"
                         }`}>{optionLabel(practiceSelected)}</span>
                         <span className="truncate text-gray-700">
                           {practiceSelected !== null && practiceSelected !== undefined ? q.options[practiceSelected] : "Not answered"}
@@ -1061,7 +1084,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                       </div>
                       <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
                         <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Correct answer</span>
-                        <span className="flex h-6 w-6 items-center justify-center rounded bg-green-500 text-xs font-bold text-white">
+                        <span className="flex h-6 w-6 items-center justify-center rounded bg-yellow-500 text-xs font-bold text-white">
                           {optionLabel(q.correct)}
                         </span>
                         <span className="truncate text-gray-700">{q.options[q.correct]}</span>
@@ -1098,7 +1121,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         }
                         if (isCorrect && t <= 30) {
                           return (
-                            <div className="flex items-center gap-2 px-4 py-2 text-xs text-green-700 bg-green-50 border-t border-green-100">
+                            <div className="flex items-center gap-2 px-4 py-2 text-xs text-yellow-700 bg-yellow-50 border-t border-yellow-100">
                               <span>⚡</span>
                               <span>Good speed and accuracy</span>
                             </div>

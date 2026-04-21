@@ -496,33 +496,33 @@ export default function Result() {
       />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="rounded-[2rem] border border-border bg-card p-8 text-center mb-8 shadow-sm" data-testid="result-hero">
+        <div className="mb-8 rounded-[2rem] border border-primary/15 bg-gradient-to-br from-primary/10 via-card to-card p-8 text-center shadow-sm" data-testid="result-hero">
           <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold mb-4 ${grade.bg} ${grade.color}`}>
             <Award className="w-4 h-4" />
             {grade.label}
           </div>
-          <p className="text-blue-100 text-sm mb-1">Your Score</p>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-foreground/75">Your Score</p>
           {latest.actualScore != null ? (
             <>
               <h1 className="text-6xl sm:text-7xl font-bold mb-1" data-testid="result-score">{latest.actualScore}</h1>
-              <p className="text-sm text-blue-200 mb-2">{latest.score}% accuracy</p>
+              <p className="mb-2 text-sm font-semibold text-foreground/80">{latest.score}% accuracy</p>
             </>
           ) : (
             <h1 className="text-6xl sm:text-7xl font-bold mb-2" data-testid="result-score">{latest.score}%</h1>
           )}
-          <p className="text-blue-100">{latest.testName}</p>
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-blue-100">
+          <p className="text-base font-semibold text-foreground/85">{latest.testName}</p>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-muted-foreground">
             <span>{latest.category}</span>
-            <span className="text-white/60">•</span>
+            <span className="text-border">•</span>
             <span>{totalAttempts} completed {totalAttempts === 1 ? "attempt" : "attempts"} on this device</span>
           </div>
           {scoreImprovementDelta !== null && (
             <div className={`mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold ${
               scoreImprovementDelta > 0
-                ? "bg-emerald-500/20 text-emerald-200"
+                ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
                 : scoreImprovementDelta < 0
-                ? "bg-red-500/20 text-red-200"
-                : "bg-white/10 text-blue-100"
+                ? "bg-red-500/15 text-red-700 dark:text-red-300"
+                : "bg-muted text-foreground/80"
             }`}>
               {scoreImprovementDelta > 0 ? "↑" : scoreImprovementDelta < 0 ? "↓" : "→"}
               {scoreImprovementDelta > 0
@@ -535,14 +535,14 @@ export default function Result() {
         </div>
 
         <Tabs defaultValue={requestedTab} className="space-y-8">
-          <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl bg-card/85 p-1 shadow-sm">
-            <TabsTrigger value="summary" className="rounded-xl py-2.5 text-sm font-semibold">
+          <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl border border-border/70 bg-muted/45 p-1.5 shadow-sm">
+            <TabsTrigger value="summary" className="rounded-xl border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-primary/30 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm">
               Summary
             </TabsTrigger>
-            <TabsTrigger value="analysis" className="rounded-xl py-2.5 text-sm font-semibold">
+            <TabsTrigger value="analysis" className="rounded-xl border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-primary/30 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm">
               Analysis
             </TabsTrigger>
-            <TabsTrigger value="review" className="rounded-xl py-2.5 text-sm font-semibold">
+            <TabsTrigger value="review" className="rounded-xl border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-primary/30 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm">
               Review
             </TabsTrigger>
           </TabsList>
@@ -578,17 +578,17 @@ export default function Result() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: <CheckCircle className="w-5 h-5" />, label: "Correct", value: latest.correct, color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
-                { icon: <XCircle className="w-5 h-5" />, label: "Wrong", value: latest.wrong, color: "text-red-600", bg: "bg-red-50 dark:bg-red-900/20" },
-                { icon: <MinusCircle className="w-5 h-5" />, label: "Skipped", value: latest.unanswered, color: "text-muted-foreground", bg: "bg-muted" },
-                { icon: <Clock className="w-5 h-5" />, label: "Time Spent", value: `${latest.timeSpent}m`, color: "text-violet-600", bg: "bg-violet-50 dark:bg-violet-900/20" },
+                { icon: <CheckCircle className="w-5 h-5" />, label: "Correct", value: latest.correct, color: "text-emerald-700 dark:text-emerald-300", bg: "bg-emerald-100 dark:bg-emerald-900/40", cardBg: "bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/40 dark:to-emerald-900/20", borderColor: "border-emerald-200 dark:border-emerald-800" },
+                { icon: <XCircle className="w-5 h-5" />, label: "Wrong", value: latest.wrong, color: "text-red-700 dark:text-red-300", bg: "bg-red-100 dark:bg-red-900/40", cardBg: "bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-950/40 dark:to-red-900/20", borderColor: "border-red-200 dark:border-red-800" },
+                { icon: <MinusCircle className="w-5 h-5" />, label: "Skipped", value: latest.unanswered, color: "text-orange-700 dark:text-orange-300", bg: "bg-orange-100 dark:bg-orange-900/40", cardBg: "bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-950/40 dark:to-orange-900/20", borderColor: "border-orange-200 dark:border-orange-800" },
+                { icon: <Clock className="w-5 h-5" />, label: "Time Spent", value: `${latest.timeSpent}m`, color: "text-violet-700 dark:text-violet-300", bg: "bg-violet-100 dark:bg-violet-900/40", cardBg: "bg-gradient-to-br from-violet-50 to-violet-100/50 dark:from-violet-950/40 dark:to-violet-900/20", borderColor: "border-violet-200 dark:border-violet-800" },
               ].map((item) => (
-                <div key={item.label} className="bg-card/85 border border-border/70 rounded-2xl p-5 shadow-sm text-center surface-hover" data-testid={`stat-${item.label.toLowerCase()}`}>
-                  <div className={`w-10 h-10 ${item.bg} rounded-lg flex items-center justify-center ${item.color} mx-auto mb-2`}>
+                <div key={item.label} className={`${item.cardBg} border ${item.borderColor} rounded-2xl p-5 shadow-md text-center transition-transform hover:scale-105 hover:shadow-lg`} data-testid={`stat-${item.label.toLowerCase()}`}>
+                  <div className={`w-10 h-10 ${item.bg} rounded-lg flex items-center justify-center ${item.color} mx-auto mb-3`}>
                     {item.icon}
                   </div>
-                  <p className={`text-2xl font-bold ${item.color}`}>{item.value}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{item.label}</p>
+                  <p className={`text-3xl font-bold ${item.color} mb-1`}>{item.value}</p>
+                  <p className={`text-sm font-semibold ${item.color} opacity-80`}>{item.label}</p>
                 </div>
               ))}
             </div>
@@ -2132,7 +2132,7 @@ export default function Result() {
                           const isSelected = item.selected === index;
                           const isCorrect = item.correct === index;
                           const optionStyle = isCorrect
-                            ? "border-emerald-300 bg-emerald-50/80 text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-100"
+                            ? "border-yellow-300 bg-yellow-50/80 text-yellow-900 dark:border-yellow-900/40 dark:bg-yellow-950/30 dark:text-yellow-100"
                             : isSelected
                               ? "border-red-300 bg-red-50/80 text-red-900 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-100"
                               : "border-border bg-background text-foreground";
