@@ -75,6 +75,78 @@ function isMissingRelationError(err: any, relation: string) {
   return code === "42P01" || message.includes(`relation "${relation}" does not exist`) || causeMessage.includes(`relation "${relation}" does not exist`);
 }
 
+function isUndefinedColumnError(err: any) {
+  const code = err?.code ?? err?.cause?.code;
+  const message = String(err?.message ?? "");
+  const causeMessage = String(err?.cause?.message ?? "");
+  return code === "42703" || message.includes("does not exist") || causeMessage.includes("does not exist");
+}
+
+async function insertQuestionChunkCompat(
+  rows: Array<typeof questions.$inferInsert>,
+  columns: QuestionColumnState,
+) {
+  if (rows.length === 0) return;
+
+  const columnNames = [
+    ...(columns.hasClientId ? [sql`client_id`] : []),
+    ...(columns.hasTestId ? [sql`test_id`] : []),
+    sql`text`,
+    sql`options`,
+    sql`correct`,
+    sql`section`,
+    ...(columns.hasSectionId ? [sql`section_id`] : []),
+    sql`topic`,
+    ...(columns.hasTopicId ? [sql`topic_id`] : []),
+    ...(columns.hasGlobalTopicId ? [sql`global_topic_id`] : []),
+    sql`explanation`,
+    ...(columns.hasDifficulty ? [sql`difficulty`] : []),
+    ...(columns.hasTextHi ? [sql`text_hi`] : []),
+    ...(columns.hasOptionsHi ? [sql`options_hi`] : []),
+    ...(columns.hasExplanationHi ? [sql`explanation_hi`] : []),
+    ...(columns.hasTextPa ? [sql`text_pa`] : []),
+    ...(columns.hasOptionsPa ? [sql`options_pa`] : []),
+    ...(columns.hasExplanationPa ? [sql`explanation_pa`] : []),
+    ...(columns.hasImageUrl ? [sql`image_url`] : []),
+    ...(columns.hasQuestionType ? [sql`question_type`] : []),
+    ...(columns.hasDiSetId ? [sql`di_set_id`] : []),
+  ];
+
+  const valuesSql = rows.map((row) =>
+    sql`(${sql.join(
+      [
+        ...(columns.hasClientId ? [sql`${row.clientId ?? ""}`] : []),
+        ...(columns.hasTestId ? [sql`${row.testId ?? ""}`] : []),
+        sql`${row.text ?? ""}`,
+        sql`${row.options}`,
+        sql`${row.correct}`,
+        sql`${row.section}`,
+        ...(columns.hasSectionId ? [sql`${row.sectionId ?? null}`] : []),
+        sql`${row.topic ?? "General"}`,
+        ...(columns.hasTopicId ? [sql`${row.topicId ?? null}`] : []),
+        ...(columns.hasGlobalTopicId ? [sql`${row.globalTopicId ?? null}`] : []),
+        sql`${row.explanation ?? ""}`,
+        ...(columns.hasDifficulty ? [sql`${row.difficulty ?? null}`] : []),
+        ...(columns.hasTextHi ? [sql`${row.textHi ?? null}`] : []),
+        ...(columns.hasOptionsHi ? [sql`${row.optionsHi ?? null}`] : []),
+        ...(columns.hasExplanationHi ? [sql`${row.explanationHi ?? null}`] : []),
+        ...(columns.hasTextPa ? [sql`${row.textPa ?? null}`] : []),
+        ...(columns.hasOptionsPa ? [sql`${row.optionsPa ?? null}`] : []),
+        ...(columns.hasExplanationPa ? [sql`${row.explanationPa ?? null}`] : []),
+        ...(columns.hasImageUrl ? [sql`${(row as any).imageUrl ?? null}`] : []),
+        ...(columns.hasQuestionType ? [sql`${(row as any).questionType ?? "text"}`] : []),
+        ...(columns.hasDiSetId ? [sql`${(row as any).diSetId ?? null}`] : []),
+      ],
+      sql`, `,
+    )})`,
+  );
+
+  await db.execute(sql`
+    INSERT INTO questions (${sql.join(columnNames, sql`, `)})
+    VALUES ${sql.join(valuesSql, sql`, `)}
+  `);
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type Difficulty = "Easy" | "Medium" | "Hard";
@@ -881,7 +953,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
     toInsert.push({
       testId: "",
       clientId: "",
-      text: questionEn || null,
+      text: questionEn || questionHi || questionPa || "",
       options: baseOptions as unknown as string,
       correct: CORRECT_LETTER[correctRaw],
       section: sectionRow?.name ?? rowSection,
@@ -889,7 +961,7 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       topic: topicRow?.name ?? rowTopic ?? "General",
       topicId: topicRow?.id ?? null,
       globalTopicId: topicRow?.id ?? "",
-      explanation: explanationEn || null,
+      explanation: explanationEn || explanationHi || explanationPa || "",
       difficulty: (difficultyRaw as "Easy" | "Medium" | "Hard") || null,
       textHi: questionHi || null,
       optionsHi: questionHi ? [optionAHi || optionAEn, optionBHi || optionBEn, optionCHi || optionCEn, optionDHi || optionDEn] as unknown as string : null,
@@ -906,9 +978,19 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
   // Bulk insert in chunks of 200
   let inserted = 0;
   const CHUNK = 200;
+  const questionColumns = await getQuestionColumnState();
   for (let i = 0; i < toInsert.length; i += CHUNK) {
     const chunk = toInsert.slice(i, i + CHUNK);
-    await db.insert(questions).values(chunk);
+    try {
+      await db.insert(questions).values(chunk);
+    } catch (err: any) {
+      if (isUndefinedColumnError(err)) {
+        console.warn("[question-bank/import-csv] questions insert hit undefined column; using compatibility insert");
+        await insertQuestionChunkCompat(chunk, questionColumns);
+      } else {
+        throw err;
+      }
+    }
     inserted += chunk.length;
   }
 
