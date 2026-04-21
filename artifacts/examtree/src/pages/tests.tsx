@@ -155,7 +155,7 @@ export default function Tests() {
                     {/* Icon + badge */}
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-sm" style={{ backgroundImage: gradient }}>
-                        <img
+                        
   <img src="https://www.kindpng.com/picc/m/125-1251551_sbi-logo-state-bank-of-india-group-vector.png" alt="Sbi Logo [state Bank Of India Group] Vector Eps Free - State Bank Of India Logo 
   className="h-5 w-5 object-contain"
 />
