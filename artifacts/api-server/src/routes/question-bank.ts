@@ -38,6 +38,7 @@ function normaliseKey(v: string) {
 }
 
 const CORRECT_LETTER: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
+const BANK_TEST_ID = "__bank__";
 
 const router: IRouter = Router();
 
@@ -145,6 +146,37 @@ async function insertQuestionChunkCompat(
     INSERT INTO questions (${sql.join(columnNames, sql`, `)})
     VALUES ${sql.join(valuesSql, sql`, `)}
   `);
+}
+
+async function ensureBankTestExists(): Promise<string | null> {
+  try {
+    const [existing] = await db
+      .select({ id: tests.id })
+      .from(tests)
+      .where(eq(tests.id, BANK_TEST_ID))
+      .limit(1);
+    if (existing) return existing.id;
+
+    // Create a dedicated placeholder test to anchor question-bank rows without
+    // attaching them to a real exam test.
+    await db.execute(sql`
+      INSERT INTO tests (id, name, category, category_id, duration, total_questions, difficulty, sections)
+      SELECT ${BANK_TEST_ID}, 'Question Bank (System)', t.category, t.category_id, 1, 0, 'Easy', '[]'::jsonb
+      FROM tests t
+      WHERE t.id <> ${BANK_TEST_ID}
+      LIMIT 1
+      ON CONFLICT (id) DO NOTHING
+    `);
+
+    const [created] = await db
+      .select({ id: tests.id })
+      .from(tests)
+      .where(eq(tests.id, BANK_TEST_ID))
+      .limit(1);
+    return created?.id ?? null;
+  } catch {
+    return null;
+  }
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -883,7 +915,8 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
 
   // Legacy schema note:
   // In many deployments, questions.test_id is NOT NULL and FK -> tests(id).
-  // CSV import is "bank" style, so resolve a stable fallback test id.
+  // CSV import is "bank" style, so bind to a dedicated system test id instead
+  // of auto-attaching imported rows to a real test.
   let resolvedImportTestId = "";
   if (questionColumns.hasTestId) {
     const requestedTestId = (req.body.testId as string | undefined)?.trim();
@@ -894,11 +927,13 @@ router.post("/question-bank/import-csv", authenticate, csvUpload.single("file"),
       }
       resolvedImportTestId = testRow.id;
     } else {
-      const [fallbackTest] = await db.select({ id: tests.id }).from(tests).limit(1);
-      if (!fallbackTest) {
-        return void res.status(400).json({ error: "No tests exist in database. Create at least one test or provide a valid testId for CSV import." });
+      const bankTestId = await ensureBankTestExists();
+      if (!bankTestId) {
+        return void res.status(400).json({
+          error: "Could not resolve a bank test for import. Please pass a valid testId in request body.",
+        });
       }
-      resolvedImportTestId = fallbackTest.id;
+      resolvedImportTestId = bankTestId;
     }
   }
 
