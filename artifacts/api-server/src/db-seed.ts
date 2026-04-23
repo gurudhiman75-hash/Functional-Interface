@@ -16,7 +16,7 @@ async function seedDatabase() {
     const categoryData = [
       { id: "1", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 0 },
       { id: "2", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 0 },
-      { id: "3", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png", color: "red", testsCount: 0 },
+      { id: "3", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png", testsCount: 0 },
     ];
 
     for (const cat of categoryData) {
