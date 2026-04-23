@@ -23,7 +23,7 @@ async function initializeDatabase() {
         { id: "3", name: "CAT", description: "Common Admission Test for top management institutes", icon: "BarChart3", color: "violet", testsCount: 2 },
         { id: "4", name: "UPSC", description: "Civil Services Examination for government positions", icon: "Building2", color: "amber", testsCount: 1 },
         { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
-        { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 1 },
+        { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "https://www.kindpng.com/picc/m/129-1298591_ssc-logo-staff-selection-commission-png-staff-selection.png", color: "rose", testsCount: 1 },
         { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
         { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png", testsCount: 2 },
       ];
