@@ -12,8 +12,8 @@ async function initializeDatabase() {
 
     const existingCategories = await db.select().from(categories);
 
-    if (existingCategories.length !== 8) {
-      console.log(`Replacing ${existingCategories.length} categories with 8 complete ones`);
+    if (existingCategories.length !== 3) {
+      console.log(`Replacing ${existingCategories.length} categories with 3 complete ones`);
 
       await db.execute(`DELETE FROM "categories"`);
 
@@ -25,15 +25,15 @@ async function initializeDatabase() {
         { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
         { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 1 },
         { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
-        { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png" , color: "red", testsCount: 2 },
+        { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png" alt="Govt Of Punjab India Logo, HD Png Download@kindpng.com">", color: "red", testsCount: 2 },
       ];
 
       for (const cat of categoryData) {
         await db.insert(categories).values(cat);
       }
-      console.log("Added 8 categories");
+      console.log("Added 3 categories");
     } else {
-      console.log("Database already has 8 categories");
+      console.log("Database already has 3 categories");
     }
 
     console.log("Seed complete!");
