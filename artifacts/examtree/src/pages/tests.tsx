@@ -7,7 +7,7 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CategoryIcon } from "@/components/CategoryIcon";
+import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
 
 const CATEGORY_STYLES: Record<string, string> = {
   blue: "linear-gradient(to right, #0ea5e9, #3b82f6, #6366f1)",
@@ -147,7 +147,10 @@ export default function Tests() {
                   <div className="flex flex-1 flex-col p-5 gap-3.5">
                     {/* Icon + badge */}
                     <div className="flex items-start justify-between gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-sm" style={{ backgroundImage: gradient }}>
+                      <div
+                        className={`flex h-11 w-11 items-center justify-center rounded-xl shadow-sm ${isImageIcon(category.icon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
+                        style={isImageIcon(category.icon) ? undefined : { backgroundImage: gradient }}
+                      >
                         <CategoryIcon icon={category.icon} className="h-5 w-5" />
                       </div>
                       <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[12px] font-semibold text-blue-600">
