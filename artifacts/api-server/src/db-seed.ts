@@ -21,7 +21,7 @@ async function seedDatabase() {
       { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
       { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "FileText", color: "rose", testsCount: 1 },
       { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
-      { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "MapPin", color: "red", testsCount: 2 },
+      { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon:"https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png", color: "red", testsCount: 2 },
     ];
 
     for (const cat of categoryData) {
