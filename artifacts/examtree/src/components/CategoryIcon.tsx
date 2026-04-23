@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import * as Icons from "lucide-react";
 
 interface CategoryIconProps {
@@ -13,17 +13,24 @@ interface CategoryIconProps {
  * - Emoji (e.g., "🏦", "❤️")
  */
 export const CategoryIcon: FC<CategoryIconProps> = ({ icon, className = "h-5 w-5" }) => {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  useEffect(() => {
+    setImageFailed(false);
+  }, [icon]);
+
   if (!icon) {
     return <Icons.BookOpen className={className} />;
   }
 
   // If it's a URL (starts with http, /, or data:), render as image
-  if (icon.startsWith("http") || icon.startsWith("/") || icon.startsWith("data:")) {
+  if ((icon.startsWith("http") || icon.startsWith("/") || icon.startsWith("data:")) && !imageFailed) {
     return (
       <img
         src={icon}
         alt="category-icon"
         className={`object-contain ${className}`}
+        onError={() => setImageFailed(true)}
       />
     );
   }
@@ -34,7 +41,7 @@ export const CategoryIcon: FC<CategoryIconProps> = ({ icon, className = "h-5 w-5
   }
 
   // Otherwise, treat it as Lucide icon name
-  const IconComponent = (Icons as Record<string, FC>)[icon];
+  const IconComponent = (Icons as unknown as Record<string, FC<{ className?: string }>>)[icon];
   if (IconComponent) {
     return <IconComponent className={className} />;
   }

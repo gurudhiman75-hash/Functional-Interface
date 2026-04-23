@@ -104,7 +104,7 @@ function defaultCategoryIcon(name: string) {
   if (normalized.includes("gate")) return { icon: "Wrench", color: "orange" };
   if (normalized.includes("ssc")) return { icon: "FileText", color: "rose" };
   if (normalized.includes("bank")) return { icon: "Banknote", color: "indigo" };
-  if (normalized.includes("punjab")) return { icon: "MapPin", color: "red" };
+  if (normalized.includes("punjab")) return { icon: "MapPin", color: "blue" };
   return { icon: "BookOpen", color: "blue" };
 }
 
