@@ -7,9 +7,6 @@ import {
   TrendingUp,
   Award,
   ChevronRight,
-  Cpu,
-  Heart,
-  BarChart3,
   Sparkles,
   Clock3,
   CheckCircle2,
@@ -35,6 +32,7 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import {
   Accordion,
   AccordionContent,
@@ -315,13 +313,7 @@ export default function Home() {
                       className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white shadow-sm"
                       style={{ backgroundImage: gradient }}
                     >
-                      {cat.color === "emerald" ? (
-                        <Heart className="h-5 w-5" />
-                      ) : cat.color === "violet" ? (
-                        <BarChart3 className="h-5 w-5" />
-                      ) : (
-                        <Cpu className="h-5 w-5" />
-                      )}
+                      <CategoryIcon icon={cat.icon} className="h-5 w-5" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold text-slate-800 leading-snug">{cat.name}</p>

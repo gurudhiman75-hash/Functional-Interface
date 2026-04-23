@@ -7,6 +7,7 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { CategoryIcon } from "@/components/CategoryIcon";
 
 const CATEGORY_STYLES: Record<string, string> = {
   blue: "linear-gradient(to right, #0ea5e9, #3b82f6, #6366f1)",
@@ -98,11 +99,7 @@ export default function Tests() {
                     <Layers3 className="h-3.5 w-3.5 text-primary/70" />{categories.length} categories
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[14px] font-semibold text-slate-700">
-                    <img
-  src="https://your-image-link.com/icon.png"
-  alt="icon"
-  className="h-5 w-5 object-contain"
-/>{totalExams} exams
+                    <Files className="h-3.5 w-3.5 text-primary/70" />{totalExams} exams
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[14px] font-semibold text-slate-700">
                     <Files className="h-3.5 w-3.5 text-primary/70" />{totalTests} mock tests
@@ -130,11 +127,7 @@ export default function Tests() {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {filteredCategories.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border/60 px-6 py-14 text-center">
-            <img
-  src="https://your-image-link.com/icon.png"
-  alt="icon"
-  className="h-5 w-5 object-contain"
-/>
+            <BookOpen className="mx-auto h-10 w-10 text-muted-foreground/60" />
             <h2 className="mt-4 text-[18px] font-semibold text-foreground">No category matched your search</h2>
             <p className="mt-2 text-[15px] text-muted-foreground">Try a broader keyword or clear the search to see all exam categories.</p>
           </div>
@@ -155,10 +148,7 @@ export default function Tests() {
                     {/* Icon + badge */}
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-sm" style={{ backgroundImage: gradient }}>
-                        <img
-  src="<img src="https://www.kindpng.com/picc/m/125-1251551_sbi-logo-state-bank-of-india-group-vector.png" alt="Sbi Logo [state Bank Of India Group] Vector Eps Free - State Bank Of India Logo 
-  className="h-5 w-5 object-contain"
-/>
+                        <CategoryIcon icon={category.icon} className="h-5 w-5" />
                       </div>
                       <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[12px] font-semibold text-blue-600">
                         Latest Pattern
