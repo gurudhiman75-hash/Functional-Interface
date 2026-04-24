@@ -5,6 +5,8 @@ import { db } from "../lib/db";
 import { categories, questions, subcategories, tests, users, sections, topicsGlobal, diSets } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { cacheDel, CacheKey } from "../lib/cache";
+import { resolveCategoryIcon } from "../lib/category-icons";
+import { resolveSubcategoryIcon } from "../lib/subcategory-icons";
 
 type AdminCategory = {
   id: string;
@@ -19,6 +21,7 @@ type AdminSubcategory = {
   categoryName: string;
   name: string;
   description: string;
+  icon?: string;
   languages?: string[];
 };
 
@@ -184,6 +187,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
       categoryName: row.categoryName,
       name: row.name,
       description: row.description,
+      icon: resolveSubcategoryIcon(row.categoryName, row.name),
       languages: Array.isArray(row.languages) ? (row.languages as string[]) : ["en"],
     })),
     tests: (testRows as any[]).map((row) => ({
@@ -291,7 +295,7 @@ router.put("/", authenticate, async (req, res) => {
           id: category.id,
           name: category.name,
           description: category.description,
-          icon: prior?.icon ?? defaults.icon,
+          icon: resolveCategoryIcon(category.name, prior?.icon ?? defaults.icon),
           color: prior?.color ?? defaults.color,
           testsCount: 0,
         };

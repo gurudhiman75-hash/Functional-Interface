@@ -17,6 +17,7 @@ const toSectionId = (value: string) =>
 const normalizeSectionName = (value: string) => value.trim().toLowerCase();
 
 export type RuntimeExamGroup = AdminSubcategory & {
+  icon?: string;
   totalTests: number;
   fullLengthCount: number;
   sectionalCount: number;
@@ -126,6 +127,7 @@ function buildSyntheticExam(category: Category, categoryTests: Test[]): RuntimeE
     categoryName: category.name,
     name: `${category.name} General`,
     description: `All available ${category.name} mocks in one place.`,
+    icon: category.icon,
     totalTests: categoryTests.length,
     fullLengthCount: countByKind(categoryTests, "full-length"),
     sectionalCount: countByKind(categoryTests, "sectional"),
@@ -170,6 +172,7 @@ export function getRuntimeExamGroups(
       categoryName: category.name,
       name: sub.name,
       description: sub.description ?? "",
+      icon: sub.icon ?? category.icon,
       totalTests: examTests.length,
       fullLengthCount: countByKind(examTests, "full-length"),
       sectionalCount: countByKind(examTests, "sectional"),

@@ -1,6 +1,7 @@
-﻿import { sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "./lib/db";
-import { categories } from "@workspace/db";
+import { categories, sections, topics, topicsGlobal } from "@workspace/db";
+import { resolveCategoryIcon } from "./lib/category-icons";
 
 /**
  * Seeds initial category data.
@@ -9,6 +10,17 @@ import { categories } from "@workspace/db";
 async function initializeDatabase() {
   try {
     console.log("Seeding initial data...");
+
+    const bundledIcons = [
+      { name: "SSC CGL", icon: "/category-icons/ssc-cgl.png" },
+      { name: "Punjab", icon: "/category-icons/punjab.png" },
+    ];
+    for (const item of bundledIcons) {
+      await db
+        .update(categories)
+        .set({ icon: resolveCategoryIcon(item.name, item.icon) })
+        .where(eq(categories.name, item.name));
+    }
 
     const existingCategories = await db.select().from(categories);
 
@@ -23,9 +35,9 @@ async function initializeDatabase() {
         { id: "3", name: "CAT", description: "Common Admission Test for top management institutes", icon: "BarChart3", color: "violet", testsCount: 2 },
         { id: "4", name: "UPSC", description: "Civil Services Examination for government positions", icon: "Building2", color: "amber", testsCount: 1 },
         { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
-        { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: "https://www.kindpng.com/picc/m/129-1298591_ssc-logo-staff-selection-commission-png-staff-selection.png", color: "rose", testsCount: 1 },
+        { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: resolveCategoryIcon("SSC CGL", "/category-icons/ssc-cgl.png"), color: "rose", testsCount: 1 },
         { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
-        { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: "https://www.kindpng.com/picc/m/120-1201989_govt-of-punjab-india-logo-hd-png-download.png", color: "green", testsCount: 2 },
+        { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: resolveCategoryIcon("Punjab", "/category-icons/punjab.png"), color: "green", testsCount: 2 },
       ];
 
       for (const cat of categoryData) {
@@ -38,53 +50,66 @@ async function initializeDatabase() {
 
     console.log("Seed complete!");
 
-    // ── Sections & Topics taxonomy (upsert, idempotent) ───────────────────
+    // Sections and topics taxonomy (upsert, idempotent)
     const sectionSeeds = [
-      { id: "sec-quant",     name: "Quant" },
+      { id: "sec-quant", name: "Quant" },
       { id: "sec-reasoning", name: "Reasoning" },
-      { id: "sec-english",   name: "English" },
+      { id: "sec-english", name: "English" },
     ];
     let sectionsInserted = 0;
     for (const s of sectionSeeds) {
-      const result = await db.execute(
-        sql`INSERT INTO sections (id, name) VALUES (${s.id}, ${s.name}) ON CONFLICT (name) DO NOTHING`,
-      );
-      if ((result as any).rowCount > 0) sectionsInserted++;
+      const result = await db
+        .insert(sections)
+        .values(s)
+        .onConflictDoNothing()
+        .returning({ id: sections.id });
+      if (result.length > 0) sectionsInserted++;
     }
     if (sectionsInserted > 0) {
       console.log(`Sections: inserted ${sectionsInserted} new row(s) (mapped to sections table)`);
     } else {
-      console.log("Sections: all rows already present — skipped");
+      console.log("Sections: all rows already present - skipped");
     }
 
     const topicSeeds = [
-      { id: "topic-arithmetic",   name: "Arithmetic",         sectionId: "sec-quant" },
-      { id: "topic-algebra",      name: "Algebra",            sectionId: "sec-quant" },
-      { id: "topic-percentage",   name: "Percentage",         sectionId: "sec-quant" },
-      { id: "topic-ratio",        name: "Ratio",              sectionId: "sec-quant" },
-      { id: "topic-coding",       name: "Coding-Decoding",    sectionId: "sec-reasoning" },
-      { id: "topic-series",       name: "Series",             sectionId: "sec-reasoning" },
-      { id: "topic-analogy",      name: "Analogy",            sectionId: "sec-reasoning" },
-      { id: "topic-error",        name: "Error Detection",    sectionId: "sec-english" },
-      { id: "topic-fillinblanks", name: "Fill in the Blanks", sectionId: "sec-english" },
+      { id: "topic-arithmetic", name: "Arithmetic" },
+      { id: "topic-algebra", name: "Algebra" },
+      { id: "topic-percentage", name: "Percentage" },
+      { id: "topic-ratio", name: "Ratio" },
+      { id: "topic-coding", name: "Coding-Decoding" },
+      { id: "topic-series", name: "Series" },
+      { id: "topic-analogy", name: "Analogy" },
+      { id: "topic-error", name: "Error Detection" },
+      { id: "topic-fillinblanks", name: "Fill in the Blanks" },
     ];
     let topicsInserted = 0;
     for (const t of topicSeeds) {
-      const result = await db.execute(
-        sql`INSERT INTO topics (id, name, section_id) VALUES (${t.id}, ${t.name}, ${t.sectionId}) ON CONFLICT (section_id, name) DO NOTHING`,
-      );
-      if ((result as any).rowCount > 0) topicsInserted++;
+      const legacyResult = await db
+        .insert(topics)
+        .values(t)
+        .onConflictDoNothing()
+        .returning({ id: topics.id });
+      const globalResult = await db
+        .insert(topicsGlobal)
+        .values(t)
+        .onConflictDoNothing()
+        .returning({ id: topicsGlobal.id });
+      if (legacyResult.length > 0 || globalResult.length > 0) topicsInserted++;
     }
     if (topicsInserted > 0) {
-      console.log(`Topics: inserted ${topicsInserted} new row(s) (mapped to topics table)`);
+      console.log(`Topics: inserted ${topicsInserted} new row(s) (mapped to topics/topics_global tables)`);
     } else {
-      console.log("Topics: all rows already present — skipped");
+      console.log("Topics: all rows already present - skipped");
     }
-
   } catch (error) {
     console.error("Error seeding database:", error);
     process.exit(1);
   }
 }
 
-initializeDatabase();
+initializeDatabase()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error("Error seeding database:", error);
+    process.exit(1);
+  });

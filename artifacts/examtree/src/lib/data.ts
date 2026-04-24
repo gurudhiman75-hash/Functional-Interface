@@ -134,6 +134,7 @@ export interface Subcategory {
   categoryName: string;
   name: string;
   description: string;
+  icon?: string;
   /** Languages available for exams in this subcategory */
   languages?: string[];
 }

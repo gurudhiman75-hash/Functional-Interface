@@ -35,6 +35,9 @@ export const CategoryIcon: FC<CategoryIconProps> = ({ icon, className = "h-5 w-5
         alt="category-icon"
         className="block h-full w-full object-contain"
         draggable={false}
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
         onError={() => setImageFailed(true)}
       />
     );

@@ -1,4 +1,5 @@
 import { apiRequest } from "@/lib/api";
+import { getSubcategoryIconPath } from "@/lib/subcategory-icon";
 
 export const Storage = {
   set: (k: string, v: unknown) => localStorage.setItem(k, JSON.stringify(v)),
@@ -332,6 +333,7 @@ export interface AdminSubcategory {
   categoryName: string;
   name: string;
   description: string;
+  icon?: string;
   /** Languages available for exams in this subcategory */
   languages?: string[];
 }
@@ -548,14 +550,17 @@ type CloudAdminData = {
 };
 
 export const getAdminSubcategories = (): AdminSubcategory[] =>
-  Storage.get<AdminSubcategory[]>(ADMIN_SUBCATEGORIES_KEY) ?? [];
+  (Storage.get<AdminSubcategory[]>(ADMIN_SUBCATEGORIES_KEY) ?? []).map((subcategory) => ({
+    ...subcategory,
+    icon: subcategory.icon ?? getSubcategoryIconPath(subcategory.categoryName, subcategory.name),
+  }));
 
 export const saveAdminSubcategories = (items: AdminSubcategory[]) =>
   Storage.set(ADMIN_SUBCATEGORIES_KEY, items);
 
 export const addAdminSubcategory = (item: Omit<AdminSubcategory, "id">) => {
   const items = getAdminSubcategories();
-  const newItem = { ...item, id: uid() };
+  const newItem = { ...item, icon: item.icon ?? getSubcategoryIconPath(item.categoryName, item.name), id: uid() };
   items.push(newItem);
   saveAdminSubcategories(items);
   void persistAdminDataToCloud();
@@ -563,7 +568,15 @@ export const addAdminSubcategory = (item: Omit<AdminSubcategory, "id">) => {
 };
 
 export const updateAdminSubcategory = (id: string, updates: Partial<AdminSubcategory>) => {
-  const items = getAdminSubcategories().map((s) => (s.id === id ? { ...s, ...updates } : s));
+  const items = getAdminSubcategories().map((s) =>
+    s.id === id
+      ? {
+          ...s,
+          ...updates,
+          icon: updates.icon ?? getSubcategoryIconPath(updates.categoryName ?? s.categoryName, updates.name ?? s.name),
+        }
+      : s,
+  );
   saveAdminSubcategories(items);
   void persistAdminDataToCloud();
 };

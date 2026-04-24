@@ -46,6 +46,7 @@ import { useToast } from "@/hooks/use-toast";
 import QuestionBankTab from "@/components/QuestionBankTab";
 import { DiSetManager } from "@/components/DiSetManager";
 import AssignFromBankDialog from "@/components/AssignFromBankDialog";
+import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
 
 const isAdminUser = (role?: string) => role === "admin";
 
@@ -1997,9 +1998,16 @@ export default function Admin() {
                       </form>
                     ) : (
                       <div className="flex items-center justify-between">
-                        <div>
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg shadow-sm ${isImageIcon(s.icon ?? "") ? "border border-slate-200 bg-white text-slate-700" : "bg-primary/10 text-primary"}`}
+                          >
+                            <CategoryIcon icon={s.icon ?? ""} className="h-4 w-4" />
+                          </div>
+                          <div>
                           <p className="font-medium text-foreground">{s.name}</p>
                           <p className="text-xs text-muted-foreground">{s.categoryName} • {s.description || "—"} • {(s.languages ?? ["en"]).join(", ")}</p>
+                          </div>
                         </div>
                         <div className="flex items-center gap-1">
                           <Button variant="ghost" size="sm" className="h-8 px-2 text-primary hover:text-primary" onClick={() => setEditingSubcat(s)}><Edit className="w-3.5 h-3.5" /></Button>

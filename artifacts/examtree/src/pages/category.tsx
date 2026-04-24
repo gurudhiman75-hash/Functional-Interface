@@ -173,6 +173,7 @@ export default function CategoryPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {exams.map((exam) => {
               const meta = examMetaMap.get(exam.id);
+              const examIcon = exam.icon ?? category.icon;
               return (
                 <div
                   key={exam.id}
@@ -188,10 +189,10 @@ export default function CategoryPage() {
                     {/* Icon + title */}
                     <div className="flex items-start gap-3">
                       <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(category.icon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
-                        style={isImageIcon(category.icon) ? undefined : { backgroundImage: gradient }}
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(examIcon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
+                        style={isImageIcon(examIcon) ? undefined : { backgroundImage: gradient }}
                       >
-                        <CategoryIcon icon={category.icon} className="h-5 w-5" />
+                        <CategoryIcon icon={examIcon} className="h-5 w-5" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-[20px] font-bold text-slate-800 leading-snug">{exam.name}</p>

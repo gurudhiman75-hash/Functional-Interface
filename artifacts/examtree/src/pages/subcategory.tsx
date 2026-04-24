@@ -28,6 +28,7 @@ import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
 
 type ExamTab = "full-length" | "sectional" | "topic-wise";
 
@@ -120,6 +121,7 @@ export default function SubcategoryPage() {
   const exam = useMemo(() => (id ? getRuntimeExamGroup(id, categories, tests, subcategories) : null), [id, categories, tests, subcategories]);
   const category = categories.find((item) => item.id === exam?.categoryId);
   const gradient = CATEGORY_STYLES[category?.color ?? "blue"] ?? CATEGORY_STYLES.blue;
+  const examIcon = exam?.icon ?? category?.icon ?? "";
 
   const examTests = useMemo(() => {
     if (!exam) return [];
@@ -319,7 +321,15 @@ export default function SubcategoryPage() {
               <div className="inline-flex items-center rounded-full px-3 py-1 mb-3" style={{ backgroundImage: gradient }}>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">{category?.name}</span>
               </div>
-              <h1 className="text-[34px] font-black tracking-tight text-foreground leading-tight sm:text-[40px]">{exam.name}</h1>
+              <div className="flex items-start gap-3">
+                <div
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(examIcon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
+                  style={isImageIcon(examIcon) ? undefined : { backgroundImage: gradient }}
+                >
+                  <CategoryIcon icon={examIcon} className="h-5 w-5" />
+                </div>
+                <h1 className="text-[34px] font-black tracking-tight text-foreground leading-tight sm:text-[40px]">{exam.name}</h1>
+              </div>
               <ExamDescription
                 text={exam.description || `Browse ${exam.name} by full-length, sectional, and topic-wise practice.`}
                 examName={exam.name}
