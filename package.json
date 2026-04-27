@@ -9,6 +9,9 @@
   },
   "scripts": {
     "preinstall": "node -e \"\"",
+    "dev": "node ./scripts/local-dev.mjs",
+    "dev:api": "pnpm --dir artifacts/api-server dev",
+    "dev:web": "pnpm --dir artifacts/examtree dev",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "build:web": "pnpm --dir artifacts/examtree build",
     "deploy:web": "pnpm run build:web && pnpm dlx firebase-tools deploy --only hosting --project sarbedutech",

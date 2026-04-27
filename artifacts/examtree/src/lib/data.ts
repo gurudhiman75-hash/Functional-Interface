@@ -1,5 +1,15 @@
 import { apiRequest } from "@/lib/api";
-import type { TestAttempt } from "@/lib/storage";
+
+const RETIRED_CATEGORY_IDS = new Set(["1", "2", "4", "5"]);
+const RETIRED_CATEGORY_NAMES = new Set(["JEE Main", "NEET", "UPSC", "GATE"]);
+
+function isRetiredCategory(categoryId?: string, categoryName?: string, category?: string) {
+  return (
+    (categoryId ? RETIRED_CATEGORY_IDS.has(categoryId) : false) ||
+    (categoryName ? RETIRED_CATEGORY_NAMES.has(categoryName) : false) ||
+    (category ? RETIRED_CATEGORY_NAMES.has(category) : false)
+  );
+}
 
 // Define types locally for now
 export type Category = {
@@ -142,19 +152,23 @@ export interface Subcategory {
 // API functions
 export async function getCategories(): Promise<Category[]> {
   console.log("getCategories called");
-  return apiRequest<Category[]>("/categories");
+  const categories = await apiRequest<Category[]>("/categories");
+  return categories.filter((category) => !isRetiredCategory(category.id, category.name));
 }
 
 export async function getSubcategories(): Promise<Subcategory[]> {
-  return apiRequest<Subcategory[]>("/subcategories");
+  const subcategories = await apiRequest<Subcategory[]>("/subcategories");
+  return subcategories.filter((subcategory) => !isRetiredCategory(subcategory.categoryId, subcategory.categoryName));
 }
 
 export async function getTests(): Promise<Test[]> {
   console.log("getTests called");
-  return apiRequest<Test[]>("/tests");
+  const tests = await apiRequest<Test[]>("/tests");
+  return tests.filter((test) => !isRetiredCategory(test.categoryId, test.categoryName, test.category));
 }
 
 export async function getCategoryFreeTestIds(category: string): Promise<{ id: string; name: string }[]> {
+  if (RETIRED_CATEGORY_NAMES.has(category)) return [];
   return apiRequest<{ id: string; name: string }[]>(`/tests/category-free-ids?category=${encodeURIComponent(category)}`);
 }
 
@@ -206,9 +220,12 @@ export async function checkPurchase(testId: string): Promise<{
 }
 
 export async function getMyTests(): Promise<{ purchasedTests: PurchasedTest[] }> {
-  return apiRequest("/tests/my-tests", {
+  const payload = await apiRequest<{ purchasedTests: PurchasedTest[] }>("/tests/my-tests", {
     method: "GET",
   });
+  return {
+    purchasedTests: payload.purchasedTests.filter((test) => !isRetiredCategory(test.categoryId, undefined, test.category)),
+  };
 }
 
 export async function mockUnlockTest(testId: string): Promise<{ ok: boolean }> {
@@ -718,6 +735,157 @@ export interface BankCsvImportResult {
   skipped: number;
   errors: { row: number; reason: string }[];
   detectedLanguages: string[];
+}
+
+export type MockTestSection = "quant" | "reasoning" | "english" | "general";
+export type MockTestDifficulty = "easy" | "medium" | "hard";
+
+export interface PatternOption {
+  id: string;
+  name: string;
+  section: MockTestSection;
+  topic: string;
+  subtopic: string;
+  difficulty: MockTestDifficulty;
+  template: string;
+  usageCount: number;
+  createdAt: string;
+}
+
+export interface MockTestBuilderSectionInput {
+  section: MockTestSection;
+  topic: string;
+  subtopic: string;
+  difficulty: MockTestDifficulty;
+  patternIds: string[];
+  questionCount: number;
+}
+
+export interface MockTestBuilderQuestion {
+  id?: number;
+  patternId: string;
+  patternName: string;
+  section: MockTestSection;
+  topic: string;
+  subtopic: string;
+  difficulty: MockTestDifficulty;
+  questionText: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+  qualityScore: number;
+  aiRefined: boolean;
+  aiSource: "openai" | "mock" | "skipped";
+  validation: { valid: boolean; issues: string[] };
+}
+
+export interface MockTestBuilderSectionPreview extends MockTestBuilderSectionInput {
+  id: string;
+  orderIndex: number;
+  questions: MockTestBuilderQuestion[];
+}
+
+export interface CreatedMockTest {
+  id: string;
+  name: string;
+  sections: MockTestBuilderSectionPreview[];
+  createdAt: string;
+  totalQuestions: number;
+}
+
+export interface MockTestTemplate {
+  id: string;
+  name: string;
+  sections: MockTestBuilderSectionInput[];
+  createdAt: string;
+}
+
+export interface QuestionTemplate {
+  id: string;
+  name: string;
+  template: MockTestBuilderSectionInput;
+  createdAt: string;
+}
+
+export async function listPatterns(): Promise<PatternOption[]> {
+  const payload = await apiRequest<{ patterns: PatternOption[] }>("/patterns");
+  return payload.patterns;
+}
+
+export async function seedPatterns(): Promise<{ ok: boolean; seeded: number }> {
+  return apiRequest<{ ok: boolean; seeded: number }>("/patterns/seed", {
+    method: "POST",
+  });
+}
+
+export async function listMockTestTemplates(): Promise<MockTestTemplate[]> {
+  const payload = await apiRequest<{ templates: MockTestTemplate[] }>("/mock-tests/templates");
+  return payload.templates;
+}
+
+export async function saveMockTestTemplate(body: {
+  name?: string;
+  sections: MockTestBuilderSectionInput[];
+}): Promise<MockTestTemplate> {
+  return apiRequest<MockTestTemplate>("/mock-tests/templates", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function listQuestionTemplates(): Promise<QuestionTemplate[]> {
+  const payload = await apiRequest<{ templates: QuestionTemplate[] }>("/question-bank/templates");
+  return payload.templates;
+}
+
+export async function saveQuestionTemplate(body: {
+  name?: string;
+  template: MockTestBuilderSectionInput;
+}): Promise<QuestionTemplate> {
+  return apiRequest<QuestionTemplate>("/question-bank/templates", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function updateQuestionTemplate(
+  id: string,
+  body: {
+    name?: string;
+    template: MockTestBuilderSectionInput;
+  },
+): Promise<QuestionTemplate> {
+  return apiRequest<QuestionTemplate>(`/question-bank/templates/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function deleteQuestionTemplate(id: string): Promise<void> {
+  await apiRequest<void>(`/question-bank/templates/${id}`, {
+    method: "DELETE",
+  });
+}
+
+export async function generateQuestionBankQuestions(body: {
+  templateId?: string;
+  template?: MockTestBuilderSectionInput;
+}): Promise<{ template: MockTestBuilderSectionInput; questions: MockTestBuilderQuestion[]; totalQuestions: number }> {
+  return apiRequest<{ template: MockTestBuilderSectionInput; questions: MockTestBuilderQuestion[]; totalQuestions: number }>("/question-bank/generate", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function createMockTest(body: {
+  testName?: string;
+  templateId?: string;
+  sections?: MockTestBuilderSectionInput[];
+}): Promise<CreatedMockTest> {
+  return apiRequest<CreatedMockTest>("/mock-tests", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
 }
 
 /**

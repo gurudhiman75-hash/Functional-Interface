@@ -1,11 +1,13 @@
 import { Router, type IRouter } from "express";
+import { randomUUID } from "crypto";
 import { and, asc, count, desc, eq, ilike, inArray, max, or, sql } from "drizzle-orm";
 import multer from "multer";
 import { db } from "../lib/db";
-import { questions, testQuestions, tests, sections, topicsGlobal, diSets } from "@workspace/db";
+import { questions, testQuestions, tests, sections, topicsGlobal, diSets, mockTestTemplates, type MockDifficulty, type MockSection } from "@workspace/db";
 import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
 import { type QuestionColumnState, getQuestionColumnState, buildQuestionSelectSql } from "../lib/question-columns";
+import { generateQuestions, type GeneratedQuestion } from "../lib/generator.service";
 
 // Multer for CSV uploads (memory storage, 10 MB limit)
 const csvUpload = multer({
@@ -41,6 +43,120 @@ const CORRECT_LETTER: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
 const BANK_TEST_ID = "__bank__";
 
 const router: IRouter = Router();
+
+type QuestionTemplateInput = {
+  section: MockSection;
+  topic: string;
+  subtopic: string;
+  difficulty: MockDifficulty;
+  patternIds: string[];
+  questionCount: number;
+};
+
+type QuestionTemplatePayload = {
+  id: string;
+  name: string;
+  template: QuestionTemplateInput;
+  createdAt: string;
+};
+
+function normalizeQuestionTemplate(input: Partial<QuestionTemplateInput>): QuestionTemplateInput {
+  return {
+    section: (input.section ?? "quant") as MockSection,
+    topic: String(input.topic ?? "").trim(),
+    subtopic: String(input.subtopic ?? "").trim(),
+    difficulty: (input.difficulty ?? "medium") as MockDifficulty,
+    patternIds: Array.isArray(input.patternIds) ? input.patternIds.filter(Boolean) : [],
+    questionCount: Math.max(1, Math.floor(Number(input.questionCount ?? 1) || 1)),
+  };
+}
+
+function parseTemplateSections(sections: unknown): QuestionTemplateInput[] {
+  let value: unknown = sections;
+  if (typeof value === "string") {
+    try {
+      value = JSON.parse(value);
+    } catch {
+      value = [];
+    }
+  }
+  const list = Array.isArray(value) ? value : [];
+  return list.map((item) => normalizeQuestionTemplate(item as Partial<QuestionTemplateInput>));
+}
+
+function templateFromRow(row: { id: string; name: string; sections: unknown; createdAt: unknown }): QuestionTemplatePayload | null {
+  const sectionsValue = parseTemplateSections(row.sections);
+  const first = sectionsValue[0];
+  if (!first) {
+    return null;
+  }
+  return {
+    id: row.id,
+    name: row.name,
+    template: first,
+    createdAt: new Date(row.createdAt as any).toISOString(),
+  };
+}
+
+function normalizeQuestionText(value: string) {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+async function collectGeneratedQuestions(template: QuestionTemplateInput, usedKeys: Set<string>) {
+  const collected: GeneratedQuestion[] = [];
+  let safety = 0;
+
+  while (collected.length < template.questionCount && safety < template.questionCount * 5) {
+    const remaining = template.questionCount - collected.length;
+    const result = await generateQuestions({
+      section: template.section,
+      topic: template.topic,
+      subtopic: template.subtopic,
+      difficulty: template.difficulty,
+      patternIds: template.patternIds,
+      count: remaining,
+      persist: true,
+    });
+
+    if (result.questions.length === 0) {
+      break;
+    }
+
+    let progress = false;
+    for (const question of result.questions) {
+      const key = normalizeQuestionText(question.questionText);
+      if (usedKeys.has(key)) {
+        continue;
+      }
+      if (question.id == null) {
+        throw new Error("Generated question was not persisted");
+      }
+      usedKeys.add(key);
+      collected.push(question);
+      progress = true;
+      if (collected.length >= template.questionCount) {
+        break;
+      }
+    }
+
+    if (!progress) {
+      break;
+    }
+    safety += 1;
+  }
+
+  if (collected.length === 0) {
+    throw new Error(`No questions generated for ${template.section} (${template.topic}/${template.subtopic})`);
+  }
+
+  if (collected.length < template.questionCount) {
+    throw new Error(
+      `Only generated ${collected.length}/${template.questionCount} questions for ${template.section} (${template.topic}/${template.subtopic})`,
+    );
+  }
+
+  return collected;
+}
 
 function buildQuestionWhereSql(columns: QuestionColumnState, req: any) {
   const searchQ = req.query.search as string | undefined;
@@ -244,6 +360,166 @@ async function fetchUsageStats(
   }
   return map;
 }
+
+// ── GET /question-bank/templates ─────────────────────────────────────────────
+router.get("/question-bank/templates", authenticate, async (req, res): Promise<void> => {
+  try {
+    await assertAdmin(req.user!.id);
+    const rows = await db
+      .select()
+      .from(mockTestTemplates)
+      .orderBy(desc(mockTestTemplates.createdAt));
+
+    const templates = rows
+      .map((row) => templateFromRow(row as any))
+      .filter((row): row is QuestionTemplatePayload => row !== null);
+
+    res.json({ templates });
+  } catch (err: any) {
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
+    console.error("[question-bank] GET /question-bank/templates", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── POST /question-bank/templates ────────────────────────────────────────────
+router.post("/question-bank/templates", authenticate, async (req, res): Promise<void> => {
+  try {
+    await assertAdmin(req.user!.id);
+    const { name, template } = req.body as {
+      name?: string;
+      template?: Partial<QuestionTemplateInput>;
+    };
+
+    const normalized = normalizeQuestionTemplate(template ?? {});
+    if (!normalized.topic || !normalized.subtopic) {
+      return void res.status(400).json({ error: "template requires topic and subtopic" });
+    }
+
+    const createdAt = new Date();
+    const savedName = String(name ?? "").trim() || `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`;
+    const [row] = await db
+      .insert(mockTestTemplates)
+      .values({
+        id: randomUUID(),
+        name: savedName,
+        sections: [normalized],
+        createdAt,
+      })
+      .returning({ id: mockTestTemplates.id, name: mockTestTemplates.name, createdAt: mockTestTemplates.createdAt });
+
+    res.status(201).json({
+      id: row.id,
+      name: row.name,
+      template: normalized,
+      createdAt: row.createdAt.toISOString(),
+    });
+  } catch (err: any) {
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
+    console.error("[question-bank] POST /question-bank/templates", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── PUT /question-bank/templates/:id ─────────────────────────────────────────
+router.put("/question-bank/templates/:id", authenticate, async (req, res): Promise<void> => {
+  try {
+    await assertAdmin(req.user!.id);
+    const id = req.params.id as string;
+    const { name, template } = req.body as {
+      name?: string;
+      template?: Partial<QuestionTemplateInput>;
+    };
+    const normalized = normalizeQuestionTemplate(template ?? {});
+    if (!normalized.topic || !normalized.subtopic) {
+      return void res.status(400).json({ error: "template requires topic and subtopic" });
+    }
+
+    const savedName = String(name ?? "").trim() || `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`;
+    const [row] = await db
+      .update(mockTestTemplates)
+      .set({
+        name: savedName,
+        sections: [normalized],
+      })
+      .where(eq(mockTestTemplates.id, id))
+      .returning({ id: mockTestTemplates.id, name: mockTestTemplates.name, createdAt: mockTestTemplates.createdAt });
+
+    if (!row) {
+      return void res.status(404).json({ error: "Template not found" });
+    }
+
+    res.json({
+      id: row.id,
+      name: row.name,
+      template: normalized,
+      createdAt: new Date(row.createdAt as any).toISOString(),
+    });
+  } catch (err: any) {
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
+    console.error("[question-bank] PUT /question-bank/templates/:id", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── DELETE /question-bank/templates/:id ──────────────────────────────────────
+router.delete("/question-bank/templates/:id", authenticate, async (req, res): Promise<void> => {
+  try {
+    await assertAdmin(req.user!.id);
+    const id = req.params.id as string;
+    const deleted = await db.delete(mockTestTemplates).where(eq(mockTestTemplates.id, id)).returning({ id: mockTestTemplates.id });
+    if (deleted.length === 0) {
+      return void res.status(404).json({ error: "Template not found" });
+    }
+    res.status(204).end();
+  } catch (err: any) {
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
+    console.error("[question-bank] DELETE /question-bank/templates/:id", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── POST /question-bank/generate ─────────────────────────────────────────────
+router.post("/question-bank/generate", authenticate, async (req, res): Promise<void> => {
+  try {
+    await assertAdmin(req.user!.id);
+    const { templateId, template } = req.body as {
+      templateId?: string;
+      template?: Partial<QuestionTemplateInput>;
+    };
+
+    let normalized: QuestionTemplateInput | null = null;
+    if (templateId) {
+      const [row] = await db.select().from(mockTestTemplates).where(eq(mockTestTemplates.id, templateId)).limit(1);
+      if (!row) {
+        return void res.status(404).json({ error: "Template not found" });
+      }
+      normalized = templateFromRow(row as any)?.template ?? null;
+    } else if (template) {
+      normalized = normalizeQuestionTemplate(template);
+    }
+
+    if (!normalized) {
+      return void res.status(400).json({ error: "templateId or template is required" });
+    }
+    if (!normalized.topic || !normalized.subtopic) {
+      return void res.status(400).json({ error: "template requires topic and subtopic" });
+    }
+
+    const usedKeys = new Set<string>();
+    const questionsGenerated = await collectGeneratedQuestions(normalized, usedKeys);
+
+    res.status(201).json({
+      template: normalized,
+      questions: questionsGenerated,
+      totalQuestions: questionsGenerated.length,
+    });
+  } catch (err: any) {
+    if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });
+    console.error("[question-bank] POST /question-bank/generate", err);
+    res.status(400).json({ error: err instanceof Error ? err.message : "Could not generate questions" });
+  }
+});
 
 // ── GET /question-bank ────────────────────────────────────────────────────────
 /** Paginated list with filters and usage stats */

@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   LogOut,
   ShieldCheck,
-  Trophy,
   FlaskConical,
   User,
 } from "lucide-react";
@@ -82,7 +81,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {mainLinks.map((link) => (
-                <SidebarMenuItem key={link.href} className="group/menu-item">
+                <SidebarMenuItem key={link.label} className="group/menu-item">
                   <SidebarMenuButton
                     asChild
                     isActive={location === link.href}

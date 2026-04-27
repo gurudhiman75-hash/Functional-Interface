@@ -1,4 +1,4 @@
-import { existsSync } from "fs";
+import { existsSync, readdirSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -6,8 +6,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const ICON_EXTENSIONS = [".png", ".webp", ".jpg", ".jpeg", ".svg"];
 const ICON_ROOTS = [
-  path.resolve(__dirname, "../../../examtree/public/category-icons"),
-  path.resolve(__dirname, "../../../examtree/dist/public/category-icons"),
+  path.resolve(__dirname, "../../../../artifacts/examtree/public/category-icons"),
+  path.resolve(__dirname, "../../../../artifacts/examtree/dist/public/category-icons"),
 ];
 
 function slugifyCategoryName(name: string): string {
@@ -18,16 +18,31 @@ function slugifyCategoryName(name: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+function findIconBySlug(root: string, slug: string): string | null {
+  if (!existsSync(root)) {
+    return null;
+  }
+
+  for (const extension of ICON_EXTENSIONS) {
+    const slugFile = `${slug}${extension}`;
+    const files = readdirSync(root);
+    const found = files.find(f => f.toLowerCase() === slugFile.toLowerCase());
+    if (found) {
+      return path.join(root, found);
+    }
+  }
+
+  return null;
+}
+
 export function getBundledCategoryIconPath(name: string): string | null {
   const slug = slugifyCategoryName(name);
   if (!slug) return null;
 
   for (const root of ICON_ROOTS) {
-    for (const extension of ICON_EXTENSIONS) {
-      const filePath = path.join(root, `${slug}${extension}`);
-      if (existsSync(filePath)) {
-        return `/category-icons/${slug}${extension}`;
-      }
+    const filePath = findIconBySlug(root, slug);
+    if (filePath) {
+      return `/category-icons/${path.basename(filePath)}`;
     }
   }
 

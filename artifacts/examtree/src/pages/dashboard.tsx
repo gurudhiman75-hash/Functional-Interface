@@ -18,12 +18,13 @@ import {
   Zap,
 } from "lucide-react";
 import { getMyTests, getPackages, getTests, getDailyChallenge, type PurchasedTest, type Test } from "@/lib/data";
-import { getAttempts, getStreak, acknowledgeStreakCelebration, isDailyChallengeCompletedToday } from "@/lib/storage";
+import { getAttempts, getActiveTestSessions, getStreak, acknowledgeStreakCelebration, isDailyChallengeCompletedToday } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CategoryTabsSection } from "@/components/CategoryTabsSection";
 import { openRazorpayCheckoutForTest } from "@/lib/razorpay-checkout";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
@@ -243,12 +244,79 @@ export default function Dashboard() {
   // Most active category (most attempts)
   const topCategory = categoryProgress[0] ?? null;
   const isPremium = purchasedTests.length > 0;
+  const activeTestSession = useMemo(() => {
+    const sessions = Object.values(getActiveTestSessions());
+    return sessions.sort((a, b) => b.updatedAt - a.updatedAt)[0] ?? null;
+  }, []);
+  const latestAttempt = attempts[0] ?? null;
+  const latestAttemptTest = useMemo(() => {
+    if (!latestAttempt || !allTests) return null;
+    return allTests.find((test) => test.id === latestAttempt.testId) ?? null;
+  }, [allTests, latestAttempt]);
 
   // Get unique categories for filter
   const categories = useMemo(() => {
     const allTestsCombined = [...purchasedTests, ...availableTests];
     return Array.from(new Set(allTestsCombined.map(test => test.category))).sort();
   }, [purchasedTests, availableTests]);
+
+  const nextActions = useMemo(() => {
+    const actions: Array<{
+      label: string;
+      sub: string;
+      icon: typeof Play;
+      onClick: () => void;
+      gradient: string;
+    }> = [];
+
+    if (activeTestSession) {
+      actions.push({
+        label: "Resume saved test",
+        sub: `${activeTestSession.testName} · pick up where you left off`,
+        icon: Play,
+        onClick: () => setLocation(`/test/${activeTestSession.testId}`),
+        gradient: "from-sky-500 to-indigo-500",
+      });
+    } else if (latestAttemptTest && latestAttempt) {
+      actions.push({
+        label: "Review last test",
+        sub: `${latestAttemptTest.name} · ${latestAttempt.score}% score`,
+        icon: Play,
+        onClick: () => setLocation(`/result?testId=${latestAttemptTest.id}&tab=review`),
+        gradient: "from-sky-500 to-indigo-500",
+      });
+    }
+
+    if (dailyChallenge) {
+      actions.push({
+        label: dailyChallengeCompleted ? "Review today's challenge" : "Start today's challenge",
+        sub: `${dailyChallenge.testName} · fresh for today`,
+        icon: Flame,
+        onClick: () => setLocation(`/test/${dailyChallenge.testId}`),
+        gradient: "from-emerald-500 to-teal-600",
+      });
+    }
+
+    if (topCategory) {
+      actions.push({
+        label: `Practice ${topCategory.category}`,
+        sub: `${topCategory.attempted}/${topCategory.total} free tests done`,
+        icon: Zap,
+        onClick: () => setLocation("/exams"),
+        gradient: "from-violet-500 to-purple-600",
+      });
+    }
+
+    actions.push({
+      label: "Browse all exams",
+      sub: "Pick a new category or series",
+      icon: BookOpen,
+      onClick: () => setLocation("/exams"),
+      gradient: "from-amber-500 to-orange-600",
+    });
+
+    return actions.slice(0, 4);
+  }, [dailyChallenge, dailyChallengeCompleted, latestAttempt, latestAttemptTest, setLocation, topCategory]);
 
   // Filter and search logic
   const filteredPurchasedTests = useMemo(() => {
@@ -386,6 +454,33 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* ── Next actions ── */}
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {nextActions.map((action) => (
+          <button
+            key={action.label}
+            type="button"
+            onClick={action.onClick}
+            className="group rounded-2xl border border-border bg-card p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${action.gradient} text-white shadow-sm transition-transform group-hover:scale-105`}>
+              <action.icon className="h-5 w-5" />
+            </div>
+            <p className="mt-3 text-sm font-semibold text-foreground">{action.label}</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{action.sub}</p>
+          </button>
+        ))}
+      </div>
+
+      <CategoryTabsSection
+        title="Browse by category"
+        subtitle="Open a category to see the subcategories available under it."
+        ctaLabel="Open exams"
+        defaultCtaPath="/exams"
+        className="pt-2"
+        showTopBadge={false}
+      />
 
       {/* ── Daily Challenge banner ── */}
       {dailyChallenge && (

@@ -1,0 +1,2 @@
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.

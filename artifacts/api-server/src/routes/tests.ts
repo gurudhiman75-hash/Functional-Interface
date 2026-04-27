@@ -10,6 +10,8 @@ import { cacheGet, cacheSet, CacheKey, TTL } from "../lib/cache";
 import { getQuestionColumnState, buildQuestionSelectSql } from "../lib/question-columns";
 
 const router: IRouter = Router();
+const RETIRED_CATEGORY_IDS = new Set(["1", "2", "4", "5"]);
+const RETIRED_CATEGORY_NAMES = new Set(["JEE Main", "NEET", "UPSC", "GATE"]);
 
 function stripQuestionsFromSections(sections: TestSection[]): TestSection[] {
   return sections.map((section) => ({
@@ -57,6 +59,7 @@ async function canAccessPaidTest(userId: string | undefined, testId: string): Pr
 router.get("/category-free-ids", async (req, res) => {
   const category = req.query.category as string | undefined;
   if (!category) return res.status(400).json({ error: "category query param is required" });
+  if (RETIRED_CATEGORY_NAMES.has(category)) return res.json([]);
 
   const rows = await db
     .select({ id: tests.id, name: tests.name })
@@ -97,8 +100,11 @@ router.get("/", async (_req, res) => {
       languages: langs,
     };
   });
-  await cacheSet(cacheKey, payload, TTL.TESTS_LIST);
-  return res.json(payload);
+  const filteredPayload = payload.filter(
+    (test) => !RETIRED_CATEGORY_IDS.has(test.categoryId) && !RETIRED_CATEGORY_NAMES.has(test.category),
+  );
+  await cacheSet(cacheKey, filteredPayload, TTL.TESTS_LIST);
+  return res.json(filteredPayload);
 });
 
 router.get("/my-tests", authenticate, async (req, res) => {
@@ -134,7 +140,9 @@ router.get("/my-tests", authenticate, async (req, res) => {
       .orderBy(userTestEntitlements.createdAt);
 
     return res.json({
-      purchasedTests: purchasedTests.map(test => ({
+      purchasedTests: purchasedTests
+        .filter((test) => !RETIRED_CATEGORY_IDS.has(test.categoryId) && !RETIRED_CATEGORY_NAMES.has(test.category))
+        .map(test => ({
         id: test.testId,
         name: test.name,
         category: test.category,
@@ -178,6 +186,9 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
 
   const { test: row, subcategoryLanguages } = testRows[0];
   const access = row.access ?? "free";
+  if (RETIRED_CATEGORY_IDS.has(row.categoryId) || RETIRED_CATEGORY_NAMES.has(row.category)) {
+    return res.status(404).json({ error: "Test not found" });
+  }
 
   if (access === "paid") {
     const userId = req.user?.id;

@@ -1,0 +1,105 @@
+[2m8:06:48 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/analytics?userId=HTYIAneCjaUHagXjdZ5kAwcHgUA3[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:06:48 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/attempts?userId=HTYIAneCjaUHagXjdZ5kAwcHgUA3[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:06:48 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/analytics/weak-areas[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:06:49 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/packages[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:13 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:13 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:13 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/daily-challenge[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:20 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:20 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:20 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:20 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/daily-challenge[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:08:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:26 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/daily-challenge[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:38 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:38 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:38 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/daily-challenge[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:09:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+^C

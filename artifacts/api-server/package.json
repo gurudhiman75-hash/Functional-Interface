@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development pnpm exec nodemon --watch src --ext ts --exec \"pnpm run build && pnpm run start\"",
+    "dev": "cross-env NODE_ENV=development node ../../node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/cli.mjs watch --env-file=.env src/index.ts",
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
     "db:check": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/check-schema-drift.mjs",

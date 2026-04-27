@@ -1,0 +1,29 @@
+
+> @workspace/api-server@0.0.0 dev C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> cross-env NODE_ENV=development pnpm exec nodemon --watch src --ext ts --exec "pnpm run build && pnpm run start"
+
+[33m[nodemon] 3.1.14[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): src\**\*[39m
+[33m[nodemon] watching extensions: ts[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:04:17.332] [32mINFO[39m (17656): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] clean exit - waiting for changes before restart[39m
+[32m[nodemon] restarting child process[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+

@@ -20,6 +20,8 @@ import topicsRouter from "./topics";
 import questionBankRouter from "./question-bank";
 import diSetsRouter from "./di-sets";
 import uploadRouter from "./upload";
+import patternsRouter from "./patterns";
+import mockTestsRouter from "./mock-tests";
 
 const router: IRouter = Router();
 
@@ -44,5 +46,7 @@ router.use("/topics", topicsRouter);
 router.use(questionBankRouter);
 router.use(diSetsRouter);
 router.use(uploadRouter);
+router.use("/patterns", patternsRouter);
+router.use("/mock-tests", mockTestsRouter);
 
 export default router;

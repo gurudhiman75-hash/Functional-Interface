@@ -107,14 +107,18 @@ export default function CategoryPage() {
       {/* Top nav */}
       <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
-          <button
-            onClick={() => setLocation("/exams")}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
-            data-testid="btn-back-exams"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            All exams
-          </button>
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <button
+              onClick={() => setLocation("/exams")}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors hover:bg-muted/50 hover:text-foreground"
+              data-testid="btn-back-exams"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              All exams
+            </button>
+            <span className="text-muted-foreground/40">/</span>
+            <span className="rounded-full bg-muted/40 px-3 py-1.5 font-medium text-foreground">{category.name}</span>
+          </div>
         </div>
       </div>
 
@@ -153,6 +157,22 @@ export default function CategoryPage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+        <div className="mb-4 rounded-2xl border border-border/60 bg-card/80 p-4 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Start here</p>
+              <h2 className="mt-1 text-lg font-bold text-foreground">Choose from the available Test Series Below</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">{exams.length} exams</span>
+              <span className="rounded-full bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-700">{totalTests} tests</span>
+              <span className="rounded-full bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700">Free + paid series</span>
+            </div>
+          </div>
+        </div>
 
         {/* Mobile bundle CTA */}
         <Button

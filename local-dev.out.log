@@ -1,0 +1,19 @@
+
+> workspace@0.0.0 dev C:\Users\gurbaj\Downloads\f
+> node ./scripts/local-dev.mjs
+
+Starting local dev servers...
+API  -> http://localhost:3001
+Web  -> http://localhost:5173
+
+> @workspace/examtree@0.0.0 dev C:\Users\gurbaj\Downloads\f\artifacts\examtree
+> vite --config vite.config.ts --host 0.0.0.0
+
+
+> @workspace/api-server@0.0.0 dev C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> cross-env NODE_ENV=development pnpm exec nodemon --watch src --ext ts --exec "pnpm run build && pnpm run start"
+
+ ELIFECYCLE  Command failed with exit code 1.
+[web] exited with code 1
+ ELIFECYCLE  Command failed with exit code 1.
+ ELIFECYCLE  Command failed with exit code 1.

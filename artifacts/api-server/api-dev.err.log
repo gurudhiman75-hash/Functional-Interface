@@ -1,0 +1,21 @@
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: spawn EPERM
+    at ChildProcess.spawn (node:internal/child_process:421:11)
+    at Object.spawn (node:child_process:796:9)
+    at ensureServiceIsRunning (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1978:29)
+    at transform (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1878:37)
+    at file:///c:/Users/gurbaj/Downloads/f/node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/index-7AaEi15b.mjs:14:2865
+    at applyTransformers (file:///c:/Users/gurbaj/Downloads/f/node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/index-7AaEi15b.mjs:14:1266)
+    at transform (file:///c:/Users/gurbaj/Downloads/f/node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/index-7AaEi15b.mjs:14:2812)
+    at load (file:///c:/Users/gurbaj/Downloads/f/node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/esm/index.mjs?1777089173085:2:2348)
+    at async nextLoad (node:internal/modules/esm/hooks:785:22)
+    at async AsyncLoaderHooksOnLoaderHookWorker.load (node:internal/modules/esm/hooks:410:20) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'spawn'
+}
+
+Node.js v24.14.1

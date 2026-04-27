@@ -149,13 +149,13 @@ export function getRuntimeExamGroups(
   // This ensures subcategories show even when they have no tests yet.
   const backendSubs = subcategories.filter((s) => s.categoryId === categoryId);
 
-  let subcategorySource: { id: string; name: string; description: string }[];
+  let subcategorySource: { id: string; name: string; description: string; icon?: string }[];
 
   if (backendSubs.length > 0) {
     subcategorySource = backendSubs;
   } else {
     // Fall back to subcategories inferred from API tests
-    const map = new Map<string, { id: string; name: string; description: string }>();
+    const map = new Map<string, { id: string; name: string; description: string; icon?: string }>();
     for (const test of categoryTests) {
       if (test.subcategoryId && !map.has(test.subcategoryId)) {
         map.set(test.subcategoryId, { id: test.subcategoryId, name: test.subcategoryName || test.subcategoryId, description: "" });

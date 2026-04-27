@@ -89,6 +89,16 @@ type AdminSnapshot = {
 
 const router: IRouter = Router();
 
+const RETIRED_CATEGORY_IDS = new Set(["1", "2", "4", "5"]);
+const RETIRED_CATEGORY_NAMES = new Set(["JEE Main", "NEET", "UPSC", "GATE"]);
+
+function isRetiredCategory(id?: string, name?: string) {
+  return Boolean(
+    (id && RETIRED_CATEGORY_IDS.has(id)) ||
+    (name && RETIRED_CATEGORY_NAMES.has(name)),
+  );
+}
+
 const INSERT_CHUNK = 400;
 
 export async function assertAdmin(userId: string) {
@@ -175,52 +185,58 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
   }
 
   return {
-    categories: (categoryRows as any[]).map((row) => ({
-      id: row.id,
-      name: row.name,
-      description: row.description,
-      testsCount: categoryCounts.get(row.id) ?? row.testsCount ?? 0,
+    categories: (categoryRows as any[])
+      .filter((row) => !isRetiredCategory(row.id, row.name))
+      .map((row) => ({
+        id: row.id,
+        name: row.name,
+        description: row.description,
+        testsCount: categoryCounts.get(row.id) ?? row.testsCount ?? 0,
     })),
-    subcategories: (subcategoryRows as any[]).map((row) => ({
-      id: row.id,
-      categoryId: row.categoryId,
-      categoryName: row.categoryName,
-      name: row.name,
-      description: row.description,
-      icon: resolveSubcategoryIcon(row.categoryName, row.name),
-      languages: Array.isArray(row.languages) ? (row.languages as string[]) : ["en"],
-    })),
-    tests: (testRows as any[]).map((row) => ({
-      id: row.id,
-      name: row.name,
-      categoryId: row.categoryId,
-      categoryName: row.category,
-      subcategoryId: row.subcategoryId ?? "",
-      subcategoryName: row.subcategoryName ?? "",
-      access: row.access ?? "free",
-      kind: row.kind ?? "full-length",
-      duration: row.duration,
-      totalQuestions: row.totalQuestions,
-      difficulty: row.difficulty,
-      showDifficulty: true,
-      sections: Array.isArray(row.sections) ? (row.sections as string[]) : [],
-      sectionSettings: Array.isArray(row.sectionSettings)
-        ? (row.sectionSettings as { name: string; locked: boolean }[])
-        : [],
-      sectionTimingMode: row.sectionTimingMode ?? "none",
-      sectionTimings: Array.isArray(row.sectionTimings)
-        ? (row.sectionTimings as { name: string; minutes: number }[])
-        : [],
-      attempts: row.attempts,
-      avgScore: row.avgScore,
-      priceCents: row.priceCents ?? null,
-      topicId: row.topicId ?? null,
-      topicName: row.topicName ?? null,
-      marksPerQuestion: row.marksPerQuestion ?? 1,
-      negativeMarks: row.negativeMarks ?? 0,
-      unattemptedMarks: row.unattemptedMarks ?? 0,
-      languages: Array.isArray(row.languages) ? (row.languages as string[]) : null,
-    })),
+    subcategories: (subcategoryRows as any[])
+      .filter((row) => !isRetiredCategory(row.categoryId, row.categoryName))
+      .map((row: any) => ({
+        id: row.id,
+        categoryId: row.categoryId,
+        categoryName: row.categoryName,
+        name: row.name,
+        description: row.description,
+        icon: resolveSubcategoryIcon(row.categoryName, row.name) ?? undefined,
+        languages: Array.isArray(row.languages) ? (row.languages as string[]) : ["en"],
+      })),
+    tests: (testRows as any[])
+      .filter((row) => !isRetiredCategory(row.categoryId, row.category))
+      .map((row: any) => ({
+        id: row.id,
+        name: row.name,
+        categoryId: row.categoryId,
+        categoryName: row.category,
+        subcategoryId: row.subcategoryId ?? "",
+        subcategoryName: row.subcategoryName ?? "",
+        access: row.access ?? "free",
+        kind: row.kind ?? "full-length",
+        duration: row.duration,
+        totalQuestions: row.totalQuestions,
+        difficulty: row.difficulty,
+        showDifficulty: true,
+        sections: Array.isArray(row.sections) ? (row.sections as string[]) : [],
+        sectionSettings: Array.isArray(row.sectionSettings)
+          ? (row.sectionSettings as { name: string; locked: boolean }[])
+          : [],
+        sectionTimingMode: row.sectionTimingMode ?? "none",
+        sectionTimings: Array.isArray(row.sectionTimings)
+          ? (row.sectionTimings as { name: string; minutes: number }[])
+          : [],
+        attempts: row.attempts,
+        avgScore: row.avgScore,
+        priceCents: row.priceCents ?? null,
+        topicId: row.topicId ?? null,
+        topicName: row.topicName ?? null,
+        marksPerQuestion: row.marksPerQuestion ?? 1,
+        negativeMarks: row.negativeMarks ?? 0,
+        unattemptedMarks: row.unattemptedMarks ?? 0,
+        languages: Array.isArray(row.languages) ? (row.languages as string[]) : null,
+      })),
     questions: questionRowsRaw.map((row) => {
       const diSet = row.di_set_id ? diSetMap.get(Number(row.di_set_id)) : undefined;
       return {
@@ -288,7 +304,9 @@ router.put("/", authenticate, async (req, res) => {
       await tx.execute(rawSql`DELETE FROM "subcategories"`);
       await tx.execute(rawSql`DELETE FROM "categories"`);
 
-      const categoryRows = (snapshot.categories ?? []).map((category) => {
+      const categoryRows = (snapshot.categories ?? [])
+        .filter((category) => !isRetiredCategory(category.id, category.name))
+        .map((category) => {
         const defaults = defaultCategoryIcon(category.name);
         const prior = existingCategoryMap.get(category.id);
         return {
@@ -299,20 +317,22 @@ router.put("/", authenticate, async (req, res) => {
           color: prior?.color ?? defaults.color,
           testsCount: 0,
         };
-      });
+        });
       if (categoryRows.length > 0) {
         await tx.insert(categories).values(categoryRows);
       }
 
-      const subcategoryRows = (snapshot.subcategories ?? []).map((subcategory) => ({
-        id: subcategory.id,
-        categoryId: subcategory.categoryId,
-        categoryName: subcategory.categoryName,
-        name: subcategory.name,
-        description: subcategory.description,
-        // Preserve existing languages from DB if the snapshot doesn't have them set
-        languages: subcategory.languages ?? existingSubcategoryMap.get(subcategory.id)?.languages ?? null,
-      }));
+      const subcategoryRows = (snapshot.subcategories ?? [])
+        .filter((subcategory) => !isRetiredCategory(subcategory.categoryId, subcategory.categoryName))
+        .map((subcategory) => ({
+          id: subcategory.id,
+          categoryId: subcategory.categoryId,
+          categoryName: subcategory.categoryName,
+          name: subcategory.name,
+          description: subcategory.description,
+          // Preserve existing languages from DB if the snapshot doesn't have them set
+          languages: subcategory.languages ?? existingSubcategoryMap.get(subcategory.id)?.languages ?? null,
+        }));
       if (subcategoryRows.length > 0) {
         await tx.insert(subcategories).values(subcategoryRows);
       }
@@ -354,32 +374,34 @@ router.put("/", authenticate, async (req, res) => {
         throw Object.assign(new Error("test-validation-error"), { details: testValidationErrors });
       }
 
-      const testRows = (snapshot.tests ?? []).map((test) => ({
-        id: test.id,
-        name: test.name,
-        category: test.categoryName,
-        categoryId: test.categoryId,
-        subcategoryId: test.subcategoryId ?? "",
-        subcategoryName: test.subcategoryName ?? "",
-        access: test.access ?? "free",
-        kind: test.kind ?? "full-length",
-        duration: test.duration,
-        totalQuestions: test.totalQuestions,
-        attempts: test.attempts ?? 0,
-        avgScore: test.avgScore ?? 0,
-        difficulty: test.difficulty,
-        sectionTimingMode: test.sectionTimingMode ?? "none",
-        sectionTimings: test.sectionTimings ?? [],
-        sectionSettings: test.sectionSettings ?? [],
-        sections: test.sections ?? [],
-        priceCents: test.priceCents ?? (test.access === "paid" ? 499 : null),
-        topicId: test.topicId ?? null,
-        topicName: test.topicName ?? null,
-        marksPerQuestion: test.marksPerQuestion ?? 1,
-        negativeMarks: test.negativeMarks ?? 0,
-        unattemptedMarks: test.unattemptedMarks ?? 0,
-        languages: Array.isArray((test as any).languages) ? (test as any).languages : null,
-      }));
+      const testRows = (snapshot.tests ?? [])
+        .filter((test) => !isRetiredCategory(test.categoryId, test.categoryName))
+        .map((test) => ({
+          id: test.id,
+          name: test.name,
+          category: test.categoryName,
+          categoryId: test.categoryId,
+          subcategoryId: test.subcategoryId ?? "",
+          subcategoryName: test.subcategoryName ?? "",
+          access: test.access ?? "free",
+          kind: test.kind ?? "full-length",
+          duration: test.duration,
+          totalQuestions: test.totalQuestions,
+          attempts: test.attempts ?? 0,
+          avgScore: test.avgScore ?? 0,
+          difficulty: test.difficulty,
+          sectionTimingMode: test.sectionTimingMode ?? "none",
+          sectionTimings: test.sectionTimings ?? [],
+          sectionSettings: test.sectionSettings ?? [],
+          sections: test.sections ?? [],
+          priceCents: test.priceCents ?? (test.access === "paid" ? 499 : null),
+          topicId: test.topicId ?? null,
+          topicName: test.topicName ?? null,
+          marksPerQuestion: test.marksPerQuestion ?? 1,
+          negativeMarks: test.negativeMarks ?? 0,
+          unattemptedMarks: test.unattemptedMarks ?? 0,
+          languages: Array.isArray((test as any).languages) ? (test as any).languages : null,
+        }));
       if (testRows.length > 0) {
         await tx.insert(tests).values(testRows);
       }

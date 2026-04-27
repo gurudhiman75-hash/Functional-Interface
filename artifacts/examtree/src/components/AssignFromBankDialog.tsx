@@ -319,7 +319,9 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
                     >
                       <td className="px-4 py-2.5">
                         {inTest ? (
-                          <Check className="w-4 h-4 text-emerald-500" title="Already in test" />
+                          <span title="Already in test" className="inline-flex">
+                            <Check className="w-4 h-4 text-emerald-500" />
+                          </span>
                         ) : (
                           <input
                             type="checkbox"
@@ -331,7 +333,7 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
                         )}
                       </td>
                       <td className="px-3 py-2.5 text-foreground">
-                        {truncate(q.text)}
+                        {truncate(q.text ?? "")}
                         {inTest && (
                           <span className="ml-2 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
                             IN TEST

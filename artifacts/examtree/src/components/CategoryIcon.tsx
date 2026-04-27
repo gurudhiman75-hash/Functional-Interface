@@ -33,7 +33,7 @@ export const CategoryIcon: FC<CategoryIconProps> = ({ icon, className = "h-5 w-5
       <img
         src={icon}
         alt="category-icon"
-        className="block h-full w-full object-contain"
+        className={`block ${className ?? "h-full w-full"} object-contain`}
         draggable={false}
         loading="eager"
         fetchPriority="high"

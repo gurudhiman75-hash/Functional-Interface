@@ -11,6 +11,14 @@ async function initializeDatabase() {
   try {
     console.log("Seeding initial data...");
 
+    const retiredCategoryNames = ["JEE Main", "NEET", "UPSC", "GATE"];
+    await db.delete(categories).where(
+      eq(categories.name, retiredCategoryNames[0]),
+    );
+    for (const name of retiredCategoryNames.slice(1)) {
+      await db.delete(categories).where(eq(categories.name, name));
+    }
+
     const bundledIcons = [
       { name: "SSC CGL", icon: "/category-icons/ssc-cgl.png" },
       { name: "Punjab", icon: "/category-icons/punjab.png" },
@@ -24,17 +32,13 @@ async function initializeDatabase() {
 
     const existingCategories = await db.select().from(categories);
 
-    if (existingCategories.length !== 3) {
-      console.log(`Replacing ${existingCategories.length} categories with 3 complete ones`);
+    if (existingCategories.length !== 4) {
+      console.log(`Replacing ${existingCategories.length} categories with 4 active ones`);
 
       await db.execute(`DELETE FROM "categories"`);
 
       const categoryData = [
-        { id: "1", name: "JEE Main", description: "Joint Entrance Examination for top engineering colleges", icon: "Cpu", color: "blue", testsCount: 3 },
-        { id: "2", name: "NEET", description: "National Eligibility cum Entrance Test for medical aspirants", icon: "Heart", color: "emerald", testsCount: 2 },
         { id: "3", name: "CAT", description: "Common Admission Test for top management institutes", icon: "BarChart3", color: "violet", testsCount: 2 },
-        { id: "4", name: "UPSC", description: "Civil Services Examination for government positions", icon: "Building2", color: "amber", testsCount: 1 },
-        { id: "5", name: "GATE", description: "Graduate Aptitude Test in Engineering", icon: "Wrench", color: "orange", testsCount: 1 },
         { id: "6", name: "SSC CGL", description: "Staff Selection Commission Combined Graduate Level", icon: resolveCategoryIcon("SSC CGL", "/category-icons/ssc-cgl.png"), color: "rose", testsCount: 1 },
         { id: "7", name: "Banking", description: "Banking and financial sector recruitment exams", icon: "Banknote", color: "indigo", testsCount: 2 },
         { id: "8", name: "Punjab", description: "Punjab state government exams and competitive tests", icon: resolveCategoryIcon("Punjab", "/category-icons/punjab.png"), color: "green", testsCount: 2 },
@@ -43,9 +47,9 @@ async function initializeDatabase() {
       for (const cat of categoryData) {
         await db.insert(categories).values(cat);
       }
-      console.log("Added 3 categories");
+      console.log("Added 4 categories");
     } else {
-      console.log("Database already has 3 categories");
+      console.log("Database already has 4 categories");
     }
 
     console.log("Seed complete!");

@@ -1,0 +1,462 @@
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:271:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:272:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [TransformError]: Transform failed with 1 error:
+C:\Users\gurbaj\Downloads\f\lib\db\src\index.ts:264:0: ERROR: Unexpected "}"
+    at failureErrorWithLog (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+Node.js v24.14.1
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[question-bank] GET /question-bank/templates DrizzleQueryError: Failed query: select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc
+params: 
+    at PostgresJsPreparedQuery.queryWithCache (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\drizzle-orm@0.45.2_@opentel_0695541276f1953b8f582ac811e479d3\node_modules\src\postgres-js\session.ts:58:17)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\question-bank.ts:355:18) {
+  query: 'select "id", "name", "sections", "created_at" from "mock_test_templates" order by "mock_test_templates"."created_at" desc',
+  params: [],
+  cause: PostgresError: relation "mock_test_templates" does not exist
+      at ErrorResponse (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at TLSSocket.data (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at TLSSocket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:563:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+      at Readable.push (node:internal/streams/readable:394:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42P01',
+    position: '52',
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.

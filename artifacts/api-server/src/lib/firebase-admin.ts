@@ -44,9 +44,11 @@ const storageBucket =
   process.env.FIREBASE_STORAGE_BUCKET ??
   (process.env.FIREBASE_PROJECT_ID ? `${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app` : undefined);
 
-let authInstance: admin.auth.Auth | { verifyIdToken: (token: string) => Promise<{ uid: string; email: string }> };
-let firestoreInstance: admin.firestore.Firestore | null = null;
-let storageInstance: admin.storage.Storage | null = null;
+type MockAuth = { verifyIdToken: (token: string) => Promise<{ uid: string; email: string }> };
+
+let authInstance: MockAuth | any;
+let firestoreInstance: any = null;
+let storageInstance: any = null;
 
 if (serviceAccountKey) {
   if (!admin.apps || admin.apps.length === 0) {
@@ -116,4 +118,3 @@ if (serviceAccountKey) {
 export const auth = authInstance;
 export const firestore = firestoreInstance;
 export const storage = storageInstance;
-

@@ -1,4 +1,8 @@
-import { pgTable, text, integer, real, doublePrecision, timestamp, date, jsonb, serial, primaryKey, unique, index } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, real, doublePrecision, timestamp, date, jsonb, serial, uuid, primaryKey, unique, index } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+
+export type MockSection = "quant" | "reasoning" | "english" | "general";
+export type MockDifficulty = "easy" | "medium" | "hard";
 
 // ── Question taxonomy ─────────────────────────────────────────────────────────
 /** Master list of question sections (e.g. Quant, Reasoning, English). */
@@ -21,6 +25,31 @@ export const topicsGlobal = pgTable("topics_global", {
   id: text("id").primaryKey(),
   name: text("name").notNull().unique(),
 });
+
+export const patterns = pgTable(
+  "patterns",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    name: text("name").notNull(),
+    section: text("section").$type<MockSection>().notNull(),
+    topic: text("topic").notNull(),
+    subtopic: text("subtopic").notNull().default(""),
+    difficulty: text("difficulty").$type<MockDifficulty>().notNull().default("medium"),
+    template: text("template").notNull(),
+    variables: jsonb("variables").notNull(),
+    answerExpression: text("answer_expression").notNull(),
+    distractorStrategy: jsonb("distractor_strategy"),
+    tags: jsonb("tags"),
+    usageCount: integer("usage_count").notNull().default(0),
+    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    sectionIdx: index("patterns_section_idx").on(t.section),
+    topicIdx: index("patterns_topic_idx").on(t.topic),
+    subtopicIdx: index("patterns_subtopic_idx").on(t.subtopic),
+  }),
+);
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -148,12 +177,14 @@ export const questions = pgTable("questions", {
   id: serial("id").primaryKey(),
   clientId: text("client_id").notNull().default(""),
   testId: text("test_id").notNull(),
+  patternId: uuid("pattern_id").references(() => patterns.id, { onDelete: "set null" }),
   /** Primary question text (English). Nullable — multilingual questions may only have textPa or textHi. */
   text: text("text"),
   options: jsonb("options").notNull(),
   correct: integer("correct").notNull(),
   section: text("section").notNull(),
   topic: text("topic").notNull().default("General"),
+  subtopic: text("subtopic").notNull().default(""),
   /** FK to sections master table — nullable so existing rows are unaffected */
   sectionId: text("section_id").references(() => sections.id, { onDelete: "set null" }),
   /** FK to topics master table — nullable so existing rows are unaffected */
@@ -164,6 +195,8 @@ export const questions = pgTable("questions", {
   explanation: text("explanation"),
   /** Difficulty level for smart question selection */
   difficulty: text("difficulty").$type<"Easy" | "Medium" | "Hard">(),
+  aiRefined: integer("ai_refined").notNull().default(0),
+  qualityScore: integer("quality_score").notNull().default(0),
   // Translation columns — nullable; null means no translation available for that language
   textHi: text("text_hi"),
   optionsHi: jsonb("options_hi"),
@@ -182,6 +215,49 @@ export const questions = pgTable("questions", {
   /** Optional per-question negative marks override (null = use test-level default) */
   negativeMarks: doublePrecision("negative_marks"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const mockTests = pgTable("mock_tests", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const mockTestTemplates = pgTable("mock_test_templates", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  sections: jsonb("sections").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const mockTestSections = pgTable("mock_test_sections", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    mockTestId: uuid("mock_test_id")
+      .notNull()
+      .references(() => mockTests.id, { onDelete: "cascade" }),
+    section: text("section").$type<MockSection>().notNull(),
+    topic: text("topic").notNull(),
+    subtopic: text("subtopic").notNull().default(""),
+    difficulty: text("difficulty").$type<MockDifficulty>().notNull(),
+    questionCount: integer("question_count").notNull(),
+    patternIds: jsonb("pattern_ids").notNull().default(sql`'[]'::jsonb`),
+    orderIndex: integer("order_index").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const mockTestQuestions = pgTable("mock_test_questions", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    mockTestId: uuid("mock_test_id")
+      .notNull()
+      .references(() => mockTests.id, { onDelete: "cascade" }),
+    mockTestSectionId: uuid("mock_test_section_id")
+      .references(() => mockTestSections.id, { onDelete: "cascade" }),
+    questionId: integer("question_id")
+      .notNull()
+      .references(() => questions.id, { onDelete: "cascade" }),
+    section: text("section").$type<MockSection>().notNull(),
+    orderIndex: integer("order_index").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
 export const attempts = pgTable(
@@ -356,3 +432,18 @@ export const leaderboard = pgTable(
     testIdRankIdx: index("leaderboard_test_id_rank_idx").on(t.testId, t.rank),
   }),
 );
+
+export type Section = typeof sections.$inferSelect;
+export type Topic = typeof topics.$inferSelect;
+export type TopicGlobal = typeof topicsGlobal.$inferSelect;
+export type User = typeof users.$inferSelect;
+export type Category = typeof categories.$inferSelect;
+export type Subcategory = typeof subcategories.$inferSelect;
+export type Test = typeof tests.$inferSelect;
+export type Question = typeof questions.$inferSelect;
+export type MockTest = typeof mockTests.$inferSelect;
+export type MockTestTemplate = typeof mockTestTemplates.$inferSelect;
+export type Pattern = typeof patterns.$inferSelect;
+export type PatternInsert = typeof patterns.$inferInsert;
+export type MockTestSection = typeof mockTestSections.$inferSelect;
+export type MockTestQuestion = typeof mockTestQuestions.$inferSelect;

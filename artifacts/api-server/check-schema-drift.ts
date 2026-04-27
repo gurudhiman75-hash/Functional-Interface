@@ -83,6 +83,31 @@ const EXPECTED: Array<{
     notNullNoDefault: ["title"],
   },
   {
+    table: "mock_tests",
+    columns: ["id", "name", "created_at"],
+    notNullNoDefault: ["name"],
+  },
+  {
+    table: "mock_test_templates",
+    columns: ["id", "name", "sections", "created_at"],
+    notNullNoDefault: ["name", "sections"],
+  },
+  {
+    table: "mock_test_sections",
+    columns: ["id", "mock_test_id", "section", "topic", "subtopic", "difficulty", "question_count", "pattern_ids", "order_index", "created_at"],
+    notNullNoDefault: ["mock_test_id", "section", "topic", "question_count", "order_index"],
+  },
+  {
+    table: "mock_test_questions",
+    columns: ["id", "mock_test_id", "mock_test_section_id", "question_id", "section", "order_index", "created_at"],
+    notNullNoDefault: ["mock_test_id", "question_id", "section", "order_index"],
+  },
+  {
+    table: "patterns",
+    columns: ["id", "name", "section", "topic", "subtopic", "difficulty", "template", "variables", "answer_expression", "distractor_strategy", "tags", "usage_count", "last_used_at", "created_at"],
+    notNullNoDefault: ["name", "section", "topic", "template", "variables", "answer_expression"],
+  },
+  {
     table: "user_test_entitlements",
     columns: ["user_id", "test_id", "source", "razorpay_order_id", "razorpay_payment_id", "created_at"],
     notNullNoDefault: ["user_id", "test_id"],
@@ -90,12 +115,12 @@ const EXPECTED: Array<{
   {
     table: "questions",
     columns: [
-      "id", "client_id", "test_id", "text", "options", "correct", "section", "topic",
-      "section_id", "topic_id", "global_topic_id", "explanation", "difficulty",
+      "id", "client_id", "test_id", "pattern_id", "text", "options", "correct", "section", "topic", "subtopic",
+      "section_id", "topic_id", "global_topic_id", "explanation", "difficulty", "ai_refined", "quality_score",
       "text_hi", "options_hi", "explanation_hi", "text_pa", "options_pa", "explanation_pa",
       "created_at", "image_url", "question_type", "di_set_id", "marks", "negative_marks",
     ],
-    notNullNoDefault: ["test_id", "text", "options", "correct", "section", "explanation"],
+    notNullNoDefault: ["test_id", "options", "correct", "section"],
   },
   {
     table: "attempts",
@@ -177,6 +202,11 @@ const EXPECTED_FKS: Array<{ table: string; column: string; referencesTable: stri
   { table: "attempts",            column: "test_id",     referencesTable: "tests" },
   { table: "test_questions",      column: "test_id",     referencesTable: "tests" },
   { table: "test_questions",      column: "question_id", referencesTable: "questions" },
+  { table: "questions",           column: "pattern_id",  referencesTable: "patterns" },
+  { table: "mock_test_sections",  column: "mock_test_id", referencesTable: "mock_tests" },
+  { table: "mock_test_questions", column: "mock_test_id", referencesTable: "mock_tests" },
+  { table: "mock_test_questions", column: "mock_test_section_id", referencesTable: "mock_test_sections" },
+  { table: "mock_test_questions", column: "question_id", referencesTable: "questions" },
   { table: "user_test_entitlements", column: "user_id",  referencesTable: "users" },
   { table: "user_test_entitlements", column: "test_id",  referencesTable: "tests" },
 ];

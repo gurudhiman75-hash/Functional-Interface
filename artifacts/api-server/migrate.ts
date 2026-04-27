@@ -4,6 +4,8 @@ import { db } from "./src/lib/db";
 async function migrate() {
   console.log("Running database migration...");
 
+  await db.execute(sql`CREATE EXTENSION IF NOT EXISTS pgcrypto;`);
+
   // ── users ─────────────────────────────────────────────────────────────
   await db.execute(sql`
     CREATE TABLE IF NOT EXISTS users (
@@ -94,11 +96,13 @@ async function migrate() {
       id              SERIAL    PRIMARY KEY,
       client_id       TEXT      NOT NULL DEFAULT '',
       test_id         TEXT      NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
+      pattern_id      UUID,
       text            TEXT,
       options         JSONB     NOT NULL,
       correct         INTEGER   NOT NULL,
       section         TEXT      NOT NULL,
       topic           TEXT      NOT NULL DEFAULT 'General',
+      subtopic        TEXT      NOT NULL DEFAULT '',
       explanation     TEXT,
       text_hi         TEXT,
       options_hi      JSONB,
@@ -106,8 +110,25 @@ async function migrate() {
       text_pa         TEXT,
       options_pa      JSONB,
       explanation_pa  TEXT,
+      ai_refined      INTEGER   NOT NULL DEFAULT 0,
+      quality_score   INTEGER   NOT NULL DEFAULT 0,
       created_at      TIMESTAMP NOT NULL DEFAULT NOW()
     );
+  `);
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS pattern_id UUID;
+  `);
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS questions_pattern_id_idx ON questions(pattern_id);
+  `);
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS subtopic TEXT NOT NULL DEFAULT '';
+  `);
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS ai_refined INTEGER NOT NULL DEFAULT 0;
+  `);
+  await db.execute(sql`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS quality_score INTEGER NOT NULL DEFAULT 0;
   `);
   // Add topic column to existing questions tables (idempotent)
   await db.execute(sql`
@@ -117,6 +138,42 @@ async function migrate() {
   await db.execute(sql`ALTER TABLE questions ALTER COLUMN text DROP NOT NULL;`);
   await db.execute(sql`ALTER TABLE questions ALTER COLUMN explanation DROP NOT NULL;`);
   console.log("✓ questions");
+
+  // ── patterns ────────────────────────────────────────────────────────────
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS patterns (
+      id                  UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
+      name                TEXT      NOT NULL,
+      section             TEXT      NOT NULL,
+      topic               TEXT      NOT NULL,
+      subtopic            TEXT      NOT NULL DEFAULT '',
+      difficulty          TEXT      NOT NULL DEFAULT 'medium',
+      template            TEXT      NOT NULL,
+      variables           JSONB     NOT NULL,
+      answer_expression   TEXT      NOT NULL,
+      distractor_strategy JSONB,
+      tags                JSONB,
+      usage_count         INTEGER   NOT NULL DEFAULT 0,
+      last_used_at        TIMESTAMP WITH TIME ZONE,
+      created_at          TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+    );
+  `);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS patterns_section_idx ON patterns(section);`);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS patterns_topic_idx ON patterns(topic);`);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS patterns_subtopic_idx ON patterns(subtopic);`);
+  await db.execute(sql`
+    DO $$ BEGIN
+      IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'questions_pattern_id_fk' AND conrelid = 'questions'::regclass
+      ) THEN
+        ALTER TABLE questions
+          ADD CONSTRAINT questions_pattern_id_fk
+          FOREIGN KEY (pattern_id) REFERENCES patterns(id) ON DELETE SET NULL;
+      END IF;
+    END $$;
+  `);
+  console.log("✓ patterns");
 
   // ── attempts ──────────────────────────────────────────────────────────
   await db.execute(sql`
@@ -528,6 +585,59 @@ async function migrate() {
   await db.execute(sql`CREATE INDEX IF NOT EXISTS test_questions_question_id_idx ON test_questions(question_id);`);
   await db.execute(sql`CREATE INDEX IF NOT EXISTS test_questions_test_id_idx ON test_questions(test_id);`);
   console.log("✓ test_questions table + indexes");
+
+  // ── mock_tests ────────────────────────────────────────────────────────────
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS mock_tests (
+      id          UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
+      name        TEXT      NOT NULL,
+      created_at  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+    );
+  `);
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS mock_test_templates (
+      id          UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
+      name        TEXT      NOT NULL,
+      sections    JSONB     NOT NULL,
+      created_at  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+    );
+  `);
+  await db.execute(sql`
+    ALTER TABLE mock_test_templates ADD COLUMN IF NOT EXISTS sections JSONB NOT NULL DEFAULT '[]'::jsonb;
+  `);
+  await db.execute(sql`ALTER TABLE mock_tests DROP COLUMN IF EXISTS questions;`);
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS mock_test_sections (
+      id             UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
+      mock_test_id   UUID      NOT NULL REFERENCES mock_tests(id) ON DELETE CASCADE,
+      section        TEXT      NOT NULL,
+      topic          TEXT      NOT NULL,
+      subtopic       TEXT      NOT NULL DEFAULT '',
+      difficulty     TEXT      NOT NULL,
+      question_count INTEGER   NOT NULL,
+      pattern_ids    JSONB     NOT NULL DEFAULT '[]'::jsonb,
+      order_index    INTEGER   NOT NULL,
+      created_at     TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+      UNIQUE (mock_test_id, order_index)
+    );
+  `);
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS mock_test_questions (
+      id                  UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
+      mock_test_id        UUID      NOT NULL REFERENCES mock_tests(id) ON DELETE CASCADE,
+      mock_test_section_id UUID      REFERENCES mock_test_sections(id) ON DELETE CASCADE,
+      question_id         INTEGER   NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+      section             TEXT      NOT NULL,
+      order_index         INTEGER   NOT NULL,
+      created_at          TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+      UNIQUE (mock_test_id, question_id)
+    );
+  `);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS mock_test_sections_mock_test_id_idx ON mock_test_sections(mock_test_id);`);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS mock_test_questions_mock_test_id_idx ON mock_test_questions(mock_test_id);`);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS mock_test_questions_question_id_idx ON mock_test_questions(question_id);`);
+  await db.execute(sql`CREATE INDEX IF NOT EXISTS mock_test_questions_section_idx ON mock_test_questions(section);`);
+  console.log("✓ mock_tests");
 
   // ── Ensure questions.global_topic_id NOT NULL (previously allowed NULL) ─
   // Backfill with a fallback topic before applying constraint, only if needed.

@@ -1,0 +1,36 @@
+(node:13288) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[31mfailed to load config from C:\Users\gurbaj\Downloads\f\artifacts\examtree\vite.config.ts[39m
+[31merror when starting dev server:
+Error: spawn EPERM
+    at ChildProcess.spawn (node:internal/child_process:421:11)
+    at Object.spawn (node:child_process:796:9)
+    at ensureServiceIsRunning (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1978:29)
+    at build (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1876:26)
+    at bundleConfigFile (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/vite@7.3.2_@types+node@25.5_ea6a5d31552e4795a14dd3c663d6aeeb/node_modules/vite/dist/node/chunks/config.js:35819:23)
+    at bundleAndLoadConfigFile (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/vite@7.3.2_@types+node@25.5_ea6a5d31552e4795a14dd3c663d6aeeb/node_modules/vite/dist/node/chunks/config.js:35806:24)
+    at loadConfigFromFile (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/vite@7.3.2_@types+node@25.5_ea6a5d31552e4795a14dd3c663d6aeeb/node_modules/vite/dist/node/chunks/config.js:35775:179)
+    at resolveConfig (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/vite@7.3.2_@types+node@25.5_ea6a5d31552e4795a14dd3c663d6aeeb/node_modules/vite/dist/node/chunks/config.js:35424:28)
+    at _createServer (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/vite@7.3.2_@types+node@25.5_ea6a5d31552e4795a14dd3c663d6aeeb/node_modules/vite/dist/node/chunks/config.js:25365:73)
+    at createServer$2 (file:///C:/Users/gurbaj/Downloads/f/node_modules/.pnpm/vite@7.3.2_@types+node@25.5_ea6a5d31552e4795a14dd3c663d6aeeb/node_modules/vite/dist/node/chunks/config.js:25362:9)[39m
+node:internal/child_process:421
+    throw new ErrnoException(err, 'spawn');
+    ^
+
+Error: spawn EPERM
+    at ChildProcess.spawn (node:internal/child_process:421:11)
+    at spawn (node:child_process:796:9)
+    at Object.execFile (node:child_process:349:17)
+    at exec (node:child_process:236:25)
+    at Object.<anonymous> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\pstree.remy@1.1.8\node_modules\pstree.remy\lib\index.js:7:1)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'spawn'
+}
+
+Node.js v24.14.1

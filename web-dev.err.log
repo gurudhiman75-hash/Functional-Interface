@@ -1,0 +1,394 @@
+[2m8:10:08 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/categories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:08 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/subcategories[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:08 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/tests[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:08 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/admin-data[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:08 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:08 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:42 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:42 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:42 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:42 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:54 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:54 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:54 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:10:54 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:15 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:15 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:15 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:15 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:29 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:29 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:29 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:13:29 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:11 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:21 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/sections[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/topics[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:14:39 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/users[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1142:49)
+    at afterConnectMultiple (node:net:1723:7)
+[2m8:52:51 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Users\gurbaj\Downloads\f\artifacts\examtree\src\pages\admin.tsx: Expected corresponding JSX closing tag for <div>. (4116:6)
+
+[0m [90m 4114 |[31m           [33m<[31m[33mDiSetManager[31m [33m/[31m[33m>[31m
+ [90m 4115 |[31m         )}
+[31m[1m>[22m[31m[90m 4116 |[31m       [33m<[31m[33m/[31m[33mmain[31m[33m>[31m
+ [90m      |[31m       [31m[1m^[22m[31m
+ [90m 4117 |[31m
+ [90m 4118 |[31m       {[90m/* ── Assign from Bank Dialog ── */[31m}
+ [90m 4119 |[31m       [33m<[31m[33mAssignFromBankDialog[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Users/gurbaj/Downloads/f/artifacts/examtree/src/pages/admin.tsx[39m:4116:6
+      at constructor (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6599:19)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4727:16)
+      at TypeScriptParserMixin.jsxParseElement (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4749:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4759:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10831:21)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9775:39
+      at TypeScriptParserMixin.tryParse (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6907:20)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9775:18)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12426:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10800:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12493:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11675:28)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOpBaseRightExpr (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10986:34)
+      at TypeScriptParserMixin.parseExprOpRightExpr (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10981:21)
+      at TypeScriptParserMixin.parseExprOp (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10947:27)
+      at TypeScriptParserMixin.parseExprOp (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9306:18)
+      at TypeScriptParserMixin.parseExprOp (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10953:21)
+      at TypeScriptParserMixin.parseExprOp (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9306:18)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10908:17)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9786:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10784:23)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:39
+      at TypeScriptParserMixin.allowInAnd (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12426:12)
+      at TypeScriptParserMixin.parseExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:17)
+      at TypeScriptParserMixin.jsxParseExpressionContainer (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4632:31)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4711:36)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4698:32)
+      at TypeScriptParserMixin.jsxParseElement (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4749:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4759:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+[2m8:53:14 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Users\gurbaj\Downloads\f\artifacts\examtree\src\pages\admin.tsx: Expected corresponding JSX closing tag for <div>. (4114:6)
+
+[0m [90m 4112 |[31m           [33m<[31m[33mDiSetManager[31m [33m/[31m[33m>[31m
+ [90m 4113 |[31m         )}
+[31m[1m>[22m[31m[90m 4114 |[31m       [33m<[31m[33m/[31m[33mmain[31m[33m>[31m
+ [90m      |[31m       [31m[1m^[22m[31m
+ [90m 4115 |[31m
+ [90m 4116 |[31m       {[90m/* ── Assign from Bank Dialog ── */[31m}
+ [90m 4117 |[31m       [33m<[31m[33mAssignFromBankDialog[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Users/gurbaj/Downloads/f/artifacts/examtree/src/pages/admin.tsx[39m:4114:6
+      at constructor (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6599:19)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4727:16)
+      at TypeScriptParserMixin.jsxParseElement (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4749:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4759:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10831:21)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9775:39
+      at TypeScriptParserMixin.tryParse (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6907:20)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9775:18)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12426:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10800:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12493:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11675:28)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOpBaseRightExpr (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10986:34)
+      at TypeScriptParserMixin.parseExprOpRightExpr (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10981:21)
+      at TypeScriptParserMixin.parseExprOp (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10947:27)
+      at TypeScriptParserMixin.parseExprOp (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9306:18)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10908:17)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9786:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10784:23)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:39
+      at TypeScriptParserMixin.allowInAnd (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12426:12)
+      at TypeScriptParserMixin.parseExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:17)
+      at TypeScriptParserMixin.jsxParseExpressionContainer (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4632:31)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4711:36)
+      at TypeScriptParserMixin.jsxParseElement (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4749:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4759:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10904:23)
+[2m8:53:27 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Users\gurbaj\Downloads\f\artifacts\examtree\src\pages\admin.tsx: Unexpected character '‬'. (1:15)
+
+[0m[31m[1m>[22m[31m[90m 1 |[31m ﻿浩潰瑲笠甠敳瑓瑡ⱥ甠敳晅敦瑣‬獵剥晥‬獵䍥污扬捡⁫⁽牦浯∠敲捡≴഻椊灭牯⁴⁻獵入敵祲‬獵入敵祲汃敩瑮素映潲⁭䀢慴獮慴正爯慥瑣焭敵祲㬢਍浩潰瑲笠甠敳潌慣楴湯素映潲⁭眢畯整≲഻椊灭牯⁴⁻湯畁桴瑓瑡䍥慨杮摥素映潲⁭昢物扥獡⽥畡桴㬢਍浩潰瑲笠਍†獕牥ⱳ䈠潯佫数Ɱ䠠汥䍰物汣ⱥ䄠瑣癩瑩ⱹ倠畬ⱳ䔠楤ⱴ吠慲桳ⰲ匠慥捲ⱨ਍†ⱘ䌠敨正‬汁牥呴楲湡汧ⱥ吠条‬慐正条ⱥ਍⁽牦浯∠畬楣敤爭慥瑣㬢਍浩潰瑲笠਍†敧啴敳Ⱳ਍†摡䅤浤湩慃整潧祲ബ 愠摤摁業兮敵瑳潩Ɱ਍†摡䅤浤湩畓换瑡来牯ⱹ਍†摡䅤浤湩敔瑳ബ 甠摰瑡䅥浤湩慃整潧祲ബ 猠癡䅥浤湩慃整潧楲獥‬慳敶摁業卮扵慣整潧楲獥‬慳敶摁業呮獥獴‬慳敶摁業兮敵瑳潩獮ബ 洠牡卫敥敤Ɽ栠摹慲整摁業䑮瑡䙡潲䍭潬摵‬慰獵䅥浤湩汃畯卤湹Ᵽ爠獥浵䅥浤湩汃畯卤湹Ᵽ਍†敧䅴浤湩畑獥楴湯ⱳ਍†祴数䄠浤湩慃整潧祲‬祴数䄠浤湩畓换瑡来牯ⱹ琠灹⁥摁業呮獥ⱴ琠灹⁥摁業兮敵瑳潩Ɱ琠灹⁥敔瑳捁散獳‬祴数吠獥䭴湩Ɽ਍⁽牦浯∠⽀楬⽢瑳牯条≥഻椊灭牯⁴ൻ 愠摤慃整潧祲ബ 愠摤畑獥楴湯ബ 戠汵䅫摤畑獥楴湯ⱳ਍†摡卤扵慣整潧祲ബ 愠摤敔瑳ബ 搠汥瑥䍥瑡来牯ⱹ਍†敤敬整畑獥楴湯ബ 搠汥瑥卥扵慣整潧祲ബ 搠汥瑥呥獥ⱴ਍†敧䅴浤湩湓灡桳瑯ബ 甠摰瑡䍥瑡来牯ⱹ਍†灵慤整畑獥楴湯ബ 甠摰瑡卥扵慣整潧祲ബ 甠摰瑡呥獥ⱴ਍⁽牦浯∠⽀楬⽢摡業⵮敲潰㬢਍浩潰瑲笠 挠敲瑡健捡慫敧ਬ†敧呴獥獴愠⁳敦捴䉨捡敫摮敔瑳ⱳ 朠瑥慐正条獥ਬ†牣慥整畂摮敬ਬ†敧䉴湵汤獥ਬ†敧却捥楴湯ⱳ 朠瑥汁呬灯捩ⱳ 挠敲瑡呥灯捩ਬ†敲慮敭潔楰Ᵽ 搠汥瑥呥灯捩ਬ†牣慥整敓瑣潩Ɱ 搠汥瑥卥捥楴湯ਬ†楬瑳慐瑴牥獮ਬ†楬瑳畑獥楴湯敔灭慬整ⱳ 猠癡入敵瑳潩呮浥汰瑡ⱥ 朠湥牥瑡入敵瑳潩䉮湡八敵瑳潩獮ਬ†祴数䴠獡整卲捥楴湯ਬ†祴数䴠獡整呲灯捩ਬ†祴数䴠捯呫獥䉴極摬牥敓瑣潩䥮灮瑵ਬ†祴数䴠捯呫獥䉴極摬牥畑獥楴湯ਬ†祴数儠敵瑳潩呮浥汰瑡ⱥ 琠灹⁥慐瑴牥佮瑰潩Ɱ紊映潲⁭䀢氯扩搯瑡≡਻浩潰瑲笠朠瑥楆敲慢敳畁桴素映潲⁭䀢氯扩是物扥獡≥഻椊灭牯⁴⁻灵敳瑲獕牥牐景汩⁥⁽牦浯∠⽀楬⽢畡桴㬢਍浩潰瑲笠挠敬湡畐橮扡呩硥⁴⁽牦浯∠⽀楬⽢異橮扡⵩瑵汩≳഻椊灭牯⁴⁻畂瑴湯素映潲⁭䀢振浯潰敮瑮⽳極戯瑵潴≮഻椊灭牯⁴⁻湉異⁴⁽牦浯∠⽀潣灭湯湥獴甯⽩湩異≴഻椊灭牯⁴⁻慌敢⁬⁽牦浯∠⽀潣灭湯湥獴甯⽩慬敢≬഻椊灭牯⁴⁻楄污杯‬楄污杯潃瑮湥ⱴ䐠慩潬䡧慥敤Ⱳ䐠慩潬呧瑩敬‬楄污杯潆瑯牥素映潲⁭䀢振浯潰敮瑮⽳極搯慩潬≧਻浩潰瑲笠甠敳潔獡⁴⁽牦浯∠⽀潨歯⽳獵ⵥ潴獡≴਻浩潰瑲儠敵瑳潩䉮湡呫扡映潲⁭䀢振浯潰敮瑮⽳畑獥楴湯慂歮慔≢਻浩潰瑲笠䐠卩瑥慍慮敧⁲⁽牦浯∠⽀潣灭湯湥獴䐯卩瑥慍慮敧≲਻浩潰瑲䄠獳杩䙮潲䉭湡䑫慩潬⁧牦浯∠⽀潣灭湯湥獴䄯獳杩䙮潲䉭湡䑫慩潬≧਻浩潰瑲笠䌠瑡来牯䥹潣Ɱ椠䥳慭敧捉湯素映潲⁭䀢振浯潰敮瑮⽳慃整潧祲捉湯㬢ഊ挊湯瑳椠䅳浤湩獕牥㴠⠠潲敬㨿猠牴湩⥧㴠‾潲敬㴠㴽∠摡業≮഻ഊ昊湵瑣潩⁮敧䅴浤湩捁楴湯牅潲䵲獥慳敧攨牲牯›湵湫睯⥮笠਍†敲畴湲攠牲牯椠獮慴据潥⁦牅潲⁲‿牥潲⹲敭獳条⁥›䄢浤湩愠瑣潩⁮慦汩摥∮഻紊਍਍潣獮⁴䥄䙆䍉䱕奔䍟䱏剏㩓删捥牯㱤瑳楲杮‬瑳楲杮‾‽ൻ 䔠獡㩹∠杢攭敭慲摬ㄭ〰琠硥⵴浥牥污ⵤ〷‰慤歲戺ⵧ浥牥污ⵤ〹⼰〳搠牡㩫整瑸攭敭慲摬㐭〰Ⱒ਍†敍楤浵›戢ⵧ浡敢⵲〱‰整瑸愭扭牥㜭〰搠牡㩫杢愭扭牥㤭〰㌯‰慤歲琺硥⵴浡敢⵲〴∰ബ 䠠牡㩤∠杢爭摥ㄭ〰琠硥⵴敲ⵤ〷‰慤歲戺ⵧ敲ⵤ〹⼰〳搠牡㩫整瑸爭摥㐭〰Ⱒ਍㭽਍਍潣獮⁴䕔呓䭟义彄䅌䕂卌›敒潣摲吼獥䭴湩Ɽ猠牴湩㹧㴠笠਍†昢汵⵬敬杮桴㨢∠畆汬䰠湥瑧≨ബ 猠捥楴湯污›匢捥楴湯污Ⱒ਍†琢灯捩眭獩≥›吢灯捩圠獩≥ബ紊഻ഊ挊湯瑳吠卅彔䍁䕃卓䱟䉁䱅㩓删捥牯㱤敔瑳捁散獳‬瑳楲杮‾‽੻†牦敥›䘢敲≥ਬ†慰摩›倢楡≤ਬ㭽ਊ潣獮⁴啑卅䥔乏呟䵅䱐呁彅剐卅呅㩓䄠牲祡笼 椠㩤猠牴湩㭧 渠浡㩥猠牴湩㭧 搠獥牣灩楴湯›瑳楲杮਻†整灭慬整›潍正敔瑳畂汩敤卲捥楴湯湉異㭴紊‾‽ਜ਼†੻††摩›焢慵瑮猭慴瑲牥Ⱒ †渠浡㩥∠畑湡⁴瑓牡整≲ਬ††敤捳楲瑰潩㩮∠⁁潣灭捡⁴畱湡⁴整灭慬整映牯愠楲桴敭楴⁣湡⁤畮扭牥猠獹整獭∮ਬ††整灭慬整›੻†††敳瑣潩㩮∠畱湡≴ਬ†††潴楰㩣∠畮扭牥≳ਬ†††畳瑢灯捩›渢浵敢⁲祳瑳浥Ⱒ ††搠晩楦畣瑬㩹∠慥祳Ⱒ ††瀠瑡整湲摉㩳嬠ⱝ ††焠敵瑳潩䍮畯瑮›ⰵ †素ਬ†ⱽ 笠 †椠㩤∠敲獡湯湩ⵧ瑳牡整≲ਬ††慮敭›刢慥潳楮杮匠慴瑲牥Ⱒ †搠獥牣灩楴湯›䴢硩摥爠慥潳楮杮琠浥汰瑡⁥楷桴猠煥敵据湩⁧湡⁤異空敬⹳Ⱒ †琠浥汰瑡㩥笠 ††猠捥楴湯›爢慥潳楮杮Ⱒ ††琠灯捩›愢牲湡敧敭瑮Ⱒ ††猠扵潴楰㩣∠敳瑡湩⁧牡慲杮浥湥≴ਬ†††楤晦捩汵祴›洢摥畩≭ਬ†††慰瑴牥䥮獤›嵛ਬ†††畱獥楴湯潃湵㩴㔠ਬ††ⱽ 素ਬ†੻††摩›攢杮楬桳猭慴瑲牥Ⱒ †渠浡㩥∠湅汧獩⁨瑓牡整≲ਬ††敤捳楲瑰潩㩮∠潖慣畢慬祲‬牧浡慭Ⱳ愠摮爠慥楤杮洠硩∮ਬ††整灭慬整›੻†††敳瑣潩㩮∠湥汧獩≨ਬ†††潴楰㩣∠牧浡慭≲ਬ†††畳瑢灯捩›攢牲牯猠潰瑴湩≧ਬ†††楤晦捩汵祴›洢摥畩≭ਬ†††慰瑴牥䥮獤›嵛ਬ†††畱獥楴湯潃湵㩴㔠ਬ††ⱽ 素ਬ†੻††摩›洢硩摥昭汵≬ਬ††慮敭›䴢硩摥䘠汵⁬敔瑳Ⱒ †搠獥牣灩楴湯›䄢戠污湡散⁤畦汬氭湥瑧⁨瑳牡整⁲捡潲獳愠汬猠捥楴湯⹳Ⱒ †琠浥汰瑡㩥笠 ††猠捥楴湯›朢湥牥污Ⱒ ††琠灯捩›挢牵敲瑮愠晦楡獲Ⱒ ††猠扵潴楰㩣∠敲散瑮攠敶瑮≳ਬ†††楤晦捩汵祴›攢獡≹ਬ†††慰瑴牥䥮獤›嵛ਬ†††畱獥楴湯潃湵㩴㔠ਬ††ⱽ 素ਬ㭝ഊ⼊ 铢肔匠捥楴湯⁳慴ⵧ湩異⁴潣灭湯湥⁴铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔铢肔਍畦据楴湯匠捥楴湯䥳灮瑵笨਍†敳瑣潩獮ബ 漠䍮慨杮ⱥ਍㩽笠਍†敳瑣潩獮›瑳楲杮嵛഻ 漠䍮慨杮㩥⠠㩳猠牴湩孧⥝㴠‾潶摩഻紊
+ [90m   |[31m                [31m[1m^[22m[31m
+ [90m 2 |[31m ൻ 挠湯瑳嬠湩異ⱴ猠瑥湉異嵴㴠甠敳瑓瑡⡥∢㬩਍†潣獮⁴湩異剴晥㴠甠敳敒㱦呈䱍湉異䕴敬敭瑮⠾畮汬㬩਍਍†潣獮⁴摡⁤‽⤨㴠‾ൻ †挠湯瑳瘠污㴠椠灮瑵琮楲⡭㬩਍††晩⠠慶⁬☦℠敳瑣潩獮椮据畬敤⡳慶⥬
+ [90m 3 |[31m 湯桃湡敧嬨⸮献捥楴湯ⱳ瘠污⥝഻ †猠瑥湉異⡴∢㬩਍†㭽਍਍†潣獮⁴敲潭敶㴠⠠㩳猠牴湩⥧㴠‾湯桃湡敧猨捥楴湯⹳楦瑬牥⠨⥸㴠‾⁸㴡‽⥳㬩਍਍†敲畴湲⠠਍††搼癩ാ ††㰠慌敢㹬敓瑣潩獮⼼慌敢㹬਍†††搼癩਍††††汣獡乳浡㵥洢⵴‱業⵮⵨㍛瀸嵸映敬⁸汦硥眭慲⁰慧⵰⸱‵瑩浥⵳散瑮牥瀠⵸″祰ㄭ㔮戠ⵧ慢正牧畯摮戠牯敤⁲潢摲牥椭灮瑵爠畯摮摥氭⁧潦畣⵳楷桴湩爺湩ⵧ′潦畣⵳楷桴湩爺湩ⵧ楲杮挠牵潳⵲整瑸ഢ †††漠䍮楬正笽⤨㴠‾湩異剴晥挮牵敲瑮⸿潦畣⡳紩਍†††ാ †††笠敳瑣潩獮洮灡⠨⥳㴠‾ന ††††㰠灳湡਍††††††敫㵹獻ൽ †††††挠慬獳慎敭∽汦硥椠整獭挭湥整⁲慧⵰‱杢瀭楲慭祲ㄯ‰整瑸瀭楲慭祲琠硥⵴獸映湯⵴敭楤浵瀠⵸′祰〭㔮爠畯摮摥洭≤਍†††††ാ †††††笠絳਍††††††戼瑵潴൮ ††††††琠灹㵥戢瑵潴≮਍†††††††湯汃捩㵫⡻⥥㴠‾⁻⹥瑳灯牐灯条瑡潩⡮㬩爠浥癯⡥⥳※絽਍†††††††汣獡乳浡㵥栢癯牥琺硥⵴敤瑳畲瑣癩⁥牴湡楳楴湯挭汯牯≳਍††††††ാ ††††††㰠⁘汣獡乳浡㵥眢㌭栠㌭•㸯਍††††††⼼畢瑴湯ാ ††††㰠猯慰㹮਍††††⤩ൽ †††㰠湩異൴ ††††爠晥笽湩異剴晥ൽ ††††挠慬獳慎敭∽汦硥ㄭ洠湩眭㈭‴杢琭慲獮慰敲瑮琠硥⵴浳漠瑵楬敮渭湯⁥汰捡桥汯敤㩲整瑸洭瑵摥昭牯来潲湵≤਍†††††汰捡桥汯敤㵲獻捥楴湯⹳敬杮桴㴠㴽〠㼠∠祔数愠猠捥楴湯‬牰獥⁳湅整⁲牯挠浯慭胢⊦㨠∠摁⁤潭敲胢⊦ൽ ††††瘠污敵笽湩異絴਍†††††湯桃湡敧笽攨
+ [90m 4 |[31m 㸽猠瑥湉異⡴⹥慴杲瑥瘮污敵紩਍†††††湯敋䑹睯㵮⡻⥥㴠‾ൻ †††††椠⁦攨欮祥㴠㴽∠湅整≲簠⁼⹥敫⁹㴽‽Ⱒ⤢笠攠瀮敲敶瑮敄慦汵⡴㬩愠摤⤨※ൽ †††††椠⁦攨欮祥㴠㴽∠慂正灳捡≥☠…椡灮瑵☠…敳瑣潩獮氮湥瑧⥨爠浥癯⡥敳瑣潩獮獛捥楴湯⹳敬杮桴ⴠㄠ⥝഻ ††††素ൽ †††⼠ാ ††㰠搯癩ാ ††㰠⁰汣獡乳浡㵥琢硥⵴ㅛ瀱嵸琠硥⵴畭整ⵤ潦敲牧畯摮洠⵴∱倾敲獳䔠瑮牥漠⁲潣浭⁡潴愠摤‮慂正灳捡⁥敲潭敶⁳慬瑳㰮瀯ാ †㰠搯癩ാ ⤠഻紊਍਍⼯肔铢₀敓瑣潩獮瀠捩敫⁲洨獡整⵲慴汢⁥慢正摥‬潮映敲⁥整瑸[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Users/gurbaj/Downloads/f/artifacts/examtree/src/pages/admin.tsx[39m:1:15
+[33m  1  |  ﻿浩潰瑲笠甠敳瑓瑡ⱥ甠敳晅敦瑣‬獵剥晥‬獵䍥污扬捡⁫⁽牦浯∠敲捡≴഻椊灭牯⁴⁻獵入敵祲‬獵入敵祲汃敩瑮素映潲⁭䀢慴獮慴正爯慥瑣焭敵祲㬢਍浩潰瑲笠甠敳潌慣楴湯素映潲⁭眢畯整≲഻椊灭牯⁴⁻湯畁桴瑓瑡䍥慨杮摥素映潲⁭昢物扥獡⽥畡桴㬢਍浩潰瑲...
+     |                 ^
+  2  |  [39m
+      at constructor (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6599:19)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6306:16)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4797:11)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9987:11)
+      at TypeScriptParserMixin.nextToken (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:5782:10)
+      at TypeScriptParserMixin.next (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:5692:10)
+      at TypeScriptParserMixin.parseIdentifierName (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12213:10)
+      at TypeScriptParserMixin.parseIdentifier (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12181:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11416:27)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9786:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10784:23)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:39
+      at TypeScriptParserMixin.allowInAnd (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12421:16)
+      at TypeScriptParserMixin.parseExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:17)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12895:23)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12612:25)
+      at TypeScriptParserMixin.parse (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:14488:25)
+      at TypeScriptParserMixin.parse (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10126:18)
+      at parse (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:14522:38)
+      at parser (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+core@7.29.0\node_modules\@babel\core\lib\parser\index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+core@7.29.0\node_modules\@babel\core\lib\transformation\normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+core@7.29.0\node_modules\@babel\core\lib\transformation\index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+core@7.29.0\node_modules\@babel\core\lib\transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\gensync@1.0.0-beta.2\node_modules\gensync\index.js:261:32)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\gensync@1.0.0-beta.2\node_modules\gensync\index.js:273:13
+      at async.call.result.err.err (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\gensync@1.0.0-beta.2\node_modules\gensync\index.js:223:11)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\gensync@1.0.0-beta.2\node_modules\gensync\index.js:189:28
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+core@7.29.0\node_modules\@babel\core\lib\gensync-utils\async.js:67:7
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\gensync@1.0.0-beta.2\node_modules\gensync\index.js:113:33
+      at step (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\gensync@1.0.0-beta.2\node_modules\gensync\index.js:287:14)
+[2m8:53:53 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Users\gurbaj\Downloads\f\artifacts\examtree\src\pages\admin.tsx: Unexpected token (1720:0)
+
+[0m [90m 1718 |[31m         [36mconst[31m opts [33m=[31m [[32m"optiona_en"[31m[33m,[31m [32m"optionb_en"[31m[33m,[31m [32m"optionc_en"[31m[33m,[31m [32m"optiond_en"[31m][33m;[31m
+ [90m 1719 |[31m         [36mif[31m (opts[33m.[31msome((o) [33m=>[31m [33m![31m[36mget[31m(cells[33m,[31m o))) rowErrors[33m.[31mpush([32m"English option(s) missing"[31m)[33m;[31m
+[31m[1m>[22m[31m[90m 1720 |[31m
+ [90m      |[31m [31m[1m^[22m[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Users/gurbaj/Downloads/f/artifacts/examtree/src/pages/admin.tsx[39m:1720:0
+      at constructor (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6599:19)
+      at TypeScriptParserMixin.unexpected (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:6619:16)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11442:22)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9786:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10784:23)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:39
+      at TypeScriptParserMixin.allowInAnd (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12421:16)
+      at TypeScriptParserMixin.parseExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10780:17)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12895:23)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12747:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13316:61)
+      at TypeScriptParserMixin.parseBlockBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13309:10)
+      at TypeScriptParserMixin.parseBlock (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13297:10)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12858:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12767:17)
+      at TypeScriptParserMixin.parseStatement (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12760:17)
+      at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13345:68
+      at TypeScriptParserMixin.withSmartMixTopicForbiddingContext (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12403:14)
+      at TypeScriptParserMixin.parseFor (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13345:22)
+      at TypeScriptParserMixin.parseForStatement (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13092:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12785:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12747:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13316:61)
+      at TypeScriptParserMixin.parseBlockBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13309:10)
+      at TypeScriptParserMixin.parseBlock (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:13297:10)
+      at TypeScriptParserMixin.parseFunctionBody (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12100:24)
+      at TypeScriptParserMixin.parseArrowExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:12075:10)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11687:12)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\@babel+parser@7.29.2\node_modules\@babel\parser\lib\index.js:10899:61)

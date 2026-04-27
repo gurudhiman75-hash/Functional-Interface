@@ -322,6 +322,8 @@ router.get("/weak-areas", authenticate, async (req, res) => {
       const empty: WeakAreasResponse = {
         weakestSections: [],
         strongestSections: [],
+        weakestTopics: [],
+        strongestTopics: [],
         recommendations: ["Complete at least one exam to see your weak area analysis."],
       };
       return res.json(empty);

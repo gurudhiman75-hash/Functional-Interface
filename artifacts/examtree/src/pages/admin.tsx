@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { onAuthStateChanged } from "firebase/auth";
@@ -34,7 +34,32 @@ import {
   updateSubcategory,
   updateTest,
 } from "@/lib/admin-repo";
-import { createPackage, getTests as fetchBackendTests, getPackages, createBundle, getBundles, getSections, getAllTopics, createTopic, renameTopic, deleteTopic, createSection, deleteSection, type MasterSection, type MasterTopic } from "@/lib/data";
+import {
+  createPackage,
+  getTests as fetchBackendTests,
+  getPackages,
+  createBundle,
+  getBundles,
+  getSections,
+  getAllTopics,
+  createTopic,
+  renameTopic,
+  deleteTopic,
+  createSection,
+  deleteSection,
+  listPatterns,
+  listQuestionTemplates,
+  saveQuestionTemplate,
+  updateQuestionTemplate,
+  deleteQuestionTemplate,
+  generateQuestionBankQuestions,
+  type MasterSection,
+  type MasterTopic,
+  type MockTestBuilderSectionInput,
+  type MockTestBuilderQuestion,
+  type QuestionTemplate,
+  type PatternOption,
+} from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
 import { cleanPunjabiText } from "@/lib/punjabi-utils";
@@ -70,6 +95,66 @@ const TEST_ACCESS_LABELS: Record<TestAccess, string> = {
   free: "Free",
   paid: "Paid",
 };
+
+const QUESTION_TEMPLATE_PRESETS: Array<{
+  id: string;
+  name: string;
+  description: string;
+  template: MockTestBuilderSectionInput;
+}> = [
+  {
+    id: "quant-interest",
+    name: "Quant Interest",
+    description: "Simple interest subtopic template for quant question bank generation.",
+    template: {
+      section: "quant",
+      topic: "interest",
+      subtopic: "simple interest",
+      difficulty: "medium",
+      patternIds: [],
+      questionCount: 5,
+    },
+  },
+  {
+    id: "reasoning-series",
+    name: "Reasoning Series",
+    description: "Number series subtopic template for reasoning practice.",
+    template: {
+      section: "reasoning",
+      topic: "series",
+      subtopic: "number series",
+      difficulty: "easy",
+      patternIds: [],
+      questionCount: 5,
+    },
+  },
+  {
+    id: "english-grammar",
+    name: "English Grammar",
+    description: "Grammar-focused template for bank question generation.",
+    template: {
+      section: "english",
+      topic: "grammar",
+      subtopic: "error spotting",
+      difficulty: "medium",
+      patternIds: [],
+      questionCount: 5,
+    },
+  },
+  {
+    id: "general-current",
+    name: "General Current",
+    description: "General awareness template for current affairs questions.",
+    template: {
+      section: "general",
+      topic: "current affairs",
+      subtopic: "recent events",
+      difficulty: "easy",
+      patternIds: [],
+      questionCount: 5,
+    },
+  },
+];
 
 // ── Sections tag-input component ──────────────────────────────────────────────
 function SectionsInput({
@@ -794,7 +879,7 @@ export default function Admin() {
   const user = getUser();
   const { toast } = useToast();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "sections" | "question-bank" | "di-sets">("categories");
+  const [tab, setTab] = useState<"categories" | "subcategories" | "tests" | "questions" | "packages" | "bundles" | "question-generator" | "sections" | "question-bank" | "di-sets">("categories");
   const [search, setSearch] = useState("");
 
   const [cats, setCats] = useState<AdminCategory[]>([]);
@@ -830,6 +915,12 @@ export default function Admin() {
     queryKey: ["master-topics"],
     queryFn: getAllTopics,
     staleTime: 0,
+  });
+  const { data: generatorPatterns = [] } = useQuery<PatternOption[]>({
+    queryKey: ["generator-patterns"],
+    queryFn: listPatterns,
+    staleTime: 60_000,
+    enabled: tab === "question-generator",
   });
   const [bulkJson, setBulkJson] = useState("");
   const [bulkError, setBulkError] = useState<string | null>(null);
@@ -897,6 +988,22 @@ export default function Admin() {
     packageIds: [] as string[],
   });
   const [bundleBusy, setBundleBusy] = useState(false);
+  const { data: questionTemplates = [], refetch: refetchQuestionTemplates } = useQuery<QuestionTemplate[]>({
+    queryKey: ["question-templates"],
+    queryFn: listQuestionTemplates,
+    staleTime: 30_000,
+    enabled: tab === "question-generator",
+  });
+  const [questionTemplateName, setQuestionTemplateName] = useState("");
+  const [selectedQuestionTemplateId, setSelectedQuestionTemplateId] = useState("");
+  const [questionGeneratorDraft, setQuestionGeneratorDraft] = useState<MockTestBuilderSectionInput>(QUESTION_TEMPLATE_PRESETS[0].template);
+  const [questionGeneratorBusy, setQuestionGeneratorBusy] = useState(false);
+  const [questionGeneratorError, setQuestionGeneratorError] = useState<string | null>(null);
+  const [questionGeneratorResult, setQuestionGeneratorResult] = useState<{
+    template: MockTestBuilderSectionInput;
+    questions: MockTestBuilderQuestion[];
+    totalQuestions: number;
+  } | null>(null);
   const pkgFinalPrice = Math.round(
     Number(pkgForm.originalPriceCents) * (1 - Number(pkgForm.discountPercent) / 100),
   );
@@ -1461,6 +1568,105 @@ export default function Admin() {
     }
   };
 
+  const handleSelectQuestionTemplate = (templateId: string) => {
+    setSelectedQuestionTemplateId(templateId);
+    if (!templateId) {
+      return;
+    }
+    const template = questionTemplates.find((item) => item.id === templateId);
+    if (!template) {
+      return;
+    }
+    setQuestionTemplateName(template.name);
+    setQuestionGeneratorDraft({
+      ...template.template,
+      patternIds: [...template.template.patternIds],
+    });
+  };
+
+  const handleApplyQuestionTemplatePreset = (presetId: string) => {
+    const preset = QUESTION_TEMPLATE_PRESETS.find((item) => item.id === presetId);
+    if (!preset) {
+      return;
+    }
+    setSelectedQuestionTemplateId("");
+    setQuestionTemplateName(preset.name);
+    setQuestionGeneratorDraft({
+      ...preset.template,
+      patternIds: [...preset.template.patternIds],
+    });
+    setQuestionGeneratorError(null);
+    setQuestionGeneratorResult(null);
+  };
+
+  const handleSaveQuestionTemplate = async () => {
+    setQuestionGeneratorError(null);
+    if (!questionTemplateName.trim()) {
+      setQuestionGeneratorError("Give the template a name before saving it to the library.");
+      return;
+    }
+    if (!questionGeneratorDraft.topic.trim() || !questionGeneratorDraft.subtopic.trim()) {
+      setQuestionGeneratorError("Template needs both topic and subtopic.");
+      return;
+    }
+    try {
+      const payload = {
+        name: questionTemplateName.trim(),
+        template: questionGeneratorDraft,
+      };
+      const saved = selectedQuestionTemplateId
+        ? await updateQuestionTemplate(selectedQuestionTemplateId, payload)
+        : await saveQuestionTemplate(payload);
+      setSelectedQuestionTemplateId(saved.id);
+      await refetchQuestionTemplates();
+      toast({ title: "Template saved", description: `"${saved.name}" is now in the template library.` });
+    } catch (error) {
+      setQuestionGeneratorError(getAdminActionErrorMessage(error));
+      toast({ title: "Template save failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
+  };
+
+  const handleDeleteQuestionTemplate = async (templateId: string) => {
+    try {
+      await deleteQuestionTemplate(templateId);
+      if (selectedQuestionTemplateId === templateId) {
+        setSelectedQuestionTemplateId("");
+      }
+      await refetchQuestionTemplates();
+      toast({ title: "Template deleted" });
+    } catch (error) {
+      toast({ title: "Template delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
+  };
+
+  const handleGenerateQuestionBank = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setQuestionGeneratorError(null);
+    if (!questionGeneratorDraft.topic.trim() || !questionGeneratorDraft.subtopic.trim()) {
+      setQuestionGeneratorError("Template needs both topic and subtopic.");
+      return;
+    }
+    setQuestionGeneratorBusy(true);
+    try {
+      const result = await generateQuestionBankQuestions(
+        selectedQuestionTemplateId
+          ? { templateId: selectedQuestionTemplateId }
+          : { template: questionGeneratorDraft },
+      );
+      setQuestionGeneratorResult(result);
+      toast({
+        title: "Questions generated",
+        description: `${result.totalQuestions} questions saved to the question bank.`,
+      });
+    } catch (error) {
+      const message = getAdminActionErrorMessage(error);
+      setQuestionGeneratorError(message);
+      toast({ title: "Question generation failed", description: message, variant: "destructive" });
+    } finally {
+      setQuestionGeneratorBusy(false);
+    }
+  };
+
   const handleBulkUpload = async () => {
     setBulkError(null);
     if (!questionTestId || !bulkJson.trim()) {
@@ -1852,7 +2058,7 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 glass-panel border border-border/70 rounded-2xl w-fit mb-6 shadow-sm flex-wrap">
-          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "sections", "question-bank", "di-sets"] as const).map((t) => (
+          {(["categories", "subcategories", "tests", "questions", "packages", "bundles", "question-generator", "sections", "question-bank", "di-sets"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -1862,7 +2068,7 @@ export default function Admin() {
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent"
               }`}
             >
-              {t === "question-bank" ? "Question Bank" : t === "di-sets" ? "DI Sets" : t}
+              {t === "question-bank" ? "Question Bank" : t === "di-sets" ? "DI Sets" : t === "question-generator" ? "Question Generator" : t}
             </button>
           ))}
         </div>
@@ -3543,6 +3749,201 @@ export default function Admin() {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {tab === "question-generator" && (
+          <div className="space-y-5 animate-fadeIn">
+            <div className="glass-panel rounded-2xl p-6 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                <Check className="w-4 h-4 text-primary" /> Question Generator
+              </h3>
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <div className="rounded-2xl border border-border/70 bg-background/70 p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Saved Templates</p>
+                      <p className="text-xs text-muted-foreground mt-1">Subtopic-level configs you can reuse later.</p>
+                    </div>
+                    <Button type="button" variant="outline" size="sm" onClick={handleSaveQuestionTemplate}>
+                      {selectedQuestionTemplateId ? "Update Template" : "Save Template"}
+                    </Button>
+                  </div>
+                  <div className="mt-3 space-y-2">
+                    <button type="button" className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${selectedQuestionTemplateId === "" ? "border-primary bg-primary/5 text-primary" : "border-border bg-background"}`} onClick={() => { setSelectedQuestionTemplateId(""); setQuestionTemplateName(""); }}>
+                      Start from scratch
+                    </button>
+                    {questionTemplates.length === 0 ? (
+                      <p className="rounded-xl border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">No saved templates yet.</p>
+                    ) : (
+                      questionTemplates.map((template) => (
+                        <button
+                          key={template.id}
+                          type="button"
+                          className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${selectedQuestionTemplateId === template.id ? "border-primary bg-primary/5 text-primary" : "border-border bg-background"}`}
+                          onClick={() => handleSelectQuestionTemplate(template.id)}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-medium">{template.name}</span>
+                            <span className="flex items-center gap-2">
+                              <span className="text-xs text-muted-foreground">{template.template.section}</span>
+                              <button
+                                type="button"
+                                className="rounded-full px-2 py-0.5 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteQuestionTemplate(template.id);
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </span>
+                          </div>
+                          <p className="mt-1 text-xs text-muted-foreground">{template.template.topic} / {template.template.subtopic}</p>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-border/70 bg-background/70 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Preset Templates</p>
+                  <div className="mt-3 space-y-2">
+                    {QUESTION_TEMPLATE_PRESETS.map((preset) => (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        className="w-full rounded-xl border border-border bg-background px-3 py-2 text-left text-sm hover:border-primary/40"
+                        onClick={() => handleApplyQuestionTemplatePreset(preset.id)}
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-medium">{preset.name}</span>
+                          <span className="text-xs text-muted-foreground">{preset.template.section}</span>
+                        </div>
+                        <p className="mt-1 text-xs text-muted-foreground">{preset.description}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <form onSubmit={handleGenerateQuestionBank} className="mt-5 space-y-4">
+                <div>
+                  <Label htmlFor="question-template-name">Template Name</Label>
+                  <Input
+                    id="question-template-name"
+                    className="mt-1"
+                    placeholder="Name this reusable subtopic template"
+                    value={questionTemplateName}
+                    onChange={(e) => setQuestionTemplateName(e.target.value)}
+                  />
+                </div>
+
+                <div className="grid gap-3 md:grid-cols-2">
+                  <div>
+                    <Label>Section</Label>
+                    <select
+                      className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+                      value={questionGeneratorDraft.section}
+                      onChange={(e) => setQuestionGeneratorDraft((current) => ({ ...current, section: e.target.value as MockTestBuilderSectionInput["section"] }))}
+                    >
+                      <option value="quant">Quant</option>
+                      <option value="reasoning">Reasoning</option>
+                      <option value="english">English</option>
+                      <option value="general">General</option>
+                    </select>
+                  </div>
+                  <div>
+                    <Label>Difficulty</Label>
+                    <select
+                      className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+                      value={questionGeneratorDraft.difficulty}
+                      onChange={(e) => setQuestionGeneratorDraft((current) => ({ ...current, difficulty: e.target.value as MockTestBuilderSectionInput["difficulty"] }))}
+                    >
+                      <option value="easy">Easy</option>
+                      <option value="medium">Medium</option>
+                      <option value="hard">Hard</option>
+                    </select>
+                  </div>
+                  <div>
+                    <Label>Topic</Label>
+                    <Input className="mt-1" value={questionGeneratorDraft.topic} onChange={(e) => setQuestionGeneratorDraft((current) => ({ ...current, topic: e.target.value }))} />
+                  </div>
+                  <div>
+                    <Label>Subtopic</Label>
+                    <Input className="mt-1" value={questionGeneratorDraft.subtopic} onChange={(e) => setQuestionGeneratorDraft((current) => ({ ...current, subtopic: e.target.value }))} />
+                  </div>
+                  <div>
+                    <Label>Question Count</Label>
+                    <Input type="number" min="1" className="mt-1" value={questionGeneratorDraft.questionCount} onChange={(e) => setQuestionGeneratorDraft((current) => ({ ...current, questionCount: Math.max(1, Number(e.target.value) || 1) }))} />
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Pattern Templates</Label>
+                  <select
+                    multiple
+                    size={4}
+                    className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+                    value={questionGeneratorDraft.patternIds}
+                    onChange={(e) => {
+                      const select = e.currentTarget;
+                      const selected = Array.from(select.options)
+                        .filter((option) => option.selected)
+                        .map((option) => option.value);
+                      setQuestionGeneratorDraft((current) => ({ ...current, patternIds: selected }));
+                    }}
+                  >
+                    {generatorPatterns.filter((pattern) => {
+                      const topicMatch = !questionGeneratorDraft.topic.trim() || pattern.topic.toLowerCase().includes(questionGeneratorDraft.topic.trim().toLowerCase());
+                      const subtopicMatch = !questionGeneratorDraft.subtopic.trim() || pattern.subtopic.toLowerCase().includes(questionGeneratorDraft.subtopic.trim().toLowerCase());
+                      return pattern.section === questionGeneratorDraft.section && topicMatch && subtopicMatch;
+                    }).map((pattern) => (
+                      <option key={pattern.id} value={pattern.id}>
+                        {pattern.name} - {pattern.topic} / {pattern.subtopic}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {questionGeneratorError && <p className="text-sm text-destructive">{questionGeneratorError}</p>}
+
+                <div className="flex justify-end gap-2">
+                  <Button type="button" variant="outline" onClick={handleSaveQuestionTemplate}>Save Template</Button>
+                  <Button type="submit" disabled={questionGeneratorBusy}>{questionGeneratorBusy ? "Generating..." : "Generate Questions"}</Button>
+                </div>
+              </form>
+            </div>
+
+            {questionGeneratorResult && (
+              <div className="glass-panel rounded-2xl p-6 shadow-sm">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <h3 className="font-semibold text-foreground">Generated Questions</h3>
+                    <p className="text-xs text-muted-foreground">
+                      {questionGeneratorResult.totalQuestions} questions for {questionGeneratorResult.template.topic} / {questionGeneratorResult.template.subtopic}
+                    </p>
+                  </div>
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Saved to bank</span>
+                </div>
+                <div className="space-y-3">
+                  {questionGeneratorResult.questions.map((question, index) => (
+                    <div key={question.id ?? index} className="rounded-xl border border-border/70 bg-muted/20 p-3">
+                      <p className="text-sm font-medium">{index + 1}. {question.questionText}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">Pattern: {question.patternName} | Score: {question.qualityScore}</p>
+                      <div className="mt-3 grid gap-2 md:grid-cols-2">
+                        {question.options.map((option) => (
+                          <span key={option} className={option === question.correctAnswer ? "rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-xs text-emerald-700" : "rounded-lg border border-border bg-background px-3 py-1.5 text-xs"}>
+                            {option}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
