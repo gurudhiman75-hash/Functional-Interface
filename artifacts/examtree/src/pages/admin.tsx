@@ -61,6 +61,8 @@ import {
   type MockTestBuilderQuestion,
   type QuestionTemplate,
   type PatternOption,
+  type RichQuestionTemplate,
+  isRichTemplate,
 } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
@@ -1582,6 +1584,8 @@ export default function Admin() {
 
   const handleSelectQuestionTemplate = (templateId: string) => {
     setSelectedQuestionTemplateId(templateId);
+    setQuestionGeneratorError(null);
+    setQuestionGeneratorResult(null);
     if (!templateId) {
       return;
     }
@@ -1590,10 +1594,23 @@ export default function Admin() {
       return;
     }
     setQuestionTemplateName(template.name);
-    setQuestionGeneratorDraft({
-      ...template.template,
-      patternIds: [...template.template.patternIds],
-    });
+    if (isRichTemplate(template.template)) {
+      // Rich templates are read-only in the simple editor; mirror the basics
+      // so the form shows correct section/topic/etc. for context.
+      setQuestionGeneratorDraft({
+        section: template.template.section,
+        topic: template.template.topic,
+        subtopic: template.template.subtopic,
+        difficulty: template.template.difficulty,
+        questionCount: template.template.questionCount,
+        patternIds: [],
+      });
+    } else {
+      setQuestionGeneratorDraft({
+        ...template.template,
+        patternIds: [...template.template.patternIds],
+      });
+    }
   };
 
   const handleApplyQuestionTemplatePreset = (presetId: string) => {
@@ -1651,16 +1668,84 @@ export default function Admin() {
     }
   };
 
-  const normalizeImportedTemplate = (raw: any): { name: string; template: MockTestBuilderSectionInput } | { error: string } => {
+  const SECTION_ALIASES: Record<string, MockTestBuilderSectionInput["section"]> = {
+    quant: "quant",
+    quantitative: "quant",
+    "quantitative aptitude": "quant",
+    math: "quant",
+    maths: "quant",
+    mathematics: "quant",
+    arithmetic: "quant",
+    reasoning: "reasoning",
+    "logical reasoning": "reasoning",
+    "general intelligence": "reasoning",
+    "general intelligence and reasoning": "reasoning",
+    english: "english",
+    "english language": "english",
+    "english comprehension": "english",
+    verbal: "english",
+    general: "general",
+    "general awareness": "general",
+    "general knowledge": "general",
+    gk: "general",
+    ga: "general",
+  };
+  const DIFFICULTY_ALIASES: Record<string, MockTestBuilderSectionInput["difficulty"]> = {
+    easy: "easy",
+    basic: "easy",
+    moderate: "medium",
+    medium: "medium",
+    intermediate: "medium",
+    hard: "hard",
+    difficult: "hard",
+    tough: "hard",
+    advanced: "hard",
+  };
+
+  const isRichRaw = (raw: any): boolean => {
+    if (!raw || typeof raw !== "object") return false;
+    if (raw.kind === "rich") return true;
+    const fields = raw.fields ?? raw.template?.fields;
+    return Boolean(
+      fields &&
+        (fields.question_logic || fields.questionLogic) &&
+        (fields.math_formula || fields.mathFormula),
+    );
+  };
+
+  const normalizeImportedTemplate = (
+    raw: any,
+  ):
+    | { name: string; template: MockTestBuilderSectionInput | Record<string, unknown> }
+    | { error: string } => {
     if (!raw || typeof raw !== "object") return { error: "Item is not an object" };
-    // Accept both { name, template: {...} } shape and a flat shape with section/topic/etc at top
+
+    // Rich format: pass through to backend (which knows how to normalize it).
+    if (isRichRaw(raw)) {
+      const src = raw.template && typeof raw.template === "object" ? { ...raw, ...raw.template } : raw;
+      const sectionKey = String(src.section ?? "").trim().toLowerCase();
+      const section = SECTION_ALIASES[sectionKey];
+      const topic = String(src.topic ?? "").trim();
+      const subtopic = String(src.subtopic ?? src.sub_topic ?? "").trim();
+      if (!section) return { error: `Unknown section "${src.section}". Try "Quantitative Aptitude", "Reasoning", "English", or "General Awareness".` };
+      if (!topic || !subtopic) return { error: "Rich template requires topic and subtopic." };
+      const fields = src.fields ?? {};
+      if (!(fields.question_logic ?? fields.questionLogic)) return { error: "Rich template requires fields.question_logic." };
+      if (!(fields.math_formula ?? fields.mathFormula)) return { error: "Rich template requires fields.math_formula." };
+      const name = String(raw.name ?? src.pattern_name ?? src.patternName ?? `${section} - ${topic} / ${subtopic}`).trim();
+      return { name, template: raw };
+    }
+
+    // Simple (existing) format
     const tplSrc = raw.template && typeof raw.template === "object" ? raw.template : raw;
-    const section = String(tplSrc.section ?? "").toLowerCase();
-    if (!["quant", "reasoning", "english", "general"].includes(section)) {
+    const sectionKey = String(tplSrc.section ?? "").trim().toLowerCase();
+    const section = SECTION_ALIASES[sectionKey] ?? (["quant", "reasoning", "english", "general"].includes(sectionKey) ? (sectionKey as MockTestBuilderSectionInput["section"]) : undefined);
+    if (!section) {
       return { error: `Invalid section "${tplSrc.section}". Must be quant, reasoning, english, or general.` };
     }
-    const difficulty = String(tplSrc.difficulty ?? "medium").toLowerCase();
-    if (!["easy", "medium", "hard"].includes(difficulty)) {
+    const difficultyKey = String(tplSrc.difficulty ?? "medium").trim().toLowerCase();
+    const difficulty = DIFFICULTY_ALIASES[difficultyKey] ?? (["easy", "medium", "hard"].includes(difficultyKey) ? (difficultyKey as MockTestBuilderSectionInput["difficulty"]) : undefined);
+    if (!difficulty) {
       return { error: `Invalid difficulty "${tplSrc.difficulty}". Must be easy, medium, or hard.` };
     }
     const topic = String(tplSrc.topic ?? "").trim();
@@ -1672,10 +1757,10 @@ export default function Admin() {
     return {
       name,
       template: {
-        section: section as MockTestBuilderSectionInput["section"],
+        section,
         topic,
         subtopic,
-        difficulty: difficulty as MockTestBuilderSectionInput["difficulty"],
+        difficulty,
         patternIds,
         questionCount,
       },
@@ -3913,9 +3998,21 @@ export default function Admin() {
             onDuplicate={(t) => {
               setSelectedQuestionTemplateId("");
               setQuestionTemplateName(`${t.name} (copy)`);
-              setQuestionGeneratorDraft({ ...t.template, patternIds: [...t.template.patternIds] });
+              if (isRichTemplate(t.template)) {
+                setQuestionGeneratorDraft({
+                  section: t.template.section,
+                  topic: t.template.topic,
+                  subtopic: t.template.subtopic,
+                  difficulty: t.template.difficulty,
+                  patternIds: [],
+                  questionCount: t.template.questionCount,
+                });
+                toast({ title: "Rich template duplicated", description: "Use Import JSON to duplicate the full pattern definition." });
+              } else {
+                setQuestionGeneratorDraft({ ...t.template, patternIds: [...t.template.patternIds] });
+                toast({ title: "Template duplicated", description: "Edit and save it as a new template." });
+              }
               setQuestionGeneratorResult(null);
-              toast({ title: "Template duplicated", description: "Edit and save it as a new template." });
             }}
           />
         )}
@@ -4122,7 +4219,7 @@ function QuestionGeneratorTab(props: {
   setQuestionGeneratorDraft: React.Dispatch<React.SetStateAction<MockTestBuilderSectionInput>>;
   questionGeneratorBusy: boolean;
   questionGeneratorError: string | null;
-  questionGeneratorResult: { template: MockTestBuilderSectionInput; questions: MockTestBuilderQuestion[]; totalQuestions: number } | null;
+  questionGeneratorResult: { template: any; questions: MockTestBuilderQuestion[]; totalQuestions: number } | null;
   setQuestionGeneratorResult: (v: any) => void;
   expandedQuestionIdx: number | null;
   setExpandedQuestionIdx: (v: number | null) => void;
@@ -4150,6 +4247,12 @@ function QuestionGeneratorTab(props: {
     onApplyPreset, onSelectTemplate, onSaveTemplate, onRequestDelete,
     onGenerate, onStartFromScratch, onDuplicate, onOpenImport,
   } = props;
+
+  const selectedTemplate = questionTemplates.find((t) => t.id === selectedQuestionTemplateId) ?? null;
+  const selectedRich: RichQuestionTemplate | null =
+    selectedTemplate && isRichTemplate(selectedTemplate.template)
+      ? (selectedTemplate.template as RichQuestionTemplate)
+      : null;
 
   const filteredTemplates = questionTemplates.filter((t) => {
     if (templateSectionFilter !== "all" && t.template.section !== templateSectionFilter) return false;
@@ -4284,9 +4387,16 @@ function QuestionGeneratorTab(props: {
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span className={`font-medium truncate ${active ? "text-primary" : "text-foreground"}`}>{template.name}</span>
-                          <span className={`rounded px-1.5 py-0.5 text-[9px] font-semibold uppercase ${SECTION_BADGE[template.template.section] ?? "bg-muted text-muted-foreground"}`}>
-                            {template.template.section}
-                          </span>
+                          <div className="flex items-center gap-1 shrink-0">
+                            {isRichTemplate(template.template) && (
+                              <span className="rounded px-1.5 py-0.5 text-[9px] font-semibold uppercase bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
+                                Pattern
+                              </span>
+                            )}
+                            <span className={`rounded px-1.5 py-0.5 text-[9px] font-semibold uppercase ${SECTION_BADGE[template.template.section] ?? "bg-muted text-muted-foreground"}`}>
+                              {template.template.section}
+                            </span>
+                          </div>
                         </div>
                         <p className="mt-0.5 text-[11px] text-muted-foreground truncate">
                           {template.template.topic} / {template.template.subtopic}
@@ -4297,10 +4407,16 @@ function QuestionGeneratorTab(props: {
                           </span>
                           <span>·</span>
                           <span>{template.template.questionCount} Qs</span>
-                          {template.template.patternIds.length > 0 && (
+                          {!isRichTemplate(template.template) && template.template.patternIds.length > 0 && (
                             <>
                               <span>·</span>
                               <span>{template.template.patternIds.length} pattern{template.template.patternIds.length === 1 ? "" : "s"}</span>
+                            </>
+                          )}
+                          {isRichTemplate(template.template) && (
+                            <>
+                              <span>·</span>
+                              <span className="truncate">{Object.keys(template.template.fields.variables ?? {}).length} vars</span>
                             </>
                           )}
                         </div>
@@ -4363,6 +4479,85 @@ function QuestionGeneratorTab(props: {
 
         {/* ── Editor ── */}
         <section className="space-y-5">
+          {selectedRich && (
+            <div className="rounded-2xl border border-violet-300/50 dark:border-violet-700/40 bg-gradient-to-br from-violet-500/5 to-transparent p-5 shadow-sm">
+              <div className="flex items-start justify-between gap-3 flex-wrap mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-600">
+                    <Sparkles className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground text-sm flex items-center gap-2">
+                      {selectedRich.patternName ?? questionTemplateName}
+                      <span className="rounded-full bg-violet-500/15 text-violet-700 dark:text-violet-300 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+                        Rich Pattern
+                      </span>
+                    </h4>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      {selectedRich.examName ? `${selectedRich.examName} · ` : ""}
+                      {selectedRich.section} · {selectedRich.topic} / {selectedRich.subtopic} · {selectedRich.difficulty}
+                      {selectedRich.patternId ? ` · ${selectedRich.patternId}` : ""}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={(e) => onGenerate(e as unknown as React.FormEvent)}
+                  disabled={questionGeneratorBusy}
+                >
+                  {questionGeneratorBusy ? (
+                    <><Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" /> Generating…</>
+                  ) : (
+                    <><Wand2 className="h-3.5 w-3.5 mr-1" /> Generate {selectedRich.questionCount} Questions</>
+                  )}
+                </Button>
+              </div>
+
+              <div className="space-y-3">
+                <div className="rounded-lg border border-border bg-background/80 px-3 py-2.5">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Question Logic</p>
+                  <p className="text-sm text-foreground leading-relaxed font-mono">{selectedRich.fields.questionLogic}</p>
+                </div>
+
+                <div className="rounded-lg border border-border bg-background/80 px-3 py-2.5">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">Variables</p>
+                  <div className="grid gap-1.5 sm:grid-cols-2">
+                    {Object.entries(selectedRich.fields.variables ?? {}).map(([name, spec]) => (
+                      <div key={name} className="rounded border border-border/60 bg-muted/30 px-2 py-1.5 text-xs">
+                        <span className="font-mono font-semibold text-violet-700 dark:text-violet-300">{name}</span>
+                        <span className="text-muted-foreground"> · </span>
+                        <span className="text-foreground/80">
+                          {Array.isArray(spec) ? `[${spec.join(" | ")}]` : String(spec)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-border bg-background/80 px-3 py-2.5">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Math Formula</p>
+                  <p className="text-sm text-foreground leading-relaxed font-mono">{selectedRich.fields.mathFormula}</p>
+                </div>
+
+                {selectedRich.fields.constraints && (
+                  <div className="rounded-lg border border-amber-300/40 bg-amber-50 dark:bg-amber-900/10 px-3 py-2.5">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300 mb-1">Constraints</p>
+                    <p className="text-xs text-foreground/80 leading-relaxed">{selectedRich.fields.constraints}</p>
+                  </div>
+                )}
+              </div>
+
+              {questionGeneratorError && (
+                <div className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive flex items-start gap-2">
+                  <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                  <span>{questionGeneratorError}</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {!selectedRich && (
           <form onSubmit={onGenerate} className="rounded-2xl border border-border/70 bg-background/70 p-5 shadow-sm">
             <div className="flex items-center justify-between gap-3 mb-4">
               <div className="flex items-center gap-2">
@@ -4536,6 +4731,7 @@ function QuestionGeneratorTab(props: {
               </div>
             )}
           </form>
+          )}
 
           {/* Empty state */}
           {!questionGeneratorResult && !questionGeneratorBusy && (

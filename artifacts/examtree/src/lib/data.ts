@@ -800,10 +800,34 @@ export interface MockTestTemplate {
   createdAt: string;
 }
 
+export interface RichQuestionTemplate {
+  kind: "rich";
+  examName?: string;
+  section: MockTestSection;
+  topic: string;
+  subtopic: string;
+  patternId?: string;
+  patternName?: string;
+  difficulty: MockTestDifficulty;
+  questionCount: number;
+  fields: {
+    questionLogic: string;
+    variables: Record<string, string | string[] | number>;
+    mathFormula: string;
+    constraints?: string;
+  };
+}
+
+export type AnyQuestionTemplate = MockTestBuilderSectionInput | RichQuestionTemplate;
+
+export function isRichTemplate(t: AnyQuestionTemplate | null | undefined): t is RichQuestionTemplate {
+  return Boolean(t && (t as RichQuestionTemplate).kind === "rich");
+}
+
 export interface QuestionTemplate {
   id: string;
   name: string;
-  template: MockTestBuilderSectionInput;
+  template: AnyQuestionTemplate;
   createdAt: string;
 }
 
@@ -840,7 +864,7 @@ export async function listQuestionTemplates(): Promise<QuestionTemplate[]> {
 
 export async function saveQuestionTemplate(body: {
   name?: string;
-  template: MockTestBuilderSectionInput;
+  template: AnyQuestionTemplate | Record<string, unknown>;
 }): Promise<QuestionTemplate> {
   return apiRequest<QuestionTemplate>("/question-bank/templates", {
     method: "POST",
@@ -852,7 +876,7 @@ export async function updateQuestionTemplate(
   id: string,
   body: {
     name?: string;
-    template: MockTestBuilderSectionInput;
+    template: AnyQuestionTemplate | Record<string, unknown>;
   },
 ): Promise<QuestionTemplate> {
   return apiRequest<QuestionTemplate>(`/question-bank/templates/${id}`, {

@@ -8,6 +8,12 @@ import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
 import { type QuestionColumnState, getQuestionColumnState, buildQuestionSelectSql } from "../lib/question-columns";
 import { generateQuestions, type GeneratedQuestion } from "../lib/generator.service";
+import {
+  isRichPayload,
+  normalizeRichTemplate,
+  generateRichQuestions,
+  type RichTemplate,
+} from "../lib/rich-template.service";
 
 // Multer for CSV uploads (memory storage, 10 MB limit)
 const csvUpload = multer({
@@ -56,7 +62,7 @@ type QuestionTemplateInput = {
 type QuestionTemplatePayload = {
   id: string;
   name: string;
-  template: QuestionTemplateInput;
+  template: QuestionTemplateInput | RichTemplate;
   createdAt: string;
 };
 
@@ -71,7 +77,14 @@ function normalizeQuestionTemplate(input: Partial<QuestionTemplateInput>): Quest
   };
 }
 
-function parseTemplateSections(sections: unknown): QuestionTemplateInput[] {
+function parseTemplateSection(item: any): QuestionTemplateInput | RichTemplate {
+  if (item && (item.kind === "rich" || isRichPayload(item))) {
+    return normalizeRichTemplate(item);
+  }
+  return normalizeQuestionTemplate(item as Partial<QuestionTemplateInput>);
+}
+
+function parseTemplateSections(sections: unknown): Array<QuestionTemplateInput | RichTemplate> {
   let value: unknown = sections;
   if (typeof value === "string") {
     try {
@@ -81,7 +94,7 @@ function parseTemplateSections(sections: unknown): QuestionTemplateInput[] {
     }
   }
   const list = Array.isArray(value) ? value : [];
-  return list.map((item) => normalizeQuestionTemplate(item as Partial<QuestionTemplateInput>));
+  return list.map((item) => parseTemplateSection(item));
 }
 
 function templateFromRow(row: { id: string; name: string; sections: unknown; createdAt: unknown }): QuestionTemplatePayload | null {
@@ -96,6 +109,10 @@ function templateFromRow(row: { id: string; name: string; sections: unknown; cre
     template: first,
     createdAt: new Date(row.createdAt as any).toISOString(),
   };
+}
+
+function isRichTemplate(t: any): t is RichTemplate {
+  return Boolean(t && t.kind === "rich");
 }
 
 function normalizeQuestionText(value: string) {
@@ -386,24 +403,35 @@ router.get("/question-bank/templates", authenticate, async (req, res): Promise<v
 router.post("/question-bank/templates", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const { name, template } = req.body as {
-      name?: string;
-      template?: Partial<QuestionTemplateInput>;
-    };
+    const { name, template } = req.body as { name?: string; template?: any };
 
-    const normalized = normalizeQuestionTemplate(template ?? {});
+    // Detect rich vs simple template payloads.
+    const isRich = isRichPayload(template) || isRichPayload(req.body);
+    const normalized: QuestionTemplateInput | RichTemplate = isRich
+      ? normalizeRichTemplate(template ?? req.body)
+      : normalizeQuestionTemplate((template ?? {}) as Partial<QuestionTemplateInput>);
+
     if (!normalized.topic || !normalized.subtopic) {
       return void res.status(400).json({ error: "template requires topic and subtopic" });
     }
+    if (isRichTemplate(normalized) && (!normalized.fields.questionLogic || !normalized.fields.mathFormula)) {
+      return void res
+        .status(400)
+        .json({ error: "rich template requires fields.question_logic and fields.math_formula" });
+    }
 
     const createdAt = new Date();
-    const savedName = String(name ?? "").trim() || `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`;
+    const fallbackName = isRichTemplate(normalized)
+      ? normalized.patternName ?? `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`
+      : `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`;
+    const savedName = String(name ?? "").trim() || fallbackName;
+
     const [row] = await db
       .insert(mockTestTemplates)
       .values({
         id: randomUUID(),
         name: savedName,
-        sections: [normalized],
+        sections: [normalized as any],
         createdAt,
       })
       .returning({ id: mockTestTemplates.id, name: mockTestTemplates.name, createdAt: mockTestTemplates.createdAt });
@@ -426,21 +454,32 @@ router.put("/question-bank/templates/:id", authenticate, async (req, res): Promi
   try {
     await assertAdmin(req.user!.id);
     const id = req.params.id as string;
-    const { name, template } = req.body as {
-      name?: string;
-      template?: Partial<QuestionTemplateInput>;
-    };
-    const normalized = normalizeQuestionTemplate(template ?? {});
+    const { name, template } = req.body as { name?: string; template?: any };
+
+    const isRich = isRichPayload(template) || isRichPayload(req.body);
+    const normalized: QuestionTemplateInput | RichTemplate = isRich
+      ? normalizeRichTemplate(template ?? req.body)
+      : normalizeQuestionTemplate((template ?? {}) as Partial<QuestionTemplateInput>);
+
     if (!normalized.topic || !normalized.subtopic) {
       return void res.status(400).json({ error: "template requires topic and subtopic" });
     }
+    if (isRichTemplate(normalized) && (!normalized.fields.questionLogic || !normalized.fields.mathFormula)) {
+      return void res
+        .status(400)
+        .json({ error: "rich template requires fields.question_logic and fields.math_formula" });
+    }
 
-    const savedName = String(name ?? "").trim() || `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`;
+    const fallbackName = isRichTemplate(normalized)
+      ? normalized.patternName ?? `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`
+      : `${normalized.section} - ${normalized.topic} / ${normalized.subtopic}`;
+    const savedName = String(name ?? "").trim() || fallbackName;
+
     const [row] = await db
       .update(mockTestTemplates)
       .set({
         name: savedName,
-        sections: [normalized],
+        sections: [normalized as any],
       })
       .where(eq(mockTestTemplates.id, id))
       .returning({ id: mockTestTemplates.id, name: mockTestTemplates.name, createdAt: mockTestTemplates.createdAt });
@@ -485,10 +524,10 @@ router.post("/question-bank/generate", authenticate, async (req, res): Promise<v
     await assertAdmin(req.user!.id);
     const { templateId, template } = req.body as {
       templateId?: string;
-      template?: Partial<QuestionTemplateInput>;
+      template?: any;
     };
 
-    let normalized: QuestionTemplateInput | null = null;
+    let normalized: QuestionTemplateInput | RichTemplate | null = null;
     if (templateId) {
       const [row] = await db.select().from(mockTestTemplates).where(eq(mockTestTemplates.id, templateId)).limit(1);
       if (!row) {
@@ -496,7 +535,9 @@ router.post("/question-bank/generate", authenticate, async (req, res): Promise<v
       }
       normalized = templateFromRow(row as any)?.template ?? null;
     } else if (template) {
-      normalized = normalizeQuestionTemplate(template);
+      normalized = isRichPayload(template)
+        ? normalizeRichTemplate(template)
+        : normalizeQuestionTemplate(template);
     }
 
     if (!normalized) {
@@ -506,8 +547,13 @@ router.post("/question-bank/generate", authenticate, async (req, res): Promise<v
       return void res.status(400).json({ error: "template requires topic and subtopic" });
     }
 
-    const usedKeys = new Set<string>();
-    const questionsGenerated = await collectGeneratedQuestions(normalized, usedKeys);
+    let questionsGenerated;
+    if (isRichTemplate(normalized)) {
+      questionsGenerated = await generateRichQuestions(normalized, { persist: true });
+    } else {
+      const usedKeys = new Set<string>();
+      questionsGenerated = await collectGeneratedQuestions(normalized, usedKeys);
+    }
 
     res.status(201).json({
       template: normalized,
