@@ -1010,6 +1010,12 @@ export default function Admin() {
   const [templateSectionFilter, setTemplateSectionFilter] = useState<"all" | "quant" | "reasoning" | "english" | "general">("all");
   const [deletingTemplate, setDeletingTemplate] = useState<QuestionTemplate | null>(null);
   const [expandedQuestionIdx, setExpandedQuestionIdx] = useState<number | null>(null);
+  const [importTemplatesOpen, setImportTemplatesOpen] = useState(false);
+  const [importTemplatesText, setImportTemplatesText] = useState("");
+  const [importTemplatesBusy, setImportTemplatesBusy] = useState(false);
+  const [importTemplatesError, setImportTemplatesError] = useState<string | null>(null);
+  const [importTemplatesSummary, setImportTemplatesSummary] = useState<{ ok: number; failed: number; errors: string[] } | null>(null);
+  const importTemplatesFileRef = useRef<HTMLInputElement | null>(null);
   const pkgFinalPrice = Math.round(
     Number(pkgForm.originalPriceCents) * (1 - Number(pkgForm.discountPercent) / 100),
   );
@@ -1642,6 +1648,107 @@ export default function Admin() {
       toast({ title: "Template deleted" });
     } catch (error) {
       toast({ title: "Template delete failed", description: getAdminActionErrorMessage(error), variant: "destructive" });
+    }
+  };
+
+  const normalizeImportedTemplate = (raw: any): { name: string; template: MockTestBuilderSectionInput } | { error: string } => {
+    if (!raw || typeof raw !== "object") return { error: "Item is not an object" };
+    // Accept both { name, template: {...} } shape and a flat shape with section/topic/etc at top
+    const tplSrc = raw.template && typeof raw.template === "object" ? raw.template : raw;
+    const section = String(tplSrc.section ?? "").toLowerCase();
+    if (!["quant", "reasoning", "english", "general"].includes(section)) {
+      return { error: `Invalid section "${tplSrc.section}". Must be quant, reasoning, english, or general.` };
+    }
+    const difficulty = String(tplSrc.difficulty ?? "medium").toLowerCase();
+    if (!["easy", "medium", "hard"].includes(difficulty)) {
+      return { error: `Invalid difficulty "${tplSrc.difficulty}". Must be easy, medium, or hard.` };
+    }
+    const topic = String(tplSrc.topic ?? "").trim();
+    const subtopic = String(tplSrc.subtopic ?? "").trim();
+    if (!topic || !subtopic) return { error: "topic and subtopic are required" };
+    const questionCount = Math.max(1, Math.min(100, Math.floor(Number(tplSrc.questionCount ?? 5) || 5)));
+    const patternIds = Array.isArray(tplSrc.patternIds) ? tplSrc.patternIds.map((x: any) => String(x)).filter(Boolean) : [];
+    const name = String(raw.name ?? `${section} - ${topic} / ${subtopic}`).trim() || `${section} - ${topic} / ${subtopic}`;
+    return {
+      name,
+      template: {
+        section: section as MockTestBuilderSectionInput["section"],
+        topic,
+        subtopic,
+        difficulty: difficulty as MockTestBuilderSectionInput["difficulty"],
+        patternIds,
+        questionCount,
+      },
+    };
+  };
+
+  const handleImportTemplates = async () => {
+    setImportTemplatesError(null);
+    setImportTemplatesSummary(null);
+    const raw = importTemplatesText.trim();
+    if (!raw) {
+      setImportTemplatesError("Paste JSON or upload a file first.");
+      return;
+    }
+    let parsed: any;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e: any) {
+      setImportTemplatesError(`Invalid JSON: ${e?.message ?? "could not parse"}`);
+      return;
+    }
+    const items: any[] = Array.isArray(parsed)
+      ? parsed
+      : Array.isArray(parsed?.templates)
+        ? parsed.templates
+        : [parsed];
+    if (items.length === 0) {
+      setImportTemplatesError("No templates found in the JSON.");
+      return;
+    }
+    setImportTemplatesBusy(true);
+    let ok = 0;
+    let failed = 0;
+    const errors: string[] = [];
+    for (let i = 0; i < items.length; i++) {
+      const result = normalizeImportedTemplate(items[i]);
+      if ("error" in result) {
+        failed += 1;
+        errors.push(`#${i + 1}: ${result.error}`);
+        continue;
+      }
+      try {
+        await saveQuestionTemplate({ name: result.name, template: result.template });
+        ok += 1;
+      } catch (err) {
+        failed += 1;
+        errors.push(`#${i + 1} "${result.name}": ${getAdminActionErrorMessage(err)}`);
+      }
+    }
+    await refetchQuestionTemplates();
+    setImportTemplatesBusy(false);
+    setImportTemplatesSummary({ ok, failed, errors });
+    if (ok > 0) {
+      toast({
+        title: "Import complete",
+        description: `${ok} template${ok === 1 ? "" : "s"} added${failed > 0 ? `, ${failed} failed` : ""}.`,
+        variant: failed > 0 ? "default" : "default",
+      });
+    }
+    if (ok > 0 && failed === 0) {
+      setImportTemplatesText("");
+      setImportTemplatesOpen(false);
+      setImportTemplatesSummary(null);
+    }
+  };
+
+  const handleImportTemplatesFile = async (file: File) => {
+    setImportTemplatesError(null);
+    try {
+      const text = await file.text();
+      setImportTemplatesText(text);
+    } catch {
+      setImportTemplatesError("Could not read the file.");
     }
   };
 
@@ -3760,6 +3867,12 @@ export default function Admin() {
 
         {tab === "question-generator" && (
           <QuestionGeneratorTab
+            onOpenImport={() => {
+              setImportTemplatesText("");
+              setImportTemplatesError(null);
+              setImportTemplatesSummary(null);
+              setImportTemplatesOpen(true);
+            }}
             questionTemplates={questionTemplates}
             generatorPatterns={generatorPatterns}
             templateSearch={templateSearch}
@@ -3847,6 +3960,101 @@ export default function Admin() {
         />
       )}
 
+      {/* Import Templates JSON modal */}
+      <Dialog open={importTemplatesOpen} onOpenChange={(open) => !importTemplatesBusy && setImportTemplatesOpen(open)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="h-4 w-4 text-primary" /> Import Templates from JSON
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            <p className="text-xs text-muted-foreground">
+              Paste a JSON array of templates, a single template, or a <code className="rounded bg-muted px-1">{`{ "templates": [...] }`}</code> object. Imported templates will be added to your library and can then be used to generate questions.
+            </p>
+            <details className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-xs">
+              <summary className="cursor-pointer font-semibold text-foreground">Expected format & example</summary>
+              <pre className="mt-2 overflow-x-auto whitespace-pre rounded bg-background/80 p-2 text-[11px] leading-snug">{`[
+  {
+    "name": "Quant – Simple Interest (Medium)",
+    "template": {
+      "section": "quant",
+      "topic": "interest",
+      "subtopic": "simple interest",
+      "difficulty": "medium",
+      "questionCount": 10,
+      "patternIds": []
+    }
+  }
+]
+
+Allowed values:
+  section:    quant | reasoning | english | general
+  difficulty: easy | medium | hard
+  patternIds: optional array of pattern UUIDs (leave empty to auto-pick)`}</pre>
+            </details>
+            <div className="flex items-center gap-2">
+              <input
+                ref={importTemplatesFileRef}
+                type="file"
+                accept="application/json,.json"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleImportTemplatesFile(file);
+                  e.target.value = "";
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={importTemplatesBusy}
+                onClick={() => importTemplatesFileRef.current?.click()}
+              >
+                <FileText className="h-3.5 w-3.5 mr-1" /> Upload .json
+              </Button>
+              {importTemplatesText && (
+                <span className="text-[11px] text-muted-foreground">{importTemplatesText.length.toLocaleString()} chars loaded</span>
+              )}
+            </div>
+            <textarea
+              className="w-full h-56 rounded-lg border border-input bg-background px-3 py-2 text-xs font-mono"
+              placeholder='[ { "name": "...", "template": { "section": "quant", ... } } ]'
+              value={importTemplatesText}
+              onChange={(e) => setImportTemplatesText(e.target.value)}
+              disabled={importTemplatesBusy}
+            />
+            {importTemplatesError && (
+              <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive flex items-start gap-2">
+                <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                <span>{importTemplatesError}</span>
+              </div>
+            )}
+            {importTemplatesSummary && (
+              <div className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-xs space-y-1">
+                <p className="font-semibold">
+                  Imported {importTemplatesSummary.ok} · Failed {importTemplatesSummary.failed}
+                </p>
+                {importTemplatesSummary.errors.length > 0 && (
+                  <ul className="list-disc pl-4 text-destructive max-h-24 overflow-y-auto">
+                    {importTemplatesSummary.errors.map((err, i) => <li key={i}>{err}</li>)}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button variant="outline" size="sm" disabled={importTemplatesBusy} onClick={() => setImportTemplatesOpen(false)}>
+              Close
+            </Button>
+            <Button size="sm" disabled={importTemplatesBusy || !importTemplatesText.trim()} onClick={handleImportTemplates}>
+              {importTemplatesBusy ? (<><Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" /> Importing…</>) : (<><Plus className="h-3.5 w-3.5 mr-1" /> Import</>)}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Quick-add topic modal */}
       <Dialog open={addTopicModal.open} onOpenChange={(open) => !addTopicModal.busy && setAddTopicModal((m) => ({ ...m, open }))}>
         <DialogContent className="max-w-sm">
@@ -3926,6 +4134,7 @@ function QuestionGeneratorTab(props: {
   onGenerate: (e: React.FormEvent) => void;
   onStartFromScratch: () => void;
   onDuplicate: (t: QuestionTemplate) => void;
+  onOpenImport: () => void;
 }) {
   const {
     questionTemplates, generatorPatterns,
@@ -3939,7 +4148,7 @@ function QuestionGeneratorTab(props: {
     expandedQuestionIdx, setExpandedQuestionIdx,
     presets,
     onApplyPreset, onSelectTemplate, onSaveTemplate, onRequestDelete,
-    onGenerate, onStartFromScratch, onDuplicate,
+    onGenerate, onStartFromScratch, onDuplicate, onOpenImport,
   } = props;
 
   const filteredTemplates = questionTemplates.filter((t) => {
@@ -4005,6 +4214,9 @@ function QuestionGeneratorTab(props: {
                 <Layers className="h-3.5 w-3.5" /> {generatorPatterns.length} patterns
               </span>
             </div>
+            <Button type="button" size="sm" variant="outline" onClick={onOpenImport}>
+              <FileText className="h-4 w-4 mr-1" /> Import JSON
+            </Button>
             <Button type="button" size="sm" onClick={onStartFromScratch}>
               <Plus className="h-4 w-4 mr-1" /> New Template
             </Button>
