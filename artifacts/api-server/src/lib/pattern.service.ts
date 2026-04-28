@@ -24,6 +24,11 @@ export async function listPatterns(): Promise<Pattern[]> {
 }
 
 export async function pickDiversePattern(filter: PatternFilter = {}): Promise<Pattern | null> {
+  const ids = Array.isArray(filter.patternIds) ? filter.patternIds.filter(Boolean) : [];
+  if (ids.length === 0) {
+    return null;
+  }
+
   if (!hasDb()) {
     const all = getInMemoryPatterns();
     const filtered = all.filter((pattern) =>
@@ -31,7 +36,7 @@ export async function pickDiversePattern(filter: PatternFilter = {}): Promise<Pa
       (!filter.topic || pattern.topic === filter.topic) &&
       (!filter.subtopic || pattern.subtopic === filter.subtopic) &&
       (!filter.difficulty || pattern.difficulty === filter.difficulty) &&
-      (!filter.patternIds || filter.patternIds.length === 0 || filter.patternIds.includes(pattern.id)),
+      ids.includes(pattern.id),
     );
     if (filtered.length === 0) return null;
     return filtered[Math.floor(Math.random() * filtered.length)] ?? null;
@@ -44,12 +49,12 @@ export async function pickDiversePattern(filter: PatternFilter = {}): Promise<Pa
   if (filter.topic) clauses.push(eq(patterns.topic, filter.topic));
   if (filter.subtopic) clauses.push(eq(patterns.subtopic, filter.subtopic));
   if (filter.difficulty) clauses.push(eq(patterns.difficulty, filter.difficulty));
-  if (filter.patternIds?.length) clauses.push(inArray(patterns.id, filter.patternIds));
+  clauses.push(inArray(patterns.id, ids));
 
   const rows = await db
     .select()
     .from(patterns)
-    .where(clauses.length ? and(...clauses) : undefined)
+    .where(and(...clauses))
     .orderBy(
       asc(patterns.usageCount),
       asc(sql`COALESCE(${patterns.lastUsedAt}, '1970-01-01'::timestamptz)`),

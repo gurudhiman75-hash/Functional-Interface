@@ -8,6 +8,7 @@ import { authenticate } from "../middlewares/auth";
 import { assertAdmin } from "./admin-data";
 import { type QuestionColumnState, getQuestionColumnState, buildQuestionSelectSql } from "../lib/question-columns";
 import { generateQuestions, type GeneratedQuestion } from "../lib/generator.service";
+import { generateQuestionsFn as generatePatternQuestionsFn } from "../lib/pattern-generator.service";
 import {
   isRichPayload,
   normalizeRichTemplate,
@@ -522,43 +523,20 @@ router.delete("/question-bank/templates/:id", authenticate, async (req, res): Pr
 router.post("/question-bank/generate", authenticate, async (req, res): Promise<void> => {
   try {
     await assertAdmin(req.user!.id);
-    const { templateId, template } = req.body as {
-      templateId?: string;
-      template?: any;
-    };
+    const { patternId, count } = req.body as { patternId?: string; count?: number };
 
-    let normalized: QuestionTemplateInput | RichTemplate | null = null;
-    if (templateId) {
-      const [row] = await db.select().from(mockTestTemplates).where(eq(mockTestTemplates.id, templateId)).limit(1);
-      if (!row) {
-        return void res.status(404).json({ error: "Template not found" });
-      }
-      normalized = templateFromRow(row as any)?.template ?? null;
-    } else if (template) {
-      normalized = isRichPayload(template)
-        ? normalizeRichTemplate(template)
-        : normalizeQuestionTemplate(template);
+    if (!patternId?.trim()) {
+      return void res.status(400).json({ error: "patternId is required" });
     }
 
-    if (!normalized) {
-      return void res.status(400).json({ error: "templateId or template is required" });
-    }
-    if (!normalized.topic || !normalized.subtopic) {
-      return void res.status(400).json({ error: "template requires topic and subtopic" });
-    }
-
-    let questionsGenerated;
-    if (isRichTemplate(normalized)) {
-      questionsGenerated = await generateRichQuestions(normalized, { persist: true });
-    } else {
-      const usedKeys = new Set<string>();
-      questionsGenerated = await collectGeneratedQuestions(normalized, usedKeys);
-    }
+    const result = await generatePatternQuestionsFn({
+      patternId: patternId.trim(),
+      count: Math.max(1, Math.floor(Number(count ?? 1) || 1)),
+    });
 
     res.status(201).json({
-      template: normalized,
-      questions: questionsGenerated,
-      totalQuestions: questionsGenerated.length,
+      questions: result.questions,
+      totalQuestions: result.questions.length,
     });
   } catch (err: any) {
     if (err.message === "forbidden") return void res.status(403).json({ error: "Forbidden" });

@@ -55,10 +55,15 @@ import {
   updateQuestionTemplate,
   deleteQuestionTemplate,
   generateQuestionBankQuestions,
+  generateQuestionsFn,
+  createPattern,
+  type GeneratedQuestion,
   type MasterSection,
   type MasterTopic,
+  type MockTestDifficulty,
   type MockTestBuilderSectionInput,
   type MockTestBuilderQuestion,
+  type MockTestSection,
   type QuestionTemplate,
   type PatternOption,
   type RichQuestionTemplate,
@@ -66,6 +71,7 @@ import {
 } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
+import { usePatterns } from "@/hooks/use-patterns";
 import { cleanPunjabiText } from "@/lib/punjabi-utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -81,6 +87,217 @@ const isAdminUser = (role?: string) => role === "admin";
 
 function getAdminActionErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : "Admin action failed.";
+}
+
+function SimpleTemplateGeneratorSection({ patterns }: { patterns: PatternOption[] }) {
+  const queryClient = useQueryClient();
+  const [createForm, setCreateForm] = useState({
+    name: "",
+    section: "quant",
+    topic: "",
+    subtopic: "",
+    template: "",
+    answerExpression: "",
+    variables: "{\n  \"p\": { \"min\": 1000, \"max\": 5000 }\n}",
+  });
+  const [generateForm, setGenerateForm] = useState({ patternId: "", count: 5 });
+  const [generatedQuestions, setGeneratedQuestions] = useState<GeneratedQuestion[]>([]);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [generateError, setGenerateError] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const sortedPatterns = [...patterns].sort((a, b) => a.name.localeCompare(b.name));
+  const selectedPattern = sortedPatterns.find((pattern) => pattern.id === generateForm.patternId) ?? null;
+
+  const parseVariables = (value: string) => {
+    const parsed = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new Error("variables must be a JSON object");
+    }
+    return parsed as Record<string, unknown>;
+  };
+
+  const handleCreatePattern = async () => {
+    setCreateError(null);
+    try {
+      if (
+        !createForm.name.trim() ||
+        !createForm.section.trim() ||
+        !createForm.topic.trim() ||
+        !createForm.subtopic.trim() ||
+        !createForm.template.trim() ||
+        !createForm.answerExpression.trim()
+      ) {
+        throw new Error("Fill every template field");
+      }
+
+      setCreating(true);
+      const created = await createPattern({
+        name: createForm.name.trim(),
+        section: createForm.section.trim(),
+        topic: createForm.topic.trim(),
+        subtopic: createForm.subtopic.trim(),
+        template: createForm.template.trim(),
+        answerExpression: createForm.answerExpression.trim(),
+        variables: parseVariables(createForm.variables),
+      });
+
+      await queryClient.invalidateQueries({ queryKey: ["generator-patterns"] });
+      setCreateForm({
+        name: "",
+        section: created.section,
+        topic: created.topic,
+        subtopic: created.subtopic,
+        template: "",
+        answerExpression: "",
+        variables: "{\n  \"p\": { \"min\": 1000, \"max\": 5000 }\n}",
+      });
+      setGenerateForm({ patternId: created.id, count: 5 });
+    } catch (error) {
+      setCreateError(getAdminActionErrorMessage(error));
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  const handleGenerate = async () => {
+    setGenerateError(null);
+    if (!generateForm.patternId) {
+      setGenerateError("Select a template first");
+      return;
+    }
+
+    setGenerating(true);
+    try {
+      const result = await generateQuestionsFn({
+        patternId: generateForm.patternId,
+        count: generateForm.count,
+      });
+      setGeneratedQuestions(result.questions);
+    } catch (error) {
+      setGenerateError(getAdminActionErrorMessage(error));
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  return (
+    <div className="space-y-5 rounded-2xl border border-border/70 bg-background/70 p-5 shadow-sm">
+      <section className="space-y-4 rounded-xl border border-border/60 bg-background p-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Add Template</p>
+          <h3 className="mt-2 text-lg font-semibold text-foreground">Create a pattern</h3>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <Input value={createForm.name} onChange={(e) => setCreateForm({ ...createForm, name: e.target.value })} placeholder="Template name" />
+          <select
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            value={createForm.section}
+            onChange={(e) => setCreateForm({ ...createForm, section: e.target.value })}
+          >
+            {["quant", "reasoning", "english", "general"].map((section) => (
+              <option key={section} value={section}>{section}</option>
+            ))}
+          </select>
+          <Input value={createForm.topic} onChange={(e) => setCreateForm({ ...createForm, topic: e.target.value })} placeholder="Topic" />
+          <Input value={createForm.subtopic} onChange={(e) => setCreateForm({ ...createForm, subtopic: e.target.value })} placeholder="Subtopic" />
+          <Input className="md:col-span-2 font-mono" value={createForm.template} onChange={(e) => setCreateForm({ ...createForm, template: e.target.value })} placeholder="Find SI for {{p}} at {{r}}% for {{t}} years" />
+          <Input className="md:col-span-2 font-mono" value={createForm.answerExpression} onChange={(e) => setCreateForm({ ...createForm, answerExpression: e.target.value })} placeholder="(p*r*t)/100" />
+          <textarea
+            className="min-h-[140px] w-full rounded-md border border-input bg-background px-3 py-2 font-mono text-sm md:col-span-2"
+            value={createForm.variables}
+            onChange={(e) => setCreateForm({ ...createForm, variables: e.target.value })}
+          />
+        </div>
+        {createError && <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">{createError}</div>}
+        <div className="flex justify-end">
+          <Button type="button" onClick={handleCreatePattern} disabled={creating}>
+            {creating ? "Saving..." : "Save Template"}
+          </Button>
+        </div>
+      </section>
+
+      <section className="space-y-4 rounded-xl border border-border/60 bg-background p-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Generate Questions</p>
+          <h3 className="mt-2 text-lg font-semibold text-foreground">Generate straight into the bank</h3>
+        </div>
+        <div className="grid gap-3 md:grid-cols-[1fr,160px]">
+          <select
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            value={generateForm.patternId}
+            onChange={(e) => setGenerateForm({ ...generateForm, patternId: e.target.value })}
+          >
+            <option value="">Select template</option>
+            {sortedPatterns.map((pattern) => (
+              <option key={pattern.id} value={pattern.id}>
+                {pattern.name} · {pattern.section} / {pattern.topic}
+              </option>
+            ))}
+          </select>
+          <Input
+            type="number"
+            min={1}
+            max={50}
+            value={generateForm.count}
+            onChange={(e) => setGenerateForm({ ...generateForm, count: Math.max(1, Math.min(50, Number(e.target.value) || 1)) })}
+          />
+        </div>
+        {selectedPattern && <p className="text-xs text-muted-foreground">{selectedPattern.template}</p>}
+        {generateError && <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">{generateError}</div>}
+        <div className="flex justify-end">
+          <Button type="button" onClick={handleGenerate} disabled={generating || !generateForm.patternId}>
+            {generating ? "Generating..." : "Generate"}
+          </Button>
+        </div>
+      </section>
+
+      {generatedQuestions.length > 0 && (
+        <section className="space-y-3 rounded-xl border border-border/60 bg-background p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Generated</p>
+              <h3 className="mt-2 text-lg font-semibold text-foreground">{generatedQuestions.length} questions saved</h3>
+            </div>
+            <button
+              type="button"
+              className="text-xs underline text-muted-foreground"
+              onClick={async () => navigator.clipboard.writeText(JSON.stringify(generatedQuestions, null, 2))}
+            >
+              Copy JSON
+            </button>
+          </div>
+          <div className="space-y-3">
+            {generatedQuestions.map((question, index) => (
+              <div key={question.id} className="rounded-lg border border-border/60 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-medium text-foreground">{index + 1}. {question.questionText}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{question.patternName}</p>
+                  </div>
+                  <span className="text-xs text-muted-foreground">{question.createdAt}</span>
+                </div>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {question.options.map((option, optionIndex) => (
+                    <div
+                      key={`${question.id}-${optionIndex}`}
+                      className={`rounded-md border px-3 py-2 text-xs ${
+                        option === question.correctAnswer ? "border-primary/40 bg-primary/10" : "border-border"
+                      }`}
+                    >
+                      {String.fromCharCode(65 + optionIndex)}. {option}
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-3 text-xs text-muted-foreground">{question.explanation}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  );
 }
 
 const DIFFICULTY_COLORS: Record<string, string> = {
@@ -920,10 +1137,7 @@ export default function Admin() {
     queryFn: getAllTopics,
     staleTime: 0,
   });
-  const { data: generatorPatterns = [] } = useQuery<PatternOption[]>({
-    queryKey: ["generator-patterns"],
-    queryFn: listPatterns,
-    staleTime: 60_000,
+  const { data: generatorPatterns = [] } = usePatterns({
     enabled: tab === "question-generator",
   });
   const [bulkJson, setBulkJson] = useState("");
@@ -3951,70 +4165,7 @@ export default function Admin() {
         )}
 
         {tab === "question-generator" && (
-          <QuestionGeneratorTab
-            onOpenImport={() => {
-              setImportTemplatesText("");
-              setImportTemplatesError(null);
-              setImportTemplatesSummary(null);
-              setImportTemplatesOpen(true);
-            }}
-            questionTemplates={questionTemplates}
-            generatorPatterns={generatorPatterns}
-            templateSearch={templateSearch}
-            setTemplateSearch={setTemplateSearch}
-            templateSectionFilter={templateSectionFilter}
-            setTemplateSectionFilter={setTemplateSectionFilter}
-            selectedQuestionTemplateId={selectedQuestionTemplateId}
-            setSelectedQuestionTemplateId={setSelectedQuestionTemplateId}
-            questionTemplateName={questionTemplateName}
-            setQuestionTemplateName={setQuestionTemplateName}
-            questionGeneratorDraft={questionGeneratorDraft}
-            setQuestionGeneratorDraft={setQuestionGeneratorDraft}
-            questionGeneratorBusy={questionGeneratorBusy}
-            questionGeneratorError={questionGeneratorError}
-            questionGeneratorResult={questionGeneratorResult}
-            setQuestionGeneratorResult={setQuestionGeneratorResult}
-            expandedQuestionIdx={expandedQuestionIdx}
-            setExpandedQuestionIdx={setExpandedQuestionIdx}
-            presets={QUESTION_TEMPLATE_PRESETS}
-            onApplyPreset={handleApplyQuestionTemplatePreset}
-            onSelectTemplate={handleSelectQuestionTemplate}
-            onSaveTemplate={handleSaveQuestionTemplate}
-            onRequestDelete={(t) => setDeletingTemplate(t)}
-            onGenerate={handleGenerateQuestionBank}
-            onStartFromScratch={() => {
-              setSelectedQuestionTemplateId("");
-              setQuestionTemplateName("");
-              setQuestionGeneratorDraft({
-                section: "quant",
-                topic: "",
-                subtopic: "",
-                difficulty: "medium",
-                patternIds: [],
-                questionCount: 5,
-              });
-              setQuestionGeneratorResult(null);
-            }}
-            onDuplicate={(t) => {
-              setSelectedQuestionTemplateId("");
-              setQuestionTemplateName(`${t.name} (copy)`);
-              if (isRichTemplate(t.template)) {
-                setQuestionGeneratorDraft({
-                  section: t.template.section,
-                  topic: t.template.topic,
-                  subtopic: t.template.subtopic,
-                  difficulty: t.template.difficulty,
-                  patternIds: [],
-                  questionCount: t.template.questionCount,
-                });
-                toast({ title: "Rich template duplicated", description: "Use Import JSON to duplicate the full pattern definition." });
-              } else {
-                setQuestionGeneratorDraft({ ...t.template, patternIds: [...t.template.patternIds] });
-                toast({ title: "Template duplicated", description: "Edit and save it as a new template." });
-              }
-              setQuestionGeneratorResult(null);
-            }}
-          />
+          <SimpleTemplateGeneratorSection patterns={generatorPatterns} />
         )}
 
         {/* ── SECTIONS TAB ── */}
@@ -4045,113 +4196,6 @@ export default function Admin() {
       {deletingCat && <DeleteModal name={deletingCat.name} onConfirm={handleDeleteCat} onCancel={() => setDeletingCat(null)} />}
       {deletingSubcat && <DeleteModal name={deletingSubcat.name} onConfirm={handleDeleteSubcat} onCancel={() => setDeletingSubcat(null)} />}
       {deletingTest && <DeleteModal name={deletingTest.name} onConfirm={handleDeleteTest} onCancel={() => setDeletingTest(null)} />}
-      {deletingTemplate && (
-        <DeleteModal
-          name={deletingTemplate.name}
-          onConfirm={async () => {
-            const id = deletingTemplate.id;
-            setDeletingTemplate(null);
-            await handleDeleteQuestionTemplate(id);
-          }}
-          onCancel={() => setDeletingTemplate(null)}
-        />
-      )}
-
-      {/* Import Templates JSON modal */}
-      <Dialog open={importTemplatesOpen} onOpenChange={(open) => !importTemplatesBusy && setImportTemplatesOpen(open)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <FileText className="h-4 w-4 text-primary" /> Import Templates from JSON
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-3">
-            <p className="text-xs text-muted-foreground">
-              Paste a JSON array of templates, a single template, or a <code className="rounded bg-muted px-1">{`{ "templates": [...] }`}</code> object. Imported templates will be added to your library and can then be used to generate questions.
-            </p>
-            <details className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-xs">
-              <summary className="cursor-pointer font-semibold text-foreground">Expected format & example</summary>
-              <pre className="mt-2 overflow-x-auto whitespace-pre rounded bg-background/80 p-2 text-[11px] leading-snug">{`[
-  {
-    "name": "Quant – Simple Interest (Medium)",
-    "template": {
-      "section": "quant",
-      "topic": "interest",
-      "subtopic": "simple interest",
-      "difficulty": "medium",
-      "questionCount": 10,
-      "patternIds": []
-    }
-  }
-]
-
-Allowed values:
-  section:    quant | reasoning | english | general
-  difficulty: easy | medium | hard
-  patternIds: optional array of pattern UUIDs (leave empty to auto-pick)`}</pre>
-            </details>
-            <div className="flex items-center gap-2">
-              <input
-                ref={importTemplatesFileRef}
-                type="file"
-                accept="application/json,.json"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleImportTemplatesFile(file);
-                  e.target.value = "";
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                disabled={importTemplatesBusy}
-                onClick={() => importTemplatesFileRef.current?.click()}
-              >
-                <FileText className="h-3.5 w-3.5 mr-1" /> Upload .json
-              </Button>
-              {importTemplatesText && (
-                <span className="text-[11px] text-muted-foreground">{importTemplatesText.length.toLocaleString()} chars loaded</span>
-              )}
-            </div>
-            <textarea
-              className="w-full h-56 rounded-lg border border-input bg-background px-3 py-2 text-xs font-mono"
-              placeholder='[ { "name": "...", "template": { "section": "quant", ... } } ]'
-              value={importTemplatesText}
-              onChange={(e) => setImportTemplatesText(e.target.value)}
-              disabled={importTemplatesBusy}
-            />
-            {importTemplatesError && (
-              <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive flex items-start gap-2">
-                <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                <span>{importTemplatesError}</span>
-              </div>
-            )}
-            {importTemplatesSummary && (
-              <div className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-xs space-y-1">
-                <p className="font-semibold">
-                  Imported {importTemplatesSummary.ok} · Failed {importTemplatesSummary.failed}
-                </p>
-                {importTemplatesSummary.errors.length > 0 && (
-                  <ul className="list-disc pl-4 text-destructive max-h-24 overflow-y-auto">
-                    {importTemplatesSummary.errors.map((err, i) => <li key={i}>{err}</li>)}
-                  </ul>
-                )}
-              </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button variant="outline" size="sm" disabled={importTemplatesBusy} onClick={() => setImportTemplatesOpen(false)}>
-              Close
-            </Button>
-            <Button size="sm" disabled={importTemplatesBusy || !importTemplatesText.trim()} onClick={handleImportTemplates}>
-              {importTemplatesBusy ? (<><Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" /> Importing…</>) : (<><Plus className="h-3.5 w-3.5 mr-1" /> Import</>)}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
       {/* Quick-add topic modal */}
       <Dialog open={addTopicModal.open} onOpenChange={(open) => !addTopicModal.busy && setAddTopicModal((m) => ({ ...m, open }))}>
         <DialogContent className="max-w-sm">
@@ -4326,6 +4370,8 @@ function QuestionGeneratorTab(props: {
           </div>
         </div>
       </div>
+
+      <SimpleTemplateGeneratorSection patterns={generatorPatterns} />
 
       <div className="grid gap-5 lg:grid-cols-[320px,1fr]">
         {/* ── Library Sidebar ── */}

@@ -748,6 +748,8 @@ export interface PatternOption {
   subtopic: string;
   difficulty: MockTestDifficulty;
   template: string;
+  answerExpression: string;
+  variables: Record<string, unknown>;
   usageCount: number;
   createdAt: string;
 }
@@ -777,6 +779,26 @@ export interface MockTestBuilderQuestion {
   aiRefined: boolean;
   aiSource: "openai" | "mock" | "skipped";
   validation: { valid: boolean; issues: string[] };
+}
+
+export interface GeneratedQuestion {
+  id: number;
+  patternId: string;
+  patternName: string;
+  section: MockTestSection;
+  topic: string;
+  subtopic: string;
+  difficulty: MockTestDifficulty;
+  questionText: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+  variables: Record<string, string | number>;
+  qualityScore: number;
+  aiRefined: boolean;
+  aiSource: "openai" | "mock" | "skipped";
+  validation: { valid: boolean; issues: string[] };
+  createdAt: string;
 }
 
 export interface MockTestBuilderSectionPreview extends MockTestBuilderSectionInput {
@@ -834,6 +856,51 @@ export interface QuestionTemplate {
 export async function listPatterns(): Promise<PatternOption[]> {
   const payload = await apiRequest<{ patterns: PatternOption[] }>("/patterns");
   return payload.patterns;
+}
+
+export async function generateQuestionsFn(body: {
+  patternId?: string;
+  count: number;
+  section?: MockTestSection;
+  topic?: string;
+  subtopic?: string;
+  difficulty?: MockTestDifficulty;
+  patternIds?: string[];
+  persist?: boolean;
+}): Promise<{ questions: GeneratedQuestion[]; totalQuestions: number }> {
+  const patternId = body.patternId ?? body.patternIds?.[0];
+  if (!patternId) {
+    throw new Error("patternId is required");
+  }
+
+  return apiRequest<{ questions: GeneratedQuestion[]; totalQuestions: number }>(
+    "/question-bank/generate",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        patternId,
+        count: body.count,
+      }),
+    },
+  );
+}
+
+export async function createPattern(body: {
+  name: string;
+  section: string;
+  topic: string;
+  subtopic: string;
+  difficulty?: MockTestDifficulty;
+  template: string;
+  answerExpression: string;
+  variables: Record<string, unknown>;
+  distractorStrategy?: Record<string, unknown>;
+  tags?: string[];
+}): Promise<PatternOption> {
+  return apiRequest<{ pattern: PatternOption }>("/patterns", {
+    method: "POST",
+    body: JSON.stringify(body),
+  }).then((payload) => payload.pattern);
 }
 
 export async function seedPatterns(): Promise<{ ok: boolean; seeded: number }> {
