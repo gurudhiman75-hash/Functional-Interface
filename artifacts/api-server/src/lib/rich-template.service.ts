@@ -393,6 +393,39 @@ export function buildDistractors(
 // ─── Persistence ────────────────────────────────────────────────────────────
 
 const BANK_TEST_ID = "__bank__";
+const RICH_TOPIC_FALLBACK_ID = "topic-rich-template";
+
+// Resolve a valid topics_global.id to satisfy questions.global_topic_id NOT NULL FK.
+// Strategy:
+//   1. Try to find an existing topics_global row whose name matches the
+//      template's topic (case-insensitive).
+//   2. Otherwise ensure a single sentinel row "topic-rich-template" exists
+//      and use it.
+async function resolveGlobalTopicId(topicName: string): Promise<string> {
+  try {
+    if (topicName && topicName.trim()) {
+      const rows = (await db.execute(sql`
+        SELECT id FROM topics_global
+        WHERE LOWER(name) = LOWER(${topicName.trim()})
+        LIMIT 1
+      `)) as unknown as { rows?: Array<{ id: string }> } | Array<{ id: string }>;
+      const list = Array.isArray(rows) ? rows : rows.rows ?? [];
+      if (list.length > 0 && list[0]?.id) return list[0].id;
+    }
+  } catch {
+    // fall through to sentinel
+  }
+  try {
+    await db.execute(sql`
+      INSERT INTO topics_global (id, name)
+      VALUES (${RICH_TOPIC_FALLBACK_ID}, ${"Rich Template (System)"})
+      ON CONFLICT (id) DO NOTHING
+    `);
+  } catch {
+    // best-effort
+  }
+  return RICH_TOPIC_FALLBACK_ID;
+}
 
 async function ensureBankTestExists(): Promise<string | null> {
   try {
@@ -442,8 +475,10 @@ export async function generateRichQuestions(
   let attempts = 0;
 
   const persist = opts.persist !== false;
+  let resolvedGlobalTopicId = "";
   if (persist) {
     await ensureBankTestExists();
+    resolvedGlobalTopicId = await resolveGlobalTopicId(template.topic ?? "");
   }
 
   while (out.length < template.questionCount && attempts < maxAttempts) {
@@ -486,33 +521,38 @@ export async function generateRichQuestions(
       try {
         const correctIndex = options.indexOf(correctStr);
         if (correctIndex < 0) continue;
-        const [row] = await db
-          .insert(questions)
-          .values({
-            testId: BANK_TEST_ID,
-            patternId: template.patternId ?? null,
-            text,
-            options,
-            correct: correctIndex,
-            section: template.section,
-            topic: template.topic,
-            subtopic: template.subtopic,
-            explanation,
-            difficulty:
-              template.difficulty === "easy"
-                ? "Easy"
-                : template.difficulty === "medium"
-                  ? "Medium"
-                  : "Hard",
-            aiRefined: 0,
-            qualityScore: 90,
-          })
-          .returning({ id: questions.id });
-        savedId = row?.id;
+        const difficultyLabel =
+          template.difficulty === "easy"
+            ? "Easy"
+            : template.difficulty === "medium"
+              ? "Medium"
+              : "Hard";
+        // Use raw SQL so we can guarantee a value for `global_topic_id`
+        // (NOT NULL, no DEFAULT in production) without relying on Drizzle's
+        // column-set inference.
+        const inserted = await db.execute(sql`
+          INSERT INTO questions
+            (client_id, test_id, pattern_id, text, options, correct,
+             section, topic, subtopic, global_topic_id, explanation,
+             difficulty, ai_refined, quality_score, question_type)
+          VALUES
+            (${""}, ${BANK_TEST_ID}, ${null},
+             ${text}, ${JSON.stringify(options)}::jsonb, ${correctIndex},
+             ${template.section}, ${template.topic ?? "General"},
+             ${template.subtopic ?? ""}, ${resolvedGlobalTopicId}, ${explanation},
+             ${difficultyLabel}, ${0}, ${90}, ${"text"})
+          RETURNING id
+        `);
+        const firstRow = (inserted as unknown as { rows?: Array<{ id: number }> })
+          .rows?.[0] ??
+          (Array.isArray(inserted) ? (inserted as Array<{ id: number }>)[0] : undefined);
+        savedId = firstRow?.id;
       } catch (err) {
+        const e = err as { message?: string; cause?: { message?: string; code?: string } };
         console.warn(
           "[rich-template] persist failed, returning question without id:",
-          (err as Error).message,
+          e?.message,
+          e?.cause?.code ? `(cause ${e.cause.code}: ${e.cause.message})` : "",
         );
       }
     }

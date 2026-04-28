@@ -40,6 +40,36 @@ A fully functional, professional exam preparation platform.
 - `/leaderboard` — Global leaderboard with user standing
 - `/admin` — Admin panel (requires admin@examtree.com login)
 
+### Question Bank — Rich Templates
+
+The admin Question Generator supports two template formats:
+
+1. **Legacy** — picks pre-built `patternIds` from the patterns library.
+2. **Rich** — self-contained pattern with `template_id`, `pattern_name`,
+   `fields.question_logic`, `fields.variables`, `fields.math_formula`, and
+   optional `fields.constraints`. Imported via the JSON dialog or saved directly.
+
+Rich-template generation lives in `artifacts/api-server/src/lib/rich-template.service.ts`:
+
+- Variables: `"Integer (range A-B)"`, conditional ranges (`"if X<5 then 6-10 else 1-5"`),
+  arrays / list literals, and numeric constants.
+- Formulas substitute `[VAR]` placeholders, accept `[]` as parens, evaluate via a sandboxed expression.
+- Distractors: ±5–15% jitter around the correct answer, deduped, shuffled.
+- Persistence: writes to the `questions` table under the `__bank__` placeholder test.
+  Required NOT-NULL columns are handled explicitly via raw SQL:
+    - `pattern_id` is always passed as `NULL` (the column is `uuid` and rich
+      template ids are arbitrary strings, not FK references to `patterns`).
+    - `global_topic_id` is resolved by name lookup in `topics_global` (e.g.
+      "Arithmetic" → `topic-arithmetic`); if no match, a sentinel row
+      `topic-rich-template` is upserted and used.
+
+### API DB Connection
+
+`artifacts/api-server/src/lib/db.ts` resolves `DATABASE_URL` from
+`artifacts/api-server/.env` first (Neon), then falls back to `process.env.DATABASE_URL`.
+This prevents the workspace's ambient Replit Postgres (`helium/heliumdb`) from
+shadowing Neon when the runtime ignores `--env-file`.
+
 ### Tech
 
 - React + Vite + Tailwind CSS v4 + shadcn/ui
