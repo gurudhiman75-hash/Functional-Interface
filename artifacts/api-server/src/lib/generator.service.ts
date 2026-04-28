@@ -28,6 +28,14 @@ export type GeneratedQuestion = {
 const MAX_PATTERN_RETRIES = 3;
 const BANK_TEST_ID = "__bank__";
 
+function validateForInsert(questionText: string, options: string[], correctAnswer: string): boolean {
+  return (
+    options.length === 4 &&
+    questionText.trim().length > 0 &&
+    options.includes(correctAnswer)
+  );
+}
+
 function normalizeQuestionKey(questionText: string, options: string[]) {
   return `${questionText.trim().toLowerCase()}|${options.map((option) => option.trim().toLowerCase()).join("|")}`;
 }
@@ -124,22 +132,29 @@ async function generateOne(opts: GenerateOptions): Promise<GeneratedQuestion | n
 
     let savedId: number | undefined;
     if (opts.persist !== false && isDbReady()) {
-      await ensureBankTestExists();
-      const correctIndex = refined.options.findIndex((option) => option === rendered.computedAnswer);
-      if (correctIndex < 0) {
+      // Additional validation before insert
+      if (!validateForInsert(refined.questionText, refined.options, rendered.computedAnswer)) {
+        console.warn("[generator] skipping insert due to validation failure");
         return null;
       }
 
+      // Debug log
+      console.log({
+        options: refined.options,
+        correct: rendered.computedAnswer,
+        test_id: null
+      });
+
       const [row] = await db.insert(questions).values({
-        testId: BANK_TEST_ID,
         patternId: pattern.id,
         text: refined.questionText,
         options: refined.options,
-        correct: correctIndex,
+        correct: rendered.computedAnswer,
         section: pattern.section,
         topic: pattern.topic,
         subtopic: pattern.subtopic ?? "",
         explanation: refined.explanation,
+        testId: null,
         difficulty:
           pattern.difficulty === "easy" ? "Easy" : pattern.difficulty === "medium" ? "Medium" : "Hard",
         aiRefined: refined.refined ? 1 : 0,
