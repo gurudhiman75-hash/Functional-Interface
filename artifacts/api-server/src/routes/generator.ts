@@ -3,7 +3,10 @@ import { eq } from "drizzle-orm";
 
 import { db } from "../lib/db";
 
-import { patterns } from "@workspace/db";
+import {
+  patterns,
+  questions as questionsTable,
+} from "@workspace/db";
 
 import {
   generateFromPattern,
@@ -105,6 +108,88 @@ router.post(
 
       return res.json({
         questions,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            "Internal server error",
+        });
+    }
+  },
+);
+router.post(
+  "/save",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const { questions } =
+        req.body;
+
+      if (
+        !Array.isArray(questions)
+      ) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "questions must be array",
+          });
+      }
+
+      const inserted = [];
+
+      for (const q of questions) {
+        if (
+          !q.text ||
+          !Array.isArray(q.options)
+        ) {
+          continue;
+        }
+
+        const rows = await db
+          .insert(questionsTable)
+          .values({
+            clientId: "generator",
+
+            testId: "__bank__",
+
+            text: q.text,
+
+            options: q.options,
+
+            correct: q.correct,
+
+            explanation:
+              q.explanation ??
+              "",
+
+            section:
+              q.section ??
+              "general",
+
+            topic:
+              q.topic ??
+              "General",
+
+            difficulty:
+              q.difficulty ??
+              "Easy",
+          })
+          .returning();
+
+        inserted.push(rows[0]);
+      }
+
+      return res.json({
+        success: true,
+        count: inserted.length,
+        questions: inserted,
       });
     } catch (error) {
       console.error(error);
