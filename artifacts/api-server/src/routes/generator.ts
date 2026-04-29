@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express";
 import { eq } from "drizzle-orm";
 
-import { db } from "../db";
+import { db } from "../lib/db";
 
-import { patterns } from "../../../lib/db/src";
+import { patterns } from "@workspace/db";
 
 import {
   generateFromPattern,
