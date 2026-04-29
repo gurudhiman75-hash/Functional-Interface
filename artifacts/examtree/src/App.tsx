@@ -12,6 +12,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 import { MathJaxContext } from "better-react-mathjax";
 
+
 const MATH_JAX_CONFIG = {
   loader: { load: ["input/tex", "output/chtml", "[tex]/ams", "[tex]/boldsymbol"] },
   tex: {
@@ -43,7 +44,10 @@ const PackageSuccess = lazy(() => import("@/pages/package-success"));
 const MyPackages = lazy(() => import("@/pages/my-packages"));
 const Profile = lazy(() => import("@/pages/profile"));
 const Admin = lazy(() => import("@/pages/admin"));
+const AdminGenerator = lazy(
+  () => import("@/pages/admin-generator"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+
 
 console.log("App.tsx loaded");
 
@@ -95,6 +99,9 @@ function Router() {
           <Route path="/my-packages" component={() => renderRoute(MyPackages)} />
           <Route path="/profile" component={() => renderRoute(Profile)} />
           <Route path="/admin" component={() => renderRoute(Admin)} />
+          <Route path="/admin/generator"
+component={() => renderRoute(AdminGenerator)}
+/>
           <Route component={() => renderRoute(NotFound)} />
         </Switch>
       </div>

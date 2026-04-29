@@ -158,6 +158,7 @@ router.post(
             clientId: "generator",
 
             testId: "__bank__",
+            globalTopicId: "generator-topic",
 
             text: q.text,
 
