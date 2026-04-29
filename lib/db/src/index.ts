@@ -356,3 +356,37 @@ export const leaderboard = pgTable(
     testIdRankIdx: index("leaderboard_test_id_rank_idx").on(t.testId, t.rank),
   }),
 );
+export const patterns = pgTable("patterns", {
+  id: text("id").primaryKey(),
+
+  name: text("name").notNull(),
+
+  section: text("section").notNull(),
+
+  topic: text("topic").notNull(),
+
+  subtopic: text("subtopic").notNull(),
+
+  type: text("type")
+    .$type<"formula" | "logic">()
+    .notNull()
+    .default("formula"),
+
+  difficulty: text("difficulty")
+    .$type<"Easy" | "Medium" | "Hard">(),
+
+  templateVariants: jsonb("template_variants")
+    .notNull(),
+
+  formula: text("formula"),
+
+  variables: jsonb("variables").notNull(),
+
+  distractorStrategy: jsonb(
+    "distractor_strategy",
+  ),
+
+  createdAt: timestamp("created_at")
+    .notNull()
+    .defaultNow(),
+});
