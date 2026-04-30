@@ -41,6 +41,82 @@ router.get(
   },
 );
 router.post(
+  "/patterns",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const pattern =
+        req.body;
+
+      if (
+        !pattern.id ||
+        !pattern.name
+      ) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Missing required fields",
+          });
+      }
+
+      const rows = await db
+        .insert(patterns)
+        .values({
+          id: pattern.id,
+
+          name: pattern.name,
+
+          section:
+            pattern.section,
+
+          topic:
+            pattern.topic,
+
+          subtopic:
+            pattern.subtopic,
+
+          type:
+            pattern.type ??
+            "formula",
+
+          difficulty:
+            pattern.difficulty ??
+            "Easy",
+
+          templateVariants:
+            pattern.templateVariants,
+
+          variables:
+            pattern.variables,
+
+          formula:
+            pattern.formula,
+
+          distractorStrategy:
+            pattern.distractorStrategy,
+        })
+        .returning();
+
+      return res.json({
+        success: true,
+        pattern: rows[0],
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            "Internal server error",
+        });
+    }
+  },
+);
+router.post(
   "/pattern",
   async (
     req: Request,
@@ -229,5 +305,6 @@ router.post(
     }
   },
 );
+
 
 export default router;

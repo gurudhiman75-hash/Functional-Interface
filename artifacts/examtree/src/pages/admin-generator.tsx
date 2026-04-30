@@ -23,6 +23,25 @@ export default function AdminGeneratorPage() {
 
   const [loading, setLoading] =
     useState(false);
+  const [newPattern, setNewPattern] =
+  useState({
+    id: "",
+    name: "",
+    section: "quant",
+    topic: "",
+    subtopic: "",
+    difficulty: "Easy",
+    formula: "",
+
+    template: "",
+
+    variables: `{
+  "a": { "min": 1, "max": 10 },
+  "b": { "min": 1, "max": 10 }
+}`,
+
+    offsets: "-1,1,2",
+  });
 
   useEffect(() => {
     async function loadPatterns() {
@@ -44,7 +63,94 @@ export default function AdminGeneratorPage() {
 
     loadPatterns();
   }, []);
+async function createPattern() {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/generator/patterns`,
+      {
+        method: "POST",
 
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          id: newPattern.id,
+
+          name:
+            newPattern.name,
+
+          section:
+            newPattern.section,
+
+          topic:
+            newPattern.topic,
+
+          subtopic:
+            newPattern.subtopic,
+
+          type: "formula",
+
+          difficulty:
+            newPattern.difficulty,
+
+          formula:
+            newPattern.formula,
+
+          templateVariants: [
+            newPattern.template,
+          ],
+
+          variables: JSON.parse(
+            newPattern.variables,
+          ),
+
+          distractorStrategy:
+            {
+              type: "numeric_offsets",
+
+              offsets:
+                newPattern.offsets
+                  .split(",")
+                  .map((x) =>
+                    Number(
+                      x.trim(),
+                    ),
+                  ),
+            },
+        }),
+      },
+    );
+
+    const data = await res.json();
+
+    console.log(data);
+
+    alert(
+      "Pattern created",
+    );
+
+    const patternsRes =
+      await fetch(
+        `${API_BASE_URL}/api/generator/patterns`,
+      );
+
+    const patternsData =
+      await patternsRes.json();
+
+    setPatterns(
+      patternsData.patterns ||
+        [],
+    );
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      "Failed to create pattern",
+    );
+  }
+}
   async function generate() {
     try {
       setLoading(true);
@@ -119,6 +225,94 @@ export default function AdminGeneratorPage() {
       <h1 className="text-3xl font-bold">
         Question Generator
       </h1>
+      <div className="border rounded-lg p-4 space-y-4">
+  <h2 className="text-xl font-semibold">
+    Create Pattern
+  </h2>
+
+  <input
+    placeholder="Pattern ID"
+    value={newPattern.id}
+    onChange={(e) =>
+      setNewPattern({
+        ...newPattern,
+        id: e.target.value,
+      })
+    }
+    className="border rounded p-2 w-full"
+  />
+
+  <input
+    placeholder="Pattern Name"
+    value={newPattern.name}
+    onChange={(e) =>
+      setNewPattern({
+        ...newPattern,
+        name: e.target.value,
+      })
+    }
+    className="border rounded p-2 w-full"
+  />
+
+  <input
+    placeholder="Topic"
+    value={newPattern.topic}
+    onChange={(e) =>
+      setNewPattern({
+        ...newPattern,
+        topic:
+          e.target.value,
+      })
+    }
+    className="border rounded p-2 w-full"
+  />
+
+  <input
+    placeholder="Formula (example: a + b)"
+    value={newPattern.formula}
+    onChange={(e) =>
+      setNewPattern({
+        ...newPattern,
+        formula:
+          e.target.value,
+      })
+    }
+    className="border rounded p-2 w-full"
+  />
+
+  <textarea
+    placeholder="Template"
+    value={newPattern.template}
+    onChange={(e) =>
+      setNewPattern({
+        ...newPattern,
+        template:
+          e.target.value,
+      })
+    }
+    className="border rounded p-2 w-full h-24"
+  />
+
+  <textarea
+    placeholder="Variables JSON"
+    value={newPattern.variables}
+    onChange={(e) =>
+      setNewPattern({
+        ...newPattern,
+        variables:
+          e.target.value,
+      })
+    }
+    className="border rounded p-2 w-full h-32"
+  />
+
+  <button
+    onClick={createPattern}
+    className="bg-blue-600 text-white px-4 py-2 rounded"
+  >
+    Create Pattern
+  </button>
+</div>
 
       <div className="border rounded-lg p-4 space-y-4">
         <div>

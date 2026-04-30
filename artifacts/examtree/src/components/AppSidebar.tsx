@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Trophy,
   FlaskConical,
+  WandSparkles,
   User,
 } from "lucide-react";
 import { getUser, clearAuth } from "@/lib/storage";
@@ -57,7 +58,21 @@ export function AppSidebar() {
 
   const accountLinks = [
     { href: "/profile", label: "Profile", icon: User },
-    ...(isAdmin ? [{ href: "/admin", label: "Admin", icon: ShieldCheck }] : []),
+    ...(isAdmin
+  ? [
+      {
+        href: "/admin",
+        label: "Admin",
+        icon: ShieldCheck,
+      },
+
+      {
+        href: "/admin/generator",
+        label: "Question Studio",
+        icon: WandSparkles,
+      },
+    ]
+  : []),
   ];
 
   return (
