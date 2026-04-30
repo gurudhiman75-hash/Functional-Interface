@@ -116,6 +116,90 @@ router.post(
     }
   },
 );
+router.put(
+  "/patterns/:id",
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const body = req.body;
+
+      const rows = await db
+        .update(patterns)
+        .set({
+          name: body.name,
+
+          section:
+            body.section,
+
+          topic:
+            body.topic,
+
+          subtopic:
+            body.subtopic,
+
+          type:
+            body.type,
+
+          difficulty:
+            body.difficulty,
+
+          formula:
+            body.formula,
+
+          templateVariants:
+            body.templateVariants,
+
+          variables:
+            body.variables,
+
+          distractorStrategy:
+            body.distractorStrategy,
+        })
+        .where(
+          eq(patterns.id, id),
+        )
+        .returning();
+
+      return res.json({
+        success: true,
+        pattern: rows[0],
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).json({
+        error:
+          "Internal server error",
+      });
+    }
+  },
+);
+router.delete(
+  "/patterns/:id",
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await db
+        .delete(patterns)
+        .where(
+          eq(patterns.id, id),
+        );
+
+      return res.json({
+        success: true,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).json({
+        error:
+          "Internal server error",
+      });
+    }
+  },
+);
 router.post(
   "/pattern",
   async (
@@ -252,6 +336,20 @@ router.post(
         ) {
           continue;
         }
+        const existing =
+  await db
+    .select()
+    .from(questionsTable)
+    .where(
+      eq(
+        questionsTable.text,
+        q.text,
+      ),
+    );
+
+if (existing.length) {
+  continue;
+}
 
         const rows = await db
           .insert(questionsTable)
