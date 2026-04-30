@@ -23,7 +23,7 @@ export default function AdminGeneratorPage() {
 
   const [loading, setLoading] =
     useState(false);
-  const [newPattern, setNewPattern] =
+ const [newPattern, setNewPattern] =
   useState({
     id: "",
     name: "",
@@ -42,6 +42,14 @@ export default function AdminGeneratorPage() {
 
     offsets: "-1,1,2",
   });
+
+const [
+  editingPatternId,
+  setEditingPatternId,
+] = useState<string | null>(
+  null,
+);
+ 
 
   useEffect(() => {
     async function loadPatterns() {
@@ -63,50 +71,55 @@ export default function AdminGeneratorPage() {
 
     loadPatterns();
   }, []);
-async function createPattern() {
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/generator/patterns`,
-      {
-        method: "POST",
+  async function savePattern() {
+    try {
+      const res = await fetch(
+        editingPatternId
+          ? `${API_BASE_URL}/api/generator/patterns/${editingPatternId}`
+          : `${API_BASE_URL}/api/generator/patterns`,
+        {
+          method:
+            editingPatternId
+              ? "PUT"
+              : "POST",
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
 
-        body: JSON.stringify({
-          id: newPattern.id,
+          body: JSON.stringify({
+            id: newPattern.id,
 
-          name:
-            newPattern.name,
+            name:
+              newPattern.name,
 
-          section:
-            newPattern.section,
+            section:
+              newPattern.section,
 
-          topic:
-            newPattern.topic,
+            topic:
+              newPattern.topic,
 
-          subtopic:
-            newPattern.subtopic,
+            subtopic:
+              newPattern.subtopic,
 
-          type: "formula",
+            type: "formula",
 
-          difficulty:
-            newPattern.difficulty,
+            difficulty:
+              newPattern.difficulty,
 
-          formula:
-            newPattern.formula,
+            formula:
+              newPattern.formula,
 
-          templateVariants: [
-            newPattern.template,
-          ],
+            templateVariants: [
+              newPattern.template,
+            ],
 
-          variables: JSON.parse(
-            newPattern.variables,
-          ),
+            variables: JSON.parse(
+              newPattern.variables,
+            ),
 
-          distractorStrategy:
+            distractorStrategy:
             {
               type: "numeric_offsets",
 
@@ -119,38 +132,96 @@ async function createPattern() {
                     ),
                   ),
             },
-        }),
-      },
-    );
-
-    const data = await res.json();
-
-    console.log(data);
-
-    alert(
-      "Pattern created",
-    );
-
-    const patternsRes =
-      await fetch(
-        `${API_BASE_URL}/api/generator/patterns`,
+          }),
+        },
       );
 
-    const patternsData =
-      await patternsRes.json();
+      const data = await res.json();
 
-    setPatterns(
-      patternsData.patterns ||
+      console.log(data);
+
+      alert(
+        "Pattern created",
+      );
+
+      const patternsRes =
+        await fetch(
+          `${API_BASE_URL}/api/generator/patterns`,
+        );
+
+      const patternsData =
+        await patternsRes.json();
+
+      setPatterns(
+        patternsData.patterns ||
         [],
-    );
-  } catch (error) {
-    console.error(error);
+      );
+    } catch (error) {
+      console.error(error);
 
-    alert(
-      "Failed to create pattern",
+      alert(
+        "Failed to create pattern",
+      );
+    }
+  }
+  function isDuplicateQuestion(
+    currentIndex: number,
+  ) {
+    const current =
+      generated[
+        currentIndex
+      ]?.text
+        ?.toLowerCase()
+        ?.replace(/\s+/g, " ")
+        ?.trim();
+
+    return generated.some(
+      (q, idx) => {
+        if (
+          idx === currentIndex
+        ) {
+          return false;
+        }
+
+        const compare =
+          q?.text
+            ?.toLowerCase()
+            ?.replace(
+              /\s+/g,
+              " ",
+            )
+            ?.trim();
+
+        return (
+          current === compare
+        );
+      },
     );
   }
-}
+  async function deletePattern(
+    id: string,
+  ) {
+    try {
+      await fetch(
+        `${API_BASE_URL}/api/generator/patterns/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      setPatterns(
+        patterns.filter(
+          (p) => p.id !== id,
+        ),
+      );
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "Failed to delete pattern",
+      );
+    }
+  }
   async function generate() {
     try {
       setLoading(true);
@@ -176,9 +247,10 @@ async function createPattern() {
 
       console.log(data);
 
-      setGenerated(
-        data.questions || [],
-      );
+      setGenerated((prev) => [
+        ...prev,
+        ...(data.questions || []),
+      ]);
     } catch (error) {
       console.error(error);
 
@@ -190,6 +262,49 @@ async function createPattern() {
     }
   }
 
+  async function regenerateQuestion(
+    index: number,
+  ) {
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/generator/pattern`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify({
+            patternId,
+            count: 1,
+          }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (
+        data.questions?.length
+      ) {
+        const updated = [
+          ...generated,
+        ];
+
+        updated[index] =
+          data.questions[0];
+
+        setGenerated(updated);
+      }
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "Failed to regenerate question",
+      );
+    }
+  }
   async function saveQuestions() {
     try {
       const res = await fetch(
@@ -226,93 +341,184 @@ async function createPattern() {
         Question Generator
       </h1>
       <div className="border rounded-lg p-4 space-y-4">
-  <h2 className="text-xl font-semibold">
-    Create Pattern
-  </h2>
+        <div className="border rounded-lg p-4 space-y-4">
+          <h2 className="text-xl font-semibold">
+            Existing Patterns
+          </h2>
 
-  <input
-    placeholder="Pattern ID"
-    value={newPattern.id}
-    onChange={(e) =>
-      setNewPattern({
-        ...newPattern,
-        id: e.target.value,
-      })
-    }
-    className="border rounded p-2 w-full"
-  />
+          <div className="space-y-2">
+            {patterns.map((p) => (
+              <div
+                key={p.id}
+                className="border rounded p-3 flex items-center justify-between"
+              >
+                <div>
+                  <div className="font-medium">
+                    {p.name}
+                  </div>
 
-  <input
-    placeholder="Pattern Name"
-    value={newPattern.name}
-    onChange={(e) =>
-      setNewPattern({
-        ...newPattern,
-        name: e.target.value,
-      })
-    }
-    className="border rounded p-2 w-full"
-  />
+                  <div className="text-sm text-gray-600">
+                    {p.topic}
+                  </div>
 
-  <input
-    placeholder="Topic"
-    value={newPattern.topic}
-    onChange={(e) =>
-      setNewPattern({
-        ...newPattern,
-        topic:
-          e.target.value,
-      })
-    }
-    className="border rounded p-2 w-full"
-  />
+                  <div className="text-xs text-gray-500">
+                    {p.formula}
+                  </div>
+                </div>
 
-  <input
-    placeholder="Formula (example: a + b)"
-    value={newPattern.formula}
-    onChange={(e) =>
-      setNewPattern({
-        ...newPattern,
-        formula:
-          e.target.value,
-      })
-    }
-    className="border rounded p-2 w-full"
-  />
+                <div className="flex gap-2">
+                  <button
+                    onClick={() =>
+                      setPatternId(p.id)
+                    }
+                    className="bg-black text-white px-3 py-1 rounded text-sm"
+                  >
+                    Use
+                  </button>
+                  <button
+                    onClick={() => {
+                      setEditingPatternId(
+                        p.id,
+                      );
 
-  <textarea
-    placeholder="Template"
-    value={newPattern.template}
-    onChange={(e) =>
-      setNewPattern({
-        ...newPattern,
-        template:
-          e.target.value,
-      })
-    }
-    className="border rounded p-2 w-full h-24"
-  />
+                      setNewPattern({
+                        id: p.id,
+                        name: p.name,
+                        section:
+                          p.section,
+                        topic: p.topic,
+                        subtopic:
+                          p.subtopic,
+                        difficulty:
+                          p.difficulty,
+                        formula:
+                          p.formula || "",
 
-  <textarea
-    placeholder="Variables JSON"
-    value={newPattern.variables}
-    onChange={(e) =>
-      setNewPattern({
-        ...newPattern,
-        variables:
-          e.target.value,
-      })
-    }
-    className="border rounded p-2 w-full h-32"
-  />
+                        template:
+                          p.templateVariants?.[0] ||
+                          "",
 
-  <button
-    onClick={createPattern}
-    className="bg-blue-600 text-white px-4 py-2 rounded"
-  >
-    Create Pattern
-  </button>
-</div>
+                        variables:
+                          JSON.stringify(
+                            p.variables,
+                            null,
+                            2,
+                          ),
+
+                        offsets:
+                          p
+                            .distractorStrategy
+                            ?.offsets?.join(
+                              ",",
+                            ) || "",
+                      });
+                    }}
+                    className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() =>
+                      deletePattern(p.id)
+                    }
+                    className="bg-red-600 text-white px-3 py-1 rounded text-sm"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <h2 className="text-xl font-semibold">
+          Create Pattern
+        </h2>
+
+        <input
+          placeholder="Pattern ID"
+          value={newPattern.id}
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              id: e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full"
+        />
+
+        <input
+          placeholder="Pattern Name"
+          value={newPattern.name}
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              name: e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full"
+        />
+
+        <input
+          placeholder="Topic"
+          value={newPattern.topic}
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              topic:
+                e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full"
+        />
+
+        <input
+          placeholder="Formula (example: a + b)"
+          value={newPattern.formula}
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              formula:
+                e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full"
+        />
+
+        <textarea
+          placeholder="Template"
+          value={newPattern.template}
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              template:
+                e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full h-24"
+        />
+
+        <textarea
+          placeholder="Variables JSON"
+          value={newPattern.variables}
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              variables:
+                e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full h-32"
+        />
+
+        <button
+          onClick={savePattern}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          {editingPatternId
+            ? "Update Pattern"
+            : "Create Pattern"}
+        </button>
+      </div>
 
       <div className="border rounded-lg p-4 space-y-4">
         <div>
@@ -371,7 +577,15 @@ async function createPattern() {
         >
           {loading
             ? "Generating..."
-            : "Generate Questions"}
+            : "Generate Batch"}
+        </button>
+        <button
+          onClick={() =>
+            setGenerated([])
+          }
+          className="bg-red-600 text-white px-4 py-2 rounded"
+        >
+          Clear All
         </button>
       </div>
 
@@ -396,11 +610,62 @@ async function createPattern() {
             (q, idx) => (
               <div
                 key={idx}
-                className="border rounded-lg p-4 space-y-3"
+                className={`border rounded-lg p-4 space-y-3 ${isDuplicateQuestion(idx)
+                  ? "border-red-500 bg-red-50"
+                  : ""
+                  }`}
               >
+                <div className="flex justify-end gap-3">
+                  <button
+                    onClick={() =>
+                      regenerateQuestion(idx)
+                    }
+                    className="text-blue-600 text-sm"
+                  >
+                    Regenerate
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setGenerated(
+                        generated.filter(
+                          (
+                            _: any,
+                            questionIndex: number,
+                          ) =>
+                            questionIndex !==
+                            idx,
+                        ),
+                      );
+                    }}
+                    className="text-red-600 text-sm"
+                  >
+                    Delete
+                  </button>
+                </div>
+                {isDuplicateQuestion(
+                  idx,
+                ) && (
+                    <div className="text-red-600 text-sm font-medium">
+                      Duplicate Question
+                    </div>
+                  )}
                 <div className="font-medium">
                   {idx + 1}.{" "}
-                  {String(q.text)}
+                  <textarea
+                    value={q.text}
+                    onChange={(e) => {
+                      const updated = [
+                        ...generated,
+                      ];
+
+                      updated[idx].text =
+                        e.target.value;
+
+                      setGenerated(updated);
+                    }}
+                    className="border rounded p-2 w-full"
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -411,23 +676,160 @@ async function createPattern() {
                     ) => (
                       <div
                         key={i}
-                        className={`border rounded p-2 ${
-                          q.correct ===
-                          i
-                            ? "bg-green-100"
-                            : ""
-                        }`}
+                        className={`border rounded p-2 ${q.correct === i
+                          ? "bg-green-100"
+                          : ""
+                          }`}
                       >
-                        {String(opt)}
+                        <input
+                          value={opt}
+                          onChange={(e) => {
+                            const updated = [
+                              ...generated,
+                            ];
+
+                            updated[idx].options[i] =
+                              e.target.value;
+
+                            setGenerated(updated);
+                          }}
+                          className="w-full bg-transparent outline-none"
+                        />
                       </div>
                     ),
                   )}
                 </div>
 
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">
+                    Correct Answer:
+                  </span>
+
+                  <select
+                    value={q.correct}
+                    onChange={(e) => {
+                      const updated = [
+                        ...generated,
+                      ];
+
+                      updated[idx].correct =
+                        Number(
+                          e.target.value,
+                        );
+
+                      setGenerated(updated);
+                    }}
+                    className="border rounded p-2"
+                  >
+                    {q.options.map(
+                      (
+                        _: any,
+                        optionIndex: number,
+                      ) => (
+                        <option
+                          key={optionIndex}
+                          value={optionIndex}
+                        >
+                          Option{" "}
+                          {optionIndex + 1}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </div>
+
                 <div className="text-sm text-gray-600">
-                  {String(
-                    q.explanation,
-                  )}
+                  <div>
+                    <label className="text-sm font-medium">
+                      Topic
+                    </label>
+
+                    <input
+                      value={q.topic || ""}
+                      onChange={(e) => {
+                        const updated = [
+                          ...generated,
+                        ];
+
+                        updated[idx].topic =
+                          e.target.value;
+
+                        setGenerated(updated);
+                      }}
+                      className="border rounded p-2 w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">
+                      Section
+                    </label>
+
+                    <input
+                      value={
+                        q.section || ""
+                      }
+                      onChange={(e) => {
+                        const updated = [
+                          ...generated,
+                        ];
+
+                        updated[idx].section =
+                          e.target.value;
+
+                        setGenerated(updated);
+                      }}
+                      className="border rounded p-2 w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">
+                      Difficulty
+                    </label>
+
+                    <select
+                      value={
+                        q.difficulty ||
+                        "Easy"
+                      }
+                      onChange={(e) => {
+                        const updated = [
+                          ...generated,
+                        ];
+
+                        updated[idx].difficulty =
+                          e.target.value;
+
+                        setGenerated(updated);
+                      }}
+                      className="border rounded p-2 w-full"
+                    >
+                      <option value="Easy">
+                        Easy
+                      </option>
+
+                      <option value="Medium">
+                        Medium
+                      </option>
+
+                      <option value="Hard">
+                        Hard
+                      </option>
+                    </select>
+                  </div>
+                  <textarea
+                    value={q.explanation}
+                    onChange={(e) => {
+                      const updated = [
+                        ...generated,
+                      ];
+
+                      updated[idx].explanation =
+                        e.target.value;
+
+                      setGenerated(updated);
+                    }}
+                    className="border rounded p-2 w-full"
+                  />
                 </div>
               </div>
             ),
