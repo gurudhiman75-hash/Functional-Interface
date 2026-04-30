@@ -1,4 +1,12 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
+
+const API_BASE_URL =
+  import.meta.env.DEV
+    ? "http://localhost:3001"
+    : "";
 
 export default function AdminGeneratorPage() {
   const [patternId, setPatternId] =
@@ -10,15 +18,39 @@ export default function AdminGeneratorPage() {
   const [generated, setGenerated] =
     useState<any[]>([]);
 
+  const [patterns, setPatterns] =
+    useState<any[]>([]);
+
   const [loading, setLoading] =
     useState(false);
+
+  useEffect(() => {
+    async function loadPatterns() {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/api/generator/patterns`,
+        );
+
+        const data =
+          await res.json();
+
+        setPatterns(
+          data.patterns || [],
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadPatterns();
+  }, []);
 
   async function generate() {
     try {
       setLoading(true);
 
       const res = await fetch(
-        "/api/generator/pattern",
+        `${API_BASE_URL}/api/generator/pattern`,
         {
           method: "POST",
 
@@ -55,7 +87,7 @@ export default function AdminGeneratorPage() {
   async function saveQuestions() {
     try {
       const res = await fetch(
-        "/api/generator/save",
+        `${API_BASE_URL}/api/generator/save`,
         {
           method: "POST",
 
@@ -91,10 +123,10 @@ export default function AdminGeneratorPage() {
       <div className="border rounded-lg p-4 space-y-4">
         <div>
           <label className="block mb-2 font-medium">
-            Pattern ID
+            Pattern
           </label>
 
-          <input
+          <select
             value={patternId}
             onChange={(e) =>
               setPatternId(
@@ -102,8 +134,21 @@ export default function AdminGeneratorPage() {
               )
             }
             className="border rounded p-2 w-full"
-            placeholder="speed-1"
-          />
+          >
+            <option value="">
+              Select Pattern
+            </option>
+
+            {patterns.map((p) => (
+              <option
+                key={p.id}
+                value={p.id}
+              >
+                {p.name} (
+                {p.topic})
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>

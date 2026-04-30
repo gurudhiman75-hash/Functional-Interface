@@ -12,9 +12,34 @@ import {
   generateFromPattern,
   type Pattern,
 } from "../lib/generator";
+console.log(
+  "GENERATOR ROUTES LOADED",
+);
 
 const router = Router();
+router.get(
+  "/patterns",
+  async (_req, res) => {
+    try {
+      const rows = await db
+        .select()
+        .from(patterns);
 
+      return res.json({
+        patterns: rows,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            "Internal server error",
+        });
+    }
+  },
+);
 router.post(
   "/pattern",
   async (
