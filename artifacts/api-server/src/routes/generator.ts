@@ -40,6 +40,108 @@ router.get(
     }
   },
 );
+router.put(
+  "/patterns/:id",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const id =
+        req.params.id;
+
+      const pattern =
+        req.body;
+
+      const rows = await db
+        .update(patterns)
+        .set({
+          name: pattern.name,
+
+          section:
+            pattern.section,
+
+          topic:
+            pattern.topic,
+
+          subtopic:
+            pattern.subtopic,
+
+          formula:
+            pattern.formula,
+
+          difficulty:
+            pattern.difficulty,
+
+          templateVariants:
+            pattern.templateVariants,
+
+          variables:
+            pattern.variables,
+
+          distractorStrategy:
+            pattern.distractorStrategy,
+          explanationTemplate:
+            pattern.explanationTemplate,
+        })
+        .where(
+          eq(
+            patterns.id,
+            id,
+          ),
+        )
+        .returning();
+
+      return res.json({
+        success: true,
+        pattern: rows[0],
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            "Internal server error",
+        });
+    }
+  },
+);
+router.delete(
+  "/patterns/:id",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const id =
+        req.params.id;
+
+      await db
+        .delete(patterns)
+        .where(
+          eq(
+            patterns.id,
+            id,
+          ),
+        );
+
+      return res.json({
+        success: true,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            "Internal server error",
+        });
+    }
+  },
+);
 router.post(
   "/patterns",
   async (
@@ -97,6 +199,8 @@ router.post(
 
           distractorStrategy:
             pattern.distractorStrategy,
+          explanationTemplate:
+            pattern.explanationTemplate,
         })
         .returning();
 
@@ -247,8 +351,8 @@ router.post(
 
         type:
           dbPattern.type as
-            | "formula"
-            | "logic",
+          | "formula"
+          | "logic",
 
         section:
           dbPattern.section,
@@ -260,10 +364,10 @@ router.post(
 
         difficulty:
           dbPattern.difficulty as
-            | "Easy"
-            | "Medium"
-            | "Hard"
-            | undefined,
+          | "Easy"
+          | "Medium"
+          | "Hard"
+          | undefined,
 
         templateVariants:
           dbPattern.templateVariants as string[],
@@ -280,7 +384,9 @@ router.post(
         formula:
           dbPattern.formula ??
           undefined,
-
+        explanationTemplate:
+          dbPattern.explanationTemplate ??
+          undefined,
         distractorStrategy:
           dbPattern.distractorStrategy as any,
       };

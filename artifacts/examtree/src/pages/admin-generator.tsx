@@ -23,33 +23,33 @@ export default function AdminGeneratorPage() {
 
   const [loading, setLoading] =
     useState(false);
- const [newPattern, setNewPattern] =
-  useState({
-    id: "",
-    name: "",
-    section: "quant",
-    topic: "",
-    subtopic: "",
-    difficulty: "Easy",
-    formula: "",
+  const [newPattern, setNewPattern] =
+    useState({
+      id: "",
+      name: "",
+      section: "quant",
+      topic: "",
+      subtopic: "",
+      difficulty: "Easy",
+      formula: "",
+      explanationTemplate: "",
+      template: "",
 
-    template: "",
-
-    variables: `{
+      variables: `{
   "a": { "min": 1, "max": 10 },
   "b": { "min": 1, "max": 10 }
 }`,
 
-    offsets: "-1,1,2",
-  });
+      offsets: "-1,1,2",
+    });
 
-const [
-  editingPatternId,
-  setEditingPatternId,
-] = useState<string | null>(
-  null,
-);
- 
+  const [
+    editingPatternId,
+    setEditingPatternId,
+  ] = useState<string | null>(
+    null,
+  );
+
 
   useEffect(() => {
     async function loadPatterns() {
@@ -110,6 +110,8 @@ const [
 
             formula:
               newPattern.formula,
+            explanationTemplate:
+              newPattern.explanationTemplate,
 
             templateVariants: [
               newPattern.template,
@@ -393,6 +395,8 @@ const [
                           p.difficulty,
                         formula:
                           p.formula || "",
+                        explanationTemplate:
+                          p.explanationTemplate || "",
 
                         template:
                           p.templateVariants?.[0] ||
@@ -483,7 +487,20 @@ const [
           }
           className="border rounded p-2 w-full"
         />
-
+        <textarea
+          placeholder="Explanation Template"
+          value={
+            newPattern.explanationTemplate
+          }
+          onChange={(e) =>
+            setNewPattern({
+              ...newPattern,
+              explanationTemplate:
+                e.target.value,
+            })
+          }
+          className="border rounded p-2 w-full h-32"
+        />
         <textarea
           placeholder="Template"
           value={newPattern.template}

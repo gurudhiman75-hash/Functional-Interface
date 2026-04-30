@@ -389,4 +389,7 @@ export const patterns = pgTable("patterns", {
   createdAt: timestamp("created_at")
     .notNull()
     .defaultNow(),
+  explanationTemplate: text(
+    "explanation_template",
+  ),
 });
