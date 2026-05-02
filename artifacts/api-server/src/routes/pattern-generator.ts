@@ -17,6 +17,7 @@ const router = Router();
 interface GeneratePatternRequest {
   patternId: string;
   count: number;
+  examProfile?: GeneratorOptions["examProfile"];
   targetDifficulty?: number;
   difficultyTolerance?: number;
   difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
@@ -78,6 +79,7 @@ router.post("/pattern", async (req: Request, res: Response) => {
     const {
       patternId,
       count,
+      examProfile,
       targetDifficulty,
       difficultyTolerance,
       difficultyDistribution,
@@ -119,6 +121,7 @@ router.post("/pattern", async (req: Request, res: Response) => {
         pattern,
         count,
         {
+          examProfile,
           targetDifficulty,
           difficultyTolerance,
           difficultyDistribution,

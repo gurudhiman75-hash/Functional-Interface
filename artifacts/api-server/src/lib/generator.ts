@@ -8,6 +8,14 @@ export type DifficultyLabel =
   | "Medium"
   | "Hard";
 
+export type ExamProfileId =
+  | "custom"
+  | "ssc"
+  | "ibps"
+  | "cat"
+  | "sbi"
+  | "rrb";
+
 type DIVisualType =
   | "table"
   | "bar"
@@ -45,11 +53,44 @@ export type DifficultyMetadata = {
   estimatedSolveTime: number;
   operationCount: number;
   reasoningDepth: number;
+  reasoningSteps: string[];
+  dependencyComplexity: number;
+  operationChain: string[];
   usesPercentage: boolean;
   usesRatio: boolean;
   usesComparison: boolean;
   visualComplexity: number;
   inferenceComplexity: number;
+};
+
+export type DistractorType =
+  | "percentageTrap"
+  | "ratioInversion"
+  | "arithmeticSlip"
+  | "wrongIntermediateValue"
+  | "comparisonTrap"
+  | "wrongDenominator"
+  | "prematureRounding"
+  | "cumulativeMistake";
+
+export type DistractorMetadata = {
+  distractorType: DistractorType;
+  likelyMistake: string;
+  reasoningTrap: string;
+};
+
+export type OptionMetadata = {
+  value: string;
+  isCorrect: boolean;
+} & Partial<DistractorMetadata>;
+
+export type ExamRealismMetadata = {
+  examProfile: ExamProfileId;
+  wordingStyle: "concise" | "balanced" | "inference-heavy";
+  archetypeId?: string;
+  archetypeCategory?: string;
+  reasoningTraps: string[];
+  weightingSummary: string[];
 };
 
 type GeneratedQuestionDifficulty = {
@@ -59,6 +100,153 @@ type GeneratedQuestionDifficulty = {
   difficultyMetadata: DifficultyMetadata;
 };
 
+type QuantTopicCluster =
+  | "percentage"
+  | "ratio-proportion"
+  | "profit-loss"
+  | "averages"
+  | "si-ci"
+  | "general-quant";
+
+type QuantReasoningCategory =
+  | "direct-substitution"
+  | "one-step-arithmetic"
+  | "simple-percentage"
+  | "simple-ratio"
+  | "successive-percentage"
+  | "average-transformation"
+  | "comparison-chain"
+  | "ratio-conversion"
+  | "multi-step-arithmetic"
+  | "reverse-percentage"
+  | "hidden-base-inference"
+  | "conditional-ratio-logic"
+  | "chained-percentage-ratio"
+  | "comparative-conditional-inference"
+  | "nested-operations";
+
+type ExamProfileConfig = {
+  wordingStyle: ExamRealismMetadata["wordingStyle"];
+  archetypeWeights: Partial<
+    Record<QuantReasoningCategory, number>
+  >;
+  distractorWeights: Partial<
+    Record<DistractorType, number>
+  >;
+  reasoningWeights: {
+    speedBias: number;
+    trapBias: number;
+    inferenceBias: number;
+  };
+};
+
+const EXAM_PROFILE_CONFIGS: Record<
+  ExamProfileId,
+  ExamProfileConfig
+> = {
+  custom: {
+    wordingStyle: "balanced",
+    archetypeWeights: {},
+    distractorWeights: {},
+    reasoningWeights: {
+      speedBias: 1,
+      trapBias: 1,
+      inferenceBias: 1,
+    },
+  },
+  ssc: {
+    wordingStyle: "concise",
+    archetypeWeights: {
+      "one-step-arithmetic": 1.35,
+      "simple-percentage": 1.25,
+      "comparison-chain": 1.15,
+      "nested-operations": 0.8,
+    },
+    distractorWeights: {
+      arithmeticSlip: 1.4,
+      percentageTrap: 1.2,
+      prematureRounding: 1.2,
+    },
+    reasoningWeights: {
+      speedBias: 1.3,
+      trapBias: 1,
+      inferenceBias: 0.8,
+    },
+  },
+  ibps: {
+    wordingStyle: "balanced",
+    archetypeWeights: {
+      "comparison-chain": 1.3,
+      "ratio-conversion": 1.25,
+      "conditional-ratio-logic": 1.2,
+    },
+    distractorWeights: {
+      wrongIntermediateValue: 1.3,
+      wrongDenominator: 1.2,
+      comparisonTrap: 1.2,
+    },
+    reasoningWeights: {
+      speedBias: 1,
+      trapBias: 1.25,
+      inferenceBias: 1,
+    },
+  },
+  cat: {
+    wordingStyle: "inference-heavy",
+    archetypeWeights: {
+      "hidden-base-inference": 1.35,
+      "chained-percentage-ratio": 1.35,
+      "comparative-conditional-inference": 1.4,
+      "nested-operations": 1.35,
+    },
+    distractorWeights: {
+      wrongIntermediateValue: 1.35,
+      cumulativeMistake: 1.25,
+      ratioInversion: 1.15,
+    },
+    reasoningWeights: {
+      speedBias: 0.85,
+      trapBias: 1.1,
+      inferenceBias: 1.4,
+    },
+  },
+  sbi: {
+    wordingStyle: "balanced",
+    archetypeWeights: {
+      "successive-percentage": 1.2,
+      "ratio-conversion": 1.2,
+      "conditional-ratio-logic": 1.15,
+    },
+    distractorWeights: {
+      percentageTrap: 1.25,
+      wrongIntermediateValue: 1.2,
+      wrongDenominator: 1.15,
+    },
+    reasoningWeights: {
+      speedBias: 1,
+      trapBias: 1.2,
+      inferenceBias: 1,
+    },
+  },
+  rrb: {
+    wordingStyle: "concise",
+    archetypeWeights: {
+      "direct-substitution": 1.25,
+      "simple-ratio": 1.2,
+      "one-step-arithmetic": 1.2,
+    },
+    distractorWeights: {
+      arithmeticSlip: 1.25,
+      percentageTrap: 1.1,
+    },
+    reasoningWeights: {
+      speedBias: 1.2,
+      trapBias: 0.95,
+      inferenceBias: 0.85,
+    },
+  },
+};
+
 export type DifficultyDistribution = {
   easy: number;
   medium: number;
@@ -66,6 +254,7 @@ export type DifficultyDistribution = {
 };
 
 export type GeneratorOptions = {
+  examProfile?: ExamProfileId;
   targetDifficulty?: number;
   difficultyTolerance?: number;
   difficultyDistribution?: Partial<DifficultyDistribution>;
@@ -89,6 +278,7 @@ type DIPattern = {
 type OptionResult = {
   options: string[];
   correct: number;
+  optionMetadata?: OptionMetadata[];
 };
 
 type QuestionCore = {
@@ -96,6 +286,11 @@ type QuestionCore = {
   options: string[];
   correct: number;
   explanation: string;
+  reasoningSteps?: string[];
+  dependencyComplexity?: number;
+  operationChain?: string[];
+  optionMetadata?: OptionMetadata[];
+  examRealismMetadata?: ExamRealismMetadata;
 };
 
 export type FormulaQuestion = {
@@ -106,6 +301,8 @@ export type FormulaQuestion = {
   section?: string;
   topic?: string;
   subtopic?: string;
+  optionMetadata?: OptionMetadata[];
+  examRealismMetadata?: ExamRealismMetadata;
 } & GeneratedQuestionDifficulty;
 
 export type DIQuestion =
@@ -226,6 +423,44 @@ function pickRandomItem<T>(
   ];
 }
 
+function pickWeightedItem<T>(
+  items: T[],
+  getWeight: (
+    item: T,
+  ) => number | undefined,
+): T {
+  if (!items.length) {
+    throw new Error(
+      "Expected at least one item",
+    );
+  }
+
+  const weighted = items.map((item) => ({
+    item,
+    weight: Math.max(
+      0.1,
+      getWeight(item) ?? 1,
+    ),
+  }));
+  const totalWeight = weighted.reduce(
+    (sum, entry) => sum + entry.weight,
+    0,
+  );
+  let roll = Math.random() * totalWeight;
+
+  for (const entry of weighted) {
+    roll -= entry.weight;
+
+    if (roll <= 0) {
+      return entry.item;
+    }
+  }
+
+  return weighted[
+    weighted.length - 1
+  ]!.item;
+}
+
 function buildPrompt(
   variants: string[],
   replacements: Record<
@@ -247,6 +482,15 @@ function buildPrompt(
   }
 
   return prompt;
+}
+
+function getExamProfileConfig(
+  examProfile: ExamProfileId = "custom",
+) {
+  return (
+    EXAM_PROFILE_CONFIGS[examProfile] ??
+    EXAM_PROFILE_CONFIGS.custom
+  );
 }
 
 function fillTemplate(
@@ -466,6 +710,231 @@ function getDifficultyBucketTargets(
   return targets;
 }
 
+type NumericDistractorContext = {
+  examProfile?: ExamProfileId;
+  topicCluster?: QuantTopicCluster;
+  operationChain?: string[];
+  strategy?: Pattern["distractorStrategy"];
+};
+
+type DistractorCandidate =
+  DistractorMetadata & {
+    value: number;
+  };
+
+function normalizeNumericValue(
+  value: number,
+) {
+  return Number(value.toFixed(2));
+}
+
+function buildDistractorCandidate(
+  distractorType: DistractorType,
+  value: number,
+  likelyMistake: string,
+  reasoningTrap: string,
+): DistractorCandidate {
+  return {
+    distractorType,
+    value: normalizeNumericValue(value),
+    likelyMistake,
+    reasoningTrap,
+  };
+}
+
+function getTrapTypesForContext(
+  context?: NumericDistractorContext,
+): DistractorType[] {
+  const topicCluster =
+    context?.topicCluster ??
+    "general-quant";
+  const operations =
+    context?.operationChain ?? [];
+  const trapTypes =
+    new Set<DistractorType>([
+      "arithmeticSlip",
+      "wrongIntermediateValue",
+      "prematureRounding",
+    ]);
+
+  if (
+    topicCluster === "percentage" ||
+    topicCluster === "profit-loss" ||
+    topicCluster === "si-ci" ||
+    operations.includes(
+      "percentage",
+    )
+  ) {
+    trapTypes.add(
+      "percentageTrap",
+    );
+    trapTypes.add(
+      "wrongDenominator",
+    );
+  }
+
+  if (
+    topicCluster ===
+      "ratio-proportion" ||
+    operations.includes("ratio")
+  ) {
+    trapTypes.add(
+      "ratioInversion",
+    );
+  }
+
+  if (
+    operations.includes(
+      "aggregate",
+    ) ||
+    operations.includes(
+      "cumulative",
+    )
+  ) {
+    trapTypes.add(
+      "cumulativeMistake",
+    );
+  }
+
+  if (
+    operations.includes("compare")
+  ) {
+    trapTypes.add(
+      "comparisonTrap",
+    );
+  }
+
+  return [...trapTypes];
+}
+
+function generateDistractorValue(
+  correct: number,
+  distractorType: DistractorType,
+) {
+  const magnitude = Math.max(
+    2,
+    Math.round(
+      Math.max(1, Math.abs(correct)) *
+        0.08,
+    ),
+  );
+
+  switch (distractorType) {
+    case "percentageTrap":
+      return correct + magnitude * 2;
+    case "ratioInversion":
+      return correct > 8
+        ? correct / 2
+        : correct * 2;
+    case "wrongIntermediateValue":
+      return correct + magnitude * 3;
+    case "comparisonTrap":
+      return correct - magnitude * 2;
+    case "wrongDenominator":
+      return correct + magnitude;
+    case "prematureRounding":
+      return Math.round(
+        correct + magnitude / 3,
+      );
+    case "cumulativeMistake":
+      return correct + magnitude * 4;
+    case "arithmeticSlip":
+    default:
+      return correct - magnitude;
+  }
+}
+
+function buildDistractorCandidates(
+  correct: number,
+  context?: NumericDistractorContext,
+) {
+  const profileConfig =
+    getExamProfileConfig(
+      context?.examProfile,
+    );
+
+  return getTrapTypesForContext(
+    context,
+  ).map((distractorType) => {
+    const value =
+      generateDistractorValue(
+        correct,
+        distractorType,
+      );
+
+    switch (distractorType) {
+      case "percentageTrap":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Applied the percentage change on the wrong base.",
+          "Reverse percentage and base-value confusion.",
+        );
+      case "ratioInversion":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Interchanged the ratio terms during normalization.",
+          "Ratio inversion while converting to final values.",
+        );
+      case "wrongIntermediateValue":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Used an intermediate quantity as the final answer.",
+          "Hidden dependency trap in the operation chain.",
+        );
+      case "comparisonTrap":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Compared the visible values before completing the transformation.",
+          "Misleading comparison before full evaluation.",
+        );
+      case "wrongDenominator":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Computed the fraction with the wrong denominator.",
+          "Percentage denominator trap.",
+        );
+      case "prematureRounding":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Rounded too early during calculation.",
+          "Premature simplification trap.",
+        );
+      case "cumulativeMistake":
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Skipped one cumulative adjustment in the chain.",
+          "Cumulative dependency trap.",
+        );
+      case "arithmeticSlip":
+      default:
+        return buildDistractorCandidate(
+          distractorType,
+          value,
+          "Made a small arithmetic slip in the final computation.",
+          "Last-step arithmetic trap.",
+        );
+    }
+  }).sort((left, right) => {
+    const leftWeight =
+      profileConfig.distractorWeights[
+        left.distractorType
+      ] ?? 1;
+    const rightWeight =
+      profileConfig.distractorWeights[
+        right.distractorType
+      ] ?? 1;
+
+    return rightWeight - leftWeight;
+  });
+}
+
 type DifficultySignals = {
   operationCount: number;
   reasoningDepth: number;
@@ -488,6 +957,9 @@ type DifficultyEvaluationInput =
       formula: string;
       values: Record<string, number>;
       explanation: string;
+      reasoningSteps?: string[];
+      dependencyComplexity?: number;
+      operationChain?: string[];
     }
   | {
       kind: "di";
@@ -496,6 +968,9 @@ type DifficultyEvaluationInput =
       visualType: DIVisualType;
       rowCount: number;
       numericColumnCount: number;
+      reasoningSteps?: string[];
+      dependencyComplexity?: number;
+      operationChain?: string[];
     };
 
 function deriveDifficultySignals(
@@ -544,6 +1019,8 @@ function deriveDifficultySignals(
         ),
       ),
     );
+    const explicitReasoningDepth =
+      input.reasoningSteps?.length ?? 0;
     const inferenceComplexity = Math.min(
       5,
       Math.max(
@@ -558,12 +1035,19 @@ function deriveDifficultySignals(
 
     return {
       operationCount,
-      reasoningDepth,
+      reasoningDepth: Math.max(
+        reasoningDepth,
+        explicitReasoningDepth,
+      ),
       usesPercentage,
       usesRatio,
       usesComparison,
       visualComplexity: 0,
-      inferenceComplexity,
+      inferenceComplexity: Math.max(
+        inferenceComplexity,
+        input.dependencyComplexity ??
+          1,
+      ),
       directLookup: false,
       trendAnalysis: false,
       multiStep:
@@ -689,6 +1173,8 @@ function deriveDifficultySignals(
         (combinedConditions ? 1 : 0),
     ),
   );
+  const explicitReasoningDepth =
+    input.reasoningSteps?.length ?? 0;
   const inferenceComplexity = Math.min(
     5,
     Math.max(
@@ -704,7 +1190,10 @@ function deriveDifficultySignals(
 
   return {
     operationCount,
-    reasoningDepth,
+    reasoningDepth: Math.max(
+      reasoningDepth,
+      explicitReasoningDepth,
+    ),
     usesPercentage,
     usesRatio,
     usesComparison,
@@ -712,7 +1201,11 @@ function deriveDifficultySignals(
       getVisualComplexity(
         input.visualType,
       ),
-    inferenceComplexity,
+    inferenceComplexity: Math.max(
+      inferenceComplexity,
+      input.dependencyComplexity ??
+        1,
+    ),
     directLookup,
     trendAnalysis,
     multiStep:
@@ -804,6 +1297,13 @@ export function calculateDifficultyMetadata(
       signals.operationCount,
     reasoningDepth:
       signals.reasoningDepth,
+    reasoningSteps:
+      input.reasoningSteps ?? [],
+    dependencyComplexity:
+      input.dependencyComplexity ??
+      signals.inferenceComplexity,
+    operationChain:
+      input.operationChain ?? [],
     usesPercentage:
       signals.usesPercentage,
     usesRatio: signals.usesRatio,
@@ -1029,20 +1529,77 @@ export function buildDifficultyBalancedSet<
 function generateOptions(
   correct: number,
   strategy?: Pattern["distractorStrategy"],
+  context?: NumericDistractorContext,
 ): OptionResult {
-  const options = new Set<number>();
+  const normalizedCorrect =
+    normalizeNumericValue(correct);
+  const optionPool = new Map<
+    string,
+    OptionMetadata
+  >();
+  const addOption = (
+    value: number,
+    metadata?: DistractorMetadata,
+  ) => {
+    const normalized =
+      normalizeNumericValue(value);
 
-  options.add(correct);
+    if (
+      normalized ===
+      normalizedCorrect
+    ) {
+      return;
+    }
 
-  if (
-    strategy?.type === "numeric_offsets"
-  ) {
+    const key = String(normalized);
+
+    if (!optionPool.has(key)) {
+      optionPool.set(key, {
+        value: key,
+        isCorrect: false,
+        ...metadata,
+      });
+    }
+  };
+  const correctLabel = String(
+    normalizedCorrect,
+  );
+
+  optionPool.set(correctLabel, {
+    value: correctLabel,
+    isCorrect: true,
+  });
+
+  if (strategy?.type === "numeric_offsets") {
     for (const offset of strategy.offsets) {
-      options.add(correct + offset);
+      addOption(
+        correct + offset,
+        {
+          distractorType:
+            "arithmeticSlip",
+          likelyMistake:
+            "Applied a familiar offset instead of resolving the full chain.",
+          reasoningTrap:
+            "Shortcut arithmetic trap from preset distractor offsets.",
+        },
+      );
     }
   }
 
-  while (options.size < 4) {
+  for (const distractor of buildDistractorCandidates(
+    correct,
+    {
+      ...context,
+      strategy,
+    },
+  )) {
+    addOption(
+      distractor.value,
+      distractor,
+    );
+  }
+
+  while (optionPool.size < 4) {
     const variance = Math.max(
       2,
       Math.round(
@@ -1050,24 +1607,39 @@ function generateOptions(
       ),
     );
 
-    options.add(
+    addOption(
       correct +
         randomInt(
           -variance,
           variance,
         ),
+      {
+        distractorType:
+          "arithmeticSlip",
+        likelyMistake:
+          "Made a near-value arithmetic slip.",
+        reasoningTrap:
+          "Close-value arithmetic trap.",
+      },
     );
   }
 
   const shuffled = shuffle(
-    [...options].slice(0, 4),
-  ).map(String);
+    [
+      ...optionPool.values(),
+    ].slice(0, 4),
+  );
 
   return {
-    options: shuffled,
-    correct: shuffled.indexOf(
-      String(correct),
+    options: shuffled.map(
+      (option) => option.value,
     ),
+    correct: shuffled.indexOf(
+      shuffled.find(
+        (option) => option.isCorrect,
+      )!,
+    ),
+    optionMetadata: shuffled,
   };
 }
 
@@ -1125,6 +1697,49 @@ function generateDISet(
   return rows;
 }
 
+function selectSeriesCount(
+  availableCount: number,
+  visualType: DIVisualType,
+) {
+  if (availableCount <= 1) {
+    return availableCount;
+  }
+
+  const roll = Math.random();
+
+  if (visualType === "line") {
+    if (
+      availableCount >= 3 &&
+      roll > 0.95
+    ) {
+      return 3;
+    }
+
+    if (roll > 0.65) {
+      return 2;
+    }
+
+    return 1;
+  }
+
+  if (visualType === "bar") {
+    if (
+      availableCount >= 3 &&
+      roll > 0.95
+    ) {
+      return 3;
+    }
+
+    if (roll > 0.75) {
+      return 2;
+    }
+
+    return 1;
+  }
+
+  return 1;
+}
+
 function getSeriesConfig(
   di: DIPattern,
   tableData: DIDataRow[],
@@ -1148,7 +1763,15 @@ function getSeriesConfig(
     return undefined;
   }
 
-  return numericColumns.map(
+  const seriesCount =
+    selectSeriesCount(
+      numericColumns.length,
+      visualType,
+    );
+
+  return numericColumns
+    .slice(0, seriesCount)
+    .map(
     (column) => ({
       column,
       type: visualType,
@@ -1210,15 +1833,22 @@ function createNumericQuestion(
   text: string,
   correct: number,
   explanation: string,
+  context?: NumericDistractorContext,
 ): QuestionCore {
   const generated =
-    generateOptions(correct);
+    generateOptions(
+      correct,
+      undefined,
+      context,
+    );
 
   return {
     text,
     options: generated.options,
     correct: generated.correct,
     explanation,
+    optionMetadata:
+      generated.optionMetadata,
   };
 }
 
@@ -1259,6 +1889,853 @@ function createChoiceQuestion(
     options: generated.options,
     correct: generated.correct,
     explanation,
+  };
+}
+
+type ReasoningOperation =
+  | "aggregate"
+  | "average"
+  | "filter"
+  | "compare"
+  | "transform"
+  | "reverse"
+  | "infer"
+  | "rank"
+  | "ratio"
+  | "percentage"
+  | "trend"
+  | "cumulative"
+  | "deviation"
+  | "conditional-selection";
+
+type ReasoningStep = {
+  operation: ReasoningOperation;
+  detail: string;
+};
+
+type QuantArchetype = {
+  id: string;
+  difficulty: DifficultyLabel;
+  category: QuantReasoningCategory;
+  topicClusters: QuantTopicCluster[];
+  operationChain: ReasoningOperation[];
+  wordingVariants: string[];
+  buildReasoningSteps: (
+    context: QuantArchetypeContext,
+  ) => ReasoningStep[];
+};
+
+type QuantArchetypeContext = {
+  pattern: Pattern;
+  baseText: string;
+  values: Record<string, number>;
+  correctAnswer: number;
+  topicCluster: QuantTopicCluster;
+};
+
+function createReasoningStep(
+  operation: ReasoningOperation,
+  detail: string,
+): ReasoningStep {
+  return {
+    operation,
+    detail,
+  };
+}
+
+function attachReasoningTrace<
+  TQuestion extends QuestionCore,
+>(
+  question: TQuestion,
+  steps: ReasoningStep[],
+  dependencyComplexity = steps.length,
+  operationChain = steps.map(
+    (step) => step.operation,
+  ),
+): TQuestion & {
+  reasoningSteps: string[];
+  dependencyComplexity: number;
+  operationChain: ReasoningOperation[];
+} {
+  return {
+    ...question,
+    reasoningSteps: steps.map(
+      (step) =>
+        `${step.operation}: ${step.detail}`,
+    ),
+    dependencyComplexity,
+    operationChain,
+  };
+}
+
+function filterCategoryIndices(
+  context: DIQuestionContext,
+  predicate: (
+    _value: number,
+    _index: number,
+  ) => boolean,
+) {
+  return context.values
+    .map((value, index) => ({
+      value,
+      index,
+    }))
+    .filter(({ value, index }) =>
+      predicate(value, index),
+    )
+    .map((entry) => entry.index);
+}
+
+function aggregateByIndices(
+  values: number[],
+  indices: number[],
+) {
+  return indices.reduce(
+    (sum, index) =>
+      sum + values[index],
+    0,
+  );
+}
+
+function inferQuantTopicCluster(
+  pattern: Pattern,
+): QuantTopicCluster {
+  const topicText = `${pattern.topic} ${pattern.subtopic} ${pattern.formula ?? ""}`.toLowerCase();
+
+  if (
+    hasAnyToken(topicText, [
+      "percent",
+      "percentage",
+    ])
+  ) {
+    return "percentage";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "ratio",
+      "proportion",
+    ])
+  ) {
+    return "ratio-proportion";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "profit",
+      "loss",
+      "discount",
+      "marked price",
+    ])
+  ) {
+    return "profit-loss";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "average",
+      "mean",
+    ])
+  ) {
+    return "averages";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "simple interest",
+      "compound interest",
+      "si",
+      "ci",
+      "interest",
+    ])
+  ) {
+    return "si-ci";
+  }
+
+  return "general-quant";
+}
+
+function getRequestedDifficultyLabel(
+  pattern: Pattern,
+  options?: GeneratorOptions,
+): DifficultyLabel {
+  if (
+    options?.targetDifficulty !==
+    undefined
+  ) {
+    return classifyDifficultyLabel(
+      options.targetDifficulty,
+    );
+  }
+
+  if (
+    options?.targetAverageDifficulty !==
+    undefined
+  ) {
+    return classifyDifficultyLabel(
+      options.targetAverageDifficulty,
+    );
+  }
+
+  return (
+    pattern.difficulty ??
+    "Medium"
+  );
+}
+
+function buildQuantPrompt(
+  archetype: QuantArchetype,
+  context: QuantArchetypeContext,
+  examProfile: ExamProfileId,
+) {
+  const profileConfig =
+    getExamProfileConfig(examProfile);
+  const variants = [
+    ...archetype.wordingVariants,
+  ];
+
+  if (profileConfig.wordingStyle === "concise") {
+    variants.push(
+      "Answer quickly: {baseText}",
+      "Find the answer: {baseText}",
+    );
+  }
+
+  if (
+    profileConfig.wordingStyle ===
+    "inference-heavy"
+  ) {
+    variants.push(
+      "Infer the hidden relationship and answer: {baseText}",
+      "Determine the required value after decoding the condition: {baseText}",
+    );
+  }
+
+  return buildPrompt(
+    variants,
+    {
+      baseText: context.baseText,
+      topic: context.pattern.topic,
+      subtopic:
+        context.pattern.subtopic,
+    },
+  );
+}
+
+const UNIVERSAL_QUANT_ARCHETYPES: QuantArchetype[] =
+  [
+    {
+      id: "easy-direct-substitution",
+      difficulty: "Easy",
+      category:
+        "direct-substitution",
+      topicClusters: [
+        "percentage",
+        "ratio-proportion",
+        "profit-loss",
+        "averages",
+        "si-ci",
+        "general-quant",
+      ],
+      operationChain: [
+        "transform",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Find the required value: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "transform",
+          "Substitute the given values directly into the required relation.",
+        ),
+      ],
+    },
+    {
+      id: "easy-one-step-arithmetic",
+      difficulty: "Easy",
+      category:
+        "one-step-arithmetic",
+      topicClusters: [
+        "profit-loss",
+        "averages",
+        "general-quant",
+      ],
+      operationChain: [
+        "transform",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Compute the answer directly from the given data: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "transform",
+          "Form the needed arithmetic expression.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Evaluate the final one-step result.",
+        ),
+      ],
+    },
+    {
+      id: "easy-simple-percentage",
+      difficulty: "Easy",
+      category:
+        "simple-percentage",
+      topicClusters: [
+        "percentage",
+        "profit-loss",
+      ],
+      operationChain: [
+        "percentage",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Using the percentage relation, answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "percentage",
+          "Convert the given information into a direct percentage calculation.",
+        ),
+      ],
+    },
+    {
+      id: "easy-simple-ratio",
+      difficulty: "Easy",
+      category: "simple-ratio",
+      topicClusters: [
+        "ratio-proportion",
+      ],
+      operationChain: [
+        "ratio",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Using the direct ratio relation, solve: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "ratio",
+          "Apply the direct ratio or proportion relation.",
+        ),
+      ],
+    },
+    {
+      id: "medium-successive-percentage",
+      difficulty: "Medium",
+      category:
+        "successive-percentage",
+      topicClusters: [
+        "percentage",
+        "profit-loss",
+        "si-ci",
+      ],
+      operationChain: [
+        "percentage",
+        "transform",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Work through the percentage changes carefully: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "percentage",
+          "Convert each percentage condition into its numeric effect.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Carry the transformed value forward to the next step.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Evaluate the resulting quantity.",
+        ),
+      ],
+    },
+    {
+      id: "medium-average-transformation",
+      difficulty: "Medium",
+      category:
+        "average-transformation",
+      topicClusters: [
+        "averages",
+      ],
+      operationChain: [
+        "aggregate",
+        "average",
+        "transform",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Rework the average relationship to solve: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "aggregate",
+          "Express the total from the average information.",
+        ),
+        createReasoningStep(
+          "average",
+          "Adjust the average relation using the given change.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Solve the updated equation.",
+        ),
+      ],
+    },
+    {
+      id: "medium-comparison-chain",
+      difficulty: "Medium",
+      category:
+        "comparison-chain",
+      topicClusters: [
+        "ratio-proportion",
+        "profit-loss",
+        "general-quant",
+      ],
+      operationChain: [
+        "compare",
+        "transform",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Compare the linked quantities step by step: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "compare",
+          "Identify the primary comparison stated in the question.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Translate that comparison into a solvable equation.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Evaluate the final required relation.",
+        ),
+      ],
+    },
+    {
+      id: "medium-ratio-conversion",
+      difficulty: "Medium",
+      category:
+        "ratio-conversion",
+      topicClusters: [
+        "ratio-proportion",
+        "percentage",
+      ],
+      operationChain: [
+        "ratio",
+        "transform",
+        "percentage",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Convert the ratio into the needed form and solve: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "ratio",
+          "Normalize the ratio into comparable units.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Translate the normalized ratio into actual values.",
+        ),
+        createReasoningStep(
+          "percentage",
+          "Convert the transformed value into the asked form.",
+        ),
+      ],
+    },
+    {
+      id: "medium-multi-step-arithmetic",
+      difficulty: "Medium",
+      category:
+        "multi-step-arithmetic",
+      topicClusters: [
+        "profit-loss",
+        "averages",
+        "si-ci",
+        "general-quant",
+      ],
+      operationChain: [
+        "transform",
+        "aggregate",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Use the linked arithmetic conditions to find the answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "transform",
+          "Rewrite the givens into usable intermediate quantities.",
+        ),
+        createReasoningStep(
+          "aggregate",
+          "Combine the intermediate values.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Extract the asked result from the combined quantity.",
+        ),
+      ],
+    },
+    {
+      id: "hard-reverse-percentage",
+      difficulty: "Hard",
+      category:
+        "reverse-percentage",
+      topicClusters: [
+        "percentage",
+        "profit-loss",
+        "si-ci",
+      ],
+      operationChain: [
+        "reverse",
+        "percentage",
+        "infer",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Work backward from the percentage condition to solve: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "reverse",
+          "Start from the final percentage condition and reverse the change.",
+        ),
+        createReasoningStep(
+          "percentage",
+          "Translate the reversed state into a percentage equation.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Infer the original hidden value.",
+        ),
+      ],
+    },
+    {
+      id: "hard-hidden-base-inference",
+      difficulty: "Hard",
+      category:
+        "hidden-base-inference",
+      topicClusters: [
+        "percentage",
+        "profit-loss",
+        "averages",
+        "si-ci",
+      ],
+      operationChain: [
+        "infer",
+        "transform",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Infer the hidden base quantity before solving: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "infer",
+          "Identify the concealed base or principal quantity.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Express the hidden base using the given relationships.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Resolve the asked comparison or value.",
+        ),
+      ],
+    },
+    {
+      id: "hard-conditional-ratio-logic",
+      difficulty: "Hard",
+      category:
+        "conditional-ratio-logic",
+      topicClusters: [
+        "ratio-proportion",
+        "profit-loss",
+      ],
+      operationChain: [
+        "ratio",
+        "conditional-selection",
+        "infer",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Apply the ratio condition carefully, then resolve the hidden relation: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "ratio",
+          "Normalize the base ratio condition.",
+        ),
+        createReasoningStep(
+          "conditional-selection",
+          "Apply the condition that changes or filters the ratio relation.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Infer the final hidden quantity from the conditioned ratio.",
+        ),
+      ],
+    },
+    {
+      id: "hard-chained-percentage-ratio",
+      difficulty: "Hard",
+      category:
+        "chained-percentage-ratio",
+      topicClusters: [
+        "percentage",
+        "ratio-proportion",
+        "profit-loss",
+      ],
+      operationChain: [
+        "ratio",
+        "percentage",
+        "transform",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Chain the ratio and percentage transformations to answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "ratio",
+          "Express the quantities in ratio form.",
+        ),
+        createReasoningStep(
+          "percentage",
+          "Convert the ratio relation into percentage movement.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Carry the transformed result into the next relation.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Evaluate the final target value or comparison.",
+        ),
+      ],
+    },
+    {
+      id: "hard-comparative-conditional-inference",
+      difficulty: "Hard",
+      category:
+        "comparative-conditional-inference",
+      topicClusters: [
+        "averages",
+        "profit-loss",
+        "si-ci",
+        "general-quant",
+      ],
+      operationChain: [
+        "compare",
+        "filter",
+        "infer",
+        "compare",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Track the conditional comparison chain to solve: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "compare",
+          "Identify the initial comparison relation.",
+        ),
+        createReasoningStep(
+          "filter",
+          "Apply the condition that narrows the valid case.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Infer the intermediate hidden quantity.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Use that inferred result in the final comparison.",
+        ),
+      ],
+    },
+    {
+      id: "hard-nested-operations",
+      difficulty: "Hard",
+      category:
+        "nested-operations",
+      topicClusters: [
+        "percentage",
+        "ratio-proportion",
+        "profit-loss",
+        "averages",
+        "si-ci",
+        "general-quant",
+      ],
+      operationChain: [
+        "transform",
+        "aggregate",
+        "reverse",
+        "infer",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Work through the nested operations carefully: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "transform",
+          "Transform the given quantities into intermediate values.",
+        ),
+        createReasoningStep(
+          "aggregate",
+          "Combine the intermediate states into a usable relation.",
+        ),
+        createReasoningStep(
+          "reverse",
+          "Reverse the final condition to uncover the missing state.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Infer the requested answer from the nested chain.",
+        ),
+      ],
+    },
+  ];
+
+function getQuantArchetypeCandidates(
+  topicCluster: QuantTopicCluster,
+  difficulty: DifficultyLabel,
+) {
+  return UNIVERSAL_QUANT_ARCHETYPES.filter(
+    (archetype) =>
+      archetype.difficulty ===
+        difficulty &&
+      archetype.topicClusters.includes(
+        topicCluster,
+      ),
+  );
+}
+
+function selectQuantArchetype(
+  pattern: Pattern,
+  options: GeneratorOptions | undefined,
+  topicCluster: QuantTopicCluster,
+) {
+  const profileConfig =
+    getExamProfileConfig(
+      options?.examProfile,
+    );
+  const requestedDifficulty =
+    getRequestedDifficultyLabel(
+      pattern,
+      options,
+    );
+  const preferredCandidates =
+    getQuantArchetypeCandidates(
+      topicCluster,
+      requestedDifficulty,
+    );
+
+  if (preferredCandidates.length) {
+    return pickWeightedItem(
+      preferredCandidates,
+      (archetype) =>
+        profileConfig
+          .archetypeWeights[
+          archetype.category
+        ] ?? 1,
+    );
+  }
+
+  return pickWeightedItem(
+    getQuantArchetypeCandidates(
+      "general-quant",
+      requestedDifficulty,
+    ),
+    (archetype) =>
+      profileConfig.archetypeWeights[
+        archetype.category
+      ] ?? 1,
+  );
+}
+
+function buildExamRealismMetadata(
+  examProfile: ExamProfileId,
+  archetype: QuantArchetype,
+  optionMetadata: OptionMetadata[] | undefined,
+): ExamRealismMetadata {
+  const profileConfig =
+    getExamProfileConfig(
+      examProfile,
+    );
+  const distractorSummary = (
+    optionMetadata ?? []
+  )
+    .filter(
+      (option) =>
+        !option.isCorrect &&
+        option.distractorType,
+    )
+    .map(
+      (option) =>
+        option.distractorType!,
+    );
+
+  return {
+    examProfile,
+    wordingStyle:
+      profileConfig.wordingStyle,
+    archetypeId: archetype.id,
+    archetypeCategory:
+      archetype.category,
+    reasoningTraps: [
+      ...new Set(
+        (optionMetadata ?? [])
+          .filter(
+            (option) =>
+              !option.isCorrect &&
+              option.reasoningTrap,
+          )
+          .map(
+            (option) =>
+              option.reasoningTrap!,
+          ),
+      ),
+    ],
+    weightingSummary: [
+      `Archetype weight ${(
+        profileConfig
+          .archetypeWeights[
+          archetype.category
+        ] ?? 1
+      ).toFixed(2)}`,
+      `Trap bias ${profileConfig.reasoningWeights.trapBias.toFixed(
+        2,
+      )}`,
+      `Inference bias ${profileConfig.reasoningWeights.inferenceBias.toFixed(
+        2,
+      )}`,
+      distractorSummary.length
+        ? `Distractor mix ${distractorSummary.join(
+            ", ",
+          )}`
+        : "Distractor mix standard",
+    ],
   };
 }
 
@@ -2655,6 +4132,227 @@ function generateComparativeFluctuationQuestion(
   );
 }
 
+function generateLeastDeviationQuestion(
+  context: DIQuestionContext,
+): QuestionCore | undefined {
+  const leastDeviationEntry =
+    context.categories
+      .map((category, index) => ({
+        category,
+        deviation: Math.abs(
+          context.values[index] -
+            context.average,
+        ),
+      }))
+      .sort(
+        (a, b) =>
+          a.deviation - b.deviation,
+      )[0];
+
+  const question =
+    createCategoryQuestion(
+      `Which ${context.categoryColumn} had the least deviation from the average ${context.numericColumn}?`,
+      context.categories,
+      leastDeviationEntry.category,
+      `${leastDeviationEntry.category} had the least deviation from the average.`,
+    );
+
+  return attachReasoningTrace(
+    question,
+    [
+      createReasoningStep(
+        "average",
+        `Compute the average ${context.numericColumn}.`,
+      ),
+      createReasoningStep(
+        "deviation",
+        `Measure deviation of each ${context.categoryColumn} from that average.`,
+      ),
+      createReasoningStep(
+        "rank",
+        "Select the least deviation.",
+      ),
+    ],
+    3,
+  );
+}
+
+function generateFilteredLowestCrossSeriesQuestion(
+  context: DIQuestionContext,
+): QuestionCore | undefined {
+  const seriesPair =
+    getPrimarySeriesPair(context);
+
+  if (!seriesPair) {
+    return undefined;
+  }
+
+  const filterValues =
+    getColumnNumericValues(
+      context,
+      seriesPair.second,
+    );
+  const filterAverage = Math.round(
+    filterValues.reduce(
+      (sum, value) =>
+        sum + value,
+      0,
+    ) / filterValues.length,
+  );
+  const eligibleIndices =
+    filterValues
+      .map((value, index) => ({
+        value,
+        index,
+      }))
+      .filter(
+        ({ value }) =>
+          value > filterAverage,
+      )
+      .map((entry) => entry.index);
+
+  if (!eligibleIndices.length) {
+    return undefined;
+  }
+
+  const primaryValues =
+    getColumnNumericValues(
+      context,
+      seriesPair.first,
+    );
+  const lowestPrimaryIndex =
+    eligibleIndices.reduce(
+      (bestIndex, currentIndex) =>
+        primaryValues[currentIndex] <
+        primaryValues[bestIndex]
+          ? currentIndex
+          : bestIndex,
+    );
+  const eligibleCategories =
+    eligibleIndices.map(
+      (index) =>
+        context.categories[index],
+    );
+  const question =
+    createCategoryQuestion(
+      `Which ${context.categoryColumn} among those where ${seriesPair.second} exceeded its average had the lowest ${seriesPair.first}?`,
+      eligibleCategories,
+      context.categories[
+        lowestPrimaryIndex
+      ],
+      `${context.categories[lowestPrimaryIndex]} had the lowest ${seriesPair.first} among the filtered ${context.categoryColumn} values.`,
+    );
+
+  return attachReasoningTrace(
+    question,
+    [
+      createReasoningStep(
+        "average",
+        `Compute the average of ${seriesPair.second}.`,
+      ),
+      createReasoningStep(
+        "filter",
+        `Keep only ${context.categoryColumn} values where ${seriesPair.second} exceeds its average.`,
+      ),
+      createReasoningStep(
+        "compare",
+        `Compare ${seriesPair.first} across the filtered subset.`,
+      ),
+      createReasoningStep(
+        "rank",
+        `Select the minimum ${seriesPair.first} from the filtered subset.`,
+      ),
+    ],
+    4,
+  );
+}
+
+function generateConditionalCombinedRatioQuestion(
+  context: DIQuestionContext,
+): QuestionCore | undefined {
+  const seriesPair =
+    getPrimarySeriesPair(context);
+
+  if (!seriesPair) {
+    return undefined;
+  }
+
+  const firstValues =
+    getColumnNumericValues(
+      context,
+      seriesPair.first,
+    );
+  const secondValues =
+    getColumnNumericValues(
+      context,
+      seriesPair.second,
+    );
+  const secondAverage = Math.round(
+    secondValues.reduce(
+      (sum, value) =>
+        sum + value,
+      0,
+    ) / secondValues.length,
+  );
+  const filteredIndices =
+    filterCategoryIndices(
+      {
+        ...context,
+        values: secondValues,
+      },
+      (value) => value > secondAverage,
+    );
+
+  if (filteredIndices.length < 2) {
+    return undefined;
+  }
+
+  const combinedPrimary =
+    aggregateByIndices(
+      firstValues,
+      filteredIndices,
+    );
+  const combinedSecondary =
+    aggregateByIndices(
+      secondValues,
+      filteredIndices,
+    );
+  const generated =
+    generateRatioOptions(
+      combinedPrimary,
+      combinedSecondary,
+    );
+  const question = {
+    text: `What is the ratio of combined ${seriesPair.first} to combined ${seriesPair.second} in ${context.categoryColumn}s where ${seriesPair.second} exceeded its average?`,
+    options: generated.options,
+    correct: generated.correct,
+    explanation: `The required ratio is ${formatRatio(combinedPrimary, combinedSecondary)}.`,
+  };
+
+  return attachReasoningTrace(
+    question,
+    [
+      createReasoningStep(
+        "average",
+        `Compute the average of ${seriesPair.second}.`,
+      ),
+      createReasoningStep(
+        "filter",
+        `Select ${context.categoryColumn} values where ${seriesPair.second} exceeds its average.`,
+      ),
+      createReasoningStep(
+        "aggregate",
+        `Add ${seriesPair.first} and ${seriesPair.second} separately over the filtered subset.`,
+      ),
+      createReasoningStep(
+        "ratio",
+        "Form the ratio of the two combined totals.",
+      ),
+    ],
+    5,
+  );
+}
+
 type DIQuestionGeneratorPool = Record<
   DifficultyLabel,
   DIQuestionGenerator[]
@@ -2937,6 +4635,7 @@ const DI_REASONING_ARCHETYPES: DIReasoningArchetype[] = [
   { id: "pie-share", category: "direct-arithmetic", difficulty: "Easy", visualTypes: ["pie"], generate: generatePercentageShareQuestion },
   { id: "second-highest", category: "comparative-reasoning", difficulty: "Medium", visualTypes: ["table", "bar", "line"], generate: generateSecondHighestQuestion },
   { id: "closest-to-average", category: "comparative-reasoning", difficulty: "Medium", visualTypes: ["table", "bar"], generate: generateClosestToAverageQuestion },
+  { id: "least-deviation", category: "comparative-reasoning", difficulty: "Medium", visualTypes: ["table", "bar", "line"], generate: generateLeastDeviationQuestion },
   { id: "average", category: "direct-arithmetic", difficulty: "Medium", visualTypes: ["table", "bar"], generate: generateAverageQuestion },
   { id: "percentage", category: "direct-arithmetic", difficulty: "Medium", visualTypes: ["table", "bar"], generate: generatePercentageQuestion },
   { id: "pie-ratio", category: "direct-arithmetic", difficulty: "Medium", visualTypes: ["pie"], generate: generateRatioQuestion },
@@ -2960,6 +4659,8 @@ const DI_REASONING_ARCHETYPES: DIReasoningArchetype[] = [
   { id: "line-fluctuation", category: "trend-reasoning", difficulty: "Hard", visualTypes: ["line"], generate: generateLineFluctuationQuestion },
   { id: "cross-column-combined-leader", category: "cross-series-reasoning", difficulty: "Hard", visualTypes: ["table", "bar", "line"], requiresMultiSeries: true, generate: generateCrossColumnCombinedLeaderQuestion },
   { id: "cross-column-ratio-leader", category: "cross-series-reasoning", difficulty: "Hard", visualTypes: ["table", "bar", "line"], requiresMultiSeries: true, generate: generateCrossColumnRatioLeaderQuestion },
+  { id: "filtered-lowest-cross-series", category: "multi-step-reasoning", difficulty: "Hard", visualTypes: ["bar", "line"], requiresMultiSeries: true, generate: generateFilteredLowestCrossSeriesQuestion },
+  { id: "conditional-combined-ratio", category: "multi-step-reasoning", difficulty: "Hard", visualTypes: ["bar", "line"], requiresMultiSeries: true, generate: generateConditionalCombinedRatioQuestion },
   { id: "series-conditional-count", category: "cross-series-reasoning", difficulty: "Hard", visualTypes: ["bar", "line"], requiresMultiSeries: true, generate: generateConditionalCrossSeriesCountQuestion },
   { id: "series-relative-growth", category: "cross-series-reasoning", difficulty: "Hard", visualTypes: ["line"], requiresMultiSeries: true, generate: generateRelativeGrowthComparisonQuestion },
   { id: "series-crossover", category: "cross-series-reasoning", difficulty: "Hard", visualTypes: ["line"], requiresMultiSeries: true, generate: generateCrossoverAnalysisQuestion },
@@ -3211,6 +4912,12 @@ function buildDIQuestionCandidates(
             context.tableData.length,
           numericColumnCount:
             context.numericColumns.length,
+          reasoningSteps:
+            question.reasoningSteps,
+          dependencyComplexity:
+            question.dependencyComplexity,
+          operationChain:
+            question.operationChain,
         },
       ),
     );
@@ -3301,6 +5008,7 @@ function summarizeDISetDifficulty(
 function generateDIQuestions(
   tableData: DIDataRow[],
   visualType: DIVisualType,
+  series: DISeriesConfig[] | undefined,
   options?: GeneratorOptions,
 ): {
   questions: DIQuestion[];
@@ -3313,7 +5021,12 @@ function generateDIQuestions(
     getCategoryColumn(tableData);
 
   const numericColumns =
-    getNumericColumns(tableData);
+    series?.length
+      ? series.map(
+          (seriesConfig) =>
+            seriesConfig.column,
+        )
+      : getNumericColumns(tableData);
 
   if (
     !categoryColumn ||
@@ -3334,17 +5047,6 @@ function generateDIQuestions(
     };
   }
 
-  const inferredSeries =
-    visualType === "bar" ||
-    visualType === "line"
-      ? numericColumns.map(
-          (column) => ({
-            column,
-            type: visualType,
-            label: column,
-          }),
-        )
-      : undefined;
   const { slots, setProfile } =
     buildDifficultySlots(
       5,
@@ -3366,7 +5068,7 @@ function generateDIQuestions(
       createDIQuestionContext(
         tableData,
         visualType,
-        inferredSeries,
+        series,
         categoryColumn,
         numericColumns,
         numericColumn,
@@ -3416,7 +5118,10 @@ function generateDIQuestions(
 
 function createFormulaQuestionCandidate(
   pattern: Pattern,
+  options?: GeneratorOptions,
 ): FormulaQuestion {
+  const examProfile =
+    options?.examProfile ?? "custom";
   const values = generateValues(
     pattern.variables,
   );
@@ -3430,17 +5135,20 @@ function createFormulaQuestionCandidate(
     template,
     values,
   );
+  const topicCluster =
+    inferQuantTopicCluster(pattern);
+  const archetype =
+    selectQuantArchetype(
+      pattern,
+      options,
+      topicCluster,
+    );
 
   const correctAnswer =
     evaluateFormula(
       pattern.formula!,
       values,
     );
-
-  const generated = generateOptions(
-    correctAnswer,
-    pattern.distractorStrategy,
-  );
 
   const explanation =
     pattern.explanationTemplate
@@ -3450,24 +5158,74 @@ function createFormulaQuestionCandidate(
           correctAnswer,
         )
       : `Calculated using formula ${pattern.formula}`;
+  const quantContext = {
+    pattern,
+    baseText: text,
+    values,
+    correctAnswer,
+    topicCluster,
+  };
+  const reasoningSteps =
+    archetype.buildReasoningSteps(
+      quantContext,
+    );
+  const generated = generateOptions(
+    correctAnswer,
+    pattern.distractorStrategy,
+    {
+      examProfile,
+      topicCluster,
+      operationChain:
+        archetype.operationChain,
+    },
+  );
+  const examRealismMetadata =
+    buildExamRealismMetadata(
+      examProfile,
+      archetype,
+      generated.optionMetadata,
+    );
+  const enrichedQuestion =
+    attachReasoningTrace(
+      {
+        text: buildQuantPrompt(
+          archetype,
+          quantContext,
+          examProfile,
+        ),
+        options: generated.options,
+        correct: generated.correct,
+        explanation,
+        section: pattern.section,
+        topic: pattern.topic,
+        subtopic: pattern.subtopic,
+        optionMetadata:
+          generated.optionMetadata,
+        examRealismMetadata,
+      },
+      reasoningSteps,
+      Math.max(
+        reasoningSteps.length,
+        archetype.operationChain.length,
+      ),
+      archetype.operationChain,
+    );
 
   return applyDifficultyMetadata(
-    {
-      text,
-      options: generated.options,
-      correct: generated.correct,
-      explanation,
-      section: pattern.section,
-      topic: pattern.topic,
-      subtopic: pattern.subtopic,
-    },
+    enrichedQuestion,
     {
       kind: "formula",
-      text,
+      text: enrichedQuestion.text,
       formula:
         pattern.formula ?? "",
       values,
       explanation,
+      reasoningSteps:
+        enrichedQuestion.reasoningSteps,
+      dependencyComplexity:
+        enrichedQuestion.dependencyComplexity,
+      operationChain:
+        enrichedQuestion.operationChain,
     },
   );
 }
@@ -3491,6 +5249,7 @@ function generateFormulaQuestions(
     const candidate =
       createFormulaQuestionCandidate(
         pattern,
+        options,
       );
 
     if (
@@ -3540,6 +5299,7 @@ export function generateFromPattern(
       generateDIQuestions(
         tableData,
         visualType,
+        series,
         options,
       );
 

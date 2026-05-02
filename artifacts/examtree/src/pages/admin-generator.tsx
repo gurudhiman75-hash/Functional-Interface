@@ -64,6 +64,9 @@ type DifficultyMetadata = {
   estimatedSolveTime: number;
   operationCount: number;
   reasoningDepth: number;
+  reasoningSteps?: string[];
+  dependencyComplexity?: number;
+  operationChain?: string[];
   usesPercentage: boolean;
   usesRatio: boolean;
   usesComparison: boolean;
@@ -71,13 +74,35 @@ type DifficultyMetadata = {
   inferenceComplexity: number;
 };
 
+type OptionMetadata = {
+  value: string;
+  isCorrect: boolean;
+  distractorType?: string;
+  likelyMistake?: string;
+  reasoningTrap?: string;
+};
+
+type ExamRealismMetadata = {
+  examProfile: ExamProfileId;
+  wordingStyle:
+    | "concise"
+    | "balanced"
+    | "inference-heavy";
+  archetypeId?: string;
+  archetypeCategory?: string;
+  reasoningTraps: string[];
+  weightingSummary: string[];
+};
+
 type DIQuestion = {
   text: string;
   options?: string[];
+  optionMetadata?: OptionMetadata[];
   difficulty?: DifficultyLabel;
   difficultyScore?: number;
   difficultyLabel?: DifficultyLabel;
   difficultyMetadata?: DifficultyMetadata;
+  examRealismMetadata?: ExamRealismMetadata;
   explanation?: string;
 };
 
@@ -106,6 +131,8 @@ type FormulaQuestion = {
   difficultyScore?: number;
   difficultyLabel?: DifficultyLabel;
   difficultyMetadata?: DifficultyMetadata;
+  optionMetadata?: OptionMetadata[];
+  examRealismMetadata?: ExamRealismMetadata;
 };
 
 type GeneratedQuestion =
@@ -141,7 +168,14 @@ const PIE_COLORS = [
 
 const AXIS_TICK = {
   fill: "#111827",
-  fontSize: 12,
+  fontSize: 11,
+};
+
+const COMPACT_CHART_MARGIN = {
+  top: 8,
+  right: 12,
+  left: 0,
+  bottom: 8,
 };
 
 const DIFFICULTY_BADGE_STYLES: Record<
@@ -597,10 +631,13 @@ function getDifficultyRequestPayload(
   const payload: Record<
     string,
     | number
+    | ExamProfileId
     | DifficultyDistribution
     | DISetProfile
   > = {};
 
+  payload.examProfile =
+    settings.examProfile;
   payload.setProfile =
     settings.setProfile;
 
@@ -692,10 +729,23 @@ function renderDifficultyAnalytics(
     difficultyLabel?: DifficultyLabel;
     difficultyScore?: number;
     difficultyMetadata?: DifficultyMetadata;
+    optionMetadata?: OptionMetadata[];
+    examRealismMetadata?: ExamRealismMetadata;
   },
 ) {
   const metadata =
     question.difficultyMetadata;
+  const realismMetadata =
+    question.examRealismMetadata;
+  const distractorMetadata = (
+    question.optionMetadata ?? []
+  ).filter(
+    (option) =>
+      !option.isCorrect &&
+      (option.distractorType ||
+        option.likelyMistake ||
+        option.reasoningTrap),
+  );
   const label =
     getDifficultyLabel(question);
   const score =
@@ -787,7 +837,7 @@ function renderDifficultyAnalytics(
         </div>
 
         {metadata && (
-          <div className="flex flex-wrap gap-2 text-[11px] text-slate-600">
+        <div className="flex flex-wrap gap-2 text-[11px] text-slate-600">
             <span className="rounded border border-slate-200 bg-white px-2 py-1">
               Uses Percentage:{" "}
               {metadata.usesPercentage
@@ -806,8 +856,131 @@ function renderDifficultyAnalytics(
                 ? "Yes"
                 : "No"}
             </span>
+            {typeof metadata.dependencyComplexity ===
+              "number" && (
+              <span className="rounded border border-slate-200 bg-white px-2 py-1">
+                Dependency Complexity:{" "}
+                {metadata.dependencyComplexity}
+              </span>
+            )}
+            {metadata.operationChain
+              ?.length ? (
+              <span className="rounded border border-slate-200 bg-white px-2 py-1">
+                Operations:{" "}
+                {metadata.operationChain.join(
+                  " -> ",
+                )}
+              </span>
+            ) : null}
           </div>
         )}
+
+        {metadata?.reasoningSteps
+          ?.length ? (
+          <div className="rounded border border-slate-200 bg-white p-3 text-[11px] text-slate-600">
+            <div className="mb-2 font-medium text-slate-800">
+              Reasoning Chain
+            </div>
+            <div className="space-y-1">
+              {metadata.reasoningSteps.map(
+                (step, index) => (
+                  <div key={index}>
+                    {index + 1}.{" "}
+                    {step}
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        ) : null}
+
+        {realismMetadata ? (
+          <div className="rounded border border-slate-200 bg-white p-3 text-[11px] text-slate-600">
+            <div className="mb-2 font-medium text-slate-800">
+              Exam Realism
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded border border-slate-200 bg-slate-50 px-2 py-1">
+                Profile:{" "}
+                {realismMetadata.examProfile.toUpperCase()}
+              </span>
+              <span className="rounded border border-slate-200 bg-slate-50 px-2 py-1">
+                Wording:{" "}
+                {realismMetadata.wordingStyle}
+              </span>
+              {realismMetadata.archetypeCategory ? (
+                <span className="rounded border border-slate-200 bg-slate-50 px-2 py-1">
+                  Archetype:{" "}
+                  {realismMetadata.archetypeCategory}
+                </span>
+              ) : null}
+            </div>
+            {realismMetadata.weightingSummary
+              ?.length ? (
+              <div className="mt-2 space-y-1">
+                {realismMetadata.weightingSummary.map(
+                  (item, index) => (
+                    <div key={index}>
+                      {index + 1}. {item}
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : null}
+            {realismMetadata.reasoningTraps
+              ?.length ? (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {realismMetadata.reasoningTraps.map(
+                  (trap, index) => (
+                    <span
+                      key={index}
+                      className="rounded border border-amber-200 bg-amber-50 px-2 py-1 text-amber-700"
+                    >
+                      {trap}
+                    </span>
+                  ),
+                )}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {distractorMetadata.length ? (
+          <div className="rounded border border-slate-200 bg-white p-3 text-[11px] text-slate-600">
+            <div className="mb-2 font-medium text-slate-800">
+              Distractor Intelligence
+            </div>
+            <div className="space-y-2">
+              {distractorMetadata.map(
+                (option, index) => (
+                  <div
+                    key={`${option.value}-${index}`}
+                    className="rounded border border-slate-100 bg-slate-50 p-2"
+                  >
+                    <div className="font-medium text-slate-800">
+                      Option {option.value}
+                    </div>
+                    <div>
+                      Type:{" "}
+                      {option.distractorType ??
+                        "NA"}
+                    </div>
+                    <div>
+                      Likely Mistake:{" "}
+                      {option.likelyMistake ??
+                        "NA"}
+                    </div>
+                    <div>
+                      Trap:{" "}
+                      {option.reasoningTrap ??
+                        "NA"}
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        ) : null}
       </div>
     </details>
   );
@@ -1099,19 +1272,16 @@ function renderBarDI(diSet: DISet) {
   }
 
   return (
-    <div className="h-72 w-full">
+    <div className="h-60 w-full">
       <ResponsiveContainer
         width="100%"
         height="100%"
       >
         <BarChart
           data={diSet.diData}
-          margin={{
-            top: 12,
-            right: 20,
-            left: 4,
-            bottom: 12,
-          }}
+          margin={
+            COMPACT_CHART_MARGIN
+          }
         >
           <CartesianGrid
             stroke="#d1d5db"
@@ -1141,7 +1311,7 @@ function renderBarDI(diSet: DISet) {
             <Legend
               iconType="square"
               wrapperStyle={{
-                fontSize: 12,
+                fontSize: 11,
                 color: "#111827",
               }}
             />
@@ -1188,7 +1358,7 @@ function renderPieDI(diSet: DISet) {
   }
 
   return (
-    <div className="h-72 w-full">
+    <div className="h-60 w-full">
       <ResponsiveContainer
         width="100%"
         height="100%"
@@ -1200,7 +1370,7 @@ function renderPieDI(diSet: DISet) {
             nameKey={categoryColumn}
             cx="50%"
             cy="50%"
-            outerRadius={90}
+            outerRadius={76}
             label
             activeShape={false}
             isAnimationActive={false}
@@ -1225,7 +1395,7 @@ function renderPieDI(diSet: DISet) {
           <Legend
             iconType="plainline"
             wrapperStyle={{
-              fontSize: 12,
+              fontSize: 11,
               color: "#111827",
             }}
           />
@@ -1259,19 +1429,16 @@ function renderLineDI(diSet: DISet) {
     );
 
   return (
-    <div className="h-72 w-full">
+    <div className="h-60 w-full">
       <ResponsiveContainer
         width="100%"
         height="100%"
       >
         <LineChart
           data={diSet.diData}
-          margin={{
-            top: 12,
-            right: 20,
-            left: 4,
-            bottom: 12,
-          }}
+          margin={
+            COMPACT_CHART_MARGIN
+          }
         >
           <CartesianGrid
             stroke="#d1d5db"
@@ -1299,7 +1466,7 @@ function renderLineDI(diSet: DISet) {
           <Legend
             iconType="plainline"
             wrapperStyle={{
-              fontSize: 12,
+              fontSize: 11,
               color: "#111827",
             }}
           />
@@ -1354,7 +1521,7 @@ function renderLineDI(diSet: DISet) {
                   dataKey={numericColumn}
                   position="top"
                   fill="#111827"
-                  fontSize={12}
+                  fontSize={11}
                 />
               </Line>
             ),

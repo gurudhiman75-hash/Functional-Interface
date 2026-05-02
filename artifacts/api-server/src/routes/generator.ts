@@ -194,6 +194,7 @@ router.post(
       const {
         patternId,
         count,
+        examProfile,
         targetDifficulty,
         difficultyTolerance,
         difficultyDistribution,
@@ -276,6 +277,7 @@ router.post(
           pattern,
           count,
           {
+            examProfile,
             targetDifficulty,
             difficultyTolerance,
             difficultyDistribution,
