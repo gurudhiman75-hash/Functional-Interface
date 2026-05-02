@@ -1,3 +1,4 @@
+import { ALL_MOTIFS } from "./motifs";
 type ValueRange = {
   min: number;
   max: number;
@@ -434,7 +435,24 @@ function pickWeightedItem<T>(
       "Expected at least one item",
     );
   }
+function pickMotif(
+  topicCluster: QuantTopicCluster,
+) {
+  const compatibleMotifs =
+    ALL_MOTIFS.filter(
+      (motif) =>
+        motif.topicCluster ===
+        topicCluster,
+    );
 
+  if (!compatibleMotifs.length) {
+    return null;
+  }
+
+  return pickRandomItem(
+    compatibleMotifs,
+  );
+}
   const weighted = items.map((item) => ({
     item,
     weight: Math.max(
@@ -2645,6 +2663,9 @@ function selectQuantArchetype(
       pattern,
       options,
     );
+    const motif = pickMotif(
+  topicCluster,
+);
   const preferredCandidates =
     getQuantArchetypeCandidates(
       topicCluster,
@@ -2653,13 +2674,25 @@ function selectQuantArchetype(
 
   if (preferredCandidates.length) {
     return pickWeightedItem(
-      preferredCandidates,
-      (archetype) =>
-        profileConfig
-          .archetypeWeights[
-          archetype.category
-        ] ?? 1,
-    );
+  preferredCandidates,
+  (archetype) => {
+    let weight =
+      profileConfig
+        .archetypeWeights[
+        archetype.category
+      ] ?? 1;
+
+    if (
+      motif?.preferredArchetypes?.includes(
+        archetype.id,
+      )
+    ) {
+      weight *= 1.5;
+    }
+
+    return weight;
+  },
+);
   }
 
   return pickWeightedItem(
