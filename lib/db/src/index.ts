@@ -368,7 +368,7 @@ export const patterns = pgTable("patterns", {
   subtopic: text("subtopic").notNull(),
 
   type: text("type")
-    .$type<"formula" | "logic">()
+    .$type<"formula" | "logic" | "di">()
     .notNull()
     .default("formula"),
 
@@ -381,6 +381,8 @@ export const patterns = pgTable("patterns", {
   formula: text("formula"),
 
   variables: jsonb("variables").notNull(),
+
+  diPattern: jsonb("di_pattern"),
 
   distractorStrategy: jsonb(
     "distractor_strategy",

@@ -10,13 +10,12 @@ import {
 
 import {
   generateFromPattern,
+  type GeneratorOptions,
   type Pattern,
 } from "../lib/generator";
-console.log(
-  "GENERATOR ROUTES LOADED",
-);
 
 const router = Router();
+
 router.get(
   "/patterns",
   async (_req, res) => {
@@ -34,114 +33,12 @@ router.get(
       return res
         .status(500)
         .json({
-          error:
-            "Internal server error",
+          error: "Internal server error",
         });
     }
   },
 );
-router.put(
-  "/patterns/:id",
-  async (
-    req: Request,
-    res: Response,
-  ) => {
-    try {
-      const id =
-        req.params.id;
 
-      const pattern =
-        req.body;
-
-      const rows = await db
-        .update(patterns)
-        .set({
-          name: pattern.name,
-
-          section:
-            pattern.section,
-
-          topic:
-            pattern.topic,
-
-          subtopic:
-            pattern.subtopic,
-
-          formula:
-            pattern.formula,
-
-          difficulty:
-            pattern.difficulty,
-
-          templateVariants:
-            pattern.templateVariants,
-
-          variables:
-            pattern.variables,
-
-          distractorStrategy:
-            pattern.distractorStrategy,
-          explanationTemplate:
-            pattern.explanationTemplate,
-        })
-        .where(
-          eq(
-            patterns.id,
-            id,
-          ),
-        )
-        .returning();
-
-      return res.json({
-        success: true,
-        pattern: rows[0],
-      });
-    } catch (error) {
-      console.error(error);
-
-      return res
-        .status(500)
-        .json({
-          error:
-            "Internal server error",
-        });
-    }
-  },
-);
-router.delete(
-  "/patterns/:id",
-  async (
-    req: Request,
-    res: Response,
-  ) => {
-    try {
-      const id =
-        req.params.id;
-
-      await db
-        .delete(patterns)
-        .where(
-          eq(
-            patterns.id,
-            id,
-          ),
-        );
-
-      return res.json({
-        success: true,
-      });
-    } catch (error) {
-      console.error(error);
-
-      return res
-        .status(500)
-        .json({
-          error:
-            "Internal server error",
-        });
-    }
-  },
-);
 router.post(
   "/patterns",
   async (
@@ -149,8 +46,7 @@ router.post(
     res: Response,
   ) => {
     try {
-      const pattern =
-        req.body;
+      const pattern = req.body;
 
       if (
         !pattern.id ||
@@ -168,35 +64,20 @@ router.post(
         .insert(patterns)
         .values({
           id: pattern.id,
-
           name: pattern.name,
-
-          section:
-            pattern.section,
-
-          topic:
-            pattern.topic,
-
-          subtopic:
-            pattern.subtopic,
-
+          section: pattern.section,
+          topic: pattern.topic,
+          subtopic: pattern.subtopic,
           type:
-            pattern.type ??
-            "formula",
-
+            pattern.type ?? "formula",
           difficulty:
-            pattern.difficulty ??
-            "Easy",
-
+            pattern.difficulty ?? "Easy",
           templateVariants:
             pattern.templateVariants,
-
-          variables:
-            pattern.variables,
-
-          formula:
-            pattern.formula,
-
+          variables: pattern.variables,
+          diPattern:
+            pattern.diPattern,
+          formula: pattern.formula,
           distractorStrategy:
             pattern.distractorStrategy,
           explanationTemplate:
@@ -214,51 +95,43 @@ router.post(
       return res
         .status(500)
         .json({
-          error:
-            "Internal server error",
+          error: "Internal server error",
         });
     }
   },
 );
+
 router.put(
   "/patterns/:id",
-  async (req, res) => {
+  async (
+    req: Request,
+    res: Response,
+  ) => {
     try {
       const { id } = req.params;
-
-      const body = req.body;
+      const pattern = req.body;
 
       const rows = await db
         .update(patterns)
         .set({
-          name: body.name,
-
-          section:
-            body.section,
-
-          topic:
-            body.topic,
-
-          subtopic:
-            body.subtopic,
-
-          type:
-            body.type,
-
+          name: pattern.name,
+          section: pattern.section,
+          topic: pattern.topic,
+          subtopic: pattern.subtopic,
+          type: pattern.type,
           difficulty:
-            body.difficulty,
-
-          formula:
-            body.formula,
-
+            pattern.difficulty,
+          formula: pattern.formula,
           templateVariants:
-            body.templateVariants,
-
+            pattern.templateVariants,
           variables:
-            body.variables,
-
+            pattern.variables,
+          diPattern:
+            pattern.diPattern,
           distractorStrategy:
-            body.distractorStrategy,
+            pattern.distractorStrategy,
+          explanationTemplate:
+            pattern.explanationTemplate,
         })
         .where(
           eq(patterns.id, id),
@@ -272,16 +145,21 @@ router.put(
     } catch (error) {
       console.error(error);
 
-      return res.status(500).json({
-        error:
-          "Internal server error",
-      });
+      return res
+        .status(500)
+        .json({
+          error: "Internal server error",
+        });
     }
   },
 );
+
 router.delete(
   "/patterns/:id",
-  async (req, res) => {
+  async (
+    req: Request,
+    res: Response,
+  ) => {
     try {
       const { id } = req.params;
 
@@ -297,13 +175,15 @@ router.delete(
     } catch (error) {
       console.error(error);
 
-      return res.status(500).json({
-        error:
-          "Internal server error",
-      });
+      return res
+        .status(500)
+        .json({
+          error: "Internal server error",
+        });
     }
   },
 );
+
 router.post(
   "/pattern",
   async (
@@ -311,8 +191,15 @@ router.post(
     res: Response,
   ) => {
     try {
-      const { patternId, count } =
-        req.body;
+      const {
+        patternId,
+        count,
+        targetDifficulty,
+        difficultyTolerance,
+        difficultyDistribution,
+        targetAverageDifficulty,
+        setProfile,
+      } = req.body;
 
       if (
         !patternId ||
@@ -348,39 +235,20 @@ router.post(
 
       const pattern: Pattern = {
         id: dbPattern.id,
-
         type:
-          dbPattern.type as
-          | "formula"
-          | "logic",
-
-        section:
-          dbPattern.section,
-
+          dbPattern.type as Pattern["type"],
+        section: dbPattern.section,
         topic: dbPattern.topic,
-
         subtopic:
           dbPattern.subtopic,
-
         difficulty:
-          dbPattern.difficulty as
-          | "Easy"
-          | "Medium"
-          | "Hard"
-          | undefined,
-
+          dbPattern.difficulty as Pattern["difficulty"],
         templateVariants:
           dbPattern.templateVariants as string[],
-
         variables:
-          dbPattern.variables as Record<
-            string,
-            {
-              min: number;
-              max: number;
-            }
-          >,
-
+          dbPattern.variables as Pattern["variables"],
+        diPattern:
+          dbPattern.diPattern as Pattern["diPattern"],
         formula:
           dbPattern.formula ??
           undefined,
@@ -388,30 +256,47 @@ router.post(
           dbPattern.explanationTemplate ??
           undefined,
         distractorStrategy:
-          dbPattern.distractorStrategy as any,
+          dbPattern.distractorStrategy as Pattern["distractorStrategy"],
       };
 
-      const questions =
+      if (
+        pattern.type === "di" &&
+        !pattern.diPattern
+      ) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "DI pattern configuration is missing. Edit and save this pattern again with DI Pattern JSON.",
+          });
+      }
+
+      const result =
         generateFromPattern(
           pattern,
           count,
+          {
+            targetDifficulty,
+            difficultyTolerance,
+            difficultyDistribution,
+            targetAverageDifficulty,
+            setProfile,
+          } satisfies GeneratorOptions,
         );
 
-      return res.json({
-        questions,
-      });
+      return res.json(result);
     } catch (error) {
       console.error(error);
 
       return res
         .status(500)
         .json({
-          error:
-            "Internal server error",
+          error: "Internal server error",
         });
     }
   },
 );
+
 router.post(
   "/save",
   async (
@@ -442,50 +327,40 @@ router.post(
         ) {
           continue;
         }
-        const existing =
-  await db
-    .select()
-    .from(questionsTable)
-    .where(
-      eq(
-        questionsTable.text,
-        q.text,
-      ),
-    );
 
-if (existing.length) {
-  continue;
-}
+        const existing =
+          await db
+            .select()
+            .from(questionsTable)
+            .where(
+              eq(
+                questionsTable.text,
+                q.text,
+              ),
+            );
+
+        if (existing.length) {
+          continue;
+        }
 
         const rows = await db
           .insert(questionsTable)
           .values({
             clientId: "generator",
-
             testId: "__bank__",
-            globalTopicId: "generator-topic",
-
+            globalTopicId:
+              "generator-topic",
             text: q.text,
-
             options: q.options,
-
             correct: q.correct,
-
             explanation:
-              q.explanation ??
-              "",
-
+              q.explanation ?? "",
             section:
-              q.section ??
-              "general",
-
+              q.section ?? "general",
             topic:
-              q.topic ??
-              "General",
-
+              q.topic ?? "General",
             difficulty:
-              q.difficulty ??
-              "Easy",
+              q.difficulty ?? "Easy",
           })
           .returning();
 
@@ -503,12 +378,10 @@ if (existing.length) {
       return res
         .status(500)
         .json({
-          error:
-            "Internal server error",
+          error: "Internal server error",
         });
     }
   },
 );
-
 
 export default router;

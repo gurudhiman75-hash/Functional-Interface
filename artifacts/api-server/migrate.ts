@@ -566,6 +566,33 @@ async function migrate() {
   await db.execute(sql`CREATE INDEX IF NOT EXISTS questions_di_set_id_idx ON questions(di_set_id);`);
   console.log("✓ questions.image_url / question_type / di_set_id columns");
 
+  // ── patterns (Question generator templates) ─────────────────────
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS patterns (
+      id                   TEXT      PRIMARY KEY,
+      name                 TEXT      NOT NULL,
+      section              TEXT      NOT NULL,
+      topic                TEXT      NOT NULL,
+      subtopic             TEXT      NOT NULL,
+      type                 TEXT      NOT NULL DEFAULT 'formula',
+      difficulty           TEXT,
+      template_variants    JSONB     NOT NULL,
+      formula              TEXT,
+      variables            JSONB     NOT NULL,
+      di_pattern           JSONB,
+      distractor_strategy  JSONB,
+      explanation_template TEXT,
+      created_at           TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `);
+  await db.execute(sql`
+    ALTER TABLE patterns ADD COLUMN IF NOT EXISTS di_pattern JSONB;
+  `);
+  await db.execute(sql`
+    ALTER TABLE patterns ADD COLUMN IF NOT EXISTS explanation_template TEXT;
+  `);
+  console.log("✓ patterns table / di_pattern column");
+
   // ── Fix responses FK pointing to old 'attempt_records' table ────────
   // The production DB was originally created with 'attempt_records' as the table
   // name. The FK constraint on 'responses.attempt_id' still points there.

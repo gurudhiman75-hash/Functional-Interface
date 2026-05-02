@@ -1,5 +1,14 @@
 import { Router, type Request, type Response } from "express";
-import { generateFromPattern, getPatternById, type Pattern } from "../lib/generator";
+import { eq } from "drizzle-orm";
+
+import { db } from "../lib/db";
+import { patterns } from "@workspace/db";
+import {
+  generateFromPattern,
+  type GeneratorOptions,
+  type GeneratorResult,
+  type Pattern,
+} from "../lib/generator";
 
 const router = Router();
 
@@ -8,26 +17,73 @@ const router = Router();
 interface GeneratePatternRequest {
   patternId: string;
   count: number;
+  targetDifficulty?: number;
+  difficultyTolerance?: number;
+  difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
+  targetAverageDifficulty?: number;
+  setProfile?: GeneratorOptions["setProfile"];
 }
 
 interface GeneratePatternResponse {
   success: boolean;
-  questions?: Array<{
-    text: string;
-    options: string[];
-    correct: number;
-    explanation: string;
-    section: string;
-    topic: string;
-  }>;
+  questions?: GeneratorResult["questions"];
   error?: string;
+}
+
+async function getPatternById(
+  patternId: string,
+): Promise<Pattern | undefined> {
+  const rows = await db
+    .select()
+    .from(patterns)
+    .where(
+      eq(patterns.id, patternId),
+    );
+
+  const dbPattern = rows[0];
+
+  if (!dbPattern) {
+    return undefined;
+  }
+
+  return {
+    id: dbPattern.id,
+    type:
+      dbPattern.type as Pattern["type"],
+    section: dbPattern.section,
+    topic: dbPattern.topic,
+    subtopic: dbPattern.subtopic,
+    difficulty:
+      dbPattern.difficulty as Pattern["difficulty"],
+    templateVariants:
+      dbPattern.templateVariants as string[],
+    variables:
+      dbPattern.variables as Pattern["variables"],
+    diPattern:
+      dbPattern.diPattern as Pattern["diPattern"],
+    formula:
+      dbPattern.formula ?? undefined,
+    explanationTemplate:
+      dbPattern.explanationTemplate ??
+      undefined,
+    distractorStrategy:
+      dbPattern.distractorStrategy as Pattern["distractorStrategy"],
+  };
 }
 
 // ── POST /api/generator/pattern ───────────────────────────────────────────────
 
 router.post("/pattern", async (req: Request, res: Response) => {
   try {
-    const { patternId, count } = req.body as GeneratePatternRequest;
+    const {
+      patternId,
+      count,
+      targetDifficulty,
+      difficultyTolerance,
+      difficultyDistribution,
+      targetAverageDifficulty,
+      setProfile,
+    } = req.body as GeneratePatternRequest;
 
     // Validate input
     if (!patternId || typeof patternId !== "string") {
@@ -58,11 +114,22 @@ router.post("/pattern", async (req: Request, res: Response) => {
     }
 
     // Generate questions
-    const questions = generateFromPattern(pattern, count);
+    const result =
+      generateFromPattern(
+        pattern,
+        count,
+        {
+          targetDifficulty,
+          difficultyTolerance,
+          difficultyDistribution,
+          targetAverageDifficulty,
+          setProfile,
+        } satisfies GeneratorOptions,
+      );
 
     res.status(200).json({
       success: true,
-      questions,
+      questions: result.questions,
     } satisfies GeneratePatternResponse);
   } catch (error) {
     console.error("Error in /api/generator/pattern:", error);
@@ -77,7 +144,23 @@ router.post("/pattern", async (req: Request, res: Response) => {
 
 router.post("/pattern/manual", async (req: Request, res: Response) => {
   try {
-    const { pattern, count } = req.body as { pattern: Pattern; count: number };
+    const {
+      pattern,
+      count,
+      targetDifficulty,
+      difficultyTolerance,
+      difficultyDistribution,
+      targetAverageDifficulty,
+      setProfile,
+    } = req.body as {
+      pattern: Pattern;
+      count: number;
+      targetDifficulty?: number;
+      difficultyTolerance?: number;
+      difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
+      targetAverageDifficulty?: number;
+      setProfile?: GeneratorOptions["setProfile"];
+    };
 
     // Validate input
     if (!pattern || typeof pattern !== "object") {
@@ -97,11 +180,22 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
     }
 
     // Generate questions
-    const questions = generateFromPattern(pattern, count);
+    const result =
+      generateFromPattern(
+        pattern,
+        count,
+        {
+          targetDifficulty,
+          difficultyTolerance,
+          difficultyDistribution,
+          targetAverageDifficulty,
+          setProfile,
+        } satisfies GeneratorOptions,
+      );
 
     res.status(200).json({
       success: true,
-      questions,
+      questions: result.questions,
     } satisfies GeneratePatternResponse);
   } catch (error) {
     console.error("Error in /api/generator/pattern/manual:", error);
