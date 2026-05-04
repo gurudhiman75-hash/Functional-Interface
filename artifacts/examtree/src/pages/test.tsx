@@ -45,6 +45,8 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { AppLayout } from "@/components/AppLayout";
+import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
+import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 import { getLocalizedQuestion, LANGUAGE_LABELS, type Language } from "@/lib/lang-utils";
 
 function priceFromPaywallBody(body: unknown, fallback: number): number {
@@ -1132,9 +1134,31 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                     </div>
 
                     {/* Explanation */}
-                    {q.explanation && (
+                    {(q.seatingExplanationFlow ||
+                      q.seatingDiagram ||
+                      q.explanation) && (
                       <div className="px-4 py-3 border-t border-gray-200">
-                        <p className="text-sm leading-relaxed text-gray-600">{getLocalizedQuestion(q, lang).explanation}</p>
+                        {q.seatingExplanationFlow ? (
+                          <div className="mb-3">
+                            <SeatingExplanationFlow
+                              flow={
+                                q.seatingExplanationFlow
+                              }
+                            />
+                          </div>
+                        ) : q.seatingDiagram ? (
+                          <div className="mb-3">
+                            <SeatingDiagramRenderer
+                              diagram={
+                                q.seatingDiagram
+                              }
+                              title="Seating arrangement solution diagram"
+                            />
+                          </div>
+                        ) : null}
+                        {q.explanation ? (
+                          <p className="text-sm leading-relaxed text-gray-600">{getLocalizedQuestion(q, lang).explanation}</p>
+                        ) : null}
                       </div>
                     )}
                   </div>

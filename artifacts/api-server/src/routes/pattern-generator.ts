@@ -31,6 +31,99 @@ interface GeneratePatternResponse {
   error?: string;
 }
 
+function normalizeStoredPattern(
+  dbPattern: Record<string, unknown>,
+): Pattern {
+  return {
+    id: String(dbPattern["id"] ?? ""),
+    type:
+      (dbPattern["type"] as Pattern["type"]) ??
+      "formula",
+    section: String(
+      dbPattern["section"] ?? "",
+    ),
+    topic: String(
+      dbPattern["topic"] ?? "",
+    ),
+    subtopic: String(
+      dbPattern["subtopic"] ?? "",
+    ),
+    difficulty:
+      (dbPattern["difficulty"] as Pattern["difficulty"]) ??
+      "Medium",
+    generationDomain:
+      (dbPattern["generationDomain"] as Pattern["generationDomain"]) ??
+      undefined,
+    arrangementType:
+      (dbPattern["arrangementType"] as string | null) ??
+      undefined,
+    arrangementTypes: Array.isArray(
+      dbPattern["arrangementTypes"],
+    )
+      ? (dbPattern["arrangementTypes"] as string[])
+      : undefined,
+    orientationType:
+      (dbPattern["orientationType"] as string | null) ??
+      undefined,
+    orientationTypes: Array.isArray(
+      dbPattern["orientationTypes"],
+    )
+      ? (dbPattern["orientationTypes"] as string[])
+      : undefined,
+    participantCount:
+      typeof dbPattern["participantCount"] === "number"
+        ? Number(dbPattern["participantCount"])
+        : undefined,
+    clueTypes: Array.isArray(
+      dbPattern["clueTypes"],
+    )
+      ? (dbPattern["clueTypes"] as string[])
+      : undefined,
+    inferenceDepth:
+      typeof dbPattern["inferenceDepth"] === "number"
+        ? Number(dbPattern["inferenceDepth"])
+        : undefined,
+    templateVariants: Array.isArray(
+      dbPattern["templateVariants"],
+    )
+      ? (dbPattern["templateVariants"] as string[])
+      : [],
+    variables:
+      dbPattern["variables"] &&
+      typeof dbPattern["variables"] ===
+        "object" &&
+      !Array.isArray(
+        dbPattern["variables"],
+      )
+        ? (dbPattern["variables"] as Pattern["variables"])
+        : {},
+    diPattern:
+      dbPattern["diPattern"] &&
+      typeof dbPattern["diPattern"] ===
+        "object" &&
+      !Array.isArray(
+        dbPattern["diPattern"],
+      )
+        ? (dbPattern["diPattern"] as Pattern["diPattern"])
+        : undefined,
+    formula:
+      (dbPattern["formula"] as string | null) ??
+      undefined,
+    explanationTemplate:
+      (dbPattern["explanationTemplate"] as string | null) ??
+      undefined,
+    distractorStrategy:
+      dbPattern["distractorStrategy"] &&
+      typeof dbPattern["distractorStrategy"] ===
+        "object" &&
+      !Array.isArray(
+        dbPattern["distractorStrategy"],
+      )
+        ? (dbPattern["distractorStrategy"] as Pattern["distractorStrategy"])
+        : undefined,
+  };
+}
+
 async function getPatternById(
   patternId: string,
 ): Promise<Pattern | undefined> {
@@ -47,29 +140,9 @@ async function getPatternById(
     return undefined;
   }
 
-  return {
-    id: dbPattern.id,
-    type:
-      dbPattern.type as Pattern["type"],
-    section: dbPattern.section,
-    topic: dbPattern.topic,
-    subtopic: dbPattern.subtopic,
-    difficulty:
-      dbPattern.difficulty as Pattern["difficulty"],
-    templateVariants:
-      dbPattern.templateVariants as string[],
-    variables:
-      dbPattern.variables as Pattern["variables"],
-    diPattern:
-      dbPattern.diPattern as Pattern["diPattern"],
-    formula:
-      dbPattern.formula ?? undefined,
-    explanationTemplate:
-      dbPattern.explanationTemplate ??
-      undefined,
-    distractorStrategy:
-      dbPattern.distractorStrategy as Pattern["distractorStrategy"],
-  };
+  return normalizeStoredPattern(
+    dbPattern,
+  );
 }
 
 // ── POST /api/generator/pattern ───────────────────────────────────────────────

@@ -1,5 +1,9 @@
 import { apiRequest } from "@/lib/api";
 import { getSubcategoryIconPath } from "@/lib/subcategory-icon";
+import type {
+  SeatingDiagramData,
+  SeatingExplanationFlow,
+} from "@workspace/api-zod";
 
 export const Storage = {
   set: (k: string, v: unknown) => localStorage.setItem(k, JSON.stringify(v)),
@@ -65,6 +69,8 @@ export interface TestAttempt {
     optionsPa?: string[];
     explanationHi?: string;
     explanationPa?: string;
+    seatingDiagram?: SeatingDiagramData | null;
+    seatingExplanationFlow?: SeatingExplanationFlow | null;
     selected: number | null;
     correct: number;
     flagged: boolean;
@@ -399,6 +405,8 @@ export interface AdminQuestion {
   textPa?: string;
   optionsPa?: [string, string, string, string];
   explanationPa?: string;
+  seatingDiagram?: SeatingDiagramData | null;
+  seatingExplanationFlow?: SeatingExplanationFlow | null;
   createdAt: number;
 }
 

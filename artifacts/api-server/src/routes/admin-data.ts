@@ -7,6 +7,10 @@ import { authenticate } from "../middlewares/auth";
 import { cacheDel, CacheKey } from "../lib/cache";
 import { resolveCategoryIcon } from "../lib/category-icons";
 import { resolveSubcategoryIcon } from "../lib/subcategory-icons";
+import type {
+  SeatingDiagramData,
+  SeatingExplanationFlow,
+} from "@workspace/api-zod";
 
 type AdminCategory = {
   id: string;
@@ -70,6 +74,8 @@ type AdminQuestion = {
   textPa?: string;
   optionsPa?: [string, string, string, string];
   explanationPa?: string;
+  seatingDiagram?: SeatingDiagramData | null;
+  seatingExplanationFlow?: SeatingExplanationFlow | null;
   imageUrl?: string;
   questionType?: "text" | "image" | "di";
   diSetId?: number;
@@ -121,6 +127,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
              COALESCE(topic, 'General') AS topic, explanation,
              section_id, topic_id, global_topic_id, difficulty,
              text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+             seating_diagram, seating_explanation_flow,
              image_url, question_type, di_set_id,
              created_at
       FROM questions ORDER BY id ASC
@@ -133,6 +140,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
                COALESCE(topic, 'General') AS topic, explanation,
                section_id, topic_id, global_topic_id, difficulty,
                text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+               NULL::jsonb AS seating_diagram, NULL::jsonb AS seating_explanation_flow,
                NULL::text AS image_url, 'text'::text AS question_type, NULL::integer AS di_set_id,
                created_at
         FROM questions ORDER BY id ASC
@@ -145,6 +153,7 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
                section_id, topic_id,
                NULL::text AS global_topic_id, NULL::text AS difficulty,
                text_hi, options_hi, explanation_hi, text_pa, options_pa, explanation_pa,
+               NULL::jsonb AS seating_diagram, NULL::jsonb AS seating_explanation_flow,
                NULL::text AS image_url, 'text'::text AS question_type, NULL::integer AS di_set_id,
                created_at
         FROM questions ORDER BY id ASC
@@ -240,6 +249,8 @@ async function buildSnapshot(): Promise<AdminSnapshot> {
         textPa: row.text_pa ?? undefined,
         optionsPa: row.options_pa ? (row.options_pa as [string, string, string, string]) : undefined,
         explanationPa: row.explanation_pa ?? undefined,
+        seatingDiagram: row.seating_diagram ?? undefined,
+        seatingExplanationFlow: row.seating_explanation_flow ?? undefined,
         imageUrl: row.image_url ?? undefined,
         questionType: row.question_type ?? "text",
         diSetId: row.di_set_id ?? undefined,
@@ -429,6 +440,8 @@ router.put("/", authenticate, async (req, res) => {
           textPa: question.textPa ?? null,
           optionsPa: question.optionsPa ?? null,
           explanationPa: question.explanationPa ?? null,
+          seatingDiagram: question.seatingDiagram ?? null,
+          seatingExplanationFlow: question.seatingExplanationFlow ?? null,
           imageUrl: question.imageUrl ?? null,
           questionType: question.questionType ?? "text",
           diSetId: question.diSetId ?? null,

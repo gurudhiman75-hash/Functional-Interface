@@ -18,6 +18,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type {
+  SeatingDiagramData,
+  SeatingExplanationFlow,
+} from "@workspace/api-zod";
+import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
+import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 
 const API_BASE_URL =
   import.meta.env.DEV
@@ -94,6 +100,49 @@ type ExamRealismMetadata = {
   weightingSummary: string[];
 };
 
+type GenerationDebugMetadata = {
+  selectedPattern: string;
+  generationDomain?:
+    | "quant"
+    | "reasoning"
+    | "seating-arrangement"
+    | "di"
+    | "puzzle-sets"
+    | "graph-reasoning"
+    | "scheduling-puzzles";
+  selectedMotif?: string;
+  selectedArchetype?: string;
+  fallbackReason?: string;
+  compatibilityWarnings: string[];
+  participantCount?: number;
+  clueCount?: number;
+  inferenceDepth?: number;
+  solverComplexity?: number;
+  validationWarnings?: string[];
+  directClueCount?: number;
+  indirectClueCount?: number;
+  relationalClueCount?: number;
+  deductionDepth?: number;
+  eliminationDepth?: number;
+  clueGraphDensity?: number;
+  clueInteractionRatio?: number;
+  redundancyScore?: number;
+  structuralDiversityScore?: number;
+  clueTypeDistribution?: Record<
+    string,
+    number
+  >;
+  repeatedStructureWarnings?: string[];
+  arrangementType?: string;
+  orientationType?: string;
+  uniquenessVerified?: boolean;
+  finalArrangement?: string;
+  generatedClues?: string[];
+  solverTrace?: string[];
+  seatingDiagram?: SeatingDiagramData;
+  seatingExplanationFlow?: SeatingExplanationFlow;
+};
+
 type DIQuestion = {
   text: string;
   options?: string[];
@@ -103,7 +152,10 @@ type DIQuestion = {
   difficultyLabel?: DifficultyLabel;
   difficultyMetadata?: DifficultyMetadata;
   examRealismMetadata?: ExamRealismMetadata;
+  debugMetadata?: GenerationDebugMetadata;
   explanation?: string;
+  seatingDiagram?: SeatingDiagramData;
+  seatingExplanationFlow?: SeatingExplanationFlow;
 };
 
 type DISet = {
@@ -133,6 +185,9 @@ type FormulaQuestion = {
   difficultyMetadata?: DifficultyMetadata;
   optionMetadata?: OptionMetadata[];
   examRealismMetadata?: ExamRealismMetadata;
+  debugMetadata?: GenerationDebugMetadata;
+  seatingDiagram?: SeatingDiagramData;
+  seatingExplanationFlow?: SeatingExplanationFlow;
 };
 
 type GeneratedQuestion =
@@ -155,6 +210,71 @@ type DifficultySettings = {
   difficultyDistribution: DifficultyDistribution;
   enableTargetAverageDifficulty: boolean;
   targetAverageDifficulty: number;
+};
+
+type QAReviewAction =
+  | "approve"
+  | "reject"
+  | "weak-clues"
+  | "too-easy"
+  | "too-hard"
+  | "repetitive"
+  | "unnatural-wording"
+  | "contradictory"
+  | "duplicate-structure";
+
+type QAReviewStatus =
+  | "approved"
+  | "rejected"
+  | "flagged";
+
+type QAReviewRecord = {
+  fingerprint: string;
+  status: QAReviewStatus;
+  action: QAReviewAction;
+  topic?: string;
+  generationDomain?: string;
+  motif?: string;
+  archetype?: string;
+  arrangementType?: string;
+  reviewerNotes?: string;
+  validationStatus?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type QAFilterState = {
+  topic: string;
+  difficulty: string;
+  arrangementType: string;
+  generationDomain: string;
+  motif: string;
+  archetype: string;
+  validationStatus: string;
+  reviewStatus: string;
+  reviewAction: string;
+  onlyRepeated: boolean;
+  sortBy:
+    | "newest"
+    | "difficulty-desc"
+    | "difficulty-asc"
+    | "topic"
+    | "review-status";
+};
+
+type ReviewableGeneratedItem = {
+  question: GeneratedQuestion;
+  index: number;
+  fingerprint: string;
+  topic: string;
+  difficulty: string;
+  arrangementType: string;
+  generationDomain: string;
+  motif: string;
+  archetype: string;
+  validationStatus: string;
+  repetitionFlags: string[];
+  review?: QAReviewRecord;
 };
 
 const PIE_COLORS = [
@@ -241,6 +361,72 @@ const EXAM_PROFILE_OPTIONS: Array<{
       "Placeholder for RRB exam difficulty balancing.",
   },
 ];
+
+const QA_ACTION_OPTIONS: Array<{
+  action: QAReviewAction;
+  status: QAReviewStatus;
+  label: string;
+}> = [
+  {
+    action: "approve",
+    status: "approved",
+    label: "Approve",
+  },
+  {
+    action: "reject",
+    status: "rejected",
+    label: "Reject",
+  },
+  {
+    action: "weak-clues",
+    status: "flagged",
+    label: "Weak Clues",
+  },
+  {
+    action: "too-easy",
+    status: "flagged",
+    label: "Too Easy",
+  },
+  {
+    action: "too-hard",
+    status: "flagged",
+    label: "Too Hard",
+  },
+  {
+    action: "repetitive",
+    status: "flagged",
+    label: "Repetitive",
+  },
+  {
+    action: "unnatural-wording",
+    status: "flagged",
+    label: "Unnatural Wording",
+  },
+  {
+    action: "contradictory",
+    status: "rejected",
+    label: "Contradictory",
+  },
+  {
+    action: "duplicate-structure",
+    status: "flagged",
+    label: "Duplicate Structure",
+  },
+];
+
+const QA_FILTER_DEFAULTS: QAFilterState = {
+  topic: "all",
+  difficulty: "all",
+  arrangementType: "all",
+  generationDomain: "all",
+  motif: "all",
+  archetype: "all",
+  validationStatus: "all",
+  reviewStatus: "all",
+  reviewAction: "all",
+  onlyRepeated: false,
+  sortBy: "newest",
+};
 
 const MARKER_TYPES = [
   "circle",
@@ -541,6 +727,332 @@ function getDifficultyScore(
   );
 }
 
+function buildLocalFingerprint(
+  source: {
+    text?: string;
+    options?: string[];
+    topic?: string;
+    motif?: string;
+    archetype?: string;
+  },
+) {
+  const serialized =
+    JSON.stringify({
+      text: source.text ?? "",
+      options: source.options ?? [],
+      topic: source.topic ?? "",
+      motif: source.motif ?? "",
+      archetype:
+        source.archetype ?? "",
+    });
+  let hash = 0;
+
+  for (
+    let index = 0;
+    index < serialized.length;
+    index += 1
+  ) {
+    hash =
+      (hash * 31 +
+        serialized.charCodeAt(index)) >>>
+      0;
+  }
+
+  return `qa_${hash.toString(16)}`;
+}
+
+function getPrimaryQuestion(
+  question: GeneratedQuestion,
+) {
+  return isDISet(question)
+    ? question.questions[0]
+    : question;
+}
+
+function getQuestionTopic(
+  question: GeneratedQuestion,
+) {
+  if (!isDISet(question)) {
+    return question.topic ?? "General";
+  }
+
+  return (
+    getPrimaryQuestion(question)?.text
+      ? "Data Interpretation"
+      : question.title || "Data Interpretation"
+  );
+}
+
+function getQuestionDomain(
+  question: GeneratedQuestion,
+) {
+  if (isDISet(question)) {
+    return (
+      getPrimaryQuestion(question)
+        ?.debugMetadata
+        ?.generationDomain ?? "di"
+    );
+  }
+
+  return (
+    question.debugMetadata
+      ?.generationDomain ?? "quant"
+  );
+}
+
+function getQuestionArrangementType(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.arrangementType ?? "n/a"
+  );
+}
+
+function getQuestionMotif(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.selectedMotif ?? "none"
+  );
+}
+
+function getQuestionArchetype(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.selectedArchetype ?? "none"
+  );
+}
+
+function getQuestionDifficultyValue(
+  question: GeneratedQuestion,
+) {
+  if (isDISet(question)) {
+    return question.averageDifficulty;
+  }
+
+  return getDifficultyScore(question);
+}
+
+function getQuestionDifficultyLabel(
+  question: GeneratedQuestion,
+) {
+  if (!isDISet(question)) {
+    return (
+      getDifficultyLabel(question) ??
+      "NA"
+    );
+  }
+
+  const score =
+    question.averageDifficulty;
+
+  if (typeof score !== "number") {
+    return "NA";
+  }
+
+  if (score <= 2.5) {
+    return "Easy";
+  }
+
+  if (score <= 5.5) {
+    return "Medium";
+  }
+
+  return "Hard";
+}
+
+function getQuestionFingerprint(
+  question: GeneratedQuestion,
+) {
+  if (isDISet(question)) {
+    const firstQuestion =
+      getPrimaryQuestion(question);
+
+    return buildLocalFingerprint({
+      text: `${question.title ?? "DI Set"} ${question.questions.map((item) => item.text).join(" | ")}`,
+      options:
+        firstQuestion?.options ?? [],
+      topic: "Data Interpretation",
+      motif:
+        firstQuestion?.debugMetadata
+          ?.selectedMotif,
+      archetype:
+        firstQuestion?.debugMetadata
+          ?.selectedArchetype,
+    });
+  }
+
+  return buildLocalFingerprint({
+    text: question.text,
+    options: question.options,
+    topic: question.topic,
+    motif:
+      question.debugMetadata
+        ?.selectedMotif,
+    archetype:
+      question.debugMetadata
+        ?.selectedArchetype,
+  });
+}
+
+function getQuestionValidationStatus(
+  question: GeneratedQuestion,
+  isDuplicate = false,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const debugMetadata =
+    primaryQuestion?.debugMetadata;
+  const warnings = [
+    ...(debugMetadata
+      ?.validationWarnings ?? []),
+    ...(debugMetadata
+      ?.compatibilityWarnings ?? []),
+  ];
+
+  if (
+    debugMetadata?.uniquenessVerified ===
+    false
+  ) {
+    return "uniqueness-failed";
+  }
+
+  if (isDuplicate) {
+    return "duplicate-text";
+  }
+
+  if (warnings.length) {
+    return "warning";
+  }
+
+  return "passed";
+}
+
+function normalizeSignatureText(
+  value: string,
+) {
+  return value
+    .toLowerCase()
+    .replace(/\d+/g, "#")
+    .replace(/\b[a-z]\b/g, "x")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getQuestionStructureSignature(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const clues =
+    primaryQuestion?.debugMetadata
+      ?.generatedClues ?? [];
+  const reasoning =
+    primaryQuestion?.difficultyMetadata
+      ?.reasoningSteps ?? [];
+  const distractors = (
+    primaryQuestion?.optionMetadata ?? []
+  )
+    .filter((option) => !option.isCorrect)
+    .map(
+      (option) =>
+        option.distractorType ??
+        "none",
+    );
+
+  return normalizeSignatureText(
+    [
+      getQuestionDomain(question),
+      getQuestionArrangementType(
+        question,
+      ),
+      clues
+        .map(normalizeSignatureText)
+        .join("|"),
+      reasoning
+        .map(normalizeSignatureText)
+        .join("|"),
+      distractors.join("|"),
+    ].join("||"),
+  );
+}
+
+function getQuestionArrangementSignature(
+  question: GeneratedQuestion,
+) {
+  return normalizeSignatureText(
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.finalArrangement ?? "",
+  );
+}
+
+function getQuestionReasoningSignature(
+  question: GeneratedQuestion,
+) {
+  return normalizeSignatureText(
+    (
+      getPrimaryQuestion(question)
+        ?.difficultyMetadata
+        ?.reasoningSteps ?? []
+    ).join(" | "),
+  );
+}
+
+function getQuestionRepetitionFlags(
+  question: GeneratedQuestion,
+  structureCount: number,
+  arrangementCount: number,
+  reasoningCount: number,
+) {
+  const flags: string[] = [];
+  const repeatedStructureWarnings =
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.repeatedStructureWarnings ?? [];
+
+  if (structureCount > 1) {
+    flags.push(
+      "Repeated clue structure",
+    );
+  }
+
+  if (
+    arrangementCount > 1 &&
+    getQuestionArrangementSignature(
+      question,
+    )
+  ) {
+    flags.push(
+      "Repeated arrangement",
+    );
+  }
+
+  if (
+    reasoningCount > 1 &&
+    getQuestionReasoningSignature(
+      question,
+    )
+  ) {
+    flags.push(
+      "Repeated reasoning chain",
+    );
+  }
+
+  flags.push(
+    ...repeatedStructureWarnings,
+  );
+
+  return flags;
+}
+
 function formatDifficultyScore(
   score?: number,
 ) {
@@ -582,6 +1094,33 @@ function getDistributionTotal(
     distribution.medium +
     distribution.hard
   );
+}
+
+async function fetchJsonWithTimeout(
+  input: RequestInfo | URL,
+  init?: RequestInit,
+  timeoutMs = 45000,
+) {
+  const controller =
+    new AbortController();
+  const timeout = window.setTimeout(
+    () => controller.abort(),
+    timeoutMs,
+  );
+
+  try {
+    const response = await fetch(
+      input,
+      {
+        ...init,
+        signal: controller.signal,
+      },
+    );
+
+    return response;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 }
 
 function getDifficultyCounts(
@@ -731,12 +1270,15 @@ function renderDifficultyAnalytics(
     difficultyMetadata?: DifficultyMetadata;
     optionMetadata?: OptionMetadata[];
     examRealismMetadata?: ExamRealismMetadata;
+    debugMetadata?: GenerationDebugMetadata;
   },
 ) {
   const metadata =
     question.difficultyMetadata;
   const realismMetadata =
     question.examRealismMetadata;
+  const debugMetadata =
+    question.debugMetadata;
   const distractorMetadata = (
     question.optionMetadata ?? []
   ).filter(
@@ -751,7 +1293,12 @@ function renderDifficultyAnalytics(
   const score =
     getDifficultyScore(question);
 
-  if (!metadata && !label && score === undefined) {
+  if (
+    !metadata &&
+    !label &&
+    score === undefined &&
+    !debugMetadata
+  ) {
     return null;
   }
 
@@ -981,6 +1528,269 @@ function renderDifficultyAnalytics(
             </div>
           </div>
         ) : null}
+
+        {debugMetadata ? (
+          <div className="rounded border border-slate-200 bg-white p-3 text-[11px] text-slate-600">
+            <div className="mb-2 font-semibold text-slate-800">
+              Generation Debug
+            </div>
+            <div>
+              Pattern:{" "}
+              {debugMetadata.selectedPattern}
+            </div>
+            {debugMetadata.generationDomain ? (
+              <div>
+                Domain:{" "}
+                {debugMetadata.generationDomain}
+              </div>
+            ) : null}
+            <div>
+              Motif:{" "}
+              {debugMetadata.selectedMotif ??
+                "none"}
+            </div>
+            <div>
+              Archetype:{" "}
+              {debugMetadata.selectedArchetype ??
+                "none"}
+            </div>
+            {debugMetadata.participantCount ? (
+              <div>
+                Participants:{" "}
+                {debugMetadata.participantCount}
+              </div>
+            ) : null}
+            {debugMetadata.clueCount ? (
+              <div>
+                Clues:{" "}
+                {debugMetadata.clueCount}
+              </div>
+            ) : null}
+            {debugMetadata.arrangementType ? (
+              <div>
+                Arrangement:{" "}
+                {debugMetadata.arrangementType}
+              </div>
+            ) : null}
+            {debugMetadata.orientationType ? (
+              <div>
+                Orientation:{" "}
+                {debugMetadata.orientationType}
+              </div>
+            ) : null}
+            {debugMetadata.uniquenessVerified !==
+            undefined ? (
+              <div>
+                Uniqueness Verified:{" "}
+                {debugMetadata.uniquenessVerified
+                  ? "yes"
+                  : "no"}
+              </div>
+            ) : null}
+            {debugMetadata.directClueCount !==
+            undefined ? (
+              <div>
+                Direct Clues:{" "}
+                {debugMetadata.directClueCount}
+              </div>
+            ) : null}
+            {debugMetadata.relationalClueCount !==
+            undefined ? (
+              <div>
+                Relational Clues:{" "}
+                {debugMetadata.relationalClueCount}
+              </div>
+            ) : null}
+            {debugMetadata.indirectClueCount !==
+            undefined ? (
+              <div>
+                Indirect Clues:{" "}
+                {debugMetadata.indirectClueCount}
+              </div>
+            ) : null}
+            {debugMetadata.inferenceDepth ? (
+              <div>
+                Inference Depth:{" "}
+                {debugMetadata.inferenceDepth}
+              </div>
+            ) : null}
+            {debugMetadata.deductionDepth !==
+            undefined ? (
+              <div>
+                Deduction Depth:{" "}
+                {debugMetadata.deductionDepth}
+              </div>
+            ) : null}
+            {debugMetadata.eliminationDepth !==
+            undefined ? (
+              <div>
+                Elimination Depth:{" "}
+                {debugMetadata.eliminationDepth}
+              </div>
+            ) : null}
+            {debugMetadata.clueGraphDensity !==
+            undefined ? (
+              <div>
+                Clue Graph Density:{" "}
+                {debugMetadata.clueGraphDensity.toFixed(
+                  2,
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.clueInteractionRatio !==
+            undefined ? (
+              <div>
+                Clue Interaction Ratio:{" "}
+                {(debugMetadata.clueInteractionRatio *
+                  100).toFixed(0)}
+                %
+              </div>
+            ) : null}
+            {debugMetadata.redundancyScore !==
+            undefined ? (
+              <div>
+                Redundancy Score:{" "}
+                {debugMetadata.redundancyScore.toFixed(
+                  2,
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.structuralDiversityScore !==
+            undefined ? (
+              <div>
+                Structural Diversity:{" "}
+                {debugMetadata.structuralDiversityScore.toFixed(
+                  2,
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.solverComplexity ? (
+              <div>
+                Solver Complexity:{" "}
+                {debugMetadata.solverComplexity}
+              </div>
+            ) : null}
+            {debugMetadata.fallbackReason ? (
+              <div>
+                Fallback:{" "}
+                {debugMetadata.fallbackReason}
+              </div>
+            ) : null}
+            {debugMetadata.finalArrangement ? (
+              <div className="mt-2">
+                Final Arrangement:{" "}
+                {debugMetadata.finalArrangement}
+              </div>
+            ) : null}
+            {debugMetadata.seatingDiagram ? (
+              <div className="mt-3">
+                <SeatingDiagramRenderer
+                  diagram={
+                    debugMetadata.seatingDiagram
+                  }
+                  title="QA seating diagram"
+                />
+              </div>
+            ) : null}
+            {debugMetadata.seatingExplanationFlow ? (
+              <div className="mt-3">
+                <SeatingExplanationFlow
+                  flow={
+                    debugMetadata.seatingExplanationFlow
+                  }
+                />
+              </div>
+            ) : null}
+            {debugMetadata.generatedClues
+              ?.length ? (
+              <div className="mt-2 space-y-1">
+                {debugMetadata.generatedClues.map(
+                  (
+                    clue,
+                    index,
+                  ) => (
+                    <div key={`clue-${index}`}>
+                      Clue {index + 1}: {clue}
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.clueTypeDistribution ? (
+              <div className="mt-2">
+                Clue Mix:{" "}
+                {Object.entries(
+                  debugMetadata.clueTypeDistribution,
+                )
+                  .map(
+                    ([type, count]) =>
+                      `${type}=${count}`,
+                  )
+                  .join(", ")}
+              </div>
+            ) : null}
+            {debugMetadata.solverTrace
+              ?.length ? (
+              <div className="mt-2 space-y-1">
+                {debugMetadata.solverTrace.map(
+                  (
+                    step,
+                    index,
+                  ) => (
+                    <div key={`solver-${index}`}>
+                      Trace {index + 1}: {step}
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.repeatedStructureWarnings
+              ?.length ? (
+              <div className="mt-2 space-y-1">
+                {debugMetadata.repeatedStructureWarnings.map(
+                  (
+                    warning,
+                    index,
+                  ) => (
+                    <div key={`structure-${index}`}>
+                      Structure: {warning}
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.validationWarnings
+              ?.length ? (
+              <div className="mt-2 space-y-1">
+                {debugMetadata.validationWarnings.map(
+                  (
+                    warning,
+                    index,
+                  ) => (
+                    <div key={`validation-${index}`}>
+                      Validation: {warning}
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : null}
+            {debugMetadata.compatibilityWarnings
+              ?.length ? (
+              <div className="mt-2 space-y-1">
+                {debugMetadata.compatibilityWarnings.map(
+                  (
+                    warning,
+                    index,
+                  ) => (
+                    <div key={index}>
+                      Warning: {warning}
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </details>
   );
@@ -1082,6 +1892,236 @@ function renderGeneratedDifficultySummary(
             This admin panel is structured for future real-user calibration data, but currently displays only generator-side analytics.
           </p>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function renderQADashboard(
+  items: ReviewableGeneratedItem[],
+) {
+  if (!items.length) {
+    return null;
+  }
+
+  const approved = items.filter(
+    (item) =>
+      item.review?.status ===
+      "approved",
+  ).length;
+  const rejected = items.filter(
+    (item) =>
+      item.review?.status ===
+      "rejected",
+  ).length;
+  const flagged = items.filter(
+    (item) =>
+      item.review?.status ===
+      "flagged",
+  ).length;
+  const repeated = items.filter(
+    (item) =>
+      item.repetitionFlags.length > 0,
+  ).length;
+  const validationFailures =
+    items.filter(
+      (item) =>
+        item.validationStatus !==
+        "passed",
+    ).length;
+  const contradictionFailures =
+    items.filter((item) =>
+      item.review?.action ===
+      "contradictory",
+    ).length;
+  const duplicateStructure =
+    items.filter((item) =>
+      item.review?.action ===
+      "duplicate-structure",
+    ).length;
+
+  const stats = [
+    {
+      label: "Generated",
+      value: items.length,
+    },
+    {
+      label: "Approved",
+      value: approved,
+    },
+    {
+      label: "Rejected",
+      value: rejected,
+    },
+    {
+      label: "Flagged",
+      value: flagged,
+    },
+    {
+      label: "Validation Failures",
+      value: validationFailures,
+    },
+    {
+      label: "Repetition Flags",
+      value: repeated,
+    },
+    {
+      label: "Contradictory",
+      value: contradictionFailures,
+    },
+    {
+      label: "Duplicate Structure",
+      value: duplicateStructure,
+    },
+  ];
+
+  return (
+    <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="font-semibold text-slate-900">
+          QA Dashboard
+        </span>
+        <span className="text-xs text-slate-500">
+          Operational review metrics for the current generated queue.
+        </span>
+      </div>
+      <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-8">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="rounded border bg-white p-3"
+          >
+            <div className="text-[11px] uppercase tracking-wide text-slate-500">
+              {stat.label}
+            </div>
+            <div className="text-lg font-semibold text-slate-900">
+              {stat.value}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function renderQAReviewPanel(
+  item: ReviewableGeneratedItem,
+  reviewerNotes: string,
+  onChangeNotes: (
+    value: string,
+  ) => void,
+  onReviewAction: (
+    action: QAReviewAction,
+    status: QAReviewStatus,
+  ) => void,
+) {
+  return (
+    <div className="rounded border bg-slate-50 p-3 space-y-3">
+      <div className="flex flex-wrap items-center gap-2 text-xs">
+        <span className="font-semibold text-slate-900">
+          QA Review
+        </span>
+        {item.review ? (
+          <span className="rounded-full border border-slate-200 bg-white px-2 py-1">
+            {item.review.status} /{" "}
+            {item.review.action}
+          </span>
+        ) : (
+          <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-1 text-amber-700">
+            Unreviewed
+          </span>
+        )}
+        <span className="rounded-full border border-slate-200 bg-white px-2 py-1">
+          Validation:{" "}
+          {item.validationStatus}
+        </span>
+        {item.repetitionFlags.length ? (
+          <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-rose-700">
+            Repetition Flagged
+          </span>
+        ) : null}
+      </div>
+
+      <div className="grid gap-2 text-[11px] text-slate-600 md:grid-cols-2 xl:grid-cols-4">
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Topic
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.topic}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Domain
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.generationDomain}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Motif
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.motif}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Archetype
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.archetype}
+          </div>
+        </div>
+      </div>
+
+      {item.repetitionFlags.length ? (
+        <div className="rounded border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700">
+          {item.repetitionFlags.map(
+            (flag) => (
+              <div key={flag}>
+                {flag}
+              </div>
+            ),
+          )}
+        </div>
+      ) : null}
+
+      <div className="flex flex-wrap gap-2">
+        {QA_ACTION_OPTIONS.map(
+          (option) => (
+            <button
+              key={option.action}
+              onClick={() =>
+                onReviewAction(
+                  option.action,
+                  option.status,
+                )
+              }
+              className="rounded border bg-white px-3 py-1 text-xs text-slate-700 hover:bg-slate-100"
+            >
+              {option.label}
+            </button>
+          ),
+        )}
+      </div>
+
+      <div className="space-y-1">
+        <label className="block text-xs font-medium text-slate-700">
+          Reviewer Notes
+        </label>
+        <textarea
+          value={reviewerNotes}
+          onChange={(event) =>
+            onChangeNotes(
+              event.target.value,
+            )
+          }
+          className="h-20 w-full rounded border p-2 text-sm"
+          placeholder="Capture clue realism issues, solver concerns, or regeneration notes."
+        />
       </div>
     </div>
   );
@@ -1614,6 +2654,20 @@ export default function AdminGeneratorPage() {
 
   const [generated, setGenerated] =
     useState<GeneratedQuestion[]>([]);
+  const [qaReviews, setQaReviews] =
+    useState<
+      Record<string, QAReviewRecord>
+    >({});
+  const [qaNotes, setQaNotes] =
+    useState<Record<string, string>>(
+      {},
+    );
+  const [qaFilters, setQaFilters] =
+    useState<QAFilterState>(
+      QA_FILTER_DEFAULTS,
+    );
+  const [qaLoading, setQaLoading] =
+    useState(false);
 
   const [patterns, setPatterns] =
     useState<any[]>([]);
@@ -1709,6 +2763,52 @@ export default function AdminGeneratorPage() {
     }
 
     loadPatterns();
+  }, []);
+
+  useEffect(() => {
+    async function loadQAReviews() {
+      try {
+        setQaLoading(true);
+        const res = await fetch(
+          `${API_BASE_URL}/api/generator/qa/reviews`,
+        );
+        const data =
+          await res.json();
+        const reviews = Array.isArray(
+          data.reviews,
+        )
+          ? (data.reviews as QAReviewRecord[])
+          : [];
+        const reviewMap: Record<
+          string,
+          QAReviewRecord
+        > = {};
+        const noteMap: Record<
+          string,
+          string
+        > = {};
+
+        reviews.forEach((review) => {
+          reviewMap[
+            review.fingerprint
+          ] = review;
+          noteMap[
+            review.fingerprint
+          ] =
+            review.reviewerNotes ??
+            "";
+        });
+
+        setQaReviews(reviewMap);
+        setQaNotes(noteMap);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setQaLoading(false);
+      }
+    }
+
+    loadQAReviews();
   }, []);
   async function savePattern() {
     try {
@@ -1846,6 +2946,151 @@ export default function AdminGeneratorPage() {
       },
     );
   }
+
+  async function persistQAReview(
+    item: ReviewableGeneratedItem,
+    action: QAReviewAction,
+    status: QAReviewStatus,
+  ) {
+    try {
+      setQaLoading(true);
+      const reviewerNotes =
+        qaNotes[item.fingerprint] ??
+        "";
+      const payload = {
+        fingerprint:
+          item.fingerprint,
+        status,
+        action,
+        topic: item.topic,
+        generationDomain:
+          item.generationDomain,
+        motif: item.motif,
+        archetype:
+          item.archetype,
+        arrangementType:
+          item.arrangementType ===
+          "n/a"
+            ? undefined
+            : item.arrangementType,
+        reviewerNotes,
+        validationStatus:
+          item.validationStatus,
+      };
+
+      const res = await fetch(
+        `${API_BASE_URL}/api/generator/qa/reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify(
+            payload,
+          ),
+        },
+      );
+      const data =
+        await res.json();
+
+      if (data.review) {
+        setQaReviews((prev) => ({
+          ...prev,
+          [data.review.fingerprint]:
+            data.review,
+        }));
+      }
+    } catch (error) {
+      console.error(error);
+      alert(
+        "Failed to save QA review",
+      );
+    } finally {
+      setQaLoading(false);
+    }
+  }
+
+  async function bulkPersistQAReviews(
+    items: ReviewableGeneratedItem[],
+    action: QAReviewAction,
+    status: QAReviewStatus,
+  ) {
+    if (!items.length) {
+      return;
+    }
+
+    try {
+      setQaLoading(true);
+      const res = await fetch(
+        `${API_BASE_URL}/api/generator/qa/reviews/bulk`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            reviews: items.map(
+              (item) => ({
+                fingerprint:
+                  item.fingerprint,
+                status,
+                action,
+                topic: item.topic,
+                generationDomain:
+                  item.generationDomain,
+                motif: item.motif,
+                archetype:
+                  item.archetype,
+                arrangementType:
+                  item.arrangementType ===
+                  "n/a"
+                    ? undefined
+                    : item.arrangementType,
+                reviewerNotes:
+                  qaNotes[
+                    item.fingerprint
+                  ] ?? "",
+                validationStatus:
+                  item.validationStatus,
+              }),
+            ),
+          }),
+        },
+      );
+      const data =
+        await res.json();
+      const reviews = Array.isArray(
+        data.reviews,
+      )
+        ? (data.reviews as QAReviewRecord[])
+        : [];
+
+      if (reviews.length) {
+        setQaReviews((prev) => {
+          const next = {
+            ...prev,
+          };
+
+          reviews.forEach((review) => {
+            next[
+              review.fingerprint
+            ] = review;
+          });
+
+          return next;
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      alert(
+        "Failed to save bulk QA reviews",
+      );
+    } finally {
+      setQaLoading(false);
+    }
+  }
   async function deletePattern(
     id: string,
   ) {
@@ -1879,7 +3124,8 @@ export default function AdminGeneratorPage() {
           difficultySettings,
         );
 
-      const res = await fetch(
+      const res =
+        await fetchJsonWithTimeout(
         `${API_BASE_URL}/api/generator/pattern`,
         {
           method: "POST",
@@ -1897,6 +3143,12 @@ export default function AdminGeneratorPage() {
         },
       );
 
+      if (!res.ok) {
+        throw new Error(
+          `Generation failed with status ${res.status}`,
+        );
+      }
+
       const data = await res.json();
 
       console.log(data);
@@ -1909,7 +3161,11 @@ export default function AdminGeneratorPage() {
       console.error(error);
 
       alert(
-        "Generation failed",
+        error instanceof Error &&
+          error.name ===
+            "AbortError"
+          ? "Generation timed out. The selected pattern may be too expensive or misconfigured."
+          : "Generation failed",
       );
     } finally {
       setLoading(false);
@@ -1925,7 +3181,8 @@ export default function AdminGeneratorPage() {
           difficultySettings,
         );
 
-      const res = await fetch(
+      const res =
+        await fetchJsonWithTimeout(
         `${API_BASE_URL}/api/generator/pattern`,
         {
           method: "POST",
@@ -1942,6 +3199,12 @@ export default function AdminGeneratorPage() {
           }),
         },
       );
+
+      if (!res.ok) {
+        throw new Error(
+          `Regeneration failed with status ${res.status}`,
+        );
+      }
 
       const data = await res.json();
 
@@ -1961,7 +3224,11 @@ export default function AdminGeneratorPage() {
       console.error(error);
 
       alert(
-        "Failed to regenerate question",
+        error instanceof Error &&
+          error.name ===
+            "AbortError"
+          ? "Regeneration timed out. Try an easier pattern or lower batch size."
+          : "Failed to regenerate question",
       );
     }
   }
@@ -1994,6 +3261,325 @@ export default function AdminGeneratorPage() {
       alert("Save failed");
     }
   }
+
+  const structureCounts =
+    generated.reduce(
+      (accumulator, question) => {
+        const signature =
+          getQuestionStructureSignature(
+            question,
+          );
+
+        if (signature) {
+          accumulator[
+            signature
+          ] =
+            (accumulator[
+              signature
+            ] ?? 0) + 1;
+        }
+
+        return accumulator;
+      },
+      {} as Record<
+        string,
+        number
+      >,
+    );
+
+  const arrangementCounts =
+    generated.reduce(
+      (accumulator, question) => {
+        const signature =
+          getQuestionArrangementSignature(
+            question,
+          );
+
+        if (signature) {
+          accumulator[
+            signature
+          ] =
+            (accumulator[
+              signature
+            ] ?? 0) + 1;
+        }
+
+        return accumulator;
+      },
+      {} as Record<
+        string,
+        number
+      >,
+    );
+
+  const reasoningCounts =
+    generated.reduce(
+      (accumulator, question) => {
+        const signature =
+          getQuestionReasoningSignature(
+            question,
+          );
+
+        if (signature) {
+          accumulator[
+            signature
+          ] =
+            (accumulator[
+              signature
+            ] ?? 0) + 1;
+        }
+
+        return accumulator;
+      },
+      {} as Record<
+        string,
+        number
+      >,
+    );
+
+  const reviewableItems: ReviewableGeneratedItem[] =
+    generated.map(
+      (question, index) => {
+        const fingerprint =
+          getQuestionFingerprint(
+            question,
+          );
+        const structureSignature =
+          getQuestionStructureSignature(
+            question,
+          );
+        const arrangementSignature =
+          getQuestionArrangementSignature(
+            question,
+          );
+        const reasoningSignature =
+          getQuestionReasoningSignature(
+            question,
+          );
+
+        return {
+          question,
+          index,
+          fingerprint,
+          topic:
+            getQuestionTopic(
+              question,
+            ),
+          difficulty:
+            getQuestionDifficultyLabel(
+              question,
+            ),
+          arrangementType:
+            getQuestionArrangementType(
+              question,
+            ),
+          generationDomain:
+            getQuestionDomain(
+              question,
+            ),
+          motif:
+            getQuestionMotif(
+              question,
+            ),
+          archetype:
+            getQuestionArchetype(
+              question,
+            ),
+          validationStatus:
+            getQuestionValidationStatus(
+              question,
+              !isDISet(
+                question,
+              ) &&
+                isDuplicateQuestion(
+                  index,
+                ),
+            ),
+          repetitionFlags:
+            getQuestionRepetitionFlags(
+              question,
+              structureCounts[
+                structureSignature
+              ] ?? 0,
+              arrangementCounts[
+                arrangementSignature
+              ] ?? 0,
+              reasoningCounts[
+                reasoningSignature
+              ] ?? 0,
+            ),
+          review:
+            qaReviews[
+              fingerprint
+            ],
+        };
+      },
+    );
+
+  const filterOptions = {
+    topics: [
+      ...new Set(
+        reviewableItems.map(
+          (item) => item.topic,
+        ),
+      ),
+    ].sort(),
+    domains: [
+      ...new Set(
+        reviewableItems.map(
+          (item) =>
+            item.generationDomain,
+        ),
+      ),
+    ].sort(),
+    arrangements: [
+      ...new Set(
+        reviewableItems.map(
+          (item) =>
+            item.arrangementType,
+        ),
+      ),
+    ].sort(),
+    motifs: [
+      ...new Set(
+        reviewableItems.map(
+          (item) => item.motif,
+        ),
+      ),
+    ].sort(),
+    archetypes: [
+      ...new Set(
+        reviewableItems.map(
+          (item) =>
+            item.archetype,
+        ),
+      ),
+    ].sort(),
+    validationStatuses: [
+      ...new Set(
+        reviewableItems.map(
+          (item) =>
+            item.validationStatus,
+        ),
+      ),
+    ].sort(),
+  };
+
+  const visibleItems =
+    [...reviewableItems]
+      .filter((item) =>
+        qaFilters.topic ===
+          "all"
+          ? true
+          : item.topic ===
+            qaFilters.topic,
+      )
+      .filter((item) =>
+        qaFilters.difficulty ===
+          "all"
+          ? true
+          : item.difficulty ===
+            qaFilters.difficulty,
+      )
+      .filter((item) =>
+        qaFilters.arrangementType ===
+          "all"
+          ? true
+          : item.arrangementType ===
+            qaFilters.arrangementType,
+      )
+      .filter((item) =>
+        qaFilters.generationDomain ===
+          "all"
+          ? true
+          : item.generationDomain ===
+            qaFilters.generationDomain,
+      )
+      .filter((item) =>
+        qaFilters.motif ===
+          "all"
+          ? true
+          : item.motif ===
+            qaFilters.motif,
+      )
+      .filter((item) =>
+        qaFilters.archetype ===
+          "all"
+          ? true
+          : item.archetype ===
+            qaFilters.archetype,
+      )
+      .filter((item) =>
+        qaFilters.validationStatus ===
+          "all"
+          ? true
+          : item.validationStatus ===
+            qaFilters.validationStatus,
+      )
+      .filter((item) =>
+        qaFilters.reviewStatus ===
+          "all"
+          ? true
+          : (item.review?.status ??
+              "unreviewed") ===
+            qaFilters.reviewStatus,
+      )
+      .filter((item) =>
+        qaFilters.reviewAction ===
+          "all"
+          ? true
+          : (item.review?.action ??
+              "unreviewed") ===
+            qaFilters.reviewAction,
+      )
+      .filter((item) =>
+        qaFilters.onlyRepeated
+          ? item.repetitionFlags
+              .length > 0
+          : true,
+      )
+      .sort((left, right) => {
+        switch (
+        qaFilters.sortBy
+        ) {
+          case "difficulty-desc":
+            return (
+              (getQuestionDifficultyValue(
+                right.question,
+              ) ?? 0) -
+              (getQuestionDifficultyValue(
+                left.question,
+              ) ?? 0)
+            );
+          case "difficulty-asc":
+            return (
+              (getQuestionDifficultyValue(
+                left.question,
+              ) ?? 0) -
+              (getQuestionDifficultyValue(
+                right.question,
+              ) ?? 0)
+            );
+          case "topic":
+            return left.topic.localeCompare(
+              right.topic,
+            );
+          case "review-status":
+            return (
+              left.review?.status ??
+              "unreviewed"
+            ).localeCompare(
+              right.review?.status ??
+                "unreviewed",
+            );
+          case "newest":
+          default:
+            return (
+              right.index -
+              left.index
+            );
+        }
+      });
 
   return (
     <div className="p-6 space-y-6">
@@ -2707,7 +4293,7 @@ export default function AdminGeneratorPage() {
 
       {generated.length > 0 && (
         <div className="space-y-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <h2 className="text-2xl font-semibold">
               Generated Questions
             </h2>
@@ -2720,20 +4306,412 @@ export default function AdminGeneratorPage() {
             >
               Save to Question Bank
             </button>
+            <button
+              onClick={() =>
+                bulkPersistQAReviews(
+                  visibleItems,
+                  "approve",
+                  "approved",
+                )
+              }
+              disabled={
+                qaLoading ||
+                !visibleItems.length
+              }
+              className="bg-emerald-600 text-white px-4 py-2 rounded disabled:opacity-50"
+            >
+              Bulk Approve Filtered
+            </button>
+            <button
+              onClick={() =>
+                bulkPersistQAReviews(
+                  visibleItems,
+                  "reject",
+                  "rejected",
+                )
+              }
+              disabled={
+                qaLoading ||
+                !visibleItems.length
+              }
+              className="bg-rose-600 text-white px-4 py-2 rounded disabled:opacity-50"
+            >
+              Bulk Reject Filtered
+            </button>
+            <span className="text-sm text-slate-500">
+              {qaLoading
+                ? "Syncing QA decisions..."
+                : `${visibleItems.length} visible / ${reviewableItems.length} total`}
+            </span>
           </div>
 
           {renderGeneratedDifficultySummary(
             generated,
           )}
 
-          {generated.map(
-            (q, idx) => {
+          {renderQADashboard(
+            reviewableItems,
+          )}
+
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-semibold text-slate-900">
+                QA Filters
+              </span>
+              <button
+                onClick={() =>
+                  setQaFilters(
+                    QA_FILTER_DEFAULTS,
+                  )
+                }
+                className="rounded border bg-white px-3 py-1 text-sm"
+              >
+                Reset Filters
+              </button>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+              <select
+                value={qaFilters.topic}
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    topic:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Topics
+                </option>
+                {filterOptions.topics.map(
+                  (topic) => (
+                    <option
+                      key={topic}
+                      value={topic}
+                    >
+                      {topic}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.difficulty
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    difficulty:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Difficulty
+                </option>
+                <option value="Easy">
+                  Easy
+                </option>
+                <option value="Medium">
+                  Medium
+                </option>
+                <option value="Hard">
+                  Hard
+                </option>
+              </select>
+              <select
+                value={
+                  qaFilters.arrangementType
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    arrangementType:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Arrangements
+                </option>
+                {filterOptions.arrangements.map(
+                  (value) => (
+                    <option
+                      key={value}
+                      value={value}
+                    >
+                      {value}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.generationDomain
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    generationDomain:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Domains
+                </option>
+                {filterOptions.domains.map(
+                  (value) => (
+                    <option
+                      key={value}
+                      value={value}
+                    >
+                      {value}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.validationStatus
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    validationStatus:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Validation States
+                </option>
+                {filterOptions.validationStatuses.map(
+                  (value) => (
+                    <option
+                      key={value}
+                      value={value}
+                    >
+                      {value}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.reviewStatus
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    reviewStatus:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Review Status
+                </option>
+                <option value="unreviewed">
+                  Unreviewed
+                </option>
+                <option value="approved">
+                  Approved
+                </option>
+                <option value="rejected">
+                  Rejected
+                </option>
+                <option value="flagged">
+                  Flagged
+                </option>
+              </select>
+              <select
+                value={qaFilters.motif}
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    motif:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Motifs
+                </option>
+                {filterOptions.motifs.map(
+                  (value) => (
+                    <option
+                      key={value}
+                      value={value}
+                    >
+                      {value}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.archetype
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    archetype:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Archetypes
+                </option>
+                {filterOptions.archetypes.map(
+                  (value) => (
+                    <option
+                      key={value}
+                      value={value}
+                    >
+                      {value}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.reviewAction
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    reviewAction:
+                      e.target.value,
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="all">
+                  All Review Actions
+                </option>
+                <option value="unreviewed">
+                  Unreviewed
+                </option>
+                {QA_ACTION_OPTIONS.map(
+                  (option) => (
+                    <option
+                      key={
+                        option.action
+                      }
+                      value={
+                        option.action
+                      }
+                    >
+                      {option.label}
+                    </option>
+                  ),
+                )}
+              </select>
+              <select
+                value={
+                  qaFilters.sortBy
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    sortBy:
+                      e.target
+                        .value as QAFilterState["sortBy"],
+                  }))
+                }
+                className="border rounded p-2"
+              >
+                <option value="newest">
+                  Newest First
+                </option>
+                <option value="difficulty-desc">
+                  Difficulty High to Low
+                </option>
+                <option value="difficulty-asc">
+                  Difficulty Low to High
+                </option>
+                <option value="topic">
+                  Topic
+                </option>
+                <option value="review-status">
+                  Review Status
+                </option>
+              </select>
+            </div>
+            <label className="flex items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                checked={
+                  qaFilters.onlyRepeated
+                }
+                onChange={(e) =>
+                  setQaFilters((prev) => ({
+                    ...prev,
+                    onlyRepeated:
+                      e.target.checked,
+                  }))
+                }
+              />
+              Show only repetition-flagged items
+            </label>
+          </div>
+
+          <div className="max-h-[70vh] space-y-4 overflow-y-auto pr-2">
+          {visibleItems.map(
+            (item) => {
+              const q =
+                item.question;
+              const idx =
+                item.index;
               if (isDISet(q)) {
-                return renderDISet(q, idx);
+                return (
+                  <div
+                    key={item.fingerprint}
+                    className="space-y-4"
+                  >
+                    {renderQAReviewPanel(
+                      item,
+                      qaNotes[
+                        item.fingerprint
+                      ] ?? "",
+                      (value) =>
+                        setQaNotes(
+                          (prev) => ({
+                            ...prev,
+                            [item.fingerprint]:
+                              value,
+                          }),
+                        ),
+                      (
+                        action,
+                        status,
+                      ) =>
+                        persistQAReview(
+                          item,
+                          action,
+                          status,
+                        ),
+                    )}
+                    {renderDISet(
+                      q,
+                      idx,
+                    )}
+                  </div>
+                );
               }
               return (
                 <div
-                  key={idx}
+                  key={item.fingerprint}
                   className={`border rounded-lg p-4 space-y-3 ${isDuplicateQuestion(idx)
                     ? "border-red-500 bg-red-50"
                     : ""
@@ -2746,7 +4724,7 @@ export default function AdminGeneratorPage() {
                       }
                       className="text-blue-600 text-sm"
                     >
-                      Regenerate
+                      Regenerate Similar
                     </button>
 
                     <button
@@ -2791,6 +4769,62 @@ export default function AdminGeneratorPage() {
                       className="border rounded p-2 w-full"
                     />
                   </div>
+
+                  {(q.seatingExplanationFlow ??
+                    q.debugMetadata
+                      ?.seatingExplanationFlow) ? (
+                    <div className="space-y-2">
+                      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        Coaching Explanation
+                      </div>
+                      <SeatingExplanationFlow
+                        flow={
+                          q.seatingExplanationFlow ??
+                          q.debugMetadata
+                            ?.seatingExplanationFlow
+                        }
+                      />
+                    </div>
+                  ) : (q.seatingDiagram ??
+                    q.debugMetadata
+                      ?.seatingDiagram) ? (
+                    <div className="space-y-2">
+                      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        Final Arrangement Diagram
+                      </div>
+                      <SeatingDiagramRenderer
+                        diagram={
+                          q.seatingDiagram ??
+                          q.debugMetadata
+                            ?.seatingDiagram
+                        }
+                      />
+                    </div>
+                  ) : null}
+
+                  {renderQAReviewPanel(
+                    item,
+                    qaNotes[
+                      item.fingerprint
+                    ] ?? "",
+                    (value) =>
+                      setQaNotes(
+                        (prev) => ({
+                          ...prev,
+                          [item.fingerprint]:
+                            value,
+                        }),
+                      ),
+                    (
+                      action,
+                      status,
+                    ) =>
+                      persistQAReview(
+                        item,
+                        action,
+                        status,
+                      ),
+                  )}
 
                   {renderDifficultyAnalytics(
                     q,
@@ -2963,6 +4997,7 @@ export default function AdminGeneratorPage() {
              );
 },
           )}
+          </div>
         </div>
       )}
     </div>

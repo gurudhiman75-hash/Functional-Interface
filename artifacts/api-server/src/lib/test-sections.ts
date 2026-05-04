@@ -19,6 +19,10 @@ type QuestionRow = {
   options_pa?: unknown | null;
   explanationPa?: string | null;
   explanation_pa?: string | null;
+  seatingDiagram?: unknown | null;
+  seating_diagram?: unknown | null;
+  seatingExplanationFlow?: unknown | null;
+  seating_explanation_flow?: unknown | null;
   // DI / image fields
   imageUrl?: string | null;
   image_url?: string | null;
@@ -55,6 +59,8 @@ export function toApiQuestions(rows: QuestionRow[]): ApiQuestion[] {
     const textPa = q.textPa ?? (q as any).text_pa ?? null;
     const optionsPa = q.optionsPa ?? (q as any).options_pa ?? null;
     const explanationPa = q.explanationPa ?? (q as any).explanation_pa ?? null;
+    const seatingDiagram = q.seatingDiagram ?? (q as any).seating_diagram ?? null;
+    const seatingExplanationFlow = q.seatingExplanationFlow ?? (q as any).seating_explanation_flow ?? null;
     const result: ApiQuestion & Record<string, unknown> = {
       id: q.id,
       text: q.text,
@@ -69,6 +75,8 @@ export function toApiQuestions(rows: QuestionRow[]): ApiQuestion[] {
       optionsPa: optionsPa != null ? toOptions(optionsPa) : null,
       explanationPa,
     };
+    if (seatingDiagram) result.seatingDiagram = seatingDiagram;
+    if (seatingExplanationFlow) result.seatingExplanationFlow = seatingExplanationFlow;
     // Attach image/DI fields so the test UI can render them
     if (imageUrl) result.imageUrl = imageUrl;
     if (questionType && questionType !== "text") result.questionType = questionType;

@@ -11,6 +11,8 @@ await sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS explanation_hi TEXT`;
 await sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS text_pa TEXT`;
 await sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS options_pa JSONB`;
 await sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS explanation_pa TEXT`;
+await sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS seating_diagram JSONB`;
+await sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS seating_explanation_flow JSONB`;
 await sql`ALTER TABLE tests ADD COLUMN IF NOT EXISTS languages JSONB`;
 await sql`ALTER TABLE subcategories ADD COLUMN IF NOT EXISTS languages JSONB`;
 console.log('Migration complete — all bilingual columns added.');

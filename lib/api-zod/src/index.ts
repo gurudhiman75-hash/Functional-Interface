@@ -139,6 +139,81 @@ export type TestSection = {
 
 export type Language = "en" | "hi" | "pa";
 
+export type SeatingDiagramArrangementType =
+  | "linear"
+  | "circular"
+  | "square"
+  | "rectangular"
+  | "double-row"
+  | "parallel-row";
+
+export type SeatingDiagramOrientationType =
+  | "north"
+  | "south"
+  | "center"
+  | "outward"
+  | "alternate"
+  | "mixed";
+
+export type SeatingDiagramFacing =
+  | "north"
+  | "south"
+  | "center"
+  | "outward";
+
+export type SeatingDiagramSeat = {
+  label: string;
+  position: number;
+  facing: SeatingDiagramFacing;
+  highlighted?: boolean;
+  isAnswer?: boolean;
+  row?: number;
+  col?: number;
+  seatLabel?: string;
+};
+
+export type SeatingDiagramQuestionTarget = {
+  label: string;
+  promptType?: string;
+  answerLabel?: string;
+};
+
+export type SeatingDiagramData = {
+  arrangementType: SeatingDiagramArrangementType;
+  orientationType: SeatingDiagramOrientationType;
+  seats: SeatingDiagramSeat[];
+  seatLabels?: string[];
+  questionTarget?: SeatingDiagramQuestionTarget;
+  rowCount?: number;
+  colCount?: number;
+};
+
+export type SeatingExplanationBranch = {
+  id: string;
+  label: string;
+  status: "candidate" | "eliminated" | "selected";
+  text: string;
+  arrangementSnapshot?: SeatingDiagramData | null;
+};
+
+export type SeatingExplanationStep = {
+  type:
+    | "reference"
+    | "inference"
+    | "case-analysis"
+    | "elimination"
+    | "final-arrangement";
+  title: string;
+  text: string;
+  arrangementSnapshot?: SeatingDiagramData | null;
+  branches?: SeatingExplanationBranch[];
+};
+
+export type SeatingExplanationFlow = {
+  summary?: string;
+  steps: SeatingExplanationStep[];
+};
+
 export type Question = {
   id: number;
   text: string | null;
@@ -153,6 +228,8 @@ export type Question = {
   textPa?: string | null;
   optionsPa?: string[] | null;
   explanationPa?: string | null;
+  seatingDiagram?: SeatingDiagramData | null;
+  seatingExplanationFlow?: SeatingExplanationFlow | null;
 };
 
 export type TestAttempt = {
@@ -193,6 +270,8 @@ export type TestAttempt = {
     correct: number;
     flagged: boolean;
     explanation: string;
+    seatingDiagram?: SeatingDiagramData | null;
+    seatingExplanationFlow?: SeatingExplanationFlow | null;
   }[];
 };
 

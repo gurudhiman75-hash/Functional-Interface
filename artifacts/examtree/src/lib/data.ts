@@ -1,5 +1,9 @@
 import { apiRequest } from "@/lib/api";
 import type { TestAttempt } from "@/lib/storage";
+import type {
+  SeatingDiagramData,
+  SeatingExplanationFlow,
+} from "@workspace/api-zod";
 
 // Define types locally for now
 export type Category = {
@@ -93,6 +97,8 @@ export interface Question {
   textPa?: string | null;
   optionsPa?: string[] | null;
   explanationPa?: string | null;
+  seatingDiagram?: SeatingDiagramData | null;
+  seatingExplanationFlow?: SeatingExplanationFlow | null;
   /** Optional image URL displayed above the question */
   imageUrl?: string | null;
   questionType?: "text" | "image" | "di";

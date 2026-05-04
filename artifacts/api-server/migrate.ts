@@ -106,6 +106,8 @@ async function migrate() {
       text_pa         TEXT,
       options_pa      JSONB,
       explanation_pa  TEXT,
+      seating_diagram JSONB,
+      seating_explanation_flow JSONB,
       created_at      TIMESTAMP NOT NULL DEFAULT NOW()
     );
   `);
@@ -116,6 +118,8 @@ async function migrate() {
   // Allow text and explanation to be NULL (multilingual questions may omit English)
   await db.execute(sql`ALTER TABLE questions ALTER COLUMN text DROP NOT NULL;`);
   await db.execute(sql`ALTER TABLE questions ALTER COLUMN explanation DROP NOT NULL;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS seating_diagram JSONB;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS seating_explanation_flow JSONB;`);
   console.log("✓ questions");
 
   // ── attempts ──────────────────────────────────────────────────────────

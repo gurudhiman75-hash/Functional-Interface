@@ -205,6 +205,8 @@ interface QuestionBankItem {
   optionsPa?: unknown;
   explanationHi?: string | null;
   explanationPa?: string | null;
+  seatingDiagram?: unknown | null;
+  seatingExplanationFlow?: unknown | null;
   createdAt: Date;
   usageCount: number;
   lastUsedAt: Date | null;
@@ -299,6 +301,8 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
           sql`NULL::text AS text_pa`,
           sql`NULL::jsonb AS options_pa`,
           sql`NULL::text AS explanation_pa`,
+          sql`NULL::jsonb AS seating_diagram`,
+          sql`NULL::jsonb AS seating_explanation_flow`,
         ],
         sql`, `,
       );
@@ -339,6 +343,10 @@ router.get("/question-bank", authenticate, async (req, res): Promise<void> => {
         textPa: q.text_pa ?? null,
         optionsPa: q.options_pa ?? null,
         explanationPa: q.explanation_pa ?? null,
+        seatingDiagram:
+          q.seating_diagram ?? null,
+        seatingExplanationFlow:
+          q.seating_explanation_flow ?? null,
         imageUrl: q.image_url ?? null,
         questionType: q.question_type ?? "text",
         diSetId: q.di_set_id ?? null,
@@ -386,6 +394,8 @@ router.get("/question-bank/:id", authenticate, async (req, res): Promise<void> =
         sql`NULL::text AS text_pa`,
         sql`NULL::jsonb AS options_pa`,
         sql`NULL::text AS explanation_pa`,
+        sql`NULL::jsonb AS seating_diagram`,
+        sql`NULL::jsonb AS seating_explanation_flow`,
       ],
       sql`, `,
     );
@@ -457,7 +467,7 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
     const {
       text, options, correct, section, topic, globalTopicId, explanation, difficulty,
       textHi, optionsHi, explanationHi, textPa, optionsPa, explanationPa,
-      sectionId, topicId, imageUrl, questionType, diSetId,
+      sectionId, topicId, imageUrl, questionType, diSetId, seatingDiagram, seatingExplanationFlow,
     } = req.body;
 
     if (!options || correct === undefined || !section) {
@@ -504,6 +514,8 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
     if (columns.hasTextPa) baseValues.textPa = textPa?.trim() || null;
     if (columns.hasOptionsPa) baseValues.optionsPa = optionsPa ?? null;
     if (columns.hasExplanationPa) baseValues.explanationPa = explanationPa?.trim() || null;
+    if (columns.hasSeatingDiagram) baseValues.seatingDiagram = seatingDiagram ?? null;
+    if (columns.hasSeatingExplanationFlow) baseValues.seatingExplanationFlow = seatingExplanationFlow ?? null;
     if (columns.hasImageUrl) baseValues.imageUrl = imageUrl?.trim() || null;
     if (columns.hasQuestionType) baseValues.questionType = questionType ?? "text";
     if (columns.hasDiSetId) baseValues.diSetId = diSetId ?? null;
@@ -532,7 +544,7 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
       text, options, correct, section, sectionId, topic, topicId, globalTopicId,
       explanation, difficulty,
       textHi, optionsHi, explanationHi, textPa, optionsPa, explanationPa,
-      imageUrl, questionType, diSetId,
+      imageUrl, questionType, diSetId, seatingDiagram, seatingExplanationFlow,
     } = req.body;
 
     if (difficulty && !["Easy", "Medium", "Hard"].includes(difficulty)) {
@@ -557,6 +569,8 @@ router.put("/question-bank/:id", authenticate, async (req, res): Promise<void> =
     if (columns.hasTextPa && textPa !== undefined) updateData.textPa = textPa;
     if (columns.hasOptionsPa && optionsPa !== undefined) updateData.optionsPa = optionsPa;
     if (columns.hasExplanationPa && explanationPa !== undefined) updateData.explanationPa = explanationPa;
+    if (columns.hasSeatingDiagram && seatingDiagram !== undefined) updateData.seatingDiagram = seatingDiagram;
+    if (columns.hasSeatingExplanationFlow && seatingExplanationFlow !== undefined) updateData.seatingExplanationFlow = seatingExplanationFlow;
     if (columns.hasImageUrl && imageUrl !== undefined) updateData.imageUrl = imageUrl?.trim() || null;
     if (columns.hasQuestionType && questionType !== undefined) updateData.questionType = questionType;
     if (columns.hasDiSetId && diSetId !== undefined) updateData.diSetId = diSetId ?? null;

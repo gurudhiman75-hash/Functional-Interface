@@ -31,6 +31,12 @@ import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuestionRichText } from "@/components/QuestionRichText";
+import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
+import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
+import type {
+  SeatingDiagramData,
+  SeatingExplanationFlow,
+} from "@workspace/api-zod";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
 type ReviewItem = {
@@ -48,6 +54,8 @@ type ReviewItem = {
   correct: number;
   flagged: boolean;
   explanation: string;
+  seatingDiagram?: SeatingDiagramData | null;
+  seatingExplanationFlow?: SeatingExplanationFlow | null;
 };
 
 function getGrade(score: number) {
@@ -2178,6 +2186,24 @@ export default function Result() {
                       <div className="mt-5 rounded-xl border border-border/70 bg-muted/30 p-4">
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Solution</p>
                         <div className="mt-2 text-sm leading-relaxed text-foreground">
+                          {item.seatingExplanationFlow ? (
+                            <div className="mb-4">
+                              <SeatingExplanationFlow
+                                flow={
+                                  item.seatingExplanationFlow
+                                }
+                              />
+                            </div>
+                          ) : item.seatingDiagram ? (
+                            <div className="mb-4">
+                              <SeatingDiagramRenderer
+                                diagram={
+                                  item.seatingDiagram
+                                }
+                                title="Seating arrangement solution diagram"
+                              />
+                            </div>
+                          ) : null}
                           {localizedExplanation?.trim() ? (
                             <QuestionRichText content={localizedExplanation} lang={reviewLang} />
                           ) : (

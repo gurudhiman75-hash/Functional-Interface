@@ -171,6 +171,8 @@ export const questions = pgTable("questions", {
   textPa: text("text_pa"),
   optionsPa: jsonb("options_pa"),
   explanationPa: text("explanation_pa"),
+  seatingDiagram: jsonb("seating_diagram"),
+  seatingExplanationFlow: jsonb("seating_explanation_flow"),
   /** Optional image URL (Firebase Storage) to display above question text */
   imageUrl: text("image_url"),
   /** Question type: 'text' | 'image' | 'di' */

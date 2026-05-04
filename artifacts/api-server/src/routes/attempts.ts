@@ -128,6 +128,8 @@ router.post("/", authenticate, async (req, res) => {
     marks?: number | null; negativeMarks?: number | null;
     textHi?: string | null; optionsHi?: unknown; explanationHi?: string | null;
     textPa?: string | null; optionsPa?: unknown; explanationPa?: string | null;
+    seatingDiagram?: unknown | null;
+    seatingExplanationFlow?: unknown | null;
   }[] =
     questionIds.length > 0
       ? (await db.execute(sql`
@@ -139,6 +141,8 @@ router.post("/", authenticate, async (req, res) => {
             ${columns.hasTextPa ? sql`, text_pa AS "textPa"` : sql`, NULL::text AS "textPa"`}
             ${columns.hasOptionsPa ? sql`, options_pa AS "optionsPa"` : sql`, NULL::jsonb AS "optionsPa"`}
             ${columns.hasExplanationPa ? sql`, explanation_pa AS "explanationPa"` : sql`, NULL::text AS "explanationPa"`}
+            ${columns.hasSeatingDiagram ? sql`, seating_diagram AS "seatingDiagram"` : sql`, NULL::jsonb AS "seatingDiagram"`}
+            ${columns.hasSeatingExplanationFlow ? sql`, seating_explanation_flow AS "seatingExplanationFlow"` : sql`, NULL::jsonb AS "seatingExplanationFlow"`}
             ${columns.hasMarks ? sql`, marks` : sql`, NULL::float AS marks`}
             ${columns.hasNegativeMarks ? sql`, negative_marks AS "negativeMarks"` : sql`, NULL::float AS "negativeMarks"`}
           FROM questions
@@ -234,6 +238,8 @@ router.post("/", authenticate, async (req, res) => {
     correct: q.correct,
     flagged: Boolean(flags[q.id]),
     explanation: q.explanation,
+    ...(q.seatingDiagram ? { seatingDiagram: q.seatingDiagram } : {}),
+    ...(q.seatingExplanationFlow ? { seatingExplanationFlow: q.seatingExplanationFlow } : {}),
   }));
 
   // ── Persist attempt + responses atomically ────────────────────────────

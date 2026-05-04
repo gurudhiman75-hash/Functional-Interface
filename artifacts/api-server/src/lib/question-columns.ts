@@ -15,6 +15,8 @@ export type QuestionColumnState = {
   hasTextPa: boolean;
   hasOptionsPa: boolean;
   hasExplanationPa: boolean;
+  hasSeatingDiagram: boolean;
+  hasSeatingExplanationFlow: boolean;
   hasImageUrl: boolean;
   hasQuestionType: boolean;
   hasDiSetId: boolean;
@@ -49,6 +51,8 @@ export async function getQuestionColumnState(): Promise<QuestionColumnState> {
         hasTextPa: names.has("text_pa"),
         hasOptionsPa: names.has("options_pa"),
         hasExplanationPa: names.has("explanation_pa"),
+        hasSeatingDiagram: names.has("seating_diagram"),
+        hasSeatingExplanationFlow: names.has("seating_explanation_flow"),
         hasImageUrl: names.has("image_url"),
         hasQuestionType: names.has("question_type"),
         hasDiSetId: names.has("di_set_id"),
@@ -82,6 +86,8 @@ export function buildQuestionSelectSql(columns: QuestionColumnState) {
       columns.hasTextPa ? sql`text_pa` : sql`NULL::text AS text_pa`,
       columns.hasOptionsPa ? sql`options_pa` : sql`NULL::jsonb AS options_pa`,
       columns.hasExplanationPa ? sql`explanation_pa` : sql`NULL::text AS explanation_pa`,
+      columns.hasSeatingDiagram ? sql`seating_diagram` : sql`NULL::jsonb AS seating_diagram`,
+      columns.hasSeatingExplanationFlow ? sql`seating_explanation_flow` : sql`NULL::jsonb AS seating_explanation_flow`,
       columns.hasImageUrl ? sql`image_url` : sql`NULL::text AS image_url`,
       columns.hasQuestionType ? sql`question_type` : sql`'text'::text AS question_type`,
       columns.hasDiSetId ? sql`di_set_id` : sql`NULL::integer AS di_set_id`,
