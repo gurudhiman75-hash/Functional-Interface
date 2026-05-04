@@ -38,6 +38,16 @@ export type OptimizedClueResult = {
   repeatedStructureWarnings: string[];
 };
 
+function isAlternateLinearCase(
+  arrangementType: SeatingArrangementType,
+  orientationType: SeatingOrientationType,
+) {
+  return (
+    arrangementType === "linear" &&
+    orientationType === "alternate"
+  );
+}
+
 function rotateCandidates(
   candidates: CandidateClue[],
   offset: number,
@@ -149,10 +159,26 @@ export function optimizeClueSubset(
     | undefined;
 
   const attemptCount = Math.min(
-    48,
+    isAlternateLinearCase(
+      input.arrangementType,
+      input.orientationType,
+    )
+      ? 18
+      : 48,
     Math.max(
-      12,
-      input.candidates.length * 2,
+      isAlternateLinearCase(
+        input.arrangementType,
+        input.orientationType,
+      )
+        ? 8
+        : 12,
+      input.candidates.length *
+        (isAlternateLinearCase(
+          input.arrangementType,
+          input.orientationType,
+        )
+          ? 1
+          : 2),
     ),
   );
 

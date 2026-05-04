@@ -1596,11 +1596,30 @@ function getDirectClueLimit(
     : 0;
 }
 
+function isAlternateLinearLayout(
+  layout: SeatingLayout,
+) {
+  return (
+    layout.arrangementType ===
+      "linear" &&
+    layout.orientationType ===
+      "alternate"
+  );
+}
+
 function getMinimumRelationalClues(
   difficulty: DifficultyLabel,
   layout: SeatingLayout,
 ) {
   if (difficulty === "Hard") {
+    if (
+      isAlternateLinearLayout(
+        layout,
+      )
+    ) {
+      return 5;
+    }
+
     return layout.family === "two-row"
       ? 5
       : 6;
@@ -1626,6 +1645,14 @@ function getTargetClueRange(
   }
 
   if (difficulty === "Hard") {
+    if (
+      isAlternateLinearLayout(
+        layout,
+      )
+    ) {
+      return [5, 6];
+    }
+
     return layout.family === "two-row"
       ? [6, 8]
       : [6, 8];
