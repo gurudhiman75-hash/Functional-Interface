@@ -23,6 +23,43 @@ import {
   getExamProfileConfig,
 } from "./exam-realism";
 import {
+  createDomainAdapters,
+  resolveDomainAdapter,
+} from "./domain-adapters";
+import {
+  buildSeatingRealismAnalysis,
+} from "./reasoning-realism";
+import {
+  extractPatternIntelligence,
+} from "./pattern-extractors";
+import {
+  buildStructuralSignature,
+} from "./structural-signatures";
+import {
+  buildCorpusAlignmentScore,
+} from "./corpus-alignment";
+import {
+  applyTopicConfigToOptions,
+  applyTopicConfigToPattern,
+  resolveTopicConfig,
+} from "./topic-config";
+import {
+  buildDifficultyConfidence,
+} from "./difficulty-confidence";
+import {
+  buildOriginalityScore,
+} from "./originality-score";
+import {
+  assessProceduralQuality,
+} from "./quality-filter";
+import {
+  cacheGenerationResult,
+  getCachedGenerationResult,
+} from "../generation-cache";
+import {
+  resetStructuralDiversityRegistry,
+} from "../reasoning/seating/diversity-engine";
+import {
   buildSeatingDiagramData,
   buildSeatingExplanationFlow,
   buildBloodRelationExplanation,
@@ -65,19 +102,25 @@ import {
   generateNumericOptions,
   alignReasoningStepsWithMotif,
   attachReasoningTrace,
+  buildReasoningErrorMetadata,
   CompatibilityIssue,
   CompatibilityResult,
   countMatches,
   extractTemplatePlaceholders,
   fillTemplate,
+  createGenerationContext,
+  getGenerationContext,
   generateScenario,
   hasAnyToken,
+  isReasoningEngineError,
   normalizeNumericValue,
   pickRandomItem,
   pickRandomTemplate,
   pickMotif,
+  ReasoningEngineError,
   renderExplanation,
   renderNamedTemplate,
+  runWithGenerationContext,
   buildQuantPrompt,
   validateArchetypeCompatibility,
   validatePatternCompatibility,
@@ -85,6 +128,7 @@ import {
   validateQuestionRealization,
 } from "../shared";
 import type {
+  GenerationContext,
   OptionResult,
   ReasoningOperation,
   ReasoningStep,
@@ -93,6 +137,42 @@ import type {
   SeatingDiagramData,
   SeatingExplanationFlow,
 } from "@workspace/api-zod";
+import type {
+  DomainAdapter,
+  DomainGenerationContext,
+  DifficultyMetrics,
+  Scenario,
+  ValidationReport,
+} from "./domain-adapters";
+import type {
+  ExtractedPatternIntelligence,
+} from "./pattern-extractors";
+import type {
+  StructuralSignature,
+} from "./structural-signatures";
+import type {
+  CorpusAlignmentScore,
+} from "./corpus-alignment";
+import type {
+  DifficultyConfidence,
+} from "./difficulty-confidence";
+import type {
+  OriginalityScore,
+} from "./originality-score";
+import type {
+  QualityAssessment,
+  QualityThresholds,
+} from "./quality-filter";
+import type {
+  ReasoningRealismAnalysis,
+} from "./reasoning-realism";
+import type {
+  InferenceStep,
+  InferenceTraceExport,
+} from "../reasoning/seating-validator";
+import type {
+  InferenceDependencyGraph,
+} from "../reasoning/seating/inference-dependency-graph";
 export {
   buildDifficultyBalancedSet,
   calculateDifficultyMetadata,
@@ -141,6 +221,7 @@ type QuestionType =
 export type GenerationDomain =
   | "quant"
   | "reasoning"
+  | "english"
   | "seating-arrangement"
   | "di"
   | "puzzle-sets"
@@ -217,6 +298,30 @@ export type ExamRealismMetadata = {
   archetypeCategory?: string;
   reasoningTraps: string[];
   weightingSummary: string[];
+  realismScore?: number;
+  realismBand?:
+    | "low"
+    | "moderate"
+    | "strong"
+    | "pyq-like";
+  realismSignals?: string[];
+  realismPenalties?: string[];
+};
+
+export type GenerationMetrics = {
+  generationDurationMs: number;
+  validationRetries: number;
+  uniquenessFailures: number;
+  branchingFactor: number;
+  branchingComplexity?: number;
+  clueDensity: number;
+  inferenceDepth: number;
+  redundancyScore: number;
+  deductionDependencyScore?: number;
+  redundancyRatio?: number;
+  anchorDensity?: number;
+  directClueRatio?: number;
+  realismScore?: number;
 };
 
 type GeneratedQuestionDifficulty = {
@@ -232,11 +337,19 @@ export type QuantTopicCluster =
   | "profit-loss"
   | "averages"
   | "si-ci"
+  | "time-work"
+  | "speed-time-distance"
+  | "mixture-alligation"
+  | "algebra-basics"
+  | "mensuration"
   | "coding-decoding"
   | "blood-relations"
   | "inequality"
   | "direction-sense"
   | "seating-arrangement"
+  | "ordering-ranking"
+  | "puzzles"
+  | "syllogism"
   | "general-quant";
 
 export type QuantReasoningCategory =
@@ -310,6 +423,9 @@ export type GeneratorOptions = {
   difficultyDistribution?: Partial<DifficultyDistribution>;
   targetAverageDifficulty?: number;
   setProfile?: DISetProfile;
+  seed?: string;
+  generationContext?: GenerationContext;
+  qualityThresholds?: Partial<QualityThresholds>;
 };
 
 export type DIPattern = {
@@ -327,6 +443,9 @@ export type DIPattern = {
 
 type GenerationDebugMetadata = {
   selectedPattern: string;
+  seed?: string;
+  generationId?: string;
+  generationTimestamp?: number;
   generationDomain?: GenerationDomain;
   selectedMotif?: string;
   selectedArchetype?: string;
@@ -342,10 +461,26 @@ type GenerationDebugMetadata = {
   relationalClueCount?: number;
   deductionDepth?: number;
   eliminationDepth?: number;
+  validationRetries?: number;
+  uniquenessFailures?: number;
+  branchingFactor?: number;
+  branchingComplexity?: number;
+  deductionDependencyScore?: number;
   clueGraphDensity?: number;
+  clueDensity?: number;
   clueInteractionRatio?: number;
   redundancyScore?: number;
+  redundancyRatio?: number;
+  anchorDensity?: number;
+  directClueRatio?: number;
+  originalClueCount?: number;
+  minimalClueCount?: number;
+  removedRedundantClues?: string[];
+  topologyDiversityScore?: number;
+  clueDiversityScore?: number;
+  inferenceDiversityScore?: number;
   structuralDiversityScore?: number;
+  generationMetrics?: GenerationMetrics;
   clueTypeDistribution?: Record<
     string,
     number
@@ -357,6 +492,19 @@ type GenerationDebugMetadata = {
   finalArrangement?: string;
   generatedClues?: string[];
   solverTrace?: string[];
+  solverInferenceSteps?: InferenceStep[];
+  solverTraceExport?: InferenceTraceExport;
+  inferenceDependencyGraph?: InferenceDependencyGraph;
+  realismAnalysis?: ReasoningRealismAnalysis;
+  proceduralScenario?: Scenario;
+  extractedPatternIntelligence?: ExtractedPatternIntelligence;
+  structuralSignature?: StructuralSignature;
+  corpusAlignment?: CorpusAlignmentScore;
+  originalityScore?: OriginalityScore;
+  validationReportDetail?: ValidationReport;
+  difficultyAssessment?: DifficultyMetrics;
+  difficultyConfidence?: DifficultyConfidence;
+  qualityAssessment?: QualityAssessment;
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
 };
@@ -371,6 +519,7 @@ type QuestionCore = {
   operationChain?: string[];
   optionMetadata?: OptionMetadata[];
   examRealismMetadata?: ExamRealismMetadata;
+  generationMetrics?: GenerationMetrics;
   debugMetadata?: GenerationDebugMetadata;
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
@@ -386,6 +535,7 @@ export type FormulaQuestion = {
   subtopic?: string;
   optionMetadata?: OptionMetadata[];
   examRealismMetadata?: ExamRealismMetadata;
+  generationMetrics?: GenerationMetrics;
   debugMetadata?: GenerationDebugMetadata;
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
@@ -420,6 +570,12 @@ export type GeneratedQuestion =
 export type GeneratorResult = {
   questions: Array<
     GeneratedQuestion
+  >;
+  generationContext?: Pick<
+    GenerationContext,
+    | "seed"
+    | "generationId"
+    | "timestamp"
   >;
 };
 
@@ -480,6 +636,12 @@ export type Pattern = {
 
     offsets: number[];
   };
+  validationRules?: string[];
+  generationLimits?: {
+    maxSteps?: number;
+    maxClues?: number;
+    maxCalculationLength?: number;
+  };
 };
 
 export type QuantArchetype = {
@@ -497,6 +659,114 @@ export type QuantArchetype = {
   ) => ReasoningStep[];
 };
 
+function buildGenerationMetrics(
+  overrides: Partial<GenerationMetrics>,
+): GenerationMetrics {
+  return {
+    generationDurationMs:
+      overrides.generationDurationMs ??
+      0,
+    validationRetries:
+      overrides.validationRetries ?? 0,
+    uniquenessFailures:
+      overrides.uniquenessFailures ??
+      0,
+    branchingFactor:
+      overrides.branchingFactor ?? 0,
+    branchingComplexity:
+      overrides.branchingComplexity,
+    clueDensity:
+      overrides.clueDensity ?? 0,
+    inferenceDepth:
+      overrides.inferenceDepth ?? 0,
+    redundancyScore:
+      overrides.redundancyScore ?? 0,
+    deductionDependencyScore:
+      overrides.deductionDependencyScore,
+    redundancyRatio:
+      overrides.redundancyRatio,
+    anchorDensity:
+      overrides.anchorDensity,
+    directClueRatio:
+      overrides.directClueRatio,
+  };
+}
+
+function logGenerationMetrics(
+  pattern: Pattern,
+  metrics: GenerationMetrics,
+  question: {
+    difficultyLabel?: string;
+    debugMetadata?: {
+      generationId?: string;
+      generationDomain?: GenerationDomain;
+      selectedMotif?: string;
+    };
+  },
+) {
+  console.info(
+    "Generation metrics",
+    {
+      patternId: pattern.id,
+      topic: pattern.topic,
+      subtopic: pattern.subtopic,
+      generationId:
+        question.debugMetadata
+          ?.generationId,
+      generationDomain:
+        question.debugMetadata
+          ?.generationDomain,
+      selectedMotif:
+        question.debugMetadata
+          ?.selectedMotif,
+      difficultyLabel:
+        question.difficultyLabel,
+      metrics,
+    },
+  );
+}
+
+function attachGenerationMetrics<
+  T extends {
+    generationMetrics?: GenerationMetrics;
+    debugMetadata?: GenerationDebugMetadata;
+    difficultyMetadata?: {
+      reasoningDepth?: number;
+    };
+  },
+>(
+  pattern: Pattern,
+  question: T,
+  overrides: Partial<GenerationMetrics>,
+) {
+  const generationMetrics =
+    buildGenerationMetrics({
+      inferenceDepth:
+        question.difficultyMetadata
+          ?.reasoningDepth ?? 0,
+      ...overrides,
+    });
+  const enrichedQuestion = {
+    ...question,
+    generationMetrics,
+    debugMetadata:
+      question.debugMetadata
+        ? {
+          ...question.debugMetadata,
+          generationMetrics,
+        }
+        : question.debugMetadata,
+  };
+
+  logGenerationMetrics(
+    pattern,
+    generationMetrics,
+    enrichedQuestion,
+  );
+
+  return enrichedQuestion;
+}
+
 export type QuantArchetypeContext = {
   pattern: Pattern;
   baseText: string;
@@ -510,6 +780,14 @@ export function inferGenerationDomain(
 ): GenerationDomain {
   if (pattern.generationDomain) {
     return pattern.generationDomain;
+  }
+
+  if (
+    pattern.section
+      .toLowerCase()
+      .trim() === "english"
+  ) {
+    return "english";
   }
 
   if (pattern.type === "di") {
@@ -543,6 +821,8 @@ function createFormulaQuestionCandidate(
   pattern: Pattern,
   options?: GeneratorOptions,
 ): FormulaQuestion {
+  const generationStartedAt =
+    Date.now();
   const examProfile =
     options?.examProfile ?? "custom";
   const requestedDifficulty =
@@ -761,6 +1041,8 @@ function createFormulaQuestionCandidate(
       effectiveArchetype,
       generated.optionMetadata,
     );
+  const activeGenerationContext =
+    getGenerationContext();
   const enrichedQuestion =
     attachReasoningTrace(
       {
@@ -780,6 +1062,10 @@ function createFormulaQuestionCandidate(
         examRealismMetadata,
         debugMetadata: {
           selectedPattern: pattern.id,
+          seed:
+            activeGenerationContext?.seed,
+          generationId:
+            activeGenerationContext?.generationId,
           generationDomain:
             "quant" as GenerationDomain,
           selectedMotif:
@@ -798,24 +1084,39 @@ function createFormulaQuestionCandidate(
       effectiveArchetype.operationChain,
     );
 
-  return applyDifficultyMetadata(
-    enrichedQuestion,
+  const finalizedQuestion =
+    applyDifficultyMetadata(
+      enrichedQuestion,
+      {
+        kind: "formula",
+        text: enrichedQuestion.text,
+        formula:
+          formulaToEvaluate,
+        values,
+        explanation,
+        difficultyHint:
+          requestedDifficulty,
+        targetDifficultyScore,
+        reasoningSteps:
+          enrichedQuestion.reasoningSteps,
+        dependencyComplexity:
+          enrichedQuestion.dependencyComplexity,
+        operationChain:
+          enrichedQuestion.operationChain,
+      },
+    );
+
+  return attachGenerationMetrics(
+    pattern,
+    finalizedQuestion,
     {
-      kind: "formula",
-      text: enrichedQuestion.text,
-      formula:
-        formulaToEvaluate,
-      values,
-      explanation,
-      difficultyHint:
-        requestedDifficulty,
-      targetDifficultyScore,
-      reasoningSteps:
-        enrichedQuestion.reasoningSteps,
-      dependencyComplexity:
-        enrichedQuestion.dependencyComplexity,
-      operationChain:
-        enrichedQuestion.operationChain,
+      generationDurationMs:
+        Date.now() -
+        generationStartedAt,
+      inferenceDepth:
+        finalizedQuestion
+          .difficultyMetadata
+          .reasoningDepth,
     },
   );
 }
@@ -875,6 +1176,8 @@ function createReasoningQuestionCandidate(
   pattern: Pattern,
   options?: GeneratorOptions,
 ): FormulaQuestion {
+  const generationStartedAt =
+    Date.now();
   const examProfile =
     options?.examProfile ?? "custom";
   const requestedDifficulty =
@@ -1131,6 +1434,8 @@ function createReasoningQuestionCandidate(
       ),
       motif,
     );
+  const activeGenerationContext =
+    getGenerationContext();
   explanation =
     topicCluster ===
       "blood-relations" ||
@@ -1175,6 +1480,10 @@ function createReasoningQuestionCandidate(
           ),
         debugMetadata: {
           selectedPattern: pattern.id,
+          seed:
+            activeGenerationContext?.seed,
+          generationId:
+            activeGenerationContext?.generationId,
           generationDomain:
             "reasoning" as GenerationDomain,
           selectedMotif:
@@ -1193,21 +1502,36 @@ function createReasoningQuestionCandidate(
       effectiveArchetype.operationChain,
     );
 
-  return applyDifficultyMetadata(
-    enrichedQuestion,
+  const finalizedQuestion =
+    applyDifficultyMetadata(
+      enrichedQuestion,
+      {
+        kind: "logic",
+        text: enrichedQuestion.text,
+        explanation,
+        difficultyHint:
+          requestedDifficulty,
+        targetDifficultyScore,
+        reasoningSteps:
+          enrichedQuestion.reasoningSteps,
+        dependencyComplexity:
+          enrichedQuestion.dependencyComplexity,
+        operationChain:
+          enrichedQuestion.operationChain,
+      },
+    );
+
+  return attachGenerationMetrics(
+    pattern,
+    finalizedQuestion,
     {
-      kind: "logic",
-      text: enrichedQuestion.text,
-      explanation,
-      difficultyHint:
-        requestedDifficulty,
-      targetDifficultyScore,
-      reasoningSteps:
-        enrichedQuestion.reasoningSteps,
-      dependencyComplexity:
-        enrichedQuestion.dependencyComplexity,
-      operationChain:
-        enrichedQuestion.operationChain,
+      generationDurationMs:
+        Date.now() -
+        generationStartedAt,
+      inferenceDepth:
+        finalizedQuestion
+          .difficultyMetadata
+          .reasoningDepth,
     },
   );
 }
@@ -1216,6 +1540,8 @@ function createSeatingQuestionCandidate(
   pattern: Pattern,
   options?: GeneratorOptions,
 ): FormulaQuestion {
+  const generationStartedAt =
+    Date.now();
   const examProfile =
     options?.examProfile ?? "custom";
   const requestedDifficulty =
@@ -1342,6 +1668,11 @@ function createSeatingQuestionCandidate(
     buildSeatingExplanationFlow(
       seatingScenario,
     );
+  const realismAnalysis =
+    buildSeatingRealismAnalysis(
+      seatingScenario,
+      examProfile,
+    );
   compatibilityWarnings.push(
     ...seatingScenario.validationWarnings,
   );
@@ -1357,6 +1688,14 @@ function createSeatingQuestionCandidate(
     alignReasoningStepsWithMotif(
       seatingExplanation.reasoningSteps,
       motif,
+    );
+  const activeGenerationContext =
+    getGenerationContext();
+  const examRealismMetadata =
+    buildExamRealismMetadata(
+      examProfile,
+      effectiveArchetype,
+      optionBundle.optionMetadata,
     );
   const enrichedQuestion =
     attachReasoningTrace(
@@ -1377,16 +1716,25 @@ function createSeatingQuestionCandidate(
         subtopic: pattern.subtopic,
         optionMetadata:
           optionBundle.optionMetadata,
-        examRealismMetadata:
-          buildExamRealismMetadata(
-            examProfile,
-            effectiveArchetype,
-            optionBundle.optionMetadata,
-          ),
+        examRealismMetadata: {
+          ...examRealismMetadata,
+          realismScore:
+            realismAnalysis.overallScore,
+          realismBand:
+            realismAnalysis.band,
+          realismSignals:
+            realismAnalysis.matchedHeuristics,
+          realismPenalties:
+            realismAnalysis.penalties,
+        },
         seatingDiagram,
         seatingExplanationFlow,
         debugMetadata: {
           selectedPattern: pattern.id,
+          seed:
+            activeGenerationContext?.seed,
+          generationId:
+            activeGenerationContext?.generationId,
           generationDomain:
             "seating-arrangement" as GenerationDomain,
           selectedMotif:
@@ -1415,12 +1763,45 @@ function createSeatingQuestionCandidate(
             seatingScenario.deductionDepth,
           eliminationDepth:
             seatingScenario.eliminationDepth,
+          validationRetries:
+            seatingScenario.validationRetries,
+          uniquenessFailures:
+            seatingScenario.uniquenessFailures,
+          branchingFactor:
+            seatingScenario.branchingFactor,
+          branchingComplexity:
+            seatingScenario.branchingComplexity,
+          deductionDependencyScore:
+            seatingScenario.deductionDependencyScore,
           clueGraphDensity:
             seatingScenario.clueGraphDensity,
+          clueDensity:
+            seatingScenario.clueDensity,
           clueInteractionRatio:
             seatingScenario.clueInteractionRatio,
           redundancyScore:
             seatingScenario.redundancyScore,
+          redundancyRatio:
+            seatingScenario.redundancyRatio,
+          anchorDensity:
+            seatingScenario.anchorDensity,
+          directClueRatio:
+            seatingScenario.directClueRatio,
+          originalClueCount:
+            seatingScenario.originalClueCount,
+          minimalClueCount:
+            seatingScenario.minimalClueCount,
+          removedRedundantClues:
+            seatingScenario.removedRedundantClues.map(
+              (clue) =>
+                JSON.stringify(clue),
+            ),
+          topologyDiversityScore:
+            seatingScenario.topologyDiversityScore,
+          clueDiversityScore:
+            seatingScenario.clueDiversityScore,
+          inferenceDiversityScore:
+            seatingScenario.inferenceDiversityScore,
           structuralDiversityScore:
             seatingScenario.structuralDiversityScore,
           clueTypeDistribution:
@@ -1439,6 +1820,13 @@ function createSeatingQuestionCandidate(
             seatingScenario.generatedClues,
           solverTrace:
             seatingScenario.solverTrace,
+          solverInferenceSteps:
+            seatingScenario.solverInferenceSteps,
+          solverTraceExport:
+            seatingScenario.solverTraceExport,
+          inferenceDependencyGraph:
+            seatingScenario.inferenceDependencyGraph,
+          realismAnalysis,
           seatingDiagram,
           seatingExplanationFlow,
         },
@@ -1451,206 +1839,709 @@ function createSeatingQuestionCandidate(
       effectiveArchetype.operationChain,
     );
 
-  return applyDifficultyMetadata(
-    enrichedQuestion,
+  const finalizedQuestion =
+    applyDifficultyMetadata(
+      enrichedQuestion,
+      {
+        kind: "logic",
+        text: enrichedQuestion.text,
+        explanation:
+          seatingExplanation.text,
+        difficultyHint:
+          requestedDifficulty,
+        targetDifficultyScore,
+        reasoningSteps:
+          enrichedQuestion.reasoningSteps,
+        dependencyComplexity:
+          enrichedQuestion.dependencyComplexity,
+        operationChain:
+          enrichedQuestion.operationChain,
+      },
+    );
+
+  return attachGenerationMetrics(
+    pattern,
+    finalizedQuestion,
     {
-      kind: "logic",
-      text: enrichedQuestion.text,
-      explanation:
-        seatingExplanation.text,
-      difficultyHint:
-        requestedDifficulty,
-      targetDifficultyScore,
-      reasoningSteps:
-        enrichedQuestion.reasoningSteps,
-      dependencyComplexity:
-        enrichedQuestion.dependencyComplexity,
-      operationChain:
-        enrichedQuestion.operationChain,
+      generationDurationMs:
+        Date.now() -
+        generationStartedAt,
+      validationRetries:
+        seatingScenario.validationRetries,
+      uniquenessFailures:
+        seatingScenario.uniquenessFailures,
+      branchingFactor:
+        seatingScenario.branchingFactor,
+      branchingComplexity:
+        seatingScenario.branchingComplexity,
+      clueDensity:
+        seatingScenario.clueDensity,
+      inferenceDepth:
+        seatingScenario.inferenceDepth,
+      redundancyScore:
+        seatingScenario.redundancyScore,
+      deductionDependencyScore:
+        seatingScenario.deductionDependencyScore,
+      redundancyRatio:
+        seatingScenario.redundancyRatio,
+      anchorDensity:
+        seatingScenario.anchorDensity,
+      directClueRatio:
+        seatingScenario.directClueRatio,
+      realismScore:
+        realismAnalysis.overallScore,
     },
   );
 }
 
-function generateReasoningQuestions(
+function createDIQuestionSet(
   pattern: Pattern,
-  count: number,
   options?: GeneratorOptions,
-) {
-  const questions: FormulaQuestion[] = [];
-  const attempted: FormulaQuestion[] = [];
-  const maxAttempts = Math.max(
-    count * 10,
-    16,
-  );
-
-  for (
-    let attempt = 0;
-    attempt < maxAttempts;
-    attempt++
-  ) {
-    const candidate =
-      createReasoningQuestionCandidate(
-        pattern,
-        options,
-      );
-    attempted.push(candidate);
-
-    if (
-      validateDifficultyTarget(
-        candidate.difficultyScore,
-        options,
-      ) ||
-      !options?.targetDifficulty
-    ) {
-      questions.push(candidate);
-    }
-
-    if (questions.length >= count) {
-      break;
-    }
-  }
-
-  return buildDifficultyBalancedSet(
-    questions.length
-      ? questions
-      : attempted,
-    count,
-    options,
-  );
-}
-
-function generateSeatingQuestions(
-  pattern: Pattern,
-  count: number,
-  options?: GeneratorOptions,
-) {
-  const questions: FormulaQuestion[] = [];
-  const attempted: FormulaQuestion[] = [];
-  const maxAttempts = Math.max(
-    count * 10,
-    16,
-  );
-
-  for (
-    let attempt = 0;
-    attempt < maxAttempts;
-    attempt++
-  ) {
-    const candidate =
-      createSeatingQuestionCandidate(
-        pattern,
-        options,
-      );
-    attempted.push(candidate);
-
-    if (
-      validateDifficultyTarget(
-        candidate.difficultyScore,
-        options,
-      ) ||
-      !options?.targetDifficulty
-    ) {
-      questions.push(candidate);
-    }
-
-    if (questions.length >= count) {
-      break;
-    }
-  }
-
-  return buildDifficultyBalancedSet(
-    questions.length
-      ? questions
-      : attempted,
-    count,
-    options,
-  );
-}
-
-export function generateFromPattern(
-  pattern: Pattern,
-  count: number,
-  options?: GeneratorOptions,
-): GeneratorResult {
-  const generationDomain =
-    inferGenerationDomain(pattern);
-
-  if (generationDomain === "di") {
-    const tableData =
-      generateDISet(pattern);
-    const visualType =
-      pattern.diPattern
-        ?.visualType ?? "table";
-    const series =
-      pattern.diPattern
-        ? getSeriesConfig(
-          pattern.diPattern,
-          tableData,
-          visualType,
-        )
-        : undefined;
-    const diQuestionSet =
-      generateDIQuestions(
+): DISet {
+  const tableData =
+    generateDISet(pattern);
+  const visualType =
+    pattern.diPattern?.visualType ??
+    "table";
+  const series =
+    pattern.diPattern
+      ? getSeriesConfig(
+        pattern.diPattern,
         tableData,
         visualType,
-        series,
-        options,
-      );
+      )
+      : undefined;
+  const diQuestionSet =
+    generateDIQuestions(
+      tableData,
+      visualType,
+      series,
+      options,
+    );
 
-    return {
-      questions: [
-        {
-          questionType: "di",
-          visualType,
-          diData: tableData,
-          series,
-          title:
-            pattern.diPattern?.title ??
-            pattern.topic,
-          questions:
-            diQuestionSet.questions,
-          averageDifficulty:
-            diQuestionSet.averageDifficulty,
-          peakDifficulty:
-            diQuestionSet.peakDifficulty,
-          difficultySpread:
-            diQuestionSet.difficultySpread,
-          setProfile:
-            diQuestionSet.setProfile,
-        },
-      ],
-    };
+  return {
+    questionType: "di",
+    visualType,
+    diData: tableData,
+    series,
+    title:
+      pattern.diPattern?.title ??
+      pattern.topic,
+    questions:
+      diQuestionSet.questions,
+    averageDifficulty:
+      diQuestionSet.averageDifficulty,
+    peakDifficulty:
+      diQuestionSet.peakDifficulty,
+    difficultySpread:
+      diQuestionSet.difficultySpread,
+    setProfile:
+      diQuestionSet.setProfile,
+  };
+}
+
+function analyzeQuestionArtifacts(
+  scenario: {
+    scenario: Scenario;
+  },
+  question: GeneratedQuestion,
+  difficultyMetrics: DifficultyMetrics,
+  examProfile?: ExamProfileId,
+) {
+  const extractedPatternIntelligence =
+    extractPatternIntelligence({
+      scenario: scenario.scenario,
+      question,
+    });
+  const structuralSignature =
+    buildStructuralSignature(
+      scenario.scenario,
+      extractedPatternIntelligence,
+    );
+  const corpusAlignment =
+    buildCorpusAlignmentScore(
+      extractedPatternIntelligence,
+      question,
+      examProfile,
+    );
+  const originalityScore =
+    buildOriginalityScore(
+      scenario.scenario,
+      extractedPatternIntelligence,
+      structuralSignature,
+      corpusAlignment,
+      question,
+    );
+  const difficultyConfidence =
+    buildDifficultyConfidence(
+      question,
+      difficultyMetrics,
+    );
+
+  return {
+    extractedPatternIntelligence,
+    structuralSignature,
+    corpusAlignment,
+    originalityScore,
+    difficultyConfidence,
+  };
+}
+
+function buildDebugMetadataWithAnalysis(
+  question: GeneratedQuestion,
+  baseDebugMetadata: GenerationDebugMetadata,
+  analysis: ReturnType<
+    typeof analyzeQuestionArtifacts
+  >,
+) {
+  return {
+    ...(question.debugMetadata ?? {}),
+    ...baseDebugMetadata,
+    extractedPatternIntelligence:
+      analysis.extractedPatternIntelligence,
+    structuralSignature:
+      analysis.structuralSignature,
+    corpusAlignment:
+      analysis.corpusAlignment,
+    originalityScore:
+      analysis.originalityScore,
+    difficultyConfidence:
+      analysis.difficultyConfidence,
+  };
+}
+
+function materializeAdapterQuestion(
+  adapter: DomainAdapter,
+  context: DomainGenerationContext,
+) {
+  const scenario =
+    adapter.generateScenario(context);
+  const validationReport =
+    adapter.validateScenario(
+      scenario,
+    );
+  const realizedQuestion =
+    adapter.realizeScenario(
+      scenario,
+    );
+  const difficultyMetrics =
+    adapter.analyzeDifficulty(
+      scenario,
+    );
+  const explanationResult =
+    adapter.generateExplanation(
+      scenario,
+    );
+  const analysis =
+    analyzeQuestionArtifacts(
+      scenario,
+      realizedQuestion,
+      difficultyMetrics,
+      context.options?.examProfile,
+    );
+  const primaryRealizedQuestion =
+    "questionType" in
+      realizedQuestion &&
+    realizedQuestion.questionType ===
+      "di"
+      ? realizedQuestion.questions[0]
+      : realizedQuestion;
+  const qualityAssessment =
+    assessProceduralQuality(
+      {
+        validationReport,
+        realismScore:
+          primaryRealizedQuestion
+            ?.examRealismMetadata
+            ?.realismScore,
+        structuralDiversityScore:
+          primaryRealizedQuestion
+            ?.debugMetadata
+            ?.structuralDiversityScore,
+        repeatedStructureWarnings:
+          primaryRealizedQuestion
+            ?.debugMetadata
+            ?.repeatedStructureWarnings,
+        directClueRatio:
+          primaryRealizedQuestion
+            ?.debugMetadata
+            ?.directClueRatio,
+        difficultyAssessment:
+          difficultyMetrics,
+        proceduralScenario:
+          scenario.scenario,
+        structuralSignature:
+          analysis.structuralSignature,
+      },
+      context.options?.qualityThresholds,
+    );
+  const enrichedDebugMetadata =
+    buildDebugMetadataWithAnalysis(
+      realizedQuestion,
+      {
+        proceduralScenario:
+          scenario.scenario,
+        validationReportDetail:
+          validationReport,
+        difficultyAssessment:
+          difficultyMetrics,
+        qualityAssessment,
+      },
+      analysis,
+    );
+
+  return {
+    scenario,
+    validationReport,
+    realizedQuestion:
+      "debugMetadata" in
+        realizedQuestion
+        ? {
+          ...(
+            explanationResult.text &&
+            "explanation" in
+              realizedQuestion &&
+            !realizedQuestion.explanation
+              ? {
+                ...realizedQuestion,
+                explanation:
+                  explanationResult.text,
+              }
+              : realizedQuestion
+          ),
+          debugMetadata:
+            enrichedDebugMetadata,
+        }
+        : realizedQuestion,
+    difficultyMetrics,
+  };
+}
+
+function buildPatternFromQuestion(
+  question: GeneratedQuestion,
+  explicitPattern?: Pattern,
+): Pattern {
+  if (explicitPattern) {
+    return explicitPattern;
   }
 
+  const primaryQuestion =
+    "questionType" in question &&
+    question.questionType === "di"
+      ? question.questions[0]
+      : question;
+  const domain =
+    primaryQuestion?.debugMetadata
+      ?.generationDomain ?? "quant";
+  const section =
+    domain === "english"
+      ? "english"
+      : domain === "di"
+        ? "di"
+        : domain ===
+            "seating-arrangement" ||
+          domain === "reasoning"
+          ? "reasoning"
+          : "quant";
+
+  return {
+    id:
+      primaryQuestion?.debugMetadata
+        ?.selectedPattern ??
+      `refined-${domain}`,
+    type:
+      "questionType" in question &&
+      question.questionType === "di"
+        ? "di"
+        : "formula",
+    section,
+    topic:
+      "questionType" in question &&
+      question.questionType === "di"
+        ? question.title ??
+          "Data Interpretation"
+        : question.topic ?? "General",
+    subtopic:
+      "questionType" in question &&
+      question.questionType === "di"
+        ? "set"
+        : question.subtopic ?? "",
+    difficulty:
+      "questionType" in question &&
+      question.questionType === "di"
+        ? "Medium"
+        : question.difficultyLabel ??
+          "Medium",
+    generationDomain: domain,
+  };
+}
+
+function generateQuestionsWithAdapter(
+  adapter: DomainAdapter,
+  pattern: Pattern,
+  count: number,
+  options?: GeneratorOptions,
+) {
   if (
-    generationDomain ===
-    "seating-arrangement"
+    adapter.generationMode ===
+    "single"
   ) {
-    return {
-      questions: generateSeatingQuestions(
-        pattern,
-        count,
-        options,
-      ),
-    };
-  }
-
-  if (generationDomain === "reasoning") {
-    return {
-      questions:
-        generateReasoningQuestions(
+    const singleResult =
+      materializeAdapterQuestion(
+        adapter,
+        {
           pattern,
           count,
           options,
-        ),
+        },
+      );
+
+    return [
+      singleResult.realizedQuestion,
+    ];
+  }
+
+  const questions: FormulaQuestion[] = [];
+  const attempted: FormulaQuestion[] = [];
+  const maxAttempts = Math.max(
+    count *
+      (adapter.maxAttemptsMultiplier ??
+        10),
+    adapter.minAttempts ?? 16,
+  );
+
+  for (
+    let attempt = 0;
+    attempt < maxAttempts;
+    attempt++
+  ) {
+    const candidateResult =
+      materializeAdapterQuestion(
+        adapter,
+        {
+          pattern,
+          count,
+          options,
+        },
+      );
+    const candidate =
+      candidateResult.realizedQuestion as FormulaQuestion;
+
+    attempted.push(candidate);
+
+    if (
+      validateDifficultyTarget(
+        candidate.difficultyScore,
+        options,
+      ) ||
+      !options?.targetDifficulty
+    ) {
+      questions.push(candidate);
+    }
+
+    if (questions.length >= count) {
+      break;
+    }
+  }
+
+  return buildDifficultyBalancedSet(
+    questions.length
+      ? questions
+      : attempted,
+    count,
+    options,
+  );
+}
+
+function getDomainAdapterRegistry() {
+  return createDomainAdapters({
+    createFormulaQuestionCandidate,
+    createReasoningQuestionCandidate,
+    createSeatingQuestionCandidate,
+    createDIQuestionSet,
+  });
+}
+
+export function refineGeneratedQuestion(
+  question: GeneratedQuestion,
+  options?: {
+    pattern?: Pattern;
+    qualityThresholds?: Partial<QualityThresholds>;
+  },
+): GeneratedQuestion {
+  const pattern =
+    buildPatternFromQuestion(
+      question,
+      options?.pattern,
+    );
+  const generationDomain =
+    inferGenerationDomain(pattern);
+  const adapter =
+    resolveDomainAdapter(
+      getDomainAdapterRegistry(),
+      generationDomain,
+    );
+  const scenario =
+    adapter.hydrateScenario(
+      pattern,
+      question,
+    );
+  const validationReport =
+    adapter.validateScenario(
+      scenario,
+    );
+  const difficultyMetrics =
+    adapter.analyzeDifficulty(
+      scenario,
+    );
+  const primaryQuestion =
+    "questionType" in question &&
+    question.questionType === "di"
+      ? question.questions[0]
+      : question;
+  const analysis =
+    analyzeQuestionArtifacts(
+      scenario,
+      question,
+      difficultyMetrics,
+      primaryQuestion
+        ?.examRealismMetadata
+        ?.examProfile,
+    );
+  const realismScore =
+    primaryQuestion?.debugMetadata
+      ?.realismAnalysis
+      ?.overallScore ??
+    primaryQuestion?.examRealismMetadata
+      ?.realismScore ??
+    primaryQuestion?.generationMetrics
+      ?.realismScore;
+  const qualityAssessment =
+    assessProceduralQuality(
+      {
+        validationReport,
+        realismScore,
+        structuralDiversityScore:
+          primaryQuestion
+            ?.debugMetadata
+            ?.structuralDiversityScore,
+        repeatedStructureWarnings:
+          primaryQuestion
+            ?.debugMetadata
+            ?.repeatedStructureWarnings,
+        directClueRatio:
+          primaryQuestion
+            ?.debugMetadata
+            ?.directClueRatio,
+        difficultyAssessment:
+          difficultyMetrics,
+        proceduralScenario:
+          scenario.scenario,
+        structuralSignature:
+          analysis.structuralSignature,
+      },
+      options?.qualityThresholds,
+    );
+
+  if (
+    "questionType" in question &&
+    question.questionType === "di"
+  ) {
+    const firstQuestion =
+      question.questions[0];
+    const updatedFirstQuestion =
+      firstQuestion
+        ? attachGenerationMetrics(
+          pattern,
+          {
+            ...firstQuestion,
+            debugMetadata:
+              buildDebugMetadataWithAnalysis(
+                firstQuestion,
+                {
+                  proceduralScenario:
+                    scenario.scenario,
+                  validationReportDetail:
+                    validationReport,
+                  difficultyAssessment:
+                    difficultyMetrics,
+                  qualityAssessment,
+                },
+                analysis,
+              ),
+          },
+          {
+            inferenceDepth:
+              difficultyMetrics.inferenceDepth,
+            realismScore,
+          },
+        )
+        : firstQuestion;
+
+    return {
+      ...question,
+      questions:
+        updatedFirstQuestion
+          ? [
+            updatedFirstQuestion,
+            ...question.questions.slice(1),
+          ]
+          : question.questions,
     };
   }
 
-  return {
-    questions: generateFormulaQuestions(
+  return attachGenerationMetrics(
+    pattern,
+    {
+      ...question,
+      debugMetadata:
+        buildDebugMetadataWithAnalysis(
+          question,
+          {
+            proceduralScenario:
+              scenario.scenario,
+            validationReportDetail:
+              validationReport,
+            difficultyAssessment:
+              difficultyMetrics,
+            qualityAssessment,
+          },
+          analysis,
+        ),
+    },
+    {
+      inferenceDepth:
+        difficultyMetrics.inferenceDepth,
+      realismScore,
+    },
+  );
+}
+
+export async function generateFromPattern(
+  pattern: Pattern,
+  count: number,
+  options?: GeneratorOptions,
+): Promise<GeneratorResult> {
+  const topicConfig =
+    resolveTopicConfig(
+      inferGenerationDomain(pattern),
+      pattern.topic,
+    );
+  const effectivePattern =
+    applyTopicConfigToPattern(
       pattern,
-      count,
+      topicConfig,
+    );
+  const effectiveOptions =
+    applyTopicConfigToOptions(
       options,
-    ),
-  };
+      topicConfig,
+    );
+  const cacheEligible =
+    count > 0;
+  const generationContext =
+    effectiveOptions?.generationContext ??
+    createGenerationContext(
+      effectiveOptions?.seed,
+    );
+
+  return runWithGenerationContext(
+    generationContext,
+    async () => {
+      try {
+        if (cacheEligible) {
+          const cachedResult =
+            await getCachedGenerationResult(
+              effectivePattern,
+              count,
+              effectiveOptions,
+            );
+
+          if (cachedResult) {
+            return cachedResult;
+          }
+        }
+        resetStructuralDiversityRegistry();
+        const generationDomain =
+          inferGenerationDomain(
+            effectivePattern,
+          );
+        const domainAdapters =
+          getDomainAdapterRegistry();
+        const adapter =
+          resolveDomainAdapter(
+            domainAdapters,
+            generationDomain,
+          );
+        const responseBase = {
+          generationContext: {
+            seed: generationContext.seed,
+            generationId:
+              generationContext.generationId,
+            timestamp:
+              generationContext.timestamp,
+          },
+        };
+
+        let result: GeneratorResult;
+        result = {
+          ...responseBase,
+          questions:
+            generateQuestionsWithAdapter(
+              adapter,
+              effectivePattern,
+              count,
+              effectiveOptions,
+            ),
+        };
+
+        await cacheGenerationResult(
+          effectivePattern,
+          count,
+          effectiveOptions,
+          result,
+        );
+
+        return result;
+      } catch (error) {
+        const structuredError =
+          isReasoningEngineError(error)
+            ? error
+            : new ReasoningEngineError({
+              code:
+                "GENERATION_FAILED",
+              phase: "realization",
+              message:
+                error instanceof Error
+                  ? error.message
+                  : "Unknown generator failure.",
+              metadata:
+                buildReasoningErrorMetadata({
+                  patternId: pattern.id,
+                  topic: pattern.topic,
+                  subtopic:
+                    pattern.subtopic,
+                  count,
+                }),
+              cause: error,
+            });
+
+        console.error(
+          "Reasoning engine failure",
+          {
+            code:
+              structuredError.code,
+            phase:
+              structuredError.phase,
+            metadata:
+              structuredError.metadata,
+            message:
+              structuredError.message,
+          },
+        );
+
+        throw structuredError;
+      }
+    },
+  );
 }

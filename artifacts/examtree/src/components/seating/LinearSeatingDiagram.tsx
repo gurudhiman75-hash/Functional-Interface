@@ -5,6 +5,7 @@ import {
   EXAM_STROKE,
   getVerticalArrowAnchor,
   getSvgLabel,
+  renderReplayOverlay,
   renderArrow,
   SeatLabel,
 } from "./diagram-utils";
@@ -13,6 +14,7 @@ export function LinearSeatingDiagram({
   diagram,
   className,
   title = "Linear seating arrangement",
+  replayAnnotation,
 }: DiagramProps) {
   const seats = diagram.seats;
   const gap = seats.length > 6 ? 42 : 46;
@@ -105,6 +107,12 @@ export function LinearSeatingDiagram({
         diagram={diagram}
         compact
       />
+      {renderReplayOverlay({
+        width,
+        height,
+        annotation:
+          replayAnnotation,
+      })}
     </svg>
   );
 }

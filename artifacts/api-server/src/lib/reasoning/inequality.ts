@@ -8,6 +8,7 @@ import type { QuantMotif } from "../motifs/types";
 import {
   createReasoningStep,
   pickRandomItem,
+  random,
   ReasoningStep,
   shuffle,
 } from "../shared";
@@ -325,7 +326,7 @@ export function createInequalityScenario(
       break;
     }
     case "single_chain_deduction":
-      facts = Math.random() > 0.5
+      facts = random() > 0.5
         ? [
             {
               left: a!,

@@ -397,3 +397,101 @@ export const patterns = pgTable("patterns", {
     "explanation_template",
   ),
 });
+
+export const generationJobs = pgTable(
+  "generation_jobs",
+  {
+    id: text("id").primaryKey(),
+    status: text("status")
+      .$type<
+        | "queued"
+        | "running"
+        | "completed"
+        | "failed"
+      >()
+      .notNull()
+      .default("queued"),
+    patternId: text("pattern_id"),
+    patternSnapshot: jsonb(
+      "pattern_snapshot",
+    ).notNull(),
+    requestPayload: jsonb(
+      "request_payload",
+    ).notNull(),
+    resultPayload: jsonb(
+      "result_payload",
+    ),
+    generationMetadata: jsonb(
+      "generation_metadata",
+    ),
+    errorMessage: text(
+      "error_message",
+    ),
+    queuedAt: timestamp(
+      "queued_at",
+    ).notNull().defaultNow(),
+    startedAt: timestamp(
+      "started_at",
+    ),
+    completedAt: timestamp(
+      "completed_at",
+    ),
+    updatedAt: timestamp(
+      "updated_at",
+    ).notNull().defaultNow(),
+  },
+  (t) => ({
+    statusQueuedAtIdx: index(
+      "generation_jobs_status_queued_at_idx",
+    ).on(t.status, t.queuedAt),
+  }),
+);
+
+export const reasoningScenarioCache =
+  pgTable(
+    "reasoning_scenario_cache",
+    {
+      key: text("key").primaryKey(),
+      patternId: text("pattern_id"),
+      generationDomain:
+        text("generation_domain"),
+      generatorVersion: text(
+        "generator_version",
+      ).notNull(),
+      motifVersion: text(
+        "motif_version",
+      ).notNull(),
+      topologyVersion: text(
+        "topology_version",
+      ).notNull(),
+      requestFingerprint:
+        text(
+          "request_fingerprint",
+        ).notNull(),
+      payload: jsonb("payload")
+        .notNull(),
+      artifactMetadata: jsonb(
+        "artifact_metadata",
+      ),
+      createdAt: timestamp(
+        "created_at",
+      ).notNull().defaultNow(),
+      lastAccessedAt: timestamp(
+        "last_accessed_at",
+      ).notNull().defaultNow(),
+      hitCount: integer("hit_count")
+        .notNull()
+        .default(0),
+    },
+    (t) => ({
+      patternIdIdx: index(
+        "reasoning_scenario_cache_pattern_id_idx",
+      ).on(t.patternId),
+      domainPatternIdx: index(
+        "reasoning_scenario_cache_domain_pattern_idx",
+      ).on(
+        t.generationDomain,
+        t.patternId,
+      ),
+    }),
+  );

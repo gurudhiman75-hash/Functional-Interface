@@ -1,6 +1,7 @@
 
 import "dotenv/config";
 import app from "./app";
+import { startGenerationJobWorker } from "./lib/generation-jobs";
 import { logger } from "./lib/logger";
 
 const rawPort = process.env["PORT"];
@@ -17,7 +18,8 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+startGenerationJobWorker();
+
 app.listen(port, "0.0.0.0", () => {
   logger.info(`API server running on http://0.0.0.0:${port}`);
 });
-

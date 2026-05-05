@@ -14,6 +14,7 @@ import {
   getClueReasoningWeight,
 } from "./clue-graph";
 import {
+  analyzeStructuralDiversity,
   getRepeatedStructureWarnings,
   getStructuralDiversityScore,
   recordStructuralSignature,
@@ -30,6 +31,15 @@ export type OptimizedClueResult = {
   clueGraphDensity: number;
   clueInteractionRatio: number;
   redundancyScore: number;
+  redundancyRatio: number;
+  anchorDensity: number;
+  directClueRatio: number;
+  originalClueCount: number;
+  minimalClueCount: number;
+  removedRedundantClues: SeatingClue[];
+  topologyDiversityScore: number;
+  clueDiversityScore: number;
+  inferenceDiversityScore: number;
   structuralDiversityScore: number;
   clueTypeDistribution: Record<
     string,
@@ -118,7 +128,7 @@ function scoreSubset(
     5;
   const diversityScore =
     getStructuralDiversityScore(
-      graph.topologySignature,
+      graph,
     ) * 4;
 
   return {
@@ -291,6 +301,14 @@ export function optimizeClueSubset(
     }
 
     if (
+      analyzeStructuralDiversity(
+        scored.graph,
+      ).rejected
+    ) {
+      continue;
+    }
+
+    if (
       !best ||
       scored.score > best.subsetScore
     ) {
@@ -322,18 +340,70 @@ export function optimizeClueSubset(
     input.orientationType,
     best?.solverComplexity ?? 0,
   );
-  const structuralDiversityScore =
-    getStructuralDiversityScore(
-      finalScore.graph.topologySignature,
+  const diversityAnalysis =
+    analyzeStructuralDiversity(
+      finalScore.graph,
     );
+  if (diversityAnalysis.rejected) {
+    const fallbackGraph =
+      buildClueGraphAnalysis(
+        fallbackClues,
+        input.arrangementType,
+        input.orientationType,
+      );
+    const fallbackDiversity =
+      analyzeStructuralDiversity(
+        fallbackGraph,
+      );
+
+    if (!fallbackDiversity.rejected) {
+      return {
+        clues: fallbackClues,
+        clueGraphDensity:
+          fallbackGraph.density,
+        clueInteractionRatio:
+          fallbackGraph.interactionRatio,
+        redundancyScore:
+          redundancy.redundancyScore,
+        redundancyRatio:
+          redundancy.redundancyRatio,
+        anchorDensity:
+          redundancy.anchorDensity,
+        directClueRatio:
+          redundancy.directClueRatio,
+        originalClueCount:
+          redundancy.originalClueCount,
+        minimalClueCount:
+          redundancy.minimalClueCount,
+        removedRedundantClues:
+          redundancy.removedClues.map(
+            (entry) => entry.clue,
+          ),
+        topologyDiversityScore:
+          fallbackDiversity.topologyDiversityScore,
+        clueDiversityScore:
+          fallbackDiversity.clueDiversityScore,
+        inferenceDiversityScore:
+          fallbackDiversity.inferenceDiversityScore,
+        structuralDiversityScore:
+          fallbackDiversity.structuralDiversityScore,
+        clueTypeDistribution:
+          fallbackGraph
+            .clueTypeDistribution,
+        repeatedStructureWarnings:
+          fallbackDiversity.warnings,
+      };
+    }
+  }
+  const structuralDiversityScore =
+    diversityAnalysis.structuralDiversityScore;
   const repeatedStructureWarnings =
     getRepeatedStructureWarnings(
-      finalScore.graph.topologySignature,
-      finalScore.graph.repeatedAdjacencySerialization,
+      finalScore.graph,
     );
 
   recordStructuralSignature(
-    finalScore.graph.topologySignature,
+    finalScore.graph,
   );
 
   return {
@@ -344,6 +414,26 @@ export function optimizeClueSubset(
       finalScore.graph.interactionRatio,
     redundancyScore:
       redundancy.redundancyScore,
+    redundancyRatio:
+      redundancy.redundancyRatio,
+    anchorDensity:
+      redundancy.anchorDensity,
+    directClueRatio:
+      redundancy.directClueRatio,
+    originalClueCount:
+      redundancy.originalClueCount,
+    minimalClueCount:
+      redundancy.minimalClueCount,
+    removedRedundantClues:
+      redundancy.removedClues.map(
+        (entry) => entry.clue,
+      ),
+    topologyDiversityScore:
+      diversityAnalysis.topologyDiversityScore,
+    clueDiversityScore:
+      diversityAnalysis.clueDiversityScore,
+    inferenceDiversityScore:
+      diversityAnalysis.inferenceDiversityScore,
     structuralDiversityScore,
     clueTypeDistribution:
       finalScore.graph

@@ -19,9 +19,12 @@ import { buildPrompt } from "../../core/exam-realism";
 import {
   attachReasoningTrace,
   buildComparisonPrompt,
+  buildReasoningErrorMetadata,
   createReasoningStep,
   generateNumericOptions,
+  random,
   randomInt,
+  ReasoningEngineError,
   shuffle,
 } from "../../shared";
 import type {
@@ -65,15 +68,31 @@ export function generateDISet(
   const di = pattern.diPattern;
 
   if (!di) {
-    throw new Error(
-      "DI pattern configuration is missing",
-    );
+    throw new ReasoningEngineError({
+      code: "DI_PATTERN_MISSING",
+      phase: "topology",
+      message:
+        "DI pattern configuration is missing.",
+      metadata:
+        buildReasoningErrorMetadata({
+          patternId: pattern.id,
+          topic: pattern.topic,
+        }),
+    });
   }
 
   if (!di.columns.length) {
-    throw new Error(
-      "DI pattern must include columns",
-    );
+    throw new ReasoningEngineError({
+      code: "DI_COLUMNS_MISSING",
+      phase: "topology",
+      message:
+        "DI pattern must include columns.",
+      metadata:
+        buildReasoningErrorMetadata({
+          patternId: pattern.id,
+          topic: pattern.topic,
+        }),
+    });
   }
 
   const rows: DIDataRow[] = [];
@@ -111,7 +130,7 @@ function selectSeriesCount(
     return availableCount;
   }
 
-  const roll = Math.random();
+  const roll = random();
 
   if (visualType === "line") {
     if (

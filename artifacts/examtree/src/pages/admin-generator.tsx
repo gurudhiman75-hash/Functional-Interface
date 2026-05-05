@@ -98,6 +98,110 @@ type ExamRealismMetadata = {
   archetypeCategory?: string;
   reasoningTraps: string[];
   weightingSummary: string[];
+  realismScore?: number;
+  realismBand?:
+    | "low"
+    | "moderate"
+    | "strong"
+    | "pyq-like";
+  realismSignals?: string[];
+  realismPenalties?: string[];
+};
+
+type ValidationStageResult = {
+  stage: string;
+  passed: boolean;
+  diagnostics: string[];
+  metrics: Record<string, number>;
+};
+
+type ValidationReport = {
+  passed: boolean;
+  stageResults: ValidationStageResult[];
+  warnings: string[];
+  metrics: Record<string, number>;
+};
+
+type DifficultyAssessment = {
+  difficultyLabel?: DifficultyLabel;
+  difficultyScore?: number;
+  cognitiveLoad: number;
+  inferenceDepth: number;
+  calculationComplexity: number;
+  distractorComplexity: number;
+  ambiguityScore: number;
+  solvingTimeEstimate: number;
+  domainContributions?: Record<
+    string,
+    number
+  >;
+  metrics: Record<string, number>;
+};
+
+type ExtractedPatternIntelligence = {
+  domain: string;
+  structure: {
+    domain: string;
+    subtype: string;
+    entityCount: number;
+    constraintCount: number;
+    structureTokens: string[];
+    topology?: string;
+  };
+  difficulty: {
+    cognitiveLoad: number;
+    inferenceDepth: number;
+    calculationComplexity: number;
+    distractorComplexity: number;
+    ambiguityScore: number;
+    solvingTimeEstimate: number;
+    difficultyBand?: string;
+  };
+  distractors: Array<{
+    type: string;
+    label: string;
+    trapType?: string;
+    frequency: number;
+  }>;
+  motifs: Array<{
+    motifId: string;
+    domain: string;
+    archetype: string;
+    confidence: number;
+  }>;
+};
+
+type StructuralSignature = {
+  domain: string;
+  topologyHash: string;
+  inferenceHash: string;
+  motifHash: string;
+  distractorHash: string;
+};
+
+type QualityAssessment = {
+  approved: boolean;
+  rejectionReasons: string[];
+  qualityMetrics: Record<string, number>;
+};
+
+type ReasoningRealismAnalysis = {
+  overallScore: number;
+  band:
+    | "low"
+    | "moderate"
+    | "strong"
+    | "pyq-like";
+  clueNaturalness: number;
+  anchorDensity: number;
+  deductionSmoothness: number;
+  branchingQuality: number;
+  topologyDiversity: number;
+  overconstraintDetection: number;
+  pyqHeuristicAlignment: number;
+  penalties: string[];
+  matchedHeuristics: string[];
+  diagnosticSummary: string[];
 };
 
 type GenerationDebugMetadata = {
@@ -105,6 +209,7 @@ type GenerationDebugMetadata = {
   generationDomain?:
     | "quant"
     | "reasoning"
+    | "english"
     | "seating-arrangement"
     | "di"
     | "puzzle-sets"
@@ -133,14 +238,36 @@ type GenerationDebugMetadata = {
     number
   >;
   repeatedStructureWarnings?: string[];
+  seed?: string;
+  generationId?: string;
   arrangementType?: string;
   orientationType?: string;
   uniquenessVerified?: boolean;
   finalArrangement?: string;
   generatedClues?: string[];
   solverTrace?: string[];
+  solverTraceExport?: {
+    text?: string[];
+    json?: string;
+  };
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
+  generationMetrics?: {
+    inferenceDepth?: number;
+    redundancyScore?: number;
+    clueDensity?: number;
+    realismScore?: number;
+  };
+  realismAnalysis?: ReasoningRealismAnalysis;
+  validationReportDetail?: ValidationReport;
+  difficultyAssessment?: DifficultyAssessment;
+  extractedPatternIntelligence?: ExtractedPatternIntelligence;
+  structuralSignature?: StructuralSignature;
+  qualityAssessment?: QualityAssessment;
+  proceduralScenario?: {
+    domain: string;
+    subtype: string;
+  };
 };
 
 type DIQuestion = {
@@ -223,6 +350,13 @@ type QAReviewAction =
   | "contradictory"
   | "duplicate-structure";
 
+type QAIssueTag =
+  | "repetitive"
+  | "too-direct"
+  | "ambiguous"
+  | "unrealistic"
+  | "weak-explanation";
+
 type QAReviewStatus =
   | "approved"
   | "rejected"
@@ -239,8 +373,55 @@ type QAReviewRecord = {
   arrangementType?: string;
   reviewerNotes?: string;
   validationStatus?: string;
+  issueTags?: QAIssueTag[];
+  seed?: string;
+  topologyType?: string;
+  inferenceDepth?: number;
+  clueCount?: number;
+  redundancyScore?: number;
+  realismScore?: number;
+  structuralDiversityScore?: number;
+  difficultyConfidence?: number;
+  generationLatencyMs?: number;
+  uniquenessStatus?: string;
+  bookmarked?: boolean;
   createdAt: string;
   updatedAt: string;
+};
+
+type QAAnalyticsBucket = {
+  date: string;
+  approvalRate: number;
+  realismScore: number;
+  structuralDiversityScore: number;
+  difficultyConfidence: number;
+  generationLatencyMs: number;
+  count: number;
+};
+
+type QAAnalyticsSummary = {
+  totalReviews: number;
+  approvalRate: number;
+  averageRealismScore: number;
+  averageStructuralDiversity: number;
+  averageDifficultyConfidence: number;
+  averageGenerationLatencyMs: number;
+  rejectionReasons: Record<
+    string,
+    number
+  >;
+  byDomain: Record<
+    string,
+    {
+      totalReviews: number;
+      approvalRate: number;
+      averageRealismScore: number;
+      averageStructuralDiversity: number;
+      averageDifficultyConfidence: number;
+      averageGenerationLatencyMs: number;
+    }
+  >;
+  trends: QAAnalyticsBucket[];
 };
 
 type QAFilterState = {
@@ -274,6 +455,16 @@ type ReviewableGeneratedItem = {
   archetype: string;
   validationStatus: string;
   repetitionFlags: string[];
+  topologyType: string;
+  inferenceDepth: number | null;
+  clueCount: number | null;
+  redundancyScore: number | null;
+  uniquenessStatus: string;
+  generationSeed: string;
+  realismScore: number | null;
+  difficultyConfidence: number | null;
+  validationDiagnostics: string[];
+  structuralWarnings: string[];
   review?: QAReviewRecord;
 };
 
@@ -411,6 +602,32 @@ const QA_ACTION_OPTIONS: Array<{
     action: "duplicate-structure",
     status: "flagged",
     label: "Duplicate Structure",
+  },
+];
+
+const QA_ISSUE_TAG_OPTIONS: Array<{
+  tag: QAIssueTag;
+  label: string;
+}> = [
+  {
+    tag: "repetitive",
+    label: "Repetitive",
+  },
+  {
+    tag: "too-direct",
+    label: "Too Direct",
+  },
+  {
+    tag: "ambiguous",
+    label: "Ambiguous",
+  },
+  {
+    tag: "unrealistic",
+    label: "Unrealistic",
+  },
+  {
+    tag: "weak-explanation",
+    label: "Weak Explanation",
   },
 ];
 
@@ -810,6 +1027,180 @@ function getQuestionArrangementType(
   );
 }
 
+function getQuestionTopologyType(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const arrangementType =
+    primaryQuestion?.debugMetadata
+      ?.arrangementType;
+  const generationDomain =
+    primaryQuestion?.debugMetadata
+      ?.generationDomain;
+
+  return (
+    arrangementType ??
+    generationDomain ??
+    "unknown"
+  );
+}
+
+function getQuestionInferenceDepth(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+
+  return (
+    primaryQuestion?.debugMetadata
+      ?.inferenceDepth ??
+    primaryQuestion?.debugMetadata
+      ?.generationMetrics
+      ?.inferenceDepth ??
+    null
+  );
+}
+
+function getQuestionClueCount(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+
+  return (
+    primaryQuestion?.debugMetadata
+      ?.clueCount ?? null
+  );
+}
+
+function getQuestionRedundancyScore(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+
+  return (
+    primaryQuestion?.debugMetadata
+      ?.redundancyScore ??
+    primaryQuestion?.debugMetadata
+      ?.generationMetrics
+      ?.redundancyScore ??
+    null
+  );
+}
+
+function getQuestionGenerationSeed(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.debugMetadata?.seed ??
+    "unseeded"
+  );
+}
+
+function getQuestionUniquenessStatus(
+  question: GeneratedQuestion,
+) {
+  const uniquenessVerified =
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.uniquenessVerified;
+
+  if (uniquenessVerified === true) {
+    return "verified";
+  }
+
+  if (uniquenessVerified === false) {
+    return "failed";
+  }
+
+  return "unknown";
+}
+
+function getQuestionRealismScore(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+
+  return (
+    primaryQuestion
+      ?.examRealismMetadata
+      ?.realismScore ??
+    primaryQuestion?.debugMetadata
+      ?.generationMetrics
+      ?.realismScore ??
+    primaryQuestion?.debugMetadata
+      ?.qualityAssessment
+      ?.qualityMetrics
+      ?.realismScore ??
+    null
+  );
+}
+
+function getQuestionDifficultyConfidence(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.qualityAssessment
+      ?.qualityMetrics
+      ?.difficultyConfidence ??
+    null
+  );
+}
+
+function getQuestionStructuralDiversityScore(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.structuralDiversityScore ??
+    null
+  );
+}
+
+function getQuestionGenerationLatency(
+  question: GeneratedQuestion,
+) {
+  return (
+    getPrimaryQuestion(question)
+      ?.generationMetrics
+      ?.generationDurationMs ??
+    getPrimaryQuestion(question)
+      ?.debugMetadata
+      ?.generationMetrics
+      ?.generationDurationMs ??
+    null
+  );
+}
+
+function getQuestionSolverTrace(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const traceExport =
+    primaryQuestion?.debugMetadata
+      ?.solverTraceExport?.text;
+
+  if (
+    Array.isArray(traceExport) &&
+    traceExport.length
+  ) {
+    return traceExport;
+  }
+
+  return (
+    primaryQuestion?.debugMetadata
+      ?.solverTrace ?? []
+  );
+}
+
 function getQuestionMotif(
   question: GeneratedQuestion,
 ) {
@@ -935,6 +1326,36 @@ function getQuestionValidationStatus(
   return "passed";
 }
 
+function getQuestionValidationDiagnostics(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const report =
+    primaryQuestion?.debugMetadata
+      ?.validationReportDetail;
+  const diagnostics = [
+    ...(report?.warnings ?? []),
+    ...(
+      report?.stageResults.flatMap(
+        (stage) =>
+          stage.diagnostics.map(
+            (diagnostic) =>
+              `${stage.stage}: ${diagnostic}`,
+          ),
+      ) ?? []
+    ),
+    ...(primaryQuestion?.debugMetadata
+      ?.validationWarnings ?? []),
+    ...(primaryQuestion?.debugMetadata
+      ?.compatibilityWarnings ?? []),
+  ];
+
+  return [
+    ...new Set(diagnostics),
+  ];
+}
+
 function normalizeSignatureText(
   value: string,
 ) {
@@ -1053,6 +1474,44 @@ function getQuestionRepetitionFlags(
   return flags;
 }
 
+function getQuestionStructuralWarnings(
+  question: GeneratedQuestion,
+  repetitionFlags: string[],
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const qualityAssessment =
+    primaryQuestion?.debugMetadata
+      ?.qualityAssessment;
+  const qualityWarnings =
+    qualityAssessment?.rejectionReasons.map(
+      (reason) =>
+        reason
+          .replace(/-/g, " ")
+          .replace(
+            /\b\w/g,
+            (char) =>
+              char.toUpperCase(),
+          ),
+    ) ?? [];
+
+  return [
+    ...new Set([
+      ...repetitionFlags,
+      ...qualityWarnings,
+    ]),
+  ];
+}
+
+function formatMetricValue(
+  value: number | null | undefined,
+  digits = 1,
+) {
+  return typeof value === "number"
+    ? value.toFixed(digits)
+    : "NA";
+}
+
 function formatDifficultyScore(
   score?: number,
 ) {
@@ -1104,7 +1563,15 @@ async function fetchJsonWithTimeout(
   const controller =
     new AbortController();
   const timeout = window.setTimeout(
-    () => controller.abort(),
+    () =>
+      controller.abort(
+        new DOMException(
+          `Request timed out after ${Math.round(
+            timeoutMs / 1000,
+          )} seconds.`,
+          "AbortError",
+        ),
+      ),
     timeoutMs,
   );
 
@@ -1121,6 +1588,56 @@ async function fetchJsonWithTimeout(
   } finally {
     window.clearTimeout(timeout);
   }
+}
+
+function getGenerationTimeoutMs(
+  patternId: string,
+  patterns: Array<
+    Record<string, unknown>
+  >,
+  count: number,
+) {
+  const selectedPattern =
+    patterns.find(
+      (pattern) =>
+        pattern.id === patternId,
+    );
+  const generationDomain =
+    typeof selectedPattern?.[
+      "generationDomain"
+    ] === "string"
+      ? selectedPattern[
+          "generationDomain"
+        ]
+      : "";
+  const arrangementType =
+    typeof selectedPattern?.[
+      "arrangementType"
+    ] === "string"
+      ? selectedPattern[
+          "arrangementType"
+        ]
+      : "";
+  const topicText = `${selectedPattern?.["topic"] ?? ""} ${selectedPattern?.["subtopic"] ?? ""}`.toLowerCase();
+  const isSeatingHeavy =
+    generationDomain ===
+      "seating-arrangement" ||
+    patternId.startsWith("seating-") ||
+    topicText.includes("seating") ||
+    arrangementType ===
+      "double-row" ||
+    arrangementType ===
+      "parallel-row" ||
+    topicText.includes("mixed");
+
+  if (isSeatingHeavy) {
+    return Math.max(
+      90000,
+      count * 30000,
+    );
+  }
+
+  return 45000;
 }
 
 function getDifficultyCounts(
@@ -1897,6 +2414,610 @@ function renderGeneratedDifficultySummary(
   );
 }
 
+function renderSolverTraceWorkbench(
+  question: GeneratedQuestion,
+) {
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const solverTrace =
+    getQuestionSolverTrace(question);
+  const explanationFlow =
+    primaryQuestion
+      ?.seatingExplanationFlow ??
+    primaryQuestion
+      ?.debugMetadata
+      ?.seatingExplanationFlow;
+  const seatingDiagram =
+    primaryQuestion?.seatingDiagram ??
+    primaryQuestion?.debugMetadata
+      ?.seatingDiagram;
+
+  if (
+    !solverTrace.length &&
+    !explanationFlow &&
+    !seatingDiagram
+  ) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+          Solver Review Desk
+        </span>
+        <span className="text-xs text-slate-500">
+          Trace on the left, SVG reasoning preview on the right.
+        </span>
+      </div>
+      <div className="grid gap-4 xl:grid-cols-2">
+        <div className="rounded border bg-white p-3">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            Solver Trace
+          </div>
+          {solverTrace.length ? (
+            <div className="max-h-[28rem] space-y-2 overflow-y-auto pr-1">
+              {solverTrace.map(
+                (entry, index) => (
+                  <div
+                    key={`${index}-${entry}`}
+                    className="rounded border border-slate-200 bg-slate-50 px-2 py-2 text-xs leading-5 text-slate-700"
+                  >
+                    <span className="mr-2 font-semibold text-slate-500">
+                      {index + 1}.
+                    </span>
+                    {entry}
+                  </div>
+                ),
+              )}
+            </div>
+          ) : (
+            <div className="text-sm text-slate-500">
+              No solver trace available for this question.
+            </div>
+          )}
+        </div>
+        <div className="rounded border bg-white p-3">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            SVG Explanation Preview
+          </div>
+          {explanationFlow ? (
+            <SeatingExplanationFlow
+              flow={explanationFlow}
+            />
+          ) : seatingDiagram ? (
+            <SeatingDiagramRenderer
+              diagram={seatingDiagram}
+            />
+          ) : (
+            <div className="text-sm text-slate-500">
+              No seating explanation preview available for this question.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function renderQuestionWorkspace(
+  item: ReviewableGeneratedItem,
+  reviewerNotes: string,
+  issueTags: QAIssueTag[],
+  editMode: boolean,
+  refinementLoading: boolean,
+  onChangeNotes: (
+    value: string,
+  ) => void,
+  onToggleTag: (
+    tag: QAIssueTag,
+  ) => void,
+  onEditToggle: () => void,
+  onQuestionTextChange: (
+    value: string,
+  ) => void,
+  onQuestionExplanationChange: (
+    value: string,
+  ) => void,
+  onQuestionOptionChange: (
+    optionIndex: number,
+    value: string,
+  ) => void,
+  onGeneratedCluesChange: (
+    clues: string[],
+  ) => void,
+  onReviewAction: (
+    action: QAReviewAction,
+    status: QAReviewStatus,
+  ) => void,
+  onToggleBookmark: () => void,
+  onRegenerate: () => void,
+) {
+  const question = item.question;
+  const primaryQuestion =
+    getPrimaryQuestion(question);
+  const qualityAssessment =
+    primaryQuestion?.debugMetadata
+      ?.qualityAssessment;
+  const realismAnalysis =
+    primaryQuestion?.debugMetadata
+      ?.realismAnalysis;
+  const validationReport =
+    primaryQuestion?.debugMetadata
+      ?.validationReportDetail;
+  const difficultyAssessment =
+    primaryQuestion?.debugMetadata
+      ?.difficultyAssessment;
+  const extractedPatternIntelligence =
+    primaryQuestion?.debugMetadata
+      ?.extractedPatternIntelligence;
+  const structuralSignature =
+    primaryQuestion?.debugMetadata
+      ?.structuralSignature;
+  const generatedClues =
+    primaryQuestion?.debugMetadata
+      ?.generatedClues ?? [];
+  const isBookmarked =
+    item.review?.bookmarked === true;
+
+  return (
+    <div className="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="space-y-1">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+            Procedural Review Workspace
+          </div>
+          <div className="text-xl font-semibold text-slate-900">
+            {item.topic}
+          </div>
+          <div className="flex flex-wrap gap-2 text-xs text-slate-600">
+            <span className="rounded-full border bg-slate-50 px-2 py-1">
+              {item.generationDomain}
+            </span>
+            <span className="rounded-full border bg-slate-50 px-2 py-1">
+              {item.difficulty}
+            </span>
+            <span className="rounded-full border bg-slate-50 px-2 py-1">
+              Seed: {item.generationSeed}
+            </span>
+            <span className="rounded-full border bg-slate-50 px-2 py-1">
+              {item.validationStatus}
+            </span>
+            {refinementLoading ? (
+              <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-1 text-blue-700">
+                Revalidating refinement...
+              </span>
+            ) : null}
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() =>
+              onReviewAction(
+                "approve",
+                "approved",
+              )
+            }
+            className="rounded border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-700 hover:bg-emerald-100"
+          >
+            Approve
+          </button>
+          <button
+            onClick={() =>
+              onReviewAction(
+                "reject",
+                "rejected",
+              )
+            }
+            className="rounded border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700 hover:bg-rose-100"
+          >
+            Reject
+          </button>
+          <button
+            onClick={onEditToggle}
+            className="rounded border bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+          >
+            {editMode ? "Done Editing" : "Edit"}
+          </button>
+          <button
+            onClick={onRegenerate}
+            className="rounded border bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+          >
+            Regenerate
+          </button>
+          <button
+            onClick={onToggleBookmark}
+            className={`rounded border px-3 py-2 text-sm ${isBookmarked
+              ? "border-amber-300 bg-amber-50 text-amber-700"
+              : "bg-white text-slate-700 hover:bg-slate-50"
+              }`}
+          >
+            {isBookmarked
+              ? "Bookmarked"
+              : "Bookmark"}
+          </button>
+        </div>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.95fr)]">
+        <div className="space-y-4">
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              Rendered Question
+            </div>
+            {!isDISet(question) ? (
+              <>
+                <textarea
+                  value={question.text}
+                  onChange={(event) =>
+                    onQuestionTextChange(
+                      event.target.value,
+                    )
+                  }
+                  readOnly={!editMode}
+                  className={`min-h-[88px] w-full rounded border p-3 text-sm text-slate-800 ${editMode
+                    ? "bg-white"
+                    : "bg-slate-50"
+                    }`}
+                />
+                <div className="space-y-2">
+                  {question.options.map(
+                    (
+                      option,
+                      index,
+                    ) => (
+                      <div
+                        key={`${index}-${option}`}
+                        className={`rounded border px-3 py-2 text-sm ${question.correct ===
+                          index
+                          ? "border-emerald-300 bg-emerald-50"
+                          : "bg-white"
+                          }`}
+                      >
+                        <span className="mr-2 font-semibold text-slate-500">
+                          {String.fromCharCode(
+                            65 + index,
+                          )}
+                        </span>
+                        {editMode ? (
+                          <input
+                            value={option}
+                            onChange={(
+                              event,
+                            ) =>
+                              onQuestionOptionChange(
+                                index,
+                                event.target.value,
+                              )
+                            }
+                            className="w-[calc(100%-1.5rem)] rounded border bg-white px-2 py-1"
+                          />
+                        ) : (
+                          option
+                        )}
+                      </div>
+                    ),
+                  )}
+                </div>
+                <div className="rounded border bg-white p-3 text-sm">
+                  <div className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    Answer
+                  </div>
+                  {question.options[
+                    question.correct
+                  ] ?? "NA"}
+                </div>
+                <div className="rounded border bg-white p-3 text-sm whitespace-pre-wrap">
+                  <div className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    Explanation
+                  </div>
+                  <textarea
+                    value={
+                      question.explanation ||
+                      ""
+                    }
+                    onChange={(event) =>
+                      onQuestionExplanationChange(
+                        event.target.value,
+                      )
+                    }
+                    readOnly={!editMode}
+                    className={`min-h-[120px] w-full rounded border p-2 text-sm ${editMode
+                      ? "bg-white"
+                      : "bg-slate-50"
+                      }`}
+                    placeholder="No explanation available."
+                  />
+                </div>
+                {generatedClues.length ? (
+                  <div className="rounded border bg-white p-3 text-sm space-y-2">
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      Clue Order
+                    </div>
+                    <div className="space-y-2">
+                      {generatedClues.map(
+                        (
+                          clue,
+                          index,
+                        ) => (
+                          <div
+                            key={`${index}-${clue}`}
+                            className="flex items-center gap-2"
+                          >
+                            <span className="w-5 text-xs font-semibold text-slate-500">
+                              {index + 1}
+                            </span>
+                            <input
+                              value={clue}
+                              onChange={(
+                                event,
+                              ) =>
+                                onGeneratedCluesChange(
+                                  generatedClues.map(
+                                    (
+                                      entry,
+                                      clueIndex,
+                                    ) =>
+                                      clueIndex ===
+                                      index
+                                        ? event
+                                            .target
+                                            .value
+                                        : entry,
+                                  ),
+                                )
+                              }
+                              readOnly={
+                                !editMode
+                              }
+                              className={`flex-1 rounded border px-2 py-1 text-sm ${editMode
+                                ? "bg-white"
+                                : "bg-slate-50"
+                                }`}
+                            />
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              <div className="rounded border bg-white p-3 text-sm text-slate-700">
+                DI set workspace editing is still handled in the queue cards below.
+              </div>
+            )}
+          </div>
+
+          {renderQAReviewPanel(
+            item,
+            reviewerNotes,
+            issueTags,
+            onChangeNotes,
+            onToggleTag,
+            onReviewAction,
+          )}
+
+          {renderSolverTraceWorkbench(
+            question,
+          )}
+        </div>
+
+        <div className="space-y-4">
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              Review Signals
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <div className="rounded border bg-white p-3">
+                <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                  Realism Score
+                </div>
+                <div className="text-lg font-semibold text-slate-900">
+                  {formatMetricValue(
+                    item.realismScore,
+                  )}
+                </div>
+              </div>
+              <div className="rounded border bg-white p-3">
+                <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                  Difficulty Confidence
+                </div>
+                <div className="text-lg font-semibold text-slate-900">
+                  {formatMetricValue(
+                    item.difficultyConfidence,
+                  )}
+                </div>
+              </div>
+              <div className="rounded border bg-white p-3">
+                <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                  Validation
+                </div>
+                <div className="text-sm font-medium text-slate-900">
+                  {validationReport?.passed
+                    ? "Passed"
+                    : "Needs review"}
+                </div>
+              </div>
+              <div className="rounded border bg-white p-3">
+                <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                  Quality Gate
+                </div>
+                <div className="text-sm font-medium text-slate-900">
+                  {qualityAssessment?.approved ===
+                  false
+                    ? "Rejected"
+                    : "Approved"}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              Validation Diagnostics
+            </div>
+            <div className="space-y-2">
+              {item.validationDiagnostics
+                .length ? (
+                  item.validationDiagnostics.map(
+                    (entry) => (
+                      <div
+                        key={entry}
+                        className="rounded border bg-white px-3 py-2 text-xs text-slate-700"
+                      >
+                        {entry}
+                      </div>
+                    ),
+                  )
+                ) : (
+                  <div className="rounded border bg-white px-3 py-2 text-xs text-slate-500">
+                    No validation issues reported.
+                  </div>
+                )}
+            </div>
+          </div>
+
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              Structural Similarity Warnings
+            </div>
+            <div className="space-y-2">
+              {item.structuralWarnings
+                .length ? (
+                  item.structuralWarnings.map(
+                    (warning) => (
+                      <div
+                        key={warning}
+                        className="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800"
+                      >
+                        {warning}
+                      </div>
+                    ),
+                  )
+                ) : (
+                  <div className="rounded border bg-white px-3 py-2 text-xs text-slate-500">
+                    No structural similarity warnings.
+                  </div>
+                )}
+            </div>
+          </div>
+
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              Topology Visualization
+            </div>
+            {(primaryQuestion?.seatingDiagram ??
+              primaryQuestion?.debugMetadata
+                ?.seatingDiagram) ? (
+              <SeatingDiagramRenderer
+                diagram={
+                  primaryQuestion?.seatingDiagram ??
+                  primaryQuestion
+                    ?.debugMetadata
+                    ?.seatingDiagram!
+                }
+              />
+            ) : (
+              <div className="grid gap-2 sm:grid-cols-2">
+                <div className="rounded border bg-white p-3 text-xs">
+                  <div className="text-slate-500">
+                    Topology Type
+                  </div>
+                  <div className="font-medium text-slate-900">
+                    {item.topologyType}
+                  </div>
+                </div>
+                <div className="rounded border bg-white p-3 text-xs">
+                  <div className="text-slate-500">
+                    Structural Signature
+                  </div>
+                  <div className="font-mono text-slate-900 break-all">
+                    {structuralSignature
+                      ? `${structuralSignature.topologyHash.slice(0, 10)} / ${structuralSignature.inferenceHash.slice(0, 10)}`
+                      : "Unavailable"}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              PYQ Similarity Insights
+            </div>
+            <div className="space-y-2 text-xs text-slate-700">
+              <div className="rounded border bg-white p-3">
+                <div className="font-semibold text-slate-900">
+                  Realism Band
+                </div>
+                <div>
+                  {primaryQuestion
+                    ?.examRealismMetadata
+                    ?.realismBand ??
+                    realismAnalysis?.band ??
+                    "NA"}
+                </div>
+              </div>
+              <div className="rounded border bg-white p-3">
+                <div className="font-semibold text-slate-900">
+                  Matched Motifs
+                </div>
+                <div>
+                  {extractedPatternIntelligence?.motifs
+                    ?.map(
+                      (motif) =>
+                        `${motif.motifId} (${motif.confidence.toFixed(2)})`,
+                    )
+                    .join(", ") ||
+                    "No motif intelligence available."}
+                </div>
+              </div>
+              <div className="rounded border bg-white p-3">
+                <div className="font-semibold text-slate-900">
+                  Structure
+                </div>
+                <div>
+                  {extractedPatternIntelligence
+                    ? `${extractedPatternIntelligence.structure.subtype}, ${extractedPatternIntelligence.structure.entityCount} entities, ${extractedPatternIntelligence.structure.constraintCount} constraints`
+                    : "No extracted pattern intelligence available."}
+                </div>
+              </div>
+              <div className="rounded border bg-white p-3">
+                <div className="font-semibold text-slate-900">
+                  Heuristic Notes
+                </div>
+                <div>
+                  {realismAnalysis?.diagnosticSummary
+                    ?.join(" ")
+                    || qualityAssessment?.rejectionReasons.join(", ")
+                    || "No heuristic notes available."}
+                </div>
+              </div>
+              {difficultyAssessment ? (
+                <div className="rounded border bg-white p-3">
+                  <div className="font-semibold text-slate-900">
+                    Difficulty Snapshot
+                  </div>
+                  <div>
+                    Cognitive load {formatMetricValue(
+                      difficultyAssessment.cognitiveLoad,
+                    )}, inference depth {formatMetricValue(
+                      difficultyAssessment.inferenceDepth,
+                    )}, distractor complexity {formatMetricValue(
+                      difficultyAssessment.distractorComplexity,
+                    )}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function renderQADashboard(
   items: ReviewableGeneratedItem[],
 ) {
@@ -1939,6 +3060,19 @@ function renderQADashboard(
       item.review?.action ===
       "duplicate-structure",
     ).length;
+  const taggedIssues =
+    items.filter(
+      (item) =>
+        (item.review?.issueTags ?? [])
+          .length > 0,
+    ).length;
+  const averageInferenceDepth =
+    items.reduce(
+      (total, item) =>
+        total +
+        (item.inferenceDepth ?? 0),
+      0,
+    ) / items.length;
 
   const stats = [
     {
@@ -1973,6 +3107,19 @@ function renderQADashboard(
       label: "Duplicate Structure",
       value: duplicateStructure,
     },
+    {
+      label: "Issue Tagged",
+      value: taggedIssues,
+    },
+    {
+      label: "Avg Inference",
+      value:
+        averageInferenceDepth > 0
+          ? averageInferenceDepth.toFixed(
+            1,
+          )
+          : "NA",
+    },
   ];
 
   return (
@@ -1985,7 +3132,7 @@ function renderQADashboard(
           Operational review metrics for the current generated queue.
         </span>
       </div>
-      <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-8">
+      <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-5">
         {stats.map((stat) => (
           <div
             key={stat.label}
@@ -2004,17 +3151,267 @@ function renderQADashboard(
   );
 }
 
+function renderProceduralAnalyticsDashboard(
+  analytics: QAAnalyticsSummary | null,
+) {
+  if (!analytics) {
+    return null;
+  }
+
+  const rejectionEntries =
+    Object.entries(
+      analytics.rejectionReasons,
+    )
+      .sort(
+        (left, right) =>
+          right[1] - left[1],
+      )
+      .slice(0, 6);
+  const domainEntries =
+    Object.entries(
+      analytics.byDomain,
+    ).sort(
+      (left, right) =>
+        right[1].totalReviews -
+        left[1].totalReviews,
+    );
+
+  return (
+    <div className="rounded-lg border bg-slate-50 p-4 space-y-4">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="font-semibold text-slate-900">
+          Procedural Analytics
+        </span>
+        <span className="text-xs text-slate-500">
+          Persisted QA signals across reviewed generations.
+        </span>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+        {[
+          {
+            label: "Approval Rate",
+            value: `${analytics.approvalRate.toFixed(1)}%`,
+          },
+          {
+            label: "Reviews",
+            value:
+              analytics.totalReviews,
+          },
+          {
+            label: "Realism",
+            value:
+              analytics.averageRealismScore.toFixed(
+                2,
+              ),
+          },
+          {
+            label: "Diversity",
+            value:
+              analytics.averageStructuralDiversity.toFixed(
+                2,
+              ),
+          },
+          {
+            label: "Difficulty Accuracy",
+            value:
+              analytics.averageDifficultyConfidence.toFixed(
+                2,
+              ),
+          },
+          {
+            label: "Latency",
+            value: `${analytics.averageGenerationLatencyMs.toFixed(
+              0,
+            )} ms`,
+          },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            className="rounded border bg-white p-3"
+          >
+            <div className="text-[11px] uppercase tracking-wide text-slate-500">
+              {stat.label}
+            </div>
+            <div className="text-lg font-semibold text-slate-900">
+              {stat.value}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-2">
+        <div className="rounded border bg-white p-4 space-y-3">
+          <div className="text-sm font-medium text-slate-900">
+            Rejection Reasons
+          </div>
+          {rejectionEntries.length ? (
+            <div className="space-y-2">
+              {rejectionEntries.map(
+                ([reason, count]) => (
+                  <div
+                    key={reason}
+                    className="flex items-center justify-between rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+                  >
+                    <span className="text-slate-700">
+                      {reason}
+                    </span>
+                    <span className="font-semibold text-slate-900">
+                      {count}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          ) : (
+            <div className="text-sm text-slate-500">
+              No rejection data yet.
+            </div>
+          )}
+        </div>
+
+        <div className="rounded border bg-white p-4 space-y-3">
+          <div className="text-sm font-medium text-slate-900">
+            Domain Analytics
+          </div>
+          {domainEntries.length ? (
+            <div className="space-y-2">
+              {domainEntries.map(
+                ([domain, stats]) => (
+                  <div
+                    key={domain}
+                    className="rounded border border-slate-200 bg-slate-50 p-3 text-sm"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-slate-900">
+                        {domain}
+                      </span>
+                      <span className="text-slate-500">
+                        {stats.totalReviews} reviews
+                      </span>
+                    </div>
+                    <div className="mt-2 grid gap-2 sm:grid-cols-2 xl:grid-cols-4 text-xs text-slate-600">
+                      <div>
+                        Approval{" "}
+                        {stats.approvalRate.toFixed(
+                          1,
+                        )}
+                        %
+                      </div>
+                      <div>
+                        Realism{" "}
+                        {stats.averageRealismScore.toFixed(
+                          2,
+                        )}
+                      </div>
+                      <div>
+                        Diversity{" "}
+                        {stats.averageStructuralDiversity.toFixed(
+                          2,
+                        )}
+                      </div>
+                      <div>
+                        Confidence{" "}
+                        {stats.averageDifficultyConfidence.toFixed(
+                          2,
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
+          ) : (
+            <div className="text-sm text-slate-500">
+              No domain analytics yet.
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="rounded border bg-white p-4 space-y-3">
+        <div className="text-sm font-medium text-slate-900">
+          Trend Samples
+        </div>
+        {analytics.trends.length ? (
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {analytics.trends
+              .slice(-8)
+              .map((trend) => (
+                <div
+                  key={trend.date}
+                  className="rounded border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700"
+                >
+                  <div className="font-semibold text-slate-900">
+                    {trend.date}
+                  </div>
+                  <div className="mt-2 space-y-1">
+                    <div>
+                      Approval{" "}
+                      {trend.approvalRate.toFixed(
+                        1,
+                      )}
+                      %
+                    </div>
+                    <div>
+                      Realism{" "}
+                      {trend.realismScore.toFixed(
+                        2,
+                      )}
+                    </div>
+                    <div>
+                      Diversity{" "}
+                      {trend.structuralDiversityScore.toFixed(
+                        2,
+                      )}
+                    </div>
+                    <div>
+                      Difficulty{" "}
+                      {trend.difficultyConfidence.toFixed(
+                        2,
+                      )}
+                    </div>
+                    <div>
+                      Latency{" "}
+                      {trend.generationLatencyMs.toFixed(
+                        0,
+                      )}{" "}
+                      ms
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        ) : (
+          <div className="text-sm text-slate-500">
+            No time-series review data yet.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function renderQAReviewPanel(
   item: ReviewableGeneratedItem,
   reviewerNotes: string,
+  issueTags: QAIssueTag[],
   onChangeNotes: (
     value: string,
+  ) => void,
+  onToggleTag: (
+    tag: QAIssueTag,
   ) => void,
   onReviewAction: (
     action: QAReviewAction,
     status: QAReviewStatus,
   ) => void,
 ) {
+  const activeTags =
+    issueTags.length
+      ? issueTags
+      : item.review?.issueTags ?? [];
+
   return (
     <div className="rounded border bg-slate-50 p-3 space-y-3">
       <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -2040,9 +3437,17 @@ function renderQAReviewPanel(
             Repetition Flagged
           </span>
         ) : null}
+        {activeTags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-600"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
 
-      <div className="grid gap-2 text-[11px] text-slate-600 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-2 text-[11px] text-slate-600 md:grid-cols-2 xl:grid-cols-5">
         <div className="rounded border bg-white p-2">
           <div className="text-slate-500">
             Topic
@@ -2075,6 +3480,70 @@ function renderQAReviewPanel(
             {item.archetype}
           </div>
         </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Seed
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.generationSeed}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-2 text-[11px] text-slate-600 md:grid-cols-2 xl:grid-cols-6">
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Topology
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.topologyType}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Inference Depth
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.inferenceDepth ?? "NA"}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Clue Count
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.clueCount ?? "NA"}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Redundancy Score
+          </div>
+          <div className="font-medium text-slate-900">
+            {typeof item.redundancyScore ===
+            "number"
+              ? item.redundancyScore.toFixed(
+                2,
+              )
+              : "NA"}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Uniqueness
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.uniquenessStatus}
+          </div>
+        </div>
+        <div className="rounded border bg-white p-2">
+          <div className="text-slate-500">
+            Arrangement
+          </div>
+          <div className="font-medium text-slate-900">
+            {item.arrangementType}
+          </div>
+        </div>
       </div>
 
       {item.repetitionFlags.length ? (
@@ -2089,23 +3558,74 @@ function renderQAReviewPanel(
         </div>
       ) : null}
 
+      <div className="space-y-2">
+        <div className="text-xs font-medium text-slate-700">
+          Issue Tags
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {QA_ISSUE_TAG_OPTIONS.map(
+            (option) => {
+              const active =
+                activeTags.includes(
+                  option.tag,
+                );
+
+              return (
+                <button
+                  key={option.tag}
+                  onClick={() =>
+                    onToggleTag(
+                      option.tag,
+                    )
+                  }
+                  className={`rounded border px-3 py-1 text-xs ${active
+                    ? "border-slate-900 bg-slate-900 text-white"
+                    : "bg-white text-slate-700 hover:bg-slate-100"
+                    }`}
+                >
+                  {option.label}
+                </button>
+              );
+            },
+          )}
+        </div>
+      </div>
+
       <div className="flex flex-wrap gap-2">
-        {QA_ACTION_OPTIONS.map(
-          (option) => (
-            <button
-              key={option.action}
-              onClick={() =>
-                onReviewAction(
-                  option.action,
-                  option.status,
-                )
-              }
-              className="rounded border bg-white px-3 py-1 text-xs text-slate-700 hover:bg-slate-100"
-            >
-              {option.label}
-            </button>
-          ),
-        )}
+        <button
+          onClick={() =>
+            onReviewAction(
+              "approve",
+              "approved",
+            )
+          }
+          className="rounded border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs text-emerald-700 hover:bg-emerald-100"
+        >
+          Approve
+        </button>
+        <button
+          onClick={() =>
+            onReviewAction(
+              "reject",
+              "rejected",
+            )
+          }
+          className="rounded border border-rose-300 bg-rose-50 px-3 py-1 text-xs text-rose-700 hover:bg-rose-100"
+        >
+          Reject
+        </button>
+        <button
+          onClick={() =>
+            onReviewAction(
+              activeTags[0] ??
+                "repetitive",
+              "flagged",
+            )
+          }
+          className="rounded border bg-white px-3 py-1 text-xs text-slate-700 hover:bg-slate-100"
+        >
+          Save Tags
+        </button>
       </div>
 
       <div className="space-y-1">
@@ -2662,12 +4182,40 @@ export default function AdminGeneratorPage() {
     useState<Record<string, string>>(
       {},
     );
+  const [qaIssueTags, setQaIssueTags] =
+    useState<
+      Record<string, QAIssueTag[]>
+    >({});
   const [qaFilters, setQaFilters] =
     useState<QAFilterState>(
       QA_FILTER_DEFAULTS,
     );
   const [qaLoading, setQaLoading] =
     useState(false);
+  const [qaAnalytics, setQaAnalytics] =
+    useState<QAAnalyticsSummary | null>(
+      null,
+    );
+  const [
+    selectedWorkspaceFingerprint,
+    setSelectedWorkspaceFingerprint,
+  ] = useState<string | null>(
+    null,
+  );
+  const [
+    workspaceEditMode,
+    setWorkspaceEditMode,
+  ] = useState(false);
+  const [
+    pendingRefinementFingerprint,
+    setPendingRefinementFingerprint,
+  ] = useState<string | null>(
+    null,
+  );
+  const [
+    refinementLoading,
+    setRefinementLoading,
+  ] = useState(false);
 
   const [patterns, setPatterns] =
     useState<any[]>([]);
@@ -2728,7 +4276,7 @@ export default function AdminGeneratorPage() {
   "columns": ["Category", "Value"],
   "rowCount": 5,
   "categories": ["A", "B", "C", "D", "E"],
-  "valueRanges": {
+      "valueRanges": {
     "Value": {
       "min": 100,
       "max": 500
@@ -2772,8 +4320,14 @@ export default function AdminGeneratorPage() {
         const res = await fetch(
           `${API_BASE_URL}/api/generator/qa/reviews`,
         );
+        const analyticsRes =
+          await fetch(
+            `${API_BASE_URL}/api/generator/qa/analytics`,
+          );
         const data =
           await res.json();
+        const analyticsData =
+          await analyticsRes.json();
         const reviews = Array.isArray(
           data.reviews,
         )
@@ -2787,6 +4341,10 @@ export default function AdminGeneratorPage() {
           string,
           string
         > = {};
+        const issueTagMap: Record<
+          string,
+          QAIssueTag[]
+        > = {};
 
         reviews.forEach((review) => {
           reviewMap[
@@ -2797,10 +4355,21 @@ export default function AdminGeneratorPage() {
           ] =
             review.reviewerNotes ??
             "";
+          issueTagMap[
+            review.fingerprint
+          ] =
+            review.issueTags ?? [];
         });
 
         setQaReviews(reviewMap);
         setQaNotes(noteMap);
+        setQaIssueTags(
+          issueTagMap,
+        );
+        setQaAnalytics(
+          analyticsData.analytics ??
+            null,
+        );
       } catch (error) {
         console.error(error);
       } finally {
@@ -2951,12 +4520,21 @@ export default function AdminGeneratorPage() {
     item: ReviewableGeneratedItem,
     action: QAReviewAction,
     status: QAReviewStatus,
+    overrides?: {
+      bookmarked?: boolean;
+    },
   ) {
     try {
       setQaLoading(true);
       const reviewerNotes =
         qaNotes[item.fingerprint] ??
         "";
+      const issueTags =
+        qaIssueTags[
+          item.fingerprint
+        ] ??
+        item.review?.issueTags ??
+        [];
       const payload = {
         fingerprint:
           item.fingerprint,
@@ -2976,6 +4554,40 @@ export default function AdminGeneratorPage() {
         reviewerNotes,
         validationStatus:
           item.validationStatus,
+        issueTags,
+        seed: item.generationSeed,
+        topologyType:
+          item.topologyType,
+        inferenceDepth:
+          item.inferenceDepth ??
+          undefined,
+        clueCount:
+          item.clueCount ??
+          undefined,
+        redundancyScore:
+          item.redundancyScore ??
+          undefined,
+        realismScore:
+          item.realismScore ??
+          undefined,
+        structuralDiversityScore:
+          getQuestionStructuralDiversityScore(
+            item.question,
+          ) ?? undefined,
+        difficultyConfidence:
+          item.difficultyConfidence ??
+          undefined,
+        generationLatencyMs:
+          getQuestionGenerationLatency(
+            item.question,
+          ) ?? undefined,
+        uniquenessStatus:
+          item.uniquenessStatus,
+        bookmarked:
+          overrides?.bookmarked ??
+          item.review
+            ?.bookmarked ??
+          false,
       };
 
       const res = await fetch(
@@ -3000,6 +4612,22 @@ export default function AdminGeneratorPage() {
           [data.review.fingerprint]:
             data.review,
         }));
+        setQaIssueTags((prev) => ({
+          ...prev,
+          [data.review.fingerprint]:
+            data.review.issueTags ??
+            [],
+        }));
+        const analyticsRes =
+          await fetch(
+            `${API_BASE_URL}/api/generator/qa/analytics`,
+          );
+        const analyticsData =
+          await analyticsRes.json();
+        setQaAnalytics(
+          analyticsData.analytics ??
+            null,
+        );
       }
     } catch (error) {
       console.error(error);
@@ -3008,6 +4636,151 @@ export default function AdminGeneratorPage() {
       );
     } finally {
       setQaLoading(false);
+    }
+  }
+
+  function toggleQAIssueTag(
+    fingerprint: string,
+    tag: QAIssueTag,
+  ) {
+    setQaIssueTags((prev) => {
+      const current =
+        prev[fingerprint] ?? [];
+      const next =
+        current.includes(tag)
+          ? current.filter(
+            (entry) =>
+              entry !== tag,
+          )
+          : [
+            ...current,
+            tag,
+          ];
+
+      return {
+        ...prev,
+        [fingerprint]: next,
+      };
+    });
+  }
+
+  async function toggleQABookmark(
+    item: ReviewableGeneratedItem,
+  ) {
+    await persistQAReview(
+      item,
+      item.review?.action ??
+        "weak-clues",
+      item.review?.status ??
+        "flagged",
+      {
+        bookmarked:
+          !item.review
+            ?.bookmarked,
+      },
+    );
+  }
+
+  function updateGeneratedQuestionAt(
+    index: number,
+    updater: (
+      current: FormulaQuestion,
+    ) => FormulaQuestion,
+  ) {
+    let nextFingerprint:
+      | string
+      | null = null;
+
+    setGenerated((prev) =>
+      prev.map((entry, entryIndex) => {
+        if (
+          entryIndex !== index ||
+          isDISet(entry)
+        ) {
+          return entry;
+        }
+
+        const updated =
+          updater(entry);
+        nextFingerprint =
+          getQuestionFingerprint(
+            updated,
+          );
+        return updated;
+      }),
+    );
+
+    if (nextFingerprint) {
+      setPendingRefinementFingerprint(
+        nextFingerprint,
+      );
+      setSelectedWorkspaceFingerprint(
+        nextFingerprint,
+      );
+    }
+  }
+
+  async function refineQuestionAt(
+    index: number,
+  ) {
+    const target =
+      generated[index];
+
+    if (!target) {
+      return;
+    }
+
+    try {
+      setRefinementLoading(true);
+      const res = await fetch(
+        `${API_BASE_URL}/api/generator/refine`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            patternId:
+              getPrimaryQuestion(
+                target,
+              )?.debugMetadata
+                ?.selectedPattern ??
+              patternId,
+            question: target,
+          }),
+        },
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          `Refinement failed with status ${res.status}`,
+        );
+      }
+
+      const data = await res.json();
+
+      if (data.question) {
+        setGenerated((prev) => {
+          const updated = [
+            ...prev,
+          ];
+
+          updated[index] =
+            data.question;
+
+          return updated;
+        });
+        setSelectedWorkspaceFingerprint(
+          getQuestionFingerprint(
+            data.question,
+          ),
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRefinementLoading(false);
     }
   }
 
@@ -3054,6 +4827,46 @@ export default function AdminGeneratorPage() {
                   ] ?? "",
                 validationStatus:
                   item.validationStatus,
+                issueTags:
+                  qaIssueTags[
+                    item.fingerprint
+                  ] ??
+                  item.review
+                    ?.issueTags ??
+                  [],
+                seed:
+                  item.generationSeed,
+                topologyType:
+                  item.topologyType,
+                inferenceDepth:
+                  item.inferenceDepth ??
+                  undefined,
+                clueCount:
+                  item.clueCount ??
+                  undefined,
+                redundancyScore:
+                  item.redundancyScore ??
+                  undefined,
+                realismScore:
+                  item.realismScore ??
+                  undefined,
+                structuralDiversityScore:
+                  getQuestionStructuralDiversityScore(
+                    item.question,
+                  ) ?? undefined,
+                difficultyConfidence:
+                  item.difficultyConfidence ??
+                  undefined,
+                generationLatencyMs:
+                  getQuestionGenerationLatency(
+                    item.question,
+                  ) ?? undefined,
+                uniquenessStatus:
+                  item.uniquenessStatus,
+                bookmarked:
+                  item.review
+                    ?.bookmarked ??
+                  false,
               }),
             ),
           }),
@@ -3081,6 +4894,30 @@ export default function AdminGeneratorPage() {
 
           return next;
         });
+        setQaIssueTags((prev) => {
+          const next = {
+            ...prev,
+          };
+
+          reviews.forEach((review) => {
+            next[
+              review.fingerprint
+            ] =
+              review.issueTags ?? [];
+          });
+
+          return next;
+        });
+        const analyticsRes =
+          await fetch(
+            `${API_BASE_URL}/api/generator/qa/analytics`,
+          );
+        const analyticsData =
+          await analyticsRes.json();
+        setQaAnalytics(
+          analyticsData.analytics ??
+            null,
+        );
       }
     } catch (error) {
       console.error(error);
@@ -3116,6 +4953,13 @@ export default function AdminGeneratorPage() {
     }
   }
   async function generate() {
+    const timeoutMs =
+      getGenerationTimeoutMs(
+        patternId,
+        patterns,
+        count,
+      );
+
     try {
       setLoading(true);
 
@@ -3141,6 +4985,7 @@ export default function AdminGeneratorPage() {
             ...difficultyPayload,
           }),
         },
+        timeoutMs,
       );
 
       if (!res.ok) {
@@ -3164,7 +5009,9 @@ export default function AdminGeneratorPage() {
         error instanceof Error &&
           error.name ===
             "AbortError"
-          ? "Generation timed out. The selected pattern may be too expensive or misconfigured."
+          ? `Generation timed out after ${Math.round(
+            timeoutMs / 1000,
+          )} seconds. The selected pattern may be expensive to solve.`
           : "Generation failed",
       );
     } finally {
@@ -3175,6 +5022,13 @@ export default function AdminGeneratorPage() {
   async function regenerateQuestion(
     index: number,
   ) {
+    const timeoutMs =
+      getGenerationTimeoutMs(
+        patternId,
+        patterns,
+        1,
+      );
+
     try {
       const difficultyPayload =
         getDifficultyRequestPayload(
@@ -3198,6 +5052,7 @@ export default function AdminGeneratorPage() {
             ...difficultyPayload,
           }),
         },
+        timeoutMs,
       );
 
       if (!res.ok) {
@@ -3227,7 +5082,9 @@ export default function AdminGeneratorPage() {
         error instanceof Error &&
           error.name ===
             "AbortError"
-          ? "Regeneration timed out. Try an easier pattern or lower batch size."
+          ? `Regeneration timed out after ${Math.round(
+            timeoutMs / 1000,
+          )} seconds. Try a smaller batch or easier pattern.`
           : "Failed to regenerate question",
       );
     }
@@ -3385,6 +5242,30 @@ export default function AdminGeneratorPage() {
             getQuestionArchetype(
               question,
             ),
+          topologyType:
+            getQuestionTopologyType(
+              question,
+            ),
+          inferenceDepth:
+            getQuestionInferenceDepth(
+              question,
+            ),
+          clueCount:
+            getQuestionClueCount(
+              question,
+            ),
+          redundancyScore:
+            getQuestionRedundancyScore(
+              question,
+            ),
+          uniquenessStatus:
+            getQuestionUniquenessStatus(
+              question,
+            ),
+          generationSeed:
+            getQuestionGenerationSeed(
+              question,
+            ),
           validationStatus:
             getQuestionValidationStatus(
               question,
@@ -3408,6 +5289,19 @@ export default function AdminGeneratorPage() {
                 reasoningSignature
               ] ?? 0,
             ),
+          realismScore:
+            getQuestionRealismScore(
+              question,
+            ),
+          difficultyConfidence:
+            getQuestionDifficultyConfidence(
+              question,
+            ),
+          validationDiagnostics:
+            getQuestionValidationDiagnostics(
+              question,
+            ),
+          structuralWarnings: [],
           review:
             qaReviews[
               fingerprint
@@ -3415,6 +5309,13 @@ export default function AdminGeneratorPage() {
         };
       },
     );
+  reviewableItems.forEach((item) => {
+    item.structuralWarnings =
+      getQuestionStructuralWarnings(
+        item.question,
+        item.repetitionFlags,
+      );
+  });
 
   const filterOptions = {
     topics: [
@@ -3580,6 +5481,70 @@ export default function AdminGeneratorPage() {
             );
         }
       });
+
+  useEffect(() => {
+    if (!visibleItems.length) {
+      setSelectedWorkspaceFingerprint(
+        null,
+      );
+      setWorkspaceEditMode(false);
+      return;
+    }
+
+    if (
+      !selectedWorkspaceFingerprint ||
+      !visibleItems.some(
+        (item) =>
+          item.fingerprint ===
+          selectedWorkspaceFingerprint,
+      )
+    ) {
+      setSelectedWorkspaceFingerprint(
+        visibleItems[0]
+          ?.fingerprint ?? null,
+      );
+      setWorkspaceEditMode(false);
+    }
+  }, [
+    visibleItems,
+    selectedWorkspaceFingerprint,
+  ]);
+
+  const selectedWorkspaceItem =
+    visibleItems.find(
+      (item) =>
+        item.fingerprint ===
+        selectedWorkspaceFingerprint,
+    ) ?? null;
+
+  useEffect(() => {
+    if (
+      !workspaceEditMode ||
+      !pendingRefinementFingerprint ||
+      !selectedWorkspaceItem ||
+      selectedWorkspaceItem.fingerprint !==
+        pendingRefinementFingerprint
+    ) {
+      return;
+    }
+
+    const timeout =
+      window.setTimeout(() => {
+        refineQuestionAt(
+          selectedWorkspaceItem.index,
+        );
+        setPendingRefinementFingerprint(
+          null,
+        );
+      }, 800);
+
+    return () =>
+      window.clearTimeout(timeout);
+  }, [
+    workspaceEditMode,
+    pendingRefinementFingerprint,
+    selectedWorkspaceItem,
+  ]);
 
   return (
     <div className="p-6 space-y-6">
@@ -4353,6 +6318,10 @@ export default function AdminGeneratorPage() {
             reviewableItems,
           )}
 
+          {renderProceduralAnalyticsDashboard(
+            qaAnalytics,
+          )}
+
           <div className="rounded-lg border bg-slate-50 p-4 space-y-4">
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-semibold text-slate-900">
@@ -4666,6 +6635,189 @@ export default function AdminGeneratorPage() {
             </label>
           </div>
 
+          {selectedWorkspaceItem ? (
+            <div className="space-y-3">
+              {renderQuestionWorkspace(
+                selectedWorkspaceItem,
+                qaNotes[
+                  selectedWorkspaceItem
+                    .fingerprint
+                ] ?? "",
+                qaIssueTags[
+                  selectedWorkspaceItem
+                    .fingerprint
+                ] ??
+                  selectedWorkspaceItem
+                    .review
+                    ?.issueTags ??
+                  [],
+                workspaceEditMode,
+                refinementLoading,
+                (value) =>
+                  setQaNotes(
+                    (prev) => ({
+                      ...prev,
+                      [selectedWorkspaceItem.fingerprint]:
+                        value,
+                    }),
+                  ),
+                (tag) =>
+                  toggleQAIssueTag(
+                    selectedWorkspaceItem.fingerprint,
+                    tag,
+                  ),
+                () => {
+                  if (
+                    workspaceEditMode
+                  ) {
+                    refineQuestionAt(
+                      selectedWorkspaceItem.index,
+                    );
+                    setPendingRefinementFingerprint(
+                      null,
+                    );
+                  }
+                  setWorkspaceEditMode(
+                    (prev) => !prev,
+                  );
+                },
+                (value) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) => ({
+                      ...current,
+                      text: value,
+                    }),
+                  ),
+                (value) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) => ({
+                      ...current,
+                      explanation:
+                        value,
+                    }),
+                  ),
+                (
+                  optionIndex,
+                  value,
+                ) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) => ({
+                      ...current,
+                      options:
+                        current.options.map(
+                          (
+                            option,
+                            index,
+                          ) =>
+                            index ===
+                            optionIndex
+                              ? value
+                              : option,
+                        ),
+                    }),
+                  ),
+                (clues) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) => ({
+                      ...current,
+                      debugMetadata: {
+                        ...(current.debugMetadata ??
+                          {}),
+                        generatedClues:
+                          clues,
+                      },
+                    }),
+                  ),
+                (
+                  action,
+                  status,
+                ) =>
+                  persistQAReview(
+                    selectedWorkspaceItem,
+                    action,
+                    status,
+                  ),
+                () =>
+                  toggleQABookmark(
+                    selectedWorkspaceItem,
+                  ),
+                () =>
+                  regenerateQuestion(
+                    selectedWorkspaceItem.index,
+                  ),
+              )}
+            </div>
+          ) : null}
+
+          <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-semibold text-slate-900">
+                Review Queue
+              </span>
+              <span className="text-xs text-slate-500">
+                Select an item to open it in the review workspace.
+              </span>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {visibleItems.map(
+                (item) => (
+                  <button
+                    key={`tray-${item.fingerprint}`}
+                    onClick={() => {
+                      setSelectedWorkspaceFingerprint(
+                        item.fingerprint,
+                      );
+                      setWorkspaceEditMode(
+                        false,
+                      );
+                    }}
+                    className={`rounded-lg border p-3 text-left ${selectedWorkspaceFingerprint ===
+                      item.fingerprint
+                      ? "border-slate-900 bg-white shadow-sm"
+                      : "bg-white hover:bg-slate-50"
+                      }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="text-sm font-medium text-slate-900 line-clamp-2">
+                        {item.index + 1}.{" "}
+                        {isDISet(
+                          item.question,
+                        )
+                          ? item.topic
+                          : (
+                            item.question as FormulaQuestion
+                          ).text}
+                      </div>
+                      {item.review
+                        ?.bookmarked ? (
+                        <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-1 text-[10px] text-amber-700">
+                          Saved
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-slate-600">
+                      <span className="rounded-full border px-2 py-1">
+                        {item.difficulty}
+                      </span>
+                      <span className="rounded-full border px-2 py-1">
+                        {item.validationStatus}
+                      </span>
+                      <span className="rounded-full border px-2 py-1">
+                        realism {formatMetricValue(
+                          item.realismScore,
+                        )}
+                      </span>
+                    </div>
+                  </button>
+                ),
+              )}
+            </div>
+          </div>
+
           <div className="max-h-[70vh] space-y-4 overflow-y-auto pr-2">
           {visibleItems.map(
             (item) => {
@@ -4684,6 +6836,12 @@ export default function AdminGeneratorPage() {
                       qaNotes[
                         item.fingerprint
                       ] ?? "",
+                      qaIssueTags[
+                        item.fingerprint
+                      ] ??
+                        item.review
+                          ?.issueTags ??
+                        [],
                       (value) =>
                         setQaNotes(
                           (prev) => ({
@@ -4691,6 +6849,11 @@ export default function AdminGeneratorPage() {
                             [item.fingerprint]:
                               value,
                           }),
+                        ),
+                      (tag) =>
+                        toggleQAIssueTag(
+                          item.fingerprint,
+                          tag,
                         ),
                       (
                         action,
@@ -4802,11 +6965,21 @@ export default function AdminGeneratorPage() {
                     </div>
                   ) : null}
 
+                  {renderSolverTraceWorkbench(
+                    q,
+                  )}
+
                   {renderQAReviewPanel(
                     item,
                     qaNotes[
                       item.fingerprint
                     ] ?? "",
+                    qaIssueTags[
+                      item.fingerprint
+                    ] ??
+                      item.review
+                        ?.issueTags ??
+                      [],
                     (value) =>
                       setQaNotes(
                         (prev) => ({
@@ -4814,6 +6987,11 @@ export default function AdminGeneratorPage() {
                           [item.fingerprint]:
                             value,
                         }),
+                      ),
+                    (tag) =>
+                      toggleQAIssueTag(
+                        item.fingerprint,
+                        tag,
                       ),
                     (
                       action,

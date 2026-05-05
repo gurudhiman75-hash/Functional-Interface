@@ -8,6 +8,7 @@ import type { QuantMotif } from "../motifs/types";
 import {
   createReasoningStep,
   pickRandomItem,
+  random,
   ReasoningStep,
   shuffle,
 } from "../shared";
@@ -332,7 +333,7 @@ function chooseDirectionQuestionType(
     motif.id ===
       "coordinate_inference_chain"
   ) {
-    return Math.random() > 0.5
+    return random() > 0.5
       ? "coordinates"
       : "distance";
   }

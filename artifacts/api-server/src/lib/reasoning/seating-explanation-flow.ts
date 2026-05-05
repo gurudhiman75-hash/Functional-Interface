@@ -6,7 +6,9 @@ import type {
   SeatingExplanationStep,
 } from "@workspace/api-zod";
 import type {
-  LinearSeatingClue,
+  InferenceStep,
+} from "./seating-validator";
+import type {
   LinearSeatingScenario,
 } from "./seating-engine";
 
@@ -50,64 +52,32 @@ function getColCount(
     : scenario.arrangement.length;
 }
 
-function buildEmptySeats(
-  scenario: LinearSeatingScenario,
+function parseSnapshotLabels(
+  snapshot: string,
+  seatCount: number,
 ) {
-  const colCount = getColCount(
-    scenario,
-  );
+  const labels = snapshot
+    .split("|")
+    .map((token) => token.trim())
+    .filter(Boolean);
 
-  return scenario.arrangement.map(
-    (_label, position) => ({
-      label: "?",
-      position,
-      facing:
-        scenario.seatFacings[position]!,
-      row:
-        getLayoutFamily(scenario) ===
-        "two-row"
-          ? Math.floor(
-              position / colCount,
-            )
-          : 0,
-      col:
-        getLayoutFamily(scenario) ===
-        "two-row"
-          ? position % colCount
-          : position,
-      seatLabel:
-        scenario.seatLabels[position],
-    }),
+  if (labels.length === seatCount) {
+    return labels;
+  }
+
+  return Array.from(
+    { length: seatCount },
+    (_value, index) =>
+      labels[index] ?? "?",
   );
 }
 
-function createSnapshot(
+function buildSnapshotFromLabels(
   scenario: LinearSeatingScenario,
-  placed: Map<number, string>,
-  highlightedLabel?: string,
-  answerLabel?: string,
+  labels: string[],
 ): SeatingDiagramData {
-  const baseSeats =
-    buildEmptySeats(scenario);
-
-  const seats = baseSeats.map(
-    (seat) => {
-      const label =
-        placed.get(seat.position) ??
-        "?";
-      const known = label !== "?";
-
-      return {
-        ...seat,
-        label,
-        highlighted:
-          known &&
-          label === highlightedLabel,
-        isAnswer:
-          known &&
-          label === answerLabel,
-      } satisfies SeatingDiagramSeat;
-    },
+  const colCount = getColCount(
+    scenario,
   );
 
   return {
@@ -115,7 +85,43 @@ function createSnapshot(
       scenario.arrangementType,
     orientationType:
       scenario.orientationType,
-    seats,
+    seats: labels.map(
+      (label, position) =>
+        ({
+          label,
+          position,
+          facing:
+            scenario.seatFacings[
+              position
+            ]!,
+          highlighted:
+            label !== "?" &&
+            label ===
+              scenario.prompt.anchor,
+          isAnswer:
+            label !== "?" &&
+            label ===
+              scenario.prompt.correctAnswer,
+          row:
+            getLayoutFamily(
+              scenario,
+            ) === "two-row"
+              ? Math.floor(
+                  position / colCount,
+                )
+              : 0,
+          col:
+            getLayoutFamily(
+              scenario,
+            ) === "two-row"
+              ? position % colCount
+              : position,
+          seatLabel:
+            scenario.seatLabels[
+              position
+            ],
+        }) satisfies SeatingDiagramSeat,
+    ),
     seatLabels:
       scenario.seatLabels,
     questionTarget: {
@@ -130,414 +136,235 @@ function createSnapshot(
       "two-row"
         ? 2
         : 1,
-    colCount: getColCount(scenario),
+    colCount,
   };
 }
 
-function classifyStepType(
-  clue: LinearSeatingClue,
+function normalizeConstraintRefs(
+  sourceConstraintIds: string[],
+) {
+  if (!sourceConstraintIds.length) {
+    return "";
+  }
+
+  const refs = sourceConstraintIds
+    .map((value) =>
+      value.replace(":", " "),
+    )
+    .join(", ");
+
+  return ` Reference clues used: ${refs}.`;
+}
+
+function classifyTraceStep(
+  step: InferenceStep,
 ): SeatingExplanationStep["type"] {
   if (
-    clue.type === "absolute" ||
-    clue.type === "end"
+    step.deduction.includes(
+      "Anchored",
+    )
   ) {
     return "reference";
   }
 
   if (
-    clue.type === "not-adjacent" ||
-    clue.type === "not-end" ||
-    clue.type === "not-opposite" ||
-    clue.type === "different-row" ||
-    clue.type === "not-facing"
+    step.deduction.includes(
+      "Branching on",
+    )
+  ) {
+    return "case-analysis";
+  }
+
+  if (
+    step.deduction.includes(
+      "contradiction",
+    ) ||
+    step.eliminatedPossibilities
+      .length > 0
   ) {
     return "elimination";
   }
 
   if (
-    clue.type === "adjacent" &&
-    !clue.ordered
+    step.deduction.includes(
+      "Accepted arrangement",
+    )
   ) {
-    return "case-analysis";
-  }
-
-  if (
-    clue.type === "between" ||
-    clue.type === "adjacent-both"
-  ) {
-    return "case-analysis";
+    return "final-arrangement";
   }
 
   return "inference";
 }
 
-function clueTitle(
+function titleForTraceStep(
   type: SeatingExplanationStep["type"],
   index: number,
 ) {
+  switch (type) {
+    case "reference":
+      return `Reference ${index}`;
+    case "case-analysis":
+      return `Case Analysis ${index}`;
+    case "elimination":
+      return `Elimination ${index}`;
+    case "final-arrangement":
+      return "Final Arrangement";
+    default:
+      return `Inference ${index}`;
+  }
+}
+
+function toHumanExplanation(
+  step: InferenceStep,
+  type: SeatingExplanationStep["type"],
+) {
   if (type === "reference") {
-    return `Reference ${index}`;
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} This gives us the first stable reference point for the arrangement.`;
   }
 
   if (type === "case-analysis") {
-    return `Case Analysis ${index}`;
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} At this stage we test the possible seat choice and keep the remaining arrangement flexible until the next clue confirms or rejects it.`;
   }
 
   if (type === "elimination") {
-    return `Elimination ${index}`;
+    const eliminated =
+      step.eliminatedPossibilities
+        .length > 0
+        ? ` Eliminated possibilities: ${step.eliminatedPossibilities.join("; ")}.`
+        : "";
+
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)}${eliminated} This is the standard SSC/Banking elimination move where an invalid case is removed before proceeding further.`;
   }
-
-  return `Inference ${index}`;
-}
-
-function clueText(
-  clue: LinearSeatingClue,
-  scenario: LinearSeatingScenario,
-) {
-  switch (clue.type) {
-    case "absolute":
-      return `${clue.person} is fixed at ${scenario.seatLabels[clue.index]}.`;
-    case "end":
-      return `${clue.person} is placed at the ${clue.side} end reference.`;
-    case "adjacent":
-      return clue.ordered
-        ? `${clue.left} must sit immediately to the left of ${clue.right}, so both seats move together as a pair.`
-        : `${clue.left} and ${clue.right} must be neighbours, so we keep them as one adjacent block and test both orders.`;
-    case "not-adjacent":
-      return `${clue.left} cannot sit next to ${clue.right}, so any neighbouring case is rejected.`;
-    case "offset":
-      return `${clue.person} is fixed ${clue.distance} seat(s) to the ${clue.direction} of ${clue.anchor}, which places both positions together.`;
-    case "distance-gap":
-      return `${clue.left} and ${clue.right} must keep a gap of ${clue.gap} seat(s), which narrows the usable slots sharply.`;
-    case "between":
-      return `${clue.middle} must remain between ${clue.first} and ${clue.second}, so we test both side orders around the middle seat.`;
-    case "adjacent-both":
-      return `${clue.middle} must touch both ${clue.first} and ${clue.second}, so the only choice is which side each one occupies.`;
-    case "not-end":
-      return `${clue.person} cannot occupy an extreme seat, so the edge positions are eliminated.`;
-    case "opposite":
-      return `${clue.left} and ${clue.right} are fixed on opposite seats.`;
-    case "not-opposite":
-      return `${clue.left} and ${clue.right} cannot face each other directly, so that case is removed.`;
-    case "same-row":
-      return `${clue.left} and ${clue.right} must stay in the same row.`;
-    case "different-row":
-      return `${clue.left} and ${clue.right} must lie in different rows, so same-row placements are eliminated.`;
-    case "facing":
-      return `${clue.left} must sit directly facing ${clue.right}.`;
-    case "not-facing":
-      return `${clue.left} cannot sit directly facing ${clue.right}, so direct-facing cases are rejected.`;
-    default:
-      return "Use the clue to refine the arrangement.";
-  }
-}
-
-function indexesForClue(
-  clue: LinearSeatingClue,
-  scenario: LinearSeatingScenario,
-) {
-  const positions = new Set<number>();
-  const indexByLabel = new Map(
-    scenario.arrangement.map(
-      (label, index) => [label, index] as const,
-    ),
-  );
-  const maybeAdd = (label?: string) => {
-    if (!label) return;
-    const index = indexByLabel.get(
-      label,
-    );
-    if (index !== undefined) {
-      positions.add(index);
-    }
-  };
-
-  switch (clue.type) {
-    case "absolute":
-    case "end":
-    case "not-end":
-      maybeAdd(clue.person);
-      break;
-    case "adjacent":
-    case "not-adjacent":
-    case "distance-gap":
-    case "same-row":
-    case "different-row":
-    case "facing":
-    case "not-facing":
-    case "opposite":
-    case "not-opposite":
-      maybeAdd(clue.left);
-      maybeAdd(clue.right);
-      break;
-    case "offset":
-      maybeAdd(clue.anchor);
-      maybeAdd(clue.person);
-      break;
-    case "between":
-    case "adjacent-both":
-      maybeAdd(clue.middle);
-      maybeAdd(clue.first);
-      maybeAdd(clue.second);
-      break;
-  }
-
-  return [...positions];
-}
-
-function createMirrorPlacement(
-  clue: LinearSeatingClue,
-  scenario: LinearSeatingScenario,
-) {
-  const actual = new Map<
-    number,
-    string
-  >();
-  const alternative = new Map<
-    number,
-    string
-  >();
-  const positions = indexesForClue(
-    clue,
-    scenario,
-  );
-
-  positions.forEach((position) => {
-    actual.set(
-      position,
-      scenario.arrangement[position]!,
-    );
-  });
 
   if (
-    clue.type === "adjacent" &&
-    !clue.ordered &&
-    positions.length === 2
+    type === "final-arrangement"
   ) {
-    alternative.set(
-      positions[0]!,
-      scenario.arrangement[
-        positions[1]!
-      ]!,
-    );
-    alternative.set(
-      positions[1]!,
-      scenario.arrangement[
-        positions[0]!
-      ]!,
-    );
-  } else if (
-    (clue.type === "between" ||
-      clue.type === "adjacent-both") &&
-    positions.length === 3
-  ) {
-    const middle = positions.find(
-      (position) =>
-        scenario.arrangement[position] ===
-        clue.middle,
-    );
-    const others = positions.filter(
-      (position) =>
-        position !== middle,
-    );
-
-    if (
-      middle !== undefined &&
-      others.length === 2
-    ) {
-      alternative.set(
-        middle,
-        clue.middle,
-      );
-      alternative.set(
-        others[0]!,
-        scenario.arrangement[
-          others[1]!
-        ]!,
-      );
-      alternative.set(
-        others[1]!,
-        scenario.arrangement[
-          others[0]!
-        ]!,
-      );
-    }
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} The arrangement is now fixed, so the asked position can be read directly from the completed figure.`;
   }
 
-  return {
-    actual,
-    alternative:
-      alternative.size > 0
-        ? alternative
-        : null,
-  };
+  return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} This deduction locks more positions and reduces the remaining uncertainty step by step.`;
 }
 
-function makeCaseBranches(
-  clue: LinearSeatingClue,
+function buildBranches(
+  step: InferenceStep,
   scenario: LinearSeatingScenario,
-  revealed: Map<number, string>,
 ): SeatingExplanationBranch[] {
-  const placements =
-    createMirrorPlacement(
-      clue,
-      scenario,
-    );
-
-  if (!placements.alternative) {
+  if (
+    !step.deduction.includes(
+      "Branching on",
+    )
+  ) {
     return [];
   }
 
+  const snapshot =
+    buildSnapshotFromLabels(
+      scenario,
+      parseSnapshotLabels(
+        step.resultingStateSnapshot,
+        scenario.arrangement.length,
+      ),
+    );
+
   return [
     {
-      id: "case-1",
-      label: "Case 1",
-      status: "selected",
-      text: "This case remains consistent after cross-checking the other clues.",
+      id: `${step.stepId}-candidate`,
+      label: "Current Case",
+      status: "candidate",
+      text: "This is the working case being tested against the remaining clues.",
       arrangementSnapshot:
-        createSnapshot(
-          scenario,
-          new Map([
-            ...revealed,
-            ...placements.actual,
-          ]),
-          scenario.prompt.anchor,
-          scenario.prompt.correctAnswer,
-        ),
-    },
-    {
-      id: "case-2",
-      label: "Case 2",
-      status: "eliminated",
-      text: "This mirror case fails once the remaining reference clues are applied.",
-      arrangementSnapshot:
-        createSnapshot(
-          scenario,
-          new Map([
-            ...revealed,
-            ...placements.alternative,
-          ]),
-          scenario.prompt.anchor,
-          scenario.prompt.correctAnswer,
-        ),
+        snapshot,
     },
   ];
 }
 
-function finalSummary(
+function buildTraceDrivenSteps(
   scenario: LinearSeatingScenario,
 ) {
-  return `Start from the fixed references, form short neighbour/relative blocks, test the ambiguous mirror case where needed, and eliminate the inconsistent case to reach the final arrangement. ${scenario.prompt.correctAnswer} answers the asked position.`;
+  return scenario.solverInferenceSteps.map(
+    (step, index) => {
+      const type =
+        classifyTraceStep(step);
+
+      return {
+        type,
+        title: titleForTraceStep(
+          type,
+          index + 1,
+        ),
+        text: toHumanExplanation(
+          step,
+          type,
+        ),
+        arrangementSnapshot:
+          buildSnapshotFromLabels(
+            scenario,
+            parseSnapshotLabels(
+              step.resultingStateSnapshot,
+              scenario.arrangement.length,
+            ),
+          ),
+        branches:
+          type === "case-analysis"
+            ? buildBranches(
+                step,
+                scenario,
+              )
+            : undefined,
+      } satisfies SeatingExplanationStep;
+    },
+  );
+}
+
+function buildSummary(
+  scenario: LinearSeatingScenario,
+) {
+  const eliminationCount =
+    scenario.solverInferenceSteps.filter(
+      (step) =>
+        step.eliminatedPossibilities
+          .length > 0,
+    ).length;
+  const branchCount =
+    scenario.solverInferenceSteps.filter(
+      (step) =>
+        step.deduction.includes(
+          "Branching on",
+        ),
+    ).length;
+
+  return `Start from the fixed reference, test the progressive deductions in the same order as the solver trace, and remove the contradictory cases one by one. This solution uses ${branchCount} branch test${branchCount === 1 ? "" : "s"} and ${eliminationCount} elimination move${eliminationCount === 1 ? "" : "s"} before reaching the final arrangement.`;
 }
 
 export function buildSeatingExplanationFlow(
   scenario: LinearSeatingScenario,
 ): SeatingExplanationFlow {
-  const revealed = new Map<
-    number,
-    string
-  >();
-  const steps: SeatingExplanationStep[] =
-    [];
+  const steps =
+    buildTraceDrivenSteps(
+      scenario,
+    );
 
-  scenario.clues.forEach(
-    (clue, clueIndex) => {
-      const stepType =
-        classifyStepType(clue);
-      const positions =
-        indexesForClue(clue, scenario);
-
-      if (
-        stepType === "case-analysis"
-      ) {
-        const branches =
-          makeCaseBranches(
-            clue,
-            scenario,
-            revealed,
-          );
-
-        positions.forEach((position) => {
-          revealed.set(
-            position,
-            scenario.arrangement[
-              position
-            ]!,
-          );
-        });
-
-        steps.push({
-          type: stepType,
-          title: clueTitle(
-            stepType,
-            clueIndex + 1,
-          ),
-          text: clueText(
-            clue,
-            scenario,
-          ),
-          arrangementSnapshot:
-            createSnapshot(
-              scenario,
-              revealed,
-              scenario.prompt.anchor,
-              scenario.prompt.correctAnswer,
-            ),
-          branches,
-        });
-        return;
-      }
-
-      positions.forEach((position) => {
-        revealed.set(
-          position,
-          scenario.arrangement[position]!,
-        );
-      });
-
-      steps.push({
-        type: stepType,
-        title: clueTitle(
-          stepType,
-          clueIndex + 1,
-        ),
-        text: clueText(
-          clue,
+  if (
+    !steps.some(
+      (step) =>
+        step.type ===
+        "final-arrangement",
+    )
+  ) {
+    steps.push({
+      type: "final-arrangement",
+      title: "Final Arrangement",
+      text: `After applying the full inference chain in order, the final arrangement is fixed and ${scenario.prompt.correctAnswer} is obtained for the asked position.`,
+      arrangementSnapshot:
+        buildSnapshotFromLabels(
           scenario,
+          scenario.arrangement,
         ),
-        arrangementSnapshot:
-          createSnapshot(
-            scenario,
-            revealed,
-            scenario.prompt.anchor,
-            scenario.prompt.correctAnswer,
-          ),
-      });
-    },
-  );
-
-  steps.push({
-    type: "final-arrangement",
-    title: "Final Arrangement",
-    text: `After applying all references, inferences, and eliminations, the arrangement is fixed and ${scenario.prompt.correctAnswer} is obtained for the asked position.`,
-    arrangementSnapshot:
-      createSnapshot(
-        scenario,
-        new Map(
-          scenario.arrangement.map(
-            (label, position) => [
-              position,
-              label,
-            ] as const,
-          ),
-        ),
-        scenario.prompt.anchor,
-        scenario.prompt.correctAnswer,
-      ),
-  });
+    });
+  }
 
   return {
-    summary: finalSummary(
+    summary: buildSummary(
       scenario,
     ),
     steps,

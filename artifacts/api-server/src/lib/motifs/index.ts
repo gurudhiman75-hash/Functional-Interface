@@ -5,6 +5,15 @@ import { bloodRelationMotifs } from "./blood-relations";
 import { directionSenseMotifs } from "./direction-sense";
 import { inequalityMotifs } from "./inequality";
 import { seatingArrangementMotifs } from "./seating-arrangement";
+import { practicalQuantMotifs } from "./practical-quant";
+import { practicalReasoningMotifs } from "./practical-reasoning";
+import { englishMotifs } from "./english";
+import { diMotifs } from "./di";
+import {
+  defineQuantMotif,
+  type UniversalMotif,
+} from "./types";
+export * from "./types";
 
 export const ALL_MOTIFS = [
   ...percentageMotifs,
@@ -14,4 +23,29 @@ export const ALL_MOTIFS = [
   ...directionSenseMotifs,
   ...inequalityMotifs,
   ...seatingArrangementMotifs,
+  ...practicalQuantMotifs,
+  ...practicalReasoningMotifs,
 ];
+
+export const UNIVERSAL_MOTIFS: UniversalMotif[] =
+  [
+    ...ALL_MOTIFS.map(
+      defineQuantMotif,
+    ),
+    ...englishMotifs,
+    ...diMotifs,
+  ];
+
+export {
+  percentageMotifs,
+  ratioMotifs,
+  codingDecodingMotifs,
+  bloodRelationMotifs,
+  directionSenseMotifs,
+  inequalityMotifs,
+  seatingArrangementMotifs,
+  practicalQuantMotifs,
+  practicalReasoningMotifs,
+  englishMotifs,
+  diMotifs,
+};

@@ -2,7 +2,10 @@ import type {
   SeatingExplanationFlow as SeatingExplanationFlowData,
   SeatingExplanationStep,
 } from "@workspace/api-zod";
-import SeatingDiagramRenderer from "./SeatingDiagramRenderer";
+import {
+  SeatingReplayBranchRenderer,
+  SeatingReplayStepRenderer,
+} from "./SeatingReplayRenderer";
 
 function stepAccent(
   type: SeatingExplanationStep["type"],
@@ -74,12 +77,9 @@ export function SeatingExplanationFlow({
             </div>
 
             {step.arrangementSnapshot ? (
-              <SeatingDiagramRenderer
-                diagram={
-                  step.arrangementSnapshot
-                }
+              <SeatingReplayStepRenderer
+                step={step}
                 compact
-                title={step.title}
                 className="max-w-md"
               />
             ) : null}
@@ -114,12 +114,9 @@ export function SeatingExplanationFlow({
                         {branch.text}
                       </p>
                       {branch.arrangementSnapshot ? (
-                        <SeatingDiagramRenderer
-                          diagram={
-                            branch.arrangementSnapshot
-                          }
+                        <SeatingReplayBranchRenderer
+                          branch={branch}
                           compact
-                          title={branch.label}
                         />
                       ) : null}
                     </div>

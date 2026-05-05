@@ -183,6 +183,24 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     ...commonConfig,
     entryPoints: [path.resolve(artifactDir, "validate-seating-generation.ts")],
   });
+
+  // Build seating orientation validator
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "validate-seating-orientation.ts")],
+  });
+
+  // Build seeded generation validator
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "validate-seeded-generation.ts")],
+  });
+
+  // Build reasoning stress test harness
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "stress-test-reasoning.ts")],
+  });
 }
 
 buildAll().catch((err) => {

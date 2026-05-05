@@ -602,6 +602,54 @@ async function migrate() {
   // name. The FK constraint on 'responses.attempt_id' still points there.
   // Drop the stale constraint and re-add it pointing to 'attempts'.
   await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS generation_jobs (
+      id                   TEXT      PRIMARY KEY,
+      status               TEXT      NOT NULL DEFAULT 'queued',
+      pattern_id           TEXT,
+      pattern_snapshot     JSONB     NOT NULL,
+      request_payload      JSONB     NOT NULL,
+      result_payload       JSONB,
+      generation_metadata  JSONB,
+      error_message        TEXT,
+      queued_at            TIMESTAMP NOT NULL DEFAULT NOW(),
+      started_at           TIMESTAMP,
+      completed_at         TIMESTAMP,
+      updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `);
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS generation_jobs_status_queued_at_idx
+    ON generation_jobs(status, queued_at);
+  `);
+  console.log("âœ“ generation_jobs");
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS reasoning_scenario_cache (
+      key                  TEXT      PRIMARY KEY,
+      pattern_id           TEXT,
+      generation_domain    TEXT,
+      generator_version    TEXT      NOT NULL,
+      motif_version        TEXT      NOT NULL,
+      topology_version     TEXT      NOT NULL,
+      request_fingerprint  TEXT      NOT NULL,
+      payload              JSONB     NOT NULL,
+      artifact_metadata    JSONB,
+      created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
+      last_accessed_at     TIMESTAMP NOT NULL DEFAULT NOW(),
+      hit_count            INTEGER   NOT NULL DEFAULT 0
+    );
+  `);
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS reasoning_scenario_cache_pattern_id_idx
+    ON reasoning_scenario_cache(pattern_id);
+  `);
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS reasoning_scenario_cache_domain_pattern_idx
+    ON reasoning_scenario_cache(generation_domain, pattern_id);
+  `);
+  console.log("âœ“ reasoning_scenario_cache");
+
+  await db.execute(sql`
     ALTER TABLE responses
       DROP CONSTRAINT IF EXISTS responses_attempt_id_attempt_records_id_fk;
   `);

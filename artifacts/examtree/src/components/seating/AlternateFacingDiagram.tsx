@@ -5,6 +5,7 @@ import {
   EXAM_STROKE,
   getVerticalArrowAnchor,
   getSvgLabel,
+  renderReplayOverlay,
   renderArrow,
   SeatLabel,
 } from "./diagram-utils";
@@ -13,6 +14,7 @@ export function AlternateFacingDiagram({
   diagram,
   className,
   title = "Alternate-facing seating arrangement",
+  replayAnnotation,
 }: DiagramProps) {
   const seats = diagram.seats;
   const gap = seats.length > 6 ? 40 : 44;
@@ -96,6 +98,12 @@ export function AlternateFacingDiagram({
         diagram={diagram}
         compact
       />
+      {renderReplayOverlay({
+        width,
+        height,
+        annotation:
+          replayAnnotation,
+      })}
     </svg>
   );
 }

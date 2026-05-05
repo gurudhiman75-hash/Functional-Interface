@@ -17,6 +17,9 @@
     "db:seed-taxonomy": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/seed-sections-topics.mjs",
     "db:seed-english-topics": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/seed-english-topics.mjs",
     "validate:seating": "node ./build.mjs && node --enable-source-maps ./dist/validate-seating-generation.mjs",
+    "validate:seating-orientation": "node ./build.mjs && node --enable-source-maps ./dist/validate-seating-orientation.mjs",
+    "validate:seeded-generation": "node ./build.mjs && node --enable-source-maps ./dist/validate-seeded-generation.mjs",
+    "stress:reasoning": "node ./build.mjs && node --enable-source-maps ./dist/stress-test-reasoning.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

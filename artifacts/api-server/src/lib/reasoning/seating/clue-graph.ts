@@ -22,7 +22,14 @@ export type ClueGraphAnalysis = {
   interactionRatio: number;
   adjacencySerializationScore: number;
   repeatedAdjacencySerialization: boolean;
+  adjacencyChainLength: number;
+  directClueRatio: number;
   clueTypeDistribution: ClueTypeDistribution;
+  clueSignature: string;
+  inferenceSignature: string;
+  topologyTokens: string[];
+  clueTokens: string[];
+  inferenceTokens: string[];
   topologySignature: string;
 };
 
@@ -112,6 +119,19 @@ function buildDistribution(
     },
     {} as ClueTypeDistribution,
   );
+}
+
+function getDirectClueCount(
+  clues: SeatingClue[],
+) {
+  return clues.filter((clue) =>
+    clue.type === "absolute" ||
+    clue.type === "end" ||
+    (clue.type === "adjacent" &&
+      clue.ordered) ||
+    (clue.type === "offset" &&
+      clue.distance === 1),
+  ).length;
 }
 
 function buildEdges(
@@ -252,36 +272,75 @@ function getAdjacencyChainLength(
 export function getClueReasoningWeight(
   clue: SeatingClue,
 ) {
+  if (
+    typeof clue.weight ===
+    "number"
+  ) {
+    return clue.weight;
+  }
+
+  const operatorWeight =
+    clue.operator === "NOT_EQUALS"
+      ? 2.5
+      : 1;
+
   switch (clue.type) {
     case "adjacent":
-      return clue.ordered ? 1 : 1.4;
+      return Math.max(
+        operatorWeight,
+        clue.ordered ? 1 : 1.4,
+      );
     case "offset":
-      return clue.distance === 1
-        ? 1.8
-        : clue.distance === 2
-          ? 2.3
-          : 2.7;
+      return Math.max(
+        operatorWeight,
+        clue.distance === 1
+          ? 1.8
+          : clue.distance === 2
+            ? 2.3
+            : 2.7,
+      );
     case "distance-gap":
-      return 2.5;
+      return Math.max(
+        operatorWeight,
+        2.5,
+      );
     case "between":
     case "adjacent-both":
-      return 3;
+      return Math.max(
+        operatorWeight,
+        3,
+      );
     case "not-adjacent":
     case "not-opposite":
     case "different-row":
     case "not-facing":
     case "not-end":
-      return 3;
+      return Math.max(
+        operatorWeight,
+        3,
+      );
     case "opposite":
     case "same-row":
     case "facing":
-      return 2.3;
+      return Math.max(
+        operatorWeight,
+        2.3,
+      );
     case "end":
-      return 1.2;
+      return Math.max(
+        operatorWeight,
+        1.2,
+      );
     case "absolute":
-      return 0.8;
+      return Math.max(
+        operatorWeight,
+        0.8,
+      );
     default:
-      return 1.5;
+      return Math.max(
+        operatorWeight,
+        1.5,
+      );
   }
 }
 
@@ -319,6 +378,9 @@ export function buildClueGraphAnalysis(
         clue.ordered,
     ).length /
     Math.max(clues.length, 1);
+  const directClueRatio =
+    getDirectClueCount(clues) /
+    Math.max(clues.length, 1);
   const repeatedAdjacencySerialization =
     adjacencyChainLength >= 4 ||
     (adjacencyChainLength >= 3 &&
@@ -326,23 +388,39 @@ export function buildClueGraphAnalysis(
         0.55);
   const clueTypeDistribution =
     buildDistribution(clues);
-  const topologySignature = [
-    arrangementType,
-    orientationType,
+  const sortedDistribution =
     Object.entries(
       clueTypeDistribution,
-    )
-      .sort(([left], [right]) =>
-        left.localeCompare(right),
-      )
-      .map(
-        ([type, count]) =>
-          `${type}:${count}`,
-      )
-      .join(","),
+    ).sort(([left], [right]) =>
+      left.localeCompare(right),
+    );
+  const topologyTokens = [
+    `layout:${arrangementType}`,
+    `orientation:${orientationType}`,
     `chain:${adjacencyChainLength}`,
     `density:${density.toFixed(2)}`,
     `interaction:${interactionRatio.toFixed(2)}`,
+  ];
+  const clueTokens = sortedDistribution.map(
+    ([type, count]) =>
+      `${type}:${count}`,
+  );
+  const inferenceTokens = clues.map(
+    (clue) =>
+      `${getClueFamily(clue)}:${getClueReasoningWeight(clue).toFixed(1)}:${clue.operator ?? "EQUALS"}`,
+  );
+  const topologySignature = [
+    ...topologyTokens,
+    clueTokens.join(","),
+  ].join("|");
+  const clueSignature = [
+    `direct:${directClueRatio.toFixed(2)}`,
+    clueTokens.join(","),
+  ].join("|");
+  const inferenceSignature = [
+    `adjacency:${adjacencySerializationScore.toFixed(2)}`,
+    `direct:${directClueRatio.toFixed(2)}`,
+    [...inferenceTokens].sort().join(","),
   ].join("|");
 
   return {
@@ -350,7 +428,14 @@ export function buildClueGraphAnalysis(
     interactionRatio,
     adjacencySerializationScore,
     repeatedAdjacencySerialization,
+    adjacencyChainLength,
+    directClueRatio,
     clueTypeDistribution,
+    clueSignature,
+    inferenceSignature,
+    topologyTokens,
+    clueTokens,
+    inferenceTokens,
     topologySignature,
   };
 }

@@ -5,6 +5,7 @@ import {
   EXAM_SOFT,
   getLabelWidth,
   getSvgLabel,
+  renderReplayOverlay,
   renderRadialArrow,
   SeatLabel,
 } from "./diagram-utils";
@@ -63,6 +64,7 @@ export function CircularSeatingDiagram({
   diagram,
   className,
   title = "Circular seating arrangement",
+  replayAnnotation,
 }: DiagramProps) {
   const seats = diagram.seats;
   const width = 220;
@@ -221,6 +223,12 @@ export function CircularSeatingDiagram({
         diagram={diagram}
         compact
       />
+      {renderReplayOverlay({
+        width,
+        height,
+        annotation:
+          replayAnnotation,
+      })}
     </svg>
   );
 }

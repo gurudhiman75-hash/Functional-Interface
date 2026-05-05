@@ -17,6 +17,7 @@ const router = Router();
 interface GeneratePatternRequest {
   patternId: string;
   count: number;
+  seed?: string;
   examProfile?: GeneratorOptions["examProfile"];
   targetDifficulty?: number;
   difficultyTolerance?: number;
@@ -28,6 +29,7 @@ interface GeneratePatternRequest {
 interface GeneratePatternResponse {
   success: boolean;
   questions?: GeneratorResult["questions"];
+  generationContext?: GeneratorResult["generationContext"];
   error?: string;
 }
 
@@ -152,6 +154,7 @@ router.post("/pattern", async (req: Request, res: Response) => {
     const {
       patternId,
       count,
+      seed,
       examProfile,
       targetDifficulty,
       difficultyTolerance,
@@ -190,10 +193,11 @@ router.post("/pattern", async (req: Request, res: Response) => {
 
     // Generate questions
     const result =
-      generateFromPattern(
+      await generateFromPattern(
         pattern,
         count,
         {
+          seed,
           examProfile,
           targetDifficulty,
           difficultyTolerance,
@@ -206,6 +210,8 @@ router.post("/pattern", async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       questions: result.questions,
+      generationContext:
+        result.generationContext,
     } satisfies GeneratePatternResponse);
   } catch (error) {
     console.error("Error in /api/generator/pattern:", error);
@@ -223,6 +229,7 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
     const {
       pattern,
       count,
+      seed,
       targetDifficulty,
       difficultyTolerance,
       difficultyDistribution,
@@ -231,6 +238,7 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
     } = req.body as {
       pattern: Pattern;
       count: number;
+      seed?: string;
       targetDifficulty?: number;
       difficultyTolerance?: number;
       difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
@@ -257,10 +265,11 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
 
     // Generate questions
     const result =
-      generateFromPattern(
+      await generateFromPattern(
         pattern,
         count,
         {
+          seed,
           targetDifficulty,
           difficultyTolerance,
           difficultyDistribution,
@@ -272,6 +281,8 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       questions: result.questions,
+      generationContext:
+        result.generationContext,
     } satisfies GeneratePatternResponse);
   } catch (error) {
     console.error("Error in /api/generator/pattern/manual:", error);

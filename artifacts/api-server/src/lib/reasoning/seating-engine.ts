@@ -4,14 +4,21 @@ import type {
 } from "../core/generator-engine";
 import type { QuantMotif } from "../motifs/types";
 import {
+  buildReasoningErrorMetadata,
   pickRandomItem,
+  randomInt,
+  ReasoningEngineError,
   shuffle,
 } from "../shared";
 import {
+  exportInferenceTrace,
   isPromptDirectlyAnsweredByClue,
+  type InferenceStep,
+  type InferenceTraceExport,
   solveCircularSeating,
   solveLinearSeating,
   solveSeatingArrangement,
+  type ValidationReport,
   validateCircularSeatingScenario,
   validateLinearSeatingScenario,
   validateSeatingScenario,
@@ -26,6 +33,7 @@ import {
   buildClueGraphAnalysis,
 } from "./seating/clue-graph";
 import {
+  analyzeStructuralDiversity,
   getRepeatedStructureWarnings,
   getStructuralDiversityScore,
   recordStructuralSignature,
@@ -36,6 +44,10 @@ import {
 import {
   evaluateClueSet,
 } from "./seating/uniqueness-validator";
+import {
+  buildInferenceDependencyGraph,
+  type InferenceDependencyGraph,
+} from "./seating/inference-dependency-graph";
 
 export type SeatingArrangementType =
   | "linear"
@@ -59,6 +71,10 @@ export type SeatFacingDirection =
   | "center"
   | "outward";
 
+export type LogicOperator =
+  | "EQUALS"
+  | "NOT_EQUALS";
+
 type LayoutFamily =
   | "single-row"
   | "ring"
@@ -72,87 +88,95 @@ type SeatNode = {
   label: string;
 };
 
+type ClueSemantics = {
+  operator?: LogicOperator;
+  weight?: number;
+};
+
 export type SeatingClue =
-  | {
+  ClueSemantics &
+  (
+    | {
     type: "absolute";
     person: string;
     index: number;
   }
-  | {
+    | {
     type: "end";
     person: string;
     side: "left" | "right";
   }
-  | {
+    | {
     type: "adjacent";
     left: string;
     right: string;
     ordered: boolean;
   }
-  | {
+    | {
     type: "not-adjacent";
     left: string;
     right: string;
   }
-  | {
+    | {
     type: "offset";
     anchor: string;
     person: string;
     distance: 1 | 2 | 3;
     direction: "left" | "right";
   }
-  | {
+    | {
     type: "distance-gap";
     left: string;
     right: string;
     gap: 1 | 2;
   }
-  | {
+    | {
     type: "between";
     middle: string;
     first: string;
     second: string;
   }
-  | {
+    | {
     type: "adjacent-both";
     middle: string;
     first: string;
     second: string;
   }
-  | {
+    | {
     type: "not-end";
     person: string;
   }
-  | {
+    | {
     type: "opposite";
     left: string;
     right: string;
   }
-  | {
+    | {
     type: "not-opposite";
     left: string;
     right: string;
   }
-  | {
+    | {
     type: "same-row";
     left: string;
     right: string;
   }
-  | {
+    | {
     type: "different-row";
     left: string;
     right: string;
   }
-  | {
+    | {
     type: "facing";
     left: string;
     right: string;
   }
-  | {
+    | {
     type: "not-facing";
     left: string;
     right: string;
-  };
+  }
+  );
 
 export type LinearSeatingClue =
   SeatingClue;
@@ -202,6 +226,8 @@ export type SeatingScenario = {
   prompt: SeatingQuestionPrompt;
   clueCount: number;
   inferenceDepth: number;
+  branchingComplexity: number;
+  deductionDependencyScore: number;
   solverComplexity: number;
   validationWarnings: string[];
   directClueCount: number;
@@ -210,12 +236,29 @@ export type SeatingScenario = {
   deductionDepth: number;
   eliminationDepth: number;
   clueGraphDensity: number;
+  clueDensity: number;
   clueInteractionRatio: number;
   redundancyScore: number;
+  redundancyRatio: number;
+  anchorDensity: number;
+  directClueRatio: number;
+  originalClueCount: number;
+  minimalClueCount: number;
+  removedRedundantClues: SeatingClue[];
+  topologyDiversityScore: number;
+  clueDiversityScore: number;
+  inferenceDiversityScore: number;
   structuralDiversityScore: number;
   clueTypeDistribution: Record<string, number>;
   repeatedStructureWarnings: string[];
   uniquenessVerified: boolean;
+  validationRetries: number;
+  uniquenessFailures: number;
+  branchingFactor: number;
+  validationReport: ValidationReport;
+  solverInferenceSteps: InferenceStep[];
+  solverTraceExport: InferenceTraceExport;
+  inferenceDependencyGraph: InferenceDependencyGraph;
   finalArrangement: string;
   generatedClues: string[];
   solverTrace: string[];
@@ -271,12 +314,38 @@ type ClueAnalysisMetadata =
   Pick<
     SeatingScenario,
     | "clueGraphDensity"
+    | "clueDensity"
     | "clueInteractionRatio"
     | "redundancyScore"
+    | "redundancyRatio"
+    | "anchorDensity"
+    | "directClueRatio"
+    | "originalClueCount"
+    | "minimalClueCount"
+    | "removedRedundantClues"
+    | "topologyDiversityScore"
+    | "clueDiversityScore"
+    | "inferenceDiversityScore"
     | "structuralDiversityScore"
     | "clueTypeDistribution"
     | "repeatedStructureWarnings"
   >;
+
+type GenerationAttemptMetrics = {
+  validationRetries: number;
+  uniquenessFailures: number;
+};
+
+function buildSeatingErrorMetadata(
+  metadata?: Record<
+    string,
+    unknown
+  >,
+) {
+  return buildReasoningErrorMetadata(
+    metadata,
+  );
+}
 
 function extractSeatingPatternConfig(
   pattern?: Pattern,
@@ -563,7 +632,7 @@ function getDefaultParticipantCount(
   switch (arrangementType) {
     case "linear":
       return difficulty === "Easy"
-        ? 5 + Math.round(Math.random())
+        ? 5 + randomInt(0, 1)
         : 6;
     case "circular":
       return difficulty === "Hard"
@@ -928,6 +997,41 @@ function getSeat(
   return layout.seats[index]!;
 }
 
+function getOppositeNode(
+  index: number,
+  layout: SeatingLayout,
+) {
+  if (layout.family === "ring") {
+    if (
+      layout.seatCount % 2 !== 0
+    ) {
+      return undefined;
+    }
+
+    return getSeat(
+      layout,
+      (index + layout.seatCount / 2) %
+        layout.seatCount,
+    );
+  }
+
+  if (layout.family === "two-row") {
+    const seat = getSeat(
+      layout,
+      index,
+    );
+
+    return getSeat(
+      layout,
+      (1 - seat.row) *
+        layout.colCount +
+        seat.col,
+    );
+  }
+
+  return undefined;
+}
+
 function isRingLayout(
   layout: SeatingLayout,
 ) {
@@ -1046,32 +1150,10 @@ function getOppositeIndex(
   index: number,
   layout: SeatingLayout,
 ) {
-  if (layout.family === "ring") {
-    if (
-      layout.seatCount % 2 !== 0
-    ) {
-      return undefined;
-    }
-
-    return (
-      index + layout.seatCount / 2
-    ) % layout.seatCount;
-  }
-
-  if (layout.family === "two-row") {
-    const seat = getSeat(
-      layout,
-      index,
-    );
-
-    return (
-      (1 - seat.row) *
-        layout.colCount +
-      seat.col
-    );
-  }
-
-  return undefined;
+  return getOppositeNode(
+    index,
+    layout,
+  )?.index;
 }
 
 function sameRow(
@@ -1588,6 +1670,24 @@ function getEliminationContribution(
   }
 }
 
+function getClueOperator(
+  clue: SeatingClue,
+) {
+  return clue.operator ?? "EQUALS";
+}
+
+function getClueWeight(
+  clue: SeatingClue,
+) {
+  return (
+    clue.weight ??
+    (getClueOperator(clue) ===
+    "NOT_EQUALS"
+      ? 2.5
+      : 1)
+  );
+}
+
 function getDirectClueLimit(
   difficulty: DifficultyLabel,
 ) {
@@ -1681,30 +1781,49 @@ function getDeductionDepth(
 ) {
   return clues.reduce(
     (sum, clue) => {
+      const baseWeight =
+        getClueWeight(clue);
+
       switch (clue.type) {
         case "adjacent":
-          return sum +
-            (clue.ordered ? 1 : 2);
+          return (
+            sum +
+            Math.max(
+              baseWeight,
+              clue.ordered ? 1 : 2,
+            )
+          );
         case "offset":
-          return sum +
-            (clue.distance >= 3
-              ? 3
-              : 2);
+          return (
+            sum +
+            Math.max(
+              baseWeight,
+              clue.distance >= 3
+                ? 3
+                : 2,
+            )
+          );
         case "distance-gap":
         case "between":
         case "adjacent-both":
         case "same-row":
         case "facing":
         case "opposite":
-          return sum + 2;
+          return (
+            sum +
+            Math.max(baseWeight, 2)
+          );
         case "not-adjacent":
         case "not-opposite":
         case "not-end":
         case "different-row":
         case "not-facing":
-          return sum + 1;
+          return (
+            sum +
+            Math.max(baseWeight, 1)
+          );
         default:
-          return sum;
+          return sum + baseWeight;
       }
     },
     0,
@@ -2288,25 +2407,54 @@ function analyzeClueSet(
     );
   const structuralDiversityScore =
     getStructuralDiversityScore(
-      graphAnalysis.topologySignature,
+      graphAnalysis,
+    );
+  const diversityAnalysis =
+    analyzeStructuralDiversity(
+      graphAnalysis,
     );
   const repeatedStructureWarnings =
     getRepeatedStructureWarnings(
-      graphAnalysis.topologySignature,
-      graphAnalysis.repeatedAdjacencySerialization,
+      graphAnalysis,
     );
 
   recordStructuralSignature(
-    graphAnalysis.topologySignature,
+    graphAnalysis,
   );
 
   return {
     clueGraphDensity:
       graphAnalysis.density,
+    clueDensity:
+      clues.length > 0 &&
+      participants.length > 0
+        ? clues.length /
+          participants.length
+        : 0,
     clueInteractionRatio:
       graphAnalysis.interactionRatio,
     redundancyScore:
       redundancy.redundancyScore,
+    redundancyRatio:
+      redundancy.redundancyRatio,
+    anchorDensity:
+      redundancy.anchorDensity,
+    directClueRatio:
+      redundancy.directClueRatio,
+    originalClueCount:
+      redundancy.originalClueCount,
+    minimalClueCount:
+      redundancy.minimalClueCount,
+    removedRedundantClues:
+      redundancy.removedClues.map(
+        (entry) => entry.clue,
+      ),
+    topologyDiversityScore:
+      diversityAnalysis.topologyDiversityScore,
+    clueDiversityScore:
+      diversityAnalysis.clueDiversityScore,
+    inferenceDiversityScore:
+      diversityAnalysis.inferenceDiversityScore,
     structuralDiversityScore,
     clueTypeDistribution:
       graphAnalysis.clueTypeDistribution,
@@ -2373,39 +2521,46 @@ function formatFinalArrangement(
 function clueToDebugText(
   clue: SeatingClue,
 ) {
+  const operatorLabel =
+    getClueOperator(clue) ===
+    "NOT_EQUALS"
+      ? "[NOT_EQUALS] "
+      : "";
+
   switch (clue.type) {
     case "absolute":
-      return `${clue.person} at seat ${clue.index + 1}`;
+      return `${operatorLabel}${clue.person} at seat ${clue.index + 1}`;
     case "end":
-      return `${clue.person} at ${clue.side} end`;
+      return `${operatorLabel}${clue.person} at ${clue.side} end`;
     case "adjacent":
-      return clue.ordered
+      return operatorLabel +
+        (clue.ordered
         ? `${clue.left} immediately left of ${clue.right}`
-        : `${clue.left} adjacent to ${clue.right}`;
+        : `${clue.left} adjacent to ${clue.right}`);
     case "not-adjacent":
-      return `${clue.left} not adjacent to ${clue.right}`;
+      return `${operatorLabel}${clue.left} not adjacent to ${clue.right}`;
     case "offset":
-      return `${clue.person} ${clue.distance} ${clue.direction} of ${clue.anchor}`;
+      return `${operatorLabel}${clue.person} ${clue.distance} ${clue.direction} of ${clue.anchor}`;
     case "distance-gap":
-      return `${clue.gap} gap between ${clue.left} and ${clue.right}`;
+      return `${operatorLabel}${clue.gap} gap between ${clue.left} and ${clue.right}`;
     case "between":
-      return `${clue.middle} between ${clue.first} and ${clue.second}`;
+      return `${operatorLabel}${clue.middle} between ${clue.first} and ${clue.second}`;
     case "adjacent-both":
-      return `${clue.middle} adjacent to both ${clue.first} and ${clue.second}`;
+      return `${operatorLabel}${clue.middle} adjacent to both ${clue.first} and ${clue.second}`;
     case "not-end":
-      return `${clue.person} not at end`;
+      return `${operatorLabel}${clue.person} not at end`;
     case "opposite":
-      return `${clue.left} opposite ${clue.right}`;
+      return `${operatorLabel}${clue.left} opposite ${clue.right}`;
     case "not-opposite":
-      return `${clue.left} not opposite ${clue.right}`;
+      return `${operatorLabel}${clue.left} not opposite ${clue.right}`;
     case "same-row":
-      return `${clue.left} same row as ${clue.right}`;
+      return `${operatorLabel}${clue.left} same row as ${clue.right}`;
     case "different-row":
-      return `${clue.left} different row from ${clue.right}`;
+      return `${operatorLabel}${clue.left} different row from ${clue.right}`;
     case "facing":
-      return `${clue.left} faces ${clue.right}`;
+      return `${operatorLabel}${clue.left} faces ${clue.right}`;
     case "not-facing":
-      return `${clue.left} does not face ${clue.right}`;
+      return `${operatorLabel}${clue.left} does not face ${clue.right}`;
     default:
       return "seating clue";
   }
@@ -2434,17 +2589,49 @@ function buildScenarioFromValidatedState(
   warnings: string[],
   solverComplexity: number,
   clueAnalysis: ClueAnalysisMetadata,
+  validationReport: ValidationReport,
+  solverInferenceSteps: InferenceStep[],
+  solverTrace: string[],
+  generationAttemptMetrics: GenerationAttemptMetrics,
 ) {
   const directClueCount =
     getDirectClueCount(clues);
   const relationalClueCount =
     getRelationalClueCount(clues);
+  const inferenceDependencyGraph =
+    buildInferenceDependencyGraph(
+      solverInferenceSteps,
+    );
   const deductionDepth = Math.max(
     3,
-    getDeductionDepth(clues),
+    Math.max(
+      getDeductionDepth(clues),
+      inferenceDependencyGraph.inferenceDepth,
+    ),
   );
   const eliminationDepth =
-    getEliminationDepth(clues);
+    Math.max(
+      getEliminationDepth(clues),
+      inferenceDependencyGraph.eliminationChainCount,
+    );
+  const weightedInferenceDepth =
+    clues.reduce(
+      (sum, clue) =>
+        sum + getClueWeight(clue),
+      0,
+    );
+  const branchDecisionCount =
+    solverInferenceSteps.filter(
+      (step) =>
+        step.deduction.includes(
+          "Branching on",
+        ),
+    ).length;
+  const branchingFactor =
+    participants.length > 0
+      ? branchDecisionCount /
+        participants.length
+      : 0;
 
   return {
     participants,
@@ -2465,12 +2652,23 @@ function buildScenarioFromValidatedState(
     inferenceDepth: Math.max(
       3,
       Math.min(
-        clues.length +
-          relationalClueCount -
-          directClueCount,
+        Math.round(
+          Math.max(
+            weightedInferenceDepth,
+            inferenceDependencyGraph.inferenceDepth,
+          ) +
+            relationalClueCount -
+            directClueCount +
+            inferenceDependencyGraph.deductionDependencyScore *
+              0.35,
+        ),
         10,
       ),
     ),
+    branchingComplexity:
+      inferenceDependencyGraph.branchingComplexity,
+    deductionDependencyScore:
+      inferenceDependencyGraph.deductionDependencyScore,
     solverComplexity,
     validationWarnings: warnings,
     directClueCount,
@@ -2481,10 +2679,30 @@ function buildScenarioFromValidatedState(
     eliminationDepth,
     clueGraphDensity:
       clueAnalysis.clueGraphDensity,
+    clueDensity:
+      clueAnalysis.clueDensity,
     clueInteractionRatio:
       clueAnalysis.clueInteractionRatio,
     redundancyScore:
       clueAnalysis.redundancyScore,
+    redundancyRatio:
+      clueAnalysis.redundancyRatio,
+    anchorDensity:
+      clueAnalysis.anchorDensity,
+    directClueRatio:
+      clueAnalysis.directClueRatio,
+    originalClueCount:
+      clueAnalysis.originalClueCount,
+    minimalClueCount:
+      clueAnalysis.minimalClueCount,
+    removedRedundantClues:
+      clueAnalysis.removedRedundantClues,
+    topologyDiversityScore:
+      clueAnalysis.topologyDiversityScore,
+    clueDiversityScore:
+      clueAnalysis.clueDiversityScore,
+    inferenceDiversityScore:
+      clueAnalysis.inferenceDiversityScore,
     structuralDiversityScore:
       clueAnalysis.structuralDiversityScore,
     clueTypeDistribution:
@@ -2503,6 +2721,18 @@ function buildScenarioFromValidatedState(
           "contradicted",
         ),
       ),
+    validationRetries:
+      generationAttemptMetrics.validationRetries,
+    uniquenessFailures:
+      generationAttemptMetrics.uniquenessFailures,
+    branchingFactor,
+    validationReport,
+    solverInferenceSteps,
+    solverTraceExport:
+      exportInferenceTrace(
+        solverInferenceSteps,
+      ),
+    inferenceDependencyGraph,
     finalArrangement:
       formatFinalArrangement(
         arrangement,
@@ -2511,10 +2741,13 @@ function buildScenarioFromValidatedState(
     generatedClues: clues.map(
       clueToDebugText,
     ),
-    solverTrace: buildSolverTrace(
-      clues,
-      layout,
-    ),
+    solverTrace:
+      solverTrace.length > 0
+        ? solverTrace
+        : buildSolverTrace(
+          clues,
+          layout,
+        ),
   } satisfies SeatingScenario;
 }
 
@@ -2776,13 +3009,35 @@ function buildEmergencyScenario(
         ],
         validation.solverComplexity,
         clueAnalysis,
+        validation.validationReport,
+        validation.inferenceSteps,
+        validation.solverTrace,
+        {
+          validationRetries: 0,
+          uniquenessFailures: 0,
+        },
       );
     }
   }
 
-  throw new Error(
-    `Unable to produce a uniquely solvable fallback for ${arrangementType} seating.`,
-  );
+  throw new ReasoningEngineError({
+    code:
+      "SEATING_FALLBACK_UNSOLVABLE",
+    phase: "validation",
+    message: `Unable to produce a uniquely solvable fallback for ${arrangementType} seating.`,
+    metadata:
+      buildSeatingErrorMetadata({
+        arrangementType,
+        layoutFamily: layout.family,
+        motif: motif.id,
+        inferenceDepth:
+          config.inferenceDepth ??
+          difficulty,
+        clueCount: 0,
+        difficulty,
+        participantCount,
+      }),
+  });
 }
 
 function createSeatingScenarioInternal(
@@ -2795,6 +3050,8 @@ function createSeatingScenarioInternal(
       pattern,
     );
   const maxAttempts = 450;
+  let validationRetries = 0;
+  let uniquenessFailures = 0;
 
   for (
     let attempt = 0;
@@ -2867,6 +3124,12 @@ function createSeatingScenarioInternal(
         clues,
         difficulty,
         layout,
+      ) &&
+      !clueResult.repeatedStructureWarnings.some(
+        (warning) =>
+          warning.includes(
+            "rejected",
+          ),
       )
     ) {
       return buildScenarioFromValidatedState(
@@ -2884,6 +3147,24 @@ function createSeatingScenarioInternal(
             clueResult.clueInteractionRatio,
           redundancyScore:
             clueResult.redundancyScore,
+          redundancyRatio:
+            clueResult.redundancyRatio,
+          anchorDensity:
+            clueResult.anchorDensity,
+          directClueRatio:
+            clueResult.directClueRatio,
+          originalClueCount:
+            clueResult.originalClueCount,
+          minimalClueCount:
+            clueResult.minimalClueCount,
+          removedRedundantClues:
+            clueResult.removedRedundantClues,
+          topologyDiversityScore:
+            clueResult.topologyDiversityScore,
+          clueDiversityScore:
+            clueResult.clueDiversityScore,
+          inferenceDiversityScore:
+            clueResult.inferenceDiversityScore,
           structuralDiversityScore:
             clueResult.structuralDiversityScore,
           clueTypeDistribution:
@@ -2891,7 +3172,22 @@ function createSeatingScenarioInternal(
           repeatedStructureWarnings:
             clueResult.repeatedStructureWarnings,
         },
+        validation.validationReport,
+        validation.inferenceSteps,
+        validation.solverTrace,
+        {
+          validationRetries,
+          uniquenessFailures,
+        },
       );
+    }
+
+    validationRetries += 1;
+
+    if (
+      validation.solutionCount !== 1
+    ) {
+      uniquenessFailures += 1;
     }
   }
 

@@ -5,6 +5,7 @@ import {
   EXAM_STROKE,
   getVerticalArrowAnchor,
   getSvgLabel,
+  renderReplayOverlay,
   renderArrow,
   SeatLabel,
 } from "./diagram-utils";
@@ -13,6 +14,7 @@ export function DoubleRowDiagram({
   diagram,
   className,
   title = "Double-row seating arrangement",
+  replayAnnotation,
 }: DiagramProps) {
   const colCount = Math.max(
     1,
@@ -152,6 +154,12 @@ export function DoubleRowDiagram({
         diagram={diagram}
         compact
       />
+      {renderReplayOverlay({
+        width,
+        height,
+        annotation:
+          replayAnnotation,
+      })}
     </svg>
   );
 }

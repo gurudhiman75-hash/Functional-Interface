@@ -1,6 +1,7 @@
 export * from "./distractors";
 export * from "./motifs";
 export * from "./randomness";
+export * from "./reasoning-engine-error";
 export * from "./realizers";
 export * from "./reasoning";
 export * from "./text";

@@ -8,6 +8,18 @@ export type DiagramProps = {
   diagram: SeatingDiagramData;
   className?: string;
   title?: string;
+  replayAnnotation?: ReplayAnnotation;
+};
+
+export type ReplayAnnotation = {
+  mode?:
+    | "step"
+    | "case"
+    | "elimination"
+    | "selected"
+    | "final";
+  label?: string;
+  note?: string;
 };
 
 export const EXAM_STROKE = "#1f2937";
@@ -319,6 +331,116 @@ export function DiagramLegend({
             answer
           </text>
         </g>
+      ) : null}
+    </g>
+  );
+}
+
+export function renderReplayOverlay({
+  width,
+  height,
+  annotation,
+}: {
+  width: number;
+  height: number;
+  annotation?: ReplayAnnotation;
+}) {
+  if (!annotation?.mode) {
+    return null;
+  }
+
+  const label =
+    annotation.label ??
+    (annotation.mode === "elimination"
+      ? "Eliminated"
+      : annotation.mode === "selected"
+        ? "Retained"
+        : annotation.mode === "final"
+          ? "Final"
+          : annotation.mode === "case"
+            ? "Case"
+            : "Step");
+  const color =
+    annotation.mode === "elimination"
+      ? "#b91c1c"
+      : annotation.mode === "selected"
+        ? "#166534"
+        : annotation.mode === "final"
+          ? "#0f766e"
+          : "#475569";
+  const strokeDasharray =
+    annotation.mode === "elimination"
+      ? "4 3"
+      : annotation.mode === "case"
+        ? "2 3"
+        : undefined;
+
+  return (
+    <g aria-hidden="true">
+      <rect
+        x={2}
+        y={2}
+        width={width - 4}
+        height={height - 4}
+        rx={4}
+        fill="none"
+        stroke={color}
+        strokeWidth={1}
+        strokeDasharray={strokeDasharray}
+        opacity={0.65}
+      />
+      {annotation.mode ===
+      "elimination" ? (
+        <g opacity={0.28}>
+          <line
+            x1={10}
+            y1={12}
+            x2={width - 10}
+            y2={height - 12}
+            stroke={color}
+            strokeWidth={1.2}
+          />
+          <line
+            x1={width - 10}
+            y1={12}
+            x2={10}
+            y2={height - 12}
+            stroke={color}
+            strokeWidth={1.2}
+          />
+        </g>
+      ) : null}
+      <g transform={`translate(${width - 60} 12)`}>
+        <rect
+          x={0}
+          y={-8}
+          width={52}
+          height={14}
+          rx={3}
+          fill={EXAM_PAPER}
+          stroke={color}
+          strokeWidth={1}
+        />
+        <text
+          x={26}
+          y={1}
+          textAnchor="middle"
+          fontSize={8}
+          fontWeight={700}
+          fill={color}
+        >
+          {label}
+        </text>
+      </g>
+      {annotation.note ? (
+        <text
+          x={8}
+          y={height - 8}
+          fontSize={7.5}
+          fill={EXAM_MUTED}
+        >
+          {annotation.note}
+        </text>
       ) : null}
     </g>
   );

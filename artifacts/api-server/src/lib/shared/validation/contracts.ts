@@ -155,6 +155,9 @@ export function getPatternReasoningCapabilities(
     topicCluster === "blood-relations" ||
     topicCluster === "direction-sense" ||
     topicCluster === "inequality" ||
+    topicCluster === "ordering-ranking" ||
+    topicCluster === "puzzles" ||
+    topicCluster === "syllogism" ||
     topicCluster === "seating-arrangement"
   ) {
     capabilities.add("inferential");
@@ -189,8 +192,14 @@ export function getMotifCompatiblePatternTypes(
     motif.topicCluster ===
       "inequality" ||
     motif.topicCluster ===
-      "direction-sense"
-      || motif.topicCluster ===
+      "direction-sense" ||
+    motif.topicCluster ===
+      "ordering-ranking" ||
+    motif.topicCluster ===
+      "puzzles" ||
+    motif.topicCluster ===
+      "syllogism" ||
+    motif.topicCluster ===
       "seating-arrangement"
       ? "logic"
       : "formula",
@@ -245,8 +254,14 @@ export function getMotifSupportedReasoningTypes(
     motif.topicCluster ===
       "blood-relations" ||
     motif.topicCluster ===
-      "direction-sense"
-    || motif.topicCluster ===
+      "direction-sense" ||
+    motif.topicCluster ===
+      "ordering-ranking" ||
+    motif.topicCluster ===
+      "puzzles" ||
+    motif.topicCluster ===
+      "syllogism" ||
+    motif.topicCluster ===
       "seating-arrangement"
   ) {
     supported.add("symbolic");

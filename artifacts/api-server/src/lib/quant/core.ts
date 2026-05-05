@@ -6,10 +6,13 @@ import type {
 } from "../core/generator-engine";
 import type { QuantMotif } from "../motifs/types";
 import {
+  buildReasoningErrorMetadata,
   countMatches,
   hasAnyToken,
   pickRandomItem,
+  random,
   randomInt,
+  ReasoningEngineError,
 } from "../shared";
 
 function keyExists(
@@ -118,7 +121,7 @@ export function generateValues(
       return value;
     }
 
-    if (Math.random() < 0.55) {
+    if (random() < 0.55) {
       return pickRoundedValue([
         5,
         2,
@@ -330,9 +333,16 @@ export function evaluateFormula(
     });
   }
 
-  throw new Error(
-    `Invalid formula: ${formula}`,
-  );
+  throw new ReasoningEngineError({
+    code: "FORMULA_INVALID",
+    phase: "realization",
+    message: `Invalid formula: ${formula}`,
+    metadata:
+      buildReasoningErrorMetadata({
+        formula,
+        values,
+      }),
+  });
 }
 
 export function getArithmeticComplexity(
@@ -416,6 +426,70 @@ export function inferQuantTopicCluster(
     ])
   ) {
     return "averages";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "time and work",
+      "time & work",
+      "work and wages",
+      "efficiency",
+      "work rate",
+    ])
+  ) {
+    return "time-work";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "speed",
+      "distance",
+      "train",
+      "boat",
+      "stream",
+      "race",
+    ])
+  ) {
+    return "speed-time-distance";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "mixture",
+      "alligation",
+      "replacement",
+      "solution",
+      "alloy",
+    ])
+  ) {
+    return "mixture-alligation";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "algebra",
+      "equation",
+      "linear equation",
+      "quadratic",
+      "identity",
+    ])
+  ) {
+    return "algebra-basics";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "mensuration",
+      "perimeter",
+      "area",
+      "volume",
+      "surface area",
+      "cylinder",
+      "sphere",
+      "cone",
+    ])
+  ) {
+    return "mensuration";
   }
 
   if (
@@ -507,6 +581,43 @@ export function inferQuantTopicCluster(
     ])
   ) {
     return "direction-sense";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "ranking",
+      "order",
+      "position",
+      "rank",
+      "from top",
+      "from bottom",
+    ])
+  ) {
+    return "ordering-ranking";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "syllogism",
+      "conclusion",
+      "statement",
+      "venn",
+    ])
+  ) {
+    return "syllogism";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "puzzle",
+      "box arrangement",
+      "floor puzzle",
+      "month puzzle",
+      "day puzzle",
+      "scheduling puzzle",
+    ])
+  ) {
+    return "puzzles";
   }
 
   return "general-quant";

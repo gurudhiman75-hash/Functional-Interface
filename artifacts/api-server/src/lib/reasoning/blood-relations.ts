@@ -5,6 +5,7 @@ import type {
 import type { QuantMotif } from "../motifs/types";
 import {
   createReasoningStep,
+  random,
   ReasoningStep,
   shuffle,
 } from "../shared";
@@ -143,7 +144,7 @@ function createFamilyMemberMap(): Record<
       id: "child",
       name: pickedNames[6]!.name,
       gender:
-        Math.random() > 0.5
+        random() > 0.5
           ? "male"
           : "female",
       fatherId: "father",
@@ -153,7 +154,7 @@ function createFamilyMemberMap(): Record<
       id: "cousin",
       name: pickedNames[7]!.name,
       gender:
-        Math.random() > 0.5
+        random() > 0.5
           ? "male"
           : "female",
       fatherId: "uncle",

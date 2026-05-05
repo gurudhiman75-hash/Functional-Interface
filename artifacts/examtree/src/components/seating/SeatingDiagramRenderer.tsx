@@ -3,12 +3,14 @@ import AlternateFacingDiagram from "./AlternateFacingDiagram";
 import CircularSeatingDiagram from "./CircularSeatingDiagram";
 import DoubleRowDiagram from "./DoubleRowDiagram";
 import LinearSeatingDiagram from "./LinearSeatingDiagram";
+import type { ReplayAnnotation } from "./diagram-utils";
 
 type Props = {
   diagram?: SeatingDiagramData | null;
   className?: string;
   title?: string;
   compact?: boolean;
+  replayAnnotation?: ReplayAnnotation;
 };
 
 export function SeatingDiagramRenderer({
@@ -16,6 +18,7 @@ export function SeatingDiagramRenderer({
   className,
   title,
   compact = false,
+  replayAnnotation,
 }: Props) {
   if (!diagram?.seats?.length) {
     return null;
@@ -42,6 +45,9 @@ export function SeatingDiagramRenderer({
           diagram={diagram}
           className="w-full h-auto"
           title={title}
+          replayAnnotation={
+            replayAnnotation
+          }
         />
       </div>
     );
@@ -59,6 +65,9 @@ export function SeatingDiagramRenderer({
           diagram={diagram}
           className="w-full h-auto"
           title={title}
+          replayAnnotation={
+            replayAnnotation
+          }
         />
       </div>
     );
@@ -78,6 +87,9 @@ export function SeatingDiagramRenderer({
           diagram={diagram}
           className="w-full h-auto"
           title={title}
+          replayAnnotation={
+            replayAnnotation
+          }
         />
       </div>
     );
@@ -89,6 +101,9 @@ export function SeatingDiagramRenderer({
         diagram={diagram}
         className="w-full h-auto"
         title={title}
+        replayAnnotation={
+          replayAnnotation
+        }
       />
     </div>
   );
