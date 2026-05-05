@@ -25,6 +25,11 @@ import {
   type GenerationJobStatus,
 } from "../lib/generation-jobs";
 import { ALL_PATTERNS } from "../lib/patterns";
+import {
+  listQuestionPatterns,
+  normalizeExamStyle,
+  resolveQuestionPatternToPattern,
+} from "../lib/pattern-registry";
 import { getQuestionColumnState } from "../lib/question-columns";
 import {
   buildQuestionFingerprint,
@@ -336,6 +341,16 @@ router.get(
   },
 );
 
+router.get(
+  "/question-patterns",
+  async (_req, res) => {
+    return res.json({
+      patterns:
+        listQuestionPatterns(),
+    });
+  },
+);
+
 router.post(
   "/patterns",
   async (
@@ -576,10 +591,15 @@ router.post(
   ) => {
     try {
       const {
+        domain,
+        topic,
+        pattern: frontendPattern,
         patternId,
         count,
         seed,
         examProfile,
+        examStyle,
+        difficulty,
         targetDifficulty,
         difficultyTolerance,
         difficultyDistribution,
@@ -588,7 +608,7 @@ router.post(
       } = req.body;
 
       if (
-        !patternId ||
+        !(patternId || frontendPattern) ||
         typeof count !== "number"
       ) {
         return res
@@ -598,24 +618,53 @@ router.post(
           });
       }
 
-      const rows = await db
-        .select()
-        .from(patterns)
-        .where(
-          eq(
-            patterns.id,
-            patternId,
-          ),
-        );
+      let pattern: Pattern | undefined;
 
-      const dbPattern = rows[0];
-      const registeredPattern =
-        getRegisteredPattern(patternId);
+      const registryPattern =
+        resolveQuestionPatternToPattern({
+          domain,
+          topic,
+          pattern: frontendPattern,
+          patternId,
+          difficulty,
+          examStyle,
+        });
 
-      if (
-        !dbPattern &&
-        !registeredPattern
-      ) {
+      if (registryPattern) {
+        pattern = registryPattern;
+      }
+
+      if (!pattern && patternId) {
+        const rows = await db
+          .select()
+          .from(patterns)
+          .where(
+            eq(
+              patterns.id,
+              patternId,
+            ),
+          );
+
+        const dbPattern = rows[0];
+        const registeredPattern =
+          getRegisteredPattern(patternId);
+
+        if (
+          dbPattern ||
+          registeredPattern
+        ) {
+          pattern =
+            normalizeStoredPattern(
+              (dbPattern ??
+                registeredPattern) as Record<
+                string,
+                unknown
+              >,
+            );
+        }
+      }
+
+      if (!pattern) {
         return res
           .status(404)
           .json({
@@ -623,15 +672,6 @@ router.post(
               "Pattern not found",
           });
       }
-
-      const pattern: Pattern =
-        normalizeStoredPattern(
-          (dbPattern ??
-            registeredPattern) as Record<
-            string,
-            unknown
-          >,
-        );
 
       if (
         pattern.type === "di" &&
@@ -651,7 +691,11 @@ router.post(
           count,
           {
             seed,
-            examProfile,
+            examProfile:
+              examProfile ??
+              normalizeExamStyle(
+                examStyle,
+              ),
             targetDifficulty,
             difficultyTolerance,
             difficultyDistribution,
@@ -681,10 +725,15 @@ router.post(
   ) => {
     try {
       const {
+        domain,
+        topic,
+        pattern: frontendPattern,
         patternId,
         count,
         seed,
         examProfile,
+        examStyle,
+        difficulty,
         targetDifficulty,
         difficultyTolerance,
         difficultyDistribution,
@@ -693,7 +742,7 @@ router.post(
       } = req.body;
 
       if (
-        !patternId ||
+        !(patternId || frontendPattern) ||
         !validateAsyncJobCount(count)
       ) {
         return res
@@ -704,23 +753,52 @@ router.post(
           });
       }
 
-      const rows = await db
-        .select()
-        .from(patterns)
-        .where(
-          eq(
-            patterns.id,
-            patternId,
-          ),
-        );
-      const dbPattern = rows[0];
-      const registeredPattern =
-        getRegisteredPattern(patternId);
+      let pattern: Pattern | undefined;
 
-      if (
-        !dbPattern &&
-        !registeredPattern
-      ) {
+      const registryPattern =
+        resolveQuestionPatternToPattern({
+          domain,
+          topic,
+          pattern: frontendPattern,
+          patternId,
+          difficulty,
+          examStyle,
+        });
+
+      if (registryPattern) {
+        pattern = registryPattern;
+      }
+
+      if (!pattern && patternId) {
+        const rows = await db
+          .select()
+          .from(patterns)
+          .where(
+            eq(
+              patterns.id,
+              patternId,
+            ),
+          );
+        const dbPattern = rows[0];
+        const registeredPattern =
+          getRegisteredPattern(patternId);
+
+        if (
+          dbPattern ||
+          registeredPattern
+        ) {
+          pattern =
+            normalizeStoredPattern(
+              (dbPattern ??
+                registeredPattern) as Record<
+                string,
+                unknown
+              >,
+            );
+        }
+      }
+
+      if (!pattern) {
         return res
           .status(404)
           .json({
@@ -729,23 +807,20 @@ router.post(
           });
       }
 
-      const pattern: Pattern =
-        normalizeStoredPattern(
-          (dbPattern ??
-            registeredPattern) as Record<
-            string,
-            unknown
-          >,
-        );
       const job =
         await enqueueGenerationJob(
           {
-            patternId,
+            patternId:
+              patternId ?? pattern.id,
             pattern,
             count,
             options: {
               seed,
-              examProfile,
+              examProfile:
+                examProfile ??
+                normalizeExamStyle(
+                  examStyle,
+                ),
               targetDifficulty,
               difficultyTolerance,
               difficultyDistribution,

@@ -78,6 +78,23 @@ const JOB_MAX_CONCURRENCY =
 
 let workerStarted = false;
 let runningJobs = 0;
+let workerDisabled = false;
+
+function isMissingGenerationJobsRelation(
+  error: unknown,
+) {
+  const candidate =
+    error as {
+      cause?: {
+        code?: string;
+      };
+    };
+
+  return (
+    candidate?.cause?.code ===
+    "42P01"
+  );
+}
 
 function createJobId() {
   return `genjob_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
@@ -364,6 +381,10 @@ async function processJob(
 }
 
 async function tickWorker() {
+  if (workerDisabled) {
+    return;
+  }
+
   if (
     runningJobs >=
     JOB_MAX_CONCURRENCY
@@ -374,6 +395,18 @@ async function tickWorker() {
   const job =
     await claimNextQueuedJob().catch(
       (error) => {
+        if (
+          isMissingGenerationJobsRelation(
+            error,
+          )
+        ) {
+          workerDisabled = true;
+          logger.warn(
+            "Generation job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.",
+          );
+          return null;
+        }
+
         logger.error(
           { error },
           "Generation job worker failed to claim the next queued job",

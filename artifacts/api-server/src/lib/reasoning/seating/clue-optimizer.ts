@@ -58,6 +58,23 @@ function isAlternateLinearCase(
   );
 }
 
+function isExpensiveSeatingCase(
+  arrangementType: SeatingArrangementType,
+  orientationType: SeatingOrientationType,
+  difficulty: DifficultyLabel,
+) {
+  return (
+    difficulty === "Hard" &&
+    (
+      arrangementType === "circular" ||
+      arrangementType === "double-row" ||
+      arrangementType === "parallel-row" ||
+      orientationType === "mixed" ||
+      orientationType === "alternate"
+    )
+  );
+}
+
 function rotateCandidates(
   candidates: CandidateClue[],
   offset: number,
@@ -99,6 +116,42 @@ function hasExcessiveOrderedAdjacency(
     ).length;
 
   return orderedAdjacencyCount >= 2;
+}
+
+function isDirectRelationClue(
+  clue: SeatingClue,
+) {
+  return (
+    (clue.type === "adjacent" &&
+      clue.ordered) ||
+    (clue.type === "offset" &&
+      clue.distance === 1) ||
+    clue.type === "opposite" ||
+    clue.type === "facing" ||
+    clue.type === "absolute" ||
+    clue.type === "end"
+  );
+}
+
+function hasExcessiveDirectRelations(
+  clues: SeatingClue[],
+  nextClue: SeatingClue,
+  difficulty: DifficultyLabel,
+) {
+  if (
+    difficulty === "Easy" ||
+    !isDirectRelationClue(nextClue)
+  ) {
+    return false;
+  }
+
+  const directCount =
+    clues.filter(
+      isDirectRelationClue,
+    ).length;
+
+  return directCount >=
+    (difficulty === "Hard" ? 1 : 2);
 }
 
 function scoreSubset(
@@ -169,26 +222,44 @@ export function optimizeClueSubset(
     | undefined;
 
   const attemptCount = Math.min(
-    isAlternateLinearCase(
+    isExpensiveSeatingCase(
       input.arrangementType,
       input.orientationType,
+      input.difficulty,
     )
-      ? 18
-      : 48,
-    Math.max(
-      isAlternateLinearCase(
-        input.arrangementType,
-        input.orientationType,
-      )
-        ? 8
-        : 12,
-      input.candidates.length *
-        (isAlternateLinearCase(
+      ? 12
+      : isAlternateLinearCase(
           input.arrangementType,
           input.orientationType,
         )
+        ? 18
+        : 48,
+    Math.max(
+      isExpensiveSeatingCase(
+        input.arrangementType,
+        input.orientationType,
+        input.difficulty,
+      )
+        ? 6
+        : isAlternateLinearCase(
+            input.arrangementType,
+            input.orientationType,
+          )
+          ? 8
+          : 12,
+      input.candidates.length *
+        (isExpensiveSeatingCase(
+          input.arrangementType,
+          input.orientationType,
+          input.difficulty,
+        )
           ? 1
-          : 2),
+          : isAlternateLinearCase(
+              input.arrangementType,
+              input.orientationType,
+            )
+            ? 1
+            : 2),
     ),
   );
 
@@ -217,6 +288,11 @@ export function optimizeClueSubset(
         hasExcessiveOrderedAdjacency(
           selected,
           candidate.clue,
+        ) ||
+        hasExcessiveDirectRelations(
+          selected,
+          candidate.clue,
+          input.difficulty,
         )
       ) {
         continue;

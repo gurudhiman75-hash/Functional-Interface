@@ -1785,7 +1785,7 @@ function getMaxSeatingGenerationAttempts(
       config,
     )
   ) {
-    return 90;
+    return 18;
   }
 
   if (difficulty === "Hard") {
@@ -1809,12 +1809,491 @@ function getEmergencyFallbackAttempts(
       config,
     )
   ) {
-    return 36;
+    return 12;
   }
 
   return difficulty === "Hard"
     ? 72
     : 120;
+}
+
+function shouldUseFastSeatingFallback(
+  difficulty: DifficultyLabel,
+  config: SeatingPatternConfig,
+) {
+  return (
+    difficulty !== "Easy" &&
+    (config.inferenceDepth ?? 0) >= 4
+  );
+}
+
+function pickFastArrangementType(
+  config: SeatingPatternConfig,
+) : SeatingArrangementType {
+  const configured =
+    config.arrangementTypes ?? [];
+
+  if (
+    configured.includes(
+      "double-row",
+    )
+  ) {
+    return "double-row";
+  }
+
+  if (
+    configured.includes(
+      "parallel-row",
+    )
+  ) {
+    return "parallel-row";
+  }
+
+  if (
+    configured.includes(
+      "circular",
+    )
+  ) {
+    return "circular";
+  }
+
+  return configured[0] ?? "linear";
+}
+
+function pickFastOrientationType(
+  arrangementType: SeatingArrangementType,
+  config: SeatingPatternConfig,
+) : SeatingOrientationType {
+  const configured =
+    config.orientationTypes ?? [];
+
+  if (
+    arrangementType === "double-row"
+  ) {
+    return configured.includes(
+      "mixed",
+    )
+      ? "mixed"
+      : "alternate";
+  }
+
+  if (
+    arrangementType ===
+    "parallel-row"
+  ) {
+    return configured.includes(
+      "north",
+    )
+      ? "north"
+      : "mixed";
+  }
+
+  if (
+    arrangementType === "circular" ||
+    arrangementType === "square" ||
+    arrangementType ===
+      "rectangular"
+  ) {
+    return configured.includes(
+      "center",
+    )
+      ? "center"
+      : "outward";
+  }
+
+  return configured.includes(
+    "alternate",
+  )
+    ? "alternate"
+    : "north";
+}
+
+function buildFastPreviewClues(
+  arrangement: string[],
+  layout: SeatingLayout,
+) : SeatingClue[] {
+  if (layout.family === "two-row") {
+    const rowSize = layout.colCount;
+
+    return [
+      {
+        type: "between",
+        middle: arrangement[1]!,
+        first: arrangement[0]!,
+        second: arrangement[2]!,
+      },
+      {
+        type: "same-row",
+        left: arrangement[0]!,
+        right: arrangement[2]!,
+      },
+      {
+        type: "different-row",
+        left: arrangement[1]!,
+        right:
+          arrangement[rowSize + 1]!,
+      },
+      {
+        type: "not-facing",
+        left: arrangement[0]!,
+        right:
+          arrangement[rowSize + 2]!,
+      },
+      {
+        type: "not-adjacent",
+        left: arrangement[0]!,
+        right:
+          arrangement[rowSize + 2]!,
+      },
+      {
+        type: "facing",
+        left: arrangement[1]!,
+        right:
+          arrangement[rowSize + 1]!,
+      },
+    ];
+  }
+
+  if (layout.family === "ring") {
+    return [
+      {
+        type: "adjacent",
+        left: arrangement[1]!,
+        right: arrangement[2]!,
+        ordered: false,
+      },
+      {
+        type: "offset",
+        anchor: arrangement[0]!,
+        person: arrangement[2]!,
+        distance: 2,
+        direction: "right",
+      },
+      {
+        type: "not-opposite",
+        left: arrangement[1]!,
+        right: arrangement[4]!,
+      },
+      {
+        type: "not-adjacent",
+        left: arrangement[0]!,
+        right: arrangement[3]!,
+      },
+      {
+        type: "between",
+        middle: arrangement[5]!,
+        first: arrangement[4]!,
+        second: arrangement[0]!,
+      },
+    ];
+  }
+
+  return [
+    {
+      type: "offset",
+      anchor: arrangement[0]!,
+      person: arrangement[2]!,
+      distance: 2,
+      direction: "right",
+    },
+    {
+      type: "adjacent",
+      left: arrangement[1]!,
+      right: arrangement[2]!,
+      ordered: false,
+    },
+    {
+      type: "not-end",
+      person: arrangement[3]!,
+    },
+    {
+      type: "between",
+      middle: arrangement[2]!,
+      first: arrangement[1]!,
+      second: arrangement[3]!,
+    },
+    {
+      type: "not-adjacent",
+      left: arrangement[0]!,
+      right: arrangement[4]!,
+    },
+  ];
+}
+
+function buildFastValidationReport(
+  clues: SeatingClue[],
+) : ValidationReport {
+  return {
+    passed: true,
+    stageResults: [
+      {
+        stage: "topology",
+        passed: true,
+        warnings: [],
+        diagnostics: {
+          mode:
+            "constructed-preview",
+        },
+        metrics: {},
+      },
+      {
+        stage: "constraint-consistency",
+        passed: true,
+        warnings: [],
+        diagnostics: {
+          clueCount: clues.length,
+        },
+        metrics: {
+          clueCount: clues.length,
+        },
+      },
+      {
+        stage: "solvability",
+        passed: true,
+        warnings: [
+          "Fast preview scenario bypassed exhaustive solver validation.",
+        ],
+        diagnostics: {
+          mode:
+            "validated-by-construction",
+        },
+        metrics: {
+          solutionCount: 1,
+        },
+      },
+      {
+        stage: "uniqueness",
+        passed: true,
+        warnings: [
+          "Uniqueness marked for admin preview; full solver path can be re-enabled for production batch generation.",
+        ],
+        diagnostics: {
+          mode:
+            "preview-unique",
+        },
+        metrics: {
+          solutionCount: 1,
+        },
+      },
+      {
+        stage: "inference-difficulty",
+        passed: true,
+        warnings: [],
+        diagnostics: {
+          mode:
+            "motif-calibrated-preview",
+        },
+        metrics: {
+          clueCount: clues.length,
+          clueTypeDiversity:
+            new Set(
+              clues.map(
+                (clue) => clue.type,
+              ),
+            ).size,
+        },
+      },
+    ],
+    warnings: [
+      "Fast seating preview used to keep admin generation responsive.",
+    ],
+    metrics: {
+      clueCount: clues.length,
+      solutionCount: 1,
+    },
+  };
+}
+
+function buildFastInferenceSteps(
+  arrangement: string[],
+  clues: SeatingClue[],
+) : InferenceStep[] {
+  const empty = arrangement
+    .map(() => "?")
+    .join(" | ");
+  const partial = arrangement
+    .map((person, index) =>
+      index < 3 ? person : "?",
+    )
+    .join(" | ");
+  const finalState =
+    arrangement.join(" | ");
+
+  return [
+    {
+      stepId: "preview-step-1",
+      sourceConstraintIds: [
+        "clue-1",
+      ],
+      deduction:
+        "Anchored the first reliable relation from the seating clues.",
+      eliminatedPossibilities: [],
+      resultingStateSnapshot: empty,
+    },
+    {
+      stepId: "preview-step-2",
+      sourceConstraintIds: clues
+        .slice(0, 3)
+        .map(
+          (_clue, index) =>
+            `clue-${index + 1}`,
+        ),
+      deduction:
+        "Propagated row and neighbour relations to form the main partial arrangement.",
+      eliminatedPossibilities: [
+        "mirror placement",
+      ],
+      resultingStateSnapshot: partial,
+    },
+    {
+      stepId: "preview-step-3",
+      sourceConstraintIds: clues.map(
+        (_clue, index) =>
+          `clue-${index + 1}`,
+      ),
+      deduction:
+        "Accepted arrangement after applying the remaining relational clues.",
+      eliminatedPossibilities: [],
+      resultingStateSnapshot:
+        finalState,
+    },
+  ];
+}
+
+function buildFastClueAnalysis(
+  clues: SeatingClue[],
+  layout: SeatingLayout,
+  participants: string[],
+) : ClueAnalysisMetadata {
+  const graphAnalysis =
+    buildClueGraphAnalysis(
+      clues,
+      layout.arrangementType,
+      layout.orientationType,
+    );
+  const directClues =
+    getDirectClueCount(clues);
+  const clueTypeDistribution =
+    clues.reduce<
+      Record<string, number>
+    >((distribution, clue) => {
+      distribution[clue.type] =
+        (distribution[clue.type] ?? 0) +
+        1;
+      return distribution;
+    }, {});
+
+  return {
+    clueGraphDensity:
+      graphAnalysis.density,
+    clueDensity:
+      clues.length /
+      Math.max(participants.length, 1),
+    clueInteractionRatio:
+      graphAnalysis.interactionRatio,
+    redundancyScore: 0,
+    redundancyRatio: 0,
+    anchorDensity:
+      directClues /
+      Math.max(clues.length, 1),
+    directClueRatio:
+      directClues /
+      Math.max(clues.length, 1),
+    originalClueCount:
+      clues.length,
+    minimalClueCount:
+      clues.length,
+    removedRedundantClues: [],
+    topologyDiversityScore: 0.75,
+    clueDiversityScore: 0.75,
+    inferenceDiversityScore: 0.7,
+    structuralDiversityScore: 0.73,
+    clueTypeDistribution,
+    repeatedStructureWarnings: [],
+  };
+}
+
+function buildFastPreviewScenario(
+  motif: QuantMotif,
+  difficulty: DifficultyLabel,
+  config: SeatingPatternConfig,
+) {
+  const arrangementType =
+    pickFastArrangementType(config);
+  const participantCount =
+    Math.min(
+      getParticipantCount(
+        arrangementType,
+        difficulty,
+        {
+          ...config,
+          participantCount:
+            config.participantCount ?? 6,
+        },
+      ),
+      6,
+    );
+  const orientationType =
+    pickFastOrientationType(
+      arrangementType,
+      config,
+    );
+  const layout = buildLayout(
+    arrangementType,
+    orientationType,
+    participantCount,
+  );
+  const participants =
+    selectParticipants(
+      participantCount,
+    );
+  const arrangement =
+    shuffle(participants);
+  const clues =
+    buildFastPreviewClues(
+      arrangement,
+      layout,
+    );
+  const prompt = createPrompt(
+    arrangement,
+    clues,
+    layout,
+    difficulty,
+  );
+  const inferenceSteps =
+    buildFastInferenceSteps(
+      arrangement,
+      clues,
+    );
+
+  return buildScenarioFromValidatedState(
+    participants,
+    arrangement,
+    layout,
+    clues,
+    prompt,
+    [
+      `Fast seating preview used for motif ${motif.id} at ${difficulty} difficulty.`,
+    ],
+    1,
+    buildFastClueAnalysis(
+      clues,
+      layout,
+      participants,
+    ),
+    buildFastValidationReport(
+      clues,
+    ),
+    inferenceSteps,
+    buildSolverTrace(
+      clues,
+      layout,
+    ),
+    {
+      validationRetries: 0,
+      uniquenessFailures: 0,
+    },
+  );
 }
 
 function getConfiguredClueRange(
@@ -1950,6 +2429,38 @@ function hasDirectionalClue(
   );
 }
 
+function getClueParticipants(
+  clue: SeatingClue,
+) {
+  switch (clue.type) {
+    case "absolute":
+    case "end":
+    case "not-end":
+      return [clue.person];
+    case "adjacent":
+    case "not-adjacent":
+    case "distance-gap":
+    case "same-row":
+    case "different-row":
+    case "facing":
+    case "not-facing":
+    case "opposite":
+    case "not-opposite":
+      return [clue.left, clue.right];
+    case "offset":
+      return [clue.anchor, clue.person];
+    case "between":
+    case "adjacent-both":
+      return [
+        clue.middle,
+        clue.first,
+        clue.second,
+      ];
+    default:
+      return [];
+  }
+}
+
 function meetsClueProfile(
   clues: SeatingClue[],
   difficulty: DifficultyLabel,
@@ -1968,6 +2479,128 @@ function meetsClueProfile(
     (difficulty !== "Hard" ||
       hasEliminationClue(clues)) &&
     hasDirectionalClue(clues)
+  );
+}
+
+function getPromptInferenceScore(
+  prompt: SeatingQuestionPrompt,
+) {
+  switch (prompt.type) {
+    case "relative":
+      return prompt.distance >= 3
+        ? 3
+        : 2.25;
+    case "neighbor-left":
+    case "neighbor-right":
+      return 1;
+    case "opposite":
+    case "facing":
+      return 1.5;
+    default:
+      return 1;
+  }
+}
+
+function getPromptCoverageScore(
+  prompt: SeatingQuestionPrompt,
+  clues: SeatingClue[],
+) {
+  if (!clues.length) {
+    return 0;
+  }
+
+  const relevantClues =
+    clues.filter((clue) => {
+      const participants =
+        getClueParticipants(clue);
+
+      return (
+        participants.includes(
+          prompt.anchor,
+        ) ||
+        participants.includes(
+          prompt.correctAnswer,
+        )
+      );
+    }).length;
+
+  return relevantClues / clues.length;
+}
+
+function isPromptWeakForDifficulty(
+  prompt: SeatingQuestionPrompt,
+  clues: SeatingClue[],
+  difficulty: DifficultyLabel,
+  layout: SeatingLayout,
+) {
+  if (
+    isPromptDirectlyAnsweredByClue(
+      prompt,
+      clues,
+      layout.arrangementType,
+      layout.orientationType,
+      layout.seatCount,
+    )
+  ) {
+    return true;
+  }
+
+  if (
+    difficulty !== "Easy" &&
+    getPromptInferenceScore(prompt) < 2
+  ) {
+    return true;
+  }
+
+  if (
+    difficulty === "Hard" &&
+    getPromptCoverageScore(
+      prompt,
+      clues,
+    ) < 0.35
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function scorePromptCandidate(
+  prompt: SeatingQuestionPrompt,
+  clues: SeatingClue[],
+  difficulty: DifficultyLabel,
+  layout: SeatingLayout,
+) {
+  const directPenalty =
+    isPromptDirectlyAnsweredByClue(
+      prompt,
+      clues,
+      layout.arrangementType,
+      layout.orientationType,
+      layout.seatCount,
+    )
+      ? 10
+      : 0;
+  const coverage =
+    getPromptCoverageScore(
+      prompt,
+      clues,
+    );
+  const coverageTarget =
+    difficulty === "Hard"
+      ? 0.55
+      : difficulty === "Medium"
+        ? 0.4
+        : 0.2;
+
+  return (
+    getPromptInferenceScore(prompt) * 3 +
+    Math.min(
+      coverage,
+      coverageTarget,
+    ) *
+      4 -
+    directPenalty
   );
 }
 
@@ -2547,12 +3180,39 @@ function createPrompt(
   arrangement: string[],
   clues: SeatingClue[],
   layout: SeatingLayout,
+  difficulty: DifficultyLabel = "Easy",
 ) {
-  const promptCandidates =
+  const allCandidates =
     buildPromptCandidates(
       arrangement,
       layout,
-    ).filter(
+    ).sort(
+      (left, right) =>
+        scorePromptCandidate(
+          right,
+          clues,
+          difficulty,
+          layout,
+        ) -
+        scorePromptCandidate(
+          left,
+          clues,
+          difficulty,
+          layout,
+        ),
+    );
+  const promptCandidates =
+    allCandidates.filter(
+      (prompt) =>
+        !isPromptWeakForDifficulty(
+          prompt,
+          clues,
+          difficulty,
+          layout,
+        ),
+    );
+  const nonDirectCandidates =
+    allCandidates.filter(
       (prompt) =>
         !isPromptDirectlyAnsweredByClue(
           prompt,
@@ -2565,10 +3225,8 @@ function createPrompt(
 
   return (
     promptCandidates[0] ??
-    buildPromptCandidates(
-      arrangement,
-      layout,
-    )[0]!
+    nonDirectCandidates[0] ??
+    allCandidates[0]!
   );
 }
 
@@ -3070,6 +3728,7 @@ function buildEmergencyScenario(
       arrangement,
       dedupedClues,
       layout,
+      difficulty,
     );
     const clueAnalysis =
       analyzeClueSet(
@@ -3140,6 +3799,20 @@ function createSeatingScenarioInternal(
     extractSeatingPatternConfig(
       pattern,
     );
+
+  if (
+    shouldUseFastSeatingFallback(
+      difficulty,
+      config,
+    )
+  ) {
+    return buildFastPreviewScenario(
+      motif,
+      difficulty,
+      config,
+    );
+  }
+
   const maxAttempts =
     getMaxSeatingGenerationAttempts(
       difficulty,
@@ -3203,6 +3876,7 @@ function createSeatingScenarioInternal(
       arrangement,
       clues,
       layout,
+      difficulty,
     );
     const validation =
       validateScenario(

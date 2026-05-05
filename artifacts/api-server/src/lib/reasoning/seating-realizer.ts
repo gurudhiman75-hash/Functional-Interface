@@ -42,6 +42,20 @@ function arrangementLead(
 ) {
   const personCount =
     scenario.participants.length;
+  const isTableLayout =
+    scenario.arrangementType ===
+      "circular" ||
+    scenario.arrangementType ===
+      "square" ||
+    scenario.arrangementType ===
+      "rectangular";
+  const isRowLayout =
+    scenario.arrangementType ===
+      "linear" ||
+    scenario.arrangementType ===
+      "parallel-row" ||
+    scenario.arrangementType ===
+      "double-row";
   const orientationText =
     scenario.orientationType ===
       "center"
@@ -51,11 +65,21 @@ function arrangementLead(
         ? "facing outward"
         : scenario.orientationType ===
             "alternate"
-          ? "with alternate facing directions"
+          ? isTableLayout
+            ? "with alternate seats facing the centre and outward"
+            : "with alternate north/south facing directions"
           : scenario.orientationType ===
               "mixed"
-            ? "with mixed facing directions"
-            : `facing ${scenario.orientationType}`;
+            ? isTableLayout
+              ? "with some persons facing the centre and some facing outward"
+              : "with some persons facing north and some facing south"
+            : isRowLayout &&
+                (scenario.orientationType ===
+                  "north" ||
+                  scenario.orientationType ===
+                    "south")
+              ? `with all persons facing ${scenario.orientationType}`
+              : `facing ${scenario.orientationType}`;
 
   const intro =
     scenario.arrangementType ===

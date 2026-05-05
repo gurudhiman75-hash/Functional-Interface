@@ -4220,6 +4220,28 @@ export default function AdminGeneratorPage() {
   const [patterns, setPatterns] =
     useState<any[]>([]);
   const [
+    questionPatterns,
+    setQuestionPatterns,
+  ] = useState<any[]>([]);
+  const [
+    registryPatternId,
+    setRegistryPatternId,
+  ] = useState("");
+  const [
+    registryDomain,
+    setRegistryDomain,
+  ] = useState("all");
+  const [
+    registryDifficulty,
+    setRegistryDifficulty,
+  ] = useState<
+    "easy" | "medium" | "hard"
+  >("medium");
+  const [
+    registryExamStyle,
+    setRegistryExamStyle,
+  ] = useState("ssc");
+  const [
     editingPatternId,
     setEditingPatternId,
   ] = useState<string | null>(
@@ -4304,6 +4326,35 @@ export default function AdminGeneratorPage() {
 
         setPatterns(
           data.patterns || [],
+        );
+
+        const registryRes =
+          await fetch(
+            `${API_BASE_URL}/api/generator/question-patterns`,
+          );
+        const registryData =
+          await registryRes.json();
+        const registryPatterns =
+          registryData.patterns || [];
+
+        setQuestionPatterns(
+          registryPatterns,
+        );
+        setRegistryDomain(
+          (
+            registryPatterns.find(
+              (pattern: any) =>
+                pattern.enabled !== false,
+            ) ?? registryPatterns[0]
+          )?.domain ?? "all",
+        );
+        setRegistryPatternId(
+          (
+            registryPatterns.find(
+              (pattern: any) =>
+                pattern.enabled !== false,
+            ) ?? registryPatterns[0]
+          )?.id ?? "",
         );
       } catch (error) {
         console.error(error);
@@ -4953,20 +5004,69 @@ export default function AdminGeneratorPage() {
     }
   }
   async function generate() {
-    const timeoutMs =
-      getGenerationTimeoutMs(
-        patternId,
-        patterns,
-        count,
+    const selectedRegistryPattern =
+      questionPatterns.find(
+        (pattern) =>
+          pattern.id ===
+          registryPatternId,
       );
+    const useRegistryPattern =
+      Boolean(
+        selectedRegistryPattern &&
+          selectedRegistryPattern.enabled !==
+            false,
+      );
+    const timeoutMs =
+      useRegistryPattern
+        ? 90_000
+        : getGenerationTimeoutMs(
+          patternId,
+          patterns,
+          count,
+        );
 
     try {
       setLoading(true);
 
-      const difficultyPayload =
+      const difficultyPayload: Record<
+        string,
+        unknown
+      > =
         getDifficultyRequestPayload(
           difficultySettings,
         );
+      const requestPayload =
+        useRegistryPattern
+          ? {
+            ...difficultyPayload,
+            domain:
+              selectedRegistryPattern.domain,
+            topic:
+              selectedRegistryPattern.topic,
+            pattern:
+              selectedRegistryPattern.id,
+            difficulty:
+              registryDifficulty,
+            examStyle:
+              registryExamStyle,
+            count,
+          }
+          : {
+            patternId,
+            count,
+            ...difficultyPayload,
+          };
+
+      if (useRegistryPattern) {
+        delete (
+          requestPayload as Record<
+            string,
+            unknown
+          >
+        )[
+          "examProfile"
+        ];
+      }
 
       const res =
         await fetchJsonWithTimeout(
@@ -4979,11 +5079,9 @@ export default function AdminGeneratorPage() {
               "application/json",
           },
 
-          body: JSON.stringify({
-            patternId,
-            count,
-            ...difficultyPayload,
-          }),
+          body: JSON.stringify(
+            requestPayload,
+          ),
         },
         timeoutMs,
       );
@@ -5022,18 +5120,67 @@ export default function AdminGeneratorPage() {
   async function regenerateQuestion(
     index: number,
   ) {
-    const timeoutMs =
-      getGenerationTimeoutMs(
-        patternId,
-        patterns,
-        1,
+    const selectedRegistryPattern =
+      questionPatterns.find(
+        (pattern) =>
+          pattern.id ===
+          registryPatternId,
       );
+    const useRegistryPattern =
+      Boolean(
+        selectedRegistryPattern &&
+          selectedRegistryPattern.enabled !==
+            false,
+      );
+    const timeoutMs =
+      useRegistryPattern
+        ? 90_000
+        : getGenerationTimeoutMs(
+          patternId,
+          patterns,
+          1,
+        );
 
     try {
-      const difficultyPayload =
+      const difficultyPayload: Record<
+        string,
+        unknown
+      > =
         getDifficultyRequestPayload(
           difficultySettings,
         );
+      const requestPayload =
+        useRegistryPattern
+          ? {
+            ...difficultyPayload,
+            domain:
+              selectedRegistryPattern.domain,
+            topic:
+              selectedRegistryPattern.topic,
+            pattern:
+              selectedRegistryPattern.id,
+            difficulty:
+              registryDifficulty,
+            examStyle:
+              registryExamStyle,
+            count: 1,
+          }
+          : {
+            patternId,
+            count: 1,
+            ...difficultyPayload,
+          };
+
+      if (useRegistryPattern) {
+        delete (
+          requestPayload as Record<
+            string,
+            unknown
+          >
+        )[
+          "examProfile"
+        ];
+      }
 
       const res =
         await fetchJsonWithTimeout(
@@ -5046,11 +5193,9 @@ export default function AdminGeneratorPage() {
               "application/json",
           },
 
-          body: JSON.stringify({
-            patternId,
-            count: 1,
-            ...difficultyPayload,
-          }),
+          body: JSON.stringify(
+            requestPayload,
+          ),
         },
         timeoutMs,
       );
@@ -5546,6 +5691,30 @@ export default function AdminGeneratorPage() {
     selectedWorkspaceItem,
   ]);
 
+  const selectedRegistryPattern =
+    questionPatterns.find(
+      (pattern) =>
+        pattern.id ===
+        registryPatternId,
+    );
+  const registryDomains = [
+    "quant",
+    "reasoning",
+    "english",
+    "di",
+  ].filter((domain) =>
+    questionPatterns.some(
+      (pattern) =>
+        pattern.domain === domain,
+    ),
+  );
+  const visibleRegistryPatterns =
+    questionPatterns.filter(
+      (pattern) =>
+        registryDomain === "all" ||
+        pattern.domain === registryDomain,
+    );
+
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-3xl font-bold">
@@ -5820,9 +5989,296 @@ export default function AdminGeneratorPage() {
       </div>
 
       <div className="border rounded-lg p-4 space-y-4">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                Pattern Registry
+              </h2>
+              <p className="text-sm text-slate-600">
+                Preferred exam-oriented generator flow. Pick a topic family; motifs stay internal.
+              </p>
+            </div>
+            {selectedRegistryPattern?.enabled ===
+            false ? (
+              <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+                Coming Soon
+              </span>
+            ) : null}
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Domain
+              </label>
+              <select
+                value={registryDomain}
+                onChange={(event) => {
+                  const nextDomain =
+                    event.target.value;
+                  const firstEnabled =
+                    questionPatterns.find(
+                      (pattern) =>
+                        (nextDomain ===
+                          "all" ||
+                          pattern.domain ===
+                            nextDomain) &&
+                        pattern.enabled !==
+                          false,
+                    );
+
+                  setRegistryDomain(
+                    nextDomain,
+                  );
+                  if (firstEnabled) {
+                    setRegistryPatternId(
+                      firstEnabled.id,
+                    );
+                    if (
+                      firstEnabled
+                        .supportedDifficulties
+                        ?.length &&
+                      !firstEnabled.supportedDifficulties.includes(
+                        registryDifficulty,
+                      )
+                    ) {
+                      setRegistryDifficulty(
+                        firstEnabled
+                          .supportedDifficulties[0],
+                      );
+                    }
+                  }
+                }}
+                className="border rounded p-2 w-full bg-white"
+              >
+                <option value="all">
+                  All Domains
+                </option>
+                {registryDomains.map(
+                  (domain) => (
+                    <option
+                      key={domain}
+                      value={domain}
+                    >
+                      {domain}
+                    </option>
+                  ),
+                )}
+              </select>
+            </div>
+
+            <div className="space-y-2 xl:col-span-2">
+              <label className="block text-sm font-medium">
+                Topic / Pattern
+              </label>
+              <select
+                value={registryPatternId}
+                onChange={(event) => {
+                  const nextPattern =
+                    questionPatterns.find(
+                      (pattern) =>
+                        pattern.id ===
+                        event.target.value,
+                    );
+
+                  setRegistryPatternId(
+                    event.target.value,
+                  );
+                  if (
+                    nextPattern
+                      ?.supportedDifficulties
+                      ?.length &&
+                    !nextPattern.supportedDifficulties.includes(
+                      registryDifficulty,
+                    )
+                  ) {
+                    setRegistryDifficulty(
+                      nextPattern
+                        .supportedDifficulties[0],
+                    );
+                  }
+                }}
+                className="border rounded p-2 w-full bg-white"
+              >
+                <option value="">
+                  Select registry pattern
+                </option>
+                {registryDomains
+                  .filter(
+                    (domain) =>
+                      registryDomain ===
+                        "all" ||
+                      domain ===
+                        registryDomain,
+                  )
+                  .map(
+                  (domain) => {
+                    const domainPatterns =
+                      visibleRegistryPatterns.filter(
+                        (pattern) =>
+                          pattern.domain ===
+                          domain,
+                      );
+                    const topics = [
+                      ...new Set(
+                        domainPatterns.map(
+                          (pattern) =>
+                            pattern.topic,
+                        ),
+                      ),
+                    ];
+
+                    return topics.map(
+                      (topic) => (
+                        <optgroup
+                          key={`${domain}-${topic}`}
+                          label={`${domain.toUpperCase()} - ${topic}`}
+                        >
+                          {domainPatterns
+                            .filter(
+                              (pattern) =>
+                                pattern.topic ===
+                                topic,
+                            )
+                            .map(
+                              (pattern) => (
+                                <option
+                                  key={
+                                    pattern.id
+                                  }
+                                  value={
+                                    pattern.id
+                                  }
+                                  disabled={
+                                    pattern.enabled ===
+                                    false
+                                  }
+                                >
+                                  {pattern.label}
+                                  {pattern.enabled ===
+                                  false
+                                    ? " (Coming Soon)"
+                                    : ""}
+                                </option>
+                              ),
+                            )}
+                        </optgroup>
+                      ),
+                    );
+                  },
+                )}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Difficulty
+              </label>
+              <select
+                value={registryDifficulty}
+                onChange={(event) =>
+                  setRegistryDifficulty(
+                    event.target
+                      .value as typeof registryDifficulty,
+                  )
+                }
+                className="border rounded p-2 w-full bg-white"
+              >
+                {(
+                  [
+                    "easy",
+                    "medium",
+                    "hard",
+                  ] as const
+                ).map((difficulty) => (
+                  <option
+                    key={difficulty}
+                    value={difficulty}
+                    disabled={
+                      selectedRegistryPattern &&
+                      !selectedRegistryPattern.supportedDifficulties?.includes(
+                        difficulty,
+                      )
+                    }
+                  >
+                    {difficulty}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Exam Style
+              </label>
+              <select
+                value={registryExamStyle}
+                onChange={(event) =>
+                  setRegistryExamStyle(
+                    event.target.value,
+                  )
+                }
+                className="border rounded p-2 w-full bg-white"
+              >
+                <option value="ssc">
+                  SSC
+                </option>
+                <option value="banking">
+                  Banking
+                </option>
+                <option value="sbi">
+                  SBI
+                </option>
+                <option value="rrb">
+                  RRB
+                </option>
+                <option value="cat">
+                  CAT
+                </option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Count
+              </label>
+              <input
+                type="number"
+                value={count}
+                min="1"
+                max="100"
+                onChange={(event) =>
+                  setCount(
+                    Math.max(
+                      1,
+                      Number(
+                        event.target.value,
+                      ) || 1,
+                    ),
+                  )
+                }
+                className="border rounded p-2 w-full bg-white"
+              />
+            </div>
+          </div>
+
+          {selectedRegistryPattern ? (
+            <div className="text-xs text-slate-600">
+              {selectedRegistryPattern.domain} /{" "}
+              {selectedRegistryPattern.topic} /{" "}
+              {selectedRegistryPattern.label}
+              {selectedRegistryPattern.enabled ===
+              false
+                ? " - Coming Soon"
+                : ""}
+            </div>
+          ) : null}
+        </div>
+
         <div>
           <label className="block mb-2 font-medium">
-            Pattern
+            Legacy Saved Pattern
           </label>
 
           <select
@@ -6783,14 +7239,10 @@ export default function AdminGeneratorPage() {
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="text-sm font-medium text-slate-900 line-clamp-2">
-                        {item.index + 1}.{" "}
-                        {isDISet(
-                          item.question,
-                        )
-                          ? item.topic
-                          : (
-                            item.question as FormulaQuestion
-                          ).text}
+                        Question {item.index + 1}
+                        <span className="ml-2 text-xs font-normal text-slate-500">
+                          {item.topic}
+                        </span>
                       </div>
                       {item.review
                         ?.bookmarked ? (
@@ -6819,7 +7271,10 @@ export default function AdminGeneratorPage() {
           </div>
 
           <div className="max-h-[70vh] space-y-4 overflow-y-auto pr-2">
-          {visibleItems.map(
+          {visibleItems.filter(
+            (item) =>
+              isDISet(item.question),
+          ).map(
             (item) => {
               const q =
                 item.question;

@@ -81,6 +81,8 @@ export type InferenceTraceExport = {
 type SeatingSolveResult = {
   solutions: string[][];
   solutionCount: number;
+  rawSolutionCount: number;
+  canonicalSolutions: string[];
   solverComplexity: number;
   trace: string[];
   inferenceSteps: InferenceStep[];
@@ -846,6 +848,73 @@ function countDistinctClueTypes(
   ).size;
 }
 
+function mirrorArrangement(
+  arrangement: string[],
+  layout: SeatingLayout,
+) {
+  if (layout.family === "single-row") {
+    return [...arrangement].reverse();
+  }
+
+  if (layout.family === "ring") {
+    if (arrangement.length <= 1) {
+      return [...arrangement];
+    }
+
+    return [
+      arrangement[0]!,
+      ...arrangement.slice(1).reverse(),
+    ];
+  }
+
+  const mirrored = Array.from(
+    { length: arrangement.length },
+    () => "",
+  );
+
+  for (const seat of layout.seats) {
+    const targetCol =
+      layout.colCount - 1 - seat.col;
+    const targetSeat = layout.seats.find(
+      (candidate) =>
+        candidate.row === seat.row &&
+        candidate.col === targetCol,
+    );
+
+    if (targetSeat) {
+      mirrored[targetSeat.index] =
+        arrangement[seat.index]!;
+    }
+  }
+
+  return mirrored;
+}
+
+function serializeArrangement(
+  arrangement: string[],
+) {
+  return arrangement.join("|");
+}
+
+function canonicalizeArrangement(
+  arrangement: string[],
+  layout: SeatingLayout,
+) {
+  const serialized =
+    serializeArrangement(arrangement);
+  const mirrored =
+    serializeArrangement(
+      mirrorArrangement(
+        arrangement,
+        layout,
+      ),
+    );
+
+  return serialized < mirrored
+    ? serialized
+    : mirrored;
+}
+
 function buildValidationReport(
   participants: string[],
   arrangement: string[],
@@ -1018,6 +1087,11 @@ function buildValidationReport(
       {
         solutionCount:
           solveResult.solutionCount,
+        rawSolutionCount:
+          solveResult.rawSolutionCount,
+        mirrorEquivalentSolutions:
+          solveResult.rawSolutionCount -
+          solveResult.solutionCount,
         solverComplexity:
           solveResult.solverComplexity,
       },
@@ -1061,6 +1135,8 @@ function buildValidationReport(
       {
         solutionCount:
           solveResult.solutionCount,
+        rawSolutionCount:
+          solveResult.rawSolutionCount,
         promptDirectReveal:
           uniquenessWarnings.some(
             (warning) =>
@@ -1460,6 +1536,8 @@ function solveSeating(
     seatCount,
   );
   const solutions: string[][] = [];
+  const canonicalSolutions =
+    new Set<string>();
   const inferenceSteps: InferenceStep[] =
     [];
   let evaluated = 0;
@@ -1501,7 +1579,7 @@ function solveSeating(
   function backtrack(
     personIndex: number,
   ) {
-    if (solutions.length > 1) {
+    if (canonicalSolutions.size > 1) {
       return;
     }
 
@@ -1533,6 +1611,19 @@ function solveSeating(
           ),
         )
       ) {
+        const canonical =
+          canonicalizeArrangement(
+            arrangement,
+            layout,
+          );
+        const isNewCanonical =
+          !canonicalSolutions.has(
+            canonical,
+          );
+
+        canonicalSolutions.add(
+          canonical,
+        );
         solutions.push(arrangement);
         stepCounter += 1;
         inferenceSteps.push({
@@ -1541,7 +1632,9 @@ function solveSeating(
             clues.map(
               getClueId,
             ),
-          deduction: `Accepted arrangement ${solutions.length} after all active constraints were satisfied.`,
+          deduction: isNewCanonical
+            ? `Accepted canonical arrangement ${canonicalSolutions.size} after all active constraints were satisfied.`
+            : "Accepted a mirror-equivalent arrangement and normalized it to the existing logical solution.",
           eliminatedPossibilities:
             [],
           resultingStateSnapshot:
@@ -1672,7 +1765,9 @@ function solveSeating(
       usedSeats.delete(seat);
       assignment.delete(person);
 
-      if (solutions.length > 1) {
+      if (
+        canonicalSolutions.size > 1
+      ) {
         break;
       }
     }
@@ -1687,7 +1782,13 @@ function solveSeating(
 
   return {
     solutions,
-    solutionCount: solutions.length,
+    solutionCount:
+      canonicalSolutions.size,
+    rawSolutionCount:
+      solutions.length,
+    canonicalSolutions: [
+      ...canonicalSolutions,
+    ],
     solverComplexity: evaluated,
     trace: traceExport.text,
     inferenceSteps,

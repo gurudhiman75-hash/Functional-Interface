@@ -2422,11 +2422,13 @@ export async function generateFromPattern(
   count: number,
   options?: GeneratorOptions,
 ): Promise<GeneratorResult> {
+  const rawGenerationDomain =
+    inferGenerationDomain(pattern);
   const topicConfig =
-    resolveTopicConfig(
-      inferGenerationDomain(pattern),
-      pattern.topic,
-    );
+      resolveTopicConfig(
+        rawGenerationDomain,
+        pattern.topic,
+      );
   const effectivePattern =
     applyTopicConfigToPattern(
       pattern,
@@ -2437,8 +2439,10 @@ export async function generateFromPattern(
       options,
       topicConfig,
     );
-  const cacheEligible =
-    count > 0;
+    const cacheEligible =
+      count > 0 &&
+      rawGenerationDomain !==
+        "seating-arrangement";
   const generationContext =
     effectiveOptions?.generationContext ??
     createGenerationContext(

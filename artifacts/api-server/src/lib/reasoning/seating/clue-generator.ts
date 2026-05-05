@@ -77,6 +77,9 @@ function getDifficultyPreference(
       : clue.type === "offset" &&
           clue.distance >= 2
         ? 0.5
+        : clue.type === "opposite" ||
+            clue.type === "facing"
+          ? -0.45
         : clue.type === "adjacent" &&
             clue.ordered
           ? -0.75
@@ -89,10 +92,13 @@ function getDifficultyPreference(
     "distance-gap",
     "between",
     "not-adjacent",
-    "opposite",
-    "facing",
+    "adjacent-both",
+    "not-opposite",
   ].includes(clue.type)
     ? 0.35
+    : clue.type === "opposite" ||
+        clue.type === "facing"
+      ? -0.15
     : clue.type === "adjacent" &&
         clue.ordered
       ? -0.35

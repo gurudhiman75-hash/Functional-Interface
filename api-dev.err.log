@@ -1,53 +1,17 @@
 
-  dist\index.mjs                   3.2mb
+  dist\index.mjs                   3.4mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 11249ms
+Done in 708ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3054ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 174ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 189ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 106ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
+  dist\migrate.mjs                40.0kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
@@ -56,953 +20,17 @@ Done in 119ms
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 126ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 106ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 118ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 133ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 864ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 109ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 119ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 206ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 111ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 103ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 92ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 116ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 119ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 110ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 734ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 88ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 101ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 91ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 98ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 111ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 169ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 110ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 106ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
+  dist\db-init.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
 Done in 100ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.2mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
   dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1073ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 149ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 176ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6366ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1550ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4641ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 293ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 182ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 182ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 217ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3472ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2745ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4595ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3017ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 361ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 514ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 217ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 225ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1299ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2233ms
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6413ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 212ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 267ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 241ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 213ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5005ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4792ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 4480ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 196ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 189ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1232ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 228ms
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7964ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 408ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 427ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3517ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6052ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2754ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2156ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 436ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 289ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 267ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6968ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5336ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4880ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 521ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 292ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 288ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 259ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 160ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 373ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6227ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5505ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5521ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2294ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3371ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 268ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 269ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 592ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 736ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3210ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5505ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 778ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 120ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 162ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 105ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 117ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 167ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 111ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 102ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 101ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 100ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 695ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 89ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 100ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 105ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 113ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 170ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 104ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
 Done in 108ms
@@ -1010,24 +38,224 @@ Done in 108ms
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
+  dist\db-seed.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 94ms
+Done in 100ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
+  dist\normalize-questions.mjs    22.4kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 93ms
+Done in 129ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 172ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 132ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 160ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 177ms
+
+  dist\validate-seating-generation.mjs  198.0kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 157ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 120ms
+
+  dist\validate-seeded-generation.mjs  668.8kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 223ms
+
+  dist\stress-test-reasoning.mjs  203.9kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 133ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.2mb
+  dist\index.mjs                   3.4mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7549ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 967ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 14228ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8586ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9712ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8353ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1275ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 11991ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8119ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7645ms
+
+  dist\validate-seating-generation.mjs  198.3kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 7119ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 8663ms
+
+  dist\validate-seeded-generation.mjs  669.1kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 7110ms
+
+  dist\stress-test-reasoning.mjs  204.2kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 8759ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.4mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
@@ -1039,232 +267,43 @@ Done in 1118ms
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
+  dist\migrate.mjs                40.0kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 237ms
+Done in 141ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
+  dist\db-init.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 172ms
+Done in 137ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
+  dist\db-reset.mjs               18.5kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 176ms
+Done in 177ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
+  dist\db-seed.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 6438ms
+Done in 166ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4859ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 252ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 173ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 213ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 208ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1235ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4816ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5954ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3185ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 430ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 485ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 219ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 214ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1166ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5920ms
-Error: The service was stopped
-    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:949:34
-    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
-    at Socket.afterClose (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:594:28)
-    at Socket.emit (node:events:520:35)
-    at endReadableNT (node:internal/streams/readable:1729:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5443ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 197ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5726ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7535ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 190ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
+  dist\normalize-questions.mjs    22.4kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
@@ -1273,331 +312,2305 @@ Done in 186ms
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
+  dist\check-normalization.mjs    19.7kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 207ms
+Done in 178ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
   dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
+  dist\populate-global-topics.mjs   23.8kb
   dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 212ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 181ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
-  dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
 Done in 145ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 150ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 182ms
+
+  dist\validate-seating-generation.mjs  198.3kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 194ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 179ms
+
+  dist\validate-seeded-generation.mjs  669.2kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 243ms
+
+  dist\stress-test-reasoning.mjs  204.2kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 190ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.2mb
+  dist\index.mjs                   3.4mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1556ms
+Done in 29781ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
+  dist\migrate.mjs                40.0kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 215ms
-
-  dist\index.mjs                   3.2mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7718ms
+Done in 493ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
+  dist\db-init.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 318ms
+Done in 513ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
+  dist\db-reset.mjs               18.5kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1338ms
+Done in 340ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
+  dist\db-seed.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 6668ms
+Done in 6243ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
+  dist\normalize-questions.mjs    22.4kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5301ms
+Done in 10411ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
+  dist\check-normalization.mjs    19.7kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2331ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 444ms
+Done in 9745ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
   dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
+  dist\populate-global-topics.mjs   23.8kb
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 305ms
+Done in 4000ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
+  dist\check-schema-drift.mjs     26.2kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 265ms
+Done in 4465ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
+  dist\seed-english-topics.mjs    20.2kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 211ms
+Done in 4144ms
+
+  dist\validate-seating-generation.mjs  198.3kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 9395ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 3114ms
+
+  dist\validate-seeded-generation.mjs  669.2kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 4166ms
+
+  dist\stress-test-reasoning.mjs  204.2kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 3885ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.2mb
+  dist\index.mjs                   3.4mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 6019ms
+Done in 927ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
+  dist\migrate.mjs                40.0kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5023ms
+Done in 99ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
+  dist\db-init.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5672ms
+Done in 136ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
+  dist\db-reset.mjs               18.5kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1079ms
+Done in 104ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
+  dist\db-seed.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 278ms
+Done in 140ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
+  dist\normalize-questions.mjs    22.4kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 532ms
+Done in 103ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
+  dist\check-normalization.mjs    19.7kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 226ms
+Done in 1408ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
   dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
+  dist\populate-global-topics.mjs   23.8kb
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 6118ms
+Done in 2223ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
+  dist\check-schema-drift.mjs     26.2kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2688ms
+Done in 1073ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
+  dist\seed-english-topics.mjs    20.2kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1234ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
+Done in 2260ms
 
-  dist\index.mjs                   3.2mb
+  dist\index.mjs                   3.4mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1946ms
+Done in 10765ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                35.8kb
+  dist\migrate.mjs                40.0kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 4376ms
+Done in 1477ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                20.2kb
+  dist\db-init.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5157ms
+Done in 4073ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               16.4kb
+  dist\db-reset.mjs               18.5kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 705ms
+Done in 1213ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                20.2kb
+  dist\db-seed.mjs                22.3kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2753ms
+Done in 903ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    20.3kb
+  dist\normalize-questions.mjs    22.4kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 383ms
+Done in 875ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    17.6kb
+  dist\check-normalization.mjs    19.7kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 562ms
+Done in 2048ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
   dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   21.7kb
+  dist\populate-global-topics.mjs   23.8kb
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 374ms
+Done in 610ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     24.1kb
+  dist\check-schema-drift.mjs     26.2kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2619ms
+Done in 3022ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    18.1kb
+  dist\seed-english-topics.mjs    20.2kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5914ms
+Done in 1251ms
+
+  dist\validate-seating-generation.mjs  201.7kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 3526ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 653ms
+
+  dist\validate-seeded-generation.mjs  672.6kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 3047ms
+
+  dist\stress-test-reasoning.mjs  207.6kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 1720ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.4mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10266ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5666ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3600ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3145ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6218ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1436ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1382ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 1923ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1334ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6221ms
+
+  dist\validate-seating-generation.mjs  201.7kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 3265ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 3190ms
+
+  dist\validate-seeded-generation.mjs  672.6kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 7183ms
+
+  dist\stress-test-reasoning.mjs  207.6kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 2713ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.4mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1165ms
+
+  dist\index.mjs                   3.4mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10565ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 630ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 349ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4164ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5347ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2089ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 11394ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 11266ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6195ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7569ms
+
+  dist\validate-seating-generation.mjs  209.8kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 9312ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 3796ms
+
+  dist\validate-seeded-generation.mjs  680.8kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 2834ms
+
+  dist\stress-test-reasoning.mjs  215.8kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 6197ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.4mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1089ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3965ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1705ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2837ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6743ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6295ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7400ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 6736ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4860ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7624ms
+
+  dist\validate-seating-generation.mjs  209.8kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 6408ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 16426ms
+
+  dist\validate-seeded-generation.mjs  681.5kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 9911ms
+
+  dist\stress-test-reasoning.mjs  215.8kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 18951ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.4mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3104ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3195ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2585ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6129ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2944ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2194ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1915ms
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 18646ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2139ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1759ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3527ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2769ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5913ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8263ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 11615ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1215ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10416ms
+
+  dist\validate-seating-generation.mjs  209.8kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 8278ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.1kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 1015ms
+
+  dist\validate-seeded-generation.mjs  681.5kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 8510ms
+
+  dist\stress-test-reasoning.mjs  215.8kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 5489ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1004ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 132ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 134ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 124ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 140ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 136ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 209ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 195ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 174ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 172ms
+
+  dist\validate-seating-generation.mjs  210.0kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 163ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   28.3kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 163ms
+
+  dist\validate-seeded-generation.mjs  681.7kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 284ms
+
+  dist\stress-test-reasoning.mjs  216.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 230ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 932ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 131ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 125ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 124ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 119ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 120ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 158ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 169ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 128ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 129ms
+
+  dist\validate-seating-generation.mjs  211.7kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 160ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 147ms
+
+  dist\validate-seeded-generation.mjs  683.3kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 196ms
+
+  dist\stress-test-reasoning.mjs  217.6kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 221ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 13806ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1400ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5847ms
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8707ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2667ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3976ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1765ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5242ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3155ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6610ms
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 14217ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6930ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6567ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2727ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7777ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10455ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5257ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 4987ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10275ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2187ms
+
+  dist\validate-seating-generation.mjs  214.3kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 8370ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 6891ms
+
+  dist\validate-seeded-generation.mjs  685.9kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 5385ms
+
+  dist\stress-test-reasoning.mjs  220.2kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 2065ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 14038ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2716ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3537ms
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 12372ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4530ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5762ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4132ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2763ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5611ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6274ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 3560ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2736ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7810ms
+
+  dist\validate-seating-generation.mjs  215.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 1770ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 7890ms
+
+  dist\validate-seeded-generation.mjs  686.7kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 8764ms
+
+  dist\stress-test-reasoning.mjs  221.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 2083ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 938ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 136ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 134ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 142ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 160ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 133ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 144ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 133ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 128ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 126ms
+
+  dist\validate-seating-generation.mjs  215.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 150ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 123ms
+
+  dist\validate-seeded-generation.mjs  686.7kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 308ms
+
+  dist\stress-test-reasoning.mjs  221.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 151ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1055ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 119ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2684ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3688ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1193ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3882ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3532ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 5405ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1845ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5140ms
+
+  dist\validate-seating-generation.mjs  215.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 6082ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 1429ms
+
+  dist\validate-seeded-generation.mjs  686.7kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 6965ms
+
+  dist\stress-test-reasoning.mjs  221.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 2784ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 843ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 106ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 105ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 114ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 123ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 133ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 123ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 134ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 132ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 119ms
+
+  dist\validate-seating-generation.mjs  215.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 144ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 112ms
+
+  dist\validate-seeded-generation.mjs  686.7kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 173ms
+
+  dist\stress-test-reasoning.mjs  221.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 154ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5814ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1926ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4676ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4871ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6403ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4768ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1926ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 3855ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1188ms
+Error: The service was stopped
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:949:34
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at Socket.afterClose (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:594:28)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1729:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8406ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1033ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2945ms
+
+  
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9921ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 723ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2213ms
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9586ms
+
+  dist\pino-worker.mjs           153.4kb
+  Error: The service was stopped
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:949:34
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at Socket.afterClose (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:594:28)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1729:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+  dist\index.mjs                   3.5mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 12669ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1313ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 659ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4502ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2894ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1270ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 14430ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 8999ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7655ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 1194ms
+
+  dist\validate-seating-generation.mjs  215.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 5579ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 5688ms
+
+  dist\validate-seeded-generation.mjs  686.7kb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 4895ms
+
+  dist\stress-test-reasoning.mjs  221.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 7772ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
