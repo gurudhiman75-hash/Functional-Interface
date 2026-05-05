@@ -52,6 +52,18 @@ function mergePatternSources(
   dbPattern: Record<string, unknown>,
   registeredPattern?: Pattern,
 ) : Record<string, unknown> {
+  const preferRegisteredScalar = (
+    key: keyof Pattern,
+  ) =>
+    registeredPattern?.[key] ??
+    dbPattern[key as string];
+  const preferRegisteredArray = (
+    key: keyof Pattern,
+  ) =>
+    Array.isArray(registeredPattern?.[key])
+      ? registeredPattern?.[key]
+      : dbPattern[key as string];
+
   return {
     ...registeredPattern,
     ...dbPattern,
@@ -77,6 +89,41 @@ function mergePatternSources(
     )
       ? (dbPattern["templateVariants"] as string[])
       : registeredPattern?.templateVariants,
+    generationDomain:
+      preferRegisteredScalar(
+        "generationDomain",
+      ),
+    arrangementType:
+      preferRegisteredScalar(
+        "arrangementType",
+      ),
+    arrangementTypes:
+      preferRegisteredArray(
+        "arrangementTypes",
+      ),
+    orientationType:
+      preferRegisteredScalar(
+        "orientationType",
+      ),
+    orientationTypes:
+      preferRegisteredArray(
+        "orientationTypes",
+      ),
+    participantCount:
+      preferRegisteredScalar(
+        "participantCount",
+      ),
+    clueTypes: preferRegisteredArray(
+      "clueTypes",
+    ),
+    inferenceDepth:
+      preferRegisteredScalar(
+        "inferenceDepth",
+      ),
+    supportedMotifs:
+      preferRegisteredArray(
+        "supportedMotifs",
+      ),
     variables:
       dbPattern["variables"] &&
       typeof dbPattern["variables"] ===

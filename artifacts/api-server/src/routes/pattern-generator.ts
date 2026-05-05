@@ -9,8 +9,11 @@ import {
   type GeneratorResult,
   type Pattern,
 } from "../lib/generator";
+import { ALL_PATTERNS } from "../lib/patterns";
 
 const router = Router();
+const REGISTERED_PATTERNS =
+  ALL_PATTERNS as Pattern[];
 
 // ── Type Definitions ─────────────────────────────────────────────────────────
 
@@ -36,6 +39,24 @@ interface GeneratePatternResponse {
 function normalizeStoredPattern(
   dbPattern: Record<string, unknown>,
 ): Pattern {
+  const registeredPattern =
+    REGISTERED_PATTERNS.find(
+      (pattern) =>
+        pattern.id ===
+        String(dbPattern["id"] ?? ""),
+    );
+  const preferRegisteredScalar = (
+    key: keyof Pattern,
+  ) =>
+    registeredPattern?.[key] ??
+    dbPattern[key as string];
+  const preferRegisteredArray = (
+    key: keyof Pattern,
+  ) =>
+    Array.isArray(registeredPattern?.[key])
+      ? registeredPattern?.[key]
+      : dbPattern[key as string];
+
   return {
     id: String(dbPattern["id"] ?? ""),
     type:
@@ -54,36 +75,65 @@ function normalizeStoredPattern(
       (dbPattern["difficulty"] as Pattern["difficulty"]) ??
       "Medium",
     generationDomain:
-      (dbPattern["generationDomain"] as Pattern["generationDomain"]) ??
-      undefined,
+      preferRegisteredScalar(
+        "generationDomain",
+      ) as Pattern["generationDomain"],
     arrangementType:
-      (dbPattern["arrangementType"] as string | null) ??
-      undefined,
-    arrangementTypes: Array.isArray(
-      dbPattern["arrangementTypes"],
-    )
-      ? (dbPattern["arrangementTypes"] as string[])
-      : undefined,
+      (preferRegisteredScalar(
+        "arrangementType",
+      ) as string | null) ?? undefined,
+    arrangementTypes:
+      Array.isArray(
+        preferRegisteredArray(
+          "arrangementTypes",
+        ),
+      )
+        ? (preferRegisteredArray(
+            "arrangementTypes",
+          ) as string[])
+        : undefined,
     orientationType:
-      (dbPattern["orientationType"] as string | null) ??
-      undefined,
-    orientationTypes: Array.isArray(
-      dbPattern["orientationTypes"],
-    )
-      ? (dbPattern["orientationTypes"] as string[])
-      : undefined,
+      (preferRegisteredScalar(
+        "orientationType",
+      ) as string | null) ?? undefined,
+    orientationTypes:
+      Array.isArray(
+        preferRegisteredArray(
+          "orientationTypes",
+        ),
+      )
+        ? (preferRegisteredArray(
+            "orientationTypes",
+          ) as string[])
+        : undefined,
     participantCount:
-      typeof dbPattern["participantCount"] === "number"
-        ? Number(dbPattern["participantCount"])
+      typeof preferRegisteredScalar(
+        "participantCount",
+      ) === "number"
+        ? Number(
+            preferRegisteredScalar(
+              "participantCount",
+            ),
+          )
         : undefined,
     clueTypes: Array.isArray(
-      dbPattern["clueTypes"],
+      preferRegisteredArray(
+        "clueTypes",
+      ),
     )
-      ? (dbPattern["clueTypes"] as string[])
+      ? (preferRegisteredArray(
+          "clueTypes",
+        ) as string[])
       : undefined,
     inferenceDepth:
-      typeof dbPattern["inferenceDepth"] === "number"
-        ? Number(dbPattern["inferenceDepth"])
+      typeof preferRegisteredScalar(
+        "inferenceDepth",
+      ) === "number"
+        ? Number(
+            preferRegisteredScalar(
+              "inferenceDepth",
+            ),
+          )
         : undefined,
     templateVariants: Array.isArray(
       dbPattern["templateVariants"],

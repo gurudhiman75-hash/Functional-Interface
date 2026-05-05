@@ -1763,6 +1763,86 @@ function getTargetClueRange(
     : [5, 6];
 }
 
+function isHighComplexitySeatingConfig(
+  config: SeatingPatternConfig,
+) {
+  return (
+    (config.arrangementTypes?.length ??
+      0) >= 3 ||
+    (config.orientationTypes?.length ??
+      0) >= 4 ||
+    (config.participantCount ?? 0) >= 8
+  );
+}
+
+function getMaxSeatingGenerationAttempts(
+  difficulty: DifficultyLabel,
+  config: SeatingPatternConfig,
+) {
+  if (
+    difficulty === "Hard" &&
+    isHighComplexitySeatingConfig(
+      config,
+    )
+  ) {
+    return 90;
+  }
+
+  if (difficulty === "Hard") {
+    return 180;
+  }
+
+  if (difficulty === "Medium") {
+    return 120;
+  }
+
+  return 80;
+}
+
+function getEmergencyFallbackAttempts(
+  difficulty: DifficultyLabel,
+  config: SeatingPatternConfig,
+) {
+  if (
+    difficulty === "Hard" &&
+    isHighComplexitySeatingConfig(
+      config,
+    )
+  ) {
+    return 36;
+  }
+
+  return difficulty === "Hard"
+    ? 72
+    : 120;
+}
+
+function getConfiguredClueRange(
+  difficulty: DifficultyLabel,
+  layout: SeatingLayout,
+  config: SeatingPatternConfig,
+) {
+  const [baseMin, baseMax] =
+    getTargetClueRange(
+      difficulty,
+      layout,
+    );
+
+  if (
+    difficulty === "Hard" &&
+    isHighComplexitySeatingConfig(
+      config,
+    )
+  ) {
+    return [
+      Math.min(baseMin, 5),
+      Math.min(baseMax, 6),
+    ] as const;
+  }
+
+  return [baseMin, baseMax] as const;
+}
+
 function getDirectClueCount(
   clues: SeatingClue[],
 ) {
@@ -2294,9 +2374,10 @@ function buildClueSet(
     config,
   );
   const [minClues, maxClues] =
-    getTargetClueRange(
+    getConfiguredClueRange(
       difficulty,
       layout,
+      config,
     );
   const candidates =
     buildCandidateCluePool(
@@ -2826,7 +2907,17 @@ function buildEmergencyScenario(
     participantCount,
   );
 
-  for (let attempt = 0; attempt < 120; attempt++) {
+  const fallbackAttempts =
+    getEmergencyFallbackAttempts(
+      difficulty,
+      config,
+    );
+
+  for (
+    let attempt = 0;
+    attempt < fallbackAttempts;
+    attempt++
+  ) {
     const participants =
       selectParticipants(
         participantCount,
@@ -3049,7 +3140,11 @@ function createSeatingScenarioInternal(
     extractSeatingPatternConfig(
       pattern,
     );
-  const maxAttempts = 450;
+  const maxAttempts =
+    getMaxSeatingGenerationAttempts(
+      difficulty,
+      config,
+    );
   let validationRetries = 0;
   let uniquenessFailures = 0;
 
