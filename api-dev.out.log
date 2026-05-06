@@ -6802,3 +6802,35 @@ Generation metrics {
 > @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
 > node ./build.mjs
 
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[22:57:25.113] [32mINFO[39m (29160): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[22:57:25.147] [32mINFO[39m (29160): [36mAPI server running on http://0.0.0.0:3001[39m
+[22:57:29.975] [33mWARN[39m (29160): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
+[22:57:31.395] [33mWARN[39m (29160): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
+[22:57:32.956] [33mWARN[39m (29160): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
+[22:57:34.298] [33mWARN[39m (29160): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+[32m[nodemon] restarting due to changes...[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+

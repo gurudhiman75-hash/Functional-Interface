@@ -6,6 +6,19 @@ import { directionSenseMotifs } from "./direction-sense";
 import { inequalityMotifs } from "./inequality";
 import { seatingArrangementMotifs } from "./seating-arrangement";
 import { practicalQuantMotifs } from "./practical-quant";
+import {
+  algebraBasicsMotifs,
+  averagesMotifs,
+  compoundInterestMotifs,
+  mensurationMotifs,
+  mixtureAlligationMotifs,
+  percentageMotifs as practicalPercentageMotifs,
+  profitLossMotifs,
+  ratioProportionMotifs,
+  simpleInterestMotifs,
+  speedDistanceMotifs,
+  timeWorkMotifs,
+} from "./quant";
 import { practicalReasoningMotifs } from "./practical-reasoning";
 import { englishMotifs } from "./english";
 import { diMotifs } from "./di";
@@ -39,6 +52,17 @@ export const UNIVERSAL_MOTIFS: UniversalMotif[] =
 export {
   percentageMotifs,
   ratioMotifs,
+  practicalPercentageMotifs,
+  ratioProportionMotifs,
+  averagesMotifs,
+  profitLossMotifs,
+  simpleInterestMotifs,
+  compoundInterestMotifs,
+  timeWorkMotifs,
+  speedDistanceMotifs,
+  mixtureAlligationMotifs,
+  algebraBasicsMotifs,
+  mensurationMotifs,
   codingDecodingMotifs,
   bloodRelationMotifs,
   directionSenseMotifs,

@@ -99,6 +99,9 @@ import {
   realizeQuestion,
 } from "../quant";
 import {
+  createQuantProceduralScenario,
+} from "../quant-scenarios";
+import {
   generateNumericOptions,
   alignReasoningStepsWithMotif,
   attachReasoningTrace,
@@ -880,13 +883,22 @@ function createFormulaQuestionCandidate(
   const arithmeticDifficulty =
     requestedDifficulty;
 
-  const values = generateValues(
-    pattern.variables,
-    arithmeticDifficulty,
-    motif,
-  );
+  const proceduralScenario =
+    createQuantProceduralScenario(
+      pattern,
+      arithmeticDifficulty,
+      motif,
+    );
+  const values =
+    proceduralScenario?.values ??
+    generateValues(
+      pattern.variables,
+      arithmeticDifficulty,
+      motif,
+    );
 
   const scenario =
+    proceduralScenario?.context ??
     generateScenario(
       pattern.topic,
     );
@@ -929,44 +941,49 @@ function createFormulaQuestionCandidate(
       "Archetype was incompatible with the selected pattern/motif combination.";
   }
 
-  const realizationValues = {
-    ...values,
-    entity: scenario.entity,
-    metric: scenario.metric,
-    context: scenario.context,
-  };
-  const validTemplates =
-    pattern.templateVariants.filter(
-      (template) =>
-        validateQuestionRealization(
-          [template],
-          realizationValues,
-        ).valid,
-    );
-  const fallbackText =
-    realizeQuestion(
-      scenario,
-      values,
-      pattern.topic,
-      motif,
-    );
-  const text =
-    validTemplates.length
-      ? renderNamedTemplate(
-          pickRandomTemplate(
-            validTemplates,
-          ),
-          realizationValues,
-        ) || fallbackText
-      : fallbackText;
+  let text =
+    proceduralScenario?.text ?? "";
 
-  if (!validTemplates.length) {
-    compatibilityWarnings.push(
-      "Pattern templates were missing required placeholders for realization.",
-    );
-    fallbackReason =
-      fallbackReason ??
-      "Question realizer fell back to safe wording.";
+  if (!proceduralScenario) {
+    const realizationValues = {
+      ...values,
+      entity: scenario.entity,
+      metric: scenario.metric,
+      context: scenario.context,
+    };
+    const validTemplates =
+      pattern.templateVariants.filter(
+        (template) =>
+          validateQuestionRealization(
+            [template],
+            realizationValues,
+          ).valid,
+      );
+    const fallbackText =
+      realizeQuestion(
+        scenario,
+        values,
+        pattern.topic,
+        motif,
+      );
+    text =
+      validTemplates.length
+        ? renderNamedTemplate(
+            pickRandomTemplate(
+              validTemplates,
+            ),
+            realizationValues,
+          ) || fallbackText
+        : fallbackText;
+
+    if (!validTemplates.length) {
+      compatibilityWarnings.push(
+        "Pattern templates were missing required placeholders for realization.",
+      );
+      fallbackReason =
+        fallbackReason ??
+        "Question realizer fell back to safe wording.";
+    }
   }
 
   const formulaCompatibility =
@@ -990,11 +1007,13 @@ function createFormulaQuestionCandidate(
       "Pattern formula referenced unavailable variables.";
   }
 
- const correctAnswer =
-  evaluateFormula(
-    formulaToEvaluate,
-    values,
-  );
+  const correctAnswer =
+    proceduralScenario
+      ?.correctAnswer ??
+    evaluateFormula(
+      formulaToEvaluate,
+      values,
+    );
   const quantContext = {
     pattern,
     baseText: text,
@@ -1004,12 +1023,16 @@ function createFormulaQuestionCandidate(
   };
   const reasoningSteps =
     alignReasoningStepsWithMotif(
-      effectiveArchetype.buildReasoningSteps(
-        quantContext,
-      ),
+      proceduralScenario
+        ?.reasoningSteps ??
+        effectiveArchetype.buildReasoningSteps(
+          quantContext,
+        ),
       motif,
     );
   const explanation =
+    proceduralScenario
+      ?.explanation ??
     buildMotifAwareExplanation(
       pattern,
       values,
@@ -1028,6 +1051,8 @@ function createFormulaQuestionCandidate(
         distractorStrategy:
           pattern.distractorStrategy,
         distractorHints:
+          proceduralScenario
+            ?.distractorHints ??
           motif?.commonDistractors,
         reasoningDepth:
           reasoningSteps.length,
