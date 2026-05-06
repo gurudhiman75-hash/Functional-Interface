@@ -27,6 +27,12 @@ const TOPIC_CONFIGS: TopicConfig[] = [
     domain: "quant",
     topic: "Time & Work",
     enabledMotifs: [
+      "simple-combined-work",
+      "delayed-join",
+      "alternating-operation",
+      "positive-negative-competition",
+      "worker-equivalence",
+      "resource-consumption",
       "efficiency-substitution",
       "inverse-work-trap",
     ],

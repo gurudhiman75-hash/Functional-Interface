@@ -155,6 +155,41 @@ export const MOTIF_REGISTRY: Motif[] = [
     topic: "time-work",
   },
   {
+    canonicalName: "simple-combined-work",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "delayed-join",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "alternating-operation",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "positive-negative-competition",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "worker-equivalence",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "resource-consumption",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "inverse-work-trap",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
     canonicalName: "subject-verb-mismatch",
     aliases: ["subject_verb_ambiguity"],
     domain: "english",
@@ -431,11 +466,19 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       topic: "time-work",
       label: "Time & Work",
       supportedDifficulties: [
+        "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
+        "simple-combined-work",
+        "delayed-join",
+        "alternating-operation",
+        "positive-negative-competition",
+        "worker-equivalence",
+        "resource-consumption",
         "efficiency-substitution",
+        "inverse-work-trap",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,

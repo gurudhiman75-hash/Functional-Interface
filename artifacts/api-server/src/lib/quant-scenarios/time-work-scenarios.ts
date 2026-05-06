@@ -73,6 +73,54 @@ function buildDefaultContext(): QuantScenarioContext {
   };
 }
 
+export function createSimpleCombinedWorkScenario(
+  difficulty: DifficultyLabel,
+): QuantProceduralScenario {
+  const pair = pickTimePair(difficulty);
+  const totalWorkUnits = Math.abs(
+    pair.a * pair.b,
+  );
+  const aRate =
+    totalWorkUnits / pair.a;
+  const bRate =
+    totalWorkUnits / pair.b;
+  const combinedRate =
+    aRate + bRate;
+  const correctAnswer =
+    totalWorkUnits / combinedRate;
+
+  return {
+    scenarioType: "simple-combined-work",
+    topicCluster: "time-work",
+    values: {
+      a: pair.a,
+      b: pair.b,
+      totalWorkUnits,
+    },
+    text: `A can complete a work in ${pair.a} days and B can complete the same work in ${pair.b} days. In how many days will A and B together complete it?`,
+    correctAnswer,
+    distractorHints: [
+      "reciprocalInversion",
+      "wrongLCMAggregation",
+    ],
+    reasoningSteps: [
+      createReasoningStep(
+        "transform",
+        `Take total work as ${totalWorkUnits} units, so A's and B's daily rates are ${aRate} and ${bRate} units.`,
+      ),
+      createReasoningStep(
+        "aggregate",
+        `Together they complete ${combinedRate} units per day.`,
+      ),
+      createReasoningStep(
+        "reverse",
+        `Invert the combined rate: ${totalWorkUnits}/${combinedRate} = ${correctAnswer} days.`,
+      ),
+    ],
+    context: buildDefaultContext(),
+  };
+}
+
 export function createWorkerEquivalenceScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
@@ -275,6 +323,68 @@ export function createPositiveNegativeCompetitionScenario(
   };
 }
 
+export function createResourceConsumptionScenario(
+  difficulty: DifficultyLabel,
+): QuantProceduralScenario {
+  const workers =
+    difficulty === "Hard" ? 60 : 48;
+  const totalDays =
+    difficulty === "Hard" ? 36 : 30;
+  const elapsedDays =
+    difficulty === "Hard" ? 12 : 10;
+  const leavingWorkers =
+    difficulty === "Hard" ? 12 : 8;
+  const remainingWorkers =
+    workers - leavingWorkers;
+  const totalWorkerDays =
+    workers * totalDays;
+  const consumedWorkerDays =
+    workers * elapsedDays;
+  const remainingWorkerDays =
+    totalWorkerDays -
+    consumedWorkerDays;
+  const correctAnswer =
+    remainingWorkerDays /
+    remainingWorkers;
+
+  return {
+    scenarioType: "resource-consumption",
+    topicCluster: "time-work",
+    values: {
+      workers,
+      totalDays,
+      elapsedDays,
+      leavingWorkers,
+      remainingWorkers,
+    },
+    text: `A camp has provisions for ${workers} workers for ${totalDays} days. After ${elapsedDays} days, ${leavingWorkers} workers leave the camp. For how many more days will the remaining provisions last?`,
+    correctAnswer,
+    distractorHints: [
+      "weightedEntityConfusion",
+      "incorrectResidualAllocation",
+    ],
+    reasoningSteps: [
+      createReasoningStep(
+        "transform",
+        `Total provisions equal ${workers} x ${totalDays} = ${totalWorkerDays} worker-days.`,
+      ),
+      createReasoningStep(
+        "filter",
+        `The first ${elapsedDays} days consume ${consumedWorkerDays} worker-days, leaving ${remainingWorkerDays} worker-days.`,
+      ),
+      createReasoningStep(
+        "infer",
+        `After ${leavingWorkers} workers leave, ${remainingWorkers} workers remain, so the provisions last ${correctAnswer} more days.`,
+      ),
+    ],
+    context: {
+      entity: "workers",
+      metric: "provision duration",
+      context: "camp",
+    },
+  };
+}
+
 export function createInverseWorkScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
@@ -331,26 +441,54 @@ export function createTimeWorkScenario(
     return null;
   }
 
-  const scenarioFactories: TimeWorkScenarioFactory[] =
-    motif?.id ===
-    "efficiency-substitution"
-      ? [
-        createWorkerEquivalenceScenario,
-        createDelayedJoinScenario,
-        createAlternatingOperationScenario,
-      ]
-      : motif?.id ===
-          "inverse-work-trap"
-        ? [
-          createInverseWorkScenario,
-          createPositiveNegativeCompetitionScenario,
-          createDelayedJoinScenario,
-        ]
-        : [
+  const scenarioFactoriesByMotif: Record<
+    string,
+    TimeWorkScenarioFactory[]
+  > = {
+    "simple-combined-work": [
+      createSimpleCombinedWorkScenario,
+    ],
+    "delayed-join": [
+      createDelayedJoinScenario,
+    ],
+    "alternating-operation": [
+      createAlternatingOperationScenario,
+    ],
+    "positive-negative-competition": [
+      createPositiveNegativeCompetitionScenario,
+    ],
+    "worker-equivalence": [
+      createWorkerEquivalenceScenario,
+    ],
+    "resource-consumption": [
+      createResourceConsumptionScenario,
+    ],
+    "efficiency-substitution": [
+      createWorkerEquivalenceScenario,
+      createDelayedJoinScenario,
+      createAlternatingOperationScenario,
+    ],
+    "inverse-work-trap": [
+      createInverseWorkScenario,
+      createPositiveNegativeCompetitionScenario,
+      createDelayedJoinScenario,
+    ],
+  };
+
+  const scenarioFactories =
+    motif?.id
+      ? scenarioFactoriesByMotif[
+          motif.id
+        ] ?? [
           createDelayedJoinScenario,
           createWorkerEquivalenceScenario,
           createInverseWorkScenario,
-        ];
+        ]
+      : [
+        createDelayedJoinScenario,
+        createWorkerEquivalenceScenario,
+        createInverseWorkScenario,
+      ];
 
   return pickRandomItem(
     scenarioFactories,
