@@ -113,6 +113,8 @@ export type Motif = {
 };
 
 export type QuantMotifTopicCluster =
+  | "fundamentals"
+  | "number-system"
   | "percentage"
   | "ratio-proportion"
   | "profit-loss"

@@ -1,6 +1,7 @@
 import type {
   DifficultyLabel,
   Pattern,
+  QuantTopicCluster,
 } from "../core/generator-engine";
 import type { QuantMotif } from "../motifs/types";
 import type {
@@ -14,10 +15,11 @@ import {
 
 export type QuantProceduralScenario = {
   scenarioType: string;
-  topicCluster: "time-work";
+  topicCluster: QuantTopicCluster;
   values: Record<string, number>;
   text: string;
   correctAnswer: number;
+  formula?: string;
   reasoningSteps: ReasoningStep[];
   explanation?: string;
   distractorHints?: string[];
@@ -433,10 +435,18 @@ export function createTimeWorkScenario(
   difficulty: DifficultyLabel,
   motif?: QuantMotif | null,
 ): QuantProceduralScenario | null {
+  const topicKey = [
+    pattern.topic,
+    pattern.subtopic,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+    .trim();
+
   if (
-    pattern.topic
-      .toLowerCase()
-      .trim() !== "time-work"
+    !topicKey.includes("time-work") &&
+    !topicKey.includes("time & work")
   ) {
     return null;
   }

@@ -150,6 +150,50 @@ export const MOTIF_REGISTRY: Motif[] = [
     ],
   },
   {
+    canonicalName: "sum-recovery",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "replacement-average-shift",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "group-weighted-average",
+    aliases: [
+      "weighted-average-confusion",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "consecutive-middle-term",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "age-average-shift",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "score-target-reconstruction",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "multi-stage-average-update",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
     canonicalName: "efficiency-substitution",
     domain: "quant",
     topic: "time-work",
@@ -212,7 +256,6 @@ export const MOTIF_REGISTRY: Motif[] = [
   },
   {
     canonicalName: "profit-discount-trap",
-    aliases: ["discount-profit-link"],
     domain: "quant",
     topic: "profit-loss",
     distractorHints: [
@@ -220,20 +263,166 @@ export const MOTIF_REGISTRY: Motif[] = [
     ],
   },
   {
-    canonicalName: "interest-period-trap",
+    canonicalName:
+      "base-percentage-transformation",
+    aliases: ["profit-discount-trap"],
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "multiplicative-percentage-chaining",
     aliases: [
-      "compounding-trap",
+      "successive-discount-margin",
+    ],
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "hidden-base-tracking",
+    aliases: ["discount-profit-link"],
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "quantity-manipulation-profit",
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "markup-discount-compression",
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "equivalent-change-reduction",
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "ratio-based-profit-reconstruction",
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "multi-state-transaction-flow",
+    domain: "quant",
+    topic: "profit-loss",
+  },
+  {
+    canonicalName:
+      "linear-interest-accumulation",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "multiplicative-growth",
+    aliases: ["compounding-trap"],
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "interest-on-interest-detection",
+    aliases: [
       "interest-difference-backsolve",
     ],
     domain: "quant",
-    topic: "simple-interest",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "effective-period-transformation",
+    aliases: [
+      "interest-period-trap",
+    ],
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "compound-decay",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "reverse-growth-reconstruction",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "equivalent-multiplier-compression",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "comparative-interest-systems",
+    domain: "quant",
+    topic: "si-ci",
   },
   {
     canonicalName: "mixture-weighted-average",
     aliases: [
       "weighted-mixture-shift",
+    ],
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "weighted-contribution",
+    aliases: [
+      "mixture-weighted-average",
+      "weighted-mixture-shift",
+    ],
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "inverse-distance-balancing",
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "composition-state-tracking",
+    aliases: [
       "replacement-alligation",
     ],
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "concentration-decay",
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "ratio-reconstruction",
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "cost-profit-blend",
+    domain: "quant",
+    topic: "mixture-alligation",
+  },
+  {
+    canonicalName:
+      "multi-phase-purity-transition",
     domain: "quant",
     topic: "mixture-alligation",
   },
@@ -257,13 +446,87 @@ export const MOTIF_REGISTRY: Motif[] = [
   },
   {
     canonicalName: "arithmetic-order-trap",
+    aliases: ["bodmas-sequencing"],
     domain: "quant",
     topic: "simplification",
   },
   {
-    canonicalName: "divisibility-remainder",
+    canonicalName:
+      "divisibility-filter",
     domain: "quant",
     topic: "number-system",
+  },
+  {
+    canonicalName:
+      "divisibility-remainder",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "unit-digit-cycle",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "remainder-reduction",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "factorial-trailing-zero",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "recurring-decimal-reconstruction",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "divisor-count-prime-exponents",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "perfect-power-balance",
+    domain: "quant",
+    topic: "number-system",
+  },
+  {
+    canonicalName:
+      "fraction-cancellation-chain",
+    domain: "quant",
+    topic: "fundamentals",
+  },
+  {
+    canonicalName:
+      "decimal-fraction-normalization",
+    domain: "quant",
+    topic: "fundamentals",
+  },
+  {
+    canonicalName:
+      "hcf-lcm-reconstruction",
+    domain: "quant",
+    topic: "fundamentals",
+  },
+  {
+    canonicalName:
+      "surd-factor-extraction",
+    domain: "quant",
+    topic: "fundamentals",
+  },
+  {
+    canonicalName:
+      "index-law-compression",
+    domain: "quant",
+    topic: "fundamentals",
   },
   {
     canonicalName: "geometry-area-base",
@@ -379,6 +642,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       description:
         "Circular or table seating with centre/outward orientation.",
       supportedDifficulties: [
+        "easy",
         "medium",
         "hard",
       ],
@@ -505,14 +769,95 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       topic: "averages",
       label: "Averages",
       description:
-        "Average, total, count, and weighted mean starter questions.",
+        "SSC-style averages covering sum recovery, replacement, weighted groups, consecutive numbers, ages, and score reconstruction.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
+        "sum-recovery",
+        "replacement-average-shift",
+        "group-weighted-average",
+        "consecutive-middle-term",
+        "age-average-shift",
+        "score-target-reconstruction",
+        "multi-stage-average-update",
         "weighted-average-confusion",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "averages-replacement",
+      domain: "quant",
+      topic: "averages",
+      label: "Averages: Replacement",
+      description:
+        "Average increase-decrease and replacement delta propagation questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "replacement-average-shift",
+        "multi-stage-average-update",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "averages-weighted",
+      domain: "quant",
+      topic: "averages",
+      label: "Averages: Weighted Groups",
+      description:
+        "Combined-group and weighted contribution average questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "group-weighted-average",
+        "weighted-average-confusion",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "averages-consecutive",
+      domain: "quant",
+      topic: "averages",
+      label: "Averages: Consecutive Numbers",
+      description:
+        "Middle-term compression for consecutive integer averages.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        "consecutive-middle-term",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "averages-age-score",
+      domain: "quant",
+      topic: "averages",
+      label: "Averages: Ages & Scores",
+      description:
+        "Age-shift and target-score average reconstruction questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "age-average-shift",
+        "score-target-reconstruction",
+        "sum-recovery",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -522,13 +867,104 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "profit-loss",
       label: "Profit & Loss",
+      description:
+        "SSC-style profit, loss, discount, markup, dishonest dealer, and multi-stage trade questions.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
+        "base-percentage-transformation",
+        "multiplicative-percentage-chaining",
+        "hidden-base-tracking",
+        "quantity-manipulation-profit",
+        "markup-discount-compression",
+        "equivalent-change-reduction",
+        "ratio-based-profit-reconstruction",
+        "multi-state-transaction-flow",
         "profit-discount-trap",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "profit-loss-discount",
+      domain: "quant",
+      topic: "profit-loss",
+      label: "Profit & Loss: Discount & Markup",
+      description:
+        "Marked price, discount, markup, and selling price interaction questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "hidden-base-tracking",
+        "markup-discount-compression",
+        "multiplicative-percentage-chaining",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "profit-loss-dishonest-dealer",
+      domain: "quant",
+      topic: "profit-loss",
+      label: "Profit & Loss: Dishonest Dealer",
+      description:
+        "False-weight and quantity-cheating profit questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "quantity-manipulation-profit",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "profit-loss-equivalent-change",
+      domain: "quant",
+      topic: "profit-loss",
+      label: "Profit & Loss: Equivalent Change",
+      description:
+        "Successive increase-decrease and equivalent percentage effect questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "multiplicative-percentage-chaining",
+        "equivalent-change-reduction",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "simple-compound-interest",
+      domain: "quant",
+      topic: "si-ci",
+      label:
+        "Simple & Compound Interest",
+      description:
+        "SSC-style simple interest, compound interest, SI-CI comparison, depreciation, and fractional compounding questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "linear-interest-accumulation",
+        "multiplicative-growth",
+        "interest-on-interest-detection",
+        "effective-period-transformation",
+        "compound-decay",
+        "reverse-growth-reconstruction",
+        "equivalent-multiplier-compression",
+        "comparative-interest-systems",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -536,15 +972,18 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
     {
       id: "simple-interest",
       domain: "quant",
-      topic: "simple-interest",
+      topic: "si-ci",
       label: "Simple Interest",
+      description:
+        "Direct simple interest, amount, and reverse principal reconstruction questions.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "interest-period-trap",
+        "linear-interest-accumulation",
+        "reverse-growth-reconstruction",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -552,14 +991,73 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
     {
       id: "compound-interest",
       domain: "quant",
-      topic: "compound-interest",
+      topic: "si-ci",
       label: "Compound Interest",
+      description:
+        "Compound amount, SI-CI difference, and annual compounding questions.",
       supportedDifficulties: [
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "interest-period-trap",
+        "interest-on-interest-detection",
+        "multiplicative-growth",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "interest-si-vs-ci",
+      domain: "quant",
+      topic: "si-ci",
+      label: "Interest: SI vs CI",
+      description:
+        "Difference between simple and compound interest and comparative growth-model questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "interest-on-interest-detection",
+        "comparative-interest-systems",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "interest-fractional-compounding",
+      domain: "quant",
+      topic: "si-ci",
+      label:
+        "Interest: Half-Yearly & Quarterly",
+      description:
+        "Half-yearly and quarterly compounding questions with rate-period transformation.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "effective-period-transformation",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "interest-growth-decay",
+      domain: "quant",
+      topic: "si-ci",
+      label:
+        "Interest: Growth & Depreciation",
+      description:
+        "Compound growth, depreciation, and stage-wise multiplier compression questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "multiplicative-growth",
+        "compound-decay",
+        "equivalent-multiplier-compression",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -569,11 +1067,78 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "mixture-alligation",
       label: "Mixture & Alligation",
+      description:
+        "SSC-style mixture questions covering weighted blending, alligation, purity tracking, replacement, and repeated dilution.",
       supportedDifficulties: [
         "medium",
         "hard",
       ],
       compatibleMotifs: [
+        "weighted-contribution",
+        "inverse-distance-balancing",
+        "composition-state-tracking",
+        "concentration-decay",
+        "ratio-reconstruction",
+        "cost-profit-blend",
+        "multi-phase-purity-transition",
+        "mixture-weighted-average",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mixture-alligation-alligation",
+      domain: "quant",
+      topic: "mixture-alligation",
+      label: "Mixture & Alligation: Alligation",
+      description:
+        "Cross-difference alligation and ratio reconstruction questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "inverse-distance-balancing",
+        "ratio-reconstruction",
+        "cost-profit-blend",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mixture-alligation-replacement",
+      domain: "quant",
+      topic: "mixture-alligation",
+      label: "Mixture & Alligation: Replacement",
+      description:
+        "Single and repeated replacement with purity tracking.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "composition-state-tracking",
+        "concentration-decay",
+        "multi-phase-purity-transition",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mixture-alligation-weighted",
+      domain: "quant",
+      topic: "mixture-alligation",
+      label: "Mixture & Alligation: Weighted Blends",
+      description:
+        "Weighted contribution and mean-value mixture questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "weighted-contribution",
         "mixture-weighted-average",
       ],
       examStyles: ["ssc", "banking"],
@@ -640,6 +1205,104 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       enabled: true,
     },
     {
+      id: "fundamentals",
+      domain: "quant",
+      topic: "fundamentals",
+      label: "Fundamentals",
+      description:
+        "Core SSC arithmetic covering simplification, fractions, decimals, HCF/LCM, divisibility, surds, indices, and unit-digit reasoning.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "bodmas-sequencing",
+        "fraction-cancellation-chain",
+        "decimal-fraction-normalization",
+        "hcf-lcm-reconstruction",
+        "surd-factor-extraction",
+        "index-law-compression",
+        "divisibility-filter",
+        "unit-digit-cycle",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "fundamentals-fractions",
+      domain: "quant",
+      topic: "fundamentals",
+      label: "Fundamentals: Fractions",
+      description:
+        "Fraction arithmetic, cancellation, and decimal-fraction normalization.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "fraction-cancellation-chain",
+        "decimal-fraction-normalization",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "fundamentals-hcf-lcm",
+      domain: "quant",
+      topic: "fundamentals",
+      label: "Fundamentals: HCF & LCM",
+      description:
+        "Reverse construction and identity-based HCF-LCM questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "hcf-lcm-reconstruction",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "fundamentals-surds-indices",
+      domain: "quant",
+      topic: "fundamentals",
+      label: "Fundamentals: Surds & Indices",
+      description:
+        "Surd simplification and index-law compression questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "surd-factor-extraction",
+        "index-law-compression",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "fundamentals-divisibility",
+      domain: "quant",
+      topic: "fundamentals",
+      label: "Fundamentals: Divisibility & Unit Digit",
+      description:
+        "Shortcut-based divisibility and cyclic unit-digit questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "divisibility-filter",
+        "unit-digit-cycle",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
       id: "simplification",
       domain: "quant",
       topic: "simplification",
@@ -660,13 +1323,112 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "number-system",
       label: "Number System",
+      description:
+        "SSC-style number system questions covering divisibility, remainders, unit digits, factorials, recurring decimals, divisor counting, and perfect powers.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
+        "divisibility-filter",
         "divisibility-remainder",
+        "remainder-reduction",
+        "unit-digit-cycle",
+        "hcf-lcm-reconstruction",
+        "factorial-trailing-zero",
+        "recurring-decimal-reconstruction",
+        "divisor-count-prime-exponents",
+        "perfect-power-balance",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-divisibility",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Divisibility & Remainders",
+      description:
+        "Divisibility filters, modular reduction, and remainder-based questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "divisibility-filter",
+        "remainder-reduction",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-unit-digit",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Unit Digit",
+      description:
+        "Cycle-based unit-digit questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "unit-digit-cycle",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-factorials",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Factorials",
+      description:
+        "Trailing zero and factorial divisibility questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "factorial-trailing-zero",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-recurring-decimals",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Recurring Decimals",
+      description:
+        "Recurring decimal reconstruction into fractions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "recurring-decimal-reconstruction",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-perfect-powers",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Perfect Powers",
+      description:
+        "Divisor count, perfect square, and perfect cube balance questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "divisor-count-prime-exponents",
+        "perfect-power-balance",
+        "hcf-lcm-reconstruction",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1223,56 +1985,250 @@ function buildQuantPattern(
       return {
         ...base,
         id: `registry-averages-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "The average of {count} numbers is {average}. What is their total?",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          count: { min: 4, max: 12 },
-          average: { min: 15, max: 95 },
-        },
-        formula: "count * average",
+        templateVariants: [
+          "Solve the averages question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "averages-replacement":
+      return {
+        ...base,
+        id: `registry-averages-replacement-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the replacement-based averages question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "averages-weighted":
+      return {
+        ...base,
+        id: `registry-averages-weighted-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the weighted average question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "averages-consecutive":
+      return {
+        ...base,
+        id: `registry-averages-consecutive-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the consecutive-number average question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "averages-age-score":
+      return {
+        ...base,
+        id: `registry-averages-age-score-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the age or score average question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "profit-loss":
       return {
         ...base,
         id: `registry-profit-loss-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "An article is bought for Rs. {cost} and sold at a profit of {profit}%. What is the profit amount?",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          cost: { min: 120, max: 1500 },
-          profit: { min: 5, max: 35 },
-        },
-        formula: "cost * profit / 100",
+        templateVariants: [
+          "Solve the profit, loss, or discount question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "profit-loss-discount":
+      return {
+        ...base,
+        id: `registry-profit-loss-discount-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the discount or markup question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "profit-loss-dishonest-dealer":
+      return {
+        ...base,
+        id: `registry-profit-loss-dishonest-dealer-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the dishonest dealer question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "profit-loss-equivalent-change":
+      return {
+        ...base,
+        id: `registry-profit-loss-equivalent-change-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the equivalent percentage change question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "simple-compound-interest":
+      return {
+        ...base,
+        id: `registry-simple-compound-interest-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the simple and compound interest question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "simple-interest":
       return {
         ...base,
         id: `registry-simple-interest-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "Find the simple interest on Rs. {principal} at {rate}% per annum for {time} years.",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          principal: { min: 500, max: 8000 },
-          rate: { min: 4, max: 18 },
-          time: { min: 1, max: 5 },
-        },
-        formula:
-          "principal * rate * time / 100",
+        templateVariants: [
+          "Solve the simple interest question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "compound-interest":
       return {
         ...base,
         id: `registry-compound-interest-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "Find the compound interest on Rs. {principal} at {rate}% per annum for 2 years, compounded annually.",
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          principal: { min: 500, max: 8000 },
-          rate: { min: 4, max: 18 },
-        },
-        formula:
-          "principal * ((100 + rate) * (100 + rate) - 10000) / 10000",
+        templateVariants: [
+          "Solve the compound interest question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "interest-si-vs-ci":
+      return {
+        ...base,
+        id: `registry-interest-si-vs-ci-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the SI vs CI comparison question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "interest-fractional-compounding":
+      return {
+        ...base,
+        id: `registry-interest-fractional-compounding-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the fractional compounding question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "interest-growth-decay":
+      return {
+        ...base,
+        id: `registry-interest-growth-decay-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the growth or depreciation question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "ratio-proportion":
       return {
@@ -1293,17 +2249,67 @@ function buildQuantPattern(
       return {
         ...base,
         id: `registry-mixture-alligation-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "{q1} litres of a {p1}% solution is mixed with {q2} litres of a {p2}% solution. What is the percentage strength of the mixture?",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          q1: { min: 5, max: 40 },
-          q2: { min: 5, max: 40 },
-          p1: { min: 10, max: 80 },
-          p2: { min: 10, max: 80 },
-        },
-        formula:
-          "(q1 * p1 + q2 * p2) / (q1 + q2)",
+        templateVariants: [
+          "Solve the mixture and alligation question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mixture-alligation-alligation":
+      return {
+        ...base,
+        id: `registry-mixture-alligation-alligation-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the alligation question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mixture-alligation-replacement":
+      return {
+        ...base,
+        id: `registry-mixture-alligation-replacement-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the replacement-based mixture question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mixture-alligation-weighted":
+      return {
+        ...base,
+        id: `registry-mixture-alligation-weighted-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the weighted blending question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "partnership":
       return {
@@ -1368,6 +2374,93 @@ function buildQuantPattern(
         },
         formula: "distance / (speed + stream)",
       };
+    case "fundamentals":
+      return {
+        ...base,
+        id: `registry-fundamentals-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "Simplify: ({a}/{b} + {c}/{d}) x {e}.",
+        ],
+        variables: {
+          a: { min: 2, max: 18 },
+          b: { min: 2, max: 12 },
+          c: { min: 2, max: 18 },
+          d: { min: 2, max: 12 },
+          e: { min: 2, max: 9 },
+        },
+        formula:
+          "((a / b) + (c / d)) * e",
+      };
+    case "fundamentals-fractions":
+      return {
+        ...base,
+        id: `registry-fundamentals-fractions-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "Find the value of ( {a}/{b} + {c}/{d} ) x {e}.",
+        ],
+        variables: {
+          a: { min: 2, max: 18 },
+          b: { min: 2, max: 12 },
+          c: { min: 2, max: 18 },
+          d: { min: 2, max: 12 },
+          e: { min: 2, max: 9 },
+        },
+        formula:
+          "((a / b) + (c / d)) * e",
+      };
+    case "fundamentals-hcf-lcm":
+      return {
+        ...base,
+        id: `registry-fundamentals-hcf-lcm-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "The HCF of two numbers is {hcf} and their LCM is {lcm}. If one number is {known}, find the other number.",
+        ],
+        variables: {
+          hcf: { min: 6, max: 24 },
+          lcm: {
+            min: 72,
+            max: 1260,
+          },
+          known: {
+            min: 18,
+            max: 180,
+          },
+        },
+        formula:
+          "hcf * lcm / known",
+      };
+    case "fundamentals-surds-indices":
+      return {
+        ...base,
+        id: `registry-fundamentals-surds-indices-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "Find the value of {base}^{m} x {base}^{n} / {base}^{p}.",
+        ],
+        variables: {
+          base: { min: 2, max: 9 },
+          m: { min: 2, max: 7 },
+          n: { min: 3, max: 8 },
+          p: { min: 2, max: 5 },
+        },
+        formula:
+          "base ** (m + n - p)",
+      };
+    case "fundamentals-divisibility":
+      return {
+        ...base,
+        id: `registry-fundamentals-divisibility-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "Find the unit digit of {base}^{exponent}.",
+        ],
+        variables: {
+          base: { min: 7, max: 9 },
+          exponent: {
+            min: 21,
+            max: 117,
+          },
+        },
+        formula: "1",
+      };
     case "simplification":
       return {
         ...base,
@@ -1387,14 +2480,93 @@ function buildQuantPattern(
       return {
         ...base,
         id: `registry-number-system-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
         templateVariants: [
-          "What is the remainder when {number} is divided by {divisor}?",
+          "Solve the number system question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "number-system-divisibility":
+      return {
+        ...base,
+        id: `registry-number-system-divisibility-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "What least number should be added to {number} so that it becomes divisible by {divisor}?",
         ],
         variables: {
-          number: { min: 100, max: 9999 },
-          divisor: { min: 3, max: 19 },
+          number: {
+            min: 100,
+            max: 999,
+          },
+          divisor: { min: 7, max: 11 },
         },
-        formula: "number % divisor",
+        formula:
+          "divisor - (number % divisor)",
+      };
+    case "number-system-unit-digit":
+      return {
+        ...base,
+        id: `registry-number-system-unit-digit-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "Find the unit digit of {base}^{exponent}.",
+        ],
+        variables: {
+          base: { min: 7, max: 9 },
+          exponent: {
+            min: 21,
+            max: 117,
+          },
+        },
+        formula: "1",
+      };
+    case "number-system-factorials":
+      return {
+        ...base,
+        id: `registry-number-system-factorials-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "How many trailing zeros are there in {n}! ?",
+        ],
+        variables: {
+          n: {
+            min: 25,
+            max: 125,
+          },
+        },
+        formula:
+          "Math.floor(n / 5) + Math.floor(n / 25) + Math.floor(n / 125)",
+      };
+    case "number-system-recurring-decimals":
+      return {
+        ...base,
+        id: `registry-number-system-recurring-decimals-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "0.272727... is written as p/q in lowest terms. Find p + q.",
+        ],
+        variables: {},
+        formula: "14",
+      };
+    case "number-system-perfect-powers":
+      return {
+        ...base,
+        id: `registry-number-system-perfect-powers-${difficulty.toLowerCase()}`,
+        templateVariants: [
+          "What least number should be multiplied by {number} to make it a perfect square?",
+        ],
+        variables: {
+          number: {
+            min: 72,
+            max: 540,
+          },
+        },
+        formula: "2",
       };
     case "algebra-basics":
       return {

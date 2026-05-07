@@ -1,22 +1,28 @@
+import { fundamentalsMotifs } from "./fundamentals";
+import { numberSystemMotifs } from "./number-system";
 import { algebraBasicsMotifs } from "./algebra-basics";
 import { averagesMotifs } from "./averages";
-import { compoundInterestMotifs } from "./compound-interest";
 import { mensurationMotifs } from "./mensuration";
 import { mixtureAlligationMotifs } from "./mixture-alligation";
 import { percentageMotifs } from "./percentage";
 import { profitLossMotifs } from "./profit-loss";
 import { ratioProportionMotifs } from "./ratio-proportion";
-import { simpleInterestMotifs } from "./simple-interest";
+import {
+  compoundInterestMotifs,
+  simpleCompoundInterestMotifs,
+  simpleInterestMotifs,
+} from "./simple-compound-interest";
 import { speedDistanceMotifs } from "./speed-distance";
 import { timeWorkMotifs } from "./time-work";
 
 export const quantTopicMotifs = [
+  ...fundamentalsMotifs,
+  ...numberSystemMotifs,
   ...percentageMotifs,
   ...ratioProportionMotifs,
   ...averagesMotifs,
   ...profitLossMotifs,
-  ...simpleInterestMotifs,
-  ...compoundInterestMotifs,
+  ...simpleCompoundInterestMotifs,
   ...timeWorkMotifs,
   ...speedDistanceMotifs,
   ...mixtureAlligationMotifs,
@@ -25,10 +31,13 @@ export const quantTopicMotifs = [
 ];
 
 export {
+  fundamentalsMotifs,
+  numberSystemMotifs,
   percentageMotifs,
   ratioProportionMotifs,
   averagesMotifs,
   profitLossMotifs,
+  simpleCompoundInterestMotifs,
   simpleInterestMotifs,
   compoundInterestMotifs,
   timeWorkMotifs,

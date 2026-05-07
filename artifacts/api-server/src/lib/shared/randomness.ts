@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { AsyncLocalStorage } from "node:async_hooks";
 import {
   ReasoningEngineError,
@@ -66,7 +67,7 @@ function normalizeSeed(
 ) {
   return seed?.length
     ? seed
-    : "default-seed";
+    : `auto-seed:${randomUUID()}`;
 }
 
 export function createRNGService(

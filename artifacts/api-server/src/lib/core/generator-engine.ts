@@ -335,6 +335,8 @@ type GeneratedQuestionDifficulty = {
 };
 
 export type QuantTopicCluster =
+  | "fundamentals"
+  | "number-system"
   | "percentage"
   | "ratio-proportion"
   | "profit-loss"
@@ -986,25 +988,31 @@ function createFormulaQuestionCandidate(
     }
   }
 
-  const formulaCompatibility =
-    validateFormulaReferences(
-      pattern.formula,
-      values,
-    );
-  const formulaToEvaluate =
-    formulaCompatibility.valid
-      ? pattern.formula!
-      : Object.keys(values)[0] ?? "0";
+  let formulaToEvaluate =
+    proceduralScenario?.formula ??
+    (Object.keys(values)[0] ?? "0");
 
-  if (!formulaCompatibility.valid) {
-    compatibilityWarnings.push(
-      ...formulaCompatibility.issues.map(
-        (issue) => issue.reason,
-      ),
-    );
-    fallbackReason =
-      fallbackReason ??
-      "Pattern formula referenced unavailable variables.";
+  if (!proceduralScenario) {
+    const formulaCompatibility =
+      validateFormulaReferences(
+        pattern.formula,
+        values,
+      );
+    formulaToEvaluate =
+      formulaCompatibility.valid
+        ? pattern.formula!
+        : Object.keys(values)[0] ?? "0";
+
+    if (!formulaCompatibility.valid) {
+      compatibilityWarnings.push(
+        ...formulaCompatibility.issues.map(
+          (issue) => issue.reason,
+        ),
+      );
+      fallbackReason =
+        fallbackReason ??
+        "Pattern formula referenced unavailable variables.";
+    }
   }
 
   const correctAnswer =
@@ -2464,15 +2472,23 @@ export async function generateFromPattern(
       options,
       topicConfig,
     );
-    const cacheEligible =
-      count > 0 &&
-      rawGenerationDomain !==
-        "seating-arrangement";
   const generationContext =
     effectiveOptions?.generationContext ??
     createGenerationContext(
       effectiveOptions?.seed,
     );
+  const generationScopedOptions: GeneratorOptions =
+    {
+      ...(effectiveOptions ?? {}),
+      seed:
+        effectiveOptions?.seed ??
+        generationContext.seed,
+      generationContext,
+    };
+  const cacheEligible =
+    count > 0 &&
+    rawGenerationDomain !==
+      "seating-arrangement";
 
   return runWithGenerationContext(
     generationContext,
@@ -2483,7 +2499,7 @@ export async function generateFromPattern(
             await getCachedGenerationResult(
               effectivePattern,
               count,
-              effectiveOptions,
+              generationScopedOptions,
             );
 
           if (cachedResult) {
@@ -2520,14 +2536,14 @@ export async function generateFromPattern(
               adapter,
               effectivePattern,
               count,
-              effectiveOptions,
+              generationScopedOptions,
             ),
         };
 
         await cacheGenerationResult(
           effectivePattern,
           count,
-          effectiveOptions,
+          generationScopedOptions,
           result,
         );
 

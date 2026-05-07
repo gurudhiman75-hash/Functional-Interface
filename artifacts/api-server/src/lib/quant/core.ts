@@ -392,6 +392,49 @@ export function inferQuantTopicCluster(
 
   if (
     hasAnyToken(topicText, [
+      "number system",
+      "number-system",
+      "remainders",
+      "divisibility",
+      "unit digit",
+      "factorial",
+      "trailing zero",
+      "recurring decimal",
+      "divisor count",
+      "perfect square",
+      "perfect cube",
+      "digit properties",
+      "base system",
+      "prime factorization",
+    ])
+  ) {
+    return "number-system";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "fundamental",
+      "fundamentals",
+      "bodmas",
+      "simplification",
+      "fraction",
+      "decimal",
+      "hcf",
+      "lcm",
+      "divisibility",
+      "surd",
+      "surds",
+      "indices",
+      "index law",
+      "unit digit",
+      "approximation",
+    ])
+  ) {
+    return "fundamentals";
+  }
+
+  if (
+    hasAnyToken(topicText, [
       "percent",
       "percentage",
     ])

@@ -7,8 +7,11 @@ import { inequalityMotifs } from "./inequality";
 import { seatingArrangementMotifs } from "./seating-arrangement";
 import { practicalQuantMotifs } from "./practical-quant";
 import {
+  fundamentalsMotifs,
+  numberSystemMotifs,
   algebraBasicsMotifs,
   averagesMotifs,
+  simpleCompoundInterestMotifs,
   compoundInterestMotifs,
   mensurationMotifs,
   mixtureAlligationMotifs,
@@ -52,10 +55,13 @@ export const UNIVERSAL_MOTIFS: UniversalMotif[] =
 export {
   percentageMotifs,
   ratioMotifs,
+  fundamentalsMotifs,
+  numberSystemMotifs,
   practicalPercentageMotifs,
   ratioProportionMotifs,
   averagesMotifs,
   profitLossMotifs,
+  simpleCompoundInterestMotifs,
   simpleInterestMotifs,
   compoundInterestMotifs,
   timeWorkMotifs,

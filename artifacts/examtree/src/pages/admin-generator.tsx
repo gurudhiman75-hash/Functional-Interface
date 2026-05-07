@@ -4168,6 +4168,20 @@ function renderDISet(
 export default function AdminGeneratorPage() {
   const [patternId, setPatternId] =
     useState("");
+  const [
+    generationMode,
+    setGenerationMode,
+  ] = useState<"registry" | "legacy">(
+    "registry",
+  );
+  const [
+    patternManagerOpen,
+    setPatternManagerOpen,
+  ] = useState(false);
+  const [
+    patternManagerPage,
+    setPatternManagerPage,
+  ] = useState(0);
 
   const [count, setCount] =
     useState(5);
@@ -5011,6 +5025,8 @@ export default function AdminGeneratorPage() {
           registryPatternId,
       );
     const useRegistryPattern =
+      generationMode ===
+        "registry" &&
       Boolean(
         selectedRegistryPattern &&
           selectedRegistryPattern.enabled !==
@@ -5127,6 +5143,8 @@ export default function AdminGeneratorPage() {
           registryPatternId,
       );
     const useRegistryPattern =
+      generationMode ===
+        "registry" &&
       Boolean(
         selectedRegistryPattern &&
           selectedRegistryPattern.enabled !==
@@ -5714,6 +5732,26 @@ export default function AdminGeneratorPage() {
         registryDomain === "all" ||
         pattern.domain === registryDomain,
     );
+  const PATTERN_MANAGER_PAGE_SIZE = 8;
+  const patternManagerPageCount =
+    Math.max(
+      1,
+      Math.ceil(
+        patterns.length /
+          PATTERN_MANAGER_PAGE_SIZE,
+      ),
+    );
+  const clampedPatternManagerPage =
+    Math.min(
+      patternManagerPage,
+      patternManagerPageCount - 1,
+    );
+  const pagedPatterns = patterns.slice(
+    clampedPatternManagerPage *
+      PATTERN_MANAGER_PAGE_SIZE,
+    (clampedPatternManagerPage + 1) *
+      PATTERN_MANAGER_PAGE_SIZE,
+  );
 
   return (
     <div className="p-6 space-y-6">
@@ -5721,293 +5759,419 @@ export default function AdminGeneratorPage() {
         Question Generator
       </h1>
       <div className="border rounded-lg p-4 space-y-4">
-        <div className="border rounded-lg p-4 space-y-4">
-          <h2 className="text-xl font-semibold">
-            Existing Patterns
-          </h2>
+        <details
+          className="border rounded-lg p-4"
+          open={patternManagerOpen}
+          onToggle={(event) =>
+            setPatternManagerOpen(
+              event.currentTarget.open,
+            )
+          }
+        >
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                Pattern Manager
+              </h2>
+              <p className="text-sm text-slate-600">
+                Review, edit, and create legacy saved patterns without taking over the studio.
+              </p>
+            </div>
+            <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+              {patterns.length} saved
+            </span>
+          </summary>
 
-          <div className="space-y-2">
-            {patterns.map((p) => (
-              <div
-                key={p.id}
-                className="border rounded p-3 flex items-center justify-between"
-              >
-                <div>
-                  <div className="font-medium">
-                    {p.name}
-                  </div>
-
-                  <div className="text-sm text-gray-600">
-                    {p.topic}
-                  </div>
-
-                  <div className="text-xs text-gray-500">
-                    {p.formula}
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
+          <div className="mt-4 space-y-4">
+            <div className="border rounded-lg p-4 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h3 className="text-lg font-semibold">
+                  Existing Patterns
+                </h3>
+                <div className="flex items-center gap-2 text-sm text-slate-600">
                   <button
+                    type="button"
                     onClick={() =>
-                      setPatternId(p.id)
+                      setPatternManagerPage(
+                        (prev) =>
+                          Math.max(
+                            0,
+                            prev - 1,
+                          ),
+                      )
                     }
-                    className="bg-black text-white px-3 py-1 rounded text-sm"
+                    disabled={
+                      clampedPatternManagerPage ===
+                      0
+                    }
+                    className="rounded border px-3 py-1 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Use
+                    Prev
                   </button>
+                  <span>
+                    Page{" "}
+                    {clampedPatternManagerPage +
+                      1}{" "}
+                    of{" "}
+                    {
+                      patternManagerPageCount
+                    }
+                  </span>
                   <button
-                    onClick={() => {
-                      setEditingPatternId(
-                        p.id,
-                      );
-
-                      setNewPattern({
-                        id: p.id,
-                        name: p.name,
-                        section:
-                          p.section,
-                        topic: p.topic,
-                        subtopic:
-                          p.subtopic,
-                        difficulty:
-                          p.difficulty,
-                        formula:
-                          p.formula || "",
-                        explanationTemplate:
-                          p.explanationTemplate || "",
-
-                        template:
-                          p.templateVariants?.[0] ||
-                          "",
-                        type:
-                          p.type || "formula",
-                        visualType:
-                          p.diPattern?.visualType ||
-                          "table",
-
-                        diPattern:
-                          JSON.stringify(
-                            p.diPattern || {},
-                            null,
-                            2,
-                          ),
-                        variables:
-                          JSON.stringify(
-                            p.variables,
-                            null,
-                            2,
-                          ),
-
-                        offsets:
-                          p
-                            .distractorStrategy
-                            ?.offsets?.join(
-                              ",",
-                            ) || "",
-                      });
-                    }}
-                    className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Edit
-                  </button>
-                  <button
+                    type="button"
                     onClick={() =>
-                      deletePattern(p.id)
+                      setPatternManagerPage(
+                        (prev) =>
+                          Math.min(
+                            patternManagerPageCount -
+                              1,
+                            prev + 1,
+                          ),
+                      )
                     }
-                    className="bg-red-600 text-white px-3 py-1 rounded text-sm"
+                    disabled={
+                      clampedPatternManagerPage >=
+                      patternManagerPageCount -
+                        1
+                    }
+                    className="rounded border px-3 py-1 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Delete
+                    Next
                   </button>
                 </div>
               </div>
-            ))}
+
+              <div className="space-y-2">
+                {pagedPatterns.map((p) => (
+                  <div
+                    key={p.id}
+                    className="border rounded p-3 flex items-center justify-between gap-3"
+                  >
+                    <div>
+                      <div className="font-medium">
+                        {p.name}
+                      </div>
+
+                      <div className="text-sm text-gray-600">
+                        {p.topic}
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        {p.formula}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => {
+                          setGenerationMode(
+                            "legacy",
+                          );
+                          setPatternId(
+                            p.id,
+                          );
+                        }}
+                        className="bg-black text-white px-3 py-1 rounded text-sm"
+                      >
+                        Use
+                      </button>
+                      <button
+                        onClick={() => {
+                          setEditingPatternId(
+                            p.id,
+                          );
+
+                          setNewPattern({
+                            id: p.id,
+                            name: p.name,
+                            section:
+                              p.section,
+                            topic: p.topic,
+                            subtopic:
+                              p.subtopic,
+                            difficulty:
+                              p.difficulty,
+                            formula:
+                              p.formula || "",
+                            explanationTemplate:
+                              p.explanationTemplate || "",
+
+                            template:
+                              p.templateVariants?.[0] ||
+                              "",
+                            type:
+                              p.type || "formula",
+                            visualType:
+                              p.diPattern?.visualType ||
+                              "table",
+
+                            diPattern:
+                              JSON.stringify(
+                                p.diPattern || {},
+                                null,
+                                2,
+                              ),
+                            variables:
+                              JSON.stringify(
+                                p.variables,
+                                null,
+                                2,
+                              ),
+
+                            offsets:
+                              p
+                                .distractorStrategy
+                                ?.offsets?.join(
+                                  ",",
+                                ) || "",
+                          });
+                        }}
+                        className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() =>
+                          deletePattern(p.id)
+                        }
+                        className="bg-red-600 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">
+                {editingPatternId
+                  ? "Edit Pattern"
+                  : "Create Pattern"}
+              </h3>
+
+              <input
+                placeholder="Pattern ID"
+                value={newPattern.id}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    id: e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full"
+              />
+
+              <input
+                placeholder="Pattern Name"
+                value={newPattern.name}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    name: e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full"
+              />
+
+              <input
+                placeholder="Topic"
+                value={newPattern.topic}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    topic:
+                      e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full"
+              />
+              <select
+                value={newPattern.type}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    type: e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full"
+              >
+                <option value="formula">
+                  Formula
+                </option>
+
+                <option value="di">
+                  DI
+                </option>
+              </select>
+
+              {newPattern.type === "di" && (
+                <select
+                  value={newPattern.visualType}
+                  onChange={(e) =>
+                    setNewPattern({
+                      ...newPattern,
+                      visualType:
+                        e.target.value,
+                    })
+                  }
+                  className="border rounded p-2 w-full"
+                >
+                  <option value="table">
+                    Table
+                  </option>
+
+                  <option value="bar">
+                    Bar Chart
+                  </option>
+
+                  <option value="pie">
+                    Pie Chart
+                  </option>
+
+                  <option value="line">
+                    Line Graph
+                  </option>
+                </select>
+              )}
+
+              <input
+                placeholder="Formula (example: a + b)"
+                value={newPattern.formula}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    formula:
+                      e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full"
+              />
+              <textarea
+                placeholder="Explanation Template"
+                value={
+                  newPattern.explanationTemplate
+                }
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    explanationTemplate:
+                      e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full h-32"
+              />
+              {newPattern.type === "di" && (
+                <textarea
+                  placeholder="DI Pattern JSON"
+                  value={newPattern.diPattern}
+                  onChange={(e) =>
+                    setNewPattern({
+                      ...newPattern,
+                      diPattern:
+                        e.target.value,
+                    })
+                  }
+                  className="border rounded p-2 w-full h-40"
+                />
+              )}
+              <textarea
+                placeholder="Template"
+                value={newPattern.template}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    template:
+                      e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full h-24"
+              />
+
+              <textarea
+                placeholder="Variables JSON"
+                value={newPattern.variables}
+                onChange={(e) =>
+                  setNewPattern({
+                    ...newPattern,
+                    variables:
+                      e.target.value,
+                  })
+                }
+                className="border rounded p-2 w-full h-32"
+              />
+
+              <button
+                onClick={savePattern}
+                className="bg-blue-600 text-white px-4 py-2 rounded"
+              >
+                {editingPatternId
+                  ? "Update Pattern"
+                  : "Create Pattern"}
+              </button>
+            </div>
           </div>
-        </div>
-        <h2 className="text-xl font-semibold">
-          Create Pattern
-        </h2>
-
-        <input
-          placeholder="Pattern ID"
-          value={newPattern.id}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              id: e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full"
-        />
-
-        <input
-          placeholder="Pattern Name"
-          value={newPattern.name}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              name: e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full"
-        />
-
-        <input
-          placeholder="Topic"
-          value={newPattern.topic}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              topic:
-                e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full"
-        />
-        <select
-          value={newPattern.type}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              type: e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full"
-        >
-          <option value="formula">
-            Formula
-          </option>
-
-          <option value="di">
-            DI
-          </option>
-        </select>
-
-        {newPattern.type === "di" && (
-          <select
-            value={newPattern.visualType}
-            onChange={(e) =>
-              setNewPattern({
-                ...newPattern,
-                visualType:
-                  e.target.value,
-              })
-            }
-            className="border rounded p-2 w-full"
-          >
-            <option value="table">
-              Table
-            </option>
-
-            <option value="bar">
-              Bar Chart
-            </option>
-
-            <option value="pie">
-              Pie Chart
-            </option>
-
-            <option value="line">
-              Line Graph
-            </option>
-          </select>
-        )}
-
-        <input
-          placeholder="Formula (example: a + b)"
-          value={newPattern.formula}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              formula:
-                e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full"
-        />
-        <textarea
-          placeholder="Explanation Template"
-          value={
-            newPattern.explanationTemplate
-          }
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              explanationTemplate:
-                e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full h-32"
-        />
-        {newPattern.type === "di" && (
-          <textarea
-            placeholder="DI Pattern JSON"
-            value={newPattern.diPattern}
-            onChange={(e) =>
-              setNewPattern({
-                ...newPattern,
-                diPattern:
-                  e.target.value,
-              })
-            }
-            className="border rounded p-2 w-full h-40"
-          />
-        )}
-        <textarea
-          placeholder="Template"
-          value={newPattern.template}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              template:
-                e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full h-24"
-        />
-
-        <textarea
-          placeholder="Variables JSON"
-          value={newPattern.variables}
-          onChange={(e) =>
-            setNewPattern({
-              ...newPattern,
-              variables:
-                e.target.value,
-            })
-          }
-          className="border rounded p-2 w-full h-32"
-        />
-
-        <button
-          onClick={savePattern}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          {editingPatternId
-            ? "Update Pattern"
-            : "Create Pattern"}
-        </button>
+        </details>
       </div>
 
       <div className="border rounded-lg p-4 space-y-4">
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900">
-                Pattern Registry
-              </h2>
-              <p className="text-sm text-slate-600">
-                Preferred exam-oriented generator flow. Pick a topic family; motifs stay internal.
-              </p>
-            </div>
-            {selectedRegistryPattern?.enabled ===
-            false ? (
-              <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
-                Coming Soon
-              </span>
-            ) : null}
-          </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() =>
+              setGenerationMode(
+                "registry",
+              )
+            }
+            className={`rounded-full px-4 py-2 text-sm font-medium ${
+              generationMode ===
+              "registry"
+                ? "bg-slate-900 text-white"
+                : "border border-slate-300 bg-white text-slate-700"
+            }`}
+          >
+            Pattern Registry
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              setGenerationMode(
+                "legacy",
+              )
+            }
+            className={`rounded-full px-4 py-2 text-sm font-medium ${
+              generationMode ===
+              "legacy"
+                ? "bg-slate-900 text-white"
+                : "border border-slate-300 bg-white text-slate-700"
+            }`}
+          >
+            Legacy Template
+          </button>
+        </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
+        {generationMode ===
+        "registry" ? (
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="text-xl font-semibold text-slate-900">
+                  Pattern Registry
+                </h2>
+                <p className="text-sm text-slate-600">
+                  Preferred exam-oriented generator flow. Pick a topic family; motifs stay internal.
+                </p>
+              </div>
+              {selectedRegistryPattern?.enabled ===
+              false ? (
+                <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+                  Coming Soon
+                </span>
+              ) : null}
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium">
                 Domain
@@ -6065,10 +6229,10 @@ export default function AdminGeneratorPage() {
                     </option>
                   ),
                 )}
-              </select>
-            </div>
+                </select>
+              </div>
 
-            <div className="space-y-2 xl:col-span-2">
+            <div className="space-y-2 xl:col-span-3">
               <label className="block text-sm font-medium">
                 Topic / Pattern
               </label>
@@ -6239,72 +6403,62 @@ export default function AdminGeneratorPage() {
               </select>
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Count
+          </div>
+
+            {selectedRegistryPattern ? (
+              <div className="text-xs text-slate-600">
+                {selectedRegistryPattern.domain} /{" "}
+                {selectedRegistryPattern.topic} /{" "}
+                {selectedRegistryPattern.label}
+                {selectedRegistryPattern.enabled ===
+                false
+                  ? " - Coming Soon"
+                  : ""}
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                Legacy Saved Pattern
+              </h2>
+              <p className="text-sm text-slate-600">
+                Generate from the original pattern-template workflow using a stored editable pattern.
+              </p>
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Saved Pattern
               </label>
-              <input
-                type="number"
-                value={count}
-                min="1"
-                max="100"
-                onChange={(event) =>
-                  setCount(
-                    Math.max(
-                      1,
-                      Number(
-                        event.target.value,
-                      ) || 1,
-                    ),
+
+              <select
+                value={patternId}
+                onChange={(e) =>
+                  setPatternId(
+                    e.target.value,
                   )
                 }
                 className="border rounded p-2 w-full bg-white"
-              />
+              >
+                <option value="">
+                  Select Pattern
+                </option>
+
+                {patterns.map((p) => (
+                  <option
+                    key={p.id}
+                    value={p.id}
+                  >
+                    {p.name} (
+                    {p.topic})
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
-
-          {selectedRegistryPattern ? (
-            <div className="text-xs text-slate-600">
-              {selectedRegistryPattern.domain} /{" "}
-              {selectedRegistryPattern.topic} /{" "}
-              {selectedRegistryPattern.label}
-              {selectedRegistryPattern.enabled ===
-              false
-                ? " - Coming Soon"
-                : ""}
-            </div>
-          ) : null}
-        </div>
-
-        <div>
-          <label className="block mb-2 font-medium">
-            Legacy Saved Pattern
-          </label>
-
-          <select
-            value={patternId}
-            onChange={(e) =>
-              setPatternId(
-                e.target.value,
-              )
-            }
-            className="border rounded p-2 w-full"
-          >
-            <option value="">
-              Select Pattern
-            </option>
-
-            {patterns.map((p) => (
-              <option
-                key={p.id}
-                value={p.id}
-              >
-                {p.name} (
-                {p.topic})
-              </option>
-            ))}
-          </select>
-        </div>
+        )}
 
         <div>
           <label className="block mb-2 font-medium">
@@ -6314,10 +6468,15 @@ export default function AdminGeneratorPage() {
           <input
             type="number"
             value={count}
+            min="1"
+            max="100"
             onChange={(e) =>
               setCount(
-                Number(
-                  e.target.value,
+                Math.max(
+                  1,
+                  Number(
+                    e.target.value,
+                  ) || 1,
                 ),
               )
             }
@@ -7271,10 +7430,7 @@ export default function AdminGeneratorPage() {
           </div>
 
           <div className="max-h-[70vh] space-y-4 overflow-y-auto pr-2">
-          {visibleItems.filter(
-            (item) =>
-              isDISet(item.question),
-          ).map(
+          {visibleItems.map(
             (item) => {
               const q =
                 item.question;

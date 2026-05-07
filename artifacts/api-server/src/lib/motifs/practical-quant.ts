@@ -36,10 +36,13 @@ export const practicalQuantMotifs: QuantMotif[] =
 
 export { quantTopicMotifs } from "./quant";
 export {
+  fundamentalsMotifs,
+  numberSystemMotifs,
   percentageMotifs,
   ratioProportionMotifs,
   averagesMotifs,
   profitLossMotifs,
+  simpleCompoundInterestMotifs,
   simpleInterestMotifs,
   compoundInterestMotifs,
   timeWorkMotifs,
