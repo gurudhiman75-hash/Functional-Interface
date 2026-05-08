@@ -81,6 +81,145 @@ const examProfileMap: Record<
   rrb: "rrb",
 };
 
+const TSD_MOTIF_IDS = [
+  "tsd-basic-dst",
+  "tsd-ratio-fixed-d",
+  "tsd-ratio-fixed-t",
+  "tsd-fractional-speed",
+  "tsd-late-early-shift",
+  "tsd-avg-equal-dist",
+  "tsd-avg-equal-time",
+  "tsd-avg-harmonic-3",
+  "tsd-avg-weighted",
+  "tsd-rel-opp-dir",
+  "tsd-rel-same-dir",
+  "tsd-delayed-start",
+  "tsd-post-crossing",
+  "tsd-stoppage-time",
+  "tsd-train-pole",
+  "tsd-train-platform",
+  "tsd-train-moving-man",
+  "tsd-train-crossing",
+  "tsd-train-window-man",
+  "tsd-boat-basic",
+  "tsd-boat-inverse",
+  "tsd-boat-round-trip",
+  "tsd-boat-ratio",
+  "tsd-medium-wind",
+  "tsd-race-dist-beats",
+  "tsd-race-time-beats",
+  "tsd-race-start",
+  "tsd-race-dead-heat",
+  "tsd-circ-first-meet",
+  "tsd-circ-start-meet",
+  "tsd-circ-distinct-points",
+  "tsd-circ-relative-lap",
+  "tsd-esc-with-flow",
+  "tsd-esc-stationary",
+  "tsd-faulty-speedometer",
+] as const;
+
+const TSD_BOAT_MOTIF_IDS = [
+  "tsd-boat-basic",
+  "tsd-boat-inverse",
+  "tsd-boat-round-trip",
+  "tsd-boat-ratio",
+  "tsd-medium-wind",
+] as const;
+
+const TSD_TRAIN_MOTIF_IDS = [
+  "tsd-train-pole",
+  "tsd-train-platform",
+  "tsd-train-moving-man",
+  "tsd-train-crossing",
+  "tsd-train-window-man",
+] as const;
+
+const TSD_RACE_MOTIF_IDS = [
+  "tsd-race-dist-beats",
+  "tsd-race-time-beats",
+  "tsd-race-start",
+  "tsd-race-dead-heat",
+] as const;
+
+const TSD_CIRCULAR_MOTIF_IDS = [
+  "tsd-circ-first-meet",
+  "tsd-circ-start-meet",
+  "tsd-circ-distinct-points",
+  "tsd-circ-relative-lap",
+] as const;
+
+const MENSURATION_MOTIF_IDS = [
+  "men-tri-ratio",
+  "men-rect-path-in",
+  "men-rect-path-out",
+  "men-rhom-diag",
+  "men-trap-parallel",
+  "men-circ-revolution",
+  "men-circ-sector",
+  "men-poly-diag",
+  "men-poly-angle",
+  "men-boundary-bend",
+  "men-cube-diagonal",
+  "men-cuboid-surface-shift",
+  "men-prism-base",
+  "men-cyl-csa-ratio",
+  "men-cone-canvas",
+  "men-sph-hem-tsa",
+  "men-cone-sphere-recast",
+  "men-cyl-wire",
+  "men-frustum-vol",
+  "men-hollow-cyl",
+  "men-inscribed-max",
+  "men-ice-cream",
+  "men-pyramid-slant",
+  "men-scale-area",
+  "men-scale-vol",
+  "men-max-perimeter",
+] as const;
+
+const MENSURATION_2D_MOTIF_IDS = [
+  "men-tri-ratio",
+  "men-rect-path-in",
+  "men-rect-path-out",
+  "men-rhom-diag",
+  "men-trap-parallel",
+  "men-circ-revolution",
+  "men-circ-sector",
+  "men-poly-diag",
+  "men-poly-angle",
+  "men-boundary-bend",
+] as const;
+
+const MENSURATION_3D_MOTIF_IDS = [
+  "men-cube-diagonal",
+  "men-prism-base",
+  "men-cyl-csa-ratio",
+  "men-cone-canvas",
+  "men-sph-hem-tsa",
+  "men-cone-sphere-recast",
+  "men-cyl-wire",
+  "men-frustum-vol",
+  "men-hollow-cyl",
+  "men-inscribed-max",
+  "men-ice-cream",
+  "men-pyramid-slant",
+] as const;
+
+const MENSURATION_RECASTING_MOTIF_IDS = [
+  "men-boundary-bend",
+  "men-cone-sphere-recast",
+  "men-cyl-wire",
+  "men-inscribed-max",
+] as const;
+
+const MENSURATION_SCALING_MOTIF_IDS = [
+  "men-cuboid-surface-shift",
+  "men-scale-area",
+  "men-scale-vol",
+  "men-max-perimeter",
+] as const;
+
 export const MOTIF_REGISTRY: Motif[] = [
   {
     canonicalName: "sparse-anchor",
@@ -142,6 +281,79 @@ export const MOTIF_REGISTRY: Motif[] = [
     topic: "percentage",
   },
   {
+    canonicalName:
+      "basic-mean-construction",
+    aliases: ["sum-recovery"],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "incremental-join-leave",
+    aliases: [
+      "age-average-shift",
+      "multi-stage-average-update",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "replacement-shift-net",
+    aliases: [
+      "replacement-average-shift",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "overlap-boundary-logic",
+    aliases: [
+      "overlap-average-reconstruction",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "correction-misread-data",
+    aliases: [
+      "correction-delta-adjustment",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "symmetry-consecutive",
+    aliases: [
+      "consecutive-middle-term",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "weighted-composite-avg",
+    aliases: [
+      "group-weighted-average",
+      "weighted-average-confusion",
+      "average-speed-harmonic",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "cricket-performance",
+    aliases: [
+      "score-target-reconstruction",
+    ],
+    domain: "quant",
+    topic: "averages",
+  },
+  {
     canonicalName: "weighted-average-confusion",
     domain: "quant",
     topic: "averages",
@@ -157,6 +369,18 @@ export const MOTIF_REGISTRY: Motif[] = [
   {
     canonicalName:
       "replacement-average-shift",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "overlap-average-reconstruction",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
+      "correction-delta-adjustment",
     domain: "quant",
     topic: "averages",
   },
@@ -189,47 +413,196 @@ export const MOTIF_REGISTRY: Motif[] = [
   },
   {
     canonicalName:
+      "average-speed-harmonic",
+    domain: "quant",
+    topic: "averages",
+  },
+  {
+    canonicalName:
       "multi-stage-average-update",
     domain: "quant",
     topic: "averages",
   },
   {
-    canonicalName: "efficiency-substitution",
+    canonicalName: "tw-basic-2-sum",
+    aliases: [
+      "basic-unit-rate",
+      "simple-combined-work",
+    ],
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "simple-combined-work",
+    canonicalName: "tw-basic-3-sum",
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "delayed-join",
+    canonicalName: "tw-component-extract",
+    aliases: ["inverse-work-trap"],
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "alternating-operation",
+    canonicalName: "tw-eff-integer",
+    aliases: [
+      "efficiency-numerical",
+      "worker-equivalence",
+      "efficiency-substitution",
+    ],
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "positive-negative-competition",
+    canonicalName: "tw-eff-pct-boost",
+    aliases: ["efficiency-percentage"],
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "worker-equivalence",
+    canonicalName: "tw-eff-pct-reduce",
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "resource-consumption",
+    canonicalName: "tw-comparison-hidden",
     domain: "quant",
     topic: "time-work",
   },
   {
-    canonicalName: "inverse-work-trap",
+    canonicalName: "tw-stage-join-start",
+    aliases: [
+      "stage-join-delayed",
+      "delayed-join",
+    ],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-stage-leave-start",
+    aliases: ["stage-leave-start"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-stage-deadline-exit",
+    aliases: ["stage-leave-end"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-stage-asymmetric-3",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-stage-handoff",
+    aliases: [
+      "work-partial-target",
+      "work-variable-rate",
+    ],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-stage-staggered-join",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-cycle-alternate-2",
+    aliases: [
+      "cyclic-simple",
+      "alternating-operation",
+    ],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-cycle-alternate-3",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-cycle-assist-single",
+    aliases: ["cyclic-assisted"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-cycle-assist-group",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-cycle-helper-toggle",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-group-mdh-standard",
+    aliases: [
+      "chain-rule-mdh",
+      "resource-consumption",
+    ],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-group-equivalence-or",
+    aliases: ["group-bridge-or"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-group-system-and",
+    aliases: ["group-bridge-and"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-contractor-pressure",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-wage-efficiency",
+    aliases: ["wage-efficiency"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-wage-work-done",
+    aliases: ["wage-days-worked"],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-pipe-fill-leak",
+    aliases: [
+      "pipe-filling-leak",
+      "positive-negative-competition",
+    ],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-pipe-clock-sync",
+    aliases: [
+      "pipe-sequential",
+      "pipe-capacity-volume",
+    ],
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-pipe-threshold",
+    domain: "quant",
+    topic: "time-work",
+  },
+  {
+    canonicalName: "tw-regressive-climb",
+    aliases: ["negative-work-destroy"],
     domain: "quant",
     topic: "time-work",
   },
@@ -317,20 +690,101 @@ export const MOTIF_REGISTRY: Motif[] = [
   },
   {
     canonicalName:
+      "si-basic-amount",
+    aliases: [
       "linear-interest-accumulation",
+    ],
     domain: "quant",
     topic: "si-ci",
   },
   {
-    canonicalName:
+    canonicalName: "si-find-principal",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "si-multiple-times",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "si-rate-shift",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "si-split-investment",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "si-equal-interest",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "si-equal-amount",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-basic-calc",
+    aliases: [
       "multiplicative-growth",
-    aliases: ["compounding-trap"],
+      "compounding-trap",
+    ],
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-varying-rate",
+    aliases: [
+      "equivalent-multiplier-compression",
+    ],
     domain: "quant",
     topic: "si-ci",
   },
   {
     canonicalName:
+      "ci-compounding-period",
+    aliases: [
+      "effective-period-transformation",
+      "interest-period-trap",
+    ],
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-fractional-time",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-multiple-times",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "ci-population-growth",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "delta-2-year",
+    aliases: [
       "interest-on-interest-detection",
+    ],
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "delta-3-year",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "delta-reverse",
     aliases: [
       "interest-difference-backsolve",
     ],
@@ -338,34 +792,55 @@ export const MOTIF_REGISTRY: Motif[] = [
     topic: "si-ci",
   },
   {
-    canonicalName:
-      "effective-period-transformation",
+    canonicalName: "ci-from-si",
     aliases: [
-      "interest-period-trap",
+      "comparative-interest-systems",
     ],
     domain: "quant",
     topic: "si-ci",
   },
   {
-    canonicalName: "compound-decay",
+    canonicalName: "si-installment",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-installment",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-loan-repayment",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName: "ci-continuous",
     domain: "quant",
     topic: "si-ci",
   },
   {
     canonicalName:
-      "reverse-growth-reconstruction",
+      "ci-growth-regression",
+    aliases: ["compound-decay"],
     domain: "quant",
     topic: "si-ci",
   },
   {
     canonicalName:
-      "equivalent-multiplier-compression",
+      "si-changing-principal",
     domain: "quant",
     topic: "si-ci",
   },
   {
     canonicalName:
-      "comparative-interest-systems",
+      "ci-effective-annual-rate",
+    domain: "quant",
+    topic: "si-ci",
+  },
+  {
+    canonicalName:
+      "transaction-arbitrage",
     domain: "quant",
     topic: "si-ci",
   },
@@ -438,12 +913,26 @@ export const MOTIF_REGISTRY: Motif[] = [
     domain: "quant",
     topic: "pipes-cisterns",
   },
-  {
-    canonicalName: "boats-relative-speed",
-    aliases: ["relative-speed-meet"],
-    domain: "quant",
-    topic: "boats-streams",
-  },
+  ...TSD_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName ===
+      "tsd-rel-same-dir"
+        ? ["relative-speed-meet"]
+        : canonicalName ===
+            "tsd-train-platform"
+          ? ["train-platform-offset"]
+          : canonicalName ===
+              "tsd-boat-basic"
+            ? ["boats-relative-speed"]
+            : undefined,
+    domain: "quant" as const,
+    topic:
+      canonicalName.startsWith("tsd-boat") ||
+      canonicalName === "tsd-medium-wind"
+        ? "boats-streams"
+        : "speed-time-distance",
+  })),
   {
     canonicalName: "arithmetic-order-trap",
     aliases: ["bodmas-sequencing"],
@@ -534,14 +1023,75 @@ export const MOTIF_REGISTRY: Motif[] = [
     topic: "geometry-basics",
   },
   {
-    canonicalName: "mensuration-dimension-shift",
+    canonicalName:
+      "bridge-unification-nested",
     aliases: [
-      "dimension-scale-effect",
-      "composite-shape-breakdown",
+      "ratio-normalization-switch",
     ],
     domain: "quant",
-    topic: "mensuration",
+    topic: "ratio-proportion",
   },
+  {
+    canonicalName:
+      "transform-mapping-coins",
+    domain: "quant",
+    topic: "ratio-proportion",
+  },
+  {
+    canonicalName:
+      "invariant-difference-ages",
+    aliases: ["age-ratio-state-shift"],
+    domain: "quant",
+    topic: "ratio-proportion",
+  },
+  {
+    canonicalName:
+      "mixture-replacement-recursive",
+    domain: "quant",
+    topic: "ratio-proportion",
+  },
+  {
+    canonicalName:
+      "distribution-constraint-adjusted",
+    aliases: [
+      "weighted-ratio-distribution",
+    ],
+    domain: "quant",
+    topic: "ratio-proportion",
+  },
+  {
+    canonicalName:
+      "income-expenditure-cross-balance",
+    aliases: [
+      "partnership-ratio-switch",
+    ],
+    domain: "quant",
+    topic: "ratio-proportion",
+  },
+  {
+    canonicalName:
+      "variation-power-broken-object",
+    aliases: [
+      "variation-dependency-switch",
+    ],
+    domain: "quant",
+    topic: "ratio-proportion",
+  },
+  ...MENSURATION_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "men-scale-area"
+        ? [
+            "mensuration-dimension-shift",
+            "dimension-scale-effect",
+          ]
+        : canonicalName ===
+            "men-ice-cream"
+          ? ["composite-shape-breakdown"]
+          : undefined,
+    domain: "quant" as const,
+    topic: "mensuration",
+  })),
   {
     canonicalName: "probability-favourable-total",
     domain: "quant",
@@ -735,14 +1285,102 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "simple-combined-work",
-        "delayed-join",
-        "alternating-operation",
-        "positive-negative-competition",
-        "worker-equivalence",
-        "resource-consumption",
-        "efficiency-substitution",
-        "inverse-work-trap",
+        "tw-basic-2-sum",
+        "tw-basic-3-sum",
+        "tw-component-extract",
+        "tw-eff-integer",
+        "tw-eff-pct-boost",
+        "tw-eff-pct-reduce",
+        "tw-comparison-hidden",
+        "tw-stage-join-start",
+        "tw-stage-leave-start",
+        "tw-stage-deadline-exit",
+        "tw-stage-asymmetric-3",
+        "tw-stage-handoff",
+        "tw-stage-staggered-join",
+        "tw-cycle-alternate-2",
+        "tw-cycle-alternate-3",
+        "tw-cycle-assist-single",
+        "tw-cycle-assist-group",
+        "tw-cycle-helper-toggle",
+        "tw-group-mdh-standard",
+        "tw-group-equivalence-or",
+        "tw-group-system-and",
+        "tw-contractor-pressure",
+        "tw-wage-efficiency",
+        "tw-wage-work-done",
+        "tw-pipe-fill-leak",
+        "tw-pipe-clock-sync",
+        "tw-pipe-threshold",
+        "tw-regressive-climb",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "time-work-phases",
+      domain: "quant",
+      topic: "time-work",
+      label: "Time & Work: Phases",
+      description:
+        "Join, leave, delayed start, and variable-rate phase-transition problems.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "tw-stage-join-start",
+        "tw-stage-leave-start",
+        "tw-stage-deadline-exit",
+        "tw-stage-asymmetric-3",
+        "tw-stage-handoff",
+        "tw-stage-staggered-join",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "time-work-efficiency",
+      domain: "quant",
+      topic: "time-work",
+      label: "Time & Work: Efficiency",
+      description:
+        "Efficiency comparison, bridge-equivalence, and contribution-based wage questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "tw-eff-integer",
+        "tw-eff-pct-boost",
+        "tw-eff-pct-reduce",
+        "tw-comparison-hidden",
+        "tw-group-equivalence-or",
+        "tw-group-system-and",
+        "tw-wage-efficiency",
+        "tw-wage-work-done",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "time-work-pipes",
+      domain: "quant",
+      topic: "time-work",
+      label: "Time & Work: Pipes & Cisterns",
+      description:
+        "Pipe filling, leaks, staggered opening, and capacity-volume problems.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "tw-pipe-fill-leak",
+        "tw-pipe-clock-sync",
+        "tw-pipe-threshold",
+        "tw-regressive-climb",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -752,13 +1390,82 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "speed-time-distance",
       label: "Speed, Time & Distance",
+      description:
+        "Topology-driven TSD questions covering DST, average speed, relative motion, trains, boats, races, circular tracks, and escalators.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "relative-speed-meet",
+        ...TSD_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "speed-distance-trains",
+      domain: "quant",
+      topic: "speed-time-distance",
+      label: "TSD: Trains",
+      description:
+        "Train crossing questions using effective distance and relative speed.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TSD_TRAIN_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "speed-distance-races",
+      domain: "quant",
+      topic: "speed-time-distance",
+      label: "TSD: Races",
+      description:
+        "Race beat-distance, beat-time, head-start, and dead-heat questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TSD_RACE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "speed-distance-circular",
+      domain: "quant",
+      topic: "speed-time-distance",
+      label: "TSD: Circular Tracks",
+      description:
+        "Circular-track meeting, lapping, and starting-point recurrence questions.",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TSD_CIRCULAR_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "speed-distance-boats",
+      domain: "quant",
+      topic: "speed-time-distance",
+      label: "TSD: Boats & Wind",
+      description:
+        "Moving-medium questions for streams, wind, upstream/downstream, and round trips.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TSD_BOAT_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -769,19 +1476,30 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       topic: "averages",
       label: "Averages",
       description:
-        "SSC-style averages covering sum recovery, replacement, weighted groups, consecutive numbers, ages, and score reconstruction.",
+        "SSC-style averages covering sum recovery, overlap reconstruction, correction adjustment, replacement, weighted groups, consecutive numbers, ages, score reconstruction, and average-speed connections.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
+        "basic-mean-construction",
+        "incremental-join-leave",
+        "replacement-shift-net",
+        "overlap-boundary-logic",
+        "correction-misread-data",
+        "symmetry-consecutive",
+        "weighted-composite-avg",
+        "cricket-performance",
         "sum-recovery",
+        "overlap-average-reconstruction",
+        "correction-delta-adjustment",
         "replacement-average-shift",
         "group-weighted-average",
         "consecutive-middle-term",
         "age-average-shift",
         "score-target-reconstruction",
+        "average-speed-harmonic",
         "multi-stage-average-update",
         "weighted-average-confusion",
       ],
@@ -800,6 +1518,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
+        "incremental-join-leave",
+        "replacement-shift-net",
         "replacement-average-shift",
         "multi-stage-average-update",
       ],
@@ -819,7 +1539,9 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
+        "weighted-composite-avg",
         "group-weighted-average",
+        "average-speed-harmonic",
         "weighted-average-confusion",
       ],
       examStyles: ["ssc", "banking"],
@@ -837,6 +1559,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "medium",
       ],
       compatibleMotifs: [
+        "symmetry-consecutive",
         "consecutive-middle-term",
       ],
       examStyles: ["ssc", "banking"],
@@ -855,9 +1578,33 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
+        "incremental-join-leave",
+        "cricket-performance",
         "age-average-shift",
         "score-target-reconstruction",
         "sum-recovery",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "averages-corrections-overlaps",
+      domain: "quant",
+      topic: "averages",
+      label: "Averages: Corrections & Overlaps",
+      description:
+        "Wrong-entry correction, overlapping-average, and hidden-total reconstruction questions.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "basic-mean-construction",
+        "overlap-boundary-logic",
+        "correction-misread-data",
+        "sum-recovery",
+        "overlap-average-reconstruction",
+        "correction-delta-adjustment",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -957,14 +1704,31 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "linear-interest-accumulation",
-        "multiplicative-growth",
-        "interest-on-interest-detection",
-        "effective-period-transformation",
-        "compound-decay",
-        "reverse-growth-reconstruction",
-        "equivalent-multiplier-compression",
-        "comparative-interest-systems",
+        "si-basic-amount",
+        "si-find-principal",
+        "si-multiple-times",
+        "si-rate-shift",
+        "si-split-investment",
+        "si-equal-interest",
+        "si-equal-amount",
+        "ci-basic-calc",
+        "ci-varying-rate",
+        "ci-compounding-period",
+        "ci-fractional-time",
+        "ci-multiple-times",
+        "ci-population-growth",
+        "delta-2-year",
+        "delta-3-year",
+        "delta-reverse",
+        "ci-from-si",
+        "si-installment",
+        "ci-installment",
+        "ci-loan-repayment",
+        "ci-continuous",
+        "ci-growth-regression",
+        "si-changing-principal",
+        "ci-effective-annual-rate",
+        "transaction-arbitrage",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -982,8 +1746,15 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "linear-interest-accumulation",
-        "reverse-growth-reconstruction",
+        "si-basic-amount",
+        "si-find-principal",
+        "si-multiple-times",
+        "si-rate-shift",
+        "si-split-investment",
+        "si-equal-interest",
+        "si-equal-amount",
+        "si-changing-principal",
+        "si-installment",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1000,8 +1771,14 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "interest-on-interest-detection",
-        "multiplicative-growth",
+        "ci-basic-calc",
+        "ci-varying-rate",
+        "ci-compounding-period",
+        "ci-fractional-time",
+        "ci-multiple-times",
+        "ci-population-growth",
+        "ci-effective-annual-rate",
+        "ci-continuous",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1018,8 +1795,11 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "interest-on-interest-detection",
-        "comparative-interest-systems",
+        "delta-2-year",
+        "delta-3-year",
+        "delta-reverse",
+        "ci-from-si",
+        "transaction-arbitrage",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1037,7 +1817,9 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "effective-period-transformation",
+        "ci-compounding-period",
+        "ci-fractional-time",
+        "ci-effective-annual-rate",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1055,9 +1837,10 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "multiplicative-growth",
-        "compound-decay",
-        "equivalent-multiplier-compression",
+        "ci-population-growth",
+        "ci-growth-regression",
+        "ci-varying-rate",
+        "transaction-arbitrage",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1199,7 +1982,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "boats-relative-speed",
+        ...TSD_BOAT_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1468,13 +2251,84 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "mensuration",
       label: "Mensuration",
+      description:
+        "MathJax-rendered mensuration questions covering 2D shapes, 3D solids, recasting, paths, hollow objects, and scaling effects.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "mensuration-dimension-shift",
+        ...MENSURATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mensuration-2d",
+      domain: "quant",
+      topic: "mensuration",
+      label: "Mensuration: 2D Shapes",
+      description:
+        "Triangles, quadrilaterals, paths, circles, sectors, polygons, and wire-boundary questions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...MENSURATION_2D_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mensuration-3d",
+      domain: "quant",
+      topic: "mensuration",
+      label: "Mensuration: 3D Solids",
+      description:
+        "Cubes, prisms, cylinders, cones, spheres, hemispheres, frustums, hollow pipes, and combined solids.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...MENSURATION_3D_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mensuration-recasting",
+      domain: "quant",
+      topic: "mensuration",
+      label: "Mensuration: Recasting",
+      description:
+        "Volume or perimeter invariant transformations such as melting, wire bending, and drawing wires.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...MENSURATION_RECASTING_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mensuration-scaling",
+      domain: "quant",
+      topic: "mensuration",
+      label: "Mensuration: Scaling",
+      description:
+        "Area, volume, dimension percentage shifts, and fixed-boundary optimization.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...MENSURATION_SCALING_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2062,6 +2916,23 @@ function buildQuantPattern(
         variables: {},
         formula: "0",
       };
+    case "averages-corrections-overlaps":
+      return {
+        ...base,
+        id: `registry-averages-corrections-overlaps-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the correction, overlap, or hidden-total average question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
     case "profit-loss":
       return {
         ...base,
@@ -2364,15 +3235,18 @@ function buildQuantPattern(
       return {
         ...base,
         id: `registry-boats-streams-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "A boat travels {distance} km downstream. If its speed in still water is {speed} km/h and stream speed is {stream} km/h, find the time taken.",
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          distance: { min: 20, max: 180 },
-          speed: { min: 12, max: 45 },
-          stream: { min: 2, max: 12 },
-        },
-        formula: "distance / (speed + stream)",
+        templateVariants: [
+          "Solve the boats and streams question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "fundamentals":
       return {
@@ -2599,14 +3473,86 @@ function buildQuantPattern(
       return {
         ...base,
         id: `registry-mensuration-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "Find the area of a rectangle with length {length} cm and breadth {breadth} cm.",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          length: { min: 8, max: 90 },
-          breadth: { min: 5, max: 60 },
-        },
-        formula: "length * breadth",
+        templateVariants: [
+          "Solve the MathJax-rendered mensuration question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mensuration-2d":
+      return {
+        ...base,
+        id: `registry-mensuration-2d-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the 2D mensuration question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mensuration-3d":
+      return {
+        ...base,
+        id: `registry-mensuration-3d-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the 3D mensuration question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mensuration-recasting":
+      return {
+        ...base,
+        id: `registry-mensuration-recasting-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the recasting or reshaping mensuration question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "mensuration-scaling":
+      return {
+        ...base,
+        id: `registry-mensuration-scaling-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the scaling-based mensuration question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "probability":
       return {
@@ -2637,31 +3583,154 @@ function buildQuantPattern(
       return {
         ...base,
         id: `registry-time-work-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "A can complete a work in {a} days and B can complete it in {b} days. In how many days can they complete it together?",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "comparative",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          a: { min: 6, max: 24 },
-          b: { min: 8, max: 30 },
-        },
-        formula: "a * b / (a + b)",
+        templateVariants: [
+          "Solve the time and work question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "time-work-phases":
+      return {
+        ...base,
+        id: `registry-time-work-phases-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the phase-based time and work question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "time-work-efficiency":
+      return {
+        ...base,
+        id: `registry-time-work-efficiency-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the efficiency-based time and work question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "time-work-pipes":
+      return {
+        ...base,
+        id: `registry-time-work-pipes-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the pipes and cisterns question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "speed-distance":
       return {
         ...base,
         id: `registry-speed-distance-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "A vehicle covers {distance} km at a speed of {speed} km/h. How many hours does it take?",
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          distance: {
-            min: 60,
-            max: 360,
-          },
-          speed: { min: 20, max: 90 },
-        },
-        formula:
-          "distance / speed",
+        templateVariants: [
+          "Solve the time, speed and distance question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "speed-distance-trains":
+      return {
+        ...base,
+        id: `registry-speed-distance-trains-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the train-based speed and distance question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "speed-distance-races":
+      return {
+        ...base,
+        id: `registry-speed-distance-races-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the race-based speed and distance question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "speed-distance-circular":
+      return {
+        ...base,
+        id: `registry-speed-distance-circular-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the circular-track speed and distance question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "speed-distance-boats":
+      return {
+        ...base,
+        id: `registry-speed-distance-boats-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        templateVariants: [
+          "Solve the moving-medium speed and distance question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "percentage":
     default:

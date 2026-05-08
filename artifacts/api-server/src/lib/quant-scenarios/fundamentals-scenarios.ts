@@ -10,6 +10,7 @@ import type { ReasoningStep } from "../shared";
 import {
   createReasoningStep,
   pickRandomItem,
+  randomInt,
 } from "../shared";
 import type { QuantProceduralScenario } from "./time-work-scenarios";
 
@@ -29,12 +30,44 @@ function buildFundamentalsContext(): QuantScenarioContext {
 export function createBodmasScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: { a: 8, b: 4, c: 5, d: 12, e: 3 },
-    Medium: { a: 18, b: 6, c: 7, d: 16, e: 4 },
-    Hard: { a: 24, b: 9, c: 8, d: 27, e: 3 },
-  } as const;
-  const values = { ...sets[difficulty] };
+  const b = pickRandomItem(
+    difficulty === "Easy"
+      ? [2, 3, 4, 5, 6]
+      : difficulty === "Medium"
+        ? [4, 5, 6, 7, 8]
+        : [5, 6, 7, 8, 9],
+  );
+  const c = pickRandomItem(
+    difficulty === "Easy"
+      ? [3, 4, 5, 6]
+      : difficulty === "Medium"
+        ? [5, 6, 7, 8]
+        : [6, 7, 8, 9],
+  );
+  const e = pickRandomItem(
+    difficulty === "Easy"
+      ? [2, 3, 4]
+      : difficulty === "Medium"
+        ? [3, 4, 5]
+        : [3, 4, 6],
+  );
+  const quotient = pickRandomItem(
+    difficulty === "Easy"
+      ? [3, 4, 5, 6]
+      : difficulty === "Medium"
+        ? [4, 5, 6, 7]
+        : [5, 6, 7, 8, 9],
+  );
+  const values = {
+    a: randomInt(
+      difficulty === "Easy" ? 6 : 12,
+      difficulty === "Hard" ? 30 : 22,
+    ),
+    b,
+    c,
+    d: quotient * e,
+    e,
+  };
   const correctAnswer =
     values.a +
     values.b * values.c -
@@ -73,12 +106,31 @@ export function createBodmasScenario(
 export function createFractionScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: { a: 1, b: 2, c: 1, d: 3, e: 6 },
-    Medium: { a: 3, b: 4, c: 5, d: 6, e: 8 },
-    Hard: { a: 7, b: 12, c: 5, d: 18, e: 9 },
-  } as const;
-  const values = { ...sets[difficulty] };
+  const denominatorPool =
+    difficulty === "Easy"
+      ? [2, 3, 4, 5, 6, 8]
+      : difficulty === "Medium"
+        ? [4, 5, 6, 8, 10, 12]
+        : [6, 8, 9, 10, 12, 15, 18];
+  const b = pickRandomItem(
+    denominatorPool,
+  );
+  const d = pickRandomItem(
+    denominatorPool,
+  );
+  const values = {
+    a: randomInt(1, b - 1),
+    b,
+    c: randomInt(1, d - 1),
+    d,
+    e: pickRandomItem(
+      difficulty === "Easy"
+        ? [2, 3, 4, 5, 6]
+        : difficulty === "Medium"
+          ? [3, 4, 5, 6, 8]
+          : [4, 5, 6, 8, 9, 10],
+    ),
+  };
   const sum =
     values.a / values.b +
     values.c / values.d;
@@ -123,11 +175,33 @@ export function createDecimalNormalizationScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
   const decimals = {
-    Easy: { scaled: 5, denominator: 8 },
-    Medium: { scaled: 13, denominator: 16 },
-    Hard: { scaled: 19, denominator: 32 },
+    Easy: [
+      { scaled: 1, denominator: 4 },
+      { scaled: 1, denominator: 8 },
+      { scaled: 3, denominator: 4 },
+      { scaled: 5, denominator: 8 },
+      { scaled: 7, denominator: 8 },
+    ],
+    Medium: [
+      { scaled: 3, denominator: 16 },
+      { scaled: 5, denominator: 16 },
+      { scaled: 11, denominator: 16 },
+      { scaled: 13, denominator: 16 },
+      { scaled: 7, denominator: 20 },
+    ],
+    Hard: [
+      { scaled: 19, denominator: 32 },
+      { scaled: 21, denominator: 32 },
+      { scaled: 27, denominator: 40 },
+      { scaled: 29, denominator: 50 },
+      { scaled: 31, denominator: 40 },
+    ],
   } as const;
-  const choice = decimals[difficulty];
+  const choice = {
+    ...pickRandomItem(
+      decimals[difficulty],
+    ),
+  };
   const decimal =
     choice.scaled / choice.denominator;
   const correctAnswer =
@@ -172,11 +246,27 @@ export function createHcfLcmScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
   const sets = {
-    Easy: { hcf: 6, lcm: 72, known: 18 },
-    Medium: { hcf: 12, lcm: 720, known: 144 },
-    Hard: { hcf: 18, lcm: 1260, known: 180 },
+    Easy: [
+      { hcf: 6, lcm: 72, known: 18 },
+      { hcf: 8, lcm: 96, known: 24 },
+      { hcf: 9, lcm: 108, known: 27 },
+    ],
+    Medium: [
+      { hcf: 10, lcm: 600, known: 120 },
+      { hcf: 12, lcm: 720, known: 144 },
+      { hcf: 15, lcm: 900, known: 180 },
+      { hcf: 14, lcm: 840, known: 168 },
+    ],
+    Hard: [
+      { hcf: 18, lcm: 1260, known: 180 },
+      { hcf: 21, lcm: 1386, known: 198 },
+      { hcf: 24, lcm: 1440, known: 192 },
+      { hcf: 16, lcm: 960, known: 160 },
+    ],
   } as const;
-  const values = { ...sets[difficulty] };
+  const values = {
+    ...pickRandomItem(sets[difficulty]),
+  };
   const correctAnswer =
     (values.hcf * values.lcm) /
     values.known;
@@ -216,11 +306,25 @@ export function createSurdScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
   const sets = {
-    Easy: { left: 18, right: 8, root: 2, coefficient: 5 },
-    Medium: { left: 72, right: 32, root: 2, coefficient: 10 },
-    Hard: { left: 50, right: 98, root: 2, coefficient: 12 },
+    Easy: [
+      { left: 18, right: 8, root: 2, coefficient: 5, leftCoeff: 3, rightCoeff: 2 },
+      { left: 12, right: 27, root: 3, coefficient: 5, leftCoeff: 2, rightCoeff: 3 },
+      { left: 20, right: 45, root: 5, coefficient: 5, leftCoeff: 2, rightCoeff: 3 },
+    ],
+    Medium: [
+      { left: 72, right: 32, root: 2, coefficient: 10, leftCoeff: 6, rightCoeff: 4 },
+      { left: 75, right: 27, root: 3, coefficient: 8, leftCoeff: 5, rightCoeff: 3 },
+      { left: 125, right: 80, root: 5, coefficient: 9, leftCoeff: 5, rightCoeff: 4 },
+    ],
+    Hard: [
+      { left: 50, right: 98, root: 2, coefficient: 12, leftCoeff: 5, rightCoeff: 7 },
+      { left: 147, right: 75, root: 3, coefficient: 12, leftCoeff: 7, rightCoeff: 5 },
+      { left: 245, right: 180, root: 5, coefficient: 13, leftCoeff: 7, rightCoeff: 6 },
+    ],
   } as const;
-  const values = { ...sets[difficulty] };
+  const values = {
+    ...pickRandomItem(sets[difficulty]),
+  };
 
   return {
     scenarioType:
@@ -238,7 +342,7 @@ export function createSurdScenario(
     reasoningSteps: [
       createReasoningStep(
         "factor",
-        `Simplify the surds: sqrt(${values.left}) = ${values.coefficient - (values.right === 32 ? 4 : values.right === 8 ? 2 : 7)}sqrt(${values.root}) and sqrt(${values.right}) becomes the remaining like-surd term.`,
+        `Simplify the surds: sqrt(${values.left}) = ${values.leftCoeff}sqrt(${values.root}) and sqrt(${values.right}) = ${values.rightCoeff}sqrt(${values.root}).`,
       ),
       createReasoningStep(
         "aggregate",
@@ -260,12 +364,36 @@ export function createSurdScenario(
 export function createIndexScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: { a: 2, m: 3, n: 5, p: 4 },
-    Medium: { a: 3, m: 4, n: 6, p: 5 },
-    Hard: { a: 5, m: 3, n: 7, p: 4 },
-  } as const;
-  const values = { ...sets[difficulty] };
+  const values = {
+    a: pickRandomItem(
+      difficulty === "Easy"
+        ? [2, 3, 4]
+        : difficulty === "Medium"
+          ? [2, 3, 5]
+          : [3, 4, 5, 6],
+    ),
+    m: pickRandomItem(
+      difficulty === "Easy"
+        ? [2, 3, 4]
+        : difficulty === "Medium"
+          ? [3, 4, 5, 6]
+          : [3, 4, 5, 6, 7],
+    ),
+    n: pickRandomItem(
+      difficulty === "Easy"
+        ? [3, 4, 5, 6]
+        : difficulty === "Medium"
+          ? [4, 5, 6, 7]
+          : [5, 6, 7, 8],
+    ),
+    p: pickRandomItem(
+      difficulty === "Easy"
+        ? [1, 2, 3]
+        : difficulty === "Medium"
+          ? [2, 3, 4, 5]
+          : [2, 3, 4, 5, 6],
+    ),
+  };
   const netPower =
     values.m + values.n - values.p;
   const correctAnswer =
@@ -309,12 +437,20 @@ export function createIndexScenario(
 export function createDivisibilityAdjustmentScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: { number: 248, divisor: 9 },
-    Medium: { number: 473, divisor: 11 },
-    Hard: { number: 985, divisor: 9 },
-  } as const;
-  const values = { ...sets[difficulty] };
+  const divisor = pickRandomItem(
+    difficulty === "Easy"
+      ? [4, 5, 6, 8, 9]
+      : difficulty === "Medium"
+        ? [7, 9, 11, 12]
+        : [9, 11, 13, 15],
+  );
+  const values = {
+    number: randomInt(
+      difficulty === "Easy" ? 120 : 300,
+      difficulty === "Hard" ? 2999 : 999,
+    ),
+    divisor,
+  };
   const remainder =
     values.number % values.divisor;
   const correctAnswer =
@@ -359,12 +495,33 @@ export function createDivisibilityAdjustmentScenario(
 export function createFundamentalsUnitDigitScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: { base: 7, exponent: 23, cycleLength: 4 },
-    Medium: { base: 9, exponent: 99, cycleLength: 2 },
-    Hard: { base: 8, exponent: 117, cycleLength: 4 },
-  } as const;
-  const values = { ...sets[difficulty] };
+  const cycleLengths: Record<
+    number,
+    number
+  > = {
+    2: 4,
+    3: 4,
+    4: 2,
+    7: 4,
+    8: 4,
+    9: 2,
+  };
+  const base = pickRandomItem(
+    difficulty === "Easy"
+      ? [4, 7, 9]
+      : difficulty === "Medium"
+        ? [3, 7, 8, 9]
+        : [2, 3, 7, 8, 9],
+  );
+  const values = {
+    base,
+    exponent: randomInt(
+      difficulty === "Easy" ? 15 : 40,
+      difficulty === "Hard" ? 250 : 140,
+    ),
+    cycleLength:
+      cycleLengths[base]!,
+  };
   const remainder =
     values.exponent %
     values.cycleLength;

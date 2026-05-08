@@ -31,26 +31,21 @@ function buildProfitLossContext(
 export function createDirectProfitLossScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: [
-      { cp: 500, sp: 650 },
-      { cp: 400, sp: 460 },
-      { cp: 800, sp: 720 },
-    ],
-    Medium: [
-      { cp: 1200, sp: 1500 },
-      { cp: 900, sp: 1080 },
-      { cp: 1500, sp: 1320 },
-    ],
-    Hard: [
-      { cp: 1600, sp: 2000 },
-      { cp: 1250, sp: 1500 },
-      { cp: 1800, sp: 1620 },
-    ],
-  } as const;
-  const values = {
-    ...pickRandomItem(sets[difficulty]),
-  };
+  const cp = pickRandomItem(
+    difficulty === "Easy"
+      ? [200, 300, 400, 500, 600, 800]
+      : difficulty === "Medium"
+        ? [900, 1000, 1200, 1500, 1800, 2400]
+        : [1250, 1600, 1800, 2000, 2400, 3200],
+  );
+  const multipliers =
+    difficulty === "Easy"
+      ? [0.8, 0.9, 1.1, 1.2, 1.25, 1.3]
+      : difficulty === "Medium"
+        ? [0.88, 0.92, 1.12, 1.2, 1.25, 1.33]
+        : [0.85, 0.9, 1.2, 1.25, 1.4, 1.5];
+  const sp = cp * pickRandomItem(multipliers);
+  const values = { cp, sp };
   const delta =
     values.sp - values.cp;
   const correctAnswer =
@@ -94,26 +89,21 @@ export function createDirectProfitLossScenario(
 export function createDiscountScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: [
-      { mp: 1000, discount: 20 },
-      { mp: 800, discount: 10 },
-      { mp: 1200, discount: 25 },
-    ],
-    Medium: [
-      { mp: 1800, discount: 15 },
-      { mp: 2400, discount: 12.5 },
-      { mp: 1500, discount: 20 },
-    ],
-    Hard: [
-      { mp: 3200, discount: 18.75 },
-      { mp: 2800, discount: 22.5 },
-      { mp: 3600, discount: 16.67 },
-    ],
-  } as const;
-  const values = {
-    ...pickRandomItem(sets[difficulty]),
-  };
+  const mp = pickRandomItem(
+    difficulty === "Easy"
+      ? [400, 500, 800, 1000, 1200]
+      : difficulty === "Medium"
+        ? [1200, 1500, 1800, 2000, 2400, 3000]
+        : [2400, 2800, 3200, 3600, 4000, 4800],
+  );
+  const discount = pickRandomItem(
+    difficulty === "Easy"
+      ? [5, 10, 20, 25]
+      : difficulty === "Medium"
+        ? [10, 12.5, 15, 20, 25]
+        : [12.5, 16.67, 18.75, 20, 22.5, 25],
+  );
+  const values = { mp, discount };
   const correctAnswer =
     values.mp *
     (1 - values.discount / 100);
@@ -155,16 +145,19 @@ export function createSuccessiveDiscountScenario(
       { a: 20, b: 10 },
       { a: 10, b: 10 },
       { a: 25, b: 20 },
+      { a: 15, b: 10 },
     ],
     Medium: [
       { a: 20, b: 15 },
       { a: 25, b: 10 },
       { a: 30, b: 20 },
+      { a: 12.5, b: 20 },
     ],
     Hard: [
       { a: 12.5, b: 20 },
       { a: 25, b: 12.5 },
       { a: 33.33, b: 10 },
+      { a: 20, b: 20 },
     ],
   } as const;
   const values = {
@@ -217,11 +210,14 @@ export function createDishonestDealerScenario(
       { falseWeight: 900 },
       { falseWeight: 950 },
       { falseWeight: 800 },
+      { falseWeight: 875 },
     ],
     Hard: [
       { falseWeight: 900 },
       { falseWeight: 850 },
       { falseWeight: 800 },
+      { falseWeight: 875 },
+      { falseWeight: 920 },
     ],
   } as const;
   const values = {
@@ -274,16 +270,19 @@ export function createMarkupDiscountScenario(
       { markup: 25, discount: 10 },
       { markup: 20, discount: 10 },
       { markup: 50, discount: 20 },
+      { markup: 40, discount: 25 },
     ],
     Medium: [
       { markup: 30, discount: 20 },
       { markup: 40, discount: 25 },
       { markup: 25, discount: 12.5 },
+      { markup: 20, discount: 15 },
     ],
     Hard: [
       { markup: 33.33, discount: 20 },
       { markup: 50, discount: 25 },
       { markup: 25, discount: 20 },
+      { markup: 60, discount: 20 },
     ],
   } as const;
   const values = {
@@ -336,16 +335,19 @@ export function createEquivalentChangeScenario(
       { a: 20, b: -20 },
       { a: 10, b: -10 },
       { a: 25, b: -20 },
+      { a: 15, b: -10 },
     ],
     Medium: [
       { a: 20, b: -10 },
       { a: 30, b: -20 },
       { a: 25, b: -25 },
+      { a: 10, b: -20 },
     ],
     Hard: [
       { a: 12.5, b: -20 },
       { a: 33.33, b: -25 },
       { a: 40, b: -20 },
+      { a: 25, b: -12.5 },
     ],
   } as const;
   const values = {
@@ -404,16 +406,19 @@ export function createRatioProfitScenario(
       { sp: 5, cp: 4 },
       { sp: 6, cp: 5 },
       { sp: 4, cp: 3 },
+      { sp: 7, cp: 5 },
     ],
     Medium: [
       { sp: 9, cp: 8 },
       { sp: 8, cp: 7 },
       { sp: 7, cp: 6 },
+      { sp: 5, cp: 4 },
     ],
     Hard: [
       { sp: 12, cp: 9 },
       { sp: 15, cp: 12 },
       { sp: 16, cp: 14 },
+      { sp: 25, cp: 20 },
     ],
   } as const;
   const values = {
@@ -476,6 +481,12 @@ export function createMultiStageTradeScenario(
         markup: 30,
         discount: 20,
         extraExpense: 60,
+      },
+      {
+        cp: 2000,
+        markup: 25,
+        discount: 12.5,
+        extraExpense: 100,
       },
     ],
   } as const;

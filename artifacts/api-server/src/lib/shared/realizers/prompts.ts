@@ -34,7 +34,7 @@ export function buildQuantPrompt(
       subtopic:
         context.pattern.subtopic,
     },
-  );
+  ).replace(/^:\s*/, "");
 }
 
 export function buildComparisonPrompt(

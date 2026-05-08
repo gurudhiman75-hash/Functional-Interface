@@ -25,6 +25,60 @@ export type TopicConfig = {
 const TOPIC_CONFIGS: TopicConfig[] = [
   {
     domain: "quant",
+    topic: "Ratio, Proportion & Variation",
+    enabledMotifs: [
+      "ratio-simplification-core",
+      "ratio-normalization-switch",
+      "proportion-cross-balance",
+      "weighted-ratio-distribution",
+      "variation-dependency-switch",
+      "partnership-ratio-switch",
+      "age-ratio-state-shift",
+      "multi-stage-ratio-state-change",
+    ],
+    difficultyDistribution: {
+      easy: 25,
+      medium: 50,
+      hard: 25,
+    },
+    parameterRanges: {
+      ratioPart: {
+        min: 2,
+        max: 13,
+      },
+      totalValue: {
+        min: 120,
+        max: 2400,
+      },
+      multiplier: {
+        min: 2,
+        max: 6,
+      },
+      changeAmount: {
+        min: 2,
+        max: 60,
+      },
+    },
+    distractorStrategies: [
+      "ratioInversion",
+      "wrongNormalization",
+      "directInverseSwap",
+      "timeIgnored",
+      "stateLoss",
+    ],
+    validationRules: [
+      "preserve-ratio-consistency",
+      "preserve-dependency-type",
+      "prefer-clean-scale-factors",
+      "avoid-cosmetic-context-duplicates",
+    ],
+    generationLimits: {
+      maxSteps: 6,
+      maxCalculationLength: 4,
+    },
+  },
+  {
+    domain: "quant",
     topic: "Time & Work",
     enabledMotifs: [
       "simple-combined-work",

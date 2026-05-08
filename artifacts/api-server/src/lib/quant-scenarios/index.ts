@@ -16,14 +16,23 @@ import {
   createMixtureAlligationScenario,
 } from "./mixture-alligation-scenarios";
 import {
+  createMensurationScenario,
+} from "./mensuration-scenarios";
+import {
   createNumberSystemScenario,
 } from "./number-system-scenarios";
 import {
   createProfitLossScenario,
 } from "./profit-loss-scenarios";
 import {
+  createRatioProportionScenario,
+} from "./ratio-proportion-scenarios";
+import {
   createSimpleCompoundInterestScenario,
 } from "./simple-compound-interest-scenarios";
+import {
+  createSpeedDistanceScenario,
+} from "./speed-distance-scenarios";
 import {
   createTimeWorkScenario,
   type QuantProceduralScenario,
@@ -38,6 +47,19 @@ export function createQuantProceduralScenario(
   difficulty: DifficultyLabel,
   motif?: QuantMotif | null,
 ): QuantProceduralScenario | null {
+  if (
+    pattern.id.startsWith(
+      "registry-mensuration",
+    ) ||
+    pattern.subtopic === "mensuration"
+  ) {
+    return createMensurationScenario(
+      pattern,
+      difficulty,
+      motif,
+    );
+  }
+
   const topicCluster =
     inferQuantTopicCluster(pattern);
 
@@ -60,6 +82,12 @@ export function createQuantProceduralScenario(
         difficulty,
         motif,
       );
+    case "mensuration":
+      return createMensurationScenario(
+        pattern,
+        difficulty,
+        motif,
+      );
     case "number-system":
       return createNumberSystemScenario(
         pattern,
@@ -72,8 +100,20 @@ export function createQuantProceduralScenario(
         difficulty,
         motif,
       );
+    case "ratio-proportion":
+      return createRatioProportionScenario(
+        pattern,
+        difficulty,
+        motif,
+      );
     case "si-ci":
       return createSimpleCompoundInterestScenario(
+        pattern,
+        difficulty,
+        motif,
+      );
+    case "speed-time-distance":
+      return createSpeedDistanceScenario(
         pattern,
         difficulty,
         motif,

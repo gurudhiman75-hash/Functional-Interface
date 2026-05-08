@@ -51,6 +51,12 @@ export function createWeightedContributionScenario(
         q2: 5,
         v2: 60,
       },
+      {
+        q1: 2,
+        v1: 25,
+        q2: 3,
+        v2: 35,
+      },
     ],
     Medium: [
       {
@@ -71,6 +77,12 @@ export function createWeightedContributionScenario(
         q2: 14,
         v2: 20,
       },
+      {
+        q1: 9,
+        v1: 30,
+        q2: 11,
+        v2: 18,
+      },
     ],
     Hard: [
       {
@@ -90,6 +102,12 @@ export function createWeightedContributionScenario(
         v1: 30,
         q2: 18,
         v2: 22,
+      },
+      {
+        q1: 14,
+        v1: 18,
+        q2: 22,
+        v2: 30,
       },
     ],
   } as const;
@@ -159,6 +177,11 @@ export function createAlligationScenario(
         high: 60,
         mean: 48,
       },
+      {
+        low: 24,
+        high: 36,
+        mean: 30,
+      },
     ],
     Medium: [
       {
@@ -176,6 +199,11 @@ export function createAlligationScenario(
         high: 50,
         mean: 41,
       },
+      {
+        low: 20,
+        high: 35,
+        mean: 26,
+      },
     ],
     Hard: [
       {
@@ -192,6 +220,11 @@ export function createAlligationScenario(
         low: 22,
         high: 40,
         mean: 31,
+      },
+      {
+        low: 30,
+        high: 54,
+        mean: 42,
       },
     ],
   } as const;
@@ -260,6 +293,11 @@ export function createCompositionStateScenario(
         milkPercent: 100,
         removed: 6,
       },
+      {
+        volume: 25,
+        milkPercent: 100,
+        removed: 5,
+      },
     ],
     Medium: [
       {
@@ -277,6 +315,11 @@ export function createCompositionStateScenario(
         milkPercent: 100,
         removed: 9,
       },
+      {
+        volume: 48,
+        milkPercent: 100,
+        removed: 12,
+      },
     ],
     Hard: [
       {
@@ -293,6 +336,11 @@ export function createCompositionStateScenario(
         volume: 90,
         milkPercent: 100,
         removed: 15,
+      },
+      {
+        volume: 96,
+        milkPercent: 100,
+        removed: 24,
       },
     ],
   } as const;
@@ -357,6 +405,11 @@ export function createDecayScenario(
         replaced: 27,
         repetitions: 2,
       },
+      {
+        volume: 100,
+        replaced: 25,
+        repetitions: 2,
+      },
     ],
     Hard: [
       {
@@ -372,6 +425,11 @@ export function createDecayScenario(
       {
         volume: 96,
         replaced: 24,
+        repetitions: 3,
+      },
+      {
+        volume: 108,
+        replaced: 27,
         repetitions: 3,
       },
     ],
@@ -444,6 +502,11 @@ export function createRatioReconstructionScenario(
         high: 60,
         mean: 50,
       },
+      {
+        low: 18,
+        high: 30,
+        mean: 24,
+      },
     ],
     Medium: [
       {
@@ -461,6 +524,11 @@ export function createRatioReconstructionScenario(
         high: 36,
         mean: 33,
       },
+      {
+        low: 16,
+        high: 28,
+        mean: 22,
+      },
     ],
     Hard: [
       {
@@ -477,6 +545,11 @@ export function createRatioReconstructionScenario(
         low: 28,
         high: 52,
         mean: 37,
+      },
+      {
+        low: 26,
+        high: 44,
+        mean: 35,
       },
     ],
   } as const;
@@ -546,6 +619,11 @@ export function createCostBlendScenario(
         high: 60,
         mean: 48,
       },
+      {
+        low: 18,
+        high: 30,
+        mean: 24,
+      },
     ],
     Medium: [
       {
@@ -563,6 +641,11 @@ export function createCostBlendScenario(
         high: 45,
         mean: 39,
       },
+      {
+        low: 16,
+        high: 28,
+        mean: 22,
+      },
     ],
     Hard: [
       {
@@ -579,6 +662,11 @@ export function createCostBlendScenario(
         low: 36,
         high: 60,
         mean: 48,
+      },
+      {
+        low: 42,
+        high: 70,
+        mean: 56,
       },
     ],
   } as const;
@@ -647,6 +735,11 @@ export function createMultiPhasePurityScenario(
         volume: 125,
         firstRemove: 25,
         secondRemove: 25,
+      },
+      {
+        volume: 100,
+        firstRemove: 20,
+        secondRemove: 20,
       },
     ],
   } as const;

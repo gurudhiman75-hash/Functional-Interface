@@ -30,28 +30,50 @@ function buildNumberSystemContext(
   };
 }
 
+function isNiceRemainderQuestion(
+  base: number,
+  exponent: number,
+  divisor: number,
+): boolean {
+  const answer =
+    base ** exponent % divisor;
+  return Number.isFinite(answer);
+}
+
 export function createDivisibilityScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: [
-      { number: 248, divisor: 9 },
-      { number: 356, divisor: 7 },
-      { number: 514, divisor: 8 },
-    ],
-    Medium: [
-      { number: 473, divisor: 11 },
-      { number: 685, divisor: 9 },
-      { number: 742, divisor: 13 },
-    ],
-    Hard: [
-      { number: 985, divisor: 9 },
-      { number: 1675, divisor: 11 },
-      { number: 2834, divisor: 17 },
-    ],
+  const divisorPools = {
+    Easy: [4, 5, 6, 7, 8, 9, 11],
+    Medium: [7, 8, 9, 11, 12, 13],
+    Hard: [9, 11, 13, 15, 17, 19],
   } as const;
+  const numberRanges = {
+    Easy: [120, 999],
+    Medium: [300, 1999],
+    Hard: [800, 4999],
+  } as const;
+  const [minNumber, maxNumber] =
+    numberRanges[difficulty];
+  const divisor = pickRandomItem(
+    divisorPools[difficulty],
+  );
+  let number = randomInt(
+    minNumber,
+    maxNumber,
+  );
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    if (number % divisor !== 0) {
+      break;
+    }
+    number = randomInt(
+      minNumber,
+      maxNumber,
+    );
+  }
   const values = {
-    ...pickRandomItem(sets[difficulty]),
+    number,
+    divisor,
   };
   const remainder =
     values.number % values.divisor;
@@ -96,26 +118,54 @@ export function createDivisibilityScenario(
 export function createRemainderScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: [
-      { base: 3, exponent: 5, divisor: 7 },
-      { base: 4, exponent: 4, divisor: 5 },
-      { base: 5, exponent: 3, divisor: 7 },
-    ],
-    Medium: [
-      { base: 7, exponent: 4, divisor: 5 },
-      { base: 8, exponent: 5, divisor: 7 },
-      { base: 9, exponent: 4, divisor: 11 },
-    ],
-    Hard: [
-      { base: 11, exponent: 5, divisor: 9 },
-      { base: 12, exponent: 5, divisor: 13 },
-      { base: 14, exponent: 4, divisor: 15 },
-    ],
+  const basePools = {
+    Easy: [3, 4, 5, 6, 7],
+    Medium: [5, 6, 7, 8, 9, 10],
+    Hard: [7, 8, 9, 10, 11, 12, 13, 14],
   } as const;
-  const values = {
-    ...pickRandomItem(sets[difficulty]),
+  const exponentPools = {
+    Easy: [3, 4, 5, 6],
+    Medium: [4, 5, 6, 7],
+    Hard: [4, 5, 6, 7, 8],
+  } as const;
+  const divisorPools = {
+    Easy: [5, 7, 8, 9],
+    Medium: [7, 9, 11, 13],
+    Hard: [9, 11, 13, 15, 17],
+  } as const;
+  let values = {
+    base: pickRandomItem(
+      basePools[difficulty],
+    ),
+    exponent: pickRandomItem(
+      exponentPools[difficulty],
+    ),
+    divisor: pickRandomItem(
+      divisorPools[difficulty],
+    ),
   };
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    if (
+      isNiceRemainderQuestion(
+        values.base,
+        values.exponent,
+        values.divisor,
+      )
+    ) {
+      break;
+    }
+    values = {
+      base: pickRandomItem(
+        basePools[difficulty],
+      ),
+      exponent: pickRandomItem(
+        exponentPools[difficulty],
+      ),
+      divisor: pickRandomItem(
+        divisorPools[difficulty],
+      ),
+    };
+  }
   const correctAnswer =
     values.base ** values.exponent %
     values.divisor;
@@ -210,25 +260,42 @@ export function createHcfLcmScenario(
 export function createUnitDigitScenario(
   difficulty: DifficultyLabel,
 ): QuantProceduralScenario {
-  const sets = {
-    Easy: [
-      { base: 9, exponent: 21, cycleLength: 2 },
-      { base: 4, exponent: 17, cycleLength: 2 },
-      { base: 6, exponent: 23, cycleLength: 1 },
-    ],
-    Medium: [
-      { base: 7, exponent: 103, cycleLength: 4 },
-      { base: 3, exponent: 58, cycleLength: 4 },
-      { base: 8, exponent: 66, cycleLength: 4 },
-    ],
-    Hard: [
-      { base: 8, exponent: 117, cycleLength: 4 },
-      { base: 7, exponent: 222, cycleLength: 4 },
-      { base: 3, exponent: 145, cycleLength: 4 },
-    ],
+  const cycleLengths: Record<
+    number,
+    number
+  > = {
+    2: 4,
+    3: 4,
+    4: 2,
+    6: 1,
+    7: 4,
+    8: 4,
+    9: 2,
+  };
+  const basePools = {
+    Easy: [2, 4, 6, 9],
+    Medium: [3, 4, 7, 8, 9],
+    Hard: [2, 3, 7, 8, 9],
   } as const;
+  const exponentRanges = {
+    Easy: [11, 49],
+    Medium: [25, 149],
+    Hard: [75, 299],
+  } as const;
+  const base = pickRandomItem(
+    basePools[difficulty],
+  );
+  const [expMin, expMax] =
+    exponentRanges[difficulty];
+  const exponent = randomInt(
+    expMin,
+    expMax,
+  );
   const values = {
-    ...pickRandomItem(sets[difficulty]),
+    base,
+    exponent,
+    cycleLength:
+      cycleLengths[base]!,
   };
   const remainder =
     values.exponent %
@@ -295,10 +362,10 @@ export function createFactorialScenario(
 ): QuantProceduralScenario {
   const n = pickRandomItem(
     difficulty === "Easy"
-      ? [25, 30, 40]
+      ? [20, 25, 30, 35, 40, 45, 50]
       : difficulty === "Medium"
-        ? [75, 100, 120]
-        : [125, 150, 175],
+        ? [60, 75, 80, 90, 100, 120]
+        : [125, 150, 175, 180, 200, 225],
   );
   const floorFive = Math.floor(n / 5);
   const floorTwentyFive =
@@ -369,6 +436,11 @@ export function createRecurringDecimalScenario(
         denominator: 9,
         display: "0.555...",
       },
+      {
+        numerator: 4,
+        denominator: 11,
+        display: "0.363636...",
+      },
     ],
     Medium: [
       {
@@ -386,6 +458,11 @@ export function createRecurringDecimalScenario(
         denominator: 6,
         display: "0.8333...",
       },
+      {
+        numerator: 7,
+        denominator: 9,
+        display: "0.777...",
+      },
     ],
     Hard: [
       {
@@ -402,6 +479,11 @@ export function createRecurringDecimalScenario(
         numerator: 13,
         denominator: 15,
         display: "0.8666...",
+      },
+      {
+        numerator: 17,
+        denominator: 18,
+        display: "0.9444...",
       },
     ],
   } as const;
@@ -463,6 +545,10 @@ export function createDivisorCountScenario(
         number: 84,
         count: 12,
       },
+      {
+        number: 96,
+        count: 12,
+      },
     ],
     Medium: [
       {
@@ -475,6 +561,10 @@ export function createDivisorCountScenario(
       },
       {
         number: 540,
+        count: 24,
+      },
+      {
+        number: 756,
         count: 24,
       },
     ],
@@ -490,6 +580,10 @@ export function createDivisorCountScenario(
       {
         number: 720,
         count: 30,
+      },
+      {
+        number: 900,
+        count: 27,
       },
     ],
   } as const;
@@ -542,16 +636,19 @@ export function createPerfectPowerScenario(
       { number: 90, multiplier: 10 },
       { number: 45, multiplier: 5 },
       { number: 63, multiplier: 7 },
+      { number: 75, multiplier: 3 },
     ],
     Medium: [
       { number: 72, multiplier: 2 },
       { number: 98, multiplier: 2 },
       { number: 108, multiplier: 3 },
+      { number: 192, multiplier: 3 },
     ],
     Hard: [
       { number: 540, multiplier: 15 },
       { number: 294, multiplier: 6 },
       { number: 1470, multiplier: 30 },
+      { number: 2352, multiplier: 6 },
     ],
   } as const;
   const values = {

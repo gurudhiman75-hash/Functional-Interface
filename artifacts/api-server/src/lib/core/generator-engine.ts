@@ -512,6 +512,8 @@ type GenerationDebugMetadata = {
   qualityAssessment?: QualityAssessment;
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
+  structuralSignatureKey?: string;
+  scenarioLogicBranch?: string;
 };
 
 type QuestionCore = {
@@ -891,6 +893,14 @@ function createFormulaQuestionCandidate(
       arithmeticDifficulty,
       motif,
     );
+  const resolvedScenarioMotif =
+    proceduralScenario?.motifId
+      ? ALL_MOTIFS.find(
+          (entry) =>
+            entry.id ===
+            proceduralScenario.motifId,
+        ) ?? motif
+      : motif;
   const values =
     proceduralScenario?.values ??
     generateValues(
@@ -946,6 +956,56 @@ function createFormulaQuestionCandidate(
   let text =
     proceduralScenario?.text ?? "";
 
+  const applySubjectContextSkin = (
+    input: string,
+  ) => {
+    if (!proceduralScenario) {
+      return input;
+    }
+
+    const shouldApplyPunjabSkin =
+      pattern.arrangementType ===
+        "PunjabState" ||
+      proceduralScenario
+        .subjectContext?.variant ===
+        "PunjabState";
+
+    if (!shouldApplyPunjabSkin) {
+      return input;
+    }
+
+    const replacementEntries = Object.entries({
+      class: "panchayat group",
+      Class: "Panchayat group",
+      students: "panchayat members",
+      Students: "Panchayat members",
+      student: "member",
+      Student: "Member",
+      family: "panchayat household group",
+      Family: "Panchayat household group",
+      team: "kabaddi team",
+      Team: "Kabaddi team",
+      player: "kabaddi player",
+      Player: "Kabaddi player",
+      bags: "wheat bags",
+      Bags: "Wheat bags",
+      survey: "mandi survey",
+      Survey: "Mandi survey",
+      ...(proceduralScenario
+        .subjectContext
+        ?.replacements ?? {}),
+    });
+
+    let output = input;
+    for (const [from, to] of replacementEntries) {
+      output = output.replaceAll(
+        from,
+        to,
+      );
+    }
+    return output;
+  };
+
   if (!proceduralScenario) {
     const realizationValues = {
       ...values,
@@ -985,6 +1045,44 @@ function createFormulaQuestionCandidate(
       fallbackReason =
         fallbackReason ??
         "Question realizer fell back to safe wording.";
+    }
+  }
+
+  text = applySubjectContextSkin(
+    text,
+  );
+  text = text.replace(
+    /^:\s*/,
+    "",
+  );
+
+  if (
+    proceduralScenario?.validationTokens
+      ?.length
+  ) {
+    const lowerText =
+      text.toLowerCase();
+    const missingTokens =
+      proceduralScenario.validationTokens.filter(
+        (token) =>
+          !lowerText.includes(
+            token.toLowerCase(),
+          ),
+      );
+    if (missingTokens.length) {
+      throw new ReasoningEngineError({
+        code:
+          "SCENARIO_VALIDATION_FAILED",
+        phase: "realization",
+        message: `Procedural scenario stem failed validation for tokens: ${missingTokens.join(", ")}`,
+        metadata:
+          buildReasoningErrorMetadata({
+            patternId: pattern.id,
+            motifId:
+              proceduralScenario.motifId,
+            missingTokens,
+          }),
+      });
     }
   }
 
@@ -1036,7 +1134,7 @@ function createFormulaQuestionCandidate(
         effectiveArchetype.buildReasoningSteps(
           quantContext,
         ),
-      motif,
+      resolvedScenarioMotif,
     );
   const explanation =
     proceduralScenario
@@ -1045,10 +1143,12 @@ function createFormulaQuestionCandidate(
       pattern,
       values,
       correctAnswer,
-      motif,
+      resolvedScenarioMotif,
       reasoningSteps,
     );
   const generated =
+    proceduralScenario
+      ?.customOptionBundle ??
     generateNumericOptions(
       correctAnswer,
       {
@@ -1061,7 +1161,7 @@ function createFormulaQuestionCandidate(
         distractorHints:
           proceduralScenario
             ?.distractorHints ??
-          motif?.commonDistractors,
+          resolvedScenarioMotif?.commonDistractors,
         reasoningDepth:
           reasoningSteps.length,
         operationChain:
@@ -1102,9 +1202,17 @@ function createFormulaQuestionCandidate(
           generationDomain:
             "quant" as GenerationDomain,
           selectedMotif:
-            motif?.id,
+            proceduralScenario
+              ?.motifId ??
+            resolvedScenarioMotif?.id,
           selectedArchetype:
             effectiveArchetype.id,
+          structuralSignatureKey:
+            proceduralScenario
+              ?.structuralSignature,
+          scenarioLogicBranch:
+            proceduralScenario
+              ?.scenarioLogicBranch,
           fallbackReason,
           compatibilityWarnings,
         },
@@ -1162,6 +1270,8 @@ function generateFormulaQuestions(
   const questions: FormulaQuestion[] = [];
   const attemptedCandidates: FormulaQuestion[] =
     [];
+  const structuralSignatureKeys =
+    new Set<string>();
   const maxAttempts = Math.max(
     count * 12,
     20,
@@ -1181,6 +1291,19 @@ function generateFormulaQuestions(
       candidate,
     );
 
+    const structuralSignatureKey =
+      candidate.debugMetadata
+        ?.structuralSignatureKey;
+
+    if (
+      structuralSignatureKey &&
+      structuralSignatureKeys.has(
+        structuralSignatureKey,
+      )
+    ) {
+      continue;
+    }
+
     if (
       validateDifficultyTarget(
         candidate.difficultyScore,
@@ -1188,6 +1311,13 @@ function generateFormulaQuestions(
       ) ||
       !options?.targetDifficulty
     ) {
+      if (
+        structuralSignatureKey
+      ) {
+        structuralSignatureKeys.add(
+          structuralSignatureKey,
+        );
+      }
       questions.push(candidate);
     }
 
@@ -2236,6 +2366,8 @@ function generateQuestionsWithAdapter(
 
   const questions: FormulaQuestion[] = [];
   const attempted: FormulaQuestion[] = [];
+  const structuralSignatureKeys =
+    new Set<string>();
   const maxAttempts = Math.max(
     count *
       (adapter.maxAttemptsMultiplier ??
@@ -2261,6 +2393,18 @@ function generateQuestionsWithAdapter(
       candidateResult.realizedQuestion as FormulaQuestion;
 
     attempted.push(candidate);
+    const structuralSignatureKey =
+      candidate.debugMetadata
+        ?.structuralSignatureKey;
+
+    if (
+      structuralSignatureKey &&
+      structuralSignatureKeys.has(
+        structuralSignatureKey,
+      )
+    ) {
+      continue;
+    }
 
     if (
       validateDifficultyTarget(
@@ -2269,6 +2413,13 @@ function generateQuestionsWithAdapter(
       ) ||
       !options?.targetDifficulty
     ) {
+      if (
+        structuralSignatureKey
+      ) {
+        structuralSignatureKeys.add(
+          structuralSignatureKey,
+        );
+      }
       questions.push(candidate);
     }
 

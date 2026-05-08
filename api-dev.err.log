@@ -1,140 +1,12 @@
 
-  dist\index.mjs                   3.4mb
+  dist\index.mjs                   4.0mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 708ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 119ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 100ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 108ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 100ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 129ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 172ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 132ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 160ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 177ms
-
-  dist\validate-seating-generation.mjs  198.0kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 157ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 120ms
-
-  dist\validate-seeded-generation.mjs  668.8kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 223ms
-
-  dist\stress-test-reasoning.mjs  203.9kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 133ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7549ms
+Done in 7211ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -143,7 +15,7 @@ Done in 7549ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 967ms
+Done in 1136ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -152,7 +24,7 @@ Done in 967ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 14228ms
+Done in 1756ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -161,7 +33,7 @@ Done in 14228ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 8586ms
+Done in 595ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -170,7 +42,7 @@ Done in 8586ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 9712ms
+Done in 2456ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -179,7 +51,7 @@ Done in 9712ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 8353ms
+Done in 1088ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -188,7 +60,7 @@ Done in 8353ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1275ms
+Done in 1250ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
@@ -197,7 +69,7 @@ Done in 1275ms
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 11991ms
+Done in 2300ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -206,7 +78,7 @@ Done in 11991ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 8119ms
+Done in 2150ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -215,54 +87,54 @@ Done in 8119ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 7645ms
+Done in 1716ms
 
-  dist\validate-seating-generation.mjs  198.3kb
+  dist\validate-seating-generation.mjs  356.1kb
   dist\pino-worker.mjs                  153.4kb
   dist\pino-file.mjs                    142.1kb
   dist\pino-pretty.mjs                  114.6kb
   dist\thread-stream-worker.mjs           7.3kb
   ...and 5 more output files...
 
-Done in 7119ms
+Done in 2491ms
 
   dist\pino-worker.mjs                   153.4kb
   dist\pino-file.mjs                     142.1kb
   dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
+  dist\validate-seating-orientation.mjs   29.9kb
   dist\thread-stream-worker.mjs            7.3kb
   ...and 5 more output files...
 
-Done in 8663ms
+Done in 1692ms
 
-  dist\validate-seeded-generation.mjs  669.1kb
+  dist\validate-seeded-generation.mjs    1.2mb
   dist\pino-worker.mjs                 153.4kb
   dist\pino-file.mjs                   142.1kb
   dist\pino-pretty.mjs                 114.6kb
   dist\thread-stream-worker.mjs          7.3kb
   ...and 5 more output files...
 
-Done in 7110ms
+Done in 1740ms
 
-  dist\stress-test-reasoning.mjs  204.2kb
+  dist\stress-test-reasoning.mjs  362.0kb
   dist\pino-worker.mjs            153.4kb
   dist\pino-file.mjs              142.1kb
   dist\pino-pretty.mjs            114.6kb
   dist\thread-stream-worker.mjs     7.3kb
   ...and 5 more output files...
 
-Done in 8759ms
+Done in 748ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.4mb
+  dist\index.mjs                   4.0mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 1118ms
+Done in 16333ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -271,7 +143,7 @@ Done in 1118ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 141ms
+Done in 415ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -280,7 +152,7 @@ Done in 141ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 137ms
+Done in 240ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -289,7 +161,7 @@ Done in 137ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 177ms
+Done in 270ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -298,7 +170,7 @@ Done in 177ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 166ms
+Done in 209ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -307,7 +179,7 @@ Done in 166ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 186ms
+Done in 365ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -316,7 +188,7 @@ Done in 186ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 178ms
+Done in 368ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
@@ -325,7 +197,7 @@ Done in 178ms
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 145ms
+Done in 411ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -334,7 +206,7 @@ Done in 145ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 150ms
+Done in 502ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -343,54 +215,873 @@ Done in 150ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 182ms
+Done in 344ms
 
-  dist\validate-seating-generation.mjs  198.3kb
+  dist\validate-seating-generation.mjs  356.1kb
   dist\pino-worker.mjs                  153.4kb
   dist\pino-file.mjs                    142.1kb
   dist\pino-pretty.mjs                  114.6kb
   dist\thread-stream-worker.mjs           7.3kb
   ...and 5 more output files...
 
-Done in 194ms
+Done in 361ms
 
   dist\pino-worker.mjs                   153.4kb
   dist\pino-file.mjs                     142.1kb
   dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
+  dist\validate-seating-orientation.mjs   29.9kb
   dist\thread-stream-worker.mjs            7.3kb
   ...and 5 more output files...
 
-Done in 179ms
+Done in 337ms
 
-  dist\validate-seeded-generation.mjs  669.2kb
+  dist\validate-seeded-generation.mjs    1.2mb
   dist\pino-worker.mjs                 153.4kb
   dist\pino-file.mjs                   142.1kb
   dist\pino-pretty.mjs                 114.6kb
   dist\thread-stream-worker.mjs          7.3kb
   ...and 5 more output files...
 
-Done in 243ms
+Done in 521ms
 
-  dist\stress-test-reasoning.mjs  204.2kb
+  dist\stress-test-reasoning.mjs  362.0kb
   dist\pino-worker.mjs            153.4kb
   dist\pino-file.mjs              142.1kb
   dist\pino-pretty.mjs            114.6kb
   dist\thread-stream-worker.mjs     7.3kb
   ...and 5 more output files...
 
-Done in 190ms
+Done in 499ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'mens-inspect-2',
+    generationId: 'gen_e488f62a',
+    generationTimestamp: 1778210311367,
+    patternId: 'registry-mensuration-hard',
+    motifId: 'men-frustum-vol',
+    missingTokens: [ '$R^2+r^2+Rr$' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: $R^2+r^2+Rr$'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: $R^2+r^2+Rr$
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1073:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2181:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2384:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2686:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'mens-inspect-2',
+    generationId: 'gen_e488f62a',
+    generationTimestamp: 1778210311367,
+    patternId: 'registry-mensuration-hard',
+    motifId: 'men-frustum-vol',
+    missingTokens: [ '$R^2+r^2+Rr$' ]
+  }
+}
 
-  dist\index.mjs                   3.4mb
+  dist\index.mjs                   4.0mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 29781ms
+Done in 14957ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 626ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 271ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9807ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4096ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10399ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7545ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 14044ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9878ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9311ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 7159ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 2799ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 9653ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 2839ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 41899ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 801ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7968ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 15878ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8647ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4824ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 17141ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 7483ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 8149ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 6433ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 8061ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 7223ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 9325ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 4126ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+▲ [WARNING] Duplicate key "registry-mensuration-3d-medium" in object literal [duplicate-object-key]
+
+    src/lib/quant-scenarios/mensuration-scenarios.ts:1090:2:
+      1090 │   "registry-mensuration-3d-medium": [
+           ╵   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  The original key "registry-mensuration-3d-medium" is here:
+
+    src/lib/quant-scenarios/mensuration-scenarios.ts:1083:2:
+      1083 │   "registry-mensuration-3d-medium": [
+           ╵   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Error: The service was stopped
+    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:949:34
+    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at Socket.afterClose (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:594:28)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1729:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 52607ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 593ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 398ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 468ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 165ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 348ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 215ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 307ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 371ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 374ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 465ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 373ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 642ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 886ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 16834ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 259ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 394ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 330ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 293ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 374ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 387ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 372ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 358ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 260ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 258ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 494ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 504ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 681ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 14825ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 674ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 278ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7944ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5268ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 12008ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4986ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 13776ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3553ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7361ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 2799ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 6295ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 4676ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 1851ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 42500ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7881ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9408ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 13121ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 5179ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 18110ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 3980ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 12156ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 10808ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 7175ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 10213ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 10182ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 3048ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 9555ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 50937ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -408,7 +1099,7 @@ Done in 493ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 513ms
+Done in 579ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -417,7 +1108,7 @@ Done in 513ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 340ms
+Done in 320ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -426,7 +1117,7 @@ Done in 340ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 6243ms
+Done in 322ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -435,7 +1126,7 @@ Done in 6243ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 10411ms
+Done in 314ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -444,7 +1135,7 @@ Done in 10411ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 9745ms
+Done in 323ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
@@ -453,7 +1144,7 @@ Done in 9745ms
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 4000ms
+Done in 292ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -462,7 +1153,7 @@ Done in 4000ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 4465ms
+Done in 329ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -471,1074 +1162,16 @@ Done in 4465ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 4144ms
+Done in 471ms
 
-  dist\validate-seating-generation.mjs  198.3kb
+  dist\validate-seating-generation.mjs  356.1kb
   dist\pino-worker.mjs                  153.4kb
   dist\pino-file.mjs                    142.1kb
   dist\pino-pretty.mjs                  114.6kb
   dist\thread-stream-worker.mjs           7.3kb
   ...and 5 more output files...
 
-Done in 9395ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 3114ms
-
-  dist\validate-seeded-generation.mjs  669.2kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 4166ms
-
-  dist\stress-test-reasoning.mjs  204.2kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 3885ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 927ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 99ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 136ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 104ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 140ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 103ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1408ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 2223ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1073ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2260ms
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 10765ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1477ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4073ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1213ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 903ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 875ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2048ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 610ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3022ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1251ms
-
-  dist\validate-seating-generation.mjs  201.7kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 3526ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 653ms
-
-  dist\validate-seeded-generation.mjs  672.6kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 3047ms
-
-  dist\stress-test-reasoning.mjs  207.6kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 1720ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 10266ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5666ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3600ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3145ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6218ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1436ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1382ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 1923ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1334ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6221ms
-
-  dist\validate-seating-generation.mjs  201.7kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 3265ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 3190ms
-
-  dist\validate-seeded-generation.mjs  672.6kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 7183ms
-
-  dist\stress-test-reasoning.mjs  207.6kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 2713ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1165ms
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 10565ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 630ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 349ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4164ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5347ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2089ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 11394ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 11266ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6195ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7569ms
-
-  dist\validate-seating-generation.mjs  209.8kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 9312ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 3796ms
-
-  dist\validate-seeded-generation.mjs  680.8kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 2834ms
-
-  dist\stress-test-reasoning.mjs  215.8kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 6197ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1089ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3965ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1705ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2837ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6743ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6295ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7400ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 6736ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4860ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7624ms
-
-  dist\validate-seating-generation.mjs  209.8kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 6408ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 16426ms
-
-  dist\validate-seeded-generation.mjs  681.5kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 9911ms
-
-  dist\stress-test-reasoning.mjs  215.8kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 18951ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.4mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3104ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3195ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2585ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6129ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2944ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2194ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1915ms
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 18646ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2139ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1759ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3527ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2769ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5913ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 8263ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 11615ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1215ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 10416ms
-
-  dist\validate-seating-generation.mjs  209.8kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 8278ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.1kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 1015ms
-
-  dist\validate-seeded-generation.mjs  681.5kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 8510ms
-
-  dist\stress-test-reasoning.mjs  215.8kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 5489ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1004ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 132ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 134ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 124ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 140ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 136ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 209ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 195ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 174ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 172ms
-
-  dist\validate-seating-generation.mjs  210.0kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 163ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   28.3kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 163ms
-
-  dist\validate-seeded-generation.mjs  681.7kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 284ms
-
-  dist\stress-test-reasoning.mjs  216.0kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 230ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 932ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 131ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 125ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 124ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 119ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 120ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 158ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 169ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 128ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 129ms
-
-  dist\validate-seating-generation.mjs  211.7kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 160ms
+Done in 372ms
 
   dist\pino-worker.mjs                   153.4kb
   dist\pino-file.mjs                     142.1kb
@@ -1547,63 +1180,164 @@ Done in 160ms
   dist\thread-stream-worker.mjs            7.3kb
   ...and 5 more output files...
 
-Done in 147ms
+Done in 239ms
 
-  dist\validate-seeded-generation.mjs  683.3kb
+  dist\validate-seeded-generation.mjs    1.2mb
   dist\pino-worker.mjs                 153.4kb
   dist\pino-file.mjs                   142.1kb
   dist\pino-pretty.mjs                 114.6kb
   dist\thread-stream-worker.mjs          7.3kb
   ...and 5 more output files...
 
-Done in 196ms
+Done in 323ms
 
-  dist\stress-test-reasoning.mjs  217.6kb
+  dist\stress-test-reasoning.mjs  362.0kb
   dist\pino-worker.mjs            153.4kb
   dist\pino-file.mjs              142.1kb
   dist\pino-pretty.mjs            114.6kb
   dist\thread-stream-worker.mjs     7.3kb
   ...and 5 more output files...
 
-Done in 221ms
+Done in 364ms
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+  dist\index.mjs                   4.0mb
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 16717ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\migrate.mjs                40.0kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 249ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-init.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 384ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-reset.mjs               18.5kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 291ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 304ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 354ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 307ms
+
+  dist\pino-worker.mjs             153.4kb
+  dist\pino-file.mjs               142.1kb
+  dist\pino-pretty.mjs             114.6kb
+  dist\populate-global-topics.mjs   23.8kb
+  dist\thread-stream-worker.mjs      7.3kb
+  ...and 5 more output files...
+
+Done in 360ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-schema-drift.mjs     26.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 297ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\seed-english-topics.mjs    20.2kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 336ms
+
+  dist\validate-seating-generation.mjs  356.1kb
+  dist\pino-worker.mjs                  153.4kb
+  dist\pino-file.mjs                    142.1kb
+  dist\pino-pretty.mjs                  114.6kb
+  dist\thread-stream-worker.mjs           7.3kb
+  ...and 5 more output files...
+
+Done in 335ms
+
+  dist\pino-worker.mjs                   153.4kb
+  dist\pino-file.mjs                     142.1kb
+  dist\pino-pretty.mjs                   114.6kb
+  dist\validate-seating-orientation.mjs   29.9kb
+  dist\thread-stream-worker.mjs            7.3kb
+  ...and 5 more output files...
+
+Done in 478ms
+
+  dist\validate-seeded-generation.mjs    1.2mb
+  dist\pino-worker.mjs                 153.4kb
+  dist\pino-file.mjs                   142.1kb
+  dist\pino-pretty.mjs                 114.6kb
+  dist\thread-stream-worker.mjs          7.3kb
+  ...and 5 more output files...
+
+Done in 417ms
+
+  dist\stress-test-reasoning.mjs  362.0kb
+  dist\pino-worker.mjs            153.4kb
+  dist\pino-file.mjs              142.1kb
+  dist\pino-pretty.mjs            114.6kb
+  dist\thread-stream-worker.mjs     7.3kb
+  ...and 5 more output files...
+
+Done in 380ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.5mb
+  dist\index.mjs                   4.0mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 13806ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1400ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5847ms
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 8707ms
+Done in 15557ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1612,7 +1346,7 @@ Done in 8707ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2667ms
+Done in 269ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1621,107 +1355,44 @@ Done in 2667ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 3976ms
+Done in 8134ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1765ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5242ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3155ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6610ms
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 14217ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6930ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6567ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2727ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7777ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 10455ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
 Done in 5257ms
 
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\db-seed.mjs                22.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 4782ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\normalize-questions.mjs    22.4kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 9105ms
+
+  dist\pino-worker.mjs           153.4kb
+  dist\pino-file.mjs             142.1kb
+  dist\pino-pretty.mjs           114.6kb
+  dist\check-normalization.mjs    19.7kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 2689ms
+
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
   dist\pino-pretty.mjs             114.6kb
@@ -1729,7 +1400,7 @@ Done in 5257ms
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 4987ms
+Done in 14150ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1738,7 +1409,7 @@ Done in 4987ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 10275ms
+Done in 7701ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1747,16 +1418,16 @@ Done in 10275ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2187ms
+Done in 8264ms
 
-  dist\validate-seating-generation.mjs  214.3kb
+  dist\validate-seating-generation.mjs  356.1kb
   dist\pino-worker.mjs                  153.4kb
   dist\pino-file.mjs                    142.1kb
   dist\pino-pretty.mjs                  114.6kb
   dist\thread-stream-worker.mjs           7.3kb
   ...and 5 more output files...
 
-Done in 8370ms
+Done in 2721ms
 
   dist\pino-worker.mjs                   153.4kb
   dist\pino-file.mjs                     142.1kb
@@ -1765,63 +1436,36 @@ Done in 8370ms
   dist\thread-stream-worker.mjs            7.3kb
   ...and 5 more output files...
 
-Done in 6891ms
+Done in 6145ms
 
-  dist\validate-seeded-generation.mjs  685.9kb
+  dist\validate-seeded-generation.mjs    1.2mb
   dist\pino-worker.mjs                 153.4kb
   dist\pino-file.mjs                   142.1kb
   dist\pino-pretty.mjs                 114.6kb
   dist\thread-stream-worker.mjs          7.3kb
   ...and 5 more output files...
 
-Done in 5385ms
+Done in 11005ms
 
-  dist\stress-test-reasoning.mjs  220.2kb
+  dist\stress-test-reasoning.mjs  362.0kb
   dist\pino-worker.mjs            153.4kb
   dist\pino-file.mjs              142.1kb
   dist\pino-pretty.mjs            114.6kb
   dist\thread-stream-worker.mjs     7.3kb
   ...and 5 more output files...
 
-Done in 2065ms
+Done in 8864ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.5mb
+  dist\index.mjs                   4.0mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 14038ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2716ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3537ms
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 12372ms
+Done in 44351ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1830,7 +1474,7 @@ Done in 12372ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 4530ms
+Done in 516ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1839,7 +1483,7 @@ Done in 4530ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5762ms
+Done in 1163ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1848,7 +1492,7 @@ Done in 5762ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 4132ms
+Done in 7653ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1857,7 +1501,7 @@ Done in 4132ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2763ms
+Done in 11253ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1866,7 +1510,7 @@ Done in 2763ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 5611ms
+Done in 12876ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1875,7 +1519,7 @@ Done in 5611ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 6274ms
+Done in 4637ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
@@ -1884,7 +1528,7 @@ Done in 6274ms
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 3560ms
+Done in 16521ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1893,7 +1537,7 @@ Done in 3560ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 2736ms
+Done in 12474ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1902,16 +1546,16 @@ Done in 2736ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 7810ms
+Done in 5747ms
 
-  dist\validate-seating-generation.mjs  215.1kb
+  dist\validate-seating-generation.mjs  356.1kb
   dist\pino-worker.mjs                  153.4kb
   dist\pino-file.mjs                    142.1kb
   dist\pino-pretty.mjs                  114.6kb
   dist\thread-stream-worker.mjs           7.3kb
   ...and 5 more output files...
 
-Done in 1770ms
+Done in 5869ms
 
   dist\pino-worker.mjs                   153.4kb
   dist\pino-file.mjs                     142.1kb
@@ -1920,36 +1564,36 @@ Done in 1770ms
   dist\thread-stream-worker.mjs            7.3kb
   ...and 5 more output files...
 
-Done in 7890ms
+Done in 6935ms
 
-  dist\validate-seeded-generation.mjs  686.7kb
+  dist\validate-seeded-generation.mjs    1.2mb
   dist\pino-worker.mjs                 153.4kb
   dist\pino-file.mjs                   142.1kb
   dist\pino-pretty.mjs                 114.6kb
   dist\thread-stream-worker.mjs          7.3kb
   ...and 5 more output files...
 
-Done in 8764ms
+Done in 7859ms
 
-  dist\stress-test-reasoning.mjs  221.0kb
+  dist\stress-test-reasoning.mjs  362.0kb
   dist\pino-worker.mjs            153.4kb
   dist\pino-file.mjs              142.1kb
   dist\pino-pretty.mjs            114.6kb
   dist\thread-stream-worker.mjs     7.3kb
   ...and 5 more output files...
 
-Done in 2083ms
+Done in 7466ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
 
-  dist\index.mjs                   3.5mb
+  dist\index.mjs                   4.0mb
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
   dist\pino-pretty.mjs           114.6kb
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 938ms
+Done in 54011ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1958,7 +1602,7 @@ Done in 938ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 136ms
+Done in 494ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1967,7 +1611,7 @@ Done in 136ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 134ms
+Done in 382ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1976,7 +1620,7 @@ Done in 134ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 142ms
+Done in 493ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1985,7 +1629,7 @@ Done in 142ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 160ms
+Done in 285ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -1994,7 +1638,7 @@ Done in 160ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 133ms
+Done in 335ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -2003,7 +1647,7 @@ Done in 133ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 144ms
+Done in 344ms
 
   dist\pino-worker.mjs             153.4kb
   dist\pino-file.mjs               142.1kb
@@ -2012,7 +1656,7 @@ Done in 144ms
   dist\thread-stream-worker.mjs      7.3kb
   ...and 5 more output files...
 
-Done in 133ms
+Done in 460ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -2021,7 +1665,7 @@ Done in 133ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 128ms
+Done in 353ms
 
   dist\pino-worker.mjs           153.4kb
   dist\pino-file.mjs             142.1kb
@@ -2030,16 +1674,16 @@ Done in 128ms
   dist\thread-stream-worker.mjs    7.3kb
   ...and 5 more output files...
 
-Done in 126ms
+Done in 454ms
 
-  dist\validate-seating-generation.mjs  215.1kb
+  dist\validate-seating-generation.mjs  356.1kb
   dist\pino-worker.mjs                  153.4kb
   dist\pino-file.mjs                    142.1kb
   dist\pino-pretty.mjs                  114.6kb
   dist\thread-stream-worker.mjs           7.3kb
   ...and 5 more output files...
 
-Done in 150ms
+Done in 397ms
 
   dist\pino-worker.mjs                   153.4kb
   dist\pino-file.mjs                     142.1kb
@@ -2048,1059 +1692,24 @@ Done in 150ms
   dist\thread-stream-worker.mjs            7.3kb
   ...and 5 more output files...
 
-Done in 123ms
+Done in 483ms
 
-  dist\validate-seeded-generation.mjs  686.7kb
+  dist\validate-seeded-generation.mjs    1.2mb
   dist\pino-worker.mjs                 153.4kb
   dist\pino-file.mjs                   142.1kb
   dist\pino-pretty.mjs                 114.6kb
   dist\thread-stream-worker.mjs          7.3kb
   ...and 5 more output files...
 
-Done in 308ms
+Done in 986ms
 
-  dist\stress-test-reasoning.mjs  221.0kb
+  dist\stress-test-reasoning.mjs  362.0kb
   dist\pino-worker.mjs            153.4kb
   dist\pino-file.mjs              142.1kb
   dist\pino-pretty.mjs            114.6kb
   dist\thread-stream-worker.mjs     7.3kb
   ...and 5 more output files...
 
-Done in 151ms
+Done in 264ms
 [firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
  Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1055ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 119ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2684ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3688ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1193ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3882ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3532ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 5405ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1845ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5140ms
-
-  dist\validate-seating-generation.mjs  215.1kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 6082ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 1429ms
-
-  dist\validate-seeded-generation.mjs  686.7kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 6965ms
-
-  dist\stress-test-reasoning.mjs  221.0kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 2784ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 843ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 106ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 105ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 114ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 123ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 133ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 123ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 134ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 132ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 119ms
-
-  dist\validate-seating-generation.mjs  215.1kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 144ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 112ms
-
-  dist\validate-seeded-generation.mjs  686.7kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 173ms
-
-  dist\stress-test-reasoning.mjs  221.0kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 154ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 5814ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1926ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4676ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4871ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6403ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4768ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1926ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 3855ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1188ms
-Error: The service was stopped
-    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:949:34
-    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
-    at Socket.afterClose (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:594:28)
-    at Socket.emit (node:events:520:35)
-    at endReadableNT (node:internal/streams/readable:1729:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 8406ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1033ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2945ms
-
-  
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 9921ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 723ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2213ms
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 9586ms
-
-  dist\pino-worker.mjs           153.4kb
-  Error: The service was stopped
-    at C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:949:34
-    at responseCallbacks.<computed> (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
-    at Socket.afterClose (C:\Users\gurbaj\Downloads\f\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:594:28)
-    at Socket.emit (node:events:520:35)
-    at endReadableNT (node:internal/streams/readable:1729:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 12669ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1313ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 659ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 4502ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2894ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1270ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 14430ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 8999ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7655ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1194ms
-
-  dist\validate-seating-generation.mjs  215.1kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 5579ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 5688ms
-
-  dist\validate-seeded-generation.mjs  686.7kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 4895ms
-
-  dist\stress-test-reasoning.mjs  221.0kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 7772ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 7793ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 980ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2363ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 587ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 449ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1039ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1532ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 782ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2184ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2017ms
-
-  dist\validate-seating-generation.mjs  219.9kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 2398ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 2786ms
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 6005ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 282ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1959ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1564ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 694ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2060ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1304ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 1526ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1680ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 3117ms
-
-  dist\validate-seating-generation.mjs  219.9kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 155ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 100ms
-
-  dist\validate-seeded-generation.mjs  691.5kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 438ms
-
-  dist\stress-test-reasoning.mjs  225.9kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 3129ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 8447ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1884ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1246ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2621ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2923ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 2418ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 752ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 726ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1706ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 1317ms
-
-  dist\validate-seating-generation.mjs  219.9kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 3968ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 2174ms
-
-  dist\validate-seeded-generation.mjs  693.7kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 1498ms
-
-  dist\stress-test-reasoning.mjs  225.9kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 2001ms
-[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
- Failed to parse private key: Error: Invalid PEM formatted message.
-
-  dist\index.mjs                   3.5mb
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 8551ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\migrate.mjs                40.0kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 88ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-init.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 208ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-reset.mjs               18.5kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 111ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\db-seed.mjs                22.3kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 111ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\normalize-questions.mjs    22.4kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 91ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-normalization.mjs    19.7kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 86ms
-
-  dist\pino-worker.mjs             153.4kb
-  dist\pino-file.mjs               142.1kb
-  dist\pino-pretty.mjs             114.6kb
-  dist\populate-global-topics.mjs   23.8kb
-  dist\thread-stream-worker.mjs      7.3kb
-  ...and 5 more output files...
-
-Done in 87ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\check-schema-drift.mjs     26.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 95ms
-
-  dist\pino-worker.mjs           153.4kb
-  dist\pino-file.mjs             142.1kb
-  dist\pino-pretty.mjs           114.6kb
-  dist\seed-english-topics.mjs    20.2kb
-  dist\thread-stream-worker.mjs    7.3kb
-  ...and 5 more output files...
-
-Done in 114ms
-
-  dist\validate-seating-generation.mjs  219.9kb
-  dist\pino-worker.mjs                  153.4kb
-  dist\pino-file.mjs                    142.1kb
-  dist\pino-pretty.mjs                  114.6kb
-  dist\thread-stream-worker.mjs           7.3kb
-  ...and 5 more output files...
-
-Done in 150ms
-
-  dist\pino-worker.mjs                   153.4kb
-  dist\pino-file.mjs                     142.1kb
-  dist\pino-pretty.mjs                   114.6kb
-  dist\validate-seating-orientation.mjs   29.9kb
-  dist\thread-stream-worker.mjs            7.3kb
-  ...and 5 more output files...
-
-Done in 90ms
-
-  dist\validate-seeded-generation.mjs  693.7kb
-  dist\pino-worker.mjs                 153.4kb
-  dist\pino-file.mjs                   142.1kb
-  dist\pino-pretty.mjs                 114.6kb
-  dist\thread-stream-worker.mjs          7.3kb
-  ...and 5 more output files...
-
-Done in 125ms
-
-  dist\stress-test-reasoning.mjs  225.9kb
-  dist\pino-worker.mjs            153.4kb
-  dist\pino-file.mjs              142.1kb
-  dist\pino-pretty.mjs            114.6kb
-  dist\thread-stream-worker.mjs     7.3kb
-  ...and 5 more output files...
-
-Done in 90ms

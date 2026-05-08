@@ -7,12 +7,9 @@ type InterestSubtype =
   | "simple_interest"
   | "compound_interest"
   | "si_vs_ci"
-  | "half_yearly"
-  | "quarterly"
-  | "population_growth"
-  | "depreciation"
-  | "reverse_reconstruction"
-  | "multi_stage_growth";
+  | "installment"
+  | "growth_decay"
+  | "transaction";
 
 type InterestMotifDraft = {
   id: string;
@@ -23,6 +20,18 @@ type InterestMotifDraft = {
   arithmeticProfile: string[];
   difficulty: 1 | 2 | 3 | 4;
   examples: string[];
+};
+
+type InterestMotifConfig = {
+  id: string;
+  categories: string[];
+  operations: string[];
+  distractors: string[];
+  depth: [number, number];
+  difficulties: QuantMotif["supportedDifficultyBands"];
+  strategy: string;
+  tuning: QuantMotif["difficultyTuning"];
+  diversityTag: string;
 };
 
 export const simpleCompoundInterestScopeMap = {
@@ -49,15 +58,14 @@ export const simpleCompoundInterestScopeMap = {
 
 export const simpleCompoundInterestConcepts =
   [
-    "simple interest",
-    "compound interest",
-    "principal-amount relation",
-    "linear growth",
-    "multiplicative growth",
-    "fractional compounding",
+    "timeline-state financial growth",
+    "simple interest linear growth",
+    "compound interest multiplier growth",
+    "principal amount reconstruction",
+    "rate-period normalization",
     "interest on interest",
-    "depreciation",
-    "reverse reconstruction",
+    "installment amortization",
+    "growth and depreciation analogies",
   ];
 
 export const simpleCompoundInterestCoreFrameworks =
@@ -71,44 +79,38 @@ export const simpleCompoundInterestCoreFrameworks =
     },
     {
       id: "CF2",
-      title: "Amount Relation",
+      title:
+        "Compound Interest Framework",
       canonicalRelation:
-        "A = P + SI",
+        "A = P(1 + R/100)^T and CI = A - P",
     },
     {
       id: "CF3",
       title:
-        "Compound Interest Framework",
+        "Timeline-State Model",
       canonicalRelation:
-        "A = P (1 + R/100)^T and CI = A - P",
+        "principal and amount are updated across t0 -> tn intervals",
     },
     {
       id: "CF4",
       title:
-        "Successive Percentage Growth",
+        "Rate-Period Normalization",
       canonicalRelation:
-        "net_growth_multiplier = (1 + R/100)^T",
+        "frequency k transforms rate to R/k and periods to kT",
     },
     {
       id: "CF5",
       title:
-        "Fractional Compounding Framework",
+        "SI-CI Delta Framework",
       canonicalRelation:
-        "half-yearly uses (1 + (R/2)/100)^(2T) and quarterly uses (1 + (R/4)/100)^(4T)",
+        "CI - SI isolates interest earned on earlier interest",
     },
     {
       id: "CF6",
       title:
-        "Depreciation Framework",
+        "Installment Present Value",
       canonicalRelation:
-        "A = P (1 - R/100)^T",
-    },
-    {
-      id: "CF7",
-      title:
-        "Difference Between SI and CI",
-      canonicalRelation:
-        "CI - SI captures interest on interest",
+        "P equals the discounted value of all equal repayments",
     },
   ];
 
@@ -116,281 +118,356 @@ export const simpleCompoundInterestConceptModules =
   [
     "direct simple interest",
     "principal reconstruction",
+    "sum becoming multiple of itself",
+    "rate shift sensitivity",
+    "split investment",
+    "equal interest allocation",
     "compound amount growth",
-    "difference between simple and compound interest",
+    "varying annual rates",
     "fractional compounding",
-    "population growth analogy",
-    "depreciation systems",
-    "effective rate comparison",
+    "SI-CI difference",
     "installment reconstruction",
-    "reverse interest reconstruction",
+    "growth and depreciation",
+    "transaction arbitrage",
   ];
 
 export const simpleCompoundInterestProceduralMotifs: InterestMotifDraft[] =
   [
     {
-      id: "linear-interest-accumulation",
+      id: "si-basic-amount",
       subtype: "simple_interest",
-      primitives: [
-        "principal",
-        "rate",
-        "time",
-      ],
-      hiddenStructures: [
-        "linear growth",
-      ],
-      distractorFamilies: [
-        "siCiFormulaSwap",
-        "percentageBaseDrift",
-      ],
-      arithmeticProfile: [
-        "single-stage percentage application",
-      ],
+      primitives: ["principal", "rate", "time"],
+      hiddenStructures: ["linear growth"],
+      distractorFamilies: ["Amount_vs_Interest_Confusion"],
+      arithmeticProfile: ["single-stage percentage"],
       difficulty: 1,
-      examples: [
-        "Find simple interest on Rs. 5000 at 10% for 3 years.",
-      ],
+      examples: ["Given P, R, T, find SI or amount."],
     },
     {
-      id: "multiplicative-growth",
+      id: "si-find-principal",
+      subtype: "simple_interest",
+      primitives: ["amount", "rate", "time"],
+      hiddenStructures: ["reverse linear growth"],
+      distractorFamilies: ["CI_Inversion"],
+      arithmeticProfile: ["principal backsolve"],
+      difficulty: 2,
+      examples: ["Given amount under SI, find principal."],
+    },
+    {
+      id: "si-multiple-times",
+      subtype: "simple_interest",
+      primitives: ["multiple", "time"],
+      hiddenStructures: ["linear multiple growth"],
+      distractorFamilies: ["SI_Growth_Assumption"],
+      arithmeticProfile: ["rate reconstruction"],
+      difficulty: 2,
+      examples: ["A sum becomes k times itself in n years."],
+    },
+    {
+      id: "si-rate-shift",
+      subtype: "simple_interest",
+      primitives: ["principal", "time", "rate delta"],
+      hiddenStructures: ["interest sensitivity"],
+      distractorFamilies: ["Rate_Time_Mismatch"],
+      arithmeticProfile: ["delta interest"],
+      difficulty: 2,
+      examples: ["If rate were higher, interest would be more."],
+    },
+    {
+      id: "si-split-investment",
+      subtype: "simple_interest",
+      primitives: ["total principal", "two rates", "total interest"],
+      hiddenStructures: ["partition equation"],
+      distractorFamilies: ["Unit_Inconsistency"],
+      arithmeticProfile: ["linear equation"],
+      difficulty: 3,
+      examples: ["Part of a sum is invested at one rate and rest at another."],
+    },
+    {
+      id: "si-equal-interest",
+      subtype: "simple_interest",
+      primitives: ["different rates", "different times"],
+      hiddenStructures: ["inverse RT allocation"],
+      distractorFamilies: ["Rate_Time_Mismatch"],
+      arithmeticProfile: ["ratio reconstruction"],
+      difficulty: 3,
+      examples: ["Divide a sum so the parts earn equal interest."],
+    },
+    {
+      id: "si-equal-amount",
+      subtype: "simple_interest",
+      primitives: ["different SI schedules", "equal final amounts"],
+      hiddenStructures: ["inverse amount multiplier"],
+      distractorFamilies: ["Amount_vs_Interest_Confusion"],
+      arithmeticProfile: ["ratio reconstruction"],
+      difficulty: 3,
+      examples: ["Divide a sum so final amounts are equal."],
+    },
+    {
+      id: "ci-basic-calc",
       subtype: "compound_interest",
-      primitives: [
-        "principal",
-        "rate",
-        "time",
-      ],
-      hiddenStructures: [
-        "compound multiplier",
-      ],
-      distractorFamilies: [
-        "additiveGrowthTrap",
-        "siCiFormulaSwap",
-      ],
-      arithmeticProfile: [
-        "successive percentage multiplication",
-      ],
+      primitives: ["principal", "rate", "years"],
+      hiddenStructures: ["multiplicative growth"],
+      distractorFamilies: ["Simple_Addition_Trap"],
+      arithmeticProfile: ["successive multiplier"],
       difficulty: 2,
-      examples: [
-        "Find compound amount after 2 years.",
-      ],
+      examples: ["Given P, R, n, find compound amount or CI."],
     },
     {
-      id: "interest-on-interest-detection",
+      id: "ci-varying-rate",
+      subtype: "compound_interest",
+      primitives: ["principal", "rate sequence"],
+      hiddenStructures: ["timeline multipliers"],
+      distractorFamilies: ["Mixed_Scheme_Overlap"],
+      arithmeticProfile: ["stage-wise multiplication"],
+      difficulty: 3,
+      examples: ["Different rates apply in successive years."],
+    },
+    {
+      id: "ci-compounding-period",
+      subtype: "compound_interest",
+      primitives: ["frequency", "nominal rate", "time"],
+      hiddenStructures: ["rate-period normalization"],
+      distractorFamilies: ["Compounding_Frequency_Neglect"],
+      arithmeticProfile: ["period transformation"],
+      difficulty: 3,
+      examples: ["Compounded half-yearly or quarterly."],
+    },
+    {
+      id: "ci-fractional-time",
+      subtype: "compound_interest",
+      primitives: ["whole years", "fractional year"],
+      hiddenStructures: ["partial interval growth"],
+      distractorFamilies: ["Fractional_Time_Linear"],
+      arithmeticProfile: ["mixed exponent"],
+      difficulty: 3,
+      examples: ["Find amount for 2 1/3 years."],
+    },
+    {
+      id: "ci-multiple-times",
+      subtype: "compound_interest",
+      primitives: ["growth multiple", "time"],
+      hiddenStructures: ["exponential recurrence"],
+      distractorFamilies: ["SI_Growth_Assumption"],
+      arithmeticProfile: ["time scaling"],
+      difficulty: 2,
+      examples: ["If a sum becomes k times in n years, find time for k^m."],
+    },
+    {
+      id: "ci-population-growth",
+      subtype: "growth_decay",
+      primitives: ["initial population", "growth rate", "years"],
+      hiddenStructures: ["compound growth analogy"],
+      distractorFamilies: ["Effective_Rate_Fallacy"],
+      arithmeticProfile: ["successive multiplier"],
+      difficulty: 2,
+      examples: ["Population grows annually by a fixed rate."],
+    },
+    {
+      id: "delta-2-year",
       subtype: "si_vs_ci",
-      primitives: [
-        "same principal",
-        "same rate",
-        "same time",
-      ],
-      hiddenStructures: [
-        "secondary growth layer",
-      ],
-      distractorFamilies: [
-        "interestOnInterestOmission",
-      ],
-      arithmeticProfile: [
-        "growth model comparison",
-      ],
-      difficulty: 2,
-      examples: [
-        "Difference between SI and CI for 2 years.",
-      ],
-    },
-    {
-      id: "effective-period-transformation",
-      subtype: "half_yearly",
-      primitives: [
-        "rate adjustment",
-        "period adjustment",
-      ],
-      hiddenStructures: [
-        "rate-period normalization",
-      ],
-      distractorFamilies: [
-        "halfYearlyAdjustmentFailure",
-      ],
-      arithmeticProfile: [
-        "period conversion",
-      ],
+      primitives: ["principal", "rate", "two years"],
+      hiddenStructures: ["interest on interest"],
+      distractorFamilies: ["Delta_Formula_Mixup"],
+      arithmeticProfile: ["delta formula"],
       difficulty: 3,
-      examples: [
-        "Compounded half-yearly. Find amount.",
-      ],
+      examples: ["Difference between SI and CI for two years."],
     },
     {
-      id: "compound-decay",
-      subtype: "depreciation",
-      primitives: [
-        "initial value",
-        "depreciation rate",
-        "years",
-      ],
-      hiddenStructures: [
-        "multiplicative decay",
-      ],
-      distractorFamilies: [
-        "depreciationSignError",
-      ],
-      arithmeticProfile: [
-        "successive decay",
-      ],
-      difficulty: 2,
-      examples: [
-        "Machine depreciates by 10% yearly.",
-      ],
-    },
-    {
-      id: "reverse-growth-reconstruction",
-      subtype: "reverse_reconstruction",
-      primitives: [
-        "amount",
-        "rate or time",
-      ],
-      hiddenStructures: [
-        "inverse growth reasoning",
-      ],
-      distractorFamilies: [
-        "reverseReconstructionError",
-      ],
-      arithmeticProfile: [
-        "parameter backsolve",
-      ],
+      id: "delta-3-year",
+      subtype: "si_vs_ci",
+      primitives: ["principal", "rate", "three years"],
+      hiddenStructures: ["second and third year excess"],
+      distractorFamilies: ["Delta_Formula_Mixup"],
+      arithmeticProfile: ["delta formula"],
       difficulty: 3,
-      examples: [
-        "Amount and rate are known. Find principal.",
-      ],
+      examples: ["Difference between SI and CI for three years."],
     },
     {
-      id: "equivalent-multiplier-compression",
-      subtype: "multi_stage_growth",
-      primitives: [
-        "multiple growth steps",
-        "single net multiplier",
-      ],
-      hiddenStructures: [
-        "successive multiplier compression",
-      ],
-      distractorFamilies: [
-        "equivalentMultiplierCollapse",
-        "additiveGrowthTrap",
-      ],
-      arithmeticProfile: [
-        "multi-stage multiplier chaining",
-      ],
+      id: "delta-reverse",
+      subtype: "si_vs_ci",
+      primitives: ["delta", "rate or principal"],
+      hiddenStructures: ["reverse delta"],
+      distractorFamilies: ["CI_Inversion"],
+      arithmeticProfile: ["parameter backsolve"],
+      difficulty: 3,
+      examples: ["Given SI-CI difference, find principal."],
+    },
+    {
+      id: "ci-from-si",
+      subtype: "si_vs_ci",
+      primitives: ["simple interest", "rate", "time"],
+      hiddenStructures: ["principal reconstruction plus compound growth"],
+      distractorFamilies: ["Base_Year_Shift"],
+      arithmeticProfile: ["two-stage reconstruction"],
+      difficulty: 3,
+      examples: ["Given SI for two years, find CI."],
+    },
+    {
+      id: "si-installment",
+      subtype: "installment",
+      primitives: ["debt", "rate", "installments"],
+      hiddenStructures: ["linear repayment accumulation"],
+      distractorFamilies: ["Installment_Principal_Error"],
+      arithmeticProfile: ["installment equation"],
       difficulty: 4,
-      examples: [
-        "Rate changes yearly and the final amount must be recovered.",
-      ],
+      examples: ["Equal yearly payments clear a debt under SI."],
     },
     {
-      id: "comparative-interest-systems",
-      subtype: "si_vs_ci",
-      primitives: [
-        "same principal",
-        "competing growth models",
-      ],
-      hiddenStructures: [
-        "linear vs multiplicative growth comparison",
-      ],
-      distractorFamilies: [
-        "siCiFormulaSwap",
-        "percentageBaseDrift",
-      ],
-      arithmeticProfile: [
-        "comparative model reasoning",
-      ],
+      id: "ci-installment",
+      subtype: "installment",
+      primitives: ["loan", "rate", "installments"],
+      hiddenStructures: ["present value of annuity"],
+      distractorFamilies: ["Residual_Debt_Ignorance"],
+      arithmeticProfile: ["GP repayment"],
+      difficulty: 4,
+      examples: ["Equal yearly payments clear a loan under CI."],
+    },
+    {
+      id: "ci-loan-repayment",
+      subtype: "installment",
+      primitives: ["loan", "installment", "rate"],
+      hiddenStructures: ["interest component separation"],
+      distractorFamilies: ["Installment_Principal_Error"],
+      arithmeticProfile: ["amortization state"],
+      difficulty: 4,
+      examples: ["Find interest component of the first EMI."],
+    },
+    {
+      id: "ci-continuous",
+      subtype: "compound_interest",
+      primitives: ["principal", "continuous rate", "time"],
+      hiddenStructures: ["continuous multiplier"],
+      distractorFamilies: ["Effective_Rate_Fallacy"],
+      arithmeticProfile: ["elite exponent model"],
+      difficulty: 4,
+      examples: ["Compounded continuously."],
+    },
+    {
+      id: "ci-growth-regression",
+      subtype: "growth_decay",
+      primitives: ["growth rate", "decay rate"],
+      hiddenStructures: ["successive opposing multipliers"],
+      distractorFamilies: ["Effective_Rate_Fallacy"],
+      arithmeticProfile: ["increase decrease chain"],
       difficulty: 3,
-      examples: [
-        "Compare simple and compound returns under different schedules.",
-      ],
+      examples: ["An item appreciates and then depreciates."],
+    },
+    {
+      id: "si-changing-principal",
+      subtype: "simple_interest",
+      primitives: ["partial repayment", "time intervals"],
+      hiddenStructures: ["timeline principal state"],
+      distractorFamilies: ["Mixed_Scheme_Overlap"],
+      arithmeticProfile: ["piecewise SI"],
+      difficulty: 4,
+      examples: ["Part principal is repaid mid-term."],
+    },
+    {
+      id: "ci-effective-annual-rate",
+      subtype: "compound_interest",
+      primitives: ["nominal rate", "frequency"],
+      hiddenStructures: ["effective annual multiplier"],
+      distractorFamilies: ["Compounding_Frequency_Neglect"],
+      arithmeticProfile: ["effective rate"],
+      difficulty: 4,
+      examples: ["Find the effective annual rate of a quarterly scheme."],
+    },
+    {
+      id: "transaction-arbitrage",
+      subtype: "transaction",
+      primitives: ["borrow SI", "lend CI"],
+      hiddenStructures: ["growth model spread"],
+      distractorFamilies: ["SI_CI_Formula_Swap"],
+      arithmeticProfile: ["comparative transaction"],
+      difficulty: 4,
+      examples: ["Borrowed at SI and lent at CI; find profit."],
     },
   ];
 
 export const simpleCompoundInterestQuestionArchetypes =
-  [
-    "direct simple interest computation",
-    "direct compound interest computation",
-    "si vs ci difference",
-    "half-yearly compounding",
-    "population growth",
-    "depreciation problem",
-    "reverse principal reconstruction",
-    "multi-stage growth system",
-  ];
+  simpleCompoundInterestProceduralMotifs.map(
+    (motif) => motif.id,
+  );
 
 export const simpleCompoundInterestDistractorEngineering =
   [
-    "swap simple and compound growth formulas",
-    "drift to the wrong percentage base after a compounding step",
-    "add percentage changes directly instead of multiplying successive factors",
-    "halve the rate for half-yearly compounding without doubling the periods",
-    "ignore the interest on previous interest",
-    "use a growth multiplier instead of a decay multiplier in depreciation",
-    "mis-isolate the hidden principal, rate, or time during reverse reconstruction",
-    "collapse multiplicative changes into additive shortcuts",
+    "Compounding_Frequency_Neglect",
+    "Simple_Addition_Trap",
+    "Amount_vs_Interest_Confusion",
+    "Rate_Time_Mismatch",
+    "Effective_Rate_Fallacy",
+    "Installment_Principal_Error",
+    "Delta_Formula_Mixup",
+    "Base_Year_Shift",
+    "Fractional_Time_Linear",
+    "SI_Growth_Assumption",
+    "CI_Inversion",
+    "Decimal_Overflow",
+    "Tax_Incidence_Omission",
+    "Leap_Year_Day_Count",
+    "Mixed_Scheme_Overlap",
+    "Residual_Debt_Ignorance",
+    "Unit_Inconsistency",
+    "Rounding_Trap",
   ];
 
 export const simpleCompoundInterestHiddenInferenceStructures =
   [
+    "timeline-state financial growth",
     "linear vs multiplicative growth",
     "compound multiplier systems",
     "effective period transformation",
     "interest-on-interest accumulation",
     "reverse parameter isolation",
+    "installment present-value reconstruction",
   ];
 
 export const simpleCompoundInterestDifficultyScaling =
   {
     L1: [
-      "direct simple interest",
-      "direct amount from simple interest",
+      "direct SI formulas with clean whole-number values",
     ],
     L2: [
-      "direct compound interest",
-      "simple si-vs-ci comparison",
-      "depreciation",
+      "CI basics, varying rates, and SI rate shifts",
     ],
     L3: [
-      "half-yearly or quarterly compounding",
-      "reverse principal reconstruction",
-      "population-growth style multiplier use",
+      "SI-CI differences, quarterly compounding, and fractional time",
     ],
     L4: [
-      "multi-stage growth with changing rates",
-      "compressed multiplier comparison",
+      "installments, continuous compounding, and transaction arbitrage",
     ],
   } as const;
 
 export const simpleCompoundInterestDifficultyTuning =
   [
-    "easy: direct simple interest or clean compound amount questions",
-    "medium: si-vs-ci difference, depreciation, or direct population growth",
-    "hard: half-yearly or quarterly compounding, reverse reconstruction, and multi-stage multiplier chaining",
+    "easy: linear simple interest with whole-number arithmetic",
+    "medium: annual compound growth, rate shifts, and varying rates",
+    "hard: delta systems, fractional compounding, installments, and comparative transactions",
   ];
 
 export const simpleCompoundInterestNumericDesignPatterns =
   [
-    "prefer common rates like 5%, 10%, 12%, 12.5%, and 20%",
-    "prefer principal-rate-time families such as (1000,10,2), (5000,20,3), and (8000,5,4)",
-    "use half-yearly and quarterly patterns only when the resulting arithmetic stays mental-math friendly",
-    "prefer SI-CI difference cases where the excess remains easy to compute mentally",
+    "prefer rates like 5%, 10%, 12.5%, 20%, and 25%",
+    "prefer principal families around 1000, 2000, 5000, 8000, 10000, 12500, and 20000",
+    "use 11^2, 11^3, 12^2, 12.5%, and 25% families for clean compound outputs",
+    "round non-SSC elite outputs to 2 decimals while keeping SSC outputs mentally computable",
   ];
 
 export const simpleCompoundInterestGeneratorConstraints =
   [
-    "preserve the correct growth model at every transformation",
+    "normalize every rate to a decimal and every time value to years before solving",
+    "track principal, effective rate, and accumulated amount across every timeline interval",
     "do not reduce compound growth into simple additive percentage logic",
-    "reward multiplier recognition and transformation insight over brute-force arithmetic",
-    "keep principals, rates, and time spans financially realistic and exam-friendly",
-    "treat investment growth, population growth, and bacterial growth as one topology when the multiplier system is identical",
+    "ensure SI-CI delta questions use the correct two-year or three-year topology",
+    "avoid cosmetic diversity from changing bank, loan, population, or investment nouns without changing topology",
   ];
 
 export const simpleCompoundInterestGenerationStrategyMetadata =
   [
-    "This chapter is fundamentally about choosing the right growth topology before computing.",
-    "Simple interest is linear-growth reasoning; compound interest is successive multiplier reasoning.",
-    "Strong generation should rotate beyond direct substitution into reverse reconstruction, period transformation, and comparative growth systems.",
-    "Avoid fake diversity from changing bank, loan, or population nouns without changing the multiplier topology.",
+    "The live generator should select topology first, then realize the financial context.",
+    "Simple interest is linear timeline accumulation; compound interest is stateful multiplier progression.",
+    "Installment questions must distinguish interest component, principal component, and residual balance.",
   ];
 
 export const simpleCompoundInterestFormulaBank =
@@ -406,15 +483,15 @@ export const simpleCompoundInterestFormulaBank =
         "A = P\\left(1 + \\frac{R}{100}\\right)^T",
     },
     {
-      label:
-        "Half-Yearly Compounding",
+      label: "Two-Year SI-CI Difference",
       latex:
-        "A = P\\left(1 + \\frac{R/2}{100}\\right)^{2T}",
+        "\\Delta = P\\left(\\frac{R}{100}\\right)^2",
     },
     {
-      label: "Depreciation",
+      label:
+        "Compound Installment",
       latex:
-        "A = P\\left(1 - \\frac{R}{100}\\right)^T",
+        "x = \\frac{P r(1+r)^n}{(1+r)^n - 1}",
     },
   ];
 
@@ -424,12 +501,9 @@ export const simpleCompoundInterestMetadataSchema =
       "simple_interest",
       "compound_interest",
       "si_vs_ci",
-      "half_yearly",
-      "quarterly",
-      "population_growth",
-      "depreciation",
-      "reverse_reconstruction",
-      "multi_stage_growth",
+      "installment",
+      "growth_decay",
+      "transaction",
     ],
     fields: [
       "primitives",
@@ -442,455 +516,172 @@ export const simpleCompoundInterestMetadataSchema =
 
 export const simpleCompoundInterestEvaluationRisks =
   [
-    "formula leakage from phrases like compounded annually, half-yearly, or difference between SI and CI",
-    "topology collapse where many contexts reduce to multiplicative growth",
-    "artificial diversity from changing bank, investment, loan, or population wording without changing structure",
+    "formula leakage from direct phrases like compounded quarterly or difference between SI and CI",
+    "topology collapse where many contexts reduce to the same annual multiplier",
+    "incorrect active duplication between old canonical motif names and new topology IDs",
   ];
 
 export const simpleCompoundInterestRealismWeaknesses =
   [
     "overusing direct simple-interest substitution",
-    "overusing formula-only compound interest questions",
-    "avoiding reverse reconstruction",
-    "avoiding layered compounding and disguised multiplier systems",
+    "overusing annual compound-interest substitution",
+    "avoiding split investment, installment, and timeline-state problems",
   ];
 
 export const simpleCompoundInterestAntiRepetitionNotes =
   [
     "Treat investment growth, population growth, and bacterial growth as the same compound-multiplier topology.",
     "Treat depreciation, value reduction, and shrinking population as the same multiplicative-decay topology.",
+    "Treat old names such as linear-interest-accumulation as aliases only, never as separate active motifs.",
   ];
 
+function defineInterestMotif(
+  config: InterestMotifConfig,
+): QuantMotif {
+  return defineQuantMotif({
+    id: config.id,
+    topicCluster: "si-ci",
+    archetype: "general",
+    reasoningCategories:
+      config.categories,
+    preferredOperations:
+      config.operations,
+    commonDistractors:
+      config.distractors,
+    inferenceStyle:
+      config.depth[0] <= 2
+        ? "direct"
+        : "hidden",
+    reasoningDepthRange:
+      config.depth,
+    supportedDifficultyBands:
+      config.difficulties,
+    generationStrategy: [
+      config.strategy,
+    ],
+    distractorStrategies:
+      config.distractors,
+    difficultyTuning:
+      config.tuning,
+    validationRules: [
+      "solve through the timeline-state model and keep the answer unique",
+      "keep values clean or round to two decimals only when the motif is elite",
+    ],
+    diversityTags: [
+      config.diversityTag,
+    ],
+    rotationGroup:
+      "quant-interest-core",
+    wordingBias: {
+      balanced: 0.8,
+      inferenceHeavy:
+        config.depth[1] >= 5
+          ? 0.75
+          : 0.45,
+    },
+    examWeights: {
+      ssc:
+        config.depth[1] >= 6
+          ? 0.75
+          : 1.1,
+      ibps: 1.1,
+      sbi: 1.05,
+    },
+  });
+}
+
+const canonicalInterestMotifConfigs: InterestMotifConfig[] =
+  simpleCompoundInterestProceduralMotifs.map(
+    (motif) => ({
+      id: motif.id,
+      categories:
+        motif.difficulty >= 4
+          ? [
+              "multi-step-arithmetic",
+              "hidden-base-inference",
+              "nested-operations",
+            ]
+          : motif.difficulty >= 3
+            ? [
+                "comparative-conditional-inference",
+                "multi-step-arithmetic",
+              ]
+            : [
+                "direct-substitution",
+                "one-step-arithmetic",
+              ],
+      operations:
+        motif.difficulty >= 3
+          ? [
+              "transform",
+              "aggregate",
+              "infer",
+            ]
+          : ["transform", "infer"],
+      distractors:
+        motif.distractorFamilies,
+      depth:
+        motif.difficulty === 1
+          ? [1, 2]
+          : motif.difficulty === 2
+            ? [2, 4]
+            : motif.difficulty === 3
+              ? [3, 5]
+              : [4, 7],
+      difficulties:
+        motif.difficulty === 1
+          ? ["Easy", "Medium"]
+          : motif.difficulty === 2
+            ? ["Medium", "Hard"]
+            : motif.difficulty === 3
+              ? ["Medium", "Hard"]
+              : ["Hard"],
+      strategy: `Generate the ${motif.id} topology using ${motif.hiddenStructures.join(
+        ", ",
+      )}.`,
+      tuning:
+        motif.difficulty === 1
+          ? {
+              easy: [
+                "clean whole-number direct calculation",
+              ],
+              medium: [
+                "same topology with a hidden target value",
+              ],
+            }
+          : motif.difficulty === 2
+            ? {
+                medium: [
+                  "one financial transformation",
+                ],
+                hard: [
+                  "concealed base or amount target",
+                ],
+              }
+            : {
+                medium: [
+                  "visible topology but multi-step arithmetic",
+                ],
+                hard: [
+                  "concealed topology with timeline-state tracking",
+                ],
+              },
+      diversityTag: `interest-${motif.id}`,
+    }),
+  );
+
 export const simpleCompoundInterestMotifs: QuantMotif[] =
-  [
-    defineQuantMotif({
-      id: "linear-interest-accumulation",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "direct-substitution",
-        "one-step-arithmetic",
-      ],
-      preferredOperations: [
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "siCiFormulaSwap",
-        "percentageBaseDrift",
-      ],
-      inferenceStyle: "direct",
-      reasoningDepthRange: [1, 3],
-      supportedDifficultyBands: [
-        "Easy",
-        "Medium",
-      ],
-      generationStrategy: [
-        "use the linear SI relation with clean principal, rate, and time values",
-      ],
-      distractorStrategies: [
-        "apply compound-style multiplication to a simple-interest case",
-      ],
-      difficultyTuning: {
-        easy: [
-          "direct SI from P, R, and T",
-        ],
-        medium: [
-          "recover amount or missing simple-interest component",
-        ],
-      },
-      validationRules: [
-        "prefer clean percentage calculations",
-      ],
-      diversityTags: [
-        "interest-linear",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        concise: 0.8,
-        balanced: 0.75,
-      },
-      examWeights: {
-        ssc: 1.2,
-        ibps: 1.0,
-      },
-    }),
-    defineQuantMotif({
-      id: "multiplicative-growth",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "multi-step-arithmetic",
-        "nested-operations",
-      ],
-      preferredOperations: [
-        "transform",
-        "aggregate",
-        "infer",
-      ],
-      commonDistractors: [
-        "additiveGrowthTrap",
-        "siCiFormulaSwap",
-      ],
-      inferenceStyle: "conditional",
-      reasoningDepthRange: [2, 5],
-      supportedDifficultyBands: [
-        "Medium",
-        "Hard",
-      ],
-      generationStrategy: [
-        "treat compound interest as successive multiplier growth rather than repeated addition",
-      ],
-      distractorStrategies: [
-        "add the rate repeatedly instead of multiplying factors",
-        "apply a simple-interest formula to a compound case",
-      ],
-      difficultyTuning: {
-        medium: [
-          "annual compounding with short time horizon",
-        ],
-        hard: [
-          "hidden multiplier or changed rate across stages",
-        ],
-      },
-      validationRules: [
-        "keep multipliers mentally manageable",
-      ],
-      diversityTags: [
-        "interest-compound-growth",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        balanced: 0.8,
-      },
-      examWeights: {
-        ssc: 1.05,
-        ibps: 1.2,
-        sbi: 1.2,
-      },
-    }),
-    defineQuantMotif({
-      id: "interest-on-interest-detection",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "comparative-conditional-inference",
-        "multi-step-arithmetic",
-      ],
-      preferredOperations: [
-        "compare",
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "interestOnInterestOmission",
-        "siCiFormulaSwap",
-      ],
-      inferenceStyle: "hidden",
-      reasoningDepthRange: [2, 5],
-      supportedDifficultyBands: [
-        "Medium",
-        "Hard",
-      ],
-      generationStrategy: [
-        "compare CI and SI on the same principal to isolate the excess produced by interest on interest",
-      ],
-      distractorStrategies: [
-        "treat SI and CI as identical over multiple periods",
-      ],
-      difficultyTuning: {
-        medium: [
-          "two-year SI-CI difference",
-        ],
-        hard: [
-          "three-year comparison with one hidden parameter",
-        ],
-      },
-      validationRules: [
-        "prefer clean excess values",
-      ],
-      diversityTags: [
-        "interest-difference",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        balanced: 0.8,
-      },
-      examWeights: {
-        ssc: 1.15,
-        ibps: 1.1,
-      },
-    }),
-    defineQuantMotif({
-      id: "effective-period-transformation",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "conditional-ratio-logic",
-        "nested-operations",
-      ],
-      preferredOperations: [
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "halfYearlyAdjustmentFailure",
-        "percentageBaseDrift",
-      ],
-      inferenceStyle: "hidden",
-      reasoningDepthRange: [3, 6],
-      supportedDifficultyBands: [
-        "Hard",
-      ],
-      generationStrategy: [
-        "normalize compounding frequency by adjusting both the rate per period and the number of periods",
-      ],
-      distractorStrategies: [
-        "halve or quarter the rate without changing the number of periods",
-        "change periods without changing the periodic rate",
-      ],
-      difficultyTuning: {
-        hard: [
-          "half-yearly or quarterly compounding with a manageable multiplier",
-        ],
-      },
-      validationRules: [
-        "prefer compounding schedules that stay SSC-friendly",
-      ],
-      diversityTags: [
-        "interest-period-transform",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        balanced: 0.75,
-        inferenceHeavy: 0.7,
-      },
-      examWeights: {
-        ssc: 1.0,
-        ibps: 1.2,
-        sbi: 1.25,
-      },
-    }),
-    defineQuantMotif({
-      id: "compound-decay",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "multi-step-arithmetic",
-        "comparative-conditional-inference",
-      ],
-      preferredOperations: [
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "depreciationSignError",
-        "additiveGrowthTrap",
-      ],
-      inferenceStyle: "conditional",
-      reasoningDepthRange: [2, 4],
-      supportedDifficultyBands: [
-        "Medium",
-        "Hard",
-      ],
-      generationStrategy: [
-        "use a decay multiplier over repeated periods instead of subtracting a fixed amount each time",
-      ],
-      distractorStrategies: [
-        "use a growth multiplier instead of a decay multiplier",
-        "subtract the rate linearly each year",
-      ],
-      difficultyTuning: {
-        medium: [
-          "direct depreciation value after a few years",
-        ],
-        hard: [
-          "hidden initial or final state under decay",
-        ],
-      },
-      validationRules: [
-        "keep remaining values mentally trackable",
-      ],
-      diversityTags: [
-        "interest-decay",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        balanced: 0.75,
-      },
-      examWeights: {
-        ssc: 1.05,
-      },
-    }),
-    defineQuantMotif({
-      id: "reverse-growth-reconstruction",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "hidden-base-inference",
-        "nested-operations",
-      ],
-      preferredOperations: [
-        "reverse",
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "reverseReconstructionError",
-        "percentageBaseDrift",
-      ],
-      inferenceStyle: "hidden",
-      reasoningDepthRange: [3, 6],
-      supportedDifficultyBands: [
-        "Medium",
-        "Hard",
-      ],
-      generationStrategy: [
-        "backsolve principal, rate, or time from a final amount or interest condition",
-      ],
-      distractorStrategies: [
-        "solve forward instead of isolating the hidden parameter",
-        "use the wrong reference amount while reversing growth",
-      ],
-      difficultyTuning: {
-        medium: [
-          "principal from simple amount or clean compound amount",
-        ],
-        hard: [
-          "hidden rate or hidden period in a compound setup",
-        ],
-      },
-      validationRules: [
-        "ensure the hidden parameter resolves uniquely and cleanly",
-      ],
-      diversityTags: [
-        "interest-reverse",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        balanced: 0.8,
-      },
-      examWeights: {
-        ssc: 1.1,
-        ibps: 1.15,
-      },
-    }),
-    defineQuantMotif({
-      id: "equivalent-multiplier-compression",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "compound-change",
-        "nested-operations",
-      ],
-      preferredOperations: [
-        "aggregate",
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "equivalentMultiplierCollapse",
-        "additiveGrowthTrap",
-      ],
-      inferenceStyle: "hidden",
-      reasoningDepthRange: [3, 6],
-      supportedDifficultyBands: [
-        "Hard",
-      ],
-      generationStrategy: [
-        "compress multiple growth stages into one equivalent multiplier before solving for the target quantity",
-      ],
-      distractorStrategies: [
-        "replace multiplier chaining with direct percentage addition",
-      ],
-      difficultyTuning: {
-        hard: [
-          "rate changes yearly or stage-wise growth is concealed in the wording",
-        ],
-      },
-      validationRules: [
-        "keep stage count low but structurally meaningful",
-      ],
-      diversityTags: [
-        "interest-equivalent-multiplier",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        inferenceHeavy: 0.75,
-        balanced: 0.65,
-      },
-      examWeights: {
-        ssc: 0.95,
-        ibps: 1.2,
-      },
-    }),
-    defineQuantMotif({
-      id: "comparative-interest-systems",
-      topicCluster: "si-ci",
-      archetype: "general",
-      reasoningCategories: [
-        "comparative-conditional-inference",
-        "comparison-chain",
-      ],
-      preferredOperations: [
-        "compare",
-        "transform",
-        "infer",
-      ],
-      commonDistractors: [
-        "siCiFormulaSwap",
-        "percentageBaseDrift",
-      ],
-      inferenceStyle: "conditional",
-      reasoningDepthRange: [2, 5],
-      supportedDifficultyBands: [
-        "Medium",
-        "Hard",
-      ],
-      generationStrategy: [
-        "compare two growth systems, two schedules, or two return models on the same base",
-      ],
-      distractorStrategies: [
-        "treat two growth models as if they share the same transformation rule",
-      ],
-      difficultyTuning: {
-        medium: [
-          "simple-interest versus compound-interest comparison",
-        ],
-        hard: [
-          "compare schedules with changed compounding frequency or changed annual rates",
-        ],
-      },
-      validationRules: [
-        "ensure the comparison target is not directly exposed by the wording",
-      ],
-      diversityTags: [
-        "interest-comparative",
-      ],
-      rotationGroup:
-        "quant-interest-core",
-      wordingBias: {
-        balanced: 0.8,
-      },
-      examWeights: {
-        ssc: 1.0,
-        ibps: 1.15,
-      },
-    }),
-  ];
+  canonicalInterestMotifConfigs.map(
+    defineInterestMotif,
+  );
 
 export const simpleInterestConcepts = [
   "simple interest",
   "principal-amount relation",
-  "linear growth",
-  "reverse simple-interest reconstruction",
+  "linear timeline growth",
+  "split investment",
+  "equal interest allocation",
+  "changing principal",
 ];
 
 export const compoundInterestConcepts =
@@ -899,31 +690,19 @@ export const compoundInterestConcepts =
     "multiplicative growth",
     "fractional compounding",
     "interest on interest",
-    "compound decay",
+    "effective annual rate",
+    "compound installment",
   ];
 
 export const simpleInterestMotifs =
   simpleCompoundInterestMotifs.filter(
     (motif) =>
-      motif.id ===
-        "linear-interest-accumulation" ||
-      motif.id ===
-        "reverse-growth-reconstruction" ||
-      motif.id ===
-        "comparative-interest-systems",
+      motif.id.startsWith("si-"),
   );
 
 export const compoundInterestMotifs =
   simpleCompoundInterestMotifs.filter(
     (motif) =>
-      motif.id ===
-        "multiplicative-growth" ||
-      motif.id ===
-        "interest-on-interest-detection" ||
-      motif.id ===
-        "effective-period-transformation" ||
-      motif.id ===
-        "compound-decay" ||
-      motif.id ===
-        "equivalent-multiplier-compression",
+      motif.id.startsWith("ci-") ||
+      motif.id.startsWith("delta-"),
   );
