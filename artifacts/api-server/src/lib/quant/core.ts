@@ -391,6 +391,24 @@ export function inferQuantTopicCluster(
   const topicText = `${pattern.topic} ${pattern.subtopic} ${pattern.formula ?? ""}`.toLowerCase();
 
   if (
+    hasAnyToken(
+      `${pattern.topic} ${pattern.subtopic}`.toLowerCase(),
+      [
+      "simplification",
+      "vbodmas",
+      "bodmas",
+      "nested fraction",
+      "continued fraction",
+      "square root",
+      "cube root",
+      "index comparison",
+      ],
+    )
+  ) {
+    return "simplification";
+  }
+
+  if (
     hasAnyToken(topicText, [
       "number system",
       "number-system",
@@ -510,14 +528,249 @@ export function inferQuantTopicCluster(
 
   if (
     hasAnyToken(topicText, [
+      "permutation",
+      "permutations",
+      "combination",
+      "combinations",
+      "permutation-combination",
+      "permutations and combinations",
+      "p&c",
+      "counting",
+      "arrangement",
+      "selection",
+      "committee",
+      "handshake",
+      "circular permutation",
+      "digit formation",
+      "derangement",
+      "grid path",
+    ])
+  ) {
+    return "permutation-combination";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "trigonometry",
+      "trig",
+      "sine",
+      "cosine",
+      "tangent",
+      "sin",
+      "cos",
+      "tan",
+      "sec",
+      "cosec",
+      "csc",
+      "cot",
+      "height and distance",
+      "heights and distances",
+      "angle of elevation",
+      "angle of depression",
+    ])
+  ) {
+    return "trigonometry";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "equations",
+      "equation",
+      "linear equation",
+      "simultaneous equation",
+      "simultaneous equations",
+      "quadratic equation",
+      "quadratic equations",
+      "discriminant",
+      "vieta",
+      "roots of equation",
+      "modulus equation",
+      "absolute value equation",
+      "diophantine",
+      "common root",
+    ])
+  ) {
+    return "equations";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "progressions",
+      "progression",
+      "sequence",
+      "sequences",
+      "series",
+      "arithmetic progression",
+      "geometric progression",
+      "harmonic progression",
+      "ap",
+      "gp",
+      "hp",
+      "common difference",
+      "common ratio",
+      "sigma",
+      "summation",
+      "telescopic",
+      "arithmetic mean",
+      "geometric mean",
+      "harmonic mean",
+    ])
+  ) {
+    return "progressions";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "set theory",
+      "set-theory",
+      "sets",
+      "set operation",
+      "set operations",
+      "subset",
+      "subsets",
+      "proper subset",
+      "power set",
+      "membership",
+      "universal set",
+      "null set",
+      "empty set",
+      "venn diagram",
+      "venn diagrams",
+      "de morgan",
+      "cartesian product",
+      "symmetric difference",
+      "set relation",
+      "reflexive",
+      "symmetric relation",
+      "transitive",
+      "n(a)",
+      "a union b",
+      "a intersection b",
+    ])
+  ) {
+    return "set-theory";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "probability",
+      "probabilities",
+      "sample space",
+      "favorable",
+      "favourable",
+      "event",
+      "events",
+      "conditional probability",
+      "bayes",
+      "odds",
+      "venn probability",
+      "coin toss",
+      "dice probability",
+      "card probability",
+      "with replacement",
+      "without replacement",
+    ])
+  ) {
+    return "probability";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "functions",
+      "function",
+      "mapping",
+      "domain",
+      "range",
+      "injective",
+      "surjective",
+      "one-to-one",
+      "onto",
+      "composite function",
+      "composition",
+      "inverse function",
+      "greatest integer",
+      "floor function",
+      "fractional part",
+      "graph shift",
+      "f(x)",
+      "f(g(x))",
+    ])
+  ) {
+    return "functions";
+  }
+
+  if (
+    hasAnyToken(topicText, [
       "algebra",
       "equation",
       "linear equation",
       "quadratic",
       "identity",
+      "polynomial",
+      "modulus",
+      "inequality",
+      "function",
+      "logarithm",
+      "log",
+      "discriminant",
+      "roots",
+      "am-gm",
     ])
   ) {
-    return "algebra-basics";
+    return "algebra";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "coordinate geometry",
+      "coordinate-geometry",
+      "cartesian",
+      "cartesian plane",
+      "ordered pair",
+      "ordered pairs",
+      "point slope",
+      "point-slope",
+      "section formula",
+      "midpoint",
+      "centroid",
+      "slope",
+      "line equation",
+      "distance from line",
+      "circle equation",
+      "locus",
+      "reflection",
+      "intersection of lines",
+      "ax + by + c",
+    ])
+  ) {
+    return "coordinate-geometry";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "geometry",
+      "geometry-basics",
+      "line",
+      "angle",
+      "parallel",
+      "triangle",
+      "similar",
+      "congruent",
+      "circle theorem",
+      "chord",
+      "tangent",
+      "cyclic",
+      "coordinate geometry",
+      "slope",
+      "section formula",
+      "pythagoras",
+      "incenter",
+      "centroid",
+      "circumcenter",
+      "orthocenter",
+    ])
+  ) {
+    return "geometry";
   }
 
   if (
@@ -569,6 +822,16 @@ export function inferQuantTopicCluster(
 
   if (
     hasAnyToken(topicText, [
+      "pattern inference",
+      "engine pattern",
+      "engine-pattern",
+      "number series",
+      "letter series",
+      "mixed series",
+      "analogy",
+      "odd one out",
+      "odd-one-out",
+      "classification",
       "coding",
       "decoding",
       "code",
@@ -584,6 +847,12 @@ export function inferQuantTopicCluster(
     hasAnyToken(topicText, [
       "blood relation",
       "blood relations",
+      "coded relation",
+      "coded relations",
+      "family tree puzzle",
+      "family tree puzzles",
+      "engine relational",
+      "engine-relational",
       "family relation",
       "family tree",
       "brother",
@@ -601,6 +870,10 @@ export function inferQuantTopicCluster(
     hasAnyToken(topicText, [
       "inequality",
       "inequalities",
+      "coded inequality",
+      "coded inequalities",
+      "either conclusion",
+      "either-or",
       "greater than",
       "less than",
       "not greater than",
@@ -613,7 +886,82 @@ export function inferQuantTopicCluster(
 
   if (
     hasAnyToken(topicText, [
+      "engine critical",
+      "engine-critical",
+      "critical inference",
+      "statement assumption",
+      "statement-assumption",
+      "statement conclusion",
+      "statement-conclusion",
+      "course of action",
+      "course-of-action",
+      "cause effect",
+      "cause-effect",
+      "strong weak argument",
+      "strong-weak argument",
+      "strong-weak-arguments",
+      "verbal logic",
+    ])
+  ) {
+    return "critical-inference";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "engine temporal",
+      "engine-temporal",
+      "temporal reasoning",
+      "calendar",
+      "calendars",
+      "odd day",
+      "odd days",
+      "leap year",
+      "clock angle",
+      "clock overlap",
+      "faulty clock",
+      "clocks",
+    ])
+  ) {
+    return "temporal-reasoning";
+  }
+
+  if (
+    hasAnyToken(topicText, [
+      "engine abstract",
+      "engine-abstract",
+      "abstract reasoning",
+      "non verbal",
+      "non-verbal",
+      "figure series",
+      "paper cutting",
+      "paper-folding cutting",
+      "paper folding cutting",
+      "embedded figure",
+      "embedded figures",
+      "hidden figure",
+      "matrix transposition",
+      "svg figure",
+    ])
+  ) {
+    return "abstract-reasoning";
+  }
+
+  if (
+    hasAnyToken(topicText, [
       "direction sense",
+      "engine spatial",
+      "engine-spatial",
+      "spatial reasoning",
+      "cubes dice",
+      "cubes & dice",
+      "dice",
+      "cube painting",
+      "cube folding",
+      "mirror image",
+      "water image",
+      "paper folding",
+      "paper cutting",
+      "shadow direction",
       "direction",
       "north",
       "south",
@@ -641,6 +989,11 @@ export function inferQuantTopicCluster(
 
   if (
     hasAnyToken(topicText, [
+      "engine boolean",
+      "engine-boolean",
+      "logical venn",
+      "boolean deduction",
+      "boolean deductions",
       "syllogism",
       "conclusion",
       "statement",

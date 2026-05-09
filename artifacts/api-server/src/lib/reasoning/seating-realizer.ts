@@ -56,6 +56,27 @@ function arrangementLead(
       "parallel-row" ||
     scenario.arrangementType ===
       "double-row";
+  const constraintLead =
+    scenario.arrangementType ===
+      "floor"
+      ? `${personCount} persons live on different floors of an apartment. The bottom floor is numbered $1$.`
+      : scenario.arrangementType ===
+          "box-stack"
+        ? `${personCount} boxes are kept one above another in a vertical stack. Position $1$ is the bottom position.`
+        : scenario.arrangementType ===
+            "scheduling"
+          ? `${personCount} events are scheduled on different weekdays from Monday to Friday.`
+          : scenario.arrangementType ===
+              "ranking"
+            ? `${personCount} entities are arranged in a rank order from left to right.`
+            : scenario.arrangementType ===
+                "mapping"
+              ? `${personCount} entities are mapped to distinct slots and attributes.`
+              : "";
+
+  if (constraintLead) {
+    return `${constraintLead} Use the constraints to find the unique mapping.`;
+  }
   const orientationText =
     scenario.orientationType ===
       "center"
@@ -132,6 +153,24 @@ function clueToText(
       : "is seated";
 
   switch (clue.type) {
+    case "slot-fixed":
+      return `${clue.entity} is assigned to ${clue.slotLabel}.`;
+    case "slot-gap":
+      return clue.axis === "after" ||
+        clue.axis === "before"
+        ? `There are ${clue.gap} scheduled slot(s) between ${clue.left} and ${clue.right}.`
+        : `There are ${clue.gap} slot(s) between ${clue.left} and ${clue.right}.`;
+    case "slot-parity":
+      return `${clue.entity} is in an ${clue.parity}-numbered slot.`;
+    case "slot-immediate":
+      return clue.axis === "after" ||
+        clue.axis === "before"
+        ? `${clue.upper} is scheduled immediately ${clue.axis} ${clue.lower}.`
+        : `${clue.upper} is kept immediately ${clue.axis} ${clue.lower}.`;
+    case "slot-not":
+      return `${clue.entity} is not assigned to ${clue.slotLabel}.`;
+    case "attribute":
+      return `${clue.entity} has ${clue.attribute} ${clue.value}.`;
     case "absolute":
       return `${clue.person} ${seatSideWord} ${ordinal(clue.index + 1)} from the left end.`;
     case "end":
@@ -182,6 +221,24 @@ function reasoningForClue(
   scenario: LinearSeatingScenario,
 ) {
   switch (clue.type) {
+    case "slot-fixed":
+    case "attribute":
+      return createReasoningStep(
+        "compare",
+        clueToText(clue, scenario),
+      );
+    case "slot-gap":
+    case "slot-immediate":
+      return createReasoningStep(
+        "infer",
+        clueToText(clue, scenario),
+      );
+    case "slot-parity":
+    case "slot-not":
+      return createReasoningStep(
+        "filter",
+        clueToText(clue, scenario),
+      );
     case "absolute":
     case "end":
       return createReasoningStep(
@@ -255,7 +312,9 @@ export function buildSeatingExplanation(
     ),
     createReasoningStep(
       "infer",
-      scenario.arrangementType ===
+      scenario.constraintDimensionality
+        ? "Combine fixed assignments, domain pruning, and relative slot links until only one Entity-to-Slot mapping remains."
+        : scenario.arrangementType ===
         "linear"
         ? "Combine the left-right, neighbour, and elimination clues to narrow the row to one valid arrangement."
         : scenario.arrangementType ===
@@ -286,11 +345,24 @@ export function buildSeatingOptions(
 ): OptionResult {
   const correctAnswer =
     scenario.prompt.correctAnswer;
+  const optionSource =
+    scenario.prompt.type ===
+      "entity-slot" &&
+    scenario.attributeMap
+      ? [
+        ...new Set(
+          Object.values(
+            scenario.attributeMap,
+          ).flatMap((entry) =>
+            Object.values(entry),
+          ),
+        ),
+      ]
+      : scenario.participants;
   const options = shuffle([
     correctAnswer,
-    ...scenario.participants.filter(
-      (participant) =>
-        participant !== correctAnswer,
+    ...optionSource.filter(
+      (value) => value !== correctAnswer,
     ),
   ]).slice(0, 4);
 

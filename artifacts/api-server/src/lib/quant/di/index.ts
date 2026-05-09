@@ -1,6 +1,7 @@
 import type {
   DIDataRow,
   DIQuestion,
+  DIScenarioState,
   DIPattern,
   DISetProfile,
   DISeriesConfig,
@@ -51,6 +52,16 @@ type DIReasoningCategory =
   | "multi-step-reasoning"
   | "cross-series-reasoning"
   | "set-logic";
+
+const ADVANCED_DI_ARCHETYPE_IDS = [
+  "di-growth-rate",
+  "di-contribution",
+  "di-projection",
+  "di-avg-subset",
+] as const;
+
+type AdvancedDIArchetypeId =
+  (typeof ADVANCED_DI_ARCHETYPE_IDS)[number];
 
 function getCategoryLabel(
   di: DIPattern,
@@ -220,6 +231,84 @@ function getNumericColumns(
   );
 }
 
+function inferDITopology(
+  di: DIPattern | undefined,
+  visualType: DIVisualType,
+  series: DISeriesConfig[] | undefined,
+): DIScenarioState["topology"] {
+  if (di?.topology) {
+    return di.topology;
+  }
+
+  if (visualType === "line") {
+    return "line-graph";
+  }
+
+  if (visualType === "pie") {
+    return series && series.length > 1
+      ? "dual-pie-chart"
+      : "pie-chart";
+  }
+
+  if (visualType === "bar") {
+    return series && series.length > 1
+      ? "grouped-bar"
+      : "table";
+  }
+
+  return "table";
+}
+
+function buildDIScenarioState(
+  di: DIPattern | undefined,
+  tableData: DIDataRow[],
+  visualType: DIVisualType,
+  series: DISeriesConfig[] | undefined,
+): DIScenarioState {
+  const categoryColumn =
+    getCategoryColumn(tableData);
+  const numericColumns =
+    series?.length
+      ? series.map((item) => item.column)
+      : getNumericColumns(tableData);
+
+  return {
+    topology: inferDITopology(
+      di,
+      visualType,
+      series,
+    ),
+    metadata: {
+      title:
+        di?.title ??
+        "Data Interpretation Set",
+      unit:
+        numericColumns.length > 1
+          ? "units"
+          : numericColumns[0] ?? "value",
+      xLabel:
+        categoryColumn ?? "Interval",
+      yLabel:
+        numericColumns.join(", ") ||
+        "Value",
+    },
+    categories: numericColumns,
+    intervals: categoryColumn
+      ? tableData.map((row) =>
+          String(row[categoryColumn]),
+        )
+      : tableData.map(
+          (_row, index) =>
+            `Interval ${index + 1}`,
+        ),
+    dataset: tableData.map((row) =>
+      numericColumns.map((column) =>
+        Number(row[column] ?? 0),
+      ),
+    ),
+  };
+}
+
 function getCategoryColumn(
   tableData: DIDataRow[],
 ) {
@@ -273,6 +362,98 @@ function createNumericQuestion(
     explanation,
     optionMetadata:
       generated.optionMetadata,
+  };
+}
+
+function formatDIValue(
+  value: number,
+  decimals = 2,
+) {
+  return Number.isInteger(value)
+    ? String(value)
+    : value.toFixed(decimals);
+}
+
+function wrapMath(value: string | number) {
+  return `$${value}$`;
+}
+
+function createAdvancedNumericQuestion(
+  text: string,
+  correct: number,
+  explanation: string,
+  distractors: Array<{
+    value: number;
+    type:
+      | "percentageTrap"
+      | "wrongDenominator"
+      | "wrongIntermediateValue"
+      | "arithmeticSlip"
+      | "comparisonTrap";
+    likelyMistake: string;
+    reasoningTrap: string;
+  }>,
+  decimals = 2,
+): DIQuestionCore {
+  const correctValue =
+    formatDIValue(correct, decimals);
+  const options: OptionMetadata[] = [
+    {
+      value: correctValue,
+      isCorrect: true,
+    },
+    ...distractors.map((item) => ({
+      value: formatDIValue(
+        item.value,
+        decimals,
+      ),
+      isCorrect: false,
+      distractorType: item.type,
+      likelyMistake:
+        item.likelyMistake,
+      reasoningTrap: item.reasoningTrap,
+    })),
+  ];
+
+  const unique = new Map<
+    string,
+    OptionMetadata
+  >();
+  for (const option of options) {
+    unique.set(option.value, option);
+  }
+  while (unique.size < 4) {
+    const offset = unique.size + 1;
+    const value = formatDIValue(
+      correct + offset,
+      decimals,
+    );
+    unique.set(value, {
+      value,
+      isCorrect: false,
+      distractorType:
+        "arithmeticSlip",
+      likelyMistake:
+        "Made a nearby arithmetic slip.",
+      reasoningTrap:
+        "High-plausibility near value.",
+    });
+  }
+
+  const shuffled = shuffle([
+    ...unique.values(),
+  ]).slice(0, 4);
+
+  return {
+    text,
+    options: shuffled.map(
+      (option) => option.value,
+    ),
+    correct: shuffled.findIndex(
+      (option) => option.isCorrect,
+    ),
+    explanation,
+    optionMetadata: shuffled,
   };
 }
 
@@ -349,6 +530,7 @@ function aggregateByIndices(
 type DIQuestionContext = {
   tableData: DIDataRow[];
   visualType: DIVisualType;
+  scenarioState?: DIScenarioState;
   series?: DISeriesConfig[];
   categoryColumn: string;
   numericColumn: string;
@@ -378,6 +560,7 @@ type ConsecutiveComparison = {
 function createDIQuestionContext(
   tableData: DIDataRow[],
   visualType: DIVisualType,
+  scenarioState: DIScenarioState | undefined,
   series: DISeriesConfig[] | undefined,
   categoryColumn: string,
   numericColumns: string[],
@@ -413,6 +596,7 @@ function createDIQuestionContext(
   return {
     tableData,
     visualType,
+    scenarioState,
     series,
     categoryColumn,
     numericColumn,
@@ -1066,6 +1250,320 @@ function getSeriesColumns(
     context.series?.map(
       (series) => series.column,
     ) ?? context.numericColumns
+  );
+}
+
+function getStateValue(
+  context: DIQuestionContext,
+  intervalIndex: number,
+  categoryIndex: number,
+) {
+  return (
+    context.scenarioState?.dataset[
+      intervalIndex
+    ]?.[categoryIndex] ?? 0
+  );
+}
+
+function generateDIGrowthRateQuestion(
+  context: DIQuestionContext,
+): DIQuestionCore | undefined {
+  const state = context.scenarioState;
+  if (
+    !state ||
+    state.intervals.length < 2 ||
+    state.categories.length < 1
+  ) {
+    return undefined;
+  }
+
+  const categoryIndex = 0;
+  const fromIndex = 0;
+  const toIndex = 1;
+  const base = getStateValue(
+    context,
+    fromIndex,
+    categoryIndex,
+  );
+  const current = getStateValue(
+    context,
+    toIndex,
+    categoryIndex,
+  );
+  if (!base) {
+    return undefined;
+  }
+  const answer =
+    ((current - base) / base) * 100;
+  const finalBaseTrap =
+    ((current - base) / current) * 100;
+
+  return createAdvancedNumericQuestion(
+    `Using the same dataset, find the percentage growth of ${state.categories[categoryIndex]} from ${wrapMath(state.intervals[fromIndex])} to ${wrapMath(state.intervals[toIndex])}.`,
+    Number(answer.toFixed(2)),
+    [
+      `Formula: $\\text{Growth \\%}=\\frac{\\text{New}-\\text{Old}}{\\text{Old}}\\times100$.`,
+      `Substitution: $\\frac{${current}-${base}}{${base}}\\times100$.`,
+      `Simplification: $\\frac{${current - base}}{${base}}\\times100=${answer.toFixed(2)}\\%$.`,
+    ].join("\n"),
+    [
+      {
+        value: finalBaseTrap,
+        type: "wrongDenominator",
+        likelyMistake:
+          "Used the final year as the denominator.",
+        reasoningTrap: "Base_Year_Swap",
+      },
+      {
+        value: current - base,
+        type: "wrongIntermediateValue",
+        likelyMistake:
+          "Returned the absolute increase instead of percentage growth.",
+        reasoningTrap:
+          "Growth_Difference_Only",
+      },
+      {
+        value: answer + 5,
+        type: "arithmeticSlip",
+        likelyMistake:
+          "Made a close percentage arithmetic slip.",
+        reasoningTrap:
+          "High-plausibility percentage trap.",
+      },
+    ],
+  );
+}
+
+function generateDIContributionQuestion(
+  context: DIQuestionContext,
+): DIQuestionCore | undefined {
+  const state = context.scenarioState;
+  if (
+    !state ||
+    state.intervals.length < 1 ||
+    state.categories.length < 2
+  ) {
+    return undefined;
+  }
+
+  const intervalIndex = 0;
+  const categoryIndex = 0;
+  const row =
+    state.dataset[intervalIndex] ?? [];
+  const categoryValue =
+    row[categoryIndex] ?? 0;
+  const total = row.reduce(
+    (sum, value) => sum + value,
+    0,
+  );
+  if (!total) {
+    return undefined;
+  }
+  const answer =
+    (categoryValue / total) * 100;
+  const degreeTrap =
+    (categoryValue / 360) * 100;
+
+  return createAdvancedNumericQuestion(
+    `In ${wrapMath(state.intervals[intervalIndex])}, what percentage share does ${state.categories[categoryIndex]} contribute to the total?`,
+    Number(answer.toFixed(2)),
+    [
+      `Formula: $\\text{Share \\%}=\\frac{\\text{Category value}}{\\text{Year total}}\\times100$.`,
+      `Substitution: $\\frac{${categoryValue}}{${total}}\\times100$.`,
+      `Simplification: $${answer.toFixed(2)}\\%$.`,
+    ].join("\n"),
+    [
+      {
+        value: degreeTrap,
+        type: "percentageTrap",
+        likelyMistake:
+          "Treated the value as degrees out of 360.",
+        reasoningTrap:
+          "Pie_Degree_Inversion",
+      },
+      {
+        value: total,
+        type: "wrongIntermediateValue",
+        likelyMistake:
+          "Returned the total instead of the percentage share.",
+        reasoningTrap:
+          "Cumulative_Neglect",
+      },
+      {
+        value:
+          state.categories.length > 1
+            ? ((row[1] ?? 0) / total) *
+              100
+            : answer + 4,
+        type: "comparisonTrap",
+        likelyMistake:
+          "Used the adjacent category from the legend.",
+        reasoningTrap: "Attribute_Flip",
+      },
+    ],
+  );
+}
+
+function generateDIProjectionQuestion(
+  context: DIQuestionContext,
+): DIQuestionCore | undefined {
+  const state = context.scenarioState;
+  if (
+    !state ||
+    state.intervals.length < 3 ||
+    state.categories.length < 1
+  ) {
+    return undefined;
+  }
+
+  const categoryIndex = 0;
+  const prevIndex =
+    state.intervals.length - 2;
+  const lastIndex =
+    state.intervals.length - 1;
+  const prev = getStateValue(
+    context,
+    prevIndex,
+    categoryIndex,
+  );
+  const last = getStateValue(
+    context,
+    lastIndex,
+    categoryIndex,
+  );
+  if (!prev) {
+    return undefined;
+  }
+  const growth =
+    (last - prev) / prev;
+  const answer = last * (1 + growth);
+
+  return createAdvancedNumericQuestion(
+    `If the growth rate of ${state.categories[categoryIndex]} from ${wrapMath(state.intervals[prevIndex])} to ${wrapMath(state.intervals[lastIndex])} continues, what is the projected value for the next interval?`,
+    Number(answer.toFixed(2)),
+    [
+      `Formula: $\\text{Projected}=\\text{Last value}\\times\\left(1+\\frac{\\text{Last}-\\text{Previous}}{\\text{Previous}}\\right)$.`,
+      `Substitution: $${last}\\times\\left(1+\\frac{${last}-${prev}}{${prev}}\\right)$.`,
+      `Simplification: $${answer.toFixed(2)}$.`,
+    ].join("\n"),
+    [
+      {
+        value: last + (last - prev),
+        type: "wrongIntermediateValue",
+        likelyMistake:
+          "Projected by adding the absolute increase only.",
+        reasoningTrap:
+          "Linear_Projection_Trap",
+      },
+      {
+        value:
+          prev * (1 + growth),
+        type: "wrongDenominator",
+        likelyMistake:
+          "Applied the growth multiplier to the previous value.",
+        reasoningTrap: "Base_Year_Swap",
+      },
+      {
+        value: answer + 10,
+        type: "arithmeticSlip",
+        likelyMistake:
+          "Made a close projection arithmetic slip.",
+        reasoningTrap:
+          "High-plausibility projection trap.",
+      },
+    ],
+  );
+}
+
+function generateDIAvgSubsetQuestion(
+  context: DIQuestionContext,
+): DIQuestionCore | undefined {
+  const state = context.scenarioState;
+  if (
+    !state ||
+    state.intervals.length < 4 ||
+    state.categories.length < 1
+  ) {
+    return undefined;
+  }
+
+  const categoryIndex = 0;
+  const evenIndices = state.intervals
+    .map((label, index) => ({
+      label,
+      index,
+    }))
+    .filter(({ label, index }) => {
+      const numericYear =
+        Number(label);
+      return Number.isFinite(
+        numericYear,
+      )
+        ? numericYear % 2 === 0
+        : index % 2 === 1;
+    })
+    .map(({ index }) => index);
+
+  if (!evenIndices.length) {
+    return undefined;
+  }
+
+  const sum = evenIndices.reduce(
+    (total, index) =>
+      total +
+      getStateValue(
+        context,
+        index,
+        categoryIndex,
+      ),
+    0,
+  );
+  const answer = sum / evenIndices.length;
+  const allSum = state.dataset.reduce(
+    (total, row) =>
+      total + (row[categoryIndex] ?? 0),
+    0,
+  );
+  const allAverage =
+    allSum / state.intervals.length;
+
+  return createAdvancedNumericQuestion(
+    `Find the average value of ${state.categories[categoryIndex]} for only the even-numbered years.`,
+    Number(answer.toFixed(2)),
+    [
+      `Formula: $\\text{Subset average}=\\frac{\\text{Sum of selected years}}{\\text{Number of selected years}}$.`,
+      `Substitution: $\\frac{${sum}}{${evenIndices.length}}$.`,
+      `Simplification: $${answer.toFixed(2)}$.`,
+    ].join("\n"),
+    [
+      {
+        value: allAverage,
+        type: "wrongDenominator",
+        likelyMistake:
+          "Averaged all years instead of only even-numbered years.",
+        reasoningTrap:
+          "Subset_Filter_Neglect",
+      },
+      {
+        value: sum,
+        type: "wrongIntermediateValue",
+        likelyMistake:
+          "Returned the subset sum instead of the average.",
+        reasoningTrap:
+          "Sum_to_Average_Failure",
+      },
+      {
+        value:
+          answer *
+          state.intervals.length /
+          evenIndices.length,
+        type: "wrongDenominator",
+        likelyMistake:
+          "Used the wrong denominator for selected years.",
+        reasoningTrap:
+          "Denominator_Scope_Error",
+      },
+    ],
   );
 }
 
@@ -2217,6 +2715,10 @@ function generateTrendReversalQuestion(
 }
 
 const DI_REASONING_ARCHETYPES: DIReasoningArchetype[] = [
+  { id: "di-growth-rate", category: "trend-reasoning", difficulty: "Medium", visualTypes: ["table", "bar", "line"], generate: generateDIGrowthRateQuestion },
+  { id: "di-contribution", category: "set-logic", difficulty: "Medium", visualTypes: ["table", "bar", "pie"], generate: generateDIContributionQuestion },
+  { id: "di-projection", category: "trend-reasoning", difficulty: "Hard", visualTypes: ["table", "bar", "line"], generate: generateDIProjectionQuestion },
+  { id: "di-avg-subset", category: "set-logic", difficulty: "Hard", visualTypes: ["table", "bar", "line"], generate: generateDIAvgSubsetQuestion },
   { id: "total", category: "direct-arithmetic", difficulty: "Easy", visualTypes: ["table", "bar"], generate: generateTotalQuestion },
   { id: "highest", category: "comparative-reasoning", difficulty: "Easy", visualTypes: ["table", "bar", "line"], generate: generateHighestQuestion },
   { id: "lowest", category: "comparative-reasoning", difficulty: "Easy", visualTypes: ["table", "bar", "line"], generate: generateLowestQuestion },
@@ -2602,6 +3104,7 @@ function summarizeDISetDifficulty(
 export function generateDIQuestions(
   tableData: DIDataRow[],
   visualType: DIVisualType,
+  scenarioState: DIScenarioState | undefined,
   series: DISeriesConfig[] | undefined,
   options?: GeneratorOptions,
 ): {
@@ -2662,6 +3165,7 @@ export function generateDIQuestions(
       createDIQuestionContext(
         tableData,
         visualType,
+        scenarioState,
         series,
         categoryColumn,
         numericColumns,
@@ -2709,5 +3213,7 @@ export function generateDIQuestions(
     ),
   };
 }
+
+export { buildDIScenarioState };
 
 

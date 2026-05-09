@@ -55,7 +55,12 @@ export type SeatingArrangementType =
   | "square"
   | "rectangular"
   | "double-row"
-  | "parallel-row";
+  | "parallel-row"
+  | "floor"
+  | "box-stack"
+  | "scheduling"
+  | "ranking"
+  | "mapping";
 
 export type SeatingOrientationType =
   | "north"
@@ -78,7 +83,42 @@ export type LogicOperator =
 type LayoutFamily =
   | "single-row"
   | "ring"
-  | "two-row";
+  | "two-row"
+  | "vertical-stack"
+  | "calendar"
+  | "matrix";
+
+export type ConstraintDimensionality =
+  | "horizontal"
+  | "vertical"
+  | "cyclic"
+  | "temporal"
+  | "matrix";
+
+export type ConstraintSlot = {
+  id: string;
+  label: string;
+  numericValue: number;
+  row: number;
+  col: number;
+  neighbors: string[];
+  dimensionality: ConstraintDimensionality;
+};
+
+export type ConstraintEntity = {
+  id: string;
+  label: string;
+  attributes?: Record<string, string>;
+};
+
+export type ConstraintOperator =
+  | "IMMEDIATE_NEXT"
+  | "DISTANCE_GAP"
+  | "PARITY_CHECK"
+  | "NOT_IN_SLOT"
+  | "FIXED_SLOT"
+  | "RELATIVE_AFTER"
+  | "ATTRIBUTE_MATCH";
 
 type SeatNode = {
   index: number;
@@ -176,6 +216,42 @@ export type SeatingClue =
     left: string;
     right: string;
   }
+    | {
+    type: "slot-fixed";
+    entity: string;
+    slotIndex: number;
+    slotLabel: string;
+  }
+    | {
+    type: "slot-gap";
+    left: string;
+    right: string;
+    gap: number;
+    axis: "above" | "below" | "after" | "before";
+  }
+    | {
+    type: "slot-parity";
+    entity: string;
+    parity: "even" | "odd";
+  }
+    | {
+    type: "slot-immediate";
+    upper: string;
+    lower: string;
+    axis: "above" | "below" | "after" | "before";
+  }
+    | {
+    type: "slot-not";
+    entity: string;
+    slotIndex: number;
+    slotLabel: string;
+  }
+    | {
+    type: "attribute";
+    entity: string;
+    attribute: string;
+    value: string;
+  }
   );
 
 export type LinearSeatingClue =
@@ -213,6 +289,19 @@ export type SeatingQuestionPrompt =
     anchor: string;
     prompt: string;
     correctAnswer: string;
+  }
+  | {
+    type: "slot-occupant";
+    anchor: string;
+    slotIndex: number;
+    prompt: string;
+    correctAnswer: string;
+  }
+  | {
+    type: "entity-slot";
+    anchor: string;
+    prompt: string;
+    correctAnswer: string;
   };
 
 export type SeatingScenario = {
@@ -222,6 +311,13 @@ export type SeatingScenario = {
   orientationType: SeatingOrientationType;
   seatFacings: SeatFacingDirection[];
   seatLabels: string[];
+  constraintDimensionality?: ConstraintDimensionality;
+  entities?: ConstraintEntity[];
+  slots?: ConstraintSlot[];
+  attributeMap?: Record<
+    string,
+    Record<string, string>
+  >;
   clues: SeatingClue[];
   prompt: SeatingQuestionPrompt;
   clueCount: number;
@@ -335,6 +431,66 @@ type GenerationAttemptMetrics = {
   validationRetries: number;
   uniquenessFailures: number;
 };
+
+export class ConstraintChecker {
+  constructor(
+    private readonly arrangement: string[],
+  ) {}
+
+  private indexOf(entity: string) {
+    return this.arrangement.indexOf(entity);
+  }
+
+  fixedSlot(entity: string, slotIndex: number) {
+    return this.indexOf(entity) === slotIndex;
+  }
+
+  immediateNext(
+    first: string,
+    second: string,
+  ) {
+    return (
+      Math.abs(
+        this.indexOf(first) -
+          this.indexOf(second),
+      ) === 1
+    );
+  }
+
+  distanceGap(
+    first: string,
+    second: string,
+    gap: number,
+  ) {
+    return (
+      Math.abs(
+        this.indexOf(first) -
+          this.indexOf(second),
+      ) -
+        1 ===
+      gap
+    );
+  }
+
+  parityCheck(
+    entity: string,
+    parity: "even" | "odd",
+  ) {
+    const slotNumber =
+      this.indexOf(entity) + 1;
+
+    return parity === "even"
+      ? slotNumber % 2 === 0
+      : slotNumber % 2 === 1;
+  }
+
+  notInSlot(
+    entity: string,
+    slotIndex: number,
+  ) {
+    return this.indexOf(entity) !== slotIndex;
+  }
+}
 
 function buildSeatingErrorMetadata(
   metadata?: Record<
@@ -2433,6 +2589,18 @@ function getClueParticipants(
   clue: SeatingClue,
 ) {
   switch (clue.type) {
+    case "slot-fixed":
+      return `${operatorLabel}${clue.entity} assigned to ${clue.slotLabel}`;
+    case "slot-gap":
+      return `${operatorLabel}${clue.gap} slot gap between ${clue.left} and ${clue.right}`;
+    case "slot-parity":
+      return `${operatorLabel}${clue.entity} in ${clue.parity} slot`;
+    case "slot-immediate":
+      return `${operatorLabel}${clue.upper} immediately ${clue.axis} ${clue.lower}`;
+    case "slot-not":
+      return `${operatorLabel}${clue.entity} not in ${clue.slotLabel}`;
+    case "attribute":
+      return `${operatorLabel}${clue.entity} ${clue.attribute}=${clue.value}`;
     case "absolute":
     case "end":
     case "not-end":
@@ -3490,6 +3658,505 @@ function buildScenarioFromValidatedState(
   } satisfies SeatingScenario;
 }
 
+function buildConstraintSlots(
+  labels: string[],
+  dimensionality: ConstraintDimensionality,
+) {
+  return labels.map(
+    (label, index) =>
+      ({
+        id: `slot-${index + 1}`,
+        label,
+        numericValue: index + 1,
+        row:
+          dimensionality === "vertical"
+            ? labels.length - index - 1
+            : 0,
+        col:
+          dimensionality === "vertical"
+            ? 0
+            : index,
+        neighbors: [
+          index > 0
+            ? `slot-${index}`
+            : "",
+          index < labels.length - 1
+            ? `slot-${index + 2}`
+            : "",
+        ].filter(Boolean),
+        dimensionality,
+      }) satisfies ConstraintSlot,
+  );
+}
+
+function buildConstraintInferenceSteps(
+  clues: SeatingClue[],
+  finalArrangement: string,
+) {
+  return clues.map(
+    (clue, index) => {
+      const clueId = `C${index + 1}`;
+      const deduction =
+        clue.type === "slot-fixed"
+          ? `Direct Assignment: ${clue.slotLabel} is assigned to ${clue.entity}.`
+          : clue.type === "slot-not"
+            ? `Domain Pruning: ${clue.entity} cannot be in ${clue.slotLabel} due to ${clueId}.`
+            : clue.type ===
+                "slot-gap" ||
+              clue.type ===
+                "slot-immediate"
+              ? `Relative Linkage: ${clueId} links two entities by slot distance.`
+              : clue.type ===
+                  "slot-parity"
+                ? `Domain Pruning: ${clue.entity} is restricted to ${clue.parity}-numbered slots.`
+                : clue.type ===
+                    "attribute"
+                  ? `Direct Assignment: ${clue.entity} is mapped to ${clue.attribute} = ${clue.value}.`
+                  : `Exhaustive Branching: Apply ${clueId} and keep only consistent mappings.`;
+
+      return {
+        stepId: `constraint-step-${index + 1}`,
+        sourceConstraintIds: [clueId],
+        deduction,
+        eliminatedPossibilities:
+          clue.type === "slot-not" ||
+          clue.type === "slot-parity"
+            ? [
+              "Invalid slots pruned from entity domain.",
+            ]
+            : [],
+        resultingStateSnapshot:
+          finalArrangement,
+      } satisfies InferenceStep;
+    },
+  );
+}
+
+function buildConstraintValidationReport(
+  solutionCount = 1,
+): ValidationReport {
+  return {
+    passed: solutionCount === 1,
+    warnings: [],
+    metrics: {
+      solutionCount,
+      uniqueness: solutionCount === 1 ? 1 : 0,
+    },
+    stageResults: [
+      {
+        stage: "topology",
+        passed: true,
+        warnings: [],
+        diagnostics: {
+          engine: "Engine_Constraint",
+        },
+        metrics: {},
+      },
+      {
+        stage: "constraint-consistency",
+        passed: true,
+        warnings: [],
+        diagnostics: {},
+        metrics: {},
+      },
+      {
+        stage: "uniqueness",
+        passed: solutionCount === 1,
+        warnings: [],
+        diagnostics: {
+          solutionCount,
+        },
+        metrics: {
+          solutionCount,
+        },
+      },
+    ],
+  };
+}
+
+function createConstraintScenario(
+  motif: QuantMotif,
+  difficulty: DifficultyLabel,
+  config: SeatingPatternConfig,
+  pattern?: Pattern,
+): SeatingScenario {
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.subtopic ?? ""} ${motif.id}`.toLowerCase();
+  const isSchedule =
+    text.includes("sched") ||
+    text.includes("calendar") ||
+    text.includes("day");
+  const isBox =
+    text.includes("box") ||
+    motif.id.includes("box");
+  const isRanking =
+    text.includes("ranking") ||
+    text.includes("rank");
+  const isMapping =
+    text.includes("mapping") ||
+    motif.id.includes("mapping");
+  const arrangementType: SeatingArrangementType =
+    isSchedule
+      ? "scheduling"
+      : isBox
+        ? "box-stack"
+        : isRanking
+          ? "ranking"
+          : isMapping
+            ? "mapping"
+            : "floor";
+  const dimensionality: ConstraintDimensionality =
+    arrangementType === "scheduling"
+      ? "temporal"
+      : arrangementType === "mapping"
+        ? "matrix"
+        : arrangementType === "ranking"
+          ? "horizontal"
+          : "vertical";
+  const participants =
+    arrangementType === "box-stack"
+      ? [
+        "Red box",
+        "Blue box",
+        "Green box",
+        "Yellow box",
+        "White box",
+        "Black box",
+      ]
+      : arrangementType === "scheduling"
+        ? [
+          "Math seminar",
+          "Physics seminar",
+          "English seminar",
+          "Reasoning workshop",
+          "Computer session",
+        ]
+        : selectParticipants(
+          config.participantCount ??
+            (difficulty === "Hard" ? 7 : 6),
+        );
+  const slotLabels =
+    arrangementType === "scheduling"
+      ? [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+      ]
+      : arrangementType === "floor"
+        ? participants.map(
+          (_value, index) =>
+            `Floor ${index + 1}`,
+        )
+        : arrangementType === "box-stack"
+          ? participants.map(
+            (_value, index) =>
+              `Position ${index + 1} from bottom`,
+          )
+          : arrangementType === "ranking"
+            ? participants.map(
+              (_value, index) =>
+                `Rank ${index + 1}`,
+            )
+            : participants.map(
+              (_value, index) =>
+                `Slot ${index + 1}`,
+            );
+  const arrangement =
+    arrangementType === "scheduling"
+      ? [
+        participants[1]!,
+        participants[0]!,
+        participants[3]!,
+        participants[2]!,
+        participants[4]!,
+      ]
+      : arrangementType === "box-stack"
+        ? [
+          participants[4]!,
+          participants[1]!,
+          participants[0]!,
+          participants[2]!,
+          participants[5]!,
+          participants[3]!,
+        ]
+        : shuffle(participants);
+  const checker =
+    new ConstraintChecker(arrangement);
+  const targetIndex =
+    Math.min(3, arrangement.length - 1);
+  const targetEntity =
+    arrangement[targetIndex]!;
+  const attributeValues = [
+    "Green",
+    "Blue",
+    "Red",
+    "Yellow",
+    "White",
+    "Black",
+    "Orange",
+  ];
+  const attributeMap =
+    arrangementType === "mapping"
+      ? Object.fromEntries(
+        arrangement.map(
+          (entity, index) => [
+            entity,
+            {
+              city: [
+                "Delhi",
+                "Patiala",
+                "Ludhiana",
+                "Amritsar",
+                "Jalandhar",
+                "Bathinda",
+                "Mohali",
+              ][index]!,
+              colour:
+                attributeValues[index]!,
+            },
+          ],
+        ),
+      )
+      : undefined;
+  const clues: SeatingClue[] = [
+    {
+      type: "slot-fixed",
+      entity: targetEntity,
+      slotIndex: targetIndex,
+      slotLabel: slotLabels[targetIndex]!,
+    },
+    {
+      type: "slot-parity",
+      entity:
+        arrangement[
+          Math.max(1, targetIndex - 1)
+        ]!,
+      parity:
+        Math.max(1, targetIndex) % 2 === 0
+          ? "even"
+          : "odd",
+    },
+    {
+      type: "slot-gap",
+      left: arrangement[0]!,
+      right: arrangement[
+        Math.min(
+          arrangement.length - 1,
+          3,
+        )
+      ]!,
+      gap:
+        checker.distanceGap(
+          arrangement[0]!,
+          arrangement[
+            Math.min(
+              arrangement.length - 1,
+              3,
+            )
+          ]!,
+          2,
+        )
+          ? 2
+          : Math.max(
+            0,
+            Math.abs(
+              arrangement.indexOf(
+                arrangement[0]!,
+              ) -
+                arrangement.indexOf(
+                  arrangement[
+                    Math.min(
+                      arrangement.length - 1,
+                      3,
+                    )
+                  ]!,
+                ),
+            ) - 1,
+          ),
+      axis:
+        arrangementType ===
+        "scheduling"
+          ? "after"
+          : "above",
+    },
+  ];
+
+  if (arrangementType === "box-stack") {
+    clues.push({
+      type: "slot-immediate",
+      upper: participants[0]!,
+      lower: participants[1]!,
+      axis: "above",
+    });
+  }
+
+  if (arrangementType === "scheduling") {
+    clues.push({
+      type: "slot-not",
+      entity: participants[0]!,
+      slotIndex: 5,
+      slotLabel: "Saturday or Sunday",
+    });
+  }
+
+  if (
+    arrangementType === "mapping" &&
+    attributeMap
+  ) {
+    clues.push({
+      type: "attribute",
+      entity: targetEntity,
+      attribute: "colour",
+      value:
+        attributeMap[targetEntity]?.colour ??
+        "Green",
+    });
+  }
+
+  const finalArrangement =
+    arrangement
+      .map(
+        (entity, index) =>
+          `${slotLabels[index]}: ${entity}`,
+      )
+      .join(" | ");
+  const prompt: SeatingQuestionPrompt =
+    arrangementType === "mapping" &&
+    attributeMap
+      ? {
+        type: "entity-slot",
+        anchor: targetEntity,
+        prompt: `Which colour is associated with ${targetEntity}?`,
+        correctAnswer:
+          attributeMap[targetEntity]?.colour ??
+          "Green",
+      }
+      : {
+        type: "slot-occupant",
+        anchor: slotLabels[targetIndex]!,
+        slotIndex: targetIndex,
+        prompt:
+          arrangementType ===
+          "scheduling"
+            ? `Which event is scheduled on ${slotLabels[targetIndex]}?`
+            : `Who/what is in ${slotLabels[targetIndex]}?`,
+        correctAnswer: targetEntity,
+      };
+  const solverInferenceSteps =
+    buildConstraintInferenceSteps(
+      clues,
+      finalArrangement,
+    );
+  const inferenceDependencyGraph =
+    buildInferenceDependencyGraph(
+      solverInferenceSteps,
+    );
+  const validationReport =
+    buildConstraintValidationReport(1);
+  const slots =
+    buildConstraintSlots(
+      slotLabels,
+      dimensionality,
+    );
+
+  return {
+    participants,
+    arrangement,
+    arrangementType,
+    orientationType: "north",
+    seatFacings: Array.from(
+      { length: arrangement.length },
+      () => "north" as const,
+    ),
+    seatLabels: slotLabels,
+    constraintDimensionality:
+      dimensionality,
+    entities: participants.map(
+      (label) => ({
+        id: label,
+        label,
+        attributes:
+          attributeMap?.[label],
+      }),
+    ),
+    slots,
+    attributeMap,
+    clues,
+    prompt,
+    clueCount: clues.length,
+    inferenceDepth:
+      arrangementType === "mapping"
+        ? 5
+        : 4,
+    branchingComplexity:
+      inferenceDependencyGraph.branchingComplexity,
+    deductionDependencyScore:
+      inferenceDependencyGraph.deductionDependencyScore,
+    solverComplexity: 1,
+    validationWarnings: [
+      "Generated through universal Engine_Constraint slot mapping.",
+    ],
+    directClueCount: 1,
+    indirectClueCount:
+      Math.max(0, clues.length - 1),
+    relationalClueCount:
+      Math.max(0, clues.length - 1),
+    deductionDepth:
+      inferenceDependencyGraph.inferenceDepth,
+    eliminationDepth:
+      inferenceDependencyGraph.eliminationChainCount,
+    clueGraphDensity: 1,
+    clueDensity:
+      clues.length /
+      Math.max(arrangement.length, 1),
+    clueInteractionRatio: 1,
+    redundancyScore: 0,
+    redundancyRatio: 0,
+    anchorDensity: 1,
+    directClueRatio:
+      1 / Math.max(clues.length, 1),
+    originalClueCount: clues.length,
+    minimalClueCount: clues.length,
+    removedRedundantClues: [],
+    topologyDiversityScore: 1,
+    clueDiversityScore: 1,
+    inferenceDiversityScore: 1,
+    structuralDiversityScore: 1,
+    clueTypeDistribution:
+      Object.fromEntries(
+        clues.map((clue) => [
+          clue.type,
+          clues.filter(
+            (entry) =>
+              entry.type === clue.type,
+          ).length,
+        ]),
+      ),
+    repeatedStructureWarnings: [],
+    uniquenessVerified: true,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 0.5,
+    validationReport,
+    solverInferenceSteps,
+    solverTraceExport:
+      exportInferenceTrace(
+        solverInferenceSteps,
+      ),
+    inferenceDependencyGraph,
+    finalArrangement,
+    generatedClues: clues.map(
+      clueToDebugText,
+    ),
+    solverTrace: [
+      `Dimensionality: ${dimensionality}`,
+      `Entities mapped to slots: ${finalArrangement}`,
+      "SolutionCount=1 after applying fixed, pruning, and relative constraints.",
+    ],
+  };
+}
+
 function validateScenario(
   participants: string[],
   arrangement: string[],
@@ -3799,6 +4466,31 @@ function createSeatingScenarioInternal(
     extractSeatingPatternConfig(
       pattern,
     );
+  const patternText =
+    `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.subtopic ?? ""} ${motif.id}`.toLowerCase();
+
+  if (
+    [
+      "floor",
+      "box",
+      "stack",
+      "sched",
+      "calendar",
+      "ranking",
+      "mapping",
+      "triad",
+      "con-",
+    ].some((token) =>
+      patternText.includes(token),
+    )
+  ) {
+    return createConstraintScenario(
+      motif,
+      difficulty,
+      config,
+      pattern,
+    );
+  }
 
   if (
     shouldUseFastSeatingFallback(

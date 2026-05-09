@@ -8,6 +8,13 @@ import {
   pickRandomItem,
   shuffle,
 } from "../shared";
+import {
+  applyPatternRuleToWord,
+  buildPatternTrace,
+  normalizePatternRuleId,
+  shiftLetterCircular,
+  swapAdjacentPairs,
+} from "./pattern-inference";
 
 const CODING_WORD_POOL = [
   "BANK",
@@ -21,31 +28,6 @@ const CODING_WORD_POOL = [
   "CREDIT",
   "MARKET",
 ];
-
-function shiftLetter(
-  char: string,
-  shift: number,
-) {
-  const base =
-    char.charCodeAt(0) - 65;
-  const normalized =
-    (base + shift + 26 * 3) % 26;
-
-  return String.fromCharCode(
-    normalized + 65,
-  );
-}
-
-function reverseAlphabetLetter(
-  char: string,
-) {
-  const index =
-    char.charCodeAt(0) - 65;
-
-  return String.fromCharCode(
-    90 - index,
-  );
-}
 
 // Coding-decoding owns symbolic word transformation and coding-specific distractors.
 // It does not own global orchestration, archetype selection, or difficulty scoring.
@@ -73,85 +55,45 @@ export function encodeWordByMotif(
   motif: QuantMotif,
   values: Record<string, number>,
 ) {
-  const shift = values.shift ?? 1;
+  if (
+    motif.id ===
+    "symbolic_position_encoding"
+  ) {
+    const shift = values.shift ?? 1;
+    return word
+      .split("")
+      .map((char, index) =>
+        index % 2 === 0
+          ? String(
+              char.charCodeAt(0) -
+                64,
+            )
+          : shiftLetterCircular(
+              char,
+              shift,
+            ),
+      )
+      .join("-");
+  }
 
-  switch (motif.id) {
-    case "direct_alphabet_shift":
+  switch (
+    normalizePatternRuleId(motif.id)
+  ) {
+    case "map-rank-math":
       return word
         .split("")
-        .map((char) =>
-          shiftLetter(char, shift),
-        )
-        .join("");
-    case "reverse_alphabet_mapping":
-      return word
-        .split("")
-        .map((char) =>
-          reverseAlphabetLetter(
-            char,
-          ),
-        )
-        .join("");
-    case "symbolic_position_encoding":
-      return word
-        .split("")
-        .map((char, index) =>
-          index % 2 === 0
-            ? String(
-                char.charCodeAt(0) -
-                  64,
-              )
-            : shiftLetter(
-                char,
-                shift,
-              ),
+        .map(
+          (char) =>
+            char.charCodeAt(0) -
+            64,
         )
         .join("-");
-    case "conditional_letter_mapping":
-      return word
-        .split("")
-        .map((char) =>
-          /[AEIOU]/.test(char)
-            ? shiftLetter(
-                char,
-                1,
-              )
-            : shiftLetter(
-                char,
-                -1,
-              ),
-        )
-        .join("");
-    case "multi_stage_word_transform":
-      return word
-        .split("")
-        .reverse()
-        .map((char, index) =>
-          shiftLetter(
-            char,
-            index % 2 === 0
-              ? 1
-              : 2,
-          ),
-        )
-        .join("");
-    case "inference_based_decoding":
-      return word
-        .split("")
-        .map((char, index) =>
-          shiftLetter(
-            char,
-            index + 1,
-          ),
-        )
-        .join("");
     default:
-      return word
-        .split("")
-        .map((char) =>
-          shiftLetter(char, shift),
-        )
-        .join("");
+      return applyPatternRuleToWord(
+        word,
+        motif.id,
+        values,
+      );
   }
 }
 
@@ -162,25 +104,28 @@ export function buildCodingQuestionStem(
   exampleWord?: string,
   exampleCode?: string,
 ) {
+  const ruleId =
+    normalizePatternRuleId(motif.id);
+
   switch (motif.id) {
     case "direct_alphabet_shift":
-      return `If each letter is shifted forward by ${values.shift ?? 1}, how will ${sourceWord} be coded?`;
+      return `If each letter is shifted forward by $${values.shift ?? 1}$, how will $${sourceWord}$ be coded?`;
     case "reverse_alphabet_mapping":
-      return `If every letter is replaced by its opposite alphabet letter, how will ${sourceWord} be coded?`;
+      return `If every letter is replaced by its opposite alphabet letter using $A \\to Z$, how will $${sourceWord}$ be coded?`;
     case "symbolic_position_encoding":
-      return `If odd-position letters are converted into positions and even-position letters are shifted, how will ${sourceWord} be coded?`;
+      return `If odd-position letters are converted into alphabet ranks and even-position letters are shifted, how will $${sourceWord}$ be coded?`;
     case "conditional_letter_mapping":
-      return `If vowels are moved one step forward and consonants one step backward, how will ${sourceWord} be coded?`;
+      return `If vowels are moved one step forward and consonants one step backward, how will $${sourceWord}$ be coded?`;
     case "multi_stage_word_transform":
-      return `If the word is first reversed and then alternate letters are shifted, how will ${sourceWord} be coded?`;
+      return `If adjacent positions are swapped as $1 \\leftrightarrow 2$, $3 \\leftrightarrow 4$, how will $${sourceWord}$ be coded?`;
     case "inference_based_decoding":
       if (exampleWord && exampleCode) {
-        return `If ${exampleWord} is coded as ${exampleCode}, then how will ${sourceWord} be coded?`;
+        return `If $${exampleWord} \\xrightarrow{R} ${exampleCode}$, then $${sourceWord} \\xrightarrow{R} ?$`;
       }
 
-      return `Infer the hidden coding rule and determine the code of ${sourceWord}.`;
+      return `Infer the hidden coding rule and determine the code of $${sourceWord}$.`;
     default:
-      return `How will ${sourceWord} be coded according to the given rule?`;
+      return `Using the ${ruleId.replaceAll("-", " ")} rule, how will $${sourceWord}$ be coded?`;
   }
 }
 
@@ -217,7 +162,7 @@ export function buildCodingDistractorOptions(
     word
       .split("")
       .map((char) =>
-        shiftLetter(
+        shiftLetterCircular(
           char,
           -(values.shift ?? 1),
         ),
@@ -237,7 +182,7 @@ export function buildCodingDistractorOptions(
     word
       .split("")
       .map((char) =>
-        shiftLetter(
+        shiftLetterCircular(
           char,
           (values.shift ?? 1) + 1,
         ),
@@ -254,10 +199,7 @@ export function buildCodingDistractorOptions(
   );
 
   addOption(
-    word
-      .split("")
-      .reverse()
-      .join(""),
+    swapAdjacentPairs(word),
     {
       distractorType:
         "comparisonTrap",
@@ -276,7 +218,7 @@ export function buildCodingDistractorOptions(
       word
         .split("")
         .map((char, index) =>
-          shiftLetter(
+          shiftLetterCircular(
             char,
             index,
           ),
@@ -298,7 +240,7 @@ export function buildCodingDistractorOptions(
       word
         .split("")
         .map((char, index) =>
-          shiftLetter(
+          shiftLetterCircular(
             char,
             difficulty === "Hard"
               ? (index % 2) + 1
@@ -346,6 +288,17 @@ export function buildCodingDistractorOptions(
 export function buildCodingExplanation(
   sourceWord: string,
   codedWord: string,
+  motif?: QuantMotif,
+  values: Record<string, number> = {},
 ) {
-  return `Apply the coding rule step by step to ${sourceWord} and obtain ${codedWord}.`;
+  if (motif) {
+    return buildPatternTrace(
+      sourceWord,
+      codedWord,
+      motif.id,
+      values,
+    ).join("\n");
+  }
+
+  return `Apply the coding rule step by step to $${sourceWord}$ and obtain $${codedWord}$.`;
 }

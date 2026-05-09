@@ -114,6 +114,7 @@ export type Motif = {
 
 export type QuantMotifTopicCluster =
   | "fundamentals"
+  | "simplification"
   | "number-system"
   | "percentage"
   | "ratio-proportion"
@@ -124,11 +125,24 @@ export type QuantMotifTopicCluster =
   | "speed-time-distance"
   | "mixture-alligation"
   | "algebra-basics"
+  | "algebra"
+  | "equations"
+  | "progressions"
+  | "probability"
+  | "functions"
+  | "permutation-combination"
+  | "trigonometry"
+  | "geometry"
+  | "coordinate-geometry"
+  | "set-theory"
   | "mensuration"
   | "coding-decoding"
   | "blood-relations"
   | "inequality"
   | "direction-sense"
+  | "abstract-reasoning"
+  | "temporal-reasoning"
+  | "critical-inference"
   | "seating-arrangement"
   | "ordering-ranking"
   | "puzzles"
@@ -220,6 +234,12 @@ export function defineQuantMotif(
         "inequality" ||
       motif.topicCluster ===
         "direction-sense" ||
+      motif.topicCluster ===
+        "abstract-reasoning" ||
+      motif.topicCluster ===
+        "temporal-reasoning" ||
+      motif.topicCluster ===
+        "critical-inference" ||
       motif.topicCluster ===
         "ordering-ranking" ||
       motif.topicCluster ===

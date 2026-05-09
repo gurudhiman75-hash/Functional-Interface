@@ -1,4 +1,8 @@
-import { useMemo } from "react";
+import {
+  Fragment,
+  type ReactNode,
+  useMemo,
+} from "react";
 import DOMPurify from "dompurify";
 import { MathJax } from "better-react-mathjax";
 import { cn } from "@/lib/utils";
@@ -16,6 +20,28 @@ export function safeImgUrl(src: string): string | null {
 }
 
 type Piece = { kind: "text"; value: string } | { kind: "img"; src: string; alt: string } | { kind: "html"; value: string };
+type MathToken =
+  | { kind: "text"; value: string }
+  | { kind: "inline-math"; value: string }
+  | { kind: "display-math"; value: string };
+
+const GURMUKHI_RE = /[\u0A00-\u0A7F]/;
+
+function containsGurmukhi(value: string) {
+  return GURMUKHI_RE.test(value);
+}
+
+function unwrapGurmukhiTextMath(value: string) {
+  return value
+    .normalize("NFC")
+    .replace(
+      /\$\\text\{([^}]*)\}\$/g,
+      (_match, inner: string) =>
+        containsGurmukhi(inner)
+          ? inner
+          : _match,
+    );
+}
 
 function splitTextAndStandaloneUrls(text: string): Piece[] {
   const lines = text.split("\n");
@@ -81,6 +107,192 @@ function tryHtmlFragment(raw: string): Piece[] | null {
   return [{ kind: "html", value: clean }];
 }
 
+function tokenizeMath(raw: string): MathToken[] {
+  const tokens: MathToken[] = [];
+  const pattern = /\$\$([\s\S]+?)\$\$|\$([^$\n]+?)\$/g;
+  const normalizedRaw =
+    unwrapGurmukhiTextMath(raw);
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(normalizedRaw)) !== null) {
+    const matchIndex = match.index ?? 0;
+    if (matchIndex > lastIndex) {
+      tokens.push({
+        kind: "text",
+        value: normalizedRaw.slice(lastIndex, matchIndex),
+      });
+    }
+
+    if (match[1] !== undefined) {
+      tokens.push({
+        kind: "display-math",
+        value: match[1].trim(),
+      });
+    } else if (match[2] !== undefined) {
+      tokens.push({
+        kind: "inline-math",
+        value: match[2].trim(),
+      });
+    }
+
+    lastIndex = matchIndex + match[0].length;
+  }
+
+  if (lastIndex < normalizedRaw.length) {
+    tokens.push({
+      kind: "text",
+      value: normalizedRaw.slice(lastIndex),
+    });
+  }
+
+  return tokens;
+}
+
+const LOGIC_ICON_MAP: Record<string, string> = {
+  Father: "♂",
+  Mother: "♀",
+  Brother: "♂",
+  Sister: "♀",
+  Husband: "♂",
+  Wife: "♀",
+};
+
+function renderTextWithLogicIcons(
+  value: string,
+  keyPrefix: string,
+) {
+  const pattern =
+    /\b(Father|Mother|Brother|Sister|Husband|Wife)\b/g;
+  const parts: ReactNode[] = [];
+  let lastIndex = 0;
+
+  for (const match of value.matchAll(pattern)) {
+    const index = match.index ?? 0;
+    const label = match[0]!;
+
+    if (index > lastIndex) {
+      parts.push(
+        value.slice(lastIndex, index),
+      );
+    }
+
+    parts.push(
+      <span
+        key={`${keyPrefix}-${index}`}
+        className="mx-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full border border-slate-300 bg-slate-50 px-1 text-[10px] font-semibold text-slate-700 align-middle"
+        title={label}
+        aria-label={label}
+      >
+        {LOGIC_ICON_MAP[label]}
+      </span>,
+    );
+    parts.push(label);
+    lastIndex = index + label.length;
+  }
+
+  if (lastIndex < value.length) {
+    parts.push(value.slice(lastIndex));
+  }
+
+  return parts.length ? parts : value;
+}
+
+function renderMathLine(
+  line: string,
+  lineIndex: number,
+  lang?: string,
+) {
+  const tokens = tokenizeMath(line);
+
+  if (tokens.length === 0) {
+    return (
+      <div
+        key={`line-${lineIndex}`}
+        className="min-h-[1.25rem]"
+      />
+    );
+  }
+
+  return (
+    <div
+      key={`line-${lineIndex}`}
+      className={cn(
+        "whitespace-pre-wrap",
+        (lang === "pa" ||
+          containsGurmukhi(line)) &&
+          "punjabi-content",
+      )}
+      lang={
+        lang === "pa" ||
+        containsGurmukhi(line)
+          ? "pa"
+          : undefined
+      }
+    >
+      {tokens.map((token, tokenIndex) => {
+        if (token.kind === "text") {
+          return (
+            <Fragment
+              key={`text-${lineIndex}-${tokenIndex}`}
+            >
+              {renderTextWithLogicIcons(
+                token.value,
+                `text-${lineIndex}-${tokenIndex}`,
+              )}
+            </Fragment>
+          );
+        }
+
+        if (token.kind === "display-math") {
+          if (containsGurmukhi(token.value)) {
+            return (
+              <span
+                key={`display-text-${lineIndex}-${tokenIndex}`}
+                className="punjabi-text"
+                lang="pa"
+              >
+                {token.value}
+              </span>
+            );
+          }
+
+          return (
+            <MathJax
+              key={`display-${lineIndex}-${tokenIndex}`}
+              dynamic
+            >
+              {`\\[${token.value}\\]`}
+            </MathJax>
+          );
+        }
+
+        if (containsGurmukhi(token.value)) {
+          return (
+            <span
+              key={`inline-text-${lineIndex}-${tokenIndex}`}
+              className="punjabi-text"
+              lang="pa"
+            >
+              {token.value}
+            </span>
+          );
+        }
+
+        return (
+          <MathJax
+            key={`inline-${lineIndex}-${tokenIndex}`}
+            inline
+            dynamic
+          >
+            {`\\(${token.value}\\)`}
+          </MathJax>
+        );
+      })}
+    </div>
+  );
+}
+
 /**
  * Renders question or option text with:
  * - TeX via `$...$`, `$$...$$`, `\(...\)`, `\[...\]` (MathJax)
@@ -94,21 +306,39 @@ export function QuestionRichText({
   inline = false,
   lang,
 }: {
-  content: string;
+  content: string | number | null | undefined;
   className?: string;
   /** Slightly tighter spacing when used inside option rows */
   inline?: boolean;
   /** Language of the content — used to apply correct font/whitespace for Gurmukhi */
   lang?: string;
 }) {
+  const normalizedContent =
+    typeof content === "string"
+      ? unwrapGurmukhiTextMath(content)
+      : content === null ||
+          content === undefined
+        ? ""
+        : String(content);
+
   const pieces = useMemo(() => {
-    const html = tryHtmlFragment(content);
+    const html =
+      tryHtmlFragment(normalizedContent);
     if (html) return html;
-    return splitMarkdownImages(content);
-  }, [content]);
+    return splitMarkdownImages(
+      normalizedContent,
+    );
+  }, [normalizedContent]);
 
   return (
-    <div className={cn(inline ? "space-y-2" : "space-y-3", className)}>
+    <div
+      className={cn(
+        inline ? "space-y-2" : "space-y-3",
+        lang === "pa" && "punjabi-content",
+        className,
+      )}
+      lang={lang === "pa" ? "pa" : undefined}
+    >
       {pieces.map((p, i) => {
         if (p.kind === "img") {
           return (
@@ -123,6 +353,20 @@ export function QuestionRichText({
           );
         }
         if (p.kind === "html") {
+          if (
+            lang === "pa" ||
+            containsGurmukhi(p.value)
+          ) {
+            return (
+              <div
+                key={i}
+                className="prose prose-sm max-w-none punjabi-content text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
+                lang="pa"
+                dangerouslySetInnerHTML={{ __html: p.value }}
+              />
+            );
+          }
+
           return (
             <MathJax key={i} dynamic hideUntilTypeset="first">
               <div
@@ -133,17 +377,27 @@ export function QuestionRichText({
           );
         }
         return (
-          <MathJax key={i} dynamic hideUntilTypeset="first">
-            <div
-              className={cn(
-                "break-words text-foreground leading-relaxed",
-                lang === "pa" ? "whitespace-normal punjabi-text" : "whitespace-pre-wrap",
-                inline && "text-sm sm:text-base",
+          <div
+            key={i}
+            className={cn(
+              "break-words text-foreground leading-relaxed",
+              lang === "pa" ||
+                containsGurmukhi(p.value)
+                ? "whitespace-normal punjabi-text"
+                : "whitespace-pre-wrap",
+              inline && "text-sm sm:text-base",
+            )}
+          >
+            {p.value
+              .split("\n")
+              .map((line, lineIndex) =>
+                renderMathLine(
+                  line,
+                  lineIndex,
+                  lang,
+                ),
               )}
-            >
-              {p.value}
-            </div>
-          </MathJax>
+          </div>
         );
       })}
     </div>

@@ -22,6 +22,7 @@ import type {
   SeatingDiagramData,
   SeatingExplanationFlow,
 } from "@workspace/api-zod";
+import MathText from "@/components/MathText";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 
@@ -29,6 +30,247 @@ const API_BASE_URL =
   import.meta.env.DEV
     ? "http://localhost:3001"
     : "";
+
+const REQUIRED_REGISTRY_PATTERNS = [
+  {
+    id: "error-spotting",
+    domain: "english",
+    topic: "error-spotting",
+    label: "Error Spotting",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "banking"],
+    enabled: true,
+  },
+  {
+    id: "sentence-improvement",
+    domain: "english",
+    topic: "sentence-improvement",
+    label: "Sentence Improvement",
+    supportedDifficulties: [
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "banking"],
+    enabled: true,
+  },
+  {
+    id: "fillers",
+    domain: "english",
+    topic: "fillers",
+    label: "Fillers",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+    ],
+    examStyles: ["banking"],
+    enabled: true,
+  },
+  {
+    id: "active-passive",
+    domain: "english",
+    topic: "active-passive",
+    label: "Active/Passive Voice",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "banking"],
+    enabled: true,
+  },
+  {
+    id: "narration",
+    domain: "english",
+    topic: "narration",
+    label: "Narration",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "banking"],
+    enabled: true,
+  },
+  {
+    id: "para-jumbles",
+    domain: "english",
+    topic: "para-jumbles",
+    label: "Para Jumbles",
+    supportedDifficulties: [
+      "medium",
+      "hard",
+    ],
+    examStyles: ["banking", "cat"],
+    enabled: true,
+  },
+  {
+    id: "root-words",
+    domain: "english",
+    topic: "root-words",
+    label: "Root Words",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "cat", "banking"],
+    enabled: true,
+  },
+  {
+    id: "synonyms-antonyms",
+    domain: "english",
+    topic: "vocabulary",
+    label: "Synonyms / Antonyms",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "banking", "cat"],
+    enabled: true,
+  },
+  {
+    id: "idioms",
+    domain: "english",
+    topic: "idioms",
+    label: "Idioms and Phrases",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "rrb", "banking"],
+    enabled: true,
+  },
+  {
+    id: "reading-comprehension",
+    domain: "english",
+    topic: "reading-comprehension",
+    label: "Reading Comprehension",
+    supportedDifficulties: [
+      "medium",
+      "hard",
+    ],
+    examStyles: ["ssc", "cat", "banking"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-vyakaran-ling",
+    domain: "punjabi",
+    topic: "vyakaran",
+    label: "Punjabi Vyakaran - Ling Badlo",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-vyakaran-vachan",
+    domain: "punjabi",
+    topic: "vyakaran",
+    label: "Punjabi Vyakaran - Vachan Badlo",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-vak-shuddhi",
+    domain: "punjabi",
+    topic: "vyakaran",
+    label: "Punjabi Vak Shuddhi",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-shabad-jor",
+    domain: "punjabi",
+    topic: "shabad-jor",
+    label: "Punjabi Shabad-Jor",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-vocabulary",
+    domain: "punjabi",
+    topic: "vocabulary",
+    label: "Punjabi Samanarthak / One Word",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-muhavre-akhaan",
+    domain: "punjabi",
+    topic: "muhavre-akhaan",
+    label: "Punjabi Muhavre and Akhaan",
+    supportedDifficulties: [
+      "easy",
+      "medium",
+      "hard",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+    enabled: true,
+  },
+  {
+    id: "punjabi-translation-admin",
+    domain: "punjabi",
+    topic: "translation",
+    label: "English-Punjabi Administrative Translation",
+    supportedDifficulties: [
+      "medium",
+      "hard",
+    ],
+    examStyles: ["punjab", "psssb", "ppsc"],
+    enabled: true,
+  },
+] as const;
+
+function mergeRequiredRegistryPatterns(
+  registryPatterns: any[],
+) {
+  const byId = new Map();
+
+  for (const pattern of registryPatterns) {
+    if (
+      pattern?.id &&
+      !byId.has(pattern.id)
+    ) {
+      byId.set(pattern.id, pattern);
+    }
+  }
+
+  for (const pattern of REQUIRED_REGISTRY_PATTERNS) {
+    if (!byId.has(pattern.id)) {
+      byId.set(pattern.id, pattern);
+    }
+  }
+
+  return [...byId.values()];
+}
 
 type DIDataRow = Record<
   string,
@@ -210,6 +452,9 @@ type GenerationDebugMetadata = {
     | "quant"
     | "reasoning"
     | "english"
+    | "punjabi"
+    | "knowledge"
+    | "computer"
     | "seating-arrangement"
     | "di"
     | "puzzle-sets"
@@ -2205,6 +2450,10 @@ function renderDifficultyAnalytics(
                   diagram={
                     debugMetadata.seatingDiagram
                   }
+                  inferenceTrace={
+                    (debugMetadata as any)
+                      .inferenceTrace
+                  }
                   title="QA seating diagram"
                 />
               </div>
@@ -2431,6 +2680,8 @@ function renderSolverTraceWorkbench(
     primaryQuestion?.seatingDiagram ??
     primaryQuestion?.debugMetadata
       ?.seatingDiagram;
+  const inferenceTrace =
+    primaryQuestion?.inferenceTrace;
 
   if (
     !solverTrace.length &&
@@ -2488,6 +2739,9 @@ function renderSolverTraceWorkbench(
           ) : seatingDiagram ? (
             <SeatingDiagramRenderer
               diagram={seatingDiagram}
+              inferenceTrace={
+                inferenceTrace
+              }
             />
           ) : (
             <div className="text-sm text-slate-500">
@@ -2647,19 +2901,24 @@ function renderQuestionWorkspace(
             </div>
             {!isDISet(question) ? (
               <>
-                <textarea
-                  value={question.text}
-                  onChange={(event) =>
-                    onQuestionTextChange(
-                      event.target.value,
-                    )
-                  }
-                  readOnly={!editMode}
-                  className={`min-h-[88px] w-full rounded border p-3 text-sm text-slate-800 ${editMode
-                    ? "bg-white"
-                    : "bg-slate-50"
-                    }`}
-                />
+                {editMode ? (
+                  <textarea
+                    value={question.text}
+                    onChange={(event) =>
+                      onQuestionTextChange(
+                        event.target.value,
+                      )
+                    }
+                    readOnly={!editMode}
+                    className="min-h-[88px] w-full rounded border bg-white p-3 text-sm text-slate-800"
+                  />
+                ) : (
+                  <div className="min-h-[88px] w-full rounded border bg-white p-3 text-sm text-slate-800">
+                    <MathText
+                      content={question.text}
+                    />
+                  </div>
+                )}
                 <div className="space-y-2">
                   {question.options.map(
                     (
@@ -2693,7 +2952,10 @@ function renderQuestionWorkspace(
                             className="w-[calc(100%-1.5rem)] rounded border bg-white px-2 py-1"
                           />
                         ) : (
-                          option
+                          <MathText
+                            content={option}
+                            inline
+                          />
                         )}
                       </div>
                     ),
@@ -2703,31 +2965,44 @@ function renderQuestionWorkspace(
                   <div className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                     Answer
                   </div>
-                  {question.options[
-                    question.correct
-                  ] ?? "NA"}
+                  <MathText
+                    content={
+                      question.options[
+                        question.correct
+                      ] ?? "NA"
+                    }
+                    inline
+                  />
                 </div>
                 <div className="rounded border bg-white p-3 text-sm whitespace-pre-wrap">
                   <div className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                     Explanation
                   </div>
-                  <textarea
-                    value={
-                      question.explanation ||
-                      ""
-                    }
-                    onChange={(event) =>
-                      onQuestionExplanationChange(
-                        event.target.value,
-                      )
-                    }
-                    readOnly={!editMode}
-                    className={`min-h-[120px] w-full rounded border p-2 text-sm ${editMode
-                      ? "bg-white"
-                      : "bg-slate-50"
-                      }`}
-                    placeholder="No explanation available."
-                  />
+                  {editMode ? (
+                    <textarea
+                      value={
+                        question.explanation ||
+                        ""
+                      }
+                      onChange={(event) =>
+                        onQuestionExplanationChange(
+                          event.target.value,
+                        )
+                      }
+                      readOnly={!editMode}
+                      className="min-h-[120px] w-full rounded border bg-white p-2 text-sm"
+                      placeholder="No explanation available."
+                    />
+                  ) : (
+                    <div className="min-h-[120px] w-full rounded border bg-slate-50 p-2 text-sm">
+                      <MathText
+                        content={
+                          question.explanation ||
+                          "No explanation available."
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
                 {generatedClues.length ? (
                   <div className="rounded border bg-white p-3 text-sm space-y-2">
@@ -2916,6 +3191,9 @@ function renderQuestionWorkspace(
                   primaryQuestion
                     ?.debugMetadata
                     ?.seatingDiagram!
+                }
+                inferenceTrace={
+                  primaryQuestion?.inferenceTrace
                 }
               />
             ) : (
@@ -4118,7 +4396,9 @@ function renderDIQuestions(
             className="border rounded p-3"
           >
             <div className="font-medium">
-              {question.text}
+              <MathText
+                content={question.text}
+              />
             </div>
 
             {renderDifficultyAnalytics(
@@ -4129,7 +4409,10 @@ function renderDIQuestions(
               {question.options?.map(
                 (opt, optionIndex) => (
                   <div key={optionIndex}>
-                    {opt}
+                    <MathText
+                      content={opt}
+                      inline
+                    />
                   </div>
                 ),
               )}
@@ -4188,6 +4471,10 @@ export default function AdminGeneratorPage() {
 
   const [generated, setGenerated] =
     useState<GeneratedQuestion[]>([]);
+  const [
+    activeInlineEditKey,
+    setActiveInlineEditKey,
+  ] = useState<string | null>(null);
   const [qaReviews, setQaReviews] =
     useState<
       Record<string, QAReviewRecord>
@@ -4349,7 +4636,9 @@ export default function AdminGeneratorPage() {
         const registryData =
           await registryRes.json();
         const registryPatterns =
-          registryData.patterns || [];
+          mergeRequiredRegistryPatterns(
+            registryData.patterns || [],
+          );
 
         setQuestionPatterns(
           registryPatterns,
@@ -5719,6 +6008,9 @@ export default function AdminGeneratorPage() {
     "quant",
     "reasoning",
     "english",
+    "punjabi",
+    "knowledge",
+    "computer",
     "di",
   ].filter((domain) =>
     questionPatterns.some(
@@ -6396,6 +6688,15 @@ export default function AdminGeneratorPage() {
                 </option>
                 <option value="rrb">
                   RRB
+                </option>
+                <option value="punjab">
+                  Punjab
+                </option>
+                <option value="psssb">
+                  PSSSB
+                </option>
+                <option value="ppsc">
+                  PPSC
                 </option>
                 <option value="cat">
                   CAT
@@ -7526,22 +7827,59 @@ export default function AdminGeneratorPage() {
                         Duplicate Question
                       </div>
                     )}
+                  {(() => {
+                    const questionEditKey = `question-${idx}`;
+                    const explanationEditKey = `explanation-${idx}`;
+
+                    return (
+                      <>
                   <div className="font-medium">
-                    {idx + 1}.{" "}
-                    <textarea
-                      value={q.text}
-                      onChange={(e) => {
-                        const updated = [
-                          ...generated,
-                        ];
+                    <div className="rounded border bg-white p-3">
+                      <div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        Question Preview
+                      </div>
+                      {activeInlineEditKey ===
+                      questionEditKey ? (
+                        <textarea
+                          value={q.text}
+                          onChange={(e) => {
+                            const updated = [
+                              ...generated,
+                            ];
 
-                        updated[idx].text =
-                          e.target.value;
+                            updated[idx].text =
+                              e.target.value;
 
-                        setGenerated(updated);
-                      }}
-                      className="border rounded p-2 w-full"
-                    />
+                            setGenerated(updated);
+                          }}
+                          onBlur={() =>
+                            setActiveInlineEditKey(
+                              null,
+                            )
+                          }
+                          autoFocus
+                          className="min-h-[96px] w-full rounded border p-2 text-sm"
+                        />
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActiveInlineEditKey(
+                              questionEditKey,
+                            )
+                          }
+                          className="w-full rounded text-left text-sm text-slate-900 transition hover:bg-slate-50"
+                        >
+                          <span className="mr-1">
+                            {idx + 1}.
+                          </span>
+                          <MathText
+                            content={q.text}
+                            inline
+                          />
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                   {(q.seatingExplanationFlow ??
@@ -7571,6 +7909,9 @@ export default function AdminGeneratorPage() {
                           q.seatingDiagram ??
                           q.debugMetadata
                             ?.seatingDiagram
+                        }
+                        inferenceTrace={
+                          q.inferenceTrace
                         }
                       />
                     </div>
@@ -7624,30 +7965,57 @@ export default function AdminGeneratorPage() {
                       (
                         opt: string,
                         i: number,
-                      ) => (
-                        <div
-                          key={i}
-                          className={`border rounded p-2 ${q.correct === i
-                            ? "bg-green-100"
-                            : ""
-                            }`}
-                        >
-                          <input
-                            value={opt}
-                            onChange={(e) => {
-                              const updated = [
-                                ...generated,
-                              ];
+                      ) => {
+                        const optionEditKey = `option-${idx}-${i}`;
+                        return (
+                          <div
+                            key={i}
+                            className={`border rounded p-2 ${q.correct === i
+                              ? "bg-green-100"
+                              : ""
+                              }`}
+                          >
+                            {activeInlineEditKey ===
+                            optionEditKey ? (
+                              <input
+                                value={opt}
+                                onChange={(e) => {
+                                  const updated = [
+                                    ...generated,
+                                  ];
 
-                              updated[idx].options[i] =
-                                e.target.value;
+                                  updated[idx].options[i] =
+                                    e.target.value;
 
-                              setGenerated(updated);
-                            }}
-                            className="w-full bg-transparent outline-none"
-                          />
-                        </div>
-                      ),
+                                  setGenerated(updated);
+                                }}
+                                onBlur={() =>
+                                  setActiveInlineEditKey(
+                                    null,
+                                  )
+                                }
+                                autoFocus
+                                className="w-full rounded border p-2 bg-white outline-none"
+                              />
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setActiveInlineEditKey(
+                                    optionEditKey,
+                                  )
+                                }
+                                className="w-full text-left text-sm text-slate-900 transition hover:bg-white/70"
+                              >
+                                <MathText
+                                  content={opt}
+                                  inline
+                                />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      },
                     )}
                   </div>
 
@@ -7767,21 +8135,54 @@ export default function AdminGeneratorPage() {
                         </option>
                       </select>
                     </div>
-                    <textarea
-                      value={q.explanation}
-                      onChange={(e) => {
-                        const updated = [
-                          ...generated,
-                        ];
+                    <div className="rounded border bg-white p-3 text-sm text-slate-700">
+                      <div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        Explanation Preview
+                      </div>
+                      {activeInlineEditKey ===
+                      explanationEditKey ? (
+                        <textarea
+                          value={q.explanation}
+                          onChange={(e) => {
+                            const updated = [
+                              ...generated,
+                            ];
 
-                        updated[idx].explanation =
-                          e.target.value;
+                            updated[idx].explanation =
+                              e.target.value;
 
-                        setGenerated(updated);
-                      }}
-                      className="border rounded p-2 w-full"
-                    />
+                            setGenerated(updated);
+                          }}
+                          onBlur={() =>
+                            setActiveInlineEditKey(
+                              null,
+                            )
+                          }
+                          autoFocus
+                          className="min-h-[120px] w-full rounded border p-2 text-sm"
+                        />
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActiveInlineEditKey(
+                              explanationEditKey,
+                            )
+                          }
+                          className="w-full rounded text-left transition hover:bg-slate-50"
+                        >
+                          <MathText
+                            content={
+                              q.explanation || ""
+                            }
+                          />
+                        </button>
+                      )}
+                    </div>
                   </div>
+                      </>
+                    );
+                  })()}
                 </div>
              );
 },

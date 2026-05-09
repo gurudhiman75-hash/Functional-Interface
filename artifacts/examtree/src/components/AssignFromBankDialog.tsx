@@ -10,6 +10,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Search, X, Check, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import MathText from "@/components/MathText";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
@@ -331,7 +332,10 @@ export default function AssignFromBankDialog({ testId, testName, open, onClose, 
                         )}
                       </td>
                       <td className="px-3 py-2.5 text-foreground">
-                        {truncate(q.text)}
+                        <MathText
+                          content={q.text}
+                          className="line-clamp-2"
+                        />
                         {inTest && (
                           <span className="ml-2 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
                             IN TEST

@@ -8,6 +8,157 @@ import { createReasoningStep } from "../shared";
 export const LOGIC_REASONING_ARCHETYPES: QuantArchetype[] =
   [
     {
+      id: "medium-vertical-constraints",
+      difficulty: "Medium",
+      category:
+        "vertical-constraints",
+      topicClusters: [
+        "seating-arrangement",
+        "puzzles",
+      ],
+      operationChain: [
+        "compare",
+        "filter",
+        "infer",
+      ],
+      supportedMotifs: [
+        "con-floor-fixed",
+        "con-floor-gap",
+        "con-floor-parity",
+        "con-box-stack",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Map the entities to vertical slots and answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "compare",
+          "Apply direct Entity-to-Slot assignments first.",
+        ),
+        createReasoningStep(
+          "filter",
+          "Prune slots using gap, immediate-next, and parity constraints.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Infer the only remaining vertical stack or floor mapping.",
+        ),
+      ],
+    },
+    {
+      id: "medium-scheduling-constraints",
+      difficulty: "Medium",
+      category:
+        "scheduling-constraints",
+      topicClusters: [
+        "seating-arrangement",
+        "puzzles",
+      ],
+      operationChain: [
+        "compare",
+        "transform",
+        "infer",
+      ],
+      supportedMotifs: [
+        "con-sched-sequence",
+        "con-sched-relative",
+        "con-sched-weekend",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Map the events to calendar slots and answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "compare",
+          "Place fixed events on their calendar slots.",
+        ),
+        createReasoningStep(
+          "transform",
+          "Convert relative-day clues into slot offsets.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Use excluded weekend slots and relative links to finish the schedule.",
+        ),
+      ],
+    },
+    {
+      id: "hard-multi-variable-mapping",
+      difficulty: "Hard",
+      category:
+        "multi-variable-mapping",
+      topicClusters: [
+        "seating-arrangement",
+        "puzzles",
+      ],
+      operationChain: [
+        "compare",
+        "filter",
+        "aggregate",
+        "infer",
+      ],
+      supportedMotifs: [
+        "con-mapping-triad",
+        "con-mapping-negative",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Resolve the multi-variable mapping and answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "compare",
+          "Mark direct person-slot-attribute assignments.",
+        ),
+        createReasoningStep(
+          "filter",
+          "Remove impossible attribute-slot pairings from each entity domain.",
+        ),
+        createReasoningStep(
+          "aggregate",
+          "Combine remaining entity, slot, and attribute constraints.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Infer the unique triad mapping.",
+        ),
+      ],
+    },
+    {
+      id: "medium-critical-inference",
+      difficulty: "Medium",
+      category:
+        "critical-inference",
+      topicClusters: [
+        "critical-inference",
+      ],
+      operationChain: [
+        "filter",
+        "compare",
+        "infer",
+      ],
+      wordingVariants: [
+        "{baseText}",
+        "Read the verbal logic prompt and answer: {baseText}",
+      ],
+      buildReasoningSteps: () => [
+        createReasoningStep(
+          "filter",
+          "Remove options that use outside information, extreme wording, or irrelevant action.",
+        ),
+        createReasoningStep(
+          "compare",
+          "Check scope and tone against the given statement.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Choose the inference that follows from the premise plus the necessary bridge.",
+        ),
+      ],
+    },
+    {
       id: "easy-direct-inequalities",
       difficulty: "Easy",
       category:

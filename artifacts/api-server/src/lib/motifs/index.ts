@@ -3,7 +3,10 @@ import { ratioMotifs } from "./ratio";
 import { codingDecodingMotifs } from "./coding-decoding";
 import { bloodRelationMotifs } from "./blood-relations";
 import { directionSenseMotifs } from "./direction-sense";
+import { abstractReasoningMotifs } from "./abstract-reasoning";
 import { inequalityMotifs } from "./inequality";
+import { temporalReasoningMotifs } from "./temporal-reasoning";
+import { criticalInferenceMotifs } from "./critical-inference";
 import { seatingArrangementMotifs } from "./seating-arrangement";
 import { practicalQuantMotifs } from "./practical-quant";
 import {
@@ -37,7 +40,10 @@ export const ALL_MOTIFS = [
   ...codingDecodingMotifs,
   ...bloodRelationMotifs,
   ...directionSenseMotifs,
+  ...abstractReasoningMotifs,
   ...inequalityMotifs,
+  ...temporalReasoningMotifs,
+  ...criticalInferenceMotifs,
   ...seatingArrangementMotifs,
   ...practicalQuantMotifs,
   ...practicalReasoningMotifs,
@@ -72,7 +78,10 @@ export {
   codingDecodingMotifs,
   bloodRelationMotifs,
   directionSenseMotifs,
+  abstractReasoningMotifs,
   inequalityMotifs,
+  temporalReasoningMotifs,
+  criticalInferenceMotifs,
   seatingArrangementMotifs,
   practicalQuantMotifs,
   practicalReasoningMotifs,

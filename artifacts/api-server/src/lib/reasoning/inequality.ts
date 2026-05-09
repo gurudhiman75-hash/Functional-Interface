@@ -12,6 +12,9 @@ import {
   ReasoningStep,
   shuffle,
 } from "../shared";
+import {
+  createDeductiveScenario,
+} from "./syllogisms";
 
 type InequalityRelation =
   | ">"
@@ -35,6 +38,11 @@ type InequalityScenario = {
     | "conclusion";
   correctRelation: InequalityRelation;
   reasoningSteps: ReasoningStep[];
+  stemOverride?: string;
+  explanationOverride?: string;
+  customOptions?: string[];
+  customOptionMetadata?: OptionMetadata[];
+  svg?: string;
 };
 
 const INEQUALITY_SYMBOL_POOL = [
@@ -277,6 +285,156 @@ export function createInequalityScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
 ) {
+  if (
+    motif.id.startsWith("ded-syl") ||
+    motif.id.startsWith("ded-venn")
+  ) {
+    const deductive =
+      createDeductiveScenario(
+        motif,
+        difficulty,
+      );
+
+    return {
+      symbols: [],
+      facts: [],
+      queryLeft: "A",
+      queryRight: "B",
+      questionStyle: "conclusion",
+      correctRelation: "unknown",
+      reasoningSteps:
+        deductive.reasoningSteps,
+      stemOverride:
+        deductive.stem,
+      explanationOverride:
+        deductive.explanation,
+      customOptions:
+        deductive.options,
+      customOptionMetadata:
+        deductive.optionMetadata,
+      svg: deductive.svg,
+    } satisfies InequalityScenario;
+  }
+
+  if (motif.id === "ded-ineq-coded") {
+    const options = [
+      "P > S",
+      "P < S",
+      "P = S",
+      "Cannot be determined",
+    ];
+    const optionMetadata =
+      shuffle(
+        options.map((value) => ({
+          value,
+          isCorrect: value === "P > S",
+          distractorType:
+            value === "P > S"
+              ? undefined
+              : "wrongIntermediateValue" as const,
+          likelyMistake:
+            value === "P > S"
+              ? undefined
+              : "Decoded one of the coded operators in the wrong direction.",
+          reasoningTrap:
+            value === "P > S"
+              ? undefined
+              : "Coded inequality trap.",
+        })),
+      );
+
+    return {
+      symbols: ["P", "Q", "R", "S"],
+      facts: [],
+      queryLeft: "P",
+      queryRight: "S",
+      questionStyle: "conclusion",
+      correctRelation: ">",
+      reasoningSteps: [
+        createReasoningStep(
+          "transform",
+          "$A @ B$ means $A$ is not smaller than $B$, so $A \\ge B$.",
+        ),
+        createReasoningStep(
+          "transform",
+          "$A # B$ means $A$ is greater than $B$, so $A>B$.",
+        ),
+        createReasoningStep(
+          "infer",
+          "From $P@Q$, $Q#R$, and $R@S$, the chain gives $P>S$.",
+        ),
+      ],
+      stemOverride:
+        "In a coded inequality, $A @ B$ means $A$ is not smaller than $B$ and $A # B$ means $A$ is greater than $B$. If $P @ Q # R @ S$, which conclusion follows?",
+      explanationOverride:
+        "Decode the symbols first: $@$ means $\\ge$ and $# $ means $>$. So $P\\ge Q>R\\ge S$, which definitely gives $P>S$.",
+      customOptions:
+        optionMetadata.map(
+          (option) => option.value,
+        ),
+      customOptionMetadata:
+        optionMetadata,
+    } satisfies InequalityScenario;
+  }
+
+  if (motif.id === "ded-ineq-either") {
+    const correct =
+      "Either conclusion I or II follows";
+    const optionMetadata =
+      shuffle(
+        [
+          correct,
+          "Only conclusion I follows",
+          "Only conclusion II follows",
+          "Neither conclusion follows",
+        ].map((value) => ({
+          value,
+          isCorrect: value === correct,
+          distractorType:
+            value === correct
+              ? undefined
+              : "comparisonTrap" as const,
+          likelyMistake:
+            value === correct
+              ? undefined
+              : "Missed the equality split that makes either-or valid.",
+          reasoningTrap:
+            value === correct
+              ? undefined
+              : "Either-or inequality trap.",
+        })),
+      );
+
+    return {
+      symbols: ["A", "B"],
+      facts: [],
+      queryLeft: "A",
+      queryRight: "B",
+      questionStyle: "conclusion",
+      correctRelation: "unknown",
+      reasoningSteps: [
+        createReasoningStep(
+          "compare",
+          "Conclusion I: $A>B$ and conclusion II: $A\\le B$ use the same subject-predicate pair.",
+        ),
+        createReasoningStep(
+          "infer",
+          "Individually neither is fixed, but together they exhaust all possibilities.",
+        ),
+      ],
+      stemOverride:
+        "Statement: No definite relation is given between $A$ and $B$. Conclusions: I. $A>B$ II. $A\\le B$. Which follows?",
+      explanationOverride:
+        "Either-or applies when the same pair is used, both individual conclusions are not definite, and together they cover all cases. Here $A>B$ or $A\\le B$ is exhaustive.",
+      customOptions:
+        optionMetadata.map(
+          (option) => option.value,
+        ),
+      customOptionMetadata:
+        optionMetadata,
+    } satisfies InequalityScenario;
+  }
+
   const symbolCount =
     motif.id ===
     "direct_inequality_reading"
@@ -508,6 +666,10 @@ export function buildInequalityStem(
     | "balanced"
     | "inference-heavy",
 ) {
+  if (scenario.stemOverride) {
+    return scenario.stemOverride;
+  }
+
   const intro =
     wordingStyle === "concise"
       ? "Study the inequalities."
@@ -535,6 +697,10 @@ export function buildInequalityExplanation(
     typeof createInequalityScenario
   >,
 ) {
+  if (scenario.explanationOverride) {
+    return `${scenario.explanationOverride}${scenario.svg ? `\n\nVenn/Euler visual:\n${scenario.svg}` : ""}`;
+  }
+
   return `Link the statements step by step. ${scenario.reasoningSteps
     .map((step) => step.detail)
     .join(" ")} Therefore, ${formatInequalityAnswer(
@@ -549,6 +715,26 @@ export function buildInequalityOptions(
     typeof createInequalityScenario
   >,
 ) {
+  if (
+    scenario.customOptions &&
+    scenario.customOptionMetadata
+  ) {
+    return {
+      options: scenario.customOptions,
+      correct:
+        scenario.customOptions.findIndex(
+          (option) =>
+            option ===
+            scenario.customOptionMetadata?.find(
+              (entry) =>
+                entry.isCorrect,
+            )?.value,
+        ),
+      optionMetadata:
+        scenario.customOptionMetadata,
+    };
+  }
+
   const correctValue =
     formatInequalityAnswer(
       scenario.queryLeft,

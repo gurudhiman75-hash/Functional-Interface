@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import MathText from "@/components/MathText";
 import { useToast } from "@/hooks/use-toast";
 import {
   getQuestionBank,
@@ -1251,7 +1252,12 @@ export default function QuestionBankTab() {
                       </button>
                     </div>
                     <div>
-                      <p className="text-sm text-foreground leading-snug">{truncate(q.text ?? q.textPa ?? q.textHi ?? "")}</p>
+                      <div className="text-sm text-foreground leading-snug">
+                        <MathText
+                          content={q.text ?? q.textPa ?? q.textHi ?? ""}
+                          className="line-clamp-2"
+                        />
+                      </div>
                       <p className="text-[10px] text-muted-foreground mt-0.5">{q.section} • ID {q.id}</p>
                     </div>
                     <div className="text-right">
@@ -1297,7 +1303,9 @@ export default function QuestionBankTab() {
                       {/* Full question */}
                       <div>
                         <p className="text-xs font-semibold text-muted-foreground mb-1.5">Full Question</p>
-                        <p className="text-sm text-foreground">{q.text}</p>
+                        <div className="text-sm text-foreground">
+                          <MathText content={q.text} />
+                        </div>
                         <div className="mt-2 grid grid-cols-2 gap-1">
                           {(q.options as string[]).map((opt, i) => (
                             <div
@@ -1308,15 +1316,18 @@ export default function QuestionBankTab() {
                                   : "bg-muted/60 text-muted-foreground"
                               }`}
                             >
-                              {String.fromCharCode(65 + i)}. {opt}
+                              <MathText
+                                content={`${String.fromCharCode(65 + i)}. ${opt}`}
+                                inline
+                              />
                             </div>
                           ))}
                         </div>
                         {q.explanation && (
-                          <p className="mt-2 text-xs text-muted-foreground italic">
+                          <div className="mt-2 text-xs text-muted-foreground italic">
                             <span className="font-medium not-italic text-foreground">Explanation: </span>
-                            {q.explanation}
-                          </p>
+                            <MathText content={q.explanation} inline />
+                          </div>
                         )}
                       </div>
 

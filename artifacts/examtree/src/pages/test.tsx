@@ -44,6 +44,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { QuestionRichText } from "@/components/QuestionRichText";
+import { EnglishQuestionLayout } from "@/components/EnglishQuestionLayout";
 import { AppLayout } from "@/components/AppLayout";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
@@ -935,7 +936,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               )}
 
               <div className="text-sm leading-7 text-gray-800 sm:text-base">
-                <QuestionRichText content={getLocalizedQuestion(q, lang).text} lang={lang} />
+                <EnglishQuestionLayout content={getLocalizedQuestion(q, lang).text} lang={lang} />
               </div>
 
               <div className="grid gap-2">
@@ -1070,9 +1071,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                           <span className={`flex h-6 w-6 items-center justify-center rounded text-xs font-bold ${
                             examSelected === q.correct ? "bg-yellow-500 text-white" : "bg-orange-500 text-white"
                           }`}>{optionLabel(examSelected)}</span>
-                          <span className="truncate text-gray-700">
-                            {examSelected !== null && examSelected !== undefined ? q.options[examSelected] : "Not answered"}
-                          </span>
+                          <div className="min-w-0 flex-1 truncate text-gray-700">
+                            <QuestionRichText
+                              content={examSelected !== null && examSelected !== undefined ? getLocalizedQuestion(q, lang).options[examSelected] : "Not answered"}
+                              inline
+                              className="line-clamp-1"
+                              lang={lang}
+                            />
+                          </div>
                         </div>
                       )}
                       <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -1080,16 +1086,28 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         <span className={`flex h-6 w-6 items-center justify-center rounded text-xs font-bold ${
                           isCorrect ? "bg-yellow-500 text-white" : "bg-red-500 text-white"
                         }`}>{optionLabel(practiceSelected)}</span>
-                        <span className="truncate text-gray-700">
-                          {practiceSelected !== null && practiceSelected !== undefined ? q.options[practiceSelected] : "Not answered"}
-                        </span>
+                        <div className="min-w-0 flex-1 truncate text-gray-700">
+                          <QuestionRichText
+                            content={practiceSelected !== null && practiceSelected !== undefined ? getLocalizedQuestion(q, lang).options[practiceSelected] : "Not answered"}
+                            inline
+                            className="line-clamp-1"
+                            lang={lang}
+                          />
+                        </div>
                       </div>
                       <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
                         <span className="w-36 shrink-0 text-xs font-medium text-gray-500">Correct answer</span>
                         <span className="flex h-6 w-6 items-center justify-center rounded bg-yellow-500 text-xs font-bold text-white">
                           {optionLabel(q.correct)}
                         </span>
-                        <span className="truncate text-gray-700">{q.options[q.correct]}</span>
+                        <div className="min-w-0 flex-1 truncate text-gray-700">
+                          <QuestionRichText
+                            content={getLocalizedQuestion(q, lang).options[q.correct]}
+                            inline
+                            className="line-clamp-1"
+                            lang={lang}
+                          />
+                        </div>
                       </div>
                       {(realExamTimes[q.id] !== undefined || practiceTimeTaken[q.id] !== undefined) && (
                         <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -1152,12 +1170,21 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                               diagram={
                                 q.seatingDiagram
                               }
+                              inferenceTrace={
+                                (q as any)
+                                  .inferenceTrace
+                              }
                               title="Seating arrangement solution diagram"
                             />
                           </div>
                         ) : null}
                         {q.explanation ? (
-                          <p className="text-sm leading-relaxed text-gray-600">{getLocalizedQuestion(q, lang).explanation}</p>
+                          <div className="text-sm leading-relaxed text-gray-600">
+                            <QuestionRichText
+                              content={getLocalizedQuestion(q, lang).explanation}
+                              lang={lang}
+                            />
+                          </div>
                         ) : null}
                       </div>
                     )}

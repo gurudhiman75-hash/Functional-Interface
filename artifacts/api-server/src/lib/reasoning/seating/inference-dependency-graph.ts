@@ -14,6 +14,12 @@ export type InferenceDependencyNode =
   {
     nodeId: string;
     kind: InferenceNodeKind;
+    logicLego:
+      | "Direct Assignment"
+      | "Domain Pruning"
+      | "Relative Linkage"
+      | "Exhaustive Branching"
+      | "General Deduction";
     step: InferenceStep;
     prerequisiteIds: string[];
     unlockedDeductionIds: string[];
@@ -84,6 +90,53 @@ function getNodeKind(
   }
 
   return "deduction";
+}
+
+function getLogicLego(step: InferenceStep) {
+  if (
+    step.deduction.includes(
+      "Direct Assignment",
+    ) ||
+    step.deduction.includes(
+      "Anchored",
+    )
+  ) {
+    return "Direct Assignment" as const;
+  }
+
+  if (
+    step.deduction.includes(
+      "Domain Pruning",
+    ) ||
+    step.eliminatedPossibilities
+      .length > 0
+  ) {
+    return "Domain Pruning" as const;
+  }
+
+  if (
+    step.deduction.includes(
+      "Relative Linkage",
+    ) ||
+    step.deduction.includes(
+      "Propagated",
+    )
+  ) {
+    return "Relative Linkage" as const;
+  }
+
+  if (
+    step.deduction.includes(
+      "Exhaustive Branching",
+    ) ||
+    step.deduction.includes(
+      "Branching on",
+    )
+  ) {
+    return "Exhaustive Branching" as const;
+  }
+
+  return "General Deduction" as const;
 }
 
 function getKnownSeatCount(
@@ -193,6 +246,7 @@ export function buildInferenceDependencyGraph(
       {
         nodeId: step.stepId,
         kind,
+        logicLego: getLogicLego(step),
         step,
         prerequisiteIds:
           unique(

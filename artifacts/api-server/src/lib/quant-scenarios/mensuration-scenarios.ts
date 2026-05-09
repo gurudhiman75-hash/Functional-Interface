@@ -66,12 +66,75 @@ function formatNumber(value: number) {
     : rounded.toFixed(2);
 }
 
-function formatAnswer(
+function formatLatexUnit(unit = "") {
+  if (!unit) return "";
+  if (unit === "% increase") {
+    return "\\%\\text{ increase}";
+  }
+  if (unit === "% decrease") {
+    return "\\%\\text{ decrease}";
+  }
+  const [base, power] = unit.split("^");
+  if (!power) {
+    return `\\text{ ${base}}`;
+  }
+  return `\\text{ ${base}}^${power}`;
+}
+
+function formatMathJaxAnswer(
   value: number,
   unit = "",
 ) {
   const numeric = formatNumber(value);
-  return unit ? `${numeric} ${unit}` : numeric;
+  const latexUnit = formatLatexUnit(unit);
+  return latexUnit
+    ? `$${numeric} ${latexUnit}$`
+    : `$${numeric}$`;
+}
+
+function normalizeMathJaxUnits(
+  content: string,
+) {
+  return content
+    .replace(
+      /\$([^$]*?\d[^$]*?)\$ (cm|m)\$\^([23])\$/g,
+      (_match, expression, unit, power) =>
+        `$${expression} \\text{ ${unit}}^${power}$`,
+    )
+    .replace(
+      /\$([^$]*?\d[^$]*?)\$ (cm|m)\b/g,
+      (_match, expression, unit) =>
+        `$${expression} \\text{ ${unit}}$`,
+    )
+    .replace(
+      /(\d+(?:\.\d+)?) (cm|m)\$\^([23])\$/g,
+      (_match, value, unit, power) =>
+        `$${value} \\text{ ${unit}}^${power}$`,
+    )
+    .replace(
+      /(\d+(?:\.\d+)?) (cm|m)\b/g,
+      (_match, value, unit) =>
+        `$${value} \\text{ ${unit}}$`,
+    );
+}
+
+function stripGenericPrefix(
+  content: string,
+) {
+  return content.replace(
+    /^(Answer quickly:|Solve this:|Read carefully:)\s*/i,
+    "",
+  );
+}
+
+function withOptionLabel(
+  value: string,
+  index: number,
+) {
+  const label = String.fromCharCode(
+    65 + index,
+  );
+  return `${label}. ${value}`;
 }
 
 function structuralSignature(
@@ -138,14 +201,19 @@ function buildOptions(
   }
   const values = unique.slice(0, 4);
   const optionMetadata: OptionMetadata[] =
-    values.map((value, index) =>
-      index === 0
+    values.map((value, index) => {
+      const displayValue =
+        withOptionLabel(
+          formatMathJaxAnswer(value, unit),
+          index,
+        );
+      return index === 0
         ? {
-            value: formatAnswer(value, unit),
+            value: displayValue,
             isCorrect: true,
           }
         : {
-            value: formatAnswer(value, unit),
+            value: displayValue,
             isCorrect: false,
             distractorType:
               "wrongIntermediateValue",
@@ -155,15 +223,29 @@ function buildOptions(
             reasoningTrap:
               distractorLabels[index - 1] ??
               "wrong mensuration invariant",
-          },
-    );
+          };
+    });
   return {
-    options: values.map((value) =>
-      formatAnswer(value, unit),
+    options: values.map((value, index) =>
+      withOptionLabel(
+        formatMathJaxAnswer(value, unit),
+        index,
+      ),
     ),
     correct: 0,
     optionMetadata,
   };
+}
+
+function buildStepExplanation(
+  definition: MensurationDefinition,
+) {
+  return definition.steps
+    .map(
+      ([, detail], index) =>
+        `Step ${index + 1}: ${definition.formula}\n${normalizeMathJaxUnits(detail)}`,
+    )
+    .join("\n");
 }
 
 function finalizeMensurationScenario(
@@ -187,16 +269,19 @@ function finalizeMensurationScenario(
       ...definition.values,
       spatialValue: state.value,
     },
-    text: definition.text,
+    text: normalizeMathJaxUnits(
+      stripGenericPrefix(
+        definition.text,
+      ),
+    ),
     correctAnswer: round(definition.answer),
     formula: definition.formula,
     reasoningSteps: definition.steps.map(
       ([operation, detail]) =>
         createReasoningStep(operation, detail),
     ),
-    explanation: definition.steps
-      .map(([, detail]) => detail)
-      .join(" "),
+    explanation:
+      buildStepExplanation(definition),
     distractorHints:
       definition.distractorLabels,
     context:
@@ -613,7 +698,7 @@ const scenarioDefinitionsByMotif: Record<
       motifId: "men-cyl-csa-ratio",
       branch: "csa-to-tsa-ratio",
       text:
-        "For a cylinder with radius $7$ cm and height $14$ cm, find the ratio of $CSA$ to $TSA$.",
+        "A cylinder has radius $7$ cm and height $14$ cm. Find the ratio of $CSA$ to $TSA$.",
       values: { radius: 7, height: 14 },
       answer: 2 / 3,
       formula: "$CSA:TSA=2\\pi rh:2\\pi r(r+h)$",
@@ -906,7 +991,7 @@ const scenarioDefinitionsByMotif: Record<
       motifId: "men-scale-area",
       branch: "linear-to-area-square",
       text:
-        "If every side of a square is multiplied by $k=2$, by what factor does its area increase?",
+        "Every side of a square is doubled. By what factor does its area increase?",
       values: { scale: 2 },
       answer: 4,
       formula: "$Area\\ scale=k^2$",
@@ -932,9 +1017,9 @@ const scenarioDefinitionsByMotif: Record<
   "men-scale-vol": [
     def({
       motifId: "men-scale-vol",
-      branch: "linear-to-volume-cube",
+      branch: "industrial-cube-tripled",
       text:
-        "If every dimension of a cube is multiplied by $k=3$, by what factor does its volume increase?",
+        "A factory produces lead cubes for weights. To create a heavy-duty version, the side length of each cube is tripled. By what factor will the volume of the new cube increase?",
       values: { scale: 3 },
       answer: 27,
       formula: "$Volume\\ scale=k^3$",
@@ -954,7 +1039,59 @@ const scenarioDefinitionsByMotif: Record<
         "Using area square law",
         "Adding dimension effects",
       ],
-      tokens: ["tripled", "$k^3$"],
+      tokens: ["tripled", "industrial-skin", "$k^3$"],
+    }),
+    def({
+      motifId: "men-scale-vol",
+      branch: "sculptor-fullscale-three-times",
+      text:
+        "A sculptor is making a miniature clay model of a monument. He then decides to create a full-scale version in which every linear dimension is $3$ times that of the model. How many times as much clay will be needed?",
+      values: { scale: 3 },
+      answer: 27,
+      formula: "$Volume\\ scale=k^3$",
+      steps: [
+        [
+          "transform",
+          "Volume depends on three linear dimensions, so the volume changes by the cube of the linear scale factor.",
+        ],
+        [
+          "infer",
+          "Since every linear dimension becomes $3$ times, the volume factor is $3^3=27$.",
+        ],
+      ],
+      distractors: [3, 9, 18],
+      distractorLabels: [
+        "Scaling_Linear_Assumption",
+        "Using area square law",
+        "Adding dimension effects",
+      ],
+      tokens: ["three times", "sculptor-skin", "$k^3$"],
+    }),
+    def({
+      motifId: "men-scale-vol",
+      branch: "industrial-edge-increase-200-percent",
+      text:
+        "A storage company is redesigning a cubic container. Every edge is increased by $200\\%$ to create a larger version. By what factor will its volume increase?",
+      values: { scale: 3, percentIncrease: 200 },
+      answer: 27,
+      formula: "$Volume\\ scale=k^3$",
+      steps: [
+        [
+          "transform",
+          "An increase of $200\\%$ means each edge becomes $100\\%+200\\%=300\\%$ of the original, so the new edge is $3$ times the old one.",
+        ],
+        [
+          "infer",
+          "Volume scales as the cube of the linear factor, so the new volume factor is $3^3=27$.",
+        ],
+      ],
+      distractors: [3, 9, 8],
+      distractorLabels: [
+        "Scaling_Linear_Assumption",
+        "Using area square law",
+        "Treating $200\\%$ as doubling only",
+      ],
+      tokens: ["$200\\%$", "concealed-scale", "$k^3$"],
     }),
   ],
   "men-max-perimeter": [
@@ -987,12 +1124,53 @@ const scenarioDefinitionsByMotif: Record<
 function createScenarioFromMotif(
   motifId: string,
 ): MensurationScenarioFactory {
-  return () =>
-    finalizeMensurationScenario(
-      pickRandomItem(
-        scenarioDefinitionsByMotif[motifId],
-      ),
+  return (difficulty) => {
+    const definitions =
+      scenarioDefinitionsByMotif[motifId];
+
+    if (motifId === "men-scale-vol") {
+      const definitionsByDifficulty: Record<
+        DifficultyLabel,
+        MensurationDefinition[]
+      > = {
+        Easy: definitions.filter(
+          (definition) =>
+            definition.branch ===
+            "industrial-cube-tripled",
+        ),
+        Medium: definitions.filter(
+          (definition) =>
+            definition.branch ===
+              "sculptor-fullscale-three-times" ||
+            definition.branch ===
+              "industrial-cube-tripled",
+        ),
+        Hard: definitions.filter(
+          (definition) =>
+            definition.branch ===
+              "industrial-edge-increase-200-percent" ||
+            definition.branch ===
+              "sculptor-fullscale-three-times",
+        ),
+      };
+
+      return finalizeMensurationScenario(
+        pickRandomItem(
+          definitionsByDifficulty[
+            difficulty
+          ]?.length
+            ? definitionsByDifficulty[
+                difficulty
+              ]
+            : definitions,
+        ),
+      );
+    }
+
+    return finalizeMensurationScenario(
+      pickRandomItem(definitions),
     );
+  };
 }
 
 const scenarioFactoriesByMotif = new Map<

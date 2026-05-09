@@ -1,0 +1,802 @@
+[firebase-admin] Firebase separate-var credentials are invalid (placeholder values?). Falling back to mock auth — development only.
+ Failed to parse private key: Error: Invalid PEM formatted message.
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:ee1588f9-b021-4b46-a868-73bd27b8792a',
+    generationId: 'gen_1543952f',
+    generationTimestamp: 1778308322225,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:ee1588f9-b021-4b46-a868-73bd27b8792a',
+    generationId: 'gen_1543952f',
+    generationTimestamp: 1778308322225,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:02c4a2b0-2495-4cd3-8ca7-c7abfe09886a',
+    generationId: 'gen_a75d7e0b',
+    generationTimestamp: 1778308323006,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-factor',
+    missingTokens: [ 'x^2' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: x^2'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: x^2
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:02c4a2b0-2495-4cd3-8ca7-c7abfe09886a',
+    generationId: 'gen_a75d7e0b',
+    generationTimestamp: 1778308323006,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-factor',
+    missingTokens: [ 'x^2' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:377b51c1-704b-4697-a0b4-724d21da50e5',
+    generationId: 'gen_8112a8c7',
+    generationTimestamp: 1778308326549,
+    patternId: 'registry-equations-word-problems-medium',
+    motifId: 'eqn-word-fixed-variable',
+    missingTokens: [ '12x' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: 12x'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: 12x
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:377b51c1-704b-4697-a0b4-724d21da50e5',
+    generationId: 'gen_8112a8c7',
+    generationTimestamp: 1778308326549,
+    patternId: 'registry-equations-word-problems-medium',
+    motifId: 'eqn-word-fixed-variable',
+    missingTokens: [ '12x' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:ed0a78c7-0e80-48b2-a9b5-95b4af2d314f',
+    generationId: 'gen_f4771846',
+    generationTimestamp: 1778308393629,
+    patternId: 'registry-equations-medium',
+    motifId: 'eqn-quad-vieta',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:ed0a78c7-0e80-48b2-a9b5-95b4af2d314f',
+    generationId: 'gen_f4771846',
+    generationTimestamp: 1778308393629,
+    patternId: 'registry-equations-medium',
+    motifId: 'eqn-quad-vieta',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:5f58c33c-6488-4077-9a96-fc0b6eb0f82d',
+    generationId: 'gen_75d02765',
+    generationTimestamp: 1778308394367,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:5f58c33c-6488-4077-9a96-fc0b6eb0f82d',
+    generationId: 'gen_75d02765',
+    generationTimestamp: 1778308394367,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:24893e31-84b2-421c-9973-c99a4c0fbe5d',
+    generationId: 'gen_e365e3a8',
+    generationTimestamp: 1778308492968,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:24893e31-84b2-421c-9973-c99a4c0fbe5d',
+    generationId: 'gen_e365e3a8',
+    generationTimestamp: 1778308492968,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:02dd42c2-8331-4ade-8d36-9d644dac62cc',
+    generationId: 'gen_afe8305e',
+    generationTimestamp: 1778308493781,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-formula',
+    missingTokens: [ '\\sqrt', 'D' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\sqrt, D'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \sqrt, D
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:02dd42c2-8331-4ade-8d36-9d644dac62cc',
+    generationId: 'gen_afe8305e',
+    generationTimestamp: 1778308493781,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-formula',
+    missingTokens: [ '\\sqrt', 'D' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:60f9bc35-2b34-4454-9671-15337844029c',
+    generationId: 'gen_a3fc3f06',
+    generationTimestamp: 1778308519446,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:60f9bc35-2b34-4454-9671-15337844029c',
+    generationId: 'gen_a3fc3f06',
+    generationTimestamp: 1778308519446,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:a911b28a-925b-478a-aaae-b1d96998e637',
+    generationId: 'gen_34a712e8',
+    generationTimestamp: 1778308551268,
+    patternId: 'registry-equations-linear-hard',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:a911b28a-925b-478a-aaae-b1d96998e637',
+    generationId: 'gen_34a712e8',
+    generationTimestamp: 1778308551268,
+    patternId: 'registry-equations-linear-hard',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:b1fed2a7-63cd-46dc-998e-ef8d30109d0b',
+    generationId: 'gen_11d908da',
+    generationTimestamp: 1778308552031,
+    patternId: 'registry-equations-quadratic-hard',
+    motifId: 'eqn-quad-formula',
+    missingTokens: [ '\\sqrt', 'D' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\sqrt, D'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \sqrt, D
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:b1fed2a7-63cd-46dc-998e-ef8d30109d0b',
+    generationId: 'gen_11d908da',
+    generationTimestamp: 1778308552031,
+    patternId: 'registry-equations-quadratic-hard',
+    motifId: 'eqn-quad-formula',
+    missingTokens: [ '\\sqrt', 'D' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:f8aff534-0227-44ad-a678-b3066c898d8a',
+    generationId: 'gen_2aafc669',
+    generationTimestamp: 1778308552751,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-formula',
+    missingTokens: [ '\\sqrt', 'D' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\sqrt, D'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \sqrt, D
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:f8aff534-0227-44ad-a678-b3066c898d8a',
+    generationId: 'gen_2aafc669',
+    generationTimestamp: 1778308552751,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-formula',
+    missingTokens: [ '\\sqrt', 'D' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:7e3d0495-8f26-42ff-a4c1-57922aa68a28',
+    generationId: 'gen_4b43f110',
+    generationTimestamp: 1778308711777,
+    patternId: 'registry-equations-medium',
+    motifId: 'eqn-quad-vieta',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:7e3d0495-8f26-42ff-a4c1-57922aa68a28',
+    generationId: 'gen_4b43f110',
+    generationTimestamp: 1778308711777,
+    patternId: 'registry-equations-medium',
+    motifId: 'eqn-quad-vieta',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:2a9ff8bf-23a3-499b-ae3a-2b4664db88e9',
+    generationId: 'gen_4f277741',
+    generationTimestamp: 1778308712848,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:2a9ff8bf-23a3-499b-ae3a-2b4664db88e9',
+    generationId: 'gen_4f277741',
+    generationTimestamp: 1778308712848,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:974d5eee-d7e2-4ffb-af01-5ced4724fa85',
+    generationId: 'gen_a818722',
+    generationTimestamp: 1778308860537,
+    patternId: 'registry-equations-medium',
+    motifId: 'eqn-quad-factor',
+    missingTokens: [ 'x^2' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: x^2'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: x^2
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:974d5eee-d7e2-4ffb-af01-5ced4724fa85',
+    generationId: 'gen_a818722',
+    generationTimestamp: 1778308860537,
+    patternId: 'registry-equations-medium',
+    motifId: 'eqn-quad-factor',
+    missingTokens: [ 'x^2' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:b59ce575-e77d-4524-a8fe-1b18332e81b1',
+    generationId: 'gen_23d13956',
+    generationTimestamp: 1778308861361,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:b59ce575-e77d-4524-a8fe-1b18332e81b1',
+    generationId: 'gen_23d13956',
+    generationTimestamp: 1778308861361,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:e402eed4-f684-491a-9bff-f232f2e04bf1',
+    generationId: 'gen_2960b384',
+    generationTimestamp: 1778308863729,
+    patternId: 'registry-equations-special-hard',
+    motifId: 'eqn-special-reducible',
+    missingTokens: [ 'x^4' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: x^4'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: x^4
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:e402eed4-f684-491a-9bff-f232f2e04bf1',
+    generationId: 'gen_2960b384',
+    generationTimestamp: 1778308863729,
+    patternId: 'registry-equations-special-hard',
+    motifId: 'eqn-special-reducible',
+    missingTokens: [ 'x^4' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:a7fdc968-223f-4967-8ef5-c7d579ead5a2',
+    generationId: 'gen_4e934094',
+    generationTimestamp: 1778309408679,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:a7fdc968-223f-4967-8ef5-c7d579ead5a2',
+    generationId: 'gen_4e934094',
+    generationTimestamp: 1778309408679,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:9f45c0f4-5ffb-412d-b2ff-3a91ba4ddcad',
+    generationId: 'gen_5c191618',
+    generationTimestamp: 1778309409364,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-vieta',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:9f45c0f4-5ffb-412d-b2ff-3a91ba4ddcad',
+    generationId: 'gen_5c191618',
+    generationTimestamp: 1778309409364,
+    patternId: 'registry-equations-quadratic-medium',
+    motifId: 'eqn-quad-vieta',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:d846bd8a-fbb0-4a75-ba38-86db0fed542c',
+    generationId: 'gen_a290915b',
+    generationTimestamp: 1778309464745,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:d846bd8a-fbb0-4a75-ba38-86db0fed542c',
+    generationId: 'gen_a290915b',
+    generationTimestamp: 1778309464745,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:a69dd12a-dfaf-47e0-a0b6-5dbdaa769794',
+    generationId: 'gen_483bf0d7',
+    generationTimestamp: 1778309465438,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:a69dd12a-dfaf-47e0-a0b6-5dbdaa769794',
+    generationId: 'gen_483bf0d7',
+    generationTimestamp: 1778309465438,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:ee2cceba-4b64-4b0a-9d93-4813bd13b1c4',
+    generationId: 'gen_5266e344',
+    generationTimestamp: 1778309468846,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:ee2cceba-4b64-4b0a-9d93-4813bd13b1c4',
+    generationId: 'gen_5266e344',
+    generationTimestamp: 1778309468846,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:369eea66-3aac-460f-88be-66b1a2e787dd',
+    generationId: 'gen_21ac870f',
+    generationTimestamp: 1778309469525,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:369eea66-3aac-460f-88be-66b1a2e787dd',
+    generationId: 'gen_21ac870f',
+    generationTimestamp: 1778309469525,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:d7df735d-23bb-4df2-89cc-cc1199c20293',
+    generationId: 'gen_f910d2a5',
+    generationTimestamp: 1778309471548,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:d7df735d-23bb-4df2-89cc-cc1199c20293',
+    generationId: 'gen_f910d2a5',
+    generationTimestamp: 1778309471548,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-consistency',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:d8596180-38ed-4156-82d7-18d1b6680126',
+    generationId: 'gen_930a30e1',
+    generationTimestamp: 1778309472222,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:d8596180-38ed-4156-82d7-18d1b6680126',
+    generationId: 'gen_930a30e1',
+    generationTimestamp: 1778309472222,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}
+Reasoning engine failure {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:23794786-4681-478f-824b-2ed87bab2366',
+    generationId: 'gen_e58eb642',
+    generationTimestamp: 1778309472938,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  },
+  message: 'Procedural scenario stem failed validation for tokens: \\frac'
+}
+ReasoningEngineError: Procedural scenario stem failed validation for tokens: \frac
+    at createFormulaQuestionCandidate (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:1082:13)
+    at Object.generateScenario (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\domain-adapters.ts:1364:9)
+    at materializeAdapterQuestion (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2201:13)
+    at generateQuestionsWithAdapter (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2404:7)
+    at <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\lib\core\generator-engine.ts:2706:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (C:\Users\gurbaj\Downloads\f\artifacts\api-server\src\routes\generator.ts:689:9) {
+  code: 'SCENARIO_VALIDATION_FAILED',
+  phase: 'realization',
+  metadata: {
+    seed: 'auto-seed:23794786-4681-478f-824b-2ed87bab2366',
+    generationId: 'gen_e58eb642',
+    generationTimestamp: 1778309472938,
+    patternId: 'registry-equations-linear-medium',
+    motifId: 'eqn-lin-parameter',
+    missingTokens: [ '\\frac' ]
+  }
+}

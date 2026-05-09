@@ -11,6 +11,39 @@ export type ClueSetEvaluation = {
   uniquelySolvable: boolean;
 };
 
+export type ConstraintMappingEvaluation = {
+  solutionCount: number;
+  uniquelySolvable: boolean;
+  duplicateTupleCount: number;
+};
+
+export function evaluateConstraintMappings(
+  mappings: Array<
+    Record<string, string | number>
+  >,
+) : ConstraintMappingEvaluation {
+  const serialized = mappings.map(
+    (mapping) =>
+      JSON.stringify(
+        Object.entries(mapping).sort(
+          ([left], [right]) =>
+            left.localeCompare(right),
+        ),
+      ),
+  );
+  const uniqueCount =
+    new Set(serialized).size;
+
+  return {
+    solutionCount: uniqueCount,
+    uniquelySolvable:
+      uniqueCount === mappings.length &&
+      mappings.length > 0,
+    duplicateTupleCount:
+      mappings.length - uniqueCount,
+  };
+}
+
 export function evaluateClueSet(
   clues: SeatingClue[],
   input: {

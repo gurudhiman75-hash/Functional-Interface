@@ -167,4 +167,203 @@ export const inequalityMotifs: QuantMotif[] = [
       sbi: 1.1,
     },
   },
+  ...[
+    {
+      id: "ded-ineq-chain",
+      topicCluster: "inequality" as const,
+      reasoningCategories: [
+        "linear-inequality-chain",
+        "transitive-boundary",
+      ],
+      preferredOperations: [
+        "compare",
+        "infer",
+      ],
+      commonDistractors: [
+        "OppositeSignTrap",
+        "EqualityBoundaryTrap",
+      ],
+      inferenceStyle: "direct" as const,
+      reasoningDepthRange: [1, 4] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-ineq-coded",
+      topicCluster: "inequality" as const,
+      reasoningCategories: [
+        "coded-inequality",
+        "symbol-decoding",
+      ],
+      preferredOperations: [
+        "transform",
+        "compare",
+        "infer",
+      ],
+      commonDistractors: [
+        "OppositeSignTrap",
+        "SymbolDecodeError",
+      ],
+      inferenceStyle: "conditional" as const,
+      reasoningDepthRange: [2, 5] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-ineq-either",
+      topicCluster: "inequality" as const,
+      reasoningCategories: [
+        "either-or-logic",
+        "equality-split",
+      ],
+      preferredOperations: [
+        "compare",
+        "infer",
+      ],
+      commonDistractors: [
+        "EitherOrConditionMiss",
+        "PossibilityVsDefinite",
+      ],
+      inferenceStyle: "hidden" as const,
+      reasoningDepthRange: [3, 6] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-syl-definite",
+      topicCluster: "syllogism" as const,
+      reasoningCategories: [
+        "definite-syllogism",
+        "set-inclusion",
+      ],
+      preferredOperations: [
+        "infer",
+        "compare",
+      ],
+      commonDistractors: [
+        "ConversionError",
+        "PossibilityVsDefinite",
+      ],
+      inferenceStyle: "conditional" as const,
+      reasoningDepthRange: [2, 5] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-syl-possibility",
+      topicCluster: "syllogism" as const,
+      reasoningCategories: [
+        "possibility-syllogism",
+        "multi-model-check",
+      ],
+      preferredOperations: [
+        "infer",
+        "compare",
+      ],
+      commonDistractors: [
+        "PossibilityVsDefinite",
+        "ConversionError",
+      ],
+      inferenceStyle: "hidden" as const,
+      reasoningDepthRange: [3, 6] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-syl-negative",
+      topicCluster: "syllogism" as const,
+      reasoningCategories: [
+        "negative-syllogism",
+        "only-few-logic",
+      ],
+      preferredOperations: [
+        "infer",
+        "compare",
+      ],
+      commonDistractors: [
+        "OnlyFewCollapse",
+        "ConversionError",
+      ],
+      inferenceStyle: "hidden" as const,
+      reasoningDepthRange: [3, 6] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-venn-ident",
+      topicCluster: "syllogism" as const,
+      reasoningCategories: [
+        "logical-venn-identification",
+        "set-boundaries",
+      ],
+      preferredOperations: [
+        "compare",
+        "infer",
+      ],
+      commonDistractors: [
+        "ConversionError",
+        "VennBoundarySwap",
+      ],
+      inferenceStyle: "direct" as const,
+      reasoningDepthRange: [1, 4] as [
+        number,
+        number,
+      ],
+    },
+    {
+      id: "ded-venn-math",
+      topicCluster: "syllogism" as const,
+      reasoningCategories: [
+        "venn-cardinality",
+        "inclusion-exclusion",
+      ],
+      preferredOperations: [
+        "aggregate",
+        "infer",
+      ],
+      commonDistractors: [
+        "VennOverlapOmission",
+        "UnionIntersectionSwap",
+      ],
+      inferenceStyle: "conditional" as const,
+      reasoningDepthRange: [2, 5] as [
+        number,
+        number,
+      ],
+    },
+  ].map((motif) => ({
+    compatibleTopics: [
+      "inequality",
+      "syllogism",
+      "engine-boolean",
+      "logical-venn",
+      "boolean-deductions",
+    ],
+    compatiblePatternTypes: [
+      "logic" as const,
+    ],
+    supportedReasoningTypes: [
+      "symbolic" as const,
+      "inferential" as const,
+      "multi-step" as const,
+      "conditional" as const,
+    ],
+    wordingBias: {
+      balanced: 0.8,
+      inferenceHeavy: 0.7,
+    },
+    examWeights: {
+      ibps: 1.2,
+      sbi: 1.2,
+      ssc: 1,
+      cat: 1,
+    },
+    ...motif,
+  })),
 ];

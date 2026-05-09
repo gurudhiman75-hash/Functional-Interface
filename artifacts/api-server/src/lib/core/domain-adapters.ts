@@ -182,6 +182,18 @@ type AdapterDependencies = {
     pattern: Pattern,
     options?: GeneratorOptions,
   ) => FormulaQuestion;
+  createEnglishQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
+  createPunjabiQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
+  createKnowledgeQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
   createDIQuestionSet: (
     pattern: Pattern,
     options?: GeneratorOptions,
@@ -996,6 +1008,22 @@ function buildScenarioEntities(
       }));
   }
 
+  if (domain === "punjabi") {
+    return Array.from(
+      (
+        primaryQuestion?.text ?? ""
+      ).matchAll(
+        /[\u0A00-\u0A7F]+/g,
+      ),
+    )
+      .slice(0, 20)
+      .map((match, index) => ({
+        id: `gurmukhi-token-${index}`,
+        type: "gurmukhi-token",
+        label: match[0],
+      }));
+  }
+
   return tokenizeText(
     primaryQuestion?.text ?? "",
   )
@@ -1063,11 +1091,17 @@ function buildScenarioConstraints(
     }));
   }
 
-  if (domain === "english") {
+  if (
+    domain === "english" ||
+    domain === "punjabi"
+  ) {
     return [
       {
         id: "syntax-rules",
-        type: "syntax-rule",
+        type:
+          domain === "punjabi"
+            ? "gurmukhi-rule"
+            : "syntax-rule",
         expression:
           pattern.explanationTemplate ??
           pattern.templateVariants?.[0] ??
@@ -1501,6 +1535,51 @@ function buildEnglishGrammarStage(): ValidationStage<FormulaQuestion> {
   };
 }
 
+function buildPunjabiVyakaranStage(): ValidationStage<FormulaQuestion> {
+  return {
+    name: "punjabi gurmukhi validation",
+    execute(context) {
+      const tokenCount =
+        context.scenario.entities.filter(
+          (entity) =>
+            entity.type ===
+            "gurmukhi-token",
+        ).length;
+      const hasRuleConstraint =
+        context.scenario.constraints.some(
+          (constraint) =>
+            constraint.type ===
+            "gurmukhi-rule",
+        );
+      const hasPunjabiText =
+        /[\u0A00-\u0A7F]/.test(
+          context.realizedQuestion.text,
+        );
+      const passed =
+        tokenCount > 0 &&
+        hasRuleConstraint &&
+        hasPunjabiText;
+
+      return {
+        stage: "punjabi gurmukhi validation",
+        passed,
+        diagnostics: passed
+          ? []
+          : [
+            "Punjabi scenario is missing Gurmukhi tokens, Gurmukhi rule constraints, or Punjabi stem text.",
+          ],
+        metrics: {
+          tokenCount,
+          hasRuleConstraint:
+            hasRuleConstraint ? 1 : 0,
+          hasPunjabiText:
+            hasPunjabiText ? 1 : 0,
+        },
+      };
+    },
+  };
+}
+
 export function createDomainAdapters(
   deps: AdapterDependencies,
 ): DomainAdapterRegistry {
@@ -1548,13 +1627,46 @@ export function createDomainAdapters(
       ),
     english: buildQuestionAdapter(
       "english",
-      deps.createReasoningQuestionCandidate,
+      deps.createEnglishQuestionCandidate,
       {
         maxAttemptsMultiplier: 10,
         minAttempts: 16,
         customValidationStages: [
           buildEnglishGrammarStage(),
         ],
+        difficultyContribution:
+          buildEnglishDifficultyContribution,
+      },
+    ),
+    punjabi: buildQuestionAdapter(
+      "punjabi",
+      deps.createPunjabiQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 10,
+        minAttempts: 16,
+        customValidationStages: [
+          buildPunjabiVyakaranStage(),
+        ],
+        difficultyContribution:
+          buildEnglishDifficultyContribution,
+      },
+    ),
+    knowledge: buildQuestionAdapter(
+      "knowledge",
+      deps.createKnowledgeQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 6,
+        minAttempts: 8,
+        difficultyContribution:
+          buildEnglishDifficultyContribution,
+      },
+    ),
+    computer: buildQuestionAdapter(
+      "computer",
+      deps.createKnowledgeQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 6,
+        minAttempts: 8,
         difficultyContribution:
           buildEnglishDifficultyContribution,
       },

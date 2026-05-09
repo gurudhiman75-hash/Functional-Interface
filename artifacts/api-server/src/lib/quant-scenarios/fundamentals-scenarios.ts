@@ -19,6 +19,13 @@ type FundamentalsScenarioFactory = (
   motif?: QuantMotif | null,
 ) => QuantProceduralScenario;
 
+function formatLatexFraction(
+  numerator: number,
+  denominator: number,
+) {
+  return `$\\frac{${numerator}}{${denominator}}$`;
+}
+
 function buildFundamentalsContext(): QuantScenarioContext {
   return {
     entity: "expression",
@@ -143,7 +150,7 @@ export function createFractionScenario(
     values,
     formula:
       "((a / b) + (c / d)) * e",
-    text: `Find the value of ( ${values.a}/${values.b} + ${values.c}/${values.d} ) x ${values.e}.`,
+    text: `Find the value of (${formatLatexFraction(values.a, values.b)} + ${formatLatexFraction(values.c, values.d)}) x ${values.e}.`,
     correctAnswer,
     distractorHints: [
       "ratioInversion",
@@ -152,7 +159,7 @@ export function createFractionScenario(
     reasoningSteps: [
       createReasoningStep(
         "transform",
-        `First add ${values.a}/${values.b} and ${values.c}/${values.d} by taking the LCM of ${values.b} and ${values.d}.`,
+        `First add ${formatLatexFraction(values.a, values.b)} and ${formatLatexFraction(values.c, values.d)} by taking the LCM of ${values.b} and ${values.d}.`,
       ),
       createReasoningStep(
         "aggregate",
@@ -218,7 +225,7 @@ export function createDecimalNormalizationScenario(
     },
     formula:
       "scaled + denominator",
-    text: `${decimal} is written as p/q in lowest terms. Find p + q.`,
+    text: `${decimal} is written as $p/q$ in lowest terms. Find $p + q$.`,
     correctAnswer,
     distractorHints: [
       "wrongIntermediateValue",
@@ -227,11 +234,11 @@ export function createDecimalNormalizationScenario(
     reasoningSteps: [
       createReasoningStep(
         "transform",
-        `Write ${decimal} as a fraction and reduce it to lowest terms: ${choice.scaled}/${choice.denominator}.`,
+        `Write ${decimal} as a fraction and reduce it to lowest terms: ${formatLatexFraction(choice.scaled, choice.denominator)}.`,
       ),
       createReasoningStep(
         "infer",
-        `So p = ${choice.scaled} and q = ${choice.denominator}, hence p + q = ${correctAnswer}.`,
+        `So $p = ${choice.scaled}$ and $q = ${choice.denominator}$, hence $p + q = ${correctAnswer}$.`,
       ),
     ],
     context: {

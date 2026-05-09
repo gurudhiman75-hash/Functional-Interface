@@ -27,6 +27,10 @@ const MATH_JAX_CONFIG = {
     processEscapes: true,
     packages: { "[+]": ["ams", "boldsymbol"] },
   },
+  options: {
+    ignoreHtmlClass: "punjabi-text|punjabi-content",
+    processHtmlClass: "math-only",
+  },
 };
 
 const Home = lazy(() => import("@/pages/home"));

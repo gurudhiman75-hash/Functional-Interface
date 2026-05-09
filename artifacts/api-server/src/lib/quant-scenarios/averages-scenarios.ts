@@ -2048,11 +2048,562 @@ export function createMultiStageAverageScenario(
   });
 }
 
+type AvgBalanceDefinition = {
+  motifId: string;
+  branch: string;
+  text: string;
+  values: Record<string, number>;
+  answer: number;
+  formula: string;
+  steps: Array<[string, string]>;
+  distractors?: AveragesScenarioDraft["distractorValues"];
+};
+
+function finalizeAverageBalanceScenario(
+  definition: AvgBalanceDefinition,
+): QuantProceduralScenario {
+  const draft: AveragesScenarioDraft = {
+    scenarioType: definition.motifId,
+    topicCluster: "averages",
+    values: definition.values,
+    formula: definition.formula,
+    text: definition.text,
+    correctAnswer: definition.answer,
+    distractorHints: [
+      "wrongDenominator",
+      "wrongIntermediateValue",
+      "arithmeticSlip",
+    ],
+    reasoningSteps: definition.steps.map(
+      ([operation, detail]) =>
+        createReasoningStep(
+          operation,
+          detail,
+        ),
+    ),
+    explanation: [
+      ...definition.steps.map(
+        ([, detail]) => detail,
+      ),
+      `Final answer = $${formatOptionValue(definition.answer)}$.`,
+    ].join("\n"),
+    context: buildAveragesContext(
+      "average balance",
+      "required value",
+    ),
+    motifId: definition.motifId,
+    scenarioLogicBranch:
+      definition.branch,
+    distractorValues:
+      definition.distractors ?? [
+        {
+          value: definition.answer + 1,
+          type: "arithmeticSlip",
+          likelyMistake:
+            "Made a close arithmetic slip.",
+          reasoningTrap:
+            "Nearby value trap.",
+        },
+        {
+          value: Math.max(
+            0,
+            definition.answer - 1,
+          ),
+          type: "wrongIntermediateValue",
+          likelyMistake:
+            "Stopped at an intermediate sum-state.",
+          reasoningTrap:
+            "Intermediate balance trap.",
+        },
+      ],
+    highPlausibilityValue:
+      definition.answer + 2,
+    validationTokens: [
+      "average",
+      "sum",
+      "count",
+    ],
+  };
+
+  return finalizeAveragesScenario(draft);
+}
+
+function createAverageBalanceDefinition(
+  motifId: string,
+): AvgBalanceDefinition {
+  switch (motifId) {
+    case "avg-change-inclusion":
+      return {
+        motifId,
+        branch: "teacher-joins",
+        text: `The average age of $20$ students is $15$ years. When a teacher joins, the average becomes $16$ years. Find the teacher's age.`,
+        values: { n: 20, oldAvg: 15, newAvg: 16 },
+        answer: 36,
+        formula: "X=(n+1)A_new-nA_old",
+        steps: [
+          ["aggregate", `Old sum $=20\\times15=300$.`],
+          ["aggregate", `New sum $=21\\times16=336$.`],
+          ["infer", `Teacher's age $=336-300=36$.`],
+        ],
+      };
+    case "avg-change-exclusion":
+      return {
+        motifId,
+        branch: "student-leaves",
+        text: `The average weight of $12$ students is $48\\text{ kg}$. One student leaves and the average of the remaining $11$ students becomes $47\\text{ kg}$. Find the weight of the student who left.`,
+        values: { n: 12, oldAvg: 48, newAvg: 47 },
+        answer: 59,
+        formula: "leaving=nA_old-(n-1)A_new",
+        steps: [
+          ["aggregate", `Old sum $=12\\times48=576$.`],
+          ["aggregate", `Remaining sum $=11\\times47=517$.`],
+          ["infer", `Leaving student's weight $=576-517=59$.`],
+        ],
+      };
+    case "avg-change-replacement":
+      return {
+        motifId,
+        branch: "replacement-delta",
+        text: `The average weight of $8$ players increases by $1.5\\text{ kg}$ when a player weighing $56\\text{ kg}$ is replaced. Find the weight of the new player.`,
+        values: { n: 8, oldValue: 56, shift: 1.5 },
+        answer: 68,
+        formula: "new=old+n*shift",
+        steps: [
+          ["transform", `Total increase $=8\\times1.5=12\\text{ kg}$.`],
+          ["infer", `New player weight $=56+12=68\\text{ kg}$.`],
+        ],
+      };
+    case "avg-correction-misread":
+      return {
+        motifId,
+        branch: "misread-correction",
+        text: `The average of $100$ observations was calculated as $45$. Later, $64$ was found to be misread as $46$. Find the correct average.`,
+        values: { n: 100, wrongAvg: 45, actual: 64, read: 46 },
+        answer: 45.18,
+        formula: "correctAvg=(wrongSum-read+actual)/n",
+        steps: [
+          ["aggregate", `Wrong sum $=100\\times45=4500$.`],
+          ["transform", `Corrected sum $=4500-46+64=4518$.`],
+          ["infer", `Correct average $=\\frac{4518}{100}=45.18$.`],
+        ],
+      };
+    case "avg-change-double-inclusion":
+      return {
+        motifId,
+        branch: "two-join",
+        text: `The average of $10$ numbers is $24$. Two numbers $30$ and $36$ are included. Find the new average.`,
+        values: { n: 10, avg: 24, x: 30, y: 36 },
+        answer: 25.5,
+        formula: "(nA+x+y)/(n+2)",
+        steps: [
+          ["aggregate", `Old sum $=10\\times24=240$.`],
+          ["infer", `New average $=\\frac{240+30+36}{12}=25.5$.`],
+        ],
+      };
+    case "avg-change-join-leave":
+      return {
+        motifId,
+        branch: "join-leave-net",
+        text: `A group of $15$ workers has average age $32$. One worker aged $40$ leaves and another aged $25$ joins. Find the new average age.`,
+        values: { n: 15, avg: 32, leave: 40, join: 25 },
+        answer: 31,
+        formula: "(nA-leave+join)/n",
+        steps: [
+          ["aggregate", `Old sum $=15\\times32=480$.`],
+          ["infer", `New average $=\\frac{480-40+25}{15}=31$.`],
+        ],
+      };
+    case "avg-seq-consecutive":
+      return {
+        motifId,
+        branch: "consecutive-middle",
+        text: `The average of $9$ consecutive integers is $34$. Find the largest integer.`,
+        values: { count: 9, avg: 34 },
+        answer: 38,
+        formula: "largest=middle+4",
+        steps: [
+          ["classify", `For $9$ consecutive integers, the average is the middle term.`],
+          ["infer", `Largest $=34+4=38$.`],
+        ],
+      };
+    case "avg-seq-shift":
+      return {
+        motifId,
+        branch: "extend-sequence",
+        text: `The average of five consecutive integers is $20$. If the next two consecutive integers are also included, by how much does the average increase?`,
+        values: { oldAvg: 20 },
+        answer: 1,
+        formula: "newMiddle-oldMiddle",
+        steps: [
+          ["transform", `Five numbers centered at $20$ are $18,19,20,21,22$.`],
+          ["infer", `Including $23,24$ gives seven numbers centered at $21$, so increase $=1$.`],
+        ],
+      };
+    case "avg-seq-ap":
+      return {
+        motifId,
+        branch: "ap-first-last",
+        text: `Find the average of the arithmetic progression $7, 11, 15, \\ldots, 47$.`,
+        values: { first: 7, last: 47 },
+        answer: 27,
+        formula: "(first+last)/2",
+        steps: [
+          ["transform", `Average of an AP $=\\frac{\\text{First}+\\text{Last}}{2}$.`],
+          ["infer", `Average $=\\frac{7+47}{2}=27$.`],
+        ],
+      };
+    case "avg-seq-even":
+      return {
+        motifId,
+        branch: "even-sequence",
+        text: `Find the average of the first $10$ positive even numbers.`,
+        values: { n: 10 },
+        answer: 11,
+        formula: "(2+20)/2",
+        steps: [
+          ["transform", `The first and last terms are $2$ and $20$.`],
+          ["infer", `Average $=\\frac{2+20}{2}=11$.`],
+        ],
+      };
+    case "avg-seq-odd":
+      return {
+        motifId,
+        branch: "odd-sequence",
+        text: `Find the average of the first $15$ positive odd numbers.`,
+        values: { n: 15 },
+        answer: 15,
+        formula: "middle odd",
+        steps: [
+          ["classify", `The first $15$ odd numbers are symmetric around the $8^{th}$ odd number.`],
+          ["infer", `The $8^{th}$ odd number is $15$, so the average is $15$.`],
+        ],
+      };
+    case "avg-seq-variable":
+    case "avg-alg-variable":
+      return {
+        motifId,
+        branch: "variable-ap",
+        text: `The average of $x, x+2, x+4, x+6, x+8$ is $24$. Find $x$.`,
+        values: { avg: 24 },
+        answer: 20,
+        formula: "x+4=24",
+        steps: [
+          ["transform", `The middle term, and hence the average, is $x+4$.`],
+          ["infer", `$x+4=24$, so $x=20$.`],
+        ],
+      };
+    case "avg-weight-combine":
+      return {
+        motifId,
+        branch: "two-group-combine",
+        text: `A class has $20$ boys with average marks $72$ and $30$ girls with average marks $82$. Find the combined average marks.`,
+        values: { n1: 20, a1: 72, n2: 30, a2: 82 },
+        answer: 78,
+        formula: "(n1A1+n2A2)/(n1+n2)",
+        steps: [
+          ["aggregate", `Combined sum $=20\\times72+30\\times82=3900$.`],
+          ["infer", `Combined average $=\\frac{3900}{50}=78$.`],
+        ],
+      };
+    case "avg-weight-missing-n":
+      return {
+        motifId,
+        branch: "group-ratio-from-mean",
+        text: `Two groups have averages $60$ and $75$. Their combined average is $66$. Find the ratio of the sizes of the first group to the second group.`,
+        values: { a1: 60, a2: 75, mean: 66 },
+        answer: 3,
+        formula: "n1:n2=(75-66):(66-60)",
+        steps: [
+          ["transform", `Deviation balance gives $n_1:n_2=(75-66):(66-60)=9:6=3:2$.`],
+          ["infer", `Enter the first ratio term $3$.`],
+        ],
+      };
+    case "avg-weight-missing-a":
+      return {
+        motifId,
+        branch: "missing-subgroup-average",
+        text: `The average marks of $50$ students is $76$. If $30$ students have average $80$, find the average of the remaining $20$ students.`,
+        values: { totalN: 50, totalAvg: 76, n1: 30, a1: 80 },
+        answer: 70,
+        formula: "(NA-n1A1)/n2",
+        steps: [
+          ["aggregate", `Total sum $=50\\times76=3800$. Known group sum $=30\\times80=2400$.`],
+          ["infer", `Remaining average $=\\frac{3800-2400}{20}=70$.`],
+        ],
+      };
+    case "avg-weight-three-group":
+      return {
+        motifId,
+        branch: "three-group-weighted",
+        text: `Three batches of sizes $10$, $15$, and $25$ have average outputs $40$, $50$, and $60$. Find the combined average output.`,
+        values: { answer: 53 },
+        answer: 53,
+        formula: "weighted three groups",
+        steps: [
+          ["aggregate", `Total output $=10\\times40+15\\times50+25\\times60=2650$.`],
+          ["infer", `Combined average $=\\frac{2650}{50}=53$.`],
+        ],
+      };
+    case "avg-weight-salary":
+      return {
+        motifId,
+        branch: "salary-weighted",
+        text: `$8$ managers earn average salary $₹60000$ and $24$ clerks earn average salary $₹30000$. Find the overall average salary.`,
+        values: { answer: 37500 },
+        answer: 37500,
+        formula: "weighted salary",
+        steps: [
+          ["aggregate", `Total salary $=8\\times60000+24\\times30000=1200000$.`],
+          ["infer", `Average $=\\frac{1200000}{32}=37500$.`],
+        ],
+      };
+    case "avg-weight-production":
+      return {
+        motifId,
+        branch: "days-weighted",
+        text: `A machine produces average $120$ units per day for $5$ days and $150$ units per day for the next $3$ days. Find the average production per day.`,
+        values: { answer: 131.25 },
+        answer: 131.25,
+        formula: "(5*120+3*150)/8",
+        steps: [
+          ["aggregate", `Total production $=5\\times120+3\\times150=1050$.`],
+          ["infer", `Average $=\\frac{1050}{8}=131.25$.`],
+        ],
+      };
+    case "avg-weight-ratio-balance":
+      return {
+        motifId,
+        branch: "ratio-balance",
+        text: `Average of one set is $40$ and another is $70$. In what ratio should their counts be mixed to get average $52$? Enter the first term of the ratio.`,
+        values: { answer: 3 },
+        answer: 3,
+        formula: "(70-52):(52-40)",
+        steps: [
+          ["transform", `By deviation balance, ratio $=(70-52):(52-40)=18:12=3:2$.`],
+          ["infer", `The first term is $3$.`],
+        ],
+      };
+    case "avg-app-cricket-batting":
+      return {
+        motifId,
+        branch: "batting-innings",
+        text: `A batsman's average after $20$ innings was $45$. In the $21^{st}$ innings, he scores $87$. By how much does his average increase?`,
+        values: { answer: 2 },
+        answer: 2,
+        formula: "(20*45+87)/21-45",
+        steps: [
+          ["aggregate", `New average $=\\frac{20\\times45+87}{21}=47$.`],
+          ["infer", `Increase $=47-45=2$.`],
+        ],
+      };
+    case "avg-app-cricket-bowling":
+      return {
+        motifId,
+        branch: "bowling-average",
+        text: `A bowler has conceded $440$ runs for $20$ wickets. In the next match he concedes $20$ runs and takes $2$ wickets. Find his new bowling average.`,
+        values: { answer: 20.91 },
+        answer: 20.91,
+        formula: "runs/wickets",
+        steps: [
+          ["aggregate", `New runs $=440+20=460$ and new wickets $=20+2=22$.`],
+          ["infer", `Bowling average $=\\frac{460}{22}=20.91$ approximately.`],
+        ],
+      };
+    case "avg-app-age-family":
+      return {
+        motifId,
+        branch: "family-baby",
+        text: `The average age of a family of $5$ members was $24$ years three years ago. A baby is born now. Find the present average age of the family.`,
+        values: { answer: 22.5 },
+        answer: 22.5,
+        formula: "(5*(24+3)+0)/6",
+        steps: [
+          ["aggregate", `Present sum of the original $5$ members $=5\\times(24+3)=135$.`],
+          ["infer", `Including the baby, average $=\\frac{135}{6}=22.5$.`],
+        ],
+      };
+    case "avg-app-temp-weekly":
+      return {
+        motifId,
+        branch: "overlapping-temperature",
+        text: `Average temperature from Monday to Wednesday is $30^\\circ$ and from Tuesday to Thursday is $32^\\circ$. If Monday's temperature is $28^\\circ$, find Thursday's temperature.`,
+        values: { answer: 34 },
+        answer: 34,
+        formula: "T=3*32-(3*30-28)",
+        steps: [
+          ["aggregate", `Mon-Wed sum $=3\\times30=90$, so Tue+Wed $=90-28=62$.`],
+          ["infer", `Tue-Thu sum $=96$, hence Thursday $=96-62=34$.`],
+        ],
+      };
+    case "avg-app-score-target":
+      return {
+        motifId,
+        branch: "target-score",
+        text: `A student has an average of $68$ marks in $5$ tests. What score is required in the $6^{th}$ test to make the average $72$?`,
+        values: { answer: 92 },
+        answer: 92,
+        formula: "6*72-5*68",
+        steps: [
+          ["aggregate", `Required total $=6\\times72=432$ and current total $=5\\times68=340$.`],
+          ["infer", `Required score $=432-340=92$.`],
+        ],
+      };
+    case "avg-app-expenditure":
+      return {
+        motifId,
+        branch: "household-expenditure",
+        text: `Average monthly expenditure of $4$ members is $₹5000$. When one member joins, the average becomes $₹5400$. Find the expenditure of the new member.`,
+        values: { answer: 7000 },
+        answer: 7000,
+        formula: "5*5400-4*5000",
+        steps: [
+          ["aggregate", `New total $=5\\times5400=27000$ and old total $=4\\times5000=20000$.`],
+          ["infer", `New member expenditure $=7000$.`],
+        ],
+      };
+    case "avg-app-zero-score":
+      return {
+        motifId,
+        branch: "zero-in-count",
+        text: `A player scores $20, 30, 0, 40$ in four matches. Find his average score.`,
+        values: { answer: 22.5 },
+        answer: 22.5,
+        formula: "(20+30+0+40)/4",
+        steps: [
+          ["filter", `The zero score is still counted as one match.`],
+          ["infer", `Average $=\\frac{90}{4}=22.5$.`],
+        ],
+      };
+    case "avg-alg-deviation":
+      return {
+        motifId,
+        branch: "assumed-mean",
+        text: `Five observations have assumed mean $50$ and deviations $-3, +2, +5, -4, +10$. Find the actual average.`,
+        values: { answer: 52 },
+        answer: 52,
+        formula: "assumed + sum(dev)/n",
+        steps: [
+          ["aggregate", `Net deviation $=-3+2+5-4+10=10$.`],
+          ["infer", `Average $=50+\\frac{10}{5}=52$.`],
+        ],
+      };
+    case "avg-alg-max-min":
+      return {
+        motifId,
+        branch: "max-largest-distinct",
+        text: `The average of $10$ distinct positive integers is $50$. Find the maximum possible value of the largest integer.`,
+        values: { answer: 455 },
+        answer: 455,
+        formula: "500-(1+...+9)",
+        steps: [
+          ["aggregate", `Total sum $=10\\times50=500$.`],
+          ["transform", `To maximize the largest, minimize the other $9$ distinct positive integers: $1+2+\\cdots+9=45$.`],
+          ["infer", `Largest possible value $=500-45=455$.`],
+        ],
+      };
+    case "avg-alg-overlap-boundary":
+    case "avg-alg-first-last-overlap":
+      return {
+        motifId,
+        branch: "overlap-reconstruction",
+        text: `Average of the first $5$ numbers is $20$, average of the last $5$ numbers is $24$, and average of all $9$ numbers is $22$. Find the middle number counted in both groups.`,
+        values: { answer: 22 },
+        answer: 22,
+        formula: "first5+last5-total9",
+        steps: [
+          ["aggregate", `First $5$ sum $=100$, last $5$ sum $=120$, and total $9$ sum $=198$.`],
+          ["infer", `The repeated middle number $=100+120-198=22$.`],
+        ],
+      };
+    case "avg-alg-insufficient-data":
+      return {
+        motifId,
+        branch: "insufficient-data-code",
+        text: `Average of group A is $40$ and average of group B is $60$. The group sizes are not given. Use $0$ if the combined average cannot be uniquely determined.`,
+        values: { answer: 0 },
+        answer: 0,
+        formula: "missing weights",
+        steps: [
+          ["filter", `Combined average needs group sizes: $A=\\frac{n_1A_1+n_2A_2}{n_1+n_2}$.`],
+          ["infer", `Since $n_1$ and $n_2$ are missing, the answer is not unique, so code $0$.`],
+        ],
+      };
+    case "avg-alg-fraction-result":
+      return {
+        motifId,
+        branch: "exact-fraction-average",
+        text: `Find the average of $12, 15, 23$. If it is $a\\frac{b}{c}$, find $a+b+c$.`,
+        values: { answer: 21 },
+        answer: 21,
+        formula: "50/3",
+        steps: [
+          ["aggregate", `Average $=\\frac{12+15+23}{3}=\\frac{50}{3}=16\\frac{2}{3}$.`],
+          ["infer", `Thus $a+b+c=16+2+3=21$.`],
+        ],
+      };
+    case "avg-alg-deviation-missing":
+      return {
+        motifId,
+        branch: "missing-deviation",
+        text: `The average of five observations is $40$. Four deviations from $40$ are $-5, +3, +7, -2$. Find the fifth deviation.`,
+        values: { answer: -3 },
+        answer: -3,
+        formula: "sum deviations = 0",
+        steps: [
+          ["aggregate", `For mean $40$, total deviation must be $0$. Known deviations sum $=3$.`],
+          ["infer", `Fifth deviation $=-3$.`],
+        ],
+      };
+    case "avg-change-months":
+      return {
+        motifId,
+        branch: "months-conversion",
+        text: `The average age of $6$ children increases by $4$ months when a child aged $5$ years is replaced. Find the age in years of the new child.`,
+        values: { answer: 7 },
+        answer: 7,
+        formula: "5 + 6*(4/12)",
+        steps: [
+          ["transform", `Total age increase $=6\\times4=24$ months $=2$ years.`],
+          ["infer", `New child's age $=5+2=7$ years.`],
+        ],
+      };
+    default:
+      return {
+        motifId,
+        branch: "fallback-balance",
+        text: `The average of $8$ numbers is $25$. Find their sum.`,
+        values: { answer: 200 },
+        answer: 200,
+        formula: "sum=average*count",
+        steps: [
+          ["aggregate", `$\\text{Sum}=\\text{Average}\\times\\text{Count}=25\\times8$.`],
+          ["infer", `So the sum is $200$.`],
+        ],
+      };
+  }
+}
+
+function createAverageBalanceScenario(
+  motifId: string,
+): QuantProceduralScenario {
+  return finalizeAverageBalanceScenario(
+    createAverageBalanceDefinition(
+      motifId,
+    ),
+  );
+}
+
 export function createAveragesScenario(
   pattern: Pattern,
   difficulty: DifficultyLabel,
   motif?: QuantMotif | null,
 ): QuantProceduralScenario {
+  if (motif?.id?.startsWith("avg-")) {
+    return createAverageBalanceScenario(
+      motif.id,
+    );
+  }
+
   const scenarioFactoriesByMotif: Record<
     string,
     AveragesScenarioFactory[]

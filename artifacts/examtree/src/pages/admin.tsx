@@ -38,6 +38,7 @@ import { createPackage, getTests as fetchBackendTests, getPackages, createBundle
 import { getFirebaseAuth } from "@/lib/firebase";
 import { upsertUserProfile } from "@/lib/auth";
 import { cleanPunjabiText } from "@/lib/punjabi-utils";
+import MathText from "@/components/MathText";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -2941,7 +2942,12 @@ export default function Admin() {
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <p className="text-xs text-muted-foreground mb-1">Q{index + 1} • {q.section}</p>
-                          <p className="font-medium text-foreground text-sm">{q.text}</p>
+                          <div className="font-medium text-foreground text-sm">
+                            <MathText
+                              content={q.text}
+                              className="line-clamp-2"
+                            />
+                          </div>
                         </div>
                         <div className="flex gap-1">
                           <Button

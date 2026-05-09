@@ -74,6 +74,11 @@ import {
   buildInequalityExplanation,
   buildInequalityOptions,
   buildInequalityStem,
+  createPatternInferenceScenario,
+  createAbstractReasoningScenario,
+  createCriticalInferenceScenario,
+  createTemporalReasoningScenario,
+  ReasoningEngine,
   buildSeatingExplanationForQuestion,
   buildSeatingOptionsForQuestion,
   buildSeatingStemForQuestion,
@@ -87,6 +92,7 @@ import {
 } from "../reasoning";
 import {
   buildMotifAwareExplanation,
+  buildDIScenarioState,
   generateDIQuestions,
   generateDISet,
   getSeriesConfig,
@@ -101,6 +107,20 @@ import {
 import {
   createQuantProceduralScenario,
 } from "../quant-scenarios";
+import {
+  normalizeQuantMathText,
+  normalizeQuantOptionValue,
+} from "../quant-scenarios/mathjax";
+import {
+  createEnglishScenario,
+} from "../english";
+import {
+  createPunjabiScenario,
+} from "../verbal/punjabi-engine";
+import {
+  createComputerAwarenessScenario,
+  createGeneralKnowledgeScenario,
+} from "../../generators/knowledge";
 import {
   generateNumericOptions,
   alignReasoningStepsWithMotif,
@@ -225,6 +245,9 @@ export type GenerationDomain =
   | "quant"
   | "reasoning"
   | "english"
+  | "punjabi"
+  | "knowledge"
+  | "computer"
   | "seating-arrangement"
   | "di"
   | "puzzle-sets"
@@ -336,6 +359,7 @@ type GeneratedQuestionDifficulty = {
 
 export type QuantTopicCluster =
   | "fundamentals"
+  | "simplification"
   | "number-system"
   | "percentage"
   | "ratio-proportion"
@@ -346,11 +370,24 @@ export type QuantTopicCluster =
   | "speed-time-distance"
   | "mixture-alligation"
   | "algebra-basics"
+  | "algebra"
+  | "equations"
+  | "progressions"
+  | "probability"
+  | "functions"
+  | "permutation-combination"
+  | "trigonometry"
+  | "geometry"
+  | "coordinate-geometry"
+  | "set-theory"
   | "mensuration"
   | "coding-decoding"
   | "blood-relations"
   | "inequality"
   | "direction-sense"
+  | "abstract-reasoning"
+  | "temporal-reasoning"
+  | "critical-inference"
   | "seating-arrangement"
   | "ordering-ranking"
   | "puzzles"
@@ -413,7 +450,10 @@ export type QuantReasoningCategory =
   | "coordinate-inference-chains"
   | "direct-placement"
   | "chained-deduction"
-  | "neighbor-inference";
+  | "neighbor-inference"
+  | "vertical-constraints"
+  | "scheduling-constraints"
+  | "multi-variable-mapping";
 
 export type DifficultyDistribution = {
   easy: number;
@@ -439,11 +479,39 @@ export type DIPattern = {
   rowCount: number;
   categories?: string[];
   visualType?: DIVisualType;
+  topology?:
+    | "table"
+    | "grouped-bar"
+    | "stacked-bar"
+    | "line-graph"
+    | "pie-chart"
+    | "dual-pie-chart"
+    | "caselet";
   series?: DISeriesConfig[];
   valueRanges: Record<
     string,
     ValueRange
   >;
+};
+
+export type DIScenarioState = {
+  topology:
+    | "table"
+    | "grouped-bar"
+    | "stacked-bar"
+    | "line-graph"
+    | "pie-chart"
+    | "dual-pie-chart"
+    | "caselet";
+  metadata: {
+    title: string;
+    unit: string;
+    xLabel?: string;
+    yLabel?: string;
+  };
+  categories: string[];
+  intervals: string[];
+  dataset: number[][];
 };
 
 type GenerationDebugMetadata = {
@@ -514,6 +582,14 @@ type GenerationDebugMetadata = {
   seatingExplanationFlow?: SeatingExplanationFlow;
   structuralSignatureKey?: string;
   scenarioLogicBranch?: string;
+  reasoningEngineFamily?: string;
+  reasoningStyleAnchor?: string;
+  reasoningSelfSolver?: {
+    solutionCount: number;
+    uniqueAnswer: boolean;
+    issues: string[];
+  };
+  logicSymbols?: string[];
 };
 
 type QuestionCore = {
@@ -521,7 +597,28 @@ type QuestionCore = {
   options: string[];
   correct: number;
   explanation: string;
+  inferenceTrace?: {
+    engineFamily: string;
+    styleAnchor: string;
+    solutionCount: number;
+    uniqueAnswer: boolean;
+    issues: string[];
+    steps: string[];
+    deductionArray: Array<{
+      step: number;
+      operation: string;
+      statement: string;
+      mathjax: string;
+    }>;
+    logicSymbols: string[];
+  };
   reasoningSteps?: string[];
+  deductionArray?: Array<{
+    step: number;
+    operation: string;
+    statement: string;
+    mathjax: string;
+  }>;
   dependencyComplexity?: number;
   operationChain?: string[];
   optionMetadata?: OptionMetadata[];
@@ -537,6 +634,27 @@ export type FormulaQuestion = {
   options: string[];
   correct: number;
   explanation: string;
+  inferenceTrace?: {
+    engineFamily: string;
+    styleAnchor: string;
+    solutionCount: number;
+    uniqueAnswer: boolean;
+    issues: string[];
+    steps: string[];
+    deductionArray: Array<{
+      step: number;
+      operation: string;
+      statement: string;
+      mathjax: string;
+    }>;
+    logicSymbols: string[];
+  };
+  deductionArray?: Array<{
+    step: number;
+    operation: string;
+    statement: string;
+    mathjax: string;
+  }>;
   section?: string;
   topic?: string;
   subtopic?: string;
@@ -561,6 +679,7 @@ export type DISet = {
   questionType: "di";
   visualType: DIVisualType;
   diData: DIDataRow[];
+  scenarioState?: DIScenarioState;
   series?: DISeriesConfig[];
   title: string;
   questions: DIQuestion[];
@@ -795,6 +914,30 @@ export function inferGenerationDomain(
       .trim() === "english"
   ) {
     return "english";
+  }
+
+  if (
+    pattern.section
+      .toLowerCase()
+      .trim() === "punjabi"
+  ) {
+    return "punjabi";
+  }
+
+  if (
+    pattern.section
+      .toLowerCase()
+      .trim() === "general knowledge"
+  ) {
+    return "knowledge";
+  }
+
+  if (
+    pattern.section
+      .toLowerCase()
+      .trim() === "computer awareness"
+  ) {
+    return "computer";
   }
 
   if (pattern.type === "di") {
@@ -1176,17 +1319,28 @@ function createFormulaQuestionCandidate(
     );
   const activeGenerationContext =
     getGenerationContext();
-  const enrichedQuestion =
-    attachReasoningTrace(
-      {
-        text: buildQuantPrompt(
+  const questionText =
+    proceduralScenario
+      ? proceduralScenario.text
+      : buildQuantPrompt(
           effectiveArchetype,
           quantContext,
           examProfile,
+        );
+  const enrichedQuestion =
+    attachReasoningTrace(
+      {
+        text: normalizeQuantMathText(
+          questionText,
+        )!,
+        options: generated.options.map(
+          normalizeQuantOptionValue,
         ),
-        options: generated.options,
         correct: generated.correct,
-        explanation,
+        explanation:
+          normalizeQuantMathText(
+            explanation,
+          )!,
         section: pattern.section,
         topic: pattern.topic,
         subtopic: pattern.subtopic,
@@ -1471,12 +1625,15 @@ function createReasoningQuestionCandidate(
     optionBundle =
       buildBloodRelationOptions(
         bloodScenario.relation,
+        bloodScenario.optionValues,
       );
     customReasoningSteps =
       bloodScenario.reasoningSteps;
   } else if (
     topicCluster ===
-    "inequality"
+    "inequality" ||
+    topicCluster ===
+      "syllogism"
   ) {
     const inequalityScenario =
       createInequalityScenario(
@@ -1504,6 +1661,58 @@ function createReasoningQuestionCandidate(
       );
     customReasoningSteps =
       inequalityScenario.reasoningSteps;
+  } else if (
+    topicCluster ===
+    "abstract-reasoning"
+  ) {
+    const abstractScenario =
+      createAbstractReasoningScenario(
+        motif,
+        requestedDifficulty,
+      );
+
+    baseText = abstractScenario.stem;
+    explanation =
+      abstractScenario.explanation;
+    optionBundle =
+      abstractScenario.options;
+    customReasoningSteps =
+      abstractScenario.reasoningSteps;
+  } else if (
+    topicCluster ===
+    "critical-inference"
+  ) {
+    const criticalScenario =
+      createCriticalInferenceScenario(
+        motif,
+        requestedDifficulty,
+      );
+
+    baseText = criticalScenario.stem;
+    explanation =
+      criticalScenario.explanation;
+    optionBundle =
+      criticalScenario.options;
+    customReasoningSteps =
+      criticalScenario.reasoningSteps;
+  } else if (
+    topicCluster ===
+    "temporal-reasoning"
+  ) {
+    const temporalScenario =
+      createTemporalReasoningScenario(
+        motif,
+        requestedDifficulty,
+      );
+
+    baseText =
+      temporalScenario.stem;
+    explanation =
+      temporalScenario.explanation;
+    optionBundle =
+      temporalScenario.options;
+    customReasoningSteps =
+      temporalScenario.reasoningSteps;
   } else if (
     topicCluster ===
     "direction-sense"
@@ -1534,6 +1743,37 @@ function createReasoningQuestionCandidate(
       );
     customReasoningSteps =
       directionScenario.reasoningSteps;
+  } else if (
+    [
+      "pattern-inference",
+      "engine-pattern",
+      "number-series",
+      "letter-series",
+      "analogy",
+      "odd-one-out",
+      "classification",
+    ].some((token) =>
+      `${pattern.topic} ${pattern.subtopic}`.toLowerCase().includes(
+        token,
+      ),
+    ) ||
+    motif.id.startsWith("math-")
+  ) {
+    const patternScenario =
+      createPatternInferenceScenario(
+        motif,
+        requestedDifficulty,
+        `${pattern.topic} ${pattern.subtopic}`,
+        values,
+      );
+
+    baseText = patternScenario.stem;
+    optionBundle =
+      patternScenario.options;
+    explanation =
+      patternScenario.explanation;
+    customReasoningSteps =
+      patternScenario.reasoningSteps;
   } else {
     const sourceWord =
       pickCodingWord(
@@ -1579,6 +1819,8 @@ function createReasoningQuestionCandidate(
       buildCodingExplanation(
         sourceWord,
         codedWord,
+        motif,
+        values,
       );
   }
 
@@ -1605,6 +1847,14 @@ function createReasoningQuestionCandidate(
       topicCluster ===
       "inequality" ||
       topicCluster ===
+      "syllogism" ||
+      topicCluster ===
+      "temporal-reasoning" ||
+      topicCluster ===
+      "abstract-reasoning" ||
+      topicCluster ===
+      "critical-inference" ||
+      topicCluster ===
       "direction-sense"
       ? explanation
       : `${buildMotifAwareExplanation(
@@ -1617,6 +1867,39 @@ function createReasoningQuestionCandidate(
         "Final answer = 0.",
         "",
       ).trim()} ${explanation}`.trim();
+  const reasoningAudit =
+    ReasoningEngine.audit({
+      topicCluster,
+      motif,
+      text: baseText,
+      options: optionBundle.options,
+      correct: optionBundle.correct,
+      reasoningSteps,
+      optionMetadata:
+        optionBundle.optionMetadata,
+    });
+
+  if (
+    reasoningAudit.solutionCount !== 1
+  ) {
+    throw new ReasoningEngineError({
+      code:
+        "REASONING_NON_UNIQUE_SOLUTION",
+      phase: "validation",
+      message:
+        "Reasoning self-solver did not find exactly one answer.",
+      metadata:
+        buildReasoningErrorMetadata({
+          topicCluster,
+          motifId: motif.id,
+          solutionCount:
+            reasoningAudit.solutionCount,
+          issues:
+            reasoningAudit.issues,
+        }),
+    });
+  }
+
   const enrichedQuestion =
     attachReasoningTrace(
       {
@@ -1630,6 +1913,28 @@ function createReasoningQuestionCandidate(
         correct:
           optionBundle.correct,
         explanation,
+        inferenceTrace: {
+          engineFamily:
+            reasoningAudit.engineFamily,
+          styleAnchor:
+            reasoningAudit.styleAnchor,
+          solutionCount:
+            reasoningAudit.solutionCount,
+          uniqueAnswer:
+            reasoningAudit.uniqueAnswer,
+          issues:
+            reasoningAudit.issues,
+          steps: reasoningSteps.map(
+            (step) =>
+              `${step.operation}: ${step.detail}`,
+          ),
+          deductionArray:
+            reasoningAudit.deductionArray,
+          logicSymbols:
+            reasoningAudit.logicSymbols,
+        },
+        deductionArray:
+          reasoningAudit.deductionArray,
         section: pattern.section,
         topic: pattern.topic,
         subtopic: pattern.subtopic,
@@ -1653,6 +1958,20 @@ function createReasoningQuestionCandidate(
             selectedMotif?.id,
           selectedArchetype:
             effectiveArchetype.id,
+          reasoningEngineFamily:
+            reasoningAudit.engineFamily,
+          reasoningStyleAnchor:
+            reasoningAudit.styleAnchor,
+          reasoningSelfSolver: {
+            solutionCount:
+              reasoningAudit.solutionCount,
+            uniqueAnswer:
+              reasoningAudit.uniqueAnswer,
+            issues:
+              reasoningAudit.issues,
+          },
+          logicSymbols:
+            reasoningAudit.logicSymbols,
           fallbackReason,
           compatibilityWarnings,
         },
@@ -1695,6 +2014,560 @@ function createReasoningQuestionCandidate(
         finalizedQuestion
           .difficultyMetadata
           .reasoningDepth,
+    },
+  );
+}
+
+function createEnglishQuestionCandidate(
+  pattern: Pattern,
+  options?: GeneratorOptions,
+): FormulaQuestion {
+  const generationStartedAt =
+    Date.now();
+  const activeGenerationContext =
+    getGenerationContext();
+  const scenario =
+    createEnglishScenario(
+      pattern,
+      options,
+    );
+  const reasoningSteps =
+    scenario.reasoningSteps.map(
+      (detail, index) => ({
+        operation:
+          index === 0
+            ? "filter"
+            : index === 1
+              ? "infer"
+              : index === 2
+                ? "compare"
+                : "infer",
+        detail,
+      }),
+    );
+  const deductionArray =
+    reasoningSteps.map(
+      (step, index) => ({
+        step: index + 1,
+        operation: step.operation,
+        statement: step.detail,
+        mathjax:
+          index === 1
+            ? `$\\text{Rule} \\Rightarrow \\text{${scenario.ruleApplied.replace(/[$\\]/g, "")}}$`
+            : `$\\therefore\\ \\text{${step.operation}}$`,
+      }),
+    );
+  const enrichedQuestion =
+    attachReasoningTrace(
+      {
+        text: scenario.stem,
+        options: scenario.options,
+        correct: scenario.correct,
+        explanation:
+          scenario.explanation,
+        inferenceTrace: {
+          engineFamily:
+            "Engine_Verbal",
+          styleAnchor:
+            scenario.cluster ===
+              "grammar"
+              ? "S.P. Bakshi / Neetu Singh rule skeleton"
+              : scenario.cluster ===
+                  "vocabulary"
+                ? "Norman Lewis root-context mapping"
+                : "Arun Sharma discourse pointer logic",
+          solutionCount: 1,
+          uniqueAnswer: true,
+          issues: [],
+          steps:
+            scenario.reasoningSteps,
+          deductionArray,
+          logicSymbols: [
+            "\\Rightarrow",
+            "\\therefore",
+          ],
+        },
+        deductionArray,
+        section: pattern.section,
+        topic: pattern.topic,
+        subtopic: pattern.subtopic,
+        optionMetadata:
+          scenario.optionMetadata,
+        examRealismMetadata:
+          buildExamRealismMetadata(
+            options?.examProfile,
+            {
+              id: scenario.id,
+              difficulty:
+                scenario.difficulty,
+              category:
+                "comparative-conditional-inference",
+              topicClusters: [
+                "general-quant",
+              ],
+              operationChain: [],
+              wordingVariants: [
+                "Use the verbal rule skeleton.",
+              ],
+              buildReasoningSteps:
+                () => [],
+            },
+            scenario.optionMetadata,
+          ),
+        debugMetadata: {
+          selectedPattern: pattern.id,
+          seed:
+            activeGenerationContext?.seed,
+          generationId:
+            activeGenerationContext?.generationId,
+          generationDomain:
+            "english" as GenerationDomain,
+          selectedMotif:
+            pattern.supportedMotifs?.[0] ??
+            scenario.subtype,
+          selectedArchetype:
+            scenario.cluster,
+          structuralSignatureKey:
+            scenario.structuralSignature,
+          reasoningEngineFamily:
+            "Engine_Verbal",
+          reasoningStyleAnchor:
+            scenario.cluster,
+          reasoningSelfSolver: {
+            solutionCount: 1,
+            uniqueAnswer: true,
+            issues: [],
+          },
+          compatibilityWarnings: [],
+          validationWarnings: [],
+        },
+      },
+      reasoningSteps,
+      reasoningSteps.length,
+      reasoningSteps.map(
+        (step) =>
+          step.operation as ReasoningOperation,
+      ),
+    );
+
+  const finalizedQuestion =
+    applyDifficultyMetadata(
+      enrichedQuestion,
+      {
+        kind: "logic",
+        text: enrichedQuestion.text,
+        explanation:
+          enrichedQuestion.explanation,
+        difficultyHint:
+          scenario.difficulty,
+        targetDifficultyScore:
+          options?.targetDifficulty,
+        reasoningSteps:
+          enrichedQuestion.reasoningSteps,
+        dependencyComplexity:
+          scenario.cluster ===
+          "discourse"
+            ? 4
+            : scenario.cluster ===
+                "vocabulary"
+              ? 2
+              : 3,
+        operationChain:
+          enrichedQuestion.operationChain,
+      },
+    );
+
+  return attachGenerationMetrics(
+    pattern,
+    finalizedQuestion,
+    {
+      generationDurationMs:
+        Date.now() -
+        generationStartedAt,
+      validationRetries: 0,
+      uniquenessFailures: 0,
+      branchingFactor: 1,
+      clueDensity: 1,
+      inferenceDepth:
+        finalizedQuestion
+          .difficultyMetadata
+          .reasoningDepth,
+      redundancyScore: 0,
+      realismScore:
+        finalizedQuestion
+          .examRealismMetadata
+          ?.realismScore,
+    },
+  );
+}
+
+function createPunjabiQuestionCandidate(
+  pattern: Pattern,
+  options?: GeneratorOptions,
+): FormulaQuestion {
+  const generationStartedAt =
+    Date.now();
+  const activeGenerationContext =
+    getGenerationContext();
+  const scenario =
+    createPunjabiScenario(
+      pattern,
+      options,
+    );
+  const reasoningSteps =
+    scenario.reasoningSteps.map(
+      (detail, index) => ({
+        operation:
+          index === 0
+            ? "filter"
+            : index === 1
+              ? "infer"
+              : index === 2
+                ? "compare"
+                : "infer",
+        detail,
+      }),
+    );
+  const deductionArray =
+    reasoningSteps.map(
+      (step, index) => ({
+        step: index + 1,
+        operation: step.operation,
+        statement: step.detail,
+        mathjax:
+          index === 1
+            ? `$\\mathrm{Rule}\\Rightarrow\\mathrm{Answer}$`
+            : `$\\therefore$`,
+      }),
+    );
+  const styleAnchor =
+    scenario.cluster ===
+    "vyakaran"
+      ? "Narinder Singh Duggal Vyakaran rule-set"
+      : scenario.cluster ===
+          "shabad-bodh"
+        ? "Gurmukhi orthography and Shabad-Bodh"
+        : scenario.cluster ===
+            "translation"
+          ? "PSEB/Punjab Government terminology"
+          : "Punjabi Muhavre-Akhaan semantic mapping";
+  const enrichedQuestion =
+    attachReasoningTrace(
+      {
+        text: scenario.stem,
+        options: scenario.options,
+        correct: scenario.correct,
+        explanation:
+          scenario.explanation,
+        inferenceTrace: {
+          engineFamily:
+            "Engine_Punjabi",
+          styleAnchor,
+          solutionCount: 1,
+          uniqueAnswer: true,
+          issues: [],
+          steps:
+            scenario.reasoningSteps,
+          deductionArray,
+          logicSymbols: [
+            "\\Rightarrow",
+            "\\therefore",
+          ],
+        },
+        deductionArray,
+        section: pattern.section,
+        topic: pattern.topic,
+        subtopic: pattern.subtopic,
+        optionMetadata:
+          scenario.optionMetadata,
+        examRealismMetadata:
+          buildExamRealismMetadata(
+            options?.examProfile,
+            {
+              id: scenario.id,
+              difficulty:
+                scenario.difficulty,
+              category:
+                "comparative-conditional-inference",
+              topicClusters: [
+                "general-quant",
+              ],
+              operationChain: [],
+              wordingVariants: [
+                "Use the Punjabi vyakaran rule-set.",
+              ],
+              buildReasoningSteps:
+                () => [],
+            },
+            scenario.optionMetadata,
+          ),
+        debugMetadata: {
+          selectedPattern: pattern.id,
+          seed:
+            activeGenerationContext?.seed,
+          generationId:
+            activeGenerationContext?.generationId,
+          generationDomain:
+            "punjabi" as GenerationDomain,
+          selectedMotif:
+            pattern.supportedMotifs?.[0] ??
+            scenario.subtype,
+          selectedArchetype:
+            scenario.cluster,
+          structuralSignatureKey:
+            scenario.structuralSignature,
+          reasoningEngineFamily:
+            "Engine_Punjabi",
+          reasoningStyleAnchor:
+            styleAnchor,
+          reasoningSelfSolver: {
+            solutionCount: 1,
+            uniqueAnswer: true,
+            issues: [],
+          },
+          compatibilityWarnings: [],
+          validationWarnings: [],
+        },
+      },
+      reasoningSteps,
+      reasoningSteps.length,
+      reasoningSteps.map(
+        (step) =>
+          step.operation as ReasoningOperation,
+      ),
+    );
+
+  const finalizedQuestion =
+    applyDifficultyMetadata(
+      enrichedQuestion,
+      {
+        kind: "logic",
+        text: enrichedQuestion.text,
+        explanation:
+          enrichedQuestion.explanation,
+        difficultyHint:
+          scenario.difficulty,
+        targetDifficultyScore:
+          options?.targetDifficulty,
+        reasoningSteps:
+          enrichedQuestion.reasoningSteps,
+        dependencyComplexity:
+          scenario.mode ===
+          "paper-b"
+            ? 4
+            : 2,
+        operationChain:
+          enrichedQuestion.operationChain,
+      },
+    );
+
+  return attachGenerationMetrics(
+    pattern,
+    finalizedQuestion,
+    {
+      generationDurationMs:
+        Date.now() -
+        generationStartedAt,
+      validationRetries: 0,
+      uniquenessFailures: 0,
+      branchingFactor: 1,
+      clueDensity: 1,
+      inferenceDepth:
+        finalizedQuestion
+          .difficultyMetadata
+          .reasoningDepth,
+      redundancyScore: 0,
+      realismScore:
+        finalizedQuestion
+          .examRealismMetadata
+          ?.realismScore,
+    },
+  );
+}
+
+function createKnowledgeQuestionCandidate(
+  pattern: Pattern,
+  options?: GeneratorOptions,
+): FormulaQuestion {
+  const generationStartedAt =
+    Date.now();
+  const activeGenerationContext =
+    getGenerationContext();
+  const isComputer =
+    pattern.generationDomain ===
+      "computer" ||
+    pattern.section
+      .toLowerCase()
+      .includes("computer");
+  const scenario = isComputer
+    ? createComputerAwarenessScenario(
+        pattern,
+      )
+    : createGeneralKnowledgeScenario(
+        pattern,
+      );
+  const reasoningSteps =
+    scenario.reasoningSteps.map(
+      (detail, index) => ({
+        operation:
+          index === 0
+            ? "filter"
+            : index === 1
+              ? "map"
+              : "compare",
+        detail,
+      }),
+    );
+  const deductionArray =
+    reasoningSteps.map(
+      (step, index) => ({
+        step: index + 1,
+        operation: step.operation,
+        statement: step.detail,
+        mathjax:
+          index === 1
+            ? `$\\text{Entity} \\to \\text{Attribute}$`
+            : `$\\therefore\\ \\text{${step.operation}}$`,
+      }),
+    );
+  const engineFamily = isComputer
+    ? "ComputerAwarenessEngine"
+    : "GeneralKnowledgeEngine";
+  const styleAnchor = isComputer
+    ? "Arihant Computer Awareness fact-object mapping"
+    : "Lucent GK / Ghatna Chakra / Sadda Punjab EAS fact-object mapping";
+  const enrichedQuestion =
+    attachReasoningTrace(
+      {
+        text: scenario.stem,
+        options: scenario.options,
+        correct: scenario.correct,
+        explanation:
+          scenario.explanation,
+        inferenceTrace: {
+          engineFamily,
+          styleAnchor,
+          solutionCount: 1,
+          uniqueAnswer: true,
+          issues: [],
+          steps:
+            scenario.reasoningSteps,
+          deductionArray,
+          logicSymbols: [
+            "\\to",
+            "\\therefore",
+          ],
+        },
+        deductionArray,
+        section: pattern.section,
+        topic: pattern.topic,
+        subtopic: pattern.subtopic,
+        optionMetadata:
+          scenario.optionMetadata,
+        examRealismMetadata:
+          buildExamRealismMetadata(
+            options?.examProfile,
+            {
+              id: scenario.id,
+              difficulty:
+                scenario.difficulty,
+              category:
+                "fact-object-recall",
+              topicClusters: [
+                scenario.category,
+              ],
+              operationChain: [
+                "identify-category",
+                "map-entity-attribute",
+                "reject-close-distractors",
+              ],
+              wordingVariants: [
+                "Use EAS fact-object prompt.",
+              ],
+              buildReasoningSteps:
+                () => [],
+            },
+            scenario.optionMetadata,
+          ),
+        debugMetadata: {
+          selectedPattern: pattern.id,
+          seed:
+            activeGenerationContext?.seed,
+          generationId:
+            activeGenerationContext?.generationId,
+          generationDomain:
+            (isComputer
+              ? "computer"
+              : "knowledge") as GenerationDomain,
+          selectedMotif:
+            pattern.supportedMotifs?.[0] ??
+            scenario.category,
+          selectedArchetype:
+            scenario.engine,
+          structuralSignatureKey:
+            scenario.structuralSignature,
+          reasoningEngineFamily:
+            engineFamily,
+          reasoningStyleAnchor:
+            styleAnchor,
+          reasoningSelfSolver: {
+            solutionCount: 1,
+            uniqueAnswer: true,
+            issues: [],
+          },
+          compatibilityWarnings: [],
+          validationWarnings: [],
+        },
+      },
+      reasoningSteps,
+      reasoningSteps.length,
+      reasoningSteps.map(
+        (step) =>
+          step.operation as ReasoningOperation,
+      ),
+    );
+
+  const finalizedQuestion =
+    applyDifficultyMetadata(
+      enrichedQuestion,
+      {
+        kind: "logic",
+        text: enrichedQuestion.text,
+        explanation:
+          enrichedQuestion.explanation,
+        difficultyHint:
+          scenario.difficulty,
+        targetDifficultyScore:
+          options?.targetDifficulty,
+        reasoningSteps:
+          enrichedQuestion.reasoningSteps,
+        dependencyComplexity:
+          scenario.matchMatrix ? 3 : 2,
+        operationChain:
+          enrichedQuestion.operationChain,
+      },
+    );
+
+  return attachGenerationMetrics(
+    pattern,
+    finalizedQuestion,
+    {
+      generationDurationMs:
+        Date.now() -
+        generationStartedAt,
+      validationRetries: 0,
+      uniquenessFailures: 0,
+      branchingFactor: 1,
+      clueDensity: 1,
+      inferenceDepth:
+        finalizedQuestion
+          .difficultyMetadata
+          .reasoningDepth,
+      redundancyScore: 0,
+      realismScore:
+        finalizedQuestion
+          .examRealismMetadata
+          ?.realismScore,
     },
   );
 }
@@ -2074,10 +2947,18 @@ function createDIQuestionSet(
         visualType,
       )
       : undefined;
+  const scenarioState =
+    buildDIScenarioState(
+      pattern.diPattern,
+      tableData,
+      visualType,
+      series,
+    );
   const diQuestionSet =
     generateDIQuestions(
       tableData,
       visualType,
+      scenarioState,
       series,
       options,
     );
@@ -2086,6 +2967,7 @@ function createDIQuestionSet(
     questionType: "di",
     visualType,
     diData: tableData,
+    scenarioState,
     series,
     title:
       pattern.diPattern?.title ??
@@ -2299,6 +3181,8 @@ function buildPatternFromQuestion(
   const section =
     domain === "english"
       ? "english"
+      : domain === "punjabi"
+        ? "punjabi"
       : domain === "di"
         ? "di"
         : domain ===
@@ -2442,6 +3326,9 @@ function getDomainAdapterRegistry() {
     createFormulaQuestionCandidate,
     createReasoningQuestionCandidate,
     createSeatingQuestionCandidate,
+    createEnglishQuestionCandidate,
+    createPunjabiQuestionCandidate,
+    createKnowledgeQuestionCandidate,
     createDIQuestionSet,
   });
 }

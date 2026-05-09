@@ -3,6 +3,267 @@ import { QuantMotif } from "./types";
 export const seatingArrangementMotifs: QuantMotif[] =
   [
     {
+      id: "con-floor-fixed",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "vertical-constraints",
+        "floor-puzzle",
+      ],
+      preferredOperations: [
+        "compare",
+        "filter",
+        "infer",
+      ],
+      commonDistractors: [
+        "SlotNumberInversion",
+        "ParityTrap",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "puzzles",
+        "floor-puzzle",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+      examWeights: {
+        ibps: 1.25,
+        sbi: 1.2,
+      },
+    },
+    {
+      id: "con-floor-gap",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "vertical-constraints",
+        "floor-gap",
+      ],
+      preferredOperations: [
+        "filter",
+        "infer",
+      ],
+      commonDistractors: [
+        "GapInclusiveTrap",
+      ],
+      inferenceStyle: "hidden",
+      reasoningDepthRange: [3, 6],
+      compatibleTopics: [
+        "puzzles",
+        "floor-puzzle",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+      examWeights: {
+        ibps: 1.25,
+        sbi: 1.2,
+      },
+    },
+    {
+      id: "con-floor-parity",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "vertical-constraints",
+        "floor-parity",
+      ],
+      preferredOperations: [
+        "filter",
+        "infer",
+      ],
+      commonDistractors: [
+        "EvenOddFlip",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "puzzles",
+        "floor-puzzle",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
+      id: "con-box-stack",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "vertical-constraints",
+        "box-stack",
+      ],
+      preferredOperations: [
+        "compare",
+        "infer",
+      ],
+      commonDistractors: [
+        "AboveBelowFlip",
+      ],
+      inferenceStyle: "hidden",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "puzzles",
+        "box-stack",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
+      id: "con-sched-sequence",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "scheduling-constraints",
+      ],
+      preferredOperations: [
+        "compare",
+        "transform",
+        "infer",
+      ],
+      commonDistractors: [
+        "WeekendSlotTrap",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "puzzles",
+        "scheduling",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
+      id: "con-sched-relative",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "scheduling-constraints",
+      ],
+      preferredOperations: [
+        "transform",
+        "infer",
+      ],
+      commonDistractors: [
+        "RelativeDayFlip",
+      ],
+      inferenceStyle: "hidden",
+      reasoningDepthRange: [3, 6],
+      compatibleTopics: [
+        "puzzles",
+        "scheduling",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
+      id: "con-sched-weekend",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "scheduling-constraints",
+      ],
+      preferredOperations: [
+        "filter",
+        "infer",
+      ],
+      commonDistractors: [
+        "WeekendSlotTrap",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "puzzles",
+        "scheduling",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
+      id: "con-mapping-triad",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "multi-variable-mapping",
+      ],
+      preferredOperations: [
+        "compare",
+        "filter",
+        "aggregate",
+        "infer",
+      ],
+      commonDistractors: [
+        "AttributeSwap",
+      ],
+      inferenceStyle: "hidden",
+      reasoningDepthRange: [4, 7],
+      compatibleTopics: [
+        "puzzles",
+        "mapping",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
+      id: "con-mapping-negative",
+      topicCluster:
+        "seating-arrangement",
+      reasoningCategories: [
+        "multi-variable-mapping",
+      ],
+      preferredOperations: [
+        "filter",
+        "aggregate",
+        "infer",
+      ],
+      commonDistractors: [
+        "NegativeConstraintOmission",
+      ],
+      inferenceStyle: "hidden",
+      reasoningDepthRange: [4, 7],
+      compatibleTopics: [
+        "puzzles",
+        "mapping",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+    },
+    {
       id: "direct_clue_linear",
       topicCluster:
         "seating-arrangement",

@@ -10,6 +10,9 @@ export type QuestionPatternDomain =
   | "reasoning"
   | "quant"
   | "english"
+  | "punjabi"
+  | "knowledge"
+  | "computer"
   | "di";
 
 export type QuestionPatternDifficulty =
@@ -79,7 +82,156 @@ const examProfileMap: Record<
   ssc: "ssc",
   cat: "cat",
   rrb: "rrb",
+  punjab: "rrb",
+  psssb: "rrb",
+  ppsc: "rrb",
 };
+
+const ENGINE_PATTERN_CODING_MOTIF_IDS = [
+  "shift-fixed",
+  "shift-incremental",
+  "shift-alternating",
+  "shift-vowel-consonant",
+  "map-opposite",
+  "map-cross",
+  "map-rank-math",
+] as const;
+
+const ENGINE_PATTERN_SERIES_MOTIF_IDS = [
+  "math-power",
+  "math-difference-layer",
+  "math-interleaved",
+] as const;
+
+const ENGINE_PATTERN_ANALOGY_MOTIF_IDS = [
+  "shift-fixed",
+  "shift-incremental",
+  "shift-alternating",
+  "map-opposite",
+  "map-cross",
+  "map-rank-math",
+] as const;
+
+const ENGINE_PATTERN_CLASSIFICATION_MOTIF_IDS = [
+  "map-rank-math",
+  "math-power",
+  "math-interleaved",
+] as const;
+
+const ENGINE_RELATIONAL_NARRATIVE_MOTIF_IDS = [
+  "rel-pointing",
+  "rel-chain",
+  "rel-missing",
+  "direct_family_relation",
+  "generation_gap_reasoning",
+  "gender_based_inference",
+  "conditional_family_inference",
+  "circular_relation_chain",
+  "indirect_relation_deduction",
+] as const;
+
+const ENGINE_RELATIONAL_CODED_MOTIF_IDS = [
+  "rel-coded-id",
+  "rel-coded-eval",
+] as const;
+
+const ENGINE_RELATIONAL_PUZZLE_MOTIF_IDS = [
+  "rel-puzzle-matrix",
+] as const;
+
+const ENGINE_SPATIAL_DIRECTION_MOTIF_IDS = [
+  "spa-dir-pythagoras",
+  "spa-dir-shadow",
+  "spa-dir-degrees",
+  "straight_path_distance",
+  "simple_turn_tracking",
+  "shortest_distance_inference",
+  "orientation_shift_chain",
+  "conditional_movement_reasoning",
+  "coordinate_inference_chain",
+] as const;
+
+const ENGINE_SPATIAL_DICE_CUBE_MOTIF_IDS = [
+  "spa-dice-logic",
+  "spa-cube-painting",
+  "spa-cube-folding",
+] as const;
+
+const ENGINE_SPATIAL_REFLECTION_MOTIF_IDS = [
+  "spa-img-mirror",
+  "spa-img-water",
+] as const;
+
+const ENGINE_SPATIAL_FOLDING_MOTIF_IDS = [
+  "spa-paper-fold",
+] as const;
+
+const ENGINE_BOOLEAN_INEQUALITY_MOTIF_IDS = [
+  "ded-ineq-chain",
+  "ded-ineq-coded",
+  "ded-ineq-either",
+  "direct_inequality_reading",
+  "single_chain_deduction",
+  "compound_inequality_linking",
+  "indirect_conclusion_validation",
+  "uncertain_branch_comparison",
+  "nested_symbolic_reasoning",
+] as const;
+
+const ENGINE_BOOLEAN_SYLLOGISM_MOTIF_IDS = [
+  "ded-syl-definite",
+  "ded-syl-possibility",
+  "ded-syl-negative",
+] as const;
+
+const ENGINE_BOOLEAN_VENN_MOTIF_IDS = [
+  "ded-venn-ident",
+  "ded-venn-math",
+] as const;
+
+const ENGINE_TEMPORAL_CALENDAR_MOTIF_IDS = [
+  "tem-cal-day-find",
+  "tem-cal-ref-shift",
+  "tem-cal-repetition",
+] as const;
+
+const ENGINE_TEMPORAL_CLOCK_MOTIF_IDS = [
+  "tem-clk-angle",
+  "tem-clk-overlap",
+  "tem-clk-faulty",
+] as const;
+
+const ENGINE_CRITICAL_ASSUMPTION_MOTIF_IDS = [
+  "cri-inf-assumption",
+] as const;
+
+const ENGINE_CRITICAL_CONCLUSION_MOTIF_IDS = [
+  "cri-inf-conclusion",
+] as const;
+
+const ENGINE_CRITICAL_ACTION_MOTIF_IDS = [
+  "cri-inf-action",
+] as const;
+
+const ENGINE_CRITICAL_CAUSE_MOTIF_IDS = [
+  "cri-inf-cause",
+] as const;
+
+const ENGINE_CRITICAL_ARGUMENT_MOTIF_IDS = [
+  "cri-inf-argument",
+] as const;
+
+const ENGINE_ABSTRACT_SERIES_MOTIF_IDS = [
+  "abs-series",
+] as const;
+
+const ENGINE_ABSTRACT_PAPER_MOTIF_IDS = [
+  "abs-paper-cutting",
+] as const;
+
+const ENGINE_ABSTRACT_EMBEDDED_MOTIF_IDS = [
+  "abs-embedded",
+] as const;
 
 const TSD_MOTIF_IDS = [
   "tsd-basic-dst",
@@ -149,6 +301,189 @@ const TSD_CIRCULAR_MOTIF_IDS = [
   "tsd-circ-relative-lap",
 ] as const;
 
+const AVERAGE_CHANGE_MOTIF_IDS = [
+  "avg-change-inclusion",
+  "avg-change-exclusion",
+  "avg-change-replacement",
+  "avg-correction-misread",
+  "avg-change-double-inclusion",
+  "avg-change-join-leave",
+  "avg-change-months",
+] as const;
+
+const AVERAGE_SEQUENCE_MOTIF_IDS = [
+  "avg-seq-consecutive",
+  "avg-seq-shift",
+  "avg-seq-ap",
+  "avg-seq-even",
+  "avg-seq-odd",
+  "avg-seq-variable",
+] as const;
+
+const AVERAGE_WEIGHTED_MOTIF_IDS = [
+  "avg-weight-combine",
+  "avg-weight-missing-n",
+  "avg-weight-missing-a",
+  "avg-weight-three-group",
+  "avg-weight-salary",
+  "avg-weight-production",
+  "avg-weight-ratio-balance",
+] as const;
+
+const AVERAGE_APPLICATION_MOTIF_IDS = [
+  "avg-app-cricket-batting",
+  "avg-app-cricket-bowling",
+  "avg-app-age-family",
+  "avg-app-temp-weekly",
+  "avg-app-score-target",
+  "avg-app-expenditure",
+  "avg-app-zero-score",
+] as const;
+
+const AVERAGE_ALGEBRAIC_MOTIF_IDS = [
+  "avg-alg-deviation",
+  "avg-alg-max-min",
+  "avg-alg-variable",
+  "avg-alg-overlap-boundary",
+  "avg-alg-first-last-overlap",
+  "avg-alg-insufficient-data",
+  "avg-alg-fraction-result",
+  "avg-alg-deviation-missing",
+] as const;
+
+const AVERAGE_BALANCE_MOTIF_IDS = [
+  ...AVERAGE_CHANGE_MOTIF_IDS,
+  ...AVERAGE_SEQUENCE_MOTIF_IDS,
+  ...AVERAGE_WEIGHTED_MOTIF_IDS,
+  ...AVERAGE_APPLICATION_MOTIF_IDS,
+  ...AVERAGE_ALGEBRAIC_MOTIF_IDS,
+] as const;
+
+const NUMERIC_PROPERTY_CLASSIFICATION_MOTIF_IDS = [
+  "num-class-id",
+  "num-class-prime-check",
+  "num-class-integers",
+  "num-class-rational-irrational",
+  "num-class-smallest",
+] as const;
+
+const NUMERIC_PROPERTY_DIVISIBILITY_MOTIF_IDS = [
+  "num-div-basic",
+  "num-div-combined",
+  "num-div-unknown",
+  "num-div-11-unknown",
+  "num-div-missing-number",
+] as const;
+
+const NUMERIC_PROPERTY_REMAINDER_MOTIF_IDS = [
+  "num-rem-basic",
+  "num-rem-power",
+  "num-rem-successive",
+  "num-rem-negative",
+  "num-rem-fermat",
+  "num-rem-chinese-basic",
+] as const;
+
+const NUMERIC_PROPERTY_FACTOR_MOTIF_IDS = [
+  "num-fact-count",
+  "num-fact-sum",
+  "num-fact-trailing-zeros",
+  "num-fact-highest-power",
+  "num-fact-proper",
+  "num-factorial-divisibility",
+] as const;
+
+const NUMERIC_PROPERTY_UNIT_DIGIT_MOTIF_IDS = [
+  "num-unit-digit",
+  "num-unit-series",
+  "num-last-two-digits",
+  "num-unit-product",
+  "num-unit-zero-power",
+] as const;
+
+const NUMERIC_PROPERTY_SURD_INDEX_MOTIF_IDS = [
+  "num-surd-compare",
+  "num-simpl-vbodmas",
+  "num-simpl-recurring",
+  "num-recurring-pure",
+  "num-index-laws",
+  "num-surd-simplify",
+  "num-perfect-square-check",
+  "num-perfect-cube-check",
+  "num-hcf-lcm-relation",
+  "num-lcm-multiples",
+  "num-base-conversion",
+  "num-digit-count",
+  "num-divisibility-range-count",
+] as const;
+
+const NUMERIC_PROPERTY_MOTIF_IDS = [
+  ...NUMERIC_PROPERTY_CLASSIFICATION_MOTIF_IDS,
+  ...NUMERIC_PROPERTY_DIVISIBILITY_MOTIF_IDS,
+  ...NUMERIC_PROPERTY_REMAINDER_MOTIF_IDS,
+  ...NUMERIC_PROPERTY_FACTOR_MOTIF_IDS,
+  ...NUMERIC_PROPERTY_UNIT_DIGIT_MOTIF_IDS,
+  ...NUMERIC_PROPERTY_SURD_INDEX_MOTIF_IDS,
+] as const;
+
+const SIMPLIFICATION_VBODMAS_MOTIF_IDS = [
+  "sim-vbodmas-basic",
+  "sim-vbodmas-bracket",
+  "sim-vbodmas-of",
+  "sim-vbodmas-vinculum",
+  "sim-vbodmas-mixed-fraction",
+  "sim-unit-conversion",
+  "sim-percent-of-chain",
+] as const;
+
+const SIMPLIFICATION_ROOT_MOTIF_IDS = [
+  "sim-root-square",
+  "sim-root-cube",
+  "sim-root-approx",
+  "sim-root-decimal",
+  "sim-root-surd-add",
+  "sim-root-rationalize",
+  "sim-root-cube-decimal",
+] as const;
+
+const SIMPLIFICATION_FRACTION_DECIMAL_MOTIF_IDS = [
+  "sim-frac-nested",
+  "sim-frac-compare",
+  "sim-dec-recurring",
+  "sim-dec-mixed-recurring",
+  "sim-frac-complex",
+  "sim-frac-illegal-cancel",
+  "sim-frac-ascending",
+  "sim-dec-fraction-blend",
+] as const;
+
+const SIMPLIFICATION_ALGEBRAIC_MOTIF_IDS = [
+  "sim-alg-ident",
+  "sim-alg-cube-id",
+  "sim-alg-square-near",
+  "sim-alg-product-near",
+  "sim-alg-ratio-cancel",
+  "sim-alg-surd-conjugate",
+] as const;
+
+const SIMPLIFICATION_INDEX_MOTIF_IDS = [
+  "sim-index-basic",
+  "sim-index-comparison",
+  "sim-index-zero",
+  "sim-index-negative-base",
+  "sim-index-fractional",
+  "sim-index-illegal-merge",
+  "sim-index-power-tower-small",
+] as const;
+
+const SIMPLIFICATION_MOTIF_IDS = [
+  ...SIMPLIFICATION_VBODMAS_MOTIF_IDS,
+  ...SIMPLIFICATION_ROOT_MOTIF_IDS,
+  ...SIMPLIFICATION_FRACTION_DECIMAL_MOTIF_IDS,
+  ...SIMPLIFICATION_ALGEBRAIC_MOTIF_IDS,
+  ...SIMPLIFICATION_INDEX_MOTIF_IDS,
+] as const;
+
 const MENSURATION_MOTIF_IDS = [
   "men-tri-ratio",
   "men-rect-path-in",
@@ -176,6 +511,876 @@ const MENSURATION_MOTIF_IDS = [
   "men-scale-area",
   "men-scale-vol",
   "men-max-perimeter",
+] as const;
+
+const GEOMETRY_MOTIF_IDS = [
+  "geo-ang-parallel",
+  "geo-ang-bisector",
+  "geo-ang-complement",
+  "geo-ang-polygon",
+  "geo-tri-inequality",
+  "geo-tri-orthocenter",
+  "geo-tri-circumcenter",
+  "geo-tri-incenter",
+  "geo-tri-centroid",
+  "geo-tri-med-length",
+  "geo-tri-area-ratio",
+  "geo-tri-exterior-angle",
+  "geo-tri-isosceles-base",
+  "geo-sim-basic",
+  "geo-sim-area",
+  "geo-cong-proof",
+  "geo-tri-thales",
+  "geo-right-pythagoras",
+  "geo-right-altitude",
+  "geo-right-30-60-90",
+  "geo-right-45-45-90",
+  "geo-circ-chord-dist",
+  "geo-circ-intersect-chord",
+  "geo-circ-tangent-secant",
+  "geo-circ-cyclic-quad",
+  "geo-circ-alternate-segment",
+  "geo-circ-direct-common",
+  "geo-circ-trans-common",
+  "geo-circ-angle-center",
+  "geo-circ-semicircle",
+  "geo-quad-parallelogram",
+  "geo-quad-rhombus-diag",
+  "geo-quad-trapezium-mid",
+  "geo-poly-interior",
+  "geo-poly-diagonal",
+  "geo-quad-kite",
+  "geo-coord-dist",
+  "geo-coord-section",
+  "geo-coord-slope",
+  "geo-coord-area",
+  "geo-coord-circle",
+  "geo-coord-midpoint",
+] as const;
+
+const GEOMETRY_LINES_ANGLES_MOTIF_IDS = [
+  "geo-ang-parallel",
+  "geo-ang-bisector",
+  "geo-ang-complement",
+  "geo-ang-polygon",
+] as const;
+
+const GEOMETRY_TRIANGLE_MOTIF_IDS = [
+  "geo-tri-inequality",
+  "geo-tri-orthocenter",
+  "geo-tri-circumcenter",
+  "geo-tri-incenter",
+  "geo-tri-centroid",
+  "geo-tri-med-length",
+  "geo-tri-area-ratio",
+  "geo-tri-exterior-angle",
+  "geo-tri-isosceles-base",
+  "geo-right-pythagoras",
+  "geo-right-altitude",
+  "geo-right-30-60-90",
+  "geo-right-45-45-90",
+] as const;
+
+const GEOMETRY_SIMILARITY_MOTIF_IDS = [
+  "geo-sim-basic",
+  "geo-sim-area",
+  "geo-cong-proof",
+  "geo-tri-thales",
+] as const;
+
+const GEOMETRY_CIRCLE_MOTIF_IDS = [
+  "geo-circ-chord-dist",
+  "geo-circ-intersect-chord",
+  "geo-circ-tangent-secant",
+  "geo-circ-cyclic-quad",
+  "geo-circ-alternate-segment",
+  "geo-circ-direct-common",
+  "geo-circ-trans-common",
+  "geo-circ-angle-center",
+  "geo-circ-semicircle",
+] as const;
+
+const GEOMETRY_COORDINATE_MOTIF_IDS = [
+  "geo-coord-dist",
+  "geo-coord-section",
+  "geo-coord-slope",
+  "geo-coord-area",
+  "geo-coord-circle",
+  "geo-coord-midpoint",
+] as const;
+
+const ALGEBRA_MOTIF_IDS = [
+  "alg-id-basic",
+  "alg-id-cubic",
+  "alg-id-triple",
+  "alg-id-cond-sum",
+  "alg-id-cond-diff",
+  "alg-simplify-cyclic",
+  "alg-factor-remainder",
+  "alg-poly-factor",
+  "alg-lin-simult",
+  "alg-lin-consistency",
+  "alg-lin-word-problem",
+  "alg-lin-parameter",
+  "alg-quad-roots",
+  "alg-quad-nature",
+  "alg-quad-coeff-rel",
+  "alg-quad-construct",
+  "alg-quad-common-root",
+  "alg-newton-sums",
+  "alg-quad-complete-square",
+  "alg-quad-param-root",
+  "alg-ineq-linear",
+  "alg-ineq-quad",
+  "alg-mod-eqn",
+  "alg-mod-ineq",
+  "alg-ineq-rational",
+  "alg-mod-nested",
+  "alg-func-domain",
+  "alg-func-range",
+  "alg-func-composite",
+  "alg-func-even-odd",
+  "alg-func-inverse",
+  "alg-func-value-param",
+  "alg-log-basic",
+  "alg-log-base-change",
+  "alg-log-eqn",
+  "alg-log-domain",
+  "alg-log-exponent",
+  "alg-exp-eqn",
+  "alg-max-min-quad",
+  "alg-am-gm-opt",
+  "alg-max-product-fixed-sum",
+  "alg-min-sum-recip",
+  "alg-sequence-ap",
+  "alg-sequence-gp",
+  "alg-binomial-middle",
+] as const;
+
+const ALGEBRA_IDENTITY_MOTIF_IDS = [
+  "alg-id-basic",
+  "alg-id-cubic",
+  "alg-id-triple",
+  "alg-id-cond-sum",
+  "alg-id-cond-diff",
+  "alg-simplify-cyclic",
+  "alg-factor-remainder",
+  "alg-poly-factor",
+] as const;
+
+const ALGEBRA_LINEAR_MOTIF_IDS = [
+  "alg-lin-simult",
+  "alg-lin-consistency",
+  "alg-lin-word-problem",
+  "alg-lin-parameter",
+] as const;
+
+const ALGEBRA_QUADRATIC_MOTIF_IDS = [
+  "alg-quad-roots",
+  "alg-quad-nature",
+  "alg-quad-coeff-rel",
+  "alg-quad-construct",
+  "alg-quad-common-root",
+  "alg-newton-sums",
+  "alg-quad-complete-square",
+  "alg-quad-param-root",
+] as const;
+
+const ALGEBRA_INEQUALITY_MOTIF_IDS = [
+  "alg-ineq-linear",
+  "alg-ineq-quad",
+  "alg-mod-eqn",
+  "alg-mod-ineq",
+  "alg-ineq-rational",
+  "alg-mod-nested",
+] as const;
+
+const ALGEBRA_FUNCTION_MOTIF_IDS = [
+  "alg-func-domain",
+  "alg-func-range",
+  "alg-func-composite",
+  "alg-func-even-odd",
+  "alg-func-inverse",
+  "alg-func-value-param",
+] as const;
+
+const ALGEBRA_LOG_MOTIF_IDS = [
+  "alg-log-basic",
+  "alg-log-base-change",
+  "alg-log-eqn",
+  "alg-log-domain",
+  "alg-log-exponent",
+  "alg-exp-eqn",
+] as const;
+
+const ALGEBRA_OPTIMIZATION_MOTIF_IDS = [
+  "alg-max-min-quad",
+  "alg-am-gm-opt",
+  "alg-max-product-fixed-sum",
+  "alg-min-sum-recip",
+] as const;
+
+const EQUATION_MOTIF_IDS = [
+  "eqn-lin-single",
+  "eqn-lin-simultaneous",
+  "eqn-lin-consistency",
+  "eqn-lin-integer-only",
+  "eqn-lin-parameter",
+  "eqn-lin-fractional",
+  "eqn-quad-factor",
+  "eqn-quad-formula",
+  "eqn-quad-nature",
+  "eqn-quad-vieta",
+  "eqn-quad-construct",
+  "eqn-quad-symmetric",
+  "eqn-quad-common-root",
+  "eqn-quad-equal-roots-param",
+  "eqn-quad-sign-roots",
+  "eqn-poly-cubic",
+  "eqn-special-reciprocal",
+  "eqn-special-reducible",
+  "eqn-special-radical",
+  "eqn-special-fractional",
+  "eqn-mod-single",
+  "eqn-mod-double",
+  "eqn-mod-nested",
+  "eqn-mod-interval-count",
+  "eqn-word-age",
+  "eqn-word-digits",
+  "eqn-word-fixed-variable",
+  "eqn-word-geometry",
+  "eqn-word-mixture-count",
+  "eqn-word-motion-linear",
+  "eqn-word-work-rate",
+  "eqn-word-break-even",
+  "eqn-root-ap",
+  "eqn-root-gp",
+  "eqn-param-common-solution",
+] as const;
+
+const EQUATION_LINEAR_MOTIF_IDS = [
+  "eqn-lin-single",
+  "eqn-lin-simultaneous",
+] as const;
+
+const EQUATION_QUADRATIC_MOTIF_IDS = [
+  "eqn-quad-factor",
+  "eqn-quad-formula",
+  "eqn-quad-vieta",
+  "eqn-quad-symmetric",
+] as const;
+
+const EQUATION_SPECIAL_MOTIF_IDS = [
+  "eqn-poly-cubic",
+  "eqn-special-reciprocal",
+  "eqn-special-reducible",
+  "eqn-special-radical",
+  "eqn-special-fractional",
+  "eqn-root-ap",
+  "eqn-root-gp",
+] as const;
+
+const EQUATION_MODULUS_MOTIF_IDS = [
+  "eqn-mod-single",
+  "eqn-mod-double",
+  "eqn-mod-nested",
+  "eqn-mod-interval-count",
+] as const;
+
+const EQUATION_WORD_MOTIF_IDS = [
+  "eqn-word-age",
+  "eqn-word-digits",
+  "eqn-word-fixed-variable",
+  "eqn-word-geometry",
+  "eqn-word-mixture-count",
+  "eqn-word-motion-linear",
+  "eqn-word-work-rate",
+  "eqn-word-break-even",
+] as const;
+
+const PROGRESSION_MOTIF_IDS = [
+  "prog-ap-term",
+  "prog-ap-sum",
+  "prog-ap-middle",
+  "prog-ap-property",
+  "prog-ap-series-id",
+  "prog-ap-arithmetic-mean",
+  "prog-ap-partial-sum",
+  "prog-gp-term",
+  "prog-gp-sum",
+  "prog-gp-infinite",
+  "prog-gp-property",
+  "prog-gp-rebound",
+  "prog-gp-fractional-ratio",
+  "prog-gp-log-growth",
+  "prog-hp-basic",
+  "prog-mean-relation",
+  "prog-hp-average-speed",
+  "prog-mean-insert-geometric",
+  "prog-spec-natural",
+  "prog-spec-squares",
+  "prog-spec-cubes",
+  "prog-spec-telescopic",
+  "prog-spec-agp",
+  "prog-spec-sigma-linear",
+  "prog-spec-odd-sum",
+  "prog-spec-even-sum",
+  "prog-alg-log-link",
+  "prog-alg-roots",
+  "prog-alg-n-split",
+  "prog-alg-find-n-from-sum",
+  "prog-alg-common-diff-from-sum",
+  "prog-alg-common-ratio-from-terms",
+  "prog-recursive-linear",
+  "prog-recursive-geometric",
+  "prog-series-mixed-difference",
+] as const;
+
+const PROGRESSION_AP_MOTIF_IDS = [
+  "prog-ap-term",
+  "prog-ap-sum",
+  "prog-ap-middle",
+  "prog-ap-property",
+  "prog-ap-series-id",
+  "prog-ap-arithmetic-mean",
+  "prog-ap-partial-sum",
+  "prog-recursive-linear",
+] as const;
+
+const PROGRESSION_GP_MOTIF_IDS = [
+  "prog-gp-term",
+  "prog-gp-sum",
+  "prog-gp-infinite",
+  "prog-gp-property",
+  "prog-gp-rebound",
+  "prog-gp-fractional-ratio",
+  "prog-gp-log-growth",
+  "prog-recursive-geometric",
+] as const;
+
+const PROGRESSION_HP_MEAN_MOTIF_IDS = [
+  "prog-hp-basic",
+  "prog-mean-relation",
+  "prog-hp-average-speed",
+  "prog-mean-insert-geometric",
+] as const;
+
+const PROGRESSION_SPECIAL_SERIES_MOTIF_IDS = [
+  "prog-spec-natural",
+  "prog-spec-squares",
+  "prog-spec-cubes",
+  "prog-spec-telescopic",
+  "prog-spec-agp",
+  "prog-spec-sigma-linear",
+  "prog-spec-odd-sum",
+  "prog-spec-even-sum",
+  "prog-series-mixed-difference",
+] as const;
+
+const PROGRESSION_ALGEBRAIC_MOTIF_IDS = [
+  "prog-alg-log-link",
+  "prog-alg-roots",
+  "prog-alg-n-split",
+  "prog-alg-find-n-from-sum",
+  "prog-alg-common-diff-from-sum",
+  "prog-alg-common-ratio-from-terms",
+] as const;
+
+const PROBABILITY_MOTIF_IDS = [
+  "prob-sample-coins",
+  "prob-sample-dice-sum",
+  "prob-sample-cards",
+  "prob-sample-balls-bag",
+  "prob-sample-number-grid",
+  "prob-event-independent",
+  "prob-event-complement",
+  "prob-event-mutually-exclusive",
+  "prob-event-overlap",
+  "prob-event-atmost",
+  "prob-draw-sequential-with",
+  "prob-draw-sequential-without",
+  "prob-draw-simultaneous",
+  "prob-draw-atleast-one",
+  "prob-conditional-basic",
+  "prob-bayes-theorem",
+  "prob-binomial-distribution",
+  "prob-geometric-chance",
+  "prob-conditional-card",
+  "prob-venn-2-set",
+  "prob-venn-3-set",
+  "prob-odds-conversion",
+  "prob-venn-none",
+  "prob-reliability-parallel",
+  "prob-quality-defective",
+] as const;
+
+const PROBABILITY_SAMPLE_SPACE_MOTIF_IDS = [
+  "prob-sample-coins",
+  "prob-sample-dice-sum",
+  "prob-sample-cards",
+  "prob-sample-balls-bag",
+  "prob-sample-number-grid",
+] as const;
+
+const PROBABILITY_EVENT_MOTIF_IDS = [
+  "prob-event-independent",
+  "prob-event-complement",
+  "prob-event-mutually-exclusive",
+  "prob-event-overlap",
+  "prob-event-atmost",
+  "prob-reliability-parallel",
+] as const;
+
+const PROBABILITY_DRAWING_MOTIF_IDS = [
+  "prob-draw-sequential-with",
+  "prob-draw-sequential-without",
+  "prob-draw-simultaneous",
+  "prob-draw-atleast-one",
+  "prob-quality-defective",
+] as const;
+
+const PROBABILITY_CONDITIONAL_MOTIF_IDS = [
+  "prob-conditional-basic",
+  "prob-bayes-theorem",
+  "prob-binomial-distribution",
+  "prob-geometric-chance",
+  "prob-conditional-card",
+] as const;
+
+const PROBABILITY_VENN_ODDS_MOTIF_IDS = [
+  "prob-venn-2-set",
+  "prob-venn-3-set",
+  "prob-odds-conversion",
+  "prob-venn-none",
+] as const;
+
+const FUNCTION_MOTIF_IDS = [
+  "func-def-id",
+  "func-domain-basic",
+  "func-range-basic",
+  "func-eval-direct",
+  "func-eval-piecewise",
+  "func-map-many-one",
+  "func-type-injectivity",
+  "func-type-surjectivity",
+  "func-type-parity",
+  "func-type-periodic",
+  "func-type-bounded",
+  "func-op-algebra",
+  "func-comp-basic",
+  "func-comp-iterative",
+  "func-inverse-find",
+  "func-inverse-property",
+  "func-comp-domain",
+  "func-spec-modulus",
+  "func-spec-gif",
+  "func-spec-fractional",
+  "func-spec-exp-log",
+  "func-spec-signum",
+  "func-eqn-additive",
+  "func-eqn-multiplicative",
+  "func-eqn-power",
+  "func-eqn-recursive",
+  "func-graph-shift",
+  "func-graph-reflect",
+  "func-graph-intersect",
+  "func-graph-scale",
+  "func-domain-root",
+  "func-domain-log",
+  "func-range-quadratic",
+  "func-inverse-existence",
+  "func-piecewise-continuity",
+] as const;
+
+const FUNCTION_DOMAIN_RANGE_MOTIF_IDS = [
+  "func-domain-basic",
+  "func-range-basic",
+  "func-domain-root",
+  "func-domain-log",
+  "func-range-quadratic",
+  "func-piecewise-continuity",
+] as const;
+
+const FUNCTION_TYPE_MOTIF_IDS = [
+  "func-def-id",
+  "func-map-many-one",
+  "func-type-injectivity",
+  "func-type-surjectivity",
+  "func-type-parity",
+  "func-type-periodic",
+  "func-type-bounded",
+  "func-inverse-existence",
+] as const;
+
+const FUNCTION_COMPOSITION_INVERSE_MOTIF_IDS = [
+  "func-op-algebra",
+  "func-comp-basic",
+  "func-comp-iterative",
+  "func-inverse-find",
+  "func-inverse-property",
+  "func-comp-domain",
+] as const;
+
+const FUNCTION_SPECIAL_MOTIF_IDS = [
+  "func-spec-modulus",
+  "func-spec-gif",
+  "func-spec-fractional",
+  "func-spec-exp-log",
+  "func-spec-signum",
+] as const;
+
+const FUNCTION_FUNCTIONAL_EQUATION_MOTIF_IDS = [
+  "func-eqn-additive",
+  "func-eqn-multiplicative",
+  "func-eqn-power",
+  "func-eqn-recursive",
+] as const;
+
+const FUNCTION_GRAPH_MOTIF_IDS = [
+  "func-graph-shift",
+  "func-graph-reflect",
+  "func-graph-intersect",
+  "func-graph-scale",
+] as const;
+
+const COORDINATE_GEOMETRY_MOTIF_IDS = [
+  "coord-dist-basic",
+  "coord-midpoint",
+  "coord-section-internal",
+  "coord-section-external",
+  "coord-centroid-tri",
+  "coord-slope-find",
+  "coord-line-eqn-point-slope",
+  "coord-line-eqn-two-point",
+  "coord-line-intercept-form",
+  "coord-rel-parallel",
+  "coord-rel-perp",
+  "coord-line-intersection",
+  "coord-slope-angle",
+  "coord-line-general-slope",
+  "coord-line-axis-intercepts",
+  "coord-area-tri",
+  "coord-collinear-check",
+  "coord-quad-id",
+  "coord-area-quad",
+  "coord-dist-point-line",
+  "coord-dist-parallel-lines",
+  "coord-reflect-axis",
+  "coord-reflect-line",
+  "coord-translation-point",
+  "coord-circ-eqn-center",
+  "coord-circ-general-to-center",
+  "coord-circ-tangent",
+  "coord-circle-diameter",
+  "coord-circle-point-position",
+  "coord-circle-line-intersection-count",
+  "coord-locus-distance-origin",
+  "coord-locus-equidistant-two-points",
+  "coord-concurrency-lines",
+  "coord-orthocenter-right",
+  "coord-median-length",
+] as const;
+
+const COORDINATE_POINT_MOTIF_IDS = [
+  "coord-dist-basic",
+  "coord-midpoint",
+  "coord-section-internal",
+  "coord-section-external",
+  "coord-centroid-tri",
+] as const;
+
+const COORDINATE_LINE_MOTIF_IDS = [
+  "coord-slope-find",
+  "coord-line-eqn-point-slope",
+  "coord-line-eqn-two-point",
+  "coord-line-intercept-form",
+  "coord-rel-parallel",
+  "coord-rel-perp",
+  "coord-line-intersection",
+  "coord-slope-angle",
+  "coord-line-general-slope",
+  "coord-line-axis-intercepts",
+] as const;
+
+const COORDINATE_AREA_PROPERTY_MOTIF_IDS = [
+  "coord-area-tri",
+  "coord-collinear-check",
+  "coord-quad-id",
+  "coord-area-quad",
+] as const;
+
+const COORDINATE_DISTANCE_REFLECTION_MOTIF_IDS = [
+  "coord-dist-point-line",
+  "coord-dist-parallel-lines",
+  "coord-reflect-axis",
+  "coord-reflect-line",
+  "coord-translation-point",
+] as const;
+
+const COORDINATE_CIRCLE_MOTIF_IDS = [
+  "coord-circ-eqn-center",
+  "coord-circ-general-to-center",
+  "coord-circ-tangent",
+  "coord-circle-diameter",
+  "coord-circle-point-position",
+  "coord-circle-line-intersection-count",
+] as const;
+
+const COORDINATE_LOCUS_ADVANCED_MOTIF_IDS = [
+  "coord-locus-distance-origin",
+  "coord-locus-equidistant-two-points",
+  "coord-concurrency-lines",
+  "coord-orthocenter-right",
+  "coord-median-length",
+] as const;
+
+const SET_THEORY_MOTIF_IDS = [
+  "set-def-id",
+  "set-subsets-count",
+  "set-power-set",
+  "set-membership",
+  "set-empty-cardinality",
+  "set-op-union",
+  "set-op-intersection",
+  "set-op-difference",
+  "set-op-complement",
+  "set-op-sym-diff",
+  "set-op-disjoint-union",
+  "set-venn-2-basic",
+  "set-venn-2-only",
+  "set-venn-2-max-min",
+  "set-venn-2-neither",
+  "set-venn-2-percent",
+  "set-venn-3-basic",
+  "set-venn-3-exactly-k",
+  "set-venn-3-at-least",
+  "set-venn-3-none",
+  "set-venn-3-only-one",
+  "set-venn-3-region-fill",
+  "set-alg-de-morgan",
+  "set-alg-distributive",
+  "set-cartesian-prod",
+  "set-cartesian-list",
+  "set-cardinality-identity",
+  "set-sym-diff-cardinality",
+  "set-relation-reflexive",
+  "set-relation-symmetric",
+  "set-relation-transitive",
+  "set-relation-equivalence",
+  "set-partition-count",
+  "set-interval-union",
+  "set-interval-intersection",
+] as const;
+
+const SET_THEORY_DEFINITION_MOTIF_IDS = [
+  "set-def-id",
+  "set-subsets-count",
+  "set-power-set",
+  "set-membership",
+  "set-empty-cardinality",
+] as const;
+
+const SET_THEORY_OPERATION_MOTIF_IDS = [
+  "set-op-union",
+  "set-op-intersection",
+  "set-op-difference",
+  "set-op-complement",
+  "set-op-sym-diff",
+  "set-op-disjoint-union",
+  "set-interval-union",
+  "set-interval-intersection",
+] as const;
+
+const SET_THEORY_VENN_2_MOTIF_IDS = [
+  "set-venn-2-basic",
+  "set-venn-2-only",
+  "set-venn-2-max-min",
+  "set-venn-2-neither",
+  "set-venn-2-percent",
+] as const;
+
+const SET_THEORY_VENN_3_MOTIF_IDS = [
+  "set-venn-3-basic",
+  "set-venn-3-exactly-k",
+  "set-venn-3-at-least",
+  "set-venn-3-none",
+  "set-venn-3-only-one",
+  "set-venn-3-region-fill",
+] as const;
+
+const SET_THEORY_ALGEBRA_CARTESIAN_MOTIF_IDS = [
+  "set-alg-de-morgan",
+  "set-alg-distributive",
+  "set-cartesian-prod",
+  "set-cartesian-list",
+  "set-cardinality-identity",
+  "set-sym-diff-cardinality",
+] as const;
+
+const SET_THEORY_RELATION_MOTIF_IDS = [
+  "set-relation-reflexive",
+  "set-relation-symmetric",
+  "set-relation-transitive",
+  "set-relation-equivalence",
+  "set-partition-count",
+] as const;
+
+const PC_MOTIF_IDS = [
+  "pc-fpc-mul",
+  "pc-fpc-add",
+  "pc-digit-formation",
+  "pc-digit-zero",
+  "pc-perm-distinct",
+  "pc-perm-identical",
+  "pc-perm-together",
+  "pc-perm-never-together",
+  "pc-perm-relative",
+  "pc-circ-table",
+  "pc-circ-necklace",
+  "pc-circ-constrained",
+  "pc-comb-basic",
+  "pc-comb-committee",
+  "pc-handshake",
+  "pc-geom-lines",
+  "pc-geom-triangles",
+  "pc-geom-diagonals",
+  "pc-rank-word",
+  "pc-dist-distinct",
+  "pc-dist-identical",
+  "pc-dearrangement",
+  "pc-grid-path",
+  "pc-password-repeat",
+  "pc-word-vowels-together",
+  "pc-selection-atleast",
+  "pc-selection-atmost",
+  "pc-distribution-positive",
+  "pc-circular-alternate",
+  "pc-binomial-coefficient",
+  "pc-path-restricted",
+  "pc-arrange-books-grouped",
+] as const;
+
+const PC_FUNDAMENTAL_MOTIF_IDS = [
+  "pc-fpc-mul",
+  "pc-fpc-add",
+  "pc-digit-formation",
+  "pc-digit-zero",
+] as const;
+
+const PC_PERMUTATION_MOTIF_IDS = [
+  "pc-perm-distinct",
+  "pc-perm-identical",
+  "pc-perm-together",
+  "pc-perm-never-together",
+  "pc-perm-relative",
+] as const;
+
+const PC_COMBINATION_MOTIF_IDS = [
+  "pc-comb-basic",
+  "pc-comb-committee",
+  "pc-handshake",
+  "pc-selection-atleast",
+  "pc-selection-atmost",
+] as const;
+
+const PC_CIRCULAR_MOTIF_IDS = [
+  "pc-circ-table",
+  "pc-circ-necklace",
+  "pc-circ-constrained",
+  "pc-circular-alternate",
+] as const;
+
+const PC_GEOMETRY_COUNTING_MOTIF_IDS = [
+  "pc-geom-lines",
+  "pc-geom-triangles",
+  "pc-geom-diagonals",
+] as const;
+
+const PC_ADVANCED_MOTIF_IDS = [
+  "pc-rank-word",
+  "pc-dist-distinct",
+  "pc-dist-identical",
+  "pc-dearrangement",
+  "pc-grid-path",
+  "pc-distribution-positive",
+  "pc-binomial-coefficient",
+  "pc-path-restricted",
+] as const;
+
+const TRIG_MOTIF_IDS = [
+  "trig-ratio-sides",
+  "trig-ratio-solve",
+  "trig-reciprocal-id",
+  "trig-pythagorean-sum",
+  "trig-val-eval",
+  "trig-val-power",
+  "trig-val-eqn",
+  "trig-comp-shift",
+  "trig-comp-series-prod",
+  "trig-comp-series-sum",
+  "trig-hd-elevation",
+  "trig-hd-two-point",
+  "trig-hd-depression",
+  "trig-hd-shadow",
+  "trig-hd-broken-tree",
+  "trig-alg-sec-tan-link",
+  "trig-alg-csc-cot-link",
+  "trig-id-double-angle",
+  "trig-max-min",
+  "trig-quad-sign",
+  "trig-reduction-large",
+  "trig-ratio-cot-sec",
+  "trig-expression-simplify",
+  "trig-angle-comparison",
+  "trig-hd-ladder",
+  "trig-hd-opposite-points",
+  "trig-area-triangle",
+  "trig-product-to-identity",
+  "trig-equation-standard",
+  "trig-domain-range",
+] as const;
+
+const TRIG_RATIO_MOTIF_IDS = [
+  "trig-ratio-sides",
+  "trig-ratio-solve",
+  "trig-reciprocal-id",
+  "trig-pythagorean-sum",
+] as const;
+
+const TRIG_STANDARD_VALUE_MOTIF_IDS = [
+  "trig-val-eval",
+  "trig-val-power",
+  "trig-val-eqn",
+  "trig-equation-standard",
+] as const;
+
+const TRIG_COMPLEMENTARY_MOTIF_IDS = [
+  "trig-comp-shift",
+  "trig-comp-series-prod",
+  "trig-comp-series-sum",
+] as const;
+
+const TRIG_HD_MOTIF_IDS = [
+  "trig-hd-elevation",
+  "trig-hd-two-point",
+  "trig-hd-depression",
+  "trig-hd-shadow",
+  "trig-hd-broken-tree",
+  "trig-hd-ladder",
+  "trig-hd-opposite-points",
+] as const;
+
+const TRIG_IDENTITY_MOTIF_IDS = [
+  "trig-alg-sec-tan-link",
+  "trig-alg-csc-cot-link",
+  "trig-id-double-angle",
+  "trig-max-min",
+  "trig-expression-simplify",
+] as const;
+
+const TRIG_QUADRANT_MOTIF_IDS = [
+  "trig-quad-sign",
+  "trig-reduction-large",
 ] as const;
 
 const MENSURATION_2D_MOTIF_IDS = [
@@ -264,6 +1469,69 @@ export const MOTIF_REGISTRY: Motif[] = [
     domain: "reasoning",
     topic: "seating-arrangement",
     tags: ["circular", "opposite"],
+  },
+  {
+    canonicalName: "con-floor-fixed",
+    aliases: ["floor-fixed", "fixed-floor"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["vertical", "slot", "floor"],
+  },
+  {
+    canonicalName: "con-floor-gap",
+    aliases: ["floor-gap", "vertical-gap"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["vertical", "gap"],
+  },
+  {
+    canonicalName: "con-floor-parity",
+    aliases: ["floor-parity", "even-odd-floor"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["vertical", "parity"],
+  },
+  {
+    canonicalName: "con-box-stack",
+    aliases: ["box-stack", "stack-immediate"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["vertical", "stack"],
+  },
+  {
+    canonicalName: "con-sched-sequence",
+    aliases: ["schedule-sequence", "fixed-day"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["temporal", "schedule"],
+  },
+  {
+    canonicalName: "con-sched-relative",
+    aliases: ["schedule-relative", "day-offset"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["temporal", "relative"],
+  },
+  {
+    canonicalName: "con-sched-weekend",
+    aliases: ["weekend-exclusion"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["temporal", "pruning"],
+  },
+  {
+    canonicalName: "con-mapping-triad",
+    aliases: ["triad-mapping", "person-slot-attribute"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["mapping", "attribute"],
+  },
+  {
+    canonicalName: "con-mapping-negative",
+    aliases: ["negative-mapping", "attribute-exclusion"],
+    domain: "reasoning",
+    topic: "engine-constraint",
+    tags: ["mapping", "negative"],
   },
   {
     canonicalName: "reverse-percentage",
@@ -628,6 +1896,30 @@ export const MOTIF_REGISTRY: Motif[] = [
     topic: "bar-graph",
   },
   {
+    canonicalName: "di-growth-rate",
+    aliases: ["growth-rate-di"],
+    domain: "di",
+    topic: "data-interpretation",
+  },
+  {
+    canonicalName: "di-contribution",
+    aliases: ["category-share-di"],
+    domain: "di",
+    topic: "data-interpretation",
+  },
+  {
+    canonicalName: "di-projection",
+    aliases: ["trend-projection-di"],
+    domain: "di",
+    topic: "data-interpretation",
+  },
+  {
+    canonicalName: "di-avg-subset",
+    aliases: ["subset-average-di"],
+    domain: "di",
+    topic: "data-interpretation",
+  },
+  {
     canonicalName: "profit-discount-trap",
     domain: "quant",
     topic: "profit-loss",
@@ -933,6 +2225,61 @@ export const MOTIF_REGISTRY: Motif[] = [
         ? "boats-streams"
         : "speed-time-distance",
   })),
+  ...AVERAGE_BALANCE_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "avg-change-replacement"
+        ? ["replacement-shift-net"]
+        : canonicalName === "avg-weight-combine"
+          ? ["weighted-composite-avg"]
+          : canonicalName ===
+              "avg-alg-overlap-boundary"
+            ? ["overlap-boundary-logic"]
+            : canonicalName ===
+                "avg-correction-misread"
+              ? ["correction-misread-data"]
+              : canonicalName ===
+                  "avg-app-cricket-batting"
+                ? ["cricket-performance"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "averages",
+  })),
+  ...NUMERIC_PROPERTY_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "num-div-unknown"
+        ? ["unknown-digit-divisibility"]
+        : canonicalName === "num-rem-successive"
+          ? ["successive-remainder-backcalculation"]
+          : canonicalName ===
+              "num-fact-trailing-zeros"
+            ? ["factorial-trailing-zero-count"]
+            : canonicalName === "num-simpl-recurring"
+              ? ["mixed-recurring-decimal"]
+              : canonicalName === "num-surd-compare"
+                ? ["surd-comparison-common-power"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "number-system",
+  })),
+  ...SIMPLIFICATION_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "sim-frac-nested"
+        ? ["continued-fraction-simplification"]
+        : canonicalName === "sim-dec-recurring"
+          ? ["recurring-decimal-simplification"]
+          : canonicalName === "sim-index-comparison"
+            ? ["index-power-comparison"]
+            : canonicalName === "sim-root-rationalize"
+              ? ["surd-rationalization"]
+              : canonicalName === "sim-vbodmas-of"
+                ? ["of-before-division"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "simplification",
+  })),
   {
     canonicalName: "arithmetic-order-trap",
     aliases: ["bodmas-sequencing"],
@@ -1092,11 +2439,178 @@ export const MOTIF_REGISTRY: Motif[] = [
     domain: "quant" as const,
     topic: "mensuration",
   })),
-  {
-    canonicalName: "probability-favourable-total",
-    domain: "quant",
+  ...GEOMETRY_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "geo-right-pythagoras"
+        ? [
+            "pythagorean-triple",
+            "right-triangle-hypotenuse",
+          ]
+        : canonicalName === "geo-sim-basic"
+          ? ["similar-triangle-side-ratio"]
+          : canonicalName === "geo-circ-tangent-secant"
+            ? ["circle-tangent-secant-product"]
+            : canonicalName === "geo-coord-dist"
+              ? ["coordinate-distance-formula"]
+              : undefined,
+    domain: "quant" as const,
+    topic: "geometry",
+  })),
+  ...ALGEBRA_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "alg-id-basic"
+        ? ["algebra-square-identity"]
+        : canonicalName === "alg-quad-roots"
+          ? ["quadratic-root-factorization"]
+          : canonicalName === "alg-log-basic"
+            ? ["logarithm-basic-rules"]
+            : canonicalName === "alg-max-min-quad"
+              ? ["quadratic-vertex-optimization"]
+              : undefined,
+    domain: "quant" as const,
+    topic: "algebra",
+  })),
+  ...EQUATION_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "eqn-lin-single"
+        ? ["single-variable-linear-equation"]
+        : canonicalName === "eqn-lin-simultaneous"
+          ? ["simultaneous-linear-equations"]
+          : canonicalName === "eqn-quad-factor"
+            ? ["quadratic-factorization-equation"]
+            : canonicalName === "eqn-quad-vieta"
+              ? ["vieta-root-relation"]
+              : canonicalName === "eqn-mod-single"
+                ? ["absolute-value-equation"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "equations",
+  })),
+  ...PROGRESSION_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "prog-ap-term"
+        ? ["ap-nth-term"]
+        : canonicalName === "prog-gp-term"
+          ? ["gp-nth-term"]
+          : canonicalName === "prog-spec-telescopic"
+            ? ["telescopic-series"]
+            : canonicalName === "prog-mean-relation"
+              ? ["am-gm-hm-relation"]
+              : undefined,
+    domain: "quant" as const,
+    topic: "progressions",
+  })),
+  ...PROBABILITY_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "prob-sample-balls-bag"
+        ? [
+            "probability-favourable-total",
+            "favorable-over-total",
+          ]
+        : canonicalName === "prob-draw-simultaneous"
+          ? ["probability-ncr-draw"]
+          : canonicalName === "prob-event-complement"
+            ? ["at-least-one-complement"]
+            : canonicalName === "prob-bayes-theorem"
+              ? ["posterior-probability"]
+              : undefined,
+    domain: "quant" as const,
     topic: "probability",
-  },
+  })),
+  ...FUNCTION_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "func-domain-basic"
+        ? ["function-domain-exclusion"]
+        : canonicalName === "func-comp-basic"
+          ? ["function-composition-basic"]
+          : canonicalName === "func-inverse-find"
+            ? ["inverse-function-value"]
+            : canonicalName === "func-spec-gif"
+              ? ["greatest-integer-function"]
+              : canonicalName === "func-graph-shift"
+                ? ["function-graph-transformation"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "functions",
+  })),
+  ...COORDINATE_GEOMETRY_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "coord-dist-basic"
+        ? ["cartesian-distance-formula"]
+        : canonicalName ===
+            "coord-section-internal"
+          ? ["internal-section-formula"]
+          : canonicalName ===
+              "coord-dist-point-line"
+            ? ["point-line-distance"]
+            : canonicalName ===
+                "coord-circ-general-to-center"
+              ? ["circle-general-form-center"]
+              : canonicalName ===
+                  "coord-locus-equidistant-two-points"
+                ? ["perpendicular-bisector-locus"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "coordinate-geometry",
+  })),
+  ...SET_THEORY_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "set-venn-2-basic"
+        ? ["two-set-inclusion-exclusion"]
+        : canonicalName ===
+            "set-venn-3-exactly-k"
+          ? ["exactly-two-venn-regions"]
+          : canonicalName ===
+              "set-alg-de-morgan"
+            ? ["de-morgan-set-law"]
+            : canonicalName ===
+                "set-cartesian-prod"
+              ? ["cartesian-product-cardinality"]
+              : canonicalName ===
+                  "set-subsets-count"
+                ? ["subset-counting"]
+                : undefined,
+    domain: "quant" as const,
+    topic: "set-theory",
+  })),
+  ...PC_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "pc-comb-basic"
+        ? ["basic-combination-selection"]
+        : canonicalName === "pc-perm-distinct"
+          ? ["basic-permutation-arrangement"]
+          : canonicalName === "pc-handshake"
+            ? ["counting-unordered-pairs"]
+            : canonicalName === "pc-grid-path"
+              ? ["shortest-grid-path-counting"]
+              : undefined,
+    domain: "quant" as const,
+    topic: "permutation-combination",
+  })),
+  ...TRIG_MOTIF_IDS.map((canonicalName) => ({
+    canonicalName,
+    aliases:
+      canonicalName === "trig-ratio-sides"
+        ? ["soh-cah-toa-ratio"]
+        : canonicalName === "trig-hd-elevation"
+          ? ["angle-elevation-height"]
+          : canonicalName === "trig-val-eval"
+            ? ["standard-angle-evaluation"]
+            : canonicalName === "trig-max-min"
+              ? ["trig-expression-maximum"]
+              : undefined,
+    domain: "quant" as const,
+    topic: "trigonometry",
+  })),
   {
     canonicalName: "counting-pair-selection",
     domain: "quant",
@@ -1107,36 +2621,231 @@ export const MOTIF_REGISTRY: Motif[] = [
     aliases: [
       "simple_turn_tracking",
       "orientation_shift_chain",
+      "spa-dir-pythagoras",
+      "spa-dir-degrees",
     ],
     domain: "reasoning",
     topic: "direction-sense",
+  },
+  {
+    canonicalName: "spa-dir-shadow",
+    aliases: [
+      "shadow-direction",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
+  },
+  {
+    canonicalName: "spa-dice-logic",
+    aliases: [
+      "dice-opposite-face",
+      "cube-dice-logic",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
+  },
+  {
+    canonicalName: "spa-cube-painting",
+    aliases: [
+      "painted-cube-counting",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
+  },
+  {
+    canonicalName: "spa-cube-folding",
+    aliases: [
+      "cube-net-folding",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
+  },
+  {
+    canonicalName: "spa-img-mirror",
+    aliases: [
+      "mirror-image",
+      "vertical-reflection",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
+  },
+  {
+    canonicalName: "spa-img-water",
+    aliases: [
+      "water-image",
+      "horizontal-reflection",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
+  },
+  {
+    canonicalName: "spa-paper-fold",
+    aliases: [
+      "paper-folding",
+      "paper-cutting",
+    ],
+    domain: "reasoning",
+    topic: "engine-spatial",
   },
   {
     canonicalName: "family-relation-chain",
     aliases: [
       "generation_gap_reasoning",
       "indirect_relation_deduction",
+      "rel-chain",
+      "rel-pointing",
     ],
     domain: "reasoning",
     topic: "blood-relation",
+  },
+  {
+    canonicalName: "rel-coded-id",
+    aliases: [
+      "coded-relation-construction",
+      "operator-kinship-code",
+    ],
+    domain: "reasoning",
+    topic: "engine-relational",
+  },
+  {
+    canonicalName: "rel-coded-eval",
+    aliases: [
+      "coded-relation-evaluation",
+      "symbolic-family-expression",
+    ],
+    domain: "reasoning",
+    topic: "engine-relational",
+  },
+  {
+    canonicalName: "rel-missing",
+    aliases: [
+      "partial-family-tree-count",
+    ],
+    domain: "reasoning",
+    topic: "engine-relational",
+  },
+  {
+    canonicalName: "rel-puzzle-matrix",
+    aliases: [
+      "family-tree-puzzle",
+      "kinship-attribute-matrix",
+    ],
+    domain: "reasoning",
+    topic: "engine-relational",
   },
   {
     canonicalName: "symbolic-comparison-chain",
     aliases: [
       "compound_inequality_linking",
       "indirect_conclusion_validation",
+      "ded-ineq-chain",
     ],
     domain: "reasoning",
     topic: "inequality",
   },
   {
-    canonicalName: "alphabet-transform",
+    canonicalName: "ded-ineq-coded",
     aliases: [
+      "coded-inequality",
+      "banking-coded-inequality",
+    ],
+    domain: "reasoning",
+    topic: "engine-boolean",
+  },
+  {
+    canonicalName: "ded-ineq-either",
+    aliases: [
+      "either-or-inequality",
+      "equality-split",
+    ],
+    domain: "reasoning",
+    topic: "engine-boolean",
+  },
+  {
+    canonicalName: "shift-fixed",
+    aliases: [
+      "alphabet-transform",
       "direct_alphabet_shift",
-      "multi_stage_word_transform",
     ],
     domain: "reasoning",
     topic: "coding-decoding",
+  },
+  {
+    canonicalName: "shift-incremental",
+    aliases: [
+      "inference_based_decoding",
+      "incremental-alphabet-shift",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "shift-alternating",
+    aliases: [
+      "alternating-alphabet-shift",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "shift-vowel-consonant",
+    aliases: [
+      "conditional_letter_mapping",
+      "vowel-consonant-shift",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "map-opposite",
+    aliases: [
+      "reverse_alphabet_mapping",
+      "opposite-alphabet-map",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "map-cross",
+    aliases: [
+      "multi_stage_word_transform",
+      "cross-position-map",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "map-rank-math",
+    aliases: [
+      "symbolic_position_encoding",
+      "rank-sum",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "math-power",
+    aliases: [
+      "power-pattern-series",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "math-difference-layer",
+    aliases: [
+      "second-difference-series",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
+  },
+  {
+    canonicalName: "math-interleaved",
+    aliases: [
+      "interleaved-series",
+    ],
+    domain: "reasoning",
+    topic: "engine-pattern",
   },
   {
     canonicalName: "rank-offset",
@@ -1145,10 +2854,176 @@ export const MOTIF_REGISTRY: Motif[] = [
     topic: "ordering-ranking",
   },
   {
-    canonicalName: "venn-conclusion-filter",
-    aliases: ["venn-overlap-filter"],
+    canonicalName: "ded-syl-definite",
+    aliases: [
+      "venn-conclusion-filter",
+      "venn-overlap-filter",
+      "definite-syllogism",
+    ],
     domain: "reasoning",
     topic: "syllogism",
+  },
+  {
+    canonicalName: "ded-syl-possibility",
+    aliases: [
+      "possibility-syllogism",
+    ],
+    domain: "reasoning",
+    topic: "engine-boolean",
+  },
+  {
+    canonicalName: "ded-syl-negative",
+    aliases: [
+      "only-few-syllogism",
+      "negative-syllogism",
+    ],
+    domain: "reasoning",
+    topic: "engine-boolean",
+  },
+  {
+    canonicalName: "ded-venn-ident",
+    aliases: [
+      "logical-venn-identification",
+    ],
+    domain: "reasoning",
+    topic: "engine-boolean",
+  },
+  {
+    canonicalName: "ded-venn-math",
+    aliases: [
+      "logical-venn-math",
+      "venn-cardinality",
+    ],
+    domain: "reasoning",
+    topic: "engine-boolean",
+  },
+  {
+    canonicalName: "tem-cal-day-find",
+    aliases: [
+      "calendar-day-find",
+      "absolute-date-weekday",
+    ],
+    domain: "reasoning",
+    topic: "engine-temporal",
+  },
+  {
+    canonicalName: "tem-cal-ref-shift",
+    aliases: [
+      "calendar-reference-shift",
+      "day-shift",
+    ],
+    domain: "reasoning",
+    topic: "engine-temporal",
+  },
+  {
+    canonicalName: "tem-cal-repetition",
+    aliases: [
+      "same-calendar-year",
+      "calendar-repetition",
+    ],
+    domain: "reasoning",
+    topic: "engine-temporal",
+  },
+  {
+    canonicalName: "tem-clk-angle",
+    aliases: [
+      "clock-angle",
+      "angle-between-hands",
+    ],
+    domain: "reasoning",
+    topic: "engine-temporal",
+  },
+  {
+    canonicalName: "tem-clk-overlap",
+    aliases: [
+      "clock-overlap",
+      "coincident-hands",
+    ],
+    domain: "reasoning",
+    topic: "engine-temporal",
+  },
+  {
+    canonicalName: "tem-clk-faulty",
+    aliases: [
+      "faulty-clock",
+      "gaining-clock",
+      "losing-clock",
+    ],
+    domain: "reasoning",
+    topic: "engine-temporal",
+  },
+  {
+    canonicalName: "cri-inf-assumption",
+    aliases: [
+      "statement-assumption",
+      "implicit-assumption",
+    ],
+    domain: "reasoning",
+    topic: "engine-critical",
+  },
+  {
+    canonicalName: "cri-inf-conclusion",
+    aliases: [
+      "statement-conclusion",
+      "definite-conclusion",
+    ],
+    domain: "reasoning",
+    topic: "engine-critical",
+  },
+  {
+    canonicalName: "cri-inf-action",
+    aliases: [
+      "course-of-action",
+      "pragmatic-action",
+    ],
+    domain: "reasoning",
+    topic: "engine-critical",
+  },
+  {
+    canonicalName: "cri-inf-cause",
+    aliases: [
+      "cause-effect",
+      "causal-inference",
+    ],
+    domain: "reasoning",
+    topic: "engine-critical",
+  },
+  {
+    canonicalName: "cri-inf-argument",
+    aliases: [
+      "strong-weak-argument",
+      "argument-strength",
+    ],
+    domain: "reasoning",
+    topic: "engine-critical",
+  },
+  {
+    canonicalName: "abs-series",
+    aliases: [
+      "figure-series",
+      "non-verbal-series",
+      "matrix-transposition",
+    ],
+    domain: "reasoning",
+    topic: "engine-abstract",
+  },
+  {
+    canonicalName: "abs-paper-cutting",
+    aliases: [
+      "paper-cutting",
+      "paper-folding-cutting",
+    ],
+    domain: "reasoning",
+    topic: "engine-abstract",
+  },
+  {
+    canonicalName: "abs-embedded",
+    aliases: [
+      "embedded-figure",
+      "hidden-figure",
+    ],
+    domain: "reasoning",
+    topic: "engine-abstract",
   },
   {
     canonicalName: "line-trend-comparison",
@@ -1229,17 +3104,72 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       topic: "puzzles",
       label: "Floor Puzzle",
       description:
-        "Floor-based arrangement puzzle. Registry-ready, generator disabled until floor topology is implemented.",
+        "Vertical Entity-to-Slot floor puzzle with fixed floor, gap, and parity constraints.",
       supportedDifficulties: [
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "sparse-anchor",
-        "indirect-elimination",
+        "con-floor-fixed",
+        "con-floor-gap",
+        "con-floor-parity",
       ],
       examStyles: ["banking"],
-      enabled: false,
+      enabled: true,
+    },
+    {
+      id: "box-stack-puzzle",
+      domain: "reasoning",
+      topic: "puzzles",
+      label: "Box Stack",
+      description:
+        "Vertical stack puzzle using above/below and immediate-neighbour constraints.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "con-box-stack",
+        "con-floor-gap",
+      ],
+      examStyles: ["banking"],
+      enabled: true,
+    },
+    {
+      id: "scheduling-puzzle",
+      domain: "reasoning",
+      topic: "puzzles",
+      label: "Scheduling Puzzle",
+      description:
+        "Temporal slot puzzle mapping events to weekdays with relative and excluded-day clues.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "con-sched-sequence",
+        "con-sched-relative",
+        "con-sched-weekend",
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "constraint-mapping-triad",
+      domain: "reasoning",
+      topic: "puzzles",
+      label: "Multi-Variable Mapping",
+      description:
+        "Triad mapping puzzle joining entity, slot, and attribute constraints.",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        "con-mapping-triad",
+        "con-mapping-negative",
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
     },
     {
       id: "percentage",
@@ -1483,25 +3413,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "basic-mean-construction",
-        "incremental-join-leave",
-        "replacement-shift-net",
-        "overlap-boundary-logic",
-        "correction-misread-data",
-        "symmetry-consecutive",
-        "weighted-composite-avg",
-        "cricket-performance",
-        "sum-recovery",
-        "overlap-average-reconstruction",
-        "correction-delta-adjustment",
-        "replacement-average-shift",
-        "group-weighted-average",
-        "consecutive-middle-term",
-        "age-average-shift",
-        "score-target-reconstruction",
-        "average-speed-harmonic",
-        "multi-stage-average-update",
-        "weighted-average-confusion",
+        ...AVERAGE_BALANCE_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1518,10 +3430,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "incremental-join-leave",
-        "replacement-shift-net",
-        "replacement-average-shift",
-        "multi-stage-average-update",
+        ...AVERAGE_CHANGE_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1539,10 +3448,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "weighted-composite-avg",
-        "group-weighted-average",
-        "average-speed-harmonic",
-        "weighted-average-confusion",
+        ...AVERAGE_WEIGHTED_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1559,8 +3465,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "medium",
       ],
       compatibleMotifs: [
-        "symmetry-consecutive",
-        "consecutive-middle-term",
+        ...AVERAGE_SEQUENCE_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1578,11 +3483,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "incremental-join-leave",
-        "cricket-performance",
-        "age-average-shift",
-        "score-target-reconstruction",
-        "sum-recovery",
+        ...AVERAGE_APPLICATION_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -1599,14 +3500,31 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "basic-mean-construction",
-        "overlap-boundary-logic",
-        "correction-misread-data",
-        "sum-recovery",
-        "overlap-average-reconstruction",
-        "correction-delta-adjustment",
+        "avg-correction-misread",
+        "avg-app-temp-weekly",
+        "avg-alg-overlap-boundary",
+        "avg-alg-first-last-overlap",
+        "avg-alg-deviation",
+        "avg-alg-deviation-missing",
       ],
       examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "averages-algebraic",
+      domain: "quant",
+      topic: "averages",
+      label: "Averages: Algebraic Balance",
+      description:
+        "Deviation method, maximum/minimum integer constraints, overlap reconstruction, insufficiency checks, and fractional averages.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...AVERAGE_ALGEBRAIC_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
       enabled: true,
     },
     {
@@ -2090,13 +4008,104 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "simplification",
       label: "Simplification",
+      description:
+        "Arithmetic processing questions covering VBODMAS, nested fractions, roots, recurring decimals, identities, and index laws.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "arithmetic-order-trap",
+        ...SIMPLIFICATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "simplification-vbodmas",
+      domain: "quant",
+      topic: "simplification",
+      label: "Simplification: VBODMAS",
+      description:
+        "Operator hierarchy, brackets, vinculum, mixed fractions, units, and the Of operator.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SIMPLIFICATION_VBODMAS_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "simplification-roots-surds",
+      domain: "quant",
+      topic: "simplification",
+      label: "Simplification: Roots & Surds",
+      description:
+        "Square roots, cube roots, decimal roots, approximate roots, like surds, and rationalization.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SIMPLIFICATION_ROOT_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "simplification-fractions-decimals",
+      domain: "quant",
+      topic: "simplification",
+      label: "Simplification: Fractions & Decimals",
+      description:
+        "Nested fractions, comparison, recurring decimals, complex fractions, and decimal-fraction blends.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SIMPLIFICATION_FRACTION_DECIMAL_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "simplification-identities",
+      domain: "quant",
+      topic: "simplification",
+      label: "Simplification: Identities",
+      description:
+        "Difference of squares, cube identities, near-base products, and structural cancellation.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SIMPLIFICATION_ALGEBRAIC_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "simplification-indices",
+      domain: "quant",
+      topic: "simplification",
+      label: "Simplification: Indices",
+      description:
+        "Index laws, power comparison, zero powers, fractional exponents, and base-compatibility traps.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SIMPLIFICATION_INDEX_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2114,15 +4123,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "divisibility-filter",
-        "divisibility-remainder",
-        "remainder-reduction",
-        "unit-digit-cycle",
-        "hcf-lcm-reconstruction",
-        "factorial-trailing-zero",
-        "recurring-decimal-reconstruction",
-        "divisor-count-prime-exponents",
-        "perfect-power-balance",
+        ...NUMERIC_PROPERTY_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2140,8 +4141,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "divisibility-filter",
-        "remainder-reduction",
+        ...NUMERIC_PROPERTY_DIVISIBILITY_MOTIF_IDS,
+        ...NUMERIC_PROPERTY_REMAINDER_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2158,7 +4159,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "unit-digit-cycle",
+        ...NUMERIC_PROPERTY_UNIT_DIGIT_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2175,7 +4176,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "factorial-trailing-zero",
+        ...NUMERIC_PROPERTY_FACTOR_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2192,7 +4193,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "recurring-decimal-reconstruction",
+        "num-simpl-recurring",
+        "num-recurring-pure",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2209,9 +4211,82 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "divisor-count-prime-exponents",
-        "perfect-power-balance",
-        "hcf-lcm-reconstruction",
+        "num-perfect-square-check",
+        "num-perfect-cube-check",
+        "num-hcf-lcm-relation",
+        "num-lcm-multiples",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-classification",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Classification",
+      description:
+        "Prime, composite, rational, irrational, real-number classification, and integer-series properties.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...NUMERIC_PROPERTY_CLASSIFICATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-remainders",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Remainders",
+      description:
+        "Modular arithmetic, power remainders, negative remainders, Fermat-style cycles, and successive remainder reconstruction.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...NUMERIC_PROPERTY_REMAINDER_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-factors",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Factors & Multiples",
+      description:
+        "Factor counts, sum of factors, proper factors, HCF-LCM relations, and factorial divisibility.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...NUMERIC_PROPERTY_FACTOR_MOTIF_IDS,
+        "num-hcf-lcm-relation",
+        "num-lcm-multiples",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-system-surds-indices",
+      domain: "quant",
+      topic: "number-system",
+      label: "Number System: Surds & Indices",
+      description:
+        "Surd comparison, surd simplification, index laws, recurring decimals, VBODMAS, base conversion, and digit-count logic.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...NUMERIC_PROPERTY_SURD_INDEX_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2219,29 +4294,677 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
     {
       id: "algebra-basics",
       domain: "quant",
-      topic: "algebra-basics",
+      topic: "algebra",
       label: "Algebra Basics",
+      description:
+        "MathJax-rendered algebra questions covering identities, equations, quadratics, functions, logarithms, and optimization.",
       supportedDifficulties: [
+        "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "equation-balance-shift",
+        ...ALGEBRA_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra",
+      description:
+        "Full symbolic algebra generation with strict MathJax for variables, equations, identities, operators, roots, and logarithms.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra-identities",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra: Identities",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_IDENTITY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra-linear",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra: Linear Equations",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_LINEAR_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
     },
     {
-      id: "geometry-basics",
+      id: "algebra-quadratic",
       domain: "quant",
-      topic: "geometry-basics",
-      label: "Geometry Basics",
+      topic: "algebra",
+      label: "Algebra: Quadratics",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_QUADRATIC_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra-inequalities-modulus",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra: Inequalities & Modulus",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_INEQUALITY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra-functions",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra: Functions",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_FUNCTION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra-logs",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra: Logarithms",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_LOG_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "algebra-optimization",
+      domain: "quant",
+      topic: "algebra",
+      label: "Algebra: Maxima & Minima",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ALGEBRA_OPTIMIZATION_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "equations",
+      domain: "quant",
+      topic: "equations",
+      label: "Equations",
+      description:
+        "MathJax-rendered equation questions covering linear equations, simultaneous systems, quadratics, Vieta relations, modulus equations, and word-equation framing.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...EQUATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "equations-linear",
+      domain: "quant",
+      topic: "equations",
+      label: "Equations: Linear Systems",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...EQUATION_LINEAR_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "equations-quadratic",
+      domain: "quant",
+      topic: "equations",
+      label: "Equations: Quadratics",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...EQUATION_QUADRATIC_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "equations-special",
+      domain: "quant",
+      topic: "equations",
+      label: "Equations: Special Forms",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...EQUATION_SPECIAL_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "equations-modulus",
+      domain: "quant",
+      topic: "equations",
+      label: "Equations: Modulus",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...EQUATION_MODULUS_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "equations-word-problems",
+      domain: "quant",
+      topic: "equations",
+      label: "Equations: Word Problems",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...EQUATION_WORD_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "progressions",
+      domain: "quant",
+      topic: "progressions",
+      label: "Progressions",
+      description:
+        "MathJax-rendered progression questions covering AP, GP, HP, means, summations, telescopic series, and algebraic sequence relations.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROGRESSION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "progressions-ap",
+      domain: "quant",
+      topic: "progressions",
+      label: "Progressions: AP",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROGRESSION_AP_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "progressions-gp",
+      domain: "quant",
+      topic: "progressions",
+      label: "Progressions: GP",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROGRESSION_GP_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "progressions-hp-means",
+      domain: "quant",
+      topic: "progressions",
+      label: "Progressions: HP & Means",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROGRESSION_HP_MEAN_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "progressions-special-series",
+      domain: "quant",
+      topic: "progressions",
+      label: "Progressions: Special Series",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROGRESSION_SPECIAL_SERIES_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "progressions-algebraic",
+      domain: "quant",
+      topic: "progressions",
+      label: "Progressions: Algebraic Relations",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROGRESSION_ALGEBRAIC_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "permutation-combination",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "Permutations & Combinations",
+      description:
+        "Constraint-based counting questions covering ordered arrangements, unordered selections, circular permutations, digit formation, geometric counting, distributions, ranks, and grid paths.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PC_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "pc-fundamentals",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "P&C: Fundamental Counting",
       supportedDifficulties: [
         "easy",
         "medium",
       ],
       compatibleMotifs: [
-        "geometry-area-base",
+        ...PC_FUNDAMENTAL_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "pc-permutations",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "P&C: Permutations",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PC_PERMUTATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "pc-combinations",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "P&C: Combinations",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PC_COMBINATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "pc-circular",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "P&C: Circular Permutations",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PC_CIRCULAR_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "pc-geometry-counting",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "P&C: Geometric Counting",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PC_GEOMETRY_COUNTING_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "pc-advanced-counting",
+      domain: "quant",
+      topic: "permutation-combination",
+      label: "P&C: Advanced Counting",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PC_ADVANCED_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "trigonometry",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trigonometry",
+      description:
+        "MathJax-rendered trigonometry questions covering ratios, standard angles, complementary identities, heights and distances, algebraic trig identities, and quadrant reductions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TRIG_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "trig-ratios",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trig: Ratios & Identities",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TRIG_RATIO_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "trig-standard-values",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trig: Standard Values",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        ...TRIG_STANDARD_VALUE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "trig-complementary",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trig: Complementary Angles",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TRIG_COMPLEMENTARY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "trig-heights-distances",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trig: Heights & Distances",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TRIG_HD_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "trig-identities",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trig: Algebraic Identities",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TRIG_IDENTITY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "trig-quadrants-reduction",
+      domain: "quant",
+      topic: "trigonometry",
+      label: "Trig: Quadrants & Reduction",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TRIG_QUADRANT_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry-basics",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry Basics",
+      description:
+        "MathJax-rendered geometry questions covering lines, angles, triangles, circles, quadrilaterals, and coordinates.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry",
+      description:
+        "Full theorem-map geometry generation with strict MathJax notation for angles, segments, parallel lines, triangles, congruency, similarity, circles, and coordinates.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry-lines-angles",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry: Lines & Angles",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_LINES_ANGLES_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "geometry-triangles",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry: Triangles",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_TRIANGLE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry-similarity",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry: Similarity & Congruency",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_SIMILARITY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry-right-triangles",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry: Right Triangles",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "geo-right-pythagoras",
+        "geo-right-altitude",
+        "geo-right-30-60-90",
+        "geo-right-45-45-90",
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry-circles",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry: Circles",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_CIRCLE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "geometry-coordinate",
+      domain: "quant",
+      topic: "geometry",
+      label: "Geometry: Coordinate Geometry",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...GEOMETRY_COORDINATE_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2338,21 +5061,424 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       domain: "quant",
       topic: "probability",
       label: "Probability",
+      description:
+        "Set-based probability generation using sample-space and favorable-event counts, replacement logic, conditional probability, Venn events, odds, and PC-solver-backed combinations.",
       supportedDifficulties: [
+        "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "probability-favourable-total",
+        ...PROBABILITY_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
     },
     {
-      id: "permutation-combination",
+      id: "probability-sample-spaces",
+      domain: "quant",
+      topic: "probability",
+      label: "Probability: Sample Spaces",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        ...PROBABILITY_SAMPLE_SPACE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "probability-events",
+      domain: "quant",
+      topic: "probability",
+      label: "Probability: Event Logic",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROBABILITY_EVENT_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "probability-drawing",
+      domain: "quant",
+      topic: "probability",
+      label: "Probability: Drawing",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROBABILITY_DRAWING_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "probability-conditional",
+      domain: "quant",
+      topic: "probability",
+      label: "Probability: Conditional",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROBABILITY_CONDITIONAL_MOTIF_IDS,
+      ],
+      examStyles: ["cat", "banking"],
+      enabled: true,
+    },
+    {
+      id: "probability-venn-odds",
+      domain: "quant",
+      topic: "probability",
+      label: "Probability: Venn & Odds",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...PROBABILITY_VENN_ODDS_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "functions",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions",
+      description:
+        "MathJax-rendered function questions covering mappings, domain/range, composition, inverses, special functions, functional equations, and graph transformations.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "functions-domain-range",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions: Domain & Range",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_DOMAIN_RANGE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "functions-types",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions: Types",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_TYPE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "functions-composition-inverse",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions: Composition & Inverse",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_COMPOSITION_INVERSE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "functions-special",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions: Special Functions",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_SPECIAL_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "functions-functional-equations",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions: Functional Equations",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_FUNCTIONAL_EQUATION_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "functions-graphs",
+      domain: "quant",
+      topic: "functions",
+      label: "Functions: Graphs",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...FUNCTION_GRAPH_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-geometry",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry",
+      description:
+        "Spatial Cartesian generation using ordered pairs, lines, slopes, distances, reflections, circles, loci, and algebraic constraints with strict MathJax rendering.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_GEOMETRY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-points",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry: Points",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_POINT_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-lines",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry: Lines & Slopes",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_LINE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-areas-properties",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry: Areas & Properties",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_AREA_PROPERTY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-distance-reflection",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry: Distance & Reflection",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_DISTANCE_REFLECTION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-circles",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry: Circles",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_CIRCLE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "coordinate-locus-advanced",
+      domain: "quant",
+      topic: "coordinate-geometry",
+      label: "Coordinate Geometry: Locus & Advanced",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...COORDINATE_LOCUS_ADVANCED_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "set-theory",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory",
+      description:
+        "Categorical reasoning generation using membership constraints, set operations, Venn regions, subset counts, Cartesian products, and relation properties with strict MathJax rendering.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "set-theory-definitions",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory: Definitions",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_DEFINITION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc"],
+      enabled: true,
+    },
+    {
+      id: "set-theory-operations",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory: Operations",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_OPERATION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "set-theory-venn-2",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory: 2-Set Venn",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_VENN_2_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "set-theory-venn-3",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory: 3-Set Venn",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_VENN_3_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "set-theory-algebra-cartesian",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory: Algebra & Cartesian Product",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_ALGEBRA_CARTESIAN_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "cat"],
+      enabled: true,
+    },
+    {
+      id: "set-theory-relations",
+      domain: "quant",
+      topic: "set-theory",
+      label: "Set Theory: Relations",
+      supportedDifficulties: [
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...SET_THEORY_RELATION_MOTIF_IDS,
+      ],
+      examStyles: ["cat"],
+      enabled: true,
+    },
+    {
+      id: "permutation-combination-pair-selection",
       domain: "quant",
       topic: "permutation-combination",
-      label: "Permutation & Combination",
+      label: "P&C: Pair Selection",
       supportedDifficulties: [
         "medium",
         "hard",
@@ -2374,7 +5500,58 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "direction-turn-chain",
+        ...ENGINE_SPATIAL_DIRECTION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "cubes-dice",
+      domain: "reasoning",
+      topic: "engine-spatial",
+      label: "Cubes & Dice",
+      description:
+        "3D visualization questions using dice opposites, cube painting, and cube-net folding logic.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_SPATIAL_DICE_CUBE_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mirror-water-images",
+      domain: "reasoning",
+      topic: "engine-spatial",
+      label: "Mirror & Water Images",
+      description:
+        "Reflection-based spatial reasoning using vertical and horizontal symmetry.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_SPATIAL_REFLECTION_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "rrb"],
+      enabled: true,
+    },
+    {
+      id: "paper-folding",
+      domain: "reasoning",
+      topic: "engine-spatial",
+      label: "Paper Folding/Cutting",
+      description:
+        "Successive-symmetry folding and hole-punch reasoning.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_SPATIAL_FOLDING_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2390,9 +5567,43 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "family-relation-chain",
+        ...ENGINE_RELATIONAL_NARRATIVE_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "coded-relations",
+      domain: "reasoning",
+      topic: "engine-relational",
+      label: "Coded Relations",
+      description:
+        "Symbolic kinship problems where operators such as $+$, $-$, $\\times$, and $/$ represent family edges.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_RELATIONAL_CODED_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "ssc"],
+      enabled: true,
+    },
+    {
+      id: "family-tree-puzzles",
+      domain: "reasoning",
+      topic: "engine-relational",
+      label: "Family Tree Puzzles",
+      description:
+        "Multi-generational kinship puzzles with node attributes such as professions or ages.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_RELATIONAL_PUZZLE_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
       enabled: true,
     },
     {
@@ -2406,7 +5617,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "symbolic-comparison-chain",
+        ...ENGINE_BOOLEAN_INEQUALITY_MOTIF_IDS,
       ],
       examStyles: ["banking"],
       enabled: true,
@@ -2422,7 +5633,254 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "alphabet-transform",
+        ...ENGINE_PATTERN_CODING_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "calendars",
+      domain: "reasoning",
+      topic: "engine-temporal",
+      label: "Calendars",
+      description:
+        "Odd-day calendar reasoning with Gregorian leap-year and repetition-cycle validation.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_TEMPORAL_CALENDAR_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "clocks",
+      domain: "reasoning",
+      topic: "engine-temporal",
+      label: "Clocks",
+      description:
+        "Clock-angle, overlap, and faulty-clock questions using relative angular velocity.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_TEMPORAL_CLOCK_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "statement-assumption",
+      domain: "reasoning",
+      topic: "engine-critical",
+      label: "Statement-Assumption",
+      description:
+        "Semantic necessity questions using the premise-bridge-inference structure and negation test.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_CRITICAL_ASSUMPTION_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "statement-conclusion",
+      domain: "reasoning",
+      topic: "engine-critical",
+      label: "Statement-Conclusion",
+      description:
+        "Conclusion validity questions with strict scope and outside-knowledge checks.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_CRITICAL_CONCLUSION_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "course-of-action",
+      domain: "reasoning",
+      topic: "engine-critical",
+      label: "Course of Action",
+      description:
+        "Pragmatic action selection using effectiveness, relevance, and non-extreme checks.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_CRITICAL_ACTION_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "cause-effect",
+      domain: "reasoning",
+      topic: "engine-critical",
+      label: "Cause & Effect",
+      description:
+        "Directional cause-effect reasoning with correlation traps.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_CRITICAL_CAUSE_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "strong-weak-arguments",
+      domain: "reasoning",
+      topic: "engine-critical",
+      label: "Strong/Weak Arguments",
+      description:
+        "Argument-strength evaluation using tone, relevance, and scope constraints.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_CRITICAL_ARGUMENT_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "abstract-series",
+      domain: "reasoning",
+      topic: "engine-abstract",
+      label: "Abstract Figure Series",
+      description:
+        "Non-verbal SVG figure series using rotation, movement, and symmetry transformations.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_ABSTRACT_SERIES_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "abstract-paper-cutting",
+      domain: "reasoning",
+      topic: "engine-abstract",
+      label: "Paper Cutting",
+      description:
+        "Fold-and-punch symmetry questions with unfolded SVG option states.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_ABSTRACT_PAPER_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "embedded-figures",
+      domain: "reasoning",
+      topic: "engine-abstract",
+      label: "Embedded Figures",
+      description:
+        "Hidden-figure recognition by filtering distractor lines and matching orientation.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_ABSTRACT_EMBEDDED_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "number-series",
+      domain: "reasoning",
+      topic: "engine-pattern",
+      label: "Number Series",
+      description:
+        "Transformation-rule number series with ambiguity validation before realization.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_PATTERN_SERIES_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "letter-series",
+      domain: "reasoning",
+      topic: "engine-pattern",
+      label: "Letter Series",
+      description:
+        "Alphabetic series generated through fixed, incremental, alternating, and conditional transformation rules.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_PATTERN_CODING_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "analogy",
+      domain: "reasoning",
+      topic: "engine-pattern",
+      label: "Analogy",
+      description:
+        "Word, letter, and number analogies using the shared input-rule-output skeleton.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_PATTERN_ANALOGY_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "odd-one-out",
+      domain: "reasoning",
+      topic: "engine-pattern",
+      label: "Odd One Out / Classification",
+      description:
+        "Classification questions based on shared structural properties rather than surface wording.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_PATTERN_CLASSIFICATION_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2454,10 +5912,47 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "venn-conclusion-filter",
+        ...ENGINE_BOOLEAN_SYLLOGISM_MOTIF_IDS,
       ],
       examStyles: ["banking"],
-      enabled: false,
+      enabled: true,
+    },
+    {
+      id: "logical-venn",
+      domain: "reasoning",
+      topic: "engine-boolean",
+      label: "Logical Venn Diagrams",
+      description:
+        "Euler/Venn diagram identification and cardinality reasoning using set boundaries.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_BOOLEAN_VENN_MOTIF_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "boolean-deductions",
+      domain: "reasoning",
+      topic: "engine-boolean",
+      label: "Boolean Deductions",
+      description:
+        "Mixed deductive reasoning across inequalities, syllogisms, and set-overlap logic.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...ENGINE_BOOLEAN_INEQUALITY_MOTIF_IDS,
+        ...ENGINE_BOOLEAN_SYLLOGISM_MOTIF_IDS,
+        ...ENGINE_BOOLEAN_VENN_MOTIF_IDS,
+      ],
+      examStyles: ["banking", "cat"],
+      enabled: true,
     },
     {
       id: "box-puzzle",
@@ -2488,11 +5983,12 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "subject-verb-mismatch",
+        "subject_verb_ambiguity",
         "tense-confusion",
+        "article-misuse",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: false,
+      enabled: true,
     },
     {
       id: "sentence-improvement",
@@ -2505,9 +6001,10 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       compatibleMotifs: [
         "tense-confusion",
+        "modifier_attachment_trap",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: false,
+      enabled: true,
     },
     {
       id: "fillers",
@@ -2522,7 +6019,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "contextual-antonym-trap",
       ],
       examStyles: ["banking"],
-      enabled: false,
+      enabled: true,
     },
     {
       id: "active-passive",
@@ -2538,7 +6035,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "object-focus-transform",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: false,
+      enabled: true,
     },
     {
       id: "narration",
@@ -2554,7 +6051,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "reported-speech-shift",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: false,
+      enabled: true,
     },
     {
       id: "para-jumbles",
@@ -2569,7 +6066,411 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "logical-sequencing-anchor",
       ],
       examStyles: ["banking"],
-      enabled: false,
+      enabled: true,
+    },
+    {
+      id: "root-words",
+      domain: "english",
+      topic: "root-words",
+      label: "Root Words",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "root-context-mapping",
+      ],
+      examStyles: ["ssc", "cat", "banking"],
+      enabled: true,
+    },
+    {
+      id: "synonyms-antonyms",
+      domain: "english",
+      topic: "vocabulary",
+      label: "Synonyms / Antonyms",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "contextual-antonym-trap",
+      ],
+      examStyles: ["ssc", "banking", "cat"],
+      enabled: true,
+    },
+    {
+      id: "idioms",
+      domain: "english",
+      topic: "idioms",
+      label: "Idioms and Phrases",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "idiom-context-fit",
+      ],
+      examStyles: ["ssc", "rrb", "banking"],
+      enabled: true,
+    },
+    {
+      id: "reading-comprehension",
+      domain: "english",
+      topic: "reading-comprehension",
+      label: "Reading Comprehension",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "rc-tone-main-idea",
+      ],
+      examStyles: ["ssc", "cat", "banking"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-vyakaran-ling",
+      domain: "punjabi",
+      topic: "vyakaran",
+      label: "Punjabi Vyakaran - Ling Badlo",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "pbi-gram-ling",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-vyakaran-vachan",
+      domain: "punjabi",
+      topic: "vyakaran",
+      label: "Punjabi Vyakaran - Vachan Badlo",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        "pbi-gram-vachan",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-vak-shuddhi",
+      domain: "punjabi",
+      topic: "vyakaran",
+      label: "Punjabi Vak Shuddhi",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "pbi-gram-shuddhi",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-shabad-jor",
+      domain: "punjabi",
+      topic: "shabad-jor",
+      label: "Punjabi Shabad-Jor",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "pbi-voc-jor",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-vocabulary",
+      domain: "punjabi",
+      topic: "vocabulary",
+      label: "Punjabi Samanarthak / One Word",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "pbi-voc-saman",
+        "pbi-voc-oneword",
+        "pbi-voc-agattar",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-muhavre-akhaan",
+      domain: "punjabi",
+      topic: "muhavre-akhaan",
+      label: "Punjabi Muhavre and Akhaan",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "pbi-idiom-muhavre",
+        "pbi-idiom-akhaan",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc", "rrb"],
+      enabled: true,
+    },
+    {
+      id: "punjabi-translation-admin",
+      domain: "punjabi",
+      topic: "translation",
+      label: "English-Punjabi Administrative Translation",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "pbi-trans-admin",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "gk-polity",
+      domain: "knowledge",
+      topic: "polity",
+      label: "GK: Polity",
+      description:
+        "Articles, schedules, parts, amendments, and constitutional emergency provisions.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-pol-direct",
+      ],
+      examStyles: ["ssc", "punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "gk-history",
+      domain: "knowledge",
+      topic: "history",
+      label: "GK: History",
+      description:
+        "Dynasties, battles, freedom struggle dates, founders, and previous-year style fact pairs.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-his-direct",
+      ],
+      examStyles: ["ssc", "punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "gk-geography",
+      domain: "knowledge",
+      topic: "geography",
+      label: "GK: Geography",
+      description:
+        "Rivers, tributaries, passes, soils, borders, and Punjab geography facts.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-geo-direct",
+      ],
+      examStyles: ["ssc", "punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "gk-science",
+      domain: "knowledge",
+      topic: "science",
+      label: "GK: General Science",
+      description:
+        "Vitamins, chemical names, SI units, human body, and standard science facts.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-sci-direct",
+      ],
+      examStyles: ["ssc", "punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "gk-economics",
+      domain: "knowledge",
+      topic: "economics",
+      label: "GK: Economics",
+      description:
+        "RBI functions, plans, repo rate, fiscal deficit, budget and banking terms.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-eco-direct",
+      ],
+      examStyles: ["ssc", "banking", "punjab"],
+      enabled: true,
+    },
+    {
+      id: "gk-environment",
+      domain: "knowledge",
+      topic: "environment",
+      label: "GK: Environment",
+      description:
+        "Climate protocols, pollution, biodiversity hotspots, parks, and sanctuaries.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-env-direct",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
+    },
+    {
+      id: "gk-static-parks",
+      domain: "knowledge",
+      topic: "static-parks",
+      label: "GK: Parks and Sanctuaries",
+      description:
+        "National parks, wildlife sanctuaries, bird sanctuaries, and park-state matching.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-static-parks",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
+    },
+    {
+      id: "gk-static-power",
+      domain: "knowledge",
+      topic: "static-power",
+      label: "GK: Power Plants and Projects",
+      description:
+        "Thermal, nuclear, hydroelectric, and Punjab power project facts.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-static-power",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
+    },
+    {
+      id: "gk-static-punjab",
+      domain: "knowledge",
+      topic: "punjab-gk",
+      label: "Punjab GK",
+      description:
+        "Sikh history, Punjab culture, geography, freedom struggle, wetlands, and state-specific static facts.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "gk-static-punjab",
+      ],
+      examStyles: ["punjab", "psssb", "ppsc"],
+      enabled: true,
+    },
+    {
+      id: "computer-hardware",
+      domain: "computer",
+      topic: "hardware",
+      label: "Computer: Hardware",
+      description:
+        "Input/output devices, CPU components, memory hierarchy, RAM, ROM, and cache.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        "comp-hardware",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
+    },
+    {
+      id: "computer-software",
+      domain: "computer",
+      topic: "software",
+      label: "Computer: Software and MS Office",
+      description:
+        "Operating systems, MS Word, Excel, PowerPoint shortcuts, and formulas.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+      ],
+      compatibleMotifs: [
+        "comp-software",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
+    },
+    {
+      id: "computer-internet",
+      domain: "computer",
+      topic: "internet-networking",
+      label: "Computer: Internet and Networking",
+      description:
+        "OSI layers, hub, switch, router, HTTP, FTP, web, and networking protocols.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "comp-internet",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
+    },
+    {
+      id: "computer-security",
+      domain: "computer",
+      topic: "security",
+      label: "Computer: Security",
+      description:
+        "Malware, trojans, worms, firewalls, antivirus, and cyber-safety concepts.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "comp-security",
+      ],
+      examStyles: ["ssc", "punjab", "psssb"],
+      enabled: true,
     },
     {
       id: "pie-chart",
@@ -2603,6 +6504,45 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       enabled: true,
     },
     {
+      id: "grouped-bar-di",
+      domain: "di",
+      topic: "grouped-bar-di",
+      label: "Grouped Bar DI",
+      description:
+        "Multi-series bar DI comparing categories across years with growth, contribution, projection, and subset-average asks.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "di-growth-rate",
+        "di-contribution",
+        "di-projection",
+        "di-avg-subset",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "stacked-bar-di",
+      domain: "di",
+      topic: "stacked-bar-di",
+      label: "Stacked Bar DI",
+      description:
+        "Part-to-whole bar DI where each interval contains stacked components.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "di-contribution",
+        "di-growth-rate",
+        "di-projection",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
       id: "table-di",
       domain: "di",
       topic: "table-di",
@@ -2614,6 +6554,24 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       compatibleMotifs: [
         "percentage-heavy-calculations",
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "dual-pie-di",
+      domain: "di",
+      topic: "dual-pie-di",
+      label: "Dual Pie Chart DI",
+      description:
+        "Distribution comparison across two years or groups using normalized shares.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "di-contribution",
+        "di-growth-rate",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -2631,6 +6589,26 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "line-trend-comparison",
       ],
       examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "caselet-di",
+      domain: "di",
+      topic: "caselet-di",
+      label: "Caselet DI",
+      description:
+        "Narrative data interpretation without a chart, using a persistent dataset behind the passage.",
+      supportedDifficulties: [
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        "di-growth-rate",
+        "di-contribution",
+        "di-projection",
+        "di-avg-subset",
+      ],
+      examStyles: ["banking", "cat"],
       enabled: true,
     },
     {
@@ -2735,11 +6713,25 @@ export function resolveMotifIds(
 export function listQuestionPatterns(
   includeDisabled = true,
 ) {
-  return QUESTION_PATTERN_REGISTRY.filter(
-    (pattern) =>
-      includeDisabled ||
-      pattern.enabled !== false,
-  );
+  const byId = new Map<
+    string,
+    QuestionPattern
+  >();
+
+  for (const pattern of QUESTION_PATTERN_REGISTRY) {
+    if (
+      !includeDisabled &&
+      pattern.enabled === false
+    ) {
+      continue;
+    }
+
+    if (!byId.has(pattern.id)) {
+      byId.set(pattern.id, pattern);
+    }
+  }
+
+  return [...byId.values()];
 }
 
 export function findQuestionPattern(
@@ -2786,7 +6778,80 @@ export function findQuestionPattern(
 
 function buildDIPattern(
   visualType: DIPattern["visualType"],
+  topology?: DIPattern["topology"],
 ): DIPattern {
+  if (
+    topology === "grouped-bar" ||
+    topology === "stacked-bar" ||
+    topology === "dual-pie-chart" ||
+    topology === "caselet"
+  ) {
+    return {
+      title:
+        topology === "caselet"
+          ? "Revenue caselet for four companies"
+          : topology === "dual-pie-chart"
+            ? "Market distribution across two years"
+            : "Company revenue by year",
+      columns: [
+        "Year",
+        "Company A",
+        "Company B",
+        "Company C",
+      ],
+      rowCount: 5,
+      categories: [
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+      ],
+      visualType,
+      topology,
+      series: [
+        {
+          column: "Company A",
+          type:
+            visualType === "line"
+              ? "line"
+              : "bar",
+          label: "Company A",
+        },
+        {
+          column: "Company B",
+          type:
+            visualType === "line"
+              ? "line"
+              : "bar",
+          label: "Company B",
+        },
+        {
+          column: "Company C",
+          type:
+            visualType === "line"
+              ? "line"
+              : "bar",
+          label: "Company C",
+        },
+      ],
+      valueRanges: {
+        "Company A": {
+          min: 120,
+          max: 320,
+        },
+        "Company B": {
+          min: 100,
+          max: 300,
+        },
+        "Company C": {
+          min: 80,
+          max: 260,
+        },
+      },
+    };
+  }
+
   const title =
     visualType === "pie"
       ? "Distribution of candidates"
@@ -2806,6 +6871,15 @@ function buildDIPattern(
       "E",
     ],
     visualType,
+    topology:
+      topology ??
+      (visualType === "pie"
+        ? "pie-chart"
+        : visualType === "line"
+          ? "line-graph"
+          : visualType === "bar"
+            ? "grouped-bar"
+            : "table"),
     valueRanges: {
       Value: {
         min: 80,
@@ -2836,9 +6910,10 @@ function buildQuantPattern(
 
   switch (questionPattern.id) {
     case "averages":
+    case "averages-algebraic":
       return {
         ...base,
-        id: `registry-averages-${difficulty.toLowerCase()}`,
+        id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
         reasoningCapabilities: [
           "arithmetic",
           "direct",
@@ -2848,7 +6923,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the averages question and find the required value.",
+          "Solve the MathJax-rendered average balance question using $\\text{Sum}=\\text{Average}\\times\\text{Count}$.",
         ],
         variables: {},
         formula: "0",
@@ -2864,7 +6939,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the replacement-based averages question and find the required value.",
+          "Solve the MathJax-rendered replacement or inclusion average question and find the required value.",
         ],
         variables: {},
         formula: "0",
@@ -2880,7 +6955,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the weighted average question and find the required value.",
+          "Solve the MathJax-rendered weighted average question using $A=\\frac{\\sum n_iA_i}{\\sum n_i}$.",
         ],
         variables: {},
         formula: "0",
@@ -2895,7 +6970,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the consecutive-number average question and find the required value.",
+          "Solve the MathJax-rendered consecutive-number average question and find the required value.",
         ],
         variables: {},
         formula: "0",
@@ -2911,7 +6986,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the age or score average question and find the required value.",
+          "Solve the MathJax-rendered application average question and find the required value.",
         ],
         variables: {},
         formula: "0",
@@ -2928,7 +7003,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the correction, overlap, or hidden-total average question and find the required value.",
+          "Solve the MathJax-rendered correction, overlap, or deviation average question and find the required value.",
         ],
         variables: {},
         formula: "0",
@@ -3336,24 +7411,35 @@ function buildQuantPattern(
         formula: "1",
       };
     case "simplification":
+    case "simplification-vbodmas":
+    case "simplification-roots-surds":
+    case "simplification-fractions-decimals":
+    case "simplification-identities":
+    case "simplification-indices":
       return {
         ...base,
-        id: `registry-simplification-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "Simplify: {a} + {b} x {c} - {d}.",
+        id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "comparative",
+          "multi-step",
+          "symbolic",
         ],
-        variables: {
-          a: { min: 10, max: 120 },
-          b: { min: 3, max: 25 },
-          c: { min: 4, max: 20 },
-          d: { min: 5, max: 90 },
-        },
-        formula: "a + b * c - d",
+        templateVariants: [
+          "Simplify the MathJax-rendered expression and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "number-system":
+    case "number-system-classification":
+    case "number-system-remainders":
+    case "number-system-factors":
+    case "number-system-surds-indices":
       return {
         ...base,
-        id: `registry-number-system-${difficulty.toLowerCase()}`,
+        id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
         reasoningCapabilities: [
           "arithmetic",
           "direct",
@@ -3363,7 +7449,7 @@ function buildQuantPattern(
           "inferential",
         ],
         templateVariants: [
-          "Solve the number system question and find the required value.",
+          "Solve the MathJax-rendered number system question and find the required value.",
         ],
         variables: {},
         formula: "0",
@@ -3443,31 +7529,125 @@ function buildQuantPattern(
         formula: "2",
       };
     case "algebra-basics":
+    case "algebra":
+    case "algebra-identities":
+    case "algebra-linear":
+    case "algebra-quadratic":
+    case "algebra-inequalities-modulus":
+    case "algebra-functions":
+    case "algebra-logs":
+    case "algebra-optimization":
+    case "equations":
+    case "equations-linear":
+    case "equations-quadratic":
+    case "equations-special":
+    case "equations-modulus":
+    case "equations-word-problems":
+    case "progressions":
+    case "progressions-ap":
+    case "progressions-gp":
+    case "progressions-hp-means":
+    case "progressions-special-series":
+    case "progressions-algebraic":
+    case "functions":
+    case "functions-domain-range":
+    case "functions-types":
+    case "functions-composition-inverse":
+    case "functions-special":
+    case "functions-functional-equations":
+    case "functions-graphs":
+    case "coordinate-geometry":
+    case "coordinate-points":
+    case "coordinate-lines":
+    case "coordinate-areas-properties":
+    case "coordinate-distance-reflection":
+    case "coordinate-circles":
+    case "coordinate-locus-advanced":
+    case "set-theory":
+    case "set-theory-definitions":
+    case "set-theory-operations":
+    case "set-theory-venn-2":
+    case "set-theory-venn-3":
+    case "set-theory-algebra-cartesian":
+    case "set-theory-relations":
+    case "permutation-combination":
+    case "pc-fundamentals":
+    case "pc-permutations":
+    case "pc-combinations":
+    case "pc-circular":
+    case "pc-geometry-counting":
+    case "pc-advanced-counting":
+    case "trigonometry":
+    case "trig-ratios":
+    case "trig-standard-values":
+    case "trig-complementary":
+    case "trig-heights-distances":
+    case "trig-identities":
+    case "trig-quadrants-reduction":
       return {
         ...base,
-        id: `registry-algebra-basics-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "If {a}x + {b} = {c}, find x.",
+        id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+          "symbolic",
         ],
-        variables: {
-          a: { min: 2, max: 12 },
-          b: { min: 5, max: 80 },
-          c: { min: 90, max: 240 },
-        },
-        formula: "(c - b) / a",
+        templateVariants: [
+          questionPattern.topic ===
+          "permutation-combination"
+            ? "Solve the MathJax-rendered counting question and find the number of ways."
+            : questionPattern.topic ===
+                "trigonometry"
+              ? "Solve the MathJax-rendered trigonometry question and find the required exact value."
+              : questionPattern.topic ===
+                  "equations"
+                ? "Solve the MathJax-rendered equation question and find the required solution."
+                : questionPattern.topic ===
+                    "progressions"
+                  ? "Solve the MathJax-rendered progression question and find the required value."
+                  : questionPattern.topic ===
+                      "functions"
+                    ? "Solve the MathJax-rendered function question and find the required value."
+                    : questionPattern.topic ===
+                        "coordinate-geometry"
+                      ? "Solve the MathJax-rendered coordinate geometry question and find the required value."
+                      : questionPattern.topic ===
+                          "set-theory"
+                        ? "Solve the MathJax-rendered set theory question and find the required value."
+                : "Solve the MathJax-rendered algebra question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "geometry-basics":
+    case "geometry":
+    case "geometry-lines-angles":
+    case "geometry-triangles":
+    case "geometry-similarity":
+    case "geometry-right-triangles":
+    case "geometry-circles":
+    case "geometry-coordinate":
       return {
         ...base,
-        id: `registry-geometry-basics-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "Find the area of a triangle with base {base} cm and height {height} cm.",
+        id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+          "visual",
         ],
-        variables: {
-          base: { min: 6, max: 60 },
-          height: { min: 5, max: 50 },
-        },
-        formula: "base * height / 2",
+        templateVariants: [
+          "Solve the MathJax-rendered geometry question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
       };
     case "mensuration":
       return {
@@ -3555,29 +7735,26 @@ function buildQuantPattern(
         formula: "0",
       };
     case "probability":
+    case "probability-sample-spaces":
+    case "probability-events":
+    case "probability-drawing":
+    case "probability-conditional":
+    case "probability-venn-odds":
       return {
         ...base,
-        id: `registry-probability-${difficulty.toLowerCase()}`,
-        templateVariants: [
-          "A bag has {favourable} favourable items out of {total} total items. What is the probability of selecting a favourable item?",
+        id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "direct",
+          "conditional",
+          "multi-step",
+          "inferential",
         ],
-        variables: {
-          favourable: { min: 2, max: 20 },
-          total: { min: 21, max: 60 },
-        },
-        formula: "favourable / total",
-      };
-    case "permutation-combination":
-      return {
-        ...base,
-        id: `registry-permutation-combination-${difficulty.toLowerCase()}`,
         templateVariants: [
-          "In how many ways can 2 people be selected from {n} people?",
+          "Solve the MathJax-rendered probability question and find the required probability.",
         ],
-        variables: {
-          n: { min: 5, max: 40 },
-        },
-        formula: "n * (n - 1) / 2",
+        variables: {},
+        formula: "0",
       };
     case "time-work":
       return {
@@ -3766,10 +7943,18 @@ function buildReasoningPattern(
         : 2;
   const participantCount =
     difficulty === "Hard" ? 6 : 5;
+  const isConstraintPattern = [
+    "floor-puzzle",
+    "box-stack-puzzle",
+    "scheduling-puzzle",
+    "constraint-mapping-triad",
+    "ordering-ranking",
+  ].includes(questionPattern.id);
 
   if (
     questionPattern.topic !==
-    "seating-arrangement"
+    "seating-arrangement" &&
+    !isConstraintPattern
   ) {
     return {
       id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
@@ -3802,12 +7987,54 @@ function buildReasoningPattern(
     ],
     supportedMotifs,
     templateVariants: [
-      "Read the seating arrangement carefully.",
+      "Read the constraint arrangement carefully.",
     ],
     variables: {},
     participantCount,
     inferenceDepth,
   };
+
+  if (isConstraintPattern) {
+    const arrangementType =
+      questionPattern.id ===
+        "floor-puzzle"
+        ? "floor"
+        : questionPattern.id ===
+            "box-stack-puzzle"
+          ? "box-stack"
+          : questionPattern.id ===
+              "scheduling-puzzle"
+            ? "scheduling"
+            : questionPattern.id ===
+                "constraint-mapping-triad"
+              ? "mapping"
+              : "ranking";
+
+    return {
+      ...base,
+      id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+      topic: "Constraint Puzzles",
+      subtopic: questionPattern.label,
+      arrangementType,
+      arrangementTypes: [
+        arrangementType,
+      ],
+      orientationTypes: ["north"],
+      participantCount:
+        questionPattern.id ===
+        "scheduling-puzzle"
+          ? 5
+          : participantCount,
+      clueTypes: [
+        "slot-fixed",
+        "slot-gap",
+        "slot-parity",
+        "slot-immediate",
+        "slot-not",
+        "attribute",
+      ],
+    };
+  }
 
   if (questionPattern.id === "parallel-row") {
     return {
@@ -3885,16 +8112,183 @@ function buildReasoningPattern(
   };
 }
 
+function buildEnglishPattern(
+  questionPattern: QuestionPattern,
+  difficulty: DifficultyLabel,
+): Pattern {
+  const topic =
+    questionPattern.topic;
+  const isCATLogic =
+    topic === "para-jumbles" ||
+    topic ===
+      "reading-comprehension";
+  const isVocabulary =
+    topic === "vocabulary" ||
+    topic === "root-words" ||
+    topic === "idioms" ||
+    topic === "fillers";
+  const profileHint =
+    isCATLogic
+      ? "Logical Discourse Engine"
+      : isVocabulary
+        ? "Lexical Semantic Engine"
+        : "Structural Grammar Engine";
+
+  return {
+    id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+    type: "logic",
+    section: "English",
+    topic: questionPattern.label,
+    subtopic: questionPattern.topic,
+    difficulty,
+    generationDomain: "english",
+    supportedQuestionTypes: [
+      "logic",
+    ],
+    supportedMotifs: resolveMotifIds(
+      questionPattern.compatibleMotifs,
+    ),
+    reasoningCapabilities: [
+      "conditional",
+      "inferential",
+      "multi-step",
+    ],
+    templateVariants: [
+      `${profileHint}: solve using rule-violation and context mapping.`,
+    ],
+    explanationTemplate:
+      `${profileHint}: ruleApplied must be shown.`,
+    variables: {},
+    validationRules: [
+      "one best answer",
+      "ruleApplied required",
+      "avoid random sentence generation",
+    ],
+  };
+}
+
+function buildPunjabiPattern(
+  questionPattern: QuestionPattern,
+  difficulty: DifficultyLabel,
+): Pattern {
+  const isAdvanced =
+    difficulty === "Hard";
+
+  return {
+    id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+    type: "logic",
+    section: "Punjabi",
+    topic: questionPattern.label,
+    subtopic: questionPattern.topic,
+    difficulty,
+    generationDomain: "punjabi",
+    supportedQuestionTypes: [
+      "logic",
+    ],
+    supportedMotifs: resolveMotifIds(
+      questionPattern.compatibleMotifs,
+    ),
+    reasoningCapabilities: [
+      "conditional",
+      "inferential",
+      "multi-step",
+    ],
+    templateVariants: [
+      isAdvanced
+        ? "Paper-B Punjabi engine: apply Duggal-standard Gurmukhi semantic logic."
+        : "Paper-A Punjabi engine: apply PSEB Standard 10th-level vyakaran rules.",
+    ],
+    explanationTemplate:
+      "Engine_Punjabi: bilingual explanation with ruleApplied is required.",
+    variables: {},
+    validationRules: [
+      "Gurmukhi text required",
+      "Duggal Guard orthography check",
+      "one best answer",
+      "avoid colloquial/regional slang",
+    ],
+  };
+}
+
+function buildKnowledgePattern(
+  questionPattern: QuestionPattern,
+  difficulty: DifficultyLabel,
+): Pattern {
+  const isComputer =
+    questionPattern.domain === "computer";
+  const section = isComputer
+    ? "Computer Awareness"
+    : "General Knowledge";
+  const anchor = isComputer
+    ? "Arihant Computer Awareness"
+    : questionPattern.topic.includes(
+        "punjab",
+      )
+      ? "Sadda Punjab"
+      : "Lucent GK / Ghatna Chakra";
+
+  return {
+    id: `registry-${questionPattern.id}-${difficulty.toLowerCase()}`,
+    type: "logic",
+    section,
+    topic: questionPattern.label,
+    subtopic: questionPattern.topic,
+    difficulty,
+    generationDomain:
+      questionPattern.domain,
+    supportedQuestionTypes: [
+      "logic",
+    ],
+    supportedMotifs: resolveMotifIds(
+      questionPattern.compatibleMotifs,
+    ),
+    reasoningCapabilities: [
+      "direct",
+      "conditional",
+      "inferential",
+    ],
+    templateVariants: [
+      `${anchor}: generate from Entity-Attribute-Set facts with category-close distractors.`,
+    ],
+    explanationTemplate:
+      "KnowledgeRetrievalEngine: show EAS mapping and Did You Know note.",
+    variables: {},
+    validationRules: [
+      "one best answer",
+      "factSnapshot required",
+      "wrong options must be category-close",
+    ],
+  };
+}
+
 function buildDIPatternForQuestion(
   questionPattern: QuestionPattern,
   difficulty: DifficultyLabel,
 ): Pattern {
-  const visualType =
-    questionPattern.id === "pie-chart"
-      ? "pie"
-      : questionPattern.id === "bar-graph"
-        ? "bar"
+  const topology =
+    questionPattern.id === "grouped-bar-di"
+      ? "grouped-bar"
+      : questionPattern.id ===
+          "stacked-bar-di"
+        ? "stacked-bar"
         : questionPattern.id ===
+            "dual-pie-di"
+          ? "dual-pie-chart"
+          : questionPattern.id ===
+              "caselet-di"
+            ? "caselet"
+            : undefined;
+  const visualType =
+    questionPattern.id === "pie-chart" ||
+    questionPattern.id === "dual-pie-di"
+      ? "pie"
+      : questionPattern.id === "bar-graph" ||
+          questionPattern.id ===
+            "grouped-bar-di" ||
+          questionPattern.id ===
+            "stacked-bar-di"
+        ? "bar"
+      : questionPattern.id ===
             "line-graph"
           ? "line"
           : "table";
@@ -3917,6 +8311,7 @@ function buildDIPatternForQuestion(
     variables: {},
     diPattern: buildDIPattern(
       visualType,
+      topology,
     ),
   };
 }
@@ -3990,6 +8385,38 @@ export function resolveQuestionPatternToPattern(
     "quant"
   ) {
     return buildQuantPattern(
+      questionPattern,
+      difficulty,
+    );
+  }
+
+  if (
+    questionPattern.domain ===
+    "english"
+  ) {
+    return buildEnglishPattern(
+      questionPattern,
+      difficulty,
+    );
+  }
+
+  if (
+    questionPattern.domain ===
+    "punjabi"
+  ) {
+    return buildPunjabiPattern(
+      questionPattern,
+      difficulty,
+    );
+  }
+
+  if (
+    questionPattern.domain ===
+      "knowledge" ||
+    questionPattern.domain ===
+      "computer"
+  ) {
+    return buildKnowledgePattern(
       questionPattern,
       difficulty,
     );

@@ -145,7 +145,12 @@ export type SeatingDiagramArrangementType =
   | "square"
   | "rectangular"
   | "double-row"
-  | "parallel-row";
+  | "parallel-row"
+  | "floor"
+  | "box-stack"
+  | "scheduling"
+  | "ranking"
+  | "mapping";
 
 export type SeatingDiagramOrientationType =
   | "north"
@@ -172,6 +177,93 @@ export type SeatingDiagramSeat = {
   seatLabel?: string;
 };
 
+export type LayoutManifestType =
+  | "LINEAR"
+  | "RING"
+  | "GRID"
+  | "STACK"
+  | "PARALLEL";
+
+export type LayoutManifestFacing =
+  | "IN"
+  | "OUT"
+  | "NORTH"
+  | "SOUTH";
+
+export type LayoutManifestSlotState =
+  | "EMPTY"
+  | "OCCUPIED"
+  | "HIGHLIGHTED"
+  | "HIDDEN";
+
+export type LayoutManifestSlot = {
+  id: number;
+  coordinates: {
+    x: number;
+    y: number;
+  };
+  facing?: LayoutManifestFacing;
+  data: {
+    primaryLabel: string;
+    secondaryLabel?: string;
+    tertiaryLabel?: string;
+    colorCode?: string;
+  };
+  state: LayoutManifestSlotState;
+};
+
+export type LayoutManifestSlotMapEntry = {
+  slotId: number;
+  coordinates: {
+    x: number;
+    y: number;
+  };
+  label?: string;
+  row?: number;
+  col?: number;
+};
+
+export type LayoutManifestVisualLayer = {
+  colorCode?: string;
+  strokeCode?: string;
+  style?: string;
+};
+
+export type LayoutManifestAttributeLayer = {
+  core?: string;
+  badge?: string;
+  detail?: string;
+  visual?: LayoutManifestVisualLayer;
+};
+
+export type LayoutManifestSyncState = {
+  entityPositions: Record<string, number>;
+  highlightedSlotIds: number[];
+  hiddenSlotIds?: number[];
+  availableEntities?: string[];
+};
+
+export type LayoutManifestTimelineEntry = {
+  stepIndex: number;
+  currentVisibleArrangement: Record<number, string>;
+  highlightedSlotIds: number[];
+  availableEntities?: string[];
+  note?: string;
+};
+
+export type LayoutManifest = {
+  type: LayoutManifestType;
+  dimensions: {
+    rows: number;
+    cols: number;
+  };
+  slots: LayoutManifestSlot[];
+  slotMap?: LayoutManifestSlotMapEntry[];
+  stateSync?: Record<string, LayoutManifestSyncState>;
+  attributeLayers?: Record<string, LayoutManifestAttributeLayer>;
+  reasoningTimeline?: LayoutManifestTimelineEntry[];
+};
+
 export type SeatingDiagramQuestionTarget = {
   label: string;
   promptType?: string;
@@ -186,6 +278,7 @@ export type SeatingDiagramData = {
   questionTarget?: SeatingDiagramQuestionTarget;
   rowCount?: number;
   colCount?: number;
+  layoutManifest?: LayoutManifest;
 };
 
 export type SeatingExplanationBranch = {

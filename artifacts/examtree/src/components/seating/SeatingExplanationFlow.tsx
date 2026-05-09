@@ -6,6 +6,7 @@ import {
   SeatingReplayBranchRenderer,
   SeatingReplayStepRenderer,
 } from "./SeatingReplayRenderer";
+import { QuestionRichText } from "../QuestionRichText";
 
 function stepAccent(
   type: SeatingExplanationStep["type"],
@@ -32,11 +33,17 @@ function stepAccent(
 type Props = {
   flow?: SeatingExplanationFlowData | null;
   className?: string;
+  activeStep?: number;
+  onActiveStepChange?: (
+    stepIndex: number,
+  ) => void;
 };
 
 export function SeatingExplanationFlow({
   flow,
   className,
+  activeStep = -1,
+  onActiveStepChange,
 }: Props) {
   if (!flow?.steps?.length) {
     return null;
@@ -58,12 +65,27 @@ export function SeatingExplanationFlow({
       ) : null}
 
       {flow.steps.map(
-        (step, index) => (
+        (step, index) => {
+          const isActive =
+            activeStep === index;
+
+          return (
           <div
             key={`${step.title}-${index}`}
-            className="space-y-2 border-l border-slate-300 pl-3"
+            className={[
+              "space-y-2 border-l pl-3 transition-colors",
+              isActive
+                ? "border-orange-400 bg-orange-50/40"
+                : "border-slate-300",
+            ].join(" ")}
           >
-            <div className="space-y-1">
+            <button
+              type="button"
+              className="block w-full space-y-1 text-left"
+              onClick={() =>
+                onActiveStepChange?.(index)
+              }
+            >
               <div
                 className={`text-[11px] font-semibold uppercase tracking-[0.16em] ${stepAccent(
                   step.type,
@@ -71,10 +93,11 @@ export function SeatingExplanationFlow({
               >
                 {step.title}
               </div>
-              <p className="leading-relaxed text-slate-700">
-                {step.text}
-              </p>
-            </div>
+              <QuestionRichText
+                content={step.text}
+                className="leading-relaxed text-slate-700"
+              />
+            </button>
 
             {step.arrangementSnapshot ? (
               <SeatingReplayStepRenderer
@@ -125,7 +148,8 @@ export function SeatingExplanationFlow({
               </div>
             ) : null}
           </div>
-        ),
+          );
+        },
       )}
     </div>
   );

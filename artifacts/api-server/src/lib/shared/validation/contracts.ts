@@ -132,6 +132,9 @@ export function getPatternReasoningCapabilities(
       "coding",
       "decoding",
       "direction",
+      "abstract",
+      "figure",
+      "visual",
       "relation",
     ])
   ) {
@@ -154,6 +157,9 @@ export function getPatternReasoningCapabilities(
     topicCluster === "coding-decoding" ||
     topicCluster === "blood-relations" ||
     topicCluster === "direction-sense" ||
+    topicCluster === "abstract-reasoning" ||
+    topicCluster === "temporal-reasoning" ||
+    topicCluster === "critical-inference" ||
     topicCluster === "inequality" ||
     topicCluster === "ordering-ranking" ||
     topicCluster === "puzzles" ||
@@ -162,6 +168,12 @@ export function getPatternReasoningCapabilities(
   ) {
     capabilities.add("inferential");
     capabilities.add("symbolic");
+    if (
+      topicCluster ===
+      "abstract-reasoning"
+    ) {
+      capabilities.add("visual");
+    }
   }
 
   return [...capabilities];
@@ -193,6 +205,12 @@ export function getMotifCompatiblePatternTypes(
       "inequality" ||
     motif.topicCluster ===
       "direction-sense" ||
+    motif.topicCluster ===
+      "abstract-reasoning" ||
+    motif.topicCluster ===
+      "temporal-reasoning" ||
+    motif.topicCluster ===
+      "critical-inference" ||
     motif.topicCluster ===
       "ordering-ranking" ||
     motif.topicCluster ===
@@ -256,6 +274,12 @@ export function getMotifSupportedReasoningTypes(
     motif.topicCluster ===
       "direction-sense" ||
     motif.topicCluster ===
+      "abstract-reasoning" ||
+    motif.topicCluster ===
+      "temporal-reasoning" ||
+    motif.topicCluster ===
+      "critical-inference" ||
+    motif.topicCluster ===
       "ordering-ranking" ||
     motif.topicCluster ===
       "puzzles" ||
@@ -266,6 +290,12 @@ export function getMotifSupportedReasoningTypes(
   ) {
     supported.add("symbolic");
     supported.add("inferential");
+    if (
+      motif.topicCluster ===
+      "abstract-reasoning"
+    ) {
+      supported.add("visual");
+    }
   }
 
   return [...supported];

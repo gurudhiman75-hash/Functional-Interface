@@ -12,6 +12,11 @@ import {
   ReasoningStep,
   shuffle,
 } from "../shared";
+import {
+  createSpatialReasoningScenario,
+  renderPathSvg,
+  VectorPathState,
+} from "./spatial-reasoning";
 
 type FacingDirection =
   | "North"
@@ -46,6 +51,11 @@ type DirectionSenseScenario = {
   shortestDistance: number;
   correctAnswer: string;
   reasoningSteps: ReasoningStep[];
+  stemOverride?: string;
+  explanationOverride?: string;
+  customOptions?: string[];
+  customOptionMetadata?: OptionMetadata[];
+  svg?: string;
 };
 
 const CARDINAL_DIRECTIONS: FacingDirection[] =
@@ -104,6 +114,32 @@ function moveAlongFacing(
     default:
       return { x: x - distance, y };
   }
+}
+
+function facingToDegrees(
+  facing: FacingDirection,
+) {
+  switch (facing) {
+    case "North":
+      return 90;
+    case "East":
+      return 0;
+    case "South":
+      return 270;
+    case "West":
+    default:
+      return 180;
+  }
+}
+
+function turnToDegrees(
+  turn: TurnDirection,
+) {
+  return turn === "left"
+    ? 90
+    : turn === "right"
+      ? -90
+      : 180;
 }
 
 function pickDirectionDistance(
@@ -227,8 +263,13 @@ function buildDirectionReasoningTrail(
   moves: DirectionMove[],
 ) {
   let facing = startFacing;
-  let x = 0;
-  let y = 0;
+  const vectorPath =
+    new VectorPathState(
+      { x: 0, y: 0 },
+      facingToDegrees(
+        startFacing,
+      ),
+    );
   const steps: ReasoningStep[] = [];
 
   moves.forEach((move, index) => {
@@ -239,6 +280,11 @@ function buildDirectionReasoningTrail(
         facing,
         move.turn,
       );
+      vectorPath.turn(
+        turnToDegrees(
+          move.turn,
+        ),
+      );
       steps.push(
         createReasoningStep(
           "transform",
@@ -247,24 +293,17 @@ function buildDirectionReasoningTrail(
       );
     }
 
+    vectorPath.move(move.distance);
     const nextPosition =
-      moveAlongFacing(
-        x,
-        y,
-        facing,
-        move.distance,
-      );
-
-    x = nextPosition.x;
-    y = nextPosition.y;
+      vectorPath.position;
     steps.push(
       createReasoningStep(
         index === 0
           ? "transform"
           : "infer",
-        `${traveler} then moves ${move.distance} m towards ${facing} and reaches ${formatCoordinate(
-          x,
-          y,
+        `${traveler} then moves ${move.distance} m towards ${facing}. Vector update: $P_{new}=P_{old}+[d\\cos\\theta,d\\sin\\theta]$, reaching ${formatCoordinate(
+          nextPosition.x,
+          nextPosition.y,
         )}.`,
       ),
     );
@@ -272,9 +311,12 @@ function buildDirectionReasoningTrail(
 
   return {
     finalFacing: facing,
-    finalX: x,
-    finalY: y,
+    finalX: vectorPath.position.x,
+    finalY: vectorPath.position.y,
     reasoningSteps: steps,
+    svg: renderPathSvg(
+      vectorPath.snapshots,
+    ),
   };
 }
 
@@ -345,6 +387,44 @@ export function createDirectionSenseScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
 ) {
+  if (motif.id.startsWith("spa-")) {
+    const spatialScenario =
+      createSpatialReasoningScenario(
+        motif,
+        difficulty,
+      );
+
+    return {
+      traveler: "Candidate",
+      startFacing: "North",
+      moves: [],
+      questionType: "distance",
+      finalFacing:
+        (spatialScenario.finalFacing as FacingDirection | undefined) ??
+        "North",
+      finalX:
+        spatialScenario.finalX ?? 0,
+      finalY:
+        spatialScenario.finalY ?? 0,
+      shortestDistance:
+        spatialScenario.shortestDistance ??
+        0,
+      correctAnswer:
+        spatialScenario.correctAnswer,
+      reasoningSteps:
+        spatialScenario.reasoningSteps,
+      stemOverride:
+        spatialScenario.stem,
+      explanationOverride:
+        spatialScenario.explanation,
+      customOptions:
+        spatialScenario.options,
+      customOptionMetadata:
+        spatialScenario.optionMetadata,
+      svg: spatialScenario.svg,
+    } satisfies DirectionSenseScenario;
+  }
+
   for (
     let attempt = 0;
     attempt < 20;
@@ -412,6 +492,7 @@ export function createDirectionSenseScenario(
             : String(shortestDistance),
       reasoningSteps:
         trail.reasoningSteps,
+      svg: trail.svg,
     } satisfies DirectionSenseScenario;
   }
 
@@ -443,6 +524,7 @@ export function createDirectionSenseScenario(
     correctAnswer: "5",
     reasoningSteps:
       fallback.reasoningSteps,
+    svg: fallback.svg,
   } satisfies DirectionSenseScenario;
 }
 
@@ -456,6 +538,10 @@ export function buildDirectionSenseStem(
     | "balanced"
     | "inference-heavy",
 ) {
+  if (scenario.stemOverride) {
+    return scenario.stemOverride;
+  }
+
   const intro =
     wordingStyle === "concise"
       ? `${scenario.traveler} starts facing ${scenario.startFacing}.`
@@ -497,6 +583,10 @@ export function buildDirectionSenseExplanation(
     typeof createDirectionSenseScenario
   >,
 ) {
+  if (scenario.explanationOverride) {
+    return `${scenario.explanationOverride}${scenario.svg ? `\n\nPath visual:\n${scenario.svg}` : ""}`;
+  }
+
   const conclusion =
     scenario.questionType ===
     "facing"
@@ -514,7 +604,7 @@ export function buildDirectionSenseExplanation(
 
   return `Track the path in order. ${scenario.reasoningSteps
     .map((step) => step.detail)
-    .join(" ")} ${conclusion}`;
+    .join(" ")} ${conclusion}${scenario.svg ? `\n\nPath visual:\n${scenario.svg}` : ""}`;
 }
 
 export function buildDirectionSenseOptions(
@@ -522,6 +612,23 @@ export function buildDirectionSenseOptions(
     typeof createDirectionSenseScenario
   >,
 ) {
+  if (
+    scenario.customOptions &&
+    scenario.customOptionMetadata
+  ) {
+    return {
+      options: scenario.customOptions,
+      correct:
+        scenario.customOptions.findIndex(
+          (option) =>
+            option ===
+            scenario.correctAnswer,
+        ),
+      optionMetadata:
+        scenario.customOptionMetadata,
+    };
+  }
+
   const options = new Map<
     string,
     OptionMetadata

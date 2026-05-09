@@ -20,6 +20,15 @@ function getClueParticipants(
   clue: SeatingClue,
 ) {
   switch (clue.type) {
+    case "slot-fixed":
+    case "slot-parity":
+    case "slot-not":
+    case "attribute":
+      return [clue.entity];
+    case "slot-gap":
+      return [clue.left, clue.right];
+    case "slot-immediate":
+      return [clue.upper, clue.lower];
     case "absolute":
     case "end":
     case "not-end":

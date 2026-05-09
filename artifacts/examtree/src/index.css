@@ -217,11 +217,20 @@
 .animate-slideInRight { animation: slideInRight 0.3s ease-out; }
 
 /* Punjabi (Gurmukhi) text rendering */
+.reasoning-text,
+.punjabi-content,
 .punjabi-text {
-  font-family: 'Noto Sans Gurmukhi', sans-serif;
+  font-family: 'Raavi', 'Lohit Punjabi', 'Noto Sans Gurmukhi', sans-serif;
   white-space: normal;
   word-break: break-words;
-  line-height: 1.8;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.mjx-utext {
+  font-family: 'Raavi', 'Noto Sans Gurmukhi', sans-serif !important;
 }
 
 @layer utilities {

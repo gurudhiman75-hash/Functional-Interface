@@ -31,6 +31,7 @@ import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuestionRichText } from "@/components/QuestionRichText";
+import { EnglishQuestionLayout } from "@/components/EnglishQuestionLayout";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 import type {
@@ -2132,7 +2133,7 @@ export default function Result() {
                       </div>
 
                       <div className="mt-4 text-lg font-semibold leading-relaxed text-foreground">
-                        <QuestionRichText content={localizedText} lang={reviewLang} />
+                        <EnglishQuestionLayout content={localizedText} lang={reviewLang} />
                       </div>
 
                       <div className="mt-5 space-y-3">
@@ -2199,6 +2200,10 @@ export default function Result() {
                               <SeatingDiagramRenderer
                                 diagram={
                                   item.seatingDiagram
+                                }
+                                inferenceTrace={
+                                  (item as any)
+                                    .inferenceTrace
                                 }
                                 title="Seating arrangement solution diagram"
                               />
