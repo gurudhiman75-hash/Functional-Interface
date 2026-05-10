@@ -32,6 +32,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { EnglishQuestionLayout } from "@/components/EnglishQuestionLayout";
+import LogicPlayback from "@/components/learning/LogicPlayback";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 import type {
@@ -57,6 +58,12 @@ type ReviewItem = {
   explanation: string;
   seatingDiagram?: SeatingDiagramData | null;
   seatingExplanationFlow?: SeatingExplanationFlowData | null;
+  proceduralLogic?: unknown | null;
+  languages?: unknown | null;
+  motifs?: unknown | null;
+  inferenceTrace?: unknown | null;
+  difficulty?: number | null;
+  topic?: string | null;
 };
 
 function getGrade(score: number) {
@@ -75,6 +82,14 @@ function getReviewState(item: ReviewItem) {
   if (item.selected === null) return "unanswered";
   if (item.selected === item.correct) return "correct";
   return "wrong";
+}
+
+function includesNameClash(item: ReviewItem) {
+  const haystack = JSON.stringify({
+    motifs: item.motifs,
+    logic: item.proceduralLogic,
+  }).toLowerCase();
+  return haystack.includes("nameclash") || haystack.includes("name_clash") || haystack.includes("name clash");
 }
 
 export default function Result() {
@@ -247,8 +262,8 @@ export default function Result() {
 
   const reviewAvailableLangs = useMemo(() => {
     const langs: Language[] = ["en"];
-    if (questionReview.some((item) => Boolean(item.textHi))) langs.push("hi");
-    if (questionReview.some((item) => Boolean(item.textPa))) langs.push("pa");
+    if (questionReview.some((item) => Boolean(item.textHi) || Boolean((item.languages as any)?.hi))) langs.push("hi");
+    if (questionReview.some((item) => Boolean(item.textPa) || Boolean((item.languages as any)?.pa))) langs.push("pa");
     return langs;
   }, [questionReview]);
 
@@ -2096,22 +2111,36 @@ export default function Result() {
                         : "border-muted bg-muted/40 text-muted-foreground";
 
                   // Localized content with en fallback
+                  const languagePack =
+                    item.languages && typeof item.languages === "object"
+                      ? (item.languages as Record<string, { question?: string; options?: string[]; explanation?: string }>)[reviewLang]
+                      : undefined;
                   const localizedText =
                     reviewLang === "hi" && item.textHi ? item.textHi :
                     reviewLang === "pa" && item.textPa ? item.textPa :
+                    languagePack?.question ??
                     item.text;
                   const localizedOptions =
                     reviewLang === "hi" && item.optionsHi && item.optionsHi.length > 0 ? item.optionsHi :
                     reviewLang === "pa" && item.optionsPa && item.optionsPa.length > 0 ? item.optionsPa :
+                    languagePack?.options && languagePack.options.length > 0 ? languagePack.options :
                     item.options;
                   const localizedExplanation =
                     reviewLang === "hi" && item.explanationHi ? item.explanationHi :
                     reviewLang === "pa" && item.explanationPa ? item.explanationPa :
+                    languagePack?.explanation ??
                     item.explanation;
 
                   const yourAnswer =
                     item.selected === null ? "Not answered" : `${getAnswerLabel(item.selected)}. ${localizedOptions[item.selected]}`;
                   const correctAnswer = `${getAnswerLabel(item.correct)}. ${localizedOptions[item.correct]}`;
+                  const hasLogicPlayback = Boolean(
+                    item.seatingDiagram ||
+                    item.seatingExplanationFlow ||
+                    item.proceduralLogic,
+                  );
+                  const nameClashTrap = includesNameClash(item);
+                  const responseTime = questionResponses.find((response) => response.questionId === item.questionId)?.timeTaken;
 
                   return (
                     <article key={item.questionId} id={`question-${item.questionId}`} className="rounded-2xl border border-border/70 bg-card/85 p-6 shadow-sm scroll-mt-4">
@@ -2189,37 +2218,87 @@ export default function Result() {
                         </div>
                       </div>
 
-                      <div className="mt-5 rounded-xl border border-border/70 bg-muted/30 p-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Solution</p>
-                        <div className="mt-2 text-sm leading-relaxed text-foreground">
-                          {item.seatingExplanationFlow ? (
-                            <div className="mb-4">
-                              <SeatingExplanationFlow
-                                flow={
-                                  item.seatingExplanationFlow
-                                }
-                              />
+                      <div className={`mt-5 grid gap-4 ${hasLogicPlayback ? "xl:grid-cols-[minmax(0,0.82fr)_minmax(360px,1.18fr)]" : ""}`}>
+                        <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Question Metadata</p>
+                          <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2 xl:grid-cols-1">
+                            <div className="rounded-md border border-border/70 bg-background/80 px-3 py-2">
+                              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Topic</p>
+                              <p className="mt-1 font-medium text-foreground">{item.topic ?? item.section}</p>
                             </div>
-                          ) : item.seatingDiagram ? (
-                            <div className="mb-4">
-                              <SeatingDiagramRenderer
-                                diagram={
-                                  item.seatingDiagram
-                                }
-                                inferenceTrace={
-                                  (item as any)
-                                    .inferenceTrace
-                                }
-                                title="Seating arrangement solution diagram"
-                              />
+                            <div className="rounded-md border border-border/70 bg-background/80 px-3 py-2">
+                              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Time Taken</p>
+                              <p className="mt-1 font-medium text-foreground">
+                                {typeof responseTime === "number" ? `${responseTime}s` : "Not tracked"}
+                              </p>
                             </div>
-                          ) : null}
-                          {localizedExplanation?.trim() ? (
-                            <QuestionRichText content={localizedExplanation} lang={reviewLang} />
-                          ) : (
-                            "No explanation was provided for this question."
-                          )}
+                            <div className="rounded-md border border-border/70 bg-background/80 px-3 py-2">
+                              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Difficulty</p>
+                              <p className="mt-1 font-medium text-foreground">
+                                {typeof item.difficulty === "number" ? `Level ${item.difficulty}` : "Adaptive"}
+                              </p>
+                            </div>
+                            <div className="rounded-md border border-border/70 bg-background/80 px-3 py-2">
+                              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Logic Object</p>
+                              <p className="mt-1 font-medium text-foreground">
+                                {item.proceduralLogic ? "Available" : hasLogicPlayback ? "Diagram only" : "Not stored"}
+                              </p>
+                            </div>
+                          </div>
+                          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Performance Diagnosis</p>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {state === "wrong" ? (
+                              <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">
+                                Answer mismatch detected
+                              </span>
+                            ) : state === "unanswered" ? (
+                              <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
+                                Missed attempt
+                              </span>
+                            ) : (
+                              <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                                Reasoning path matched
+                              </span>
+                            )}
+                            {nameClashTrap ? (
+                              <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+                                Tripped by NameClash
+                              </span>
+                            ) : null}
+                          </div>
+                          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Step-by-Step Reasoning</p>
+                          <div className="mt-2 text-sm leading-relaxed text-foreground">
+                            {!hasLogicPlayback && item.seatingExplanationFlow ? (
+                              <div className="mb-4">
+                                <SeatingExplanationFlow flow={item.seatingExplanationFlow} />
+                              </div>
+                            ) : !hasLogicPlayback && item.seatingDiagram ? (
+                              <div className="mb-4">
+                                <SeatingDiagramRenderer
+                                  diagram={item.seatingDiagram}
+                                  inferenceTrace={item.inferenceTrace as any}
+                                  title="Seating arrangement solution diagram"
+                                />
+                              </div>
+                            ) : null}
+                            {localizedExplanation?.trim() ? (
+                              <QuestionRichText content={localizedExplanation} lang={reviewLang} />
+                            ) : (
+                              "No explanation was provided for this question."
+                            )}
+                          </div>
                         </div>
+                        {hasLogicPlayback ? (
+                          <LogicPlayback
+                            logic={item.proceduralLogic}
+                            seatingDiagram={item.seatingDiagram}
+                            seatingExplanationFlow={item.seatingExplanationFlow}
+                            languages={item.languages}
+                            currentLang={reviewLang}
+                            availableLanguages={reviewAvailableLangs}
+                            onLanguageChange={setReviewLang}
+                          />
+                        ) : null}
                       </div>
                     </article>
                   );

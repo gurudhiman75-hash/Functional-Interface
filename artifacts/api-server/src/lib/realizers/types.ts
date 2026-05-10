@@ -7,6 +7,10 @@ export type RealizerLanguage =
   | "hi"
   | "pa";
 
+export type RealizerKey =
+  | RealizerLanguage
+  | "quant";
+
 export type RealizedLanguageBundle = {
   question: string;
   options: string[];

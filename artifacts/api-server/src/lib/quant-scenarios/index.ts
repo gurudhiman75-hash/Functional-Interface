@@ -37,6 +37,9 @@ import {
   createNumberSystemScenario,
 } from "./number-system-scenarios";
 import {
+  createPercentageScenario,
+} from "./percentage-scenarios";
+import {
   createPermutationCombinationScenario,
 } from "./permutation-combination-scenarios";
 import {
@@ -120,6 +123,22 @@ export function createQuantProceduralScenario(
   difficulty: DifficultyLabel,
   motif?: QuantMotif | null,
 ): QuantProceduralScenario | null {
+  if (
+    pattern.id.startsWith(
+      "registry-percentage",
+    ) ||
+    pattern.topic === "percentage" ||
+    pattern.subtopic === "percentage"
+  ) {
+    return normalizeQuantProceduralScenario(
+      createPercentageScenario(
+        pattern,
+        difficulty,
+        motif,
+      ),
+    );
+  }
+
   if (
     pattern.id.startsWith(
       "registry-simplification",
@@ -417,6 +436,14 @@ export function createQuantProceduralScenario(
     case "number-system":
       return normalizeQuantProceduralScenario(
         createNumberSystemScenario(
+          pattern,
+          difficulty,
+          motif,
+        ),
+      );
+    case "percentage":
+      return normalizeQuantProceduralScenario(
+        createPercentageScenario(
           pattern,
           difficulty,
           motif,

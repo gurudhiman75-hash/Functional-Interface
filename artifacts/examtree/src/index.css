@@ -3,6 +3,39 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+.pa-caption {
+  font-family: 'Noto Sans Gurmukhi', sans-serif;
+  line-height: 2;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.punjabi-playback-text {
+  font-family: 'Noto Sans Gurmukhi', sans-serif;
+  line-height: 2;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.logic-playback-scrollbar {
+  scrollbar-color: #475569 #0f172a;
+  scrollbar-width: thin;
+}
+
+.logic-playback-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.logic-playback-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a;
+  border-radius: 999px;
+}
+
+.logic-playback-scrollbar::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 999px;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -192,6 +192,10 @@ export function detectCoverageCategory(
     patternId?: string;
   },
 ): RealizationCoverageCategory {
+  if ((input.logic as any)?.type === "quant") {
+    return "quant";
+  }
+
   if (isSeatingLogic(input.logic)) {
     return "seating";
   }
@@ -206,6 +210,9 @@ export function detectCoverageCategory(
     input.question?.debugMetadata?.subtopic,
     (input.logic as any)?.domain,
     (input.logic as any)?.subtype,
+    (input.logic as any)?.type,
+    (input.logic as any)?.subject_id,
+    (input.logic as any)?.subjectId,
   );
 
   for (const alias of CATEGORY_ALIASES) {

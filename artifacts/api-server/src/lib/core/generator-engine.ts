@@ -4,6 +4,7 @@ import type {
   MotifReasoningType,
   QuantMotif,
 } from "../motifs/types";
+import { ALL_PATTERNS } from "../patterns";
 import { ALL_MOTIFS } from "../motifs";
 import {
   createFallbackArchetype,
@@ -3664,4 +3665,78 @@ export async function generateFromPattern(
       }
     },
   );
+}
+
+export async function generateBatch(
+  patternId: string,
+  count: number,
+  options?: GeneratorOptions,
+): Promise<GeneratorResult> {
+  const pattern = (ALL_PATTERNS as Pattern[]).find(
+    (candidate) => candidate.id === patternId,
+  );
+
+  if (!pattern) {
+    throw new ReasoningEngineError({
+      code: "PATTERN_NOT_FOUND",
+      phase: "selection",
+      message: `Pattern with id "${patternId}" was not found.`,
+      metadata: {
+        patternId,
+        count,
+      },
+    });
+  }
+
+  const safeCount = Math.min(
+    50,
+    Math.max(1, Math.floor(count || 1)),
+  );
+  const seedBase = Date.now();
+  const questions: GeneratedQuestion[] = [];
+  let generationContext:
+    | GeneratorResult["generationContext"]
+    | undefined;
+  const fingerprints = new Set<string>();
+
+  for (let i = 0; i < safeCount; i++) {
+    const result = await generateFromPattern(
+      pattern,
+      1,
+      {
+        ...(options ?? {}),
+        seed: `${options?.seed ?? seedBase}-${i}`,
+      },
+    );
+    generationContext =
+      result.generationContext ??
+      generationContext;
+
+    for (const question of result.questions) {
+      const signature = JSON.stringify({
+        text:
+          "questionType" in question &&
+          question.questionType === "di"
+            ? question.title
+            : question.text,
+        options:
+          "questionType" in question &&
+          question.questionType === "di"
+            ? question.questions?.[0]?.options
+            : question.options,
+      });
+
+      if (fingerprints.has(signature)) {
+        continue;
+      }
+
+      fingerprints.add(signature);
+      questions.push(question);
+    }
+  }
+
+  return {
+    questions,
+    generationContext,
+  };
 }

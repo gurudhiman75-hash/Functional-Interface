@@ -365,6 +365,10 @@ export type TestAttempt = {
     explanation: string;
     seatingDiagram?: SeatingDiagramData | null;
     seatingExplanationFlow?: SeatingExplanationFlow | null;
+    proceduralLogic?: unknown | null;
+    languages?: unknown | null;
+    motifs?: unknown | null;
+    inferenceTrace?: unknown | null;
   }[];
 };
 

@@ -130,6 +130,9 @@ router.post("/", authenticate, async (req, res) => {
     textPa?: string | null; optionsPa?: unknown; explanationPa?: string | null;
     seatingDiagram?: unknown | null;
     seatingExplanationFlow?: unknown | null;
+    proceduralLogic?: unknown | null;
+    languages?: unknown | null;
+    motifs?: unknown | null;
   }[] =
     questionIds.length > 0
       ? (await db.execute(sql`
@@ -143,6 +146,9 @@ router.post("/", authenticate, async (req, res) => {
             ${columns.hasExplanationPa ? sql`, explanation_pa AS "explanationPa"` : sql`, NULL::text AS "explanationPa"`}
             ${columns.hasSeatingDiagram ? sql`, seating_diagram AS "seatingDiagram"` : sql`, NULL::jsonb AS "seatingDiagram"`}
             ${columns.hasSeatingExplanationFlow ? sql`, seating_explanation_flow AS "seatingExplanationFlow"` : sql`, NULL::jsonb AS "seatingExplanationFlow"`}
+            ${columns.hasProceduralLogic ? sql`, procedural_logic AS "proceduralLogic"` : sql`, NULL::jsonb AS "proceduralLogic"`}
+            ${columns.hasLanguages ? sql`, languages` : sql`, NULL::jsonb AS languages`}
+            ${columns.hasMotifs ? sql`, motifs` : sql`, NULL::jsonb AS motifs`}
             ${columns.hasMarks ? sql`, marks` : sql`, NULL::float AS marks`}
             ${columns.hasNegativeMarks ? sql`, negative_marks AS "negativeMarks"` : sql`, NULL::float AS "negativeMarks"`}
           FROM questions
@@ -240,6 +246,9 @@ router.post("/", authenticate, async (req, res) => {
     explanation: q.explanation,
     ...(q.seatingDiagram ? { seatingDiagram: q.seatingDiagram } : {}),
     ...(q.seatingExplanationFlow ? { seatingExplanationFlow: q.seatingExplanationFlow } : {}),
+    ...(q.proceduralLogic ? { proceduralLogic: q.proceduralLogic } : {}),
+    ...(q.languages ? { languages: q.languages } : {}),
+    ...(q.motifs ? { motifs: q.motifs } : {}),
   }));
 
   // ── Persist attempt + responses atomically ────────────────────────────

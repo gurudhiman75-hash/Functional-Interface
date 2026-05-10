@@ -3137,6 +3137,26 @@ function getQuestionPatternId(
 function getFinalizedLanguageContent(
   question: FormulaQuestion,
 ) {
+  const hasHindiContent =
+    Boolean(question.textHi?.trim()) ||
+    Boolean(
+      question.explanationHi?.trim(),
+    ) ||
+    Boolean(
+      question.optionsHi?.some((option) =>
+        option?.trim(),
+      ),
+    );
+  const hasPunjabiContent =
+    Boolean(question.textPa?.trim()) ||
+    Boolean(
+      question.explanationPa?.trim(),
+    ) ||
+    Boolean(
+      question.optionsPa?.some((option) =>
+        option?.trim(),
+      ),
+    );
   const content: Record<
     string,
     {
@@ -3155,11 +3175,7 @@ function getFinalizedLanguageContent(
     },
   };
 
-  if (
-    question.textHi ||
-    question.optionsHi?.length ||
-    question.explanationHi
-  ) {
+  if (hasHindiContent) {
     content.hi = {
       question: question.textHi ?? "",
       options: question.optionsHi ?? [],
@@ -3169,11 +3185,7 @@ function getFinalizedLanguageContent(
     };
   }
 
-  if (
-    question.textPa ||
-    question.optionsPa?.length ||
-    question.explanationPa
-  ) {
+  if (hasPunjabiContent) {
     content.pa = {
       question: question.textPa ?? "",
       options: question.optionsPa ?? [],
@@ -3297,6 +3309,19 @@ function renderStoredLanguagePreviewPane(
               question.requestedLanguages?.includes(
                 language.lang,
               ) ?? false;
+            const hasExplicitLanguageRequest =
+              Boolean(
+                question.requestedLanguages
+                  ?.length,
+              );
+
+            if (
+              hasExplicitLanguageRequest &&
+              !requestedLanguage
+            ) {
+              return null;
+            }
+
             const realization =
               question.nativeRealization?.[
                 language.lang
@@ -6192,6 +6217,8 @@ export default function AdminGeneratorPage() {
           : {
             patternId,
             count,
+            languages:
+              registryLanguages,
             ...difficultyPayload,
           };
 
@@ -6243,7 +6270,11 @@ export default function AdminGeneratorPage() {
               registryLanguages,
               selectedRegistryPattern.id,
             )
-          : question,
+          : prepareGeneratedQuestionForLanguages(
+              question,
+              registryLanguages,
+              patternId,
+            ),
       );
 
       setGenerated((prev) => [
@@ -6325,6 +6356,8 @@ export default function AdminGeneratorPage() {
           : {
             patternId,
             count: 1,
+            languages:
+              registryLanguages,
             ...difficultyPayload,
           };
 
@@ -6379,7 +6412,11 @@ export default function AdminGeneratorPage() {
                 registryLanguages,
                 selectedRegistryPattern.id,
               )
-            : data.questions[0];
+            : prepareGeneratedQuestionForLanguages(
+                data.questions[0],
+                registryLanguages,
+                patternId,
+              );
 
         setGenerated(updated);
       }
@@ -7984,10 +8021,10 @@ export default function AdminGeneratorPage() {
             <div className="space-y-2 md:col-span-2 xl:col-span-4">
               <div className="flex items-center justify-between gap-3">
                 <label className="block text-sm font-medium text-slate-900">
-                  Languages
+                  Target Languages
                 </label>
                 <span className="text-xs text-slate-500">
-                  Asked at pattern selection
+                  English locked
                 </span>
               </div>
               <div className="grid gap-2 rounded-md border border-slate-200 bg-white p-2 sm:grid-cols-3">
@@ -8022,7 +8059,18 @@ export default function AdminGeneratorPage() {
                         }`}
                       >
                         <span className="flex items-center justify-between gap-2 text-sm font-semibold">
-                          {language.label}
+                          <span className="flex items-center gap-2">
+                            <input
+                              type="checkbox"
+                              checked={selected}
+                              readOnly
+                              disabled={language.locked}
+                              className="h-4 w-4 accent-indigo-600"
+                            />
+                            <span>
+                              {language.label}
+                            </span>
+                          </span>
                           {language.locked ? (
                             <span className="rounded border border-slate-200 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-500">
                               Locked
@@ -8114,14 +8162,17 @@ export default function AdminGeneratorPage() {
             type="number"
             value={count}
             min="1"
-            max="100"
+            max="50"
             onChange={(e) =>
               setCount(
-                Math.max(
-                  1,
-                  Number(
-                    e.target.value,
-                  ) || 1,
+                Math.min(
+                  50,
+                  Math.max(
+                    1,
+                    Number(
+                      e.target.value,
+                    ) || 1,
+                  ),
                 ),
               )
             }

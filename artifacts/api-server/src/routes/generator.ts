@@ -11,6 +11,7 @@ import {
 
 import {
   generateQuestionBatch,
+  generateBatch,
   generateFromPattern,
   refineGeneratedQuestion,
   listTopicConfigs,
@@ -49,6 +50,92 @@ import {
 const router = Router();
 const REGISTERED_PATTERNS =
   ALL_PATTERNS as Pattern[];
+
+router.post(
+  "/generate",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const {
+        patternId,
+        count = 5,
+        languages,
+        seed,
+        examProfile,
+        targetDifficulty,
+        difficultyTolerance,
+        difficultyDistribution,
+        targetAverageDifficulty,
+        setProfile,
+      } = req.body as {
+        patternId?: string;
+        count?: number;
+        languages?: unknown;
+        seed?: string;
+        examProfile?: GeneratorOptions["examProfile"];
+        targetDifficulty?: number;
+        difficultyTolerance?: number;
+        difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
+        targetAverageDifficulty?: number;
+        setProfile?: GeneratorOptions["setProfile"];
+      };
+
+      if (!patternId) {
+        return res.status(400).json({
+          error:
+            "patternId is required",
+        });
+      }
+
+      const safeCount = Math.min(
+        50,
+        Math.max(
+          1,
+          Math.floor(Number(count) || 5),
+        ),
+      );
+      const result = await generateBatch(
+        patternId,
+        safeCount,
+        {
+          seed,
+          examProfile,
+          targetDifficulty,
+          difficultyTolerance,
+          difficultyDistribution,
+          targetAverageDifficulty,
+          setProfile,
+        },
+      );
+
+      return res.json({
+        ...result,
+        questions:
+          result.questions.map((question) =>
+            applyNativeRealizations(
+              question,
+              {
+                languages:
+                  languages ?? ["en"],
+                patternId,
+              },
+            ),
+          ),
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).json({
+        error:
+          error instanceof Error
+            ? error.message
+            : "Internal server error",
+      });
+    }
+  },
+);
 
 function getRegisteredPattern(
   patternId: string,
@@ -599,7 +686,12 @@ router.post(
       return res
         .status(500)
         .json({
-          error: "Internal server error",
+          error:
+            process.env.NODE_ENV ===
+              "development" &&
+            error instanceof Error
+              ? error.message
+              : "Internal server error",
         });
     }
   },

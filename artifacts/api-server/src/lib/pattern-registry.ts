@@ -4,6 +4,7 @@ import type {
   ExamProfileId,
   Pattern,
 } from "./core/generator-engine";
+import { percentageMotifIds } from "./motifs/percentage";
 import { ALL_PATTERNS } from "./patterns";
 
 export type QuestionPatternDomain =
@@ -3182,8 +3183,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "reverse-percentage",
-        "hidden-base-shift",
+        ...percentageMotifIds,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,

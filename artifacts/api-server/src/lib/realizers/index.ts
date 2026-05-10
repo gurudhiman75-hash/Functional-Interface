@@ -5,17 +5,20 @@ import type {
 import { realizeEnglish } from "./english-realizer";
 import { realizeHindi } from "./hindi-realizer";
 import { realizePunjabi } from "./punjabi-realizer";
+import { quantRealizer } from "./quant-realizer";
 import {
+  detectCoverageCategory,
   getNativeRealizationCoverage,
 } from "./coverage";
 import type {
   NativeRealizerInput,
   NativeRealizerResult,
+  RealizerKey,
   RealizerLanguage,
 } from "./types";
 
 export const REALIZERS: Record<
-  RealizerLanguage,
+  RealizerKey,
   (
     input: NativeRealizerInput,
   ) => NativeRealizerResult
@@ -23,15 +26,18 @@ export const REALIZERS: Record<
   en: realizeEnglish,
   hi: realizeHindi,
   pa: realizePunjabi,
+  quant: quantRealizer,
 };
 
 export const punjabiRealizer =
   realizePunjabi;
+export { quantRealizer };
 
 export type {
   NativeRealizerInput,
   NativeRealizerResult,
   RealizedLanguageBundle,
+  RealizerKey,
   RealizerLanguage,
 } from "./types";
 export {
@@ -92,9 +98,12 @@ function uniqueLanguages(
     "hi",
     "pa",
   ];
-  return allowed.filter((language) =>
+  const selected = allowed.filter((language) =>
     requested.includes(language),
   );
+  return selected.includes("en")
+    ? selected
+    : ["en", ...selected];
 }
 
 export function applyNativeRealizations(
@@ -179,5 +188,23 @@ export function generateReasoningQuestion(
   input: NativeRealizerInput,
   language: RealizerLanguage,
 ): NativeRealizerResult {
+  const coverageCategory =
+    detectCoverageCategory(input);
+
+  if (coverageCategory === "quant") {
+    if (!REALIZERS.quant) {
+      return {
+        supported: false,
+        language,
+        reason:
+          "No native realizer registered for Quant",
+        coverageCategory: "quant",
+        coveragePercent: 0,
+      };
+    }
+
+    return quantRealizer(input, language);
+  }
+
   return REALIZERS[language](input);
 }

@@ -390,6 +390,12 @@ export interface TestAttempt {
     optionsPa?: string[];
     explanationHi?: string;
     explanationPa?: string;
+    seatingDiagram?: SeatingDiagramData | null;
+    seatingExplanationFlow?: SeatingExplanationFlow | null;
+    proceduralLogic?: unknown | null;
+    languages?: unknown | null;
+    motifs?: unknown | null;
+    inferenceTrace?: unknown | null;
     selected: number | null;
     correct: number;
     flagged: boolean;

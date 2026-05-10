@@ -133,14 +133,20 @@ export function normalizeQuantMathText(
 }
 
 export function normalizeQuantOptionValue(
-  value: string,
+  value: unknown,
 ) {
-  if (!value) {
-    return value;
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  const optionText = String(value);
+
+  if (!optionText) {
+    return optionText;
   }
 
   const labeledMatch =
-    value.match(
+    optionText.match(
       /^([A-Z]\.\s*)(.+)$/u,
     );
   if (labeledMatch) {
@@ -163,7 +169,7 @@ export function normalizeQuantOptionValue(
     return `${label}${normalizeQuantMathText(trimmed)}`;
   }
 
-  const trimmed = value.trim();
+  const trimmed = optionText.trim();
   if (trimmed.includes("$")) {
     return normalizeQuantMathText(trimmed)!;
   }
