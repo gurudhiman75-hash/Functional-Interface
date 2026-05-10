@@ -6,6 +6,7 @@ import { db } from "../lib/db";
 import {
   patterns,
   questions as questionsTable,
+  topicsGlobal,
 } from "@workspace/db";
 
 import {
@@ -40,6 +41,10 @@ import {
   type QAReviewRecord,
   type QAReviewAction,
 } from "../lib/generator-qa-store";
+import {
+  applyNativeRealizations,
+  getNativeRealizationCoverage,
+} from "../lib/realizers";
 
 const router = Router();
 const REGISTERED_PATTERNS =
@@ -159,6 +164,229 @@ function mergePatternSources(
   };
 }
 
+type FinalizedLanguage =
+  | "en"
+  | "hi"
+  | "pa";
+
+function asFourOptions(
+  value: unknown,
+): string[] | null {
+  return Array.isArray(value) &&
+    value.length === 4
+    ? value.map((item) =>
+        String(item ?? ""),
+      )
+    : null;
+}
+
+function buildFinalizedLanguages(
+  question: any,
+) {
+  const languages: Partial<
+    Record<
+      FinalizedLanguage,
+      {
+        question: string;
+        options: string[];
+        explanation: string;
+      }
+    >
+  > = {};
+
+  const baseOptions =
+    asFourOptions(question.options) ?? [];
+  const candidates: Array<{
+    lang: FinalizedLanguage;
+    text?: unknown;
+    options?: unknown;
+    explanation?: unknown;
+  }> = [
+    {
+      lang: "en",
+      text: question.text,
+      options: question.options,
+      explanation: question.explanation,
+    },
+    {
+      lang: "hi",
+      text: question.textHi,
+      options: question.optionsHi,
+      explanation: question.explanationHi,
+    },
+    {
+      lang: "pa",
+      text: question.textPa,
+      options: question.optionsPa,
+      explanation: question.explanationPa,
+    },
+  ];
+
+  for (const candidate of candidates) {
+    const text =
+      typeof candidate.text === "string"
+        ? candidate.text.trim()
+        : "";
+    if (!text) continue;
+
+    languages[candidate.lang] = {
+      question: text,
+      options:
+        asFourOptions(candidate.options) ??
+        baseOptions,
+      explanation:
+        typeof candidate.explanation ===
+        "string"
+          ? candidate.explanation.trim()
+          : "",
+    };
+  }
+
+  return languages;
+}
+
+function extractProceduralLogic(
+  question: any,
+) {
+  return (
+    question.proceduralLogic ??
+    question.logic ??
+    question.proceduralScenario ??
+    question.debugMetadata
+      ?.proceduralScenario ??
+    null
+  );
+}
+
+function extractMotifs(question: any) {
+  return (
+    question.motifs ??
+    question.extractedPatternIntelligence
+      ?.motifs ??
+    (question.debugMetadata
+      ?.selectedMotif
+      ? [
+          question.debugMetadata
+            .selectedMotif,
+        ]
+      : null)
+  );
+}
+
+function normalizeBankDifficulty(
+  value: unknown,
+) {
+  if (typeof value === "number") {
+    if (value >= 4) return "Hard";
+    if (value >= 2) return "Medium";
+    return "Easy";
+  }
+
+  const text = String(value ?? "")
+    .trim()
+    .toLowerCase();
+
+  if (text === "hard") return "Hard";
+  if (text === "medium") return "Medium";
+  if (text === "easy") return "Easy";
+
+  return "Easy";
+}
+
+function normalizeUuidOrNull(
+  value: unknown,
+) {
+  const text = String(value ?? "")
+    .trim()
+    .toLowerCase();
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(
+    text,
+  )
+    ? text
+    : null;
+}
+
+function questionFromFilingPayload(
+  payload: any,
+) {
+  const content = payload?.content ?? {};
+  const en = content.en ?? {};
+  const hi = content.hi ?? null;
+  const pa = content.pa ?? null;
+  const metadata = payload?.metadata ?? {};
+  const logic = payload?.logic ?? null;
+
+  return {
+    text: String(en.question ?? ""),
+    options: Array.isArray(en.options)
+      ? en.options
+      : [],
+    correct:
+      typeof en.correct === "number"
+        ? en.correct
+        : typeof payload.correct ===
+            "number"
+          ? payload.correct
+          : 0,
+    explanation: String(
+      en.explanation ?? "",
+    ),
+    section:
+      payload.subject_id ?? "general",
+    topic:
+      payload.topic_id ?? "General",
+    subtopic:
+      payload.sub_topic_id ?? null,
+    difficulty:
+      normalizeBankDifficulty(
+        payload.difficulty,
+      ),
+    patternId:
+      payload.pattern_id ?? null,
+    proceduralLogic: {
+      ...(logic && typeof logic === "object"
+        ? logic
+        : { source: logic }),
+      filing: {
+        subject_id:
+          payload.subject_id ?? null,
+        topic_id:
+          payload.topic_id ?? null,
+        sub_topic_id:
+          payload.sub_topic_id ?? null,
+        metadata,
+      },
+    },
+    motifs:
+      logic?.motifs ??
+      payload.motifs ??
+      [],
+    languages: content,
+    textHi: hi?.question ?? null,
+    optionsHi: Array.isArray(hi?.options)
+      ? hi.options
+      : null,
+    explanationHi:
+      hi?.explanation ?? null,
+    textPa: pa?.question ?? null,
+    optionsPa: Array.isArray(pa?.options)
+      ? pa.options
+      : null,
+    explanationPa:
+      pa?.explanation ?? null,
+    debugMetadata: {
+      filingPayload: payload,
+      targetExams:
+        metadata.exams ?? [],
+      systemTags:
+        metadata.tags ?? [],
+      isVerified:
+        metadata.is_verified === true,
+    },
+  };
+}
+
 function normalizeStoredPattern(
   dbPattern: Record<string, unknown>,
 ): Pattern {
@@ -271,6 +499,111 @@ function validateAsyncJobCount(
     count <= 10000
   );
 }
+
+router.get(
+  "/realization-coverage",
+  async (_req, res) => {
+    try {
+      return res.json({
+        languages: [
+          getNativeRealizationCoverage("en"),
+          getNativeRealizationCoverage("hi"),
+          getNativeRealizationCoverage("pa"),
+        ],
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            process.env.NODE_ENV ===
+              "development" &&
+            error instanceof Error
+              ? error.message
+              : "Internal server error",
+        });
+    }
+  },
+);
+
+router.post(
+  "/realize",
+  async (req: Request, res: Response) => {
+    try {
+      const {
+        question,
+        logic,
+        patternId,
+        languages,
+      } = req.body ?? {};
+
+      const realized =
+        applyNativeRealizations(
+          {
+            text:
+              typeof question?.text ===
+              "string"
+                ? question.text
+                : "",
+            options: Array.isArray(
+              question?.options,
+            )
+              ? question.options.map(
+                  (option: unknown) =>
+                    String(option ?? ""),
+                )
+              : ["", "", "", ""],
+            correct:
+              typeof question?.correct ===
+              "number"
+                ? question.correct
+                : 0,
+            explanation:
+              typeof question
+                ?.explanation === "string"
+                ? question.explanation
+                : "",
+            proceduralLogic: logic,
+            logic,
+            patternId:
+              typeof patternId ===
+              "string"
+                ? patternId
+                : undefined,
+          } as any,
+          {
+            languages:
+              Array.isArray(languages)
+                ? languages
+                : ["en"],
+            patternId:
+              typeof patternId ===
+              "string"
+                ? patternId
+                : undefined,
+          },
+        );
+
+      return res.json({
+        status: "success",
+        question: realized,
+        nativeRealization:
+          (realized as any)
+            .nativeRealization ?? null,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error: "Internal server error",
+        });
+    }
+  },
+);
 
 router.get(
   "/topic-configs",
@@ -599,12 +932,14 @@ router.post(
         seed,
         examProfile,
         examStyle,
+        languages,
         difficulty,
         targetDifficulty,
         difficultyTolerance,
         difficultyDistribution,
         targetAverageDifficulty,
         setProfile,
+        enableNameClash,
       } = req.body;
 
       if (
@@ -701,10 +1036,32 @@ router.post(
             difficultyDistribution,
             targetAverageDifficulty,
             setProfile,
+            enableNameClash:
+              Boolean(enableNameClash),
+            distractorArchetypes:
+              enableNameClash
+                ? ["NameClash"]
+                : undefined,
           } satisfies GeneratorOptions,
         );
 
-      return res.json(result);
+      return res.json({
+        ...result,
+        questions:
+          result.questions.map((question) =>
+            applyNativeRealizations(
+              question,
+              {
+                languages:
+                  languages ?? ["en"],
+                patternId:
+                  patternId ??
+                  frontendPattern ??
+                  pattern.id,
+              },
+            ),
+          ),
+      });
     } catch (error) {
       console.error(error);
 
@@ -1037,8 +1394,20 @@ router.post(
     res: Response,
   ) => {
     try {
-      const { questions } =
-        req.body;
+      const filingPayloads =
+        Array.isArray(
+          req.body?.filingPayloads,
+        )
+          ? req.body.filingPayloads
+          : req.body?.filingPayload
+            ? [req.body.filingPayload]
+            : null;
+      const questions =
+        filingPayloads
+          ? filingPayloads.map(
+              questionFromFilingPayload,
+            )
+          : req.body.questions;
 
       if (
         !Array.isArray(questions)
@@ -1054,6 +1423,20 @@ router.post(
       const inserted = [];
       const questionColumns =
         await getQuestionColumnState();
+      const bankGlobalTopicId =
+        "generator-topic";
+
+      if (
+        questionColumns.hasGlobalTopicId
+      ) {
+        await db
+          .insert(topicsGlobal)
+          .values({
+            id: bankGlobalTopicId,
+            name: "Generator Bank",
+          })
+          .onConflictDoNothing();
+      }
 
       for (const q of questions) {
         if (
@@ -1083,8 +1466,6 @@ router.post(
           .values({
             clientId: "generator",
             testId: "__bank__",
-            globalTopicId:
-              "generator-topic",
             text: q.text,
             options: q.options,
             correct: q.correct,
@@ -1094,8 +1475,80 @@ router.post(
               q.section ?? "general",
             topic:
               q.topic ?? "General",
+            ...(questionColumns.hasGlobalTopicId
+              ? {
+                  globalTopicId:
+                    bankGlobalTopicId,
+                }
+              : {}),
             difficulty:
               q.difficulty ?? "Easy",
+            ...(questionColumns.hasTextHi
+              ? {
+                  textHi:
+                    q.textHi ?? null,
+                }
+              : {}),
+            ...(questionColumns.hasOptionsHi
+              ? {
+                  optionsHi:
+                    q.optionsHi ?? null,
+                }
+              : {}),
+            ...(questionColumns.hasExplanationHi
+              ? {
+                  explanationHi:
+                    q.explanationHi ??
+                    null,
+                }
+              : {}),
+            ...(questionColumns.hasTextPa
+              ? {
+                  textPa:
+                    q.textPa ?? null,
+                }
+              : {}),
+            ...(questionColumns.hasOptionsPa
+              ? {
+                  optionsPa:
+                    q.optionsPa ?? null,
+                }
+              : {}),
+            ...(questionColumns.hasExplanationPa
+              ? {
+                  explanationPa:
+                    q.explanationPa ??
+                    null,
+                }
+              : {}),
+            ...(questionColumns.hasPatternId
+              ? {
+                  patternId:
+                    normalizeUuidOrNull(
+                      q.patternId ??
+                        q.debugMetadata
+                          ?.patternId,
+                    ),
+                }
+              : {}),
+            ...(questionColumns.hasProceduralLogic
+              ? {
+                  proceduralLogic:
+                    extractProceduralLogic(q),
+                }
+              : {}),
+            ...(questionColumns.hasMotifs
+              ? {
+                  motifs: extractMotifs(q),
+                }
+              : {}),
+            ...(questionColumns.hasLanguages
+              ? {
+                  languages:
+                    q.languages ??
+                    buildFinalizedLanguages(q),
+                }
+              : {}),
             ...(questionColumns.hasSeatingDiagram
               ? {
                   seatingDiagram:

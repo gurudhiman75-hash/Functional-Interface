@@ -27,6 +27,7 @@ interface GeneratePatternRequest {
   difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
   targetAverageDifficulty?: number;
   setProfile?: GeneratorOptions["setProfile"];
+  enableNameClash?: boolean;
 }
 
 interface GeneratePatternResponse {
@@ -254,6 +255,14 @@ router.post("/pattern", async (req: Request, res: Response) => {
           difficultyDistribution,
           targetAverageDifficulty,
           setProfile,
+          enableNameClash:
+            Boolean(
+              req.body.enableNameClash,
+            ),
+          distractorArchetypes:
+            req.body.enableNameClash
+              ? ["NameClash"]
+              : undefined,
         } satisfies GeneratorOptions,
       );
 
@@ -294,6 +303,7 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
       difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
       targetAverageDifficulty?: number;
       setProfile?: GeneratorOptions["setProfile"];
+      enableNameClash?: boolean;
     };
 
     // Validate input
@@ -325,6 +335,12 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
           difficultyDistribution,
           targetAverageDifficulty,
           setProfile,
+          enableNameClash:
+            Boolean(enableNameClash),
+          distractorArchetypes:
+            enableNameClash
+              ? ["NameClash"]
+              : undefined,
         } satisfies GeneratorOptions,
       );
 

@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
+  BrainCircuit,
   BookOpen,
   Clock,
   Filter,
@@ -27,6 +28,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { openRazorpayCheckoutForTest } from "@/lib/razorpay-checkout";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { ConceptMasteryDashboard } from "@/components/learning";
 
 function formatPrice(cents: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -52,11 +54,11 @@ function TestCard({
   const priceCents = "priceCents" in test ? test.priceCents : 0;
 
   return (
-    <Card className="group hover:shadow-md transition-shadow">
+    <Card className="group rounded-md border-zinc-200 shadow-sm transition hover:border-indigo-500/30 hover:shadow-md dark:border-slate-800">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <CardTitle className="text-lg leading-tight line-clamp-2">{test.name}</CardTitle>
+            <CardTitle className="line-clamp-2 text-base font-semibold leading-tight">{test.name}</CardTitle>
             <CardDescription className="mt-1 flex items-center gap-2 text-sm">
               <span className="capitalize">{test.category}</span>
               {test.subcategoryName && (
@@ -111,7 +113,7 @@ function TestCard({
           {isPurchased ? (
             <Button
               onClick={() => onStart(test.id)}
-              className="gap-2"
+              className="gap-2 rounded-md bg-indigo-600 hover:bg-indigo-700"
               size="sm"
             >
               <Play className="h-4 w-4" />
@@ -121,7 +123,7 @@ function TestCard({
             <Button
               onClick={() => onPurchase(test.id, test.name, priceCents || 499)}
               variant="outline"
-              className="gap-2"
+              className="gap-2 rounded-md"
               size="sm"
             >
               <ShoppingCart className="h-4 w-4" />
@@ -344,11 +346,12 @@ export default function Dashboard() {
       <div className="mb-8">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
-              My Dashboard
+            <p className="professional-badge mb-3">Concept Mastery</p>
+            <h1 className="mb-2 text-3xl font-semibold tracking-tight text-foreground">
+              Resume your practice workspace
             </h1>
             <p className="text-muted-foreground">
-              Access your purchased tests and discover new ones to prepare for your exams.
+              Continue exam practice with logic accuracy, practice history, and focused diagnostics in one place.
             </p>
           </div>
           {/* ── Streak widget ── */}
@@ -386,6 +389,73 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      <section className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="data-card p-5">
+          <div className="mb-5 flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Resume Practice
+              </p>
+              <h2 className="mt-2 text-xl font-semibold tracking-tight">
+                {attempts[0]?.testName ?? "Start your first logic pattern"}
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {attempts[0]
+                  ? `Last attempted in ${attempts[0].category}. Review reasoning traps or continue with the next set.`
+                  : "Pick an exam category and build your first practice history."}
+              </p>
+            </div>
+            <div className="rounded-md border border-indigo-500/20 bg-indigo-500/10 p-2 text-indigo-600">
+              <BrainCircuit className="h-5 w-5" />
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              { label: "Logic Accuracy", value: attempts[0] ? `${attempts[0].score}%` : "-" },
+              {
+                label: "Average Solving Speed",
+                value: attempts[0]
+                  ? `${Math.max(1, Math.round((attempts[0].timeSpent * 60) / Math.max(attempts[0].totalQuestions, 1)))}s`
+                  : "-",
+              },
+              { label: "Practice History", value: `${attempts.length} attempts` },
+            ].map((metric) => (
+              <div key={metric.label} className="rounded-md border border-border bg-muted/35 p-3">
+                <p className="text-xs font-medium text-muted-foreground">{metric.label}</p>
+                <p className="mt-2 text-2xl font-semibold">{metric.value}</p>
+              </div>
+            ))}
+          </div>
+          <Button
+            className="mt-5 rounded-md bg-indigo-600 hover:bg-indigo-700"
+            onClick={() => setLocation(attempts[0]?.testId ? `/test/${attempts[0].testId}` : "/exams")}
+          >
+            Continue Practice
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+
+        <div className="data-card p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category Focus</p>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {["Banking", "SSC", "Management", "Punjab"].map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setLocation("/exams")}
+                className="rounded-md border border-border bg-background p-3 text-left transition hover:border-indigo-500/35 hover:bg-indigo-500/5"
+              >
+                <div className="mb-3 h-6 w-6 rounded-sm border border-zinc-300 bg-zinc-900 dark:border-slate-700 dark:bg-slate-200" />
+                <p className="text-sm font-semibold">{category}</p>
+                <p className="mt-1 text-[11px] text-muted-foreground">Exam path</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <ConceptMasteryDashboard className="rounded-md border-zinc-200 shadow-sm dark:border-slate-800" />
 
       {/* ── Daily Challenge banner ── */}
       {dailyChallenge && (

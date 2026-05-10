@@ -3,6 +3,27 @@ import type {
 } from "../core/generator-engine";
 import { createReasoningStep } from "../shared";
 
+export type ReasoningDistractorArchetype = {
+  id: "NameClash" | string;
+  description: string;
+  minDifficulty: number;
+  topicClusters: string[];
+};
+
+export const DISTRACTOR_ARCHETYPES: ReasoningDistractorArchetype[] =
+  [
+    {
+      id: "NameClash",
+      description:
+        "Cognitive load trap: Uses names starting with the same alphabet to prevent initial-scanning shortcuts.",
+      minDifficulty: 4,
+      topicClusters: [
+        "seating-arrangement",
+        "puzzles",
+      ],
+    },
+  ];
+
 // Logic-domain archetypes own reasoning structure for non-formula topics.
 // They stay data-only so orchestration and topic execution remain in the engine/modules.
 export const LOGIC_REASONING_ARCHETYPES: QuantArchetype[] =

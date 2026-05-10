@@ -548,6 +548,33 @@ type FormulaQuestion = {
   options: string[];
   correct: number;
   explanation: string;
+  textHi?: string | null;
+  textPa?: string | null;
+  optionsHi?: string[] | null;
+  optionsPa?: string[] | null;
+  explanationHi?: string | null;
+  explanationPa?: string | null;
+  patternId?: string | null;
+  proceduralLogic?: unknown | null;
+  logic?: unknown | null;
+  motifs?: unknown | null;
+  languages?: unknown | null;
+  requestedLanguages?: RegistryLanguage[];
+  nativeRealization?: Record<
+    string,
+    {
+      supported?: boolean;
+      reason?: string;
+      source?: string;
+      coverageCategory?: string;
+      coveragePercent?: number;
+      validation?: {
+        passed?: boolean;
+        diagnostics?: string[];
+      };
+    }
+  >;
+  nativeCoverage?: unknown;
   section?: string;
   topic?: string;
   subtopic?: string;
@@ -565,6 +592,37 @@ type FormulaQuestion = {
 type GeneratedQuestion =
   | FormulaQuestion
   | DISet;
+
+type FilingSubjectId =
+  | "reasoning"
+  | "quant"
+  | "ga"
+  | "english"
+  | "punjabi";
+
+type FilingConfig = {
+  subjectId: FilingSubjectId | "";
+  topicId: string;
+  subTopicId: string;
+  difficulty: number;
+  targetExams: string[];
+  tags: string;
+};
+
+type FilingTaxonomyTopic = {
+  id: string;
+  label: string;
+  subTopics: Array<{
+    id: string;
+    label: string;
+  }>;
+};
+
+type FilingTaxonomySubject = {
+  id: FilingSubjectId;
+  label: string;
+  topics: FilingTaxonomyTopic[];
+};
 
 type DifficultyDistribution = {
   easy: number;
@@ -2257,7 +2315,7 @@ function renderDifficultyAnalytics(
         {distractorMetadata.length ? (
           <div className="rounded border border-slate-200 bg-white p-3 text-[11px] text-slate-600">
             <div className="mb-2 font-medium text-slate-800">
-              Distractor Intelligence
+              Logic Trap Intelligence
             </div>
             <div className="space-y-2">
               {distractorMetadata.map(
@@ -2307,7 +2365,7 @@ function renderDifficultyAnalytics(
               </div>
             ) : null}
             <div>
-              Motif:{" "}
+              Logic Pattern:{" "}
               {debugMetadata.selectedMotif ??
                 "none"}
             </div>
@@ -2754,6 +2812,702 @@ function renderSolverTraceWorkbench(
   );
 }
 
+type StoredPreviewLanguage =
+  | "hi"
+  | "pa";
+
+type RegistryLanguage =
+  | "en"
+  | "hi"
+  | "pa";
+
+const REGISTRY_LANGUAGE_OPTIONS: Array<{
+  id: RegistryLanguage;
+  label: string;
+  description: string;
+  locked?: boolean;
+}> = [
+  {
+    id: "en",
+    label: "English",
+    description: "Base question",
+    locked: true,
+  },
+  {
+    id: "hi",
+    label: "\u0939\u093f\u0928\u094d\u0926\u0940",
+    description: "Hindi preview",
+  },
+  {
+    id: "pa",
+    label: "\u0a2a\u0a70\u0a1c\u0a3e\u0a2c\u0a40",
+    description: "Punjabi preview",
+  },
+];
+
+const FILING_TAXONOMY: FilingTaxonomySubject[] = [
+  {
+    id: "reasoning",
+    label: "Reasoning",
+    topics: [
+      {
+        id: "seating-arrangement",
+        label: "Seating Arrangement",
+        subTopics: [
+          { id: "linear-row", label: "Linear Row" },
+          { id: "parallel-row", label: "Parallel Row" },
+          { id: "circular", label: "Circular" },
+          { id: "floor-puzzle", label: "Floor Puzzle" },
+        ],
+      },
+      {
+        id: "syllogism",
+        label: "Syllogism",
+        subTopics: [
+          { id: "definite", label: "Definite Conclusions" },
+          { id: "possibility", label: "Possibility Cases" },
+        ],
+      },
+      {
+        id: "direction-sense",
+        label: "Direction Sense",
+        subTopics: [
+          { id: "vector-path", label: "Vector Path" },
+          { id: "shadow", label: "Shadow Logic" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "quant",
+    label: "Quant",
+    topics: [
+      {
+        id: "mensuration",
+        label: "Mensuration",
+        subTopics: [
+          { id: "2d-shapes", label: "2D Shapes" },
+          { id: "3d-solids", label: "3D Solids" },
+        ],
+      },
+      {
+        id: "algebra",
+        label: "Algebra",
+        subTopics: [
+          { id: "quadratic", label: "Quadratic" },
+          { id: "identities", label: "Identities" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ga",
+    label: "GA",
+    topics: [
+      {
+        id: "static-gk",
+        label: "Static GK",
+        subTopics: [
+          { id: "parks", label: "Parks and Sanctuaries" },
+          { id: "polity", label: "Polity" },
+        ],
+      },
+      {
+        id: "computer-awareness",
+        label: "Computer Awareness",
+        subTopics: [
+          { id: "hardware", label: "Hardware" },
+          { id: "networking", label: "Networking" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "english",
+    label: "English",
+    topics: [
+      {
+        id: "grammar",
+        label: "Grammar",
+        subTopics: [
+          { id: "error-spotting", label: "Error Spotting" },
+          { id: "sentence-improvement", label: "Sentence Improvement" },
+        ],
+      },
+      {
+        id: "vocabulary",
+        label: "Vocabulary",
+        subTopics: [
+          { id: "synonyms-antonyms", label: "Synonyms / Antonyms" },
+          { id: "idioms", label: "Idioms" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "punjabi",
+    label: "Punjabi",
+    topics: [
+      {
+        id: "vyakaran",
+        label: "Vyakaran",
+        subTopics: [
+          { id: "ling", label: "Ling Badlo" },
+          { id: "vachan", label: "Vachan Badlo" },
+          { id: "vak-shuddhi", label: "Vak Shuddhi" },
+        ],
+      },
+      {
+        id: "shabad-bodh",
+        label: "Shabad Bodh",
+        subTopics: [
+          { id: "shabad-jor", label: "Shabad Jor" },
+          { id: "muhavre", label: "Muhavre" },
+        ],
+      },
+    ],
+  },
+];
+
+const TARGET_EXAM_OPTIONS = [
+  "SSC CGL",
+  "SSC CHSL",
+  "SBI PO",
+  "IBPS Clerk",
+  "Punjab Govt",
+  "PSSSB",
+  "PPSC",
+  "CAT",
+];
+
+const DEFAULT_FILING_CONFIG: FilingConfig = {
+  subjectId: "",
+  topicId: "",
+  subTopicId: "",
+  difficulty: 3,
+  targetExams: [],
+  tags: "",
+};
+
+const STORED_PREVIEW_LANGUAGES: Array<{
+  lang: StoredPreviewLanguage;
+  label: string;
+  textKey: "textHi" | "textPa";
+  optionsKey: "optionsHi" | "optionsPa";
+  explanationKey:
+    | "explanationHi"
+    | "explanationPa";
+}> = [
+  {
+    lang: "hi",
+    label: "Hindi",
+    textKey: "textHi",
+    optionsKey: "optionsHi",
+    explanationKey: "explanationHi",
+  },
+  {
+    lang: "pa",
+    label: "Punjabi",
+    textKey: "textPa",
+    optionsKey: "optionsPa",
+    explanationKey: "explanationPa",
+  },
+];
+
+function hasStoredLanguagePreview(
+  question: GeneratedQuestion,
+) {
+  if (isDISet(question)) return false;
+  if (
+    question.requestedLanguages?.some(
+      (language) =>
+        language === "hi" ||
+        language === "pa",
+    )
+  ) {
+    return true;
+  }
+  return STORED_PREVIEW_LANGUAGES.some(
+    (language) =>
+      Boolean(
+        question[language.textKey]?.trim(),
+      ) ||
+      Boolean(
+        question[language.explanationKey]?.trim(),
+      ) ||
+      Boolean(
+        question[language.optionsKey]?.length,
+      ),
+  );
+}
+
+function prepareGeneratedQuestionForLanguages(
+  question: GeneratedQuestion,
+  languages: RegistryLanguage[],
+  patternId?: string,
+): GeneratedQuestion {
+  if (isDISet(question)) return question;
+
+  const prepared: FormulaQuestion = {
+    ...question,
+    requestedLanguages: languages,
+    patternId:
+      question.patternId ??
+      patternId ??
+      null,
+    proceduralLogic:
+      question.proceduralLogic ??
+      question.logic ??
+      question.proceduralScenario ??
+      question.debugMetadata
+        ?.proceduralScenario ??
+      null,
+    motifs:
+      question.motifs ??
+      question
+        .extractedPatternIntelligence
+        ?.motifs ??
+      (question.debugMetadata
+        ?.selectedMotif
+        ? [
+            question.debugMetadata
+              .selectedMotif,
+          ]
+        : null),
+  };
+
+  if (languages.includes("hi")) {
+    prepared.textHi =
+      prepared.textHi ?? "";
+    prepared.optionsHi =
+      prepared.optionsHi ?? [
+        "",
+        "",
+        "",
+        "",
+      ];
+    prepared.explanationHi =
+      prepared.explanationHi ?? "";
+  }
+
+  if (languages.includes("pa")) {
+    prepared.textPa =
+      prepared.textPa ?? "";
+    prepared.optionsPa =
+      prepared.optionsPa ?? [
+        "",
+        "",
+        "",
+        "",
+      ];
+    prepared.explanationPa =
+      prepared.explanationPa ?? "";
+  }
+
+  return prepared;
+}
+
+function getQuestionLogicObject(
+  question: FormulaQuestion,
+) {
+  return (
+    question.proceduralLogic ??
+    question.logic ??
+    (question as any).proceduralScenario ??
+    question.debugMetadata
+      ?.proceduralScenario ??
+    question.debugMetadata ??
+    null
+  );
+}
+
+function getQuestionPatternId(
+  question: FormulaQuestion,
+) {
+  return (
+    question.patternId ??
+    question.debugMetadata
+      ?.selectedPattern ??
+    question.debugMetadata
+      ?.patternId ??
+    "generated-pattern"
+  );
+}
+
+function getFinalizedLanguageContent(
+  question: FormulaQuestion,
+) {
+  const content: Record<
+    string,
+    {
+      question: string;
+      options: string[];
+      explanation: string;
+      correct: number;
+    }
+  > = {
+    en: {
+      question: question.text,
+      options: question.options ?? [],
+      explanation:
+        question.explanation ?? "",
+      correct: question.correct,
+    },
+  };
+
+  if (
+    question.textHi ||
+    question.optionsHi?.length ||
+    question.explanationHi
+  ) {
+    content.hi = {
+      question: question.textHi ?? "",
+      options: question.optionsHi ?? [],
+      explanation:
+        question.explanationHi ?? "",
+      correct: question.correct,
+    };
+  }
+
+  if (
+    question.textPa ||
+    question.optionsPa?.length ||
+    question.explanationPa
+  ) {
+    content.pa = {
+      question: question.textPa ?? "",
+      options: question.optionsPa ?? [],
+      explanation:
+        question.explanationPa ?? "",
+      correct: question.correct,
+    };
+  }
+
+  return content;
+}
+
+function buildFilingPayloads(
+  questions: GeneratedQuestion[],
+  filing: FilingConfig,
+) {
+  const tags = filing.tags
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
+  return questions
+    .filter(
+      (question): question is FormulaQuestion =>
+        !isDISet(question),
+    )
+    .map((question, index) => {
+      const logic =
+        getQuestionLogicObject(question);
+      return {
+        questionId: `studio-${Date.now()}-${index + 1}`,
+        subject_id: filing.subjectId,
+        topic_id: filing.topicId,
+        sub_topic_id: filing.subTopicId,
+        difficulty: filing.difficulty,
+        pattern_id:
+          getQuestionPatternId(question),
+        logic: {
+          source: logic,
+          arrangement:
+            question.debugMetadata
+              ?.finalArrangement ??
+            (logic as any)
+              ?.finalArrangement ??
+            null,
+          entity_ids:
+            (logic as any)
+              ?.participants ??
+            (logic as any)?.nodes ??
+            null,
+          motifs:
+            question.motifs ??
+            question.debugMetadata
+              ?.selectedMotif ??
+            null,
+        },
+        content:
+          getFinalizedLanguageContent(
+            question,
+          ),
+        metadata: {
+          exams: filing.targetExams,
+          tags,
+          is_verified: true,
+          generated_at:
+            new Date().toISOString(),
+        },
+      };
+    });
+}
+
+function renderStoredLanguagePreviewPane(
+  question: GeneratedQuestion,
+  editMode: boolean,
+  onLocalizedQuestionTextChange: (
+    lang: StoredPreviewLanguage,
+    value: string,
+  ) => void,
+  onLocalizedQuestionExplanationChange: (
+    lang: StoredPreviewLanguage,
+    value: string,
+  ) => void,
+  onLocalizedQuestionOptionChange: (
+    lang: StoredPreviewLanguage,
+    optionIndex: number,
+    value: string,
+  ) => void,
+) {
+  if (
+    isDISet(question) ||
+    !hasStoredLanguagePreview(question)
+  ) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
+      <div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+          Stored Language Preview
+        </div>
+        <p className="mt-1 text-xs text-slate-500">
+          These are the multilingual fields stored with this question. Use Edit to correct them before approval.
+        </p>
+      </div>
+      <div className="space-y-3">
+        {STORED_PREVIEW_LANGUAGES.map(
+          (language) => {
+            const text =
+              question[language.textKey] ??
+              "";
+            const explanation =
+              question[
+                language.explanationKey
+              ] ?? "";
+            const localizedOptions =
+              question[
+                language.optionsKey
+              ];
+            const requestedLanguage =
+              question.requestedLanguages?.includes(
+                language.lang,
+              ) ?? false;
+            const realization =
+              question.nativeRealization?.[
+                language.lang
+              ];
+            const nativeSupported =
+              realization?.supported === true;
+            const options =
+              localizedOptions?.length
+                ? localizedOptions
+                : requestedLanguage
+                  ? [
+                      "",
+                      "",
+                      "",
+                      "",
+                    ]
+                  : question.options;
+            const hasLanguage =
+              Boolean(text.trim()) ||
+              Boolean(
+                explanation.trim(),
+              ) ||
+              Boolean(
+                localizedOptions?.some(
+                  (option) =>
+                    option?.trim(),
+                ),
+              );
+
+            if (
+              !hasLanguage &&
+              !requestedLanguage
+            )
+              return null;
+
+            return (
+              <div
+                key={language.lang}
+                lang={
+                  language.lang ===
+                  "pa"
+                    ? "pa"
+                    : "hi"
+                }
+                className={`rounded border bg-white p-3 ${language.lang === "pa" ? "punjabi-text leading-loose" : ""}`}
+              >
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <div className="text-sm font-semibold text-slate-900">
+                    {language.label}
+                  </div>
+                  <span className="rounded border bg-slate-50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    {nativeSupported
+                      ? "Native"
+                      : "Stored"}
+                  </span>
+                </div>
+                {realization ? (
+                  <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] text-slate-500">
+                    {realization.coverageCategory ? (
+                      <span className="rounded border bg-slate-50 px-2 py-0.5">
+                        Coverage: {realization.coverageCategory}
+                        {typeof realization.coveragePercent ===
+                        "number"
+                          ? ` ${realization.coveragePercent}%`
+                          : ""}
+                      </span>
+                    ) : null}
+                    {realization.validation ? (
+                      <span
+                        className={`rounded border px-2 py-0.5 ${realization.validation.passed === false ? "border-rose-200 bg-rose-50 text-rose-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}
+                      >
+                        {realization.validation.passed ===
+                        false
+                          ? "Validation issue"
+                          : "Validated"}
+                      </span>
+                    ) : null}
+                  </div>
+                ) : null}
+                {!nativeSupported &&
+                requestedLanguage &&
+                realization?.supported ===
+                  false ? (
+                  <div className="mb-2 rounded border border-amber-200 bg-amber-50 px-2 py-1.5 text-xs text-amber-800">
+                    {realization.reason ??
+                      `Native ${language.label} realizer is not available for this logic object yet.`}{" "}
+                    Enter and verify the localized version manually before saving.
+                    {realization.validation?.diagnostics?.length ? (
+                      <div className="mt-1 text-[11px]">
+                        {realization.validation.diagnostics.join(
+                          " ",
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+                <div className="space-y-2">
+                  {editMode ? (
+                    <textarea
+                      value={text}
+                      onChange={(event) =>
+                        onLocalizedQuestionTextChange(
+                          language.lang,
+                          event.target.value,
+                        )
+                      }
+                      className="min-h-[84px] w-full rounded border bg-white p-2 text-sm text-slate-800"
+                      placeholder={`${language.label} question text`}
+                    />
+                  ) : (
+                    <div className="min-h-[84px] rounded border bg-slate-50 p-2 text-sm text-slate-800">
+                      {text.trim() ? (
+                        <MathText
+                          content={text}
+                        />
+                      ) : (
+                        <span className="text-slate-500">
+                          Localized question pending. Click Edit and enter the finalized {language.label} version before saving.
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="space-y-1.5">
+                    {options.map(
+                      (option, index) => (
+                        <div
+                          key={`${language.lang}-${index}`}
+                          className={`rounded border px-2 py-1.5 text-sm ${question.correct === index ? "border-emerald-300 bg-emerald-50" : "bg-white"}`}
+                        >
+                          <span className="mr-2 font-semibold text-slate-500">
+                            {String.fromCharCode(
+                              65 + index,
+                            )}
+                          </span>
+                          {editMode ? (
+                            <input
+                              value={option}
+                              onChange={(
+                                event,
+                              ) =>
+                                onLocalizedQuestionOptionChange(
+                                  language.lang,
+                                  index,
+                                  event
+                                    .target
+                                    .value,
+                                )
+                              }
+                              className="w-[calc(100%-1.5rem)] rounded border bg-white px-2 py-1"
+                            />
+                          ) : (
+                            option.trim() ? (
+                              <MathText
+                                content={option}
+                                inline
+                              />
+                            ) : (
+                              <span className="text-slate-400">
+                                Option translation pending
+                              </span>
+                            )
+                          )}
+                        </div>
+                      ),
+                    )}
+                  </div>
+
+                  <div>
+                    <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                      Explanation
+                    </div>
+                    {editMode ? (
+                      <textarea
+                        value={explanation}
+                        onChange={(event) =>
+                          onLocalizedQuestionExplanationChange(
+                            language.lang,
+                            event.target
+                              .value,
+                          )
+                        }
+                        className="min-h-[92px] w-full rounded border bg-white p-2 text-sm text-slate-800"
+                        placeholder={`${language.label} explanation`}
+                      />
+                    ) : (
+                      <div className="min-h-[92px] rounded border bg-slate-50 p-2 text-sm text-slate-800">
+                        {explanation.trim() ? (
+                          <MathText
+                            content={
+                              explanation
+                            }
+                          />
+                        ) : (
+                          <span className="text-slate-500">
+                            Localized explanation pending. Click Edit and enter the finalized {language.label} explanation before saving.
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          },
+        )}
+      </div>
+    </div>
+  );
+}
+
 function renderQuestionWorkspace(
   item: ReviewableGeneratedItem,
   reviewerNotes: string,
@@ -2774,6 +3528,19 @@ function renderQuestionWorkspace(
     value: string,
   ) => void,
   onQuestionOptionChange: (
+    optionIndex: number,
+    value: string,
+  ) => void,
+  onLocalizedQuestionTextChange: (
+    lang: StoredPreviewLanguage,
+    value: string,
+  ) => void,
+  onLocalizedQuestionExplanationChange: (
+    lang: StoredPreviewLanguage,
+    value: string,
+  ) => void,
+  onLocalizedQuestionOptionChange: (
+    lang: StoredPreviewLanguage,
     optionIndex: number,
     value: string,
   ) => void,
@@ -2819,7 +3586,7 @@ function renderQuestionWorkspace(
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="space-y-1">
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Procedural Review Workspace
+            Procedural Review Panel
           </div>
           <div className="text-xl font-semibold text-slate-900">
             {item.topic}
@@ -3079,6 +3846,14 @@ function renderQuestionWorkspace(
         </div>
 
         <div className="space-y-4">
+          {renderStoredLanguagePreviewPane(
+            question,
+            editMode,
+            onLocalizedQuestionTextChange,
+            onLocalizedQuestionExplanationChange,
+            onLocalizedQuestionOptionChange,
+          )}
+
           <div className="rounded-lg border bg-slate-50 p-4 space-y-3">
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
               Review Signals
@@ -3239,7 +4014,7 @@ function renderQuestionWorkspace(
               </div>
               <div className="rounded border bg-white p-3">
                 <div className="font-semibold text-slate-900">
-                  Matched Motifs
+                  Matched Logic Patterns
                 </div>
                 <div>
                   {extractedPatternIntelligence?.motifs
@@ -3248,7 +4023,7 @@ function renderQuestionWorkspace(
                         `${motif.motifId} (${motif.confidence.toFixed(2)})`,
                     )
                     .join(", ") ||
-                    "No motif intelligence available."}
+                    "No logic-pattern intelligence available."}
                 </div>
               </div>
               <div className="rounded border bg-white p-3">
@@ -3744,7 +4519,7 @@ function renderQAReviewPanel(
         </div>
         <div className="rounded border bg-white p-2">
           <div className="text-slate-500">
-            Motif
+            Logic Pattern
           </div>
           <div className="font-medium text-slate-900">
             {item.motif}
@@ -4472,6 +5247,24 @@ export default function AdminGeneratorPage() {
   const [generated, setGenerated] =
     useState<GeneratedQuestion[]>([]);
   const [
+    filingDrawerOpen,
+    setFilingDrawerOpen,
+  ] = useState(false);
+  const [
+    filingConfig,
+    setFilingConfig,
+  ] = useState<FilingConfig>(
+    DEFAULT_FILING_CONFIG,
+  );
+  const [
+    filingLoading,
+    setFilingLoading,
+  ] = useState(false);
+  const [
+    filingToast,
+    setFilingToast,
+  ] = useState<string | null>(null);
+  const [
     activeInlineEditKey,
     setActiveInlineEditKey,
   ] = useState<string | null>(null);
@@ -4542,6 +5335,16 @@ export default function AdminGeneratorPage() {
     registryExamStyle,
     setRegistryExamStyle,
   ] = useState("ssc");
+  const [
+    registryLanguages,
+    setRegistryLanguages,
+  ] = useState<RegistryLanguage[]>([
+    "en",
+  ]);
+  const [
+    enableNameClash,
+    setEnableNameClash,
+  ] = useState(false);
   const [
     editingPatternId,
     setEditingPatternId,
@@ -5306,6 +6109,31 @@ export default function AdminGeneratorPage() {
       );
     }
   }
+
+  function toggleRegistryLanguage(
+    language: RegistryLanguage,
+  ) {
+    if (language === "en") return;
+
+    setRegistryLanguages((current) => {
+      const next = current.includes(
+        language,
+      )
+        ? current.filter(
+          (item) => item !== language,
+        )
+        : [...current, language];
+
+      return REGISTRY_LANGUAGE_OPTIONS.map(
+        (option) => option.id,
+      ).filter(
+        (option) =>
+          option === "en" ||
+          next.includes(option),
+      );
+    });
+  }
+
   async function generate() {
     const selectedRegistryPattern =
       questionPatterns.find(
@@ -5354,6 +6182,11 @@ export default function AdminGeneratorPage() {
               registryDifficulty,
             examStyle:
               registryExamStyle,
+            languages:
+              registryLanguages,
+            availableLangs:
+              registryLanguages,
+            enableNameClash,
             count,
           }
           : {
@@ -5401,9 +6234,21 @@ export default function AdminGeneratorPage() {
 
       console.log(data);
 
+      const nextQuestions = (
+        data.questions || []
+      ).map((question: GeneratedQuestion) =>
+        useRegistryPattern
+          ? prepareGeneratedQuestionForLanguages(
+              question,
+              registryLanguages,
+              selectedRegistryPattern.id,
+            )
+          : question,
+      );
+
       setGenerated((prev) => [
         ...prev,
-        ...(data.questions || []),
+        ...nextQuestions,
       ]);
     } catch (error) {
       console.error(error);
@@ -5470,6 +6315,11 @@ export default function AdminGeneratorPage() {
               registryDifficulty,
             examStyle:
               registryExamStyle,
+            languages:
+              registryLanguages,
+            availableLangs:
+              registryLanguages,
+            enableNameClash,
             count: 1,
           }
           : {
@@ -5523,7 +6373,13 @@ export default function AdminGeneratorPage() {
         ];
 
         updated[index] =
-          data.questions[0];
+          useRegistryPattern
+            ? prepareGeneratedQuestionForLanguages(
+                data.questions[0],
+                registryLanguages,
+                selectedRegistryPattern.id,
+              )
+            : data.questions[0];
 
         setGenerated(updated);
       }
@@ -5541,8 +6397,65 @@ export default function AdminGeneratorPage() {
       );
     }
   }
+  function openFilingDrawer() {
+    if (!generated.length) {
+      return;
+    }
+
+    const primary = getPrimaryQuestion(
+      generated[0],
+    );
+    const inferredSubject =
+      (primary?.section ?? "")
+        .toLowerCase()
+        .includes("reason")
+        ? "reasoning"
+        : (primary?.section ?? "")
+            .toLowerCase()
+            .includes("english")
+          ? "english"
+          : (primary?.section ?? "")
+              .toLowerCase()
+              .includes("punjabi")
+            ? "punjabi"
+            : (primary?.section ?? "")
+                .toLowerCase()
+                .includes("quant")
+              ? "quant"
+              : "";
+
+    setFilingConfig((prev) => ({
+      ...prev,
+      subjectId:
+        prev.subjectId ||
+        (inferredSubject as FilingSubjectId | ""),
+    }));
+    setFilingDrawerOpen(true);
+  }
+
   async function saveQuestions() {
+    const filingPayloads =
+      buildFilingPayloads(
+        generated,
+        filingConfig,
+      );
+
+    if (
+      !filingConfig.subjectId ||
+      !filingConfig.topicId
+    ) {
+      return;
+    }
+
+    if (!filingPayloads.length) {
+      alert(
+        "Only formula/reasoning questions can be filed from this drawer right now.",
+      );
+      return;
+    }
+
     try {
+      setFilingLoading(true);
       const res = await fetch(
         `${API_BASE_URL}/api/generator/save`,
         {
@@ -5554,20 +6467,64 @@ export default function AdminGeneratorPage() {
           },
 
           body: JSON.stringify({
-            questions: generated,
+            filingPayloads,
           }),
         },
       );
 
       const data = await res.json();
 
-      alert(
-        `Saved ${data.count} questions`,
+      if (!res.ok) {
+        throw new Error(
+          data.error ?? "Save failed",
+        );
+      }
+
+      const topic =
+        FILING_TAXONOMY.find(
+          (subject) =>
+            subject.id ===
+            filingConfig.subjectId,
+        )?.topics.find(
+          (entry) =>
+            entry.id ===
+            filingConfig.topicId,
+        )?.label ??
+        filingConfig.topicId;
+      const subTopic =
+        FILING_TAXONOMY.flatMap(
+          (subject) => subject.topics,
+        )
+          .find(
+            (entry) =>
+              entry.id ===
+              filingConfig.topicId,
+          )
+          ?.subTopics.find(
+            (entry) =>
+              entry.id ===
+              filingConfig.subTopicId,
+          )?.label ??
+        filingConfig.subTopicId;
+
+      setFilingDrawerOpen(false);
+      setGenerated([]);
+      setFilingConfig(
+        DEFAULT_FILING_CONFIG,
+      );
+      setFilingToast(
+        `Logic Object ${data.questions?.[0]?.id ?? data.count ?? ""} successfully filed under ${topic}${subTopic ? ` > ${subTopic}` : ""}.`,
+      );
+      window.setTimeout(
+        () => setFilingToast(null),
+        4500,
       );
     } catch (error) {
       console.error(error);
 
       alert("Save failed");
+    } finally {
+      setFilingLoading(false);
     }
   }
 
@@ -6044,9 +7001,308 @@ export default function AdminGeneratorPage() {
     (clampedPatternManagerPage + 1) *
       PATTERN_MANAGER_PAGE_SIZE,
   );
+  const selectedFilingSubject =
+    FILING_TAXONOMY.find(
+      (subject) =>
+        subject.id ===
+        filingConfig.subjectId,
+    );
+  const selectedFilingTopic =
+    selectedFilingSubject?.topics.find(
+      (topic) =>
+        topic.id ===
+        filingConfig.topicId,
+    );
+  const filingPayloadPreview =
+    buildFilingPayloads(
+      generated,
+      filingConfig,
+    );
 
   return (
     <div className="p-6 space-y-6">
+      {filingToast && (
+        <div className="fixed right-6 top-6 z-50 max-w-md rounded-md border border-emerald-200 bg-white px-4 py-3 text-sm font-medium text-emerald-800 shadow-lg">
+          {filingToast}
+        </div>
+      )}
+
+      {filingDrawerOpen && (
+        <div className="fixed inset-0 z-40 flex justify-end bg-slate-950/30">
+          <button
+            aria-label="Close filing drawer"
+            className="flex-1 cursor-default"
+            onClick={() =>
+              setFilingDrawerOpen(false)
+            }
+          />
+          <aside className="h-full w-full max-w-xl overflow-y-auto border-l border-slate-200 bg-slate-50 shadow-2xl">
+            <div className="sticky top-0 z-10 border-b border-slate-200 bg-white px-6 py-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    Targeted Filing
+                  </div>
+                  <h2 className="mt-1 text-xl font-semibold text-slate-950">
+                    Push to Question Bank
+                  </h2>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Categorize this verified logic object before it enters the bank.
+                  </p>
+                </div>
+                <button
+                  onClick={() =>
+                    setFilingDrawerOpen(false)
+                  }
+                  className="rounded-md border border-slate-200 bg-white px-3 py-1 text-sm text-slate-600"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-5 px-6 py-6">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="space-y-2">
+                  <span className="text-sm font-medium text-slate-800">
+                    Subject
+                  </span>
+                  <select
+                    value={filingConfig.subjectId}
+                    onChange={(event) =>
+                      setFilingConfig(
+                        (prev) => ({
+                          ...prev,
+                          subjectId:
+                            event.target
+                              .value as FilingSubjectId,
+                          topicId: "",
+                          subTopicId: "",
+                        }),
+                      )
+                    }
+                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm"
+                  >
+                    <option value="">
+                      Select subject
+                    </option>
+                    {FILING_TAXONOMY.map(
+                      (subject) => (
+                        <option
+                          key={subject.id}
+                          value={subject.id}
+                        >
+                          {subject.label}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </label>
+
+                <label className="space-y-2">
+                  <span className="text-sm font-medium text-slate-800">
+                    Topic
+                  </span>
+                  <select
+                    value={filingConfig.topicId}
+                    onChange={(event) =>
+                      setFilingConfig(
+                        (prev) => ({
+                          ...prev,
+                          topicId:
+                            event.target.value,
+                          subTopicId: "",
+                        }),
+                      )
+                    }
+                    disabled={!selectedFilingSubject}
+                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:bg-slate-100"
+                  >
+                    <option value="">
+                      Select topic
+                    </option>
+                    {selectedFilingSubject?.topics.map(
+                      (topic) => (
+                        <option
+                          key={topic.id}
+                          value={topic.id}
+                        >
+                          {topic.label}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </label>
+
+                <label className="space-y-2">
+                  <span className="text-sm font-medium text-slate-800">
+                    Sub-Topic
+                  </span>
+                  <select
+                    value={filingConfig.subTopicId}
+                    onChange={(event) =>
+                      setFilingConfig(
+                        (prev) => ({
+                          ...prev,
+                          subTopicId:
+                            event.target.value,
+                        }),
+                      )
+                    }
+                    disabled={!selectedFilingTopic}
+                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:bg-slate-100"
+                  >
+                    <option value="">
+                      Select sub-topic
+                    </option>
+                    {selectedFilingTopic?.subTopics.map(
+                      (subTopic) => (
+                        <option
+                          key={subTopic.id}
+                          value={subTopic.id}
+                        >
+                          {subTopic.label}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </label>
+
+                <div className="space-y-2">
+                  <span className="text-sm font-medium text-slate-800">
+                    Difficulty
+                  </span>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map(
+                      (level) => (
+                        <button
+                          key={level}
+                          type="button"
+                          onClick={() =>
+                            setFilingConfig(
+                              (prev) => ({
+                                ...prev,
+                                difficulty: level,
+                              }),
+                            )
+                          }
+                          className={`h-8 w-8 rounded-full border text-sm font-semibold ${
+                            filingConfig.difficulty >=
+                            level
+                              ? "border-blue-950 bg-blue-950 text-white"
+                              : "border-slate-200 bg-white text-slate-500"
+                          }`}
+                        >
+                          {level}
+                        </button>
+                      ),
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-sm font-medium text-slate-800">
+                  Target Exams
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {TARGET_EXAM_OPTIONS.map(
+                    (exam) => {
+                      const selected =
+                        filingConfig.targetExams.includes(
+                          exam,
+                        );
+                      return (
+                        <button
+                          key={exam}
+                          type="button"
+                          onClick={() =>
+                            setFilingConfig(
+                              (prev) => ({
+                                ...prev,
+                                targetExams:
+                                  selected
+                                    ? prev.targetExams.filter(
+                                        (item) =>
+                                          item !==
+                                          exam,
+                                      )
+                                    : [
+                                        ...prev.targetExams,
+                                        exam,
+                                      ],
+                              }),
+                            )
+                          }
+                          className={`rounded-md border px-3 py-1 text-sm ${
+                            selected
+                              ? "border-indigo-200 bg-indigo-50 text-indigo-700"
+                              : "border-slate-200 bg-white text-slate-600"
+                          }`}
+                        >
+                          {exam}
+                        </button>
+                      );
+                    },
+                  )}
+                </div>
+              </div>
+
+              <label className="space-y-2 block">
+                <span className="text-sm font-medium text-slate-800">
+                  System Tags
+                </span>
+                <input
+                  value={filingConfig.tags}
+                  onChange={(event) =>
+                    setFilingConfig(
+                      (prev) => ({
+                        ...prev,
+                        tags: event.target.value,
+                      }),
+                    )
+                  }
+                  placeholder="High-Priority, New Pattern"
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm"
+                />
+              </label>
+
+              <div className="rounded-md border border-slate-200 bg-white p-4">
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  Payload Preview
+                </div>
+                <pre className="mt-3 max-h-72 overflow-auto rounded-md bg-slate-950 p-3 text-xs text-slate-100">
+                  {JSON.stringify(
+                    filingPayloadPreview[0] ?? {
+                      message:
+                        "No formula question selected.",
+                    },
+                    null,
+                    2,
+                  )}
+                </pre>
+              </div>
+            </div>
+
+            <div className="sticky bottom-0 border-t border-slate-200 bg-white px-6 py-4">
+              <button
+                onClick={saveQuestions}
+                disabled={
+                  filingLoading ||
+                  !filingConfig.subjectId ||
+                  !filingConfig.topicId
+                }
+                className="flex w-full items-center justify-center rounded-md bg-blue-950 px-4 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {filingLoading
+                  ? "Filing..."
+                  : "Finalize & Commit"}
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
+
       <h1 className="text-3xl font-bold">
         Question Generator
       </h1>
@@ -6664,6 +7920,27 @@ export default function AdminGeneratorPage() {
               </select>
             </div>
 
+            <label className="flex min-h-[86px] items-start gap-3 rounded-md border border-slate-200 bg-white p-3">
+              <input
+                type="checkbox"
+                checked={enableNameClash}
+                onChange={(event) =>
+                  setEnableNameClash(
+                    event.target.checked,
+                  )
+                }
+                className="mt-1 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <span>
+                <span className="block text-sm font-semibold text-slate-900">
+                  Enable Name Clash (Hard)
+                </span>
+                <span className="mt-1 block text-xs leading-5 text-slate-500">
+                  Prioritizes same-initial names for high-difficulty seating puzzles so students cannot rely on first-letter shortcuts.
+                </span>
+              </span>
+            </label>
+
             <div className="space-y-2">
               <label className="block text-sm font-medium">
                 Exam Style
@@ -6704,6 +7981,67 @@ export default function AdminGeneratorPage() {
               </select>
             </div>
 
+            <div className="space-y-2 md:col-span-2 xl:col-span-4">
+              <div className="flex items-center justify-between gap-3">
+                <label className="block text-sm font-medium text-slate-900">
+                  Languages
+                </label>
+                <span className="text-xs text-slate-500">
+                  Asked at pattern selection
+                </span>
+              </div>
+              <div className="grid gap-2 rounded-md border border-slate-200 bg-white p-2 sm:grid-cols-3">
+                {REGISTRY_LANGUAGE_OPTIONS.map(
+                  (language) => {
+                    const selected =
+                      registryLanguages.includes(
+                        language.id,
+                      );
+
+                    return (
+                      <button
+                        key={language.id}
+                        type="button"
+                        aria-pressed={selected}
+                        disabled={
+                          language.locked
+                        }
+                        onClick={() =>
+                          toggleRegistryLanguage(
+                            language.id,
+                          )
+                        }
+                        className={`rounded-md border px-3 py-2 text-left transition ${
+                          selected
+                            ? "border-indigo-300 bg-indigo-50 text-indigo-900"
+                            : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                        } ${
+                          language.locked
+                            ? "cursor-default"
+                            : ""
+                        }`}
+                      >
+                        <span className="flex items-center justify-between gap-2 text-sm font-semibold">
+                          {language.label}
+                          {language.locked ? (
+                            <span className="rounded border border-slate-200 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-500">
+                              Locked
+                            </span>
+                          ) : null}
+                        </span>
+                        <span className="mt-1 block text-xs text-slate-500">
+                          {language.description}
+                        </span>
+                      </button>
+                    );
+                  },
+                )}
+              </div>
+              <p className="text-xs text-slate-500">
+                The generator will request these languages, and any Hindi/Punjabi fields returned will appear in the selected question preview pane for editing.
+              </p>
+            </div>
+
           </div>
 
             {selectedRegistryPattern ? (
@@ -6711,6 +8049,12 @@ export default function AdminGeneratorPage() {
                 {selectedRegistryPattern.domain} /{" "}
                 {selectedRegistryPattern.topic} /{" "}
                 {selectedRegistryPattern.label}
+                {" "}• Languages:{" "}
+                {registryLanguages
+                  .map((language) =>
+                    language.toUpperCase(),
+                  )
+                  .join(", ")}
                 {selectedRegistryPattern.enabled ===
                 false
                   ? " - Coming Soon"
@@ -7181,11 +8525,11 @@ export default function AdminGeneratorPage() {
 
             <button
               onClick={
-                saveQuestions
+                openFilingDrawer
               }
-              className="bg-green-600 text-white px-4 py-2 rounded"
+              className="bg-blue-950 text-white px-4 py-2 rounded-md"
             >
-              Save to Question Bank
+              Push to Bank
             </button>
             <button
               onClick={() =>
@@ -7428,7 +8772,7 @@ export default function AdminGeneratorPage() {
                 className="border rounded p-2"
               >
                 <option value="all">
-                  All Motifs
+                  All Logic Patterns
                 </option>
                 {filterOptions.motifs.map(
                   (value) => (
@@ -7634,6 +8978,69 @@ export default function AdminGeneratorPage() {
                               : option,
                         ),
                     }),
+                  ),
+                (lang, value) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) =>
+                      lang === "hi"
+                        ? {
+                            ...current,
+                            textHi: value,
+                          }
+                        : {
+                            ...current,
+                            textPa: value,
+                          },
+                  ),
+                (lang, value) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) =>
+                      lang === "hi"
+                        ? {
+                            ...current,
+                            explanationHi:
+                              value,
+                          }
+                        : {
+                            ...current,
+                            explanationPa:
+                              value,
+                          },
+                  ),
+                (
+                  lang,
+                  optionIndex,
+                  value,
+                ) =>
+                  updateGeneratedQuestionAt(
+                    selectedWorkspaceItem.index,
+                    (current) => {
+                      const source =
+                        lang === "hi"
+                          ? current.optionsHi
+                          : current.optionsPa;
+                      const nextOptions = [
+                        ...(source?.length
+                          ? source
+                          : current.options),
+                      ];
+                      nextOptions[
+                        optionIndex
+                      ] = value;
+                      return lang === "hi"
+                        ? {
+                            ...current,
+                            optionsHi:
+                              nextOptions,
+                          }
+                        : {
+                            ...current,
+                            optionsPa:
+                              nextOptions,
+                          };
+                    },
                   ),
                 (clues) =>
                   updateGeneratedQuestionAt(

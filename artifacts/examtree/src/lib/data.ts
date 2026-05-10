@@ -591,6 +591,10 @@ export interface BankQuestion {
   textPa?: string | null;
   optionsPa?: [string, string, string, string] | null;
   explanationPa?: string | null;
+  patternId?: string | null;
+  proceduralLogic?: unknown | null;
+  motifs?: unknown | null;
+  languages?: unknown | null;
   /** Firebase Storage URL for question image */
   imageUrl?: string | null;
   questionType?: "text" | "image" | "di";
@@ -667,6 +671,10 @@ export async function createBankQuestion(body: {
   textPa?: string;
   optionsPa?: [string, string, string, string];
   explanationPa?: string;
+  patternId?: string;
+  proceduralLogic?: unknown;
+  motifs?: unknown;
+  languages?: unknown;
 }): Promise<BankQuestion> {
   return apiRequest("/question-bank", {
     method: "POST",

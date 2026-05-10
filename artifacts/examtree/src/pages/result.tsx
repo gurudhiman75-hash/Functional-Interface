@@ -36,7 +36,7 @@ import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow"
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 import type {
   SeatingDiagramData,
-  SeatingExplanationFlow,
+  SeatingExplanationFlow as SeatingExplanationFlowData,
 } from "@workspace/api-zod";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
@@ -56,7 +56,7 @@ type ReviewItem = {
   flagged: boolean;
   explanation: string;
   seatingDiagram?: SeatingDiagramData | null;
-  seatingExplanationFlow?: SeatingExplanationFlow | null;
+  seatingExplanationFlow?: SeatingExplanationFlowData | null;
 };
 
 function getGrade(score: number) {
@@ -504,20 +504,25 @@ export default function Result() {
         onDismiss={(id) => setRewards((prev) => prev.filter((r) => r.id !== id))}
       />
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8 rounded-[2rem] border border-primary/15 bg-gradient-to-br from-primary/10 via-card to-card p-8 text-center shadow-sm" data-testid="result-hero">
-          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold mb-4 ${grade.bg} ${grade.color}`}>
+      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="data-card mb-8 p-8 text-center" data-testid="result-hero">
+          <div className={`mb-4 inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold ${grade.bg} ${grade.color}`}>
             <Award className="w-4 h-4" />
             {grade.label}
           </div>
-          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-foreground/75">Your Score</p>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Performance Diagnosis</p>
+          <h1 className="mx-auto mb-5 max-w-3xl text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            {latest.score >= 75
+              ? "Proficient in linear logic; review remaining reasoning traps for speed."
+              : "Accuracy gap detected; prioritize Step-by-Step Reasoning for wrong answers."}
+          </h1>
           {latest.actualScore != null ? (
             <>
-              <h1 className="text-6xl sm:text-7xl font-bold mb-1" data-testid="result-score">{latest.actualScore}</h1>
-              <p className="mb-2 text-sm font-semibold text-foreground/80">{latest.score}% accuracy</p>
+              <p className="mb-1 text-5xl font-semibold tabular-nums sm:text-6xl" data-testid="result-score">{latest.actualScore}</p>
+              <p className="mb-2 text-sm font-semibold text-muted-foreground">{latest.score}% Logic Accuracy</p>
             </>
           ) : (
-            <h1 className="text-6xl sm:text-7xl font-bold mb-2" data-testid="result-score">{latest.score}%</h1>
+            <p className="mb-2 text-5xl font-semibold tabular-nums sm:text-6xl" data-testid="result-score">{latest.score}%</p>
           )}
           <p className="text-base font-semibold text-foreground/85">{latest.testName}</p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-muted-foreground">
@@ -526,7 +531,7 @@ export default function Result() {
             <span>{totalAttempts} completed {totalAttempts === 1 ? "attempt" : "attempts"} on this device</span>
           </div>
           {scoreImprovementDelta !== null && (
-            <div className={`mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold ${
+            <div className={`mt-4 inline-flex items-center gap-2 rounded-md border px-4 py-1.5 text-sm font-bold ${
               scoreImprovementDelta > 0
                 ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
                 : scoreImprovementDelta < 0
@@ -544,14 +549,14 @@ export default function Result() {
         </div>
 
         <Tabs defaultValue={requestedTab} className="space-y-8">
-          <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl border border-border/70 bg-muted/45 p-1.5 shadow-sm">
-            <TabsTrigger value="summary" className="rounded-xl border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-primary/30 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm">
+          <TabsList className="grid h-auto w-full grid-cols-3 rounded-md border border-border bg-muted/45 p-1 shadow-sm">
+            <TabsTrigger value="summary" className="rounded-md border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-indigo-500/30 data-[state=active]:bg-background data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm">
               Summary
             </TabsTrigger>
-            <TabsTrigger value="analysis" className="rounded-xl border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-primary/30 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm">
+            <TabsTrigger value="analysis" className="rounded-md border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-indigo-500/30 data-[state=active]:bg-background data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm">
               Analysis
             </TabsTrigger>
-            <TabsTrigger value="review" className="rounded-xl border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-primary/30 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm">
+            <TabsTrigger value="review" className="rounded-md border border-transparent py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-indigo-500/30 data-[state=active]:bg-background data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm">
               Review
             </TabsTrigger>
           </TabsList>
@@ -2017,23 +2022,23 @@ export default function Result() {
             <div className="flex gap-6 items-start">
               {/* ── Main question list ── */}
               <div className="flex-1 min-w-0 space-y-4">
-                <div className="rounded-2xl border border-border/70 bg-card/85 p-6 shadow-sm">
+                <div className="data-card p-6">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">Solution Review</h2>
+                      <h2 className="text-xl font-semibold text-foreground">Step-by-Step Reasoning</h2>
                       <p className="mt-1 text-sm text-muted-foreground">
-                        Review every question with your answer, the correct answer, and the explanation.
+                        Review each answer, identify the reasoning trap, and open the logic walkthrough where available.
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-3">
                       {reviewAvailableLangs.length > 1 && (
-                        <div className="flex items-center gap-1 rounded-full border border-border bg-muted p-1">
+                        <div className="flex items-center gap-1 rounded-md border border-border bg-muted p-1">
                           {reviewAvailableLangs.map((l) => (
                             <button
                               key={l}
                               type="button"
                               onClick={() => setReviewLang(l)}
-                              className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+                              className={`rounded-md px-3 py-1 text-xs font-semibold transition-all ${
                                 reviewLang === l
                                   ? "bg-background text-primary shadow-sm ring-1 ring-primary/30"
                                   : "text-muted-foreground hover:text-foreground"
@@ -2050,7 +2055,7 @@ export default function Result() {
                             key={chip.key}
                             type="button"
                             onClick={() => setReviewFilter(chip.key)}
-                            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
+                            className={`inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold transition ${
                               reviewFilter === chip.key
                                 ? "border-primary bg-primary text-primary-foreground"
                                 : "border-border bg-background text-foreground hover:bg-muted"

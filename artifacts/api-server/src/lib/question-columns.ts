@@ -15,6 +15,10 @@ export type QuestionColumnState = {
   hasTextPa: boolean;
   hasOptionsPa: boolean;
   hasExplanationPa: boolean;
+  hasPatternId: boolean;
+  hasProceduralLogic: boolean;
+  hasMotifs: boolean;
+  hasLanguages: boolean;
   hasSeatingDiagram: boolean;
   hasSeatingExplanationFlow: boolean;
   hasImageUrl: boolean;
@@ -51,6 +55,10 @@ export async function getQuestionColumnState(): Promise<QuestionColumnState> {
         hasTextPa: names.has("text_pa"),
         hasOptionsPa: names.has("options_pa"),
         hasExplanationPa: names.has("explanation_pa"),
+        hasPatternId: names.has("pattern_id"),
+        hasProceduralLogic: names.has("procedural_logic"),
+        hasMotifs: names.has("motifs"),
+        hasLanguages: names.has("languages"),
         hasSeatingDiagram: names.has("seating_diagram"),
         hasSeatingExplanationFlow: names.has("seating_explanation_flow"),
         hasImageUrl: names.has("image_url"),
@@ -86,6 +94,10 @@ export function buildQuestionSelectSql(columns: QuestionColumnState) {
       columns.hasTextPa ? sql`text_pa` : sql`NULL::text AS text_pa`,
       columns.hasOptionsPa ? sql`options_pa` : sql`NULL::jsonb AS options_pa`,
       columns.hasExplanationPa ? sql`explanation_pa` : sql`NULL::text AS explanation_pa`,
+      columns.hasPatternId ? sql`pattern_id` : sql`NULL::text AS pattern_id`,
+      columns.hasProceduralLogic ? sql`procedural_logic` : sql`NULL::jsonb AS procedural_logic`,
+      columns.hasMotifs ? sql`motifs` : sql`NULL::jsonb AS motifs`,
+      columns.hasLanguages ? sql`languages` : sql`NULL::jsonb AS languages`,
       columns.hasSeatingDiagram ? sql`seating_diagram` : sql`NULL::jsonb AS seating_diagram`,
       columns.hasSeatingExplanationFlow ? sql`seating_explanation_flow` : sql`NULL::jsonb AS seating_explanation_flow`,
       columns.hasImageUrl ? sql`image_url` : sql`NULL::text AS image_url`,

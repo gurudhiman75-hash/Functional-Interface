@@ -7,11 +7,8 @@ import {
   Eye,
   EyeOff,
   ArrowLeft,
-  ShieldCheck,
-  GraduationCap,
-  Sparkles,
-  KeyRound,
-  UserPlus,
+  Apple,
+  Chrome,
 } from "lucide-react";
 import { getFirebaseAuth } from "@/lib/firebase";
 import {
@@ -76,8 +73,15 @@ export default function Login() {
   const [name, setName] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [capsLockActive, setCapsLockActive] = useState(false);
   const { toast } = useToast();
   const isAdminMode = false;
+
+  const passwordStrength = Math.min(
+    100,
+    [password.length >= 8, /[A-Z]/.test(password), /\d/.test(password), /[^A-Za-z0-9]/.test(password)].filter(Boolean)
+      .length * 25,
+  );
 
   useEffect(() => {
     if (isAdminMode) {
@@ -258,100 +262,34 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      <div className="absolute inset-0 aurora-bg opacity-20" />
-      <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-        <section className="rounded-xl border border-border/70 bg-card p-8 shadow-sm lg:p-10">
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <p className={`text-xs font-semibold uppercase tracking-[0.3em] ${isAdminMode ? "text-amber-700" : "text-primary/80"}`}>
-                {isAdminMode ? "Admin Console" : "Student Portal"}
-              </p>
-              <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground">
-                {isAdminMode ? "Secure admin access" : "Practice smarter every day"}
-              </h1>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                {isAdminMode
-                  ? "Use the admin credentials to manage tests, sections, and question banks from a dedicated workspace."
-                  : "Sign in to continue mock tests, review recent attempts, and keep your preparation streak moving."}
-              </p>
-            </div>
-            <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-[1.5rem] ${isAdminMode ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
-              {isAdminMode ? <ShieldCheck className="w-7 h-7" /> : <GraduationCap className="w-7 h-7" />}
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            {(isAdminMode
-              ? [
-                  { icon: <KeyRound className="w-4 h-4" />, title: "Dedicated entry", desc: "Separate login path for admin users." },
-                  { icon: <ShieldCheck className="w-4 h-4" />, title: "Role guard", desc: "Non-admin accounts stay out of the console." },
-                  { icon: <Sparkles className="w-4 h-4" />, title: "Faster ops", desc: "Jump straight into test management." },
-                ]
-              : [
-                  { icon: <GraduationCap className="w-4 h-4" />, title: "Exam-ready", desc: "Mock tests with a clearer interface." },
-                  { icon: <BookOpen className="w-4 h-4" />, title: "Progress view", desc: "Dashboard and attempts in one flow." },
-                  { icon: <UserPlus className="w-4 h-4" />, title: "Easy onboarding", desc: "Sign up or continue with Google." },
-                ]).map((item) => (
-              <div key={item.title} className="rounded-2xl border border-white/60 bg-white/70 p-4 shadow-sm">
-                <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${isAdminMode ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
-                  {item.icon}
-                </div>
-                <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-xl border border-border/70 bg-muted/80 p-6 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55">
-              {isAdminMode ? "Admin readiness" : "Student momentum"}
-            </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {(isAdminMode
-                ? [
-                    { title: "Manage tests", value: "Create and organize categories, sections, and timing rules." },
-                    { title: "Question ops", value: "Upload, review, and maintain the question bank faster." },
-                  ]
-                : [
-                    { title: "Mock practice", value: "Start tests quickly and keep navigation focused." },
-                    { title: "Review flow", value: "Track answers, flags, and timing with less friction." },
-                  ]).map((item) => (
-                <div key={item.title} className="rounded-2xl bg-white/8 p-4">
-                  <p className="text-sm font-semibold text-white">{item.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-white/70">{item.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="rounded-xl border border-border/70 bg-card p-8 shadow-sm">
+    <div className="relative min-h-screen overflow-hidden bg-zinc-50 dark:bg-slate-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(79,70,229,0.14),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(15,23,42,0.10),transparent_25%),linear-gradient(180deg,rgba(255,255,255,0.8),rgba(250,250,250,1))] dark:bg-[radial-gradient(circle_at_20%_10%,rgba(99,102,241,0.18),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.10),transparent_25%),linear-gradient(180deg,#020617,#020617)]" />
+      <div className="relative mx-auto flex min-h-screen max-w-md items-center px-4 py-10">
+        <section className="w-full rounded-md border border-zinc-200 bg-white p-7 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${isAdminMode ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
+              <div className="flex h-10 w-10 items-center justify-center rounded-md border border-indigo-500/25 bg-indigo-600 text-white">
                 <BookOpen className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-foreground">{isAdminMode ? "Admin Sign In" : "Student Access"}</h2>
-                <p className="text-sm text-muted-foreground">{isAdminMode ? "Restricted role-based login" : "Login or create a new account"}</p>
+                <h1 className="text-xl font-semibold tracking-tight text-foreground">Welcome to examtree</h1>
+                <p className="text-sm text-muted-foreground">Continue your exam workspace</p>
               </div>
             </div>
-            {!isAdminMode ? null : <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Restricted</div>}
           </div>
 
           {!isAdminMode && (
-            <div className="mb-6 flex rounded-2xl border border-white/70 bg-white/70 p-1.5">
+            <div className="mb-6 flex rounded-md border border-zinc-200 bg-zinc-50 p-1 dark:border-slate-800 dark:bg-slate-950">
               <button
                 onClick={() => setTab("login")}
-                className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${tab === "login" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+                className={`flex-1 rounded-md px-4 py-2 text-sm font-semibold transition ${tab === "login" ? "bg-white text-foreground shadow-sm dark:bg-slate-900" : "text-muted-foreground"}`}
                 data-testid="tab-login"
               >
                 Login
               </button>
               <button
                 onClick={() => setTab("signup")}
-                className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${tab === "signup" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+                className={`flex-1 rounded-md px-4 py-2 text-sm font-semibold transition ${tab === "signup" ? "bg-white text-foreground shadow-sm dark:bg-slate-900" : "text-muted-foreground"}`}
                 data-testid="tab-signup"
               >
                 Sign Up
@@ -403,6 +341,7 @@ export default function Login() {
                   className="pl-10 pr-10"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyUp={(e) => setCapsLockActive(e.getModifierState("CapsLock"))}
                   required
                   data-testid="input-password"
                 />
@@ -414,7 +353,16 @@ export default function Login() {
                 >
                   {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
+                <div className="absolute inset-x-0 bottom-0 h-0.5 overflow-hidden rounded-b-md bg-zinc-200 dark:bg-slate-800">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      capsLockActive ? "bg-rose-500" : passwordStrength >= 75 ? "bg-emerald-500" : "bg-indigo-600"
+                    }`}
+                    style={{ width: `${password ? passwordStrength : 0}%` }}
+                  />
+                </div>
               </div>
+              {capsLockActive && <p className="text-xs font-medium text-rose-500">Caps lock is active.</p>}
             </div>
 
             {tab === "login" && (
@@ -431,48 +379,55 @@ export default function Login() {
               </div>
             )}
 
-            <Button type="submit" className="w-full rounded-2xl py-6 text-sm shadow-[0_20px_40px_-24px_hsl(var(--primary)/0.8)]" disabled={loading} data-testid="btn-submit">
+            <Button type="submit" className="w-full rounded-md bg-indigo-600 py-5 text-sm font-semibold text-white hover:bg-indigo-700" disabled={loading} data-testid="btn-submit">
               {loading ? "Please wait..." : isAdminMode ? "Enter Admin Console" : tab === "login" ? "Login to Account" : "Create Account"}
             </Button>
             {!isAdminMode && (
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full rounded-2xl py-6 bg-white/75"
-                onClick={handleGoogleLogin}
-                disabled={loading}
-                data-testid="btn-google-login"
-              >
-                {tab === "signup" ? "Sign Up with Google" : "Continue with Google"}
-              </Button>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-md py-5"
+                  onClick={handleGoogleLogin}
+                  disabled={loading}
+                  data-testid="btn-google-login"
+                >
+                  <Chrome className="mr-2 h-4 w-4" />
+                  Google
+                </Button>
+                <Button type="button" variant="outline" className="rounded-md py-5" disabled>
+                  <Apple className="mr-2 h-4 w-4" />
+                  Apple
+                </Button>
+              </div>
             )}
           </form>
 
           {isAdminMode ? (
-            <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <div className="mt-6 rounded-md border border-amber-200 bg-amber-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">Restricted Access</p>
               <p className="mt-2 text-sm text-amber-900">
                 Admin access is granted only to accounts already marked as administrators in the backend profile store.
               </p>
             </div>
           ) : (
-            <div className="mt-6 rounded-2xl border border-primary/10 bg-primary/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary/80">Student benefits</p>
+            <div className="mt-6 rounded-md border border-indigo-500/15 bg-indigo-500/5 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600">Workspace access</p>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl bg-white/70 p-4">
-                  <p className="text-sm font-semibold text-foreground">Start faster</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Google sign-in or email signup keeps onboarding simple.</p>
+                <div className="rounded-md bg-white p-3 dark:bg-slate-950">
+                  <p className="text-sm font-semibold text-foreground">Concept Mastery</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Resume your latest logic pattern quickly.</p>
                 </div>
-                <div className="rounded-2xl bg-white/70 p-4">
-                  <p className="text-sm font-semibold text-foreground">Stay focused</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Cleaner navigation across tests, dashboard, and results.</p>
+                <div className="rounded-md bg-white p-3 dark:bg-slate-950">
+                  <p className="text-sm font-semibold text-foreground">Practice History</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Keep attempts and results connected.</p>
                 </div>
               </div>
             </div>
           )}
 
           {!getFirebaseAuth() && (
-            <div className="mt-6 rounded-2xl border border-dashed border-border bg-muted/40 p-4">
+            <div className="mt-6 rounded-md border border-dashed border-border bg-muted/40 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 Development mode
               </p>

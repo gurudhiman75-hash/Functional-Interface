@@ -1,61 +1,65 @@
 import { useMemo, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { BookOpen, ChevronRight, Files, Layers3, Search, Target } from "lucide-react";
-import { getRuntimeExamGroups } from "@/lib/test-bank";
+import { ClipboardList, Clock3, Lock, Search, Unlock } from "lucide-react";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { API_BASE_URL } from "@/lib/api";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
+import { Input } from "@/components/ui/input";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
-const CATEGORY_STYLES: Record<string, string> = {
-  blue: "linear-gradient(to right, #0ea5e9, #3b82f6, #6366f1)",
-  emerald: "linear-gradient(to right, #10b981, #14b8a6, #06b6d4)",
-  violet: "linear-gradient(to right, #8b5cf6, #d946ef, #ec4899)",
-  amber: "linear-gradient(to right, #f59e0b, #f97316, #f43f5e)",
-  orange: "linear-gradient(to right, #f97316, #f59e0b, #eab308)",
-  rose: "linear-gradient(to right, #f43f5e, #ec4899, #d946ef)",
-  indigo: "linear-gradient(to right, #6366f1, #3b82f6, #06b6d4)",
-  red: "linear-gradient(to right, #ef4444, #f43f5e, #f97316)",
-};
+type CatalogTest = ReturnType<typeof useExamCatalog>["tests"][number];
+
+const categoryNames = ["Banking", "SSC", "Management", "Punjab", "Teaching", "Computer"];
+
+function getReasoningLevel(test: CatalogTest) {
+  const difficulty = String(test.difficulty ?? "").toLowerCase();
+  if (difficulty.includes("hard")) return 5;
+  if (difficulty.includes("medium")) return 3;
+  return 2;
+}
 
 export default function Tests() {
   const [, setLocation] = useLocation();
-  const [search, setSearch] = useState("");
-  const queryClient = useQueryClient();
-  const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
+  const { tests, subcategories, isLoading, error } = useExamCatalog();
+  const [query, setQuery] = useState("");
+  const [activeSubcategory, setActiveSubcategory] = useState<string>("all");
+  const [selectedTest, setSelectedTest] = useState<CatalogTest | null>(null);
 
-  const handleRefresh = async () => {
-    await queryClient.invalidateQueries({ queryKey: ["exam-catalog"] });
-  };
+  const subcategoryList = useMemo(() => {
+    const fromCatalog = subcategories.map((item) => ({
+      id: item.id,
+      name: item.name,
+      count: tests.filter((test) => test.subcategoryId === item.id || test.subcategoryName === item.name).length,
+    }));
+    return [{ id: "all", name: "All Exams", count: tests.length }, ...fromCatalog.filter((item) => item.count > 0)];
+  }, [subcategories, tests]);
 
-  const categoryCards = useMemo(() => (
-    categories.map((category) => {
-      const exams = getRuntimeExamGroups(category.id, categories, tests, subcategories);
-      return {
-        ...category,
-        totalExams: exams.length,
-        totalFullLength: exams.reduce((sum, exam) => sum + exam.fullLengthCount, 0),
-        totalSectional: exams.reduce((sum, exam) => sum + exam.sectionalCount, 0),
-        totalTopicWise: exams.reduce((sum, exam) => sum + exam.topicWiseCount, 0),
-      };
-    })
-  ), [categories, tests]);
-
-  const filteredCategories = categoryCards.filter((category) => {
-    const query = search.trim().toLowerCase();
-    if (!query) return true;
-    return category.name.toLowerCase().includes(query) || category.description.toLowerCase().includes(query);
-  });
-
-  const totalExams = categoryCards.reduce((sum, category) => sum + category.totalExams, 0);
-  const totalTests = categoryCards.reduce((sum, category) => sum + category.testsCount, 0);
+  const filteredTests = useMemo(() => {
+    const normalized = query.trim().toLowerCase();
+    return tests.filter((test) => {
+      const matchesQuery =
+        !normalized ||
+        test.name.toLowerCase().includes(normalized) ||
+        test.category.toLowerCase().includes(normalized) ||
+        (test.subcategoryName ?? "").toLowerCase().includes(normalized);
+      const matchesSubcategory =
+        activeSubcategory === "all" ||
+        test.subcategoryId === activeSubcategory ||
+        subcategories.find((item) => item.id === activeSubcategory)?.name === test.subcategoryName;
+      return matchesQuery && matchesSubcategory;
+    });
+  }, [activeSubcategory, query, subcategories, tests]);
 
   if (error) {
     return (
       <div className="mx-auto max-w-lg px-4 py-24 text-center">
-        <h1 className="text-xl font-semibold text-foreground">Could not load exams</h1>
+        <h1 className="text-xl font-semibold text-foreground">Could not load tests and exams</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           API expected at <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
         </p>
@@ -65,147 +69,192 @@ export default function Tests() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-7xl animate-pulse px-4 py-12">
-        <div className="h-10 w-1/2 rounded-xl bg-muted" />
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="h-48 rounded-2xl bg-muted" />
-          <div className="h-48 rounded-2xl bg-muted" />
-          <div className="h-48 rounded-2xl bg-muted" />
+      <div className="mx-auto max-w-7xl space-y-5 px-4 py-8">
+        <div className="skeleton-shimmer h-12 w-80 rounded-md" />
+        <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
+          <div className="skeleton-shimmer h-[560px] rounded-md" />
+          <div className="skeleton-shimmer h-[560px] rounded-md" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
-
-      {/* Hero banner */}
-      <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="rounded-2xl overflow-hidden border border-sky-100 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-6 py-7 shadow-sm">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <div>
-                <div className="inline-flex items-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-3 py-1 mb-3">
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">Exam Catalog</span>
-                </div>
-                <h1 className="text-[34px] font-black tracking-tight text-foreground leading-tight sm:text-[42px]">
-                  Choose your exam category
-                </h1>
-                <p className="mt-2 text-[17px] leading-[1.7] text-slate-500 max-w-2xl">
-                  Browse categories and start practicing mock tests tailored to your exam goals.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[14px] font-semibold text-slate-700">
-                    <Layers3 className="h-3.5 w-3.5 text-primary/70" />{categories.length} categories
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[14px] font-semibold text-slate-700">
-                    <Files className="h-3.5 w-3.5 text-primary/70" />{totalExams} exams
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 text-[14px] font-semibold text-slate-700">
-                    <Files className="h-3.5 w-3.5 text-primary/70" />{totalTests} mock tests
-                  </span>
-                </div>
-              </div>
-
-              {/* Search */}
-              <div className="w-full lg:w-80 shrink-0">
-                <div className="relative">
-                  <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  <Input
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    placeholder="Search categories..."
-                    className="h-11 rounded-xl border-slate-200 bg-white pl-10 text-[15px] shadow-sm placeholder:text-slate-400"
-                  />
-                </div>
-              </div>
-            </div>
+    <div className="mx-auto max-w-7xl space-y-6">
+      <section className="data-card p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="professional-badge mb-3">Tests & Exams</p>
+            <h1 className="text-3xl font-semibold tracking-tight">Choose an exam blueprint</h1>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              Browse categories, compare timing and access, then open the side blueprint before starting.
+            </p>
+          </div>
+          <div className="relative w-full lg:w-96">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search for an exam or topic..."
+              className="h-10 rounded-md pl-9"
+            />
           </div>
         </div>
-      </div>
+      </section>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {filteredCategories.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-border/60 px-6 py-14 text-center">
-            <BookOpen className="mx-auto h-10 w-10 text-muted-foreground/60" />
-            <h2 className="mt-4 text-[18px] font-semibold text-foreground">No category matched your search</h2>
-            <p className="mt-2 text-[15px] text-muted-foreground">Try a broader keyword or clear the search to see all exam categories.</p>
+      <section className="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
+        {categoryNames.map((category) => {
+          const count = tests.filter((test) => test.category.toLowerCase().includes(category.toLowerCase())).length;
+          return (
+            <button
+              key={category}
+              type="button"
+              onClick={() => setQuery(category)}
+              className="rounded-md border border-zinc-200 bg-white p-4 text-left transition hover:border-indigo-500/35 hover:bg-indigo-50/40 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
+            >
+              <ClipboardList className="mb-3 h-5 w-5 text-zinc-500" />
+              <p className="text-sm font-semibold">{category}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{count} available</p>
+            </button>
+          );
+        })}
+      </section>
+
+      <section className="grid min-h-[560px] overflow-hidden rounded-md border border-zinc-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:grid-cols-[25%_75%]">
+        <aside className="border-b border-zinc-200 bg-zinc-50 p-3 dark:border-slate-800 dark:bg-slate-950 lg:border-b-0 lg:border-r">
+          <p className="mb-3 px-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Sub-categories
+          </p>
+          <div className="space-y-1">
+            {subcategoryList.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActiveSubcategory(item.id)}
+                className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm transition ${
+                  activeSubcategory === item.id
+                    ? "bg-white font-semibold text-indigo-600 shadow-sm dark:bg-slate-900 dark:text-indigo-300"
+                    : "text-muted-foreground hover:bg-white/70 hover:text-foreground dark:hover:bg-slate-900"
+                }`}
+              >
+                <span className="truncate">{item.name}</span>
+                <span className="text-xs tabular-nums">{item.count}</span>
+              </button>
+            ))}
           </div>
-        ) : (
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {filteredCategories.map((category) => {
-              const gradient = CATEGORY_STYLES[category.color] ?? CATEGORY_STYLES.blue;
-              return (
-                <article
-                  key={category.id}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)] cursor-pointer"
-                  onClick={() => setLocation(`/category/${category.id}`)}
-                >
-                  {/* Gradient top strip */}
-                  <div className="h-1.5 w-full" style={{ backgroundImage: gradient }} />
+        </aside>
 
-                  <div className="flex flex-1 flex-col p-5 gap-3.5">
-                    {/* Icon + badge */}
-                    <div className="flex items-start justify-between gap-3">
-                      <div
-                        className={`flex h-11 w-11 items-center justify-center rounded-xl shadow-sm ${isImageIcon(category.icon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
-                        style={isImageIcon(category.icon) ? undefined : { backgroundImage: gradient }}
-                      >
-                        <CategoryIcon icon={category.icon} className="h-5 w-5" />
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] text-sm">
+            <thead className="border-b border-slate-800 bg-slate-900 text-xs uppercase tracking-[0.14em] text-white">
+              <tr>
+                <th className="px-4 py-3 text-left font-semibold">Exam Name</th>
+                <th className="px-4 py-3 text-left font-semibold">Reasoning Level</th>
+                <th className="px-4 py-3 text-left font-semibold">Questions</th>
+                <th className="px-4 py-3 text-left font-semibold">Time</th>
+                <th className="px-4 py-3 text-left font-semibold">Access</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredTests.map((test) => {
+                const isPaid = (test.access ?? "free") !== "free";
+                return (
+                  <tr
+                    key={test.id}
+                    className="cursor-pointer border-b border-zinc-100 transition hover:bg-indigo-50/45 dark:border-slate-800 dark:hover:bg-slate-800/60"
+                    onClick={() => setSelectedTest(test)}
+                  >
+                    <td className="px-4 py-3">
+                      <p className="font-medium text-foreground">{test.name}</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{test.category} / {test.subcategoryName ?? "General"}</p>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-1">
+                        {Array.from({ length: 5 }).map((_, index) => (
+                          <span
+                            key={index}
+                            className={`h-1.5 w-5 rounded-sm ${index < getReasoningLevel(test) ? "bg-indigo-600" : "bg-zinc-200 dark:bg-slate-700"}`}
+                          />
+                        ))}
                       </div>
-                      <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[12px] font-semibold text-blue-600">
-                        Latest Pattern
+                    </td>
+                    <td className="px-4 py-3 tabular-nums">{test.totalQuestions}</td>
+                    <td className="px-4 py-3">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Clock3 className="h-3.5 w-3.5 text-muted-foreground" />
+                        {test.duration} min
                       </span>
-                    </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-semibold ${
+                        isPaid
+                          ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-600"
+                          : "border-emerald-500/30 bg-emerald-500/10 text-emerald-600"
+                      }`}>
+                        {isPaid ? <Lock className="h-3 w-3" /> : <Unlock className="h-3 w-3" />}
+                        {isPaid ? "Paid" : "Free"}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+              {filteredTests.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-16 text-center text-muted-foreground">
+                    No exams matched your filters.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-                    {/* Title + description */}
-                    <div>
-                      <h2 className="text-[20px] font-bold text-slate-800 leading-snug">{category.name}</h2>
-                      <p className="mt-1.5 text-[14px] leading-[1.6] text-slate-500 line-clamp-2">
-                        {category.description}
-                      </p>
-                    </div>
-
-                    {/* Stats grid */}
-                    <div className="grid grid-cols-2 gap-2 text-[13px]">
-                      <div className="rounded-xl bg-slate-50 px-3 py-2.5">
-                        <p className="text-slate-400 text-[11px] font-medium uppercase tracking-wide">Exams</p>
-                        <p className="mt-0.5 text-[18px] font-black text-slate-800">{category.totalExams}</p>
-                      </div>
-                      <div className="rounded-xl bg-slate-50 px-3 py-2.5">
-                        <p className="text-slate-400 text-[11px] font-medium uppercase tracking-wide">Total Tests</p>
-                        <p className="mt-0.5 text-[18px] font-black text-slate-800">{category.testsCount}</p>
-                      </div>
-                      <div className="rounded-xl bg-slate-50 px-3 py-2.5">
-                        <p className="text-slate-400 text-[11px] font-medium uppercase tracking-wide">Full Length</p>
-                        <p className="mt-0.5 text-[18px] font-black text-slate-800">{category.totalFullLength}</p>
-                      </div>
-                      <div className="rounded-xl bg-slate-50 px-3 py-2.5">
-                        <p className="text-slate-400 text-[11px] font-medium uppercase tracking-wide">Sectional</p>
-                        <p className="mt-0.5 text-[18px] font-black text-slate-800">{category.totalSectional}</p>
-                      </div>
-                    </div>
+      <Sheet open={Boolean(selectedTest)} onOpenChange={(open) => !open && setSelectedTest(null)}>
+        <SheetContent side="right" className="w-full border-l border-zinc-200 sm:max-w-md">
+          {selectedTest && (
+            <>
+              <SheetHeader>
+                <SheetTitle>Exam Blueprint</SheetTitle>
+                <SheetDescription>{selectedTest.category} / {selectedTest.subcategoryName ?? "General"}</SheetDescription>
+              </SheetHeader>
+              <div className="mt-6 space-y-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Exam Name</p>
+                  <h2 className="mt-2 text-xl font-semibold">{selectedTest.name}</h2>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-md border border-border p-3">
+                    <p className="text-xs text-muted-foreground">Questions</p>
+                    <p className="mt-1 text-2xl font-semibold">{selectedTest.totalQuestions}</p>
                   </div>
-
-                  {/* CTA footer */}
-                  <div className="border-t border-slate-100 bg-slate-50 px-5 py-3.5">
-                    <Button
-                      className="w-full rounded-xl text-[15px] font-semibold shadow-none h-10"
-                      onClick={(e) => { e.stopPropagation(); setLocation(`/category/${category.id}`); }}
-                      data-testid={`btn-open-category-${category.id}`}
-                    >
-                      View Exams
-                      <ChevronRight className="ml-1.5 h-4 w-4" />
-                    </Button>
+                  <div className="rounded-md border border-border p-3">
+                    <p className="text-xs text-muted-foreground">Time</p>
+                    <p className="mt-1 text-2xl font-semibold">{selectedTest.duration}m</p>
                   </div>
-                </article>
-              );
-            })}
-          </div>
-        )}
-      </main>
+                </div>
+                <div className="rounded-md border border-border p-3">
+                  <p className="text-xs text-muted-foreground">Reasoning Level</p>
+                  <div className="mt-3 flex gap-1">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <span
+                        key={index}
+                        className={`h-2 flex-1 rounded-sm ${index < getReasoningLevel(selectedTest) ? "bg-indigo-600" : "bg-zinc-200 dark:bg-slate-700"}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <Button
+                  className="w-full rounded-md bg-indigo-600 hover:bg-indigo-700"
+                  onClick={() => setLocation(`/test/${selectedTest.id}`)}
+                >
+                  Start Test
+                </Button>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
-
-

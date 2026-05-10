@@ -171,6 +171,11 @@ export const questions = pgTable("questions", {
   textPa: text("text_pa"),
   optionsPa: jsonb("options_pa"),
   explanationPa: text("explanation_pa"),
+  /** Procedural generation metadata: keeps the original logic alongside finalized text */
+  patternId: text("pattern_id"),
+  proceduralLogic: jsonb("procedural_logic"),
+  motifs: jsonb("motifs"),
+  languages: jsonb("languages"),
   seatingDiagram: jsonb("seating_diagram"),
   seatingExplanationFlow: jsonb("seating_explanation_flow"),
   /** Optional image URL (Firebase Storage) to display above question text */

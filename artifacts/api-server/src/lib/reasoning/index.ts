@@ -5,6 +5,7 @@ export * from "./coding-decoding";
 export * from "./constraint-diagram";
 export * from "./critical-inference";
 export * from "./direction-sense";
+export * from "./entity-registry";
 export * from "./inequality";
 export * from "./logic-archetypes";
 export * from "./pattern-inference";

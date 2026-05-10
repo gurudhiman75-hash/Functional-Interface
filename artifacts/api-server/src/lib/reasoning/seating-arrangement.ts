@@ -8,6 +8,7 @@ import { seatingArrangementMotifs } from "../motifs/seating-arrangement";
 import {
   createAnySeatingScenario,
   createLinearSeatingScenario,
+  type SeatingScenarioOptions,
 } from "./seating-engine";
 import {
   buildSeatingExplanation,
@@ -41,6 +42,7 @@ export function createSeatingScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   pattern?: Pattern,
+  options: SeatingScenarioOptions = {},
 ) {
   const canFallbackToLinear =
     allowsLinearFallback(pattern);
@@ -50,6 +52,7 @@ export function createSeatingScenario(
       motif,
       difficulty,
       pattern,
+      options,
     );
   } catch {
     if (canFallbackToLinear) {
@@ -59,6 +62,7 @@ export function createSeatingScenario(
             motif,
             difficulty,
             pattern,
+            options,
           );
 
         return {
@@ -114,11 +118,13 @@ export function createSeatingScenario(
                 safeMotif,
                 safeDifficulty,
                 pattern,
+                options,
               )
               : createAnySeatingScenario(
                 safeMotif,
                 safeDifficulty,
                 pattern,
+                options,
               );
 
           return {
@@ -148,6 +154,7 @@ export function createSeatingScenario(
       lastResortMotif,
       "Easy",
       pattern,
+      options,
     );
 
   return {

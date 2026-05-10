@@ -115,16 +115,16 @@ component={() => renderRoute(AdminGenerator)}
 
 function RouteSkeleton() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="examtree-shell min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="animate-pulse space-y-5">
-          <div className="h-12 w-48 rounded-2xl bg-muted" />
+        <div className="space-y-5">
+          <div className="skeleton-shimmer h-12 w-48 rounded-md" />
           <div className="grid gap-4 md:grid-cols-3">
-            <div className="h-40 rounded-3xl bg-muted" />
-            <div className="h-40 rounded-3xl bg-muted" />
-            <div className="h-40 rounded-3xl bg-muted" />
+            <div className="skeleton-shimmer h-40 rounded-md" />
+            <div className="skeleton-shimmer h-40 rounded-md" />
+            <div className="skeleton-shimmer h-40 rounded-md" />
           </div>
-          <div className="h-72 rounded-3xl bg-muted" />
+          <div className="skeleton-shimmer h-72 rounded-md" />
         </div>
       </div>
     </div>

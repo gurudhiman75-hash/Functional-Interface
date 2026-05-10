@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { getPackages, Package } from "@/lib/data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AlertCircle, Check, CreditCard } from "lucide-react";
+import { getPackages, type Package } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { AlertCircle, ArrowRight, Check, Lock, ShoppingCart, Sparkles, Star, Trophy, Zap } from "lucide-react";
 
-// Free vs Package comparison rows
 const COMPARISON_ROWS = [
-  { label: "Mock tests", free: "2–3 per category", paid: "Full series (all tests)" },
-  { label: "Detailed analytics", free: "Basic score", paid: "Section trends & weak areas" },
-  { label: "Solutions & explanations", free: "✓", paid: "✓" },
-  { label: "Retake tests", free: "✓", paid: "✓" },
-  { label: "Priority access", free: "✗", paid: "New tests added first" },
-  { label: "Progress tracking", free: "Limited", paid: "Full history & leaderboard" },
+  { feature: "Mock test access", free: "Limited free tests", paid: "Full test series" },
+  { feature: "Reasoning Logic Playback", free: "Sample access", paid: "Full access" },
+  { feature: "Step-by-Step Reasoning", free: "Available after attempts", paid: "Available across all tests" },
+  { feature: "Performance Analytics", free: "Basic score summary", paid: "Detailed diagnostic dashboard" },
+  { feature: "Practice History", free: "Recent attempts", paid: "Full history and trends" },
 ];
 
 export default function PackagesPage() {
@@ -26,7 +22,6 @@ export default function PackagesPage() {
       try {
         setLoading(true);
         const data = await getPackages();
-        // Sort: popular first, then by order
         setPackages(data.sort((a, b) => (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0) || a.order - b.order));
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load packages");
@@ -34,238 +29,127 @@ export default function PackagesPage() {
         setLoading(false);
       }
     };
-    fetchPackages();
+    void fetchPackages();
   }, []);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      <div className="mx-auto max-w-6xl space-y-5 px-4 py-10">
+        <div className="skeleton-shimmer h-12 w-72 rounded-md" />
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="skeleton-shimmer h-80 rounded-md" />
+          <div className="skeleton-shimmer h-80 rounded-md" />
+          <div className="skeleton-shimmer h-80 rounded-md" />
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="max-w-4xl mx-auto p-4">
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
-          <AlertCircle className="text-red-600 mt-0.5 shrink-0" size={20} />
-          <span className="text-red-700">{error}</span>
+      <div className="mx-auto max-w-4xl p-4">
+        <div className="flex items-start gap-3 rounded-md border border-rose-200 bg-rose-50 p-4">
+          <AlertCircle className="mt-0.5 shrink-0 text-rose-600" size={20} />
+          <span className="text-rose-700">{error}</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-background dark:to-background">
-      <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 space-y-16">
-
-        {/* ── Hero ── */}
-        <div className="text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Unlock your full potential
+    <div className="mx-auto max-w-6xl space-y-10">
+      <section className="data-card p-6">
+        <p className="professional-badge mb-3">Packages</p>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight">All-access test preparation</h1>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              Unlock full mock series, detailed analytics, and complete reasoning playback for serious preparation.
+            </p>
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-foreground mb-3">
-            Test Packages
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Get the complete mock test series for your exam — at a fraction of the cost.<br />
-            Practice more, score higher.
-          </p>
+          <CreditCard className="hidden h-8 w-8 text-indigo-600 lg:block" />
         </div>
+      </section>
 
-        {/* ── Package Cards ── */}
-        {packages.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">No packages available yet — check back soon.</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-            {packages.map((pkg) => {
-              const testCount = pkg.tests?.length ?? pkg.testCount ?? 0;
-              const perTestPrice = testCount > 0
-                ? (pkg.finalPriceCents / testCount / 100).toFixed(0)
-                : null;
-              const savingsAmount = pkg.originalPriceCents && pkg.originalPriceCents > pkg.finalPriceCents
-                ? pkg.originalPriceCents - pkg.finalPriceCents
-                : 0;
-
-              return (
-                <div
-                  key={pkg.id}
-                  className={`relative flex flex-col rounded-2xl border shadow-sm transition-shadow hover:shadow-md bg-card ${
-                    pkg.isPopular
-                      ? "border-primary ring-2 ring-primary/30 dark:ring-primary/40"
-                      : "border-border/70"
-                  }`}
-                >
-                  {/* Most Popular ribbon */}
-                  {Boolean(pkg.isPopular) && (
-                    <div className="absolute -top-3.5 inset-x-0 flex justify-center">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1 text-xs font-bold text-primary-foreground shadow">
-                        <Star className="w-3 h-3 fill-current" />
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <div className={`p-6 ${pkg.isPopular ? "pt-7" : ""}`}>
-                    {/* Name + description */}
-                    <h2 className="text-xl font-bold text-foreground mb-1">{pkg.name}</h2>
-                    {pkg.description && (
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{pkg.description}</p>
-                    )}
-
-                    {/* Value statement — "50 tests for ₹199" */}
-                    <div className="rounded-xl bg-primary/5 border border-primary/15 px-4 py-3 mb-5">
-                      <p className="text-sm font-semibold text-primary">
-                        {testCount > 0
-                          ? `${testCount} mock test${testCount !== 1 ? "s" : ""} for ₹${(pkg.finalPriceCents / 100).toLocaleString("en-IN")}`
-                          : `Full test series for ₹${(pkg.finalPriceCents / 100).toLocaleString("en-IN")}`}
-                      </p>
-                      {perTestPrice && (
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                          Just ₹{perTestPrice} per test — less than a cup of tea
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Pricing */}
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-3xl font-extrabold text-foreground">
-                        ₹{(pkg.finalPriceCents / 100).toLocaleString("en-IN")}
-                      </span>
-                      {pkg.discountPercent > 0 && (
-                        <span className="text-base text-muted-foreground line-through">
-                          ₹{(pkg.originalPriceCents / 100).toLocaleString("en-IN")}
-                        </span>
-                      )}
-                    </div>
-                    {pkg.discountPercent > 0 && (
-                      <div className="flex items-center gap-2 mb-5">
-                        <span className="rounded-full bg-emerald-100 dark:bg-emerald-900/30 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
-                          {pkg.discountPercent}% off
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          You save ₹{(savingsAmount / 100).toLocaleString("en-IN")}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Test count badge */}
-                    {testCount > 0 && (
-                      <div className="flex items-center gap-1.5 mb-5">
-                        <Trophy className="w-4 h-4 text-amber-500" />
-                        <span className="text-sm font-semibold text-foreground">{testCount} tests included</span>
-                      </div>
-                    )}
-
-                    {/* Top 5 tests preview */}
-                    {pkg.tests && pkg.tests.length > 0 && (
-                      <ul className="space-y-1.5 mb-5">
-                        {pkg.tests.slice(0, 5).map((test) => (
-                          <li key={test.testId} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                            <span className="truncate">{test.testName}</span>
-                          </li>
-                        ))}
-                        {pkg.tests.length > 5 && (
-                          <li className="text-xs text-primary font-medium pl-5">
-                            + {pkg.tests.length - 5} more tests
-                          </li>
-                        )}
-                      </ul>
-                    )}
-
-                    {/* Features */}
-                    {pkg.features && pkg.features.length > 0 && (
-                      <ul className="space-y-1 mb-5 border-t pt-4">
-                        {pkg.features.map((f, i) => (
-                          <li key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <Zap className="w-3 h-3 text-primary shrink-0" />
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {/* CTA */}
-                    <Link href={`/packages/${pkg.id}`}>
-                      <Button
-                        className={`w-full gap-2 text-base py-5 ${
-                          pkg.isPopular
-                            ? "bg-primary hover:bg-primary/90 shadow-md"
-                            : ""
-                        }`}
-                        size="lg"
-                      >
-                        <ShoppingCart className="w-4 h-4" />
-                        Get this package
-                        <ArrowRight className="w-4 h-4 ml-auto" />
-                      </Button>
-                    </Link>
+      {packages.length === 0 ? (
+        <div className="data-card py-14 text-center text-muted-foreground">No packages available yet.</div>
+      ) : (
+        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {packages.map((pkg) => {
+            const testCount = pkg.tests?.length ?? pkg.testCount ?? 0;
+            return (
+              <article
+                key={pkg.id}
+                className={`rounded-md border bg-white p-5 shadow-sm dark:bg-slate-900 ${
+                  pkg.isPopular ? "border-indigo-500" : "border-zinc-200 dark:border-slate-800"
+                }`}
+              >
+                <div className="mb-5 flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      {pkg.isPopular ? "Recommended" : "Package"}
+                    </p>
+                    <h2 className="mt-2 text-xl font-semibold">{pkg.name}</h2>
+                    {pkg.description && <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{pkg.description}</p>}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
 
-        {/* ── Free vs Package comparison ── */}
-        <section>
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-foreground">Free vs Package</h2>
-            <p className="text-muted-foreground mt-1">See exactly what you're unlocking</p>
-          </div>
-          <div className="overflow-x-auto rounded-2xl border border-border/70 shadow-sm">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border/70 bg-muted/40">
-                  <th className="text-left px-5 py-4 font-semibold text-foreground w-1/2">Feature</th>
-                  <th className="px-5 py-4 font-semibold text-muted-foreground text-center">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5" />
-                      Free
-                    </div>
-                  </th>
-                  <th className="px-5 py-4 font-semibold text-primary text-center">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <Trophy className="w-3.5 h-3.5" />
-                      Package
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARISON_ROWS.map((row, i) => (
-                  <tr
-                    key={row.label}
-                    className={`border-b border-border/40 ${i % 2 === 0 ? "bg-background" : "bg-muted/20"}`}
-                  >
-                    <td className="px-5 py-3.5 font-medium text-foreground">{row.label}</td>
-                    <td className="px-5 py-3.5 text-center text-muted-foreground">{row.free}</td>
-                    <td className="px-5 py-3.5 text-center font-semibold text-emerald-600 dark:text-emerald-400">{row.paid}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                <div className="mb-5">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-semibold tracking-tight">
+                      ₹{(pkg.finalPriceCents / 100).toLocaleString("en-IN")}
+                    </span>
+                    {pkg.discountPercent > 0 && (
+                      <span className="text-sm text-muted-foreground line-through">
+                        ₹{(pkg.originalPriceCents / 100).toLocaleString("en-IN")}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {testCount > 0 ? `${testCount} tests included` : "Full access package"}
+                  </p>
+                </div>
 
-          {/* Bottom CTA below comparison */}
-          {packages.length > 0 && (
-            <div className="mt-8 text-center">
-              <Link href={`/packages/${packages.find(p => p.isPopular)?.id ?? packages[0].id}`}>
-                <Button size="lg" className="gap-2 px-8 py-5 text-base shadow-md">
-                  <Trophy className="w-4 h-4" />
-                  Unlock full test series
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <p className="mt-2 text-xs text-muted-foreground">One-time payment · Instant access · All tests included</p>
-            </div>
-          )}
+                <ul className="mb-6 space-y-2 border-t border-zinc-200 pt-4 text-sm dark:border-slate-800">
+                  {(pkg.features?.length ? pkg.features : ["Full access to Reasoning Logic Playback", "Diagnostic analytics", "Complete mock series"]).slice(0, 5).map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-muted-foreground">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href={`/packages/${pkg.id}`}>
+                  <Button className="w-full rounded-md bg-indigo-600 hover:bg-indigo-700">
+                    Get All-Access
+                  </Button>
+                </Link>
+              </article>
+            );
+          })}
         </section>
+      )}
 
-      </div>
+      <section className="overflow-hidden rounded-md border border-zinc-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+        <table className="w-full text-sm">
+          <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-[0.14em] text-muted-foreground dark:border-slate-800 dark:bg-slate-950">
+            <tr>
+              <th className="px-5 py-3 text-left font-semibold">Unlock</th>
+              <th className="px-5 py-3 text-left font-semibold">Free</th>
+              <th className="px-5 py-3 text-left font-semibold text-indigo-600">All-Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            {COMPARISON_ROWS.map((row) => (
+              <tr key={row.feature} className="border-b border-zinc-100 last:border-b-0 dark:border-slate-800">
+                <td className="px-5 py-3 font-medium">{row.feature}</td>
+                <td className="px-5 py-3 text-muted-foreground">{row.free}</td>
+                <td className="px-5 py-3 font-medium text-emerald-600">{row.paid}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 }

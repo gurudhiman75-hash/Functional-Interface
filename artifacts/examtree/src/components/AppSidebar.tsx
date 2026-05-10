@@ -1,26 +1,24 @@
 import { Link, useLocation } from "wouter";
 import {
   BarChart3,
-  BookOpen,
-  Gift,
-  LayoutDashboard,
+  ClipboardList,
+  CreditCard,
+  Home,
   LogOut,
+  Settings,
   ShieldCheck,
-  Trophy,
-  FlaskConical,
-  WandSparkles,
+  Target,
   User,
+  WandSparkles,
 } from "lucide-react";
+import { signOut } from "firebase/auth";
 import { getUser, clearAuth } from "@/lib/storage";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { useToast } from "@/hooks/use-toast";
-import { signOut } from "firebase/auth";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -28,155 +26,113 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+const primaryLinks = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/tests", label: "Tests & Exams", icon: ClipboardList },
+  { href: "/packages", label: "Packages", icon: CreditCard },
+  { href: "/dashboard", label: "Practice", icon: Target },
+  { href: "/performance", label: "Analytics", icon: BarChart3 },
+];
+
 export function AppSidebar() {
   const [location, setLocation] = useLocation();
   const user = getUser();
   const { toast } = useToast();
+  const isAdmin = user?.role === "admin";
+  const links = isAdmin
+    ? [
+        ...primaryLinks,
+        { href: "/admin", label: "Admin", icon: ShieldCheck },
+        { href: "/admin/generator", label: "Question Studio", icon: WandSparkles },
+      ]
+    : primaryLinks;
 
   const handleLogout = async () => {
     const auth = getFirebaseAuth();
     try {
-      if (auth) {
-        await signOut(auth);
-      }
+      if (auth) await signOut(auth);
     } catch {
       // Keep local logout resilient.
     } finally {
       clearAuth();
-      toast({ title: "Logged out successfully", description: "See you soon!" });
+      toast({ title: "Logged out", description: "Your session has ended." });
       setLocation("/");
     }
   };
 
-  const isAdmin = user?.role === "admin";
-  const mainLinks = [
-    { href: "/", label: "Home", icon: LayoutDashboard },
-    { href: "/tests", label: "Tests", icon: FlaskConical },
-    { href: "/packages", label: "Packages", icon: Gift },
-    { href: "/performance", label: "Performance", icon: BarChart3 },
-  ];
-
-  const accountLinks = [
-    { href: "/profile", label: "Profile", icon: User },
-    ...(isAdmin
-  ? [
-      {
-        href: "/admin",
-        label: "Admin",
-        icon: ShieldCheck,
-      },
-
-      {
-        href: "/admin/generator",
-        label: "Question Studio",
-        icon: WandSparkles,
-      },
-    ]
-  : []),
-  ];
-
   return (
-    <Sidebar variant="inset" className="border-r border-border/70 bg-background/95 shadow-sm">
-      <SidebarHeader className="border-b border-border/70 px-3 py-4">
-        <div className="flex items-center gap-3 px-2 py-1">
-          <div className="flex h-10 w-10 items-center justify-center rounded-3xl bg-primary/10 text-primary shadow-sm transition duration-200 ease-out group-hover:scale-105">
-            <BookOpen className="w-5 h-5" />
+    <Sidebar className="border-r border-blue-900 bg-blue-950 text-slate-300" collapsible="icon">
+      <SidebarHeader className="border-b border-blue-900 px-4 py-4">
+        <Link href="/" className="flex items-center gap-3 rounded-md px-1 py-1">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600 text-white">
+            <span className="text-sm font-semibold">E</span>
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">EXAMTREE</span>
-            <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Smart Prep</span>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold tracking-tight text-white">examtree</p>
+            <p className="truncate text-[11px] text-slate-500">Testing Platform</p>
           </div>
-        </div>
+        </Link>
       </SidebarHeader>
 
-      <SidebarContent className="space-y-5 px-2 py-4">
-        <SidebarGroup>
-          <div className="px-3 pb-2">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Main</p>
-          </div>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {mainLinks.map((link) => (
-                <SidebarMenuItem key={link.href} className="group/menu-item">
-                  <SidebarMenuButton
-                    asChild
-                    isActive={location === link.href}
-                    tooltip={link.label}
-                    className="rounded-2xl border border-transparent bg-transparent px-3 py-2 text-sidebar-foreground transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm data-[active=true]:border-l-4 data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary"
-                  >
-                    <Link href={link.href} className="flex w-full items-center gap-3">
-                      <link.icon className="w-4 h-4 transition-transform duration-200 ease-out group-hover/menu-item:scale-110" />
-                      <span>{link.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <div className="px-3 pb-2">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Account</p>
-          </div>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {accountLinks.map((link) => (
-                <SidebarMenuItem key={link.href} className="group/menu-item">
-                  <SidebarMenuButton
-                    asChild
-                    isActive={location === link.href}
-                    tooltip={link.label}
-                    className="rounded-2xl border border-transparent bg-transparent px-3 py-2 text-sidebar-foreground transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm data-[active=true]:border-l-4 data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary"
-                  >
-                    <Link href={link.href} className="flex w-full items-center gap-3">
-                      <link.icon className="w-4 h-4 transition-transform duration-200 ease-out group-hover/menu-item:scale-110" />
-                      <span>{link.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-
-      <SidebarFooter>
-        {user ? (
-          <div className="space-y-3 p-3">
-            <div className="rounded-3xl border border-border/70 bg-card p-3 shadow-sm transition duration-200 ease-out hover:shadow-lg">
-              <div className="flex items-center gap-3">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-2xl ${isAdmin ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
-                  {isAdmin ? <ShieldCheck className="w-4 h-4" /> : <User className="w-4 h-4" />}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground truncate">{user.name}</p>
-                  <p className="text-xs text-muted-foreground">{isAdmin ? "Admin Console" : "Student"}</p>
-                </div>
-              </div>
-            </div>
-            <SidebarMenu>
-              <SidebarMenuItem className="group/menu-item">
+      <SidebarContent className="px-3 py-4">
+        <SidebarMenu className="space-y-1">
+          {links.map((link) => {
+            const active =
+              location === link.href ||
+              (link.href === "/tests" && (location.startsWith("/category") || location.startsWith("/subcategory"))) ||
+              (link.href === "/dashboard" && location.startsWith("/test/"));
+            return (
+              <SidebarMenuItem key={link.href}>
                 <SidebarMenuButton
-                  onClick={handleLogout}
-                  className="rounded-2xl border border-transparent bg-transparent px-3 py-2 text-destructive transition duration-200 ease-out hover:-translate-x-1 hover:bg-destructive/10 hover:text-destructive hover:shadow-sm"
+                  asChild
+                  isActive={active}
+                  tooltip={link.label}
+                  className="rounded-md border border-transparent border-l-2 px-3 py-2 text-sm font-medium text-slate-400 transition hover:bg-blue-900 hover:text-white data-[active=true]:border-l-indigo-500 data-[active=true]:bg-blue-900 data-[active=true]:text-white"
                 >
-                  <LogOut className="w-4 h-4" />
-                  <span>Logout</span>
+                  <Link href={link.href} className="flex items-center gap-3">
+                    <link.icon className="h-4 w-4" />
+                    <span>{link.label}</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            </SidebarMenu>
+            );
+          })}
+        </SidebarMenu>
+      </SidebarContent>
+
+      <SidebarFooter className="border-t border-blue-900 p-3">
+        {user ? (
+          <div className="flex items-center gap-2 rounded-md border border-blue-900 bg-blue-900/35 p-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-900 text-slate-300">
+              {isAdmin ? <ShieldCheck className="h-4 w-4" /> : <User className="h-4 w-4" />}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold text-white">{user.name}</p>
+              <p className="truncate text-[11px] text-slate-500">{isAdmin ? "Administrator" : "Student"}</p>
+            </div>
+            <Link
+              href="/profile"
+              className="rounded-md p-1.5 text-slate-500 transition hover:bg-blue-900 hover:text-white"
+              aria-label="Settings"
+            >
+              <Settings className="h-4 w-4" />
+            </Link>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-md p-1.5 text-slate-500 transition hover:bg-rose-500/10 hover:text-rose-400"
+              aria-label="Logout"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
         ) : (
-          <div className="p-3">
-            <SidebarMenuButton
-              asChild
-              tooltip="Login"
-              className="rounded-2xl border border-transparent bg-transparent px-3 py-2 transition duration-200 ease-out hover:-translate-x-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm"
-            >
-              <Link href="/login/student">Login</Link>
-            </SidebarMenuButton>
-          </div>
+          <SidebarMenuButton
+            asChild
+            className="rounded-md border border-blue-900 bg-blue-900/35 text-slate-300 hover:bg-blue-900 hover:text-white"
+          >
+            <Link href="/login/student">Login</Link>
+          </SidebarMenuButton>
         )}
       </SidebarFooter>
       <SidebarRail />

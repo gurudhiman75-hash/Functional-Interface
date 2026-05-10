@@ -106,6 +106,10 @@ async function migrate() {
       text_pa         TEXT,
       options_pa      JSONB,
       explanation_pa  TEXT,
+      pattern_id      TEXT,
+      procedural_logic JSONB,
+      motifs          JSONB,
+      languages       JSONB,
       seating_diagram JSONB,
       seating_explanation_flow JSONB,
       created_at      TIMESTAMP NOT NULL DEFAULT NOW()
@@ -120,6 +124,10 @@ async function migrate() {
   await db.execute(sql`ALTER TABLE questions ALTER COLUMN explanation DROP NOT NULL;`);
   await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS seating_diagram JSONB;`);
   await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS seating_explanation_flow JSONB;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS pattern_id TEXT;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS procedural_logic JSONB;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS motifs JSONB;`);
+  await db.execute(sql`ALTER TABLE questions ADD COLUMN IF NOT EXISTS languages JSONB;`);
   console.log("✓ questions");
 
   // ── attempts ──────────────────────────────────────────────────────────

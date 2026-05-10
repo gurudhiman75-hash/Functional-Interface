@@ -48,6 +48,9 @@ import {
   buildInferenceDependencyGraph,
   type InferenceDependencyGraph,
 } from "./seating/inference-dependency-graph";
+import {
+  PEOPLE,
+} from "../realizers/entity-registry";
 
 export type SeatingArrangementType =
   | "linear"
@@ -373,30 +376,19 @@ type SeatingLayout = {
   seats: SeatNode[];
 };
 
-const PARTICIPANT_POOL = [
-  "Aman",
-  "Bhavna",
-  "Charu",
-  "Deepak",
-  "Esha",
-  "Farhan",
-  "Gauri",
-  "Harish",
-  "Isha",
-  "Jatin",
-  "Kavya",
-  "Lokesh",
-  "Megha",
-  "Nitin",
-  "Pallavi",
-  "Rohit",
-  "Sneha",
-  "Tanvi",
-  "Ujjwal",
-  "Varsha",
-  "Yamini",
-  "Zubin",
-];
+export type SeatingScenarioOptions = {
+  enableNameClash?: boolean;
+};
+
+const PARTICIPANT_ENTITIES =
+  PEOPLE.filter(
+    (person) => person.gender !== "N",
+  );
+
+const PARTICIPANT_POOL =
+  PARTICIPANT_ENTITIES.map(
+    (person) => person.display.en,
+  );
 
 type SeatingPatternConfig = {
   arrangementTypes?: SeatingArrangementType[];
@@ -714,9 +706,88 @@ function extractSeatingPatternConfig(
   };
 }
 
-function selectParticipants(
+function getParticipantInitial(
+  name: string,
+) {
+  return (
+    name
+      .trim()
+      .charAt(0)
+      .toUpperCase() || "#"
+  );
+}
+
+function selectNameClashParticipants(
   count: number,
 ) {
+  const grouped =
+    PARTICIPANT_ENTITIES.reduce(
+      (acc, entity) => {
+        const initial =
+          getParticipantInitial(
+            entity.display.en,
+          );
+
+        const bucket =
+          acc.get(initial) ?? [];
+
+        bucket.push(entity.display.en);
+        acc.set(initial, bucket);
+
+        return acc;
+      },
+      new Map<string, string[]>(),
+    );
+
+  const shuffledInitials = shuffle(
+    Array.from(grouped.keys()),
+  );
+  const fullMatchInitial =
+    shuffledInitials.find(
+      (initial) =>
+        (grouped.get(initial)?.length ??
+          0) >= count,
+    );
+
+  if (fullMatchInitial) {
+    return shuffle(
+      grouped.get(fullMatchInitial) ?? [],
+    ).slice(0, count);
+  }
+
+  const strongestGroup =
+    Array.from(grouped.values())
+      .filter((group) => group.length >= 2)
+      .sort(
+        (a, b) =>
+          b.length - a.length,
+      )[0] ?? [];
+  const clashSeed = shuffle(
+    strongestGroup,
+  ).slice(0, Math.min(3, count));
+  const used = new Set(clashSeed);
+  const filler = shuffle(
+    PARTICIPANT_POOL.filter(
+      (name) => !used.has(name),
+    ),
+  ).slice(0, count - clashSeed.length);
+
+  return [
+    ...clashSeed,
+    ...filler,
+  ];
+}
+
+function selectParticipants(
+  count: number,
+  options: SeatingScenarioOptions = {},
+) {
+  if (options.enableNameClash) {
+    return selectNameClashParticipants(
+      count,
+    );
+  }
+
   return shuffle(
     PARTICIPANT_POOL,
   ).slice(0, count);
@@ -2373,6 +2444,7 @@ function buildFastPreviewScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   config: SeatingPatternConfig,
+  options: SeatingScenarioOptions = {},
 ) {
   const arrangementType =
     pickFastArrangementType(config);
@@ -2402,6 +2474,7 @@ function buildFastPreviewScenario(
   const participants =
     selectParticipants(
       participantCount,
+      options,
     );
   const arrangement =
     shuffle(participants);
@@ -3779,6 +3852,7 @@ function createConstraintScenario(
   difficulty: DifficultyLabel,
   config: SeatingPatternConfig,
   pattern?: Pattern,
+  options: SeatingScenarioOptions = {},
 ): SeatingScenario {
   const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.subtopic ?? ""} ${motif.id}`.toLowerCase();
   const isSchedule =
@@ -3833,6 +3907,7 @@ function createConstraintScenario(
         : selectParticipants(
           config.participantCount ??
             (difficulty === "Hard" ? 7 : 6),
+          options,
         );
   const slotLabels =
     arrangementType === "scheduling"
@@ -4207,6 +4282,7 @@ function buildEmergencyScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   config: SeatingPatternConfig,
+  options: SeatingScenarioOptions = {},
 ) {
   const arrangementType =
     config.arrangementTypes?.[0] ??
@@ -4246,6 +4322,7 @@ function buildEmergencyScenario(
     const participants =
       selectParticipants(
         participantCount,
+        options,
       );
     const arrangement =
       shuffle(participants);
@@ -4461,6 +4538,7 @@ function createSeatingScenarioInternal(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   pattern?: Pattern,
+  options: SeatingScenarioOptions = {},
 ) {
   const config =
     extractSeatingPatternConfig(
@@ -4489,6 +4567,7 @@ function createSeatingScenarioInternal(
       difficulty,
       config,
       pattern,
+      options,
     );
   }
 
@@ -4502,6 +4581,7 @@ function createSeatingScenarioInternal(
       motif,
       difficulty,
       config,
+      options,
     );
   }
 
@@ -4544,6 +4624,7 @@ function createSeatingScenarioInternal(
     const participants =
       selectParticipants(
         participantCount,
+        options,
       );
     const arrangement =
       shuffle(participants);
@@ -4656,6 +4737,7 @@ function createSeatingScenarioInternal(
     motif,
     difficulty,
     config,
+    options,
   );
 }
 
@@ -4663,6 +4745,7 @@ export function createLinearSeatingScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   pattern?: Pattern,
+  options: SeatingScenarioOptions = {},
 ) {
   const forcedPattern = {
     ...pattern,
@@ -4674,6 +4757,7 @@ export function createLinearSeatingScenario(
     motif,
     difficulty,
     forcedPattern,
+    options,
   );
 }
 
@@ -4681,6 +4765,7 @@ export function createCircularSeatingScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   pattern?: Pattern,
+  options: SeatingScenarioOptions = {},
 ) {
   const forcedPattern = {
     ...pattern,
@@ -4692,6 +4777,7 @@ export function createCircularSeatingScenario(
     motif,
     difficulty,
     forcedPattern,
+    options,
   );
 }
 
@@ -4699,10 +4785,12 @@ export function createAnySeatingScenario(
   motif: QuantMotif,
   difficulty: DifficultyLabel,
   pattern?: Pattern,
+  options: SeatingScenarioOptions = {},
 ) {
   return createSeatingScenarioInternal(
     motif,
     difficulty,
     pattern,
+    options,
   );
 }

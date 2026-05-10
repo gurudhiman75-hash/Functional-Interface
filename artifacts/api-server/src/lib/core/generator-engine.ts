@@ -471,6 +471,8 @@ export type GeneratorOptions = {
   seed?: string;
   generationContext?: GenerationContext;
   qualityThresholds?: Partial<QualityThresholds>;
+  enableNameClash?: boolean;
+  distractorArchetypes?: string[];
 };
 
 export type DIPattern = {
@@ -634,6 +636,17 @@ export type FormulaQuestion = {
   options: string[];
   correct: number;
   explanation: string;
+  textHi?: string | null;
+  optionsHi?: string[] | null;
+  explanationHi?: string | null;
+  textPa?: string | null;
+  optionsPa?: string[] | null;
+  explanationPa?: string | null;
+  nativeRealization?: Record<
+    string,
+    unknown
+  >;
+  nativeCoverage?: unknown;
   inferenceTrace?: {
     engineFamily: string;
     styleAnchor: string;
@@ -2674,11 +2687,23 @@ function createSeatingQuestionCandidate(
       "Archetype was incompatible with the seating pattern/motif combination.";
   }
 
+  const nameClashEnabled =
+    Boolean(options?.enableNameClash) &&
+    (requestedDifficulty === "Hard" ||
+      (options?.targetDifficulty ?? 0) >=
+        4 ||
+      options?.distractorArchetypes?.includes(
+        "NameClash",
+      ));
   const seatingScenario =
     createSeatingScenario(
       motif,
       requestedDifficulty,
       pattern,
+      {
+        enableNameClash:
+          nameClashEnabled,
+      },
     );
   const profileConfig =
     getExamProfileConfig(examProfile);
@@ -2789,6 +2814,18 @@ function createSeatingQuestionCandidate(
             seatingScenario.solverComplexity,
           validationWarnings:
             seatingScenario.validationWarnings,
+          nameClashEnabled,
+          nameClashInitials:
+            Array.from(
+              new Set(
+                seatingScenario.participants.map(
+                  (participant) =>
+                    participant
+                      .charAt(0)
+                      .toUpperCase(),
+                ),
+              ),
+            ),
           directClueCount:
             seatingScenario.directClueCount,
           indirectClueCount:
