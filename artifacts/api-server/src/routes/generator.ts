@@ -711,7 +711,12 @@ router.get(
       return res
         .status(500)
         .json({
-          error: "Internal server error",
+          error:
+            process.env.NODE_ENV ===
+              "development" &&
+            error instanceof Error
+              ? error.message
+              : "Internal server error",
         });
     }
   },
@@ -760,7 +765,12 @@ router.get(
       return res
         .status(500)
         .json({
-          error: "Internal server error",
+          error:
+            process.env.NODE_ENV ===
+              "development" &&
+            error instanceof Error
+              ? error.message
+              : "Internal server error",
         });
     }
   },

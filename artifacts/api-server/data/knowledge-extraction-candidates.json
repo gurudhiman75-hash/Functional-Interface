@@ -1,0 +1,112 @@
+[
+  {
+    "candidateId": "draft_constitution_article_article_17",
+    "rawText": "Article 17 - Abolition of Untouchability",
+    "proposedFact": {
+      "factId": "constitution_article_article_17",
+      "entityId": "article_17",
+      "subject": "India GK",
+      "topic": "Polity",
+      "subtopic": "Constitution Articles",
+      "factType": "constitution-article",
+      "contextGroupId": "constitution_articles",
+      "sequenceIndex": 17,
+      "data": {
+        "entity": {
+          "en": "Article 17",
+          "hi": "अनुच्छेद 17",
+          "pa": "ਆਰਟੀਕਲ 17"
+        },
+        "fact": {
+          "en": "Abolition of Untouchability",
+          "hi": "Article 17 - Abolition of Untouchability",
+          "pa": "Article 17 - Abolition of Untouchability"
+        },
+        "detail": {
+          "en": "Article 17 - Abolition of Untouchability",
+          "hi": "Article 17 - Abolition of Untouchability",
+          "pa": "Article 17 - Abolition of Untouchability"
+        }
+      },
+      "difficulty": "moderate",
+      "examTags": [],
+      "tags": [
+        "Constitution",
+        "Important Articles"
+      ],
+      "relations": [],
+      "distractorPool": [],
+      "pyqMetadata": {
+        "wasAsked": false,
+        "occurrences": []
+      },
+      "verification": {
+        "reviewed": false,
+        "confidence": 0.45
+      },
+      "source": {
+        "book": "Manual smoke",
+        "note": "Extracted candidate; verify before using in exams."
+      }
+    },
+    "extractionNotes": [
+      "Draft extracted candidate. Human verification required before repository save."
+    ],
+    "status": "needs_review"
+  },
+  {
+    "candidateId": "draft_constitution_article_article_21",
+    "rawText": "Article 21 guarantees protection of life and personal liberty.",
+    "proposedFact": {
+      "factId": "constitution_article_article_21",
+      "entityId": "article_21",
+      "subject": "India GK",
+      "topic": "Polity",
+      "subtopic": "Constitution Articles",
+      "factType": "constitution-article",
+      "contextGroupId": "constitution_articles",
+      "sequenceIndex": 21,
+      "data": {
+        "entity": {
+          "en": "Article 21",
+          "hi": "अनुच्छेद 21",
+          "pa": "ਆਰਟੀਕਲ 21"
+        },
+        "fact": {
+          "en": "guarantees protection of life and personal liberty.",
+          "hi": "Article 21 guarantees protection of life and personal liberty.",
+          "pa": "Article 21 guarantees protection of life and personal liberty."
+        },
+        "detail": {
+          "en": "Article 21 guarantees protection of life and personal liberty.",
+          "hi": "Article 21 guarantees protection of life and personal liberty.",
+          "pa": "Article 21 guarantees protection of life and personal liberty."
+        }
+      },
+      "difficulty": "moderate",
+      "examTags": [],
+      "tags": [
+        "Constitution",
+        "Important Articles"
+      ],
+      "relations": [],
+      "distractorPool": [],
+      "pyqMetadata": {
+        "wasAsked": false,
+        "occurrences": []
+      },
+      "verification": {
+        "reviewed": false,
+        "confidence": 0.45
+      },
+      "source": {
+        "book": "Manual smoke",
+        "note": "Extracted candidate; verify before using in exams."
+      }
+    },
+    "extractionNotes": [
+      "Draft extracted candidate. Human verification required before repository save."
+    ],
+    "status": "needs_review"
+  }
+]

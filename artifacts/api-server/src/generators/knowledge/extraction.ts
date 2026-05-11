@@ -5,6 +5,10 @@ import type {
   KnowledgeFactType,
   KnowledgeSubject,
 } from "./types";
+import {
+  extractStructuredKnowledgeWithOpenAI,
+  type AIExtractionMetadata,
+} from "../../server/services/ai-extraction-service";
 
 function slug(value: string) {
   return value
@@ -169,6 +173,19 @@ type ExtractionRequest = {
   sourcePage?: number;
   sourceUrl?: string;
   allowedFactTypes?: KnowledgeFactType[];
+  extractionKind?:
+    | "gk-facts"
+    | "pyq"
+    | "quant-motifs"
+    | "reasoning-motifs";
+  sourceMetadata?: {
+    sourceType?: string;
+    ocrUsed?: boolean;
+    pageCount?: number;
+    totalPages?: number;
+    selectedStartPage?: number;
+    selectedEndPage?: number;
+  };
 };
 
 function safeSubject(
@@ -379,229 +396,41 @@ function payloadToCandidate(
   );
 }
 
-function extractResponseText(
-  response: any,
-) {
-  if (
-    typeof response?.output_text ===
-    "string"
-  ) {
-    return response.output_text;
-  }
-
-  const fragments: string[] = [];
-  for (const item of response?.output ?? []) {
-    for (const content of item.content ??
-      []) {
-      if (
-        typeof content.text ===
-        "string"
-      ) {
-        fragments.push(content.text);
-      }
-    }
-  }
-  return fragments.join("\n");
-}
-
 async function callOpenAIExtraction(
   request: ExtractionRequest,
-): Promise<ExtractedFactPayload[]> {
+): Promise<{
+  payloads: ExtractedFactPayload[];
+  metadata?: AIExtractionMetadata;
+}> {
   const apiKey =
     process.env["OPENAI_API_KEY"];
 
   if (!apiKey) {
-    return [];
+    return {
+      payloads: [],
+    };
   }
 
   const allowedFactTypes =
     request.allowedFactTypes?.length
       ? request.allowedFactTypes
       : DEFAULT_FACT_TYPES;
-  const prompt =
-    buildFactExtractionPrompt(
-      request.sourceName,
-      allowedFactTypes,
-    );
-  const model =
-    process.env[
-      "OPENAI_KNOWLEDGE_EXTRACTION_MODEL"
-    ] ?? "gpt-4o-mini";
-
-  const response = await fetch(
-    "https://api.openai.com/v1/responses",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type":
-          "application/json",
+  const result =
+    await extractStructuredKnowledgeWithOpenAI(
+      {
+        ...request,
+        allowedFactTypes,
+        extractionKind:
+          request.extractionKind ??
+          "gk-facts",
       },
-      body: JSON.stringify({
-        model,
-        input: [
-          {
-            role: "system",
-            content: prompt,
-          },
-          {
-            role: "user",
-            content: [
-              "Return JSON only. Extract 3-12 atomic factual candidates.",
-              "Preserve Hindi and Punjabi labels if present; otherwise leave them equal to English for human review.",
-              request.rawText,
-            ].join("\n\n"),
-          },
-        ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "knowledge_fact_candidates",
-            strict: true,
-            schema: {
-              type: "object",
-              additionalProperties: false,
-              required: ["candidates"],
-              properties: {
-                candidates: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    additionalProperties: false,
-                    required: [
-                      "rawText",
-                      "subject",
-                      "topic",
-                      "subtopic",
-                      "factType",
-                      "contextGroupId",
-                      "entityEn",
-                      "entityHi",
-                      "entityPa",
-                      "factEn",
-                      "factHi",
-                      "factPa",
-                      "detailEn",
-                      "difficulty",
-                      "examTags",
-                      "tags",
-                      "sequenceIndex",
-                      "sourcePage",
-                      "confidence",
-                      "extractionNotes",
-                    ],
-                    properties: {
-                      rawText: {
-                        type: "string",
-                      },
-                      subject: {
-                        type: "string",
-                        enum: [
-                          "India GK",
-                          "Punjab GK",
-                          "Static GK",
-                          "Banking Awareness",
-                          "Current Affairs",
-                          "Computer Awareness",
-                        ],
-                      },
-                      topic: {
-                        type: "string",
-                      },
-                      subtopic: {
-                        type: "string",
-                      },
-                      factType: {
-                        type: "string",
-                        enum: allowedFactTypes,
-                      },
-                      contextGroupId: {
-                        type: "string",
-                      },
-                      entityEn: {
-                        type: "string",
-                      },
-                      entityHi: {
-                        type: "string",
-                      },
-                      entityPa: {
-                        type: "string",
-                      },
-                      factEn: {
-                        type: "string",
-                      },
-                      factHi: {
-                        type: "string",
-                      },
-                      factPa: {
-                        type: "string",
-                      },
-                      detailEn: {
-                        type: "string",
-                      },
-                      difficulty: {
-                        type: "string",
-                        enum: [
-                          "easy",
-                          "moderate",
-                          "hard",
-                        ],
-                      },
-                      examTags: {
-                        type: "array",
-                        items: {
-                          type: "string",
-                        },
-                      },
-                      tags: {
-                        type: "array",
-                        items: {
-                          type: "string",
-                        },
-                      },
-                      sequenceIndex: {
-                        type: "integer",
-                      },
-                      sourcePage: {
-                        type: "integer",
-                      },
-                      confidence: {
-                        type: "number",
-                      },
-                      extractionNotes: {
-                        type: "array",
-                        items: {
-                          type: "string",
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      }),
-    },
-  );
-
-  if (!response.ok) {
-    const detail =
-      await response.text();
-    throw new Error(
-      `OpenAI extraction failed (${response.status}): ${detail}`,
     );
-  }
 
-  const json = await response.json();
-  const text =
-    extractResponseText(json);
-  const parsed = JSON.parse(text);
-  return Array.isArray(
-    parsed.candidates,
-  )
-    ? parsed.candidates
-    : [];
+  return {
+    payloads:
+      result.candidates as ExtractedFactPayload[],
+    metadata: result.metadata,
+  };
 }
 
 function heuristicExtract(
@@ -713,16 +542,26 @@ function heuristicExtract(
 export async function extractFactCandidatesFromText(
   request: ExtractionRequest,
 ) {
-  const payloads =
-    (await callOpenAIExtraction(
+  const result =
+    await extractFactCandidatesWithMetadata(
       request,
-    )) ??
-    [];
+    );
+
+  return result.candidates;
+}
+
+export async function extractFactCandidatesWithMetadata(
+  request: ExtractionRequest,
+) {
+  const openAIResult =
+    await callOpenAIExtraction(request);
+  const payloads =
+    openAIResult.payloads ?? [];
   const sourcePayloads = payloads.length
     ? payloads
     : heuristicExtract(request);
 
-  return sourcePayloads
+  const candidates = sourcePayloads
     .map((payload) =>
       normalizeExtractedPayload(
         payload,
@@ -741,4 +580,64 @@ export async function extractFactCandidatesFromText(
         request,
       ),
     );
+
+  return {
+    candidates,
+    metadata:
+      openAIResult.metadata ?? {
+        provider: "openai" as const,
+        model:
+          process.env[
+            "OPENAI_KNOWLEDGE_EXTRACTION_MODEL"
+          ] ?? "gpt-4.1-mini",
+        extractionKind:
+          request.extractionKind ??
+          "gk-facts",
+        chunkCount: 0,
+        attemptedChunks: 0,
+        failedChunks: 0,
+        maxChunkCount: Number(
+          process.env[
+            "OPENAI_EXTRACTION_MAX_CHUNKS"
+          ],
+        ) || 12,
+        maxDocumentChars: Number(
+          process.env[
+            "OPENAI_EXTRACTION_MAX_CHARS"
+          ],
+        ) || 120_000,
+        sourceType:
+          request.sourceMetadata
+            ?.sourceType,
+        ocrUsed:
+          request.sourceMetadata?.ocrUsed,
+        pageCount:
+          request.sourceMetadata
+            ?.pageCount,
+        totalPages:
+          request.sourceMetadata
+            ?.totalPages,
+        selectedStartPage:
+          request.sourceMetadata
+            ?.selectedStartPage,
+        selectedEndPage:
+          request.sourceMetadata
+            ?.selectedEndPage,
+        usage: {
+          inputTokens: 0,
+          outputTokens: 0,
+          totalTokens: 0,
+        },
+        warnings: process.env[
+          "OPENAI_API_KEY"
+        ]
+          ? []
+          : [
+              "OPENAI_API_KEY is missing; offline heuristic extraction was used.",
+            ],
+      },
+    source: payloads.length
+      ? "openai"
+      : "offline-heuristic",
+  };
 }

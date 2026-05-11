@@ -36,6 +36,7 @@ export {
   buildFactExtractionPrompt,
   createDraftFactCandidate,
   extractFactCandidatesFromText,
+  extractFactCandidatesWithMetadata,
   validateFactCandidate,
 } from "./extraction";
 export {

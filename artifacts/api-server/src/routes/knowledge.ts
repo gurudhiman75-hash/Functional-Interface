@@ -1,7 +1,8 @@
 import { Router } from "express";
+import multer from "multer";
 import {
   approveKnowledgeFact,
-  extractFactCandidatesFromText,
+  extractFactCandidatesWithMetadata,
   listApprovedKnowledgeFacts,
   listExtractionCandidates,
   updateExtractionCandidate,
@@ -10,8 +11,63 @@ import {
   type KnowledgeFact,
   type KnowledgeFactType,
 } from "../generators/knowledge";
+import {
+  ingestPdfBuffer,
+  ingestPlainTextBuffer,
+} from "../generators/knowledge/pdf-ingestion";
 
 const router = Router();
+const ingestionUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize:
+      Number(process.env["KNOWLEDGE_UPLOAD_MAX_BYTES"]) ||
+      25 * 1024 * 1024,
+  },
+  fileFilter(_req, file, cb) {
+    const allowed =
+      file.mimetype === "application/pdf" ||
+      file.mimetype.startsWith("text/") ||
+      /\.(txt|csv|md|json)$/i.test(
+        file.originalname,
+      );
+
+    if (allowed) {
+      cb(null, true);
+    } else {
+      cb(
+        new Error(
+          "Only PDF and text source files are allowed.",
+        ),
+      );
+    }
+  },
+});
+
+function parseOptionalPositiveInteger(
+  value: unknown,
+  fieldName: string,
+) {
+  if (
+    value === undefined ||
+    value === null ||
+    value === ""
+  ) {
+    return undefined;
+  }
+
+  const parsed = Number(value);
+  if (
+    !Number.isInteger(parsed) ||
+    parsed < 1
+  ) {
+    throw new Error(
+      `${fieldName} must be a positive whole number.`,
+    );
+  }
+
+  return parsed;
+}
 
 router.get(
   "/extraction-candidates",
@@ -62,6 +118,83 @@ router.get(
 );
 
 router.post(
+  "/ingest-file",
+  ingestionUpload.single("file"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          error: "file is required.",
+        });
+      }
+
+      const isPdf =
+        req.file.mimetype ===
+          "application/pdf" ||
+        /\.pdf$/i.test(
+          req.file.originalname,
+        );
+      const startPage =
+        parseOptionalPositiveInteger(
+          req.body?.startPage,
+          "startPage",
+        );
+      const endPage =
+        parseOptionalPositiveInteger(
+          req.body?.endPage,
+          "endPage",
+        );
+      const result = isPdf
+        ? await ingestPdfBuffer(
+            req.file.buffer,
+            {
+              fileName:
+                req.file.originalname,
+              mimeType:
+                req.file.mimetype,
+              startPage,
+              endPage,
+            },
+          )
+        : ingestPlainTextBuffer(
+            req.file.buffer,
+            {
+              fileName:
+                req.file.originalname,
+              mimeType:
+                req.file.mimetype,
+            },
+          );
+
+      res.json({
+        success: true,
+        text: result.text,
+        rawTextPreview:
+          result.rawText.slice(0, 4000),
+        metadata: result.metadata,
+      });
+    } catch (error: any) {
+      console.error(
+        "[knowledge] ingest file",
+        error,
+      );
+      const message =
+        error?.message ??
+        "Knowledge source ingestion failed.";
+      const isUserFixable =
+        /page|range|limit|large|positive whole number/i.test(
+          message,
+        );
+      res.status(isUserFixable ? 400 : 500).json({
+        success: false,
+        error: message,
+      });
+    }
+  },
+);
+
+router.post(
   "/extract",
   async (req, res) => {
     try {
@@ -73,6 +206,8 @@ router.post(
         sourcePage,
         sourceUrl,
         allowedFactTypes,
+        extractionKind,
+        sourceMetadata,
       } = req.body as {
         rawText?: string;
         sourceName?: string;
@@ -81,6 +216,19 @@ router.post(
         sourcePage?: number | string;
         sourceUrl?: string;
         allowedFactTypes?: KnowledgeFactType[];
+        extractionKind?:
+          | "gk-facts"
+          | "pyq"
+          | "quant-motifs"
+          | "reasoning-motifs";
+        sourceMetadata?: {
+          sourceType?: string;
+          ocrUsed?: boolean;
+          pageCount?: number;
+          totalPages?: number;
+          selectedStartPage?: number;
+          selectedEndPage?: number;
+        };
       };
 
       if (!rawText?.trim()) {
@@ -91,8 +239,8 @@ router.post(
         });
       }
 
-      const candidates =
-        await extractFactCandidatesFromText({
+      const extraction =
+        await extractFactCandidatesWithMetadata({
           rawText,
           sourceName:
             sourceName ??
@@ -107,19 +255,21 @@ router.post(
               : Number(sourcePage),
           sourceUrl,
           allowedFactTypes,
+          extractionKind,
+          sourceMetadata,
         });
 
       await upsertExtractionCandidates(
-        candidates,
+        extraction.candidates,
       );
 
       res.json({
         success: true,
-        source:
-          process.env["OPENAI_API_KEY"]
-            ? "openai"
-            : "offline-heuristic",
-        candidates,
+        source: extraction.source,
+        extractionMetadata:
+          extraction.metadata,
+        candidates:
+          extraction.candidates,
       });
     } catch (error: any) {
       console.error(

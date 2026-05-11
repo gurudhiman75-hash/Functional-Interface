@@ -2708,18 +2708,38 @@ function createSeatingQuestionCandidate(
   let fallbackReason:
     | string
     | undefined;
+  const forcedMotif =
+    options?.forcedMotifId
+      ? ALL_MOTIFS.find(
+          (entry) =>
+            entry.id ===
+            options.forcedMotifId,
+        )
+      : undefined;
+  const forcedMotifCompatibility =
+    forcedMotif
+      ? validatePatternCompatibility(
+          pattern,
+          topicCluster,
+          forcedMotif,
+          requestedDifficulty,
+        )
+      : null;
   const selectedMotif =
-    pickMotif(
-      topicCluster,
-      pattern,
-      options,
-    ) ??
-    ALL_MOTIFS.find(
-      (entry) =>
-        entry.topicCluster ===
-        topicCluster,
-    ) ??
-    ALL_MOTIFS[0]!;
+    forcedMotif &&
+    forcedMotifCompatibility?.valid
+      ? forcedMotif
+      : pickMotif(
+          topicCluster,
+          pattern,
+          options,
+        ) ??
+        ALL_MOTIFS.find(
+          (entry) =>
+            entry.topicCluster ===
+            topicCluster,
+        ) ??
+        ALL_MOTIFS[0]!;
   const patternMotifCompatibility =
     selectedMotif
       ? validatePatternCompatibility(

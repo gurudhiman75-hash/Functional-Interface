@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development pnpm exec nodemon --watch src --ext ts --exec \"pnpm run build && pnpm run start\"",
     "build": "node ./build.mjs",
-    "start": "node --enable-source-maps ./dist/index.mjs",
+    "start": "node --use-system-ca --enable-source-maps ./dist/index.mjs",
     "db:check": "node ./build.mjs && node --enable-source-maps --env-file=.env ./dist/check-schema-drift.mjs",
     "db:migrate": "node ./build.mjs && node --enable-source-maps ./dist/migrate.mjs",
     "db:seed": "node ./build.mjs && node --enable-source-maps ./dist/db-init.mjs",
@@ -23,6 +23,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@napi-rs/canvas": "^1.0.0",
     "@types/multer": "^2.1.0",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.37.0",
@@ -36,10 +37,14 @@
     "express": "^5",
     "firebase-admin": "^12.0.0",
     "multer": "^2.1.1",
+    "openai": "^6.37.0",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^5.7.284",
     "pino": "^9",
     "pino-http": "^10",
     "postgres": "^3.4.4",
-    "razorpay": "^2.9.6"
+    "razorpay": "^2.9.6",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",

@@ -169,6 +169,34 @@ function formatTimeWorkValue(
     : `${Number(value.toFixed(4))}`;
 }
 
+function formatMathNumber(
+  value: number,
+): string {
+  return `$${formatTimeWorkValue(value)}$`;
+}
+
+function formatMathFraction(
+  numerator: number,
+  denominator: number,
+): string {
+  const divisor = gcd(
+    numerator,
+    denominator,
+  );
+  const reducedNumerator =
+    numerator / divisor;
+  const reducedDenominator =
+    denominator / divisor;
+
+  if (reducedDenominator === 1) {
+    return formatMathNumber(
+      reducedNumerator,
+    );
+  }
+
+  return `$\\frac{${reducedNumerator}}{${reducedDenominator}}$`;
+}
+
 function buildTimeWorkStructuralSignature(
   motifId: string,
   scenarioLogicBranch: string,
@@ -1276,7 +1304,7 @@ export function createCyclicAssistedScenario(
       totalWork,
       cycleDays,
     },
-    text: `A works every day and completes ${dailyRate} units daily. B assists only on every 3rd day and adds ${assistRate} extra units on those days. If the total work is ${totalWork} units, in how many days will the work be completed?`,
+    text: `A works every day and completes ${dailyRate} units daily. B works only on every 3rd day and adds ${assistRate} extra units on those days. If the total work is ${totalWork} units, in how many days will the work be completed?`,
     correctAnswer,
     distractorHints: [
       "cycleBoundaryError",
@@ -1418,7 +1446,7 @@ export function createCyclicAssistGroupScenario(
         cRate,
         assistEvery,
       },
-      text: `A works every day and completes ${aRate} units daily. B and C assist together on every ${assistEvery}th day, adding ${bRate + cRate} extra units on those assistance days. If the total work is ${totalWork} units, find the total time required.`,
+      text: `A works every day and completes ${aRate} units daily. B and C join together on every ${assistEvery}th day, adding ${bRate + cRate} extra units on those days. If the total work is ${totalWork} units, find the total time required.`,
       correctAnswer,
       distractorHints: [
         "Cycle_Boundary_Floor",
@@ -1490,7 +1518,7 @@ export function createHelperToggleScenario(
         bRate,
         cRate,
       },
-      text: `A works every day. On odd days A is assisted by C, and on even days A is assisted by B. Their one-day works are ${aRate}, ${bRate}, and ${cRate} units respectively for A, B, and C. If the total work is ${totalWork} units, find the time taken.`,
+      text: `A works every day. On odd days A is joined by C, and on even days A is joined by B. Their one-day works are ${aRate}, ${bRate}, and ${cRate} units respectively for A, B, and C. If the total work is ${totalWork} units, find the time taken.`,
       correctAnswer,
       distractorHints: [
         "Cycle_Boundary_Floor",
@@ -2669,9 +2697,18 @@ export function createInverseWorkScenario(
       ? "Medium"
       : difficulty,
   );
+  const combinedNumerator =
+    pair.a * pair.b;
+  const combinedDenominator =
+    pair.a + pair.b;
   const combinedDays =
-    (pair.a * pair.b) /
-    (pair.a + pair.b);
+    combinedNumerator /
+    combinedDenominator;
+  const combinedDaysLabel =
+    formatMathFraction(
+      combinedNumerator,
+      combinedDenominator,
+    );
 
   return {
     scenarioType: "inverse-work",
@@ -2680,7 +2717,7 @@ export function createInverseWorkScenario(
       a: pair.a,
       combinedDays,
     },
-    text: `A and B together can complete a work in ${combinedDays} days. A alone takes ${pair.a} days. In how many days can B alone complete the work?`,
+    text: `A and B together can complete a piece of work in ${combinedDaysLabel} days. A alone takes ${formatMathNumber(pair.a)} days. In how many days can B alone complete the work?`,
     correctAnswer: pair.b,
     distractorHints: [
       "inverseRelationMiss",
@@ -2689,7 +2726,7 @@ export function createInverseWorkScenario(
     reasoningSteps: [
       createReasoningStep(
         "transform",
-        `Convert the times into rates: A's rate is 1/${pair.a}, while the combined rate is 1/${combinedDays}.`,
+        `Convert the times into rates: A's rate is $\\frac{1}{${pair.a}}$, while the combined rate is $\\frac{1}{${combinedDaysLabel.replace(/\$/g, "")}}$.`,
       ),
       createReasoningStep(
         "filter",
@@ -2697,7 +2734,7 @@ export function createInverseWorkScenario(
       ),
       createReasoningStep(
         "reverse",
-        `Take the reciprocal of B's rate to get B's time, which is ${pair.b} days.`,
+        `Taking the reciprocal of B's rate gives B's time as ${formatMathNumber(pair.b)} days.`,
       ),
     ],
     context: buildDefaultContext(),
@@ -2714,7 +2751,7 @@ export function createInverseWorkScenario(
         },
       ),
     validationTokens: [
-      "together can complete a work",
+      "together can complete",
       "A alone takes",
     ],
   };

@@ -648,6 +648,65 @@ type KnowledgeExtractionCandidate = {
   };
 };
 
+type KnowledgeSourceIngestionMetadata = {
+  sourceType: "pdf" | "text";
+  fileName?: string;
+  mimeType?: string;
+  bytes: number;
+  pageCount: number;
+  totalPages?: number;
+  selectedStartPage?: number;
+  selectedEndPage?: number;
+  selectedPageCount?: number;
+  ocrUsed: boolean;
+  ocrPages: number[];
+  extractionQuality:
+    | "high"
+    | "medium"
+    | "low";
+  charCount: number;
+  wordCount: number;
+  warnings: string[];
+};
+
+function isExtractionRuntimeWarning(
+  warning: string,
+) {
+  return (
+    /^Chunk \d+ failed:/i.test(warning) ||
+    /OpenAI connection failed/i.test(
+      warning,
+    ) ||
+    /AI extraction did not produce candidates/i.test(
+      warning,
+    ) ||
+    /offline heuristic extraction/i.test(
+      warning,
+    ) ||
+    /OPENAI_API_KEY/i.test(warning)
+  );
+}
+
+function mergeSourceAndExtractionWarnings(
+  existingWarnings: string[],
+  extractionWarnings: string[],
+) {
+  const sourceWarnings =
+    existingWarnings.filter(
+      (warning) =>
+        !isExtractionRuntimeWarning(
+          warning,
+        ),
+    );
+
+  return Array.from(
+    new Set([
+      ...sourceWarnings,
+      ...extractionWarnings.filter(Boolean),
+    ]),
+  );
+}
+
 type GeneratedQuestion =
   | FormulaQuestion
   | DISet;
@@ -6019,9 +6078,28 @@ export default function AdminGeneratorPage() {
     setExtractionSourceUrl,
   ] = useState("");
   const [
+    extractionStartPage,
+    setExtractionStartPage,
+  ] = useState("");
+  const [
+    extractionEndPage,
+    setExtractionEndPage,
+  ] = useState("");
+  const [
     extractionQueueLoading,
     setExtractionQueueLoading,
   ] = useState(false);
+  const [
+    sourceIngestionLoading,
+    setSourceIngestionLoading,
+  ] = useState(false);
+  const [
+    sourceIngestionMetadata,
+    setSourceIngestionMetadata,
+  ] =
+    useState<KnowledgeSourceIngestionMetadata | null>(
+      null,
+    );
   const [
     extractionSourceText,
     setExtractionSourceText,
@@ -7127,8 +7205,28 @@ export default function AdminGeneratorPage() {
       );
 
       if (!res.ok) {
+        const errorText =
+          await res.text().catch(
+            () => "",
+          );
+        let errorMessage =
+          errorText;
+
+        try {
+          const parsed =
+            JSON.parse(errorText);
+          errorMessage =
+            parsed.error ??
+            parsed.message ??
+            errorText;
+        } catch {
+          // Keep the raw response text when the backend returns non-JSON.
+        }
+
         throw new Error(
-          `Generation failed with status ${res.status}`,
+          errorMessage
+            ? `Generation failed with status ${res.status}: ${errorMessage}`
+            : `Generation failed with status ${res.status}`,
         );
       }
 
@@ -7207,6 +7305,23 @@ export default function AdminGeneratorPage() {
             sourceUrl:
               extractionSourceUrl ||
               undefined,
+            sourceMetadata:
+              sourceIngestionMetadata
+                ? {
+                    sourceType:
+                      sourceIngestionMetadata.sourceType,
+                    ocrUsed:
+                      sourceIngestionMetadata.ocrUsed,
+                    pageCount:
+                      sourceIngestionMetadata.pageCount,
+                    totalPages:
+                      sourceIngestionMetadata.totalPages,
+                    selectedStartPage:
+                      sourceIngestionMetadata.selectedStartPage,
+                    selectedEndPage:
+                      sourceIngestionMetadata.selectedEndPage,
+                  }
+                : undefined,
             rawText:
               extractionSourceText,
           }),
@@ -7220,6 +7335,22 @@ export default function AdminGeneratorPage() {
       }
 
       const data = await res.json();
+      if (data.extractionMetadata) {
+        setSourceIngestionMetadata(
+          (current) =>
+            current
+              ? {
+                  ...current,
+                  warnings:
+                    mergeSourceAndExtractionWarnings(
+                      current.warnings,
+                      data.extractionMetadata
+                        .warnings ?? [],
+                    ),
+                }
+              : current,
+        );
+      }
       const candidates =
         Array.isArray(
           data.candidates,
@@ -7263,22 +7394,64 @@ export default function AdminGeneratorPage() {
   ) {
     if (!file) return;
 
-    if (
-      file.type === "application/pdf" ||
-      /\.pdf$/i.test(file.name)
-    ) {
-      setFilingToast(
-        "PDF selected. Please paste extracted text for now; OCR/PDF parsing must run before fact extraction.",
-      );
-      return;
-    }
+    try {
+      setSourceIngestionLoading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      if (extractionStartPage.trim()) {
+        formData.append(
+          "startPage",
+          extractionStartPage.trim(),
+        );
+      }
+      if (extractionEndPage.trim()) {
+        formData.append(
+          "endPage",
+          extractionEndPage.trim(),
+        );
+      }
 
-    const text = await file.text();
-    setExtractionSourceText(text);
-    setExtractionSourceName(
-      (current) =>
-        current || file.name,
-    );
+      const res = await fetch(
+        `${API_BASE_URL}/api/knowledge/ingest-file`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(
+          data.error ??
+            "Source ingestion failed.",
+        );
+      }
+
+      setExtractionSourceText(
+        data.text ?? "",
+      );
+      setSourceIngestionMetadata(
+        data.metadata ?? null,
+      );
+      setExtractionSourceName(
+        (current) =>
+          current || file.name,
+      );
+      setFilingToast(
+        data.metadata?.ocrUsed
+          ? `Text extracted from ${file.name}. OCR fallback used on ${data.metadata.ocrPages?.length ?? 0} page(s).`
+          : `Text extracted from ${file.name}.`,
+      );
+    } catch (error) {
+      console.error(error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Source ingestion failed",
+      );
+    } finally {
+      setSourceIngestionLoading(false);
+    }
   }
 
   async function reviewExtractionCandidate(
@@ -9460,16 +9633,54 @@ export default function AdminGeneratorPage() {
                 placeholder="Source URL (optional)"
                 className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
               />
+              <div className="rounded-md border border-slate-200 bg-white p-3">
+                <div className="text-xs font-semibold text-slate-800">
+                  PDF Page Range
+                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                  Optional for small PDFs. Required for large books so extraction stays safe and focused.
+                </p>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  <input
+                    type="number"
+                    min="1"
+                    value={
+                      extractionStartPage
+                    }
+                    onChange={(event) =>
+                      setExtractionStartPage(
+                        event.target.value,
+                      )
+                    }
+                    placeholder="Start page"
+                    className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                  />
+                  <input
+                    type="number"
+                    min="1"
+                    value={
+                      extractionEndPage
+                    }
+                    onChange={(event) =>
+                      setExtractionEndPage(
+                        event.target.value,
+                      )
+                    }
+                    placeholder="End page"
+                    className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                  />
+                </div>
+              </div>
               <label className="block rounded-md border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-600">
                 <span className="font-semibold text-slate-800">
-                  Upload text source
+                  Upload source file
                 </span>
                 <span className="mt-1 block">
-                  Supports .txt/.csv text. PDF/OCR should be extracted before upload.
+                  Supports PDF, .txt, .csv, .md, and .json. PDFs are extracted server-side with OCR fallback when needed.
                 </span>
                 <input
                   type="file"
-                  accept=".txt,.csv,.md,.json,text/*"
+                  accept=".pdf,.txt,.csv,.md,.json,application/pdf,text/*"
                   className="mt-2 block w-full text-xs"
                   onChange={(event) =>
                     loadExtractionSourceFile(
@@ -9480,12 +9691,57 @@ export default function AdminGeneratorPage() {
                   }
                 />
               </label>
+              {sourceIngestionLoading ? (
+                <div className="rounded-md border border-indigo-200 bg-indigo-50 p-3 text-xs font-medium text-indigo-800">
+                  Extracting text from source...
+                </div>
+              ) : null}
+              {sourceIngestionMetadata ? (
+                <div className="rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-600">
+                  <div className="font-semibold text-slate-800">
+                    Extracted Text Preview
+                  </div>
+                  <div className="mt-1 grid grid-cols-2 gap-1">
+                    <span>
+                      Type: {sourceIngestionMetadata.sourceType.toUpperCase()}
+                    </span>
+                    <span>
+                      Quality: {sourceIngestionMetadata.extractionQuality}
+                    </span>
+                    <span>
+                      Pages:{" "}
+                      {sourceIngestionMetadata.selectedStartPage &&
+                      sourceIngestionMetadata.selectedEndPage
+                        ? `${sourceIngestionMetadata.selectedStartPage}-${sourceIngestionMetadata.selectedEndPage}`
+                        : sourceIngestionMetadata.pageCount || "NA"}
+                      {sourceIngestionMetadata.totalPages
+                        ? ` of ${sourceIngestionMetadata.totalPages}`
+                        : ""}
+                    </span>
+                    <span>
+                      OCR: {sourceIngestionMetadata.ocrUsed ? "Used" : "Not used"}
+                    </span>
+                    <span>
+                      Words: {sourceIngestionMetadata.wordCount}
+                    </span>
+                    <span>
+                      Characters: {sourceIngestionMetadata.charCount}
+                    </span>
+                  </div>
+                  {sourceIngestionMetadata.warnings.length ? (
+                    <div className="mt-2 rounded border border-amber-200 bg-amber-50 p-2 text-amber-800">
+                      {sourceIngestionMetadata.warnings.join(" ")}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
               <button
                 onClick={
                   extractKnowledgeFacts
                 }
                 disabled={
                   extractionLoading ||
+                  sourceIngestionLoading ||
                   !extractionSourceText.trim()
                 }
                 className="w-full rounded-md bg-blue-950 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
