@@ -93,6 +93,18 @@ export function parseSeatingExpression(
     };
   }
 
+  const notOpposite = raw.match(
+    /^(.+?)\s+not\s+opposite(?:\s+to)?\s+(.+)$/i,
+  );
+  if (notOpposite) {
+    return {
+      primitive: "not-opposite",
+      subject: notOpposite[1],
+      object: notOpposite[2],
+      raw,
+    };
+  }
+
   const opposite = raw.match(
     /^(.+?)\s+opposite\s+(.+)$/i,
   );
@@ -155,6 +167,12 @@ export function semanticFromStudioRelation(
         subject,
         object,
       };
+    case "NOT_OPPOSITE":
+      return {
+        primitive: "not-opposite",
+        subject,
+        object,
+      };
     case "BETWEEN":
       return {
         primitive: "between",
@@ -192,6 +210,8 @@ export function primitiveFromSeatingClueType(
       return "not-end";
     case "opposite":
       return "opposite";
+    case "not-opposite":
+      return "not-opposite";
     case "same-row":
       return "same-row";
     case "different-row":

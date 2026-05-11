@@ -30,6 +30,8 @@ export function realizeSeatingHindi(
       return `${subject}, ${object} के ${ordinalHi(distance)} दाईं ओर ${hindiSitVerb(subjectRaw)}।`;
     case "opposite":
       return `${subject}, ${object} के सामने ${hindiSitVerb(subjectRaw)}।`;
+    case "not-opposite":
+      return `${subject}, ${object} के सामने नहीं ${hindiSitVerb(subjectRaw)}।`;
     case "adjacent":
       return `${subject} और ${object} एक-दूसरे के बगल में बैठे हैं।`;
     case "not-adjacent":

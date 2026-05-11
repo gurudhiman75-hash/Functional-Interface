@@ -15,1702 +15,585 @@
 > @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
 > node --enable-source-maps ./dist/index.mjs
 
-[19:42:37.276] [32mINFO[39m (25784): [36mGeneration job worker started[39m
+[07:36:13.931] [32mINFO[39m (24748): [36mGeneration job worker started[39m
     [35mintervalMs[39m: 1500
     [35mconcurrency[39m: 1
-[19:42:37.379] [32mINFO[39m (25784): [36mAPI server running on http://0.0.0.0:3001[39m
-[19:42:44.867] [32mINFO[39m (25784): [36mrequest completed[39m
+[07:36:13.945] [32mINFO[39m (24748): [36mAPI server running on http://0.0.0.0:3001[39m
+Generation metrics {
+  patternId: 'registry-gk-polity-medium',
+  topic: 'GK: Polity',
+  subtopic: 'polity',
+  generationId: 'gen_3d0d0e5e',
+  generationDomain: 'knowledge',
+  selectedMotif: 'gk-pol-direct',
+  difficultyLabel: 'Medium',
+  metrics: {
+    generationDurationMs: 2,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 1,
+    branchingComplexity: undefined,
+    clueDensity: 1,
+    inferenceDepth: 4,
+    redundancyScore: 0,
+    deductionDependencyScore: undefined,
+    redundancyRatio: undefined,
+    anchorDensity: undefined,
+    directClueRatio: undefined
+  }
+}
+[07:36:21.732] [32mINFO[39m (24748): [36mGeneration cache stored[39m
+    [35mpatternId[39m: "registry-gk-polity-medium"
+    [35mgenerationDomain[39m: "knowledge"
+    [35mcacheKey[39m: "6644b0fea1f12d290efad068c670c5f6f717dbbac681dc9015e5e9c9122b2ae9"
+    [35martifactMetadata[39m: {
+      "cachedQuestionCount": 1,
+      "selectedMotifs": [
+        "gk-pol-direct"
+      ],
+      "hasSolverTraces": false,
+      "hasSvgSnapshots": false,
+      "hasExplanationFlow": false
+    }
+[07:36:21.736] [32mINFO[39m (24748): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 1,
-      "method": "OPTIONS",
+      "method": "POST",
       "url": "/api/generator/pattern"
     }
     [35mres[39m: {
-      "statusCode": 204
+      "statusCode": 200
     }
-    [35mresponseTime[39m: 150
-[19:42:45.085] [32mINFO[39m (25784): [36mrequest completed[39m
+    [35mresponseTime[39m: 4687
+Generation metrics {
+  patternId: 'registry-gk-polity-medium',
+  topic: 'GK: Polity',
+  subtopic: 'polity',
+  generationId: 'gen_18b477fd',
+  generationDomain: 'knowledge',
+  selectedMotif: 'gk-pol-direct',
+  difficultyLabel: 'Medium',
+  metrics: {
+    generationDurationMs: 1,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 1,
+    branchingComplexity: undefined,
+    clueDensity: 1,
+    inferenceDepth: 4,
+    redundancyScore: 0,
+    deductionDependencyScore: undefined,
+    redundancyRatio: undefined,
+    anchorDensity: undefined,
+    directClueRatio: undefined
+  }
+}
+[07:36:34.629] [32mINFO[39m (24748): [36mGeneration cache stored[39m
+    [35mpatternId[39m: "registry-gk-polity-medium"
+    [35mgenerationDomain[39m: "knowledge"
+    [35mcacheKey[39m: "9c2037c46106aacf6aa933364589797ad8e30e626c4eb902e34862b1a3212cc4"
+    [35martifactMetadata[39m: {
+      "cachedQuestionCount": 1,
+      "selectedMotifs": [
+        "gk-pol-direct"
+      ],
+      "hasSolverTraces": false,
+      "hasSvgSnapshots": false,
+      "hasExplanationFlow": false
+    }
+[07:36:34.630] [32mINFO[39m (24748): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 2,
       "method": "POST",
       "url": "/api/generator/pattern"
     }
     [35mres[39m: {
-      "statusCode": 400
-    }
-    [35mresponseTime[39m: 217
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 6,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_price_consumption',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 3,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 1,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_water_add',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_cube_volume_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 8,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_sales_commission',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_fruit_dry_weight',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_tax_income',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_replacement',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 4,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_water_add',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_tax_income',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_square_perimeter',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 2,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_election_invalid',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_election_invalid',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_fruit_dry_weight',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 2,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_fruit_dry_weight',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_replacement',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 2,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_replacement',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 2,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_price_consumption',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 1,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_replacement',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_price_consumption',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 1,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_sales_commission',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_alloy_composition',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_sales_commission',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_population_gender',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_alloy_composition',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_population_gender',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_population_gender',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_cube_volume_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_alloy_composition',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_replacement',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_f7357c15',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_cube_volume_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[19:43:03.483] [32mINFO[39m (25784): [36mGeneration cache stored[39m
-    [35mpatternId[39m: "registry-percentage-hard"
-    [35mgenerationDomain[39m: "quant"
-    [35mcacheKey[39m: "f53b80c0a1fa9b0e6f9270e6df11e8fdef71137ace3e909f3c15935ad5889ea4"
-    [35martifactMetadata[39m: {
-      "cachedQuestionCount": 40,
-      "selectedMotifs": [
-        "perc_circle_radius_change",
-        "perc_price_consumption",
-        "perc_mixture_water_add",
-        "perc_cube_volume_change",
-        "perc_sales_commission",
-        "perc_fruit_dry_weight",
-        "perc_tax_income",
-        "perc_mixture_replacement",
-        "perc_rect_length_increase",
-        "perc_square_perimeter",
-        "perc_election_invalid",
-        "perc_alloy_composition",
-        "perc_population_gender"
-      ],
-      "hasSolverTraces": false,
-      "hasSvgSnapshots": false,
-      "hasExplanationFlow": false
-    }
-[19:43:03.499] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 3,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 3576
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_sales_commission',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_population_gender',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_election_invalid',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_population_gender',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_price_consumption',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 1,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_sales_commission',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_election_invalid',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_cube_volume_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_circle_radius_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_cube_volume_change',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_water_add',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_tax_income',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_fruit_dry_weight',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_494378d0',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_rect_length_increase',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[19:43:18.608] [32mINFO[39m (25784): [36mGeneration cache stored[39m
-    [35mpatternId[39m: "registry-percentage-hard"
-    [35mgenerationDomain[39m: "quant"
-    [35mcacheKey[39m: "4ec2c715189bda3e183199e79fe9ba3339efe1d937115d699840f29d78753cba"
-    [35martifactMetadata[39m: {
-      "cachedQuestionCount": 20,
-      "selectedMotifs": [
-        "perc_sales_commission",
-        "perc_circle_radius_change",
-        "perc_population_gender",
-        "perc_election_invalid",
-        "perc_price_consumption",
-        "perc_rect_length_increase",
-        "perc_cube_volume_change",
-        "perc_mixture_water_add",
-        "perc_tax_income",
-        "perc_fruit_dry_weight"
-      ],
-      "hasSolverTraces": false,
-      "hasSvgSnapshots": false,
-      "hasExplanationFlow": false
-    }
-[19:43:18.845] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 4,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 2205
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_69dbf9d8',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_water_add',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 2,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_6cdbfe91',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_population_gender',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[19:43:29.864] [32mINFO[39m (25784): [36mGeneration cache stored[39m
-    [35mpatternId[39m: "registry-percentage-hard"
-    [35mgenerationDomain[39m: "quant"
-    [35mcacheKey[39m: "a2a97cb9ee08a3181d36b3443e4a91b7da721bd178ea0224ab74a340496ed8a3"
-    [35martifactMetadata[39m: {
-      "cachedQuestionCount": 1,
-      "selectedMotifs": [
-        "perc_mixture_water_add"
-      ],
-      "hasSolverTraces": false,
-      "hasSvgSnapshots": false,
-      "hasExplanationFlow": false
-    }
-[19:43:29.865] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 5,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1384
-[19:43:31.394] [32mINFO[39m (25784): [36mGeneration cache stored[39m
-    [35mpatternId[39m: "registry-percentage-hard"
-    [35mgenerationDomain[39m: "quant"
-    [35mcacheKey[39m: "343609e62b098cdaabf916d1bd5ed51d78f61c0e8f4c38c7f5369157112c90fe"
-    [35martifactMetadata[39m: {
-      "cachedQuestionCount": 1,
-      "selectedMotifs": [
-        "perc_population_gender"
-      ],
-      "hasSolverTraces": false,
-      "hasSvgSnapshots": false,
-      "hasExplanationFlow": false
-    }
-[19:43:31.396] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 6,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1458
-Generation metrics {
-  patternId: 'registry-percentage-hard',
-  topic: 'Percentage',
-  subtopic: 'percentage',
-  generationId: 'gen_6bdbfcfe',
-  generationDomain: 'quant',
-  selectedMotif: 'perc_mixture_replacement',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[19:43:32.866] [32mINFO[39m (25784): [36mGeneration cache stored[39m
-    [35mpatternId[39m: "registry-percentage-hard"
-    [35mgenerationDomain[39m: "quant"
-    [35mcacheKey[39m: "7b8fed9100ca6a0318ed0a84bacd8a24d50311b3db0bc08c3c3982dbd3c4cc22"
-    [35martifactMetadata[39m: {
-      "cachedQuestionCount": 1,
-      "selectedMotifs": [
-        "perc_mixture_replacement"
-      ],
-      "hasSolverTraces": false,
-      "hasSvgSnapshots": false,
-      "hasExplanationFlow": false
-    }
-[19:43:32.867] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 7,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1457
-[19:44:20.049] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 8,
-      "method": "GET",
-      "url": "/api/categories"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 544
-[19:44:20.601] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 9,
-      "method": "GET",
-      "url": "/api/subcategories"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1094
-[19:44:20.928] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 10,
-      "method": "GET",
-      "url": "/api/tests"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1419
-[19:44:21.802] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 11,
-      "method": "GET",
-      "url": "/api/users/me"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 672
-[19:44:24.149] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 12,
-      "method": "GET",
-      "url": "/api/admin-data"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 2715
-[19:44:30.070] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 14,
-      "method": "GET",
-      "url": "/api/generator/qa/reviews"
-    }
-    [35mres[39m: {
-      "statusCode": 304
-    }
-    [35mresponseTime[39m: 287
-[19:44:30.328] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 13,
-      "method": "GET",
-      "url": "/api/generator/patterns"
-    }
-    [35mres[39m: {
-      "statusCode": 304
-    }
-    [35mresponseTime[39m: 546
-[19:44:37.110] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 15,
-      "method": "GET",
-      "url": "/api/generator/qa/analytics"
-    }
-    [35mres[39m: {
-      "statusCode": 304
-    }
-    [35mresponseTime[39m: 4
-[19:44:37.127] [32mINFO[39m (25784): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 16,
-      "method": "GET",
-      "url": "/api/generator/question-patterns"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1
+      "statusCode"[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[07:39:23.647] [32mINFO[39m (23892): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[07:39:23.676] [32mINFO[39m (23892): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+ ELIFECYCLE  Command failed with exit code 1.
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[07:45:28.300] [32mINFO[39m (12792): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[07:45:28.372] [32mINFO[39m (12792): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:01:57.135] [32mINFO[39m (23316): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:01:57.153] [32mINFO[39m (23316): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:20:35.048] [32mINFO[39m (5204): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:20:35.093] [32mINFO[39m (5204): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+ ELIFECYCLE  Command failed with exit code 1.
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+ ELIFECYCLE  Command failed with exit code 1.
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:25:30.581] [32mINFO[39m (25644): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:25:30.604] [32mINFO[39m (25644): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:32:24.260] [32mINFO[39m (28088): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:32:24.297] [32mINFO[39m (28088): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+ ELIFECYCLE  Command failed with exit code 1.
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:50:58.433] [32mINFO[39m (16660): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:50:58.468] [32mINFO[39m (16660): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[09:02:51.088] [32mINFO[39m (14600): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[09:02:51.112] [32mINFO[39m (14600): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+9m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+ ELIFECYCLE  Command failed with exit code 1.
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+.[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   [32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[07:39:24.172] [32mINFO[39m (19872): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[07:39:24.189] [32mINFO[39m (19872): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[07:45:09.083] [32mINFO[39m (3324): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[07:45:09.126] [32mINFO[39m (3324): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:01:57.203] [32mINFO[39m (26504): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:01:57.218] [32mINFO[39m (26504): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:20:36.369] [32mINFO[39m (26536): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:20:36.392] [32mINFO[39m (26536): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:25:17.596] [32mINFO[39m (14436): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:25:17.627] [32mINFO[39m (14436): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:32:08.204] [32mINFO[39m (7448): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:32:08.308] [32mINFO[39m (7448): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[08:51:19.232] [32mINFO[39m (10940): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[08:51:19.300] [32mINFO[39m (10940): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+
+> @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[09:02:51.539] [32mINFO[39m (17272): [36mGeneration job worker started[39m
+    [35mintervalMs[39m: 1500
+    [35mconcurrency[39m: 1
+[09:02:51.573] [32mINFO[39m (17272): [36mAPI server running on http://0.0.0.0:3001[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+ ELIFECYCLE  Command failed with exit code 1.
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `pnpm run build && pnpm run start`[39m
+
+> @workspace/api-server@0.0.0 build C:\Users\gurbaj\Downloads\f\artifacts\api-server
+> node ./build.mjs
+

@@ -2,40 +2,26 @@
 > @workspace/api-server@0.0.0 start C:\Users\gurbaj\Downloads\f\artifacts\api-server
 > node --enable-source-maps ./dist/index.mjs
 
-[11:39:16.504] [32mINFO[39m (39496): [36mGeneration job worker started[39m
+[07:46:08.760] [32mINFO[39m (25152): [36mGeneration job worker started[39m
     [35mintervalMs[39m: 1500
     [35mconcurrency[39m: 1
-[11:39:16.612] [32mINFO[39m (39496): [36mAPI server running on http://0.0.0.0:3001[39m
-[11:39:21.130] [33mWARN[39m (39496): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
-[11:39:22.461] [33mWARN[39m (39496): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
-[11:39:23.998] [33mWARN[39m (39496): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
-[11:39:25.562] [33mWARN[39m (39496): [36mGeneration job worker disabled because the generation_jobs table is missing. Run the migration to enable async generation jobs.[39m
-[11:42:31.654] [32mINFO[39m (39496): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 1,
-      "method": "GET",
-      "url": "/health"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 6
+[07:46:08.814] [32mINFO[39m (25152): [36mAPI server running on http://0.0.0.0:3001[39m
 Generation metrics {
-  patternId: 'registry-trigonometry-medium',
-  topic: 'Trigonometry',
-  subtopic: 'trigonometry',
-  generationId: 'gen_570bd68c',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-comp-shift',
+  patternId: 'registry-gk-polity-medium',
+  topic: 'GK: Polity',
+  subtopic: 'polity',
+  generationId: 'gen_c01fc0db',
+  generationDomain: 'knowledge',
+  selectedMotif: 'gk-pol-direct',
   difficultyLabel: 'Medium',
   metrics: {
-    generationDurationMs: 4,
+    generationDurationMs: 2,
     validationRetries: 0,
     uniquenessFailures: 0,
-    branchingFactor: 0,
+    branchingFactor: 1,
     branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
+    clueDensity: 1,
+    inferenceDepth: 4,
     redundancyScore: 0,
     deductionDependencyScore: undefined,
     redundancyRatio: undefined,
@@ -43,83 +29,42 @@ Generation metrics {
     directClueRatio: undefined
   }
 }
-[11:42:39.285] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trigonometry-medium"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "f07d5314d485ef903754b5197dc490ba02ce276f8bbd3716dd86e64b2f7c2f51",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:39.944] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trigonometry-medium"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "f07d5314d485ef903754b5197dc490ba02ce276f8bbd3716dd86e64b2f7c2f51",
-        "registry-trigonometry-medium",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:0ea1a96ad224707f63a29711d55068f37232a9228e96e769b553b460f923aa94",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "acf751d8a45f7e538f67fe029e5d81aacb0d0455da855dc231726593537750a0",
-        "{\"generationContext\":{\"seed\":\"auto-seed:abe53235-e1de-4fb3-b357-dce349c69f61\",\"generationId\":\"gen_570bd68c\",\"timestamp\":1778307158649},\"questions\":[{\"text\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"correct\":0,\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"section\":\"Quant\",\"topic\":\"Trigonometry\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$0$\",\"isCorrect\":true},{\"value\":\"$1$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$2\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Complementary_Function_Swap\",\"Evaluation_Order_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trigonometry-medium\",\"seed\":\"auto-seed:abe53235-e1de-4fb3-b357-dce349c69f61\",\"generationId\":\"gen_570bd68c\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-comp-shift\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-comp-shift::complementary-cos::\",\"scenarioLogicBranch\":\"complementary-cos\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":4,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_570bd68c:registry-trigonometry-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trigonometry-medium\",\"topic\":\"Trigonometry\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:abe53235-e1de-4fb3-b357-dce349c69f61\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"prompt\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-comp-shift\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_b1b7ccc3\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":7.21,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":20.4,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":8.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":4,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-comp-shift\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:0ea1a96ad224707f63a29711d55068f37232a9228e96e769b553b460f923aa94",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:abe53235-e1de-4fb3-b357-dce349c69f61\",\"generationId\":\"gen_570bd68c\",\"timestamp\":1778307158649},\"questions\":[{\"text\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"correct\":0,\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"section\":\"Quant\",\"topic\":\"Trigonometry\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$0$\",\"isCorrect\":true},{\"value\":\"$1$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$2\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Complementary_Function_Swap\",\"Evaluation_Order_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trigonometry-medium\",\"seed\":\"auto-seed:abe53235-e1de-4fb3-b357-dce349c69f61\",\"generationId\":\"gen_570bd68c\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-comp-shift\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-comp-shift::complementary-cos::\",\"scenarioLogicBranch\":\"complementary-cos\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":4,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_570bd68c:registry-trigonometry-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trigonometry-medium\",\"topic\":\"Trigonometry\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:abe53235-e1de-4fb3-b357-dce349c69f61\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"prompt\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-comp-shift\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_b1b7ccc3\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":7.21,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":20.4,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":8.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":4,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-comp-shift\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:39.297Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:39.944] [32mINFO[39m (39496): [36mrequest completed[39m
+[07:46:20.408] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 2,
+      "id": 1,
       "method": "POST",
       "url": "/api/generator/pattern"
     }
     [35mres[39m: {
       "statusCode": 200
     }
-    [35mresponseTime[39m: 1305
+    [35mresponseTime[39m: 26
+[07:46:32.272] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/generator/pattern"
+    }
+    [35mres[39m: {
+      "statusCode": 404
+    }
+    [35mresponseTime[39m: 5
 Generation metrics {
-  patternId: 'registry-trig-ratios-medium',
-  topic: 'Trig: Ratios & Identities',
-  subtopic: 'trigonometry',
-  generationId: 'gen_50dbe75d',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-ratio-sides',
+  patternId: 'registry-computer-hardware-medium',
+  topic: 'Computer: Hardware',
+  subtopic: 'hardware',
+  generationId: 'gen_8f8d8ccb',
+  generationDomain: 'computer',
+  selectedMotif: 'comp-hardware',
   difficultyLabel: 'Medium',
   metrics: {
-    generationDurationMs: 2,
+    generationDurationMs: 1,
     validationRetries: 0,
     uniquenessFailures: 0,
-    branchingFactor: 0,
+    branchingFactor: 1,
     branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
+    clueDensity: 1,
+    inferenceDepth: 4,
     redundancyScore: 0,
     deductionDependencyScore: undefined,
     redundancyRatio: undefined,
@@ -127,58 +72,7 @@ Generation metrics {
     directClueRatio: undefined
   }
 }
-[11:42:40.651] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trig-ratios-medium"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "df556b85c546b2eb263cd91d99a3612f8de531d7f14aee72c4e06c63816a144f",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:41.287] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trig-ratios-medium"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "df556b85c546b2eb263cd91d99a3612f8de531d7f14aee72c4e06c63816a144f",
-        "registry-trig-ratios-medium",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:a352ec135d54a1a077a49a533e3d9f6163f2792b4c8042c7e63379150d15671d",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "258678256bcea7469201a8d9e9da0ed4c33c14efdc8a586173d95879c6b4a231",
-        "{\"generationContext\":{\"seed\":\"auto-seed:04159d46-4f8e-418c-b019-e489b23833f2\",\"generationId\":\"gen_50dbe75d\",\"timestamp\":1778307160000},\"questions\":[{\"text\":\"In right $\\\\Delta ABC$, $\\\\angle B=90^\\\\circ$, $AB=5$, $BC=12$, and $AC=13$. Find $\\\\sin A$.\",\"options\":[\"$\\\\frac{12}{13}$\",\"$\\\\frac{5}{13}$\",\"$\\\\frac{12}{5}$\",\"$\\\\frac{5}{12}$\"],\"correct\":0,\"explanation\":\"For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\\n$\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\\nFinal answer = $\\\\frac{12}{13}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Ratios & Identities\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{12}{13}$\",\"isCorrect\":true},{\"value\":\"$\\\\frac{5}{13}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Ratio_Definition_Flip\",\"reasoningTrap\":\"Ratio_Definition_Flip\"},{\"value\":\"$\\\\frac{12}{5}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Identity_Cross_Product\",\"reasoningTrap\":\"Identity_Cross_Product\"},{\"value\":\"$\\\\frac{5}{12}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Ratio_Definition_Flip\",\"reasoningTrap\":\"Ratio_Definition_Flip\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Ratio_Definition_Flip\",\"Identity_Cross_Product\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-ratios-medium\",\"seed\":\"auto-seed:04159d46-4f8e-418c-b019-e489b23833f2\",\"generationId\":\"gen_50dbe75d\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-ratio-sides\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-ratio-sides::right-triangle-sine::12|13\",\"scenarioLogicBranch\":\"right-triangle-sine\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":2,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_50dbe75d:registry-trig-ratios-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-ratios-medium\",\"topic\":\"Trig: Ratios & Identities\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:04159d46-4f8e-418c-b019-e489b23833f2\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"In right $\\\\Delta ABC$, $\\\\angle B=90^\\\\circ$, $AB=5$, $BC=12$, and $AC=13$. Find $\\\\sin A$.\",\"prompt\":\"In right $\\\\Delta ABC$, $\\\\angle B=90^\\\\circ$, $AB=5$, $BC=12$, and $AC=13$. Find $\\\\sin A$.\",\"options\":[\"$\\\\frac{12}{13}$\",\"$\\\\frac{5}{13}$\",\"$\\\\frac{12}{5}$\",\"$\\\\frac{5}{12}$\"],\"explanation\":\"For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\\n$\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\\nFinal answer = $\\\\frac{12}{13}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.6,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":101,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.6,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.6,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.6,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.6,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":101,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":101,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":101,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-ratio-sides\",\"domain\":\"quant\",\"archetype\":\"trig-identity-transform\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_28c2026b\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":8.43,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Wording complexity resembles the PYQ corpus style.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\",\"Wording normalization indicates a repeated surface template pattern.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0.128 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.09,\"explanation\":\"Intended difficulty Medium (4.6), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Apply the motif condition before evaluating the target quantity.\",\"direct: For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\",\"direct: $\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.6,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.6,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":101,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Apply the motif condition before evaluating the target quantity.\",\"direct: For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\",\"direct: $\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":2,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-ratio-sides\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:a352ec135d54a1a077a49a533e3d9f6163f2792b4c8042c7e63379150d15671d",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:04159d46-4f8e-418c-b019-e489b23833f2\",\"generationId\":\"gen_50dbe75d\",\"timestamp\":1778307160000},\"questions\":[{\"text\":\"In right $\\\\Delta ABC$, $\\\\angle B=90^\\\\circ$, $AB=5$, $BC=12$, and $AC=13$. Find $\\\\sin A$.\",\"options\":[\"$\\\\frac{12}{13}$\",\"$\\\\frac{5}{13}$\",\"$\\\\frac{12}{5}$\",\"$\\\\frac{5}{12}$\"],\"correct\":0,\"explanation\":\"For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\\n$\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\\nFinal answer = $\\\\frac{12}{13}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Ratios & Identities\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{12}{13}$\",\"isCorrect\":true},{\"value\":\"$\\\\frac{5}{13}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Ratio_Definition_Flip\",\"reasoningTrap\":\"Ratio_Definition_Flip\"},{\"value\":\"$\\\\frac{12}{5}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Identity_Cross_Product\",\"reasoningTrap\":\"Identity_Cross_Product\"},{\"value\":\"$\\\\frac{5}{12}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Ratio_Definition_Flip\",\"reasoningTrap\":\"Ratio_Definition_Flip\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Ratio_Definition_Flip\",\"Identity_Cross_Product\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-ratios-medium\",\"seed\":\"auto-seed:04159d46-4f8e-418c-b019-e489b23833f2\",\"generationId\":\"gen_50dbe75d\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-ratio-sides\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-ratio-sides::right-triangle-sine::12|13\",\"scenarioLogicBranch\":\"right-triangle-sine\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":2,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_50dbe75d:registry-trig-ratios-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-ratios-medium\",\"topic\":\"Trig: Ratios & Identities\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:04159d46-4f8e-418c-b019-e489b23833f2\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"In right $\\\\Delta ABC$, $\\\\angle B=90^\\\\circ$, $AB=5$, $BC=12$, and $AC=13$. Find $\\\\sin A$.\",\"prompt\":\"In right $\\\\Delta ABC$, $\\\\angle B=90^\\\\circ$, $AB=5$, $BC=12$, and $AC=13$. Find $\\\\sin A$.\",\"options\":[\"$\\\\frac{12}{13}$\",\"$\\\\frac{5}{13}$\",\"$\\\\frac{12}{5}$\",\"$\\\\frac{5}{12}$\"],\"explanation\":\"For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\\n$\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\\nFinal answer = $\\\\frac{12}{13}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.6,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":101,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.6,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.6,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.6,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.6,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":101,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":101,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":101,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-ratio-sides\",\"domain\":\"quant\",\"archetype\":\"trig-identity-transform\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_28c2026b\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":8.43,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Wording complexity resembles the PYQ corpus style.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\",\"Wording normalization indicates a repeated surface template pattern.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0.128 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.09,\"explanation\":\"Intended difficulty Medium (4.6), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Apply the motif condition before evaluating the target quantity.\",\"direct: For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\",\"direct: $\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.6,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.6,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":101,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Apply the motif condition before evaluating the target quantity.\",\"direct: For $\\\\angle A$, opposite side is $BC=12$ and hypotenuse is $AC=13$.\",\"direct: $\\\\sin A=\\\\frac{\\\\text{opposite}}{\\\\text{hypotenuse}}=\\\\frac{12}{13}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":2,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-ratio-sides\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:40.655Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:41.288] [32mINFO[39m (39496): [36mrequest completed[39m
+[07:47:00.087] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 3,
       "method": "POST",
@@ -187,495 +81,339 @@ Generation metrics {
     [35mres[39m: {
       "statusCode": 200
     }
-    [35mresponseTime[39m: 1291
-Generation metrics {
-  patternId: 'registry-trig-standard-values-medium',
-  topic: 'Trig: Standard Values',
-  subtopic: 'trigonometry',
-  generationId: 'gen_ca29e89e',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-val-eval',
-  difficultyLabel: 'Medium',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[11:42:41.921] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trig-standard-values-medium"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "26f166df5a5897c8cc163a901ee1aa2a2ba892eeb3750c25eee3ef352620aec7",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:42.569] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trig-standard-values-medium"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "26f166df5a5897c8cc163a901ee1aa2a2ba892eeb3750c25eee3ef352620aec7",
-        "registry-trig-standard-values-medium",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:f3d360283eb5c9496bd9ae42b58900d5cb3051573925f7f3a8629be649573f6e",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "f7523d809e499cea4669ee2f36cfacf3487b762c5b79cba309612c40009afbc9",
-        "{\"generationContext\":{\"seed\":\"auto-seed:22db6db0-e716-4f8d-82a2-5be7c6c6bed0\",\"generationId\":\"gen_ca29e89e\",\"timestamp\":1778307161300},\"questions\":[{\"text\":\"Evaluate $\\\\frac{\\\\tan45^\\\\circ}{\\\\sin30^\\\\circ+\\\\cos60^\\\\circ}$.\",\"options\":[\"$1$\",\"$2$\",\"$\\\\frac{1}{2}$\",\"$\\\\sqrt{3}$\"],\"correct\":0,\"explanation\":\"$\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\\nValue $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\\nFinal answer = $1$.\",\"section\":\"Quant\",\"topic\":\"Trig: Standard Values\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$1$\",\"isCorrect\":true},{\"value\":\"$2$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"},{\"value\":\"$\\\\frac{1}{2}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"},{\"value\":\"$\\\\sqrt{3}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Angle_Value_Inversion\",\"Evaluation_Order_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-standard-values-medium\",\"seed\":\"auto-seed:22db6db0-e716-4f8d-82a2-5be7c6c6bed0\",\"generationId\":\"gen_ca29e89e\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-val-eval\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-val-eval::standard-angle-fraction::45\",\"scenarioLogicBranch\":\"standard-angle-fraction\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_ca29e89e:registry-trig-standard-values-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-standard-values-medium\",\"topic\":\"Trig: Standard Values\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:22db6db0-e716-4f8d-82a2-5be7c6c6bed0\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Evaluate $\\\\frac{\\\\tan45^\\\\circ}{\\\\sin30^\\\\circ+\\\\cos60^\\\\circ}$.\",\"prompt\":\"Evaluate $\\\\frac{\\\\tan45^\\\\circ}{\\\\sin30^\\\\circ+\\\\cos60^\\\\circ}$.\",\"options\":[\"$1$\",\"$2$\",\"$\\\\frac{1}{2}$\",\"$\\\\sqrt{3}$\"],\"explanation\":\"$\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\\nValue $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\\nFinal answer = $1$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-val-eval\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_99ddd445\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":6.77,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":24.6,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":8.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"direct: $\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\",\"direct: Value $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"direct: $\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\",\"direct: Value $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-val-eval\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:f3d360283eb5c9496bd9ae42b58900d5cb3051573925f7f3a8629be649573f6e",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:22db6db0-e716-4f8d-82a2-5be7c6c6bed0\",\"generationId\":\"gen_ca29e89e\",\"timestamp\":1778307161300},\"questions\":[{\"text\":\"Evaluate $\\\\frac{\\\\tan45^\\\\circ}{\\\\sin30^\\\\circ+\\\\cos60^\\\\circ}$.\",\"options\":[\"$1$\",\"$2$\",\"$\\\\frac{1}{2}$\",\"$\\\\sqrt{3}$\"],\"correct\":0,\"explanation\":\"$\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\\nValue $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\\nFinal answer = $1$.\",\"section\":\"Quant\",\"topic\":\"Trig: Standard Values\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$1$\",\"isCorrect\":true},{\"value\":\"$2$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"},{\"value\":\"$\\\\frac{1}{2}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"},{\"value\":\"$\\\\sqrt{3}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Angle_Value_Inversion\",\"Evaluation_Order_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-standard-values-medium\",\"seed\":\"auto-seed:22db6db0-e716-4f8d-82a2-5be7c6c6bed0\",\"generationId\":\"gen_ca29e89e\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-val-eval\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-val-eval::standard-angle-fraction::45\",\"scenarioLogicBranch\":\"standard-angle-fraction\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_ca29e89e:registry-trig-standard-values-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-standard-values-medium\",\"topic\":\"Trig: Standard Values\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:22db6db0-e716-4f8d-82a2-5be7c6c6bed0\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Evaluate $\\\\frac{\\\\tan45^\\\\circ}{\\\\sin30^\\\\circ+\\\\cos60^\\\\circ}$.\",\"prompt\":\"Evaluate $\\\\frac{\\\\tan45^\\\\circ}{\\\\sin30^\\\\circ+\\\\cos60^\\\\circ}$.\",\"options\":[\"$1$\",\"$2$\",\"$\\\\frac{1}{2}$\",\"$\\\\sqrt{3}$\"],\"explanation\":\"$\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\\nValue $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\\nFinal answer = $1$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-val-eval\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_99ddd445\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":6.77,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":24.6,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":8.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"direct: $\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\",\"direct: Value $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"direct: $\\\\tan45^\\\\circ=1$, $\\\\sin30^\\\\circ=\\\\frac{1}{2}$, and $\\\\cos60^\\\\circ=\\\\frac{1}{2}$.\",\"direct: Value $=\\\\frac{1}{\\\\frac{1}{2}+\\\\frac{1}{2}}=1$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-val-eval\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:41.923Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:42.570] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 9
+[07:57:27.504] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 4,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "method": "GET",
+      "url": "/api/users/me"
     }
     [35mres[39m: {
       "statusCode": 200
     }
-    [35mresponseTime[39m: 1274
-Generation metrics {
-  patternId: 'registry-trig-complementary-medium',
-  topic: 'Trig: Complementary Angles',
-  subtopic: 'trigonometry',
-  generationId: 'gen_79548512',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-comp-shift',
-  difficultyLabel: 'Medium',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[11:42:43.233] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trig-complementary-medium"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "fce13016974463ee93b230e87fb6d19975095f6b8d6dd2319221e7ea3b1dba8c",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:43.868] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trig-complementary-medium"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "fce13016974463ee93b230e87fb6d19975095f6b8d6dd2319221e7ea3b1dba8c",
-        "registry-trig-complementary-medium",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:8a576e5078aa40e7e9be4a6168b0508b7bd1138d34072f719b996badcb01dd86",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "4b567b96459d743767a8a2e47e1d7c8343e436db68c341571d93e2d222bdef72",
-        "{\"generationContext\":{\"seed\":\"auto-seed:3aec2a65-c17e-459b-917b-c37cf29c0de4\",\"generationId\":\"gen_79548512\",\"timestamp\":1778307162581},\"questions\":[{\"text\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"correct\":0,\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"section\":\"Quant\",\"topic\":\"Trig: Complementary Angles\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$0$\",\"isCorrect\":true},{\"value\":\"$1$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$2\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Complementary_Function_Swap\",\"Evaluation_Order_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-complementary-medium\",\"seed\":\"auto-seed:3aec2a65-c17e-459b-917b-c37cf29c0de4\",\"generationId\":\"gen_79548512\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-comp-shift\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-comp-shift::complementary-cos::\",\"scenarioLogicBranch\":\"complementary-cos\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_79548512:registry-trig-complementary-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-complementary-medium\",\"topic\":\"Trig: Complementary Angles\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:3aec2a65-c17e-459b-917b-c37cf29c0de4\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"prompt\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-comp-shift\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_b1b7ccc3\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":7.21,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":20.4,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":8.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-comp-shift\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:8a576e5078aa40e7e9be4a6168b0508b7bd1138d34072f719b996badcb01dd86",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:3aec2a65-c17e-459b-917b-c37cf29c0de4\",\"generationId\":\"gen_79548512\",\"timestamp\":1778307162581},\"questions\":[{\"text\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"correct\":0,\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"section\":\"Quant\",\"topic\":\"Trig: Complementary Angles\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$0$\",\"isCorrect\":true},{\"value\":\"$1$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Complementary_Function_Swap\",\"reasoningTrap\":\"Complementary_Function_Swap\"},{\"value\":\"$2\\\\cos\\\\theta$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Complementary_Function_Swap\",\"Evaluation_Order_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-complementary-medium\",\"seed\":\"auto-seed:3aec2a65-c17e-459b-917b-c37cf29c0de4\",\"generationId\":\"gen_79548512\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-comp-shift\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-comp-shift::complementary-cos::\",\"scenarioLogicBranch\":\"complementary-cos\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_79548512:registry-trig-complementary-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-complementary-medium\",\"topic\":\"Trig: Complementary Angles\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:3aec2a65-c17e-459b-917b-c37cf29c0de4\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"prompt\":\"Simplify $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta$.\",\"options\":[\"$0$\",\"$1$\",\"$\\\\sec\\\\theta-\\\\cos\\\\theta$\",\"$2\\\\cos\\\\theta$\"],\"explanation\":\"Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\\nThus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\\nFinal answer = $0$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-comp-shift\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_b1b7ccc3\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":7.21,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":20.4,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":8.67,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Start from the direct relation highlighted in the motif.\",\"conditional: Use $\\\\sin(90^\\\\circ-\\\\theta)=\\\\cos\\\\theta$.\",\"direct: Thus $\\\\sin(90^\\\\circ-\\\\theta)-\\\\cos\\\\theta=0$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-comp-shift\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:43.235Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:43.869] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 675
+[07:57:29.132] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 5,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "method": "GET",
+      "url": "/api/admin-data"
     }
     [35mres[39m: {
-      "statusCode": 200
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 1290
-Generation metrics {
-  patternId: 'registry-trig-heights-distances-medium',
-  topic: 'Trig: Heights & Distances',
-  subtopic: 'trigonometry',
-  generationId: 'gen_5078d2be',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-hd-broken-tree',
-  difficultyLabel: 'Medium',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[11:42:44.501] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trig-heights-distances-medium"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "39713f17d9cc8b317ab73f4fd6b5b433e4b137ee4821a22bcd6563e54eeec7d7",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:45.148] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trig-heights-distances-medium"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "39713f17d9cc8b317ab73f4fd6b5b433e4b137ee4821a22bcd6563e54eeec7d7",
-        "registry-trig-heights-distances-medium",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:3b1f2f45c8d80648109f9c493d6f44a33843322004a933b4c3850ddd68f21328",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "bb80f1cdb7c47a8b5f80464f41b6d80e7f78bbd710f241bec9b24a1ae6e8dedd",
-        "{\"generationContext\":{\"seed\":\"auto-seed:4bff0286-6896-4c69-bb27-3b640883c3d0\",\"generationId\":\"gen_5078d2be\",\"timestamp\":1778307163881},\"questions\":[{\"text\":\"A tree is broken by wind and its top touches the ground $10$ m from its foot, making an angle of $30^\\\\circ$ with the ground. Find the length of the broken part.\",\"options\":[\"$\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$\",\"$10\\\\sqrt{3}\\\\text{ m}$\",\"$20\\\\text{ m}$\",\"$5\\\\sqrt{3}\\\\text{ m}$\"],\"correct\":0,\"explanation\":\"The broken part is the hypotenuse of the right triangle.\\n$\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\\nFinal answer = $\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Heights & Distances\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$\",\"isCorrect\":true},{\"value\":\"$10\\\\sqrt{3}\\\\text{ m}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Ratio_Definition_Flip\",\"reasoningTrap\":\"Ratio_Definition_Flip\"},{\"value\":\"$20\\\\text{ m}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"},{\"value\":\"$5\\\\sqrt{3}\\\\text{ m}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"HD_Shadow_Ratio_Error\",\"reasoningTrap\":\"HD_Shadow_Ratio_Error\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Ratio_Definition_Flip\",\"Angle_Value_Inversion\",\"HD_Shadow_Ratio_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-heights-distances-medium\",\"seed\":\"auto-seed:4bff0286-6896-4c69-bb27-3b640883c3d0\",\"generationId\":\"gen_5078d2be\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-hd-broken-tree\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-hd-broken-tree::broken-tree-30::10|30\",\"scenarioLogicBranch\":\"broken-tree-30\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_5078d2be:registry-trig-heights-distances-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-heights-distances-medium\",\"topic\":\"Trig: Heights & Distances\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:4bff0286-6896-4c69-bb27-3b640883c3d0\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"A tree is broken by wind and its top touches the ground $10$ m from its foot, making an angle of $30^\\\\circ$ with the ground. Find the length of the broken part.\",\"prompt\":\"A tree is broken by wind and its top touches the ground $10$ m from its foot, making an angle of $30^\\\\circ$ with the ground. Find the length of the broken part.\",\"options\":[\"$\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$\",\"$10\\\\sqrt{3}\\\\text{ m}$\",\"$20\\\\text{ m}$\",\"$5\\\\sqrt{3}\\\\text{ m}$\"],\"explanation\":\"The broken part is the hypotenuse of the right triangle.\\n$\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\\nFinal answer = $\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-hd-broken-tree\",\"domain\":\"quant\",\"archetype\":\"height-distance-state\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_85141db9\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":6.77,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":22.23,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.68,\"penalties\":[\"Distractor ordering looks mechanically repeated.\",\"Wording normalization indicates a repeated surface template pattern.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"tangent relation: Apply the motif condition before evaluating the target quantity.\",\"conditional: The broken part is the hypotenuse of the right triangle.\",\"direct: $\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"tangent relation: Apply the motif condition before evaluating the target quantity.\",\"conditional: The broken part is the hypotenuse of the right triangle.\",\"direct: $\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-hd-broken-tree\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:3b1f2f45c8d80648109f9c493d6f44a33843322004a933b4c3850ddd68f21328",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:4bff0286-6896-4c69-bb27-3b640883c3d0\",\"generationId\":\"gen_5078d2be\",\"timestamp\":1778307163881},\"questions\":[{\"text\":\"A tree is broken by wind and its top touches the ground $10$ m from its foot, making an angle of $30^\\\\circ$ with the ground. Find the length of the broken part.\",\"options\":[\"$\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$\",\"$10\\\\sqrt{3}\\\\text{ m}$\",\"$20\\\\text{ m}$\",\"$5\\\\sqrt{3}\\\\text{ m}$\"],\"correct\":0,\"explanation\":\"The broken part is the hypotenuse of the right triangle.\\n$\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\\nFinal answer = $\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Heights & Distances\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$\",\"isCorrect\":true},{\"value\":\"$10\\\\sqrt{3}\\\\text{ m}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Ratio_Definition_Flip\",\"reasoningTrap\":\"Ratio_Definition_Flip\"},{\"value\":\"$20\\\\text{ m}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"},{\"value\":\"$5\\\\sqrt{3}\\\\text{ m}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"HD_Shadow_Ratio_Error\",\"reasoningTrap\":\"HD_Shadow_Ratio_Error\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"medium-comparison-chain\",\"archetypeCategory\":\"comparison-chain\",\"reasoningTraps\":[\"Ratio_Definition_Flip\",\"Angle_Value_Inversion\",\"HD_Shadow_Ratio_Error\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-heights-distances-medium\",\"seed\":\"auto-seed:4bff0286-6896-4c69-bb27-3b640883c3d0\",\"generationId\":\"gen_5078d2be\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-hd-broken-tree\",\"selectedArchetype\":\"medium-comparison-chain\",\"structuralSignatureKey\":\"trig-hd-broken-tree::broken-tree-30::10|30\",\"scenarioLogicBranch\":\"broken-tree-30\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_5078d2be:registry-trig-heights-distances-medium\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-heights-distances-medium\",\"topic\":\"Trig: Heights & Distances\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:4bff0286-6896-4c69-bb27-3b640883c3d0\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"A tree is broken by wind and its top touches the ground $10$ m from its foot, making an angle of $30^\\\\circ$ with the ground. Find the length of the broken part.\",\"prompt\":\"A tree is broken by wind and its top touches the ground $10$ m from its foot, making an angle of $30^\\\\circ$ with the ground. Find the length of the broken part.\",\"options\":[\"$\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$\",\"$10\\\\sqrt{3}\\\\text{ m}$\",\"$20\\\\text{ m}$\",\"$5\\\\sqrt{3}\\\\text{ m}$\"],\"explanation\":\"The broken part is the hypotenuse of the right triangle.\\n$\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\\nFinal answer = $\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Medium\",\"score\":4.3,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":4.3,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":4.3,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Medium\",\"difficultyScore\":4.3,\"cognitiveLoad\":2.65,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":97,\"domainContributions\":{\"operationCount\":3,\"visualComplexity\":0,\"inferenceComplexity\":3},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":3,\"estimatedSolveTime\":97,\"distractorCount\":3,\"calculationComplexity\":3,\"cognitiveLoadBase\":2.7,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":2.7,\"inferenceDepth\":3,\"calculationComplexity\":3,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":97,\"difficultyBand\":\"Medium\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-hd-broken-tree\",\"domain\":\"quant\",\"archetype\":\"height-distance-state\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_2f396e69\",\"motifHash\":\"sig_85141db9\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":6.77,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"},{\"metric\":\"wording-complexity\",\"actual\":22.23,\"expected\":\"8-16\",\"message\":\"Question wording is simpler or denser than the target corpus.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.68,\"penalties\":[\"Distractor ordering looks mechanically repeated.\",\"Wording normalization indicates a repeated surface template pattern.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":9.53,\"explanation\":\"Intended difficulty Medium (4.3), predicted Medium (3.5). Signals used: solving complexity 2.6, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"tangent relation: Apply the motif condition before evaluating the target quantity.\",\"conditional: The broken part is the hypotenuse of the right triangle.\",\"direct: $\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"difficulty\":\"Medium\",\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"difficultyMetadata\":{\"difficultyScore\":4.3,\"difficultyLabel\":\"Medium\",\"estimatedSolveTime\":97,\"operationCount\":3,\"reasoningDepth\":3,\"reasoningSteps\":[\"tangent relation: Apply the motif condition before evaluating the target quantity.\",\"conditional: The broken part is the hypotenuse of the right triangle.\",\"direct: $\\\\cos30^\\\\circ=\\\\frac{10}{L}$, so $L=\\\\frac{20}{\\\\sqrt{3}}\\\\text{ m}$.\"],\"dependencyComplexity\":3,\"operationChain\":[\"compare\",\"transform\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":3},\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-hd-broken-tree\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:44.503Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:45.148] [32mINFO[39m (39496): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 6,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1271
-Generation metrics {
-  patternId: 'registry-trig-identities-hard',
-  topic: 'Trig: Algebraic Identities',
-  subtopic: 'trigonometry',
-  generationId: 'gen_62118be9',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-id-double-angle',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 1,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[11:42:45.825] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trig-identities-hard"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "0428f48420c3e284ca2181c20a198569dfbda3c4cf5f5d01bb985bf1ad442bd8",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:46.460] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trig-identities-hard"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "0428f48420c3e284ca2181c20a198569dfbda3c4cf5f5d01bb985bf1ad442bd8",
-        "registry-trig-identities-hard",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:a3e0ac337b2a617e08aed9c6a172b53c1dfefbbb2d2d98f4a70f131cabad25bd",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "b8b8b4dbb3ccf43be0efd01b6f5ef9498fcd2881f86cc4dc27c9c2562372c481",
-        "{\"generationContext\":{\"seed\":\"auto-seed:2218f6ed-b76f-4adc-a63f-850ec2533ca8\",\"generationId\":\"gen_62118be9\",\"timestamp\":1778307165174},\"questions\":[{\"text\":\"If $\\\\sin\\\\theta=\\\\frac{3}{5}$ and $\\\\cos\\\\theta=\\\\frac{4}{5}$, find $\\\\sin2\\\\theta$.\",\"options\":[\"$\\\\frac{24}{25}$\",\"$\\\\frac{6}{5}$\",\"$\\\\frac{7}{5}$\",\"$\\\\frac{12}{25}$\"],\"correct\":0,\"explanation\":\"Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\\n$\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\\nFinal answer = $\\\\frac{24}{25}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Algebraic Identities\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{24}{25}$\",\"isCorrect\":true},{\"value\":\"$\\\\frac{6}{5}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Double_Angle_Linear\",\"reasoningTrap\":\"Double_Angle_Linear\"},{\"value\":\"$\\\\frac{7}{5}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"},{\"value\":\"$\\\\frac{12}{25}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Factor_2_Omission\",\"reasoningTrap\":\"Factor_2_Omission\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"hard-comparative-conditional-inference\",\"archetypeCategory\":\"comparative-conditional-inference\",\"reasoningTraps\":[\"Double_Angle_Linear\",\"Evaluation_Order_Error\",\"Factor_2_Omission\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-identities-hard\",\"seed\":\"auto-seed:2218f6ed-b76f-4adc-a63f-850ec2533ca8\",\"generationId\":\"gen_62118be9\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-id-double-angle\",\"selectedArchetype\":\"hard-comparative-conditional-inference\",\"structuralSignatureKey\":\"trig-id-double-angle::double-angle-sine::3|4\",\"scenarioLogicBranch\":\"double-angle-sine\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_62118be9:registry-trig-identities-hard\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-identities-hard\",\"topic\":\"Trig: Algebraic Identities\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:2218f6ed-b76f-4adc-a63f-850ec2533ca8\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"If $\\\\sin\\\\theta=\\\\frac{3}{5}$ and $\\\\cos\\\\theta=\\\\frac{4}{5}$, find $\\\\sin2\\\\theta$.\",\"prompt\":\"If $\\\\sin\\\\theta=\\\\frac{3}{5}$ and $\\\\cos\\\\theta=\\\\frac{4}{5}$, find $\\\\sin2\\\\theta$.\",\"options\":[\"$\\\\frac{24}{25}$\",\"$\\\\frac{6}{5}$\",\"$\\\\frac{7}{5}$\",\"$\\\\frac{12}{25}$\"],\"explanation\":\"Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\\n$\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\\nFinal answer = $\\\\frac{24}{25}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Hard\",\"score\":7.7,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":7.7,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Hard\",\"difficultyScore\":7.7,\"cognitiveLoad\":3.07,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":149,\"domainContributions\":{\"operationCount\":4,\"visualComplexity\":0,\"inferenceComplexity\":4},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":3.15,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":149,\"difficultyBand\":\"Hard\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-id-double-angle\",\"domain\":\"quant\",\"archetype\":\"trig-identity-transform\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_fcb9a6fb\",\"motifHash\":\"sig_a79604ca\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":8.43,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Wording complexity resembles the PYQ corpus style.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.94,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0.128 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":3.93,\"explanation\":\"Intended difficulty Hard (7.7), predicted Medium (3.8). Signals used: solving complexity 3.1, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\",\"direct: $\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"compare\",\"filter\",\"infer\",\"compare\"],\"difficulty\":\"Hard\",\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"difficultyMetadata\":{\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"estimatedSolveTime\":149,\"operationCount\":4,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\",\"direct: $\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"compare\",\"filter\",\"infer\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":4},\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-id-double-angle\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:a3e0ac337b2a617e08aed9c6a172b53c1dfefbbb2d2d98f4a70f131cabad25bd",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:2218f6ed-b76f-4adc-a63f-850ec2533ca8\",\"generationId\":\"gen_62118be9\",\"timestamp\":1778307165174},\"questions\":[{\"text\":\"If $\\\\sin\\\\theta=\\\\frac{3}{5}$ and $\\\\cos\\\\theta=\\\\frac{4}{5}$, find $\\\\sin2\\\\theta$.\",\"options\":[\"$\\\\frac{24}{25}$\",\"$\\\\frac{6}{5}$\",\"$\\\\frac{7}{5}$\",\"$\\\\frac{12}{25}$\"],\"correct\":0,\"explanation\":\"Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\\n$\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\\nFinal answer = $\\\\frac{24}{25}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Algebraic Identities\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{24}{25}$\",\"isCorrect\":true},{\"value\":\"$\\\\frac{6}{5}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Double_Angle_Linear\",\"reasoningTrap\":\"Double_Angle_Linear\"},{\"value\":\"$\\\\frac{7}{5}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Evaluation_Order_Error\",\"reasoningTrap\":\"Evaluation_Order_Error\"},{\"value\":\"$\\\\frac{12}{25}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Factor_2_Omission\",\"reasoningTrap\":\"Factor_2_Omission\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"hard-comparative-conditional-inference\",\"archetypeCategory\":\"comparative-conditional-inference\",\"reasoningTraps\":[\"Double_Angle_Linear\",\"Evaluation_Order_Error\",\"Factor_2_Omission\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-identities-hard\",\"seed\":\"auto-seed:2218f6ed-b76f-4adc-a63f-850ec2533ca8\",\"generationId\":\"gen_62118be9\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-id-double-angle\",\"selectedArchetype\":\"hard-comparative-conditional-inference\",\"structuralSignatureKey\":\"trig-id-double-angle::double-angle-sine::3|4\",\"scenarioLogicBranch\":\"double-angle-sine\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_62118be9:registry-trig-identities-hard\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-identities-hard\",\"topic\":\"Trig: Algebraic Identities\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:2218f6ed-b76f-4adc-a63f-850ec2533ca8\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"If $\\\\sin\\\\theta=\\\\frac{3}{5}$ and $\\\\cos\\\\theta=\\\\frac{4}{5}$, find $\\\\sin2\\\\theta$.\",\"prompt\":\"If $\\\\sin\\\\theta=\\\\frac{3}{5}$ and $\\\\cos\\\\theta=\\\\frac{4}{5}$, find $\\\\sin2\\\\theta$.\",\"options\":[\"$\\\\frac{24}{25}$\",\"$\\\\frac{6}{5}$\",\"$\\\\frac{7}{5}$\",\"$\\\\frac{12}{25}$\"],\"explanation\":\"Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\\n$\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\\nFinal answer = $\\\\frac{24}{25}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Hard\",\"score\":7.7,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":7.7,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Hard\",\"difficultyScore\":7.7,\"cognitiveLoad\":3.07,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":149,\"domainContributions\":{\"operationCount\":4,\"visualComplexity\":0,\"inferenceComplexity\":4},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":3.15,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":149,\"difficultyBand\":\"Hard\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-id-double-angle\",\"domain\":\"quant\",\"archetype\":\"trig-identity-transform\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_fcb9a6fb\",\"motifHash\":\"sig_a79604ca\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":8.43,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Wording complexity resembles the PYQ corpus style.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.94,\"penalties\":[\"Distractor ordering looks mechanically repeated.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0.128 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":3.93,\"explanation\":\"Intended difficulty Hard (7.7), predicted Medium (3.8). Signals used: solving complexity 3.1, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\",\"direct: $\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"compare\",\"filter\",\"infer\",\"compare\"],\"difficulty\":\"Hard\",\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"difficultyMetadata\":{\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"estimatedSolveTime\":149,\"operationCount\":4,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Use $\\\\sin2\\\\theta=2\\\\sin\\\\theta\\\\cos\\\\theta$.\",\"direct: $\\\\sin2\\\\theta=2\\\\times\\\\frac{3}{5}\\\\times\\\\frac{4}{5}=\\\\frac{24}{25}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"compare\",\"filter\",\"infer\",\"compare\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":4},\"generationMetrics\":{\"generationDurationMs\":1,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-id-double-angle\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:45.827Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:46.460] [32mINFO[39m (39496): [36mrequest completed[39m
-    [35mreq[39m: {
-      "id": 7,
-      "method": "POST",
-      "url": "/api/generator/pattern"
-    }
-    [35mres[39m: {
-      "statusCode": 200
-    }
-    [35mresponseTime[39m: 1289
-Generation metrics {
-  patternId: 'registry-trig-quadrants-reduction-hard',
-  topic: 'Trig: Quadrants & Reduction',
-  subtopic: 'trigonometry',
-  generationId: 'gen_d111928e',
-  generationDomain: 'quant',
-  selectedMotif: 'trig-reduction-large',
-  difficultyLabel: 'Hard',
-  metrics: {
-    generationDurationMs: 0,
-    validationRetries: 0,
-    uniquenessFailures: 0,
-    branchingFactor: 0,
-    branchingComplexity: undefined,
-    clueDensity: 0,
-    inferenceDepth: 3,
-    redundancyScore: 0,
-    deductionDependencyScore: undefined,
-    redundancyRatio: undefined,
-    anchorDensity: undefined,
-    directClueRatio: undefined
-  }
-}
-[11:42:47.092] [33mWARN[39m (39496): [36mGeneration cache lookup failed; falling back to live generation[39m
-    [35mpatternId[39m: "registry-trig-quadrants-reduction-hard"
-    error: {
-      "query": "select \"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\" from \"reasoning_scenario_cache\" where \"reasoning_scenario_cache\".\"key\" = $1 limit $2",
-      "params": [
-        "5f2d9b6db955d0290b1411735ee6f18e8593674a5f1e3a9bb7e35ba9db198aed",
-        1
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "214",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:47.741] [33mWARN[39m (39496): [36mGeneration cache store failed; continuing without cache persistence[39m
-    [35mpatternId[39m: "registry-trig-quadrants-reduction-hard"
-    error: {
-      "query": "insert into \"reasoning_scenario_cache\" (\"key\", \"pattern_id\", \"generation_domain\", \"generator_version\", \"motif_version\", \"topology_version\", \"request_fingerprint\", \"payload\", \"artifact_metadata\", \"created_at\", \"last_accessed_at\", \"hit_count\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, default, default, default) on conflict (\"key\") do update set \"generator_version\" = $10, \"motif_version\" = $11, \"topology_version\" = $12, \"payload\" = $13, \"artifact_metadata\" = $14, \"last_accessed_at\" = $15",
-      "params": [
-        "5f2d9b6db955d0290b1411735ee6f18e8593674a5f1e3a9bb7e35ba9db198aed",
-        "registry-trig-quadrants-reduction-hard",
-        "quant",
-        "reasoning-generator-v1",
-        "motif-registry-v1:c8f7a5f8a1eeafa574256dc0aa1a2da6c2dfa8be3fbf7166093f7a3379506818",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "83b019b0ea0b17fc69478705ff0b9137617b7f125e4195654c0576e35131a012",
-        "{\"generationContext\":{\"seed\":\"auto-seed:9d3468a6-7df9-4dd4-92c0-ff6da5e759c0\",\"generationId\":\"gen_d111928e\",\"timestamp\":1778307166472},\"questions\":[{\"text\":\"Find the exact value of $\\\\sin750^\\\\circ$.\",\"options\":[\"$\\\\frac{1}{2}$\",\"$-\\\\frac{1}{2}$\",\"$\\\\frac{\\\\sqrt{3}}{2}$\",\"$1$\"],\"correct\":0,\"explanation\":\"Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\\n$\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\\nFinal answer = $\\\\frac{1}{2}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Quadrants & Reduction\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{1}{2}$\",\"isCorrect\":true},{\"value\":\"$-\\\\frac{1}{2}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Quadrant_Sign_Neglect\",\"reasoningTrap\":\"Quadrant_Sign_Neglect\"},{\"value\":\"$\\\\frac{\\\\sqrt{3}}{2}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"},{\"value\":\"$1$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Degree_Radian_Confusion\",\"reasoningTrap\":\"Degree_Radian_Confusion\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"hard-nested-operations\",\"archetypeCategory\":\"nested-operations\",\"reasoningTraps\":[\"Quadrant_Sign_Neglect\",\"Angle_Value_Inversion\",\"Degree_Radian_Confusion\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-quadrants-reduction-hard\",\"seed\":\"auto-seed:9d3468a6-7df9-4dd4-92c0-ff6da5e759c0\",\"generationId\":\"gen_d111928e\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-reduction-large\",\"selectedArchetype\":\"hard-nested-operations\",\"structuralSignatureKey\":\"trig-reduction-large::large-angle-sine::750\",\"scenarioLogicBranch\":\"large-angle-sine\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_d111928e:registry-trig-quadrants-reduction-hard\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-quadrants-reduction-hard\",\"topic\":\"Trig: Quadrants & Reduction\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:9d3468a6-7df9-4dd4-92c0-ff6da5e759c0\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Find the exact value of $\\\\sin750^\\\\circ$.\",\"prompt\":\"Find the exact value of $\\\\sin750^\\\\circ$.\",\"options\":[\"$\\\\frac{1}{2}$\",\"$-\\\\frac{1}{2}$\",\"$\\\\frac{\\\\sqrt{3}}{2}$\",\"$1$\"],\"explanation\":\"Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\\n$\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\\nFinal answer = $\\\\frac{1}{2}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Hard\",\"score\":7.7,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":7.7,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Hard\",\"difficultyScore\":7.7,\"cognitiveLoad\":3.07,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":149,\"domainContributions\":{\"operationCount\":4,\"visualComplexity\":0,\"inferenceComplexity\":4},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":3.15,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":149,\"difficultyBand\":\"Hard\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-reduction-large\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_fcb9a6fb\",\"motifHash\":\"sig_5df1b668\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":8.43,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Wording complexity resembles the PYQ corpus style.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.52,\"penalties\":[\"Distractor ordering looks mechanically repeated.\",\"Wording normalization indicates a repeated surface template pattern.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0.128 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":3.93,\"explanation\":\"Intended difficulty Hard (7.7), predicted Medium (3.8). Signals used: solving complexity 3.1, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\",\"direct: $\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"transform\",\"aggregate\",\"reverse\",\"infer\"],\"difficulty\":\"Hard\",\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"difficultyMetadata\":{\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"estimatedSolveTime\":149,\"operationCount\":4,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\",\"direct: $\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"transform\",\"aggregate\",\"reverse\",\"infer\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":4},\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-reduction-large\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "reasoning-generator-v1",
-        "motif-registry-v1:c8f7a5f8a1eeafa574256dc0aa1a2da6c2dfa8be3fbf7166093f7a3379506818",
-        "topology-contract-v1:409c496459b1fc1a7b1e335f0b47e27c83be21a95c5dd9d7ddf09476ffefd733",
-        "{\"generationContext\":{\"seed\":\"auto-seed:9d3468a6-7df9-4dd4-92c0-ff6da5e759c0\",\"generationId\":\"gen_d111928e\",\"timestamp\":1778307166472},\"questions\":[{\"text\":\"Find the exact value of $\\\\sin750^\\\\circ$.\",\"options\":[\"$\\\\frac{1}{2}$\",\"$-\\\\frac{1}{2}$\",\"$\\\\frac{\\\\sqrt{3}}{2}$\",\"$1$\"],\"correct\":0,\"explanation\":\"Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\\n$\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\\nFinal answer = $\\\\frac{1}{2}$.\",\"section\":\"Quant\",\"topic\":\"Trig: Quadrants & Reduction\",\"subtopic\":\"trigonometry\",\"optionMetadata\":[{\"value\":\"$\\\\frac{1}{2}$\",\"isCorrect\":true},{\"value\":\"$-\\\\frac{1}{2}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Quadrant_Sign_Neglect\",\"reasoningTrap\":\"Quadrant_Sign_Neglect\"},{\"value\":\"$\\\\frac{\\\\sqrt{3}}{2}$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Angle_Value_Inversion\",\"reasoningTrap\":\"Angle_Value_Inversion\"},{\"value\":\"$1$\",\"isCorrect\":false,\"distractorType\":\"wrongIntermediateValue\",\"likelyMistake\":\"Degree_Radian_Confusion\",\"reasoningTrap\":\"Degree_Radian_Confusion\"}],\"examRealismMetadata\":{\"examProfile\":\"custom\",\"wordingStyle\":\"balanced\",\"archetypeId\":\"hard-nested-operations\",\"archetypeCategory\":\"nested-operations\",\"reasoningTraps\":[\"Quadrant_Sign_Neglect\",\"Angle_Value_Inversion\",\"Degree_Radian_Confusion\"],\"weightingSummary\":[\"Archetype weight 1.00\",\"Trap bias 1.00\",\"Inference bias 1.00\",\"Distractor mix wrongIntermediateValue, wrongIntermediateValue, wrongIntermediateValue\"]},\"debugMetadata\":{\"selectedPattern\":\"registry-trig-quadrants-reduction-hard\",\"seed\":\"auto-seed:9d3468a6-7df9-4dd4-92c0-ff6da5e759c0\",\"generationId\":\"gen_d111928e\",\"generationDomain\":\"quant\",\"selectedMotif\":\"trig-reduction-large\",\"selectedArchetype\":\"hard-nested-operations\",\"structuralSignatureKey\":\"trig-reduction-large::large-angle-sine::750\",\"scenarioLogicBranch\":\"large-angle-sine\",\"compatibilityWarnings\":[],\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0},\"proceduralScenario\":{\"id\":\"quant:gen_d111928e:registry-trig-quadrants-reduction-hard\",\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"metadata\":{\"patternId\":\"registry-trig-quadrants-reduction-hard\",\"topic\":\"Trig: Quadrants & Reduction\",\"subtopic\":\"trigonometry\",\"generationDomain\":\"quant\",\"seed\":\"auto-seed:9d3468a6-7df9-4dd4-92c0-ff6da5e759c0\"},\"entities\":[],\"constraints\":[{\"id\":\"quant-formula\",\"type\":\"formula\",\"operator\":\"EQUALS\",\"expression\":\"0\",\"metadata\":{\"variables\":[]}}],\"content\":{\"stem\":\"Find the exact value of $\\\\sin750^\\\\circ$.\",\"prompt\":\"Find the exact value of $\\\\sin750^\\\\circ$.\",\"options\":[\"$\\\\frac{1}{2}$\",\"$-\\\\frac{1}{2}$\",\"$\\\\frac{\\\\sqrt{3}}{2}$\",\"$1$\"],\"explanation\":\"Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\\n$\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\\nFinal answer = $\\\\frac{1}{2}$.\",\"artifacts\":{}},\"difficulty\":{\"label\":\"Hard\",\"score\":7.7,\"inferenceDepth\":3,\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"validation\":{\"passed\":false,\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}}},\"validationReportDetail\":{\"passed\":false,\"stageResults\":[{\"stage\":\"structural validity\",\"passed\":false,\"diagnostics\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1}},{\"stage\":\"solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"warningCount\":0}},{\"stage\":\"uniqueness\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"uniquenessVerified\":0}},{\"stage\":\"difficulty calibration\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"difficultyScore\":7.7,\"reasoningDepth\":3}},{\"stage\":\"redundancy analysis\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"redundancyScore\":0,\"redundancyRatio\":0}},{\"stage\":\"equation solvability\",\"passed\":true,\"diagnostics\":[],\"metrics\":{\"hasFormula\":1}}],\"warnings\":[\"Scenario has no normalized entities.\"],\"metrics\":{\"clueCount\":0,\"inferenceDepth\":0,\"uniquenessVerified\":0,\"entityCount\":0,\"constraintCount\":1,\"hasPrompt\":1,\"warningCount\":0,\"difficultyScore\":7.7,\"reasoningDepth\":3,\"redundancyScore\":0,\"redundancyRatio\":0,\"hasFormula\":1}},\"difficultyAssessment\":{\"difficultyLabel\":\"Hard\",\"difficultyScore\":7.7,\"cognitiveLoad\":3.07,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":1.05,\"solvingTimeEstimate\":149,\"domainContributions\":{\"operationCount\":4,\"visualComplexity\":0,\"inferenceComplexity\":4},\"metrics\":{\"reasoningDepth\":3,\"dependencyComplexity\":4,\"estimatedSolveTime\":149,\"distractorCount\":3,\"calculationComplexity\":4,\"cognitiveLoadBase\":3.15,\"ambiguityScoreBase\":0}},\"qualityAssessment\":{\"approved\":false,\"rejectionReasons\":[\"failed-validation\",\"low-realism-score\",\"weak-distractors\"],\"qualityMetrics\":{\"realismScore\":0,\"validationPassed\":0,\"structuralDiversityScore\":1,\"repeatedStructureWarnings\":0,\"directClueRatio\":0,\"difficultyConfidence\":10,\"distractorComplexity\":3,\"distractorTypeCount\":0,\"genericDistractorRatio\":1,\"hasStructuralSignature\":1}},\"extractedPatternIntelligence\":{\"domain\":\"quant\",\"structure\":{\"domain\":\"quant\",\"subtype\":\"trigonometry\",\"entityCount\":0,\"constraintCount\":1,\"structureTokens\":[\"variables:\",\"constraint:formula\"],\"topology\":\"formula-network\",\"metadata\":{\"formula\":\"0\"}},\"difficulty\":{\"cognitiveLoad\":3.15,\"inferenceDepth\":3,\"calculationComplexity\":4,\"distractorComplexity\":3,\"ambiguityScore\":0,\"solvingTimeEstimate\":149,\"difficultyBand\":\"Hard\"},\"distractors\":[{\"type\":\"wrongIntermediateValue\",\"label\":\"wrongIntermediateValue\",\"trapType\":\"wrongIntermediateValue\",\"frequency\":3}],\"motifs\":[{\"motifId\":\"trig-reduction-large\",\"domain\":\"quant\",\"archetype\":\"standard-angle-evaluation\",\"confidence\":0.95,\"metadata\":{\"generated\":\"selectedMotif\"}}]},\"structuralSignature\":{\"domain\":\"quant\",\"topologyHash\":\"sig_b8b75cd7\",\"inferenceHash\":\"sig_fcb9a6fb\",\"motifHash\":\"sig_5df1b668\",\"distractorHash\":\"sig_4306d95f\"},\"corpusAlignment\":{\"score\":8.43,\"deviations\":[{\"metric\":\"topology-frequency\",\"actual\":\"formula-network\",\"expected\":\"higher-frequency corpus topology\",\"message\":\"Topology is less common than the target corpus profile.\"},{\"metric\":\"distractor-pattern\",\"actual\":\"wrongIntermediateValue\",\"expected\":\"higher-frequency corpus distractor families\",\"message\":\"Distractor distribution is weaker or less corpus-like than expected.\"}],\"matchedPatterns\":[\"Clue density aligns with extracted PYQ corpus ranges.\",\"Inference depth tracks the target corpus difficulty curve.\",\"Wording complexity resembles the PYQ corpus style.\",\"Formula/calculation complexity aligns with corpus behavior.\"]},\"originalityScore\":{\"score\":7.52,\"penalties\":[\"Distractor ordering looks mechanically repeated.\",\"Wording normalization indicates a repeated surface template pattern.\"],\"diagnostics\":[\"PYQ-derived intelligence is treated as calibration guidance only, not as a template source.\",\"Clue topology penalty 0, formula repetition penalty 0, distractor ordering penalty 0.667.\",\"Corpus alignment pressure 0.128 while preserving topic weighting and realism guidance only.\"]},\"difficultyConfidence\":{\"predictedDifficulty\":\"Medium\",\"confidence\":3.93,\"explanation\":\"Intended difficulty Hard (7.7), predicted Medium (3.8). Signals used: solving complexity 3.1, elimination depth 0, branching 0, distractor quality 3. Human-solver simulation combined inference depth 3 with solver trace support 0 and branching factor 0.\"}},\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\",\"direct: $\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"transform\",\"aggregate\",\"reverse\",\"infer\"],\"difficulty\":\"Hard\",\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"difficultyMetadata\":{\"difficultyScore\":7.7,\"difficultyLabel\":\"Hard\",\"estimatedSolveTime\":149,\"operationCount\":4,\"reasoningDepth\":3,\"reasoningSteps\":[\"standard value lookup: Identify the concealed base relation before computing the final value.\",\"conditional: Reduce the angle: $750^\\\\circ=720^\\\\circ+30^\\\\circ$.\",\"direct: $\\\\sin750^\\\\circ=\\\\sin30^\\\\circ=\\\\frac{1}{2}$.\"],\"dependencyComplexity\":4,\"operationChain\":[\"transform\",\"aggregate\",\"reverse\",\"infer\"],\"usesPercentage\":false,\"usesRatio\":false,\"usesComparison\":false,\"visualComplexity\":0,\"inferenceComplexity\":4},\"generationMetrics\":{\"generationDurationMs\":0,\"validationRetries\":0,\"uniquenessFailures\":0,\"branchingFactor\":0,\"clueDensity\":0,\"inferenceDepth\":3,\"redundancyScore\":0}}]}",
-        "{\"cachedQuestionCount\":1,\"selectedMotifs\":[\"trig-reduction-large\"],\"hasSolverTraces\":false,\"hasSvgSnapshots\":false,\"hasExplanationFlow\":false}",
-        "2026-05-09T06:12:47.094Z"
-      ],
-      "cause": {
-        "name": "PostgresError",
-        "severity_local": "ERROR",
-        "severity": "ERROR",
-        "code": "42P01",
-        "position": "13",
-        "file": "parse_relation.c",
-        "line": "1449",
-        "routine": "parserOpenTable"
-      }
-    }
-[11:42:47.742] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 2264
+[07:57:31.308] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 8,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "method": "GET",
+      "url": "/api/topics"
     }
     [35mres[39m: {
       "statusCode": 200
     }
-    [35mresponseTime[39m: 1272
-[11:56:45.138] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 342
+[07:57:31.309] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 6,
+      "method": "GET",
+      "url": "/api/sections"
+    }
+    [35mres[39m: {
+      "statusCode": 200
+    }
+    [35mresponseTime[39m: 346
+[07:57:31.621] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 7,
+      "method": "GET",
+      "url": "/api/users/me"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 656
+[07:57:33.951] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
       "id": 9,
       "method": "GET",
-      "url": "/health"
+      "url": "/api/admin-data"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 2190
+[07:57:34.565] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 10,
+      "method": "GET",
+      "url": "/api/topics"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 325
+[07:58:09.636] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 13,
+      "method": "GET",
+      "url": "/api/generator/qa/reviews"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 39
+[07:58:09.890] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 14,
+      "method": "GET",
+      "url": "/api/generator/qa/analytics"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 4
+[07:58:09.896] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 11,
+      "method": "GET",
+      "url": "/api/topics"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 640
+[07:58:09.906] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 12,
+      "method": "GET",
+      "url": "/api/generator/patterns"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 310
+[07:58:10.057] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 15,
+      "method": "GET",
+      "url": "/api/generator/question-patterns"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 2
+[07:58:30.867] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 16,
+      "method": "OPTIONS",
+      "url": "/api/generator/pattern"
+    }
+    [35mres[39m: {
+      "statusCode": 204
+    }
+    [35mresponseTime[39m: 0
+Generation metrics {
+  patternId: 'registry-circular-seating-medium',
+  topic: 'Seating Arrangement',
+  subtopic: 'Circular Seating',
+  generationId: 'gen_f20ca60f',
+  generationDomain: 'seating-arrangement',
+  selectedMotif: 'pc-fpc-mul',
+  difficultyLabel: 'Hard',
+  metrics: {
+    generationDurationMs: 48,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 0,
+    branchingComplexity: 0.533,
+    clueDensity: 0.8333333333333334,
+    inferenceDepth: 10,
+    redundancyScore: 0,
+    deductionDependencyScore: 4.767,
+    redundancyRatio: 0,
+    anchorDensity: 0,
+    directClueRatio: 0
+  }
+}
+Generation metrics {
+  patternId: 'registry-circular-seating-medium',
+  topic: 'Seating Arrangement',
+  subtopic: 'Circular Seating',
+  generationId: 'gen_f20ca60f',
+  generationDomain: 'seating-arrangement',
+  selectedMotif: 'pc-fpc-mul',
+  difficultyLabel: 'Hard',
+  metrics: {
+    generationDurationMs: 5,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 0,
+    branchingComplexity: 0.533,
+    clueDensity: 0.8333333333333334,
+    inferenceDepth: 10,
+    redundancyScore: 0,
+    deductionDependencyScore: 4.767,
+    redundancyRatio: 0,
+    anchorDensity: 0,
+    directClueRatio: 0
+  }
+}
+Generation metrics {
+  patternId: 'registry-circular-seating-medium',
+  topic: 'Seating Arrangement',
+  subtopic: 'Circular Seating',
+  generationId: 'gen_f20ca60f',
+  generationDomain: 'seating-arrangement',
+  selectedMotif: 'pc-fpc-mul',
+  difficultyLabel: 'Hard',
+  metrics: {
+    generationDurationMs: 48,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 0,
+    branchingComplexity: 0.533,
+    clueDensity: 0.8333333333333334,
+    inferenceDepth: 10,
+    redundancyScore: 0,
+    deductionDependencyScore: 4.767,
+    redundancyRatio: 0,
+    anchorDensity: 0,
+    directClueRatio: 0
+  }
+}
+Generation metrics {
+  patternId: 'registry-circular-seating-medium',
+  topic: 'Seating Arrangement',
+  subtopic: 'Circular Seating',
+  generationId: 'gen_f20ca60f',
+  generationDomain: 'seating-arrangement',
+  selectedMotif: 'pc-fpc-mul',
+  difficultyLabel: 'Hard',
+  metrics: {
+    generationDurationMs: 3,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 0,
+    branchingComplexity: 0.533,
+    clueDensity: 0.8333333333333334,
+    inferenceDepth: 10,
+    redundancyScore: 0,
+    deductionDependencyScore: 4.767,
+    redundancyRatio: 0,
+    anchorDensity: 0,
+    directClueRatio: 0
+  }
+}
+Generation metrics {
+  patternId: 'registry-circular-seating-medium',
+  topic: 'Seating Arrangement',
+  subtopic: 'Circular Seating',
+  generationId: 'gen_f20ca60f',
+  generationDomain: 'seating-arrangement',
+  selectedMotif: 'pc-fpc-mul',
+  difficultyLabel: 'Hard',
+  metrics: {
+    generationDurationMs: 5,
+    validationRetries: 0,
+    uniquenessFailures: 0,
+    branchingFactor: 0,
+    branchingComplexity: 0.533,
+    clueDensity: 0.8333333333333334,
+    inferenceDepth: 10,
+    redundancyScore: 0,
+    deductionDependencyScore: 4.767,
+    redundancyRatio: 0,
+    anchorDensity: 0,
+    directClueRatio: 0
+  }
+}
+[07:58:31.001] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 17,
+      "method": "POST",
+      "url": "/api/generator/pattern"
     }
     [35mres[39m: {
       "statusCode": 200
     }
-    [35mresponseTime[39m: 2
-[11:56:50.225] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 132
+[08:22:37.054] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 10,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "id": 19,
+      "method": "GET",
+      "url": "/api/generator/qa/reviews"
     }
     [35mres[39m: {
-      "statusCode": 404
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 4651
-[11:56:51.064] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 3
+[08:22:37.237] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 11,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "id": 20,
+      "method": "GET",
+      "url": "/api/generator/qa/analytics"
     }
     [35mres[39m: {
-      "statusCode": 404
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 734
-[11:56:51.742] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 4
+[08:22:37.370] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 12,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "id": 18,
+      "method": "GET",
+      "url": "/api/generator/patterns"
     }
     [35mres[39m: {
-      "statusCode": 404
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 659
-[11:56:52.590] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 320
+[08:22:38.087] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 13,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "id": 21,
+      "method": "GET",
+      "url": "/api/generator/question-patterns"
     }
     [35mres[39m: {
-      "statusCode": 404
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 677
-[11:56:53.279] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 1
+[08:26:09.424] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 14,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "id": 23,
+      "method": "GET",
+      "url": "/api/generator/qa/reviews"
     }
     [35mres[39m: {
-      "statusCode": 404
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 678
-[11:56:53.995] [32mINFO[39m (39496): [36mrequest completed[39m
+    [35mresponseTime[39m: 3
+[08:26:09.749] [32mINFO[39m (25152): [36mrequest completed[39m
     [35mreq[39m: {
-      "id": 15,
-      "method": "POST",
-      "url": "/api/generator/pattern"
+      "id": 22,
+      "method": "GET",
+      "url": "/api/generator/patterns"
     }
     [35mres[39m: {
-      "statusCode": 404
+      "statusCode": 304
     }
-    [35mresponseTime[39m: 676
- ELIFECYCLE  Command failed with exit code 4294967295.
+    [35mresponseTime[39m: 329
+[08:27:33.800] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 24,
+      "method": "GET",
+      "url": "/api/generator/qa/analytics"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 3
+[08:27:33.802] [32mINFO[39m (25152): [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 25,
+      "method": "GET",
+      "url": "/api/generator/question-patterns"
+    }
+    [35mres[39m: {
+      "statusCode": 304
+    }
+    [35mresponseTime[39m: 1

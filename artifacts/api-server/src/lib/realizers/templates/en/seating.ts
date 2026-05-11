@@ -28,6 +28,8 @@ export function realizeSeatingEnglish(
       return `${subject} sits ${ordinalEn(distance)} to the right of ${object}.`;
     case "opposite":
       return `${subject} sits opposite ${object}.`;
+    case "not-opposite":
+      return `${subject} does not sit opposite ${object}.`;
     case "adjacent":
       return `${subject} and ${object} sit adjacent to each other.`;
     case "not-adjacent":

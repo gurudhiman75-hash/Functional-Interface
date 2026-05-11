@@ -32,6 +32,42 @@ function ordinal(
   }
 }
 
+function stableClueVariantIndex(
+  clue: LinearSeatingClue,
+  scenario: LinearSeatingScenario,
+  variantCount: number,
+) {
+  const source = JSON.stringify({
+    clue,
+    arrangementType:
+      scenario.arrangementType,
+    orientationType:
+      scenario.orientationType,
+  });
+  let hash = 2166136261;
+
+  for (let index = 0; index < source.length; index += 1) {
+    hash ^= source.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return (hash >>> 0) % variantCount;
+}
+
+function selectClueVariant(
+  clue: LinearSeatingClue,
+  scenario: LinearSeatingScenario,
+  variants: string[],
+) {
+  return variants[
+    stableClueVariantIndex(
+      clue,
+      scenario,
+      variants.length,
+    )
+  ]!;
+}
+
 function arrangementLead(
   scenario: LinearSeatingScenario,
   examProfile: ExamProfileId,
@@ -179,30 +215,118 @@ function clueToText(
         : `${clue.person} ${seatSideWord} at the extreme right end.`;
     case "adjacent":
       return clue.ordered
-        ? `${clue.left} sits immediately to the left of ${clue.right}.`
-        : `${clue.left} is an immediate neighbour of ${clue.right}.`;
+        ? selectClueVariant(
+            clue,
+            scenario,
+            [
+              `${clue.left} sits immediately to the left of ${clue.right}.`,
+              `${clue.right} sits immediately to the right of ${clue.left}.`,
+              `${clue.left} and ${clue.right} are immediate neighbours, with ${clue.left} on the left.`,
+            ],
+          )
+        : selectClueVariant(
+            clue,
+            scenario,
+            [
+              `${clue.left} is an immediate neighbour of ${clue.right}.`,
+              `${clue.left} and ${clue.right} sit next to each other.`,
+              `${clue.right} has ${clue.left} as an immediate neighbour.`,
+            ],
+          );
     case "not-adjacent":
-      return `${clue.left} is not an immediate neighbour of ${clue.right}.`;
+      return selectClueVariant(
+        clue,
+        scenario,
+        [
+          `${clue.left} is not an immediate neighbour of ${clue.right}.`,
+          `${clue.left} and ${clue.right} do not sit next to each other.`,
+          `${clue.right} is not seated adjacent to ${clue.left}.`,
+        ],
+      );
     case "offset":
-      return `${clue.person} sits ${clue.distance === 1 ? "immediately" : clue.distance === 2 ? "second" : "third"} to the ${clue.direction} of ${clue.anchor}.`;
+      return selectClueVariant(
+        clue,
+        scenario,
+        [
+          `${clue.person} sits ${clue.distance === 1 ? "immediately" : clue.distance === 2 ? "second" : "third"} to the ${clue.direction} of ${clue.anchor}.`,
+          `${clue.person} is placed ${clue.distance === 1 ? "immediately" : clue.distance === 2 ? "two seats" : "three seats"} to the ${clue.direction} of ${clue.anchor}.`,
+          `Counting from ${clue.anchor}, ${clue.person} is ${clue.distance === 1 ? "immediately" : clue.distance === 2 ? "second" : "third"} to the ${clue.direction}.`,
+        ],
+      );
     case "distance-gap":
-      return `${clue.gap === 1 ? "Only one person" : "Two persons"} sit${clue.gap === 1 ? "s" : ""} between ${clue.left} and ${clue.right}.`;
+      return selectClueVariant(
+        clue,
+        scenario,
+        [
+          `${clue.gap === 1 ? "Only one person" : "Two persons"} sit${clue.gap === 1 ? "s" : ""} between ${clue.left} and ${clue.right}.`,
+          `There ${clue.gap === 1 ? "is one person" : "are two persons"} between ${clue.left} and ${clue.right}.`,
+          `${clue.left} and ${clue.right} have ${clue.gap === 1 ? "one" : "two"} person${clue.gap === 1 ? "" : "s"} between them.`,
+        ],
+      );
     case "between":
-      return `${clue.middle} sits between ${clue.first} and ${clue.second}.`;
+      return selectClueVariant(
+        clue,
+        scenario,
+        [
+          `${clue.middle} sits between ${clue.first} and ${clue.second}.`,
+          `${clue.middle} is placed in between ${clue.first} and ${clue.second}.`,
+          `${clue.first}, ${clue.middle}, and ${clue.second} form a consecutive block with ${clue.middle} in the middle.`,
+        ],
+      );
     case "adjacent-both":
-      return `${clue.middle} is an immediate neighbour of both ${clue.first} and ${clue.second}.`;
+      return selectClueVariant(
+        clue,
+        scenario,
+        [
+          `${clue.middle} is an immediate neighbour of both ${clue.first} and ${clue.second}.`,
+          `${clue.middle} sits next to both ${clue.first} and ${clue.second}.`,
+          `${clue.first} and ${clue.second} occupy the two seats adjacent to ${clue.middle}.`,
+        ],
+      );
     case "not-end":
       return `${clue.person} is not sitting at any extreme end.`;
     case "opposite":
       return scenario.arrangementType ===
         "double-row"
-        ? `${clue.left} sits facing ${clue.right}.`
-        : `${clue.left} sits opposite ${clue.right}.`;
+        ? selectClueVariant(
+            clue,
+            scenario,
+            [
+              `${clue.left} sits facing ${clue.right}.`,
+              `${clue.left} is directly opposite ${clue.right}.`,
+              `${clue.right} faces ${clue.left}.`,
+            ],
+          )
+        : selectClueVariant(
+            clue,
+            scenario,
+            [
+              `${clue.left} sits opposite ${clue.right}.`,
+              `${clue.left} is directly opposite ${clue.right}.`,
+              `${clue.right} sits opposite ${clue.left}.`,
+            ],
+          );
     case "not-opposite":
       return scenario.arrangementType ===
         "double-row"
-        ? `${clue.left} does not sit facing ${clue.right}.`
-        : `${clue.left} does not sit opposite ${clue.right}.`;
+        ? selectClueVariant(
+            clue,
+            scenario,
+            [
+              `${clue.left} does not sit facing ${clue.right}.`,
+              `${clue.left} is not directly opposite ${clue.right}.`,
+              `${clue.right} does not face ${clue.left}.`,
+            ],
+          )
+        : selectClueVariant(
+            clue,
+            scenario,
+            [
+              `${clue.left} does not sit opposite ${clue.right}.`,
+              `${clue.left} is not directly opposite ${clue.right}.`,
+              `${clue.right} is not opposite ${clue.left}.`,
+            ],
+          );
     case "same-row":
       return `${clue.left} sits in the same row as ${clue.right}.`;
     case "different-row":

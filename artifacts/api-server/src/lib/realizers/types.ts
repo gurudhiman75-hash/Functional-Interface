@@ -51,6 +51,7 @@ export type RealizationPrimitive =
   | "relative-left"
   | "relative-right"
   | "opposite"
+  | "not-opposite"
   | "adjacent"
   | "not-adjacent"
   | "between"

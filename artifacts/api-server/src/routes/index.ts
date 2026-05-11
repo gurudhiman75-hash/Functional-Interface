@@ -21,6 +21,7 @@ import questionBankRouter from "./question-bank";
 import diSetsRouter from "./di-sets";
 import uploadRouter from "./upload";
 import generatorRoutes from "./generator";
+import knowledgeRouter from "./knowledge";
 
 const router: IRouter = Router();
 
@@ -45,6 +46,7 @@ router.use("/topics", topicsRouter);
 router.use(questionBankRouter);
 router.use(diSetsRouter);
 router.use(uploadRouter);
+router.use("/knowledge", knowledgeRouter);
 router.use(
   "/generator",
   generatorRoutes,

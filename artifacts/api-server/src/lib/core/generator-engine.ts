@@ -474,6 +474,7 @@ export type GeneratorOptions = {
   qualityThresholds?: Partial<QualityThresholds>;
   enableNameClash?: boolean;
   distractorArchetypes?: string[];
+  forcedMotifId?: string;
 };
 
 export type DIPattern = {
@@ -583,6 +584,9 @@ type GenerationDebugMetadata = {
   qualityAssessment?: QualityAssessment;
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
+  knowledgeLogic?: unknown;
+  knowledgeContent?: unknown;
+  factSnapshot?: unknown;
   structuralSignatureKey?: string;
   scenarioLogicBranch?: string;
   reasoningEngineFamily?: string;
@@ -1529,18 +1533,38 @@ function createReasoningQuestionCandidate(
   let fallbackReason:
     | string
     | undefined;
+  const forcedMotif =
+    options?.forcedMotifId
+      ? ALL_MOTIFS.find(
+          (entry) =>
+            entry.id ===
+            options.forcedMotifId,
+        )
+      : undefined;
+  const forcedMotifCompatibility =
+    forcedMotif
+      ? validatePatternCompatibility(
+          pattern,
+          topicCluster,
+          forcedMotif,
+          requestedDifficulty,
+        )
+      : null;
   const selectedMotif =
-    pickMotif(
-      topicCluster,
-      pattern,
-      options,
-    ) ??
-    ALL_MOTIFS.find(
-      (entry) =>
-        entry.topicCluster ===
-        topicCluster,
-    ) ??
-    ALL_MOTIFS[0]!;
+    forcedMotif &&
+    forcedMotifCompatibility?.valid
+      ? forcedMotif
+      : pickMotif(
+          topicCluster,
+          pattern,
+          options,
+        ) ??
+        ALL_MOTIFS.find(
+          (entry) =>
+            entry.topicCluster ===
+            topicCluster,
+        ) ??
+        ALL_MOTIFS[0]!;
   const patternMotifCompatibility =
     selectedMotif
       ? validatePatternCompatibility(
@@ -2079,6 +2103,24 @@ function createEnglishQuestionCandidate(
         correct: scenario.correct,
         explanation:
           scenario.explanation,
+        textHi:
+          scenario.content.hi?.question ??
+          null,
+        optionsHi:
+          scenario.content.hi?.options ??
+          null,
+        explanationHi:
+          scenario.content.hi
+            ?.explanation ?? null,
+        textPa:
+          scenario.content.pa?.question ??
+          null,
+        optionsPa:
+          scenario.content.pa?.options ??
+          null,
+        explanationPa:
+          scenario.content.pa
+            ?.explanation ?? null,
         inferenceTrace: {
           engineFamily:
             "Engine_Verbal",
@@ -2152,6 +2194,12 @@ function createEnglishQuestionCandidate(
             uniqueAnswer: true,
             issues: [],
           },
+          knowledgeLogic:
+            scenario.logic,
+          knowledgeContent:
+            scenario.content,
+          factSnapshot:
+            scenario.factSnapshot,
           compatibilityWarnings: [],
           validationWarnings: [],
         },
@@ -2273,6 +2321,24 @@ function createPunjabiQuestionCandidate(
         correct: scenario.correct,
         explanation:
           scenario.explanation,
+        textHi:
+          scenario.content.hi?.question ??
+          null,
+        optionsHi:
+          scenario.content.hi?.options ??
+          null,
+        explanationHi:
+          scenario.content.hi
+            ?.explanation ?? null,
+        textPa:
+          scenario.content.pa?.question ??
+          null,
+        optionsPa:
+          scenario.content.pa?.options ??
+          null,
+        explanationPa:
+          scenario.content.pa
+            ?.explanation ?? null,
         inferenceTrace: {
           engineFamily:
             "Engine_Punjabi",
@@ -2339,6 +2405,12 @@ function createPunjabiQuestionCandidate(
             uniqueAnswer: true,
             issues: [],
           },
+          knowledgeLogic:
+            scenario.logic,
+          knowledgeContent:
+            scenario.content,
+          factSnapshot:
+            scenario.factSnapshot,
           compatibilityWarnings: [],
           validationWarnings: [],
         },
@@ -2458,6 +2530,24 @@ function createKnowledgeQuestionCandidate(
         correct: scenario.correct,
         explanation:
           scenario.explanation,
+        textHi:
+          scenario.content.hi?.question ??
+          null,
+        optionsHi:
+          scenario.content.hi?.options ??
+          null,
+        explanationHi:
+          scenario.content.hi
+            ?.explanation ?? null,
+        textPa:
+          scenario.content.pa?.question ??
+          null,
+        optionsPa:
+          scenario.content.pa?.options ??
+          null,
+        explanationPa:
+          scenario.content.pa
+            ?.explanation ?? null,
         inferenceTrace: {
           engineFamily,
           styleAnchor,
@@ -2529,6 +2619,12 @@ function createKnowledgeQuestionCandidate(
             uniqueAnswer: true,
             issues: [],
           },
+          knowledgeLogic:
+            scenario.logic,
+          knowledgeContent:
+            scenario.content,
+          factSnapshot:
+            scenario.factSnapshot,
           compatibilityWarnings: [],
           validationWarnings: [],
         },
@@ -2634,6 +2730,19 @@ function createSeatingQuestionCandidate(
         )
       : null;
   const motif = selectedMotif;
+
+  if (
+    forcedMotif &&
+    !forcedMotifCompatibility?.valid
+  ) {
+    compatibilityWarnings.push(
+      `Forced motif ${forcedMotif.id} was skipped because it is not compatible with this seating pattern.`,
+      ...(
+        forcedMotifCompatibility?.issues ??
+        []
+      ).map((issue) => issue.reason),
+    );
+  }
 
   if (
     selectedMotif &&
@@ -3561,10 +3670,19 @@ export async function generateFromPattern(
         generationContext.seed,
       generationContext,
     };
+  const effectiveGenerationDomain =
+    inferGenerationDomain(effectivePattern);
   const cacheEligible =
     count > 0 &&
-    rawGenerationDomain !==
-      "seating-arrangement";
+    effectiveGenerationDomain !==
+      "seating-arrangement" &&
+    effectiveGenerationDomain !==
+      "knowledge" &&
+    effectiveGenerationDomain !==
+      "computer" &&
+    !/knowledge|computer|gk/i.test(
+      `${effectivePattern.section} ${effectivePattern.topic} ${effectivePattern.id}`,
+    );
 
   return runWithGenerationContext(
     generationContext,
@@ -3616,12 +3734,14 @@ export async function generateFromPattern(
             ),
         };
 
-        await cacheGenerationResult(
-          effectivePattern,
-          count,
-          generationScopedOptions,
-          result,
-        );
+        if (cacheEligible) {
+          await cacheGenerationResult(
+            effectivePattern,
+            count,
+            generationScopedOptions,
+            result,
+          );
+        }
 
         return result;
       } catch (error) {
@@ -3667,6 +3787,166 @@ export async function generateFromPattern(
   );
 }
 
+function stableHash(value: string) {
+  let hash = 2166136261;
+
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+}
+
+function hasExplicitSeatingTopology(pattern: Pattern) {
+  const record =
+    pattern as Pattern &
+      Record<string, unknown>;
+  const text =
+    `${pattern.id} ${pattern.topic} ${pattern.subtopic}`.toLowerCase();
+
+  return Boolean(
+    record["arrangementType"] ||
+      record["arrangementTypes"] ||
+      /linear|circular|square|rectangular|double[ -]?row|parallel[ -]?row|floor|box|stack|sched|calendar|ranking|mapping/.test(
+        text,
+      ),
+  );
+}
+
+function getMotifTopologyHints(motifId: string) {
+  if (/floor/.test(motifId)) {
+    return {
+      arrangementType: "floor",
+      orientationType: "north",
+    };
+  }
+
+  if (/box/.test(motifId)) {
+    return {
+      arrangementType: "box-stack",
+      orientationType: "north",
+    };
+  }
+
+  if (/sched/.test(motifId)) {
+    return {
+      arrangementType: "scheduling",
+      orientationType: "north",
+    };
+  }
+
+  if (/mapping/.test(motifId)) {
+    return {
+      arrangementType: "mapping",
+      orientationType: "north",
+    };
+  }
+
+  if (/circular|opposite/.test(motifId)) {
+    return {
+      arrangementType: "circular",
+      orientationType: "center",
+    };
+  }
+
+  if (/double_row/.test(motifId)) {
+    return {
+      arrangementType: "double-row",
+      orientationType: "mixed",
+    };
+  }
+
+  if (/row_facing/.test(motifId)) {
+    return {
+      arrangementType: "parallel-row",
+      orientationType: "mixed",
+    };
+  }
+
+  if (/alternate/.test(motifId)) {
+    return {
+      arrangementType: "linear",
+      orientationType: "alternate",
+    };
+  }
+
+  return {
+    arrangementType: "linear",
+    orientationType: "north",
+  };
+}
+
+function getCompatibleBatchMotifs(
+  pattern: Pattern,
+  options?: GeneratorOptions,
+) {
+  const topicCluster =
+    inferQuantTopicCluster(pattern);
+
+  if (
+    inferGenerationDomain(pattern) !==
+      "seating-arrangement" &&
+    topicCluster !== "seating-arrangement"
+  ) {
+    return [];
+  }
+
+  const requestedDifficulty =
+    getRequestedDifficultyLabel(
+      pattern,
+      options,
+      classifyDifficultyLabel,
+    );
+
+  return ALL_MOTIFS.filter((motif) => {
+    if (
+      motif.topicCluster !==
+      "seating-arrangement"
+    ) {
+      return false;
+    }
+
+    return validatePatternCompatibility(
+      pattern,
+      topicCluster,
+      motif,
+      requestedDifficulty,
+    ).valid;
+  });
+}
+
+function buildSeatingBatchPatternVariant(
+  pattern: Pattern,
+  motif: QuantMotif | undefined,
+  index: number,
+) {
+  if (!motif) {
+    return pattern;
+  }
+
+  const variant =
+    {
+      ...pattern,
+      supportedMotifs: [motif.id],
+    } as Pattern &
+      Record<string, unknown>;
+
+  if (!hasExplicitSeatingTopology(pattern)) {
+    const hints =
+      getMotifTopologyHints(motif.id);
+    variant["arrangementType"] =
+      hints.arrangementType;
+    variant["orientationType"] =
+      hints.orientationType;
+    variant["orientation"] =
+      hints.orientationType;
+  }
+
+  variant["batchVariationIndex"] = index;
+  return variant as Pattern;
+}
+
 export async function generateBatch(
   patternId: string,
   count: number,
@@ -3698,14 +3978,55 @@ export async function generateBatch(
     | GeneratorResult["generationContext"]
     | undefined;
   const fingerprints = new Set<string>();
-
-  for (let i = 0; i < safeCount; i++) {
-    const result = await generateFromPattern(
+  const compatibleBatchMotifs =
+    getCompatibleBatchMotifs(
       pattern,
+      options,
+    );
+  const motifOffset =
+    compatibleBatchMotifs.length
+      ? stableHash(
+          `${options?.seed ?? seedBase}:${pattern.id}:motif-rotation`,
+        ) %
+        compatibleBatchMotifs.length
+      : 0;
+  const maxBatchAttempts =
+    Math.max(
+      safeCount *
+        (compatibleBatchMotifs.length
+          ? 8
+          : 3),
+      safeCount,
+    );
+
+  for (
+    let i = 0;
+    i < maxBatchAttempts &&
+    questions.length < safeCount;
+    i++
+  ) {
+    const forcedMotif =
+      compatibleBatchMotifs.length
+        ? compatibleBatchMotifs[
+            (i + motifOffset) %
+              compatibleBatchMotifs.length
+          ]
+        : undefined;
+    const patternVariant =
+      buildSeatingBatchPatternVariant(
+        pattern,
+        forcedMotif,
+        i,
+      );
+    const result = await generateFromPattern(
+      patternVariant,
       1,
       {
         ...(options ?? {}),
-        seed: `${options?.seed ?? seedBase}-${i}`,
+        forcedMotifId:
+          forcedMotif?.id ??
+          options?.forcedMotifId,
+        seed: `${options?.seed ?? seedBase}-${i}-${forcedMotif?.id ?? "default"}`,
       },
     );
     generationContext =
@@ -3732,6 +4053,10 @@ export async function generateBatch(
 
       fingerprints.add(signature);
       questions.push(question);
+
+      if (questions.length >= safeCount) {
+        break;
+      }
     }
   }
 

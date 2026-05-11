@@ -30,6 +30,8 @@ export function realizeSeatingPunjabi(
       return `${subject}, ${object} ਦੇ ${ordinalPa(distance)} ਸੱਜੇ ਪਾਸੇ ${punjabiSitVerb(subjectRaw)}।`;
     case "opposite":
       return `${subject}, ${object} ਦੇ ਸਾਹਮਣੇ ${punjabiSitVerb(subjectRaw)}।`;
+    case "not-opposite":
+      return `${subject}, ${object} ਦੇ ਸਾਹਮਣੇ ਨਹੀਂ ${punjabiSitVerb(subjectRaw)}।`;
     case "adjacent":
       return `${subject} ਅਤੇ ${object} ਇੱਕ-ਦੂਜੇ ਦੇ ਨਾਲ ਬੈਠੇ ਹਨ।`;
     case "not-adjacent":

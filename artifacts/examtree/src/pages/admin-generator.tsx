@@ -20,7 +20,7 @@ import {
 } from "recharts";
 import type {
   SeatingDiagramData,
-  SeatingExplanationFlow,
+  SeatingExplanationFlow as SeatingExplanationFlowData,
 } from "@workspace/api-zod";
 import MathText from "@/components/MathText";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
@@ -496,7 +496,7 @@ type GenerationDebugMetadata = {
     json?: string;
   };
   seatingDiagram?: SeatingDiagramData;
-  seatingExplanationFlow?: SeatingExplanationFlow;
+  seatingExplanationFlow?: SeatingExplanationFlowData;
   generationMetrics?: {
     inferenceDepth?: number;
     redundancyScore?: number;
@@ -527,7 +527,7 @@ type DIQuestion = {
   debugMetadata?: GenerationDebugMetadata;
   explanation?: string;
   seatingDiagram?: SeatingDiagramData;
-  seatingExplanationFlow?: SeatingExplanationFlow;
+  seatingExplanationFlow?: SeatingExplanationFlowData;
 };
 
 type DISet = {
@@ -586,7 +586,66 @@ type FormulaQuestion = {
   examRealismMetadata?: ExamRealismMetadata;
   debugMetadata?: GenerationDebugMetadata;
   seatingDiagram?: SeatingDiagramData;
-  seatingExplanationFlow?: SeatingExplanationFlow;
+  seatingExplanationFlow?: SeatingExplanationFlowData;
+};
+
+type KnowledgeExtractionCandidate = {
+  candidateId: string;
+  rawText: string;
+  proposedFact: {
+    factId: string;
+    entityId: string;
+    subject: string;
+    topic: string;
+    subtopic: string;
+    factType: string;
+    contextGroupId: string;
+    sequenceIndex?: number;
+    data: {
+      entity: Record<
+        RegistryLanguage,
+        string
+      >;
+      fact: Record<
+        RegistryLanguage,
+        string
+      >;
+      detail?: Partial<
+        Record<
+          RegistryLanguage,
+          string
+        >
+      >;
+    };
+    difficulty:
+      | "easy"
+      | "moderate"
+      | "hard";
+    examTags: string[];
+    tags: string[];
+    verification: {
+      reviewed: boolean;
+      confidence: number;
+    };
+    source: {
+      book?: string;
+      url?: string;
+      page?: number;
+      chapter?: string;
+      note?: string;
+    };
+  };
+  extractionNotes: string[];
+  status:
+    | "draft"
+    | "needs_review"
+    | "approved"
+    | "rejected";
+  review?: {
+    reviewedAt: string;
+    reviewerId?: string;
+    notes?: string;
+  };
 };
 
 type GeneratedQuestion =
@@ -769,6 +828,31 @@ type ReviewableGeneratedItem = {
   validationDiagnostics: string[];
   structuralWarnings: string[];
   review?: QAReviewRecord;
+};
+
+type QuestionLifecycleState =
+  | "generated"
+  | "reviewing"
+  | "approved"
+  | "rejected"
+  | "archived"
+  | "published";
+
+type EditorialSourceType =
+  | "generated"
+  | "pyq"
+  | "ingested"
+  | "extracted";
+
+type EditorialBadgeTone =
+  | "success"
+  | "warning"
+  | "error"
+  | "neutral";
+
+type EditorialBadge = {
+  label: string;
+  tone: EditorialBadgeTone;
 };
 
 const PIE_COLORS = [
@@ -1594,6 +1678,38 @@ function getQuestionFingerprint(
       question.debugMetadata
         ?.selectedArchetype,
   });
+}
+
+function getExtractionCandidateId(
+  question: GeneratedQuestion,
+) {
+  if (isDISet(question)) {
+    return null;
+  }
+
+  const logic =
+    question.proceduralLogic as
+      | { candidateId?: string }
+      | undefined;
+  const knowledgeLogic =
+    question.debugMetadata
+      ?.knowledgeLogic as
+      | { candidateId?: string }
+      | undefined;
+
+  return (
+    logic?.candidateId ??
+    knowledgeLogic?.candidateId ??
+    null
+  );
+}
+
+function isKnowledgeExtractionQuestion(
+  question: GeneratedQuestion,
+) {
+  return Boolean(
+    getExtractionCandidateId(question),
+  );
 }
 
 function getQuestionValidationStatus(
@@ -3257,6 +3373,263 @@ function buildFilingPayloads(
     });
 }
 
+function extractionCandidateToQuestion(
+  candidate: KnowledgeExtractionCandidate,
+): FormulaQuestion {
+  const fact = candidate.proposedFact;
+  const entity = fact.data.entity;
+  const answer = fact.data.fact;
+  const sourceLabel = [
+    fact.source.book,
+    fact.source.chapter,
+    fact.source.page
+      ? `p. ${fact.source.page}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" / ");
+  const difficulty: DifficultyLabel =
+    fact.difficulty === "hard"
+      ? "Hard"
+      : fact.difficulty === "easy"
+        ? "Easy"
+        : "Medium";
+  const optionsEn = [
+    answer.en,
+    "Related fact pending review",
+    "Nearby distractor pending review",
+    "None of these",
+  ];
+  const optionsHi = [
+    answer.hi,
+    "संबंधित तथ्य समीक्षा हेतु लंबित",
+    "निकट विकल्प समीक्षा हेतु लंबित",
+    "इनमें से कोई नहीं",
+  ];
+  const optionsPa = [
+    answer.pa,
+    "ਸੰਬੰਧਿਤ ਤੱਥ ਸਮੀਖਿਆ ਲਈ ਲੰਬਿਤ",
+    "ਨੇੜਲਾ ਵਿਕਲਪ ਸਮੀਖਿਆ ਲਈ ਲੰਬਿਤ",
+    "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ",
+  ];
+
+  return {
+    text: `Which option is correctly associated with ${entity.en}?`,
+    textHi: `${entity.hi} से सही रूप से संबंधित विकल्प कौन-सा है?`,
+    textPa: `${entity.pa} ਨਾਲ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਸੰਬੰਧਿਤ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?`,
+    options: optionsEn,
+    optionsHi,
+    optionsPa,
+    correct: 0,
+    explanation: [
+      `Structured fact: ${entity.en} -> ${answer.en}.`,
+      sourceLabel
+        ? `Source: ${sourceLabel}.`
+        : "Source metadata requires review.",
+      "This AI-extracted candidate must be verified before publishing.",
+    ].join("\n"),
+    explanationHi: [
+      `संरचित तथ्य: ${entity.hi} -> ${answer.hi}.`,
+      sourceLabel
+        ? `स्रोत: ${sourceLabel}.`
+        : "स्रोत मेटाडेटा समीक्षा हेतु लंबित है।",
+      "प्रकाशन से पहले इस AI-extracted candidate की पुष्टि करें।",
+    ].join("\n"),
+    explanationPa: [
+      `ਸੰਰਚਿਤ ਤੱਥ: ${entity.pa} -> ${answer.pa}.`,
+      sourceLabel
+        ? `ਸਰੋਤ: ${sourceLabel}.`
+        : "ਸਰੋਤ ਮੈਟਾਡਾਟਾ ਸਮੀਖਿਆ ਲਈ ਲੰਬਿਤ ਹੈ।",
+      "ਪਬਲਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸ AI-extracted candidate ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।",
+    ].join("\n"),
+    requestedLanguages: [
+      "en",
+      "hi",
+      "pa",
+    ],
+    patternId:
+      `knowledge-extraction-${fact.factType}`,
+    proceduralLogic: {
+      source:
+        "knowledge-extraction",
+      candidateId:
+        candidate.candidateId,
+      factId: fact.factId,
+      entityId: fact.entityId,
+      factType: fact.factType,
+      contextGroupId:
+        fact.contextGroupId,
+      rawText: candidate.rawText,
+    },
+    motifs: [
+      "knowledge-extraction",
+      fact.factType,
+      fact.contextGroupId,
+    ],
+    section: "ga",
+    topic: fact.topic,
+    subtopic: fact.subtopic,
+    difficulty,
+    difficultyLabel: difficulty,
+    debugMetadata: {
+      generationDomain: "knowledge",
+      selectedMotif:
+        "knowledge-extraction",
+      selectedPattern:
+        `knowledge-extraction-${fact.factType}`,
+      selectedArchetype:
+        "AI Fact Extraction",
+      compatibilityWarnings:
+        candidate.extractionNotes,
+      validationWarnings:
+        candidate.status ===
+        "needs_review"
+          ? [
+              "Human verification required before save.",
+            ]
+          : [],
+      knowledgeLogic: {
+        source:
+          "knowledge-extraction",
+        candidateId:
+          candidate.candidateId,
+        factId: fact.factId,
+        factType: fact.factType,
+        contextGroupId:
+          fact.contextGroupId,
+      },
+      factSnapshot: fact,
+    } as any,
+  };
+}
+
+function extractionCandidateToQuestionNative(
+  candidate: KnowledgeExtractionCandidate,
+): FormulaQuestion {
+  const fact = candidate.proposedFact;
+  const entity = fact.data.entity;
+  const answer = fact.data.fact;
+  const sourceLabel = [
+    fact.source.book,
+    fact.source.chapter,
+    fact.source.page
+      ? `p. ${fact.source.page}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" / ");
+  const difficulty: DifficultyLabel =
+    fact.difficulty === "hard"
+      ? "Hard"
+      : fact.difficulty === "easy"
+        ? "Easy"
+        : "Medium";
+
+  return {
+    text: `Which option is correctly associated with ${entity.en}?`,
+    textHi: `${entity.hi} से सही रूप से संबंधित विकल्प कौन-सा है?`,
+    textPa: `${entity.pa} ਨਾਲ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਸੰਬੰਧਿਤ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?`,
+    options: [
+      answer.en,
+      "Related fact pending review",
+      "Nearby distractor pending review",
+      "None of these",
+    ],
+    optionsHi: [
+      answer.hi,
+      "संबंधित तथ्य समीक्षा हेतु लंबित",
+      "निकट विकल्प समीक्षा हेतु लंबित",
+      "इनमें से कोई नहीं",
+    ],
+    optionsPa: [
+      answer.pa,
+      "ਸੰਬੰਧਿਤ ਤੱਥ ਸਮੀਖਿਆ ਲਈ ਲੰਬਿਤ",
+      "ਨੇੜਲਾ ਵਿਕਲਪ ਸਮੀਖਿਆ ਲਈ ਲੰਬਿਤ",
+      "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ",
+    ],
+    correct: 0,
+    explanation: [
+      `Structured fact: ${entity.en} -> ${answer.en}.`,
+      sourceLabel
+        ? `Source: ${sourceLabel}.`
+        : "Source metadata requires review.",
+      "This extracted candidate must be verified before publishing.",
+    ].join("\n"),
+    explanationHi: [
+      `संरचित तथ्य: ${entity.hi} -> ${answer.hi}.`,
+      sourceLabel
+        ? `स्रोत: ${sourceLabel}.`
+        : "स्रोत मेटाडेटा समीक्षा हेतु लंबित है।",
+      "प्रकाशन से पहले इस extracted candidate की पुष्टि करें।",
+    ].join("\n"),
+    explanationPa: [
+      `ਸੰਰਚਿਤ ਤੱਥ: ${entity.pa} -> ${answer.pa}.`,
+      sourceLabel
+        ? `ਸਰੋਤ: ${sourceLabel}.`
+        : "ਸਰੋਤ ਮੈਟਾਡਾਟਾ ਸਮੀਖਿਆ ਲਈ ਲੰਬਿਤ ਹੈ।",
+      "ਪਬਲਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸ extracted candidate ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।",
+    ].join("\n"),
+    requestedLanguages: [
+      "en",
+      "hi",
+      "pa",
+    ],
+    patternId:
+      `knowledge-extraction-${fact.factType}`,
+    proceduralLogic: {
+      source:
+        "knowledge-extraction",
+      candidateId:
+        candidate.candidateId,
+      factId: fact.factId,
+      entityId: fact.entityId,
+      factType: fact.factType,
+      contextGroupId:
+        fact.contextGroupId,
+      rawText: candidate.rawText,
+    },
+    motifs: [
+      "knowledge-extraction",
+      fact.factType,
+      fact.contextGroupId,
+    ],
+    section: "ga",
+    topic: fact.topic,
+    subtopic: fact.subtopic,
+    difficulty,
+    difficultyLabel: difficulty,
+    debugMetadata: {
+      generationDomain: "knowledge",
+      selectedMotif:
+        "knowledge-extraction",
+      selectedPattern:
+        `knowledge-extraction-${fact.factType}`,
+      selectedArchetype:
+        "AI Fact Extraction",
+      compatibilityWarnings:
+        candidate.extractionNotes,
+      validationWarnings:
+        candidate.status ===
+        "needs_review"
+          ? [
+              "Human verification required before save.",
+            ]
+          : [],
+      knowledgeLogic: {
+        source:
+          "knowledge-extraction",
+        candidateId:
+          candidate.candidateId,
+        factId: fact.factId,
+        factType: fact.factType,
+        contextGroupId:
+          fact.contextGroupId,
+      },
+      factSnapshot: fact,
+    } as any,
+  };
+}
+
 function renderStoredLanguagePreviewPane(
   question: GeneratedQuestion,
   editMode: boolean,
@@ -3530,6 +3903,249 @@ function renderStoredLanguagePreviewPane(
         )}
       </div>
     </div>
+  );
+}
+
+function getEditorialLifecycleState(
+  item: ReviewableGeneratedItem,
+  lifecycleStates: Record<string, QuestionLifecycleState>,
+): QuestionLifecycleState {
+  const explicitState =
+    lifecycleStates[item.fingerprint];
+
+  if (explicitState) {
+    return explicitState;
+  }
+
+  if (item.review?.status === "approved") {
+    return "approved";
+  }
+
+  if (item.review?.status === "rejected") {
+    return "rejected";
+  }
+
+  if (item.review?.status === "flagged") {
+    return "reviewing";
+  }
+
+  return "generated";
+}
+
+function getEditorialSourceType(
+  item: ReviewableGeneratedItem,
+): EditorialSourceType {
+  const primary =
+    getPrimaryQuestion(item.question);
+  const factSnapshot =
+    primary?.debugMetadata
+      ?.factSnapshot as any;
+
+  if (
+    factSnapshot?.pyqMetadata
+      ?.wasAsked
+  ) {
+    return "pyq";
+  }
+
+  if (
+    factSnapshot?.source?.book ||
+    factSnapshot?.source?.page ||
+    factSnapshot?.source?.chapter
+  ) {
+    return "ingested";
+  }
+
+  if (
+    (primary?.debugMetadata as any)
+      ?.knowledgeLogic
+  ) {
+    return "extracted";
+  }
+
+  return "generated";
+}
+
+function getLanguageBadges(
+  question: GeneratedQuestion,
+) {
+  if (isDISet(question)) {
+    return ["EN"];
+  }
+
+  const badges = ["EN"];
+
+  if (
+    question.textHi?.trim() ||
+    question.optionsHi?.some(
+      (option) =>
+        option?.trim(),
+    ) ||
+    question.explanationHi?.trim()
+  ) {
+    badges.push("HI");
+  }
+
+  if (
+    question.textPa?.trim() ||
+    question.optionsPa?.some(
+      (option) =>
+        option?.trim(),
+    ) ||
+    question.explanationPa?.trim()
+  ) {
+    badges.push("PA");
+  }
+
+  return badges;
+}
+
+function getSourceLineage(
+  item: ReviewableGeneratedItem,
+) {
+  const primary =
+    getPrimaryQuestion(item.question);
+  const factSnapshot =
+    primary?.debugMetadata
+      ?.factSnapshot as any;
+
+  if (!factSnapshot?.source) {
+    return "Generator output";
+  }
+
+  return [
+    factSnapshot.source.book,
+    factSnapshot.source.chapter,
+    factSnapshot.source.page
+      ? `p. ${factSnapshot.source.page}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" / ");
+}
+
+function getEditorialBadges(
+  item: ReviewableGeneratedItem,
+): EditorialBadge[] {
+  const primary =
+    getPrimaryQuestion(item.question);
+  const badges: EditorialBadge[] =
+    [];
+  const solverVerified =
+    item.uniquenessStatus
+      .toLowerCase()
+      .includes("unique") ||
+    item.validationStatus
+      .toLowerCase()
+      .includes("valid") ||
+    primary?.debugMetadata
+      ?.uniquenessVerified === true;
+
+  badges.push({
+    label: solverVerified
+      ? "Solver Verified"
+      : "Solver Warning",
+    tone: solverVerified
+      ? "success"
+      : "warning",
+  });
+
+  if (
+    item.uniquenessStatus
+      .toLowerCase()
+      .includes("unique")
+  ) {
+    badges.push({
+      label: "Unique Solution",
+      tone: "success",
+    });
+  }
+
+  if (
+    !isDISet(item.question) &&
+    item.question.textPa?.trim() &&
+    item.question.explanationPa?.trim()
+  ) {
+    badges.push({
+      label: "Punjabi Verified",
+      tone: "success",
+    });
+  } else if (
+    !isDISet(item.question) &&
+    item.question.requestedLanguages?.includes(
+      "pa",
+    )
+  ) {
+    badges.push({
+      label: "Punjabi Pending",
+      tone: "warning",
+    });
+  }
+
+  if (
+    primary?.section ||
+    primary?.topic ||
+    (primary?.debugMetadata as any)
+      ?.knowledgeLogic
+  ) {
+    badges.push({
+      label: "Metadata Complete",
+      tone: "success",
+    });
+  } else {
+    badges.push({
+      label: "Missing Taxonomy",
+      tone: "warning",
+    });
+  }
+
+  if (item.repetitionFlags.length) {
+    badges.push({
+      label: "Duplicate Risk",
+      tone: "warning",
+    });
+  }
+
+  if (
+    item.validationDiagnostics.length
+  ) {
+    badges.push({
+      label: "Diagnostics",
+      tone: "neutral",
+    });
+  }
+
+  return badges;
+}
+
+function getBadgeClasses(
+  tone: EditorialBadgeTone,
+) {
+  if (tone === "success") {
+    return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  }
+
+  if (tone === "warning") {
+    return "border-amber-200 bg-amber-50 text-amber-800";
+  }
+
+  if (tone === "error") {
+    return "border-rose-200 bg-rose-50 text-rose-700";
+  }
+
+  return "border-slate-200 bg-slate-50 text-slate-600";
+}
+
+function renderEditorialBadge(
+  badge: EditorialBadge,
+) {
+  return (
+    <span
+      key={badge.label}
+      className={`rounded border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] ${getBadgeClasses(badge.tone)}`}
+    >
+      {badge.label}
+    </span>
   );
 }
 
@@ -5326,6 +5942,22 @@ export default function AdminGeneratorPage() {
     setWorkspaceEditMode,
   ] = useState(false);
   const [
+    selectedBatchFingerprints,
+    setSelectedBatchFingerprints,
+  ] = useState<string[]>([]);
+  const [
+    lifecycleStates,
+    setLifecycleStates,
+  ] = useState<
+    Record<string, QuestionLifecycleState>
+  >({});
+  const [
+    activeModerationLanguage,
+    setActiveModerationLanguage,
+  ] = useState<RegistryLanguage>(
+    "en",
+  );
+  const [
     pendingRefinementFingerprint,
     setPendingRefinementFingerprint,
   ] = useState<string | null>(
@@ -5369,6 +6001,40 @@ export default function AdminGeneratorPage() {
   const [
     enableNameClash,
     setEnableNameClash,
+  ] = useState(false);
+  const [
+    extractionSourceName,
+    setExtractionSourceName,
+  ] = useState("Lucent GK");
+  const [
+    extractionSourceChapter,
+    setExtractionSourceChapter,
+  ] = useState("");
+  const [
+    extractionSourcePage,
+    setExtractionSourcePage,
+  ] = useState("");
+  const [
+    extractionSourceUrl,
+    setExtractionSourceUrl,
+  ] = useState("");
+  const [
+    extractionQueueLoading,
+    setExtractionQueueLoading,
+  ] = useState(false);
+  const [
+    extractionSourceText,
+    setExtractionSourceText,
+  ] = useState("");
+  const [
+    extractionCandidates,
+    setExtractionCandidates,
+  ] = useState<
+    KnowledgeExtractionCandidate[]
+  >([]);
+  const [
+    extractionLoading,
+    setExtractionLoading,
   ] = useState(false);
   const [
     editingPatternId,
@@ -5560,6 +6226,85 @@ export default function AdminGeneratorPage() {
     }
 
     loadQAReviews();
+  }, []);
+
+  async function loadExtractionQueue() {
+    try {
+      setExtractionQueueLoading(true);
+      const res = await fetch(
+        `${API_BASE_URL}/api/knowledge/extraction-candidates`,
+      );
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(
+          data.error ??
+            "Failed to load extraction candidates.",
+        );
+      }
+
+      const candidates =
+        Array.isArray(
+          data.candidates,
+        )
+          ? (data.candidates as KnowledgeExtractionCandidate[])
+          : [];
+      setExtractionCandidates(
+        candidates,
+      );
+      const staged =
+        candidates
+          .filter(
+            (candidate) =>
+              candidate.status !==
+              "rejected",
+          )
+          .map(
+            extractionCandidateToQuestionNative,
+          );
+
+      setGenerated((current) => {
+        const existingIds =
+          new Set(
+            current
+              .map(
+                getExtractionCandidateId,
+              )
+              .filter(Boolean),
+          );
+        const fresh = staged.filter(
+          (question) => {
+            const candidateId =
+              getExtractionCandidateId(
+                question,
+              );
+            return (
+              candidateId &&
+              !existingIds.has(
+                candidateId,
+              )
+            );
+          },
+        );
+
+        return fresh.length
+          ? [...fresh, ...current]
+          : current;
+      });
+    } catch (error) {
+      console.error(error);
+      setFilingToast(
+        error instanceof Error
+          ? error.message
+          : "Failed to load extraction queue.",
+      );
+    } finally {
+      setExtractionQueueLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadExtractionQueue();
   }, []);
   async function savePattern() {
     try {
@@ -6110,6 +6855,136 @@ export default function AdminGeneratorPage() {
       setQaLoading(false);
     }
   }
+
+  function markLifecycle(
+    fingerprints: string[],
+    state: QuestionLifecycleState,
+  ) {
+    if (!fingerprints.length) {
+      return;
+    }
+
+    setLifecycleStates((prev) => {
+      const next = {
+        ...prev,
+      };
+
+      fingerprints.forEach(
+        (fingerprint) => {
+          next[fingerprint] =
+            state;
+        },
+      );
+
+      return next;
+    });
+  }
+
+  function toggleBatchSelection(
+    fingerprint: string,
+  ) {
+    setSelectedBatchFingerprints(
+      (prev) =>
+        prev.includes(fingerprint)
+          ? prev.filter(
+              (entry) =>
+                entry !==
+                fingerprint,
+            )
+          : [
+              ...prev,
+              fingerprint,
+            ],
+    );
+  }
+
+  function setReviewFocus(
+    item: ReviewableGeneratedItem,
+  ) {
+    setSelectedWorkspaceFingerprint(
+      item.fingerprint,
+    );
+    setWorkspaceEditMode(false);
+    markLifecycle(
+      [item.fingerprint],
+      "reviewing",
+    );
+  }
+
+  async function approveModerationItems(
+    items: ReviewableGeneratedItem[],
+  ) {
+    await bulkPersistQAReviews(
+      items,
+      "approve",
+      "approved",
+    );
+    const extractionItems =
+      items.filter((item) =>
+        isKnowledgeExtractionQuestion(
+          item.question,
+        ),
+      );
+    if (extractionItems.length) {
+      await Promise.all(
+        extractionItems.map((item) =>
+          reviewExtractionCandidate(
+            item.question,
+            "approved",
+            "Approved from Question Studio moderation.",
+          ),
+        ),
+      );
+    }
+    markLifecycle(
+      items.map(
+        (item) =>
+          item.fingerprint,
+      ),
+      "approved",
+    );
+    setSelectedBatchFingerprints(
+      [],
+    );
+  }
+
+  async function rejectModerationItems(
+    items: ReviewableGeneratedItem[],
+  ) {
+    await bulkPersistQAReviews(
+      items,
+      "reject",
+      "rejected",
+    );
+    const extractionItems =
+      items.filter((item) =>
+        isKnowledgeExtractionQuestion(
+          item.question,
+        ),
+      );
+    if (extractionItems.length) {
+      await Promise.all(
+        extractionItems.map((item) =>
+          reviewExtractionCandidate(
+            item.question,
+            "rejected",
+            "Rejected from Question Studio moderation.",
+          ),
+        ),
+      );
+    }
+    markLifecycle(
+      items.map(
+        (item) =>
+          item.fingerprint,
+      ),
+      "rejected",
+    );
+    setSelectedBatchFingerprints(
+      [],
+    );
+  }
+
   async function deletePattern(
     id: string,
   ) {
@@ -6296,6 +7171,190 @@ export default function AdminGeneratorPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function extractKnowledgeFacts() {
+    if (!extractionSourceText.trim()) {
+      alert(
+        "Paste source text before extracting facts.",
+      );
+      return;
+    }
+
+    try {
+      setExtractionLoading(true);
+      const res = await fetch(
+        `${API_BASE_URL}/api/knowledge/extract`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            sourceName:
+              extractionSourceName ||
+              "Untitled source",
+            sourceBook:
+              extractionSourceName ||
+              "Untitled source",
+            sourceChapter:
+              extractionSourceChapter ||
+              undefined,
+            sourcePage:
+              extractionSourcePage ||
+              undefined,
+            sourceUrl:
+              extractionSourceUrl ||
+              undefined,
+            rawText:
+              extractionSourceText,
+          }),
+        },
+      );
+
+      if (!res.ok) {
+        const detail =
+          await res.text();
+        throw new Error(detail);
+      }
+
+      const data = await res.json();
+      const candidates =
+        Array.isArray(
+          data.candidates,
+        )
+          ? (data.candidates as KnowledgeExtractionCandidate[])
+          : [];
+      const staged =
+        candidates.map(
+          extractionCandidateToQuestionNative,
+        );
+
+      setExtractionCandidates(
+        candidates,
+      );
+      setGenerated((current) => [
+        ...staged,
+        ...current,
+      ]);
+
+      if (staged[0]) {
+        setSelectedWorkspaceFingerprint(
+          getQuestionFingerprint(
+            staged[0],
+          ),
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Knowledge extraction failed",
+      );
+    } finally {
+      setExtractionLoading(false);
+    }
+  }
+
+  async function loadExtractionSourceFile(
+    file: File | null,
+  ) {
+    if (!file) return;
+
+    if (
+      file.type === "application/pdf" ||
+      /\.pdf$/i.test(file.name)
+    ) {
+      setFilingToast(
+        "PDF selected. Please paste extracted text for now; OCR/PDF parsing must run before fact extraction.",
+      );
+      return;
+    }
+
+    const text = await file.text();
+    setExtractionSourceText(text);
+    setExtractionSourceName(
+      (current) =>
+        current || file.name,
+    );
+  }
+
+  async function reviewExtractionCandidate(
+    question: GeneratedQuestion,
+    status:
+      | "approved"
+      | "rejected"
+      | "needs_review",
+    notes?: string,
+  ) {
+    const candidateId =
+      getExtractionCandidateId(
+        question,
+      );
+
+    if (
+      !candidateId ||
+      isDISet(question)
+    ) {
+      return null;
+    }
+
+    const proposedFact =
+      question.debugMetadata
+        ?.factSnapshot;
+    const res = await fetch(
+      `${API_BASE_URL}/api/knowledge/extraction-candidates/${candidateId}/review`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          status,
+          notes,
+          proposedFact,
+        }),
+      },
+    );
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(
+        data.error ??
+          "Failed to review extraction candidate.",
+      );
+    }
+
+    if (data.candidate) {
+      const updated =
+        data.candidate as KnowledgeExtractionCandidate;
+      setExtractionCandidates(
+        (current) => {
+          const exists =
+            current.some(
+              (candidate) =>
+                candidate.candidateId ===
+                updated.candidateId,
+            );
+          return exists
+            ? current.map(
+                (candidate) =>
+                  candidate.candidateId ===
+                  updated.candidateId
+                    ? updated
+                    : candidate,
+              )
+            : [updated, ...current];
+        },
+      );
+    }
+
+    return data.candidate as
+      | KnowledgeExtractionCandidate
+      | undefined;
   }
 
   async function regenerateQuestion(
@@ -6487,6 +7546,32 @@ export default function AdminGeneratorPage() {
     if (!filingPayloads.length) {
       alert(
         "Only formula/reasoning questions can be filed from this drawer right now.",
+      );
+      return;
+    }
+
+    const unapprovedExtraction =
+      generated.filter((question) => {
+        const candidateId =
+          getExtractionCandidateId(
+            question,
+          );
+        if (!candidateId) return false;
+        const candidate =
+          extractionCandidates.find(
+            (entry) =>
+              entry.candidateId ===
+              candidateId,
+          );
+        return (
+          candidate?.status !==
+          "approved"
+        );
+      });
+
+    if (unapprovedExtraction.length) {
+      alert(
+        "Approve extracted knowledge facts in the moderation queue before pushing them to the question bank.",
       );
       return;
     }
@@ -6962,6 +8047,12 @@ export default function AdminGeneratorPage() {
         item.fingerprint ===
         selectedWorkspaceFingerprint,
     ) ?? null;
+  const selectedBatchItems =
+    visibleItems.filter((item) =>
+      selectedBatchFingerprints.includes(
+        item.fingerprint,
+      ),
+    );
 
   useEffect(() => {
     if (
@@ -6990,6 +8081,105 @@ export default function AdminGeneratorPage() {
     workspaceEditMode,
     pendingRefinementFingerprint,
     selectedWorkspaceItem,
+  ]);
+
+  useEffect(() => {
+    setSelectedBatchFingerprints(
+      (current) => {
+        const next = current.filter((fingerprint) =>
+          visibleItems.some(
+            (item) =>
+              item.fingerprint ===
+              fingerprint,
+          ),
+        );
+
+        if (
+          next.length ===
+            current.length &&
+          next.every(
+            (fingerprint, index) =>
+              fingerprint ===
+              current[index],
+          )
+        ) {
+          return current;
+        }
+
+        return next;
+      },
+    );
+  }, [visibleItems]);
+
+  useEffect(() => {
+    function handleEditorialShortcut(
+      event: KeyboardEvent,
+    ) {
+      const target =
+        event.target as HTMLElement | null;
+      const isTyping =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT" ||
+        target?.isContentEditable;
+
+      if (isTyping || !generated.length) {
+        return;
+      }
+
+      const key =
+        event.key.toLowerCase();
+
+      if (key === "a" && selectedWorkspaceItem) {
+        event.preventDefault();
+        approveModerationItems([
+          selectedWorkspaceItem,
+        ]);
+      }
+
+      if (key === "r" && selectedWorkspaceItem) {
+        event.preventDefault();
+        rejectModerationItems([
+          selectedWorkspaceItem,
+        ]);
+      }
+
+      if (key === "e") {
+        event.preventDefault();
+        setWorkspaceEditMode(
+          (current) => !current,
+        );
+      }
+
+      if (key === "t") {
+        event.preventDefault();
+        openFilingDrawer();
+      }
+
+      if (key === "d") {
+        event.preventDefault();
+        setQaFilters((current) => ({
+          ...current,
+          onlyRepeated:
+            !current.onlyRepeated,
+        }));
+      }
+    }
+
+    window.addEventListener(
+      "keydown",
+      handleEditorialShortcut,
+    );
+
+    return () =>
+      window.removeEventListener(
+        "keydown",
+        handleEditorialShortcut,
+      );
+  }, [
+    generated.length,
+    selectedWorkspaceItem,
+    qaFilters.onlyRepeated,
   ]);
 
   const selectedRegistryPattern =
@@ -7055,6 +8245,57 @@ export default function AdminGeneratorPage() {
       generated,
       filingConfig,
     );
+  const selectedPrimaryQuestion =
+    selectedWorkspaceItem
+      ? getPrimaryQuestion(
+          selectedWorkspaceItem.question,
+        )
+      : null;
+  const selectedFormulaQuestion =
+    selectedWorkspaceItem &&
+    !isDISet(selectedWorkspaceItem.question)
+      ? selectedWorkspaceItem.question
+      : null;
+  const selectedLanguageContent =
+    selectedFormulaQuestion
+      ? activeModerationLanguage === "hi"
+        ? {
+            label: "Hindi",
+            question:
+              selectedFormulaQuestion.textHi ??
+              "",
+            options:
+              selectedFormulaQuestion.optionsHi ??
+              [],
+            explanation:
+              selectedFormulaQuestion.explanationHi ??
+              "",
+          }
+        : activeModerationLanguage === "pa"
+          ? {
+              label: "Punjabi",
+              question:
+                selectedFormulaQuestion.textPa ??
+                "",
+              options:
+                selectedFormulaQuestion.optionsPa ??
+                [],
+              explanation:
+                selectedFormulaQuestion.explanationPa ??
+                "",
+            }
+          : {
+              label: "English",
+              question:
+                selectedFormulaQuestion.text,
+              options:
+                selectedFormulaQuestion.options ??
+                [],
+              explanation:
+                selectedFormulaQuestion.explanation ??
+                "",
+            }
+      : null;
 
   return (
     <div className="p-6 space-y-6">
@@ -8153,6 +9394,141 @@ export default function AdminGeneratorPage() {
           </div>
         )}
 
+        <div className="rounded-lg border border-indigo-200 bg-indigo-50/40 p-4 space-y-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                AI Fact Extraction Intake
+              </h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Paste source text from GK/PYQ material. Extracted facts enter the staging queue as needs-review cards.
+              </p>
+            </div>
+            <span className="rounded border border-indigo-200 bg-white px-2 py-1 text-xs font-semibold text-indigo-700">
+              Human verification required
+            </span>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-[260px_minmax(0,1fr)]">
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-slate-800">
+                Source Name / Book
+              </label>
+              <input
+                value={extractionSourceName}
+                onChange={(event) =>
+                  setExtractionSourceName(
+                    event.target.value,
+                  )
+                }
+                placeholder="Lucent GK, Punjab GK PDF, PYQ Book..."
+                className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+              />
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  value={
+                    extractionSourceChapter
+                  }
+                  onChange={(event) =>
+                    setExtractionSourceChapter(
+                      event.target.value,
+                    )
+                  }
+                  placeholder="Chapter"
+                  className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                />
+                <input
+                  value={
+                    extractionSourcePage
+                  }
+                  onChange={(event) =>
+                    setExtractionSourcePage(
+                      event.target.value,
+                    )
+                  }
+                  placeholder="Page"
+                  className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                />
+              </div>
+              <input
+                value={extractionSourceUrl}
+                onChange={(event) =>
+                  setExtractionSourceUrl(
+                    event.target.value,
+                  )
+                }
+                placeholder="Source URL (optional)"
+                className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+              />
+              <label className="block rounded-md border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-600">
+                <span className="font-semibold text-slate-800">
+                  Upload text source
+                </span>
+                <span className="mt-1 block">
+                  Supports .txt/.csv text. PDF/OCR should be extracted before upload.
+                </span>
+                <input
+                  type="file"
+                  accept=".txt,.csv,.md,.json,text/*"
+                  className="mt-2 block w-full text-xs"
+                  onChange={(event) =>
+                    loadExtractionSourceFile(
+                      event.target
+                        .files?.[0] ??
+                        null,
+                    )
+                  }
+                />
+              </label>
+              <button
+                onClick={
+                  extractKnowledgeFacts
+                }
+                disabled={
+                  extractionLoading ||
+                  !extractionSourceText.trim()
+                }
+                className="w-full rounded-md bg-blue-950 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+              >
+                {extractionLoading
+                  ? "Extracting..."
+                  : "Extract Facts to Staging"}
+              </button>
+              <div className="rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-600">
+                {import.meta.env.DEV
+                  ? "Uses OpenAI when OPENAI_API_KEY is configured; otherwise falls back to offline heuristic extraction."
+                  : "Uses the server-side configured extraction pipeline."}
+              </div>
+              {extractionCandidates.length ? (
+                <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-800">
+                  {extractionCandidates.length} candidate facts added to the moderation queue.
+                </div>
+              ) : null}
+              <button
+                onClick={loadExtractionQueue}
+                disabled={
+                  extractionQueueLoading
+                }
+                className="w-full rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:opacity-50"
+              >
+                {extractionQueueLoading
+                  ? "Loading Queue..."
+                  : "Load Persistent Queue"}
+              </button>
+            </div>
+            <textarea
+              value={extractionSourceText}
+              onChange={(event) =>
+                setExtractionSourceText(
+                  event.target.value,
+                )
+              }
+              placeholder="Paste source text here. Example: Article 17 - Abolition of Untouchability..."
+              className="min-h-[180px] w-full rounded-md border border-slate-200 bg-white p-3 text-sm leading-6"
+            />
+          </div>
+        </div>
+
         <div>
           <label className="block mb-2 font-medium">
             Number of Questions
@@ -8569,6 +9945,816 @@ export default function AdminGeneratorPage() {
 
       {generated.length > 0 && (
         <div className="space-y-6">
+          <section className="overflow-hidden rounded-md border border-slate-200 bg-slate-50 shadow-sm">
+            <div className="border-b border-slate-200 bg-[#1e1b4b] px-5 py-4 text-white">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-200">
+                    Editorial Moderation Studio
+                  </div>
+                  <h2 className="mt-1 text-xl font-semibold">
+                    Staging Queue Review
+                  </h2>
+                  <p className="mt-1 max-w-3xl text-sm text-indigo-100">
+                    Generate or ingest, review multilingual content, classify, approve, and then push verified questions into the bank.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-sm">
+                  <button
+                    onClick={() =>
+                      selectedBatchItems.length
+                        ? approveModerationItems(
+                            selectedBatchItems,
+                          )
+                        : selectedWorkspaceItem
+                          ? approveModerationItems(
+                              [
+                                selectedWorkspaceItem,
+                              ],
+                            )
+                          : undefined
+                    }
+                    disabled={
+                      qaLoading ||
+                      (!selectedBatchItems.length &&
+                        !selectedWorkspaceItem)
+                    }
+                    className="rounded-md border border-emerald-400/40 bg-emerald-500 px-3 py-2 font-medium text-white disabled:opacity-50"
+                  >
+                    Approve Selected
+                  </button>
+                  <button
+                    onClick={() =>
+                      selectedBatchItems.length
+                        ? rejectModerationItems(
+                            selectedBatchItems,
+                          )
+                        : selectedWorkspaceItem
+                          ? rejectModerationItems(
+                              [
+                                selectedWorkspaceItem,
+                              ],
+                            )
+                          : undefined
+                    }
+                    disabled={
+                      qaLoading ||
+                      (!selectedBatchItems.length &&
+                        !selectedWorkspaceItem)
+                    }
+                    className="rounded-md border border-rose-400/40 bg-rose-500 px-3 py-2 font-medium text-white disabled:opacity-50"
+                  >
+                    Reject Selected
+                  </button>
+                  <button
+                    onClick={
+                      openFilingDrawer
+                    }
+                    className="rounded-md bg-white px-3 py-2 font-medium text-slate-950"
+                  >
+                    Push To Bank
+                  </button>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-indigo-100">
+                <span className="rounded border border-indigo-300/30 px-2 py-1">
+                  A approve
+                </span>
+                <span className="rounded border border-indigo-300/30 px-2 py-1">
+                  R reject
+                </span>
+                <span className="rounded border border-indigo-300/30 px-2 py-1">
+                  E edit
+                </span>
+                <span className="rounded border border-indigo-300/30 px-2 py-1">
+                  T taxonomy
+                </span>
+                <span className="rounded border border-indigo-300/30 px-2 py-1">
+                  D duplicate filter
+                </span>
+              </div>
+            </div>
+
+            <div className="grid min-h-[720px] gap-0 lg:grid-cols-[260px_minmax(0,1fr)_360px]">
+              <aside className="border-b border-slate-200 bg-white p-4 lg:border-b-0 lg:border-r">
+                <div className="space-y-4 lg:sticky lg:top-4">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      Workflow
+                    </div>
+                    <div className="mt-2 space-y-2">
+                      {[
+                        "generated",
+                        "reviewing",
+                        "approved",
+                        "rejected",
+                        "archived",
+                        "published",
+                      ].map((state) => {
+                        const total =
+                          reviewableItems.filter(
+                            (item) =>
+                              getEditorialLifecycleState(
+                                item,
+                                lifecycleStates,
+                              ) === state,
+                          ).length;
+
+                        return (
+                          <button
+                            key={state}
+                            onClick={() =>
+                              state ===
+                              "approved"
+                                ? setQaFilters(
+                                    (prev) => ({
+                                      ...prev,
+                                      reviewStatus:
+                                        "approved",
+                                    }),
+                                  )
+                                : state ===
+                                    "rejected"
+                                  ? setQaFilters(
+                                      (prev) => ({
+                                        ...prev,
+                                        reviewStatus:
+                                          "rejected",
+                                      }),
+                                    )
+                                  : setQaFilters(
+                                      (prev) => ({
+                                        ...prev,
+                                        reviewStatus:
+                                          "all",
+                                      }),
+                                    )
+                            }
+                            className="flex w-full items-center justify-between rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-left text-sm capitalize text-slate-700 hover:border-indigo-200 hover:bg-indigo-50"
+                          >
+                            <span>{state}</span>
+                            <span className="font-semibold text-slate-950">
+                              {total}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      Queue Filters
+                    </div>
+                    <select
+                      value={
+                        qaFilters.topic
+                      }
+                      onChange={(e) =>
+                        setQaFilters(
+                          (prev) => ({
+                            ...prev,
+                            topic:
+                              e.target
+                                .value,
+                          }),
+                        )
+                      }
+                      className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                    >
+                      <option value="all">
+                        All Topics
+                      </option>
+                      {filterOptions.topics.map(
+                        (topic) => (
+                          <option
+                            key={topic}
+                            value={topic}
+                          >
+                            {topic}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                    <select
+                      value={
+                        qaFilters.validationStatus
+                      }
+                      onChange={(e) =>
+                        setQaFilters(
+                          (prev) => ({
+                            ...prev,
+                            validationStatus:
+                              e.target
+                                .value,
+                          }),
+                        )
+                      }
+                      className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                    >
+                      <option value="all">
+                        All Solver States
+                      </option>
+                      {filterOptions.validationStatuses.map(
+                        (status) => (
+                          <option
+                            key={status}
+                            value={status}
+                          >
+                            {status}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                    <label className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={
+                          qaFilters.onlyRepeated
+                        }
+                        onChange={(e) =>
+                          setQaFilters(
+                            (prev) => ({
+                              ...prev,
+                              onlyRepeated:
+                                e.target
+                                  .checked,
+                            }),
+                          )
+                        }
+                      />
+                      Duplicate warnings only
+                    </label>
+                    <button
+                      onClick={() =>
+                        setQaFilters(
+                          QA_FILTER_DEFAULTS,
+                        )
+                      }
+                      className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700"
+                    >
+                      Reset Filters
+                    </button>
+                  </div>
+
+                  <div className="rounded-md border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+                    <div className="font-semibold text-slate-900">
+                      Review Speed Mode
+                    </div>
+                    <p className="mt-1">
+                      Select cards, batch approve or reject, then use Push To Bank for final classification and verification.
+                    </p>
+                  </div>
+                </div>
+              </aside>
+
+              <main className="relative min-w-0 border-b border-slate-200 bg-slate-50 p-4 lg:border-b-0 lg:border-r">
+                {selectedBatchItems.length ? (
+                  <div className="sticky top-0 z-10 mb-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-indigo-200 bg-indigo-50 px-4 py-3 shadow-sm">
+                    <div className="text-sm font-medium text-indigo-950">
+                      {selectedBatchItems.length} selected for batch moderation
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={() =>
+                          approveModerationItems(
+                            selectedBatchItems,
+                          )
+                        }
+                        className="rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white"
+                      >
+                        Approve Selected
+                      </button>
+                      <button
+                        onClick={() =>
+                          rejectModerationItems(
+                            selectedBatchItems,
+                          )
+                        }
+                        className="rounded-md bg-rose-600 px-3 py-1.5 text-sm font-medium text-white"
+                      >
+                        Reject Selected
+                      </button>
+                      <button
+                        onClick={
+                          openFilingDrawer
+                        }
+                        className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-800"
+                      >
+                        Bulk Classify
+                      </button>
+                      <button
+                        onClick={() =>
+                          setSelectedBatchFingerprints(
+                            [],
+                          )
+                        }
+                        className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
+
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      Staging Review Grid
+                    </div>
+                    <div className="mt-1 text-sm text-slate-600">
+                      {visibleItems.length} visible / {reviewableItems.length} staged
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() =>
+                        setSelectedBatchFingerprints(
+                          visibleItems.map(
+                            (item) =>
+                              item.fingerprint,
+                          ),
+                        )
+                      }
+                      disabled={
+                        !visibleItems.length
+                      }
+                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:opacity-50"
+                    >
+                      Select Visible
+                    </button>
+                    <button
+                      onClick={() =>
+                        markLifecycle(
+                          selectedBatchItems.map(
+                            (item) =>
+                              item.fingerprint,
+                          ),
+                          "archived",
+                        )
+                      }
+                      disabled={
+                        !selectedBatchItems.length
+                      }
+                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:opacity-50"
+                    >
+                      Archive
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid max-h-[680px] gap-3 overflow-y-auto pr-1 md:grid-cols-2 xl:grid-cols-3">
+                  {visibleItems.map(
+                    (item) => {
+                      const primary =
+                        getPrimaryQuestion(
+                          item.question,
+                        );
+                      const lifecycle =
+                        getEditorialLifecycleState(
+                          item,
+                          lifecycleStates,
+                        );
+                      const selected =
+                        selectedWorkspaceFingerprint ===
+                        item.fingerprint;
+                      const checked =
+                        selectedBatchFingerprints.includes(
+                          item.fingerprint,
+                        );
+
+                      return (
+                        <article
+                          key={`editorial-${item.fingerprint}`}
+                          onClick={() =>
+                            setReviewFocus(
+                              item,
+                            )
+                          }
+                          className={`cursor-pointer rounded-md border bg-white p-3 transition ${selected ? "border-indigo-500 ring-2 ring-indigo-100" : "border-slate-200 hover:border-slate-300"} ${lifecycle === "approved" ? "bg-emerald-50/40" : lifecycle === "rejected" ? "bg-rose-50/40" : ""}`}
+                        >
+                          <div className="mb-3 flex items-start justify-between gap-2">
+                            <label
+                              className="flex items-center gap-2"
+                              onClick={(event) =>
+                                event.stopPropagation()
+                              }
+                            >
+                              <input
+                                type="checkbox"
+                                checked={
+                                  checked
+                                }
+                                onChange={() =>
+                                  toggleBatchSelection(
+                                    item.fingerprint,
+                                  )
+                                }
+                              />
+                              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                                Q{item.index + 1}
+                              </span>
+                            </label>
+                            <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold uppercase text-slate-600">
+                              {lifecycle}
+                            </span>
+                          </div>
+
+                          <div className="line-clamp-3 min-h-[60px] text-sm font-medium text-slate-950">
+                            {primary?.text ??
+                              "Data Interpretation set"}
+                          </div>
+
+                          <div className="mt-3 flex flex-wrap gap-1.5">
+                            {getLanguageBadges(
+                              item.question,
+                            ).map(
+                              (language) => (
+                                <span
+                                  key={language}
+                                  className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-600"
+                                >
+                                  {language}
+                                </span>
+                              ),
+                            )}
+                            <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+                              {getEditorialSourceType(
+                                item,
+                              )}
+                            </span>
+                            <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+                              {item.difficulty}
+                            </span>
+                          </div>
+
+                          <div className="mt-3 flex flex-wrap gap-1.5">
+                            {getEditorialBadges(
+                              item,
+                            )
+                              .slice(0, 4)
+                              .map(
+                                renderEditorialBadge,
+                              )}
+                          </div>
+
+                          {item.repetitionFlags.length ? (
+                            <div className="mt-3 rounded border border-amber-200 bg-amber-50 p-2 text-xs text-amber-800">
+                              Similar to existing staging pattern. {item.repetitionFlags[0]}
+                            </div>
+                          ) : null}
+                        </article>
+                      );
+                    },
+                  )}
+                </div>
+              </main>
+
+              <aside className="bg-white p-4">
+                <div className="space-y-4 lg:sticky lg:top-4">
+                  <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      Metadata Sidebar
+                    </div>
+                    {selectedWorkspaceItem ? (
+                      <div className="mt-3 space-y-2 text-sm">
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Subject
+                          </span>
+                          <span className="font-medium text-slate-900">
+                            {selectedWorkspaceItem.generationDomain}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Topic
+                          </span>
+                          <span className="font-medium text-slate-900">
+                            {selectedWorkspaceItem.topic}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Logic Pattern
+                          </span>
+                          <span className="max-w-[190px] truncate font-medium text-slate-900">
+                            {selectedWorkspaceItem.motif}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Source
+                          </span>
+                          <span className="font-medium capitalize text-slate-900">
+                            {getEditorialSourceType(
+                              selectedWorkspaceItem,
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Lineage
+                          </span>
+                          <span className="max-w-[190px] text-right text-slate-900">
+                            {getSourceLineage(
+                              selectedWorkspaceItem,
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="mt-2 text-sm text-slate-500">
+                        Select a staged question to inspect metadata.
+                      </p>
+                    )}
+                  </div>
+
+                  {selectedWorkspaceItem ? (
+                    <>
+                      <div className="rounded-md border border-slate-200 bg-white p-3">
+                        <div className="mb-3 flex items-center justify-between gap-3">
+                          <div>
+                            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                              Multilingual Verification
+                            </div>
+                            <div className="text-xs text-slate-500">
+                              EN / HI / PA tabs show stored final content.
+                            </div>
+                          </div>
+                          <button
+                            onClick={() =>
+                              setWorkspaceEditMode(
+                                (current) =>
+                                  !current,
+                              )
+                            }
+                            className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-medium"
+                          >
+                            {workspaceEditMode
+                              ? "Preview"
+                              : "Edit"}
+                          </button>
+                        </div>
+                        <div className="mb-3 flex rounded-md border border-slate-200 bg-slate-50 p-1">
+                          {REGISTRY_LANGUAGE_OPTIONS.map(
+                            (language) => (
+                              <button
+                                key={`moderation-${language.id}`}
+                                onClick={() =>
+                                  setActiveModerationLanguage(
+                                    language.id,
+                                  )
+                                }
+                                className={`flex-1 rounded px-2 py-1.5 text-xs font-semibold ${activeModerationLanguage === language.id ? "bg-white text-slate-950 shadow-sm" : "text-slate-500"}`}
+                              >
+                                {language.id.toUpperCase()}
+                              </button>
+                            ),
+                          )}
+                        </div>
+                        <div
+                          lang={
+                            activeModerationLanguage ===
+                            "pa"
+                              ? "pa"
+                              : activeModerationLanguage ===
+                                  "hi"
+                                ? "hi"
+                                : "en"
+                          }
+                          className={`space-y-3 ${activeModerationLanguage === "pa" ? "punjabi-text leading-loose" : ""}`}
+                        >
+                          {selectedLanguageContent ? (
+                            <>
+                              <div>
+                                <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                                  Question
+                                </div>
+                                {workspaceEditMode &&
+                                activeModerationLanguage !==
+                                  "en" ? (
+                                  <textarea
+                                    value={
+                                      selectedLanguageContent.question
+                                    }
+                                    onChange={(
+                                      event,
+                                    ) =>
+                                      updateGeneratedQuestionAt(
+                                        selectedWorkspaceItem.index,
+                                        (current) =>
+                                          activeModerationLanguage ===
+                                          "hi"
+                                            ? {
+                                                ...current,
+                                                textHi:
+                                                  event
+                                                    .target
+                                                    .value,
+                                              }
+                                            : {
+                                                ...current,
+                                                textPa:
+                                                  event
+                                                    .target
+                                                    .value,
+                                              },
+                                      )
+                                    }
+                                    className="min-h-[92px] w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                                  />
+                                ) : (
+                                  <div className="min-h-[92px] rounded-md border border-slate-200 bg-slate-50 p-2 text-sm text-slate-800">
+                                    {selectedLanguageContent.question?.trim() ? (
+                                      <MathText
+                                        content={
+                                          selectedLanguageContent.question
+                                        }
+                                      />
+                                    ) : (
+                                      <span className="text-slate-500">
+                                        Localized question pending.
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="space-y-1.5">
+                                {(selectedLanguageContent.options.length
+                                  ? selectedLanguageContent.options
+                                  : selectedFormulaQuestion?.options ??
+                                    []
+                                ).map(
+                                  (
+                                    option,
+                                    optionIndex,
+                                  ) => (
+                                    <div
+                                      key={`${activeModerationLanguage}-${optionIndex}`}
+                                      className={`rounded-md border px-2 py-1.5 text-sm ${selectedFormulaQuestion?.correct === optionIndex ? "border-emerald-300 bg-emerald-50" : "border-slate-200 bg-white"}`}
+                                    >
+                                      <span className="mr-2 font-semibold text-slate-500">
+                                        {String.fromCharCode(
+                                          65 +
+                                            optionIndex,
+                                        )}
+                                      </span>
+                                      {option ? (
+                                        <MathText
+                                          content={
+                                            option
+                                          }
+                                          inline
+                                        />
+                                      ) : (
+                                        <span className="text-slate-400">
+                                          Option pending
+                                        </span>
+                                      )}
+                                    </div>
+                                  ),
+                                )}
+                              </div>
+                              <div>
+                                <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                                  Explanation
+                                </div>
+                                {workspaceEditMode &&
+                                activeModerationLanguage !==
+                                  "en" ? (
+                                  <textarea
+                                    value={
+                                      selectedLanguageContent.explanation
+                                    }
+                                    onChange={(
+                                      event,
+                                    ) =>
+                                      updateGeneratedQuestionAt(
+                                        selectedWorkspaceItem.index,
+                                        (current) =>
+                                          activeModerationLanguage ===
+                                          "hi"
+                                            ? {
+                                                ...current,
+                                                explanationHi:
+                                                  event
+                                                    .target
+                                                    .value,
+                                              }
+                                            : {
+                                                ...current,
+                                                explanationPa:
+                                                  event
+                                                    .target
+                                                    .value,
+                                              },
+                                      )
+                                    }
+                                    className="min-h-[110px] w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
+                                  />
+                                ) : (
+                                  <div className="min-h-[110px] rounded-md border border-slate-200 bg-slate-50 p-2 text-sm text-slate-800">
+                                    {selectedLanguageContent.explanation?.trim() ? (
+                                      <MathText
+                                        content={
+                                          selectedLanguageContent.explanation
+                                        }
+                                      />
+                                    ) : (
+                                      <span className="text-slate-500">
+                                        Localized explanation pending.
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </>
+                          ) : (
+                            <div className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+                              Select a non-DI question to review language content.
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="rounded-md border border-slate-200 bg-white p-3">
+                        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                          Validation Badges
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {getEditorialBadges(
+                            selectedWorkspaceItem,
+                          ).map(
+                            renderEditorialBadge,
+                          )}
+                        </div>
+                        {selectedWorkspaceItem.repetitionFlags.length ? (
+                          <div className="mt-3 rounded-md border border-amber-200 bg-amber-50 p-2 text-xs text-amber-800">
+                            <div className="font-semibold">
+                              Similar To
+                            </div>
+                            <div className="mt-1">
+                              {selectedWorkspaceItem.repetitionFlags.join(
+                                " ",
+                              )}
+                            </div>
+                            <div className="mt-2 flex gap-2">
+                              <button className="rounded border border-amber-200 bg-white px-2 py-1">
+                                Compare
+                              </button>
+                              <button
+                                onClick={() =>
+                                  setQaFilters(
+                                    (prev) => ({
+                                      ...prev,
+                                      onlyRepeated:
+                                        false,
+                                    }),
+                                  )
+                                }
+                                className="rounded border border-amber-200 bg-white px-2 py-1"
+                              >
+                                Ignore
+                              </button>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+
+                      <div className="rounded-md border border-slate-200 bg-white p-3">
+                        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                          Source Diff Review
+                        </div>
+                        <div className="mt-3 grid gap-2 text-xs md:grid-cols-2 lg:grid-cols-1">
+                          <div className="rounded-md border border-slate-200 bg-slate-50 p-2">
+                            <div className="font-semibold text-slate-700">
+                              Original Source
+                            </div>
+                            <p className="mt-1 text-slate-600">
+                              {getSourceLineage(
+                                selectedWorkspaceItem,
+                              )}
+                            </p>
+                          </div>
+                          <div className="rounded-md border border-slate-200 bg-slate-50 p-2">
+                            <div className="font-semibold text-slate-700">
+                              Generated / Extracted Version
+                            </div>
+                            <p className="mt-1 line-clamp-4 text-slate-600">
+                              {selectedPrimaryQuestion?.text ??
+                                "DI set generated from structured data."}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              </aside>
+            </div>
+          </section>
+
           <div className="flex flex-wrap items-center gap-4">
             <h2 className="text-2xl font-semibold">
               Generated Questions
