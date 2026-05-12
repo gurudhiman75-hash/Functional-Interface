@@ -855,6 +855,7 @@ type QAFilterState = {
   validationStatus: string;
   reviewStatus: string;
   reviewAction: string;
+  bankStatus: string;
   onlyRepeated: boolean;
   sortBy:
     | "newest"
@@ -894,6 +895,7 @@ type QuestionLifecycleState =
   | "reviewing"
   | "approved"
   | "rejected"
+  | "pushed_to_bank"
   | "archived"
   | "published";
 
@@ -1087,6 +1089,7 @@ const QA_FILTER_DEFAULTS: QAFilterState = {
   validationStatus: "all",
   reviewStatus: "all",
   reviewAction: "all",
+  bankStatus: "all",
   onlyRepeated: false,
   sortBy: "newest",
 };
@@ -3991,6 +3994,61 @@ function getEditorialLifecycleState(
   return "generated";
 }
 
+function getReviewWorkflowStatus(
+  item: ReviewableGeneratedItem,
+  lifecycleStates: Record<string, QuestionLifecycleState>,
+) {
+  const lifecycle =
+    getEditorialLifecycleState(
+      item,
+      lifecycleStates,
+    );
+
+  if (lifecycle === "pushed_to_bank") {
+    return "approved";
+  }
+
+  if (lifecycle === "approved") {
+    return "approved";
+  }
+
+  if (lifecycle === "rejected") {
+    return "rejected";
+  }
+
+  return item.review?.status ?? "generated";
+}
+
+function getBankWorkflowStatus(
+  item: ReviewableGeneratedItem,
+  lifecycleStates: Record<string, QuestionLifecycleState>,
+) {
+  return getEditorialLifecycleState(
+    item,
+    lifecycleStates,
+  ) === "pushed_to_bank"
+    ? "pushed"
+    : "not_pushed";
+}
+
+function getReviewStatusBadgeClass(
+  status: string,
+) {
+  if (status === "approved") {
+    return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  }
+
+  if (status === "rejected") {
+    return "border-rose-200 bg-rose-50 text-rose-700";
+  }
+
+  if (status === "pushed") {
+    return "border-indigo-200 bg-indigo-50 text-indigo-700";
+  }
+
+  return "border-amber-200 bg-amber-50 text-amber-700";
+}
+
 function getEditorialSourceType(
   item: ReviewableGeneratedItem,
 ): EditorialSourceType {
@@ -6005,10 +6063,28 @@ export default function AdminGeneratorPage() {
     setSelectedBatchFingerprints,
   ] = useState<string[]>([]);
   const [
+    filingTargetFingerprints,
+    setFilingTargetFingerprints,
+  ] = useState<string[]>([]);
+  const [
     lifecycleStates,
     setLifecycleStates,
   ] = useState<
     Record<string, QuestionLifecycleState>
+  >({});
+  const [
+    reviewWorkflowMetadata,
+    setReviewWorkflowMetadata,
+  ] = useState<
+    Record<
+      string,
+      {
+        approvedAt?: string;
+        approvedBy?: string;
+        pushedAt?: string;
+        pushedBy?: string;
+      }
+    >
   >({});
   const [
     activeModerationLanguage,
@@ -6983,10 +7059,6 @@ export default function AdminGeneratorPage() {
       item.fingerprint,
     );
     setWorkspaceEditMode(false);
-    markLifecycle(
-      [item.fingerprint],
-      "reviewing",
-    );
   }
 
   async function approveModerationItems(
@@ -7020,6 +7092,25 @@ export default function AdminGeneratorPage() {
           item.fingerprint,
       ),
       "approved",
+    );
+    const approvedAt =
+      new Date().toISOString();
+    setReviewWorkflowMetadata(
+      (prev) => {
+        const next = {
+          ...prev,
+        };
+
+        items.forEach((item) => {
+          next[item.fingerprint] = {
+            ...next[item.fingerprint],
+            approvedAt,
+            approvedBy: "admin",
+          };
+        });
+
+        return next;
+      },
     );
     setSelectedBatchFingerprints(
       [],
@@ -7666,13 +7757,49 @@ export default function AdminGeneratorPage() {
       );
     }
   }
-  function openFilingDrawer() {
-    if (!generated.length) {
+  function openFilingDrawer(
+    scope:
+      | "active"
+      | "selected"
+      | "all-approved" = "active",
+  ) {
+    const sourceItems =
+      scope === "all-approved"
+        ? reviewableItems
+        : scope === "selected"
+          ? selectedBatchItems
+          : selectedWorkspaceItem
+            ? [selectedWorkspaceItem]
+            : [];
+    const eligibleItems =
+      sourceItems.filter(
+        (item) =>
+          getReviewWorkflowStatus(
+            item,
+            lifecycleStates,
+          ) === "approved" &&
+          getBankWorkflowStatus(
+            item,
+            lifecycleStates,
+          ) !== "pushed",
+      );
+
+    if (!eligibleItems.length) {
+      alert(
+        "Approve at least one non-pushed question before pushing it to the bank.",
+      );
       return;
     }
 
+    setFilingTargetFingerprints(
+      eligibleItems.map(
+        (item) =>
+          item.fingerprint,
+      ),
+    );
+
     const primary = getPrimaryQuestion(
-      generated[0],
+      eligibleItems[0].question,
     );
     const inferredSubject =
       (primary?.section ?? "")
@@ -7703,9 +7830,19 @@ export default function AdminGeneratorPage() {
   }
 
   async function saveQuestions() {
+    const targetItems =
+      reviewableItems.filter((item) =>
+        filingTargetFingerprints.includes(
+          item.fingerprint,
+        ),
+      );
+    const targetQuestions =
+      targetItems.map(
+        (item) => item.question,
+      );
     const filingPayloads =
       buildFilingPayloads(
-        generated,
+        targetQuestions,
         filingConfig,
       );
 
@@ -7718,13 +7855,13 @@ export default function AdminGeneratorPage() {
 
     if (!filingPayloads.length) {
       alert(
-        "Only formula/reasoning questions can be filed from this drawer right now.",
+        "Only approved formula/reasoning questions can be filed from this drawer right now.",
       );
       return;
     }
 
     const unapprovedExtraction =
-      generated.filter((question) => {
+      targetQuestions.filter((question) => {
         const candidateId =
           getExtractionCandidateId(
             question,
@@ -7803,12 +7940,37 @@ export default function AdminGeneratorPage() {
         filingConfig.subTopicId;
 
       setFilingDrawerOpen(false);
-      setGenerated([]);
+      markLifecycle(
+        filingTargetFingerprints,
+        "pushed_to_bank",
+      );
+      const pushedAt =
+        new Date().toISOString();
+      setReviewWorkflowMetadata(
+        (prev) => {
+          const next = {
+            ...prev,
+          };
+
+          filingTargetFingerprints.forEach(
+            (fingerprint) => {
+              next[fingerprint] = {
+                ...next[fingerprint],
+                pushedAt,
+                pushedBy: "admin",
+              };
+            },
+          );
+
+          return next;
+        },
+      );
+      setFilingTargetFingerprints([]);
       setFilingConfig(
         DEFAULT_FILING_CONFIG,
       );
       setFilingToast(
-        `Logic Object ${data.questions?.[0]?.id ?? data.count ?? ""} successfully filed under ${topic}${subTopic ? ` > ${subTopic}` : ""}.`,
+        `${filingPayloads.length} approved question(s) successfully filed under ${topic}${subTopic ? ` > ${subTopic}` : ""}.`,
       );
       window.setTimeout(
         () => setFilingToast(null),
@@ -8125,9 +8287,19 @@ export default function AdminGeneratorPage() {
         qaFilters.reviewStatus ===
           "all"
           ? true
-          : (item.review?.status ??
-              "unreviewed") ===
+          : getReviewWorkflowStatus(
+              item,
+              lifecycleStates,
+            ) ===
             qaFilters.reviewStatus,
+      )
+      .filter((item) =>
+        qaFilters.bankStatus === "all"
+          ? true
+          : getBankWorkflowStatus(
+              item,
+              lifecycleStates,
+            ) === qaFilters.bankStatus,
       )
       .filter((item) =>
         qaFilters.reviewAction ===
@@ -8170,12 +8342,14 @@ export default function AdminGeneratorPage() {
               right.topic,
             );
           case "review-status":
-            return (
-              left.review?.status ??
-              "unreviewed"
+            return getReviewWorkflowStatus(
+              left,
+              lifecycleStates,
             ).localeCompare(
-              right.review?.status ??
-                "unreviewed",
+              getReviewWorkflowStatus(
+                right,
+                lifecycleStates,
+              ),
             );
           case "newest":
           default:
@@ -8220,6 +8394,38 @@ export default function AdminGeneratorPage() {
         item.fingerprint ===
         selectedWorkspaceFingerprint,
     ) ?? null;
+  const selectedVisibleIndex =
+    selectedWorkspaceItem
+      ? visibleItems.findIndex(
+          (item) =>
+            item.fingerprint ===
+            selectedWorkspaceItem.fingerprint,
+        )
+      : -1;
+  const previousVisibleItem =
+    selectedVisibleIndex > 0
+      ? visibleItems[
+          selectedVisibleIndex - 1
+        ]
+      : null;
+  const nextVisibleItem =
+    selectedVisibleIndex >= 0 &&
+    selectedVisibleIndex <
+      visibleItems.length - 1
+      ? visibleItems[
+          selectedVisibleIndex + 1
+        ]
+      : null;
+  const focusPreviousQuestion = () => {
+    if (previousVisibleItem) {
+      setReviewFocus(previousVisibleItem);
+    }
+  };
+  const focusNextQuestion = () => {
+    if (nextVisibleItem) {
+      setReviewFocus(nextVisibleItem);
+    }
+  };
   const selectedBatchItems =
     visibleItems.filter((item) =>
       selectedBatchFingerprints.includes(
@@ -8303,6 +8509,18 @@ export default function AdminGeneratorPage() {
       const key =
         event.key.toLowerCase();
 
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        focusPreviousQuestion();
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        focusNextQuestion();
+        return;
+      }
+
       if (key === "a" && selectedWorkspaceItem) {
         event.preventDefault();
         approveModerationItems([
@@ -8326,7 +8544,7 @@ export default function AdminGeneratorPage() {
 
       if (key === "t") {
         event.preventDefault();
-        openFilingDrawer();
+        openFilingDrawer("active");
       }
 
       if (key === "d") {
@@ -8352,6 +8570,8 @@ export default function AdminGeneratorPage() {
   }, [
     generated.length,
     selectedWorkspaceItem,
+    previousVisibleItem,
+    nextVisibleItem,
     qaFilters.onlyRepeated,
   ]);
 
@@ -8413,9 +8633,19 @@ export default function AdminGeneratorPage() {
         topic.id ===
         filingConfig.topicId,
     );
+  const filingPreviewQuestions =
+    filingTargetFingerprints.length
+      ? reviewableItems
+          .filter((item) =>
+            filingTargetFingerprints.includes(
+              item.fingerprint,
+            ),
+          )
+          .map((item) => item.question)
+      : [];
   const filingPayloadPreview =
     buildFilingPayloads(
-      generated,
+      filingPreviewQuestions,
       filingConfig,
     );
   const selectedPrimaryQuestion =
@@ -10237,7 +10467,9 @@ export default function AdminGeneratorPage() {
                     }
                     className="rounded-md border border-emerald-400/40 bg-emerald-500 px-3 py-2 font-medium text-white disabled:opacity-50"
                   >
-                    Approve Selected
+                    {selectedBatchItems.length
+                      ? "Approve Selected"
+                      : "Approve Active"}
                   </button>
                   <button
                     onClick={() =>
@@ -10260,15 +10492,27 @@ export default function AdminGeneratorPage() {
                     }
                     className="rounded-md border border-rose-400/40 bg-rose-500 px-3 py-2 font-medium text-white disabled:opacity-50"
                   >
-                    Reject Selected
+                    {selectedBatchItems.length
+                      ? "Reject Selected"
+                      : "Reject Active"}
                   </button>
                   <button
-                    onClick={
-                      openFilingDrawer
+                    onClick={() =>
+                      openFilingDrawer("active")
                     }
                     className="rounded-md bg-white px-3 py-2 font-medium text-slate-950"
                   >
-                    Push To Bank
+                    Push Active
+                  </button>
+                  <button
+                    onClick={() =>
+                      openFilingDrawer(
+                        "all-approved",
+                      )
+                    }
+                    className="rounded-md border border-indigo-200/40 bg-indigo-100 px-3 py-2 font-medium text-indigo-950"
+                  >
+                    Push All Approved
                   </button>
                 </div>
               </div>
@@ -10300,61 +10544,161 @@ export default function AdminGeneratorPage() {
                     </div>
                     <div className="mt-2 space-y-2">
                       {[
-                        "generated",
-                        "reviewing",
-                        "approved",
-                        "rejected",
-                        "archived",
-                        "published",
+                        {
+                          id: "all",
+                          label: "All",
+                          reviewStatus: "all",
+                          bankStatus: "all",
+                        },
+                        {
+                          id: "generated",
+                          label: "Pending Review",
+                          reviewStatus:
+                            "generated",
+                          bankStatus: "all",
+                        },
+                        {
+                          id: "approved",
+                          label: "Approved",
+                          reviewStatus:
+                            "approved",
+                          bankStatus: "all",
+                        },
+                        {
+                          id: "rejected",
+                          label: "Rejected",
+                          reviewStatus:
+                            "rejected",
+                          bankStatus: "all",
+                        },
+                        {
+                          id: "pushed",
+                          label: "Already Pushed",
+                          reviewStatus: "all",
+                          bankStatus:
+                            "pushed",
+                        },
                       ].map((state) => {
                         const total =
                           reviewableItems.filter(
-                            (item) =>
-                              getEditorialLifecycleState(
-                                item,
-                                lifecycleStates,
-                              ) === state,
+                            (item) => {
+                              const reviewStatus =
+                                getReviewWorkflowStatus(
+                                  item,
+                                  lifecycleStates,
+                                );
+                              const bankStatus =
+                                getBankWorkflowStatus(
+                                  item,
+                                  lifecycleStates,
+                                );
+
+                              return (
+                                (state.reviewStatus ===
+                                  "all" ||
+                                  reviewStatus ===
+                                    state.reviewStatus) &&
+                                (state.bankStatus ===
+                                  "all" ||
+                                  bankStatus ===
+                                    state.bankStatus)
+                              );
+                            },
                           ).length;
+                        const active =
+                          qaFilters.reviewStatus ===
+                            state.reviewStatus &&
+                          qaFilters.bankStatus ===
+                            state.bankStatus;
 
                         return (
                           <button
-                            key={state}
+                            key={state.id}
                             onClick={() =>
-                              state ===
-                              "approved"
-                                ? setQaFilters(
-                                    (prev) => ({
-                                      ...prev,
-                                      reviewStatus:
-                                        "approved",
-                                    }),
-                                  )
-                                : state ===
-                                    "rejected"
-                                  ? setQaFilters(
-                                      (prev) => ({
-                                        ...prev,
-                                        reviewStatus:
-                                          "rejected",
-                                      }),
-                                    )
-                                  : setQaFilters(
-                                      (prev) => ({
-                                        ...prev,
-                                        reviewStatus:
-                                          "all",
-                                      }),
-                                    )
+                              setQaFilters(
+                                (prev) => ({
+                                  ...prev,
+                                  reviewStatus:
+                                    state.reviewStatus,
+                                  bankStatus:
+                                    state.bankStatus,
+                                }),
+                              )
                             }
-                            className="flex w-full items-center justify-between rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-left text-sm capitalize text-slate-700 hover:border-indigo-200 hover:bg-indigo-50"
+                            className={`flex w-full items-center justify-between rounded-md border px-3 py-2 text-left text-sm text-slate-700 hover:border-indigo-200 hover:bg-indigo-50 ${active ? "border-indigo-300 bg-indigo-50" : "border-slate-200 bg-slate-50"}`}
                           >
-                            <span>{state}</span>
+                            <span>
+                              {state.label}
+                            </span>
                             <span className="font-semibold text-slate-950">
                               {total}
                             </span>
                           </button>
                         );
                       })}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="mb-2 flex items-center justify-between">
+                      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        Question Queue
+                      </div>
+                      <span className="text-[11px] text-slate-500">
+                        {visibleItems.length}
+                      </span>
+                    </div>
+                    <div className="max-h-[360px] space-y-1 overflow-y-auto pr-1">
+                      {visibleItems.map(
+                        (item) => {
+                          const selected =
+                            selectedWorkspaceFingerprint ===
+                            item.fingerprint;
+                          const reviewStatus =
+                            getReviewWorkflowStatus(
+                              item,
+                              lifecycleStates,
+                            );
+                          const bankStatus =
+                            getBankWorkflowStatus(
+                              item,
+                              lifecycleStates,
+                            );
+                          const badge =
+                            bankStatus ===
+                            "pushed"
+                              ? "pushed"
+                              : reviewStatus;
+
+                          return (
+                            <button
+                              key={`queue-${item.fingerprint}`}
+                              onClick={() =>
+                                setReviewFocus(
+                                  item,
+                                )
+                              }
+                              className={`w-full rounded-md border px-3 py-2 text-left transition ${selected ? "border-indigo-500 bg-indigo-50" : "border-slate-200 bg-white hover:border-slate-300"}`}
+                            >
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="text-sm font-semibold text-slate-950">
+                                  Q{item.index + 1}
+                                </span>
+                                <span
+                                  className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase ${getReviewStatusBadgeClass(
+                                    badge,
+                                  )}`}
+                                >
+                                  {badge}
+                                </span>
+                              </div>
+                              <div className="mt-1 truncate text-xs text-slate-500">
+                                {item.topic}
+                              </div>
+                            </button>
+                          );
+                        },
+                      )}
                     </div>
                   </div>
 
@@ -10492,12 +10836,14 @@ export default function AdminGeneratorPage() {
                         Reject Selected
                       </button>
                       <button
-                        onClick={
-                          openFilingDrawer
+                        onClick={() =>
+                          openFilingDrawer(
+                            "selected",
+                          )
                         }
                         className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-800"
                       >
-                        Bulk Classify
+                        Push Selected
                       </button>
                       <button
                         onClick={() =>
@@ -10516,154 +10862,302 @@ export default function AdminGeneratorPage() {
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      Staging Review Grid
+                      Active Question Review
                     </div>
                     <div className="mt-1 text-sm text-slate-600">
-                      {visibleItems.length} visible / {reviewableItems.length} staged
+                      {selectedWorkspaceItem
+                        ? `Question ${selectedVisibleIndex + 1} of ${visibleItems.length}`
+                        : `${visibleItems.length} visible / ${reviewableItems.length} staged`}
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
-                      onClick={() =>
-                        setSelectedBatchFingerprints(
-                          visibleItems.map(
-                            (item) =>
-                              item.fingerprint,
-                          ),
-                        )
-                      }
+                      onClick={focusPreviousQuestion}
                       disabled={
-                        !visibleItems.length
+                        !previousVisibleItem
                       }
-                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:opacity-50"
+                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 disabled:opacity-50"
                     >
-                      Select Visible
+                      Previous
+                    </button>
+                    <button
+                      onClick={focusNextQuestion}
+                      disabled={
+                        !nextVisibleItem
+                      }
+                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 disabled:opacity-50"
+                    >
+                      Next
                     </button>
                     <button
                       onClick={() =>
-                        markLifecycle(
-                          selectedBatchItems.map(
-                            (item) =>
-                              item.fingerprint,
-                          ),
-                          "archived",
-                        )
+                        selectedWorkspaceItem
+                          ? approveModerationItems(
+                              [
+                                selectedWorkspaceItem,
+                              ],
+                            )
+                          : undefined
                       }
                       disabled={
-                        !selectedBatchItems.length
+                        qaLoading ||
+                        !selectedWorkspaceItem
                       }
-                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:opacity-50"
+                      className="rounded-md bg-emerald-600 px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
                     >
-                      Archive
+                      Approve
+                    </button>
+                    <button
+                      onClick={() =>
+                        selectedWorkspaceItem
+                          ? rejectModerationItems(
+                              [
+                                selectedWorkspaceItem,
+                              ],
+                            )
+                          : undefined
+                      }
+                      disabled={
+                        qaLoading ||
+                        !selectedWorkspaceItem
+                      }
+                      className="rounded-md bg-rose-600 px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+                    >
+                      Reject
                     </button>
                   </div>
                 </div>
 
-                <div className="grid max-h-[680px] gap-3 overflow-y-auto pr-1 md:grid-cols-2 xl:grid-cols-3">
-                  {visibleItems.map(
-                    (item) => {
-                      const primary =
-                        getPrimaryQuestion(
-                          item.question,
-                        );
-                      const lifecycle =
-                        getEditorialLifecycleState(
-                          item,
-                          lifecycleStates,
-                        );
-                      const selected =
-                        selectedWorkspaceFingerprint ===
-                        item.fingerprint;
-                      const checked =
-                        selectedBatchFingerprints.includes(
-                          item.fingerprint,
-                        );
-
-                      return (
-                        <article
-                          key={`editorial-${item.fingerprint}`}
-                          onClick={() =>
-                            setReviewFocus(
-                              item,
-                            )
-                          }
-                          className={`cursor-pointer rounded-md border bg-white p-3 transition ${selected ? "border-indigo-500 ring-2 ring-indigo-100" : "border-slate-200 hover:border-slate-300"} ${lifecycle === "approved" ? "bg-emerald-50/40" : lifecycle === "rejected" ? "bg-rose-50/40" : ""}`}
-                        >
-                          <div className="mb-3 flex items-start justify-between gap-2">
-                            <label
-                              className="flex items-center gap-2"
-                              onClick={(event) =>
-                                event.stopPropagation()
-                              }
-                            >
-                              <input
-                                type="checkbox"
-                                checked={
-                                  checked
-                                }
-                                onChange={() =>
-                                  toggleBatchSelection(
-                                    item.fingerprint,
-                                  )
-                                }
-                              />
-                              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                                Q{item.index + 1}
-                              </span>
-                            </label>
-                            <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold uppercase text-slate-600">
-                              {lifecycle}
-                            </span>
-                          </div>
-
-                          <div className="line-clamp-3 min-h-[60px] text-sm font-medium text-slate-950">
-                            {primary?.text ??
-                              "Data Interpretation set"}
-                          </div>
-
-                          <div className="mt-3 flex flex-wrap gap-1.5">
-                            {getLanguageBadges(
-                              item.question,
-                            ).map(
-                              (language) => (
-                                <span
-                                  key={language}
-                                  className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-600"
-                                >
-                                  {language}
-                                </span>
-                              ),
-                            )}
-                            <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
-                              {getEditorialSourceType(
-                                item,
-                              )}
-                            </span>
-                            <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
-                              {item.difficulty}
-                            </span>
-                          </div>
-
-                          <div className="mt-3 flex flex-wrap gap-1.5">
-                            {getEditorialBadges(
-                              item,
-                            )
-                              .slice(0, 4)
-                              .map(
-                                renderEditorialBadge,
-                              )}
-                          </div>
-
-                          {item.repetitionFlags.length ? (
-                            <div className="mt-3 rounded border border-amber-200 bg-amber-50 p-2 text-xs text-amber-800">
-                              Similar to existing staging pattern. {item.repetitionFlags[0]}
-                            </div>
-                          ) : null}
-                        </article>
-                      );
-                    },
-                  )}
+                <div
+                  aria-hidden="true"
+                  className="hidden"
+                >
+                  {previousVisibleItem?.fingerprint}
+                  {nextVisibleItem?.fingerprint}
                 </div>
+
+                {selectedWorkspaceItem ? (
+                  <div className="space-y-3">
+                    {renderQuestionWorkspace(
+                      selectedWorkspaceItem,
+                      qaNotes[
+                        selectedWorkspaceItem
+                          .fingerprint
+                      ] ?? "",
+                      qaIssueTags[
+                        selectedWorkspaceItem
+                          .fingerprint
+                      ] ??
+                        selectedWorkspaceItem
+                          .review
+                          ?.issueTags ??
+                        [],
+                      workspaceEditMode,
+                      refinementLoading,
+                      (value) =>
+                        setQaNotes(
+                          (prev) => ({
+                            ...prev,
+                            [selectedWorkspaceItem.fingerprint]:
+                              value,
+                          }),
+                        ),
+                      (tag) =>
+                        toggleQAIssueTag(
+                          selectedWorkspaceItem.fingerprint,
+                          tag,
+                        ),
+                      () => {
+                        if (
+                          workspaceEditMode
+                        ) {
+                          refineQuestionAt(
+                            selectedWorkspaceItem.index,
+                          );
+                          setPendingRefinementFingerprint(
+                            null,
+                          );
+                        }
+                        setWorkspaceEditMode(
+                          (prev) => !prev,
+                        );
+                      },
+                      (value) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) => ({
+                            ...current,
+                            text: value,
+                          }),
+                        ),
+                      (value) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) => ({
+                            ...current,
+                            explanation:
+                              value,
+                          }),
+                        ),
+                      (
+                        optionIndex,
+                        value,
+                      ) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) => ({
+                            ...current,
+                            options:
+                              current.options.map(
+                                (
+                                  option,
+                                  index,
+                                ) =>
+                                  index ===
+                                  optionIndex
+                                    ? value
+                                    : option,
+                              ),
+                          }),
+                        ),
+                      (lang, value) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) =>
+                            lang === "hi"
+                              ? {
+                                  ...current,
+                                  textHi: value,
+                                }
+                              : {
+                                  ...current,
+                                  textPa: value,
+                                },
+                        ),
+                      (lang, value) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) =>
+                            lang === "hi"
+                              ? {
+                                  ...current,
+                                  explanationHi:
+                                    value,
+                                }
+                              : {
+                                  ...current,
+                                  explanationPa:
+                                    value,
+                                },
+                        ),
+                      (
+                        lang,
+                        optionIndex,
+                        value,
+                      ) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) => {
+                            const source =
+                              lang === "hi"
+                                ? current.optionsHi
+                                : current.optionsPa;
+                            const nextOptions = [
+                              ...(source?.length
+                                ? source
+                                : current.options),
+                            ];
+                            nextOptions[
+                              optionIndex
+                            ] = value;
+                            return lang === "hi"
+                              ? {
+                                  ...current,
+                                  optionsHi:
+                                    nextOptions,
+                                }
+                              : {
+                                  ...current,
+                                  optionsPa:
+                                    nextOptions,
+                                };
+                          },
+                        ),
+                      (clues) =>
+                        updateGeneratedQuestionAt(
+                          selectedWorkspaceItem.index,
+                          (current) => ({
+                            ...current,
+                            debugMetadata: {
+                              ...(current.debugMetadata ??
+                                {}),
+                              generatedClues:
+                                clues,
+                            },
+                          }),
+                        ),
+                      (
+                        action,
+                        status,
+                      ) => {
+                        persistQAReview(
+                          selectedWorkspaceItem,
+                          action,
+                          status,
+                        );
+
+                        if (
+                          status === "approved"
+                        ) {
+                          markLifecycle(
+                            [
+                              selectedWorkspaceItem.fingerprint,
+                            ],
+                            "approved",
+                          );
+                          setReviewWorkflowMetadata(
+                            (prev) => ({
+                              ...prev,
+                              [selectedWorkspaceItem.fingerprint]:
+                                {
+                                  ...prev[
+                                    selectedWorkspaceItem.fingerprint
+                                  ],
+                                  approvedAt:
+                                    new Date().toISOString(),
+                                  approvedBy:
+                                    "admin",
+                                },
+                            }),
+                          );
+                        }
+
+                        if (
+                          status === "rejected"
+                        ) {
+                          markLifecycle(
+                            [
+                              selectedWorkspaceItem.fingerprint,
+                            ],
+                            "rejected",
+                          );
+                        }
+                      },
+                      () =>
+                        toggleQABookmark(
+                          selectedWorkspaceItem,
+                        ),
+                      () =>
+                        regenerateQuestion(
+                          selectedWorkspaceItem.index,
+                        ),
+                    )}
+                  </div>
+                ) : (
+                  <div className="rounded-md border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-500">
+                    No question matches the current review filters.
+                  </div>
+                )}
               </main>
 
               <aside className="bg-white p-4">
@@ -10716,6 +11210,80 @@ export default function AdminGeneratorPage() {
                             {getSourceLineage(
                               selectedWorkspaceItem,
                             )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Review
+                          </span>
+                          <span
+                            className={`rounded border px-2 py-0.5 text-xs font-semibold uppercase ${getReviewStatusBadgeClass(
+                              getReviewWorkflowStatus(
+                                selectedWorkspaceItem,
+                                lifecycleStates,
+                              ),
+                            )}`}
+                          >
+                            {getReviewWorkflowStatus(
+                              selectedWorkspaceItem,
+                              lifecycleStates,
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Bank
+                          </span>
+                          <span
+                            className={`rounded border px-2 py-0.5 text-xs font-semibold uppercase ${getReviewStatusBadgeClass(
+                              getBankWorkflowStatus(
+                                selectedWorkspaceItem,
+                                lifecycleStates,
+                              ) === "pushed"
+                                ? "pushed"
+                                : "generated",
+                            )}`}
+                          >
+                            {getBankWorkflowStatus(
+                              selectedWorkspaceItem,
+                              lifecycleStates,
+                            ) === "pushed"
+                              ? "pushed"
+                              : "not pushed"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Approved At
+                          </span>
+                          <span className="max-w-[190px] text-right text-slate-900">
+                            {reviewWorkflowMetadata[
+                              selectedWorkspaceItem
+                                .fingerprint
+                            ]?.approvedAt
+                              ? new Date(
+                                  reviewWorkflowMetadata[
+                                    selectedWorkspaceItem.fingerprint
+                                  ].approvedAt,
+                                ).toLocaleString()
+                              : "Pending"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <span className="text-slate-500">
+                            Pushed At
+                          </span>
+                          <span className="max-w-[190px] text-right text-slate-900">
+                            {reviewWorkflowMetadata[
+                              selectedWorkspaceItem
+                                .fingerprint
+                            ]?.pushedAt
+                              ? new Date(
+                                  reviewWorkflowMetadata[
+                                    selectedWorkspaceItem.fingerprint
+                                  ].pushedAt,
+                                ).toLocaleString()
+                              : "Not pushed"}
                           </span>
                         </div>
                       </div>
@@ -11011,6 +11579,8 @@ export default function AdminGeneratorPage() {
             </div>
           </section>
 
+          {false ? (
+          <>
           <div className="flex flex-wrap items-center gap-4">
             <h2 className="text-2xl font-semibold">
               Generated Questions
@@ -12088,6 +12658,8 @@ export default function AdminGeneratorPage() {
 },
           )}
           </div>
+          </>
+          ) : null}
         </div>
       )}
     </div>

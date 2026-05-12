@@ -52,7 +52,11 @@
     "extractionNotes": [
       "Draft extracted candidate. Human verification required before repository save."
     ],
-    "status": "needs_review"
+    "status": "rejected",
+    "review": {
+      "reviewedAt": "2026-05-12T02:45:34.487Z",
+      "notes": "Rejected from Question Studio moderation."
+    }
   },
   {
     "candidateId": "draft_constitution_article_article_21",
@@ -107,6 +111,10 @@
     "extractionNotes": [
       "Draft extracted candidate. Human verification required before repository save."
     ],
-    "status": "needs_review"
+    "status": "rejected",
+    "review": {
+      "reviewedAt": "2026-05-12T02:45:37.237Z",
+      "notes": "Rejected from Question Studio moderation."
+    }
   }
 ]
