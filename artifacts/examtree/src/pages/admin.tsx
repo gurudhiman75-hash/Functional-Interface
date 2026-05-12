@@ -2640,6 +2640,43 @@ export default function Admin() {
                             )}
                           </div>
                           <div className="flex items-center gap-1 shrink-0">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 px-2"
+                              onClick={() => {
+                                const subcat =
+                                  subcats.find(
+                                    (entry) =>
+                                      entry.id ===
+                                      test.subcategoryId,
+                                  );
+                                const langs =
+                                  subcat?.languages &&
+                                  subcat.languages
+                                    .length > 0
+                                    ? subcat.languages
+                                    : ["en"];
+                                setQuestionTestId(test.id);
+                                setQuestionSubcatLangs(
+                                  langs,
+                                );
+                                setEditingQuestion(null);
+                                setQuestionForm(
+                                  blankQuestionForm(
+                                    (test.sections ??
+                                      [])[0] ??
+                                      "",
+                                    "",
+                                  ),
+                                );
+                                setQLangTab("en");
+                                setTab("questions");
+                              }}
+                            >
+                              <BookOpen className="w-3.5 h-3.5 mr-1" />
+                              Questions
+                            </Button>
                             <Button variant="ghost" size="sm" className="h-8 px-2 text-primary hover:text-primary" onClick={() => setEditingTest({ ...test, sectionIds: (test.sections ?? []).map((name) => masterSections?.find((s) => s.name === name)?.id ?? "").filter(Boolean) })}><Edit className="w-3.5 h-3.5" /></Button>
                             <Button variant="ghost" size="sm" className="h-8 px-2 text-destructive hover:text-destructive" onClick={() => setDeletingTest(test)}><Trash2 className="w-3.5 h-3.5" /></Button>
                           </div>

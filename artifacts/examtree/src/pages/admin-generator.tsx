@@ -711,17 +711,15 @@ type GeneratedQuestion =
   | FormulaQuestion
   | DISet;
 
-type FilingSubjectId =
-  | "reasoning"
-  | "quant"
-  | "ga"
-  | "english"
-  | "punjabi";
+type FilingSubjectId = string;
 
 type FilingConfig = {
   subjectId: FilingSubjectId | "";
+  subjectLabel: string;
   topicId: string;
+  topicLabel: string;
   subTopicId: string;
+  subTopicLabel: string;
   difficulty: number;
   targetExams: string[];
   tags: string;
@@ -743,6 +741,11 @@ type FilingTaxonomySubject = {
 };
 
 type MasterTopicOption = {
+  id: string;
+  name: string;
+};
+
+type MasterSectionOption = {
   id: string;
   name: string;
 };
@@ -3165,8 +3168,11 @@ const TARGET_EXAM_OPTIONS = [
 
 const DEFAULT_FILING_CONFIG: FilingConfig = {
   subjectId: "",
+  subjectLabel: "",
   topicId: "",
+  topicLabel: "",
   subTopicId: "",
+  subTopicLabel: "",
   difficulty: 3,
   targetExams: [],
   tags: "",
@@ -3712,8 +3718,17 @@ function buildFilingPayloads(
       return {
         questionId: `studio-${Date.now()}-${index + 1}`,
         subject_id: filing.subjectId,
+        subject_label:
+          filing.subjectLabel ||
+          filing.subjectId,
         topic_id: filing.topicId,
+        topic_label:
+          filing.topicLabel ||
+          filing.topicId,
         sub_topic_id: filing.subTopicId,
+        sub_topic_label:
+          filing.subTopicLabel ||
+          filing.subTopicId,
         difficulty: filing.difficulty,
         pattern_id:
           getQuestionPatternId(question),
@@ -3744,6 +3759,18 @@ function buildFilingPayloads(
           exams: filing.targetExams,
           tags,
           is_verified: true,
+          sectionId: filing.subjectId,
+          sectionName:
+            filing.subjectLabel ||
+            filing.subjectId,
+          topicId: filing.topicId,
+          topicName:
+            filing.topicLabel ||
+            filing.topicId,
+          subTopicId:
+            filing.subTopicId || null,
+          subTopicName:
+            filing.subTopicLabel || null,
           generated_at:
             new Date().toISOString(),
         },
@@ -6422,6 +6449,12 @@ export default function AdminGeneratorPage() {
   const [patterns, setPatterns] =
     useState<any[]>([]);
   const [
+    masterSections,
+    setMasterSections,
+  ] = useState<
+    MasterSectionOption[]
+  >([]);
+  const [
     masterTopics,
     setMasterTopics,
   ] = useState<MasterTopicOption[]>(
@@ -6630,10 +6663,26 @@ export default function AdminGeneratorPage() {
           )?.id ?? "",
         );
 
-        const topicsRes =
-          await fetch(
+        const [
+          sectionsRes,
+          topicsRes,
+        ] = await Promise.all([
+          fetch(
+            `${API_BASE_URL}/api/sections`,
+          ),
+          fetch(
             `${API_BASE_URL}/api/topics`,
+          ),
+        ]);
+        if (sectionsRes.ok) {
+          const sectionsData =
+            await sectionsRes.json();
+          setMasterSections(
+            Array.isArray(sectionsData)
+              ? sectionsData
+              : [],
           );
+        }
         if (topicsRes.ok) {
           const topicsData =
             await topicsRes.json();
@@ -8137,30 +8186,78 @@ export default function AdminGeneratorPage() {
     const primary = getPrimaryQuestion(
       eligibleItems[0].question,
     );
-    const inferredSubject =
+    const inferredSubjectLabel =
       (primary?.section ?? "")
+        .trim();
+    const inferredSection =
+      masterSections.find(
+        (section) =>
+          section.name.toLowerCase() ===
+          inferredSubjectLabel.toLowerCase(),
+      ) ??
+      masterSections.find((section) =>
+        inferredSubjectLabel
+          .toLowerCase()
+          .includes(
+            section.name.toLowerCase(),
+          ),
+      );
+
+    const inferredTopic =
+      masterTopics.find(
+        (topic) =>
+          topic.name.toLowerCase() ===
+          (primary?.topic ?? "")
+            .trim()
+            .toLowerCase(),
+      );
+    const inferredLegacySubject =
+      inferredSubjectLabel
         .toLowerCase()
         .includes("reason")
-        ? "reasoning"
+        ? "Reasoning"
         : (primary?.section ?? "")
             .toLowerCase()
             .includes("english")
-          ? "english"
+          ? "English"
           : (primary?.section ?? "")
               .toLowerCase()
               .includes("punjabi")
-            ? "punjabi"
+            ? "Punjabi"
             : (primary?.section ?? "")
                 .toLowerCase()
                 .includes("quant")
-              ? "quant"
+              ? "Quant"
               : "";
+    const fallbackSection =
+      masterSections.find(
+        (section) =>
+          section.name.toLowerCase() ===
+          inferredLegacySubject.toLowerCase(),
+      );
 
     setFilingConfig((prev) => ({
       ...prev,
       subjectId:
         prev.subjectId ||
-        (inferredSubject as FilingSubjectId | ""),
+        inferredSection?.id ||
+        fallbackSection?.id ||
+        "",
+      subjectLabel:
+        prev.subjectLabel ||
+        inferredSection?.name ||
+        fallbackSection?.name ||
+        inferredSubjectLabel ||
+        inferredLegacySubject,
+      topicId:
+        prev.topicId ||
+        inferredTopic?.id ||
+        "",
+      topicLabel:
+        prev.topicLabel ||
+        inferredTopic?.name ||
+        primary?.topic ||
+        "",
     }));
     setFilingDrawerOpen(true);
   }
@@ -8977,6 +9074,16 @@ export default function AdminGeneratorPage() {
       reviewableItems,
       masterTopics,
     });
+  const selectedFilingSection =
+    masterSections.find(
+      (section) =>
+        section.id === filingConfig.subjectId,
+    );
+  const selectedFilingTopicFromMaster =
+    masterTopics.find(
+      (topic) =>
+        topic.id === filingConfig.topicId,
+    );
   const selectedFilingSubject =
     filingTaxonomy.find(
       (subject) =>
@@ -8984,6 +9091,15 @@ export default function AdminGeneratorPage() {
         filingConfig.subjectId,
     );
   const selectedFilingTopic =
+    filingTaxonomy
+      .flatMap(
+        (subject) => subject.topics,
+      )
+      .find(
+        (topic) =>
+          topic.id ===
+          filingConfig.topicId,
+      ) ??
     selectedFilingSubject?.topics.find(
       (topic) =>
         topic.id ===
@@ -9102,38 +9218,53 @@ export default function AdminGeneratorPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="space-y-2">
                   <span className="text-sm font-medium text-slate-800">
-                    Subject
+                    Section
                   </span>
                   <select
                     value={filingConfig.subjectId}
-                    onChange={(event) =>
+                    onChange={(event) => {
+                      const section =
+                        masterSections.find(
+                          (entry) =>
+                            entry.id ===
+                            event.target.value,
+                        );
                       setFilingConfig(
                         (prev) => ({
                           ...prev,
                           subjectId:
                             event.target
                               .value as FilingSubjectId,
+                          subjectLabel:
+                            section?.name ?? "",
                           topicId: "",
+                          topicLabel: "",
                           subTopicId: "",
+                          subTopicLabel: "",
                         }),
-                      )
-                    }
+                      );
+                    }}
                     className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm"
                   >
                     <option value="">
-                      Select subject
+                      Select section
                     </option>
-                    {filingTaxonomy.map(
-                      (subject) => (
+                    {masterSections.map(
+                      (section) => (
                         <option
-                          key={subject.id}
-                          value={subject.id}
+                          key={section.id}
+                          value={section.id}
                         >
-                          {subject.label}
+                          {section.name}
                         </option>
                       ),
                     )}
                   </select>
+                  {!masterSections.length ? (
+                    <p className="text-xs text-amber-600">
+                      No sections found. Add sections in Admin Panel &gt; Sections.
+                    </p>
+                  ) : null}
                 </label>
 
                 <label className="space-y-2">
@@ -9142,33 +9273,47 @@ export default function AdminGeneratorPage() {
                   </span>
                   <select
                     value={filingConfig.topicId}
-                    onChange={(event) =>
+                    onChange={(event) => {
+                      const topic =
+                        masterTopics.find(
+                          (entry) =>
+                            entry.id ===
+                            event.target.value,
+                        );
                       setFilingConfig(
                         (prev) => ({
                           ...prev,
                           topicId:
                             event.target.value,
+                          topicLabel:
+                            topic?.name ?? "",
                           subTopicId: "",
+                          subTopicLabel: "",
                         }),
-                      )
-                    }
-                    disabled={!selectedFilingSubject}
+                      );
+                    }}
+                    disabled={!selectedFilingSection}
                     className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:bg-slate-100"
                   >
                     <option value="">
                       Select topic
                     </option>
-                    {selectedFilingSubject?.topics.map(
+                    {masterTopics.map(
                       (topic) => (
                         <option
                           key={topic.id}
                           value={topic.id}
                         >
-                          {topic.label}
+                          {topic.name}
                         </option>
                       ),
                     )}
                   </select>
+                  {!masterTopics.length ? (
+                    <p className="text-xs text-amber-600">
+                      No topics found. Add topics in Admin Panel &gt; Sections.
+                    </p>
+                  ) : null}
                 </label>
 
                 <label className="space-y-2">
@@ -9177,20 +9322,35 @@ export default function AdminGeneratorPage() {
                   </span>
                   <select
                     value={filingConfig.subTopicId}
-                    onChange={(event) =>
+                    onChange={(event) => {
+                      const subTopic =
+                        selectedFilingTopic?.subTopics.find(
+                          (entry) =>
+                            entry.id ===
+                            event.target.value,
+                        );
                       setFilingConfig(
                         (prev) => ({
                           ...prev,
                           subTopicId:
                             event.target.value,
+                          subTopicLabel:
+                            subTopic?.label ??
+                            "",
                         }),
-                      )
+                      );
+                    }}
+                    disabled={
+                      !selectedFilingTopic
+                        ?.subTopics.length
                     }
-                    disabled={!selectedFilingTopic}
                     className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm disabled:bg-slate-100"
                   >
                     <option value="">
-                      Select sub-topic
+                      {selectedFilingTopic
+                        ?.subTopics.length
+                        ? "Select sub-topic"
+                        : "No sub-topic configured"}
                     </option>
                     {selectedFilingTopic?.subTopics.map(
                       (subTopic) => (

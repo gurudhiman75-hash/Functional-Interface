@@ -420,11 +420,28 @@ function questionFromFilingPayload(
       en.explanation ?? "",
     ),
     section:
-      payload.subject_id ?? "general",
+      metadata.sectionName ??
+      payload.subject_label ??
+      payload.subject_id ??
+      "general",
+    sectionId:
+      metadata.sectionId ??
+      payload.subject_id ??
+      null,
     topic:
-      payload.topic_id ?? "General",
+      metadata.topicName ??
+      payload.topic_label ??
+      payload.topic_id ??
+      "General",
+    globalTopicId:
+      metadata.topicId ??
+      payload.topic_id ??
+      null,
     subtopic:
-      payload.sub_topic_id ?? null,
+      metadata.subTopicName ??
+      payload.sub_topic_label ??
+      payload.sub_topic_id ??
+      null,
     difficulty:
       normalizeBankDifficulty(
         payload.difficulty,
@@ -1575,11 +1592,18 @@ router.post(
               q.explanation ?? "",
             section:
               q.section ?? "general",
+            ...(questionColumns.hasSectionId
+              ? {
+                  sectionId:
+                    q.sectionId ?? null,
+                }
+              : {}),
             topic:
               q.topic ?? "General",
             ...(questionColumns.hasGlobalTopicId
               ? {
-                  globalTopicId:
+                globalTopicId:
+                    q.globalTopicId ??
                     bankGlobalTopicId,
                 }
               : {}),
