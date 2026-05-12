@@ -742,6 +742,11 @@ type FilingTaxonomySubject = {
   topics: FilingTaxonomyTopic[];
 };
 
+type MasterTopicOption = {
+  id: string;
+  name: string;
+};
+
 type DifficultyDistribution = {
   easy: number;
   medium: number;
@@ -3166,6 +3171,317 @@ const DEFAULT_FILING_CONFIG: FilingConfig = {
   targetExams: [],
   tags: "",
 };
+
+function slugifyFilingId(input: string) {
+  return input
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function toTitleLabel(input: string) {
+  return input
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (match) =>
+      match.toUpperCase(),
+    );
+}
+
+function mapDomainToFilingSubjectId(
+  domain?: string,
+): FilingSubjectId | null {
+  const normalized =
+    domain?.toLowerCase() ?? "";
+
+  if (
+    normalized.includes("reason")
+  ) {
+    return "reasoning";
+  }
+
+  if (
+    normalized.includes("quant") ||
+    normalized.includes("di")
+  ) {
+    return "quant";
+  }
+
+  if (
+    normalized.includes("english")
+  ) {
+    return "english";
+  }
+
+  if (
+    normalized.includes("punjabi")
+  ) {
+    return "punjabi";
+  }
+
+  if (
+    normalized.includes("knowledge") ||
+    normalized.includes("computer") ||
+    normalized.includes("gk") ||
+    normalized.includes("ga")
+  ) {
+    return "ga";
+  }
+
+  return null;
+}
+
+function guessFilingSubjectsForTopicName(
+  topicName: string,
+): FilingSubjectId[] {
+  const normalized =
+    topicName.toLowerCase();
+
+  if (
+    /percentage|average|profit|loss|ratio|mixture|time|work|speed|distance|algebra|number|mensuration|geometry|simplification|quant|data interpretation|di/.test(
+      normalized,
+    )
+  ) {
+    return ["quant"];
+  }
+
+  if (
+    /seating|puzzle|syllogism|inequality|direction|blood|relation|coding|series|analogy|reasoning|clock|calendar|venn/.test(
+      normalized,
+    )
+  ) {
+    return ["reasoning"];
+  }
+
+  if (
+    /grammar|vocabulary|english|cloze|comprehension|idiom|synonym|antonym|voice|narration/.test(
+      normalized,
+    )
+  ) {
+    return ["english"];
+  }
+
+  if (
+    /punjabi|vyakaran|shabad|muhavre|gurmukhi|vachan|ling/.test(
+      normalized,
+    )
+  ) {
+    return ["punjabi"];
+  }
+
+  if (
+    /computer|hardware|software|network|internet|polity|history|geography|science|economics|environment|current|punjab|gk|general awareness|banking/.test(
+      normalized,
+    )
+  ) {
+    return ["ga"];
+  }
+
+  return [
+    "reasoning",
+    "quant",
+    "ga",
+    "english",
+    "punjabi",
+  ];
+}
+
+function buildExpandedFilingTaxonomy({
+  base,
+  patterns,
+  reviewableItems,
+  masterTopics,
+}: {
+  base: FilingTaxonomySubject[];
+  patterns: any[];
+  reviewableItems: ReviewableGeneratedItem[];
+  masterTopics: MasterTopicOption[];
+}) {
+  const subjects =
+    new Map<
+      FilingSubjectId,
+      FilingTaxonomySubject
+    >(
+      base.map((subject) => [
+        subject.id,
+        {
+          ...subject,
+          topics: subject.topics.map(
+            (topic) => ({
+              ...topic,
+              subTopics: [
+                ...topic.subTopics,
+              ],
+            }),
+          ),
+        },
+      ]),
+    );
+
+  const ensureTopic = (
+    subjectId: FilingSubjectId,
+    topicId: string,
+    label: string,
+  ) => {
+    const subject =
+      subjects.get(subjectId);
+    if (!subject) {
+      return null;
+    }
+
+    const normalizedTopicId =
+      topicId || slugifyFilingId(label);
+    let topic =
+      subject.topics.find(
+        (entry) =>
+          entry.id === normalizedTopicId,
+      );
+
+    if (!topic) {
+      topic = {
+        id: normalizedTopicId,
+        label,
+        subTopics: [],
+      };
+      subject.topics.push(topic);
+    }
+
+    return topic;
+  };
+
+  const addSubTopic = (
+    topic: FilingTaxonomyTopic | null,
+    subTopicId?: string,
+    label?: string,
+  ) => {
+    if (!topic || !subTopicId || !label) {
+      return;
+    }
+
+    if (
+      topic.subTopics.some(
+        (entry) =>
+          entry.id === subTopicId,
+      )
+    ) {
+      return;
+    }
+
+    topic.subTopics.push({
+      id: subTopicId,
+      label,
+    });
+  };
+
+  patterns.forEach((pattern) => {
+    const subjectId =
+      mapDomainToFilingSubjectId(
+        pattern.domain,
+      ) ??
+      mapDomainToFilingSubjectId(
+        pattern.section,
+      );
+    if (!subjectId) {
+      return;
+    }
+
+    const topicLabel =
+      pattern.topicLabel ??
+      pattern.topic ??
+      pattern.section ??
+      pattern.domain ??
+      "General";
+    const topic =
+      ensureTopic(
+        subjectId,
+        slugifyFilingId(
+          String(topicLabel),
+        ),
+        toTitleLabel(String(topicLabel)),
+      );
+
+    addSubTopic(
+      topic,
+      pattern.subtopic
+        ? slugifyFilingId(
+            String(pattern.subtopic),
+          )
+        : pattern.id
+        ? String(pattern.id)
+        : undefined,
+      pattern.subtopic ??
+        pattern.label ??
+        pattern.name ??
+        pattern.id,
+    );
+  });
+
+  reviewableItems.forEach((item) => {
+    const subjectId =
+      mapDomainToFilingSubjectId(
+        item.generationDomain,
+      ) ??
+      mapDomainToFilingSubjectId(
+        item.question.section,
+      );
+    if (!subjectId) {
+      return;
+    }
+
+    const topic =
+      ensureTopic(
+        subjectId,
+        slugifyFilingId(item.topic),
+        item.topic,
+      );
+
+    addSubTopic(
+      topic,
+      slugifyFilingId(item.motif),
+      item.motif,
+    );
+  });
+
+  masterTopics.forEach((topic) => {
+    const subjectIds =
+      guessFilingSubjectsForTopicName(
+        topic.name,
+      );
+
+    subjectIds.forEach((subjectId) => {
+      ensureTopic(
+        subjectId,
+        topic.id,
+        topic.name,
+      );
+    });
+  });
+
+  return Array.from(
+    subjects.values(),
+  ).map((subject) => ({
+    ...subject,
+    topics: subject.topics
+      .map((topic) => ({
+        ...topic,
+        subTopics: [
+          ...topic.subTopics,
+        ].sort((left, right) =>
+          left.label.localeCompare(
+            right.label,
+          ),
+        ),
+      }))
+      .sort((left, right) =>
+        left.label.localeCompare(
+          right.label,
+        ),
+      ),
+  }));
+}
 
 const STORED_PREVIEW_LANGUAGES: Array<{
   lang: StoredPreviewLanguage;
@@ -6106,6 +6422,12 @@ export default function AdminGeneratorPage() {
   const [patterns, setPatterns] =
     useState<any[]>([]);
   const [
+    masterTopics,
+    setMasterTopics,
+  ] = useState<MasterTopicOption[]>(
+    [],
+  );
+  const [
     questionPatterns,
     setQuestionPatterns,
   ] = useState<any[]>([]);
@@ -6307,6 +6629,20 @@ export default function AdminGeneratorPage() {
             ) ?? registryPatterns[0]
           )?.id ?? "",
         );
+
+        const topicsRes =
+          await fetch(
+            `${API_BASE_URL}/api/topics`,
+          );
+        if (topicsRes.ok) {
+          const topicsData =
+            await topicsRes.json();
+          setMasterTopics(
+            Array.isArray(topicsData)
+              ? topicsData
+              : [],
+          );
+        }
       } catch (error) {
         console.error(error);
       }
@@ -7912,8 +8248,18 @@ export default function AdminGeneratorPage() {
         );
       }
 
+      const taxonomyForToast =
+        buildExpandedFilingTaxonomy({
+          base: FILING_TAXONOMY,
+          patterns: [
+            ...questionPatterns,
+            ...patterns,
+          ],
+          reviewableItems,
+          masterTopics,
+        });
       const topic =
-        FILING_TAXONOMY.find(
+        taxonomyForToast.find(
           (subject) =>
             subject.id ===
             filingConfig.subjectId,
@@ -7924,7 +8270,7 @@ export default function AdminGeneratorPage() {
         )?.label ??
         filingConfig.topicId;
       const subTopic =
-        FILING_TAXONOMY.flatMap(
+        taxonomyForToast.flatMap(
           (subject) => subject.topics,
         )
           .find(
@@ -8621,8 +8967,18 @@ export default function AdminGeneratorPage() {
     (clampedPatternManagerPage + 1) *
       PATTERN_MANAGER_PAGE_SIZE,
   );
+  const filingTaxonomy =
+    buildExpandedFilingTaxonomy({
+      base: FILING_TAXONOMY,
+      patterns: [
+        ...questionPatterns,
+        ...patterns,
+      ],
+      reviewableItems,
+      masterTopics,
+    });
   const selectedFilingSubject =
-    FILING_TAXONOMY.find(
+    filingTaxonomy.find(
       (subject) =>
         subject.id ===
         filingConfig.subjectId,
@@ -8767,7 +9123,7 @@ export default function AdminGeneratorPage() {
                     <option value="">
                       Select subject
                     </option>
-                    {FILING_TAXONOMY.map(
+                    {filingTaxonomy.map(
                       (subject) => (
                         <option
                           key={subject.id}
