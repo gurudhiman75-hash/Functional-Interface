@@ -1,6 +1,9 @@
 import {
   detectCoverageCategory,
 } from "./coverage";
+import {
+  localizeOptionText,
+} from "./entity-registry";
 import type {
   NativeRealizerInput,
   RealizerLanguage,
@@ -65,190 +68,190 @@ type TutorCopy = {
 
 const TUTOR_COPY: Record<RealizerLanguage, TutorCopy> = {
   en: {
-    setupHeader: "Game plan",
-    reasoningHeader: "How to think about it",
+    setupHeader: "Approach",
+    reasoningHeader: "Step-by-step solution",
     visualHeader: "Final arrangement",
-    conclusionHeader: "Answer",
-    noAnswer: "the required option",
+    conclusionHeader: "Correct answer",
+    noAnswer: "the option asked for",
     seatingSetup: (snapshot) => {
       const names = joinNames(
         snapshot.participants,
         "en",
       );
       if (snapshot.layout === "circular") {
-        return `${snapshot.participants.length} persons (${names}) are seated around a circular table, ${snapshot.orientation}. The important thing is to lock one relation first and then fill the remaining seats around it.`;
+        return `${snapshot.participants.length} persons (${names}) are seated around a circular table, ${snapshot.orientation}. Fix one definite relation first, then place the remaining persons using the clues.`;
       }
       if (snapshot.layout === "parallel") {
-        return `${snapshot.participants.length} persons (${names}) are seated in two rows, ${snapshot.orientation}. In this type, row and facing clues should be handled together.`;
+        return `${snapshot.participants.length} persons (${names}) are seated in two rows, ${snapshot.orientation}. Treat row clues and facing clues together before fixing positions.`;
       }
-      return `${snapshot.participants.length} persons (${names}) are seated in a straight line, ${snapshot.orientation}. Start from the clue that fixes a position or a pair.`;
+      return `${snapshot.participants.length} persons (${names}) are seated in a straight line, ${snapshot.orientation}. Start from a clue that fixes a seat or an adjacent pair.`;
     },
     quantSetup: (mode) => {
       if (mode === "time-work") {
-        return "Use efficiency thinking here. Instead of treating the work as a long story, convert each person's work into a per-day share.";
+        return "Convert each worker’s rate into a per-day share of the work; combined rates add when people work together.";
       }
       if (mode === "percentage") {
-        return "Keep the base value clear. Most percentage mistakes happen when the calculation is made on the changed value instead of the original value.";
+        return "Identify the base on which the percentage is taken; most errors come from applying the percent to the wrong base.";
       }
       if (mode === "ratio") {
-        return "Ratios make the calculation lighter because they compare parts directly without carrying unnecessary totals.";
+        return "Express the situation as a ratio of parts so you compare like quantities before computing totals.";
       }
       if (mode === "profit-loss") {
-        return "Track cost price as the anchor. Profit, loss, discount, and selling price become easier once the anchor is fixed.";
+        return "Take cost price as the anchor; relate selling price, profit, loss, and discount back to that anchor.";
       }
-      return "Pick the easiest anchor first, then connect the given values to the required answer.";
+      return "Pick the simplest fixed quantity first, then link the given values to what is asked.";
     },
     transitions: [
       "First,",
-      "Notice that,",
-      "Since this is fixed,",
-      "A quicker approach is,",
-      "This tells us that",
+      "Note that",
+      "From this,",
+      "Alternatively,",
+      "Therefore,",
     ],
     seatingInsight:
-      "For seating puzzles, avoid jumping to the answer. Build small confirmed blocks and use No-Go Zones to remove impossible seats.",
+      "Build small confirmed blocks from the clues, then use negative clues to eliminate impossible seats until only one arrangement remains.",
     timeWorkInsight:
-      "Efficiencies add when people work together, so the combined daily work is the key shortcut.",
+      "When people work together, their daily work shares add; that sum is the fastest way to the combined rate.",
     percentageInsight:
-      "The base is the real shortcut. Once the base is clear, the percentage change follows naturally.",
+      "The base is the shortcut: once the base is fixed, each percentage change applies in a clear order.",
     ratioInsight:
-      "The useful move is to compare parts, not absolute values, unless the question asks for a final total.",
+      "Compare parts through the ratio first; compute a total only if the question asks for it.",
     profitLossInsight:
-      "Cost price is the anchor; every gain or loss is compared against it unless stated otherwise.",
+      "Every profit or loss is measured against cost price unless the wording clearly uses another reference.",
     quantInsight:
-      "Focus on the relationship between the given values before doing arithmetic.",
+      "Clarify the relation between the given numbers before doing the final arithmetic.",
     leftover: (names, placements) =>
-      `The intro names every person, so even if ${joinNames(names, "en")} is not heavily used in the clues, the remaining empty seat must still be filled. That gives us ${placements}.`,
+      `All names appear in the data, so even if ${joinNames(names, "en")} is lightly mentioned in the clues, the remaining seat must still be filled. That forces ${placements}.`,
     point: (transition, body) =>
       `${transition} ${body}`,
     visual: (visual) =>
-      `So the working layout becomes ${visual}.`,
+      `The working order is ${visual}.`,
     final: (answer) =>
-      `Hence, the correct answer is ${answer}.`,
+      `Therefore, the correct answer is ${answer}.`,
   },
   hi: {
-    setupHeader: "रणनीति",
-    reasoningHeader: "सोचने का सही तरीका",
+    setupHeader: "विधि",
+    reasoningHeader: "चरणबद्ध हल",
     visualHeader: "अंतिम व्यवस्था",
-    conclusionHeader: "उत्तर",
-    noAnswer: "आवश्यक विकल्प",
+    conclusionHeader: "सही उत्तर",
+    noAnswer: "पूछा गया विकल्प",
     seatingSetup: (snapshot) => {
       const names = joinNames(
         snapshot.participants,
         "hi",
       );
       if (snapshot.layout === "circular") {
-        return `${snapshot.participants.length} व्यक्ति (${names}) एक वृत्ताकार मेज के चारों ओर ${snapshot.orientation} बैठे हैं। ऐसे प्रश्नों में पहले एक पक्का संबंध बनाइए, फिर बाकी सीटें उसी के आसपास भरती हैं।`;
+        return `${snapshot.participants.length} व्यक्ति (${names}) एक वृत्ताकार मेज के चारों ओर ${snapshot.orientation} बैठे हैं। पहले एक निश्चित संबंध स्थिर कीजिए, फिर शेष स्थानों को संकेतों से भरिए।`;
       }
       if (snapshot.layout === "parallel") {
-        return `${snapshot.participants.length} व्यक्ति (${names}) दो पंक्तियों में बैठे हैं, ${snapshot.orientation}। यहाँ पंक्ति और सामने बैठने वाले संकेतों को साथ-साथ पढ़ना बेहतर रहता है।`;
+        return `${snapshot.participants.length} व्यक्ति (${names}) दो पंक्तियों में बैठे हैं, ${snapshot.orientation}। पंक्ति और मुख-दिशा वाले संकेत एक साथ लागू कीजिए।`;
       }
-      return `${snapshot.participants.length} व्यक्ति (${names}) एक सीधी पंक्ति में बैठे हैं, ${snapshot.orientation}। सबसे पहले उस संकेत को पकड़िए जो कोई स्थान या जोड़ी पक्की करता है।`;
+      return `${snapshot.participants.length} व्यक्ति (${names}) एक सीधी पंक्ति में बैठे हैं, ${snapshot.orientation}। जिस संकेत से कोई स्थान या पड़ोसी जोड़ी पक्की हो, वहाँ से शुरुआत कीजिए।`;
     },
     quantSetup: (mode) => {
       if (mode === "time-work") {
-        return "यहाँ दक्षता वाला तरीका सबसे तेज है। पूरे काम को लंबा बनाकर न देखें; हर व्यक्ति एक दिन में कितना काम करता है, इसे पकड़ें।";
+        return "हर व्यक्ति के काम को प्रतिदिन के हिस्से में बदलिए; साथ काम करने पर ये हिस्से जुड़ जाते हैं।";
       }
       if (mode === "percentage") {
-        return "आधार संख्या साफ रखिए। प्रतिशत के अधिकतर जाल इसलिए बनते हैं क्योंकि गणना बदले हुए मान पर कर दी जाती है।";
+        return "वह आधार स्पष्ट रखिए जिस पर प्रतिशत लगाया गया है; अक्सर गलती गलत आधार पर गणना करने से होती है।";
       }
       if (mode === "ratio") {
-        return "अनुपात सीधे भागों की तुलना कर देता है, इसलिए अनावश्यक कुल मान लेकर चलने की जरूरत कम हो जाती है।";
+        return "अनुपात से समान प्रकार की राशियों की तुलना करिए; कुल तभी निकालिए जब प्रश्न माँगे।";
       }
       if (mode === "profit-loss") {
-        return "क्रय मूल्य को आधार मानिए। लाभ, हानि, छूट और विक्रय मूल्य उसी आधार से साफ हो जाते हैं।";
+        return "क्रय मूल्य को आधार मानिए; लाभ, हानि, छूट और विक्रय मूल्य इसी से जुड़ते हैं।";
       }
-      return "सबसे आसान आधार पहले पकड़िए, फिर दिए गए मानों को उत्तर से जोड़िए।";
+      return "सबसे सरल निश्चित मान पहले चुनिए, फिर दिए गए मानों को प्रश्न से जोड़िए।";
     },
     transitions: [
       "सबसे पहले,",
       "ध्यान दें कि",
-      "इससे साफ होता है कि",
-      "सीधे गणना करने के बजाय,",
-      "अब",
+      "इससे स्पष्ट है कि",
+      "वैकल्पिक रूप से,",
+      "अतः,",
     ],
     seatingInsight:
-      "बैठक व्यवस्था में उत्तर पर सीधे न जाएँ। छोटी-छोटी पक्की जोड़ियाँ बनाइए और No-Go Zones से गलत सीटें हटाइए।",
+      "छोटे-छोटे पक्के समूह बनाइए, फिर असंभव स्थानों को नकारात्मक संकेतों से हटाते जाइए जब तक केवल एक व्यवस्था न बचे।",
     timeWorkInsight:
-      "जब लोग साथ काम करते हैं तो उनकी दैनिक दक्षताएँ जुड़ती हैं; यही इस प्रकार का सबसे तेज संकेत है।",
+      "साथ काम करने पर प्रत्येक की प्रतिदिन दक्षता जुड़ जाती है; संयुक्त दर यहीं से तेज़ी से मिलती है।",
     percentageInsight:
-      "आधार संख्या ही असली शॉर्टकट है। आधार साफ होते ही प्रतिशत परिवर्तन आसान हो जाता है।",
+      "आधार ही मुख्य संकेत है; आधार सही होने पर प्रतिशत परिवर्तन क्रम से साफ हो जाता है।",
     ratioInsight:
-      "पहले भागों की तुलना करें; कुल मान तभी निकालें जब प्रश्न सच में कुल पूछ रहा हो।",
+      "पहले अनुपात से भागों की तुलना करें; कुल केवल तभी जब प्रश्न माँगे।",
     profitLossInsight:
-      "क्रय मूल्य को एंकर रखिए, क्योंकि लाभ या हानि उसी से तुलना करके निकाली जाती है।",
+      "लाभ या हानि सामान्यतः क्रय मूल्य से ही जुड़ती है जब तक कथन में और स्पष्ट न हो।",
     quantInsight:
-      "गणना शुरू करने से पहले दिए गए मानों के संबंध को समझना ज्यादा उपयोगी है।",
+      "अंतिम गणना से पहले दिए गए मानों के बीच संबंध स्पष्ट कर लीजिए।",
     leftover: (names, placements) =>
-      `प्रश्न की शुरुआत में सभी नाम दिए गए हैं, इसलिए ${joinNames(names, "hi")} यदि संकेतों में कम भी आए, तब भी बची हुई सीट भरनी ही होगी। इससे ${placements} मिलता है।`,
+      `सभी नाम दिए गए हैं, इसलिए ${joinNames(names, "hi")} यदि संकेतों में कम भी आए, शेष स्थान फिर भी भरना होगा। इससे ${placements} मिलता है।`,
     point: (transition, body) =>
       `${transition} ${body}`,
     visual: (visual) =>
-      `इसलिए कामचलाऊ व्यवस्था ${visual} बनती है।`,
+      `कार्य व्यवस्था इस प्रकार है: ${visual}।`,
     final: (answer) =>
       `अतः सही उत्तर ${answer} है।`,
   },
   pa: {
-    setupHeader: "ਹੱਲ ਦੀ ਸੋਚ",
-    reasoningHeader: "ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਕਿਵੇਂ ਸੋਚੀਏ",
+    setupHeader: "ਉਪਾਅ",
+    reasoningHeader: "ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ",
     visualHeader: "ਅੰਤਿਮ ਵਿਵਸਥਾ",
-    conclusionHeader: "ਜਵਾਬ",
-    noAnswer: "ਲੋੜੀਂਦਾ ਵਿਕਲਪ",
+    conclusionHeader: "ਸਹੀ ਉੱਤਰ",
+    noAnswer: "ਪੁੱਛਿਆ ਗਿਆ ਵਿਕਲਪ",
     seatingSetup: (snapshot) => {
       const names = joinNames(
         snapshot.participants,
         "pa",
       );
       if (snapshot.layout === "circular") {
-        return `${snapshot.participants.length} ਵਿਅਕਤੀ (${names}) ਗੋਲ ਮੇਜ਼ ਦੇ ਆਲੇ-ਦੁਆਲੇ ${snapshot.orientation} ਬੈਠੇ ਹਨ। ਇਸ ਕਿਸਮ ਦੇ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਪਹਿਲਾਂ ਇੱਕ ਪੱਕਾ ਸੰਬੰਧ ਬਣਾਓ, ਫਿਰ ਬਾਕੀ ਸੀਟਾਂ ਉਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਭਰਦੀਆਂ ਹਨ।`;
+        return `${snapshot.participants.length} ਵਿਅਕਤੀ (${names}) ਗੋਲ ਮੇਜ਼ ਦੇ ਆਲੇ-ਦੁਆਲੇ ${snapshot.orientation} ਬੈਠੇ ਹਨ। ਪਹਿਲਾਂ ਇੱਕ ਪੱਕਾ ਸੰਬੰਧ ਬਣਾਓ, ਫਿਰ ਬਾਕੀ ਸਥਾਨ ਸੰਕੇਤਾਂ ਨਾਲ ਭਰੋ।`;
       }
       if (snapshot.layout === "parallel") {
-        return `${snapshot.participants.length} ਵਿਅਕਤੀ (${names}) ਦੋ ਕਤਾਰਾਂ ਵਿੱਚ ਬੈਠੇ ਹਨ, ${snapshot.orientation}। ਇੱਥੇ ਕਤਾਰ ਅਤੇ ਸਾਹਮਣੇ ਵਾਲੇ ਇਸ਼ਾਰਿਆਂ ਨੂੰ ਇਕੱਠੇ ਪੜ੍ਹਨਾ ਵਧੀਆ ਰਹਿੰਦਾ ਹੈ।`;
+        return `${snapshot.participants.length} ਵਿਅਕਤੀ (${names}) ਦੋ ਕਤਾਰਾਂ ਵਿੱਚ ਬੈਠੇ ਹਨ, ${snapshot.orientation}। ਕਤਾਰ ਅਤੇ ਮੂੰਹ-ਦਿਸ਼ਾ ਵਾਲੇ ਇਸ਼ਾਰੇ ਇਕੱਠੇ ਲਾਗੂ ਕਰੋ।`;
       }
-      return `${snapshot.participants.length} ਵਿਅਕਤੀ (${names}) ਇੱਕ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਬੈਠੇ ਹਨ, ${snapshot.orientation}। ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਉਹ ਇਸ਼ਾਰਾ ਫੜੋ ਜੋ ਕੋਈ ਜਗ੍ਹਾ ਜਾਂ ਜੋੜੀ ਪੱਕੀ ਕਰਦਾ ਹੈ।`;
+      return `${snapshot.participants.length} ਵਿਅਕਤੀ (${names}) ਇੱਕ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਬੈਠੇ ਹਨ, ${snapshot.orientation}। ਜਿਸ ਇਸ਼ਾਰੇ ਨਾਲ ਕੋਈ ਸਥਾਨ ਜਾਂ ਗੁਆਂਢੀ ਜੋੜੀ ਪੱਕੀ ਹੋਵੇ, ਉੱਥੋਂ ਸ਼ੁਰੂ ਕਰੋ।`;
     },
     quantSetup: (mode) => {
       if (mode === "time-work") {
-        return "ਇੱਥੇ efficiency ਵਾਲੀ ਸੋਚ ਤੇਜ਼ ਹੈ। ਪੂਰੇ ਕੰਮ ਨੂੰ ਲੰਮਾ ਨਾ ਬਣਾਓ; ਇਹ ਦੇਖੋ ਕਿ ਹਰ ਵਿਅਕਤੀ ਇੱਕ ਦਿਨ ਵਿੱਚ ਕੰਮ ਦਾ ਕਿੰਨਾ ਹਿੱਸਾ ਕਰਦਾ ਹੈ।";
+        return "ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਇੱਕ ਦਿਨ ਦੇ ਹਿੱਸੇ ਵਜੋਂ ਲਿਖੋ; ਇਕੱਠੇ ਕੰਮ ਕਰਨ ਵੇਲੇ ਇਹ ਹਿੱਸੇ ਜੁੜ ਜਾਂਦੇ ਹਨ।";
       }
       if (mode === "percentage") {
-        return "base value ਸਾਫ਼ ਰੱਖੋ। percentage ਦੇ ਜ਼ਿਆਦਾਤਰ traps ਇਸ ਲਈ ਬਣਦੇ ਹਨ ਕਿਉਂਕਿ ਗਿਣਤੀ ਬਦਲੇ ਹੋਏ ਮੁੱਲ 'ਤੇ ਕਰ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।";
+        return "ਉਹ ਅਧਾਰ ਮੁੱਲ ਸਾਫ਼ ਰੱਖੋ ਜਿਸ ਉੱਤੇ ਪ੍ਰਤੀਸ਼ਤ ਲਾਗੂ ਹੈ; ਜ਼ਿਆਦਾਤਰ ਗਲਤੀਆਂ ਗਲਤ ਅਧਾਰ ਉੱਤੇ ਗਿਣਤੀ ਕਰਨ ਕਰਕੇ ਹੁੰਦੀਆਂ ਹਨ।";
       }
       if (mode === "ratio") {
-        return "ratio ਸਿੱਧਾ ਹਿੱਸਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਬਿਨਾਂ ਲੋੜ ਦੇ total ਨਾਲ ਕੰਮ ਭਾਰੀ ਨਹੀਂ ਹੁੰਦਾ।";
+        return "ਅਨੁਪਾਤ ਰਾਹੀਂ ਇੱਕੋ ਜਿਹੀਆਂ ਰਾਸ਼ੀਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ; ਕੁੱਲ ਸਿਰਫ਼ ਉਦੋਂ ਕੱਢੋ ਜਦੋਂ ਪ੍ਰਸ਼ਨ ਮੰਗੇ।";
       }
       if (mode === "profit-loss") {
-        return "cost price ਨੂੰ anchor ਮੰਨੋ। profit, loss, discount ਅਤੇ selling price ਉਸੇ ਨਾਲ ਸਾਫ਼ ਹੋ ਜਾਂਦੇ ਹਨ।";
+        return "ਲਾਗਤ ਮੁੱਲ ਨੂੰ ਆਧਾਰ ਮੰਨੋ; ਲਾਭ, ਹਾਨੀ, ਛੂਟ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਇਸੇ ਨਾਲ ਜੁੜਦੇ ਹਨ।";
       }
-      return "ਸਭ ਤੋਂ ਆਸਾਨ anchor ਪਹਿਲਾਂ ਫੜੋ, ਫਿਰ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਜਵਾਬ ਨਾਲ ਜੋੜੋ।";
+      return "ਸਭ ਤੋਂ ਸਰਲ ਪੱਕਾ ਮੁੱਲ ਪਹਿਲਾਂ ਚੁਣੋ, ਫਿਰ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਪ੍ਰਸ਼ਨ ਨਾਲ ਜੋੜੋ।";
     },
     transitions: [
       "ਸਭ ਤੋਂ ਪਹਿਲਾਂ,",
       "ਧਿਆਨ ਦਿਓ ਕਿ",
-      "ਇਸ ਤੋਂ ਸਾਫ਼ ਹੁੰਦਾ ਹੈ ਕਿ",
-      "ਸਿੱਧੀ ਗਿਣਤੀ ਕਰਨ ਦੀ ਬਜਾਏ,",
-      "ਹੁਣ",
+      "ਇਸ ਤੋਂ ਸਪਸ਼ਟ ਹੈ ਕਿ",
+      "ਬਦਲਵੇਂ ਤੌਰ ਤੇ,",
+      "ਇਸ ਲਈ,",
     ],
     seatingInsight:
-      "seating puzzle ਵਿੱਚ ਸਿੱਧਾ ਜਵਾਬ ਲੱਭਣ ਦੀ ਬਜਾਏ ਛੋਟੀਆਂ ਪੱਕੀਆਂ ਜੋੜੀਆਂ ਬਣਾਓ ਅਤੇ No-Go Zones ਨਾਲ ਗਲਤ ਸੀਟਾਂ ਹਟਾਓ।",
+      "ਬੈਠਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਛੋਟੀਆਂ ਪੱਕੀਆਂ ਜੋੜੀਆਂ ਬਣਾਓ, ਫਿਰ ਅਸੰਭਵ ਸਥਾਨਾਂ ਨੂੰ ਨਕਾਰਾਤਮਕ ਇਸ਼ਾਰਿਆਂ ਨਾਲ ਹਟਾਉਂਦੇ ਜਾਓ ਜਦ ਤੱਕ ਸਿਰਫ਼ ਇੱਕ ਵਿਵਸਥਾ ਨਹੀਂ ਬਚਦੀ।",
     timeWorkInsight:
-      "ਜਦੋਂ ਲੋਕ ਇਕੱਠੇ ਕੰਮ ਕਰਦੇ ਹਨ ਤਾਂ ਉਨ੍ਹਾਂ ਦੀ ਦਿਨ ਦੀ efficiency ਜੁੜਦੀ ਹੈ; ਇਹੀ ਇਸ topic ਦਾ ਤੇਜ਼ shortcut ਹੈ।",
+      "ਜਦੋਂ ਲੋਕ ਇਕੱਠੇ ਕੰਮ ਕਰਦੇ ਹਨ ਤਾਂ ਹਰੇਕ ਦੀ ਰੋਜ਼ਾਨਾ ਕਾਰਗੁਜ਼ਾਰੀ ਜੁੜਦੀ ਹੈ; ਇਕੱਠੀ ਦਰ ਇੱਥੋਂ ਤੇਜ਼ੀ ਨਾਲ ਮਿਲਦੀ ਹੈ।",
     percentageInsight:
-      "base ਹੀ ਅਸਲ shortcut ਹੈ। base ਸਾਫ਼ ਹੋਵੇ ਤਾਂ percentage change ਆਪਣੇ ਆਪ ਆਸਾਨ ਹੋ ਜਾਂਦਾ ਹੈ।",
+      "ਅਧਾਰ ਹੀ ਮੁੱਖ ਸੰਕੇਤ ਹੈ; ਅਧਾਰ ਸਹੀ ਹੋਵੇ ਤਾਂ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਕ੍ਰਮਵਾਰ ਸਾਫ਼ ਹੋ ਜਾਂਦਾ ਹੈ।",
     ratioInsight:
-      "ਪਹਿਲਾਂ ਹਿੱਸਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ; total ਸਿਰਫ਼ ਉਦੋਂ ਕੱਢੋ ਜਦੋਂ ਪ੍ਰਸ਼ਨ total ਪੁੱਛੇ।",
+      "ਪਹਿਲਾਂ ਅਨੁਪਾਤ ਰਾਹੀਂ ਹਿੱਸਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ; ਕੁੱਲ ਸਿਰਫ਼ ਉਦੋਂ ਜਦੋਂ ਪ੍ਰਸ਼ਨ ਮੰਗੇ।",
     profitLossInsight:
-      "cost price ਨੂੰ anchor ਰੱਖੋ, ਕਿਉਂਕਿ profit ਜਾਂ loss ਉਸੇ ਨਾਲ compare ਹੁੰਦਾ ਹੈ।",
+      "ਲਾਭ ਜਾਂ ਹਾਨੀ ਆਮ ਤੌਰ ਤੇ ਲਾਗਤ ਮੁੱਲ ਨਾਲ ਹੀ ਜੁੜਦੀ ਹੈ ਜਦ ਤੱਕ ਕਥਨ ਵਿੱਚ ਹੋਰ ਸਪਸ਼ਟ ਨ ਹੋਵੇ।",
     quantInsight:
-      "ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਦਿੱਤੇ ਮੁੱਲਾਂ ਦਾ ਆਪਸੀ ਰਿਸ਼ਤਾ ਸਮਝਣਾ ਜ਼ਿਆਦਾ ਲਾਭਦਾਇਕ ਹੈ।",
+      "ਅੰਤਿਮ ਗਿਣਤੀ ਤੋਂ ਪਹਿਲਾਂ ਦਿੱਤੇ ਮੁੱਲਾਂ ਦਾ ਆਪਸੀ ਰਿਸ਼ਤਾ ਸਪਸ਼ਟ ਕਰ ਲਓ।",
     leftover: (names, placements) =>
-      `ਪ੍ਰਸ਼ਨ ਦੀ ਸ਼ੁਰੂਆਤ ਵਿੱਚ ਸਾਰੇ ਨਾਮ ਦਿੱਤੇ ਗਏ ਹਨ, ਇਸ ਲਈ ${joinNames(names, "pa")} ਭਾਵੇਂ ਇਸ਼ਾਰਿਆਂ ਵਿੱਚ ਘੱਟ ਆਵੇ, ਬਚੀ ਹੋਈ ਸੀਟ ਫਿਰ ਵੀ ਭਰਨੀ ਪਵੇਗੀ। ਇਸ ਨਾਲ ${placements} ਮਿਲਦਾ ਹੈ।`,
+      `ਸਾਰੇ ਨਾਮ ਦਿੱਤੇ ਗਏ ਹਨ, ਇਸ ਲਈ ${joinNames(names, "pa")} ਭਾਵੇਂ ਇਸ਼ਾਰਿਆਂ ਵਿੱਚ ਘੱਟ ਆਵੇ, ਬਚਿਆ ਹੋਇਆ ਸਥਾਨ ਫਿਰ ਵੀ ਭਰਨਾ ਪਵੇਗਾ। ਇਸ ਨਾਲ ${placements} ਮਿਲਦਾ ਹੈ।`,
     point: (transition, body) =>
       `${transition} ${body}`,
     visual: (visual) =>
-      `ਇਸ ਲਈ ਕੰਮ ਵਾਲੀ ਵਿਵਸਥਾ ${visual} ਬਣਦੀ ਹੈ।`,
+      `ਕੰਮ ਵਾਲੀ ਵਿਵਸਥਾ ਇਸ ਤਰ੍ਹਾਂ ਹੈ: ${visual}।`,
     final: (answer) =>
-      `ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ ${answer} ਹੈ।`,
+      `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`,
   },
 };
 
@@ -341,6 +344,29 @@ function extractAnswer(
     ];
 
   return String(option ?? "").trim();
+}
+
+function extractLocalizedAnswer(
+  input: NativeRealizerInput,
+  language: RealizerLanguage,
+) {
+  const raw = extractAnswer(input);
+  if (!raw) {
+    return "";
+  }
+  if (language === "hi") {
+    return localizeOptionText(
+      raw,
+      "hi",
+    ).normalize("NFC");
+  }
+  if (language === "pa") {
+    return localizeOptionText(
+      raw,
+      "pa",
+    ).normalize("NFC");
+  }
+  return raw;
 }
 
 function localizeOrientation(
@@ -625,7 +651,7 @@ function localizeReasoningPoint(
         : "प्रतिशत में पहले आधार संख्या पहचानना जरूरी है।";
     }
     if (mode === "seating") {
-      return "इस संकेत से एक छोटा पक्का ब्लॉक बनता है, फिर बाकी सीटों पर गलत संभावनाएँ हटती जाती हैं।";
+      return "इस संकेत से एक छोटा पक्का समूह बनता है, फिर बाकी सीटों पर गलत संभावनाएँ हटती जाती हैं।";
     }
     return numberText
       ? `दिए गए मान (${numberText}) को आपस में जोड़कर आवश्यक मान निकाला जाता है।`
@@ -634,16 +660,16 @@ function localizeReasoningPoint(
 
   if (mode === "time-work") {
     return numberText
-      ? `ਦਿੱਤੇ ਮੁੱਲਾਂ (${numberText}) ਨੂੰ ਦਿਨ ਦੀ efficiency ਵਜੋਂ ਪੜ੍ਹੋ; ਇਕੱਠੇ ਕੰਮ ਕਰਨ ਤੇ ਇਹ efficiencies ਜੁੜਦੀਆਂ ਹਨ।`
-      : "ਦਿਨ ਦੀ efficiency ਜੋੜਨ ਨਾਲ combined work ਸਿੱਧਾ ਮਿਲ ਜਾਂਦਾ ਹੈ।";
+      ? `ਦਿੱਤੇ ਮੁੱਲਾਂ (${numberText}) ਨੂੰ ਪ੍ਰਤੀ ਦਿਨ ਦੇ ਕੰਮ ਦੇ ਹਿੱਸੇ ਵਜੋਂ ਪੜ੍ਹੋ; ਇਕੱਠੇ ਕੰਮ ਕਰਨ ਵੇਲੇ ਇਹ ਹਿੱਸੇ ਜੁੜ ਜਾਂਦੇ ਹਨ।`
+      : "ਰੋਜ਼ਾਨਾ ਕੰਮ ਦੇ ਹਿੱਸੇ ਜੋੜਨ ਨਾਲ ਇਕੱਠਾ ਕੰਮ ਸਿੱਧਾ ਮਿਲ ਜਾਂਦਾ ਹੈ।";
   }
   if (mode === "percentage") {
     return numberText
-      ? `ਇਨ੍ਹਾਂ ਮੁੱਲਾਂ (${numberText}) ਵਿੱਚ base value ਨੂੰ ਪੱਕਾ ਰੱਖ ਕੇ percentage change ਕੱਢਣਾ ਹੈ।`
-      : "percentage ਵਿੱਚ ਪਹਿਲਾਂ base value ਪਛਾਣਨੀ ਜ਼ਰੂਰੀ ਹੈ।";
+      ? `ਇਨ੍ਹਾਂ ਮੁੱਲਾਂ (${numberText}) ਵਿੱਚ ਅਧਾਰ ਮੁੱਲ ਪੱਕਾ ਰੱਖ ਕੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਕੱਢਣਾ ਹੈ।`
+      : "ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਪਹਿਲਾਂ ਅਧਾਰ ਮੁੱਲ ਪਛਾਣਨਾ ਜ਼ਰੂਰੀ ਹੈ।";
   }
   if (mode === "seating") {
-    return "ਇਸ ਇਸ਼ਾਰੇ ਨਾਲ ਇੱਕ ਛੋਟਾ ਪੱਕਾ block ਬਣਦਾ ਹੈ, ਫਿਰ ਬਾਕੀ ਸੀਟਾਂ ਤੋਂ ਗਲਤ ਸੰਭਾਵਨਾਵਾਂ ਹਟਦੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।";
+    return "ਇਸ ਇਸ਼ਾਰੇ ਨਾਲ ਇੱਕ ਛੋਟਾ ਪੱਕਾ ਸਮੂਹ ਬਣਦਾ ਹੈ, ਫਿਰ ਬਾਕੀ ਸੀਟਾਂ ਤੋਂ ਗਲਤ ਸੰਭਾਵਨਾਵਾਂ ਹਟਦੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।";
   }
   return numberText
     ? `ਦਿੱਤੇ ਮੁੱਲਾਂ (${numberText}) ਨੂੰ ਆਪਸ ਵਿੱਚ ਜੋੜ ਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢਿਆ ਜਾਂਦਾ ਹੈ।`
@@ -737,7 +763,10 @@ function buildPlan(
     insight: insightForMode(copy, mode),
     keyPoints: unique(keyPoints).slice(0, 4),
     finalAnswer:
-      extractAnswer(input) || copy.noAnswer,
+      extractLocalizedAnswer(
+        input,
+        language,
+      ) || copy.noAnswer,
     visualAnchor: seating?.arrangement.length
       ? `[${seating.arrangement.join(" | ")}]`
       : undefined,
