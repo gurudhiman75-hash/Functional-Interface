@@ -376,9 +376,30 @@ type SeatingLayout = {
   seats: SeatNode[];
 };
 
+export type SeatingGenerationQuality =
+  | "draft"
+  | "standard"
+  | "production";
+
 export type SeatingScenarioOptions = {
   enableNameClash?: boolean;
+  /**
+   * Controls how aggressively the engine trades generation time for validated,
+   * uniquely solvable seating (constraint puzzles ignore the fast-preview path).
+   */
+  generationQuality?: SeatingGenerationQuality;
+  /** Extra full-generation attempts on top of the tier baseline (capped). */
+  extraGenerationAttempts?: number;
 };
+
+function resolveSeatingGenerationQuality(
+  options: SeatingScenarioOptions,
+): SeatingGenerationQuality {
+  return (
+    options.generationQuality ??
+    "standard"
+  );
+}
 
 const PARTICIPANT_ENTITIES =
   PEOPLE.filter(
@@ -2101,53 +2122,131 @@ function isHighComplexitySeatingConfig(
 function getMaxSeatingGenerationAttempts(
   difficulty: DifficultyLabel,
   config: SeatingPatternConfig,
+  options: SeatingScenarioOptions = {},
 ) {
+  const tier =
+    resolveSeatingGenerationQuality(
+      options,
+    );
+  let base: number;
+
   if (
     difficulty === "Hard" &&
     isHighComplexitySeatingConfig(
       config,
     )
   ) {
-    return 18;
+    base = 18;
+  } else if (difficulty === "Hard") {
+    base = 180;
+  } else if (difficulty === "Medium") {
+    base = 120;
+  } else {
+    base = 80;
   }
 
-  if (difficulty === "Hard") {
-    return 180;
-  }
+  let adjusted =
+    tier === "draft"
+      ? Math.max(
+          18,
+          Math.floor(
+            base * 0.52,
+          ),
+        )
+      : tier === "production"
+        ? base + 48
+        : base;
 
-  if (difficulty === "Medium") {
-    return 120;
-  }
+  const extraRaw =
+    options.extraGenerationAttempts ??
+    0;
+  const extraCapped =
+    Math.min(
+      220,
+      Math.max(
+        0,
+        Math.floor(
+          extraRaw,
+        ),
+      ),
+    );
+  adjusted += extraCapped;
 
-  return 80;
+  return Math.max(
+    12,
+    adjusted,
+  );
 }
 
 function getEmergencyFallbackAttempts(
   difficulty: DifficultyLabel,
   config: SeatingPatternConfig,
+  options: SeatingScenarioOptions = {},
 ) {
+  const tier =
+    resolveSeatingGenerationQuality(
+      options,
+    );
+  let base: number;
+
   if (
     difficulty === "Hard" &&
     isHighComplexitySeatingConfig(
       config,
     )
   ) {
-    return 12;
+    base = 12;
+  } else {
+    base =
+      difficulty === "Hard"
+        ? 72
+        : 120;
   }
 
-  return difficulty === "Hard"
-    ? 72
-    : 120;
+  if (tier === "draft") {
+    return Math.max(
+      8,
+      Math.floor(
+        base * 0.55,
+      ),
+    );
+  }
+
+  if (tier === "production") {
+    return Math.ceil(
+      base * 1.35,
+    );
+  }
+
+  return base;
 }
 
 function shouldUseFastSeatingFallback(
   difficulty: DifficultyLabel,
   config: SeatingPatternConfig,
+  options: SeatingScenarioOptions = {},
 ) {
-  return (
-    difficulty !== "Easy" &&
-    (config.inferenceDepth ?? 0) >= 4
-  );
+  const tier =
+    resolveSeatingGenerationQuality(
+      options,
+    );
+
+  if (tier === "production") {
+    return false;
+  }
+
+  if (difficulty === "Easy") {
+    return false;
+  }
+
+  const depth =
+    config.inferenceDepth ?? 0;
+
+  if (tier === "draft") {
+    return depth >= 3;
+  }
+
+  return depth >= 4;
 }
 
 function pickFastArrangementType(
@@ -4408,6 +4507,7 @@ function buildEmergencyScenario(
     getEmergencyFallbackAttempts(
       difficulty,
       config,
+      options,
     );
 
   for (
@@ -4685,6 +4785,7 @@ function createSeatingScenarioInternal(
     shouldUseFastSeatingFallback(
       difficulty,
       config,
+      options,
     )
   ) {
     return buildFastPreviewScenario(
@@ -4699,6 +4800,7 @@ function createSeatingScenarioInternal(
     getMaxSeatingGenerationAttempts(
       difficulty,
       config,
+      options,
     );
   let validationRetries = 0;
   let uniquenessFailures = 0;

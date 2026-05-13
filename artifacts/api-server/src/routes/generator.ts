@@ -46,6 +46,9 @@ import {
   applyNativeRealizations,
   getNativeRealizationCoverage,
 } from "../lib/realizers";
+import {
+  parseSeatingGenerationBody,
+} from "../lib/parse-seating-generation";
 
 const router = Router();
 const REGISTERED_PATTERNS =
@@ -107,6 +110,10 @@ router.post(
           difficultyDistribution,
           targetAverageDifficulty,
           setProfile,
+          seatingGeneration:
+            parseSeatingGenerationBody(
+              req.body,
+            ),
         },
       );
 
@@ -1139,6 +1146,11 @@ router.post(
           });
       }
 
+      const seatingGeneration =
+        parseSeatingGenerationBody(
+          req.body,
+        );
+
       const result =
         await generateFromPattern(
           pattern,
@@ -1161,6 +1173,7 @@ router.post(
               enableNameClash
                 ? ["NameClash"]
                 : undefined,
+            seatingGeneration,
           } satisfies GeneratorOptions,
         );
 
@@ -1302,6 +1315,10 @@ router.post(
               difficultyDistribution,
               targetAverageDifficulty,
               setProfile,
+              seatingGeneration:
+                parseSeatingGenerationBody(
+                  req.body,
+                ),
             } satisfies GeneratorOptions,
             source: "pattern",
           },

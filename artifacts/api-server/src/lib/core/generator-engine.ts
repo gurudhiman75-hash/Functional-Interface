@@ -475,6 +475,14 @@ export type GeneratorOptions = {
   enableNameClash?: boolean;
   distractorArchetypes?: string[];
   forcedMotifId?: string;
+  /**
+   * Seating arrangement generation profile. Constraint-style puzzles from the
+   * same engine are unaffected by the fast-preview path.
+   */
+  seatingGeneration?: {
+    quality?: "draft" | "standard" | "production";
+    extraAttempts?: number;
+  };
 };
 
 export type DIPattern = {
@@ -2833,6 +2841,12 @@ function createSeatingQuestionCandidate(
       {
         enableNameClash:
           nameClashEnabled,
+        generationQuality:
+          options?.seatingGeneration
+            ?.quality,
+        extraGenerationAttempts:
+          options?.seatingGeneration
+            ?.extraAttempts,
       },
     );
   const profileConfig =

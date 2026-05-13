@@ -10,6 +10,9 @@ import {
   type Pattern,
 } from "../lib/generator";
 import { ALL_PATTERNS } from "../lib/patterns";
+import {
+  parseSeatingGenerationBody,
+} from "../lib/parse-seating-generation";
 
 const router = Router();
 const REGISTERED_PATTERNS =
@@ -28,6 +31,7 @@ interface GeneratePatternRequest {
   targetAverageDifficulty?: number;
   setProfile?: GeneratorOptions["setProfile"];
   enableNameClash?: boolean;
+  seatingGeneration?: GeneratorOptions["seatingGeneration"];
 }
 
 interface GeneratePatternResponse {
@@ -243,6 +247,11 @@ router.post("/pattern", async (req: Request, res: Response) => {
     }
 
     // Generate questions
+    const seatingGeneration =
+      parseSeatingGenerationBody(
+        req.body,
+      );
+
     const result =
       await generateFromPattern(
         pattern,
@@ -263,6 +272,7 @@ router.post("/pattern", async (req: Request, res: Response) => {
             req.body.enableNameClash
               ? ["NameClash"]
               : undefined,
+          seatingGeneration,
         } satisfies GeneratorOptions,
       );
 
@@ -294,6 +304,7 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
       difficultyDistribution,
       targetAverageDifficulty,
       setProfile,
+      enableNameClash,
     } = req.body as {
       pattern: Pattern;
       count: number;
@@ -324,6 +335,11 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
     }
 
     // Generate questions
+    const seatingGeneration =
+      parseSeatingGenerationBody(
+        req.body,
+      );
+
     const result =
       await generateFromPattern(
         pattern,
@@ -341,6 +357,7 @@ router.post("/pattern/manual", async (req: Request, res: Response) => {
             enableNameClash
               ? ["NameClash"]
               : undefined,
+          seatingGeneration,
         } satisfies GeneratorOptions,
       );
 

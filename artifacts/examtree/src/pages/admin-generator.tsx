@@ -6493,6 +6493,12 @@ export default function AdminGeneratorPage() {
     setEnableNameClash,
   ] = useState(false);
   const [
+    seatingGenerationQuality,
+    setSeatingGenerationQuality,
+  ] = useState<
+    "draft" | "standard" | "production"
+  >("standard");
+  const [
     extractionSourceName,
     setExtractionSourceName,
   ] = useState("Lucent GK");
@@ -7641,6 +7647,10 @@ export default function AdminGeneratorPage() {
             availableLangs:
               registryLanguages,
             enableNameClash,
+            seatingGeneration: {
+              quality:
+                seatingGenerationQuality,
+            },
             count,
           }
           : {
@@ -7648,6 +7658,10 @@ export default function AdminGeneratorPage() {
             count,
             languages:
               registryLanguages,
+            seatingGeneration: {
+              quality:
+                seatingGenerationQuality,
+            },
             ...difficultyPayload,
           };
 
@@ -8073,6 +8087,10 @@ export default function AdminGeneratorPage() {
             availableLangs:
               registryLanguages,
             enableNameClash,
+            seatingGeneration: {
+              quality:
+                seatingGenerationQuality,
+            },
             count: 1,
           }
           : {
@@ -8080,6 +8098,10 @@ export default function AdminGeneratorPage() {
             count: 1,
             languages:
               registryLanguages,
+            seatingGeneration: {
+              quality:
+                seatingGenerationQuality,
+            },
             ...difficultyPayload,
           };
 
@@ -10151,6 +10173,36 @@ export default function AdminGeneratorPage() {
                 </span>
               </span>
             </label>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Seating / logic puzzle build quality
+              </label>
+              <select
+                value={seatingGenerationQuality}
+                onChange={(event) =>
+                  setSeatingGenerationQuality(
+                    event.target
+                      .value as typeof seatingGenerationQuality,
+                  )
+                }
+                className="border rounded p-2 w-full bg-white"
+              >
+                <option value="draft">
+                  Draft — faster previews, lighter validation search
+                </option>
+                <option value="standard">
+                  Standard — default balance
+                </option>
+                <option value="production">
+                  Production — deeper search, no fast-preview shortcut
+                </option>
+              </select>
+              <p className="text-xs text-slate-500 leading-5">
+                Applies to seating arrangement items. Constraint-style puzzles
+                already use the full construction path.
+              </p>
+            </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-medium">
