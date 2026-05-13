@@ -4685,6 +4685,9 @@ function createSeatingScenarioInternal(
         {
           clueGraphDensity:
             clueResult.clueGraphDensity,
+          clueDensity:
+            clues.length /
+            Math.max(participants.length, 1),
           clueInteractionRatio:
             clueResult.clueInteractionRatio,
           redundancyScore:

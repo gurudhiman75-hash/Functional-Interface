@@ -1,5 +1,9 @@
-import { apiRequest } from "@/lib/api";
-import type { TestAttempt } from "@/lib/storage";
+import { ApiError, apiRequest } from "@/lib/api";
+import {
+  getAdminQuestions,
+  getAdminTests,
+  type TestAttempt,
+} from "@/lib/storage";
 import type {
   SeatingDiagramData,
   SeatingExplanationFlow,
@@ -164,8 +168,105 @@ export async function getCategoryFreeTestIds(category: string): Promise<{ id: st
   return apiRequest<{ id: string; name: string }[]>(`/tests/category-free-ids?category=${encodeURIComponent(category)}`);
 }
 
+function stableQuestionId(id: string, index: number) {
+  const hash = [...id].reduce(
+    (sum, char) =>
+      (sum * 31 + char.charCodeAt(0)) >>> 0,
+    17,
+  );
+  return hash || index + 1;
+}
+
+function getLocalAdminTest(id: string): Test | null {
+  const test = getAdminTests().find(
+    (item) => item.id === id,
+  );
+  if (!test) return null;
+
+  const questions = getAdminQuestions().filter(
+    (question) => question.testId === id,
+  );
+  const sections = (test.sections.length
+    ? test.sections
+    : ["General"]
+  ).map((sectionName, sectionIndex) => ({
+    id:
+      test.sectionIds?.[sectionIndex] ??
+      `${sectionName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")}-${sectionIndex}`,
+    name: sectionName,
+    questions: questions
+      .filter(
+        (question) =>
+          question.section === sectionName ||
+          (!question.section &&
+            sectionName === "General"),
+      )
+      .map((question, questionIndex) => ({
+        id: stableQuestionId(
+          question.id,
+          questionIndex,
+        ),
+        text: question.text,
+        options: question.options,
+        correct: question.correct,
+        section: question.section || sectionName,
+        explanation: question.explanation,
+        textHi: question.textHi ?? null,
+        optionsHi: question.optionsHi ?? null,
+        explanationHi:
+          question.explanationHi ?? null,
+        textPa: question.textPa ?? null,
+        optionsPa: question.optionsPa ?? null,
+        explanationPa:
+          question.explanationPa ?? null,
+        seatingDiagram:
+          question.seatingDiagram ?? null,
+        seatingExplanationFlow:
+          question.seatingExplanationFlow ??
+          null,
+      })),
+  }));
+
+  return {
+    id: test.id,
+    name: test.name,
+    category: test.categoryName,
+    categoryName: test.categoryName,
+    categoryId: test.categoryId,
+    subcategoryId: test.subcategoryId,
+    subcategoryName: test.subcategoryName,
+    access: test.access,
+    priceCents: null,
+    kind: test.kind,
+    duration: test.duration,
+    totalQuestions:
+      questions.length || test.totalQuestions,
+    attempts: test.attempts,
+    avgScore: test.avgScore,
+    difficulty: test.difficulty,
+    sectionTimingMode: test.sectionTimingMode,
+    sectionTimings: test.sectionTimings,
+    sectionSettings: test.sectionSettings,
+    sections,
+    languages: test.languages ?? ["en"],
+    marksPerQuestion: test.marksPerQuestion,
+    negativeMarks: test.negativeMarks,
+    unattemptedMarks: test.unattemptedMarks,
+  };
+}
+
 export async function getTest(id: string): Promise<Test> {
-  return apiRequest<Test>(`/tests/${id}`);
+  try {
+    return await apiRequest<Test>(`/tests/${id}`);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      const local = getLocalAdminTest(id);
+      if (local) return local;
+    }
+    throw error;
+  }
 }
 
 export async function fetchMyEntitlements(): Promise<{ testIds: string[] }> {

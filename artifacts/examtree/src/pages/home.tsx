@@ -22,7 +22,10 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { Category, Test } from "@/lib/data";
+import type { Category, Subcategory, Test } from "@/lib/data";
+import {
+  buildExamTreeNodes,
+} from "@/lib/exam-tree";
 
 type ExamGroup = {
   id: string;
@@ -92,48 +95,29 @@ function getTone(name: string): ExamGroup["tone"] {
   return "default";
 }
 
-function buildExamGroups(categories: Category[], tests: Test[]): ExamGroup[] {
-  const sourceCategories = categories.length > 0
-    ? categories
-    : Array.from(new Set(tests.map((test) => test.category))).map((name, index) => ({
-        id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-") || `category-${index}`,
-        name,
-        description: `${name} mock exams, PYQs, and practice sets.`,
-        icon: "Landmark",
-        color: "indigo",
-        testsCount: tests.filter((test) => test.category === name).length,
-      }));
-
-  return sourceCategories
-    .map((category) => {
-      const categoryTests = tests.filter(
-        (test) =>
-          test.categoryId === category.id ||
-          test.categoryName === category.name ||
-          test.category === category.name,
-      );
-      const subExams = Array.from(
-        new Map(
-          categoryTests
-            .map((test) => ({
-              id: test.subcategoryId ?? test.id,
-              name: test.subcategoryName ?? test.name,
-            }))
-            .filter((item) => item.name)
-            .map((item) => [item.id, item]),
-        ).values(),
-      ).slice(0, 5);
-      return {
-        id: category.id,
-        name: category.name,
-        description: category.description || `${category.name} exam preparation mapped by difficulty and topic coverage.`,
-        icon: category.icon || "Landmark",
-        tone: getTone(category.name),
-        tests: categoryTests,
-        subExams,
-      };
-    })
-    .filter((group) => group.tests.length > 0);
+function buildExamGroups(
+  categories: Category[],
+  subcategories: Subcategory[],
+  tests: Test[],
+): ExamGroup[] {
+  return buildExamTreeNodes(
+    categories,
+    subcategories,
+    tests,
+  ).map((category) => ({
+    id: category.id,
+    name: category.name,
+    description: category.description,
+    icon: category.icon || "Landmark",
+    tone: getTone(category.name),
+    tests: category.tests,
+    subExams: category.subcategories
+      .map((subExam) => ({
+        id: subExam.id,
+        name: subExam.name,
+      }))
+      .slice(0, 5),
+  }));
 }
 
 function formatCompactNumber(value: number) {
@@ -153,14 +137,22 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const attempts = getAttempts();
   const activeSessions = getActiveTestSessions();
-  const { tests, categories, isLoading } = useExamCatalog();
+  const { tests, categories, subcategories, isLoading } = useExamCatalog();
   const [query, setQuery] = useState("");
   const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
 
   const latestAttempt = attempts[0] ?? null;
   const activeSessionEntries = Object.values(activeSessions).slice(0, 2);
 
-  const examGroups = useMemo(() => buildExamGroups(categories, tests), [categories, tests]);
+  const examGroups = useMemo(
+    () =>
+      buildExamGroups(
+        categories,
+        subcategories,
+        tests,
+      ),
+    [categories, subcategories, tests],
+  );
   const activeGroup = examGroups.find((group) => group.id === activeGroupId) ?? examGroups[0] ?? null;
 
   const filteredGroups = useMemo(() => {
