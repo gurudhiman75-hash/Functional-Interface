@@ -90,6 +90,13 @@ export type MotifDifficultyTuning = {
   hard?: string[];
 };
 
+export type SeatingFacingPattern =
+  | "UNIDIRECTIONAL_NORTH"
+  | "ALTERNATE_NS"
+  | "CIRCULAR_INWARD"
+  | "CIRCULAR_ALTERNATE"
+  | "PARALLEL_OPPOSITE";
+
 export type PracticalMotifControls = {
   generationStrategy?: string[];
   parameterRanges?: Record<
@@ -182,7 +189,15 @@ export type QuantMotif = Partial<
       cat?: number;
       rrb?: number;
   };
+  displayName?: string;
+  facingPattern?: SeatingFacingPattern;
+  participantCount?: number;
 } & PracticalMotifControls;
+
+export type SeatingMotif = QuantMotif & {
+  topicCluster: "seating-arrangement";
+  facingPattern: SeatingFacingPattern;
+};
 
 export type EnglishMotif = Motif & {
   domain: "english";

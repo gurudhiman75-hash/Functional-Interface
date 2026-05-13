@@ -31,7 +31,7 @@ const footerColumns = [
 
 export function MiniFooter() {
   return (
-    <footer className="border-t border-slate-800 bg-slate-900 text-slate-400">
+    <footer className="border-t border-indigo-900 bg-[#1e1b4b] text-slate-300">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.2fr_3fr] lg:px-8">
         <div>
           <Link href="/" className="inline-flex items-center gap-3">
@@ -42,7 +42,7 @@ export function MiniFooter() {
               <span className="block text-base font-semibold tracking-tight text-white">
                 examtree
               </span>
-              <span className="block text-xs font-medium text-slate-500">
+              <span className="block text-xs font-medium text-slate-300">
                 Logic-first test preparation
               </span>
             </span>
@@ -56,7 +56,7 @@ export function MiniFooter() {
             Logic Engine v2.4
           </div>
 
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-500">
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-300">
             High-density mock tests, PYQs, multilingual review, and deep logic
             diagnostics for serious exam preparation.
           </p>
@@ -71,9 +71,9 @@ export function MiniFooter() {
               <div className="mt-3 space-y-2">
                 {column.links.map((link) => (
                   <Link
-                    key={link.href}
+                    key={`${column.title}-${link.label}-${link.href}`}
                     href={link.href}
-                    className="block text-sm font-medium text-slate-400 transition hover:text-teal-300"
+                    className="block text-sm font-medium text-slate-300 transition hover:text-teal-300"
                   >
                     {link.label}
                   </Link>
@@ -84,8 +84,8 @@ export function MiniFooter() {
         </div>
       </div>
 
-      <div className="border-t border-slate-800 px-4 py-4">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-indigo-900 px-4 py-4">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-xs text-slate-300 sm:flex-row sm:items-center sm:justify-between">
           <span>
             Copyright 2026 ExamTree. Built for exam discovery, practice, and
             review.

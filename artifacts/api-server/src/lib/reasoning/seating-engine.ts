@@ -398,6 +398,102 @@ type SeatingPatternConfig = {
   inferenceDepth?: number;
 };
 
+function getFacingPatternConfig(
+  motif: QuantMotif,
+): SeatingPatternConfig | undefined {
+  switch (motif.facingPattern) {
+    case "UNIDIRECTIONAL_NORTH":
+      return {
+        arrangementTypes: ["linear"],
+        orientationTypes: ["north"],
+        participantCount:
+          motif.participantCount ?? 6,
+      };
+    case "ALTERNATE_NS":
+      return {
+        arrangementTypes: ["linear"],
+        orientationTypes: ["alternate"],
+        participantCount:
+          motif.participantCount ?? 8,
+      };
+    case "CIRCULAR_INWARD":
+      return {
+        arrangementTypes: ["circular"],
+        orientationTypes: ["center"],
+        participantCount:
+          motif.participantCount ?? 6,
+      };
+    case "CIRCULAR_ALTERNATE":
+      return {
+        arrangementTypes: ["circular"],
+        orientationTypes: ["alternate"],
+        participantCount:
+          motif.participantCount ?? 8,
+      };
+    case "PARALLEL_OPPOSITE":
+      return {
+        arrangementTypes: ["double-row"],
+        orientationTypes: ["alternate"],
+        participantCount:
+          motif.participantCount ?? 8,
+      };
+    default:
+      return undefined;
+  }
+}
+
+function applyFacingPatternConfig(
+  motif: QuantMotif,
+  config: SeatingPatternConfig,
+): SeatingPatternConfig {
+  const facingConfig =
+    getFacingPatternConfig(motif);
+
+  if (!facingConfig) {
+    return config;
+  }
+
+  return {
+    ...config,
+    ...facingConfig,
+    clueTypes:
+      config.clueTypes,
+    inferenceDepth:
+      config.inferenceDepth,
+  };
+}
+
+function isConstraintPuzzleMotif(
+  motif: QuantMotif,
+  patternText: string,
+) {
+  return (
+    motif.id.startsWith("con-") ||
+    [
+      "floor",
+      "box",
+      "stack",
+      "sched",
+      "calendar",
+      "ranking",
+      "mapping",
+      "triad",
+    ].some((token) =>
+      patternText.includes(token),
+    )
+  );
+}
+
+function assertFacingPatternDefined(
+  motif: QuantMotif,
+) {
+  if (!motif.facingPattern) {
+    throw new Error(
+      "Motif must define a facing pattern",
+    );
+  }
+}
+
 type ClueAnalysisMetadata =
   Pick<
     SeatingScenario,
@@ -4540,28 +4636,26 @@ function createSeatingScenarioInternal(
   pattern?: Pattern,
   options: SeatingScenarioOptions = {},
 ) {
-  const config =
+  const extractedConfig =
     extractSeatingPatternConfig(
       pattern,
     );
   const patternText =
     `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.subtopic ?? ""} ${motif.id}`.toLowerCase();
+  const isConstraintPuzzle =
+    isConstraintPuzzleMotif(
+      motif,
+      patternText,
+    );
+  const config =
+    isConstraintPuzzle
+      ? extractedConfig
+      : applyFacingPatternConfig(
+        motif,
+        extractedConfig,
+      );
 
-  if (
-    [
-      "floor",
-      "box",
-      "stack",
-      "sched",
-      "calendar",
-      "ranking",
-      "mapping",
-      "triad",
-      "con-",
-    ].some((token) =>
-      patternText.includes(token),
-    )
-  ) {
+  if (isConstraintPuzzle) {
     return createConstraintScenario(
       motif,
       difficulty,
@@ -4570,6 +4664,8 @@ function createSeatingScenarioInternal(
       options,
     );
   }
+
+  assertFacingPatternDefined(motif);
 
   if (
     shouldUseFastSeatingFallback(

@@ -89,6 +89,47 @@ type SeatingSolveResult = {
   traceExport: InferenceTraceExport;
 };
 
+function assertParticipantSeatCompleteness(
+  participants: string[],
+  arrangement: string[] | undefined,
+  seatCount: number,
+) {
+  const uniqueParticipants =
+    new Set(participants);
+
+  if (
+    participants.length !== seatCount ||
+    uniqueParticipants.size !==
+      participants.length
+  ) {
+    throw new Error(
+      "Participant mismatch",
+    );
+  }
+
+  if (!arrangement) {
+    return;
+  }
+
+  const uniqueArrangement =
+    new Set(arrangement);
+  const coversEveryParticipant =
+    participants.every((person) =>
+      uniqueArrangement.has(person),
+    );
+
+  if (
+    arrangement.length !== seatCount ||
+    uniqueArrangement.size !==
+      arrangement.length ||
+    !coversEveryParticipant
+  ) {
+    throw new Error(
+      "Participant mismatch",
+    );
+  }
+}
+
 function getClueOperator(
   clue: LinearSeatingClue,
 ) {
@@ -1530,6 +1571,12 @@ function solveSeating(
   orientationType: SeatingOrientationType,
   seatCount: number,
 ): SeatingSolveResult {
+  assertParticipantSeatCompleteness(
+    participants,
+    undefined,
+    seatCount,
+  );
+
   const layout = buildLayout(
     arrangementType,
     orientationType,
@@ -1851,6 +1898,12 @@ export function validateSeatingScenario(
   orientationType: SeatingOrientationType,
   seatCount: number,
 ): SeatingValidationResult {
+  assertParticipantSeatCompleteness(
+    participants,
+    arrangement,
+    seatCount,
+  );
+
   const layout = buildLayout(
     arrangementType,
     orientationType,

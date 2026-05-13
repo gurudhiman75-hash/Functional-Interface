@@ -264,9 +264,187 @@ export const seatingArrangementMotifs: QuantMotif[] =
       ],
     },
     {
+      id: "ssc_simple_row",
+      displayName: "SSC Simple Row",
+      topicCluster:
+        "seating-arrangement",
+      facingPattern:
+        "UNIDIRECTIONAL_NORTH",
+      participantCount: 6,
+      reasoningCategories: [
+        "direct-placement",
+        "relative-position",
+        "ssc-row",
+      ],
+      preferredOperations: [
+        "compare",
+        "infer",
+        "filter",
+      ],
+      commonDistractors: [
+        "BoundaryDirectionTrap",
+        "LeftRightFlip",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "seating",
+        "linear-row",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+      wordingBias: {
+        concise: 0.85,
+        balanced: 0.7,
+      },
+      examWeights: {
+        ssc: 1.35,
+        rrb: 1.15,
+      },
+    },
+    {
+      id: "ssc_circular_basic",
+      displayName: "SSC Circular Basic",
+      topicCluster:
+        "seating-arrangement",
+      facingPattern:
+        "CIRCULAR_INWARD",
+      participantCount: 6,
+      reasoningCategories: [
+        "circular-arrangement",
+        "immediate-neighbours",
+        "ssc-circular",
+      ],
+      preferredOperations: [
+        "infer",
+        "compare",
+        "filter",
+      ],
+      commonDistractors: [
+        "ClockwiseAntiClockwiseTrap",
+        "NeighbourSwap",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [3, 5],
+      compatibleTopics: [
+        "seating",
+        "circular",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+      wordingBias: {
+        concise: 0.75,
+        balanced: 0.8,
+      },
+      examWeights: {
+        ssc: 1.25,
+        ibps: 1.05,
+      },
+    },
+    {
+      id: "banking_alternate_row",
+      displayName:
+        "Banking Alternate Row",
+      topicCluster:
+        "seating-arrangement",
+      facingPattern:
+        "ALTERNATE_NS",
+      participantCount: 8,
+      reasoningCategories: [
+        "alternate-facing",
+        "directional-complexity",
+        "banking-row",
+      ],
+      preferredOperations: [
+        "transform",
+        "infer",
+        "filter",
+      ],
+      commonDistractors: [
+        "SouthFacingLeftRightTrap",
+        "AlternateFacingOmission",
+      ],
+      inferenceStyle: "hidden",
+      reasoningDepthRange: [5, 7],
+      compatibleTopics: [
+        "seating",
+        "alternate-row",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+      wordingBias: {
+        balanced: 0.7,
+        inferenceHeavy: 0.9,
+      },
+      examWeights: {
+        ibps: 1.35,
+        sbi: 1.35,
+      },
+    },
+    {
+      id: "banking_parallel_row",
+      displayName:
+        "Banking Parallel Row",
+      topicCluster:
+        "seating-arrangement",
+      facingPattern:
+        "PARALLEL_OPPOSITE",
+      participantCount: 8,
+      reasoningCategories: [
+        "parallel-row",
+        "facing-each-other",
+        "banking-row",
+      ],
+      preferredOperations: [
+        "compare",
+        "infer",
+        "filter",
+      ],
+      commonDistractors: [
+        "OppositeRowTrap",
+        "RowDirectionFlip",
+      ],
+      inferenceStyle: "conditional",
+      reasoningDepthRange: [5, 7],
+      compatibleTopics: [
+        "seating",
+        "parallel-row",
+        "engine-constraint",
+      ],
+      compatiblePatternTypes: ["logic"],
+      supportedReasoningTypes: [
+        "inferential",
+        "multi-step",
+      ],
+      wordingBias: {
+        balanced: 0.72,
+        inferenceHeavy: 0.86,
+      },
+      examWeights: {
+        ibps: 1.35,
+        sbi: 1.35,
+        cat: 1.1,
+      },
+    },
+    {
       id: "direct_clue_linear",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "UNIDIRECTIONAL_NORTH",
+      participantCount: 6,
       reasoningCategories: [
         "direct-placement",
       ],
@@ -294,6 +472,9 @@ export const seatingArrangementMotifs: QuantMotif[] =
       id: "neighbor_clue_linear",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "UNIDIRECTIONAL_NORTH",
+      participantCount: 6,
       reasoningCategories: [
         "neighbor-inference",
         "chained-deduction",
@@ -322,6 +503,9 @@ export const seatingArrangementMotifs: QuantMotif[] =
       id: "relative_position_clue",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "UNIDIRECTIONAL_NORTH",
+      participantCount: 6,
       reasoningCategories: [
         "chained-deduction",
         "neighbor-inference",
@@ -351,6 +535,9 @@ export const seatingArrangementMotifs: QuantMotif[] =
       id: "circular_opposite_chain",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "CIRCULAR_INWARD",
+      participantCount: 6,
       reasoningCategories: [
         "chained-deduction",
       ],
@@ -379,6 +566,9 @@ export const seatingArrangementMotifs: QuantMotif[] =
       id: "row_facing_inference",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "PARALLEL_OPPOSITE",
+      participantCount: 8,
       reasoningCategories: [
         "neighbor-inference",
         "chained-deduction",
@@ -408,6 +598,9 @@ export const seatingArrangementMotifs: QuantMotif[] =
       id: "alternate_facing_deduction",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "ALTERNATE_NS",
+      participantCount: 8,
       reasoningCategories: [
         "chained-deduction",
       ],
@@ -436,6 +629,9 @@ export const seatingArrangementMotifs: QuantMotif[] =
       id: "double_row_elimination",
       topicCluster:
         "seating-arrangement",
+      facingPattern:
+        "PARALLEL_OPPOSITE",
+      participantCount: 8,
       reasoningCategories: [
         "chained-deduction",
       ],

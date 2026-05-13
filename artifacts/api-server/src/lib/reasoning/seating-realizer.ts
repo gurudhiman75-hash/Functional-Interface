@@ -78,6 +78,8 @@ function arrangementLead(
 ) {
   const personCount =
     scenario.participants.length;
+  const participantNames =
+    scenario.participants.join(", ");
   const isTableLayout =
     scenario.arrangementType ===
       "circular" ||
@@ -114,47 +116,50 @@ function arrangementLead(
     return `${constraintLead} Use the constraints to find the unique mapping.`;
   }
   const orientationText =
-    scenario.orientationType ===
-      "center"
-      ? "facing the centre"
+    scenario.arrangementType ===
+      "double-row"
+      ? "with the two rows facing each other"
       : scenario.orientationType ===
-          "outward"
-        ? "facing outward"
+        "center"
+        ? "with everyone facing the centre"
         : scenario.orientationType ===
-            "alternate"
-          ? isTableLayout
-            ? "with alternate seats facing the centre and outward"
-            : "with alternate north/south facing directions"
+            "outward"
+          ? "with everyone facing outward"
           : scenario.orientationType ===
-              "mixed"
+              "alternate"
             ? isTableLayout
-              ? "with some persons facing the centre and some facing outward"
-              : "with some persons facing north and some facing south"
-            : isRowLayout &&
-                (scenario.orientationType ===
-                  "north" ||
-                  scenario.orientationType ===
-                    "south")
-              ? `with all persons facing ${scenario.orientationType}`
-              : `facing ${scenario.orientationType}`;
+              ? "with alternate persons facing the centre and outward"
+              : "with alternate persons facing North and South"
+            : scenario.orientationType ===
+                "mixed"
+              ? isTableLayout
+                ? "with some persons facing the centre and some facing outward"
+                : "with some persons facing North and some facing South"
+              : isRowLayout &&
+                  (scenario.orientationType ===
+                    "north" ||
+                    scenario.orientationType ===
+                      "south")
+                ? `with all persons facing ${scenario.orientationType === "north" ? "North" : "South"}`
+                : `facing ${scenario.orientationType}`;
 
   const intro =
     scenario.arrangementType ===
       "linear"
-      ? `${personCount} persons are seated in a straight line, ${orientationText}.`
+      ? `${personCount} persons (${participantNames}) are seated in a straight line, ${orientationText}.`
       : scenario.arrangementType ===
           "circular"
-        ? `${personCount} persons are seated around a circular table, ${orientationText}.`
+        ? `${personCount} persons (${participantNames}) are seated around a circular table, ${orientationText}.`
         : scenario.arrangementType ===
             "square"
-          ? `${personCount} persons are seated around a square table, ${orientationText}.`
+          ? `${personCount} persons (${participantNames}) are seated around a square table, ${orientationText}.`
           : scenario.arrangementType ===
               "rectangular"
-            ? `${personCount} persons are seated around a rectangular table, ${orientationText}.`
+            ? `${personCount} persons (${participantNames}) are seated around a rectangular table, ${orientationText}.`
             : scenario.arrangementType ===
                 "double-row"
-              ? `${personCount} persons are seated in two rows facing each other, ${orientationText}.`
-              : `${personCount} persons are seated in two parallel rows, ${orientationText}.`;
+              ? `${personCount} persons (${participantNames}) are seated in two rows, ${orientationText}.`
+              : `${personCount} persons (${participantNames}) are seated in two parallel rows, ${orientationText}.`;
 
   if (
     examProfile === "ssc" ||
@@ -238,9 +243,9 @@ function clueToText(
         clue,
         scenario,
         [
-          `${clue.left} is not an immediate neighbour of ${clue.right}.`,
-          `${clue.left} and ${clue.right} do not sit next to each other.`,
-          `${clue.right} is not seated adjacent to ${clue.left}.`,
+          `No-Go Zone: ${clue.left} is not an immediate neighbour of ${clue.right}.`,
+          `No-Go Zone: ${clue.left} and ${clue.right} do not sit next to each other.`,
+          `No-Go Zone: ${clue.right} is not seated adjacent to ${clue.left}.`,
         ],
       );
     case "offset":
@@ -284,7 +289,7 @@ function clueToText(
         ],
       );
     case "not-end":
-      return `${clue.person} is not sitting at any extreme end.`;
+      return `No-Go Zone: ${clue.person} is not sitting at any extreme end.`;
     case "opposite":
       return scenario.arrangementType ===
         "double-row"
@@ -313,31 +318,110 @@ function clueToText(
             clue,
             scenario,
             [
-              `${clue.left} does not sit facing ${clue.right}.`,
-              `${clue.left} is not directly opposite ${clue.right}.`,
-              `${clue.right} does not face ${clue.left}.`,
+              `No-Go Zone: ${clue.left} does not sit facing ${clue.right}.`,
+              `No-Go Zone: ${clue.left} is not directly opposite ${clue.right}.`,
+              `No-Go Zone: ${clue.right} does not face ${clue.left}.`,
             ],
           )
         : selectClueVariant(
             clue,
             scenario,
             [
-              `${clue.left} does not sit opposite ${clue.right}.`,
-              `${clue.left} is not directly opposite ${clue.right}.`,
-              `${clue.right} is not opposite ${clue.left}.`,
+              `No-Go Zone: ${clue.left} does not sit opposite ${clue.right}.`,
+              `No-Go Zone: ${clue.left} is not directly opposite ${clue.right}.`,
+              `No-Go Zone: ${clue.right} is not opposite ${clue.left}.`,
             ],
           );
     case "same-row":
       return `${clue.left} sits in the same row as ${clue.right}.`;
     case "different-row":
-      return `${clue.left} does not sit in the same row as ${clue.right}.`;
+      return `No-Go Zone: ${clue.left} does not sit in the same row as ${clue.right}.`;
     case "facing":
       return `${clue.left} sits directly facing ${clue.right}.`;
     case "not-facing":
-      return `${clue.left} does not sit directly facing ${clue.right}.`;
+      return `No-Go Zone: ${clue.left} does not sit directly facing ${clue.right}.`;
     default:
       return "Use the seating clue carefully.";
   }
+}
+
+function getClueParticipants(
+  clue: LinearSeatingClue,
+) {
+  switch (clue.type) {
+    case "slot-fixed":
+    case "slot-parity":
+    case "slot-not":
+    case "attribute":
+      return [clue.entity];
+    case "slot-gap":
+      return [clue.left, clue.right];
+    case "slot-immediate":
+      return [clue.upper, clue.lower];
+    case "absolute":
+    case "end":
+    case "not-end":
+      return [clue.person];
+    case "adjacent":
+    case "not-adjacent":
+    case "distance-gap":
+    case "same-row":
+    case "different-row":
+    case "facing":
+    case "not-facing":
+    case "opposite":
+    case "not-opposite":
+      return [clue.left, clue.right];
+    case "offset":
+      return [clue.anchor, clue.person];
+    case "between":
+    case "adjacent-both":
+      return [
+        clue.middle,
+        clue.first,
+        clue.second,
+      ];
+    default:
+      return [];
+  }
+}
+
+function buildLeftoverPlayerStep(
+  scenario: LinearSeatingScenario,
+) {
+  const mentioned = new Set(
+    scenario.clues.flatMap(
+      getClueParticipants,
+    ),
+  );
+  const leftoverPlayers =
+    scenario.participants.filter(
+      (person) =>
+        !mentioned.has(person),
+    );
+
+  if (leftoverPlayers.length === 0) {
+    return undefined;
+  }
+
+  const placements = leftoverPlayers
+    .map((person) => {
+      const seatIndex =
+        scenario.arrangement.indexOf(
+          person,
+        );
+      const seatLabel =
+        scenario.seatLabels[seatIndex] ??
+        `Seat ${seatIndex + 1}`;
+
+      return `${person} sits at ${seatLabel}`;
+    })
+    .join("; ");
+
+  return createReasoningStep(
+    "infer",
+    `Now, only the leftover player${leftoverPlayers.length === 1 ? "" : "s"} (${leftoverPlayers.join(", ")}) must fill the remaining seat${leftoverPlayers.length === 1 ? "" : "s"}. This tells us that ${placements}.`,
+  );
 }
 
 function reasoningForClue(
@@ -427,6 +511,10 @@ export function buildSeatingStem(
 export function buildSeatingExplanation(
   scenario: LinearSeatingScenario,
 ) {
+  const leftoverPlayerStep =
+    buildLeftoverPlayerStep(
+      scenario,
+    );
   const orderedReasoning = [
     ...scenario.clues.map((clue) =>
       reasoningForClue(
@@ -434,6 +522,9 @@ export function buildSeatingExplanation(
         scenario,
       ),
     ),
+    ...(leftoverPlayerStep
+      ? [leftoverPlayerStep]
+      : []),
     createReasoningStep(
       "infer",
       scenario.constraintDimensionality

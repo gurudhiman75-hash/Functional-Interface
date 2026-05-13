@@ -1432,6 +1432,7 @@ export const MOTIF_REGISTRY: Motif[] = [
     aliases: [
       "seating-sparse-anchor",
       "sparse_anchor",
+      "ssc_simple_row",
     ],
     domain: "reasoning",
     topic: "seating-arrangement",
@@ -1448,6 +1449,7 @@ export const MOTIF_REGISTRY: Motif[] = [
     aliases: [
       "seating-indirect-elimination",
       "double_row_elimination",
+      "banking_parallel_row",
     ],
     domain: "reasoning",
     topic: "seating-arrangement",
@@ -1459,6 +1461,7 @@ export const MOTIF_REGISTRY: Motif[] = [
       "seating-orientation-inversion",
       "alternate_facing_deduction",
       "row_facing_inference",
+      "banking_alternate_row",
     ],
     domain: "reasoning",
     topic: "seating-arrangement",
@@ -1466,7 +1469,10 @@ export const MOTIF_REGISTRY: Motif[] = [
   },
   {
     canonicalName: "circular-opposite",
-    aliases: ["circular_opposite_chain"],
+    aliases: [
+      "circular_opposite_chain",
+      "ssc_circular_basic",
+    ],
     domain: "reasoning",
     topic: "seating-arrangement",
     tags: ["circular", "opposite"],
