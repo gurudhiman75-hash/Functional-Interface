@@ -50,6 +50,7 @@ export type MotifDifficultyProfile = {
     sbi?: number;
     cat?: number;
     rrb?: number;
+    punjab_state?: number;
   };
 };
 
@@ -186,8 +187,9 @@ export type QuantMotif = Partial<
     ssc?: number;
     ibps?: number;
     sbi?: number;
-      cat?: number;
-      rrb?: number;
+    cat?: number;
+    rrb?: number;
+    punjab_state?: number;
   };
   displayName?: string;
   facingPattern?: SeatingFacingPattern;

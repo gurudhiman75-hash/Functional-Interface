@@ -221,7 +221,9 @@ export type ExamProfileId =
   | "ibps"
   | "cat"
   | "sbi"
-  | "rrb";
+  | "rrb"
+  /** Punjab PSC / PSSSB / state-board style quant (SSC-like speed + ratio mix). */
+  | "punjab_state";
 
 export type DIVisualType =
   | "table"

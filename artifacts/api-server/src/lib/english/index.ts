@@ -300,7 +300,9 @@ function selectScenario(
   ) {
     return VOCAB_SCENARIOS[
       topic.includes("idiom") ||
-      options?.examProfile === "rrb"
+      options?.examProfile === "rrb" ||
+      options?.examProfile ===
+        "punjab_state"
         ? 1
         : 0
     ];
@@ -347,7 +349,12 @@ function normalizeExamProfile(
 ) {
   if (examProfile === "cat") return "CAT";
   if (examProfile === "ssc") return "SSC";
-  if (examProfile === "rrb") return "Punjab/RRB";
+  if (examProfile === "rrb") return "RRB";
+  if (examProfile === "punjab_state") {
+    return "Punjab State (PSC / PSSSB)";
+  }
+  if (examProfile === "ibps") return "IBPS / Banking";
+  if (examProfile === "sbi") return "SBI";
   return "SSC/Banking";
 }
 

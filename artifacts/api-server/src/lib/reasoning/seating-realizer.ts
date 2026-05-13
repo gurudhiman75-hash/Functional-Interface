@@ -166,6 +166,8 @@ function arrangementLead(
 
   if (
     examProfile === "ssc" ||
+    examProfile === "rrb" ||
+    examProfile === "punjab_state" ||
     wordingStyle === "concise"
   ) {
     return intro;

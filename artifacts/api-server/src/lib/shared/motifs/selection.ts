@@ -1,4 +1,5 @@
 import type {
+  ExamProfileId,
   GeneratorOptions,
   Pattern,
   QuantTopicCluster,
@@ -40,6 +41,40 @@ export function getRangeOverlap(
   );
 
   return Math.max(0, end - start + 1);
+}
+
+function resolveMotifExamProfileWeight(
+  weights:
+    | QuantMotif["examWeights"]
+    | undefined,
+  examProfile: ExamProfileId,
+): number {
+  if (!weights) {
+    return 1;
+  }
+
+  const direct =
+    weights[
+      examProfile as keyof typeof weights
+    ];
+  if (
+    typeof direct === "number"
+  ) {
+    return direct;
+  }
+
+  if (examProfile === "punjab_state") {
+    const ssc =
+      weights.ssc ?? 1;
+    const rrb =
+      weights.rrb ?? 1;
+    return (
+      (ssc + rrb) /
+      2
+    );
+  }
+
+  return 1;
 }
 
 export function pickMotif(
@@ -131,9 +166,10 @@ export function pickMotif(
           "custom"
       ) {
         weight *=
-          motif.examWeights?.[
-            options.examProfile
-          ] ?? 1;
+          resolveMotifExamProfileWeight(
+            motif.examWeights,
+            options.examProfile,
+          );
       }
 
       return weight;

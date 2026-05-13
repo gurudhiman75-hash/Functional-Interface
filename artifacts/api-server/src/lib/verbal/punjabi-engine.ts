@@ -513,7 +513,10 @@ function examModeText(
   if (mode === "paper-b") {
     return "Paper-B / Advanced Merit Level";
   }
-  if (examProfile === "rrb") {
+  if (
+    examProfile === "rrb" ||
+    examProfile === "punjab_state"
+  ) {
     return "Paper-A / Qualifying Punjabi Test, Standard 10th Level";
   }
   return "Paper-A / PSEB Standard Level";

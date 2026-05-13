@@ -10229,6 +10229,9 @@ export default function AdminGeneratorPage() {
                 <option value="rrb">
                   RRB
                 </option>
+                <option value="punjab_state">
+                  Punjab State (PSC / PSSSB quant)
+                </option>
                 <option value="punjab">
                   Punjab
                 </option>

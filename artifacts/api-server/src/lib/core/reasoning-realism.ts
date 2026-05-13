@@ -8,7 +8,8 @@ type RealismExamProfile =
   | "ibps"
   | "cat"
   | "sbi"
-  | "rrb";
+  | "rrb"
+  | "punjab_state";
 
 type RealismHeuristicProfile = {
   anchorDensityRange: [number, number];
@@ -96,6 +97,15 @@ const REALISM_HEURISTICS: Record<
     branchingComplexityRange: [0.05, 0.24],
     inferenceDepthRange: [2.8, 4.8],
     deductionDependencyRange: [0.8, 3],
+  },
+  punjab_state: {
+    anchorDensityRange: [0.2, 0.38],
+    directClueRatioRange: [0.22, 0.4],
+    clueDensityRange: [0.52, 0.96],
+    interactionRange: [0.44, 0.74],
+    branchingComplexityRange: [0.07, 0.3],
+    inferenceDepthRange: [3, 5.2],
+    deductionDependencyRange: [1, 3.4],
   },
 };
 
