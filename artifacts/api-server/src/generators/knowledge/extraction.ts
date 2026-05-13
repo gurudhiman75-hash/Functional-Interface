@@ -6,9 +6,14 @@ import type {
   KnowledgeSubject,
 } from "./types";
 import {
-  extractStructuredKnowledgeWithOpenAI,
+  extractStructuredKnowledgeWithAI,
   type AIExtractionMetadata,
 } from "../../server/services/ai-extraction-service";
+import {
+  isAIProviderConfigured,
+  resolveAIProvider,
+  type AIProviderName,
+} from "../../lib/ai-providers";
 
 function slug(value: string) {
   return value
@@ -178,6 +183,8 @@ type ExtractionRequest = {
     | "pyq"
     | "quant-motifs"
     | "reasoning-motifs";
+  provider?: AIProviderName;
+  model?: string;
   sourceMetadata?: {
     sourceType?: string;
     ocrUsed?: boolean;
@@ -396,16 +403,17 @@ function payloadToCandidate(
   );
 }
 
-async function callOpenAIExtraction(
+async function callAIExtraction(
   request: ExtractionRequest,
 ): Promise<{
   payloads: ExtractedFactPayload[];
   metadata?: AIExtractionMetadata;
 }> {
-  const apiKey =
-    process.env["OPENAI_API_KEY"];
+  const provider = resolveAIProvider(
+    request.provider,
+  );
 
-  if (!apiKey) {
+  if (!isAIProviderConfigured(provider)) {
     return {
       payloads: [],
     };
@@ -416,9 +424,11 @@ async function callOpenAIExtraction(
       ? request.allowedFactTypes
       : DEFAULT_FACT_TYPES;
   const result =
-    await extractStructuredKnowledgeWithOpenAI(
+    await extractStructuredKnowledgeWithAI(
       {
         ...request,
+        provider,
+        model: request.model,
         allowedFactTypes,
         extractionKind:
           request.extractionKind ??
@@ -553,10 +563,10 @@ export async function extractFactCandidatesFromText(
 export async function extractFactCandidatesWithMetadata(
   request: ExtractionRequest,
 ) {
-  const openAIResult =
-    await callOpenAIExtraction(request);
+  const aiResult =
+    await callAIExtraction(request);
   const payloads =
-    openAIResult.payloads ?? [];
+    aiResult.payloads ?? [];
   const sourcePayloads = payloads.length
     ? payloads
     : heuristicExtract(request);
@@ -584,9 +594,14 @@ export async function extractFactCandidatesWithMetadata(
   return {
     candidates,
     metadata:
-      openAIResult.metadata ?? {
-        provider: "openai" as const,
+      aiResult.metadata ?? {
+        provider: resolveAIProvider(
+          request.provider,
+        ),
         model:
+          process.env[
+            "AI_KNOWLEDGE_EXTRACTION_MODEL"
+          ] ??
           process.env[
             "OPENAI_KNOWLEDGE_EXTRACTION_MODEL"
           ] ?? "gpt-4.1-mini",
@@ -598,10 +613,16 @@ export async function extractFactCandidatesWithMetadata(
         failedChunks: 0,
         maxChunkCount: Number(
           process.env[
+            "AI_EXTRACTION_MAX_CHUNKS"
+          ] ??
+          process.env[
             "OPENAI_EXTRACTION_MAX_CHUNKS"
           ],
         ) || 12,
         maxDocumentChars: Number(
+          process.env[
+            "AI_EXTRACTION_MAX_CHARS"
+          ] ??
           process.env[
             "OPENAI_EXTRACTION_MAX_CHARS"
           ],
@@ -628,16 +649,18 @@ export async function extractFactCandidatesWithMetadata(
           outputTokens: 0,
           totalTokens: 0,
         },
-        warnings: process.env[
-          "OPENAI_API_KEY"
-        ]
+        warnings: isAIProviderConfigured(
+          resolveAIProvider(
+            request.provider,
+          ),
+        )
           ? []
           : [
-              "OPENAI_API_KEY is missing; offline heuristic extraction was used.",
+              `${resolveAIProvider(request.provider)} provider is not configured; offline heuristic extraction was used.`,
             ],
       },
     source: payloads.length
-      ? "openai"
+      ? resolveAIProvider(request.provider)
       : "offline-heuristic",
   };
 }

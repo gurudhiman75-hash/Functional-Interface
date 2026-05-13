@@ -1,4 +1,4 @@
-import { createWorker } from "tesseract.js";
+import { createRequire } from "node:module";
 
 export type PdfExtractionQuality =
   | "high"
@@ -61,6 +61,8 @@ const runtimeImport = new Function(
   specifier: string,
 ) => Promise<T>;
 
+const moduleRequire = createRequire(import.meta.url);
+
 async function loadPdfParse() {
   return runtimeImport<{
     PDFParse: new (
@@ -82,6 +84,36 @@ async function loadPdfParse() {
       destroy: () => Promise<void>;
     };
   }>("pdf-parse");
+}
+
+async function loadTesseract() {
+  return runtimeImport<{
+    createWorker: (
+      langs?: string,
+      oem?: unknown,
+      options?: Record<string, unknown>,
+      config?: Record<string, unknown>,
+    ) => Promise<{
+      recognize: (
+        image: Buffer,
+      ) => Promise<{
+        data: {
+          text: string;
+        };
+      }>;
+      terminate: () => Promise<void>;
+    }>;
+  }>("tesseract.js");
+}
+
+function resolveTesseractWorkerPath() {
+  try {
+    return moduleRequire.resolve(
+      "tesseract.js/src/worker-script/node/index.js",
+    );
+  } catch {
+    return undefined;
+  }
 }
 
 function withTimeout<T>(
@@ -387,8 +419,18 @@ async function extractPdfWithOcr(
     MAX_OCR_PAGES,
   );
   const ocrText: string[] = [];
+  const { createWorker } =
+    await loadTesseract();
+  const workerPath =
+    resolveTesseractWorkerPath();
   const worker = await createWorker(
     "eng+hin+pan",
+    undefined,
+    {
+      ...(workerPath
+        ? { workerPath }
+        : {}),
+    },
   );
 
   try {

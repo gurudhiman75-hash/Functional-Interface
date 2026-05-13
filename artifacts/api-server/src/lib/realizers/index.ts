@@ -7,6 +7,9 @@ import { realizeHindi } from "./hindi-realizer";
 import { realizePunjabi } from "./punjabi-realizer";
 import { quantRealizer } from "./quant-realizer";
 import {
+  realizeExplanation,
+} from "./explanation-realizer";
+import {
   detectCoverageCategory,
   getNativeRealizationCoverage,
 } from "./coverage";
@@ -61,6 +64,9 @@ export {
   parseSeatingExpression,
   semanticFromStudioRelation,
 } from "./semantic-primitives";
+export {
+  realizeExplanation,
+} from "./explanation-realizer";
 
 function isFormulaQuestion(
   question: GeneratedQuestion,
@@ -153,6 +159,11 @@ export function applyNativeRealizations(
       continue;
     }
 
+    if (language === "en") {
+      next.explanation =
+        result.bundle.explanation;
+    }
+
     if (language === "hi") {
       next.textHi =
         result.bundle.question;
@@ -190,6 +201,24 @@ export function generateReasoningQuestion(
 ): NativeRealizerResult {
   const coverageCategory =
     detectCoverageCategory(input);
+  const withTutorExplanation = (
+    result: NativeRealizerResult,
+  ): NativeRealizerResult => {
+    if (!result.supported) {
+      return result;
+    }
+
+    return {
+      ...result,
+      bundle: {
+        ...result.bundle,
+        explanation: realizeExplanation(
+          input,
+          language,
+        ),
+      },
+    };
+  };
 
   if (coverageCategory === "quant") {
     if (!REALIZERS.quant) {
@@ -203,8 +232,12 @@ export function generateReasoningQuestion(
       };
     }
 
-    return quantRealizer(input, language);
+    return withTutorExplanation(
+      quantRealizer(input, language),
+    );
   }
 
-  return REALIZERS[language](input);
+  return withTutorExplanation(
+    REALIZERS[language](input),
+  );
 }

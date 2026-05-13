@@ -116,5 +116,64 @@
       "reviewedAt": "2026-05-12T02:45:37.237Z",
       "notes": "Rejected from Question Studio moderation."
     }
+  },
+  {
+    "candidateId": "draft_date_event_psssb_group_d_question_paper_held_on_5_april",
+    "rawText": "PSSSB Group D Question Paper held on 5 April 2026",
+    "proposedFact": {
+      "factId": "date_event_psssb_group_d_question_paper_held_on_5_april",
+      "entityId": "psssb_group_d_question_paper_held_on_5_april",
+      "subject": "India GK",
+      "topic": "History",
+      "subtopic": "Important Events",
+      "factType": "date-event",
+      "contextGroupId": "important_dates",
+      "sequenceIndex": 2026,
+      "data": {
+        "entity": {
+          "en": "PSSSB Group D Question Paper held on 5 April",
+          "hi": "PSSSB Group D Question Paper held on 5 April",
+          "pa": "PSSSB Group D Question Paper held on 5 April"
+        },
+        "fact": {
+          "en": "2026",
+          "hi": "2026",
+          "pa": "2026"
+        },
+        "detail": {
+          "en": "PSSSB Group D Question Paper held on 5 April 2026",
+          "hi": "PSSSB Group D Question Paper held on 5 April 2026",
+          "pa": "PSSSB Group D Question Paper held on 5 April 2026"
+        }
+      },
+      "difficulty": "moderate",
+      "examTags": [],
+      "tags": [
+        "History",
+        "Chronology"
+      ],
+      "relations": [],
+      "distractorPool": [],
+      "pyqMetadata": {
+        "wasAsked": false,
+        "occurrences": []
+      },
+      "verification": {
+        "reviewed": false,
+        "confidence": 0.45
+      },
+      "source": {
+        "book": "PSSSB",
+        "note": "Extracted candidate; verify before using in exams."
+      }
+    },
+    "extractionNotes": [
+      "Draft extracted candidate. Human verification required before repository save."
+    ],
+    "status": "rejected",
+    "review": {
+      "reviewedAt": "2026-05-13T02:47:11.701Z",
+      "notes": "Rejected from Question Studio moderation."
+    }
   }
 ]

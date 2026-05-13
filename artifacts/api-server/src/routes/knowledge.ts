@@ -207,6 +207,8 @@ router.post(
         sourceUrl,
         allowedFactTypes,
         extractionKind,
+        provider,
+        model,
         sourceMetadata,
       } = req.body as {
         rawText?: string;
@@ -221,6 +223,11 @@ router.post(
           | "pyq"
           | "quant-motifs"
           | "reasoning-motifs";
+        provider?:
+          | "openai"
+          | "gemini"
+          | "claude";
+        model?: string;
         sourceMetadata?: {
           sourceType?: string;
           ocrUsed?: boolean;
@@ -256,6 +263,8 @@ router.post(
           sourceUrl,
           allowedFactTypes,
           extractionKind,
+          provider,
+          model,
           sourceMetadata,
         });
 

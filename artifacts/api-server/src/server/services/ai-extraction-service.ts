@@ -1,12 +1,21 @@
 import {
-  openai,
-  requireOpenAIApiKey,
-} from "../../lib/openai";
+  describeAIProviderError,
+  extractWithAI,
+  getAIProvider,
+  isAIProviderConfigured,
+  resolveAIProvider,
+  type AIProviderName,
+} from "../../lib/ai-providers";
 import type {
   KnowledgeDifficulty,
   KnowledgeFactType,
   KnowledgeSubject,
 } from "../../generators/knowledge/types";
+import {
+  buildExtractionJsonSchema,
+  buildExtractionSystemPrompt,
+  buildExtractionUserPrompt,
+} from "./ai-extraction-prompts";
 
 export type AIExtractionKind =
   | "gk-facts"
@@ -46,6 +55,7 @@ export type AIExtractionRequest = {
   sourceUrl?: string;
   allowedFactTypes: KnowledgeFactType[];
   extractionKind?: AIExtractionKind;
+  provider?: AIProviderName;
   model?: string;
   sourceMetadata?: {
     sourceType?: string;
@@ -58,7 +68,7 @@ export type AIExtractionRequest = {
 };
 
 export type AIExtractionMetadata = {
-  provider: "openai";
+  provider: AIProviderName;
   model: string;
   extractionKind: AIExtractionKind;
   chunkCount: number;
@@ -87,12 +97,19 @@ export type AIExtractionResult = {
 
 const DEFAULT_MODEL =
   process.env[
+    "AI_KNOWLEDGE_EXTRACTION_MODEL"
+  ] ??
+  process.env[
     "OPENAI_KNOWLEDGE_EXTRACTION_MODEL"
-  ] ?? "gpt-4.1-mini";
+  ] ??
+  getAIProvider().defaultModel;
 
 const DEFAULT_CHUNK_SIZE =
   Number(
     process.env[
+      "AI_EXTRACTION_CHUNK_CHARS"
+    ] ??
+      process.env[
       "OPENAI_EXTRACTION_CHUNK_CHARS"
     ],
   ) || 5000;
@@ -100,6 +117,9 @@ const DEFAULT_CHUNK_SIZE =
 const MAX_CHUNK_COUNT =
   Number(
     process.env[
+      "AI_EXTRACTION_MAX_CHUNKS"
+    ] ??
+      process.env[
       "OPENAI_EXTRACTION_MAX_CHUNKS"
     ],
   ) || 12;
@@ -107,13 +127,19 @@ const MAX_CHUNK_COUNT =
 const MAX_DOCUMENT_CHARS =
   Number(
     process.env[
+      "AI_EXTRACTION_MAX_CHARS"
+    ] ??
+      process.env[
       "OPENAI_EXTRACTION_MAX_CHARS"
     ],
   ) || 120_000;
 
-const OPENAI_TIMEOUT_MS =
+const AI_TIMEOUT_MS =
   Number(
     process.env[
+      "AI_EXTRACTION_TIMEOUT_MS"
+    ] ??
+      process.env[
       "OPENAI_EXTRACTION_TIMEOUT_MS"
     ],
   ) || 60_000;
@@ -121,6 +147,9 @@ const OPENAI_TIMEOUT_MS =
 const MAX_RETRIES =
   Number(
     process.env[
+      "AI_EXTRACTION_RETRIES"
+    ] ??
+      process.env[
       "OPENAI_EXTRACTION_RETRIES"
     ],
   ) || 2;
@@ -279,85 +308,16 @@ function buildUserPrompt(
     .join("\n\n");
 }
 
-function responseText(response: any) {
-  if (
-    typeof response?.output_text ===
-    "string"
-  ) {
-    return response.output_text;
-  }
-
-  const fragments: string[] = [];
-  for (const item of response?.output ?? []) {
-    for (const content of item.content ??
-      []) {
-      if (
-        typeof content.text === "string"
-      ) {
-        fragments.push(content.text);
-      }
-    }
-  }
-  return fragments.join("\n");
-}
-
 function parseCandidates(
-  text: string,
+  payload: unknown,
 ): AIExtractedFactPayload[] {
-  const parsed = JSON.parse(text);
+  const parsed =
+    typeof payload === "string"
+      ? JSON.parse(payload)
+      : payload;
   return Array.isArray(parsed.candidates)
     ? parsed.candidates
     : [];
-}
-
-function usageFromResponse(response: any) {
-  return {
-    inputTokens:
-      Number(
-        response?.usage?.input_tokens,
-      ) || 0,
-    outputTokens:
-      Number(
-        response?.usage?.output_tokens,
-      ) || 0,
-    totalTokens:
-      Number(
-        response?.usage?.total_tokens,
-      ) || 0,
-  };
-}
-
-function describeOpenAIError(error: unknown) {
-  const err = error as {
-    message?: string;
-    code?: string;
-    status?: number;
-    cause?: {
-      message?: string;
-      code?: string;
-    };
-  };
-  const parts = [
-    err.status
-      ? `status ${err.status}`
-      : "",
-    err.code ? `code ${err.code}` : "",
-    err.message ?? String(error),
-    err.cause?.code
-      ? `cause ${err.cause.code}`
-      : "",
-    err.cause?.message,
-  ].filter(Boolean);
-  const raw = parts.join(" - ");
-
-  if (/connection error/i.test(raw)) {
-    return [
-      "OpenAI connection failed.",
-      "Check backend internet access, proxy/firewall rules, OPENAI_API_KEY, and OPENAI_BASE_URL if you use a gateway.",
-    ].join(" ");
-  }
-
-  return raw;
 }
 
 function extractionJsonSchema(
@@ -466,37 +426,9 @@ async function extractChunk(
   index: number,
   total: number,
 ) {
-  const payload = {
-    model:
-      request.model ?? DEFAULT_MODEL,
-    input: [
-      {
-        role: "system",
-        content:
-          buildSystemPrompt(request),
-      },
-      {
-        role: "user",
-        content: buildUserPrompt(
-          chunk,
-          index,
-          total,
-          request,
-        ),
-      },
-    ],
-    temperature: 0,
-    text: {
-      format: {
-        type: "json_schema",
-        name: "examtree_extraction_candidates",
-        strict: true,
-        schema: extractionJsonSchema(
-          request.allowedFactTypes,
-        ),
-      },
-    },
-  };
+  const provider = resolveAIProvider(
+    request.provider,
+  );
 
   let lastError: unknown;
   for (
@@ -505,20 +437,38 @@ async function extractChunk(
     attempt += 1
   ) {
     try {
-      const response =
-        await openai.responses.create(
-          payload as any,
-          {
-            timeout: OPENAI_TIMEOUT_MS,
-            maxRetries: 0,
-          } as any,
-        );
+      const response = await extractWithAI({
+        provider,
+        model:
+          request.model ?? DEFAULT_MODEL,
+        prompt: {
+          system:
+            buildExtractionSystemPrompt(
+              request,
+            ),
+          user: buildExtractionUserPrompt(
+            chunk,
+            index,
+            total,
+            request,
+          ),
+        },
+        temperature: 0,
+        responseSchema:
+          buildExtractionJsonSchema(
+            request.allowedFactTypes,
+          ),
+        responseSchemaName:
+          "examtree_extraction_candidates",
+        timeoutMs: AI_TIMEOUT_MS,
+        maxRetries: 0,
+      });
       return {
         candidates: parseCandidates(
-          responseText(response),
+          response.json ??
+            response.text,
         ),
-        usage:
-          usageFromResponse(response),
+        usage: response.usage,
       };
     } catch (error) {
       lastError = error;
@@ -533,10 +483,15 @@ async function extractChunk(
   throw lastError;
 }
 
-export async function extractStructuredKnowledgeWithOpenAI(
+export async function extractStructuredKnowledgeWithAI(
   request: AIExtractionRequest,
 ): Promise<AIExtractionResult> {
-  requireOpenAIApiKey();
+  const provider = resolveAIProvider(
+    request.provider,
+  );
+  if (!isAIProviderConfigured(provider)) {
+    getAIProvider(provider).assertConfigured();
+  }
 
   const chunks = chunkDocumentText(
     request.rawText,
@@ -545,7 +500,7 @@ export async function extractStructuredKnowledgeWithOpenAI(
     return {
       candidates: [],
       metadata: {
-        provider: "openai",
+        provider,
         model:
           request.model ?? DEFAULT_MODEL,
         extractionKind:
@@ -618,7 +573,10 @@ export async function extractStructuredKnowledgeWithOpenAI(
       failedChunks += 1;
       warnings.push(
         `Chunk ${index + 1} failed: ${
-          describeOpenAIError(error)
+          describeAIProviderError(
+            provider,
+            error,
+          )
         }`,
       );
     }
@@ -633,7 +591,7 @@ export async function extractStructuredKnowledgeWithOpenAI(
         /^Chunk \d+ failed:\s*/,
         "",
       ) ??
-      "OpenAI extraction failed for every chunk.";
+      `${provider} extraction failed for every chunk.`;
     warnings.splice(
       0,
       warnings.length,
@@ -647,6 +605,7 @@ export async function extractStructuredKnowledgeWithOpenAI(
     {
       model:
         request.model ?? DEFAULT_MODEL,
+      provider,
       chunkCount: chunks.length,
       candidateCount:
         candidates.length,
@@ -658,7 +617,7 @@ export async function extractStructuredKnowledgeWithOpenAI(
   return {
     candidates,
     metadata: {
-      provider: "openai",
+      provider,
       model:
         request.model ?? DEFAULT_MODEL,
       extractionKind:

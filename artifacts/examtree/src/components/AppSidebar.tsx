@@ -62,17 +62,17 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className="border-r border-slate-800 bg-slate-950 text-slate-300 [&_[data-sidebar=sidebar]]:bg-slate-950"
+      className="border-r border-blue-800 bg-[#1e1b4b] text-slate-300 [&_[data-sidebar=sidebar]]:border-blue-800 [&_[data-sidebar=sidebar]]:bg-[#1e1b4b] [&_[data-slot=sidebar-inner]]:bg-[#1e1b4b]"
       collapsible="icon"
     >
-      <SidebarHeader className="border-b border-slate-800 px-4 py-4">
+      <SidebarHeader className="border-b border-blue-800 px-4 py-4">
         <Link href="/" className="flex items-center gap-3 rounded-md px-1 py-1">
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600 text-white">
             <span className="text-sm font-semibold">E</span>
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold tracking-tight text-white">examtree</p>
-            <p className="truncate text-[11px] text-slate-500">Testing Platform</p>
+            <p className="truncate text-[11px] font-medium text-slate-400">Tree of success</p>
           </div>
         </Link>
       </SidebarHeader>
@@ -103,7 +103,7 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-slate-800 p-3">
+      <SidebarFooter className="border-t border-blue-800 p-3">
         {user ? (
           <div className="flex items-center gap-2 rounded-md border border-slate-800 bg-slate-900/70 p-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-slate-800 text-slate-300">

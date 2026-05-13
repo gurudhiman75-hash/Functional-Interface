@@ -119,7 +119,7 @@ function buildNodes(categories: Category[], subcategories: Subcategory[], tests:
           {
             id: test.subcategoryId ?? test.subcategoryName ?? "general",
             name: test.subcategoryName ?? "General",
-            description: "Mixed exam blueprints and mock tests.",
+            description: "Mixed exams and mock tests.",
           },
         ]),
       ).values(),

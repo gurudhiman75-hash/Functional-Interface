@@ -47,6 +47,18 @@ const PackageCheckout = lazy(() => import("@/pages/package-checkout"));
 const PackageSuccess = lazy(() => import("@/pages/package-success"));
 const MyPackages = lazy(() => import("@/pages/my-packages"));
 const Profile = lazy(() => import("@/pages/profile"));
+const About = lazy(() => import("@/pages/about"));
+const Contact = lazy(() => import("@/pages/contact"));
+const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
+const TermsAndConditions = lazy(() => import("@/pages/terms-and-conditions"));
+const RefundPolicy = lazy(() => import("@/pages/refund-policy"));
+const FAQ = lazy(() => import("@/pages/faq"));
+const ExamsCovered = lazy(() => import("@/pages/exams-covered"));
+const MockTestsHub = lazy(() => import("@/pages/mock-tests"));
+const PYQHub = lazy(() => import("@/pages/pyqs"));
+const Blog = lazy(() => import("@/pages/blog"));
+const ReportQuestion = lazy(() => import("@/pages/report-question"));
+const SeoLanding = lazy(() => import("@/pages/seo-landing"));
 const Admin = lazy(() => import("@/pages/admin"));
 const AdminGenerator = lazy(
   () => import("@/pages/admin-generator"));
@@ -102,6 +114,20 @@ function Router() {
           <Route path="/packages/:id" component={() => renderRoute(PackageCheckout)} />
           <Route path="/my-packages" component={() => renderRoute(MyPackages)} />
           <Route path="/profile" component={() => renderRoute(Profile)} />
+          <Route path="/about" component={() => renderRoute(About)} />
+          <Route path="/contact" component={() => renderRoute(Contact)} />
+          <Route path="/privacy-policy" component={() => renderRoute(PrivacyPolicy)} />
+          <Route path="/terms-and-conditions" component={() => renderRoute(TermsAndConditions)} />
+          <Route path="/refund-policy" component={() => renderRoute(RefundPolicy)} />
+          <Route path="/faq" component={() => renderRoute(FAQ)} />
+          <Route path="/exams-covered" component={() => renderRoute(ExamsCovered)} />
+          <Route path="/mock-tests" component={() => renderRoute(MockTestsHub)} />
+          <Route path="/pyqs" component={() => renderRoute(PYQHub)} />
+          <Route path="/blog" component={() => renderRoute(Blog)} />
+          <Route path="/report-question" component={() => renderRoute(ReportQuestion)} />
+          <Route path="/ssc-cgl-pyqs" component={() => renderRoute(SeoLanding)} />
+          <Route path="/punjab-police-mock-tests" component={() => renderRoute(SeoLanding)} />
+          <Route path="/ibps-clerk-syllabus" component={() => renderRoute(SeoLanding)} />
           <Route path="/admin" component={() => renderRoute(Admin)} />
           <Route path="/admin/generator"
 component={() => renderRoute(AdminGenerator)}

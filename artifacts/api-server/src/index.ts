@@ -3,7 +3,7 @@ import "dotenv/config";
 import app from "./app";
 import { startGenerationJobWorker } from "./lib/generation-jobs";
 import { logger } from "./lib/logger";
-import { validateOpenAIStartup } from "./lib/openai";
+import { validateAIProviderStartup } from "./lib/ai-providers";
 
 const rawPort = process.env["PORT"];
 
@@ -19,7 +19,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-validateOpenAIStartup();
+validateAIProviderStartup();
 
 startGenerationJobWorker();
 

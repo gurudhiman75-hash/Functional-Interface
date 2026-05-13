@@ -2645,22 +2645,7 @@ export default function Admin() {
                               size="sm"
                               className="h-8 px-2"
                               onClick={() => {
-                                const subcat =
-                                  subcats.find(
-                                    (entry) =>
-                                      entry.id ===
-                                      test.subcategoryId,
-                                  );
-                                const langs =
-                                  subcat?.languages &&
-                                  subcat.languages
-                                    .length > 0
-                                    ? subcat.languages
-                                    : ["en"];
                                 setQuestionTestId(test.id);
-                                setQuestionSubcatLangs(
-                                  langs,
-                                );
                                 setEditingQuestion(null);
                                 setQuestionForm(
                                   blankQuestionForm(
