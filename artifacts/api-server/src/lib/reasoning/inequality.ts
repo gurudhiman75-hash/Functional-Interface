@@ -672,11 +672,12 @@ export function buildInequalityStem(
 
   const intro =
     wordingStyle === "concise"
-      ? "Study the inequalities."
+      ? "Directions: Study the following statements."
       : wordingStyle ===
             "inference-heavy"
-        ? "Analyse the following symbolic comparisons carefully before drawing the final conclusion."
-        : "Consider the following inequality statements.";
+        ? "Directions: Carefully analyse the following symbolic comparisons."
+        : "Directions: Consider the following statements.";
+
   const statementText =
     scenario.facts
       .map(renderInequalityFact)

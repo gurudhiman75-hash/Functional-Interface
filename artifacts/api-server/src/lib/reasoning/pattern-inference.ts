@@ -673,7 +673,7 @@ function createSeriesScenario(
   );
 
   return {
-    stem: `Find the next term in the series: $${display}, \\ ?$`,
+    stem: `Directions: Find the next term in the series: $${display}, \\ ?$`,
     answer,
     options,
     explanation: [
@@ -728,7 +728,7 @@ function createLetterSeriesScenario(
   );
 
   return {
-    stem: `Find the next letter in the series: $${seed.join(", ")}, \\ ?$`,
+    stem: `Directions: Find the next letter in the series: $${seed.join(", ")}, \\ ?$`,
     answer,
     options,
     explanation: [
@@ -788,7 +788,7 @@ function createAnalogyScenario(
   );
 
   return {
-    stem: `Complete the analogy: $${left} \\xrightarrow{R} ${right} :: ${target} \\xrightarrow{R} ?$`,
+    stem: `Directions: Complete the analogy: $${left} \\xrightarrow{R} ${right} :: ${target} \\xrightarrow{R} ?$`,
     answer,
     options,
     explanation: buildPatternTrace(
@@ -841,7 +841,7 @@ function createClassificationScenario(): PatternInferenceScenario {
   ) as OptionMetadata[];
 
   return {
-    stem: `Choose the odd one out by inspecting alphabet-rank gaps: $ACE, BDF, CEG, DHL$`,
+    stem: `Directions: Choose the odd one out by inspecting alphabet-rank gaps: $ACE, BDF, CEG, DHL$`,
     answer: correct,
     options: {
       options: shuffled.map(
@@ -957,7 +957,7 @@ export function createPatternInferenceScenario(
   );
 
   return {
-    stem: `If $${example} \\xrightarrow{R} ${codedExample}$, then $${target} \\xrightarrow{R} ?$`,
+    stem: `Directions: If $${example} \\xrightarrow{R} ${codedExample}$, then $${target} \\xrightarrow{R} ?$`,
     answer,
     options,
     explanation: buildPatternTrace(

@@ -5,6 +5,9 @@ import type {
   LinearSeatingClue,
   LinearSeatingScenario,
 } from "./seating-engine";
+import type {
+  InferenceStep,
+} from "./seating-validator";
 import {
   createReasoningStep,
   shuffle,
@@ -113,7 +116,7 @@ function arrangementLead(
               : "";
 
   if (constraintLead) {
-    return `${constraintLead} Use the constraints to find the unique mapping.`;
+    return `Directions: Study the information given below.\n\n${constraintLead} Use the clues to find the unique assignment.`;
   }
   const orientationText =
     scenario.arrangementType ===
@@ -173,10 +176,10 @@ function arrangementLead(
     wordingStyle ===
       "inference-heavy"
   ) {
-    return `${intro} Use the relational clues to infer the complete arrangement.`;
+    return `${intro} Use the relational clues to infer the only possible arrangement.`;
   }
 
-  return `${intro} Read the clues carefully and determine the arrangement.`;
+  return `${intro} Directions: Use every clue to obtain a unique arrangement.`;
 }
 
 function clueToText(
@@ -243,9 +246,9 @@ function clueToText(
         clue,
         scenario,
         [
-          `No-Go Zone: ${clue.left} is not an immediate neighbour of ${clue.right}.`,
-          `No-Go Zone: ${clue.left} and ${clue.right} do not sit next to each other.`,
-          `No-Go Zone: ${clue.right} is not seated adjacent to ${clue.left}.`,
+          `${clue.left} is not an immediate neighbour of ${clue.right}.`,
+          `${clue.left} and ${clue.right} do not sit next to each other.`,
+          `${clue.right} is not seated adjacent to ${clue.left}.`,
         ],
       );
     case "offset":
@@ -289,7 +292,7 @@ function clueToText(
         ],
       );
     case "not-end":
-      return `No-Go Zone: ${clue.person} is not sitting at any extreme end.`;
+      return `${clue.person} is not sitting at any extreme end.`;
     case "opposite":
       return scenario.arrangementType ===
         "double-row"
@@ -318,28 +321,28 @@ function clueToText(
             clue,
             scenario,
             [
-              `No-Go Zone: ${clue.left} does not sit facing ${clue.right}.`,
-              `No-Go Zone: ${clue.left} is not directly opposite ${clue.right}.`,
-              `No-Go Zone: ${clue.right} does not face ${clue.left}.`,
+              `${clue.left} does not sit facing ${clue.right}.`,
+              `${clue.left} is not directly opposite ${clue.right}.`,
+              `${clue.right} does not face ${clue.left}.`,
             ],
           )
         : selectClueVariant(
             clue,
             scenario,
             [
-              `No-Go Zone: ${clue.left} does not sit opposite ${clue.right}.`,
-              `No-Go Zone: ${clue.left} is not directly opposite ${clue.right}.`,
-              `No-Go Zone: ${clue.right} is not opposite ${clue.left}.`,
+              `${clue.left} does not sit opposite ${clue.right}.`,
+              `${clue.left} is not directly opposite ${clue.right}.`,
+              `${clue.right} is not opposite ${clue.left}.`,
             ],
           );
     case "same-row":
       return `${clue.left} sits in the same row as ${clue.right}.`;
     case "different-row":
-      return `No-Go Zone: ${clue.left} does not sit in the same row as ${clue.right}.`;
+      return `${clue.left} does not sit in the same row as ${clue.right}.`;
     case "facing":
       return `${clue.left} sits directly facing ${clue.right}.`;
     case "not-facing":
-      return `No-Go Zone: ${clue.left} does not sit directly facing ${clue.right}.`;
+      return `${clue.left} does not sit directly facing ${clue.right}.`;
     default:
       return "Use the seating clue carefully.";
   }
@@ -424,6 +427,205 @@ function buildLeftoverPlayerStep(
   );
 }
 
+function romanClueMarker(
+  index: number,
+) {
+  const markers = [
+    "(i)",
+    "(ii)",
+    "(iii)",
+    "(iv)",
+    "(v)",
+    "(vi)",
+    "(vii)",
+    "(viii)",
+    "(ix)",
+    "(x)",
+  ];
+
+  return markers[index] ?? `(${index + 1})`;
+}
+
+function humanizeSolverDeductionEnglish(
+  raw: string,
+) {
+  const t = raw.trim();
+
+  if (
+    t.includes(
+      "Anchored the first reliable relation",
+    )
+  ) {
+    return "Start from the clue that gives the clearest fixed seat or neighbour link, and treat it as the anchor for the rest.";
+  }
+
+  if (
+    t.includes(
+      "Propagated row and neighbour relations",
+    )
+  ) {
+    return "Extend the row using left–right order and neighbour clues while keeping every earlier placement consistent.";
+  }
+
+  if (
+    t.includes(
+      "Accepted arrangement after applying the remaining",
+    )
+  ) {
+    return "After the last relational checks, only one complete seating order fits every clue.";
+  }
+
+  if (
+    t.includes(
+      "remove rotational symmetry",
+    )
+  ) {
+    const match =
+      /^Anchored (.+?) at seat/.exec(
+        t,
+      );
+    const name =
+      match?.[1]?.trim() ??
+      "one person";
+
+    return `For the circular layout, place ${name} at a reference seat first so equivalent rotations are not counted as different answers.`;
+  }
+
+  if (t.startsWith("Branching on")) {
+    const match =
+      /^Branching on (.+?) at seat (\d+)\.$/.exec(
+        t,
+      );
+    if (match) {
+      return `Try ${match[1]} in seat ${match[2]}; if a later clue is impossible, discard this trial and move to the next seat.`;
+    }
+  }
+
+  if (
+    t.includes("Detected contradiction") &&
+    t.includes("pruning the branch")
+  ) {
+    const match =
+      /Detected contradiction for (.+?) at seat (\d+)/.exec(
+        t,
+      );
+    if (match) {
+      return `Seat ${match[2]} cannot belong to ${match[1]} because it clashes with an earlier clue, so this possibility is ruled out.`;
+    }
+  }
+
+  if (t.includes("Propagated")) {
+    return "Several clues are already satisfied here, so the partial diagram becomes more definite before the next move.";
+  }
+
+  if (
+    t.includes(
+      "Accepted canonical arrangement",
+    )
+  ) {
+    return "Every clue is satisfied without contradiction, so the final order is accepted.";
+  }
+
+  if (
+    t.includes(
+      "mirror-equivalent arrangement",
+    )
+  ) {
+    return "A symmetric placement appeared, but it represents the same logical answer after normalisation.";
+  }
+
+  return t;
+}
+
+function inferenceStepToReasoningStep(
+  step: InferenceStep,
+): ReturnType<
+  typeof createReasoningStep
+> {
+  const text =
+    humanizeSolverDeductionEnglish(
+      step.deduction,
+    );
+  const t = step.deduction;
+
+  if (
+    t.includes("contradiction") ||
+    t.includes("pruning") ||
+    step.eliminatedPossibilities.length >
+      0
+  ) {
+    const extra =
+      step.eliminatedPossibilities
+        .length > 0
+        ? ` Ruled out: ${step.eliminatedPossibilities.join("; ")}.`
+        : "";
+
+    return createReasoningStep(
+      "filter",
+      `${text}${extra}`,
+    );
+  }
+
+  if (
+    t.includes("Anchored") ||
+    t.includes("Anchored the first")
+  ) {
+    return createReasoningStep(
+      "compare",
+      text,
+    );
+  }
+
+  if (t.startsWith("Branching on")) {
+    return createReasoningStep(
+      "infer",
+      text,
+    );
+  }
+
+  if (
+    t.includes("Accepted") ||
+    t.includes("mirror-equivalent")
+  ) {
+    return createReasoningStep(
+      "compare",
+      text,
+    );
+  }
+
+  return createReasoningStep(
+    "infer",
+    text,
+  );
+}
+
+function conclusionForPromptEnglish(
+  scenario: LinearSeatingScenario,
+) {
+  const {
+    prompt,
+  } = scenario;
+  const answer =
+    prompt.correctAnswer;
+
+  switch (prompt.type) {
+    case "neighbor-left":
+      return `Hence the person immediately to the left of ${prompt.anchor} is ${answer}.`;
+    case "neighbor-right":
+      return `Hence the person immediately to the right of ${prompt.anchor} is ${answer}.`;
+    case "relative":
+      return `Hence, counting from ${prompt.anchor}, the person at the required offset is ${answer}.`;
+    case "opposite":
+      return `Hence the person sitting opposite ${prompt.anchor} is ${answer}.`;
+    case "facing":
+      return `Hence the person facing ${prompt.anchor} is ${answer}.`;
+    case "slot-occupant":
+      return `Hence the occupant at ${prompt.anchor} is ${answer}.`;
+    case "entity-slot":
+      return `Hence ${prompt.anchor} corresponds to ${answer}.`;
+  }
+}
+
 function reasoningForClue(
   clue: LinearSeatingClue,
   scenario: LinearSeatingScenario,
@@ -500,22 +702,63 @@ export function buildSeatingStem(
     wordingStyle,
   );
   const clueText = scenario.clues
-    .map((clue) =>
-      clueToText(clue, scenario),
+    .map((clue, index) =>
+      `${romanClueMarker(
+        index,
+      )} ${clueToText(
+        clue,
+        scenario,
+      )}`,
     )
-    .join(" ");
+    .join("\n");
 
-  return `${clueLead} ${clueText} ${scenario.prompt.prompt}`;
+  return `${clueLead}\n\n${clueText}\n\n${scenario.prompt.prompt}`;
 }
 
 export function buildSeatingExplanation(
   scenario: LinearSeatingScenario,
 ) {
+  const solverSteps =
+    scenario.solverInferenceSteps ?? [];
+  const useSolverNarrative =
+    solverSteps.length > 0;
+
+  if (useSolverNarrative) {
+    const orderedReasoning = [
+      createReasoningStep(
+        "infer",
+        "Read every clue once, then rebuild the row or table step by step so that each new placement is forced by at least one clue you have already used.",
+      ),
+      ...solverSteps.map(
+        inferenceStepToReasoningStep,
+      ),
+      createReasoningStep(
+        "compare",
+        conclusionForPromptEnglish(
+          scenario,
+        ),
+      ),
+    ];
+
+    return {
+      text: orderedReasoning
+        .map((step, index) =>
+          `${index + 1}. ${step.detail}`,
+        )
+        .join("\n\n"),
+      reasoningSteps: orderedReasoning,
+    };
+  }
+
   const leftoverPlayerStep =
     buildLeftoverPlayerStep(
       scenario,
     );
   const orderedReasoning = [
+    createReasoningStep(
+      "infer",
+      "Work clue-by-clue: whenever a seat becomes forced, write it down before moving to relational hints.",
+    ),
     ...scenario.clues.map((clue) =>
       reasoningForClue(
         clue,
@@ -528,7 +771,7 @@ export function buildSeatingExplanation(
     createReasoningStep(
       "infer",
       scenario.constraintDimensionality
-        ? "Combine fixed assignments, domain pruning, and relative slot links until only one Entity-to-Slot mapping remains."
+        ? "Combine fixed assignments, domain pruning, and relative slot links until only one complete assignment remains."
         : scenario.arrangementType ===
         "linear"
         ? "Combine the left-right, neighbour, and elimination clues to narrow the row to one valid arrangement."
@@ -541,7 +784,9 @@ export function buildSeatingExplanation(
     ),
     createReasoningStep(
       "compare",
-      `After arranging all positions consistently, ${scenario.prompt.correctAnswer} satisfies the asked position.`,
+      conclusionForPromptEnglish(
+        scenario,
+      ),
     ),
   ];
 
@@ -550,7 +795,7 @@ export function buildSeatingExplanation(
       .map((step, index) =>
         `${index + 1}. ${step.detail}`,
       )
-      .join(" "),
+      .join("\n\n"),
     reasoningSteps: orderedReasoning,
   };
 }

@@ -1121,7 +1121,7 @@ export function buildBloodRelationStem(
     Object.keys(scenario.members)
       .length === 0
   ) {
-    return `${scenario.statements.join(" ")} What is the answer?`;
+    return `${scenario.statements.join(" ")}\n\nDirections: Choose the correct answer from the options.`;
   }
 
   const subject =
@@ -1134,15 +1134,15 @@ export function buildBloodRelationStem(
     ]!;
   const intro =
     wordingStyle === "concise"
-      ? "In a family,"
+      ? "Directions: Read the information below carefully."
       : wordingStyle ===
           "inference-heavy"
-        ? "Study the following family clues carefully:"
-        : "Consider the following family information:";
+        ? "Directions: Study the following information carefully."
+        : "Directions: Read the following information and answer the question that follows.";
 
   void examProfile;
 
-  return `${intro} ${scenario.statements.join(" ")} How is ${subject.name} related to ${target.name}?`;
+  return `${intro}\n\n${scenario.statements.join(" ")} How is ${subject.name} related to ${target.name}?`;
 }
 
 export function buildBloodRelationExplanation(

@@ -369,6 +369,176 @@ function clueToHindi(clue: SeatingClue) {
   }
 }
 
+function arrangementNarrativeHi(
+  scenario: SeatingScenario,
+) {
+  const segments =
+    scenario.arrangement.map(
+      (person, index) => {
+        const slot =
+          scenario.seatLabels[index] ??
+          `स्थान ${index + 1}`;
+        return `${slot}: ${person}`;
+      },
+    );
+
+  return `अंतिम व्यवस्था इस प्रकार बनती है — ${segments.join(" · ")}।`;
+}
+
+function humanizeSolverDeductionHi(
+  raw: string,
+) {
+  const t = raw.trim();
+
+  if (
+    t.includes(
+      "Anchored the first reliable relation",
+    )
+  ) {
+    return "सबसे स्पष्ट संकेत से शुरू करें जो किसी व्यक्ति या स्थान को निश्चित करता है, और उसी को आधार मानकर आगे बढ़ें।";
+  }
+
+  if (
+    t.includes(
+      "Propagated row and neighbour relations",
+    )
+  ) {
+    return "बाएँ-दाएँ क्रम और पड़ोस वाले संकेतों से पंक्ति को आगे बढ़ाएँ, पहले लिखी स्थितियों से टकराव न आने दें।";
+  }
+
+  if (
+    t.includes(
+      "Accepted arrangement after applying the remaining",
+    )
+  ) {
+    return "अंतिम संबंधात्मक संकेत लगने के बाद केवल एक ही पूरी व्यवस्था संभव रहती है।";
+  }
+
+  if (
+    t.includes(
+      "remove rotational symmetry",
+    )
+  ) {
+    const match =
+      /^Anchored (.+?) at seat/.exec(
+        t,
+      );
+    const name =
+      match?.[1]?.trim() ??
+      "एक व्यक्ति";
+
+    return `वृत्ताकार मेज पर ${name} को संदर्भ स्थान पर रखकर घुमाव-समतुल्य दोहराव को हटाते हैं।`;
+  }
+
+  if (t.startsWith("Branching on")) {
+    const match =
+      /^Branching on (.+?) at seat (\d+)\.$/.exec(
+        t,
+      );
+    if (match) {
+      return `${match[1]} को स्थान ${match[2]} पर आज़माएँ; यदि आगे का कोई संकेत असंभव हो जाए तो यह संभावना रद्द कर अगली जाँच करें।`;
+    }
+  }
+
+  if (
+    t.includes("Detected contradiction") &&
+    t.includes("pruning the branch")
+  ) {
+    const match =
+      /Detected contradiction for (.+?) at seat (\d+)/.exec(
+        t,
+      );
+    if (match) {
+      return `स्थान ${match[2]} पर ${match[1]} रखने से पहले के संकेत टूट जाते हैं, इसलिए यह विकल्प अस्वीकार है।`;
+    }
+  }
+
+  if (t.includes("Propagated")) {
+    return "इस चरण पर कई संकेत पहले से संतुष्ट हैं, इसलिए आंशिक चित्र स्पष्ट हो जाता है।";
+  }
+
+  if (
+    t.includes(
+      "Accepted canonical arrangement",
+    )
+  ) {
+    return "सभी संकेत बिना विरोध के पूरे होते हैं, अतः अंतिम क्रम स्वीकार किया जाता है।";
+  }
+
+  if (
+    t.includes(
+      "mirror-equivalent arrangement",
+    )
+  ) {
+    return "सममिति से दूसरा रूप दिखाई दे सकता है, पर तर्क के अनुसार वही एक उत्तर माना जाता है।";
+  }
+
+  return t;
+}
+
+function conclusionHi(
+  prompt: SeatingQuestionPrompt,
+  answerDisplay: string,
+) {
+  switch (prompt.type) {
+    case "neighbor-left":
+      return `अतः ${prompt.anchor} के तुरंत बाईं ओर ${answerDisplay} ${hindiSitVerb(answerDisplay)}।`;
+    case "neighbor-right":
+      return `अतः ${prompt.anchor} के तुरंत दाईं ओर ${answerDisplay} ${hindiSitVerb(answerDisplay)}।`;
+    case "relative":
+      return `अतः ${prompt.anchor} से गिनकर आवश्यक स्थान पर ${answerDisplay} ${hindiSitVerb(answerDisplay)}।`;
+    case "opposite":
+      return `अतः ${prompt.anchor} के सामने ${answerDisplay} ${hindiSitVerb(answerDisplay)}।`;
+    case "facing":
+      return `अतः ${prompt.anchor} की ओर मुख करके ${answerDisplay} ${hindiSitVerb(answerDisplay)}।`;
+    case "slot-occupant":
+      return `अतः ${prompt.anchor} पर ${answerDisplay} ${hindiSitVerb(answerDisplay)}।`;
+    case "entity-slot":
+      return `अतः ${prompt.anchor} के लिए सही विकल्प ${answerDisplay} है।`;
+  }
+}
+
+function buildHindiSeatingExplanation(
+  scenario: SeatingScenario,
+) {
+  const answerDisplay =
+    localizeOptionText(
+      scenario.prompt.correctAnswer,
+      "hi",
+    ).normalize("NFC");
+  const parts: string[] = [
+    "संकेतों को क्रम से लागू करें: जहाँ केवल एक ही संभावना बचे, उसे लिखकर आगे बढ़ें और विरोधाभास वाले विकल्प हटाते रहें।",
+    arrangementNarrativeHi(scenario),
+  ];
+  const steps =
+    scenario.solverInferenceSteps ?? [];
+
+  if (steps.length > 0) {
+    parts.push(
+      [
+        "मुख्य तर्क-क्रम:",
+        ...steps.map(
+          (step, index) =>
+            `${index + 1}) ${humanizeSolverDeductionHi(step.deduction)}`,
+        ),
+      ].join("\n"),
+    );
+  } else {
+    parts.push(
+      "सभी संकेत मिलकर केवल एक ही पूरी व्यवस्था देते हैं।",
+    );
+  }
+
+  parts.push(
+    conclusionHi(
+      scenario.prompt,
+      answerDisplay,
+    ),
+  );
+
+  return parts.join("\n\n");
+}
+
 function promptToHindi(
   prompt: SeatingQuestionPrompt,
 ) {
@@ -388,6 +558,25 @@ function promptToHindi(
     case "entity-slot":
       return `${prompt.anchor} किस स्थान पर है?`;
   }
+}
+
+function romanClueMarkerForStem(
+  index: number,
+) {
+  const markers = [
+    "(i)",
+    "(ii)",
+    "(iii)",
+    "(iv)",
+    "(v)",
+    "(vi)",
+    "(vii)",
+    "(viii)",
+    "(ix)",
+    "(x)",
+  ];
+
+  return markers[index] ?? `(${index + 1})`;
 }
 
 export function realizeHindi(
@@ -527,7 +716,9 @@ export function realizeHindi(
     "निम्नलिखित जानकारी को ध्यान से पढ़िए और प्रश्न का उत्तर दीजिए:",
     ...clues.map(
       (clue, index) =>
-        `${index + 1}. ${clue}`,
+        `${romanClueMarkerForStem(
+          index,
+        )} ${clue}`,
     ),
     promptToHindi(input.logic.prompt),
   ].join("\n");
@@ -535,11 +726,10 @@ export function realizeHindi(
   const bundle = {
     question: question.normalize("NFC"),
     options: localOptions(input.question.options),
-    explanation: [
-      "दिए गए संकेतों को क्रम से लागू करने पर एक ही वैध व्यवस्था मिलती है।",
-      `अंतिम व्यवस्था: ${input.logic.finalArrangement}`,
-      `अतः सही उत्तर ${input.logic.prompt.correctAnswer} है।`,
-    ].join("\n").normalize("NFC"),
+    explanation:
+      buildHindiSeatingExplanation(
+        input.logic,
+      ),
   };
   const primitiveDiagnostics =
     diagnosePrimitiveSupport(

@@ -342,7 +342,7 @@ function createDegreePathScenario() {
   return {
     kind: "vector-path" as const,
     stem:
-      "A person starts facing North, walks $10$ m, turns $135^\\circ$ clockwise and walks another $10$ m. In which direction is the person now facing?",
+      "Directions: A person starts facing North, walks $10$ m, turns $135^\\circ$ clockwise and walks another $10$ m. In which direction is the person now facing?",
     correctAnswer: answer,
     options: bundle.options,
     optionMetadata:
@@ -382,7 +382,7 @@ function createShadowScenario() {
   return {
     kind: "shadow" as const,
     stem:
-      "In the morning, the sun is in the East. If Ravi's shadow falls directly behind him, which direction is the shadow pointing?",
+      "Directions: In the morning, the sun is in the East. If Ravi's shadow falls directly behind him, in which direction is his shadow pointing?",
     correctAnswer: answer,
     options: bundle.options,
     optionMetadata:
@@ -422,7 +422,7 @@ function createDiceScenario() {
   return {
     kind: "dice" as const,
     stem:
-      "A standard dice has opposite faces summing to $7$. If the face numbered $2$ is visible on the front, which number is on the opposite face?",
+      "Directions: On a standard dice, opposite faces sum to $7$. If the face numbered $2$ is on the front, which number is on the opposite face?",
     correctAnswer: answer,
     options: bundle.options,
     optionMetadata:
@@ -455,7 +455,7 @@ function createCubePaintingScenario() {
   return {
     kind: "cube-painting" as const,
     stem:
-      "A cube of side $4$ is painted on all faces and cut into $4 \\times 4 \\times 4$ equal small cubes. How many small cubes have exactly $2$ faces painted?",
+      "Directions: A cube of side $4$ is painted on all faces and cut into $4 \\times 4 \\times 4$ equal small cubes. How many small cubes have exactly two faces painted?",
     correctAnswer: answer,
     options: bundle.options,
     optionMetadata:
@@ -496,8 +496,8 @@ function createReflectionScenario(
   return {
     kind: "reflection" as const,
     stem: water
-      ? `Find the water image of $${source}$.`
-      : `Find the mirror image of $${source}$.`,
+      ? `Directions: Find the water image of $${source}$.`
+      : `Directions: Find the mirror image of $${source}$.`,
     correctAnswer: answer,
     options: bundle.options,
     optionMetadata:
@@ -531,7 +531,7 @@ function createPaperFoldScenario() {
   return {
     kind: "paper-fold" as const,
     stem:
-      "A square paper is folded once vertically and once horizontally. A hole is punched near the folded corner. After unfolding, how many holes appear?",
+      "Directions: A square sheet is folded once vertically and once horizontally. A hole is punched near the folded corner. After unfolding, how many holes appear?",
     correctAnswer: answer,
     options: bundle.options,
     optionMetadata:

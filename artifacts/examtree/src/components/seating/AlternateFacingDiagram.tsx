@@ -1,5 +1,4 @@
 import {
-  DiagramLegend,
   type DiagramProps,
   EXAM_MUTED,
   EXAM_STROKE,
@@ -94,10 +93,6 @@ export function AlternateFacingDiagram({
         );
       })}
 
-      <DiagramLegend
-        diagram={diagram}
-        compact
-      />
       {renderReplayOverlay({
         width,
         height,

@@ -185,7 +185,7 @@ function createAssumptionScenario() {
     premise,
     bridge,
     inference: correct,
-    stem: `Statement: ${premise}\nWhich assumption is implicit?`,
+    stem: `Directions: Read the following statement and answer the question that follows.\n\nStatement: ${premise}\n\nWhich assumption is implicit?`,
     correctAnswer: correct,
     options,
     explanation:
@@ -240,7 +240,7 @@ function createConclusionScenario() {
     bridge:
       "The conclusion must remain within Delhi private schools.",
     inference: correct,
-    stem: `Statement: ${premise}\nWhich conclusion definitely follows?`,
+    stem: `Directions: Read the following statement and answer the question that follows.\n\nStatement: ${premise}\n\nWhich conclusion can definitely be drawn?`,
     correctAnswer: correct,
     options,
     explanation:
@@ -295,7 +295,7 @@ function createActionScenario() {
     bridge:
       "A course of action must be effective, feasible, and proportionate.",
     inference: correct,
-    stem: `Problem: ${premise}\nWhich course of action is most appropriate?`,
+    stem: `Directions: A situation is given below. Choose the most appropriate course of action.\n\nSituation: ${premise}\n\nWhich course of action is most appropriate?`,
     correctAnswer: correct,
     options,
     explanation:
@@ -350,7 +350,7 @@ function createCauseScenario() {
     bridge:
       "The cause must logically precede and explain the effect.",
     inference: correct,
-    stem: `Events: ${premise}\nWhat is the correct cause-effect relation?`,
+    stem: `Directions: Read the following information and answer the question that follows.\n\n${premise}\n\nWhat is the correct cause-effect relationship?`,
     correctAnswer: correct,
     options,
     explanation:
@@ -405,7 +405,7 @@ function createArgumentScenario() {
     bridge:
       "A strong argument must be relevant, practical, and moderate in scope.",
     inference: correct,
-    stem: `Statement: ${premise}\nWhich is the strongest argument?`,
+    stem: `Directions: Below is a statement followed by possible arguments. Choose the strongest argument.\n\nStatement: ${premise}\n\nWhich of the following is the strongest argument?`,
     correctAnswer: correct,
     options,
     explanation:

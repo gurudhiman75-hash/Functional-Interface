@@ -1,5 +1,4 @@
 import {
-  DiagramLegend,
   type DiagramProps,
   EXAM_MUTED,
   EXAM_STROKE,
@@ -103,10 +102,6 @@ export function LinearSeatingDiagram({
         );
       })}
 
-      <DiagramLegend
-        diagram={diagram}
-        compact
-      />
       {renderReplayOverlay({
         width,
         height,

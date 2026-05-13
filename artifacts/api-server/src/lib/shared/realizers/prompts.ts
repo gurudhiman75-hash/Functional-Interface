@@ -21,8 +21,22 @@ export function buildQuantPrompt(
 
   if (profileConfig.wordingStyle === "concise") {
     variants.push(
-      "Answer quickly: {baseText}",
-      "Find the answer: {baseText}",
+      "{baseText}",
+      "What is asked in the following?\n\n{baseText}",
+      "What is the correct value on the basis of the following?\n\n{baseText}",
+    );
+  } else if (
+    profileConfig.wordingStyle ===
+    "inference-heavy"
+  ) {
+    variants.push(
+      "From the information given below, determine the answer.\n\n{baseText}",
+      "Answer according to the following data.\n\n{baseText}",
+    );
+  } else {
+    variants.push(
+      "Directions: Study the following and answer the question that follows.\n\n{baseText}",
+      "What is the correct answer on the basis of the following?\n\n{baseText}",
     );
   }
 

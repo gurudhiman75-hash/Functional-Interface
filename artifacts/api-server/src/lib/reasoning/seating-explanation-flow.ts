@@ -153,7 +153,7 @@ function normalizeConstraintRefs(
     )
     .join(", ");
 
-  return ` Reference clues used: ${refs}.`;
+  return ` (from clues: ${refs})`;
 }
 
 function classifyTraceStep(
@@ -219,30 +219,30 @@ function toHumanExplanation(
   type: SeatingExplanationStep["type"],
 ) {
   if (type === "reference") {
-    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} This gives us the first stable reference point for the arrangement.`;
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} This fixes a starting position so the rest of the clues can be checked in order.`;
   }
 
   if (type === "case-analysis") {
-    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} At this stage we test the possible seat choice and keep the remaining arrangement flexible until the next clue confirms or rejects it.`;
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} Here we try a possible seat; we keep going only if the remaining clues can still be satisfied.`;
   }
 
   if (type === "elimination") {
     const eliminated =
       step.eliminatedPossibilities
         .length > 0
-        ? ` Eliminated possibilities: ${step.eliminatedPossibilities.join("; ")}.`
+        ? ` Ruled out: ${step.eliminatedPossibilities.join("; ")}.`
         : "";
 
-    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)}${eliminated} This is the standard SSC/Banking elimination move where an invalid case is removed before proceeding further.`;
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)}${eliminated} This is a routine elimination: the impossible case is dropped and the search continues with the surviving options.`;
   }
 
   if (
     type === "final-arrangement"
   ) {
-    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} The arrangement is now fixed, so the asked position can be read directly from the completed figure.`;
+    return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} With every seat filled consistently, you can read the asked position straight from the final sketch.`;
   }
 
-  return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} This deduction locks more positions and reduces the remaining uncertainty step by step.`;
+  return `${step.deduction}${normalizeConstraintRefs(step.sourceConstraintIds)} Each such move pins more seats and shrinks the remaining possibilities.`;
 }
 
 function buildBranches(
@@ -333,7 +333,7 @@ function buildSummary(
         ),
     ).length;
 
-  return `Start from the fixed reference, test the progressive deductions in the same order as the solver trace, and remove the contradictory cases one by one. This solution uses ${branchCount} branch test${branchCount === 1 ? "" : "s"} and ${eliminationCount} elimination move${eliminationCount === 1 ? "" : "s"} before reaching the final arrangement.`;
+  return `Begin from the strongest fixed clue, follow the same logical order as in the trace, and whenever two cases remain, keep the one that survives every cross-check. This walk uses ${branchCount} branching check${branchCount === 1 ? "" : "s"} and ${eliminationCount} elimination step${eliminationCount === 1 ? "" : "s"} before the layout becomes unique.`;
 }
 
 export function buildSeatingExplanationFlow(

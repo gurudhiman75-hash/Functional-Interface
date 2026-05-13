@@ -294,7 +294,7 @@ function createSyllogismScenario(
 
     return {
       stem:
-        "Statement: Only a few Artists are Teachers. Which conclusion definitely follows?",
+        "Directions: Read the statement and answer the question that follows.\n\nStatement: Only a few Artists are Teachers. Which conclusion definitely follows?",
       correctAnswer: correct,
       options: bundle.options,
       optionMetadata:
@@ -348,11 +348,11 @@ function createSyllogismScenario(
   );
 
   return {
-    stem: `Statements: ${premises
+    stem: `Directions: Consider the following statements and the conclusion.\n\nStatements: ${premises
       .map(renderPremise)
-      .join("; ")}. Conclusion: ${renderPremise(
+      .join("; ")}.\n\nConclusion: ${renderPremise(
       conclusion,
-    )}${conclusion.mode === "possibility" ? " is a possibility" : ""}. Does it follow?`,
+    )}${conclusion.mode === "possibility" ? " is a possibility" : ""}.\n\nDoes the conclusion logically follow?`,
     correctAnswer: correct,
     options: bundle.options,
     optionMetadata:
@@ -416,7 +416,7 @@ function createVennMathScenario() {
 
   return {
     stem:
-      "In a class of $50$ students, $20$ like Math, $25$ like Science, and $10$ like neither. How many students like both Math and Science?",
+      "Directions: In a class of $50$ students, $20$ like Math, $25$ like Science, and $10$ like neither. How many students like both Math and Science?",
     correctAnswer: correct,
     options: bundle.options,
     optionMetadata:
@@ -454,7 +454,7 @@ function createVennIdentityScenario() {
 
   return {
     stem:
-      "Which logical Venn diagram correctly represents Dogs, Pets, and Animals?",
+      "Directions: Which Venn diagram option correctly represents the relationship among Dogs, Pets, and Animals?",
     correctAnswer: correct,
     options: bundle.options,
     optionMetadata:

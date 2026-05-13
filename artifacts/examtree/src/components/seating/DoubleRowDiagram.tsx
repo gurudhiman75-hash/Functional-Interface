@@ -1,5 +1,4 @@
 import {
-  DiagramLegend,
   type DiagramProps,
   EXAM_MUTED,
   EXAM_STROKE,
@@ -150,10 +149,6 @@ export function DoubleRowDiagram({
         },
       )}
 
-      <DiagramLegend
-        diagram={diagram}
-        compact
-      />
       {renderReplayOverlay({
         width,
         height,

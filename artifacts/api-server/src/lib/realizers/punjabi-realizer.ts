@@ -369,6 +369,176 @@ function clueToPunjabi(clue: SeatingClue) {
   }
 }
 
+function arrangementNarrativePa(
+  scenario: SeatingScenario,
+) {
+  const segments =
+    scenario.arrangement.map(
+      (person, index) => {
+        const slot =
+          scenario.seatLabels[index] ??
+          `ਸਥਾਨ ${index + 1}`;
+        return `${slot}: ${person}`;
+      },
+    );
+
+  return `ਅੰਤਿਮ ਵਿਵਸਥਾ ਇਸ ਤਰ੍ਹਾਂ ਬਣਦੀ ਹੈ — ${segments.join(" · ")}।`;
+}
+
+function humanizeSolverDeductionPa(
+  raw: string,
+) {
+  const t = raw.trim();
+
+  if (
+    t.includes(
+      "Anchored the first reliable relation",
+    )
+  ) {
+    return "ਸਭ ਤੋਂ ਸਾਫ਼ ਸੰਕੇਤ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ ਜੋ ਕਿਸੇ ਵਿਅਕਤੀ ਜਾਂ ਸਥਾਨ ਨੂੰ ਪੱਕਾ ਕਰਦਾ ਹੈ, ਅਤੇ ਉਸੇ ਨੂੰ ਅਧਾਰ ਮੰਨ ਕੇ ਅੱਗੇ ਵਧੋ।";
+  }
+
+  if (
+    t.includes(
+      "Propagated row and neighbour relations",
+    )
+  ) {
+    return "ਖੱਬੇ-ਸੱਜੇ ਕ੍ਰਮ ਅਤੇ ਗੁਆਂਢ ਵਾਲੇ ਸੰਕੇਤਾਂ ਨਾਲ ਕਤਾਰ ਨੂੰ ਅੱਗੇ ਵਧਾਓ; ਪਹਿਲਾਂ ਲਿਖੀਆਂ ਸਥਿਤੀਆਂ ਨਾਲ ਟਕਰਾਅ ਨ ਆਉਣ ਦਿਓ।";
+  }
+
+  if (
+    t.includes(
+      "Accepted arrangement after applying the remaining",
+    )
+  ) {
+    return "ਆਖਰੀ ਸੰਬੰਧਿਤ ਸੰਕੇਤ ਲੱਗਣ ਤੋਂ ਬਾਅਦ ਸਿਰਫ਼ ਇੱਕ ਹੀ ਪੂਰੀ ਵਿਵਸਥਾ ਬਚਦੀ ਹੈ।";
+  }
+
+  if (
+    t.includes(
+      "remove rotational symmetry",
+    )
+  ) {
+    const match =
+      /^Anchored (.+?) at seat/.exec(
+        t,
+      );
+    const name =
+      match?.[1]?.trim() ??
+      "ਇੱਕ ਵਿਅਕਤੀ";
+
+    return `ਗੋਲ ਮੇਜ਼ ਉੱਤੇ ${name} ਨੂੰ ਹਵਾਲਾ ਸਥਾਨ ਤੇ ਰੱਖ ਕੇ ਘੁੰਮਾਅ-ਸਮਾਨ ਦੁਹਰਾਅ ਹਟਾਇਆ ਜਾਂਦਾ ਹੈ।`;
+  }
+
+  if (t.startsWith("Branching on")) {
+    const match =
+      /^Branching on (.+?) at seat (\d+)\.$/.exec(
+        t,
+      );
+    if (match) {
+      return `${match[1]} ਨੂੰ ਸਥਾਨ ${match[2]} ਤੇ ਅਜ਼ਮਾਓ; ਜੇ ਅਗਲਾ ਕੋਈ ਸੰਕੇਤ ਅਸੰਭਵ ਹੋ ਜਾਵੇ ਤਾਂ ਇਹ ਸੰਭਾਵਨਾ ਰੱਦ ਕਰਕੇ ਅਗਲੀ ਜਾਂਚ ਕਰੋ।`;
+    }
+  }
+
+  if (
+    t.includes("Detected contradiction") &&
+    t.includes("pruning the branch")
+  ) {
+    const match =
+      /Detected contradiction for (.+?) at seat (\d+)/.exec(
+        t,
+      );
+    if (match) {
+      return `ਸਥਾਨ ${match[2]} ਤੇ ${match[1]} ਰੱਖਣ ਨਾਲ ਪਹਿਲਾਂ ਦੇ ਸੰਕੇਤ ਟੁੱਟ ਜਾਂਦੇ ਹਨ, ਇਸ ਲਈ ਇਹ ਵਿਕਲਪ ਖਾਰਜ ਹੈ।`;
+    }
+  }
+
+  if (t.includes("Propagated")) {
+    return "ਇਸ ਪੜਾਅ ਤੇ ਕਈ ਸੰਕੇਤ ਪਹਿਲਾਂ ਹੀ ਪੂਰੇ ਹੁੰਦੇ ਹਨ, ਇਸ ਲਈ ਅੰਸ਼ਿਕ ਚਿੱਤਰ ਸਪਸ਼ਟ ਹੋ ਜਾਂਦਾ ਹੈ।";
+  }
+
+  if (
+    t.includes(
+      "Accepted canonical arrangement",
+    )
+  ) {
+    return "ਸਾਰੇ ਸੰਕੇਤ ਬਿਨਾਂ ਵਿਰੋਧ ਦੇ ਪੂਰੇ ਹੁੰਦੇ ਹਨ, ਇਸ ਲਈ ਅੰਤਿਮ ਕ੍ਰਮ ਮਨਜ਼ੂਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।";
+  }
+
+  if (
+    t.includes(
+      "mirror-equivalent arrangement",
+    )
+  ) {
+    return "ਸਮਮਿਤੀ ਕਰਕੇ ਦੂਜਾ ਰੂਪ ਦਿਖ ਸਕਦਾ ਹੈ, ਪਰ ਤਰਕ ਅਨੁਸਾਰ ਉਹੀ ਇੱਕ ਉੱਤਰ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।";
+  }
+
+  return t;
+}
+
+function conclusionPa(
+  prompt: SeatingQuestionPrompt,
+  answerDisplay: string,
+) {
+  switch (prompt.type) {
+    case "neighbor-left":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਦੇ ਤੁਰੰਤ ਖੱਬੇ ਪਾਸੇ ${answerDisplay} ${punjabiSitVerb(answerDisplay)}।`;
+    case "neighbor-right":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਦੇ ਤੁਰੰਤ ਸੱਜੇ ਪਾਸੇ ${answerDisplay} ${punjabiSitVerb(answerDisplay)}।`;
+    case "relative":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਤੋਂ ਗਿਣ ਕੇ ਲੋੜੀਂਦੀ ਥਾਂ ਤੇ ${answerDisplay} ${punjabiSitVerb(answerDisplay)}।`;
+    case "opposite":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਦੇ ਸਾਹਮਣੇ ${answerDisplay} ${punjabiSitVerb(answerDisplay)}।`;
+    case "facing":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਵੱਲ ਮੂੰਹ ਕਰਕੇ ${answerDisplay} ${punjabiSitVerb(answerDisplay)}।`;
+    case "slot-occupant":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਤੇ ${answerDisplay} ${punjabiSitVerb(answerDisplay)}।`;
+    case "entity-slot":
+      return `ਇਸ ਲਈ ${prompt.anchor} ਲਈ ਸਹੀ ਵਿਕਲਪ ${answerDisplay} ਹੈ।`;
+  }
+}
+
+function buildPunjabiSeatingExplanation(
+  scenario: SeatingScenario,
+) {
+  const answerDisplay =
+    localizeOptionText(
+      scenario.prompt.correctAnswer,
+      "pa",
+    ).normalize("NFC");
+  const parts: string[] = [
+    "ਸੰਕੇਤਾਂ ਨੂੰ ਕ੍ਰਮਵਾਰ ਲਾਗੂ ਕਰੋ: ਜਿੱਥੇ ਸਿਰਫ਼ ਇੱਕ ਹੀ ਸੰਭਾਵਨਾ ਬਚੇ, ਉਸਨੂੰ ਲਿਖ ਕੇ ਅੱਗੇ ਵਧੋ ਅਤੇ ਵਿਰੋਧਾਭਾਸ ਵਾਲੇ ਵਿਕਲਪ ਹਟਾਉਂਦੇ ਰਹੋ।",
+    arrangementNarrativePa(scenario),
+  ];
+  const steps =
+    scenario.solverInferenceSteps ?? [];
+
+  if (steps.length > 0) {
+    parts.push(
+      [
+        "ਮੁੱਖ ਤਰਕ-ਕ੍ਰਮ:",
+        ...steps.map(
+          (step, index) =>
+            `${index + 1}) ${humanizeSolverDeductionPa(step.deduction)}`,
+        ),
+      ].join("\n"),
+    );
+  } else {
+    parts.push(
+      "ਸਾਰੇ ਸੰਕੇਤ ਮਿਲ ਕੇ ਸਿਰਫ਼ ਇੱਕ ਹੀ ਪੂਰੀ ਵਿਵਸਥਾ ਦਿੰਦੇ ਹਨ।",
+    );
+  }
+
+  parts.push(
+    conclusionPa(
+      scenario.prompt,
+      answerDisplay,
+    ),
+  );
+
+  return parts.join("\n\n");
+}
+
 function promptToPunjabi(
   prompt: SeatingQuestionPrompt,
 ) {
@@ -388,6 +558,25 @@ function promptToPunjabi(
     case "entity-slot":
       return `${prompt.anchor} ਕਿਹੜੇ ਸਥਾਨ ਤੇ ਹੈ?`;
   }
+}
+
+function romanClueMarkerForStemPa(
+  index: number,
+) {
+  const markers = [
+    "(i)",
+    "(ii)",
+    "(iii)",
+    "(iv)",
+    "(v)",
+    "(vi)",
+    "(vii)",
+    "(viii)",
+    "(ix)",
+    "(x)",
+  ];
+
+  return markers[index] ?? `(${index + 1})`;
 }
 
 export function realizePunjabi(
@@ -527,7 +716,9 @@ export function realizePunjabi(
     "ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ ਅਤੇ ਪ੍ਰਸ਼ਨ ਦਾ ਉੱਤਰ ਦਿਓ:",
     ...clues.map(
       (clue, index) =>
-        `${index + 1}. ${clue}`,
+        `${romanClueMarkerForStemPa(
+          index,
+        )} ${clue}`,
     ),
     promptToPunjabi(input.logic.prompt),
   ].join("\n");
@@ -535,11 +726,10 @@ export function realizePunjabi(
   const bundle = {
     question: question.normalize("NFC"),
     options: localOptions(input.question.options),
-    explanation: [
-      "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਨੂੰ ਕ੍ਰਮਵਾਰ ਲਾਗੂ ਕਰਨ ਤੇ ਸਿਰਫ਼ ਇੱਕ ਹੀ ਉਚਿਤ ਵਿਵਸਥਾ ਮਿਲਦੀ ਹੈ।",
-      `ਅੰਤਿਮ ਵਿਵਸਥਾ: ${input.logic.finalArrangement}`,
-      `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${input.logic.prompt.correctAnswer} ਹੈ।`,
-    ].join("\n").normalize("NFC"),
+    explanation:
+      buildPunjabiSeatingExplanation(
+        input.logic,
+      ),
   };
   const primitiveDiagnostics =
     diagnosePrimitiveSupport(

@@ -35,7 +35,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Find the required value: {baseText}",
+        "What is the value obtained from the following?\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -60,7 +60,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Compute the answer directly from the given data: {baseText}",
+        "What is the result as per the following data?\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -87,7 +87,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Read the statement carefully and answer: {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -108,7 +108,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Read the statement carefully and answer: {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -134,7 +134,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        " {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -166,7 +166,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Read the statement carefully and answer: {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -200,7 +200,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Read the statement carefully and answer: {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -233,7 +233,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Read the statement carefully and answer: {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -268,7 +268,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        ": {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -302,7 +302,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        ": {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -337,7 +337,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        "Read the statement carefully and answer: {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -370,7 +370,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        ": {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -405,7 +405,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        ": {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -445,7 +445,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        ": {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(
@@ -487,7 +487,7 @@ export const FORMULA_QUANT_ARCHETYPES: QuantArchetype[] =
       ],
       wordingVariants: [
         "{baseText}",
-        ": {baseText}",
+        "Directions:\n\n{baseText}",
       ],
       buildReasoningSteps: () => [
         createReasoningStep(

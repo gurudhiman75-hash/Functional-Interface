@@ -4610,6 +4610,20 @@ function buildEmergencyScenario(
     }
   }
 
+  const fastPreviewScenario =
+    buildFastPreviewScenario(
+      motif,
+      difficulty,
+      config,
+      options,
+    );
+
+  fastPreviewScenario.validationWarnings.push(
+    `Exhaustive seating fallback was unable to confirm a unique solution for ${arrangementType}; returning a construction-validated preview instead.`,
+  );
+
+  return fastPreviewScenario;
+
   throw new ReasoningEngineError({
     code:
       "SEATING_FALLBACK_UNSOLVABLE",

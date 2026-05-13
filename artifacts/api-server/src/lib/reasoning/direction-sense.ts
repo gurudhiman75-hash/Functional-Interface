@@ -547,8 +547,9 @@ export function buildDirectionSenseStem(
       ? `${scenario.traveler} starts facing ${scenario.startFacing}.`
       : wordingStyle ===
           "inference-heavy"
-        ? `${scenario.traveler} begins at the origin facing ${scenario.startFacing}. Track every turn and movement carefully.`
-        : `${scenario.traveler} is standing at a point facing ${scenario.startFacing}.`;
+        ? `Directions: ${scenario.traveler} starts from the origin facing ${scenario.startFacing}. Follow every turn and movement in order.`
+        : `Directions: ${scenario.traveler} is at a point facing ${scenario.startFacing}.`;
+
   const movementText =
     scenario.moves
       .map((move, index) =>

@@ -3682,16 +3682,29 @@ export async function generateFromPattern(
     createGenerationContext(
       effectiveOptions?.seed,
     );
+  const effectiveGenerationDomain =
+    inferGenerationDomain(effectivePattern);
+  const singleSeatingMotif =
+    count === 1 &&
+    effectiveGenerationDomain ===
+      "seating-arrangement" &&
+    !effectiveOptions?.forcedMotifId
+      ? pickStableSeatingMotif(
+          effectivePattern,
+          effectiveOptions,
+        )
+      : null;
   const generationScopedOptions: GeneratorOptions =
     {
       ...(effectiveOptions ?? {}),
       seed:
         effectiveOptions?.seed ??
         generationContext.seed,
+      forcedMotifId:
+        effectiveOptions?.forcedMotifId ??
+        singleSeatingMotif?.id,
       generationContext,
     };
-  const effectiveGenerationDomain =
-    inferGenerationDomain(effectivePattern);
   const cacheEligible =
     count > 0 &&
     effectiveGenerationDomain !==
@@ -3934,6 +3947,112 @@ function getCompatibleBatchMotifs(
       requestedDifficulty,
     ).valid;
   });
+}
+
+function pickStableSeatingMotif(
+  pattern: Pattern,
+  options?: GeneratorOptions,
+) {
+  const topicCluster =
+    inferQuantTopicCluster(pattern);
+
+  if (
+    inferGenerationDomain(pattern) !==
+      "seating-arrangement" &&
+    topicCluster !== "seating-arrangement"
+  ) {
+    return null;
+  }
+
+  const requestedDifficulty =
+    getRequestedDifficultyLabel(
+      pattern,
+      options,
+      classifyDifficultyLabel,
+    );
+  const compatibleMotifs =
+    ALL_MOTIFS.filter((motif) => {
+      if (
+        motif.topicCluster !==
+        "seating-arrangement"
+      ) {
+        return false;
+      }
+
+      return validatePatternCompatibility(
+        pattern,
+        topicCluster,
+        motif,
+        requestedDifficulty,
+      ).valid;
+    });
+
+  if (!compatibleMotifs.length) {
+    return null;
+  }
+
+  const patternText =
+    `${pattern.id} ${pattern.topic} ${pattern.subtopic}`.toLowerCase();
+  const orderedMotifIds = [
+    /parallel|double[ -]?row|facing each other/.test(
+      patternText,
+    )
+      ? [
+        "banking_parallel_row",
+        "row_facing_inference",
+        "double_row_elimination",
+      ]
+      : [],
+    /alternate/.test(patternText)
+      ? [
+        "banking_alternate_row",
+        "alternate_facing_deduction",
+      ]
+      : [],
+    /circular|ring|centre|center/.test(
+      patternText,
+    )
+      ? [
+        "ssc_circular_basic",
+        "circular_opposite_chain",
+      ]
+      : [],
+    /linear|row/.test(patternText)
+      ? [
+        "ssc_simple_row",
+        "direct_clue_linear",
+        "neighbor_clue_linear",
+        "relative_position_clue",
+      ]
+      : [],
+  ].flat();
+
+  for (const motifId of orderedMotifIds) {
+    const motif = compatibleMotifs.find(
+      (entry) => entry.id === motifId,
+    );
+
+    if (motif) {
+      return motif;
+    }
+  }
+
+  return (
+    compatibleMotifs
+      .slice()
+      .sort((left, right) => {
+        const leftScore =
+          (left.facingPattern ? 0 : 3) +
+          left.reasoningDepthRange[1] +
+          (left.participantCount ?? 0) / 10;
+        const rightScore =
+          (right.facingPattern ? 0 : 3) +
+          right.reasoningDepthRange[1] +
+          (right.participantCount ?? 0) / 10;
+
+        return leftScore - rightScore;
+      })[0] ?? null
+  );
 }
 
 function buildSeatingBatchPatternVariant(

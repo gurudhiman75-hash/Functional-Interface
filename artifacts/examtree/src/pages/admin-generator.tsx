@@ -2121,7 +2121,7 @@ function getGenerationTimeoutMs(
 
   if (isSeatingHeavy) {
     return Math.max(
-      90000,
+      180000,
       count * 30000,
     );
   }

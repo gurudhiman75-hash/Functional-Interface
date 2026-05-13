@@ -1,5 +1,4 @@
 import {
-  DiagramLegend,
   type DiagramProps,
   EXAM_STROKE,
   EXAM_SOFT,
@@ -219,10 +218,6 @@ export function CircularSeatingDiagram({
         );
       })}
 
-      <DiagramLegend
-        diagram={diagram}
-        compact
-      />
       {renderReplayOverlay({
         width,
         height,

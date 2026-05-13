@@ -305,7 +305,7 @@ function createSeriesScenario() {
 
   return {
     stem:
-      "Observe the SVG figure series. Which figure comes next?",
+      "Directions: Each problem figure changes according to a rule. Which answer figure continues the same series?",
     correctAnswer: correct,
     options,
     explanation:
@@ -354,7 +354,7 @@ function createPaperCuttingScenario() {
 
   return {
     stem:
-      "A square paper is folded vertically and then horizontally. A hole is punched near the folded corner. Which SVG shows the unfolded paper?",
+      "Directions: A square sheet is folded as described and a hole is punched. Which figure shows the paper when it is completely unfolded?",
     correctAnswer: correct,
     options,
     explanation:
@@ -440,7 +440,7 @@ function createEmbeddedScenario() {
 
   return {
     stem:
-      "Which small figure is embedded inside the larger SVG pattern?",
+      "Directions: Which answer figure contains the problem figure (same shape and orientation) as an embedded part?",
     correctAnswer: correct,
     options,
     explanation:
