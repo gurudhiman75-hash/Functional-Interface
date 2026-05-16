@@ -7,6 +7,9 @@ import { realizeHindi } from "./hindi-realizer";
 import { realizePunjabi } from "./punjabi-realizer";
 import { quantRealizer } from "./quant-realizer";
 import {
+  isPercentageNativeInput,
+} from "./percentage-pedagogy-realizer";
+import {
   realizeExplanation,
 } from "./explanation-realizer";
 import {
@@ -160,6 +163,10 @@ export function applyNativeRealizations(
     }
 
     if (language === "en") {
+      next.text =
+        result.bundle.question;
+      next.options =
+        result.bundle.options;
       next.explanation =
         result.bundle.explanation;
     }
@@ -232,9 +239,29 @@ export function generateReasoningQuestion(
       };
     }
 
-    return withTutorExplanation(
-      quantRealizer(input, language),
+    const quantResult = quantRealizer(
+      input,
+      language,
     );
+
+    if (isPercentageNativeInput(input)) {
+      console.info(
+        "[percentage-runtime] native realization route",
+        {
+          language,
+          supported:
+            quantResult.supported,
+          planner:
+            "percentage-pedagogy-realizer",
+          legacyTutorWrapper:
+            false,
+        },
+      );
+    }
+
+    return isPercentageNativeInput(input)
+      ? quantResult
+      : withTutorExplanation(quantResult);
   }
 
   return withTutorExplanation(

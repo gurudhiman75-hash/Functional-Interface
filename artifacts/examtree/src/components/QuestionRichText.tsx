@@ -109,7 +109,8 @@ function tryHtmlFragment(raw: string): Piece[] | null {
 
 function tokenizeMath(raw: string): MathToken[] {
   const tokens: MathToken[] = [];
-  const pattern = /\$\$([\s\S]+?)\$\$|\$([^$\n]+?)\$/g;
+  const pattern =
+    /\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)|\$\$([\s\S]+?)\$\$|\$([^$\n]+?)\$/g;
   const normalizedRaw =
     unwrapGurmukhiTextMath(raw);
   let lastIndex = 0;
@@ -124,15 +125,25 @@ function tokenizeMath(raw: string): MathToken[] {
       });
     }
 
-    if (match[1] !== undefined) {
+    if (
+      match[1] !== undefined ||
+      match[3] !== undefined
+    ) {
       tokens.push({
         kind: "display-math",
-        value: match[1].trim(),
+        value: (
+          match[1] ?? match[3] ?? ""
+        ).trim(),
       });
-    } else if (match[2] !== undefined) {
+    } else if (
+      match[2] !== undefined ||
+      match[4] !== undefined
+    ) {
       tokens.push({
         kind: "inline-math",
-        value: match[2].trim(),
+        value: (
+          match[2] ?? match[4] ?? ""
+        ).trim(),
       });
     }
 

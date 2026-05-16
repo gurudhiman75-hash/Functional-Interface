@@ -122,6 +122,9 @@ export function createQuantProceduralScenario(
   pattern: Pattern,
   difficulty: DifficultyLabel,
   motif?: QuantMotif | null,
+  options: {
+    targetDifficultyScore?: number;
+  } = {},
 ): QuantProceduralScenario | null {
   if (
     pattern.id.startsWith(
@@ -135,6 +138,7 @@ export function createQuantProceduralScenario(
         pattern,
         difficulty,
         motif,
+        options,
       ),
     );
   }
@@ -447,6 +451,7 @@ export function createQuantProceduralScenario(
           pattern,
           difficulty,
           motif,
+          options,
         ),
       );
     case "profit-loss":

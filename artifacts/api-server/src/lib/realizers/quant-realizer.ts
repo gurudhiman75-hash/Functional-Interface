@@ -8,6 +8,9 @@ import {
   detectCoverageCategory,
   validateNativeBundle,
 } from "./coverage";
+import {
+  realizePercentagePedagogy,
+} from "./percentage-pedagogy-realizer";
 
 type QuantTemplateCategory =
   | "percentage"
@@ -248,6 +251,31 @@ function localizePercentageMotifQuestion(
     String(numbers[index] ?? "");
 
   switch (motifId) {
+    case "perc_cheaper_dearer_chain":
+      return t(
+        `दुकान A, दुकान B से ${n(0)}% सस्ती है और दुकान C से ${n(1)}% महंगी है। दुकान C, दुकान B से कितने प्रतिशत सस्ती है?`,
+        `ਦੁਕਾਨ A, ਦੁਕਾਨ B ਨਾਲੋਂ ${n(0)}% ਸਸਤੀ ਹੈ ਅਤੇ ਦੁਕਾਨ C ਨਾਲੋਂ ${n(1)}% ਮਹਿੰਗੀ ਹੈ। ਦੁਕਾਨ C, ਦੁਕਾਨ B ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਸਸਤੀ ਹੈ?`,
+      );
+    case "perc_collection_ticket_change":
+      return t(
+        `टिकट की कीमत कम करने पर बिक्री ${n(0)}% बढ़ी, लेकिन कुल वसूली ${n(1)}% घट गई। टिकट की कीमत में कितने प्रतिशत कमी हुई?`,
+        `ਟਿਕਟ ਦੀ ਕੀਮਤ ਘਟਾਉਣ ਤੋਂ ਬਾਅਦ ਵਿਕਰੀ ${n(0)}% ਵਧੀ, ਪਰ ਕੁੱਲ ਵਸੂਲੀ ${n(1)}% ਘਟ ਗਈ। ਟਿਕਟ ਦੀ ਕੀਮਤ ਵਿੱਚ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਕਮੀ ਹੋਈ?`,
+      );
+    case "perc_fraction_value_change":
+      return t(
+        `किसी भिन्न का अंश ${n(0)}% बढ़ाया गया और हर ${n(1)}% घटाया गया। भिन्न के मान में कितने प्रतिशत परिवर्तन होगा?`,
+        `ਕਿਸੇ ਭਿੰਨ ਦਾ ਅੰਸ਼ ${n(0)}% ਵਧਾਇਆ ਗਿਆ ਅਤੇ ਹਰ ${n(1)}% ਘਟਾਇਆ ਗਿਆ। ਭਿੰਨ ਦੇ ਮੁੱਲ ਵਿੱਚ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਹੋਵੇਗਾ?`,
+      );
+    case "perc_income_savings_expense":
+      return t(
+        `एक व्यक्ति की आय ${n(0)} है। वह इसका ${n(1)}% बचाता है। यदि आय ${n(2)}% बढ़े लेकिन बचत समान रहे, तो खर्च में कितने प्रतिशत वृद्धि होगी?`,
+        `ਇੱਕ ਵਿਅਕਤੀ ਦੀ ਆਮਦਨ ${n(0)} ਹੈ। ਉਹ ਇਸ ਦਾ ${n(1)}% ਬਚਾਉਂਦਾ ਹੈ। ਜੇ ਆਮਦਨ ${n(2)}% ਵਧੇ ਪਰ ਬਚਤ ਉਹੀ ਰਹੇ, ਤਾਂ ਖਰਚ ਵਿੱਚ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਹੋਵੇਗਾ?`,
+      );
+    case "perc_weighted_group_change":
+      return t(
+        `एक केंद्र में ${n(0)} विद्यार्थियों वाले पहले समूह में ${n(1)}% वृद्धि होती है और ${n(2)} विद्यार्थियों वाले दूसरे समूह में ${n(3)}% वृद्धि होती है। कुल विद्यार्थियों में कितने प्रतिशत वृद्धि होगी?`,
+        `ਇੱਕ ਕੇਂਦਰ ਵਿੱਚ ${n(0)} ਵਿਦਿਆਰਥੀਆਂ ਵਾਲੇ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ${n(1)}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ${n(2)} ਵਿਦਿਆਰਥੀਆਂ ਵਾਲੇ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ${n(3)}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਹੋਵੇਗਾ?`,
+      );
     case "perc_basic_of":
       return t(`${n(1)} का ${n(0)}% कितना है?`, `${n(1)} ਦਾ ${n(0)}% ਕਿੰਨਾ ਹੈ?`);
     case "perc_reverse_find":
@@ -989,6 +1017,16 @@ function buildNativeBundle(
     input,
     logic,
   );
+  const percentagePedagogyBundle =
+    realizePercentagePedagogy(
+      input,
+      language,
+    );
+
+  if (percentagePedagogyBundle) {
+    return percentagePedagogyBundle;
+  }
+
   const percentageQuestion =
     localizePercentageMotifQuestion(
       motifId,

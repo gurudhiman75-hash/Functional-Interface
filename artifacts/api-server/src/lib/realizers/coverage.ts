@@ -196,6 +196,37 @@ export function detectCoverageCategory(
     return "quant";
   }
 
+  const logicRecord =
+    input.logic &&
+    typeof input.logic === "object"
+      ? (input.logic as Record<string, unknown>)
+      : {};
+  const nestedProcedural =
+    logicRecord.proceduralScenario &&
+    typeof logicRecord.proceduralScenario ===
+      "object"
+      ? (logicRecord.proceduralScenario as Record<
+          string,
+          unknown
+        >)
+      : {};
+  const motifId = String(
+    logicRecord.motifId ??
+      logicRecord.scenarioType ??
+      logicRecord.scenarioLogicBranch ??
+      logicRecord.selectedMotif ??
+      nestedProcedural.motifId ??
+      nestedProcedural.scenarioType ??
+      nestedProcedural.scenarioLogicBranch ??
+      input.question?.debugMetadata
+        ?.selectedMotif ??
+      "",
+  );
+
+  if (motifId.startsWith("perc_")) {
+    return "quant";
+  }
+
   if (isSeatingLogic(input.logic)) {
     return "seating";
   }

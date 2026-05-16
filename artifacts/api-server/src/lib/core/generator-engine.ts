@@ -1063,7 +1063,36 @@ function createFormulaQuestionCandidate(
       pattern,
       arithmeticDifficulty,
       motif,
+      {
+        targetDifficultyScore,
+      },
     );
+
+  if (
+    proceduralScenario?.motifId?.startsWith(
+      "perc_",
+    )
+  ) {
+    console.info(
+      "[percentage-runtime] motif selected",
+      {
+        patternId: pattern.id,
+        requestedDifficulty,
+        targetDifficultyScore,
+        motifId:
+          proceduralScenario.motifId,
+        reasoningAtoms:
+          proceduralScenario
+            .pedagogyMetadata
+            ?.reasoningAtoms,
+        educationalIntent:
+          proceduralScenario
+            .pedagogyMetadata
+            ?.educationalIntent,
+      },
+    );
+  }
+
   const resolvedScenarioMotif =
     proceduralScenario?.motifId
       ? ALL_MOTIFS.find(
@@ -1233,12 +1262,36 @@ function createFormulaQuestionCandidate(
   ) {
     const lowerText =
       text.toLowerCase();
+    const hasValidationToken = (
+      token: string,
+    ) => {
+      const normalizedToken =
+        token.toLowerCase().trim();
+
+      if (
+        normalizedToken ===
+          "percentage" ||
+        normalizedToken === "percent"
+      ) {
+        return (
+          lowerText.includes(
+            "percentage",
+          ) ||
+          lowerText.includes(
+            "percent",
+          ) ||
+          lowerText.includes("%")
+        );
+      }
+
+      return lowerText.includes(
+        normalizedToken,
+      );
+    };
     const missingTokens =
       proceduralScenario.validationTokens.filter(
         (token) =>
-          !lowerText.includes(
-            token.toLowerCase(),
-          ),
+          !hasValidationToken(token),
       );
     if (missingTokens.length) {
       throw new ReasoningEngineError({
@@ -3721,6 +3774,10 @@ export async function generateFromPattern(
         singleSeatingMotif?.id,
       generationContext,
     };
+  const isPercentagePattern =
+    /percentage|percent/i.test(
+      `${effectivePattern.id} ${effectivePattern.topic} ${effectivePattern.subtopic}`,
+    );
   const cacheEligible =
     count > 0 &&
     effectiveGenerationDomain !==
@@ -3729,6 +3786,7 @@ export async function generateFromPattern(
       "knowledge" &&
     effectiveGenerationDomain !==
       "computer" &&
+    !isPercentagePattern &&
     !/knowledge|computer|gk/i.test(
       `${effectivePattern.section} ${effectivePattern.topic} ${effectivePattern.id}`,
     );

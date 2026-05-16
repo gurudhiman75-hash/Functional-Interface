@@ -28,6 +28,10 @@ export type QuantProceduralScenario = {
   motifId?: string;
   scenarioLogicBranch?: string;
   structuralSignature?: string;
+  pedagogyMetadata?: Record<
+    string,
+    unknown
+  >;
   customOptionBundle?: {
     options: string[];
     correct: number;

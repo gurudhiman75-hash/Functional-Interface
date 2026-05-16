@@ -1080,6 +1080,25 @@ router.post(
       }
 
       let pattern: Pattern | undefined;
+      const numericDifficulty =
+        typeof difficulty === "number" &&
+        Number.isFinite(difficulty)
+          ? difficulty
+          : undefined;
+      const requestDifficulty =
+        numericDifficulty !== undefined
+          ? numericDifficulty >= 6
+            ? "hard"
+            : numericDifficulty >= 3
+              ? "medium"
+              : "easy"
+          : difficulty;
+      const resolvedTargetDifficulty =
+        typeof targetDifficulty ===
+          "number" &&
+        Number.isFinite(targetDifficulty)
+          ? targetDifficulty
+          : numericDifficulty;
 
       const registryPattern =
         resolveQuestionPatternToPattern({
@@ -1087,7 +1106,7 @@ router.post(
           topic,
           pattern: frontendPattern,
           patternId,
-          difficulty,
+          difficulty: requestDifficulty,
           examStyle,
         });
 
@@ -1162,7 +1181,8 @@ router.post(
               normalizeExamStyle(
                 examStyle,
               ),
-            targetDifficulty,
+            targetDifficulty:
+              resolvedTargetDifficulty,
             difficultyTolerance,
             difficultyDistribution,
             targetAverageDifficulty,
@@ -1180,19 +1200,55 @@ router.post(
       return res.json({
         ...result,
         questions:
-          result.questions.map((question) =>
-            applyNativeRealizations(
-              question,
-              {
-                languages:
-                  languages ?? ["en"],
-                patternId:
-                  patternId ??
-                  frontendPattern ??
-                  pattern.id,
-              },
-            ),
-          ),
+          result.questions.map((question) => {
+            const realized =
+              applyNativeRealizations(
+                question,
+                {
+                  languages:
+                    languages ?? ["en"],
+                  patternId:
+                    patternId ??
+                    frontendPattern ??
+                    pattern.id,
+                },
+              );
+            const motifId =
+              "questionType" in realized &&
+              realized.questionType === "di"
+                ? undefined
+                : realized.debugMetadata
+                    ?.selectedMotif;
+
+            if (
+              typeof motifId ===
+                "string" &&
+              motifId.startsWith(
+                "perc_",
+              )
+            ) {
+              console.info(
+                "[percentage-runtime] route response realized",
+                {
+                  motifId,
+                  requestedLanguages:
+                    languages ?? ["en"],
+                  explanationSource:
+                    realized.explanation?.includes(
+                      "Core Idea",
+                    )
+                      ? "examtree-minimalist"
+                      : "legacy-or-native-language",
+                  hasNativeRealization:
+                    Boolean(
+                      realized.nativeRealization,
+                    ),
+                },
+              );
+            }
+
+            return realized;
+          }),
       });
     } catch (error) {
       console.error(error);
