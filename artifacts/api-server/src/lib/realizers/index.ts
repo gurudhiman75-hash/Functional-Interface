@@ -126,6 +126,25 @@ export function applyNativeRealizations(
     return question;
   }
 
+  if (
+    (question.debugMetadata as Record<string, unknown> | undefined)
+      ?.quantV2
+  ) {
+    return {
+      ...question,
+      nativeRealization:
+        question.nativeRealization ?? {
+          en: (question as any).languages?.en,
+          hi: (question as any).languages?.hi,
+          pa: (question as any).languages?.pa,
+        },
+      nativeCoverage:
+        question.nativeCoverage ??
+        (question.debugMetadata as any).quantV2
+          ?.localizationMetadata,
+    };
+  }
+
   const languages = uniqueLanguages(
     config.languages,
   );

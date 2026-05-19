@@ -9,6 +9,7 @@ import {
   validateNativeBundle,
 } from "./coverage";
 import {
+  isPercentageNativeInput,
   realizePercentagePedagogy,
 } from "./percentage-pedagogy-realizer";
 
@@ -1027,6 +1028,15 @@ function buildNativeBundle(
     return percentagePedagogyBundle;
   }
 
+  if (isPercentageNativeInput(input)) {
+    return null;
+  }
+
+  const context = buildTemplateContext(
+    input,
+    logic,
+    language,
+  );
   const percentageQuestion =
     localizePercentageMotifQuestion(
       motifId,
@@ -1051,8 +1061,12 @@ function buildNativeBundle(
       question: normalizeText(
         percentageQuestion,
       ),
-      options: asStringArray(
-        input.question.options,
+      options: localizeQuantOptions(
+        asStringArray(
+          input.question.options,
+        ),
+        context,
+        language,
       ),
       explanation:
         normalizeText(explanation),
@@ -1071,11 +1085,6 @@ function buildNativeBundle(
     QUANT_TEMPLATES[language][
       category
     ];
-  const context = buildTemplateContext(
-    input,
-    logic,
-    language,
-  );
   const question =
     templates.question(context);
   const explanation =
@@ -1087,14 +1096,10 @@ function buildNativeBundle(
 
   return {
     question: normalizeText(question),
-    options: asStringArray(
-      input.question.options,
-    ).map((option) =>
-      optionWithUnit(
-        option,
-        context.unit,
-        language,
-      ),
+    options: localizeQuantOptions(
+      asStringArray(input.question.options),
+      context,
+      language,
     ),
     explanation:
       normalizeText(explanation),

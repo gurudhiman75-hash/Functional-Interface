@@ -6,6 +6,7 @@ import type {
 } from "./core/generator-engine";
 import { percentageMotifIds } from "./motifs/percentage";
 import { ALL_PATTERNS } from "./patterns";
+import { isQuantV2PercentageEnabled } from "./quant-v2/percentage-admin-adapter";
 
 export type QuestionPatternDomain =
   | "reasoning"
@@ -6925,13 +6926,23 @@ function buildQuantPattern(
   questionPattern: QuestionPattern,
   difficulty: DifficultyLabel,
 ): Pattern {
+  const isPercentagePattern =
+    questionPattern.id === "percentage" ||
+    /percent|percentage/i.test(
+      `${questionPattern.topic} ${questionPattern.label}`,
+    );
+  const generationDomain: Pattern["generationDomain"] =
+    isPercentagePattern &&
+    isQuantV2PercentageEnabled()
+      ? "quant-v2-percentage"
+      : "quant";
   const base = {
     type: "formula" as const,
     section: "Quant",
     topic: questionPattern.label,
     subtopic: questionPattern.topic,
     difficulty,
-    generationDomain: "quant" as const,
+    generationDomain,
     supportedQuestionTypes: [
       "formula" as const,
     ],

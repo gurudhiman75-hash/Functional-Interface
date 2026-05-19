@@ -1,0 +1,158 @@
+========================================
+Localization Inspector
+========================================
+count = 25
+seed = 1
+random = no
+subtype = all
+difficulty = all
+detailLimit = 3
+
+Language Summary:
+  en:
+    valid = 25/25
+    localizationCoverage = 100
+    fallbackUsage = 0
+    scriptConsistency = 100
+    equationPreservation = 25/25
+    multilingualReadiness = 100
+    missingIntents = none
+  hi:
+    valid = 24/25
+    localizationCoverage = 99
+    fallbackUsage = 1
+    scriptConsistency = 99
+    equationPreservation = 25/25
+    multilingualReadiness = 99
+    missingIntents = fallback.english:1
+  pa:
+    valid = 24/25
+    localizationCoverage = 99
+    fallbackUsage = 1
+    scriptConsistency = 99
+    equationPreservation = 25/25
+    multilingualReadiness = 99
+    missingIntents = fallback.english:1
+
+Samples With Validator Warnings: 1
+  #23 pass_fail pass_fail|base_shift|successive_mark_adjustment|65_20_5_70_45_60_1200|ans=1200
+    hi: Localized narration contains mixed script or English leakage. | Missing localization for 1 intent lines. | Localized rendering leaked English editorial text.
+      missing = fallback.english
+    pa: Localized narration contains mixed script or English leakage. | Missing localization for 1 intent lines. | Localized rendering leaked English editorial text.
+      missing = fallback.english
+
+Sample Preview:
+========================================
+Sample: 1
+Subtype: increase_then_decrease
+Category: base_change
+Difficulty: easy
+Signature: successive_increase_decrease|144_120_increase:20_decrease:10|ans=129.6
+Topology: none / none
+
+English Stem: During a seasonal sale, the price of a machine was 120. It first increased by 20% and then decreased by 10%. Find the final value.
+English Explanation: After a 20% increase: Value after first change = 120 x 120 / 100 = 144 After a 10% decrease: Final value = 144 x 90 / 100 = 129.6 Therefore, final value = 129.6
+
+  en:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = After a 20% increase: Value after first change = 120 x 120 / 100 = 144 After a 10% decrease: Final value = 144 x 90 / 100 = 129.6 Therefore, final value = 129.6
+
+  hi:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = 20% वृद्धि के बाद: पहले बदलाव के बाद मान = 120 x 120 / 100 = 144 10% कमी के बाद: अंतिम मान = 144 x 90 / 100 = 129.6 आवश्यक मान = 129.6
+
+  pa:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = 20% ਵਾਧੇ ਤੋਂ ਬਾਅਦ: ਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ = 120 x 120 / 100 = 144 10% ਕਮੀ ਤੋਂ ਬਾਅਦ: ਅੰਤਿਮ ਮੁੱਲ = 144 x 90 / 100 = 129.6 ਲੋੜੀਂਦਾ ਮੁੱਲ = 129.6
+
+========================================
+Sample: 2
+Subtype: election_margin
+Category: election
+Difficulty: easy
+Signature: election_margin|direct_mapping|direct_margin|20_40_25000_125000_60|ans=125000
+Topology: direct_mapping / direct_margin
+
+English Stem: In a municipal election, the winning candidate secured 60% of the votes and defeated the opponent by 25000 votes. Find the total number of votes polled.
+English Explanation: Shortcut: 20% votes = 25000 So, 100% votes = 125000 Winning margin: Margin percentage = 60 - 40 = 20% Hence, total votes polled = 125000
+
+  en:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = Shortcut: 20% votes = 25000 So, 100% votes = 125000 Winning margin: Margin percentage = 60 - 40 = 20% Hence, total votes polled = 125000
+
+  hi:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = शॉर्टकट: 20% वोट = 25000 तो, 100% वोट = 125000 जीत का अंतर: जीत का अंतर = 60 - 40 = 20% कुल वोट = 125000
+
+  pa:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = ਸ਼ਾਰਟਕੱਟ: 20% ਵੋਟ = 25000 ਸੋ, 100% ਵੋਟ = 125000 ਜਿੱਤ ਦਾ ਅੰਤਰ: ਜਿੱਤ ਦਾ ਅੰਤਰ = 60 - 40 = 20% ਕੁੱਲ ਵੋਟ = 125000
+
+========================================
+Sample: 3
+Subtype: pass_fail
+Category: comparison
+Difficulty: easy
+Signature: pass_fail|direct_mapping|simple_shortfall|10_45_35_20_200|ans=200
+Topology: direct_mapping / simple_shortfall
+
+English Stem: In a recruitment test, a candidate scored 35% marks and failed by 20 marks. The pass mark was 45%. Find the maximum marks.
+English Explanation: Shortcut: 10% marks = 20 So, 100% marks = 200 Pass mark difference: Pass mark difference = 45 - 35 = 10 Thus, maximum marks = 200
+
+  en:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = Shortcut: 10% marks = 20 So, 100% marks = 200 Pass mark difference: Pass mark difference = 45 - 35 = 10 Thus, maximum marks = 200
+
+  hi:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = शॉर्टकट: 10% अंक = 20 तो, 100% अंक = 200 पास अंक का अंतर: पास अंक का अंतर = 45 - 35 = 10 अधिकतम अंक = 200
+
+  pa:
+    coverage = 100
+    fallbackUsage = 0
+    missingIntents = none
+    scriptConsistency = 100
+    equationPreservation = 100
+    readiness = 100
+    explanation = ਸ਼ਾਰਟਕੱਟ: 10% ਅੰਕ = 20 ਸੋ, 100% ਅੰਕ = 200 ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ: ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ = 45 - 35 = 10 ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200
+

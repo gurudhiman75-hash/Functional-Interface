@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Percentage reasoning" viewBox="0 0 720 406" width="720" height="406">
+<rect width="100%" height="100%" fill="#f7fbf8"/>
+<style>text{font-family:Arial, Noto Sans Devanagari, Noto Sans Gurmukhi, sans-serif;dominant-baseline:auto}.eq{font-variant-numeric:tabular-nums}</style>
+<text x="80" y="42" font-size="24" font-weight="700" fill="#1f2a24">Percentage reasoning</text>
+<text x="80" y="65" font-size="13" font-weight="400" fill="#607067">reverse_percentage · medium</text>
+<rect x="80" y="78" width="560" height="76" rx="8" fill="#fff8df" stroke="#9fb7aa" stroke-width="1.2"/>
+<text x="102" y="106" font-size="16" font-weight="700" fill="#1f2a24">Shortcut</text>
+<text class="eq" x="102" y="132" font-size="18" fill="#10251b">10 % = 12 ; 100 % = 120</text>
+<path d="M 360 158 L 360 168" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
+<path d="M 355 162 L 360 170 L 365 162" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
+<rect x="80" y="178" width="560" height="76" rx="8" fill="#ffffff" stroke="#9fb7aa" stroke-width="1.2"/>
+<text x="102" y="206" font-size="16" font-weight="700" fill="#1f2a24">100% value</text>
+<text class="eq" x="102" y="232" font-size="18" fill="#10251b">whole = 12 × 100 / 10</text>
+<path d="M 360 258 L 360 268" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
+<path d="M 355 262 L 360 270 L 365 262" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
+<rect x="80" y="278" width="560" height="76" rx="8" fill="#eaf7ef" stroke="#1f7a4f" stroke-width="2"/>
+<text x="102" y="306" font-size="16" font-weight="700" fill="#1f2a24">Answer</text>
+<text class="eq" x="102" y="332" font-size="18" fill="#10251b">120</text>
+</svg>

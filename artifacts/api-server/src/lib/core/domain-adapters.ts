@@ -194,6 +194,10 @@ type AdapterDependencies = {
     pattern: Pattern,
     options?: GeneratorOptions,
   ) => FormulaQuestion;
+  createQuantV2PercentageQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
   createDIQuestionSet: (
     pattern: Pattern,
     options?: GeneratorOptions,
@@ -1593,6 +1597,16 @@ export function createDomainAdapters(
         customValidationStages: [
           buildQuantEquationStage(),
         ],
+        difficultyContribution:
+          buildQuantDifficultyContribution,
+      },
+    ),
+    "quant-v2-percentage": buildQuestionAdapter(
+      "quant-v2-percentage",
+      deps.createQuantV2PercentageQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 12,
+        minAttempts: 20,
         difficultyContribution:
           buildQuantDifficultyContribution,
       },

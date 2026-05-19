@@ -109,6 +109,11 @@ import {
   createQuantProceduralScenario,
 } from "../quant-scenarios";
 import {
+  createQuantV2PercentageQuestionCandidate,
+  isQuantV2PercentageEnabled,
+  isQuantV2PercentagePattern,
+} from "../quant-v2/percentage-admin-adapter";
+import {
   normalizeQuantMathText,
   normalizeQuantOptionValue,
 } from "../quant-scenarios/mathjax";
@@ -246,6 +251,7 @@ type QuestionType =
 
 export type GenerationDomain =
   | "quant"
+  | "quant-v2-percentage"
   | "reasoning"
   | "english"
   | "punjabi"
@@ -592,6 +598,16 @@ type GenerationDebugMetadata = {
   difficultyAssessment?: DifficultyMetrics;
   difficultyConfidence?: DifficultyConfidence;
   qualityAssessment?: QualityAssessment;
+  generationBackend?: string;
+  debugSource?: string;
+  quantV2?: unknown;
+  reasoningGraph?: unknown;
+  semanticMetadata?: unknown;
+  svgRendering?: unknown;
+  qualityMetrics?: unknown;
+  localizationMetadata?: unknown;
+  pedagogicalMetrics?: unknown;
+  validatorReports?: unknown;
   seatingDiagram?: SeatingDiagramData;
   seatingExplanationFlow?: SeatingExplanationFlow;
   knowledgeLogic?: unknown;
@@ -662,6 +678,18 @@ export type FormulaQuestion = {
     unknown
   >;
   nativeCoverage?: unknown;
+  generationBackend?: string;
+  debugSource?: string;
+  proceduralLogic?: unknown;
+  logic?: unknown;
+  motifs?: unknown;
+  languages?: unknown;
+  reasoningGraph?: unknown;
+  semanticMetadata?: unknown;
+  svgRendering?: unknown;
+  qualityMetrics?: unknown;
+  localizationMetadata?: unknown;
+  pedagogicalMetrics?: unknown;
   inferenceTrace?: {
     engineFamily: string;
     styleAnchor: string;
@@ -933,6 +961,13 @@ export function inferGenerationDomain(
   pattern: Pattern,
 ): GenerationDomain {
   if (pattern.generationDomain) {
+    if (
+      pattern.generationDomain ===
+        "quant-v2-percentage" &&
+      !isQuantV2PercentageEnabled()
+    ) {
+      return "quant";
+    }
     return pattern.generationDomain;
   }
 
@@ -970,6 +1005,13 @@ export function inferGenerationDomain(
 
   if (pattern.type === "di") {
     return "di";
+  }
+
+  if (
+    isQuantV2PercentageEnabled() &&
+    isQuantV2PercentagePattern(pattern)
+  ) {
+    return "quant-v2-percentage";
   }
 
   const topicCluster =
@@ -3565,6 +3607,7 @@ function getDomainAdapterRegistry() {
     createEnglishQuestionCandidate,
     createPunjabiQuestionCandidate,
     createKnowledgeQuestionCandidate,
+    createQuantV2PercentageQuestionCandidate,
     createDIQuestionSet,
   });
 }

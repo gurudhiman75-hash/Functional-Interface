@@ -47,7 +47,7 @@ const COVERAGE: Record<
     temporal: 0,
     boolean: 0,
     critical: 0,
-    quant: 0,
+    quant: 70,
     knowledge: 0,
     english: 0,
     unknown: 0,

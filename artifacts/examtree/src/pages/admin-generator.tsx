@@ -509,6 +509,16 @@ type GenerationDebugMetadata = {
   extractedPatternIntelligence?: ExtractedPatternIntelligence;
   structuralSignature?: StructuralSignature;
   qualityAssessment?: QualityAssessment;
+  generationBackend?: string;
+  debugSource?: string;
+  quantV2?: Record<string, unknown>;
+  reasoningGraph?: unknown;
+  semanticMetadata?: unknown;
+  svgRendering?: unknown;
+  qualityMetrics?: unknown;
+  localizationMetadata?: unknown;
+  pedagogicalMetrics?: unknown;
+  validatorReports?: unknown;
   proceduralScenario?: {
     domain: string;
     subtype: string;
@@ -575,6 +585,14 @@ type FormulaQuestion = {
     }
   >;
   nativeCoverage?: unknown;
+  generationBackend?: string;
+  debugSource?: string;
+  reasoningGraph?: unknown;
+  semanticMetadata?: unknown;
+  svgRendering?: unknown;
+  qualityMetrics?: unknown;
+  localizationMetadata?: unknown;
+  pedagogicalMetrics?: unknown;
   section?: string;
   topic?: string;
   subtopic?: string;
@@ -2550,6 +2568,14 @@ function renderDifficultyAnalytics(
                 {debugMetadata.generationDomain}
               </div>
             ) : null}
+            {debugMetadata.debugSource ||
+            debugMetadata.generationBackend ? (
+              <div>
+                Backend:{" "}
+                {debugMetadata.debugSource ??
+                  debugMetadata.generationBackend}
+              </div>
+            ) : null}
             <div>
               Logic Pattern:{" "}
               {debugMetadata.selectedMotif ??
@@ -2680,6 +2706,112 @@ function renderDifficultyAnalytics(
               <div>
                 Fallback:{" "}
                 {debugMetadata.fallbackReason}
+              </div>
+            ) : null}
+            {debugMetadata.quantV2 ? (
+              <div className="mt-3 rounded border border-emerald-100 bg-emerald-50 p-3 text-emerald-900">
+                <div className="mb-2 font-semibold">
+                  Quant-v2 Artifacts
+                </div>
+                <div>
+                  Debug Source:{" "}
+                  {String(
+                    (debugMetadata.quantV2 as any)
+                      .debugSource ??
+                      "quant-v2-percentage-adapter",
+                  )}
+                </div>
+                <div>
+                  Topology:{" "}
+                  {String(
+                    (debugMetadata.quantV2 as any)
+                      .topology?.family ?? "none",
+                  )}
+                  {" / "}
+                  {String(
+                    (debugMetadata.quantV2 as any)
+                      .topology?.variant ?? "none",
+                  )}
+                </div>
+                <div>
+                  Quality:{" "}
+                  {String(
+                    (debugMetadata.quantV2 as any)
+                      .qualityMetrics?.tier ?? "NA",
+                  )}
+                  {" | "}
+                  {String(
+                    (debugMetadata.quantV2 as any)
+                      .qualityMetrics?.confidence ??
+                      "NA",
+                  )}
+                </div>
+                <div>
+                  Validators:{" "}
+                  {Object.entries(
+                    ((debugMetadata.quantV2 as any)
+                      .validatorReports ?? {}) as Record<
+                      string,
+                      any
+                    >,
+                  )
+                    .filter(
+                      ([, report]) =>
+                        report &&
+                        typeof report === "object" &&
+                        "valid" in report,
+                    )
+                    .map(
+                      ([name, report]) =>
+                        `${name}=${
+                          report.valid ? "ok" : "check"
+                        }`,
+                    )
+                    .join(", ") || "available"}
+                </div>
+                <details className="mt-2">
+                  <summary className="cursor-pointer font-medium">
+                    Multilingual Preview
+                  </summary>
+                  <div className="mt-2 space-y-2">
+                    {(["hi", "pa"] as const).map(
+                      (language) => (
+                        <div
+                          key={language}
+                          className="rounded bg-white/80 p-2"
+                        >
+                          <div className="font-semibold uppercase">
+                            {language}
+                          </div>
+                          <div>
+                            {String(
+                              (debugMetadata.quantV2 as any)
+                                .localized?.[language]
+                                ?.explanation ?? "",
+                            ).slice(0, 500)}
+                          </div>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                </details>
+                {(debugMetadata.quantV2 as any)
+                  .svgRendering?.svg ? (
+                  <details className="mt-2">
+                    <summary className="cursor-pointer font-medium">
+                      SVG Preview
+                    </summary>
+                    <div
+                      className="mt-2 overflow-auto rounded bg-white p-2"
+                      dangerouslySetInnerHTML={{
+                        __html: String(
+                          (debugMetadata.quantV2 as any)
+                            .svgRendering.svg,
+                        ),
+                      }}
+                    />
+                  </details>
+                ) : null}
               </div>
             ) : null}
             {debugMetadata.finalArrangement ? (

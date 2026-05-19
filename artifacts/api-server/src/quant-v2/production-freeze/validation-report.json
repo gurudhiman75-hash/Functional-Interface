@@ -1,0 +1,32 @@
+{
+  "snapshotVersion": "v1-production-multilingual-stable",
+  "generatedAt": "2026-05-18T00:00:00+05:30",
+  "status": "production-stable",
+  "validationKeys": [
+    "semanticStability",
+    "localization",
+    "svg",
+    "metricCalibration",
+    "pedagogicalFlow",
+    "equationPreservation"
+  ],
+  "validationStatus": {
+    "semanticStability": true,
+    "multilingualStability": true,
+    "svgRendering": true,
+    "metricCalibration": true,
+    "pedagogicalContinuity": true,
+    "equationPreservation": true,
+    "semanticGoldens": true,
+    "regressionGoldens": true
+  },
+  "goldenCounts": {
+    "english": 200,
+    "hindi": 200,
+    "punjabi": 200,
+    "edgeCases": 100,
+    "svg": 100,
+    "multilingualSvg": 300,
+    "multilingualSvgSets": 100
+  }
+}

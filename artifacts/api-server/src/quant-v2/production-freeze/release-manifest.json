@@ -1,0 +1,48 @@
+{
+  "snapshotVersion": "v1-production-multilingual-stable",
+  "semanticContractVersion": "semantic-values.v1",
+  "localizationContractVersion": "semantic-intents.v1",
+  "svgContractVersion": "svg-pedagogy.v1",
+  "validatorVersion": "quant-v2-validator-suite.v1",
+  "metricCalibrationVersion": "metric-calibration.v1",
+  "freezeTimestamp": "2026-05-18T00:00:00+05:30",
+  "supportedLanguages": [
+    "en",
+    "hi",
+    "pa"
+  ],
+  "supportedTopologyFamilies": [
+    "base_shift",
+    "direct_mapping",
+    "effective_percentage",
+    "filtered_base",
+    "hidden_total",
+    "layered_population",
+    "multi_entity_distribution",
+    "none",
+    "remaining_component",
+    "successive_filtering"
+  ],
+  "supportedVisualizationNodes": [
+    "percentage_mapping_node",
+    "hidden_base_node",
+    "vote_filter_node",
+    "mixture_balance_node",
+    "population_projection_node",
+    "pass_fail_gap_node",
+    "reverse_percentage_node",
+    "shortcut_node",
+    "answer_confirmation_node",
+    "component_aggregation_node",
+    "base_change_node"
+  ],
+  "productionGuarantees": [
+    "deterministic-generation",
+    "semantic-safe-formatting",
+    "multilingual-intent-realization",
+    "language-neutral-equations",
+    "svg-pedagogy-rendering",
+    "pedagogical-flow-preservation",
+    "calibrated-quality-metrics"
+  ]
+}
