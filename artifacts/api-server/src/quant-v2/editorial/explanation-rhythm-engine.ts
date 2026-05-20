@@ -157,7 +157,7 @@ function outputLabel(
     case "map_fixed_component_to_target_total":
       return "Final mixture quantity";
     case "derive_added_quantity":
-      return "Pure component to be added";
+      return "Milk to be added";
     case "apply_growth_rate":
     case "apply_population_growth_rate":
       return "Population after increase";
@@ -230,7 +230,7 @@ function outputLabel(
       return problem.variables.direction === -1 ? "Loss %" : "Profit %";
     }
     if (output === "addedQuantity") {
-      return "Pure component to be added";
+      return "Milk to be added";
     }
     return variant?.includes("vote") ? "Votes" : "Required value";
   }
@@ -323,6 +323,21 @@ function outputLabel(
   }
   if (step.type === "ratio_conversion") {
     return "Share";
+  }
+  if (step.type === "relation_normalization") {
+    return "Reference value";
+  }
+  if (step.type === "relation_transformation") {
+    if (output === "finalIndex") {
+      return "Final value index";
+    }
+    return "Relation index";
+  }
+  if (step.type === "relation_inversion") {
+    return "Inverted relation index";
+  }
+  if (step.type === "comparison_inference") {
+    return problem.answer < 0 ? "Percentage less" : "Percentage more";
   }
   if (step.type === "subtract_invalid_component") {
     return "Valid votes";
@@ -674,7 +689,7 @@ function stepObservation(
     case "map_fixed_component_to_target_total":
       return "Final mixture quantity:";
     case "derive_added_quantity":
-      return "Pure component to be added:";
+      return "Milk to be added:";
     case "derive_migration_component_from_original_population":
       return "Population added by migration:";
     case "aggregate_growth_and_migration":
@@ -689,6 +704,14 @@ function stepObservation(
       return "Female population after reduction:";
     case "aggregate_shifted_population_components":
       return "Final population:";
+    case "normalize_reference_entity_to_100":
+      return "Take the reference value as 100:";
+    case "apply_percentage_relation":
+      return "Using the percentage relation:";
+    case "invert_percentage_relation":
+      return "Using the inverse relation:";
+    case "infer_relative_difference_from_normalized_base":
+      return "Compare with 100:";
     default:
       return fallback;
   }
@@ -778,9 +801,9 @@ function finalEndingText(problem: CanonicalPercentageProblem) {
     case "election_margin":
       return variant === "filtered_valid_vote_margin"
         ? `${pickEnding(problem, [
-            "Hence, winner's votes",
-            "Therefore, winner's votes",
-            "Winner's votes",
+            "Hence, winning candidate's votes",
+            "Therefore, winning candidate's votes",
+            "Winning candidate's votes",
           ])} = ${answer}`
         : `${pickEnding(problem, [
             "Hence, total votes polled",
@@ -837,9 +860,9 @@ function finalEndingText(problem: CanonicalPercentageProblem) {
       ])} = ${answer}`;
     case "mixture_percentage":
       return `${pickEnding(problem, [
-        "Thus, pure component to be added",
-        "Hence, quantity to be added",
-        "Pure component to be added",
+        "Thus, milk to be added",
+        "Hence, milk to be added",
+        "Milk to be added",
       ])} = ${answer}`;
     default:
       return `${pickEnding(problem, [

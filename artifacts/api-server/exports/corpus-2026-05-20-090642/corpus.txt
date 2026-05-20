@@ -1,0 +1,2905 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-20-090642
+Preset: ssc_percentage_audit
+Profile: multilingual_review
+Count: 50
+Estimated Size: ~1.2 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+A's income is 25% more than B's income. B's income is 40% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 25% अधिक है। B की आय C से 40% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 40% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 25% less | 5% more | 33.33% more | 0% more
+Answer: 25% less
+Difficulty: Medium
+Topology: relational_chain:two_step_relation_chain
+Realism: 78
+
+Explanation EN:
+Let the original value be 100:
+Original value =
+100
+= 100
+Apply the next relation:
+Relation index =
+100 x 125 / 100
+= 125
+Apply the next relation:
+After the change, value =
+125 x 60 / 100
+= 75
+Now compare it with 100:
+Decrease percentage =
+75 - 100
+= 25%
+Final value = 25% decrease
+
+Explanation HI:
+कुल मान:
+100
+= 100
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+100 x 125 / 100
+= 125
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+125 x 60 / 100
+= 75
+सीधा संबंध:
+प्रतिशत परिवर्तन =
+75 - 100
+= 25%
+आवश्यक मान = 25% कमी
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+100
+= 100
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+100 x 125 / 100
+= 125
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+125 x 60 / 100
+= 75
+ਸਿੱਧਾ ਸੰਬੰਧ:
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =
+75 - 100
+= 25%
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 25% ਕਮੀ
+
+[Q2]
+EN:
+Marked price was reduced by 40% from its original level. Find the required increase percentage.
+
+HI:
+एक वस्तु के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 66.67% | 40% | 60% | 33.33%
+Answer: 66.67%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 40% reduction, percentage left is:
+Remaining part =
+100 - 40
+= 60%
+Required increase %:
+40 x 100 / 60
+= 66.67% increase
+Required increase % = 66.67%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 40
+= 60%
+आवश्यक वृद्धि:
+40 x 100 / 60
+= 66.67% वृद्धि
+आवश्यक वृद्धि:
+आवश्यक प्रतिशत = 66.67%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 40
+= 60%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+40 x 100 / 60
+= 66.67% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 66.67%
+
+[Q3]
+EN:
+In an urban-rural population report, the population was 365000. It increased by 10% per year for 2 years. Find the population after this period.
+
+HI:
+एक जनसंख्या रिपोर्ट में जनसंख्या 365000 थी। यह 2 वर्षों तक प्रति वर्ष 10% बढ़ी। इस अवधि के बाद जनसंख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 365000 ਸੀ। ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 10% ਵਧੀ। ਇਸ ਅਵਧੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Options: 441650 | 440000 | 400000 | 365000
+Answer: 441650
+Difficulty: Easy
+Topology: direct_mapping:single_growth
+Realism: 78
+
+Explanation EN:
+Population after growth:
+365000 x (110 / 100)^2
+= 441650
+Growth is applied for 2 years.
+Hence, final population = 441650
+
+Explanation HI:
+वृद्धि के बाद जनसंख्या:
+365000 x (110 / 100)^2
+= 441650
+2 वर्षों तक वृद्धि लागू होती है।
+अंतिम जनसंख्या = 441650
+
+Explanation PA:
+ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:
+365000 x (110 / 100)^2
+= 441650
+2 ਸਾਲਾਂ ਲਈ ਵਾਧਾ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।
+ਅੰਤਿਮ ਆਬਾਦੀ = 441650
+
+[Q4]
+EN:
+Fuel price increased by 20%. If total expenditure is kept the same, by what percent should consumption be reduced?
+
+HI:
+ईंधन की कीमत 20% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 20% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Options: 16.67% | 20% | 80% | 25%
+Answer: 16.67%
+Difficulty: Easy
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+New price after increase:
+100 + 20
+= 120
+
+For the same expenditure:
+New consumption =
+100 x 100 / 120
+= 83.33
+
+Reduction in consumption is:
+100 - 83.33
+= 16.67% reduction
+
+So, reduction in consumption = 16.67% reduction
+
+Explanation HI:
+नई कीमत:
+100 + 20
+= 120
+
+समान खर्च के लिए:
+नई खपत =
+100 x 100 / 120
+= 83.33
+
+खपत में कमी:
+100 - 83.33
+= 16.67% कमी
+
+आवश्यक प्रतिशत = 16.67% कमी
+
+Explanation PA:
+ਨਵੀਂ ਕੀਮਤ:
+100 + 20
+= 120
+
+ਉਸੇ ਖਰਚ ਲਈ:
+ਨਵੀਂ ਖਪਤ =
+100 x 100 / 120
+= 83.33
+
+ਖਪਤ ਵਿੱਚ ਕਮੀ:
+100 - 83.33
+= 16.67% ਕਮੀ
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 16.67% ਕਮੀ
+
+[Q5]
+EN:
+In a student union election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winning candidate got 65% of the valid votes and won by 46080 votes. Find the number of registered voters.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 65% वोट मिले और जीत का अंतर 46080 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 65% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 46080 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 240000 | 155000 | 190000 | 70000
+Answer: 240000
+Difficulty: Hard
+Topology: successive_filtering:turnout_margin
+Realism: 95
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+65 - 35
+= 30%
+
+Effective valid votes:
+46080 x 100 / 30
+= 153600
+
+Votes polled are:
+153600 x 100 / 80
+= 192000
+
+Registered voters are:
+192000 x 100 / 80
+= 240000
+
+Therefore, total votes = 240000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+65 - 35
+= 30%
+
+कुल वैध वोट:
+46080 x 100 / 30
+= 153600
+
+कुल वोट:
+153600 x 100 / 80
+= 192000
+
+कुल पंजीकृत मतदाता:
+192000 x 100 / 80
+= 240000
+
+कुल वोट = 240000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+65 - 35
+= 30%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+46080 x 100 / 30
+= 153600
+
+ਕੁੱਲ ਵੋਟ:
+153600 x 100 / 80
+= 192000
+
+ਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:
+192000 x 100 / 80
+= 240000
+
+ਕੁੱਲ ਵੋਟ = 240000
+
+[Q6]
+EN:
+A milk-water mixture contains 120 litres, of which 25% is milk. How much milk should be added so that milk becomes 50% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 120 लीटर है और उसमें 25% दूध है। दूध को 50% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 120 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 50% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 60 | 30 | 25 | 90
+Answer: 60
+Difficulty: Medium
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water quantity remains unchanged.
+Water quantity =
+120 - 30
+= 90
+
+Final mixture quantity:
+90 x 100 / ( 100 - 50 )
+= 180
+
+Milk to be added:
+180 - 120
+= 60
+
+Hence, milk to be added = 60
+
+Explanation HI:
+अपरिवर्तित मात्रा:
+स्थिर मात्रा =
+120 - 30
+= 90
+
+अंतिम मिश्रण:
+90 x 100 / ( 100 - 50 )
+= 180
+
+जोड़ा जाने वाला दूध:
+180 - 120
+= 60
+
+आवश्यक मान = 60
+
+Explanation PA:
+ਅਣਬਦਲੀ ਮਾਤਰਾ:
+ਸਥਿਰ ਮਾਤਰਾ =
+120 - 30
+= 90
+
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+90 x 100 / ( 100 - 50 )
+= 180
+
+ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+180 - 120
+= 60
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 60
+
+[Q7]
+EN:
+In a qualifying test, 75% of the paper has been evaluated. A student scored 80% of those marks. To secure 70% overall, the student still needs 20 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 75% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 80% अंक प्राप्त किए। कुल 70% अंक पाने के लिए उसे अभी 20 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 75% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 80% ਅੰਕ ਲਏ। ਕੁੱਲ 70% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 20 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 200 | 28.57 | 23.53 | 180
+Answer: 200
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured =
+75 x 80 / 100
+= 60
+Required marks gap =
+70 - 60
+= 10
+Maximum marks =
+20 x 100 / 10
+= 200
+Hence, maximum marks in the test = 200
+
+Explanation HI:
+प्राप्त अंक =
+75 x 80 / 100
+= 60
+पास अंक का अंतर =
+70 - 60
+= 10
+अधिकतम अंक =
+20 x 100 / 10
+= 200
+अधिकतम अंक = 200
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+75 x 80 / 100
+= 60
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =
+70 - 60
+= 10
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =
+20 x 100 / 10
+= 200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200
+
+[Q8]
+EN:
+A's income is 12.5% more than B's income. Find by what percent A's income is more or less than B's income.
+
+HI:
+A की आय B से 12.5% अधिक है। A की आय B से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 12.5% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 12.5% more | 8.89% more | 115% more | 25% more
+Answer: 12.5% more
+Difficulty: Easy
+Topology: percentage_ratio_hybrid:ratio_percentage_bridge
+Realism: 70
+
+Explanation EN:
+Let the original value be 100:
+Original value =
+100
+= 100
+Apply the next relation:
+After the change, value =
+100 x 112.5 / 100
+= 112.5
+Now compare it with 100:
+Increase percentage =
+112.5 - 100
+= 12.5%
+Hence, final value = 12.5% increase
+
+Explanation HI:
+कुल मान:
+100
+= 100
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+100 x 112.5 / 100
+= 112.5
+सीधा संबंध:
+वृद्धि प्रतिशत =
+112.5 - 100
+= 12.5%
+आवश्यक मान = 12.5% वृद्धि
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+100
+= 100
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+100 x 112.5 / 100
+= 112.5
+ਸਿੱਧਾ ਸੰਬੰਧ:
+ਵਾਧਾ ਪ੍ਰਤੀਸ਼ਤ =
+112.5 - 100
+= 12.5%
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 12.5% ਵਾਧਾ
+
+[Q9]
+EN:
+A's income is 20% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 20% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 20% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 10% less | 15% more | 11.11% more | 35% more
+Answer: 10% less
+Difficulty: Hard
+Topology: reverse_relation:reverse_relation_inference
+Realism: 78
+
+Explanation EN:
+Let the original value be 100:
+Original value =
+100
+= 100
+
+Convert the given relation:
+Value after this relation =
+100 x 120 / 100
+= 120
+
+Apply the next relation:
+After the change, value =
+120 x 75 / 100
+= 90
+
+Now compare it with 100:
+Decrease percentage =
+90 - 100
+= 10%
+
+Therefore, final value = 10% decrease
+
+Explanation HI:
+कुल मान:
+100
+= 100
+
+अगला प्रतिशत संबंध लगाएं:
+इस संबंध के बाद मान =
+100 x 120 / 100
+= 120
+
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+120 x 75 / 100
+= 90
+
+सीधा संबंध:
+प्रतिशत परिवर्तन =
+90 - 100
+= 10%
+
+आवश्यक मान = 10% कमी
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+100
+= 100
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਇਸ ਸੰਬੰਧ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =
+100 x 120 / 100
+= 120
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+120 x 75 / 100
+= 90
+
+ਸਿੱਧਾ ਸੰਬੰਧ:
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =
+90 - 100
+= 10%
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 10% ਕਮੀ
+
+[Q10]
+EN:
+A's income is 40% more than B's income. B's income is 40% less than C's income. C's income is 20% more than D's income. Find by what percent A's income is more or less than D's income.
+
+HI:
+A की आय B से 40% अधिक है। B की आय C से 40% कम है। C की आय D से 20% अधिक है। A की आय D से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 40% ਘੱਟ ਹੈ। C ਦੀ ਆਮਦਨ D ਨਾਲੋਂ 20% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 0.8% more | 20% more | 19.21% more | 100% more
+Answer: 0.8% more
+Difficulty: Hard
+Topology: multi_entity_percentage_network:three_step_relation_chain
+Realism: 78
+
+Explanation EN:
+Let the original value be 100:
+Original value =
+100
+= 100
+Apply the next relation:
+Relation index =
+100 x 140 / 100
+= 140
+Apply the next relation:
+Relation index =
+140 x 60 / 100
+= 84
+Apply the next relation:
+After the change, value =
+84 x 120 / 100
+= 100.8
+Now compare it with 100:
+Increase percentage =
+100.8 - 100
+= 0.8%
+Final value = 0.8% increase
+
+Explanation HI:
+कुल मान:
+100
+= 100
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+100 x 140 / 100
+= 140
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+140 x 60 / 100
+= 84
+अगला प्रतिशत संबंध लगाएं:
+अंतिम मान =
+84 x 120 / 100
+= 100.8
+सीधा संबंध:
+वृद्धि प्रतिशत =
+100.8 - 100
+= 0.8%
+आवश्यक मान = 0.8% वृद्धि
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+100
+= 100
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+100 x 140 / 100
+= 140
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+140 x 60 / 100
+= 84
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਅੰਤਿਮ ਮੁੱਲ =
+84 x 120 / 100
+= 100.8
+ਸਿੱਧਾ ਸੰਬੰਧ:
+ਵਾਧਾ ਪ੍ਰਤੀਸ਼ਤ =
+100.8 - 100
+= 0.8%
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 0.8% ਵਾਧਾ
+
+[Q11]
+EN:
+Salary changed from ₹8000 to ₹8400. Find the percentage change.
+
+HI:
+एक कर्मचारी का वेतन 8000 से बदलकर 8400 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 8000 ਤੋਂ ਬਦਲ ਕੇ 8400 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 5% | 4.76% | 400% | 4.5%
+Answer: 5%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 72
+
+Explanation EN:
+Increase in salary:
+8400 - 8000
+= 400
+
+Change %:
+400 x 100 / 8000
+= 5
+
+Salary change = 5% increase
+
+Explanation HI:
+वेतन में बदलाव:
+8400 - 8000
+= 400
+
+प्रतिशत परिवर्तन:
+400 x 100 / 8000
+= 5
+
+आवश्यक मान = 5% वृद्धि
+
+Explanation PA:
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:
+8400 - 8000
+= 400
+
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:
+400 x 100 / 8000
+= 5
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 5% ਵਾਧਾ
+
+[Q12]
+EN:
+A student scored 48 marks, which is 40% of the maximum marks. Find the maximum marks.
+
+HI:
+किसी मात्रा का 40% भाग 48 है। पूरी मात्रा ज्ञात कीजिए।
+
+PA:
+ਕਿਸੇ ਮਾਤਰਾ ਦਾ 40% ਭਾਗ 48 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 120 | 19.2 | 67.2 | 28.8
+Answer: 120
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+Total quantity is:
+48 x 100 / 40
+= 120
+Hence, total quantity for the record = 120
+
+Explanation HI:
+कुल मान:
+48 x 100 / 40
+= 120
+आवश्यक मान = 120
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+48 x 100 / 40
+= 120
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 120
+
+[Q13]
+EN:
+In a constituency election, 80% of the registered voters voted and 80% of those votes were valid. The winning candidate got 70% of the valid votes. The margin between the two candidates was 10240 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले। जीत का अंतर 10240 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 10240 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 17920 | 28000 | 22000 | 18000
+Answer: 17920
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 98
+
+Explanation EN:
+Effective valid votes:
+10240 x 100 / 40
+= 25600
+Winner's votes are:
+25600 x 70 / 100
+= 17920
+Hence, winning candidate's votes = 17920
+
+Explanation HI:
+कुल वैध वोट:
+10240 x 100 / 40
+= 25600
+कुल वोट:
+25600 x 70 / 100
+= 17920
+आवश्यक मान = 17920
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+10240 x 100 / 40
+= 25600
+ਕੁੱਲ ਵੋਟ:
+25600 x 70 / 100
+= 17920
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 17920
+
+[Q14]
+EN:
+A's income is 10% more than B's income. B's income is 50% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 10% अधिक है। B की आय C से 50% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 10% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 45% less | 0% more | 81.82% more | 10% more
+Answer: 45% less
+Difficulty: Hard
+Topology: reverse_relation:reverse_relation_inference
+Realism: 78
+
+Explanation EN:
+Original value =
+100
+= 100
+Value after this relation =
+100 x 110 / 100
+= 110
+After the change, value =
+110 x 50 / 100
+= 55
+Decrease percentage =
+55 - 100
+= 45%
+Final value = 45% decrease
+
+Explanation HI:
+कुल मान =
+100
+= 100
+इस संबंध के बाद मान =
+100 x 110 / 100
+= 110
+अंतिम मान =
+110 x 50 / 100
+= 55
+प्रतिशत परिवर्तन =
+55 - 100
+= 45%
+आवश्यक मान = 45% कमी
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ =
+100
+= 100
+ਇਸ ਸੰਬੰਧ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =
+100 x 110 / 100
+= 110
+ਅੰਤਿਮ ਮੁੱਲ =
+110 x 50 / 100
+= 55
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =
+55 - 100
+= 45%
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 45% ਕਮੀ
+
+[Q15]
+EN:
+In a milk-water mixture, total quantity is 100 litres and milk is 20%. How much milk is needed to make milk 40% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 100 लीटर है और उसमें 20% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 100 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 33.33 | 20 | 40 | 80
+Answer: 33.33
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 78
+
+Explanation EN:
+Water quantity remains unchanged.
+Water quantity =
+100 - 20
+= 80
+Final mixture quantity:
+80 x 100 / ( 100 - 40 )
+= 133.33
+Milk to be added:
+133.33 - 100
+= 33.33
+Thus, milk to be added = 33.33
+
+Explanation HI:
+अपरिवर्तित मात्रा:
+स्थिर मात्रा =
+100 - 20
+= 80
+अंतिम मिश्रण:
+80 x 100 / ( 100 - 40 )
+= 133.33
+जोड़ा जाने वाला दूध:
+133.33 - 100
+= 33.33
+आवश्यक मान = 33.33
+
+Explanation PA:
+ਅਣਬਦਲੀ ਮਾਤਰਾ:
+ਸਥਿਰ ਮਾਤਰਾ =
+100 - 20
+= 80
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+80 x 100 / ( 100 - 40 )
+= 133.33
+ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+133.33 - 100
+= 33.33
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 33.33
+
+[Q16]
+EN:
+In a municipal election, the winning candidate got 54% of the votes and another candidate got 12%. The remaining votes went to a third candidate. The winning candidate defeated the third candidate by 40000 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 54% वोट और दूसरे प्रत्याशी को 12% वोट मिले। शेष वोट तीसरे प्रत्याशी को मिले। विजयी उम्मीदवार ने तीसरे प्रत्याशी को 40000 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 54% ਵੋਟ ਅਤੇ ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੂੰ 12% ਵੋਟ ਮਿਲੇ। ਬਾਕੀ ਵੋਟ ਤੀਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਤੀਜੇ ਨੂੰ 40000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 200000 | 95000 | 75000 | 120000
+Answer: 200000
+Difficulty: Medium
+Topology: remaining_component:remaining_vote_margin
+Realism: 78
+
+Explanation EN:
+Votes remaining for other candidates =
+100 - 54 - 12
+= 34
+Remaining vote share =
+54 - 34
+= 20%
+Total votes =
+40000 x 100 / 20
+= 200000
+Hence, total votes polled = 200000
+
+Explanation HI:
+अन्य उम्मीदवारों के वोट =
+100 - 54 - 12
+= 34
+मार्जिन प्रतिशत =
+54 - 34
+= 20%
+कुल वोट =
+40000 x 100 / 20
+= 200000
+कुल वोट = 200000
+
+Explanation PA:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 54 - 12
+= 34
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+54 - 34
+= 20%
+ਕੁੱਲ ਵੋਟ =
+40000 x 100 / 20
+= 200000
+ਕੁੱਲ ਵੋਟ = 200000
+
+[Q17]
+EN:
+Fuel price increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?
+
+HI:
+ईंधन की कीमत 50% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 50% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Options: 33.33% | 50% | 100% | 13.33%
+Answer: 33.33%
+Difficulty: Medium
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+New price after increase:
+100 + 50
+= 150
+
+For the same expenditure:
+New consumption =
+100 x 100 / 150
+= 66.67
+
+Reduction in consumption is:
+100 - 66.67
+= 33.33% reduction
+
+Hence, required reduction = 33.33% reduction
+
+Explanation HI:
+नई कीमत:
+100 + 50
+= 150
+
+समान खर्च के लिए:
+नई खपत =
+100 x 100 / 150
+= 66.67
+
+खपत में कमी:
+100 - 66.67
+= 33.33% कमी
+
+आवश्यक प्रतिशत = 33.33% कमी
+
+Explanation PA:
+ਨਵੀਂ ਕੀਮਤ:
+100 + 50
+= 150
+
+ਉਸੇ ਖਰਚ ਲਈ:
+ਨਵੀਂ ਖਪਤ =
+100 x 100 / 150
+= 66.67
+
+ਖਪਤ ਵਿੱਚ ਕਮੀ:
+100 - 66.67
+= 33.33% ਕਮੀ
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 33.33% ਕਮੀ
+
+[Q18]
+EN:
+In a scholarship exam, a candidate scored 45% marks and failed by 128 marks. The pass mark was 65%. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 45% अंक प्राप्त किए और 128 अंकों से अनुत्तीर्ण हुआ। उत्तीर्णांक 65% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 45% ਅੰਕ ਲਏ ਅਤੇ 128 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਪਾਸ ਅੰਕ 65% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 640 | 195 | 285 | 3000
+Answer: 640
+Difficulty: Easy
+Topology: direct_mapping:simple_shortfall
+Realism: 78
+
+Explanation EN:
+Shortcut:
+20% marks = 128
+So,
+100% marks =
+640
+
+Apply the next relation:
+Pass mark difference:
+65 - 45
+= 20
+Maximum marks are:
+128 x 100 / 20
+= 640
+Maximum marks = 640
+
+Explanation HI:
+शॉर्टकट:
+20% अंक = 128
+तो,
+100% अंक =
+640
+
+अगला प्रतिशत संबंध लगाएं:
+पास अंक का अंतर:
+65 - 45
+= 20
+अधिकतम अंक:
+128 x 100 / 20
+= 640
+अधिकतम अंक = 640
+
+Explanation PA:
+ਸ਼ਾਰਟਕੱਟ:
+20% ਅੰਕ = 128
+ਸੋ,
+100% ਅੰਕ =
+640
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+65 - 45
+= 20
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+128 x 100 / 20
+= 640
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 640
+
+[Q19]
+EN:
+A census recorded 6 people, which is 5% of the total population. Find the total population.
+
+HI:
+किसी मात्रा का 5% भाग 6 है। पूरी मात्रा ज्ञात कीजिए।
+
+PA:
+ਕਿਸੇ ਮਾਤਰਾ ਦਾ 5% ਭਾਗ 6 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 120 | 0.3 | 6.3 | 5.7
+Answer: 120
+Difficulty: Medium
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+Total quantity is:
+6 x 100 / 5
+= 120
+Required total quantity for the record = 120
+
+Explanation HI:
+कुल मान:
+6 x 100 / 5
+= 120
+आवश्यक मान = 120
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+6 x 100 / 5
+= 120
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 120
+
+[Q20]
+EN:
+Salary changed from ₹6000 to ₹6600. Find the percentage change.
+
+HI:
+एक कर्मचारी का वेतन 6000 से बदलकर 6600 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 6000 ਤੋਂ ਬਦਲ ਕੇ 6600 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 10% | 9.09% | 600% | 9%
+Answer: 10%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 72
+
+Explanation EN:
+Increase in salary:
+6600 - 6000
+= 600
+Change %:
+600 x 100 / 6000
+= 10
+Salary change = 10% increase
+
+Explanation HI:
+वेतन में बदलाव:
+6600 - 6000
+= 600
+प्रतिशत परिवर्तन:
+600 x 100 / 6000
+= 10
+आवश्यक मान = 10% वृद्धि
+
+Explanation PA:
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:
+6600 - 6000
+= 600
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:
+600 x 100 / 6000
+= 10
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 10% ਵਾਧਾ
+
+[Q21]
+EN:
+In a student union election, the winning candidate got 48% of the votes and candidate C got 15%. The winning candidate defeated candidate B by 6160 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 48% वोट और प्रत्याशी C को 15% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 6160 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 48% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 15% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 6160 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 56000 | 19000 | 13000 | 50400
+Answer: 56000
+Difficulty: Medium
+Topology: multi_entity_distribution:multi_candidate_margin
+Realism: 78
+
+Explanation EN:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 48 - 15
+= 37
+Winning margin:
+Remaining vote share =
+48 - 37
+= 11%
+Total votes are:
+6160 x 100 / 11
+= 56000
+Hence, total votes polled = 56000
+
+Explanation HI:
+जीत का अंतर:
+अन्य उम्मीदवारों के वोट =
+100 - 48 - 15
+= 37
+जीत का अंतर:
+मार्जिन प्रतिशत =
+48 - 37
+= 11%
+कुल वोट:
+6160 x 100 / 11
+= 56000
+कुल वोट = 56000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 48 - 15
+= 37
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+48 - 37
+= 11%
+ਕੁੱਲ ਵੋਟ:
+6160 x 100 / 11
+= 56000
+ਕੁੱਲ ਵੋਟ = 56000
+
+[Q22]
+EN:
+In a village council election, 60% of the registered voters cast their votes. Out of these, 10% votes were invalid. The winning candidate got 70% of the valid votes and won by 54000 votes. Find the number of registered voters.
+
+HI:
+एक निर्वाचन में 60% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 10% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले और जीत का अंतर 54000 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 60% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 10% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 54000 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 250000 | 135000 | 225000 | 75000
+Answer: 250000
+Difficulty: Hard
+Topology: successive_filtering:turnout_margin
+Realism: 97
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+70 - 30
+= 40%
+
+Effective valid votes:
+54000 x 100 / 40
+= 135000
+
+Votes polled are:
+135000 x 100 / 90
+= 150000
+
+Registered voters are:
+150000 x 100 / 60
+= 250000
+
+Therefore, total votes = 250000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+70 - 30
+= 40%
+
+कुल वैध वोट:
+54000 x 100 / 40
+= 135000
+
+कुल वोट:
+135000 x 100 / 90
+= 150000
+
+कुल पंजीकृत मतदाता:
+150000 x 100 / 60
+= 250000
+
+कुल वोट = 250000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+70 - 30
+= 40%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+54000 x 100 / 40
+= 135000
+
+ਕੁੱਲ ਵੋਟ:
+135000 x 100 / 90
+= 150000
+
+ਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:
+150000 x 100 / 60
+= 250000
+
+ਕੁੱਲ ਵੋਟ = 250000
+
+[Q23]
+EN:
+Salary was reduced by 20% from its original level. Find the required increase percentage.
+
+HI:
+एक वस्तु के मूल्य में 20% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 20% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 25% | 20% | 80% | 75%
+Answer: 25%
+Difficulty: Easy
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+Direct relation:
+80% value = 20
+So,
+100% value =
+25
+
+Apply the next relation:
+After a 20% reduction, percentage left is:
+Remaining part =
+100 - 20
+= 80%
+
+Required increase %:
+20 x 100 / 80
+= 25% increase
+
+Hence, increase needed to restore the value = 25%
+
+Explanation HI:
+सीधा संबंध:
+80% मान = 20
+तो,
+100% मान =
+25
+
+अगला प्रतिशत संबंध लगाएं:
+बचा हुआ भाग:
+100 - 20
+= 80%
+
+आवश्यक वृद्धि:
+20 x 100 / 80
+= 25% वृद्धि
+
+आवश्यक वृद्धि:
+आवश्यक प्रतिशत = 25%
+
+Explanation PA:
+ਸਿੱਧਾ ਸੰਬੰਧ:
+80% ਮੁੱਲ = 20
+ਸੋ,
+100% ਮੁੱਲ =
+25
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 20
+= 80%
+
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+20 x 100 / 80
+= 25% ਵਾਧਾ
+
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 25%
+
+[Q24]
+EN:
+A milk-water mixture contains 200 litres, of which 25% is milk. Find the milk to be added so that milk becomes 40% of the mixture.
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 200 लीटर है और उसमें 25% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 200 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 50 | 30 | 80 | 15
+Answer: 50
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water quantity remains unchanged.
+Water quantity =
+200 - 50
+= 150
+Final mixture quantity:
+150 x 100 / ( 100 - 40 )
+= 250
+Milk to be added:
+250 - 200
+= 50
+Milk to be added = 50
+
+Explanation HI:
+अपरिवर्तित मात्रा:
+स्थिर मात्रा =
+200 - 50
+= 150
+अंतिम मिश्रण:
+150 x 100 / ( 100 - 40 )
+= 250
+जोड़ा जाने वाला दूध:
+250 - 200
+= 50
+आवश्यक मान = 50
+
+Explanation PA:
+ਅਣਬਦਲੀ ਮਾਤਰਾ:
+ਸਥਿਰ ਮਾਤਰਾ =
+200 - 50
+= 150
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+150 x 100 / ( 100 - 40 )
+= 250
+ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+250 - 200
+= 50
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 50
+
+[Q25]
+EN:
+Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?
+
+HI:
+ईंधन की कीमत 40% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 40% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Options: 28.57% | 40% | 60% | 66.67%
+Answer: 28.57%
+Difficulty: Medium
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+Shortcut:
+Reduction in consumption =
+40 x 100 / (100 + 40)
+= 28.57% reduction
+
+Apply the next relation:
+New price after increase:
+100 + 40
+= 140
+For the same expenditure:
+New consumption =
+100 x 100 / 140
+= 71.43
+Reduction in consumption is:
+100 - 71.43
+= 28.57% reduction
+Hence, required reduction = 28.57% reduction
+
+Explanation HI:
+शॉर्टकट:
+खपत में कमी =
+40 x 100 / (100 + 40)
+= 28.57% कमी
+
+अगला प्रतिशत संबंध लगाएं:
+नई कीमत:
+100 + 40
+= 140
+समान खर्च के लिए:
+नई खपत =
+100 x 100 / 140
+= 71.43
+खपत में कमी:
+100 - 71.43
+= 28.57% कमी
+आवश्यक प्रतिशत = 28.57% कमी
+
+Explanation PA:
+ਸ਼ਾਰਟਕੱਟ:
+ਖਪਤ ਵਿੱਚ ਕਮੀ =
+40 x 100 / (100 + 40)
+= 28.57% ਕਮੀ
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਨਵੀਂ ਕੀਮਤ:
+100 + 40
+= 140
+ਉਸੇ ਖਰਚ ਲਈ:
+ਨਵੀਂ ਖਪਤ =
+100 x 100 / 140
+= 71.43
+ਖਪਤ ਵਿੱਚ ਕਮੀ:
+100 - 71.43
+= 28.57% ਕਮੀ
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 28.57% ਕਮੀ
+
+[Q26]
+EN:
+In a screening test, 50% of the paper has been evaluated. A student scored 60% of those marks. To secure 60% overall, the student still needs 192 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 50% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 60% अंक पाने के लिए उसे अभी 192 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 50% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 60% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 192 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 640 | 320 | 385 | 620
+Answer: 640
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 95
+
+Explanation EN:
+Marks already secured:
+50 x 60 / 100
+= 30
+
+Extra marks required:
+Required marks gap =
+60 - 30
+= 30
+
+Maximum marks are:
+192 x 100 / 30
+= 640
+
+Hence, maximum marks in the test = 640
+
+Explanation HI:
+प्राप्त अंक:
+50 x 60 / 100
+= 30
+
+पास अंक का अंतर:
+60 - 30
+= 30
+
+अधिकतम अंक:
+192 x 100 / 30
+= 640
+
+अधिकतम अंक = 640
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+50 x 60 / 100
+= 30
+
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+60 - 30
+= 30
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+192 x 100 / 30
+= 640
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 640
+
+[Q27]
+EN:
+In a screening test, a candidate scored 35% marks and was short of passing by 45 marks. Another candidate scored 65% marks and exceeded the pass mark by 45 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 35% अंक प्राप्त किए और 45 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 65% अंक प्राप्त किए और उत्तीर्णांक से 45 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 35% ਅੰਕ ਲਏ ਅਤੇ 45 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 65% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 45 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 180 | 3000 | 280
+Answer: 300
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+45 + 45
+= 90
+
+Marks percentage gap:
+Pass mark difference =
+65 - 35
+= 30
+
+Maximum marks are:
+90 x 100 / 30
+= 300
+
+Hence, maximum marks in the test = 300
+
+Explanation HI:
+पास अंक का अंतर:
+45 + 45
+= 90
+
+पास अंक का अंतर:
+65 - 35
+= 30
+
+अधिकतम अंक:
+90 x 100 / 30
+= 300
+
+अधिकतम अंक = 300
+
+Explanation PA:
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+45 + 45
+= 90
+
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+65 - 35
+= 30
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+90 x 100 / 30
+= 300
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q28]
+EN:
+In a constituency election, 20% of the votes were invalid. The winning candidate got 70% of the valid votes and won by 192000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले और जीत का अंतर 192000 वोट था। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 192000 ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 600000 | 480000 | 275000 | 240000
+Answer: 600000
+Difficulty: Medium
+Topology: filtered_base:invalid_vote_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+70 - 30
+= 40%
+
+Effective valid votes:
+192000 x 100 / 40
+= 480000
+
+Total votes are:
+480000 x 100 / 80
+= 600000
+
+Therefore, total votes = 600000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+70 - 30
+= 40%
+
+कुल वैध वोट:
+192000 x 100 / 40
+= 480000
+
+कुल वोट:
+480000 x 100 / 80
+= 600000
+
+कुल वोट = 600000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+70 - 30
+= 40%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+192000 x 100 / 40
+= 480000
+
+ਕੁੱਲ ਵੋਟ:
+480000 x 100 / 80
+= 600000
+
+ਕੁੱਲ ਵੋਟ = 600000
+
+[Q29]
+EN:
+In an employee union election, the winning candidate got 52% of the votes and candidate C got 20%. The winning candidate defeated candidate B by 9600 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 52% वोट और प्रत्याशी C को 20% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 9600 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 52% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 20% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 9600 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 40000 | 30000 | 18000 | 36000
+Answer: 40000
+Difficulty: Medium
+Topology: multi_entity_distribution:multi_candidate_margin
+Realism: 78
+
+Explanation EN:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 52 - 20
+= 28
+Winning margin:
+Remaining vote share =
+52 - 28
+= 24%
+Total votes are:
+9600 x 100 / 24
+= 40000
+Therefore, total votes = 40000
+
+Explanation HI:
+जीत का अंतर:
+अन्य उम्मीदवारों के वोट =
+100 - 52 - 20
+= 28
+जीत का अंतर:
+मार्जिन प्रतिशत =
+52 - 28
+= 24%
+कुल वोट:
+9600 x 100 / 24
+= 40000
+कुल वोट = 40000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 52 - 20
+= 28
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+52 - 28
+= 24%
+ਕੁੱਲ ਵੋਟ:
+9600 x 100 / 24
+= 40000
+ਕੁੱਲ ਵੋਟ = 40000
+
+[Q30]
+EN:
+Marked price was reduced by 10% from its original level. Find the required increase percentage.
+
+HI:
+एक वस्तु के मूल्य में 10% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 10% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 11.11% | 10% | 90% | 88.89%
+Answer: 11.11%
+Difficulty: Easy
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+Shortcut:
+90% value = 10
+So,
+100% value =
+11.11
+
+Apply the next relation:
+After a 10% reduction, percentage left is:
+Remaining part =
+100 - 10
+= 90%
+Required increase %:
+10 x 100 / 90
+= 11.11% increase
+Hence, increase needed to restore the value = 11.11%
+
+Explanation HI:
+शॉर्टकट:
+90% मान = 10
+तो,
+100% मान =
+11.11
+
+अगला प्रतिशत संबंध लगाएं:
+बचा हुआ भाग:
+100 - 10
+= 90%
+आवश्यक वृद्धि:
+10 x 100 / 90
+= 11.11% वृद्धि
+आवश्यक वृद्धि:
+आवश्यक प्रतिशत = 11.11%
+
+Explanation PA:
+ਸ਼ਾਰਟਕੱਟ:
+90% ਮੁੱਲ = 10
+ਸੋ,
+100% ਮੁੱਲ =
+11.11
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 10
+= 90%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+10 x 100 / 90
+= 11.11% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 11.11%
+
+[Q31]
+EN:
+In a constituency election, the winning candidate secured 62.5% of the votes and defeated the opponent by 100000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 62.5% वोट मिले और उसने प्रतिद्वंद्वी को 100000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 62.5% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 100000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 400000 | 160000 | 265000 | 360000
+Answer: 400000
+Difficulty: Easy
+Topology: direct_mapping:direct_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+62.5 - 37.5
+= 25%
+Total votes are:
+100000 x 100 / 25
+= 400000
+Hence, total votes polled = 400000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+62.5 - 37.5
+= 25%
+कुल वोट:
+100000 x 100 / 25
+= 400000
+कुल वोट = 400000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+62.5 - 37.5
+= 25%
+ਕੁੱਲ ਵੋਟ:
+100000 x 100 / 25
+= 400000
+ਕੁੱਲ ਵੋਟ = 400000
+
+[Q32]
+EN:
+In a recruitment test, a candidate first scored 40% marks. After adding a bonus of 15%, the score was still short of the pass mark by 72 marks. The pass mark was 65%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 40% अंक प्राप्त किए। 15% बोनस जोड़ने के बाद भी वह 72 अंकों से कम रह गया। उत्तीर्णांक 65% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 40% ਅੰਕ ਲਏ। 15% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 72 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 65% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 720 | 290 | 110 | 700
+Answer: 720
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 98
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+40 + 15
+= 55
+Pass mark difference:
+65 - 55
+= 10
+Maximum marks are:
+72 x 100 / 10
+= 720
+Maximum marks = 720
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+40 + 15
+= 55
+पास अंक का अंतर:
+65 - 55
+= 10
+अधिकतम अंक:
+72 x 100 / 10
+= 720
+अधिकतम अंक = 720
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+40 + 15
+= 55
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+65 - 55
+= 10
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+72 x 100 / 10
+= 720
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 720
+
+[Q33]
+EN:
+In a scholarship exam, 60% of the paper has been evaluated. A student scored 70% of those marks. To secure 65% overall, the student still needs 460 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 60% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 70% अंक प्राप्त किए। कुल 65% अंक पाने के लिए उसे अभी 460 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 60% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 70% ਅੰਕ ਲਏ। ਕੁੱਲ 65% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 460 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 2000 | 710 | 3000 | 1800
+Answer: 2000
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured:
+60 x 70 / 100
+= 42
+Extra marks required:
+Required marks gap =
+65 - 42
+= 23
+Maximum marks are:
+460 x 100 / 23
+= 2000
+Thus, maximum marks = 2000
+
+Explanation HI:
+प्राप्त अंक:
+60 x 70 / 100
+= 42
+पास अंक का अंतर:
+65 - 42
+= 23
+अधिकतम अंक:
+460 x 100 / 23
+= 2000
+अधिकतम अंक = 2000
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+60 x 70 / 100
+= 42
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+65 - 42
+= 23
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+460 x 100 / 23
+= 2000
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 2000
+
+[Q34]
+EN:
+In a municipal election, 75% of the registered voters voted and 80% of those votes were valid. The winning candidate got 65% of the valid votes. The margin between the two candidates was 4320 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 75% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 65% वोट मिले। जीत का अंतर 4320 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 75% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 65% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 4320 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 9360 | 16000 | 12000 | 9000
+Answer: 9360
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 97
+
+Explanation EN:
+Effective valid votes:
+4320 x 100 / 30
+= 14400
+Winner's votes are:
+14400 x 65 / 100
+= 9360
+Hence, winning candidate's votes = 9360
+
+Explanation HI:
+कुल वैध वोट:
+4320 x 100 / 30
+= 14400
+कुल वोट:
+14400 x 65 / 100
+= 9360
+आवश्यक मान = 9360
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+4320 x 100 / 30
+= 14400
+ਕੁੱਲ ਵੋਟ:
+14400 x 65 / 100
+= 9360
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 9360
+
+[Q35]
+EN:
+A census recorded 120 people, which is 25% of the total population. Find the total population.
+
+HI:
+किसी मात्रा का 25% भाग 120 है। पूरी मात्रा ज्ञात कीजिए।
+
+PA:
+ਕਿਸੇ ਮਾਤਰਾ ਦਾ 25% ਭਾਗ 120 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 480 | 30 | 150 | 90
+Answer: 480
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+Total quantity is:
+120 x 100 / 25
+= 480
+Required total quantity for the record = 480
+
+Explanation HI:
+कुल मान:
+120 x 100 / 25
+= 480
+आवश्यक मान = 480
+
+Explanation PA:
+ਕੁੱਲ ਮੁੱਲ:
+120 x 100 / 25
+= 480
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 480
+
+[Q36]
+EN:
+In an employee union election, 75% of the registered voters voted and 80% of those votes were valid. The winning candidate got 55% of the valid votes. The margin between the two candidates was 21900 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 75% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 55% वोट मिले। जीत का अंतर 21900 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 75% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 55% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 21900 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 120450 | 200000 | 150000 | 120000
+Answer: 120450
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 96
+
+Explanation EN:
+Effective valid votes:
+21900 x 100 / 10
+= 219000
+Winner's votes are:
+219000 x 55 / 100
+= 120450
+Winning candidate's votes = 120450
+
+Explanation HI:
+कुल वैध वोट:
+21900 x 100 / 10
+= 219000
+कुल वोट:
+219000 x 55 / 100
+= 120450
+आवश्यक मान = 120450
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+21900 x 100 / 10
+= 219000
+ਕੁੱਲ ਵੋਟ:
+219000 x 55 / 100
+= 120450
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 120450
+
+[Q37]
+EN:
+In a qualifying test, a candidate scored 30% marks and was short of passing by 180 marks. Another candidate scored 60% marks and exceeded the pass mark by 180 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 30% अंक प्राप्त किए और 180 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 60% अंक प्राप्त किए और उत्तीर्णांक से 180 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 30% ਅੰਕ ਲਏ ਅਤੇ 180 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 60% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 180 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 800 | 1000 | 1080
+Answer: 1200
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+180 + 180
+= 360
+Marks percentage gap:
+Pass mark difference =
+60 - 30
+= 30
+Maximum marks are:
+360 x 100 / 30
+= 1200
+Maximum marks = 1200
+
+Explanation HI:
+पास अंक का अंतर:
+180 + 180
+= 360
+पास अंक का अंतर:
+60 - 30
+= 30
+अधिकतम अंक:
+360 x 100 / 30
+= 1200
+अधिकतम अंक = 1200
+
+Explanation PA:
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+180 + 180
+= 360
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+60 - 30
+= 30
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+360 x 100 / 30
+= 1200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200
+
+[Q38]
+EN:
+In a village council election, 10% of the votes were invalid. The winning candidate got 70% of the valid votes and won by 90000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में 10% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले और जीत का अंतर 90000 वोट था। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 10% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 90000 ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 250000 | 225000 | 130000 | 100000
+Answer: 250000
+Difficulty: Medium
+Topology: filtered_base:invalid_vote_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+70 - 30
+= 40%
+Effective valid votes:
+90000 x 100 / 40
+= 225000
+Total votes are:
+225000 x 100 / 90
+= 250000
+Therefore, total votes = 250000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+70 - 30
+= 40%
+कुल वैध वोट:
+90000 x 100 / 40
+= 225000
+कुल वोट:
+225000 x 100 / 90
+= 250000
+कुल वोट = 250000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+70 - 30
+= 40%
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+90000 x 100 / 40
+= 225000
+ਕੁੱਲ ਵੋਟ:
+225000 x 100 / 90
+= 250000
+ਕੁੱਲ ਵੋਟ = 250000
+
+[Q39]
+EN:
+In a scholarship exam, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 420 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 55% अंक पाने के लिए उसे अभी 420 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 55% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 420 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 765 | 1000 | 1080
+Answer: 1200
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 95
+
+Explanation EN:
+Marks already secured:
+40 x 50 / 100
+= 20
+Extra marks required:
+Required marks gap =
+55 - 20
+= 35
+Maximum marks are:
+420 x 100 / 35
+= 1200
+Hence, maximum marks in the test = 1200
+
+Explanation HI:
+प्राप्त अंक:
+40 x 50 / 100
+= 20
+पास अंक का अंतर:
+55 - 20
+= 35
+अधिकतम अंक:
+420 x 100 / 35
+= 1200
+अधिकतम अंक = 1200
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 x 50 / 100
+= 20
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+55 - 20
+= 35
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+420 x 100 / 35
+= 1200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200
+
+[Q40]
+EN:
+In a recruitment test, a candidate first scored 45% marks. After adding a bonus of 20%, the score was still short of the pass mark by 20 marks. The pass mark was 75%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 45% अंक प्राप्त किए। 20% बोनस जोड़ने के बाद भी वह 20 अंकों से कम रह गया। उत्तीर्णांक 75% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 45% ਅੰਕ ਲਏ। 20% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 20 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 75% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 200 | 66.67 | 26.67 | 180
+Answer: 200
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 98
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+45 + 20
+= 65
+
+Pass mark difference:
+75 - 65
+= 10
+
+Maximum marks are:
+20 x 100 / 10
+= 200
+
+Hence, maximum marks in the test = 200
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+45 + 20
+= 65
+
+पास अंक का अंतर:
+75 - 65
+= 10
+
+अधिकतम अंक:
+20 x 100 / 10
+= 200
+
+अधिकतम अंक = 200
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+45 + 20
+= 65
+
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+75 - 65
+= 10
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+20 x 100 / 10
+= 200
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200
+
+[Q41]
+EN:
+In a recruitment test, a candidate scored 40% marks and failed by 180 marks. The pass mark was 55%. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 40% अंक प्राप्त किए और 180 अंकों से अनुत्तीर्ण हुआ। उत्तीर्णांक 55% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 40% ਅੰਕ ਲਏ ਅਤੇ 180 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਪਾਸ ਅੰਕ 55% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 325 | 450 | 3000
+Answer: 1200
+Difficulty: Easy
+Topology: direct_mapping:simple_shortfall
+Realism: 78
+
+Explanation EN:
+Shortcut:
+15% marks = 180
+So,
+100% marks =
+1200
+
+Apply the next relation:
+Pass mark difference:
+55 - 40
+= 15
+Maximum marks are:
+180 x 100 / 15
+= 1200
+Maximum marks = 1200
+
+Explanation HI:
+शॉर्टकट:
+15% अंक = 180
+तो,
+100% अंक =
+1200
+
+अगला प्रतिशत संबंध लगाएं:
+पास अंक का अंतर:
+55 - 40
+= 15
+अधिकतम अंक:
+180 x 100 / 15
+= 1200
+अधिकतम अंक = 1200
+
+Explanation PA:
+ਸ਼ਾਰਟਕੱਟ:
+15% ਅੰਕ = 180
+ਸੋ,
+100% ਅੰਕ =
+1200
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+55 - 40
+= 15
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+180 x 100 / 15
+= 1200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200
+
+[Q42]
+EN:
+In a municipal election, the winning candidate secured 60% of the votes and defeated the opponent by 32000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 60% वोट मिले और उसने प्रतिद्वंद्वी को 32000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 32000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 160000 | 55000 | 80000 | 144000
+Answer: 160000
+Difficulty: Easy
+Topology: direct_mapping:direct_margin
+Realism: 78
+
+Explanation EN:
+Shortcut:
+20% votes = 32000
+So,
+100% votes =
+160000
+
+Apply the next relation:
+Winning margin:
+Margin percentage =
+60 - 40
+= 20%
+Total votes are:
+32000 x 100 / 20
+= 160000
+Therefore, total votes = 160000
+
+Explanation HI:
+शॉर्टकट:
+20% वोट = 32000
+तो,
+100% वोट =
+160000
+
+अगला प्रतिशत संबंध लगाएं:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+60 - 40
+= 20%
+कुल वोट:
+32000 x 100 / 20
+= 160000
+कुल वोट = 160000
+
+Explanation PA:
+ਸ਼ਾਰਟਕੱਟ:
+20% ਵੋਟ = 32000
+ਸੋ,
+100% ਵੋਟ =
+160000
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+60 - 40
+= 20%
+ਕੁੱਲ ਵੋਟ:
+32000 x 100 / 20
+= 160000
+ਕੁੱਲ ਵੋਟ = 160000
+
+[Q43]
+EN:
+In a village council election, 20% of the votes were invalid. The winning candidate got 65% of the valid votes and won by 57600 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 65% वोट मिले और जीत का अंतर 57600 वोट था। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 65% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 57600 ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 240000 | 190000 | 90000 | 70000
+Answer: 240000
+Difficulty: Medium
+Topology: filtered_base:invalid_vote_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+65 - 35
+= 30%
+
+Effective valid votes:
+57600 x 100 / 30
+= 192000
+
+Total votes are:
+192000 x 100 / 80
+= 240000
+
+Hence, total votes polled = 240000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+65 - 35
+= 30%
+
+कुल वैध वोट:
+57600 x 100 / 30
+= 192000
+
+कुल वोट:
+192000 x 100 / 80
+= 240000
+
+कुल वोट = 240000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+65 - 35
+= 30%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+57600 x 100 / 30
+= 192000
+
+ਕੁੱਲ ਵੋਟ:
+192000 x 100 / 80
+= 240000
+
+ਕੁੱਲ ਵੋਟ = 240000
+
+[Q44]
+EN:
+In a qualifying test, a candidate scored 45% marks and was short of passing by 120 marks. Another candidate scored 75% marks and exceeded the pass mark by 120 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 45% अंक प्राप्त किए और 120 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 75% अंक प्राप्त किए और उत्तीर्णांक से 120 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 45% ਅੰਕ ਲਏ ਅਤੇ 120 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 75% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 120 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 800 | 400 | 7000 | 780
+Answer: 800
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+120 + 120
+= 240
+Marks percentage gap:
+Pass mark difference =
+75 - 45
+= 30
+Maximum marks are:
+240 x 100 / 30
+= 800
+Thus, maximum marks = 800
+
+Explanation HI:
+पास अंक का अंतर:
+120 + 120
+= 240
+पास अंक का अंतर:
+75 - 45
+= 30
+अधिकतम अंक:
+240 x 100 / 30
+= 800
+अधिकतम अंक = 800
+
+Explanation PA:
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+120 + 120
+= 240
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+75 - 45
+= 30
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+240 x 100 / 30
+= 800
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 800
+
+[Q45]
+EN:
+In a constituency election, 60% of the registered voters voted and 80% of those votes were valid. The winning candidate got 65% of the valid votes. The margin between the two candidates was 36000 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 60% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 65% वोट मिले। जीत का अंतर 36000 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 60% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 65% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 36000 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 78000 | 165000 | 98000 | 79000
+Answer: 78000
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 98
+
+Explanation EN:
+Effective valid votes:
+36000 x 100 / 30
+= 120000
+
+Winner's votes are:
+120000 x 65 / 100
+= 78000
+
+Winning candidate's votes = 78000
+
+Explanation HI:
+कुल वैध वोट:
+36000 x 100 / 30
+= 120000
+
+कुल वोट:
+120000 x 65 / 100
+= 78000
+
+आवश्यक मान = 78000
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+36000 x 100 / 30
+= 120000
+
+ਕੁੱਲ ਵੋਟ:
+120000 x 65 / 100
+= 78000
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ = 78000
+
+[Q46]
+EN:
+In a qualifying test, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 700 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 55% अंक पाने के लिए उसे अभी 700 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 55% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 700 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 2000 | 1000 | 3000 | 1800
+Answer: 2000
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 93
+
+Explanation EN:
+Marks already secured:
+40 x 50 / 100
+= 20
+Extra marks required:
+Required marks gap =
+55 - 20
+= 35
+Maximum marks are:
+700 x 100 / 35
+= 2000
+Hence, maximum marks in the test = 2000
+
+Explanation HI:
+प्राप्त अंक:
+40 x 50 / 100
+= 20
+पास अंक का अंतर:
+55 - 20
+= 35
+अधिकतम अंक:
+700 x 100 / 35
+= 2000
+अधिकतम अंक = 2000
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 x 50 / 100
+= 20
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+55 - 20
+= 35
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+700 x 100 / 35
+= 2000
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 2000
+
+[Q47]
+EN:
+In a village council election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winning candidate got 62.5% of the valid votes and won by 13600 votes. Find the number of registered voters.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 62.5% वोट मिले और जीत का अंतर 13600 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 62.5% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 13600 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 85000 | 54000 | 68000 | 22000
+Answer: 85000
+Difficulty: Hard
+Topology: successive_filtering:turnout_margin
+Realism: 97
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+62.5 - 37.5
+= 25%
+
+Effective valid votes:
+13600 x 100 / 25
+= 54400
+
+Votes polled are:
+54400 x 100 / 80
+= 68000
+
+Registered voters are:
+68000 x 100 / 80
+= 85000
+
+Therefore, total votes = 85000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+62.5 - 37.5
+= 25%
+
+कुल वैध वोट:
+13600 x 100 / 25
+= 54400
+
+कुल वोट:
+54400 x 100 / 80
+= 68000
+
+कुल पंजीकृत मतदाता:
+68000 x 100 / 80
+= 85000
+
+कुल वोट = 85000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+62.5 - 37.5
+= 25%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+13600 x 100 / 25
+= 54400
+
+ਕੁੱਲ ਵੋਟ:
+54400 x 100 / 80
+= 68000
+
+ਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:
+68000 x 100 / 80
+= 85000
+
+ਕੁੱਲ ਵੋਟ = 85000
+
+[Q48]
+EN:
+In a municipal election, the winning candidate got 60% of the votes and another candidate got 24%. The remaining votes went to a third candidate. The winning candidate defeated the third candidate by 70400 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 60% वोट और दूसरे प्रत्याशी को 24% वोट मिले। शेष वोट तीसरे प्रत्याशी को मिले। विजयी उम्मीदवार ने तीसरे प्रत्याशी को 70400 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 60% ਵੋਟ ਅਤੇ ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੂੰ 24% ਵੋਟ ਮਿਲੇ। ਬਾਕੀ ਵੋਟ ਤੀਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਤੀਜੇ ਨੂੰ 70400 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 160000 | 195000 | 115000 | 144000
+Answer: 160000
+Difficulty: Medium
+Topology: remaining_component:remaining_vote_margin
+Realism: 78
+
+Explanation EN:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 60 - 24
+= 16
+Winning margin:
+Remaining vote share =
+60 - 16
+= 44%
+Total votes are:
+70400 x 100 / 44
+= 160000
+Therefore, total votes = 160000
+
+Explanation HI:
+जीत का अंतर:
+अन्य उम्मीदवारों के वोट =
+100 - 60 - 24
+= 16
+जीत का अंतर:
+मार्जिन प्रतिशत =
+60 - 16
+= 44%
+कुल वोट:
+70400 x 100 / 44
+= 160000
+कुल वोट = 160000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 60 - 24
+= 16
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+60 - 16
+= 44%
+ਕੁੱਲ ਵੋਟ:
+70400 x 100 / 44
+= 160000
+ਕੁੱਲ ਵੋਟ = 160000
+
+[Q49]
+EN:
+In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 20%, the score was still short of the pass mark by 15 marks. The pass mark was 70%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 45% अंक प्राप्त किए। 20% बोनस जोड़ने के बाद भी वह 15 अंकों से कम रह गया। उत्तीर्णांक 70% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 45% ਅੰਕ ਲਏ। 20% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 15 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 70% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 60 | 75 | 21.43
+Answer: 300
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 94
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+45 + 20
+= 65
+
+Pass mark difference:
+70 - 65
+= 5
+
+Maximum marks are:
+15 x 100 / 5
+= 300
+
+Thus, maximum marks = 300
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+45 + 20
+= 65
+
+पास अंक का अंतर:
+70 - 65
+= 5
+
+अधिकतम अंक:
+15 x 100 / 5
+= 300
+
+अधिकतम अंक = 300
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+45 + 20
+= 65
+
+ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:
+70 - 65
+= 5
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+15 x 100 / 5
+= 300
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q50]
+EN:
+In a constituency election, the winning candidate secured 55% of the votes and defeated the opponent by 14400 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 55% वोट मिले और उसने प्रतिद्वंद्वी को 14400 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 55% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 14400 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 144000 | 25000 | 30000 | 145000
+Answer: 144000
+Difficulty: Medium
+Topology: direct_mapping:direct_margin
+Realism: 78
+
+Explanation EN:
+Shortcut:
+10% votes = 14400
+So,
+100% votes =
+144000
+
+Apply the next relation:
+Winning margin:
+Margin percentage =
+55 - 45
+= 10%
+Total votes are:
+14400 x 100 / 10
+= 144000
+Total votes = 144000
+
+Explanation HI:
+शॉर्टकट:
+10% वोट = 14400
+तो,
+100% वोट =
+144000
+
+अगला प्रतिशत संबंध लगाएं:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+55 - 45
+= 10%
+कुल वोट:
+14400 x 100 / 10
+= 144000
+कुल वोट = 144000
+
+Explanation PA:
+ਸ਼ਾਰਟਕੱਟ:
+10% ਵੋਟ = 14400
+ਸੋ,
+100% ਵੋਟ =
+144000
+
+ਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+55 - 45
+= 10%
+ਕੁੱਲ ਵੋਟ:
+14400 x 100 / 10
+= 144000
+ਕੁੱਲ ਵੋਟ = 144000
+

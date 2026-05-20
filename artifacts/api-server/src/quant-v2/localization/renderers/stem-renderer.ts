@@ -2,6 +2,11 @@ import type { CanonicalPercentageProblem } from "../../canonical/percentage-type
 import type { EditorialRealization } from "../../editorial/editorial-types";
 import type { ReasoningGraph } from "../../reasoning/reasoning-graph-types";
 import type { RealizationProfile } from "../../editorial/realization-profiles";
+import {
+  COMMERCIAL_OBJECT_POOL,
+  selectCommercialObject,
+} from "../../editorial/commercial-object-pools";
+import { currency } from "../../editorial/quantity-formatting";
 import { roundClean } from "../../utils/math-utils";
 import type { LanguageCode } from "../contracts/language-contracts";
 import { extractStemIntent, type StemIntent } from "../intents/stem-intents";
@@ -28,29 +33,52 @@ function rateWordPa(value: number | undefined) {
   return (value ?? 0) < 0 ? "ਕਮੀ" : "ਵਾਧਾ";
 }
 
-function renderHindi(intent: StemIntent) {
+function relationWordHi(direction: number | undefined) {
+  return direction === 0 ? "कम" : "अधिक";
+}
+
+function relationWordPa(direction: number | undefined) {
+  return direction === 0 ? "ਘੱਟ" : "ਵੱਧ";
+}
+
+function commercialObjectForIntent(intent: StemIntent) {
+  const locked = COMMERCIAL_OBJECT_POOL.find(
+    (item) => item.id === intent.semanticAnchorKey,
+  );
+  if (locked) {
+    return locked;
+  }
+
+  return selectCommercialObject({
+    namespace: `${intent.key}|${intent.topologyVariant ?? ""}`,
+    seed: JSON.stringify(intent.values),
+  });
+}
+
+function renderHindi(intent: StemIntent, profile?: RealizationProfile) {
   const v = intent.values;
+  const commercialObject = commercialObjectForIntent(intent);
 
   switch (intent.key) {
     case "stem.successive_change":
-      return `एक वस्तु का मूल्य ${n(v.base)} था। इसमें पहले ${absPercent(v.firstRate)} ${rateWordHi(v.firstRate)} और फिर ${absPercent(v.secondRate)} ${rateWordHi(v.secondRate)} हुई। अंतिम मूल्य ज्ञात कीजिए।`;
+      return `${commercialObject.hi} का मूल्य ${currency(v.base, profile)} था। इसमें पहले ${absPercent(v.firstRate)} ${rateWordHi(v.firstRate)} और फिर ${absPercent(v.secondRate)} ${rateWordHi(v.secondRate)} हुई। अंतिम मूल्य ज्ञात कीजिए।`;
     case "stem.election_votes":
       if (intent.topologyVariant === "turnout_margin") {
-        return `एक निर्वाचन में ${absPercent(v.turnoutPercent)} पंजीकृत मतदाताओं ने मतदान किया। इनमें से ${absPercent(v.invalidPercent)} वोट अवैध थे। विजेता को वैध वोटों के ${absPercent(v.winnerPercent)} वोट मिले और जीत का अंतर ${n(v.margin)} वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।`;
+        return `एक निर्वाचन में ${absPercent(v.turnoutPercent)} पंजीकृत मतदाताओं ने मतदान किया। इनमें से ${absPercent(v.invalidPercent)} वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के ${absPercent(v.winnerPercent)} वोट मिले और जीत का अंतर ${n(v.margin)} वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।`;
       }
       if (intent.topologyVariant === "invalid_vote_margin") {
-        return `एक निर्वाचन में ${absPercent(v.invalidPercent)} वोट अवैध थे। विजेता को वैध वोटों के ${absPercent(v.winnerPercent)} वोट मिले और जीत का अंतर ${n(v.margin)} वोट था। कुल डाले गए वोट ज्ञात कीजिए।`;
+        return `एक निर्वाचन में ${absPercent(v.invalidPercent)} वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के ${absPercent(v.winnerPercent)} वोट मिले और जीत का अंतर ${n(v.margin)} वोट था। कुल डाले गए वोट ज्ञात कीजिए।`;
       }
       if (intent.topologyVariant === "multi_candidate_margin") {
-        return `एक निर्वाचन में प्रत्याशी A को ${absPercent(v.winnerPercent)} वोट और प्रत्याशी C को ${absPercent(v.thirdPercent)} वोट मिले। प्रत्याशी A ने प्रत्याशी B को ${n(v.margin)} वोटों से हराया। कुल वोट ज्ञात कीजिए।`;
+        return `एक निर्वाचन में विजयी उम्मीदवार को ${absPercent(v.winnerPercent)} वोट और प्रत्याशी C को ${absPercent(v.thirdPercent)} वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को ${n(v.margin)} वोटों से हराया। कुल वोट ज्ञात कीजिए।`;
       }
       if (intent.topologyVariant === "remaining_vote_margin") {
-        return `एक निर्वाचन में एक प्रत्याशी को ${absPercent(v.winnerPercent)} वोट और दूसरे को ${absPercent(v.knownOtherPercent)} वोट मिले। शेष वोट तीसरे प्रत्याशी को मिले। पहले प्रत्याशी ने तीसरे प्रत्याशी को ${n(v.margin)} वोटों से हराया। कुल वोट ज्ञात कीजिए।`;
+        return `एक निर्वाचन में विजयी उम्मीदवार को ${absPercent(v.winnerPercent)} वोट और दूसरे प्रत्याशी को ${absPercent(v.knownOtherPercent)} वोट मिले। शेष वोट तीसरे प्रत्याशी को मिले। विजयी उम्मीदवार ने तीसरे प्रत्याशी को ${n(v.margin)} वोटों से हराया। कुल वोट ज्ञात कीजिए।`;
       }
       if (intent.topologyVariant === "filtered_valid_vote_margin") {
-        return `एक निर्वाचन में ${absPercent(v.turnoutPercent)} पंजीकृत मतदाताओं ने मतदान किया और उनमें से ${absPercent(v.validPercent)} वोट वैध थे। विजेता को वैध वोटों के ${absPercent(v.winnerPercent)} वोट मिले। जीत का अंतर ${n(v.margin)} वोट था। विजेता के वोट ज्ञात कीजिए।`;
+        return `एक निर्वाचन में ${absPercent(v.turnoutPercent)} पंजीकृत मतदाताओं ने मतदान किया और उनमें से ${absPercent(v.validPercent)} वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के ${absPercent(v.winnerPercent)} वोट मिले। जीत का अंतर ${n(v.margin)} वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।`;
       }
-      return `एक निर्वाचन में विजेता को कुल वोटों के ${absPercent(v.winnerPercent)} वोट मिले और उसने प्रतिद्वंद्वी को ${n(v.margin)} वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।`;
+      return `एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के ${absPercent(v.winnerPercent)} वोट मिले और उसने प्रतिद्वंद्वी को ${n(v.margin)} वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।`;
     case "stem.pass_fail_marks":
       if (intent.topologyVariant === "pass_fail_gap") {
         return `एक परीक्षा में एक अभ्यर्थी ने ${absPercent(v.scoredPercent)} अंक प्राप्त किए और ${n(v.shortBy)} अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने ${absPercent(v.highScorePercent)} अंक प्राप्त किए और उत्तीर्णांक से ${n(v.excessBy)} अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।`;
@@ -82,37 +110,46 @@ function renderHindi(intent: StemIntent) {
     case "stem.price_consumption":
       return `ईंधन की कीमत ${absPercent(v.priceIncreasePercent)} बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?`;
     case "stem.shopkeeper_profit":
-      return `एक दुकानदार ने एक वस्तु ${n(v.costPrice)} में खरीदी और ${n(v.sellingPrice)} में बेची। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।`;
+      return `एक दुकानदार ने ${commercialObject.hi} ${currency(v.costPrice, profile)} में खरीदा और ${currency(v.sellingPrice, profile)} में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।`;
     case "stem.mixture_water_milk":
-      return `एक दूध-पानी मिश्रण की मात्रा ${n(v.total)} है और उसमें ${absPercent(v.initialPercent)} शुद्ध घटक है। इसे ${absPercent(v.targetPercent)} शुद्ध बनाने के लिए कितना शुद्ध घटक मिलाना होगा?`;
+      return `एक दूध-पानी मिश्रण की मात्रा ${n(v.total)} लीटर है और उसमें ${absPercent(v.initialPercent)} दूध है। दूध को ${absPercent(v.targetPercent)} करने के लिए कितना दूध मिलाना होगा?`;
+    case "stem.relational_percentage":
+      if ((v.relationCount ?? 1) >= 3) {
+        return `A की आय B से ${absPercent(v.relation1Percent)} ${relationWordHi(v.relation1Direction)} है। B की आय C से ${absPercent(v.relation2Percent)} ${relationWordHi(v.relation2Direction)} है। C की आय D से ${absPercent(v.relation3Percent)} ${relationWordHi(v.relation3Direction)} है। A की आय D से कितने प्रतिशत अधिक या कम है?`;
+      }
+      if ((v.relationCount ?? 1) >= 2) {
+        return `A की आय B से ${absPercent(v.relation1Percent)} ${relationWordHi(v.relation1Direction)} है। B की आय C से ${absPercent(v.relation2Percent)} ${relationWordHi(v.relation2Direction)} है। A की आय C से कितने प्रतिशत अधिक या कम है?`;
+      }
+      return `A की आय B से ${absPercent(v.relation1Percent)} ${relationWordHi(v.relation1Direction)} है। A की आय B से कितने प्रतिशत अधिक या कम है?`;
     default:
       return intent.fallbackText;
   }
 }
 
-function renderPunjabi(intent: StemIntent) {
+function renderPunjabi(intent: StemIntent, profile?: RealizationProfile) {
   const v = intent.values;
+  const commercialObject = commercialObjectForIntent(intent);
 
   switch (intent.key) {
     case "stem.successive_change":
-      return `ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ${n(v.base)} ਸੀ। ਪਹਿਲਾਂ ${absPercent(v.firstRate)} ${rateWordPa(v.firstRate)} ਅਤੇ ਫਿਰ ${absPercent(v.secondRate)} ${rateWordPa(v.secondRate)} ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।`;
+      return `${commercialObject.pa} ਦੀ ਕੀਮਤ ${currency(v.base, profile)} ਸੀ। ਪਹਿਲਾਂ ${absPercent(v.firstRate)} ${rateWordPa(v.firstRate)} ਅਤੇ ਫਿਰ ${absPercent(v.secondRate)} ${rateWordPa(v.secondRate)} ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।`;
     case "stem.election_votes":
       if (intent.topologyVariant === "turnout_margin") {
-        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ${absPercent(v.turnoutPercent)} ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ${absPercent(v.invalidPercent)} ਵੋਟ ਅਵੈਧ ਸਨ। ਜੇਤੂ ਨੂੰ ਵੈਧ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ ${n(v.margin)} ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
+        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ${absPercent(v.turnoutPercent)} ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ${absPercent(v.invalidPercent)} ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ ${n(v.margin)} ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
       }
       if (intent.topologyVariant === "invalid_vote_margin") {
-        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ${absPercent(v.invalidPercent)} ਵੋਟ ਅਵੈਧ ਸਨ। ਜੇਤੂ ਨੂੰ ਵੈਧ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ ${n(v.margin)} ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।`;
+        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ${absPercent(v.invalidPercent)} ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ ${n(v.margin)} ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।`;
       }
       if (intent.topologyVariant === "multi_candidate_margin") {
-        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ਉਮੀਦਵਾਰ A ਨੂੰ ${absPercent(v.winnerPercent)} ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ ${absPercent(v.thirdPercent)} ਵੋਟ ਮਿਲੇ। ਉਮੀਦਵਾਰ A ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ ${n(v.margin)} ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।`;
+        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ${absPercent(v.winnerPercent)} ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ ${absPercent(v.thirdPercent)} ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ ${n(v.margin)} ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।`;
       }
       if (intent.topologyVariant === "remaining_vote_margin") {
-        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੂੰ ${absPercent(v.winnerPercent)} ਵੋਟ ਅਤੇ ਦੂਜੇ ਨੂੰ ${absPercent(v.knownOtherPercent)} ਵੋਟ ਮਿਲੇ। ਬਾਕੀ ਵੋਟ ਤੀਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ਮਿਲੇ। ਪਹਿਲੇ ਉਮੀਦਵਾਰ ਨੇ ਤੀਜੇ ਨੂੰ ${n(v.margin)} ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।`;
+        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ${absPercent(v.winnerPercent)} ਵੋਟ ਅਤੇ ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ${absPercent(v.knownOtherPercent)} ਵੋਟ ਮਿਲੇ। ਬਾਕੀ ਵੋਟ ਤੀਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਤੀਜੇ ਨੂੰ ${n(v.margin)} ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।`;
       }
       if (intent.topologyVariant === "filtered_valid_vote_margin") {
-        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ${absPercent(v.turnoutPercent)} ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ ${absPercent(v.validPercent)} ਵੋਟ ਵੈਧ ਸਨ। ਜੇਤੂ ਨੂੰ ਵੈਧ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ ${n(v.margin)} ਵੋਟ ਸੀ। ਜੇਤੂ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।`;
+        return `ਇੱਕ ਚੋਣ ਵਿੱਚ ${absPercent(v.turnoutPercent)} ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ ${absPercent(v.validPercent)} ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ ${n(v.margin)} ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।`;
       }
-      return `ਇੱਕ ਚੋਣ ਵਿੱਚ ਜੇਤੂ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ ${n(v.margin)} ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।`;
+      return `ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ ${absPercent(v.winnerPercent)} ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ ${n(v.margin)} ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।`;
     case "stem.pass_fail_marks":
       if (intent.topologyVariant === "pass_fail_gap") {
         return `ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ ${absPercent(v.scoredPercent)} ਅੰਕ ਲਏ ਅਤੇ ${n(v.shortBy)} ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ ${absPercent(v.highScorePercent)} ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ ${n(v.excessBy)} ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।`;
@@ -144,9 +181,17 @@ function renderPunjabi(intent: StemIntent) {
     case "stem.price_consumption":
       return `ਈਂਧਨ ਦੀ ਕੀਮਤ ${absPercent(v.priceIncreasePercent)} ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?`;
     case "stem.shopkeeper_profit":
-      return `ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਇੱਕ ਵਸਤੂ ${n(v.costPrice)} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ${n(v.sellingPrice)} ਵਿੱਚ ਵੇਚੀ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।`;
+      return `ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ${commercialObject.pa} ${currency(v.costPrice, profile)} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ${currency(v.sellingPrice, profile)} ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।`;
     case "stem.mixture_water_milk":
-      return `ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ${n(v.total)} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ${absPercent(v.initialPercent)} ਸ਼ੁੱਧ ਹਿੱਸਾ ਹੈ। ਇਸ ਨੂੰ ${absPercent(v.targetPercent)} ਸ਼ੁੱਧ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਹਿੱਸਾ ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?`;
+      return `ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ${n(v.total)} ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ${absPercent(v.initialPercent)} ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ ${absPercent(v.targetPercent)} ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?`;
+    case "stem.relational_percentage":
+      if ((v.relationCount ?? 1) >= 3) {
+        return `A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ${absPercent(v.relation1Percent)} ${relationWordPa(v.relation1Direction)} ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ${absPercent(v.relation2Percent)} ${relationWordPa(v.relation2Direction)} ਹੈ। C ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ${absPercent(v.relation3Percent)} ${relationWordPa(v.relation3Direction)} ਹੈ। A ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?`;
+      }
+      if ((v.relationCount ?? 1) >= 2) {
+        return `A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ${absPercent(v.relation1Percent)} ${relationWordPa(v.relation1Direction)} ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ${absPercent(v.relation2Percent)} ${relationWordPa(v.relation2Direction)} ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?`;
+      }
+      return `A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ${absPercent(v.relation1Percent)} ${relationWordPa(v.relation1Direction)} ਹੈ। A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?`;
     default:
       return intent.fallbackText;
   }
@@ -179,10 +224,10 @@ function renderLocalizedStemWithProfile(input: {
   profile?: RealizationProfile;
 }) {
   if (input.language === "hi") {
-    return renderHindi(input.intent);
+    return renderHindi(input.intent, input.profile);
   }
   if (input.language === "pa") {
-    return renderPunjabi(input.intent);
+    return renderPunjabi(input.intent, input.profile);
   }
   return input.intent.fallbackText;
 }

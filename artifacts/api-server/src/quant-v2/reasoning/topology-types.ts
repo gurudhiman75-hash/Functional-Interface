@@ -14,7 +14,15 @@ export type TopologyFamily =
   | "ratio_percentage_hybrid"
   | "effective_percentage"
   | "base_shift"
-  | "layered_population";
+  | "layered_population"
+  | "relational_chain"
+  | "reverse_relation"
+  | "nested_relation"
+  | "comparison_bridge"
+  | "percentage_ratio_hybrid"
+  | "relative_difference_chain"
+  | "inverse_percentage_mapping"
+  | "multi_entity_percentage_network";
 
 export type ElectionTopology =
   | "direct_margin"
@@ -36,10 +44,19 @@ export type PopulationTopology =
   | "migration_adjusted_population"
   | "male_female_population_shift";
 
+export type RelationalPercentageTopology =
+  | "single_relation"
+  | "two_step_relation_chain"
+  | "three_step_relation_chain"
+  | "reverse_relation_inference"
+  | "ratio_percentage_bridge"
+  | "hidden_base_relation_chain";
+
 export type TopologyVariant =
   | ElectionTopology
   | PassFailTopology
-  | PopulationTopology;
+  | PopulationTopology
+  | RelationalPercentageTopology;
 
 export type FilteringStageKind =
   | "percentage_filter"
@@ -76,7 +93,10 @@ export type MisconceptionId =
   | "additive_instead_of_multiplicative"
   | "ignoring_remaining_component"
   | "ratio_confusion"
-  | "using_stated_base_as_effective_base";
+  | "using_stated_base_as_effective_base"
+  | "incorrect_inversion"
+  | "normalization_error"
+  | "transitive_shortcut_error";
 
 export interface MisconceptionDistractor {
   misconception: MisconceptionId;

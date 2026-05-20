@@ -21,7 +21,7 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.new_price": "नई कीमत",
   "label.new_consumption": "नई खपत",
   "label.reduction_consumption": "खपत में कमी",
-  "label.salary_difference": "वेतन में वृद्धि",
+  "label.salary_difference": "वेतन में बदलाव",
   "label.percentage_change": "प्रतिशत परिवर्तन",
   "label.profit_amount": "लाभ",
   "label.loss_amount": "हानि",
@@ -29,7 +29,7 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.loss_percentage": "हानि प्रतिशत",
   "label.final_value": "अंतिम मान",
   "label.value_after_first_change": "पहले बदलाव के बाद मान",
-  "label.remaining_value": "शेष मान",
+  "label.remaining_value": "बचा हुआ भाग",
   "label.required_increase": "आवश्यक वृद्धि",
   "label.total_value": "कुल मान",
   "label.unchanged_quantity": "अपरिवर्तित मात्रा",
@@ -57,7 +57,7 @@ function labelLine(intent: EditorialIntent) {
     return `मार्जिन प्रतिशत${suffix}`;
   }
   if (intent.key === "label.remaining_value" && suffix === " =") {
-    return `शेष प्रतिशत${suffix}`;
+    return `बचा हुआ भाग${suffix}`;
   }
   if (intent.key === "label.required_increase" && suffix === " =") {
     return `वृद्धि प्रतिशत${suffix}`;
@@ -65,25 +65,32 @@ function labelLine(intent: EditorialIntent) {
   if (intent.key === "label.unchanged_quantity" && suffix === " =") {
     return `स्थिर मात्रा${suffix}`;
   }
+  if (intent.key === "label.quantity_to_add" && /milk/iu.test(intent.sourceText)) {
+    return `जोड़ा जाने वाला दूध${suffix}`;
+  }
   return `${label(intent)}${suffix}`;
 }
 
-function ending(intent: EditorialIntent) {
-  const rawValue = String(intent.params?.value ?? "");
-  const value = rawValue
+function localizeSemantic(value: string) {
+  return value
+    .replace(/ more$/u, " अधिक")
+    .replace(/ less$/u, " कम")
     .replace(/ increase$/u, " वृद्धि")
     .replace(/ decrease$/u, " कमी")
     .replace(/ reduction$/u, " कमी")
     .replace(/ profit$/u, " लाभ")
     .replace(/ loss$/u, " हानि");
+}
+
+function ending(intent: EditorialIntent) {
+  const value = localizeSemantic(String(intent.params?.value ?? ""));
   if (intent.params?.prefix === "=") {
     const semantic =
       intent.params.semantic === "increase"
         ? "वृद्धि"
-        : intent.params.semantic === "decrease"
+        : intent.params.semantic === "decrease" ||
+            intent.params.semantic === "reduction"
           ? "कमी"
-          : intent.params.semantic === "reduction"
-            ? "कमी"
           : intent.params.semantic === "profit"
             ? "लाभ"
             : intent.params.semantic === "loss"
@@ -157,7 +164,7 @@ export const hindiRenderer: LanguageRenderer = {
       return "लक्ष्य मिश्रण के लिए:";
     }
     if (intent.key === "narration.remaining_value") {
-      return "कमी के बाद शेष मान:";
+      return "कमी के बाद बचा हुआ भाग:";
     }
     if (intent.key === "narration.full_value") {
       return "100% मान:";
@@ -175,7 +182,10 @@ export const hindiRenderer: LanguageRenderer = {
       return "सीधा संबंध:";
     }
     if (intent.key === "narration.percentage_relation") {
-      return "प्रतिशत संबंध से:";
+      return "अगला प्रतिशत संबंध लगाएं:";
+    }
+    if (intent.key === "narration.after_bonus") {
+      return "बोनस जोड़ने के बाद:";
     }
     if (intent.key === "narration.growth_period") {
       return `${intent.params?.years} वर्षों तक वृद्धि लागू होती है।`;

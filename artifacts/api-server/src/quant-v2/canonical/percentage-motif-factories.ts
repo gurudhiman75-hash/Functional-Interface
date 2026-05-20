@@ -105,6 +105,7 @@ function problem(
     }),
     traps: data.traps,
     difficulty: data.difficulty,
+    topology: data.topology,
   });
 }
 
@@ -114,6 +115,189 @@ function difficultyFromRates(rates: readonly number[]): Difficulty {
     : rates.some((rate) => Math.abs(rate) >= 25)
       ? "medium"
       : "easy";
+}
+
+const RELATIONAL_PERCENTAGES = [10, 20, 25, 40, 50] as const;
+
+function relationMultiplierPercent(percent: number, direction: number) {
+  return direction === 1 ? 100 + percent : 100 - percent;
+}
+
+function relationDifficulty(relationCount: number, hasInverse: boolean): Difficulty {
+  if (relationCount >= 3 || hasInverse) {
+    return "hard";
+  }
+  if (relationCount === 2) {
+    return "medium";
+  }
+  return "easy";
+}
+
+export function createRelationalPercentageProblem(
+  input?: PercentageMotifFactoryInput,
+): CanonicalPercentageProblem {
+  const rng = rngFromInput(input);
+  const variants = [
+    "single_relation",
+    "two_step_relation_chain",
+    "three_step_relation_chain",
+    "reverse_relation_inference",
+    "ratio_percentage_bridge",
+    "hidden_base_relation_chain",
+  ] as const;
+  const variant = rng.pick(variants);
+  const relationCount =
+    variant === "single_relation" || variant === "ratio_percentage_bridge"
+      ? 1
+      : variant === "two_step_relation_chain" ||
+          variant === "reverse_relation_inference" ||
+          variant === "hidden_base_relation_chain"
+        ? 2
+        : 3;
+  const hasInverse =
+    variant === "reverse_relation_inference" ||
+    variant === "hidden_base_relation_chain";
+  const directions = [1, -1, 1, -1].slice(0, relationCount);
+  const relationPercents = Array.from({ length: relationCount }, (_, index) =>
+    rng.pick(RELATIONAL_PERCENTAGES.slice(index % 2, index % 2 + 4)),
+  );
+  const multipliers = relationPercents.map((percent, index) =>
+    relationMultiplierPercent(percent, directions[index] ?? 1),
+  );
+  let ratioNumerator = 0;
+  let ratioDenominator = 0;
+
+  if (variant === "ratio_percentage_bridge") {
+    const ratioPairs = [
+      [6, 5],
+      [5, 4],
+      [9, 8],
+      [4, 5],
+      [3, 4],
+    ] as const;
+    [ratioNumerator, ratioDenominator] = rng.pick(ratioPairs);
+    multipliers[0] = sanitizeValue((ratioNumerator * 100) / ratioDenominator);
+    relationPercents[0] = sanitizeValue(Math.abs(multipliers[0]! - 100));
+    directions[0] = multipliers[0]! >= 100 ? 1 : -1;
+  }
+
+  let runningIndex = 100;
+  const intermediateValues: number[] = [];
+  for (const multiplier of multipliers) {
+    runningIndex = sanitizeValue((runningIndex * multiplier) / 100);
+    intermediateValues.push(runningIndex);
+  }
+
+  const answer = sanitizeValue(runningIndex - 100);
+  const additive = sanitizeValue(
+    relationPercents.reduce(
+      (sum, percent, index) => sum + percent * (directions[index] ?? 1),
+      0,
+    ),
+  );
+  const inverseError = sanitizeValue((10000 / runningIndex) - 100);
+  const wrongBase = sanitizeValue((relationPercents.at(-1) ?? 20) * (directions.at(-1) ?? 1));
+  const normalizedToBase = sanitizeValue(runningIndex);
+
+  const variables: Record<string, number> = {
+    baseIndex: 100,
+    relationCount,
+    relation1Percent: relationPercents[0] ?? 0,
+    relation1Direction: directions[0] === 1 ? 1 : 0,
+    relation1Index: multipliers[0] ?? 100,
+    afterRelation1: intermediateValues[0] ?? runningIndex,
+    finalIndex: runningIndex,
+  };
+  if (relationCount >= 2) {
+    variables.relation2Percent = relationPercents[1] ?? 0;
+    variables.relation2Direction = directions[1] === 1 ? 1 : 0;
+    variables.relation2Index = multipliers[1] ?? 100;
+    variables.afterRelation2 = intermediateValues[1] ?? runningIndex;
+  }
+  if (relationCount >= 3) {
+    variables.relation3Percent = relationPercents[2] ?? 0;
+    variables.relation3Direction = directions[2] === 1 ? 1 : 0;
+    variables.relation3Index = multipliers[2] ?? 100;
+    variables.afterRelation3 = intermediateValues[2] ?? runningIndex;
+  }
+  if (variant === "ratio_percentage_bridge") {
+    variables.ratioNumerator = ratioNumerator;
+    variables.ratioDenominator = ratioDenominator;
+  }
+
+  const family =
+    variant === "ratio_percentage_bridge"
+      ? "percentage_ratio_hybrid"
+      : variant === "reverse_relation_inference"
+        ? "reverse_relation"
+        : variant === "hidden_base_relation_chain"
+          ? "inverse_percentage_mapping"
+          : variant === "three_step_relation_chain"
+            ? "multi_entity_percentage_network"
+            : "relational_chain";
+
+  return problem({
+    id: "relational_percentage",
+    category: variant === "ratio_percentage_bridge" ? "ratio_mapping" : "comparison",
+    subtype: "relational_percentage",
+    reasoningPattern: "relational_chain",
+    variables,
+    answer,
+    candidates: [
+      {
+        trap: "simple_addition",
+        value: additive,
+      },
+      {
+        trap: "incorrect_inversion",
+        value: inverseError,
+      },
+      {
+        trap: "wrong_base",
+        value: wrongBase,
+      },
+      {
+        trap: "normalization_error",
+        value: normalizedToBase,
+      },
+      {
+        trap: "transitive_shortcut_error",
+        value: sanitizeValue(additive + wrongBase),
+      },
+    ],
+    traps: [
+      "wrong_base",
+      "incorrect_inversion",
+      "normalization_error",
+      "transitive_shortcut_error",
+    ],
+    difficulty: relationDifficulty(relationCount, hasInverse),
+    topology: {
+      family,
+      variant,
+      hiddenBase: hasInverse
+        ? {
+            baseVariable: "baseIndex",
+            knownVariable: "afterRelation1",
+            percentVariable: "relation1Index",
+          }
+        : undefined,
+      misconceptionDistractors: [
+        {
+          misconception: "transitive_shortcut_error",
+          value: additive,
+        },
+        {
+          misconception: "incorrect_inversion",
+          value: inverseError,
+        },
+        {
+          misconception: "normalization_error",
+          value: normalizedToBase,
+        },
+      ],
+    },
+  });
 }
 
 export function createSuccessiveIncreaseDecreaseProblem(
@@ -453,6 +637,7 @@ export const PERCENTAGE_MOTIF_FACTORIES = {
   priceConsumption: createPriceConsumptionProblem,
   profitLoss: createProfitLossProblem,
   mixturePercentage: createMixturePercentageProblem,
+  relationalPercentage: createRelationalPercentageProblem,
 } satisfies Record<string, PercentageMotifFactory>;
 
 export const PERCENTAGE_MOTIF_FACTORY_LIST = Object.values(

@@ -31,5 +31,6 @@ export function isPercentageAnswer(problem: CanonicalPercentageProblem) {
     "price_consumption",
     "restore_original",
     "salary_revision",
+    "relational_percentage",
   ].includes(problem.subtype);
 }

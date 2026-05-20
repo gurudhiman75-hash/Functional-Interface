@@ -264,6 +264,13 @@ function validateBranches(
       final?.inputVariables.filter((input) => input !== "answer") ?? [];
     const hasAnswerEquivalentOutput = outputInputs.some((input) =>
       closeEnough(variables[input] ?? Number.NaN, problem.answer),
+    ) || (
+      problem.subtype === "relational_percentage" &&
+      outputInputs.includes("relativeDifference") &&
+      closeEnough(
+        (variables.finalIndex ?? Number.NaN) - (variables.baseIndex ?? 100),
+        problem.answer,
+      )
     );
 
     if (!hasAnswerEquivalentOutput) {

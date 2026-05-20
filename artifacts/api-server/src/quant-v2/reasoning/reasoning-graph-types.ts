@@ -17,6 +17,10 @@ export type ReasoningStepType =
   | "reconstruct_component"
   | "aggregate_components"
   | "mixture_balance"
+  | "relation_transformation"
+  | "relation_inversion"
+  | "relation_normalization"
+  | "comparison_inference"
   | "final_answer";
 
 export interface ReasoningStep {
@@ -37,7 +41,8 @@ export interface ReasoningBranch {
     | "shortcut"
     | "proportional"
     | "unitary"
-    | "reverse";
+    | "reverse"
+    | "relational";
   steps: ReasoningStep[];
 }
 

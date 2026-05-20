@@ -5,6 +5,7 @@ import type {
 } from "../../canonical/percentage-types";
 import type { EditorialRealization } from "../../editorial/editorial-types";
 import type { ReasoningGraph } from "../../reasoning/reasoning-graph-types";
+import { detectCommercialAnchorKeyFromEnglish } from "../../semantic/anchorLexicon";
 
 export type StemIntentKey =
   | "stem.successive_change"
@@ -17,6 +18,7 @@ export type StemIntentKey =
   | "stem.price_consumption"
   | "stem.shopkeeper_profit"
   | "stem.mixture_water_milk"
+  | "stem.relational_percentage"
   | "stem.general_percentage";
 
 export type ScenarioAnchor =
@@ -30,6 +32,7 @@ export type ScenarioAnchor =
   | "fuel_consumption"
   | "shopkeeper_profit"
   | "mixture_water_milk"
+  | "relational_percentage"
   | "general_percentage";
 
 export interface StemIntent {
@@ -39,6 +42,7 @@ export interface StemIntent {
   subtype: PercentageSubtype;
   topologyVariant?: string;
   scenarioAnchor: ScenarioAnchor;
+  semanticAnchorKey?: string;
   values: Record<string, number>;
 }
 
@@ -77,6 +81,8 @@ function scenarioAnchor(problem: CanonicalPercentageProblem): ScenarioAnchor {
       return "shopkeeper_profit";
     case "mixture_percentage":
       return "mixture_water_milk";
+    case "relational_percentage":
+      return "relational_percentage";
     default:
       return "general_percentage";
   }
@@ -117,6 +123,8 @@ function stemIntentKey(problem: CanonicalPercentageProblem): StemIntentKey {
       return "stem.shopkeeper_profit";
     case "mixture_percentage":
       return "stem.mixture_water_milk";
+    case "relational_percentage":
+      return "stem.relational_percentage";
     default:
       return "stem.general_percentage";
   }
@@ -134,6 +142,9 @@ export function extractStemIntent(input: {
     subtype: input.problem.subtype,
     topologyVariant: input.problem.topology?.variant,
     scenarioAnchor: scenarioAnchor(input.problem),
+    semanticAnchorKey: detectCommercialAnchorKeyFromEnglish(
+      input.editorial.stem,
+    ),
     values: input.problem.variables,
   };
 }

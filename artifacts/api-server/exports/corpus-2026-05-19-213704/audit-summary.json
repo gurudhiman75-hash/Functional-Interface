@@ -1,0 +1,115 @@
+{
+  "generatedCount": 500,
+  "topologyDistribution": {
+    "none:reverse_percentage": 41,
+    "relational_chain:two_step_relation_chain": 9,
+    "none:salary_revision": 53,
+    "inverse_percentage_mapping:hidden_base_relation_chain": 11,
+    "layered_population:male_female_population_shift": 12,
+    "none:mixture_percentage": 37,
+    "none:price_consumption": 46,
+    "none:restore_original": 37,
+    "base_shift:successive_mark_adjustment": 8,
+    "relational_chain:single_relation": 9,
+    "multi_entity_percentage_network:three_step_relation_chain": 9,
+    "none:increase_then_decrease": 45,
+    "none:profit_loss": 58,
+    "direct_mapping:single_growth": 9,
+    "reverse_relation:reverse_relation_inference": 6,
+    "remaining_component:remaining_vote_margin": 8,
+    "base_shift:growth_then_decay": 10,
+    "direct_mapping:simple_shortfall": 16,
+    "multi_entity_distribution:multi_candidate_margin": 5,
+    "layered_population:migration_adjusted_population": 9,
+    "direct_mapping:direct_margin": 8,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 9,
+    "effective_percentage:filtered_valid_vote_margin": 9,
+    "filtered_base:invalid_vote_margin": 11,
+    "successive_filtering:turnout_margin": 7,
+    "successive_filtering:remaining_marks_required": 9,
+    "hidden_total:pass_fail_gap": 9
+  },
+  "subtypeDistribution": {
+    "reverse_percentage": 41,
+    "relational_percentage": 53,
+    "salary_revision": 53,
+    "population_growth": 40,
+    "mixture_percentage": 37,
+    "price_consumption": 46,
+    "restore_original": 37,
+    "pass_fail": 42,
+    "increase_then_decrease": 45,
+    "profit_loss": 58,
+    "election_margin": 48
+  },
+  "difficultyDistribution": {
+    "Easy": 235,
+    "Medium": 190,
+    "Hard": 75
+  },
+  "compactnessDistribution": {
+    "compact": 500
+  },
+  "domainDistribution": {
+    "base_change": 123,
+    "comparison": 86,
+    "finance": 53,
+    "population": 40,
+    "mixture": 37,
+    "expenditure": 46,
+    "commercial": 58,
+    "election": 48,
+    "ratio_mapping": 9
+  },
+  "objectFrequency": {
+    "refrigerator": 12,
+    "television": 12,
+    "bicycle": 13,
+    "wheat bag": 13,
+    "cooking oil tin": 11,
+    "sugar packet": 11,
+    "mobile phone": 6,
+    "laptop": 7,
+    "school bag": 5,
+    "rice bag": 8,
+    "shirt": 5
+  },
+  "realismScores": {
+    "min": 80,
+    "max": 98,
+    "average": 90.95
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [
+    "Opening repeated 16 times: in a coaching institute test, the marks",
+    "Opening repeated 37 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 14 times: in a district census report, the counted",
+    "Opening repeated 11 times: fuel price increased by 10%. if total",
+    "Opening repeated 11 times: fuel price increased by 50%. if total"
+  ],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 10.27,
+    "hindiAverageLines": 10.21,
+    "punjabiAverageLines": 10.21
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 11.7,
+  "exportWarnings": [
+    "Opening repeated 16 times: in a coaching institute test, the marks",
+    "Opening repeated 37 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 14 times: in a district census report, the counted",
+    "Opening repeated 11 times: fuel price increased by 10%. if total",
+    "Opening repeated 11 times: fuel price increased by 50%. if total"
+  ]
+}

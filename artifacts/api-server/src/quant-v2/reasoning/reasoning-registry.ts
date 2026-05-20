@@ -11,6 +11,7 @@ import {
   buildPopulationGrowthGraph,
   buildPriceConsumptionGraph,
   buildProfitLossGraph,
+  buildRelationalPercentageGraph,
   buildRestoreValueGraph,
   buildReversePercentageGraph,
   buildSalaryRevisionGraph,
@@ -31,23 +32,28 @@ export const REASONING_GRAPH_BUILDERS: Partial<
   price_consumption: buildPriceConsumptionGraph,
   profit_loss: buildProfitLossGraph,
   mixture_percentage: buildMixturePercentageGraph,
+  relational_percentage: buildRelationalPercentageGraph,
 };
 
 export function buildReasoningGraph(
   problem: CanonicalPercentageProblem,
 ): ReasoningGraph {
-  if (problem.topology) {
+  if (problem.topology && problem.subtype !== "relational_percentage") {
     return buildTopologyReasoningGraph(problem);
   }
 
   const builder =
     REASONING_GRAPH_BUILDERS[problem.subtype];
 
-  if (!builder) {
-    throw new Error(
-      `No reasoning graph builder registered for subtype: ${problem.subtype}.`,
-    );
+  if (builder) {
+    return builder(problem);
   }
 
-  return builder(problem);
+  if (problem.topology) {
+    return buildTopologyReasoningGraph(problem);
+  }
+
+  throw new Error(
+    `No reasoning graph builder registered for subtype: ${problem.subtype}.`,
+  );
 }

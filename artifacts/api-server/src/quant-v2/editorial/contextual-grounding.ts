@@ -16,18 +16,11 @@ export type ContextualGrounding = {
 const GROUNDINGS = {
   increase_then_decrease: [
     {
-      opening: "A quantity",
-      subject: "the quantity",
-      objectNoun: "quantity",
-      anchor: "quantity_change",
-      pattern: "compact_quantity_change",
-    },
-    {
-      opening: "The price of an item",
+      opening: "Product price",
       subject: "the price",
       objectNoun: "price",
-      anchor: "item_price_change",
-      pattern: "item_price_change",
+      anchor: "product_price_change",
+      pattern: "product_price_change",
     },
     {
       opening: "The marked price",
@@ -44,13 +37,6 @@ const GROUNDINGS = {
       objectNoun: "marks",
       anchor: "reverse_marks",
       pattern: "test_marks_reverse",
-    },
-    {
-      opening: "A quantity",
-      subject: "the quantity",
-      objectNoun: "quantity",
-      anchor: "reverse_quantity",
-      pattern: "quantity_reverse",
     },
     {
       opening: "In a district census report",
@@ -75,13 +61,6 @@ const GROUNDINGS = {
       anchor: "restore_salary",
       pattern: "salary_restore",
     },
-    {
-      opening: "A quantity",
-      subject: "the quantity",
-      objectNoun: "quantity",
-      anchor: "restore_quantity",
-      pattern: "quantity_restore",
-    },
   ],
   salary_revision: [
     {
@@ -103,11 +82,11 @@ const GROUNDINGS = {
   ],
   profit_loss: [
     {
-      opening: "A shopkeeper sold an item",
-      subject: "the item",
+      opening: "A shopkeeper sold a product",
+      subject: "the product",
       objectNoun: "price",
       anchor: "shopkeeper_profit",
-      pattern: "shopkeeper_item_profit_loss",
+      pattern: "shopkeeper_product_profit_loss",
     },
   ],
   mixture_percentage: [

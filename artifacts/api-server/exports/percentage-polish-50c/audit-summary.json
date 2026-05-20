@@ -1,0 +1,216 @@
+{
+  "generatedCount": 50,
+  "topologyDistribution": {
+    "relational_chain:two_step_relation_chain": 4,
+    "none:restore_original": 3,
+    "direct_mapping:single_growth": 1,
+    "none:price_consumption": 4,
+    "successive_filtering:turnout_margin": 3,
+    "none:mixture_percentage": 4,
+    "successive_filtering:remaining_marks_required": 4,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 3,
+    "reverse_relation:reverse_relation_inference": 2,
+    "multi_entity_percentage_network:three_step_relation_chain": 3,
+    "none:salary_revision": 4,
+    "none:reverse_percentage": 4,
+    "effective_percentage:filtered_valid_vote_margin": 1,
+    "remaining_component:remaining_vote_margin": 1,
+    "base_shift:successive_mark_adjustment": 2,
+    "relational_chain:single_relation": 1,
+    "multi_entity_distribution:multi_candidate_margin": 2,
+    "direct_mapping:direct_margin": 1,
+    "filtered_base:invalid_vote_margin": 1,
+    "inverse_percentage_mapping:hidden_base_relation_chain": 1,
+    "direct_mapping:simple_shortfall": 1
+  },
+  "subtypeDistribution": {
+    "relational_percentage": 14,
+    "restore_original": 3,
+    "population_growth": 1,
+    "price_consumption": 4,
+    "election_margin": 9,
+    "mixture_percentage": 4,
+    "pass_fail": 7,
+    "salary_revision": 4,
+    "reverse_percentage": 4
+  },
+  "difficultyDistribution": {
+    "Medium": 18,
+    "Easy": 18,
+    "Hard": 14
+  },
+  "compactnessDistribution": {
+    "compact": 50
+  },
+  "domainDistribution": {
+    "comparison": 18,
+    "base_change": 7,
+    "population": 1,
+    "expenditure": 4,
+    "election": 9,
+    "mixture": 4,
+    "ratio_mapping": 3,
+    "finance": 4
+  },
+  "objectFrequency": {},
+  "realismScores": {
+    "min": 65,
+    "max": 98,
+    "average": 80.16
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 12.02,
+    "hindiAverageLines": 11.7,
+    "punjabiAverageLines": 11.7
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 0.7,
+  "exportWarnings": [],
+  "scheduler": {
+    "profileId": "ssc_mock",
+    "targetCount": 50,
+    "acceptedCount": 50,
+    "topologyDistribution": {
+      "relational_chain:two_step_relation_chain": 4,
+      "simple:restore_original": 3,
+      "direct_mapping:single_growth": 1,
+      "simple:price_consumption": 4,
+      "successive_filtering:turnout_margin": 3,
+      "simple:mixture_percentage": 4,
+      "successive_filtering:remaining_marks_required": 4,
+      "percentage_ratio_hybrid:ratio_percentage_bridge": 3,
+      "reverse_relation:reverse_relation_inference": 2,
+      "multi_entity_percentage_network:three_step_relation_chain": 3,
+      "simple:salary_revision": 4,
+      "simple:reverse_percentage": 4,
+      "effective_percentage:filtered_valid_vote_margin": 1,
+      "remaining_component:remaining_vote_margin": 1,
+      "base_shift:successive_mark_adjustment": 2,
+      "relational_chain:single_relation": 1,
+      "multi_entity_distribution:multi_candidate_margin": 2,
+      "direct_mapping:direct_margin": 1,
+      "filtered_base:invalid_vote_margin": 1,
+      "inverse_percentage_mapping:hidden_base_relation_chain": 1,
+      "direct_mapping:simple_shortfall": 1
+    },
+    "topologyGroupDistribution": {
+      "relational": 8,
+      "reverse_logic": 10,
+      "filtered": 14,
+      "hybrid": 11,
+      "simple_template": 5,
+      "multi_step": 2
+    },
+    "examinerIntentDistribution": {
+      "reverse_relation": 14,
+      "hidden_total": 7,
+      "wrong_base": 8,
+      "consumption_inverse": 4,
+      "valid_vs_total": 5,
+      "component_balance": 4,
+      "hidden_base": 4,
+      "denominator_confusion": 4
+    },
+    "semanticAnchorDistribution": {
+      "relational:income": 14,
+      "general:general_quantity": 7,
+      "population:population": 1,
+      "expenditure:fuel": 4,
+      "election:votes": 9,
+      "mixture:milk_water_mixture": 4,
+      "marks:marks": 7,
+      "salary:salary": 4
+    },
+    "distractorTrapDistribution": {
+      "inverse_relation_error": 28,
+      "near_miss": 62,
+      "wrong_base": 19,
+      "reverse_percentage": 15,
+      "multiplicative_confusion": 7,
+      "filtering_mistake": 10,
+      "valid_vs_total_confusion": 5,
+      "additive_error": 4
+    },
+    "difficultyDistribution": {
+      "medium": 18,
+      "easy": 18,
+      "hard": 14
+    },
+    "duplicateRisk": {
+      "repeatedFingerprintCount": 0,
+      "repeatedFingerprintShare": 0,
+      "uniqueFingerprintCount": 50,
+      "repeatedTopologyVectorCount": 1,
+      "repeatedOperationCount": 31
+    },
+    "pacingReport": {
+      "hardStreakLimit": 2,
+      "events": [
+        "Hard-streak softened near slot 47."
+      ]
+    },
+    "rejectionReasons": {
+      "topology clustering": 26,
+      "examiner intent clustering": 208,
+      "semantic anchor clustering": 329,
+      "distractor trap clustering: valid_vs_total_confusion": 2,
+      "distractor trap clustering: near_miss": 443,
+      "distractor trap clustering: multiplicative_confusion": 5,
+      "distractor trap clustering: filtering_mistake": 4,
+      "distractor trap clustering: wrong_base": 172,
+      "distractor trap clustering: reverse_percentage": 132,
+      "answer-pattern repetition": 344,
+      "examiner intent repeated too close": 183,
+      "semantic anchor repeated too close": 224,
+      "distractor trap clustering: inverse_relation_error": 280,
+      "simple-template saturation": 17,
+      "operation-chain repetition": 211,
+      "topology repeated too close": 94,
+      "fingerprint collision": 68,
+      "topology plus percentage-vector collision": 107,
+      "stem opening repetition": 112,
+      "hard difficulty pacing streak": 6
+    },
+    "repeatedOpeningWarnings": [
+      "Stem opening repeated 4 times: in a milkwater mixture the mixture"
+    ],
+    "balanceWarnings": [
+      "stem opening repetition needs review"
+    ]
+  },
+  "corpusQuality": {
+    "score": 87,
+    "tier": "A",
+    "dimensions": {
+      "topologyBalance": 93,
+      "semanticDiversity": 91,
+      "trapDiversity": 82,
+      "duplicateResistance": 100,
+      "difficultyPacing": 81,
+      "examinerIntentCoverage": 94
+    },
+    "strengths": [
+      "topology mix is well distributed",
+      "semantic anchors are varied",
+      "distractor traps cover multiple mistake modes",
+      "fingerprint collision risk is controlled",
+      "difficulty pacing is exam-like"
+    ],
+    "risks": [
+      "stem opening repetition needs review"
+    ]
+  }
+}

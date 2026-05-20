@@ -52,7 +52,7 @@ const PA_LABELS: Record<string, string> = {
   "svg.title.population": "ਆਬਾਦੀ ਦਾ ਹੱਲ",
   "svg.title.default": "ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਹੱਲ",
   "svg.node.vote_margin": "ਜਿੱਤ ਦਾ ਅੰਤਰ",
-  "svg.node.valid_votes": "ਕੁੱਲ ਵੈਧ ਵੋਟ",
+  "svg.node.valid_votes": "ਕੁੱਲ ਯੋਗ ਵੋਟ",
   "svg.node.total_votes": "ਕੁੱਲ ਵੋਟ",
   "svg.node.pass_gap": "ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ",
   "svg.node.maximum_marks": "ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ",
@@ -124,4 +124,3 @@ export function defaultNodeKey(type: SvgVisualizationNodeType) {
       return "svg.node.percentage_mapping";
   }
 }
-

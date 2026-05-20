@@ -3,6 +3,7 @@ import type {
   ElectionTopology,
   PassFailTopology,
   PopulationTopology,
+  RelationalPercentageTopology,
   TopologyRegistry,
   TopologyVariant,
 } from "./topology-types";
@@ -30,10 +31,20 @@ export const POPULATION_TOPOLOGIES = [
   "male_female_population_shift",
 ] as const satisfies readonly PopulationTopology[];
 
+export const RELATIONAL_PERCENTAGE_TOPOLOGIES = [
+  "single_relation",
+  "two_step_relation_chain",
+  "three_step_relation_chain",
+  "reverse_relation_inference",
+  "ratio_percentage_bridge",
+  "hidden_base_relation_chain",
+] as const satisfies readonly RelationalPercentageTopology[];
+
 export const TOPOLOGY_REGISTRY = {
   election_margin: ELECTION_TOPOLOGIES,
   pass_fail: PASS_FAIL_TOPOLOGIES,
   population_growth: POPULATION_TOPOLOGIES,
+  relational_percentage: RELATIONAL_PERCENTAGE_TOPOLOGIES,
 } satisfies TopologyRegistry;
 
 export function supportedTopologiesForSubtype(

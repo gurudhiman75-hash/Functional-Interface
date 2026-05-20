@@ -1,0 +1,98 @@
+{
+  "generatedCount": 100,
+  "topologyDistribution": {
+    "none:price_consumption": 13,
+    "none:reverse_percentage": 7,
+    "successive_filtering:turnout_margin": 3,
+    "reverse_relation:reverse_relation_inference": 5,
+    "none:mixture_percentage": 12,
+    "filtered_base:invalid_vote_margin": 5,
+    "none:increase_then_decrease": 6,
+    "none:salary_revision": 7,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 4,
+    "inverse_percentage_mapping:hidden_base_relation_chain": 3,
+    "none:profit_loss": 6,
+    "layered_population:male_female_population_shift": 6,
+    "none:restore_original": 6,
+    "successive_filtering:remaining_marks_required": 6,
+    "multi_entity_percentage_network:three_step_relation_chain": 5,
+    "effective_percentage:filtered_valid_vote_margin": 4,
+    "relational_chain:single_relation": 1,
+    "relational_chain:two_step_relation_chain": 1
+  },
+  "subtypeDistribution": {
+    "price_consumption": 13,
+    "reverse_percentage": 7,
+    "election_margin": 12,
+    "relational_percentage": 19,
+    "mixture_percentage": 12,
+    "increase_then_decrease": 6,
+    "salary_revision": 7,
+    "profit_loss": 6,
+    "population_growth": 6,
+    "restore_original": 6,
+    "pass_fail": 6
+  },
+  "difficultyDistribution": {
+    "Easy": 48,
+    "Hard": 33,
+    "Medium": 19
+  },
+  "compactnessDistribution": {
+    "compact": 100
+  },
+  "domainDistribution": {
+    "expenditure": 13,
+    "base_change": 19,
+    "election": 12,
+    "comparison": 21,
+    "mixture": 12,
+    "finance": 7,
+    "ratio_mapping": 4,
+    "commercial": 6,
+    "population": 6
+  },
+  "objectFrequency": {
+    "shirt": 2,
+    "rice bag": 1,
+    "laptop": 1,
+    "wheat bag": 1,
+    "bicycle": 1,
+    "refrigerator": 1,
+    "school bag": 3,
+    "cooking oil tin": 1,
+    "television": 1
+  },
+  "realismScores": {
+    "min": 80,
+    "max": 98,
+    "average": 88.46
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [
+    "Opening repeated 12 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 6 times: a is 40% more than b. b"
+  ],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 11.25,
+    "hindiAverageLines": 10.96,
+    "punjabiAverageLines": 10.96
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 2.3,
+  "exportWarnings": [
+    "Opening repeated 12 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 6 times: a is 40% more than b. b"
+  ]
+}

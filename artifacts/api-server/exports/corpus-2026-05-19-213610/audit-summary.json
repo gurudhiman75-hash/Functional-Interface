@@ -1,0 +1,119 @@
+{
+  "generatedCount": 500,
+  "topologyDistribution": {
+    "none:increase_then_decrease": 50,
+    "hidden_total:pass_fail_gap": 15,
+    "none:price_consumption": 46,
+    "none:mixture_percentage": 57,
+    "none:profit_loss": 36,
+    "multi_entity_percentage_network:three_step_relation_chain": 5,
+    "direct_mapping:simple_shortfall": 8,
+    "none:restore_original": 41,
+    "effective_percentage:filtered_valid_vote_margin": 8,
+    "base_shift:growth_then_decay": 14,
+    "base_shift:successive_mark_adjustment": 7,
+    "none:reverse_percentage": 54,
+    "layered_population:male_female_population_shift": 11,
+    "relational_chain:single_relation": 6,
+    "none:salary_revision": 40,
+    "direct_mapping:single_growth": 13,
+    "remaining_component:remaining_vote_margin": 10,
+    "successive_filtering:remaining_marks_required": 11,
+    "layered_population:migration_adjusted_population": 10,
+    "relational_chain:two_step_relation_chain": 8,
+    "direct_mapping:direct_margin": 10,
+    "successive_filtering:turnout_margin": 8,
+    "inverse_percentage_mapping:hidden_base_relation_chain": 7,
+    "multi_entity_distribution:multi_candidate_margin": 5,
+    "reverse_relation:reverse_relation_inference": 9,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 5,
+    "filtered_base:invalid_vote_margin": 6
+  },
+  "subtypeDistribution": {
+    "increase_then_decrease": 50,
+    "pass_fail": 41,
+    "price_consumption": 46,
+    "mixture_percentage": 57,
+    "profit_loss": 36,
+    "relational_percentage": 40,
+    "restore_original": 41,
+    "election_margin": 47,
+    "population_growth": 48,
+    "reverse_percentage": 54,
+    "salary_revision": 40
+  },
+  "difficultyDistribution": {
+    "Hard": 71,
+    "Medium": 192,
+    "Easy": 237
+  },
+  "compactnessDistribution": {
+    "compact": 500
+  },
+  "domainDistribution": {
+    "base_change": 145,
+    "comparison": 76,
+    "expenditure": 46,
+    "mixture": 57,
+    "commercial": 36,
+    "election": 47,
+    "population": 48,
+    "finance": 40,
+    "ratio_mapping": 5
+  },
+  "objectFrequency": {
+    "sugar packet": 7,
+    "rice bag": 10,
+    "bicycle": 9,
+    "school bag": 8,
+    "laptop": 5,
+    "shirt": 8,
+    "mobile phone": 12,
+    "wheat bag": 5,
+    "cooking oil tin": 7,
+    "television": 10,
+    "refrigerator": 5
+  },
+  "realismScores": {
+    "min": 80,
+    "max": 98,
+    "average": 91.84
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [
+    "Opening repeated 57 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 12 times: fuel price increased by 20%. if total",
+    "Opening repeated 13 times: fuel price increased by 10%. if total",
+    "Opening repeated 18 times: in a district population survey, the population",
+    "Opening repeated 18 times: in a district census report, the counted",
+    "Opening repeated 11 times: in a recruitment test, a candidate scored",
+    "Opening repeated 24 times: in a coaching institute test, the marks"
+  ],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 0,
+    "punjabiExplanationCoverage": 0,
+    "localizationCompleteness": 0.5,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 10.11,
+    "hindiAverageLines": 0,
+    "punjabiAverageLines": 0
+  },
+  "exportProfile": "audit_light",
+  "includeMultilingualExplanations": false,
+  "estimatedSizeMb": 7.8,
+  "exportWarnings": [
+    "Opening repeated 57 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 12 times: fuel price increased by 20%. if total",
+    "Opening repeated 13 times: fuel price increased by 10%. if total",
+    "Opening repeated 18 times: in a district population survey, the population",
+    "Opening repeated 18 times: in a district census report, the counted",
+    "Opening repeated 11 times: in a recruitment test, a candidate scored",
+    "Opening repeated 24 times: in a coaching institute test, the marks"
+  ]
+}

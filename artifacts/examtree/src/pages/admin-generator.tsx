@@ -891,6 +891,107 @@ type QAFilterState = {
     | "review-status";
 };
 
+type CorpusAuditPreset = {
+  id: string;
+  label: string;
+  description: string;
+  defaultCount: number;
+};
+
+type CorpusAuditExportProfile = {
+  id: string;
+  label: string;
+  description: string;
+  includeMultilingualExplanations: boolean;
+  estimatedSizeMb?: number;
+};
+
+type CorpusAuditJob = {
+  id: string;
+  status:
+    | "queued"
+    | "running"
+    | "completed"
+    | "failed";
+  requestedCount: number;
+  generatedCount: number;
+  progress: number;
+  presetId?: string;
+  exportProfile?: string;
+  outputDir?: string;
+  files?: {
+    json: string;
+    txt: string;
+    summary: string;
+    preview: string;
+    pdf?: string;
+  };
+  errorMessage?: string;
+  queuedAt?: string;
+  startedAt?: string;
+  completedAt?: string;
+  summary?: CorpusAuditSummary;
+};
+
+type SchedulerProfileId =
+  | "balanced_mock"
+  | "ssc_mock"
+  | "banking_mock"
+  | "railway_mock"
+  | "punjab_state_mock";
+
+type SchedulerSummary = {
+  profileId: SchedulerProfileId;
+  targetCount: number;
+  acceptedCount: number;
+  topologyDistribution?: Record<string, number>;
+  topologyGroupDistribution?: Record<string, number>;
+  examinerIntentDistribution?: Record<string, number>;
+  semanticAnchorDistribution?: Record<string, number>;
+  distractorTrapDistribution?: Record<string, number>;
+  difficultyDistribution?: Record<string, number>;
+  duplicateRisk?: {
+    repeatedFingerprintCount: number;
+    repeatedFingerprintShare: number;
+    uniqueFingerprintCount: number;
+  };
+  pacingReport?: {
+    hardStreakLimit: number;
+    events: string[];
+  };
+  rejectionReasons?: Record<string, number>;
+  balanceWarnings?: string[];
+};
+
+type CorpusQualitySummary = {
+  score: number;
+  tier: string;
+  dimensions?: Record<string, number>;
+  strengths?: string[];
+  risks?: string[];
+};
+
+type CorpusAuditSummary = {
+  scheduler?: SchedulerSummary;
+  corpusQuality?: CorpusQualitySummary;
+};
+
+type CorpusAuditSample = {
+  index: number;
+  question: string;
+  answer: string;
+  difficulty: string;
+  realismScore?: number;
+  multilingual?: {
+    hi?: {
+      question: string;
+    };
+    pa?: {
+      question: string;
+    };
+  };
+};
+
 type ReviewableGeneratedItem = {
   question: GeneratedQuestion;
   index: number;
@@ -3160,6 +3261,38 @@ const REGISTRY_LANGUAGE_OPTIONS: Array<{
     id: "pa",
     label: "\u0a2a\u0a70\u0a1c\u0a3e\u0a2c\u0a40",
     description: "Punjabi preview",
+  },
+];
+
+const SCHEDULER_PROFILE_OPTIONS: Array<{
+  id: SchedulerProfileId;
+  label: string;
+  description: string;
+}> = [
+  {
+    id: "balanced_mock",
+    label: "Balanced Mock",
+    description: "General set-level balance.",
+  },
+  {
+    id: "ssc_mock",
+    label: "SSC Mock",
+    description: "Compact, arithmetic-heavy pacing.",
+  },
+  {
+    id: "banking_mock",
+    label: "Banking Mock",
+    description: "Inference-heavy layered reasoning.",
+  },
+  {
+    id: "railway_mock",
+    label: "Railway Mock",
+    description: "Direct, trap-oriented flow.",
+  },
+  {
+    id: "punjab_state_mock",
+    label: "Punjab/State Mock",
+    description: "Bilingual state-exam realism.",
   },
 ];
 
@@ -6456,6 +6589,51 @@ function renderDISet(
   );
 }
 
+function distributionEntries(
+  distribution?: Record<string, number>,
+) {
+  return Object.entries(distribution ?? {})
+    .sort((left, right) => right[1] - left[1])
+    .slice(0, 8);
+}
+
+function renderDistribution(
+  title: string,
+  distribution?: Record<string, number>,
+) {
+  const entries =
+    distributionEntries(distribution);
+
+  return (
+    <div className="rounded border border-slate-200 bg-white p-3">
+      <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {title}
+      </div>
+      {entries.length ? (
+        <div className="mt-2 space-y-1">
+          {entries.map(([key, value]) => (
+            <div
+              key={key}
+              className="flex items-center justify-between gap-3 text-xs"
+            >
+              <span className="truncate text-slate-700">
+                {key}
+              </span>
+              <span className="font-semibold text-slate-900">
+                {value}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-2 text-xs text-slate-500">
+          Not returned
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminGeneratorPage() {
   const [patternId, setPatternId] =
     useState("");
@@ -6476,6 +6654,118 @@ export default function AdminGeneratorPage() {
 
   const [count, setCount] =
     useState(5);
+  const [
+    useScheduler,
+    setUseScheduler,
+  ] = useState(false);
+  const [
+    schedulerProfile,
+    setSchedulerProfile,
+  ] = useState<SchedulerProfileId>(
+    "balanced_mock",
+  );
+  const [
+    schedulerSummary,
+    setSchedulerSummary,
+  ] = useState<SchedulerSummary | null>(
+    null,
+  );
+  const [
+    corpusQuality,
+    setCorpusQuality,
+  ] = useState<CorpusQualitySummary | null>(
+    null,
+  );
+  const [
+    corpusAuditOpen,
+    setCorpusAuditOpen,
+  ] = useState(false);
+  const [
+    corpusAuditPresets,
+    setCorpusAuditPresets,
+  ] = useState<CorpusAuditPreset[]>([]);
+  const [
+    corpusAuditProfiles,
+    setCorpusAuditProfiles,
+  ] = useState<CorpusAuditExportProfile[]>([]);
+  const [
+    corpusAuditExportProfile,
+    setCorpusAuditExportProfile,
+  ] = useState("audit_light");
+  const [
+    corpusAuditPresetId,
+    setCorpusAuditPresetId,
+  ] = useState("ssc_percentage_audit");
+  const [
+    corpusAuditCount,
+    setCorpusAuditCount,
+  ] = useState(1000);
+  const [
+    corpusAuditIncludeSvg,
+    setCorpusAuditIncludeSvg,
+  ] = useState(true);
+  const [
+    corpusAuditIncludeMultilingualExplanations,
+    setCorpusAuditIncludeMultilingualExplanations,
+  ] = useState(false);
+  const [
+    corpusAuditUseScheduler,
+    setCorpusAuditUseScheduler,
+  ] = useState(false);
+  const [
+    corpusAuditSchedulerProfile,
+    setCorpusAuditSchedulerProfile,
+  ] = useState<SchedulerProfileId>(
+    "balanced_mock",
+  );
+  const [
+    corpusAuditLanguages,
+    setCorpusAuditLanguages,
+  ] = useState<
+    Array<"en" | "hi" | "pa">
+  >(["en", "hi", "pa"]);
+  const [
+    corpusAuditTopology,
+    setCorpusAuditTopology,
+  ] = useState<
+    "mixed" | "relational" | "procedural"
+  >("mixed");
+  const [
+    corpusAuditRealismProfile,
+    setCorpusAuditRealismProfile,
+  ] = useState<"balanced" | "pyq" | "stress">(
+    "balanced",
+  );
+  const [
+    corpusAuditCompactness,
+    setCorpusAuditCompactness,
+  ] = useState<
+    "compact" | "balanced" | "ultra_compact"
+  >("compact");
+  const [
+    corpusAuditDifficultyMix,
+    setCorpusAuditDifficultyMix,
+  ] = useState<
+    "balanced" | "easy" | "medium" | "hard"
+  >("balanced");
+  const [
+    corpusAuditFormats,
+    setCorpusAuditFormats,
+  ] = useState<
+    Array<"json" | "txt" | "summary" | "pdf">
+  >(["json", "txt", "summary"]);
+  const [
+    corpusAuditJob,
+    setCorpusAuditJob,
+  ] = useState<CorpusAuditJob | null>(null);
+  const [
+    corpusAuditSamples,
+    setCorpusAuditSamples,
+  ] = useState<CorpusAuditSample[]>([]);
+  const [
+    corpusAuditLoading,
+    setCorpusAuditLoading,
+  ] = useState(false);
 
   const [generated, setGenerated] =
     useState<GeneratedQuestion[]>([]);
@@ -6830,6 +7120,47 @@ export default function AdminGeneratorPage() {
               : [],
           );
         }
+        const auditPresetRes =
+          await fetch(
+            `${API_BASE_URL}/api/generator/corpus-audit/presets`,
+          );
+        if (auditPresetRes.ok) {
+          const auditPresetData =
+            await auditPresetRes.json();
+          const presets = Array.isArray(
+            auditPresetData.presets,
+          )
+            ? (auditPresetData.presets as CorpusAuditPreset[])
+            : [];
+          setCorpusAuditPresets(presets);
+          if (presets[0]?.id) {
+            setCorpusAuditPresetId(
+              presets[0].id,
+            );
+            setCorpusAuditCount(
+              presets[0].defaultCount ?? 1000,
+            );
+          }
+        }
+        const auditProfileRes =
+          await fetch(
+            `${API_BASE_URL}/api/generator/corpus-audit/profiles`,
+          );
+        if (auditProfileRes.ok) {
+          const auditProfileData =
+            await auditProfileRes.json();
+          const profiles = Array.isArray(
+            auditProfileData.profiles,
+          )
+            ? (auditProfileData.profiles as CorpusAuditExportProfile[])
+            : [];
+          setCorpusAuditProfiles(profiles);
+          if (profiles[0]?.id) {
+            setCorpusAuditExportProfile(
+              profiles[0].id,
+            );
+          }
+        }
       } catch (error) {
         console.error(error);
       }
@@ -6904,6 +7235,54 @@ export default function AdminGeneratorPage() {
 
     loadQAReviews();
   }, []);
+
+  useEffect(() => {
+    if (
+      !corpusAuditJob ||
+      ![
+        "queued",
+        "running",
+      ].includes(corpusAuditJob.status)
+    ) {
+      return;
+    }
+
+    const timer = window.setInterval(
+      async () => {
+        try {
+          const res = await fetch(
+            `${API_BASE_URL}/api/generator/corpus-audit/exports/${corpusAuditJob.id}`,
+          );
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.job) {
+            setCorpusAuditJob(
+              data.job as CorpusAuditJob,
+            );
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      2000,
+    );
+
+    return () =>
+      window.clearInterval(timer);
+  }, [corpusAuditJob]);
+
+  useEffect(() => {
+    if (
+      corpusAuditJob?.status ===
+        "completed" &&
+      corpusAuditJob.files?.preview &&
+      corpusAuditSamples.length === 0
+    ) {
+      void loadCorpusAuditSamples(
+        corpusAuditJob.id,
+      );
+    }
+  }, [corpusAuditJob, corpusAuditSamples.length]);
 
   async function loadExtractionQueue() {
     try {
@@ -7726,6 +8105,122 @@ export default function AdminGeneratorPage() {
     });
   }
 
+  async function startCorpusAuditExport() {
+    try {
+      setCorpusAuditLoading(true);
+      const res = await fetch(
+        `${API_BASE_URL}/api/generator/corpus-audit/exports`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            presetId:
+              corpusAuditPresetId,
+            exportProfile:
+              corpusAuditExportProfile,
+            count: corpusAuditCount,
+            includeSvg:
+              corpusAuditIncludeSvg,
+            includeMultilingualExplanations:
+              corpusAuditIncludeMultilingualExplanations,
+            languages:
+              corpusAuditLanguages,
+            topologySelection:
+              corpusAuditTopology,
+            realismProfile:
+              corpusAuditRealismProfile,
+            compactnessProfile:
+              corpusAuditCompactness,
+            difficultyMix:
+              corpusAuditDifficultyMix,
+            formats:
+              corpusAuditFormats,
+            useScheduler:
+              corpusAuditUseScheduler,
+            schedulerProfile:
+              corpusAuditSchedulerProfile,
+          }),
+        },
+      );
+
+      if (!res.ok) {
+        const text =
+          await res.text().catch(
+            () => "",
+          );
+        throw new Error(
+          text ||
+            `Corpus audit export failed with status ${res.status}`,
+        );
+      }
+
+      const data = await res.json();
+      setCorpusAuditSamples([]);
+      setCorpusAuditJob(
+        data.job as CorpusAuditJob,
+      );
+    } catch (error) {
+      console.error(error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to start corpus audit export",
+      );
+    } finally {
+      setCorpusAuditLoading(false);
+    }
+  }
+
+  async function loadCorpusAuditSamples(
+    jobId: string,
+  ) {
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/generator/corpus-audit/exports/${jobId}/samples?limit=6`,
+      );
+      if (!res.ok) return;
+      const data = await res.json();
+      setCorpusAuditSamples(
+        Array.isArray(data.samples)
+          ? (data.samples as CorpusAuditSample[])
+          : [],
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function estimateCorpusAuditSizeMb() {
+    const profile =
+      corpusAuditProfiles.find(
+        (item) =>
+          item.id ===
+          corpusAuditExportProfile,
+      );
+    const perQuestionKb =
+      6 +
+      (corpusAuditIncludeMultilingualExplanations ||
+      profile?.includeMultilingualExplanations
+        ? 8
+        : 0) +
+      (corpusAuditExportProfile ===
+      "topology_audit"
+        ? 20
+        : 0) +
+      (corpusAuditIncludeSvg ? 10 : 0);
+
+    return (
+      Math.round(
+        ((corpusAuditCount * perQuestionKb) /
+          1024) *
+          10,
+      ) / 10
+    );
+  }
+
   async function generate() {
     const selectedRegistryPattern =
       questionPatterns.find(
@@ -7760,6 +8255,13 @@ export default function AdminGeneratorPage() {
         getDifficultyRequestPayload(
           difficultySettings,
         );
+      const schedulerPayload =
+        count > 1 && useScheduler
+          ? {
+              useScheduler: true,
+              schedulerProfile,
+            }
+          : {};
       const requestPayload =
         useRegistryPattern
           ? {
@@ -7783,6 +8285,7 @@ export default function AdminGeneratorPage() {
               quality:
                 seatingGenerationQuality,
             },
+            ...schedulerPayload,
             count,
           }
           : {
@@ -7794,6 +8297,7 @@ export default function AdminGeneratorPage() {
               quality:
                 seatingGenerationQuality,
             },
+            ...schedulerPayload,
             ...difficultyPayload,
           };
 
@@ -7855,6 +8359,13 @@ export default function AdminGeneratorPage() {
       const data = await res.json();
 
       console.log(data);
+      setSchedulerSummary(
+        data.schedulerSummary ??
+          null,
+      );
+      setCorpusQuality(
+        data.corpusQuality ?? null,
+      );
 
       const nextQuestions = (
         data.questions || []
@@ -10514,6 +11025,613 @@ export default function AdminGeneratorPage() {
           </div>
         )}
 
+        <div className="rounded-lg border-2 border-amber-300 bg-amber-50/40 p-4 shadow-sm">
+          <button
+            type="button"
+            onClick={() =>
+              setCorpusAuditOpen(
+                (value) => !value,
+              )
+            }
+            className="flex w-full items-center justify-between text-left"
+          >
+            <span>
+              <span className="block text-lg font-semibold text-slate-900">
+                Corpus Audit Tools
+              </span>
+              <span className="mt-1 block text-sm text-slate-600">
+                Export large quant-v2 audit corpora in the background. This is separate from the normal 1-50 question editor workflow.
+              </span>
+            </span>
+            <span className="rounded border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-600">
+              {corpusAuditOpen
+                ? "Hide"
+                : "Show"}
+            </span>
+          </button>
+
+          {corpusAuditOpen ? (
+            <div className="mt-4 grid gap-4 rounded-md border border-amber-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Audit Preset
+                </label>
+                <select
+                  value={corpusAuditPresetId}
+                  onChange={(event) => {
+                    const next =
+                      event.target.value;
+                    setCorpusAuditPresetId(next);
+                    const preset =
+                      corpusAuditPresets.find(
+                        (item) =>
+                          item.id === next,
+                      );
+                    if (preset) {
+                      setCorpusAuditCount(
+                        preset.defaultCount,
+                      );
+                    }
+                  }}
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  {corpusAuditPresets.map(
+                    (preset) => (
+                      <option
+                        key={preset.id}
+                        value={preset.id}
+                      >
+                        {preset.label}
+                      </option>
+                    ),
+                  )}
+                </select>
+                <p className="mt-2 text-xs text-slate-500">
+                  {corpusAuditPresets.find(
+                    (preset) =>
+                      preset.id ===
+                      corpusAuditPresetId,
+                  )?.description ??
+                    "Large-scale offline corpus audit export."}
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Export Profile
+                </label>
+                <select
+                  value={corpusAuditExportProfile}
+                  onChange={(event) => {
+                    const next =
+                      event.target.value;
+                    setCorpusAuditExportProfile(
+                      next,
+                    );
+                    const profile =
+                      corpusAuditProfiles.find(
+                        (item) =>
+                          item.id === next,
+                      );
+                    setCorpusAuditIncludeMultilingualExplanations(
+                      Boolean(
+                        profile?.includeMultilingualExplanations,
+                      ),
+                    );
+                    if (profile?.id === "editorial_pdf") {
+                      setCorpusAuditIncludeSvg(true);
+                    }
+                  }}
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  {corpusAuditProfiles.map(
+                    (profile) => (
+                      <option
+                        key={profile.id}
+                        value={profile.id}
+                      >
+                        {profile.label}
+                      </option>
+                    ),
+                  )}
+                </select>
+                <p className="mt-2 text-xs text-slate-500">
+                  {corpusAuditProfiles.find(
+                    (profile) =>
+                      profile.id ===
+                      corpusAuditExportProfile,
+                  )?.description ??
+                    "Controls how much metadata and multilingual explanation content is exported."}
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Export Count
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="20000"
+                  step="100"
+                  value={corpusAuditCount}
+                  onChange={(event) =>
+                    setCorpusAuditCount(
+                      Math.min(
+                        20000,
+                        Math.max(
+                          1,
+                          Number(
+                            event.target.value,
+                          ) || 500,
+                        ),
+                      ),
+                    )
+                  }
+                  list="corpus-audit-counts"
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                />
+                <datalist id="corpus-audit-counts">
+                  <option value="500" />
+                  <option value="1000" />
+                  <option value="5000" />
+                  <option value="20000" />
+                </datalist>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {[500, 1000, 5000].map(
+                    (value) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() =>
+                          setCorpusAuditCount(
+                            value,
+                          )
+                        }
+                        className="rounded border border-slate-200 px-2 py-1 text-xs text-slate-600"
+                      >
+                        {value}
+                      </button>
+                    ),
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Topology Selection
+                </label>
+                <select
+                  value={corpusAuditTopology}
+                  onChange={(event) =>
+                    setCorpusAuditTopology(
+                      event.target
+                        .value as typeof corpusAuditTopology,
+                    )
+                  }
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  <option value="mixed">
+                    Mixed percentage corpus
+                  </option>
+                  <option value="relational">
+                    Relational percentage only
+                  </option>
+                  <option value="procedural">
+                    Procedural percentage mix
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Realism Profile
+                </label>
+                <select
+                  value={corpusAuditRealismProfile}
+                  onChange={(event) =>
+                    setCorpusAuditRealismProfile(
+                      event.target
+                        .value as typeof corpusAuditRealismProfile,
+                    )
+                  }
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  <option value="balanced">
+                    Balanced
+                  </option>
+                  <option value="pyq">
+                    PYQ-style
+                  </option>
+                  <option value="stress">
+                    Stress audit
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Compactness Profile
+                </label>
+                <select
+                  value={corpusAuditCompactness}
+                  onChange={(event) =>
+                    setCorpusAuditCompactness(
+                      event.target
+                        .value as typeof corpusAuditCompactness,
+                    )
+                  }
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  <option value="compact">
+                    Compact
+                  </option>
+                  <option value="balanced">
+                    Balanced
+                  </option>
+                  <option value="ultra_compact">
+                    Ultra compact stress
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Difficulty Mix
+                </label>
+                <select
+                  value={corpusAuditDifficultyMix}
+                  onChange={(event) =>
+                    setCorpusAuditDifficultyMix(
+                      event.target
+                        .value as typeof corpusAuditDifficultyMix,
+                    )
+                  }
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  <option value="balanced">
+                    Balanced
+                  </option>
+                  <option value="easy">
+                    Easy-heavy
+                  </option>
+                  <option value="medium">
+                    Medium-heavy
+                  </option>
+                  <option value="hard">
+                    Hard-heavy
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Languages
+                </label>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {(["en", "hi", "pa"] as const).map(
+                    (language) => (
+                      <label
+                        key={language}
+                        className="flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs uppercase text-slate-700"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={corpusAuditLanguages.includes(
+                            language,
+                          )}
+                          onChange={(event) =>
+                            setCorpusAuditLanguages(
+                              (current) =>
+                                event.target.checked
+                                  ? [
+                                      ...new Set([
+                                        ...current,
+                                        language,
+                                      ]),
+                                    ]
+                                  : current.filter(
+                                      (item) =>
+                                        item !==
+                                        language,
+                                    ),
+                            )
+                          }
+                        />
+                        {language}
+                      </label>
+                    ),
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
+                  Export Format
+                </label>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  {(["json", "txt", "summary", "pdf"] as const).map(
+                    (format) => (
+                      <label
+                        key={format}
+                        className="flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs uppercase text-slate-700"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={corpusAuditFormats.includes(
+                            format,
+                          )}
+                          disabled={format === "pdf"}
+                          onChange={(event) =>
+                            setCorpusAuditFormats(
+                              (current) =>
+                                event.target.checked
+                                  ? [
+                                      ...new Set([
+                                        ...current,
+                                        format,
+                                      ]),
+                                    ]
+                                  : current.filter(
+                                      (item) =>
+                                        item !==
+                                        format,
+                                    ),
+                            )
+                          }
+                        />
+                        {format}
+                      </label>
+                    ),
+                  )}
+                </div>
+                <label className="mt-3 flex items-center gap-2 text-xs text-slate-600">
+                  <input
+                    type="checkbox"
+                    checked={
+                      corpusAuditIncludeSvg
+                    }
+                    onChange={(event) =>
+                      setCorpusAuditIncludeSvg(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Include SVG payloads
+                </label>
+                <label className="mt-2 flex items-center gap-2 text-xs text-slate-600">
+                  <input
+                    type="checkbox"
+                    checked={
+                      corpusAuditIncludeMultilingualExplanations
+                    }
+                    onChange={(event) =>
+                      setCorpusAuditIncludeMultilingualExplanations(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Include multilingual explanations
+                </label>
+                <label className="mt-2 flex items-center gap-2 text-xs text-slate-600">
+                  <input
+                    type="checkbox"
+                    checked={
+                      corpusAuditUseScheduler
+                    }
+                    onChange={(event) =>
+                      setCorpusAuditUseScheduler(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Use R7 corpus scheduler
+                </label>
+                {corpusAuditUseScheduler ? (
+                  <div className="mt-2">
+                    <label className="block text-xs font-medium text-slate-700">
+                      Scheduler profile
+                    </label>
+                    <select
+                      value={
+                        corpusAuditSchedulerProfile
+                      }
+                      onChange={(event) =>
+                        setCorpusAuditSchedulerProfile(
+                          event.target
+                            .value as SchedulerProfileId,
+                        )
+                      }
+                      className="mt-1 w-full rounded border border-slate-200 bg-white p-2 text-xs"
+                    >
+                      {SCHEDULER_PROFILE_OPTIONS.map(
+                        (profile) => (
+                          <option
+                            key={profile.id}
+                            value={profile.id}
+                          >
+                            {profile.label}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                  </div>
+                ) : null}
+                <div className="mt-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-900">
+                  Estimated export size: ~
+                  {estimateCorpusAuditSizeMb()} MB
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2 xl:col-span-4">
+                <button
+                  type="button"
+                  onClick={
+                    startCorpusAuditExport
+                  }
+                  disabled={corpusAuditLoading}
+                  className="rounded-md bg-slate-950 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                >
+                  {corpusAuditLoading
+                    ? "Starting..."
+                    : "Generate Audit Corpus"}
+                </button>
+                {corpusAuditJob ? (
+                  <div className="rounded border border-slate-200 bg-white p-3 text-xs text-slate-600">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <span className="font-semibold text-slate-900">
+                          Job status:
+                        </span>{" "}
+                        {corpusAuditJob.status}
+                      </div>
+                      <div>
+                        {corpusAuditJob.generatedCount}
+                        /
+                        {corpusAuditJob.requestedCount} generated
+                      </div>
+                      <div>
+                        {Math.round(
+                          (corpusAuditJob.progress ??
+                            0) * 100,
+                        )}
+                        % complete
+                      </div>
+                      {corpusAuditJob.startedAt ? (
+                        <div>
+                          Elapsed:{" "}
+                          {Math.max(
+                            0,
+                            Math.round(
+                              ((corpusAuditJob.completedAt
+                                ? new Date(
+                                    corpusAuditJob.completedAt,
+                                  ).getTime()
+                                : Date.now()) -
+                                new Date(
+                                  corpusAuditJob.startedAt,
+                                ).getTime()) /
+                                1000,
+                            ),
+                          )}
+                          s
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="mt-2 h-2 overflow-hidden rounded bg-slate-100">
+                      <div
+                        className="h-full bg-emerald-500"
+                        style={{
+                          width: `${Math.round(
+                            (corpusAuditJob.progress ??
+                              0) * 100,
+                          )}%`,
+                        }}
+                      />
+                    </div>
+                    {corpusAuditJob.outputDir ? (
+                      <div className="mt-2 break-all">
+                        Export location:{" "}
+                        {corpusAuditJob.outputDir}
+                      </div>
+                    ) : null}
+                    {corpusAuditJob.status ===
+                      "completed" &&
+                    corpusAuditJob.files ? (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {(["json", "txt", "summary", "preview"] as const).map(
+                          (artifact) => (
+                            <a
+                              key={artifact}
+                              href={`${API_BASE_URL}/api/generator/corpus-audit/exports/${corpusAuditJob.id}/download/${artifact}`}
+                              className="rounded border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800"
+                            >
+                              Download {artifact}
+                            </a>
+                          ),
+                        )}
+                      </div>
+                    ) : null}
+                    {corpusAuditJob.summary?.scheduler ? (
+                      <details className="mt-3 rounded border border-indigo-200 bg-indigo-50 p-3">
+                        <summary className="cursor-pointer font-semibold text-indigo-950">
+                          Scheduler Summary
+                          {corpusAuditJob.summary.corpusQuality
+                            ? ` - ${corpusAuditJob.summary.corpusQuality.score}/100 (${corpusAuditJob.summary.corpusQuality.tier})`
+                            : ""}
+                        </summary>
+                        <div className="mt-3 grid gap-2 md:grid-cols-2">
+                          {renderDistribution(
+                            "Topology Groups",
+                            corpusAuditJob.summary.scheduler
+                              .topologyGroupDistribution,
+                          )}
+                          {renderDistribution(
+                            "Examiner Intents",
+                            corpusAuditJob.summary.scheduler
+                              .examinerIntentDistribution,
+                          )}
+                          {renderDistribution(
+                            "Semantic Anchors",
+                            corpusAuditJob.summary.scheduler
+                              .semanticAnchorDistribution,
+                          )}
+                          {renderDistribution(
+                            "Distractor Traps",
+                            corpusAuditJob.summary.scheduler
+                              .distractorTrapDistribution,
+                          )}
+                        </div>
+                      </details>
+                    ) : null}
+                    {corpusAuditSamples.length ? (
+                      <div className="mt-4 grid gap-2 md:grid-cols-2">
+                        {corpusAuditSamples.map(
+                          (sample) => (
+                            <div
+                              key={sample.index}
+                              className="rounded border border-slate-200 bg-slate-50 p-2"
+                            >
+                              <div className="font-semibold text-slate-900">
+                                Q{sample.index + 1}.{" "}
+                                {sample.question}
+                              </div>
+                              <div className="mt-1 text-slate-700">
+                                Answer: {sample.answer}
+                              </div>
+                              <div className="mt-1 text-slate-500">
+                                {sample.difficulty} • Realism{" "}
+                                {sample.realismScore ?? 0}
+                              </div>
+                              {sample.multilingual?.hi?.question ? (
+                                <div className="mt-2 text-slate-600">
+                                  HI:{" "}
+                                  {sample.multilingual.hi.question}
+                                </div>
+                              ) : null}
+                              {sample.multilingual?.pa?.question ? (
+                                <div className="mt-1 text-slate-600">
+                                  PA:{" "}
+                                  {sample.multilingual.pa.question}
+                                </div>
+                              ) : null}
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    ) : null}
+                    {corpusAuditJob.errorMessage ? (
+                      <div className="mt-2 text-red-700">
+                        {corpusAuditJob.errorMessage}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+        </div>
+
         <div className="rounded-lg border border-indigo-200 bg-indigo-50/40 p-4 space-y-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
@@ -10769,6 +11887,72 @@ export default function AdminGeneratorPage() {
             className="border rounded p-2 w-full"
           />
         </div>
+
+        {count > 1 ? (
+          <div className="rounded-lg border border-slate-200 bg-white p-4">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">
+                  Corpus Scheduler
+                </h2>
+                <p className="mt-1 text-sm text-slate-600">
+                  Optional R7 set-level balancing for batches. Single-question generation remains unchanged.
+                </p>
+              </div>
+              <label className="flex items-center gap-2 rounded border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700">
+                <input
+                  type="checkbox"
+                  checked={useScheduler}
+                  onChange={(event) =>
+                    setUseScheduler(
+                      event.target.checked,
+                    )
+                  }
+                />
+                Use scheduler
+              </label>
+            </div>
+            {useScheduler ? (
+              <div className="mt-4 grid gap-3 md:grid-cols-[260px_minmax(0,1fr)]">
+                <div>
+                  <label className="block text-sm font-medium text-slate-800">
+                    Scheduler profile
+                  </label>
+                  <select
+                    value={schedulerProfile}
+                    onChange={(event) =>
+                      setSchedulerProfile(
+                        event.target
+                          .value as SchedulerProfileId,
+                      )
+                    }
+                    className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                  >
+                    {SCHEDULER_PROFILE_OPTIONS.map(
+                      (profile) => (
+                        <option
+                          key={profile.id}
+                          value={profile.id}
+                        >
+                          {profile.label}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </div>
+                <div className="rounded border border-indigo-100 bg-indigo-50 p-3 text-sm text-indigo-900">
+                  {
+                    SCHEDULER_PROFILE_OPTIONS.find(
+                      (profile) =>
+                        profile.id ===
+                        schedulerProfile,
+                    )?.description
+                  }
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="border rounded-lg p-4 space-y-4 bg-slate-50">
           <div className="flex items-center justify-between gap-4">
@@ -11149,7 +12333,11 @@ export default function AdminGeneratorPage() {
         </button>
         <button
           onClick={() =>
-            setGenerated([])
+            {
+              setGenerated([]);
+              setSchedulerSummary(null);
+              setCorpusQuality(null);
+            }
           }
           className="bg-red-600 text-white px-4 py-2 rounded"
         >
@@ -11159,6 +12347,108 @@ export default function AdminGeneratorPage() {
 
       {generated.length > 0 && (
         <div className="space-y-6">
+          {schedulerSummary ? (
+            <details className="rounded-md border border-indigo-200 bg-indigo-50/50 p-4">
+              <summary className="cursor-pointer text-sm font-semibold text-indigo-950">
+                Scheduler Summary
+                {corpusQuality
+                  ? ` - ${corpusQuality.score}/100 (${corpusQuality.tier})`
+                  : ""}
+              </summary>
+              <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                <div className="rounded border border-indigo-200 bg-white p-3 text-sm">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
+                    Corpus Quality
+                  </div>
+                  <div className="mt-2 text-2xl font-bold text-slate-950">
+                    {corpusQuality?.score ?? "N/A"}
+                    <span className="ml-2 text-sm font-semibold text-slate-500">
+                      {corpusQuality?.tier ?? ""}
+                    </span>
+                  </div>
+                  <div className="mt-2 text-xs text-slate-600">
+                    Profile: {schedulerSummary.profileId} | Accepted{" "}
+                    {schedulerSummary.acceptedCount}/
+                    {schedulerSummary.targetCount}
+                  </div>
+                  {schedulerSummary.duplicateRisk ? (
+                    <div className="mt-2 text-xs text-slate-600">
+                      Duplicate risk:{" "}
+                      {Math.round(
+                        schedulerSummary.duplicateRisk
+                          .repeatedFingerprintShare * 100,
+                      )}
+                      % repeated fingerprints
+                    </div>
+                  ) : null}
+                </div>
+                {renderDistribution(
+                  "Topology Groups",
+                  schedulerSummary.topologyGroupDistribution,
+                )}
+                {renderDistribution(
+                  "Examiner Intents",
+                  schedulerSummary.examinerIntentDistribution,
+                )}
+                {renderDistribution(
+                  "Semantic Anchors",
+                  schedulerSummary.semanticAnchorDistribution,
+                )}
+                {renderDistribution(
+                  "Distractor Traps",
+                  schedulerSummary.distractorTrapDistribution,
+                )}
+                {renderDistribution(
+                  "Rejection Reasons",
+                  schedulerSummary.rejectionReasons,
+                )}
+              </div>
+              <div className="mt-3 grid gap-3 md:grid-cols-2">
+                <div className="rounded border border-slate-200 bg-white p-3">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Difficulty Pacing
+                  </div>
+                  <div className="mt-2 text-xs text-slate-600">
+                    Hard-streak limit:{" "}
+                    {schedulerSummary.pacingReport?.hardStreakLimit ?? "N/A"}
+                  </div>
+                  {schedulerSummary.pacingReport?.events?.length ? (
+                    <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-slate-600">
+                      {schedulerSummary.pacingReport.events
+                        .slice(0, 6)
+                        .map((event) => (
+                          <li key={event}>{event}</li>
+                        ))}
+                    </ul>
+                  ) : (
+                    <div className="mt-2 text-xs text-slate-500">
+                      No pacing warnings returned.
+                    </div>
+                  )}
+                </div>
+                <div className="rounded border border-slate-200 bg-white p-3">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Quality Notes
+                  </div>
+                  {[...(corpusQuality?.strengths ?? []), ...(corpusQuality?.risks ?? [])]
+                    .slice(0, 8)
+                    .map((note) => (
+                      <div
+                        key={note}
+                        className="mt-2 text-xs text-slate-600"
+                      >
+                        {note}
+                      </div>
+                    ))}
+                  {schedulerSummary.balanceWarnings?.length ? (
+                    <div className="mt-2 text-xs text-amber-700">
+                      {schedulerSummary.balanceWarnings.join(" | ")}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </details>
+          ) : null}
           <section className="overflow-hidden rounded-md border border-slate-200 bg-slate-50 shadow-sm">
             <div className="border-b border-slate-200 bg-[#1e1b4b] px-5 py-4 text-white">
               <div className="flex flex-wrap items-center justify-between gap-3">

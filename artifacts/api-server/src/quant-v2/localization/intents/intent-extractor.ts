@@ -89,7 +89,7 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/increase in salary|decrease in salary|salary difference/u.test(normalized)) {
     return "label.salary_difference";
   }
-  if (/percentage change|required percentage/u.test(normalized)) {
+  if (/percentage change|required percentage|change %|decrease percentage/u.test(normalized)) {
     return "label.percentage_change";
   }
   if (/profit amount/u.test(normalized)) {
@@ -98,22 +98,22 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/loss amount/u.test(normalized)) {
     return "label.loss_amount";
   }
-  if (/profit percentage/u.test(normalized)) {
+  if (/profit percentage|profit %/u.test(normalized)) {
     return "label.profit_percentage";
   }
-  if (/loss percentage/u.test(normalized)) {
+  if (/loss percentage|loss %/u.test(normalized)) {
     return "label.loss_percentage";
   }
   if (/value after first change/u.test(normalized)) {
     return "label.value_after_first_change";
   }
-  if (/final value/u.test(normalized)) {
+  if (/final value|after the change, value|relation index/u.test(normalized)) {
     return "label.final_value";
   }
-  if (/remaining value|remaining percentage|percentage left/u.test(normalized)) {
+  if (/remaining value|remaining percentage|remaining part|percentage left/u.test(normalized)) {
     return "label.remaining_value";
   }
-  if (/required increase|increase needed/u.test(normalized)) {
+  if (/required increase|increase needed|increase percentage/u.test(normalized)) {
     return "label.required_increase";
   }
   if (/total value|full value|original value|total quantity/u.test(normalized)) {
@@ -125,7 +125,7 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/final mixture/u.test(normalized)) {
     return "label.final_mixture";
   }
-  if (/pure component|quantity to add/u.test(normalized)) {
+  if (/pure component|milk to be added|quantity to add/u.test(normalized)) {
     return "label.quantity_to_add";
   }
   if (/required difference|difference between|difference in shares|difference/u.test(normalized)) {
@@ -207,6 +207,12 @@ function narrationIntent(line: string): EditorialIntent | undefined {
     [/^Together, they give:?$/u, "narration.combined_difference"],
     [/^Direct relation:?$/u, "narration.direct_relation"],
     [/^Using the percentage relation:?$/u, "narration.percentage_relation"],
+    [/^Apply the next relation:?$/u, "narration.percentage_relation"],
+    [/^Convert the given relation:?$/u, "narration.percentage_relation"],
+    [/^Value after this relation:?$/u, "narration.percentage_relation"],
+    [/^After adding the bonus:?$/u, "narration.after_bonus"],
+    [/^Now compare it with 100:?$/u, "narration.direct_relation"],
+    [/^Let the original value be 100:?$/u, "narration.original_value"],
   ];
 
   for (const [pattern, key] of narrationMap) {

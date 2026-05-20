@@ -608,3 +608,96 @@ export function buildMixturePercentageGraph(
     ]),
   });
 }
+
+export function buildRelationalPercentageGraph(
+  problem: CanonicalPercentageProblem,
+): ReasoningGraph {
+  const v = problem.variables;
+  const steps: ReasoningStep[] = [];
+  const relationCount = Math.max(1, Math.trunc(v.relationCount ?? 1));
+
+  steps.push(
+    step({
+      id: "normalize_base_entity",
+      type: "relation_normalization",
+      descriptionKey: "normalize_reference_entity_to_100",
+      inputVariables: ["baseIndex"],
+      outputVariable: "normalizedBase",
+      equation: "normalizedBase = {baseIndex}",
+      trapWarning: "normalization_error",
+    }),
+  );
+
+  for (let index = 1; index <= relationCount; index += 1) {
+    const inputVariable =
+      index === 1 ? "normalizedBase" : `afterRelation${index - 1}`;
+    const outputVariable =
+      index === relationCount ? "finalIndex" : `afterRelation${index}`;
+    const type =
+      problem.topology?.variant === "reverse_relation_inference" && index === 1
+        ? "relation_inversion"
+        : "relation_transformation";
+    steps.push(
+      step({
+        id: `apply_relation_${index}`,
+        type,
+        descriptionKey:
+          type === "relation_inversion"
+            ? "invert_percentage_relation"
+            : "apply_percentage_relation",
+          inputVariables: [
+            inputVariable,
+          `relation${index}Index`,
+          ],
+        outputVariable,
+        equation:
+          `${outputVariable} = ${inputVariable} * relation${index}Index / 100`,
+        trapWarning:
+          type === "relation_inversion"
+            ? "incorrect_inversion"
+            : "wrong_base",
+      }),
+    );
+  }
+
+  steps.push(
+    step({
+      id: "infer_final_comparison",
+      type: "comparison_inference",
+      descriptionKey: "infer_relative_difference_from_normalized_base",
+      inputVariables: ["finalIndex", "baseIndex"],
+      outputVariable: "relativeDifference",
+      equation: "relativeDifference = finalIndex - {baseIndex}",
+      trapWarning: "transitive_shortcut_error",
+    }),
+    finalStep([
+      "relativeDifference",
+      "answer",
+    ]),
+  );
+
+  return {
+    subtype: "relational_percentage",
+    reasoningPattern: "relational_chain",
+    insightKey: "chained_relations_multiply_not_add",
+    steps,
+    branches: [
+      {
+        branchId: "standard",
+        branchType: "standard",
+        steps,
+      },
+      {
+        branchId: "relational_index",
+        branchType: "relational",
+        steps,
+      },
+    ],
+    finalEquation:
+      "answer = finalIndex - {baseIndex}",
+    trapSummary: trapSummary(problem, [
+      "additive_relation_error",
+      "inverse_relation_error",
+    ]),
+  };
+}

@@ -29,7 +29,7 @@ function suppressRealismWrappers(text: string) {
 
 function compactAsk(text: string) {
   return text
-    .replace(/Find the total value represented by 100%\./gu, "Find the total value.")
+    .replace(/Find the total value represented by 100%\./gu, "Find the original quantity.")
     .replace(/Find the percentage change based on the old salary\./gu, "Find the percentage change.")
     .replace(/Find the profit or loss percentage on cost price\./gu, "Find profit or loss percentage.")
     .replace(/By what percent should consumption be reduced\?/gu, "Find the required reduction percentage.")

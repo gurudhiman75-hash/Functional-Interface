@@ -4,6 +4,8 @@ import type {
 import type { EditorialRealization } from "../editorial/editorial-types";
 import type { ReasoningGraph } from "../reasoning/reasoning-graph-types";
 import { createProblemSignature } from "../utils/problem-signature";
+import { createCorpusRealismGovernorReport } from "../realism/corpus-realism-governor";
+import { leakedInternalExplanationTerms } from "../quality/teacher-explanation-normalizer";
 import type { ValidationResult } from "./problem-validator";
 
 export type QualityConfidence =
@@ -361,6 +363,116 @@ function overallSpreadAdjustment(input: {
   );
 }
 
+function commercialRealismCaps(input: {
+  problem: CanonicalPercentageProblem;
+  realization: EditorialRealization;
+}) {
+  const penalties: string[] = [];
+  const caps = {
+    editorialRealismScore: 98,
+    coachingAuthenticityScore: 98,
+    contextualNaturalnessScore: 98,
+    domainRealismScore: 98,
+    overallQualityScore: 96,
+  };
+  const leakedTerms = leakedInternalExplanationTerms(
+    `${input.realization.stem}\n${input.realization.explanation}`,
+  );
+  const corpusReport = createCorpusRealismGovernorReport({
+    problem: input.problem,
+    editorial: input.realization,
+  });
+  const explanationLines = input.realization.explanation
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const hasEquation = explanationLines.some((line) => EQUATION_LINE_PATTERN.test(line));
+  const hasEnding =
+    /(?:therefore|hence|thus|so|answer|=)/iu.test(explanationLines.at(-1) ?? "");
+  const relationCount = Math.trunc(Number(input.problem.variables.relationCount ?? 0));
+  const family = input.problem.topology?.family;
+  const variant = input.problem.topology?.variant;
+  const stem = input.realization.stem;
+  const brokenRelationStem =
+    /Compared with|has \d+(?:\.\d+)?% (?:more|less) value|percentage difference|Find the total value/iu.test(stem);
+  const genericStem =
+    /\b(?:an item|a quantity|total value|pure component|more value than|less value than)\b/iu.test(stem);
+
+  if (leakedTerms.length > 0) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 65);
+    caps.coachingAuthenticityScore = Math.min(caps.coachingAuthenticityScore, 65);
+    caps.contextualNaturalnessScore = Math.min(caps.contextualNaturalnessScore, 65);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 65);
+    penalties.push(
+      `internal explanation terminology leaked: ${leakedTerms.join(", ")}`,
+    );
+  }
+  if (brokenRelationStem) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 55);
+    caps.coachingAuthenticityScore = Math.min(caps.coachingAuthenticityScore, 55);
+    caps.contextualNaturalnessScore = Math.min(caps.contextualNaturalnessScore, 55);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 55);
+    penalties.push("broken or awkward English relation stem caps realism");
+  }
+  if (genericStem) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 70);
+    caps.contextualNaturalnessScore = Math.min(caps.contextualNaturalnessScore, 70);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 70);
+    penalties.push("generic item/quantity/value stem caps realism");
+  }
+  if (
+    input.problem.subtype === "relational_percentage" &&
+    (relationCount <= 1 || variant === "single_relation")
+  ) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 70);
+    caps.coachingAuthenticityScore = Math.min(caps.coachingAuthenticityScore, 70);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 70);
+    penalties.push("tautological single relation is capped below commercial realism");
+  }
+  if (input.problem.subtype === "salary_revision") {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 72);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 72);
+    penalties.push("direct salary change caps realism");
+  }
+  if (input.problem.subtype === "restore_original") {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 72);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 72);
+    penalties.push("restore-original one-step caps realism");
+  }
+  if (input.problem.subtype === "price_consumption") {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 75);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 75);
+    penalties.push("fuel same-expenditure one-step caps realism");
+  }
+  if (!input.problem.topology) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 82);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 84);
+    penalties.push("simple one-step template is capped below elite realism");
+  }
+  if (family === "direct_mapping") {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 82);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 84);
+    penalties.push("one-step direct percentage mapping is capped");
+  }
+  if (explanationLines.length < 4 || !hasEquation || !hasEnding) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 60);
+    caps.coachingAuthenticityScore = Math.min(caps.coachingAuthenticityScore, 60);
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 62);
+    penalties.push("incomplete explanation caps commercial realism");
+  }
+  if (corpusReport.metrics.maxAbsoluteValue > 1_000_000) {
+    caps.editorialRealismScore = Math.min(caps.editorialRealismScore, 78);
+    caps.domainRealismScore = 78;
+    caps.overallQualityScore = Math.min(caps.overallQualityScore, 78);
+    penalties.push("semantic scale mismatch caps realism");
+  }
+
+  return {
+    caps,
+    penalties,
+  };
+}
+
 function confidenceFor(metrics: CalibratedQualityMetrics): QualityConfidence {
   const minimum = Math.min(...Object.values(metrics).filter((score) => score <= 100));
   if (metrics.overallQualityScore >= 92 && minimum >= 82) {
@@ -415,6 +527,9 @@ function explain(input: {
   if (input.graph.shortcutEquation && input.realization.naturalization.shortcutSurfaced) {
     explanationBreakdown.push("shortcut is surfaced compactly");
   }
+  if (explanationBreakdown.length === 0) {
+    explanationBreakdown.push("core percentage reasoning is mathematically coherent");
+  }
 
   const scenarioWeight =
     SCENARIO_WEIGHTS[
@@ -458,7 +573,8 @@ export function createCalibratedQualityReport(
   graph: ReasoningGraph,
   realization: EditorialRealization,
 ): CalibratedQualityReport {
-  const metricsWithoutOverall = {
+  const capReport = commercialRealismCaps({ problem, realization });
+  const rawMetricsWithoutOverall = {
     topologyComplexityScore: topologyComplexity(problem, graph),
     editorialRealismScore: editorialRealism(problem, realization),
     equationReadabilityScore: equationReadability(realization),
@@ -474,6 +590,25 @@ export function createCalibratedQualityReport(
     transitionFlowScore: transitionFlow(realization),
     narrationCompactnessScore: narrationCompactness(realization),
   };
+  const metricsWithoutOverall = {
+    ...rawMetricsWithoutOverall,
+    editorialRealismScore: Math.min(
+      rawMetricsWithoutOverall.editorialRealismScore,
+      capReport.caps.editorialRealismScore,
+    ),
+    coachingAuthenticityScore: Math.min(
+      rawMetricsWithoutOverall.coachingAuthenticityScore,
+      capReport.caps.coachingAuthenticityScore,
+    ),
+    contextualNaturalnessScore: Math.min(
+      rawMetricsWithoutOverall.contextualNaturalnessScore,
+      capReport.caps.contextualNaturalnessScore,
+    ),
+    domainRealismScore: Math.min(
+      rawMetricsWithoutOverall.domainRealismScore,
+      capReport.caps.domainRealismScore ?? 98,
+    ),
+  };
   const rawOverallQualityScore = weightedAverage([
     [metricsWithoutOverall.topologyComplexityScore, 0.9],
     [metricsWithoutOverall.editorialRealismScore, 1.25],
@@ -487,8 +622,10 @@ export function createCalibratedQualityReport(
     [metricsWithoutOverall.transitionFlowScore, 0.75],
     [metricsWithoutOverall.narrationCompactnessScore, 0.9],
   ]);
-  const overallQualityScore = clamp(
-    rawOverallQualityScore +
+  const overallQualityScore = Math.min(
+    capReport.caps.overallQualityScore,
+    clamp(
+      rawOverallQualityScore +
       overallSpreadAdjustment({
         problem,
         graph,
@@ -497,8 +634,9 @@ export function createCalibratedQualityReport(
         repetitionResistanceScore: metricsWithoutOverall.repetitionResistanceScore,
         narrationCompactnessScore: metricsWithoutOverall.narrationCompactnessScore,
       }),
-    58,
-    96,
+      58,
+      96,
+    ),
   );
   const metrics = {
     ...metricsWithoutOverall,
@@ -510,6 +648,7 @@ export function createCalibratedQualityReport(
     realization,
     metrics,
   });
+  breakdown.penaltyBreakdown.push(...capReport.penalties);
 
   return {
     metrics,

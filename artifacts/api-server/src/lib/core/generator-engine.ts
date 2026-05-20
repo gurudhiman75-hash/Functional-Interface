@@ -61,6 +61,13 @@ import {
   resetStructuralDiversityRegistry,
 } from "../reasoning/seating/diversity-engine";
 import {
+  createCorpusSchedulerState,
+  generateScheduledQuestion,
+  summarizeCorpusScheduler,
+  type CorpusSchedulerProfileId,
+} from "../../quant-v2/corpus-scheduler/corpus-scheduler";
+import { evaluateCorpusQuality } from "../../quant-v2/corpus-scheduler/corpus-quality-evaluator";
+import {
   buildSeatingDiagramData,
   buildSeatingExplanationFlow,
   buildBloodRelationExplanation,
@@ -483,6 +490,8 @@ export type GeneratorOptions = {
   enableNameClash?: boolean;
   distractorArchetypes?: string[];
   forcedMotifId?: string;
+  useScheduler?: boolean;
+  schedulerProfile?: CorpusSchedulerProfileId;
   /**
    * Seating arrangement generation profile. Constraint-style puzzles from the
    * same engine are unaffected by the fast-preview path.
@@ -753,6 +762,8 @@ export type GeneratorResult = {
   questions: Array<
     GeneratedQuestion
   >;
+  schedulerSummary?: unknown;
+  corpusQuality?: unknown;
   generationContext?: Pick<
     GenerationContext,
     | "seed"
@@ -3599,6 +3610,75 @@ function generateQuestionsWithAdapter(
   );
 }
 
+function generateScheduledQuestionsWithAdapter(
+  adapter: DomainAdapter,
+  pattern: Pattern,
+  count: number,
+  options: GeneratorOptions,
+) {
+  const schedulerState =
+    createCorpusSchedulerState({
+      targetCount: count,
+      profileId:
+        options.schedulerProfile ??
+        "balanced_mock",
+    });
+  const questions: FormulaQuestion[] = [];
+
+  for (
+    let index = 0;
+    index < count;
+    index += 1
+  ) {
+    const scheduled =
+      generateScheduledQuestion({
+        state: schedulerState,
+        index,
+        seedPrefix:
+          options.seed ??
+          options.generationContext?.seed ??
+          "admin-generator",
+        examProfile: options.examProfile,
+        forcedMotifId:
+          options.forcedMotifId,
+        generate:
+          (scheduledOptions) =>
+            materializeAdapterQuestion(
+              adapter,
+              {
+                pattern,
+                count,
+                options: {
+                  ...options,
+                  ...scheduledOptions,
+                  generationContext:
+                    options.generationContext,
+                },
+              },
+            )
+              .realizedQuestion as FormulaQuestion,
+      });
+
+    questions.push(
+      scheduled.question,
+    );
+  }
+
+  const schedulerSummary =
+    summarizeCorpusScheduler(
+      schedulerState,
+    );
+
+  return {
+    questions,
+    schedulerSummary,
+    corpusQuality:
+      evaluateCorpusQuality(
+        schedulerSummary,
+      ),
+  };
+}
+
 function getDomainAdapterRegistry() {
   return createDomainAdapters({
     createFormulaQuestionCandidate,
@@ -3873,6 +3953,33 @@ export async function generateFromPattern(
         };
 
         let result: GeneratorResult;
+        const useCorpusScheduler =
+          Boolean(
+            generationScopedOptions
+              .useScheduler,
+          ) &&
+          count > 1 &&
+          generationDomain ===
+            "quant-v2-percentage";
+
+        if (useCorpusScheduler) {
+          const scheduled =
+            generateScheduledQuestionsWithAdapter(
+              adapter,
+              effectivePattern,
+              count,
+              generationScopedOptions,
+            );
+          result = {
+            ...responseBase,
+            questions:
+              scheduled.questions,
+            schedulerSummary:
+              scheduled.schedulerSummary,
+            corpusQuality:
+              scheduled.corpusQuality,
+          };
+        } else {
         result = {
           ...responseBase,
           questions:
@@ -3883,6 +3990,7 @@ export async function generateFromPattern(
               generationScopedOptions,
             ),
         };
+        }
 
         if (cacheEligible) {
           await cacheGenerationResult(

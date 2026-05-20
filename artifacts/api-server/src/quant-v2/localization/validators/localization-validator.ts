@@ -3,13 +3,17 @@ import type {
   LocalizedRealization,
 } from "../contracts/language-contracts";
 import type { EditorialRealization } from "../../editorial/editorial-types";
+import { leakedInternalExplanationTerms } from "../../quality/teacher-explanation-normalizer";
 
 export interface LocalizationValidationIssue {
   code:
     | "english_leakage"
     | "equation_corruption"
     | "script_mismatch"
-    | "missing_intent";
+    | "missing_intent"
+    | "encoding_corruption"
+    | "internal_label_leakage"
+    | "incomplete_explanation";
   message: string;
 }
 
@@ -22,8 +26,18 @@ export interface LocalizationMetrics {
   multilingualReadinessScore: number;
 }
 
-const ENGLISH_WORD_RE =
-  /\b(?:After|Shortcut|Therefore|Hence|So|Thus|Difference|Total|Valid|votes|Maximum|marks|Population|value|price|consumption|Required|Profit|Loss|Increase|Reduction|Final|New|For|same|expenditure)\b/u;
+const ASCII_WORD_RE = /\b[A-Za-z]{2,}\b/gu;
+const ALLOWED_ASCII_WORDS = new Set([
+  "kg",
+  "km",
+  "cm",
+  "mm",
+  "ml",
+  "lt",
+  "m",
+  "l",
+]);
+const MOJIBAKE_RE = /(?:Ã.|Â.|â‚¹|à¤|à¨|ï¿½)/u;
 const DEVANAGARI_RE = /[\u0900-\u097F]/u;
 const GURMUKHI_RE = /[\u0A00-\u0A7F]/u;
 
@@ -44,6 +58,12 @@ function isNeutralLine(line: string) {
   );
 }
 
+function disallowedEnglishWords(line: string) {
+  return [...line.matchAll(ASCII_WORD_RE)]
+    .map((match) => match[0]!.toLowerCase())
+    .filter((word) => !ALLOWED_ASCII_WORDS.has(word));
+}
+
 function scriptScore(language: LanguageCode, localized: LocalizedRealization) {
   if (language === "en") {
     return 100;
@@ -58,12 +78,33 @@ function scriptScore(language: LanguageCode, localized: LocalizedRealization) {
       continue;
     }
     checked += 1;
-    if (script.test(line.renderedText) && !ENGLISH_WORD_RE.test(line.renderedText)) {
+    if (
+      script.test(line.renderedText) &&
+      disallowedEnglishWords(line.renderedText).length === 0
+    ) {
       valid += 1;
     }
   }
 
   return Math.round((valid / Math.max(1, checked)) * 100);
+}
+
+function finalExplanationLine(explanation: string) {
+  return explanation
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .at(-1);
+}
+
+function isIncompleteEnding(line: string | undefined) {
+  const value = String(line ?? "").trim();
+  return (
+    value.length === 0 ||
+    /[:=]\s*$/u.test(value) ||
+    /(?:[+\-*/xX]|\()\s*$/u.test(value) ||
+    !/\d/u.test(value)
+  );
 }
 
 export function createLocalizationMetrics(input: {
@@ -150,12 +191,32 @@ export function validateLocalization(input: {
     input.localized.lines.some(
       (line) =>
         !isNeutralLine(line.renderedText) &&
-        ENGLISH_WORD_RE.test(line.renderedText),
+        disallowedEnglishWords(line.renderedText).length > 0,
     )
   ) {
     issues.push({
       code: "english_leakage",
       message: "Localized rendering leaked English editorial text.",
+    });
+  }
+  if (MOJIBAKE_RE.test(input.localized.explanation) || MOJIBAKE_RE.test(input.localized.stem)) {
+    issues.push({
+      code: "encoding_corruption",
+      message: "Localized rendering contains mojibake or replacement characters.",
+    });
+  }
+  const internalTerms = leakedInternalExplanationTerms(input.localized.explanation);
+  if (internalTerms.length > 0) {
+    issues.push({
+      code: "internal_label_leakage",
+      message: `Localized rendering leaked internal label terms: ${internalTerms.join(", ")}.`,
+    });
+  }
+  if (isIncompleteEnding(finalExplanationLine(input.localized.explanation))) {
+    issues.push({
+      code: "incomplete_explanation",
+      message:
+        "Localized explanation ends without a complete numeric answer line.",
     });
   }
 
@@ -165,4 +226,3 @@ export function validateLocalization(input: {
     metrics,
   };
 }
-

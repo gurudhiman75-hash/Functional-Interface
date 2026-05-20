@@ -1,0 +1,85 @@
+{
+  "generatedCount": 50,
+  "topologyDistribution": {
+    "filtered_base:invalid_vote_margin": 4,
+    "hidden_total:pass_fail_gap": 4,
+    "none:mixture_percentage": 5,
+    "relational_chain:single_relation": 4,
+    "effective_percentage:filtered_valid_vote_margin": 1,
+    "none:reverse_percentage": 3,
+    "none:salary_revision": 4,
+    "none:profit_loss": 4,
+    "none:price_consumption": 7,
+    "reverse_relation:reverse_relation_inference": 2,
+    "successive_filtering:turnout_margin": 2,
+    "none:restore_original": 2,
+    "none:increase_then_decrease": 2,
+    "layered_population:migration_adjusted_population": 3,
+    "multi_entity_percentage_network:three_step_relation_chain": 2,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 1
+  },
+  "subtypeDistribution": {
+    "election_margin": 7,
+    "pass_fail": 4,
+    "mixture_percentage": 5,
+    "relational_percentage": 9,
+    "reverse_percentage": 3,
+    "salary_revision": 4,
+    "profit_loss": 4,
+    "price_consumption": 7,
+    "restore_original": 2,
+    "increase_then_decrease": 2,
+    "population_growth": 3
+  },
+  "difficultyDistribution": {
+    "Medium": 17,
+    "Easy": 26,
+    "Hard": 7
+  },
+  "compactnessDistribution": {
+    "compact": 50
+  },
+  "domainDistribution": {
+    "election": 7,
+    "comparison": 12,
+    "mixture": 5,
+    "base_change": 7,
+    "finance": 4,
+    "commercial": 4,
+    "expenditure": 7,
+    "population": 3,
+    "ratio_mapping": 1
+  },
+  "objectFrequency": {
+    "cooking oil tin": 2,
+    "shirt": 1,
+    "sugar packet": 1,
+    "mobile phone": 2
+  },
+  "realismScores": {
+    "min": 82,
+    "max": 98,
+    "average": 89.02
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 11.28,
+    "hindiAverageLines": 11.06,
+    "punjabiAverageLines": 11.06
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 1.2,
+  "exportWarnings": []
+}

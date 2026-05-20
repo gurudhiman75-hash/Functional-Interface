@@ -1,0 +1,110 @@
+{
+  "generatedCount": 200,
+  "topologyDistribution": {
+    "successive_filtering:remaining_marks_required": 5,
+    "none:increase_then_decrease": 24,
+    "layered_population:male_female_population_shift": 4,
+    "none:restore_original": 18,
+    "none:salary_revision": 16,
+    "none:profit_loss": 14,
+    "layered_population:migration_adjusted_population": 6,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 3,
+    "multi_entity_distribution:multi_candidate_margin": 3,
+    "none:price_consumption": 24,
+    "none:mixture_percentage": 22,
+    "reverse_relation:reverse_relation_inference": 6,
+    "direct_mapping:single_growth": 6,
+    "direct_mapping:direct_margin": 5,
+    "relational_chain:two_step_relation_chain": 2,
+    "effective_percentage:filtered_valid_vote_margin": 5,
+    "direct_mapping:simple_shortfall": 2,
+    "base_shift:successive_mark_adjustment": 6,
+    "hidden_total:pass_fail_gap": 3,
+    "none:reverse_percentage": 10,
+    "successive_filtering:turnout_margin": 2,
+    "remaining_component:remaining_vote_margin": 3,
+    "multi_entity_percentage_network:three_step_relation_chain": 2,
+    "filtered_base:invalid_vote_margin": 3,
+    "relational_chain:single_relation": 1,
+    "inverse_percentage_mapping:hidden_base_relation_chain": 3,
+    "base_shift:growth_then_decay": 2
+  },
+  "subtypeDistribution": {
+    "pass_fail": 16,
+    "increase_then_decrease": 24,
+    "population_growth": 18,
+    "restore_original": 18,
+    "salary_revision": 16,
+    "profit_loss": 14,
+    "relational_percentage": 17,
+    "election_margin": 21,
+    "price_consumption": 24,
+    "mixture_percentage": 22,
+    "reverse_percentage": 10
+  },
+  "difficultyDistribution": {
+    "Hard": 34,
+    "Easy": 92,
+    "Medium": 74
+  },
+  "compactnessDistribution": {
+    "compact": 200
+  },
+  "domainDistribution": {
+    "comparison": 30,
+    "base_change": 52,
+    "population": 18,
+    "finance": 16,
+    "commercial": 14,
+    "ratio_mapping": 3,
+    "election": 21,
+    "expenditure": 24,
+    "mixture": 22
+  },
+  "objectFrequency": {
+    "television": 6,
+    "school bag": 6,
+    "wheat bag": 4,
+    "mobile phone": 5,
+    "shirt": 6,
+    "cooking oil tin": 2,
+    "bicycle": 3,
+    "rice bag": 3,
+    "sugar packet": 1,
+    "refrigerator": 2
+  },
+  "realismScores": {
+    "min": 80,
+    "max": 98,
+    "average": 91.24
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [
+    "Opening repeated 22 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 6 times: fuel price increased by 50%. if total",
+    "Opening repeated 8 times: fuel price increased by 10%. if total"
+  ],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 10.52,
+    "hindiAverageLines": 10.46,
+    "punjabiAverageLines": 10.46
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 4.7,
+  "exportWarnings": [
+    "Opening repeated 22 times: in a milk-water mixture, the mixture has",
+    "Opening repeated 6 times: fuel price increased by 50%. if total",
+    "Opening repeated 8 times: fuel price increased by 10%. if total"
+  ]
+}

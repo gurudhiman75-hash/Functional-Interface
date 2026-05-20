@@ -1,0 +1,1149 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-19-205343
+Preset: ssc_percentage_audit
+Count: 50
+
+[Q1]
+In a student union election, the winning candidate got 48% of the votes and candidate C got 15%. The winning candidate defeated candidate B by 13200 votes. Find the total number of votes.
+Options: 120000 | 40000 | 30000 | 490000
+Answer: 120000
+Difficulty: Medium
+Topology: multi_entity_distribution:multi_candidate_margin
+Realism: 91
+Hindi: एक निर्वाचन में विजयी उम्मीदवार को 48% वोट और प्रत्याशी C को 15% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 13200 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 48% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 15% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 13200 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 48 - 15
+= 37
+Winning margin:
+Remaining vote share =
+48 - 37
+= 11%
+Total votes are:
+13200 x 100 / 11
+= 120000
+Hence, total votes polled = 120000
+
+[Q2]
+In a student union election, the winning candidate got 45% of the votes and candidate C got 12%. The winning candidate defeated candidate B by 7300 votes. Find the total number of votes.
+Options: 365000 | 20000 | 15000 | 315000
+Answer: 365000
+Difficulty: Medium
+Topology: multi_entity_distribution:multi_candidate_margin
+Realism: 91
+Hindi: एक निर्वाचन में विजयी उम्मीदवार को 45% वोट और प्रत्याशी C को 12% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 7300 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 45% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 12% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 7300 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 45 - 12
+= 43
+Winning margin:
+Remaining vote share =
+45 - 43
+= 2%
+Total votes are:
+7300 x 100 / 2
+= 365000
+Hence, total votes polled = 365000
+
+[Q3]
+A shopkeeper sold a sugar packet. Cost price = ₹200 and selling price = ₹120. Find profit or loss percentage.
+Options: 40% loss | 40% profit | 80% profit | 0% profit
+Answer: 40% loss
+Difficulty: Medium
+Topology: none:profit_loss
+Realism: 88
+Hindi: एक दुकानदार ने मोबाइल फोन ₹200 में खरीदा और ₹120 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਮੋਬਾਈਲ ਫੋਨ ₹200 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹120 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Loss amount:
+200 - 120
+= 80
+Loss %:
+80 x 100 / 200
+= 40
+Hence, loss on cost price = 40% loss
+
+[Q4]
+A shopkeeper sold a shirt. Cost price = ₹360 and selling price = ₹396. Find profit or loss percentage.
+Options: 10% profit | 9.09% profit | 30% profit | 36% profit
+Answer: 10% profit
+Difficulty: Easy
+Topology: none:profit_loss
+Realism: 88
+Hindi: एक दुकानदार ने स्कूल बैग ₹360 में खरीदा और ₹396 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਸਕੂਲ ਬੈਗ ₹360 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹396 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Profit amount:
+396 - 360
+= 36
+
+Profit %:
+36 x 100 / 360
+= 10
+
+Hence, profit on cost price = 10% profit
+
+[Q5]
+In a district census report, the counted population is 80, which is 40% of the total. Find the total value.
+Options: 200 | 32 | 110 | 48
+Answer: 200
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 95
+Hindi: किसी मात्रा का 40% भाग 80 है। पूरी मात्रा ज्ञात कीजिए।
+Punjabi: ਕਿਸੇ ਮਾਤਰਾ ਦਾ 40% ਭਾਗ 80 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Direct relation:
+40% quantity = 80
+So,
+100% quantity =
+200
+
+Using the percentage relation:
+Total quantity is:
+80 x 100 / 40
+= 200
+
+Hence, total quantity for the record = 200
+
+[Q6]
+Fuel price increased by 20%. If total expenditure is kept the same, by what percent should consumption be reduced?
+Options: 16.67% | 20% | 80% | 25%
+Answer: 16.67%
+Difficulty: Easy
+Topology: none:price_consumption
+Realism: 98
+Hindi: ईंधन की कीमत 20% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+Punjabi: ਈਂਧਨ ਦੀ ਕੀਮਤ 20% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Explanation:
+Direct relation:
+Reduction in consumption =
+20 x 100 / (100 + 20)
+= 16.67% reduction
+
+Using the percentage relation:
+New price after increase:
+100 + 20
+= 120
+For the same expenditure:
+New consumption =
+100 x 100 / 120
+= 83.33
+Reduction in consumption is:
+100 - 83.33
+= 16.67% reduction
+So, reduction in consumption = 16.67% reduction
+
+[Q7]
+Bicycle price was ₹120. It first increased by 20% and then decreased by 10%. What will be the final price of the bicycle?
+Options: 129.6 | 130 | 145 | 96
+Answer: 129.6
+Difficulty: Easy
+Topology: none:increase_then_decrease
+Realism: 98
+Hindi: लैपटॉप का मूल्य ₹120 था। इसमें पहले 20% वृद्धि और फिर 10% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।
+Punjabi: ਲੈਪਟਾਪ ਦੀ ਕੀਮਤ ₹120 ਸੀ। ਪਹਿਲਾਂ 20% ਵਾਧਾ ਅਤੇ ਫਿਰ 10% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+After a 20% increase:
+Value after first change =
+120 x 120 / 100
+= 144
+
+After a 10% decrease:
+Final value =
+144 x 90 / 100
+= 129.6
+
+Therefore, final value = 129.6
+
+[Q8]
+In a constituency election, 10% of the votes were invalid. The winning candidate got 55% of the valid votes and won by 64800 votes. Find the total number of votes polled.
+Options: 720000 | 650000 | 120000 | 70000
+Answer: 720000
+Difficulty: Medium
+Topology: filtered_base:invalid_vote_margin
+Realism: 95
+Hindi: एक निर्वाचन में 10% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 55% वोट मिले और जीत का अंतर 64800 वोट था। कुल डाले गए वोट ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ 10% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 55% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 64800 ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Winning margin:
+Margin percentage =
+55 - 45
+= 10%
+
+Effective valid votes:
+64800 x 100 / 10
+= 648000
+
+Total votes are:
+648000 x 100 / 90
+= 720000
+
+Therefore, total votes = 720000
+
+[Q9]
+In an urban-rural population report, the population was 90000. It increased by 20% and then decreased by 10%. Find the final population.
+Options: 97200 | 99000 | 81000 | 110000
+Answer: 97200
+Difficulty: Medium
+Topology: base_shift:growth_then_decay
+Realism: 84
+Hindi: एक जिला जनसंख्या रिपोर्ट के अनुसार जनसंख्या 90000 थी। इसमें 20% वृद्धि हुई और फिर 10% कमी हुई। अंतिम जनसंख्या ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਆਬਾਦੀ ਰਿਪੋਰਟ ਅਨੁਸਾਰ ਆਬਾਦੀ 90000 ਸੀ। ਇਸ ਵਿੱਚ 20% ਵਾਧਾ ਅਤੇ ਫਿਰ 10% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Population after increase:
+90000 x 120 / 100
+= 108000
+
+Population after decrease:
+108000 x 90 / 100
+= 97200
+
+Accordingly, final population = 97200
+
+[Q10]
+Salary changed from ₹8000 to ₹10000. Find the percentage change.
+Options: 25% | 20% | 2000% | 22.5%
+Answer: 25%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 84
+Hindi: एक कर्मचारी का वेतन 8000 से बदलकर 10000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 8000 ਤੋਂ ਬਦਲ ਕੇ 10000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Increase in salary:
+10000 - 8000
+= 2000
+
+Change %:
+2000 x 100 / 8000
+= 25
+
+Salary change = 25% increase
+
+[Q11]
+Refrigerator price was ₹240. It first increased by 40% and then decreased by 20%. What will be the final price of the refrigerator?
+Options: 268.8 | 290 | 335 | 145
+Answer: 268.8
+Difficulty: Hard
+Topology: none:increase_then_decrease
+Realism: 86
+Hindi: टेलीविजन का मूल्य ₹240 था। इसमें पहले 40% वृद्धि और फिर 20% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।
+Punjabi: ਟੈਲੀਵਿਜ਼ਨ ਦੀ ਕੀਮਤ ₹240 ਸੀ। ਪਹਿਲਾਂ 40% ਵਾਧਾ ਅਤੇ ਫਿਰ 20% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+After a 40% increase:
+Value after first change =
+240 x 140 / 100
+= 336
+
+After a 20% decrease:
+Final value =
+336 x 80 / 100
+= 268.8
+
+Final value = 268.8
+
+[Q12]
+Mobile phone price was ₹100. It first increased by 20% and then decreased by 5%. What will be the final price of the mobile phone?
+Options: 114 | 115 | 120 | 80
+Answer: 114
+Difficulty: Easy
+Topology: none:increase_then_decrease
+Realism: 98
+Hindi: मोबाइल फोन का मूल्य ₹100 था। इसमें पहले 20% वृद्धि और फिर 5% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।
+Punjabi: ਮੋਬਾਈਲ ਫੋਨ ਦੀ ਕੀਮਤ ₹100 ਸੀ। ਪਹਿਲਾਂ 20% ਵਾਧਾ ਅਤੇ ਫਿਰ 5% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+After a 20% increase:
+Value after first change =
+100 x 120 / 100
+= 120
+After a 5% decrease:
+Final value =
+120 x 95 / 100
+= 114
+Therefore, final value = 114
+
+[Q13]
+Salary was reduced by 20% from its original level. Find the required increase percentage.
+Options: 25% | 20% | 80% | 75%
+Answer: 25%
+Difficulty: Easy
+Topology: none:restore_original
+Realism: 85
+Hindi: एक वस्तु के मूल्य में 20% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+Punjabi: ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 20% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Explanation:
+Shortcut:
+80% value = 20
+So,
+100% value =
+25
+
+Using the percentage relation:
+After a 20% reduction, percentage left is:
+Remaining percentage =
+100 - 20
+= 80%
+Required increase %:
+20 x 100 / 80
+= 25% increase
+Hence, increase needed to restore the value = 25%
+
+[Q14]
+A shopkeeper sold a shirt. Cost price = ₹200 and selling price = ₹180. Find profit or loss percentage.
+Options: 10% loss | 8.89% profit | 10% profit | 20% profit
+Answer: 10% loss
+Difficulty: Easy
+Topology: none:profit_loss
+Realism: 82
+Hindi: एक दुकानदार ने चावल का बोरा ₹200 में खरीदा और ₹180 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਚਾਵਲ ਦੀ ਬੋਰੀ ₹200 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹180 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Loss amount:
+200 - 180
+= 20
+Loss %:
+20 x 100 / 200
+= 10
+Hence, loss on cost price = 10% loss
+
+[Q15]
+In a municipal election, the winning candidate secured 62.5% of the votes and defeated the opponent by 50000 votes. Find the total number of votes polled.
+Options: 200000 | 80000 | 135000 | 1250000
+Answer: 200000
+Difficulty: Easy
+Topology: direct_mapping:direct_margin
+Realism: 94
+Hindi: एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 62.5% वोट मिले और उसने प्रतिद्वंद्वी को 50000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 62.5% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 50000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Shortcut:
+25% votes = 50000
+So,
+100% votes =
+200000
+
+Using the percentage relation:
+Winning margin:
+Margin percentage =
+62.5 - 37.5
+= 25%
+Total votes are:
+50000 x 100 / 25
+= 200000
+Total votes = 200000
+
+[Q16]
+A shopkeeper sold a bicycle. Cost price = ₹360 and selling price = ₹270. Find profit or loss percentage.
+Options: 25% loss | 6.67% profit | 25% profit | 90% profit
+Answer: 25% loss
+Difficulty: Medium
+Topology: none:profit_loss
+Realism: 88
+Hindi: एक दुकानदार ने मोबाइल फोन ₹360 में खरीदा और ₹270 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਮੋਬਾਈਲ ਫੋਨ ₹360 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹270 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Loss amount:
+360 - 270
+= 90
+Loss %:
+90 x 100 / 360
+= 25
+Hence, loss on cost price = 25% loss
+
+[Q17]
+Fuel price increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?
+Options: 33.33% | 50% | 100% | 13.33%
+Answer: 33.33%
+Difficulty: Medium
+Topology: none:price_consumption
+Realism: 82
+Hindi: ईंधन की कीमत 50% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+Punjabi: ਈਂਧਨ ਦੀ ਕੀਮਤ 50% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Explanation:
+New price after increase =
+100 + 50
+= 150
+New consumption =
+100 x 100 / 150
+= 66.67
+Reduction in consumption =
+100 - 66.67
+= 33.33% reduction
+Hence, required reduction = 33.33% reduction
+
+[Q18]
+A shopkeeper sold a cooking oil tin. Cost price = ₹600 and selling price = ₹540. Find profit or loss percentage.
+Options: 10% loss | 8.89% profit | 10% profit | 60% profit
+Answer: 10% loss
+Difficulty: Easy
+Topology: none:profit_loss
+Realism: 82
+Hindi: एक दुकानदार ने स्कूल बैग ₹600 में खरीदा और ₹540 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਸਕੂਲ ਬੈਗ ₹600 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹540 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Loss amount:
+600 - 540
+= 60
+Loss %:
+60 x 100 / 600
+= 10
+Hence, loss on cost price = 10% loss
+
+[Q19]
+In a qualifying test, a candidate scored 35% marks and failed by 30 marks. The pass mark was 45%. Find the maximum marks.
+Options: 300 | 66.67 | 85.71 | 280
+Answer: 300
+Difficulty: Easy
+Topology: direct_mapping:simple_shortfall
+Realism: 97
+Hindi: एक परीक्षा में एक अभ्यर्थी ने 35% अंक प्राप्त किए और 30 अंकों से अनुत्तीर्ण हुआ। उत्तीर्णांक 45% हैं। अधिकतम अंक ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 35% ਅੰਕ ਲਏ ਅਤੇ 30 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਪਾਸ ਅੰਕ 45% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Shortcut:
+10% marks = 30
+So,
+100% marks =
+300
+
+Using the percentage relation:
+Pass mark difference:
+45 - 35
+= 10
+Maximum marks are:
+30 x 100 / 10
+= 300
+Hence, maximum marks in the test = 300
+
+[Q20]
+Salary changed from ₹5000 to ₹5500. Find the percentage change.
+Options: 10% | 9.09% | 500% | 9%
+Answer: 10%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 86
+Hindi: एक कर्मचारी का वेतन 5000 से बदलकर 5500 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 5000 ਤੋਂ ਬਦਲ ਕੇ 5500 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Increase in salary:
+5500 - 5000
+= 500
+Change %:
+500 x 100 / 5000
+= 10
+Hence, salary revision = 10% increase
+
+[Q21]
+In a milk-water mixture, the mixture has 300 units and contains 20% pure component. How much pure component should be added to make it 40% pure?
+Options: 100 | 60 | 120 | 20
+Answer: 100
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 92
+Hindi: एक दूध-पानी मिश्रण की मात्रा 300 है और उसमें 20% शुद्ध घटक है। इसे 40% शुद्ध बनाने के लिए कितना शुद्ध घटक मिलाना होगा?
+Punjabi: ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 300 ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਸ਼ੁੱਧ ਹਿੱਸਾ ਹੈ। ਇਸ ਨੂੰ 40% ਸ਼ੁੱਧ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਹਿੱਸਾ ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?
+
+Explanation:
+Water quantity remains unchanged.
+Water quantity =
+300 - 60
+= 240
+Final mixture quantity:
+240 x 100 / ( 100 - 40 )
+= 400
+Pure component to be added:
+400 - 300
+= 100
+Pure component to be added = 100
+
+[Q22]
+A shopkeeper sold a cooking oil tin. Cost price = ₹240 and selling price = ₹216. Find profit or loss percentage.
+Options: 10% loss | 8.89% profit | 10% profit | 24% profit
+Answer: 10% loss
+Difficulty: Easy
+Topology: none:profit_loss
+Realism: 88
+Hindi: एक दुकानदार ने साइकिल ₹240 में खरीदा और ₹216 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਸਾਈਕਲ ₹240 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹216 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Loss amount:
+240 - 216
+= 24
+Loss %:
+24 x 100 / 240
+= 10
+Loss % = 10% loss
+
+[Q23]
+Salary changed from ₹12000 to ₹13200. Find the percentage change.
+Options: 10% | 9.09% | 1000% | 9%
+Answer: 10%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 86
+Hindi: एक कर्मचारी का वेतन 12000 से बदलकर 13200 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 12000 ਤੋਂ ਬਦਲ ਕੇ 13200 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Increase in salary:
+13200 - 12000
+= 1200
+
+Change %:
+1200 x 100 / 12000
+= 10
+
+Hence, salary revision = 10% increase
+
+[Q24]
+In a milk-water mixture, the mixture has 150 units and contains 20% pure component. How much pure component should be added to make it 50% pure?
+Options: 90 | 45 | 75 | 30
+Answer: 90
+Difficulty: Medium
+Topology: none:mixture_percentage
+Realism: 92
+Hindi: एक दूध-पानी मिश्रण की मात्रा 150 है और उसमें 20% शुद्ध घटक है। इसे 50% शुद्ध बनाने के लिए कितना शुद्ध घटक मिलाना होगा?
+Punjabi: ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 150 ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਸ਼ੁੱਧ ਹਿੱਸਾ ਹੈ। ਇਸ ਨੂੰ 50% ਸ਼ੁੱਧ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਹਿੱਸਾ ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?
+
+Explanation:
+Water quantity remains unchanged.
+Water quantity =
+150 - 30
+= 120
+
+Final mixture quantity:
+120 x 100 / ( 100 - 50 )
+= 240
+
+Pure component to be added:
+240 - 150
+= 90
+
+Pure component to be added = 90
+
+[Q25]
+In a student union election, the winning candidate secured 60% of the votes and defeated the opponent by 32000 votes. Find the total number of votes polled.
+Options: 160000 | 55000 | 80000 | 640000
+Answer: 160000
+Difficulty: Easy
+Topology: direct_mapping:direct_margin
+Realism: 88
+Hindi: एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 60% वोट मिले और उसने प्रतिद्वंद्वी को 32000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 32000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Winning margin:
+Margin percentage =
+60 - 40
+= 20%
+
+Total votes are:
+32000 x 100 / 20
+= 160000
+
+Therefore, total votes = 160000
+
+[Q26]
+In a migration report, the population was 120000. It increased by 5%. In addition, people equal to 2% of the original population migrated in. Find the final population.
+Options: 128400 | 130000 | 125000 | 135000
+Answer: 128400
+Difficulty: Medium
+Topology: layered_population:migration_adjusted_population
+Realism: 93
+Hindi: एक नगर जनसंख्या रिपोर्ट में जनसंख्या 120000 थी। इसमें 5% वृद्धि हुई। साथ ही मूल जनसंख्या के 2% लोग बाहर से आए। अंतिम जनसंख्या ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਸ਼ਹਿਰੀ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 120000 ਸੀ। ਇਸ ਵਿੱਚ 5% ਵਾਧਾ ਹੋਇਆ। ਨਾਲ ਹੀ ਮੂਲ ਆਬਾਦੀ ਦੇ 2% ਲੋਕ ਬਾਹਰੋਂ ਆਏ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Population after increase:
+120000 x 105 / 100
+= 126000
+Population added by migration:
+120000 x 2 / 100
+= 2400
+Final population after migration:
+126000 + 2400
+= 128400
+Accordingly, final population = 128400
+
+[Q27]
+In a milk-water mixture, the mixture has 100 units and contains 20% pure component. How much pure component should be added to make it 40% pure?
+Options: 33.33 | 20 | 40 | 80
+Answer: 33.33
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 92
+Hindi: एक दूध-पानी मिश्रण की मात्रा 100 है और उसमें 20% शुद्ध घटक है। इसे 40% शुद्ध बनाने के लिए कितना शुद्ध घटक मिलाना होगा?
+Punjabi: ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 100 ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਸ਼ੁੱਧ ਹਿੱਸਾ ਹੈ। ਇਸ ਨੂੰ 40% ਸ਼ੁੱਧ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਹਿੱਸਾ ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?
+
+Explanation:
+Water quantity remains unchanged.
+Water quantity =
+100 - 20
+= 80
+
+Final mixture quantity:
+80 x 100 / ( 100 - 40 )
+= 133.33
+
+Pure component to be added:
+133.33 - 100
+= 33.33
+
+Thus, pure component to be added = 33.33
+
+[Q28]
+Salary changed from ₹12000 to ₹14400. Find the percentage change.
+Options: 20% | 16.67% | 2000% | 18%
+Answer: 20%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 84
+Hindi: एक कर्मचारी का वेतन 12000 से बदलकर 14400 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 12000 ਤੋਂ ਬਦਲ ਕੇ 14400 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Increase in salary:
+14400 - 12000
+= 2400
+Change %:
+2400 x 100 / 12000
+= 20
+Salary change = 20% increase
+
+[Q29]
+Salary changed from ₹12000 to ₹15000. Find the percentage change.
+Options: 25% | 20% | 3000% | 22.5%
+Answer: 25%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 84
+Hindi: एक कर्मचारी का वेतन 12000 से बदलकर 15000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 12000 ਤੋਂ ਬਦਲ ਕੇ 15000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Increase in salary:
+15000 - 12000
+= 3000
+Change %:
+3000 x 100 / 12000
+= 25
+Salary change = 25% increase
+
+[Q30]
+Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?
+Options: 28.57% | 40% | 60% | 66.67%
+Answer: 28.57%
+Difficulty: Medium
+Topology: none:price_consumption
+Realism: 98
+Hindi: ईंधन की कीमत 40% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+Punjabi: ਈਂਧਨ ਦੀ ਕੀਮਤ 40% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Explanation:
+New price after increase:
+100 + 40
+= 140
+For the same expenditure:
+New consumption =
+100 x 100 / 140
+= 71.43
+Reduction in consumption is:
+100 - 71.43
+= 28.57% reduction
+Hence, required reduction = 28.57% reduction
+
+[Q31]
+Fuel price increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?
+Options: 33.33% | 50% | 100% | 13.33%
+Answer: 33.33%
+Difficulty: Medium
+Topology: none:price_consumption
+Realism: 82
+Hindi: ईंधन की कीमत 50% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+Punjabi: ਈਂਧਨ ਦੀ ਕੀਮਤ 50% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Explanation:
+New price after increase =
+100 + 50
+= 150
+New consumption =
+100 x 100 / 150
+= 66.67
+Reduction in consumption =
+100 - 66.67
+= 33.33% reduction
+Hence, required reduction = 33.33% reduction
+
+[Q32]
+In an employee union election, 80% of the registered voters voted and 80% of those votes were valid. The winning candidate got 70% of the valid votes. The margin between the two candidates was 10240 votes. Find the winning candidate's votes.
+Options: 17920 | 28000 | 22000 | 18000
+Answer: 17920
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 96
+Hindi: एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले। जीत का अंतर 10240 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 10240 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Effective valid votes:
+10240 x 100 / 40
+= 25600
+Winner's votes are:
+25600 x 70 / 100
+= 17920
+Hence, winning candidate's votes = 17920
+
+[Q33]
+In a milk-water mixture, the mixture has 100 units and contains 20% pure component. How much pure component should be added to make it 40% pure?
+Options: 33.33 | 20 | 40 | 80
+Answer: 33.33
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 92
+Hindi: एक दूध-पानी मिश्रण की मात्रा 100 है और उसमें 20% शुद्ध घटक है। इसे 40% शुद्ध बनाने के लिए कितना शुद्ध घटक मिलाना होगा?
+Punjabi: ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 100 ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਸ਼ੁੱਧ ਹਿੱਸਾ ਹੈ। ਇਸ ਨੂੰ 40% ਸ਼ੁੱਧ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਹਿੱਸਾ ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?
+
+Explanation:
+Water quantity remains unchanged.
+Water quantity =
+100 - 20
+= 80
+Final mixture quantity:
+80 x 100 / ( 100 - 40 )
+= 133.33
+Pure component to be added:
+133.33 - 100
+= 33.33
+Thus, pure component to be added = 33.33
+
+[Q34]
+Salary changed from ₹4000 to ₹5000. Find the percentage change.
+Options: 25% | 20% | 1000% | 22.5%
+Answer: 25%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 86
+Hindi: एक कर्मचारी का वेतन 4000 से बदलकर 5000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 4000 ਤੋਂ ਬਦਲ ਕੇ 5000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Increase in salary:
+5000 - 4000
+= 1000
+Change %:
+1000 x 100 / 4000
+= 25
+Hence, salary revision = 25% increase
+
+[Q35]
+A is 10% more than B. B is 25% less than C. C is 20% more than D. Find by what percent A is more or less than D.
+Options: 1% less | 5% more | 1.01% more | 20% more
+Answer: 1% less
+Difficulty: Hard
+Topology: multi_entity_percentage_network:three_step_relation_chain
+Realism: 93
+Hindi: A की आय B से 10% अधिक है। B की आय C से 25% कम है। C की आय D से 20% अधिक है। A की आय D से कितने प्रतिशत अधिक या कम है?
+Punjabi: A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 10% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। C ਦੀ ਆਮਦਨ D ਨਾਲੋਂ 20% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Explanation:
+Take the reference value as 100:
+Reference value =
+100
+= 100
+
+Using the percentage relation:
+Relation index =
+100 x 110 / 100
+= 110
+
+Using the percentage relation:
+Relation index =
+110 x 75 / 100
+= 82.5
+
+Using the percentage relation:
+Final value index =
+82.5 x 120 / 100
+= 99
+
+Compare with 100:
+Percentage less =
+99 - 100
+= 1%
+
+Hence, final value = 1% decrease
+
+[Q36]
+Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?
+Options: 28.57% | 40% | 60% | 66.67%
+Answer: 28.57%
+Difficulty: Medium
+Topology: none:price_consumption
+Realism: 85
+Hindi: ईंधन की कीमत 40% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+Punjabi: ਈਂਧਨ ਦੀ ਕੀਮਤ 40% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Explanation:
+Shortcut:
+Reduction in consumption =
+40 x 100 / (100 + 40)
+= 28.57% reduction
+
+Using the percentage relation:
+New price after increase:
+100 + 40
+= 140
+For the same expenditure:
+New consumption =
+100 x 100 / 140
+= 71.43
+Reduction in consumption is:
+100 - 71.43
+= 28.57% reduction
+Hence, required reduction = 28.57% reduction
+
+[Q37]
+In a milk-water mixture, the mixture has 150 units and contains 20% pure component. How much pure component should be added to make it 50% pure?
+Options: 90 | 45 | 75 | 30
+Answer: 90
+Difficulty: Medium
+Topology: none:mixture_percentage
+Realism: 92
+Hindi: एक दूध-पानी मिश्रण की मात्रा 150 है और उसमें 20% शुद्ध घटक है। इसे 50% शुद्ध बनाने के लिए कितना शुद्ध घटक मिलाना होगा?
+Punjabi: ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 150 ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਸ਼ੁੱਧ ਹਿੱਸਾ ਹੈ। ਇਸ ਨੂੰ 50% ਸ਼ੁੱਧ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਹਿੱਸਾ ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?
+
+Explanation:
+Water quantity remains unchanged.
+Water quantity =
+150 - 30
+= 120
+Final mixture quantity:
+120 x 100 / ( 100 - 50 )
+= 240
+Pure component to be added:
+240 - 150
+= 90
+Pure component to be added = 90
+
+[Q38]
+In a district census report, the counted population is 180, which is 50% of the total. Find the total value.
+Options: 360 | 90 | 270 | 130
+Answer: 360
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 96
+Hindi: किसी मात्रा का 50% भाग 180 है। पूरी मात्रा ज्ञात कीजिए।
+Punjabi: ਕਿਸੇ ਮਾਤਰਾ ਦਾ 50% ਭਾਗ 180 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Total quantity is:
+180 x 100 / 50
+= 360
+
+Hence, total quantity for the record = 360
+
+[Q39]
+In a village council election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winning candidate got 60% of the valid votes and won by 1536 votes. Find the number of registered voters.
+Options: 12000 | 8000 | 10000 | 3000
+Answer: 12000
+Difficulty: Hard
+Topology: successive_filtering:turnout_margin
+Realism: 97
+Hindi: एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 60% वोट मिले और जीत का अंतर 1536 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 1536 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Winning margin:
+Margin percentage =
+60 - 40
+= 20%
+
+Effective valid votes:
+1536 x 100 / 20
+= 7680
+
+Votes polled are:
+7680 x 100 / 80
+= 9600
+
+Registered voters are:
+9600 x 100 / 80
+= 12000
+
+Hence, total votes polled = 12000
+
+[Q40]
+Marked price was reduced by 40% from its original level. Find the required increase percentage.
+Options: 66.67% | 40% | 60% | 33.33%
+Answer: 66.67%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 96
+Hindi: एक वस्तु के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+Punjabi: ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Explanation:
+After a 40% reduction, percentage left is:
+Remaining percentage =
+100 - 40
+= 60%
+Required increase %:
+40 x 100 / 60
+= 66.67% increase
+Required increase % = 66.67%
+
+[Q41]
+According to a census report, the total population was 90000. Males were 60% and females were the rest. The male population increased by 40%, while the female population decreased by 20%. Find the final population.
+Options: 104400 | 110000 | 75000 | 105000
+Answer: 104400
+Difficulty: Hard
+Topology: layered_population:male_female_population_shift
+Realism: 98
+Hindi: एक जनसंख्या रिपोर्ट में कुल जनसंख्या 90000 थी। पुरुष 60% थे और शेष महिलाएं थीं। पुरुष जनसंख्या 40% बढ़ी, जबकि महिला जनसंख्या 20% घटी। अंतिम जनसंख्या ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ 90000 ਸੀ। ਮਰਦ 60% ਸਨ ਅਤੇ ਬਾਕੀ ਔਰਤਾਂ ਸਨ। ਮਰਦ ਆਬਾਦੀ 40% ਵਧੀ, ਜਦਕਿ ਔਰਤ ਆਬਾਦੀ 20% ਘਟੀ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Male population:
+90000 x 60 / 100
+= 54000
+Female population:
+90000 - 54000
+= 36000
+Male population after growth:
+54000 x (100 + 40) / 100
+= 75600
+Female population after reduction:
+Female population after decrease =
+36000 x ( 100 - 20 ) / 100
+= 28800
+Final population:
+75600 + 28800
+= 104400
+Hence, final population = 104400
+
+[Q42]
+The marked price of a shirt was ₹120. It first increased by 25% and then decreased by 20%. What will be the final price of the shirt?
+Options: 120 | 125 | 150 | 90
+Answer: 120
+Difficulty: Medium
+Topology: none:increase_then_decrease
+Realism: 82
+Hindi: लैपटॉप का मूल्य ₹120 था। इसमें पहले 25% वृद्धि और फिर 20% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।
+Punjabi: ਲੈਪਟਾਪ ਦੀ ਕੀਮਤ ₹120 ਸੀ। ਪਹਿਲਾਂ 25% ਵਾਧਾ ਅਤੇ ਫਿਰ 20% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+After a 25% increase:
+Value after first change =
+120 x 125 / 100
+= 150
+After a 20% decrease:
+Final value =
+150 x 80 / 100
+= 120
+Therefore, final value = 120
+
+[Q43]
+In a coaching institute test, the marks scored is 24, which is 20% of the total. Find the total value.
+Options: 120 | 4.8 | 28.8 | 19.2
+Answer: 120
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 95
+Hindi: किसी मात्रा का 20% भाग 24 है। पूरी मात्रा ज्ञात कीजिए।
+Punjabi: ਕਿਸੇ ਮਾਤਰਾ ਦਾ 20% ਭਾਗ 24 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Total quantity is:
+24 x 100 / 20
+= 120
+
+Required total quantity for the record = 120
+
+[Q44]
+A shopkeeper sold a wheat bag. Cost price = ₹600 and selling price = ₹840. Find profit or loss percentage.
+Options: 40% profit | 28.57% profit | 0% profit | 240% profit
+Answer: 40% profit
+Difficulty: Medium
+Topology: none:profit_loss
+Realism: 88
+Hindi: एक दुकानदार ने स्कूल बैग ₹600 में खरीदा और ₹840 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਸਕੂਲ ਬੈਗ ₹600 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹840 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Profit amount:
+840 - 600
+= 240
+Profit %:
+240 x 100 / 600
+= 40
+Hence, profit on cost price = 40% profit
+
+[Q45]
+In a district census report, the counted population is 96, which is 40% of the total. Find the total value.
+Options: 240 | 38.4 | 135 | 57.6
+Answer: 240
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 98
+Hindi: किसी मात्रा का 40% भाग 96 है। पूरी मात्रा ज्ञात कीजिए।
+Punjabi: ਕਿਸੇ ਮਾਤਰਾ ਦਾ 40% ਭਾਗ 96 ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Shortcut:
+40% quantity = 96
+So,
+100% quantity =
+240
+
+Using the percentage relation:
+Total quantity is:
+96 x 100 / 40
+= 240
+Hence, total quantity for the record = 240
+
+[Q46]
+In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 20%, the score was still short of the pass mark by 80 marks. The pass mark was 70%. Find the maximum marks.
+Options: 1600 | 320 | 400 | 115
+Answer: 1600
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 94
+Hindi: एक परीक्षा में अभ्यर्थी ने पहले 45% अंक प्राप्त किए। 20% बोनस जोड़ने के बाद भी वह 80 अंकों से कम रह गया। उत्तीर्णांक 70% हैं। अधिकतम अंक ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 45% ਅੰਕ ਲਏ। 20% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 80 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 70% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Explanation:
+After adding the bonus:
+Adjusted score =
+45 + 20
+= 65
+
+Pass mark difference:
+70 - 65
+= 5
+
+Maximum marks are:
+80 x 100 / 5
+= 1600
+
+Thus, maximum marks = 1600
+
+[Q47]
+A quantity was reduced by 40% from its original level. Find the required increase percentage.
+Options: 66.67% | 40% | 60% | 33.33%
+Answer: 66.67%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 96
+Hindi: एक वस्तु के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+Punjabi: ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Explanation:
+After a 40% reduction, percentage left is:
+Remaining percentage =
+100 - 40
+= 60%
+Required increase %:
+40 x 100 / 60
+= 66.67% increase
+Required increase % = 66.67%
+
+[Q48]
+A is 40% more than B. B is 20% less than C. C is 40% more than D. Find by what percent A is more or less than D.
+Options: 56.8% more | 60% more | 3.78% more | 40% more
+Answer: 56.8% more
+Difficulty: Hard
+Topology: multi_entity_percentage_network:three_step_relation_chain
+Realism: 93
+Hindi: A की आय B से 40% अधिक है। B की आय C से 20% कम है। C की आय D से 40% अधिक है। A की आय D से कितने प्रतिशत अधिक या कम है?
+Punjabi: A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 20% ਘੱਟ ਹੈ। C ਦੀ ਆਮਦਨ D ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Explanation:
+Take the reference value as 100:
+Reference value =
+100
+= 100
+Using the percentage relation:
+Relation index =
+100 x 140 / 100
+= 140
+Using the percentage relation:
+Relation index =
+140 x 80 / 100
+= 112
+Using the percentage relation:
+Final value index =
+112 x 140 / 100
+= 156.8
+Compare with 100:
+Percentage more =
+156.8 - 100
+= 56.8%
+Final value = 56.8% increase
+
+[Q49]
+A quantity was reduced by 50% from its original level. Find the required increase percentage.
+Options: 100% | 50% | 0% | 75%
+Answer: 100%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 88
+Hindi: एक वस्तु के मूल्य में 50% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+Punjabi: ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 50% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Explanation:
+After a 50% reduction, percentage left is:
+Remaining percentage =
+100 - 50
+= 50%
+Required increase %:
+50 x 100 / 50
+= 100% increase
+So, required increase = 100%
+
+[Q50]
+A shopkeeper sold a shirt. Cost price = ₹240 and selling price = ₹180. Find profit or loss percentage.
+Options: 25% loss | 6.67% profit | 25% profit | 60% profit
+Answer: 25% loss
+Difficulty: Medium
+Topology: none:profit_loss
+Realism: 88
+Hindi: एक दुकानदार ने चावल का बोरा ₹240 में खरीदा और ₹180 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।
+Punjabi: ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਚਾਵਲ ਦੀ ਬੋਰੀ ₹240 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹180 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Explanation:
+Loss amount:
+240 - 180
+= 60
+
+Loss %:
+60 x 100 / 240
+= 25
+
+Thus, loss % = 25% loss
+

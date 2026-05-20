@@ -82,6 +82,30 @@ const STEP_PHRASES = {
     { id: "ratio_share", text: "Use the share from the ratio." },
     { id: "ratio_parts", text: "Compare the parts in the ratio." },
   ],
+  relation_normalization: [
+    { id: "normalize_reference", text: "Take the reference value as 100." },
+    { id: "normalize_base", text: "Let the base value be 100." },
+    { id: "normalize_index", text: "Use 100 as the reference index." },
+    { id: "normalize_comparison", text: "Start with the comparison base." },
+  ],
+  relation_transformation: [
+    { id: "apply_relation", text: "Apply the relation." },
+    { id: "relation_step", text: "From this relation:" },
+    { id: "next_relation", text: "Move to the next value." },
+    { id: "relation_index", text: "Convert this to an index." },
+  ],
+  relation_inversion: [
+    { id: "invert_relation", text: "Reverse the given relation." },
+    { id: "inverse_base", text: "Use the inverse base." },
+    { id: "reverse_comparison", text: "Read the comparison in reverse." },
+    { id: "inverted_index", text: "Convert through the inverse relation." },
+  ],
+  comparison_inference: [
+    { id: "infer_difference", text: "Now compare with the base." },
+    { id: "final_relation", text: "Final relation with the base:" },
+    { id: "relative_difference", text: "Relative difference is:" },
+    { id: "comparison_result", text: "This gives the comparison." },
+  ],
   subtract_invalid_component: [
     { id: "invalid_remove", text: "Remove the invalid part." },
     { id: "invalid_valid_pool", text: "Only valid votes remain." },

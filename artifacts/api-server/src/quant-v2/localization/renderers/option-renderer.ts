@@ -15,6 +15,7 @@ function answerNeedsPercent(problem: CanonicalPercentageProblem) {
     "restore_original",
     "price_consumption",
     "salary_revision",
+    "relational_percentage",
   ].includes(problem.subtype);
 }
 
@@ -55,6 +56,16 @@ export function renderOption(input: {
       return `${amount}% ${value < 0 ? "ਕਮੀ" : "ਵਾਧਾ"}`;
     }
     return `${amount}%`;
+  }
+
+  if (input.problem.subtype === "relational_percentage") {
+    if (language === "hi") {
+      return `${amount}% ${value < 0 ? "कम" : "अधिक"}`;
+    }
+    if (language === "pa") {
+      return `${amount}% ${value < 0 ? "ਘੱਟ" : "ਵੱਧ"}`;
+    }
+    return `${amount}% ${value < 0 ? "less" : "more"}`;
   }
 
   if (input.problem.subtype === "restore_original") {

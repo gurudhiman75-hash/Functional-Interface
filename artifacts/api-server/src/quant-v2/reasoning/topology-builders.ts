@@ -2036,13 +2036,17 @@ export const TOPOLOGY_BUILDERS = {
   ...ELECTION_BUILDERS,
   ...PASS_FAIL_BUILDERS,
   ...POPULATION_BUILDERS,
-} satisfies Record<TopologyVariant, (ctx: BuildContext) => TopologyBuildResult>;
+} satisfies Partial<Record<TopologyVariant, (ctx: BuildContext) => TopologyBuildResult>>;
 
 export function buildTopologyVariant(
   variant: TopologyVariant,
   seed?: number | string,
 ): TopologyBuildResult {
-  return TOPOLOGY_BUILDERS[variant](context(seed));
+  const builder = TOPOLOGY_BUILDERS[variant];
+  if (!builder) {
+    throw new Error(`No topology builder registered for variant: ${variant}.`);
+  }
+  return builder(context(seed));
 }
 
 export function buildTopologyReasoningGraph(

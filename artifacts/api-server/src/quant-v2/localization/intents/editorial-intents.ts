@@ -73,6 +73,7 @@ export type EditorialIntentKey =
   | "narration.combined_difference"
   | "narration.direct_relation"
   | "narration.percentage_relation"
+  | "narration.after_bonus"
   | "narration.growth_period"
   | "fallback.english";
 

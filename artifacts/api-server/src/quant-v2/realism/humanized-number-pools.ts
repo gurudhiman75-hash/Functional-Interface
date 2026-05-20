@@ -27,26 +27,26 @@ export const HUMANIZED_NUMBER_POOLS = {
     900,
   ],
   electionTotals: [
+    12000,
     24000,
     40000,
     48000,
     56000,
-    64000,
     72000,
-    80000,
+    85000,
     96000,
     120000,
+    144000,
     160000,
     200000,
     240000,
+    250000,
     320000,
+    365000,
     400000,
     480000,
     600000,
     720000,
-    800000,
-    960000,
-    1200000,
   ],
   examTotals: [
     120,
@@ -78,17 +78,19 @@ export const HUMANIZED_NUMBER_POOLS = {
     48000,
     60000,
     75000,
+    85000,
     90000,
     120000,
+    144000,
     150000,
     180000,
     240000,
+    250000,
     300000,
     360000,
+    365000,
     480000,
     600000,
-    750000,
-    900000,
   ],
   salaryTotals: [
     25000,
@@ -133,29 +135,25 @@ export function cyclicPick<T>(
   return values[index]!;
 }
 
-function block(serial: number, poolLength: number) {
-  return Math.floor(Math.max(0, serial - 1) / poolLength);
-}
-
 export function humanizedElectionTotal(
   serial: number,
   offset = 0,
 ): number {
-  return 125000 + Math.max(0, serial + offset - 1) * 25000;
+  return cyclicPick(HUMANIZED_NUMBER_POOLS.electionTotals, serial, offset);
 }
 
 export function humanizedExamTotal(
   serial: number,
   offset = 0,
 ): number {
-  return 200 + Math.max(0, serial + offset - 1) * 100;
+  return cyclicPick(HUMANIZED_NUMBER_POOLS.examTotals, serial, offset);
 }
 
 export function humanizedPopulationTotal(
   serial: number,
   offset = 0,
 ): number {
-  return 20000 + Math.max(0, serial + offset - 1) * 10000;
+  return cyclicPick(HUMANIZED_NUMBER_POOLS.populationTotals, serial, offset);
 }
 
 export function humanizedScaleUnit(

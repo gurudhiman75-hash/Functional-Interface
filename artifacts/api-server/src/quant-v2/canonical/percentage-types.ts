@@ -15,7 +15,10 @@ export type Trap =
   | "additive_instead_of_multiplicative"
   | "ignoring_remaining_component"
   | "ratio_confusion"
-  | "direct_percentage_mapping";
+  | "direct_percentage_mapping"
+  | "incorrect_inversion"
+  | "normalization_error"
+  | "transitive_shortcut_error";
 
 export type Difficulty =
   | "easy"
@@ -61,7 +64,8 @@ export type PercentageSubtype =
   | "taxation"
   | "commission"
   | "part_whole"
-  | "ratio_percentage";
+  | "ratio_percentage"
+  | "relational_percentage";
 
 export type ReasoningPattern =
   | "compound_shift"
@@ -73,7 +77,8 @@ export type ReasoningPattern =
   | "population_projection"
   | "margin_mapping"
   | "weighted_average"
-  | "mixture_balance";
+  | "mixture_balance"
+  | "relational_chain";
 
 export interface CanonicalPercentageProblem {
   id: string;
@@ -130,6 +135,7 @@ export const PERCENTAGE_SUBTYPES: readonly PercentageSubtype[] = [
   "commission",
   "part_whole",
   "ratio_percentage",
+  "relational_percentage",
 ];
 
 export const REASONING_PATTERNS: readonly ReasoningPattern[] = [
@@ -143,6 +149,7 @@ export const REASONING_PATTERNS: readonly ReasoningPattern[] = [
   "margin_mapping",
   "weighted_average",
   "mixture_balance",
+  "relational_chain",
 ];
 
 export const TRAPS: readonly Trap[] = [
@@ -158,6 +165,9 @@ export const TRAPS: readonly Trap[] = [
   "ignoring_remaining_component",
   "ratio_confusion",
   "direct_percentage_mapping",
+  "incorrect_inversion",
+  "normalization_error",
+  "transitive_shortcut_error",
 ];
 
 export const DIFFICULTIES: readonly Difficulty[] = [

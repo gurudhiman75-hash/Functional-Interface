@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { readFile } from "node:fs/promises";
 import { eq } from "drizzle-orm";
 
 import { db } from "../lib/db";
@@ -26,6 +27,23 @@ import {
   retryFailedGenerationJob,
   type GenerationJobStatus,
 } from "../lib/generation-jobs";
+import {
+  getCorpusAuditJob,
+  listCorpusAuditJobs,
+  startCorpusAuditExportJob,
+} from "../quant-v2/corpus-audit/corpus-audit-exporter";
+import {
+  CORPUS_AUDIT_PRESETS,
+  isCorpusAuditPresetId,
+} from "../quant-v2/corpus-audit/corpus-audit-presets";
+import {
+  CORPUS_AUDIT_EXPORT_PROFILES,
+  estimateCorpusAuditExportSizeMb,
+  isCorpusAuditExportProfileId,
+} from "../quant-v2/corpus-audit/corpus-audit-profiles";
+import type {
+  CorpusAuditExportOptions,
+} from "../quant-v2/corpus-audit/corpus-audit-types";
 import { ALL_PATTERNS } from "../lib/patterns";
 import {
   listQuestionPatterns,
@@ -611,6 +629,17 @@ function validateAsyncJobCount(
   );
 }
 
+function validateCorpusAuditCount(
+  count: unknown,
+) {
+  return (
+    typeof count === "number" &&
+    Number.isInteger(count) &&
+    count >= 1 &&
+    count <= 20000
+  );
+}
+
 router.get(
   "/realization-coverage",
   async (_req, res) => {
@@ -1066,6 +1095,8 @@ router.post(
         targetAverageDifficulty,
         setProfile,
         enableNameClash,
+        useScheduler,
+        schedulerProfile,
       } = req.body;
 
       if (
@@ -1189,6 +1220,14 @@ router.post(
             setProfile,
             enableNameClash:
               Boolean(enableNameClash),
+            useScheduler:
+              Boolean(useScheduler) &&
+              Number(count) > 1,
+            schedulerProfile:
+              typeof schedulerProfile ===
+              "string"
+                ? schedulerProfile
+                : undefined,
             distractorArchetypes:
               enableNameClash
                 ? ["NameClash"]
@@ -1539,6 +1578,337 @@ router.get(
           error: "Internal server error",
         });
     }
+  },
+);
+
+router.get(
+  "/corpus-audit/presets",
+  async (_req: Request, res: Response) => {
+    return res.json({
+      presets: CORPUS_AUDIT_PRESETS,
+    });
+  },
+);
+
+router.post(
+  "/corpus-audit/exports",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const {
+        count,
+        presetId,
+        seed,
+        outDir,
+        includeSvg,
+        includeFullQuestion,
+        languages,
+        topologySelection,
+        realismProfile,
+        compactnessProfile,
+        difficultyMix,
+        formats,
+        exportProfile,
+        includeMultilingualExplanations,
+        useScheduler,
+        schedulerProfile,
+      } = req.body ?? {};
+
+      if (!validateCorpusAuditCount(count)) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid corpus audit count. Use an integer between 1 and 20000.",
+          });
+      }
+
+      if (
+        typeof presetId === "string" &&
+        !isCorpusAuditPresetId(presetId)
+      ) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid corpus audit preset.",
+          });
+      }
+
+      if (
+        typeof exportProfile === "string" &&
+        !isCorpusAuditExportProfileId(exportProfile)
+      ) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid corpus audit export profile.",
+          });
+      }
+
+      const job =
+        startCorpusAuditExportJob({
+          count,
+          presetId:
+            typeof presetId === "string"
+              ? presetId
+              : undefined,
+          seed:
+            typeof seed === "string"
+              ? seed
+              : undefined,
+          outDir:
+            typeof outDir === "string"
+              ? outDir
+              : undefined,
+          includeSvg:
+            typeof includeSvg === "boolean"
+              ? includeSvg
+              : undefined,
+          includeFullQuestion:
+            typeof includeFullQuestion === "boolean"
+              ? includeFullQuestion
+              : undefined,
+          languages:
+            Array.isArray(languages)
+              ? languages.filter(
+                  (language) =>
+                    language === "en" ||
+                    language === "hi" ||
+                    language === "pa",
+                )
+              : undefined,
+          topologySelection:
+            topologySelection === "relational" ||
+            topologySelection === "procedural" ||
+            topologySelection === "mixed"
+              ? topologySelection
+              : undefined,
+          realismProfile:
+            realismProfile === "pyq" ||
+            realismProfile === "stress" ||
+            realismProfile === "balanced"
+              ? realismProfile
+              : undefined,
+          compactnessProfile:
+            compactnessProfile === "ultra_compact" ||
+            compactnessProfile === "compact" ||
+            compactnessProfile === "balanced"
+              ? compactnessProfile
+              : undefined,
+          difficultyMix:
+            difficultyMix === "easy" ||
+            difficultyMix === "medium" ||
+            difficultyMix === "hard" ||
+            difficultyMix === "balanced"
+              ? difficultyMix
+              : undefined,
+          formats:
+            Array.isArray(formats)
+              ? formats.filter(
+                  (format) =>
+                    format === "json" ||
+                    format === "txt" ||
+                    format === "summary" ||
+                    format === "pdf",
+                )
+              : undefined,
+          exportProfile:
+            typeof exportProfile === "string"
+              ? exportProfile
+              : undefined,
+          includeMultilingualExplanations:
+            typeof includeMultilingualExplanations === "boolean"
+              ? includeMultilingualExplanations
+              : undefined,
+          useScheduler:
+            typeof useScheduler === "boolean"
+              ? useScheduler
+              : undefined,
+          schedulerProfile:
+            typeof schedulerProfile === "string"
+              ? schedulerProfile
+              : undefined,
+        } satisfies CorpusAuditExportOptions);
+
+      return res
+        .status(202)
+        .json({
+          success: true,
+          job,
+        });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : "Internal server error",
+        });
+    }
+  },
+);
+
+router.get(
+  "/corpus-audit/profiles",
+  async (req: Request, res: Response) => {
+    const count = Math.max(
+      1,
+      Math.min(
+        20000,
+        Number(req.query["count"] ?? 1000) ||
+          1000,
+      ),
+    );
+
+    return res.json({
+      profiles: CORPUS_AUDIT_EXPORT_PROFILES.map(
+        (profile) => ({
+          ...profile,
+          estimatedSizeMb:
+            estimateCorpusAuditExportSizeMb({
+              count,
+              exportProfile: profile.id,
+            }),
+        }),
+      ),
+    });
+  },
+);
+
+router.get(
+  "/corpus-audit/exports",
+  async (_req: Request, res: Response) => {
+    return res.json({
+      jobs: listCorpusAuditJobs(),
+    });
+  },
+);
+
+router.get(
+  "/corpus-audit/exports/:id/samples",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const job = getCorpusAuditJob(
+        req.params.id,
+      );
+
+      if (!job?.files?.preview) {
+        return res
+          .status(404)
+          .json({
+            error:
+              "Corpus audit sample preview is not available yet",
+          });
+      }
+
+      const raw = await readFile(
+        job.files.preview,
+        "utf8",
+      );
+      const samples = JSON.parse(raw);
+      const limit = Math.min(
+        Math.max(
+          Number(req.query["limit"] ?? 10) ||
+            10,
+          1,
+        ),
+        25,
+      );
+
+      return res.json({
+        samples: Array.isArray(samples)
+          ? samples.slice(0, limit)
+          : [],
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res
+        .status(500)
+        .json({
+          error: "Internal server error",
+        });
+    }
+  },
+);
+
+router.get(
+  "/corpus-audit/exports/:id/download/:artifact",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    const job = getCorpusAuditJob(
+      req.params.id,
+    );
+    const artifact =
+      req.params.artifact;
+
+    if (!job?.files) {
+      return res
+        .status(404)
+        .json({
+          error:
+            "Corpus audit export artifacts are not available yet",
+        });
+    }
+
+    const filePath =
+      artifact === "json"
+        ? job.files.json
+        : artifact === "txt"
+          ? job.files.txt
+          : artifact === "summary"
+            ? job.files.summary
+            : artifact === "preview"
+              ? job.files.preview
+              : artifact === "pdf"
+                ? job.files.pdf
+                : undefined;
+
+    if (!filePath) {
+      return res
+        .status(404)
+        .json({
+          error:
+            "Requested corpus audit artifact does not exist",
+        });
+    }
+
+    return res.download(filePath);
+  },
+);
+
+router.get(
+  "/corpus-audit/exports/:id",
+  async (
+    req: Request,
+    res: Response,
+  ) => {
+    const job = getCorpusAuditJob(
+      req.params.id,
+    );
+
+    if (!job) {
+      return res
+        .status(404)
+        .json({
+          error:
+            "Corpus audit export job not found",
+        });
+    }
+
+    return res.json({ job });
   },
 );
 

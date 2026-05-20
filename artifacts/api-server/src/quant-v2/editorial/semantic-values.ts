@@ -161,6 +161,12 @@ export function semanticAnswerValue(
         value: Math.abs(problem.answer),
         direction: problem.answer < 0 ? "decrease" : "increase",
       };
+    case "relational_percentage":
+      return {
+        kind: "percentage",
+        value: Math.abs(problem.answer),
+        direction: problem.answer < 0 ? "decrease" : "increase",
+      };
     default:
       return {
         kind: "absolute",

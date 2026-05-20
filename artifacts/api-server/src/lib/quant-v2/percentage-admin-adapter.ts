@@ -35,7 +35,18 @@ import { validatePedagogicalFlow } from "../../quant-v2/validators/pedagogical-f
 import { validateSemanticStability } from "../../quant-v2/validators/semantic-stability-validator";
 import { validatePresentationPolish } from "../../quant-v2/validators/presentation-polish-validator";
 import { validateRealizationNaturalness } from "../../quant-v2/validators/realization-naturalness-validator";
+import { createCorpusRealismGovernorReport } from "../../quant-v2/realism/corpus-realism-governor";
+import { validateRelationalPercentage } from "../../quant-v2/validators/relational-percentage-validator";
+import { validateSemanticConsistency } from "../../quant-v2/validators/semantic-consistency-validator";
+import { deriveCanonicalScenario } from "../../quant-v2/semantic/canonical-scenario";
+import { calibrateDisplayedDistractors } from "../../quant-v2/semantic/distractor-realism";
 import { createProblemSignature } from "../../quant-v2/utils/problem-signature";
+import { createCorpusFingerprints } from "../../quant-v2/quality/corpus-fingerprints";
+import { inferExaminerIntent } from "../../quant-v2/quality/examiner-intents";
+import {
+  createDistractorIntelligence,
+  validateDistractorIntelligence,
+} from "../../quant-v2/quality/distractor-intelligence";
 
 type QuantV2FactoryKey = keyof typeof PERCENTAGE_MOTIF_FACTORIES;
 
@@ -64,7 +75,29 @@ const LEGACY_MOTIF_TO_FACTORY: Record<string, QuantV2FactoryKey> = {
   perc_mixture_replacement: "mixturePercentage",
   perc_fruit_dry_weight: "mixturePercentage",
   perc_alloy_composition: "mixturePercentage",
+  perc_relational_chain: "relationalPercentage",
+  perc_reverse_relation: "relationalPercentage",
+  perc_ratio_percentage_hybrid: "relationalPercentage",
 };
+
+const COMMERCIAL_CORPUS_ROTATION: QuantV2FactoryKey[] = [
+  "relationalPercentage",
+  "electionLead",
+  "reversePercentage",
+  "priceConsumption",
+  "relationalPercentage",
+  "mixturePercentage",
+  "passFail",
+  "restoreValue",
+  "populationGrowth",
+  "profitLoss",
+  "relationalPercentage",
+  "salaryRevision",
+  "successiveIncreaseDecrease",
+  "electionLead",
+  "priceConsumption",
+  "mixturePercentage",
+];
 
 function hashText(value: string) {
   let hash = 2166136261;
@@ -118,9 +151,11 @@ function selectFactory(
     };
   }
 
-  const keys = Object.keys(PERCENTAGE_MOTIF_FACTORIES) as QuantV2FactoryKey[];
   const seed = `${options?.seed ?? ""}|${pattern.id}|${pattern.topic}|${pattern.subtopic}|${sequence}`;
-  const key = keys[hashText(seed) % keys.length]!;
+  const key =
+    COMMERCIAL_CORPUS_ROTATION[
+      (hashText(seed) + sequence) % COMMERCIAL_CORPUS_ROTATION.length
+    ]!;
   return {
     key,
     factory: PERCENTAGE_MOTIF_FACTORIES[key],
@@ -165,6 +200,72 @@ function resultToIssues(result: {
   };
 }
 
+function tierFor(score: number) {
+  if (score >= 92) return "S";
+  if (score >= 84) return "A";
+  if (score >= 72) return "B";
+  return "C";
+}
+
+function capQualityReport(
+  report: ReturnType<typeof createCalibratedQualityReport>,
+  cap: number,
+  reason: string,
+) {
+  const metrics = {
+    ...report.metrics,
+    editorialRealismScore: Math.min(report.metrics.editorialRealismScore, cap),
+    coachingAuthenticityScore: Math.min(report.metrics.coachingAuthenticityScore, cap),
+    contextualNaturalnessScore: Math.min(report.metrics.contextualNaturalnessScore, cap),
+    domainRealismScore: Math.min(report.metrics.domainRealismScore, Math.max(50, cap + 4)),
+    overallQualityScore: Math.min(report.metrics.overallQualityScore, cap),
+  };
+
+  return {
+    ...report,
+    metrics,
+    tier: tierFor(metrics.overallQualityScore),
+    confidence:
+      metrics.overallQualityScore < 66
+        ? "weak_editorial_quality"
+        : report.confidence,
+    penaltyBreakdown: [...report.penaltyBreakdown, reason],
+  } satisfies ReturnType<typeof createCalibratedQualityReport>;
+}
+
+function applyRuntimeQualityCaps(input: {
+  report: ReturnType<typeof createCalibratedQualityReport>;
+  validatorReports: ReturnType<typeof buildValidatorReports>;
+}) {
+  let report = input.report;
+  const localizationReports = Object.values(input.validatorReports.localization ?? {}) as Array<{
+    valid?: boolean;
+    issues?: Array<{ code?: string; message?: string }>;
+  }>;
+  const localizationCodes = localizationReports.flatMap((item) =>
+    (item.issues ?? []).map((issue) => String(issue.code ?? issue.message ?? "")),
+  );
+
+  if (input.validatorReports.semanticConsistency.valid === false) {
+    report = capQualityReport(report, 50, "semantic mismatch caps realism");
+  }
+  if (localizationCodes.some((code) => code === "incomplete_explanation")) {
+    report = capQualityReport(report, 60, "incomplete localized explanation caps realism");
+  }
+  if (
+    localizationCodes.some((code) =>
+      ["english_leakage", "internal_label_leakage", "encoding_corruption"].includes(code),
+    )
+  ) {
+    report = capQualityReport(report, 60, "localized English leakage caps realism");
+  }
+  if (input.validatorReports.distractorIntelligence.valid === false) {
+    report = capQualityReport(report, 78, "weak distractors cap realism");
+  }
+
+  return report;
+}
+
 function buildValidatorReports(input: ReturnType<typeof buildQuantV2Artifacts>) {
   const {
     problem,
@@ -174,6 +275,8 @@ function buildValidatorReports(input: ReturnType<typeof buildQuantV2Artifacts>) 
     svg,
     qualityReport,
     optionSets,
+    canonicalScenario,
+    distractorIntelligence,
   } = input;
   const localization = Object.fromEntries(
     Object.entries(localized).map(([language, realization]) => [
@@ -236,6 +339,26 @@ function buildValidatorReports(input: ReturnType<typeof buildQuantV2Artifacts>) 
         optionsPa: optionSets.pa,
       }),
     ),
+    corpusRealism: resultToIssues(
+      createCorpusRealismGovernorReport({
+        problem,
+        editorial,
+      }),
+    ),
+    semanticConsistency: resultToIssues(
+      validateSemanticConsistency({
+        problem,
+        editorial,
+        localized,
+        optionSets,
+      }),
+    ),
+    relationalPercentage: resultToIssues(
+      validateRelationalPercentage(problem, graph),
+    ),
+    distractorIntelligence: resultToIssues(
+      validateDistractorIntelligence(distractorIntelligence),
+    ),
     localization,
     multilingualStem,
     svg: svgValidation,
@@ -262,6 +385,10 @@ function buildQuantV2Artifacts(input: {
     graph,
     seed,
     realizationProfile,
+  });
+  const canonicalScenario = deriveCanonicalScenario({
+    problem,
+    editorial,
   });
   const localized = {
     en: renderLocalizedRealization({
@@ -297,23 +424,38 @@ function buildQuantV2Artifacts(input: {
     graph,
     editorial,
   );
+  const displayedDistractors = calibrateDisplayedDistractors({
+    answer: problem.answer,
+    distractors: problem.distractors,
+  });
   const optionSets = {
     en: renderOptions({
       problem,
-      values: [problem.answer, ...problem.distractors],
+      values: [problem.answer, ...displayedDistractors],
       language: "en",
     }),
     hi: renderOptions({
       problem,
-      values: [problem.answer, ...problem.distractors],
+      values: [problem.answer, ...displayedDistractors],
       language: "hi",
     }),
     pa: renderOptions({
       problem,
-      values: [problem.answer, ...problem.distractors],
+      values: [problem.answer, ...displayedDistractors],
       language: "pa",
     }),
   };
+  const corpusFingerprints = createCorpusFingerprints({
+    problem,
+    graph,
+    editorial,
+  });
+  const examinerIntent = inferExaminerIntent(problem, graph);
+  const distractorIntelligence = createDistractorIntelligence({
+    problem,
+    renderedOptions: optionSets.en,
+    correctIndex: 0,
+  });
 
   return {
     sequence,
@@ -323,10 +465,15 @@ function buildQuantV2Artifacts(input: {
     problem,
     graph,
     editorial,
+    canonicalScenario,
+    displayedDistractors,
     localized,
     svg,
     qualityReport,
     optionSets,
+    corpusFingerprints,
+    examinerIntent,
+    distractorIntelligence,
   };
 }
 
@@ -346,8 +493,14 @@ export function createQuantV2PercentageQuestionCandidate(
     editorial,
     localized,
     svg,
-    qualityReport,
   } = artifacts;
+  const qualityReport = applyRuntimeQualityCaps({
+    report: artifacts.qualityReport,
+    validatorReports,
+  });
+  validatorReports.metricCalibration = resultToIssues(
+    validateMetricCalibration(qualityReport),
+  );
   const signature = createProblemSignature(problem);
   const optionsList = artifacts.optionSets.en;
   const optionsHi = artifacts.optionSets.hi;
@@ -382,6 +535,9 @@ export function createQuantV2PercentageQuestionCandidate(
     shortcutSurfaced: editorial.naturalization.shortcutSurfaced,
     realizationCompactness: artifacts.realizationProfile.compactness,
     examProfile: artifacts.realizationProfile.examProfile,
+    canonicalScenario: artifacts.canonicalScenario,
+    corpusFingerprints: artifacts.corpusFingerprints,
+    examinerIntent: artifacts.examinerIntent,
   };
 
   return {
@@ -438,6 +594,8 @@ export function createQuantV2PercentageQuestionCandidate(
               problem.traps[index - 1] ?? "percentage misconception",
             reasoningTrap:
               problem.traps[index - 1] ?? "wrong_base",
+            distractorIntelligence:
+              artifacts.distractorIntelligence[index - 1] ?? null,
           }),
     })),
     examRealismMetadata: {
@@ -457,6 +615,8 @@ export function createQuantV2PercentageQuestionCandidate(
           : "strong",
       realismSignals: qualityReport.explanationBreakdown,
       realismPenalties: qualityReport.penaltyBreakdown,
+      examinerIntent: artifacts.examinerIntent,
+      corpusFingerprints: artifacts.corpusFingerprints,
     },
     generationMetrics: {
       generationDurationMs: Date.now() - startedAt,
@@ -477,11 +637,16 @@ export function createQuantV2PercentageQuestionCandidate(
       canonicalProblem: problem,
       reasoningGraph: graph,
       semanticMetadata: {
+        canonicalScenario: artifacts.canonicalScenario,
+        corpusFingerprints: artifacts.corpusFingerprints,
+        examinerIntent: artifacts.examinerIntent,
         answer: {
           raw: problem.answer,
           rendered: answerOption,
         },
         variables: problem.variables,
+        displayedDistractors: artifacts.displayedDistractors,
+        distractorIntelligence: artifacts.distractorIntelligence,
         traps: problem.traps,
       },
       svgRendering: svg.rendered,
@@ -524,6 +689,9 @@ export function createQuantV2PercentageQuestionCandidate(
     semanticMetadata: {
       problem,
       signature,
+      canonicalScenario: artifacts.canonicalScenario,
+      corpusFingerprints: artifacts.corpusFingerprints,
+      examinerIntent: artifacts.examinerIntent,
     },
     svgRendering: svg.rendered as unknown,
     qualityMetrics: qualityReport as unknown,
@@ -628,6 +796,11 @@ export function createQuantV2PercentageQuestionCandidate(
         svgRendering: svg.rendered,
         semanticMetadata: {
           signature,
+          canonicalScenario: artifacts.canonicalScenario,
+          corpusFingerprints: artifacts.corpusFingerprints,
+          examinerIntent: artifacts.examinerIntent,
+          displayedDistractors: artifacts.displayedDistractors,
+          distractorIntelligence: artifacts.distractorIntelligence,
           answer: {
             raw: problem.answer,
             rendered: answerOption,
