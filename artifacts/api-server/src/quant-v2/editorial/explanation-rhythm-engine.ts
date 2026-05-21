@@ -151,7 +151,7 @@ function outputLabel(
     case "derive_adjusted_score_percent":
       return "Adjusted score";
     case "derive_remaining_required_percent_gap":
-      return "Extra marks required";
+      return "Required percentage gap";
     case "derive_unchanged_non_added_component":
       return "Water quantity";
     case "map_fixed_component_to_target_total":
@@ -195,9 +195,12 @@ function outputLabel(
     }
     if (problem.subtype === "pass_fail") {
       if (step.descriptionKey.includes("remaining")) {
-        return "Marks still needed";
+        return "Required percentage gap";
       }
-      return "Pass mark difference";
+      if (step.descriptionKey.includes("gap_between_two_scores")) {
+        return "Percentage gap";
+      }
+      return "Required percentage gap";
     }
     if (step.descriptionKey.includes("remaining")) {
       return "Remaining percentage";
@@ -635,15 +638,15 @@ function stepObservation(
         : fallback;
     case "derive_pass_mark_gap":
     case "derive_pass_gap_after_adjustment":
-      return "Pass mark difference:";
+      return "Required percentage gap:";
     case "combine_shortfall_and_excess_marks":
       return "Total marks gap:";
     case "derive_gap_between_two_scores":
-      return "Marks percentage gap:";
+      return "Percentage gap:";
     case "derive_scored_percent_over_total_marks":
       return "Marks already secured:";
     case "derive_remaining_required_percent_gap":
-      return "Extra marks required:";
+      return "Required percentage gap:";
     case "map_shortfall_to_total_marks":
     case "map_combined_gap_to_total_marks":
     case "map_remaining_marks_required_to_total":
@@ -685,7 +688,7 @@ function stepObservation(
     case "derive_consumption_reduction_percent":
       return "Reduction in consumption is:";
     case "derive_unchanged_non_added_component":
-      return "Water quantity remains unchanged.";
+      return "Water remains unchanged.";
     case "map_fixed_component_to_target_total":
       return "Final mixture quantity:";
     case "derive_added_quantity":
@@ -799,17 +802,21 @@ function finalEndingText(problem: CanonicalPercentageProblem) {
 
   switch (problem.subtype) {
     case "election_margin":
-      return variant === "filtered_valid_vote_margin"
-        ? `${pickEnding(problem, [
+      if (variant === "filtered_valid_vote_margin") {
+        return `${pickEnding(problem, [
             "Hence, winning candidate's votes",
             "Therefore, winning candidate's votes",
             "Winning candidate's votes",
-          ])} = ${answer}`
-        : `${pickEnding(problem, [
-            "Hence, total votes polled",
-            "Therefore, total votes",
-            "Total votes",
-          ])} = ${answer}`;
+        ])} = ${answer}`;
+      }
+      if (variant === "turnout_margin") {
+        return `Registered voters = ${answer}`;
+      }
+      return `${pickEnding(problem, [
+        "Hence, total votes polled",
+        "Therefore, total votes",
+        "Total votes",
+      ])} = ${answer}`;
     case "pass_fail":
       return `${pickEnding(problem, [
         "Thus, maximum marks",
@@ -847,11 +854,7 @@ function finalEndingText(problem: CanonicalPercentageProblem) {
             "Profit %",
           ])} = ${answer}`;
     case "restore_original":
-      return `${pickEnding(problem, [
-        "So, required increase",
-        "Hence, increase needed to restore the value",
-        "Required increase %",
-      ])} = ${answer}`;
+      return `Required increase = ${answer}`;
     case "reverse_percentage":
       return `${pickEnding(problem, [
         "Hence, total quantity for the record",

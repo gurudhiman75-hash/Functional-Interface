@@ -55,6 +55,23 @@ function commercialObjectForIntent(intent: StemIntent) {
   });
 }
 
+function reversePercentageContext(intent: StemIntent) {
+  const text = intent.fallbackText.toLowerCase();
+  if (/\bmarks?\b|\bscore\b/.test(text)) {
+    return "marks";
+  }
+  if (/\bpopulation\b|\bpeople\b/.test(text)) {
+    return "population";
+  }
+  if (/\bapplicants?\b|\bcandidates?\b/.test(text)) {
+    return "applicants";
+  }
+  if (/\bsugar\b|\bstock\b/.test(text)) {
+    return "sugar";
+  }
+  return Number(intent.values.part ?? 0) >= 100 ? "applicants" : "sugar";
+}
+
 function renderHindi(intent: StemIntent, profile?: RealizationProfile) {
   const v = intent.values;
   const commercialObject = commercialObjectForIntent(intent);
@@ -102,7 +119,16 @@ function renderHindi(intent: StemIntent, profile?: RealizationProfile) {
       }
       return `एक जनसंख्या रिपोर्ट में जनसंख्या ${n(v.population)} थी। यह ${n(v.years)} वर्षों तक प्रति वर्ष ${absPercent(v.rate)} बढ़ी। इस अवधि के बाद जनसंख्या ज्ञात कीजिए।`;
     case "stem.reverse_percentage":
-      return `किसी मात्रा का ${absPercent(v.percent)} भाग ${n(v.part)} है। पूरी मात्रा ज्ञात कीजिए।`;
+      if (reversePercentageContext(intent) === "marks") {
+        return `एक विद्यार्थी ने ${n(v.part)} अंक प्राप्त किए, जो अधिकतम अंकों के ${absPercent(v.percent)} हैं। अधिकतम अंक ज्ञात कीजिए।`;
+      }
+      if (reversePercentageContext(intent) === "population") {
+        return `${n(v.part)} लोग कुल जनसंख्या के ${absPercent(v.percent)} हैं। कुल जनसंख्या ज्ञात कीजिए।`;
+      }
+      if (reversePercentageContext(intent) === "applicants") {
+        return `${n(v.part)} अभ्यर्थी कुल आवेदकों के ${absPercent(v.percent)} हैं। कुल आवेदक ज्ञात कीजिए।`;
+      }
+      return `${n(v.part)} kg चीनी कुल स्टॉक का ${absPercent(v.percent)} है। कुल स्टॉक ज्ञात कीजिए।`;
     case "stem.restore_original":
       return `एक वस्तु के मूल्य में ${absPercent(v.cutPercent)} कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?`;
     case "stem.salary_increment":
@@ -173,7 +199,16 @@ function renderPunjabi(intent: StemIntent, profile?: RealizationProfile) {
       }
       return `ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ ${n(v.population)} ਸੀ। ਇਹ ${n(v.years)} ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ ${absPercent(v.rate)} ਵਧੀ। ਇਸ ਅਵਧੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।`;
     case "stem.reverse_percentage":
-      return `ਕਿਸੇ ਮਾਤਰਾ ਦਾ ${absPercent(v.percent)} ਭਾਗ ${n(v.part)} ਹੈ। ਪੂਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।`;
+      if (reversePercentageContext(intent) === "marks") {
+        return `ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ ${n(v.part)} ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ ${absPercent(v.percent)} ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।`;
+      }
+      if (reversePercentageContext(intent) === "population") {
+        return `${n(v.part)} ਲੋਕ ਕੁੱਲ ਆਬਾਦੀ ਦੇ ${absPercent(v.percent)} ਹਨ। ਕੁੱਲ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।`;
+      }
+      if (reversePercentageContext(intent) === "applicants") {
+        return `${n(v.part)} ਉਮੀਦਵਾਰ ਕੁੱਲ ਅਰਜ਼ੀਦਾਰਾਂ ਦੇ ${absPercent(v.percent)} ਹਨ। ਕੁੱਲ ਅਰਜ਼ੀਦਾਰ ਪਤਾ ਕਰੋ।`;
+      }
+      return `${n(v.part)} kg ਚੀਨੀ ਕੁੱਲ ਸਟਾਕ ਦਾ ${absPercent(v.percent)} ਹੈ। ਕੁੱਲ ਸਟਾਕ ਪਤਾ ਕਰੋ।`;
     case "stem.restore_original":
       return `ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ ${absPercent(v.cutPercent)} ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?`;
     case "stem.salary_increment":

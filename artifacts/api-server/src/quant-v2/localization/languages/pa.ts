@@ -11,10 +11,14 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.total_votes": "ਕੁੱਲ ਵੋਟ",
   "label.registered_voters": "ਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ",
   "label.pass_mark_gap": "ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ",
+  "label.total_marks_gap": "ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ",
+  "label.percentage_gap": "ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ",
+  "label.required_percentage_gap": "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ",
   "label.maximum_marks": "ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ",
   "label.marks_secured": "ਪ੍ਰਾਪਤ ਅੰਕ",
   "label.population_after_growth": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ",
   "label.population_after_reduction": "ਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ",
+  "label.population_added_migration": "ਪਰਵਾਸ ਨਾਲ ਜੋੜੀ ਗਈ ਆਬਾਦੀ",
   "label.final_population": "ਅੰਤਿਮ ਆਬਾਦੀ",
   "label.male_population": "ਮਰਦ ਆਬਾਦੀ",
   "label.female_population": "ਔਰਤ ਆਬਾਦੀ",
@@ -84,6 +88,7 @@ function localizeSemantic(value: string) {
 
 function ending(intent: EditorialIntent) {
   const value = localizeSemantic(String(intent.params?.value ?? ""));
+  const sourceLabel = String(intent.params?.label ?? intent.sourceText ?? "");
   if (intent.params?.prefix === "=") {
     const semantic =
       intent.params.semantic === "increase"
@@ -103,13 +108,18 @@ function ending(intent: EditorialIntent) {
       ? "ਲੋੜੀਂਦਾ ਉੱਤਰ"
       : intent.key === "ending.total_votes"
         ? "ਕੁੱਲ ਵੋਟ"
-        : intent.key === "ending.maximum_marks"
-          ? "ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ"
-          : intent.key === "ending.final_population"
-            ? "ਅੰਤਿਮ ਆਬਾਦੀ"
-            : intent.key === "ending.required_percentage"
-              ? "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ"
-              : "ਲੋੜੀਂਦਾ ਮੁੱਲ";
+        : intent.key === "ending.registered_voters"
+          ? "ਰਜਿਸਟਰਡ ਵੋਟਰ"
+          : intent.key === "ending.maximum_marks"
+            ? "ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ"
+            : intent.key === "ending.final_population"
+              ? "ਅੰਤਿਮ ਆਬਾਦੀ"
+              : intent.key === "ending.required_percentage" &&
+                  /required increase|increase needed|required increase %/iu.test(sourceLabel)
+                ? "ਲੋੜੀਂਦਾ ਵਾਧਾ"
+                : intent.key === "ending.required_percentage"
+                  ? "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ"
+                  : "ਲੋੜੀਂਦਾ ਮੁੱਲ";
   return `${baseLabel} = ${value}`;
 }
 
@@ -155,10 +165,10 @@ export const punjabiRenderer: LanguageRenderer = {
       return "ਉਸੇ ਖਰਚ ਲਈ:";
     }
     if (intent.key === "narration.water_unchanged") {
-      return "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇਕੋ ਰਹਿੰਦੀ ਹੈ।";
+      return "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।";
     }
     if (intent.key === "narration.fixed_quantity_unchanged") {
-      return "ਸਥਿਰ ਮਾਤਰਾ ਇਕੋ ਰਹਿੰਦੀ ਹੈ:";
+      return "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ:";
     }
     if (intent.key === "narration.target_mixture") {
       return "ਲਕਸ਼ ਮਿਸ਼ਰਣ ਲਈ:";

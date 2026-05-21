@@ -11,10 +11,14 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.total_votes": "कुल वोट",
   "label.registered_voters": "कुल पंजीकृत मतदाता",
   "label.pass_mark_gap": "पास अंक का अंतर",
+  "label.total_marks_gap": "अंकों का कुल अंतर",
+  "label.percentage_gap": "प्रतिशत अंतर",
+  "label.required_percentage_gap": "आवश्यक प्रतिशत अंतर",
   "label.maximum_marks": "अधिकतम अंक",
   "label.marks_secured": "प्राप्त अंक",
   "label.population_after_growth": "वृद्धि के बाद जनसंख्या",
   "label.population_after_reduction": "कमी के बाद जनसंख्या",
+  "label.population_added_migration": "प्रवास से जोड़ी गई जनसंख्या",
   "label.final_population": "अंतिम जनसंख्या",
   "label.male_population": "पुरुष जनसंख्या",
   "label.female_population": "महिला जनसंख्या",
@@ -84,6 +88,7 @@ function localizeSemantic(value: string) {
 
 function ending(intent: EditorialIntent) {
   const value = localizeSemantic(String(intent.params?.value ?? ""));
+  const sourceLabel = String(intent.params?.label ?? intent.sourceText ?? "");
   if (intent.params?.prefix === "=") {
     const semantic =
       intent.params.semantic === "increase"
@@ -103,13 +108,18 @@ function ending(intent: EditorialIntent) {
       ? "आवश्यक उत्तर"
       : intent.key === "ending.total_votes"
         ? "कुल वोट"
-        : intent.key === "ending.maximum_marks"
-          ? "अधिकतम अंक"
-          : intent.key === "ending.final_population"
-            ? "अंतिम जनसंख्या"
-            : intent.key === "ending.required_percentage"
-              ? "आवश्यक प्रतिशत"
-              : "आवश्यक मान";
+        : intent.key === "ending.registered_voters"
+          ? "पंजीकृत मतदाता"
+          : intent.key === "ending.maximum_marks"
+            ? "अधिकतम अंक"
+            : intent.key === "ending.final_population"
+              ? "अंतिम जनसंख्या"
+              : intent.key === "ending.required_percentage" &&
+                  /required increase|increase needed|required increase %/iu.test(sourceLabel)
+                ? "आवश्यक वृद्धि"
+                : intent.key === "ending.required_percentage"
+                  ? "आवश्यक प्रतिशत"
+                  : "आवश्यक मान";
   return `${baseLabel} = ${value}`;
 }
 
@@ -155,10 +165,10 @@ export const hindiRenderer: LanguageRenderer = {
       return "समान खर्च के लिए:";
     }
     if (intent.key === "narration.water_unchanged") {
-      return "पानी की मात्रा समान रहती है।";
+      return "पानी की मात्रा समान रहेगी।";
     }
     if (intent.key === "narration.fixed_quantity_unchanged") {
-      return "स्थिर मात्रा समान रहती है:";
+      return "पानी की मात्रा समान रहेगी:";
     }
     if (intent.key === "narration.target_mixture") {
       return "लक्ष्य मिश्रण के लिए:";

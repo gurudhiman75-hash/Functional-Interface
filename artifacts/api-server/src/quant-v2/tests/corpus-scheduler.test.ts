@@ -43,7 +43,7 @@ function generateSet(profileId: CorpusSchedulerProfileId, count: number, seed: s
       state,
       index,
       seedPrefix: seed,
-      examProfile: profileId === "banking_mock" ? "banking" : "ssc",
+      examProfile: profileId === "banking_mock" ? "ibps" : "ssc",
       generate: (options) =>
         createQuantV2PercentageQuestionCandidate(percentagePattern, options),
     });
@@ -116,6 +116,7 @@ test("corpus scheduler enforces small-batch family caps for percentage sets", ()
     }
 
     const caps: Record<string, number> = {
+      election_margin: 10,
       price_consumption: 3,
       salary_revision: 2,
       single_relation: 2,
@@ -197,11 +198,46 @@ test("corpus scheduler metadata is exported in audit summaries", async () => {
 
     assert.equal(summary.scheduler?.profileId, "banking_mock");
     assert.equal(summary.scheduler?.acceptedCount, 60);
+    assert.ok(
+      (summary.scheduler?.familyDistribution?.election_margin ?? 0) <= 12,
+      JSON.stringify(summary.scheduler?.familyDistribution ?? {}),
+    );
     assert.ok(summary.corpusQuality);
     assert.ok(summary.corpusQuality.score >= 50);
     assert.ok(
       Object.keys(summary.scheduler?.examinerIntentDistribution ?? {}).length >= 3,
       JSON.stringify(summary.scheduler?.examinerIntentDistribution ?? {}),
+    );
+  } finally {
+    await rm(outDir, {
+      recursive: true,
+      force: true,
+    });
+  }
+});
+
+test("scheduled percentage audit batches cap election family at 20 percent", async () => {
+  const outDir = await mkdtemp(path.join(os.tmpdir(), "quant-v2-election-cap-"));
+
+  try {
+    const result = await runCorpusAuditExport({
+      count: 60,
+      outDir,
+      presetId: "ssc_percentage_audit",
+      exportProfile: "multilingual_review",
+      useScheduler: true,
+      schedulerProfile: "balanced_mock",
+      includeMultilingualExplanations: true,
+      includeSvg: false,
+    });
+    const summary = JSON.parse(
+      await readFile(result.files.summary, "utf8"),
+    ) as typeof result.summary;
+    const electionCount = summary.scheduler?.familyDistribution?.election_margin ?? 0;
+
+    assert.ok(
+      electionCount <= 12,
+      `election family exceeded 20% cap: ${electionCount}`,
     );
   } finally {
     await rm(outDir, {

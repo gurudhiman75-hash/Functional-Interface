@@ -17,10 +17,14 @@ export type EditorialIntentKey =
   | "label.total_votes"
   | "label.registered_voters"
   | "label.pass_mark_gap"
+  | "label.total_marks_gap"
+  | "label.percentage_gap"
+  | "label.required_percentage_gap"
   | "label.maximum_marks"
   | "label.marks_secured"
   | "label.population_after_growth"
   | "label.population_after_reduction"
+  | "label.population_added_migration"
   | "label.final_population"
   | "label.male_population"
   | "label.female_population"
@@ -55,6 +59,7 @@ export type EditorialIntentKey =
   | "shortcut.final_population"
   | "ending.final_answer"
   | "ending.total_votes"
+  | "ending.registered_voters"
   | "ending.maximum_marks"
   | "ending.final_population"
   | "ending.required_percentage"
@@ -90,6 +95,10 @@ export const STABLE_LOCALIZATION_INTENTS: readonly EditorialIntentKey[] = [
   "label.valid_votes",
   "label.remaining_value",
   "label.pass_mark_gap",
+  "label.total_marks_gap",
+  "label.percentage_gap",
+  "label.required_percentage_gap",
+  "label.population_added_migration",
   "label.population_after_growth",
   "transition.therefore",
   "transition.hence",

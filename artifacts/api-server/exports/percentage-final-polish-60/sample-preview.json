@@ -1,0 +1,2829 @@
+[
+  {
+    "index": 0,
+    "question": "A's income is 40% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.",
+    "options": [
+      "5% more",
+      "15% more",
+      "15.24% more",
+      "35% more"
+    ],
+    "answer": "5% more",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "reverse_relation",
+      "variant": "reverse_relation_inference",
+      "hiddenBase": {
+        "baseVariable": "baseIndex",
+        "knownVariable": "afterRelation1",
+        "percentVariable": "relation1Index"
+      },
+      "misconceptionDistractors": [
+        {
+          "misconception": "transitive_shortcut_error",
+          "value": 15
+        },
+        {
+          "misconception": "incorrect_inversion",
+          "value": 15.24
+        },
+        {
+          "misconception": "normalization_error",
+          "value": 105
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "warehouse_stock_audit",
+      "category": "comparison",
+      "subtype": "relational_percentage",
+      "reasoningPattern": "relational_chain",
+      "canonicalScenario": {
+        "object": "income",
+        "domain": "relational",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "relational_exam_realism",
+        "allowedAnchorKeys": [
+          "income",
+          "salary",
+          "marks",
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A's income is 40% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.",
+        "options": [
+          "5% more",
+          "15% more",
+          "15.24% more",
+          "35% more"
+        ],
+        "explanation": "Assume C's income = 100.\nSince B is 25% less than C, B = 100 x 75 / 100 = 75.\nSince A is 40% more than B, A = 75 x 140 / 100 = 105.\nCompared with C = 100, A is 5% more."
+      },
+      "hi": {
+        "question": "A की आय B से 40% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+        "options": [
+          "5% अधिक",
+          "15% अधिक",
+          "15.24% अधिक",
+          "35% अधिक"
+        ],
+        "explanation": "मान लें C की आय = 100।\nB, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।\nA, B से 40% अधिक है, इसलिए A = 75 x 140 / 100 = 105।\nC = 100 की तुलना में A 5% अधिक है।"
+      },
+      "pa": {
+        "question": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "options": [
+          "5% ਵੱਧ",
+          "15% ਵੱਧ",
+          "15.24% ਵੱਧ",
+          "35% ਵੱਧ"
+        ],
+        "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।\nA, B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 140 / 100 = 105।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 5% ਵੱਧ ਹੈ।"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 1,
+    "question": "A's income is 40% more than B's income. Find by what percent A's income is more or less than B's income.",
+    "options": [
+      "40% more",
+      "11.43% more",
+      "140% more",
+      "80% more"
+    ],
+    "answer": "40% more",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "relational_chain",
+      "variant": "single_relation",
+      "misconceptionDistractors": [
+        {
+          "misconception": "transitive_shortcut_error",
+          "value": 40
+        },
+        {
+          "misconception": "incorrect_inversion",
+          "value": 11.43
+        },
+        {
+          "misconception": "normalization_error",
+          "value": 140
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "warehouse_stock_audit",
+      "category": "comparison",
+      "subtype": "relational_percentage",
+      "reasoningPattern": "relational_chain",
+      "canonicalScenario": {
+        "object": "income",
+        "domain": "relational",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "relational_exam_realism",
+        "allowedAnchorKeys": [
+          "income",
+          "salary",
+          "marks",
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A's income is 40% more than B's income. Find by what percent A's income is more or less than B's income.",
+        "options": [
+          "40% more",
+          "11.43% more",
+          "140% more",
+          "80% more"
+        ],
+        "explanation": "Assume B's income = 100.\nSince A is 40% more than B, A = 100 x 140 / 100 = 140.\nCompared with B = 100, A is 40% more."
+      },
+      "hi": {
+        "question": "A की आय B से 40% अधिक है। A की आय B से कितने प्रतिशत अधिक या कम है?",
+        "options": [
+          "40% अधिक",
+          "11.43% अधिक",
+          "140% अधिक",
+          "80% अधिक"
+        ],
+        "explanation": "मान लें B की आय = 100।\nA, B से 40% अधिक है, इसलिए A = 100 x 140 / 100 = 140।\nB = 100 की तुलना में A 40% अधिक है।"
+      },
+      "pa": {
+        "question": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "options": [
+          "40% ਵੱਧ",
+          "11.43% ਵੱਧ",
+          "140% ਵੱਧ",
+          "80% ਵੱਧ"
+        ],
+        "explanation": "ਮੰਨ ਲਓ B ਦੀ ਆਮਦਨ = 100।\nA, B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 100 x 140 / 100 = 140।\nB = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 40% ਵੱਧ ਹੈ।"
+      }
+    },
+    "realismScore": 60
+  },
+  {
+    "index": 2,
+    "question": "In a student union election, the winning candidate got 50% of the votes and candidate C got 18%. The winning candidate defeated candidate B by 45000 votes. Find the total number of votes.",
+    "options": [
+      "250000",
+      "140000",
+      "90000",
+      "225000"
+    ],
+    "answer": "250000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "multi_entity_distribution",
+      "variant": "multi_candidate_margin",
+      "misconceptionDistractors": [
+        {
+          "misconception": "ignoring_remaining_component",
+          "value": 140000
+        },
+        {
+          "misconception": "mapping_winner_percentage_directly",
+          "value": 90000
+        },
+        {
+          "misconception": "ratio_confusion",
+          "value": 1440000
+        }
+      ],
+      "conservationGroups": [
+        {
+          "groupId": "three_candidate_vote_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "winnerPercent",
+            "runnerPercent",
+            "thirdPercent"
+          ]
+        }
+      ],
+      "remainingComponent": {
+        "remainingVariable": "runnerPercent",
+        "totalPercent": 100,
+        "knownPercentVariables": [
+          "winnerPercent",
+          "thirdPercent"
+        ]
+      }
+    },
+    "semanticAnchors": {
+      "scenario": "student_union_voting",
+      "category": "election",
+      "subtype": "election_margin",
+      "reasoningPattern": "margin_mapping",
+      "canonicalScenario": {
+        "object": "votes",
+        "domain": "election",
+        "entityType": "vote_count",
+        "realismProfile": "election_exam_realism",
+        "allowedAnchorKeys": [
+          "votes",
+          "winning_candidate",
+          "valid_votes"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a student union election, the winning candidate got 50% of the votes and candidate C got 18%. The winning candidate defeated candidate B by 45000 votes. Find the total number of votes.",
+        "options": [
+          "250000",
+          "140000",
+          "90000",
+          "225000"
+        ],
+        "explanation": "Votes remaining for other candidates =\n100 - 50 - 18\n= 32\nRemaining vote share =\n50 - 32\n= 18%\nTotal votes =\n45000 x 100 / 18\n= 250000\nHence, total votes polled = 250000"
+      },
+      "hi": {
+        "question": "एक निर्वाचन में विजयी उम्मीदवार को 50% वोट और प्रत्याशी C को 18% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 45000 वोटों से हराया। कुल वोट ज्ञात कीजिए।",
+        "options": [
+          "250000",
+          "140000",
+          "90000",
+          "225000"
+        ],
+        "explanation": "अन्य उम्मीदवारों के वोट =\n100 - 50 - 18\n= 32\nमार्जिन प्रतिशत =\n50 - 32\n= 18%\nकुल वोट =\n45000 x 100 / 18\n= 250000\nकुल डाले गए वोट = 250000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 50% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 18% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 45000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "250000",
+          "140000",
+          "90000",
+          "225000"
+        ],
+        "explanation": "ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =\n100 - 50 - 18\n= 32\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n50 - 32\n= 18%\nਕੁੱਲ ਵੋਟ =\n45000 x 100 / 18\n= 250000\nਕੁੱਲ ਪਏ ਵੋਟ = 250000"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 3,
+    "question": "Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+    "options": [
+      "28.57%",
+      "40%",
+      "60%",
+      "66.67%"
+    ],
+    "answer": "28.57%",
+    "difficulty": "Medium",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "product_pricing",
+      "category": "expenditure",
+      "subtype": "price_consumption",
+      "reasoningPattern": "fixed_base_relation",
+      "canonicalScenario": {
+        "object": "fuel",
+        "domain": "expenditure",
+        "entityType": "consumption_item",
+        "realismProfile": "expenditure_exam_realism",
+        "allowedAnchorKeys": [
+          "fuel"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+        "options": [
+          "28.57%",
+          "40%",
+          "60%",
+          "66.67%"
+        ],
+        "explanation": "New price after increase:\n100 + 40\n= 140\nFor the same expenditure:\nNew consumption =\n100 x 100 / 140\n= 71.43\nReduction in consumption is:\n100 - 71.43\n= 28.57% reduction\nHence, required reduction = 28.57% reduction"
+      },
+      "hi": {
+        "question": "ईंधन की कीमत 40% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?",
+        "options": [
+          "28.57% कमी",
+          "40% कमी",
+          "60% कमी",
+          "66.67% कमी"
+        ],
+        "explanation": "नई कीमत:\n100 + 40\n= 140\nसमान खर्च के लिए:\nनई खपत =\n100 x 100 / 140\n= 71.43\nखपत में कमी:\n100 - 71.43\n= 28.57% कमी\nखपत में कमी = 28.57%"
+      },
+      "pa": {
+        "question": "ਈਂਧਨ ਦੀ ਕੀਮਤ 40% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+        "options": [
+          "28.57% ਕਮੀ",
+          "40% ਕਮੀ",
+          "60% ਕਮੀ",
+          "66.67% ਕਮੀ"
+        ],
+        "explanation": "ਨਵੀਂ ਕੀਮਤ:\n100 + 40\n= 140\nਉਸੇ ਖਰਚ ਲਈ:\nਨਵੀਂ ਖਪਤ =\n100 x 100 / 140\n= 71.43\nਖਪਤ ਵਿੱਚ ਕਮੀ:\n100 - 71.43\n= 28.57% ਕਮੀ\nਖਪਤ ਵਿੱਚ ਕਮੀ = 28.57%"
+      }
+    },
+    "realismScore": 75
+  },
+  {
+    "index": 4,
+    "question": "In a qualifying test, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 56 marks. Find the maximum marks.",
+    "options": [
+      "160",
+      "1000",
+      "100",
+      "140"
+    ],
+    "answer": "160",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "successive_filtering",
+      "variant": "remaining_marks_required",
+      "misconceptionDistractors": [
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 1000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 100
+        },
+        {
+          "misconception": "additive_instead_of_multiplicative",
+          "value": 160
+        }
+      ],
+      "filteringChain": {
+        "chainId": "total_to_scored_marks",
+        "baseVariable": "totalMarks",
+        "targetVariable": "scoredMarks",
+        "stages": [
+          {
+            "stageId": "completed_marks",
+            "kind": "percentage_filter",
+            "inputVariable": "totalMarks",
+            "outputVariable": "completedMarks",
+            "percentVariable": "completedPercent",
+            "equation": "completedMarks = {totalMarks} * {completedPercent} / 100"
+          },
+          {
+            "stageId": "scored_completed_marks",
+            "kind": "percentage_filter",
+            "inputVariable": "completedMarks",
+            "outputVariable": "scoredMarks",
+            "percentVariable": "scoredOnCompletedPercent",
+            "equation": "scoredMarks = completedMarks * {scoredOnCompletedPercent} / 100"
+          }
+        ]
+      },
+      "hiddenBase": {
+        "baseVariable": "totalMarks",
+        "knownVariable": "remainingMarksRequired",
+        "percentVariable": "gapPercent"
+      }
+    },
+    "semanticAnchors": {
+      "scenario": "qualifying_marks",
+      "category": "comparison",
+      "subtype": "pass_fail",
+      "reasoningPattern": "difference_mapping",
+      "canonicalScenario": {
+        "object": "marks",
+        "domain": "marks",
+        "entityType": "score",
+        "realismProfile": "marks_exam_realism",
+        "allowedAnchorKeys": [
+          "marks"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a qualifying test, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 56 marks. Find the maximum marks.",
+        "options": [
+          "160",
+          "1000",
+          "100",
+          "140"
+        ],
+        "explanation": "Marks already secured:\n40 x 50 / 100\n= 20\nRequired percentage gap:\n55 - 20\n= 35%\nMaximum marks are:\n56 x 100 / 35\n= 160\nThus, maximum marks = 160"
+      },
+      "hi": {
+        "question": "एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 55% अंक पाने के लिए उसे अभी 56 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।",
+        "options": [
+          "160",
+          "1000",
+          "100",
+          "140"
+        ],
+        "explanation": "प्राप्त अंक:\n40 x 50 / 100\n= 20\nआवश्यक प्रतिशत अंतर:\n55 - 20\n= 35%\nअधिकतम अंक:\n56 x 100 / 35\n= 160\nअधिकतम अंक = 160"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 55% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 56 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "160",
+          "1000",
+          "100",
+          "140"
+        ],
+        "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ:\n40 x 50 / 100\n= 20\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n55 - 20\n= 35%\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n56 x 100 / 35\n= 160\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 160"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 5,
+    "question": "A milk-water mixture contains 120 litres, of which 25% is milk. Find the milk to be added so that milk becomes 50% of the mixture.",
+    "options": [
+      "60",
+      "30",
+      "25",
+      "90"
+    ],
+    "answer": "60",
+    "difficulty": "Medium",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "mixture_container",
+      "category": "mixture",
+      "subtype": "mixture_percentage",
+      "reasoningPattern": "mixture_balance",
+      "canonicalScenario": {
+        "object": "milk_water_mixture",
+        "domain": "mixture",
+        "entityType": "mixture",
+        "realismProfile": "mixture_exam_realism",
+        "allowedAnchorKeys": [
+          "milk_water_mixture"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A milk-water mixture contains 120 litres, of which 25% is milk. Find the milk to be added so that milk becomes 50% of the mixture.",
+        "options": [
+          "60",
+          "30",
+          "25",
+          "90"
+        ],
+        "explanation": "Water remains unchanged.\nWater quantity =\n120 - 30\n= 90\n\nFinal mixture quantity:\n90 x 100 / ( 100 - 50 )\n= 180\n\nMilk to be added:\n180 - 120\n= 60\n\nHence, milk to be added = 60"
+      },
+      "hi": {
+        "question": "एक दूध-पानी मिश्रण की मात्रा 120 लीटर है और उसमें 25% दूध है। दूध को 50% करने के लिए कितना दूध मिलाना होगा?",
+        "options": [
+          "60",
+          "30",
+          "25",
+          "90"
+        ],
+        "explanation": "पानी की मात्रा समान रहेगी।\nपानी की मात्रा =\n120 - 30\n= 90\n\nअंतिम मिश्रण:\n90 x 100 / ( 100 - 50 )\n= 180\n\nडाला जाने वाला दूध:\n180 - 120\n= 60\n\nडाला जाने वाला दूध = 60"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 120 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 50% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+        "options": [
+          "60",
+          "30",
+          "25",
+          "90"
+        ],
+        "explanation": "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।\nਪਾਣੀ ਦੀ ਮਾਤਰਾ =\n120 - 30\n= 90\n\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\n90 x 100 / ( 100 - 50 )\n= 180\n\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:\n180 - 120\n= 60\n\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 60"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 6,
+    "question": "A's income is 25% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.",
+    "options": [
+      "6.25% less",
+      "0% more",
+      "6.67% more",
+      "15% more"
+    ],
+    "answer": "6.25% less",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "relational_chain",
+      "variant": "two_step_relation_chain",
+      "misconceptionDistractors": [
+        {
+          "misconception": "transitive_shortcut_error",
+          "value": 0
+        },
+        {
+          "misconception": "incorrect_inversion",
+          "value": 6.67
+        },
+        {
+          "misconception": "normalization_error",
+          "value": 93.75
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "coaching_institute_test",
+      "category": "comparison",
+      "subtype": "relational_percentage",
+      "reasoningPattern": "relational_chain",
+      "canonicalScenario": {
+        "object": "income",
+        "domain": "relational",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "relational_exam_realism",
+        "allowedAnchorKeys": [
+          "income",
+          "salary",
+          "marks",
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A's income is 25% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.",
+        "options": [
+          "6.25% less",
+          "0% more",
+          "6.67% more",
+          "15% more"
+        ],
+        "explanation": "Assume C's income = 100.\nSince B is 25% less than C, B = 100 x 75 / 100 = 75.\nSince A is 25% more than B, A = 75 x 125 / 100 = 93.75.\nCompared with C = 100, A is 6.25% less."
+      },
+      "hi": {
+        "question": "A की आय B से 25% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+        "options": [
+          "6.25% कम",
+          "0% अधिक",
+          "6.67% अधिक",
+          "15% अधिक"
+        ],
+        "explanation": "मान लें C की आय = 100।\nB, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।\nA, B से 25% अधिक है, इसलिए A = 75 x 125 / 100 = 93.75।\nC = 100 की तुलना में A 6.25% कम है।"
+      },
+      "pa": {
+        "question": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "options": [
+          "6.25% ਘੱਟ",
+          "0% ਵੱਧ",
+          "6.67% ਵੱਧ",
+          "15% ਵੱਧ"
+        ],
+        "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।\nA, B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 125 / 100 = 93.75।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 6.25% ਘੱਟ ਹੈ।"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 7,
+    "question": "According to a census report, the population was 250000. It increased by 40% and then decreased by 25%. Find the final population.",
+    "options": [
+      "262500",
+      "290000",
+      "190000",
+      "350000"
+    ],
+    "answer": "262500",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "base_shift",
+      "variant": "growth_then_decay",
+      "misconceptionDistractors": [
+        {
+          "misconception": "additive_instead_of_multiplicative",
+          "value": 290000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 190000
+        },
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 350000
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "census_report",
+      "category": "population",
+      "subtype": "population_growth",
+      "reasoningPattern": "population_projection",
+      "canonicalScenario": {
+        "object": "population",
+        "domain": "population",
+        "entityType": "count",
+        "realismProfile": "population_exam_realism",
+        "allowedAnchorKeys": [
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "According to a census report, the population was 250000. It increased by 40% and then decreased by 25%. Find the final population.",
+        "options": [
+          "262500",
+          "290000",
+          "190000",
+          "350000"
+        ],
+        "explanation": "Population after increase:\n250000 x 140 / 100\n= 350000\nPopulation after decrease:\n350000 x 75 / 100\n= 262500\nHence, final population = 262500"
+      },
+      "hi": {
+        "question": "एक जिला जनसंख्या रिपोर्ट के अनुसार जनसंख्या 250000 थी। इसमें 40% वृद्धि हुई और फिर 25% कमी हुई। अंतिम जनसंख्या ज्ञात कीजिए।",
+        "options": [
+          "262500",
+          "290000",
+          "190000",
+          "350000"
+        ],
+        "explanation": "वृद्धि के बाद जनसंख्या:\n250000 x 140 / 100\n= 350000\nकमी के बाद जनसंख्या:\n350000 x 75 / 100\n= 262500\nअंतिम जनसंख्या = 262500"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਆਬਾਦੀ ਰਿਪੋਰਟ ਅਨੁਸਾਰ ਆਬਾਦੀ 250000 ਸੀ। ਇਸ ਵਿੱਚ 40% ਵਾਧਾ ਅਤੇ ਫਿਰ 25% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "262500",
+          "290000",
+          "190000",
+          "350000"
+        ],
+        "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n250000 x 140 / 100\n= 350000\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n350000 x 75 / 100\n= 262500\nਅੰਤਿਮ ਆਬਾਦੀ = 262500"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 8,
+    "question": "120 candidates are 25% of the total applicants. Find the total number of applicants.",
+    "options": [
+      "480",
+      "30",
+      "150",
+      "90"
+    ],
+    "answer": "480",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "warehouse_stock_audit",
+      "category": "base_change",
+      "subtype": "reverse_percentage",
+      "reasoningPattern": "reverse_reconstruction",
+      "canonicalScenario": {
+        "object": "general_quantity",
+        "domain": "general",
+        "realismProfile": "neutral_exam",
+        "allowedAnchorKeys": [
+          "general_quantity"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 2,
+          "localizedIntentLines": 2,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 2,
+          "localizedIntentLines": 2,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 2,
+          "localizedIntentLines": 2,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "120 candidates are 25% of the total applicants. Find the total number of applicants.",
+        "options": [
+          "480",
+          "30",
+          "150",
+          "90"
+        ],
+        "explanation": "Total applicants:\n120 x 100 / 25\n= 480\n\nTotal applicants = 480"
+      },
+      "hi": {
+        "question": "120 अभ्यर्थी कुल आवेदकों के 25% हैं। कुल आवेदक ज्ञात कीजिए।",
+        "options": [
+          "480",
+          "30",
+          "150",
+          "90"
+        ],
+        "explanation": "कुल आवेदक:\n120 x 100 / 25\n= 480\n\nकुल आवेदक = 480"
+      },
+      "pa": {
+        "question": "120 ਉਮੀਦਵਾਰ ਕੁੱਲ ਅਰਜ਼ੀਦਾਰਾਂ ਦੇ 25% ਹਨ। ਕੁੱਲ ਅਰਜ਼ੀਦਾਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "480",
+          "30",
+          "150",
+          "90"
+        ],
+        "explanation": "ਕੁੱਲ ਅਰਜ਼ੀਦਾਰ:\n120 x 100 / 25\n= 480\n\nਕੁੱਲ ਅਰਜ਼ੀਦਾਰ = 480"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 9,
+    "question": "Salary changed from ₹15000 to ₹18750. Find the percentage change.",
+    "options": [
+      "25%",
+      "20%",
+      "4000%",
+      "22.5%"
+    ],
+    "answer": "25%",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "salary_revision",
+      "category": "finance",
+      "subtype": "salary_revision",
+      "reasoningPattern": "difference_mapping",
+      "canonicalScenario": {
+        "object": "salary",
+        "domain": "salary",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "salary_exam_realism",
+        "allowedAnchorKeys": [
+          "salary"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Salary changed from ₹15000 to ₹18750. Find the percentage change.",
+        "options": [
+          "25%",
+          "20%",
+          "4000%",
+          "22.5%"
+        ],
+        "explanation": "Increase in salary:\n18750 - 15000\n= 3750\nChange %:\n3750 x 100 / 15000\n= 25\nSo, salary change = 25% increase"
+      },
+      "hi": {
+        "question": "एक कर्मचारी का वेतन 15000 से बदलकर 18750 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+        "options": [
+          "25% वृद्धि",
+          "20% वृद्धि",
+          "4000% वृद्धि",
+          "22.5% वृद्धि"
+        ],
+        "explanation": "वेतन में बदलाव:\n18750 - 15000\n= 3750\nप्रतिशत परिवर्तन:\n3750 x 100 / 15000\n= 25\nवेतन में बदलाव = 25%"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 15000 ਤੋਂ ਬਦਲ ਕੇ 18750 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "25% ਵਾਧਾ",
+          "20% ਵਾਧਾ",
+          "4000% ਵਾਧਾ",
+          "22.5% ਵਾਧਾ"
+        ],
+        "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:\n18750 - 15000\n= 3750\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\n3750 x 100 / 15000\n= 25\nਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 25%"
+      }
+    },
+    "realismScore": 72
+  },
+  {
+    "index": 10,
+    "question": "In a screening test, a candidate first scored 35% marks. After adding a bonus of 10%, the score was still short of the pass mark by 15 marks. The pass mark was 50%. Find the maximum marks.",
+    "options": [
+      "300",
+      "100",
+      "75",
+      "30"
+    ],
+    "answer": "300",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "base_shift",
+      "variant": "successive_mark_adjustment",
+      "misconceptionDistractors": [
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 100
+        },
+        {
+          "misconception": "additive_instead_of_multiplicative",
+          "value": 75
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 30
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "screening_test",
+      "category": "comparison",
+      "subtype": "pass_fail",
+      "reasoningPattern": "difference_mapping",
+      "canonicalScenario": {
+        "object": "marks",
+        "domain": "marks",
+        "entityType": "score",
+        "realismProfile": "marks_exam_realism",
+        "allowedAnchorKeys": [
+          "marks"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a screening test, a candidate first scored 35% marks. After adding a bonus of 10%, the score was still short of the pass mark by 15 marks. The pass mark was 50%. Find the maximum marks.",
+        "options": [
+          "300",
+          "100",
+          "75",
+          "30"
+        ],
+        "explanation": "After adding the bonus:\nAdjusted score =\n35 + 10\n= 45\n\nRequired percentage gap:\n50 - 45\n= 5%\n\nMaximum marks are:\n15 x 100 / 5\n= 300\n\nMaximum marks = 300"
+      },
+      "hi": {
+        "question": "एक परीक्षा में अभ्यर्थी ने पहले 35% अंक प्राप्त किए। 10% बोनस जोड़ने के बाद भी वह 15 अंकों से कम रह गया। उत्तीर्णांक 50% हैं। अधिकतम अंक ज्ञात कीजिए।",
+        "options": [
+          "300",
+          "100",
+          "75",
+          "30"
+        ],
+        "explanation": "बोनस जोड़ने के बाद:\nप्राप्त अंक =\n35 + 10\n= 45\n\nआवश्यक प्रतिशत अंतर:\n50 - 45\n= 5%\n\nअधिकतम अंक:\n15 x 100 / 5\n= 300\n\nअधिकतम अंक = 300"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 35% ਅੰਕ ਲਏ। 10% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 15 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 50% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "300",
+          "100",
+          "75",
+          "30"
+        ],
+        "explanation": "ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:\nਪ੍ਰਾਪਤ ਅੰਕ =\n35 + 10\n= 45\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n50 - 45\n= 5%\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n15 x 100 / 5\n= 300\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300"
+      }
+    },
+    "realismScore": 96
+  },
+  {
+    "index": 11,
+    "question": "In a municipal election, the winning candidate secured 62.5% of the votes and defeated the opponent by 21250 votes. Find the total number of votes polled.",
+    "options": [
+      "85000",
+      "34000",
+      "57000",
+      "76500"
+    ],
+    "answer": "85000",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "direct_mapping",
+      "variant": "direct_margin",
+      "misconceptionDistractors": [
+        {
+          "misconception": "mapping_winner_percentage_directly",
+          "value": 34000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 57000
+        },
+        {
+          "misconception": "ratio_confusion",
+          "value": 530000
+        }
+      ],
+      "conservationGroups": [
+        {
+          "groupId": "two_candidate_vote_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "winnerPercent",
+            "loserPercent"
+          ]
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "municipal_voting",
+      "category": "election",
+      "subtype": "election_margin",
+      "reasoningPattern": "margin_mapping",
+      "canonicalScenario": {
+        "object": "votes",
+        "domain": "election",
+        "entityType": "vote_count",
+        "realismProfile": "election_exam_realism",
+        "allowedAnchorKeys": [
+          "votes",
+          "winning_candidate",
+          "valid_votes"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a municipal election, the winning candidate secured 62.5% of the votes and defeated the opponent by 21250 votes. Find the total number of votes polled.",
+        "options": [
+          "85000",
+          "34000",
+          "57000",
+          "76500"
+        ],
+        "explanation": "Winning margin:\nMargin percentage =\n62.5 - 37.5\n= 25%\nTotal votes are:\n21250 x 100 / 25\n= 85000\nTherefore, total votes = 85000"
+      },
+      "hi": {
+        "question": "एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 62.5% वोट मिले और उसने प्रतिद्वंद्वी को 21250 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।",
+        "options": [
+          "85000",
+          "34000",
+          "57000",
+          "76500"
+        ],
+        "explanation": "जीत का अंतर:\nमार्जिन प्रतिशत =\n62.5 - 37.5\n= 25%\nकुल वोट:\n21250 x 100 / 25\n= 85000\nकुल डाले गए वोट = 85000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 62.5% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 21250 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "85000",
+          "34000",
+          "57000",
+          "76500"
+        ],
+        "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n62.5 - 37.5\n= 25%\nਕੁੱਲ ਵੋਟ:\n21250 x 100 / 25\n= 85000\nਕੁੱਲ ਪਏ ਵੋਟ = 85000"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 12,
+    "question": "A's income is 10% more than B's income. B's income is 20% less than C's income. Find by what percent A's income is more or less than C's income.",
+    "options": [
+      "12% less",
+      "10% more",
+      "13.64% more",
+      "0% more"
+    ],
+    "answer": "12% less",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "reverse_relation",
+      "variant": "reverse_relation_inference",
+      "hiddenBase": {
+        "baseVariable": "baseIndex",
+        "knownVariable": "afterRelation1",
+        "percentVariable": "relation1Index"
+      },
+      "misconceptionDistractors": [
+        {
+          "misconception": "transitive_shortcut_error",
+          "value": 10
+        },
+        {
+          "misconception": "incorrect_inversion",
+          "value": 13.64
+        },
+        {
+          "misconception": "normalization_error",
+          "value": 88
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "warehouse_stock_audit",
+      "category": "comparison",
+      "subtype": "relational_percentage",
+      "reasoningPattern": "relational_chain",
+      "canonicalScenario": {
+        "object": "income",
+        "domain": "relational",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "relational_exam_realism",
+        "allowedAnchorKeys": [
+          "income",
+          "salary",
+          "marks",
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A's income is 10% more than B's income. B's income is 20% less than C's income. Find by what percent A's income is more or less than C's income.",
+        "options": [
+          "12% less",
+          "10% more",
+          "13.64% more",
+          "0% more"
+        ],
+        "explanation": "Assume C's income = 100.\nSince B is 20% less than C, B = 100 x 80 / 100 = 80.\nSince A is 10% more than B, A = 80 x 110 / 100 = 88.\nCompared with C = 100, A is 12% less."
+      },
+      "hi": {
+        "question": "A की आय B से 10% अधिक है। B की आय C से 20% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+        "options": [
+          "12% कम",
+          "10% अधिक",
+          "13.64% अधिक",
+          "0% अधिक"
+        ],
+        "explanation": "मान लें C की आय = 100।\nB, C से 20% कम है, इसलिए B = 100 x 80 / 100 = 80।\nA, B से 10% अधिक है, इसलिए A = 80 x 110 / 100 = 88।\nC = 100 की तुलना में A 12% कम है।"
+      },
+      "pa": {
+        "question": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 10% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 20% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "options": [
+          "12% ਘੱਟ",
+          "10% ਵੱਧ",
+          "13.64% ਵੱਧ",
+          "0% ਵੱਧ"
+        ],
+        "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 20% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 80 / 100 = 80।\nA, B ਨਾਲੋਂ 10% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 80 x 110 / 100 = 88।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 12% ਘੱਟ ਹੈ।"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 13,
+    "question": "Marked price was reduced by 10% from its original level. Find the required increase percentage.",
+    "options": [
+      "11.11%",
+      "10%",
+      "90%",
+      "88.89%"
+    ],
+    "answer": "11.11%",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "product_pricing",
+      "category": "base_change",
+      "subtype": "restore_original",
+      "reasoningPattern": "reverse_reconstruction",
+      "canonicalScenario": {
+        "object": "general_quantity",
+        "domain": "general",
+        "realismProfile": "neutral_exam",
+        "allowedAnchorKeys": [
+          "general_quantity"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Marked price was reduced by 10% from its original level. Find the required increase percentage.",
+        "options": [
+          "11.11%",
+          "10%",
+          "90%",
+          "88.89%"
+        ],
+        "explanation": "After a 10% reduction, percentage left is:\nRemaining part =\n100 - 10\n= 90%\n\nRequired increase %:\n10 x 100 / 90\n= 11.11% increase\n\nRequired increase = 11.11%"
+      },
+      "hi": {
+        "question": "एक वस्तु के मूल्य में 10% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?",
+        "options": [
+          "11.11% वृद्धि",
+          "10% वृद्धि",
+          "90% वृद्धि",
+          "88.89% वृद्धि"
+        ],
+        "explanation": "बचा हुआ भाग:\n100 - 10\n= 90%\n\nआवश्यक वृद्धि:\n10 x 100 / 90\n= 11.11% वृद्धि\nआवश्यक वृद्धि = 11.11%"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 10% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?",
+        "options": [
+          "11.11% ਵਾਧਾ",
+          "10% ਵਾਧਾ",
+          "90% ਵਾਧਾ",
+          "88.89% ਵਾਧਾ"
+        ],
+        "explanation": "ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:\n100 - 10\n= 90%\n\nਲੋੜੀਂਦਾ ਵਾਧਾ:\n10 x 100 / 90\n= 11.11% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ = 11.11%"
+      }
+    },
+    "realismScore": 72
+  },
+  {
+    "index": 14,
+    "question": "In a village council election, 60% of the registered voters cast their votes. Out of these, 10% votes were invalid. The winning candidate got 62.5% of the valid votes and won by 27000 votes. Find the number of registered voters.",
+    "options": [
+      "200000",
+      "110000",
+      "180000",
+      "45000"
+    ],
+    "answer": "200000",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "successive_filtering",
+      "variant": "turnout_margin",
+      "misconceptionDistractors": [
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 110000
+        },
+        {
+          "misconception": "ignoring_invalid_votes",
+          "value": 180000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 45000
+        }
+      ],
+      "filteringChain": {
+        "chainId": "registered_to_valid_votes",
+        "baseVariable": "registeredVoters",
+        "targetVariable": "validVotes",
+        "stages": [
+          {
+            "stageId": "apply_turnout",
+            "kind": "percentage_filter",
+            "inputVariable": "registeredVoters",
+            "outputVariable": "votedVotes",
+            "percentVariable": "turnoutPercent",
+            "equation": "votedVotes = {registeredVoters} * {turnoutPercent} / 100",
+            "hidden": true
+          },
+          {
+            "stageId": "remove_invalid_votes",
+            "kind": "remaining_percentage",
+            "inputVariable": "votedVotes",
+            "outputVariable": "validVotes",
+            "percentVariable": "validPercent",
+            "equation": "validVotes = votedVotes * {validPercent} / 100",
+            "hidden": true
+          }
+        ]
+      },
+      "hiddenBase": {
+        "baseVariable": "registeredVoters",
+        "knownVariable": "votedVotes",
+        "percentVariable": "turnoutPercent"
+      },
+      "conservationGroups": [
+        {
+          "groupId": "valid_invalid_vote_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "invalidPercent",
+            "validPercent"
+          ]
+        },
+        {
+          "groupId": "two_candidate_valid_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "winnerPercent",
+            "loserPercent"
+          ]
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "village_council_election",
+      "category": "election",
+      "subtype": "election_margin",
+      "reasoningPattern": "margin_mapping",
+      "canonicalScenario": {
+        "object": "votes",
+        "domain": "election",
+        "entityType": "vote_count",
+        "realismProfile": "election_exam_realism",
+        "allowedAnchorKeys": [
+          "votes",
+          "winning_candidate",
+          "valid_votes"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a village council election, 60% of the registered voters cast their votes. Out of these, 10% votes were invalid. The winning candidate got 62.5% of the valid votes and won by 27000 votes. Find the number of registered voters.",
+        "options": [
+          "200000",
+          "110000",
+          "180000",
+          "45000"
+        ],
+        "explanation": "Winning margin:\nMargin percentage =\n62.5 - 37.5\n= 25%\nEffective valid votes:\n27000 x 100 / 25\n= 108000\nVotes polled are:\n108000 x 100 / 90\n= 120000\nRegistered voters are:\n120000 x 100 / 60\n= 200000\nRegistered voters = 200000"
+      },
+      "hi": {
+        "question": "एक निर्वाचन में 60% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 10% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 62.5% वोट मिले और जीत का अंतर 27000 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।",
+        "options": [
+          "200000",
+          "110000",
+          "180000",
+          "45000"
+        ],
+        "explanation": "जीत का अंतर:\nमार्जिन प्रतिशत =\n62.5 - 37.5\n= 25%\nकुल वैध वोट:\n27000 x 100 / 25\n= 108000\nकुल वोट:\n108000 x 100 / 90\n= 120000\nकुल पंजीकृत मतदाता:\n120000 x 100 / 60\n= 200000\nपंजीकृत मतदाता = 200000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਚੋਣ ਵਿੱਚ 60% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 10% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 62.5% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 27000 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "200000",
+          "110000",
+          "180000",
+          "45000"
+        ],
+        "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n62.5 - 37.5\n= 25%\nਕੁੱਲ ਯੋਗ ਵੋਟ:\n27000 x 100 / 25\n= 108000\nਕੁੱਲ ਵੋਟ:\n108000 x 100 / 90\n= 120000\nਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:\n120000 x 100 / 60\n= 200000\nਰਜਿਸਟਰਡ ਵੋਟਰ = 200000"
+      }
+    },
+    "realismScore": 97
+  },
+  {
+    "index": 15,
+    "question": "In a milk-water mixture, total quantity is 200 litres and milk is 25%. How much milk is needed to make milk 40% of the mixture?",
+    "options": [
+      "50",
+      "30",
+      "80",
+      "15"
+    ],
+    "answer": "50",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "mixture_container",
+      "category": "mixture",
+      "subtype": "mixture_percentage",
+      "reasoningPattern": "mixture_balance",
+      "canonicalScenario": {
+        "object": "milk_water_mixture",
+        "domain": "mixture",
+        "entityType": "mixture",
+        "realismProfile": "mixture_exam_realism",
+        "allowedAnchorKeys": [
+          "milk_water_mixture"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a milk-water mixture, total quantity is 200 litres and milk is 25%. How much milk is needed to make milk 40% of the mixture?",
+        "options": [
+          "50",
+          "30",
+          "80",
+          "15"
+        ],
+        "explanation": "Water remains unchanged.\nWater quantity =\n200 - 50\n= 150\nFinal mixture quantity:\n150 x 100 / ( 100 - 40 )\n= 250\nMilk to be added:\n250 - 200\n= 50\nMilk to be added = 50"
+      },
+      "hi": {
+        "question": "एक दूध-पानी मिश्रण की मात्रा 200 लीटर है और उसमें 25% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?",
+        "options": [
+          "50",
+          "30",
+          "80",
+          "15"
+        ],
+        "explanation": "पानी की मात्रा समान रहेगी।\nपानी की मात्रा =\n200 - 50\n= 150\nअंतिम मिश्रण:\n150 x 100 / ( 100 - 40 )\n= 250\nडाला जाने वाला दूध:\n250 - 200\n= 50\nडाला जाने वाला दूध = 50"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 200 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+        "options": [
+          "50",
+          "30",
+          "80",
+          "15"
+        ],
+        "explanation": "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।\nਪਾਣੀ ਦੀ ਮਾਤਰਾ =\n200 - 50\n= 150\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\n150 x 100 / ( 100 - 40 )\n= 250\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:\n250 - 200\n= 50\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 50"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 16,
+    "question": "Fuel price increased by 25%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+    "options": [
+      "20%",
+      "25%",
+      "75%",
+      "33.33%"
+    ],
+    "answer": "20%",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "product_pricing",
+      "category": "expenditure",
+      "subtype": "price_consumption",
+      "reasoningPattern": "fixed_base_relation",
+      "canonicalScenario": {
+        "object": "fuel",
+        "domain": "expenditure",
+        "entityType": "consumption_item",
+        "realismProfile": "expenditure_exam_realism",
+        "allowedAnchorKeys": [
+          "fuel"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 6,
+          "localizedIntentLines": 6,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Fuel price increased by 25%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+        "options": [
+          "20%",
+          "25%",
+          "75%",
+          "33.33%"
+        ],
+        "explanation": "New price after increase:\n100 + 25\n= 125\n\nFor the same expenditure:\nNew consumption =\n100 x 100 / 125\n= 80\n\nReduction in consumption is:\n100 - 80\n= 20% reduction\n\nReduction in consumption = 20% reduction"
+      },
+      "hi": {
+        "question": "ईंधन की कीमत 25% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?",
+        "options": [
+          "20% कमी",
+          "25% कमी",
+          "75% कमी",
+          "33.33% कमी"
+        ],
+        "explanation": "नई कीमत:\n100 + 25\n= 125\n\nसमान खर्च के लिए:\nनई खपत =\n100 x 100 / 125\n= 80\n\nखपत में कमी:\n100 - 80\n= 20% कमी\n\nखपत में कमी = 20%"
+      },
+      "pa": {
+        "question": "ਈਂਧਨ ਦੀ ਕੀਮਤ 25% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+        "options": [
+          "20% ਕਮੀ",
+          "25% ਕਮੀ",
+          "75% ਕਮੀ",
+          "33.33% ਕਮੀ"
+        ],
+        "explanation": "ਨਵੀਂ ਕੀਮਤ:\n100 + 25\n= 125\n\nਉਸੇ ਖਰਚ ਲਈ:\nਨਵੀਂ ਖਪਤ =\n100 x 100 / 125\n= 80\n\nਖਪਤ ਵਿੱਚ ਕਮੀ:\n100 - 80\n= 20% ਕਮੀ\n\nਖਪਤ ਵਿੱਚ ਕਮੀ = 20%"
+      }
+    },
+    "realismScore": 75
+  },
+  {
+    "index": 17,
+    "question": "In a district population survey, the total population was 48000. Males were 60% and females were the rest. The male population increased by 40%, while the female population decreased by 20%. Find the final population.",
+    "options": [
+      "55680",
+      "58000",
+      "40000",
+      "56000"
+    ],
+    "answer": "55680",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "layered_population",
+      "variant": "male_female_population_shift",
+      "misconceptionDistractors": [
+        {
+          "misconception": "additive_instead_of_multiplicative",
+          "value": 58000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 58000
+        },
+        {
+          "misconception": "ignoring_remaining_component",
+          "value": 40000
+        }
+      ],
+      "conservationGroups": [
+        {
+          "groupId": "gender_population_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "malePercent",
+            "femalePercent"
+          ]
+        }
+      ],
+      "multiEntity": {
+        "totalVariable": "totalPopulation",
+        "componentVariables": [
+          "malePopulation",
+          "femalePopulation"
+        ]
+      }
+    },
+    "semanticAnchors": {
+      "scenario": "district_population_survey",
+      "category": "population",
+      "subtype": "population_growth",
+      "reasoningPattern": "population_projection",
+      "canonicalScenario": {
+        "object": "population",
+        "domain": "population",
+        "entityType": "count",
+        "realismProfile": "population_exam_realism",
+        "allowedAnchorKeys": [
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 7,
+          "localizedIntentLines": 7,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 7,
+          "localizedIntentLines": 7,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 7,
+          "localizedIntentLines": 7,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a district population survey, the total population was 48000. Males were 60% and females were the rest. The male population increased by 40%, while the female population decreased by 20%. Find the final population.",
+        "options": [
+          "55680",
+          "58000",
+          "40000",
+          "56000"
+        ],
+        "explanation": "Male population:\n48000 x 60 / 100\n= 28800\nFemale population:\n48000 - 28800\n= 19200\nMale population after growth:\n28800 x (100 + 40) / 100\n= 40320\nFemale population after reduction:\nFemale population after decrease =\n19200 x ( 100 - 20 ) / 100\n= 15360\nFinal population:\n40320 + 15360\n= 55680\nFinal population = 55680"
+      },
+      "hi": {
+        "question": "एक जनसंख्या रिपोर्ट में कुल जनसंख्या 48000 थी। पुरुष 60% थे और शेष महिलाएं थीं। पुरुष जनसंख्या 40% बढ़ी, जबकि महिला जनसंख्या 20% घटी। अंतिम जनसंख्या ज्ञात कीजिए।",
+        "options": [
+          "55680",
+          "58000",
+          "40000",
+          "56000"
+        ],
+        "explanation": "पुरुष जनसंख्या:\n48000 x 60 / 100\n= 28800\nमहिला जनसंख्या:\n48000 - 28800\n= 19200\nवृद्धि के बाद पुरुष जनसंख्या:\n28800 x (100 + 40) / 100\n= 40320\nकमी के बाद महिला जनसंख्या:\n19200 x ( 100 - 20 ) / 100\n= 15360\nअंतिम जनसंख्या:\n40320 + 15360\n= 55680\nअंतिम जनसंख्या = 55680"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ 48000 ਸੀ। ਮਰਦ 60% ਸਨ ਅਤੇ ਬਾਕੀ ਔਰਤਾਂ ਸਨ। ਮਰਦ ਆਬਾਦੀ 40% ਵਧੀ, ਜਦਕਿ ਔਰਤ ਆਬਾਦੀ 20% ਘਟੀ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "55680",
+          "58000",
+          "40000",
+          "56000"
+        ],
+        "explanation": "ਮਰਦ ਆਬਾਦੀ:\n48000 x 60 / 100\n= 28800\nਔਰਤ ਆਬਾਦੀ:\n48000 - 28800\n= 19200\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਰਦ ਆਬਾਦੀ:\n28800 x (100 + 40) / 100\n= 40320\nਕਮੀ ਤੋਂ ਬਾਅਦ ਔਰਤ ਆਬਾਦੀ:\n19200 x ( 100 - 20 ) / 100\n= 15360\nਅੰਤਿਮ ਆਬਾਦੀ:\n40320 + 15360\n= 55680\nਅੰਤਿਮ ਆਬਾਦੀ = 55680"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 18,
+    "question": "A's income is 25% more than B's income. B's income is 25% less than C's income. C's income is 40% more than D's income. Find by what percent A's income is more or less than D's income.",
+    "options": [
+      "31.25% more",
+      "40% more",
+      "16.19% more",
+      "130% more"
+    ],
+    "answer": "31.25% more",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "multi_entity_percentage_network",
+      "variant": "three_step_relation_chain",
+      "misconceptionDistractors": [
+        {
+          "misconception": "transitive_shortcut_error",
+          "value": 40
+        },
+        {
+          "misconception": "incorrect_inversion",
+          "value": 16.19
+        },
+        {
+          "misconception": "normalization_error",
+          "value": 130
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "inventory_record",
+      "category": "comparison",
+      "subtype": "relational_percentage",
+      "reasoningPattern": "relational_chain",
+      "canonicalScenario": {
+        "object": "income",
+        "domain": "relational",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "relational_exam_realism",
+        "allowedAnchorKeys": [
+          "income",
+          "salary",
+          "marks",
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 0,
+          "localizedIntentLines": 0,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A's income is 25% more than B's income. B's income is 25% less than C's income. C's income is 40% more than D's income. Find by what percent A's income is more or less than D's income.",
+        "options": [
+          "31.25% more",
+          "40% more",
+          "16.19% more",
+          "130% more"
+        ],
+        "explanation": "Assume D's income = 100.\nSince C is 40% more than D, C = 100 x 140 / 100 = 140.\nSince B is 25% less than C, B = 140 x 75 / 100 = 105.\nSince A is 25% more than B, A = 105 x 125 / 100 = 131.25.\nCompared with D = 100, A is 31.25% more."
+      },
+      "hi": {
+        "question": "A की आय B से 25% अधिक है। B की आय C से 25% कम है। C की आय D से 40% अधिक है। A की आय D से कितने प्रतिशत अधिक या कम है?",
+        "options": [
+          "31.25% अधिक",
+          "40% अधिक",
+          "16.19% अधिक",
+          "130% अधिक"
+        ],
+        "explanation": "मान लें D की आय = 100।\nC, D से 40% अधिक है, इसलिए C = 100 x 140 / 100 = 140।\nB, C से 25% कम है, इसलिए B = 140 x 75 / 100 = 105।\nA, B से 25% अधिक है, इसलिए A = 105 x 125 / 100 = 131.25।\nD = 100 की तुलना में A 31.25% अधिक है।"
+      },
+      "pa": {
+        "question": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। C ਦੀ ਆਮਦਨ D ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "options": [
+          "31.25% ਵੱਧ",
+          "40% ਵੱਧ",
+          "16.19% ਵੱਧ",
+          "130% ਵੱਧ"
+        ],
+        "explanation": "ਮੰਨ ਲਓ D ਦੀ ਆਮਦਨ = 100।\nC, D ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ C = 100 x 140 / 100 = 140।\nB, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 140 x 75 / 100 = 105।\nA, B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 105 x 125 / 100 = 131.25।\nD = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 31.25% ਵੱਧ ਹੈ।"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 19,
+    "question": "In a constituency election, 80% of the registered voters voted and 80% of those votes were valid. The winning candidate got 60% of the valid votes. The margin between the two candidates was 15360 votes. Find the winning candidate's votes.",
+    "options": [
+      "46080",
+      "72000",
+      "58000",
+      "46000"
+    ],
+    "answer": "46080",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "effective_percentage",
+      "variant": "filtered_valid_vote_margin",
+      "misconceptionDistractors": [
+        {
+          "misconception": "using_stated_base_as_effective_base",
+          "value": 72000
+        },
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 58000
+        },
+        {
+          "misconception": "ignoring_invalid_votes",
+          "value": 58000
+        }
+      ],
+      "filteringChain": {
+        "chainId": "registered_to_winner_votes",
+        "baseVariable": "registeredVoters",
+        "targetVariable": "winnerVotes",
+        "stages": [
+          {
+            "stageId": "apply_turnout",
+            "kind": "percentage_filter",
+            "inputVariable": "registeredVoters",
+            "outputVariable": "votedVotes",
+            "percentVariable": "turnoutPercent",
+            "equation": "votedVotes = {registeredVoters} * {turnoutPercent} / 100"
+          },
+          {
+            "stageId": "keep_valid_votes",
+            "kind": "percentage_filter",
+            "inputVariable": "votedVotes",
+            "outputVariable": "validVotes",
+            "percentVariable": "validPercent",
+            "equation": "validVotes = votedVotes * {validPercent} / 100"
+          },
+          {
+            "stageId": "map_winner_votes",
+            "kind": "percentage_filter",
+            "inputVariable": "validVotes",
+            "outputVariable": "winnerVotes",
+            "percentVariable": "winnerPercent",
+            "equation": "winnerVotes = validVotes * {winnerPercent} / 100"
+          }
+        ]
+      },
+      "conservationGroups": [
+        {
+          "groupId": "valid_invalid_vote_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "invalidPercent",
+            "validPercent"
+          ]
+        },
+        {
+          "groupId": "two_candidate_valid_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "winnerPercent",
+            "loserPercent"
+          ]
+        }
+      ],
+      "multiEntity": {
+        "totalVariable": "validVotes",
+        "componentVariables": [
+          "winnerVotes",
+          "loserVotes"
+        ]
+      }
+    },
+    "semanticAnchors": {
+      "scenario": "constituency_election",
+      "category": "election",
+      "subtype": "election_margin",
+      "reasoningPattern": "margin_mapping",
+      "canonicalScenario": {
+        "object": "votes",
+        "domain": "election",
+        "entityType": "vote_count",
+        "realismProfile": "election_exam_realism",
+        "allowedAnchorKeys": [
+          "votes",
+          "winning_candidate",
+          "valid_votes"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a constituency election, 80% of the registered voters voted and 80% of those votes were valid. The winning candidate got 60% of the valid votes. The margin between the two candidates was 15360 votes. Find the winning candidate's votes.",
+        "options": [
+          "46080",
+          "72000",
+          "58000",
+          "46000"
+        ],
+        "explanation": "Effective valid votes:\n15360 x 100 / 20\n= 76800\nWinner's votes are:\n76800 x 60 / 100\n= 46080\nTherefore, winning candidate's votes = 46080"
+      },
+      "hi": {
+        "question": "एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 60% वोट मिले। जीत का अंतर 15360 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।",
+        "options": [
+          "46080",
+          "72000",
+          "58000",
+          "46000"
+        ],
+        "explanation": "कुल वैध वोट:\n15360 x 100 / 20\n= 76800\nविजयी उम्मीदवार के वोट:\n76800 x 60 / 100\n= 46080\nविजयी उम्मीदवार के वोट = 46080"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 15360 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "46080",
+          "72000",
+          "58000",
+          "46000"
+        ],
+        "explanation": "ਕੁੱਲ ਯੋਗ ਵੋਟ:\n15360 x 100 / 20\n= 76800\nਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ:\n76800 x 60 / 100\n= 46080\nਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ = 46080"
+      }
+    },
+    "realismScore": 98
+  },
+  {
+    "index": 20,
+    "question": "In a municipal election, the winning candidate secured 55% of the votes and defeated the opponent by 5600 votes. Find the total number of votes polled.",
+    "options": [
+      "56000",
+      "10000",
+      "12000",
+      "57000"
+    ],
+    "answer": "56000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "direct_mapping",
+      "variant": "direct_margin",
+      "misconceptionDistractors": [
+        {
+          "misconception": "mapping_winner_percentage_directly",
+          "value": 10000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 12000
+        },
+        {
+          "misconception": "ratio_confusion",
+          "value": 56000
+        }
+      ],
+      "conservationGroups": [
+        {
+          "groupId": "two_candidate_vote_share",
+          "totalPercent": 100,
+          "partVariables": [
+            "winnerPercent",
+            "loserPercent"
+          ]
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "municipal_voting",
+      "category": "election",
+      "subtype": "election_margin",
+      "reasoningPattern": "margin_mapping",
+      "canonicalScenario": {
+        "object": "votes",
+        "domain": "election",
+        "entityType": "vote_count",
+        "realismProfile": "election_exam_realism",
+        "allowedAnchorKeys": [
+          "votes",
+          "winning_candidate",
+          "valid_votes"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a municipal election, the winning candidate secured 55% of the votes and defeated the opponent by 5600 votes. Find the total number of votes polled.",
+        "options": [
+          "56000",
+          "10000",
+          "12000",
+          "57000"
+        ],
+        "explanation": "Winning margin:\nMargin percentage =\n55 - 45\n= 10%\n\nTotal votes are:\n5600 x 100 / 10\n= 56000\n\nTherefore, total votes = 56000"
+      },
+      "hi": {
+        "question": "एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 55% वोट मिले और उसने प्रतिद्वंद्वी को 5600 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।",
+        "options": [
+          "56000",
+          "10000",
+          "12000",
+          "57000"
+        ],
+        "explanation": "जीत का अंतर:\nमार्जिन प्रतिशत =\n55 - 45\n= 10%\n\nकुल वोट:\n5600 x 100 / 10\n= 56000\n\nकुल डाले गए वोट = 56000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 55% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 5600 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "56000",
+          "10000",
+          "12000",
+          "57000"
+        ],
+        "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n55 - 45\n= 10%\n\nਕੁੱਲ ਵੋਟ:\n5600 x 100 / 10\n= 56000\n\nਕੁੱਲ ਪਏ ਵੋਟ = 56000"
+      }
+    },
+    "realismScore": 78
+  },
+  {
+    "index": 21,
+    "question": "In a qualifying test, 75% of the paper has been evaluated. A student scored 80% of those marks. To secure 70% overall, the student still needs 100 marks. Find the maximum marks.",
+    "options": [
+      "1000",
+      "145",
+      "120",
+      "980"
+    ],
+    "answer": "1000",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "successive_filtering",
+      "variant": "remaining_marks_required",
+      "misconceptionDistractors": [
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 1000
+        },
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 145
+        },
+        {
+          "misconception": "additive_instead_of_multiplicative",
+          "value": 120
+        }
+      ],
+      "filteringChain": {
+        "chainId": "total_to_scored_marks",
+        "baseVariable": "totalMarks",
+        "targetVariable": "scoredMarks",
+        "stages": [
+          {
+            "stageId": "completed_marks",
+            "kind": "percentage_filter",
+            "inputVariable": "totalMarks",
+            "outputVariable": "completedMarks",
+            "percentVariable": "completedPercent",
+            "equation": "completedMarks = {totalMarks} * {completedPercent} / 100"
+          },
+          {
+            "stageId": "scored_completed_marks",
+            "kind": "percentage_filter",
+            "inputVariable": "completedMarks",
+            "outputVariable": "scoredMarks",
+            "percentVariable": "scoredOnCompletedPercent",
+            "equation": "scoredMarks = completedMarks * {scoredOnCompletedPercent} / 100"
+          }
+        ]
+      },
+      "hiddenBase": {
+        "baseVariable": "totalMarks",
+        "knownVariable": "remainingMarksRequired",
+        "percentVariable": "gapPercent"
+      }
+    },
+    "semanticAnchors": {
+      "scenario": "qualifying_marks",
+      "category": "comparison",
+      "subtype": "pass_fail",
+      "reasoningPattern": "difference_mapping",
+      "canonicalScenario": {
+        "object": "marks",
+        "domain": "marks",
+        "entityType": "score",
+        "realismProfile": "marks_exam_realism",
+        "allowedAnchorKeys": [
+          "marks"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a qualifying test, 75% of the paper has been evaluated. A student scored 80% of those marks. To secure 70% overall, the student still needs 100 marks. Find the maximum marks.",
+        "options": [
+          "1000",
+          "145",
+          "120",
+          "980"
+        ],
+        "explanation": "Marks already secured:\n75 x 80 / 100\n= 60\nRequired percentage gap:\n70 - 60\n= 10%\nMaximum marks are:\n100 x 100 / 10\n= 1000\nHence, maximum marks in the test = 1000"
+      },
+      "hi": {
+        "question": "एक परीक्षा में 75% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 80% अंक प्राप्त किए। कुल 70% अंक पाने के लिए उसे अभी 100 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।",
+        "options": [
+          "1000",
+          "145",
+          "120",
+          "980"
+        ],
+        "explanation": "प्राप्त अंक:\n75 x 80 / 100\n= 60\nआवश्यक प्रतिशत अंतर:\n70 - 60\n= 10%\nअधिकतम अंक:\n100 x 100 / 10\n= 1000\nअधिकतम अंक = 1000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 75% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 80% ਅੰਕ ਲਏ। ਕੁੱਲ 70% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 100 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "1000",
+          "145",
+          "120",
+          "980"
+        ],
+        "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ:\n75 x 80 / 100\n= 60\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n70 - 60\n= 10%\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n100 x 100 / 10\n= 1000\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1000"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 22,
+    "question": "Salary changed from ₹10000 to ₹12000. Find the percentage change.",
+    "options": [
+      "20%",
+      "16.67%",
+      "2000%",
+      "18%"
+    ],
+    "answer": "20%",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "salary_revision",
+      "category": "finance",
+      "subtype": "salary_revision",
+      "reasoningPattern": "difference_mapping",
+      "canonicalScenario": {
+        "object": "salary",
+        "domain": "salary",
+        "unit": "₹",
+        "entityType": "currency_amount",
+        "realismProfile": "salary_exam_realism",
+        "allowedAnchorKeys": [
+          "salary"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 3,
+          "localizedIntentLines": 3,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Salary changed from ₹10000 to ₹12000. Find the percentage change.",
+        "options": [
+          "20%",
+          "16.67%",
+          "2000%",
+          "18%"
+        ],
+        "explanation": "Increase in salary:\n12000 - 10000\n= 2000\nChange %:\n2000 x 100 / 10000\n= 20\nSo, salary change = 20% increase"
+      },
+      "hi": {
+        "question": "एक कर्मचारी का वेतन 10000 से बदलकर 12000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+        "options": [
+          "20% वृद्धि",
+          "16.67% वृद्धि",
+          "2000% वृद्धि",
+          "18% वृद्धि"
+        ],
+        "explanation": "वेतन में बदलाव:\n12000 - 10000\n= 2000\nप्रतिशत परिवर्तन:\n2000 x 100 / 10000\n= 20\nवेतन में बदलाव = 20%"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 10000 ਤੋਂ ਬਦਲ ਕੇ 12000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "20% ਵਾਧਾ",
+          "16.67% ਵਾਧਾ",
+          "2000% ਵਾਧਾ",
+          "18% ਵਾਧਾ"
+        ],
+        "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:\n12000 - 10000\n= 2000\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\n2000 x 100 / 10000\n= 20\nਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 20%"
+      }
+    },
+    "realismScore": 72
+  },
+  {
+    "index": 23,
+    "question": "Marked price was reduced by 20% from its original level. Find the required increase percentage.",
+    "options": [
+      "25%",
+      "20%",
+      "80%",
+      "75%"
+    ],
+    "answer": "25%",
+    "difficulty": "Easy",
+    "topology": null,
+    "semanticAnchors": {
+      "scenario": "product_pricing",
+      "category": "base_change",
+      "subtype": "restore_original",
+      "reasoningPattern": "reverse_reconstruction",
+      "canonicalScenario": {
+        "object": "general_quantity",
+        "domain": "general",
+        "realismProfile": "neutral_exam",
+        "allowedAnchorKeys": [
+          "general_quantity"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 5,
+          "localizedIntentLines": 5,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Marked price was reduced by 20% from its original level. Find the required increase percentage.",
+        "options": [
+          "25%",
+          "20%",
+          "80%",
+          "75%"
+        ],
+        "explanation": "After a 20% reduction, percentage left is:\nRemaining part =\n100 - 20\n= 80%\nRequired increase %:\n20 x 100 / 80\n= 25% increase\nRequired increase = 25%"
+      },
+      "hi": {
+        "question": "एक वस्तु के मूल्य में 20% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?",
+        "options": [
+          "25% वृद्धि",
+          "20% वृद्धि",
+          "80% वृद्धि",
+          "75% वृद्धि"
+        ],
+        "explanation": "बचा हुआ भाग:\n100 - 20\n= 80%\nआवश्यक वृद्धि:\n20 x 100 / 80\n= 25% वृद्धि\nआवश्यक वृद्धि = 25%"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ 20% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?",
+        "options": [
+          "25% ਵਾਧਾ",
+          "20% ਵਾਧਾ",
+          "80% ਵਾਧਾ",
+          "75% ਵਾਧਾ"
+        ],
+        "explanation": "ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:\n100 - 20\n= 80%\nਲੋੜੀਂਦਾ ਵਾਧਾ:\n20 x 100 / 80\n= 25% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ = 25%"
+      }
+    },
+    "realismScore": 72
+  },
+  {
+    "index": 24,
+    "question": "In a migration report, the population was 250000. It increased by 10%. In addition, people equal to 4% of the original population migrated in. Find the final population.",
+    "options": [
+      "285000",
+      "290000",
+      "275000",
+      "280000"
+    ],
+    "answer": "285000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "layered_population",
+      "variant": "migration_adjusted_population",
+      "misconceptionDistractors": [
+        {
+          "misconception": "using_wrong_denominator",
+          "value": 290000
+        },
+        {
+          "misconception": "forgetting_filtering_stage",
+          "value": 275000
+        },
+        {
+          "misconception": "additive_instead_of_multiplicative",
+          "value": 285000
+        }
+      ]
+    },
+    "semanticAnchors": {
+      "scenario": "migration_report",
+      "category": "population",
+      "subtype": "population_growth",
+      "reasoningPattern": "population_projection",
+      "canonicalScenario": {
+        "object": "population",
+        "domain": "population",
+        "entityType": "count",
+        "realismProfile": "population_exam_realism",
+        "allowedAnchorKeys": [
+          "population"
+        ]
+      },
+      "semanticConsistency": {
+        "valid": true,
+        "issues": [],
+        "metrics": {
+          "semanticAnchorConsistencyScore": 100,
+          "domainIntegrityScore": 100,
+          "localizationCompletenessScore": 100,
+          "explanationLocalizationScore": 100,
+          "distractorRealismScore": 100
+        }
+      },
+      "localizationCoverage": {
+        "en": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "hi": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        },
+        "pa": {
+          "totalIntentLines": 4,
+          "localizedIntentLines": 4,
+          "fallbackCount": 0,
+          "missingIntents": []
+        }
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a migration report, the population was 250000. It increased by 10%. In addition, people equal to 4% of the original population migrated in. Find the final population.",
+        "options": [
+          "285000",
+          "290000",
+          "275000",
+          "280000"
+        ],
+        "explanation": "Population after increase:\n250000 x 110 / 100\n= 275000\nPopulation added by migration:\n250000 x 4 / 100\n= 10000\nFinal population after migration:\n275000 + 10000\n= 285000\nAccordingly, final population = 285000"
+      },
+      "hi": {
+        "question": "एक नगर जनसंख्या रिपोर्ट में जनसंख्या 250000 थी। इसमें 10% वृद्धि हुई। साथ ही मूल जनसंख्या के 4% लोग बाहर से आए। अंतिम जनसंख्या ज्ञात कीजिए।",
+        "options": [
+          "285000",
+          "290000",
+          "275000",
+          "280000"
+        ],
+        "explanation": "वृद्धि के बाद जनसंख्या:\n250000 x 110 / 100\n= 275000\nप्रवास से जोड़ी गई जनसंख्या:\n250000 x 4 / 100\n= 10000\nअंतिम जनसंख्या:\n275000 + 10000\n= 285000\nअंतिम जनसंख्या = 285000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸ਼ਹਿਰੀ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 250000 ਸੀ। ਇਸ ਵਿੱਚ 10% ਵਾਧਾ ਹੋਇਆ। ਨਾਲ ਹੀ ਮੂਲ ਆਬਾਦੀ ਦੇ 4% ਲੋਕ ਬਾਹਰੋਂ ਆਏ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "285000",
+          "290000",
+          "275000",
+          "280000"
+        ],
+        "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n250000 x 110 / 100\n= 275000\nਪਰਵਾਸ ਨਾਲ ਜੋੜੀ ਗਈ ਆਬਾਦੀ:\n250000 x 4 / 100\n= 10000\nਅੰਤਿਮ ਆਬਾਦੀ:\n275000 + 10000\n= 285000\nਅੰਤਿਮ ਆਬਾਦੀ = 285000"
+      }
+    },
+    "realismScore": 93
+  }
+]

@@ -89,6 +89,7 @@ export type CorpusSchedulerSummary = {
   topologyGroupDistribution: Record<string, number>;
   examinerIntentDistribution: Record<string, number>;
   semanticAnchorDistribution: Record<string, number>;
+  familyDistribution: Record<string, number>;
   distractorTrapDistribution: Record<string, number>;
   difficultyDistribution: Record<string, number>;
   duplicateRisk: {
@@ -365,6 +366,7 @@ function topologyGroup(problem: any, graph: any, topology: string) {
 }
 
 const SMALL_BATCH_FAMILY_CAPS: Record<string, number> = {
+  election_margin: 15,
   price_consumption: 3,
   salary_revision: 2,
   single_relation: 2,
@@ -374,10 +376,33 @@ const SMALL_BATCH_FAMILY_CAPS: Record<string, number> = {
   restore_original: 3,
 };
 
+function proportionalFamilyCap(state: CorpusSchedulerState, family: string) {
+  if (family === "election_margin") {
+    return Math.max(1, Math.floor(state.targetCount * 0.2));
+  }
+  return undefined;
+}
+
+function isElectionFamily(problem: any, topology: string) {
+  const text = [
+    problem?.subtype,
+    problem?.category,
+    problem?.reasoningPattern,
+    problem?.topology?.family,
+    problem?.topology?.variant,
+    topology,
+  ].join(" ");
+  return /election|vote|voter|registered|valid_vote|valid vote|direct_margin|invalid_vote_margin|turnout_margin|filtered_valid_vote_margin|remaining_vote_margin|multi_candidate_margin/iu.test(text);
+}
+
 function familyKey(problem: any, topology: string) {
   const subtype = String(problem?.subtype ?? "unknown");
   const variant = String(problem?.topology?.variant ?? topology);
   const relationCount = Math.trunc(Number(problem?.variables?.relationCount ?? 0));
+
+  if (isElectionFamily(problem, topology)) {
+    return "election_margin";
+  }
 
   if (subtype === "relational_percentage") {
     if (relationCount <= 1 || variant.includes("single_relation")) {
@@ -394,12 +419,21 @@ function familyKey(problem: any, topology: string) {
 
 function smallBatchFamilyCap(state: CorpusSchedulerState, family: string) {
   if (state.targetCount > 60) {
-    return undefined;
+    return proportionalFamilyCap(state, family);
   }
-  return SMALL_BATCH_FAMILY_CAPS[family];
+  const fixedCap = SMALL_BATCH_FAMILY_CAPS[family];
+  const proportionalCap = proportionalFamilyCap(state, family);
+  if (fixedCap === undefined) {
+    return proportionalCap;
+  }
+  if (proportionalCap === undefined) {
+    return fixedCap;
+  }
+  return Math.min(fixedCap, proportionalCap);
 }
 
 const MOTIF_FAMILY: Record<string, string> = {
+  perc_vote_election: "election_margin",
   perc_price_consumption: "price_consumption",
   perc_salary_hike: "salary_revision",
   perc_income_savings_expense: "salary_revision",
@@ -442,7 +476,7 @@ export function extractCorpusSchedulerMetadata(
   const examinerIntent =
     semantic.examinerIntent?.primaryIntent ??
     payload.examinerIntent?.primaryIntent ??
-    question.examRealismMetadata?.examinerIntent?.primaryIntent ??
+    (question.examRealismMetadata as any)?.examinerIntent?.primaryIntent ??
     "unknown_intent";
   const canonicalScenario =
     semantic.canonicalScenario ??
@@ -749,7 +783,10 @@ export function suggestSchedulerMotif(
     normalizeShare(groups.filtered ?? 0, accepted) <
     state.profile.minShare.filtered
   ) {
-    return slotIndex % 2 === 0 ? "perc_vote_election" : "perc_population_growth";
+    const motif = slotIndex % 2 === 0
+      ? "perc_vote_election"
+      : "perc_population_growth";
+    return cappedMotif(state, motif) ? firstUncappedMotif(state, slotIndex) : motif;
   }
   if (
     normalizeShare(groups.hybrid ?? 0, accepted) <
@@ -838,6 +875,7 @@ export function summarizeCorpusScheduler(
     topologyGroupDistribution: state.topologyGroupCounts,
     examinerIntentDistribution: state.examinerIntentCounts,
     semanticAnchorDistribution: state.semanticAnchorCounts,
+    familyDistribution: state.familyCounts,
     distractorTrapDistribution: state.distractorTrapCounts,
     difficultyDistribution: state.difficultyCounts,
     duplicateRisk: {

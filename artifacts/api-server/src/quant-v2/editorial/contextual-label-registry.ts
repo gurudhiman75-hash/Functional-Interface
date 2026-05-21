@@ -25,13 +25,13 @@ export function contextualOutputLabel(
   }
 
   if (problem.subtype === "pass_fail") {
+    if (step.descriptionKey.includes("remaining_required")) {
+      return "Required percentage gap";
+    }
     if (output === "scoredMarks" || output === "completedMarks") {
       return "Marks already secured";
     }
     if (output === "remainingMarksRequired" || output === "requiredMarks") {
-      return "Required marks gap";
-    }
-    if (step.descriptionKey.includes("remaining_required")) {
       return "Required marks gap";
     }
   }

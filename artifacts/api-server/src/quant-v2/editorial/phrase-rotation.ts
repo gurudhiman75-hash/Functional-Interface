@@ -128,7 +128,6 @@ const CONNECTORS = [
 const RHYTHM_ROTATION = [
   "coaching_rhythm",
   "compact_exam_rhythm",
-  "shortcut_first_rhythm",
   "equation_first_rhythm",
 ] as const satisfies readonly EditorialRhythmProfile[];
 
@@ -212,5 +211,5 @@ export function shouldSurfaceShortcut(input: {
     return true;
   }
 
-  return pickIndex(input.seed, `${input.signature}|shortcut`, 4) === 0;
+  return false;
 }

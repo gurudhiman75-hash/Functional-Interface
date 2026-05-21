@@ -89,6 +89,53 @@ test("multilingual review profile exports Hindi and Punjabi explanations", async
   }
 });
 
+test("scheduled multilingual percentage export blocks final polish regressions", async () => {
+  const outDir = await mkdtemp(path.join(os.tmpdir(), "quant-v2-final-polish-"));
+
+  try {
+    const result = await runCorpusAuditExport({
+      count: 60,
+      outDir,
+      presetId: "ssc_percentage_audit",
+      exportProfile: "multilingual_review",
+      useScheduler: true,
+      schedulerProfile: "balanced_mock",
+      includeMultilingualExplanations: true,
+      includeSvg: false,
+    });
+    const corpus = JSON.parse(await readFile(result.files.json, "utf8")) as any[];
+    const summary = JSON.parse(await readFile(result.files.summary, "utf8")) as typeof result.summary;
+    const electionCount = summary.scheduler?.familyDistribution?.election_margin ?? 0;
+    const mechanicalRelationRe =
+      /Apply the next relation|Relation index|Final value index|topology|graph/iu;
+    const genericRelationHiRe = /अंतिम मान/u;
+    const genericRelationPaRe = /ਅੰਤਿਮ ਮੁੱਲ/u;
+    const genericMixtureRe =
+      /अपरिवर्तित मात्रा|स्थिर मात्रा|ਅਣਬਦਲੀ ਮਾਤਰਾ|ਸਥਿਰ ਮਾਤਰਾ/u;
+
+    assert.equal(corpus.length, 60);
+    assert.ok(electionCount <= 12, `election count ${electionCount}`);
+
+    for (const sample of corpus) {
+      const subtype = String(sample.id ?? "").split("|")[0];
+      if (subtype === "relational_percentage") {
+        assert.equal(mechanicalRelationRe.test(sample.explanation), false, sample.explanation);
+        assert.equal(genericRelationHiRe.test(sample.explanationHi), false, sample.explanationHi);
+        assert.equal(genericRelationPaRe.test(sample.explanationPa), false, sample.explanationPa);
+      }
+      if (subtype === "mixture_percentage") {
+        assert.equal(genericMixtureRe.test(sample.explanationHi), false, sample.explanationHi);
+        assert.equal(genericMixtureRe.test(sample.explanationPa), false, sample.explanationPa);
+      }
+    }
+  } finally {
+    await rm(outDir, {
+      recursive: true,
+      force: true,
+    });
+  }
+});
+
 test("corpus audit background job exposes progressive status", async () => {
   const outDir = await mkdtemp(path.join(os.tmpdir(), "quant-v2-corpus-audit-job-"));
 

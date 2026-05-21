@@ -53,7 +53,16 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/registered voters/u.test(normalized)) {
     return "label.registered_voters";
   }
-  if (/pass mark|marks still needed|required marks gap|extra marks|marks gap|marks percentage gap|score difference/u.test(normalized)) {
+  if (/total marks gap/u.test(normalized)) {
+    return "label.total_marks_gap";
+  }
+  if (/required percentage gap|pass mark difference/u.test(normalized)) {
+    return "label.required_percentage_gap";
+  }
+  if (/marks percentage gap|percentage gap/u.test(normalized)) {
+    return "label.percentage_gap";
+  }
+  if (/marks still needed|required marks gap|extra marks|marks gap|score difference/u.test(normalized)) {
     return "label.pass_mark_gap";
   }
   if (/maximum marks/u.test(normalized)) {
@@ -62,20 +71,26 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/marks already secured|adjusted score/u.test(normalized)) {
     return "label.marks_secured";
   }
+  if (/total (?:sugar stock|applicants|population|voters)/u.test(normalized)) {
+    return "label.total_value";
+  }
   if (/population after (?:growth|increase)/u.test(normalized)) {
     return "label.population_after_growth";
   }
   if (/population after (?:reduction|decrease)/u.test(normalized)) {
     return "label.population_after_reduction";
   }
-  if (/final population|population/u.test(normalized)) {
-    return "label.final_population";
-  }
   if (/male population/u.test(normalized)) {
     return "label.male_population";
   }
   if (/female population/u.test(normalized)) {
     return "label.female_population";
+  }
+  if (/population added by migration/u.test(normalized)) {
+    return "label.population_added_migration";
+  }
+  if (/final population|population/u.test(normalized)) {
+    return "label.final_population";
   }
   if (/new price/u.test(normalized)) {
     return "label.new_price";
@@ -134,7 +149,6 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/required value|result/u.test(normalized)) {
     return "label.required_value";
   }
-
   return undefined;
 }
 
@@ -142,6 +156,9 @@ function endingKey(label: string): EditorialIntentKey {
   const key = labelKey(label);
   if (key === "label.total_votes") {
     return "ending.total_votes";
+  }
+  if (key === "label.registered_voters") {
+    return "ending.registered_voters";
   }
   if (key === "label.maximum_marks") {
     return "ending.maximum_marks";
@@ -196,7 +213,7 @@ function narrationIntent(line: string): EditorialIntent | undefined {
 
   const narrationMap: Array<[RegExp, EditorialIntentKey]> = [
     [/^For the same expenditure:?$/u, "narration.same_expenditure"],
-    [/^Water quantity remains unchanged\.$/u, "narration.water_unchanged"],
+    [/^Water (?:quantity )?remains unchanged\.$/u, "narration.water_unchanged"],
     [/^(?:The )?(?:fixed|unchanged) (?:part|quantity) remains:?$/iu, "narration.fixed_quantity_unchanged"],
     [/^For the target mixture:?$/u, "narration.target_mixture"],
     [/^After a \d+(?:\.\d+)?% reduction, the remaining value is:?$/u, "narration.remaining_value"],

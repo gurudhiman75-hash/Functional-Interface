@@ -23,6 +23,7 @@ import { selectCommercialObject } from "./commercial-object-pools";
 import { selectContextualGrounding } from "./contextual-grounding";
 import { createEditorialPlan } from "./editorial-planner";
 import { realizeExplanationWithNaturalization } from "./explanation-realizer";
+import { renderRelationalPercentageExplanation } from "./relation-explanation";
 import { selectScenario } from "./scenario-engine";
 
 function n(value: number | undefined) {
@@ -215,12 +216,12 @@ function legacyStem(
       if (/mark|score/iu.test(subjectLine)) {
         return `A student scored ${n(v.part)} marks, which is ${percent(v.percent)} of the maximum marks. Find the maximum marks.`;
       }
-      if (/population/iu.test(subjectLine)) {
-        return `A census recorded ${n(v.part)} people, which is ${percent(v.percent)} of the total population. Find the total population.`;
+      if (Number(v.part ?? 0) >= 100) {
+        return `${n(v.part)} candidates are ${percent(v.percent)} of the total applicants. Find the total number of applicants.`;
       }
-      return `The recorded quantity is ${n(v.part)}, which is ${percent(v.percent)} of the original quantity. Find the original quantity.`;
+      return `${n(v.part)} kg sugar is ${percent(v.percent)} of the total stock. Find the total sugar stock.`;
     case "restore_original":
-      return `${subjectLine} was reduced by ${percent(v.cutPercent)} from its original level. By what percent should it be increased to restore the original level?`;
+      return `Marked price was reduced by ${percent(v.cutPercent)} from its original level. By what percent should it be increased to restore the original level?`;
     case "salary_revision":
       return `${compactSubjectLine(opening, subject)} changed from ${currency(v.oldSalary, realizationProfile)} to ${currency(v.newSalary, realizationProfile)}. Find the percentage change based on the old salary.`;
     case "price_consumption":
@@ -243,6 +244,48 @@ function legacyStem(
     default:
       return `${opening}, find the required value from the percentage relation.`;
   }
+}
+
+function reversePercentageLabelFromStem(stem: string) {
+  const normalized = stem.toLowerCase();
+  if (/\bmarks?\b|\bscore\b/.test(normalized)) {
+    return "Maximum marks";
+  }
+  if (/\bpopulation\b|\bpeople\b/.test(normalized)) {
+    return "Total population";
+  }
+  if (/\bapplicants?\b|\bcandidates?\b/.test(normalized)) {
+    return "Total applicants";
+  }
+  if (/\bvoters?\b|\bvotes?\b/.test(normalized)) {
+    return "Total voters";
+  }
+  if (/\bsugar\b|\bstock\b/.test(normalized)) {
+    return "Total sugar stock";
+  }
+  return "Total value";
+}
+
+function polishEnglishExplanationForStem(input: {
+  problem: CanonicalPercentageProblem;
+  stem: string;
+  explanation: string;
+}) {
+  if (input.problem.subtype === "relational_percentage") {
+    return renderRelationalPercentageExplanation(input.problem, "en");
+  }
+
+  if (input.problem.subtype !== "reverse_percentage") {
+    return input.explanation;
+  }
+
+  const label = reversePercentageLabelFromStem(input.stem);
+  return input.explanation
+    .replace(/^Total quantity is:/gmu, `${label}:`)
+    .replace(/^Total quantity =/gmu, `${label} =`)
+    .replace(/^Hence, total quantity for the record =/gmu, `${label} =`)
+    .replace(/^Therefore, total quantity for the record =/gmu, `${label} =`)
+    .replace(/^Required total quantity for the record =/gmu, `${label} =`);
 }
 
 function realizeQuestionStemWithPattern(input: {
@@ -319,15 +362,21 @@ export function realizeEditorialProblem(
     explanation.naturalization.naturalizationScore +
       (stem.stemPatternId.includes("scenario_default") ? 0 : 5),
   );
+  const normalizedStem = normalizeRealizationText(stem.stem);
+  const normalizedExplanation = normalizeTeacherExplanation(
+    normalizeRealizationBlock(explanation.explanation),
+    "en",
+  );
 
   return {
     scenario,
     style: plan.style,
-    stem: normalizeRealizationText(stem.stem),
-    explanation: normalizeTeacherExplanation(
-      normalizeRealizationBlock(explanation.explanation),
-      "en",
-    ),
+    stem: normalizedStem,
+    explanation: polishEnglishExplanationForStem({
+      problem: input.problem,
+      stem: normalizedStem,
+      explanation: normalizedExplanation,
+    }),
     naturalization: {
       ...explanation.naturalization,
       stemPatternId: stem.stemPatternId,
