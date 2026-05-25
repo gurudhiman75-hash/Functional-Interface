@@ -1,4 +1,7 @@
-import { createRequire } from "node:module";
+import { spawn } from "node:child_process";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 
 export type PdfExtractionQuality =
   | "high"
@@ -61,8 +64,6 @@ const runtimeImport = new Function(
   specifier: string,
 ) => Promise<T>;
 
-const moduleRequire = createRequire(import.meta.url);
-
 async function loadPdfParse() {
   return runtimeImport<{
     PDFParse: new (
@@ -84,58 +85,6 @@ async function loadPdfParse() {
       destroy: () => Promise<void>;
     };
   }>("pdf-parse");
-}
-
-async function loadTesseract() {
-  return runtimeImport<{
-    createWorker: (
-      langs?: string,
-      oem?: unknown,
-      options?: Record<string, unknown>,
-      config?: Record<string, unknown>,
-    ) => Promise<{
-      recognize: (
-        image: Buffer,
-      ) => Promise<{
-        data: {
-          text: string;
-        };
-      }>;
-      terminate: () => Promise<void>;
-    }>;
-  }>("tesseract.js");
-}
-
-function resolveTesseractWorkerPath() {
-  try {
-    return moduleRequire.resolve(
-      "tesseract.js/src/worker-script/node/index.js",
-    );
-  } catch {
-    return undefined;
-  }
-}
-
-function withTimeout<T>(
-  promise: Promise<T>,
-  timeoutMs: number,
-  label: string,
-) {
-  return new Promise<T>((resolve, reject) => {
-    const timer = setTimeout(
-      () =>
-        reject(
-          new Error(
-            `${label} timed out after ${Math.round(timeoutMs / 1000)} seconds.`,
-          ),
-        ),
-      timeoutMs,
-    );
-
-    promise
-      .then(resolve, reject)
-      .finally(() => clearTimeout(timer));
-  });
 }
 
 function countWords(text: string) {
@@ -418,109 +367,132 @@ async function extractPdfWithOcr(
     0,
     MAX_OCR_PAGES,
   );
-  const ocrText: string[] = [];
-  const { createWorker } =
-    await loadTesseract();
-  const workerPath =
-    resolveTesseractWorkerPath();
-  const worker = await createWorker(
-    "eng+hin+pan",
-    undefined,
-    {
-      ...(workerPath
-        ? { workerPath }
-        : {}),
-    },
+  const tempDir = await fs.mkdtemp(
+    path.join(os.tmpdir(), "quant-ocr-"),
+  );
+  const pdfPath = path.join(
+    tempDir,
+    "source.pdf",
   );
 
   try {
-    const [
-      pdfjs,
-      canvasModule,
-    ] = await Promise.all([
-      runtimeImport<{
-        getDocument: (
-          parameters: Record<string, unknown>,
-        ) => {
-          promise: Promise<any>;
-          destroy: () => void;
-        };
-      }>(
-        "pdfjs-dist/legacy/build/pdf.mjs"
-      ),
-      runtimeImport<{
-        createCanvas: (
-          width: number,
-          height: number,
-        ) => {
-          getContext: (
-            contextId: "2d",
-          ) => unknown;
-          toBuffer: (
-            mimeType: string,
-          ) => Buffer;
-        };
-      }>("@napi-rs/canvas"),
-    ]);
-    const { createCanvas } =
-      canvasModule;
-    const loadingTask =
-      pdfjs.getDocument({
-        data: new Uint8Array(buffer),
-        disableWorker: true,
-        useWorkerFetch: false,
-        isEvalSupported: false,
-      });
-    const document =
-      await loadingTask.promise;
-
-    try {
-      for (const pageNumber of pagesToOcr) {
-        const page =
-          await document.getPage(
-            pageNumber,
-          );
-        const viewport =
-          page.getViewport({
-            scale: 2,
-          });
-        const canvas = createCanvas(
-          Math.ceil(viewport.width),
-          Math.ceil(viewport.height),
-        );
-        const context =
-          canvas.getContext("2d");
-
-        await page.render({
-          canvasContext:
-            context as any,
-          viewport,
-        }).promise;
-
-        const image =
-          canvas.toBuffer("image/png");
-        if (!image.length) continue;
-
-        const result =
-          await withTimeout(
-            worker.recognize(image),
-            OCR_TIMEOUT_MS,
-            `OCR page ${pageNumber}`,
-          );
-        ocrText.push(result.data.text);
-      }
-    } finally {
-      await document.destroy();
-      loadingTask.destroy();
-    }
+    await fs.writeFile(pdfPath, buffer);
+    const result =
+      await runOcrInChildProcess(
+        pdfPath,
+        pagesToOcr,
+      );
+    return {
+      pages: result.pages,
+      text: result.text,
+    };
   } finally {
-    await worker.terminate();
+    await fs.rm(tempDir, {
+      recursive: true,
+      force: true,
+    });
   }
+}
 
-  return {
-    pages: pagesToOcr,
-    text: ocrText.join("\n\n"),
-  };
+function runOcrInChildProcess(
+  pdfPath: string,
+  pages: number[],
+) {
+  const script = String.raw`
+import { pdf } from "pdf-to-img";
+import { createWorker } from "tesseract.js";
+
+const [pdfPath, pageCsv] = process.argv.slice(1);
+const pages = pageCsv.split(",").filter(Boolean).map(Number);
+const document = await pdf(pdfPath, { scale: 2 });
+const worker = await createWorker("eng+hin+pan", undefined, {});
+const texts = [];
+
+try {
+  for (const pageNumber of pages) {
+    const image = await document.getPage(pageNumber);
+    if (!image?.length) continue;
+    const result = await worker.recognize(image);
+    texts.push(result.data.text);
+  }
+} finally {
+  await worker.terminate();
+  await document.destroy?.();
+}
+
+process.stdout.write(JSON.stringify({
+  pages,
+  text: texts.join("\n\n")
+}));
+`;
+
+  return new Promise<{
+    pages: number[];
+    text: string;
+  }>((resolve, reject) => {
+    const child = spawn(
+      process.execPath,
+      [
+        "--input-type=module",
+        "-e",
+        script,
+        pdfPath,
+        pages.join(","),
+      ],
+      {
+        cwd: process.cwd(),
+        env: process.env,
+        windowsHide: true,
+      },
+    );
+    const stdout: Buffer[] = [];
+    const stderr: Buffer[] = [];
+    const timeout = setTimeout(() => {
+      child.kill();
+      reject(
+        new Error(
+          `OCR child process timed out after ${Math.round(OCR_TIMEOUT_MS / 1000)} seconds.`,
+        ),
+      );
+    }, OCR_TIMEOUT_MS);
+
+    child.stdout.on("data", (chunk) =>
+      stdout.push(Buffer.from(chunk)),
+    );
+    child.stderr.on("data", (chunk) =>
+      stderr.push(Buffer.from(chunk)),
+    );
+    child.on("error", (error) => {
+      clearTimeout(timeout);
+      reject(error);
+    });
+    child.on("close", (code) => {
+      clearTimeout(timeout);
+      const output =
+        Buffer.concat(stdout).toString("utf8");
+      const errorOutput =
+        Buffer.concat(stderr)
+          .toString("utf8")
+          .trim();
+      if (code !== 0) {
+        reject(
+          new Error(
+            `OCR child process exited with ${code}: ${errorOutput}`,
+          ),
+        );
+        return;
+      }
+      try {
+        resolve(JSON.parse(output));
+      } catch (error: any) {
+        reject(
+          new Error(
+            `OCR child process returned invalid JSON: ${error?.message ?? errorOutput}`,
+          ),
+        );
+      }
+    });
+  });
 }
 
 export async function ingestPdfBuffer(
@@ -530,6 +502,7 @@ export async function ingestPdfBuffer(
     mimeType?: string;
     startPage?: number;
     endPage?: number;
+    forceOcr?: boolean;
   } = {},
 ): Promise<PdfIngestionResult> {
   if (buffer.byteLength > MAX_PDF_BYTES) {
@@ -560,9 +533,14 @@ export async function ingestPdfBuffer(
     );
   }
 
-  if (shouldUseOcr(rawText)) {
+  if (
+    options.forceOcr ||
+    shouldUseOcr(rawText)
+  ) {
     warnings.push(
-      "Digital text layer looked low quality; OCR fallback was attempted.",
+      options.forceOcr
+        ? "OCR fallback was forced for this extraction."
+        : "Digital text layer looked low quality; OCR fallback was attempted.",
     );
     if (
       pageRange.selectedPageCount >
@@ -588,8 +566,12 @@ export async function ingestPdfBuffer(
         );
       }
     } catch (error: any) {
+      const detail =
+        error?.stack ??
+        error?.message ??
+        "Unknown OCR error";
       warnings.push(
-        `OCR fallback failed: ${error?.message ?? "Unknown OCR error"}`,
+        `OCR fallback failed: ${detail}`,
       );
     }
   }

@@ -5,11 +5,14 @@ import { finished } from "node:stream/promises";
 
 import type { FormulaQuestion, GeneratorOptions, Pattern } from "../../lib/core/generator-engine";
 import { createQuantV2PercentageQuestionCandidate } from "../../lib/quant-v2/percentage-admin-adapter";
+import { createQuantV2ProfitLossQuestionCandidate } from "../../lib/quant-v2/profit-loss-admin-adapter";
 import { COMMERCIAL_OBJECT_POOL } from "../editorial/commercial-object-pools";
 import { validateCorpusAuditBatch } from "../validators/corpus-audit-validator";
 import {
   createCorpusSchedulerState,
   generateScheduledQuestion,
+  interleaveScheduledPreviewQuestions,
+  extractCorpusSchedulerMetadata,
   summarizeCorpusScheduler,
   type CorpusSchedulerState,
   type CorpusSchedulerSummary,
@@ -34,7 +37,7 @@ const DEFAULT_BATCH_SIZE = 250;
 const MAX_AUDIT_COUNT = 20_000;
 const PREVIEW_SAMPLE_COUNT = 25;
 
-const AUDIT_PATTERN: Pattern = {
+const PERCENTAGE_AUDIT_PATTERN: Pattern = {
   id: "quant-v2-corpus-audit-percentage",
   type: "formula",
   section: "Quant",
@@ -46,6 +49,31 @@ const AUDIT_PATTERN: Pattern = {
   formula: "quant-v2",
   generationDomain: "quant-v2-percentage",
 };
+
+const PROFIT_LOSS_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-profit-loss",
+  type: "formula",
+  section: "Quant",
+  topic: "profit_loss_discount",
+  subtopic: "profit_loss_discount",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit profit loss discount pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-profit-loss",
+};
+
+function auditPatternForPreset(presetId: string): Pattern {
+  return presetId === "profit_loss_audit"
+    ? PROFIT_LOSS_AUDIT_PATTERN
+    : PERCENTAGE_AUDIT_PATTERN;
+}
+
+function generateForPreset(presetId: string, pattern: Pattern, options: GeneratorOptions) {
+  return presetId === "profit_loss_audit"
+    ? createQuantV2ProfitLossQuestionCandidate(pattern, options)
+    : createQuantV2PercentageQuestionCandidate(pattern, options);
+}
 
 type RunningSummary = CorpusAuditSummary & {
   scoreTotal: number;
@@ -493,6 +521,7 @@ export async function runCorpusAuditExport(
 ): Promise<CorpusAuditExportResult> {
   const startedAt = Date.now();
   const preset = getCorpusAuditPreset(options.presetId);
+  const auditPattern = auditPatternForPreset(preset.id);
   const exportProfile = getCorpusAuditExportProfile(options.exportProfile);
   const count = sanitizeCount(options.count || preset.defaultCount);
   const batchSize = Math.min(1000, Math.max(1, options.batchSize ?? DEFAULT_BATCH_SIZE));
@@ -541,6 +570,7 @@ export async function runCorpusAuditExport(
         profileId: options.schedulerProfile ?? "balanced_mock",
       })
     : undefined;
+  const scheduledQuestions: FormulaQuestion[] = [];
 
   for (let start = 0; start < count; start += batchSize) {
     const end = Math.min(count, start + batchSize);
@@ -554,19 +584,22 @@ export async function runCorpusAuditExport(
             examProfile,
             forcedMotifId,
             generate: (generatorOptions: GeneratorOptions) =>
-              createQuantV2PercentageQuestionCandidate(
-                AUDIT_PATTERN,
-                generatorOptions,
-              ),
+              generateForPreset(preset.id, auditPattern, generatorOptions),
           }).question
-        : createQuantV2PercentageQuestionCandidate(
-            AUDIT_PATTERN,
+        : generateForPreset(
+            preset.id,
+            auditPattern,
             {
               seed: `${seedPrefix}:${index}`,
               examProfile,
               ...(forcedMotifId ? { forcedMotifId } : {}),
             },
           );
+      if (schedulerState && count <= 200) {
+        scheduledQuestions.push(question);
+        continue;
+      }
+
       const item = itemFromQuestion({
         index,
         question,
@@ -589,6 +622,42 @@ export async function runCorpusAuditExport(
       }
     }
 
+    if (!(schedulerState && count <= 200)) {
+      onProgress?.({
+        generatedCount,
+        outputDir,
+      });
+    }
+  }
+
+  if (schedulerState && count <= 200) {
+    const orderedQuestions = interleaveScheduledPreviewQuestions(
+      scheduledQuestions,
+      seedPrefix,
+      (question) => extractCorpusSchedulerMetadata(question).familyKey,
+    );
+    for (const [index, question] of orderedQuestions.entries()) {
+      const item = itemFromQuestion({
+        index,
+        question,
+        includeSvg,
+        includeFullQuestion,
+        includeMultilingualExplanations,
+        includeReasoningGraph: exportProfile.includeReasoningGraph,
+        includeValidatorReports: exportProfile.includeValidatorReports,
+        includeRealismMetadata: exportProfile.includeRealismMetadata,
+        includeLocalizationMetadata: exportProfile.includeLocalizationMetadata,
+      });
+
+      jsonStream.write(`${first ? "" : ",\n"}${JSON.stringify(item)}`);
+      txtStream.write(writeTxtItem(item, includeMultilingualExplanations));
+      first = false;
+      generatedCount += 1;
+      updateSummary(summary, item);
+      if (previewItems.length < PREVIEW_SAMPLE_COUNT) {
+        previewItems.push(previewItem(item));
+      }
+    }
     onProgress?.({
       generatedCount,
       outputDir,

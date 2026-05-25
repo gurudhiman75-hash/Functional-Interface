@@ -12,12 +12,12 @@
       "variant": null
     },
     "english": {
-      "stem": "During a seasonal sale, the price of a machine was 120. It first increased by 20% and then decreased by 10%. Find the final value.",
+      "stem": "Rice bag price was ₹120. It first increased by 20% and then decreased by 10%. What will be the final price of the rice bag?",
       "explanation": "After a 20% increase:\nValue after first change =\n120 x 120 / 100\n= 144\n\nAfter a 10% decrease:\nFinal value =\n144 x 90 / 100\n= 129.6\n\nTherefore, final value = 129.6"
     },
     "hindi": {
-      "stem": "During a seasonal sale, the price of a machine was 120. It first increased by 20% and then decreased by 10%. Find the final value.",
-      "explanation": "20% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n120 x 120 / 100\n= 144\n\n10% कमी के बाद:\nअंतिम मान =\n144 x 90 / 100\n= 129.6\n\nआवश्यक मान = 129.6",
+      "stem": "चावल का बोरा का मूल्य ₹120 था। इसमें पहले 20% वृद्धि और फिर 10% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।",
+      "explanation": "20% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n120 x 120 / 100\n= 144\n\n10% कमी के बाद:\nअंतिम मान =\n144 x 90 / 100\n= 129.6\n\nअंतिम मान = 129.6",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -28,8 +28,8 @@
       }
     },
     "punjabi": {
-      "stem": "During a seasonal sale, the price of a machine was 120. It first increased by 20% and then decreased by 10%. Find the final value.",
-      "explanation": "20% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n120 x 120 / 100\n= 144\n\n10% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n144 x 90 / 100\n= 129.6\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 129.6",
+      "stem": "ਚਾਵਲ ਦੀ ਬੋਰੀ ਦੀ ਕੀਮਤ ₹120 ਸੀ। ਪਹਿਲਾਂ 20% ਵਾਧਾ ਅਤੇ ਫਿਰ 10% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "20% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n120 x 120 / 100\n= 144\n\n10% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n144 x 90 / 100\n= 129.6\n\nਅੰਤਿਮ ਮੁੱਲ = 129.6",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -45,20 +45,20 @@
     "seed": 1,
     "subtype": "election_margin",
     "category": "election",
-    "difficulty": "easy",
-    "signature": "election_margin|direct_mapping|direct_margin|20_40_25000_125000_60|ans=125000",
-    "answer": "125000",
+    "difficulty": "medium",
+    "signature": "election_margin|direct_mapping|direct_margin|10_45_5000_50000_55|ans=50000",
+    "answer": "50000",
     "topology": {
       "family": "direct_mapping",
       "variant": "direct_margin"
     },
     "english": {
-      "stem": "In a student union election, the winning candidate secured 60% of the votes and defeated the opponent by 25000 votes. Find the total number of votes polled.",
-      "explanation": "Shortcut:\n20% votes = 25000\nSo,\n100% votes =\n125000\n\nWinning margin:\nMargin percentage =\n60 - 40\n= 20%\nHence, total votes polled = 125000"
+      "stem": "In a constituency election, the winning candidate secured 55% of the votes and defeated the opponent by 5000 votes. Find the total number of votes polled.",
+      "explanation": "Shortcut:\n10% votes = 5000\nSo,\n100% votes =\n50000\n\nApply the next relation:\nWinning margin:\nMargin percentage =\n55 - 45\n= 10%\nTotal votes are:\n5000 × 100 / 10\n= 50000\nTherefore, total votes = 50000"
     },
     "hindi": {
-      "stem": "In a student union election, the winning candidate secured 60% of the votes and defeated the opponent by 25000 votes. Find the total number of votes polled.",
-      "explanation": "शॉर्टकट:\n20% वोट = 25000\nतो,\n100% वोट =\n125000\n\nजीत का अंतर:\nजीत का अंतर =\n60 - 40\n= 20%\nकुल वोट = 125000",
+      "stem": "एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 55% वोट मिले और उसने प्रतिद्वंद्वी को 5000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।",
+      "explanation": "संक्षिप्त विधि:\n10% वोट = 5000\nतो,\n100% वोट =\n50000\n\nअगला प्रतिशत संबंध लगाएं:\nजीत का अंतर:\nमार्जिन प्रतिशत =\n55 - 45\n= 10%\nकुल वोट:\n5000 × 100 / 10\n= 50000\nकुल डाले गए वोट = 50000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -69,8 +69,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a student union election, the winning candidate secured 60% of the votes and defeated the opponent by 25000 votes. Find the total number of votes polled.",
-      "explanation": "ਸ਼ਾਰਟਕੱਟ:\n20% ਵੋਟ = 25000\nਸੋ,\n100% ਵੋਟ =\n125000\n\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਜਿੱਤ ਦਾ ਅੰਤਰ =\n60 - 40\n= 20%\nਕੁੱਲ ਵੋਟ = 125000",
+      "stem": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 55% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 5000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਸੰਖੇਪ ਵਿਧੀ:\n10% ਵੋਟ = 5000\nਤਾਂ,\n100% ਵੋਟ =\n50000\n\nਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n55 - 45\n= 10%\nਕੁੱਲ ਵੋਟ:\n5000 × 100 / 10\n= 50000\nਕੁੱਲ ਪਏ ਵੋਟ = 50000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -86,20 +86,20 @@
     "seed": 1,
     "subtype": "pass_fail",
     "category": "comparison",
-    "difficulty": "easy",
-    "signature": "pass_fail|direct_mapping|simple_shortfall|10_45_35_20_200|ans=200",
+    "difficulty": "medium",
+    "signature": "pass_fail|direct_mapping|simple_shortfall|5_35_30_10_200|ans=200",
     "answer": "200",
     "topology": {
       "family": "direct_mapping",
       "variant": "simple_shortfall"
     },
     "english": {
-      "stem": "In a recruitment test, a candidate scored 35% marks and failed by 20 marks. The pass mark was 45%. Find the maximum marks.",
-      "explanation": "Direct relation:\n10% marks = 20\nSo,\n100% marks =\n200\n\nPass mark difference:\nPass mark difference =\n45 - 35\n= 10\n\nThus, maximum marks = 200"
+      "stem": "In a scholarship exam, a candidate scored 30% marks and failed by 10 marks. The pass mark was 35%. Find the maximum marks.",
+      "explanation": "Required percentage gap:\n35 - 30\n= 5%\nMaximum marks are:\n10 × 100 / 5\n= 200\nThus, maximum marks = 200"
     },
     "hindi": {
-      "stem": "In a recruitment test, a candidate scored 35% marks and failed by 20 marks. The pass mark was 45%. Find the maximum marks.",
-      "explanation": "सीधा संबंध:\n10% अंक = 20\nतो,\n100% अंक =\n200\n\nपास अंक का अंतर:\nपास अंक का अंतर =\n45 - 35\n= 10\n\nअधिकतम अंक = 200",
+      "stem": "एक परीक्षा में एक अभ्यर्थी ने 30% अंक प्राप्त किए और 10 अंकों से अनुत्तीर्ण हुआ। उत्तीर्णांक 35% हैं। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "आवश्यक प्रतिशत अंतर:\n35 - 30\n= 5%\nअधिकतम अंक:\n10 × 100 / 5\n= 200\nअधिकतम अंक = 200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -110,8 +110,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a recruitment test, a candidate scored 35% marks and failed by 20 marks. The pass mark was 45%. Find the maximum marks.",
-      "explanation": "ਸਿੱਧਾ ਸੰਬੰਧ:\n10% ਅੰਕ = 20\nਸੋ,\n100% ਅੰਕ =\n200\n\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n45 - 35\n= 10\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 30% ਅੰਕ ਲਏ ਅਤੇ 10 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਪਾਸ ਅੰਕ 35% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n35 - 30\n= 5%\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n10 × 100 / 5\n= 200\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -135,12 +135,12 @@
       "variant": null
     },
     "english": {
-      "stem": "In a warehouse stock audit, the sold quantity is 12, which is 10% of the total. Find the total value represented by 100%.",
-      "explanation": "Total quantity is:\nTotal quantity =\n12 x 100 / 10\n= 120\n\nRequired total quantity for the record = 120"
+      "stem": "In a wholesale grocery warehouse, a batch of 12 kg of sugar represents exactly 10% of the total quantity of available stock. Find the total sugar stock currently stored in the warehouse.",
+      "explanation": "The total overall quantity is calculated as follows:\nTotal sugar stock =\n12 × 100 / 10\n= 120\n\nTotal sugar stock = 120"
     },
     "hindi": {
-      "stem": "In a warehouse stock audit, the sold quantity is 12, which is 10% of the total. Find the total value represented by 100%.",
-      "explanation": "कुल मान:\nकुल मान =\n12 x 100 / 10\n= 120\n\nआवश्यक मान = 120",
+      "stem": "12 kg चीनी कुल स्टॉक का 10% है। कुल स्टॉक ज्ञात कीजिए।",
+      "explanation": "कुल मात्रा की गणना इस प्रकार की जाती है:\nकुल चीनी स्टॉक =\n12 × 100 / 10\n= 120\n\nकुल चीनी स्टॉक = 120",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -151,8 +151,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a warehouse stock audit, the sold quantity is 12, which is 10% of the total. Find the total value represented by 100%.",
-      "explanation": "ਕੁੱਲ ਮੁੱਲ:\nਕੁੱਲ ਮੁੱਲ =\n12 x 100 / 10\n= 120\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 120",
+      "stem": "12 kg ਚੀਨੀ ਕੁੱਲ ਸਟਾਕ ਦਾ 10% ਹੈ। ਕੁੱਲ ਸਟਾਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਕੁੱਲ ਮਾਤਰਾ ਦੀ ਗਣਨਾ ਇਸ ਤਰ੍ਹਾਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ:\nਕੁੱਲ ਚੀਨੀ ਸਟਾਕ =\n12 × 100 / 10\n= 120\n\nਕੁੱਲ ਚੀਨੀ ਸਟਾਕ = 120",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -176,12 +176,12 @@
       "variant": null
     },
     "english": {
-      "stem": "After a discount, the price of a machine was reduced by 20% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "Direct relation:\n80% value = 20\nSo,\n100% value =\n25\n\nAfter a 20% reduction, percentage left is:\nRemaining percentage =\n100 - 20\n= 80%\n\nHence, increase needed to restore the value = 25%"
+      "stem": "Due to an off-season clearance sale, the marked price of a rice bag was reduced by 20% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?",
+      "explanation": "After a 20% reduction, percentage left is:\nRemaining part =\n100 - 20\n= 80%\n\nRequired increase %:\n20 × 100 / 80\n= 25% increase\n\nRequired increase = 25%"
     },
     "hindi": {
-      "stem": "After a discount, the price of a machine was reduced by 20% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "सीधा संबंध:\n80% मान = 20\nतो,\n100% मान =\n25\n\nशेष मान:\nशेष मान =\n100 - 20\n= 80%\n\nआवश्यक वृद्धि:",
+      "stem": "चावल का बोरा के मूल्य में 20% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?",
+      "explanation": "बचा हुआ भाग:\n100 - 20\n= 80%\n\nआवश्यक वृद्धि:\n20 × 100 / 80\n= 25% वृद्धि\nआवश्यक वृद्धि = 25%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -192,8 +192,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a discount, the price of a machine was reduced by 20% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "ਸਿੱਧਾ ਸੰਬੰਧ:\n80% ਮੁੱਲ = 20\nਸੋ,\n100% ਮੁੱਲ =\n25\n\nਬਾਕੀ ਮੁੱਲ:\nਬਾਕੀ ਮੁੱਲ =\n100 - 20\n= 80%\n\nਲੋੜੀਂਦਾ ਵਾਧਾ:",
+      "stem": "ਚਾਵਲ ਦੀ ਬੋਰੀ ਦੀ ਕੀਮਤ ਵਿੱਚ 20% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?",
+      "explanation": "ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:\n100 - 20\n= 80%\n\nਲੋੜੀਂਦਾ ਵਾਧਾ:\n20 × 100 / 80\n= 25% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ = 25%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -209,20 +209,20 @@
     "seed": 1,
     "subtype": "population_growth",
     "category": "population",
-    "difficulty": "medium",
-    "signature": "population_growth|direct_mapping|single_growth|20000_28800_increase:20_2|ans=28800",
-    "answer": "28800",
+    "difficulty": "easy",
+    "signature": "population_growth|direct_mapping|single_growth|15000_18150_increase:10_2|ans=18150",
+    "answer": "18150",
     "topology": {
       "family": "direct_mapping",
       "variant": "single_growth"
     },
     "english": {
-      "stem": "According to a census report, the population was 20000. It increased by 20% per year for 2 years. Find the population after this period.",
-      "explanation": "Population after growth:\nPopulation after growth =\n20000 x (120 / 100)^2\n= 28800\nFinal population = 28800"
+      "stem": "In a district population survey, the population was 15000. It increased by 10% per year for 2 years. Find the population after this period.",
+      "explanation": "Population after growth:\n15000 x (110 / 100)^2\n= 18150\nGrowth is applied for 2 years.\nAccordingly, final population = 18150"
     },
     "hindi": {
-      "stem": "According to a census report, the population was 20000. It increased by 20% per year for 2 years. Find the population after this period.",
-      "explanation": "वृद्धि के बाद जनसंख्या:\nवृद्धि के बाद जनसंख्या =\n20000 x (120 / 100)^2\n= 28800\nअंतिम जनसंख्या = 28800",
+      "stem": "एक जनसंख्या रिपोर्ट में जनसंख्या 15000 थी। यह 2 वर्षों तक प्रति वर्ष 10% बढ़ी। इस अवधि के बाद जनसंख्या ज्ञात कीजिए।",
+      "explanation": "वृद्धि के बाद जनसंख्या:\n15000 x (110 / 100)^2\n= 18150\n2 वर्षों तक वृद्धि लागू होती है।\nअंतिम जनसंख्या = 18150",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -233,8 +233,8 @@
       }
     },
     "punjabi": {
-      "stem": "According to a census report, the population was 20000. It increased by 20% per year for 2 years. Find the population after this period.",
-      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n20000 x (120 / 100)^2\n= 28800\nਅੰਤਿਮ ਆਬਾਦੀ = 28800",
+      "stem": "ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 15000 ਸੀ। ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 10% ਵਧੀ। ਇਸ ਅਵਧੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n15000 x (110 / 100)^2\n= 18150\nਵਾਧਾ 2 ਸਾਲਾਂ ਲਈ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।\nਅੰਤਿਮ ਆਬਾਦੀ = 18150",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -258,12 +258,12 @@
       "variant": null
     },
     "english": {
-      "stem": "After a salary revision, the salary of an employee changed from 5000 to 5500. Find the percentage change based on the old salary.",
-      "explanation": "Increase in salary:\nIncrease in salary =\n5500 - 5000\n= 500\nPercentage change is:\nPercentage change =\n500 x 100 / 5000\n= 10%\nHence, salary revision = 10% increase"
+      "stem": "Following a corporate annual performance review, the monthly salary was revised from ₹5000 to ₹5500. Find the net percentage change relative to the original salary.",
+      "explanation": "Increase in salary:\n5500 - 5000\n= 500\nChange %:\n500 × 100 / 5000\n= 10\nHence, salary revision = 10% increase"
     },
     "hindi": {
-      "stem": "After a salary revision, the salary of an employee changed from 5000 to 5500. Find the percentage change based on the old salary.",
-      "explanation": "वेतन में वृद्धि:\nवेतन में वृद्धि =\n5500 - 5000\n= 500\nप्रतिशत परिवर्तन:\nप्रतिशत परिवर्तन =\n500 x 100 / 5000\n= 10%\nआवश्यक मान = 10% वृद्धि",
+      "stem": "एक कर्मचारी का वेतन 5000 से बदलकर 5500 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "वेतन में बदलाव:\n5500 - 5000\n= 500\nप्रतिशत परिवर्तन:\n500 × 100 / 5000\n= 10\nवेतन में बदलाव = 10%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -274,8 +274,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a salary revision, the salary of an employee changed from 5000 to 5500. Find the percentage change based on the old salary.",
-      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ:\nਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ =\n5500 - 5000\n= 500\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =\n500 x 100 / 5000\n= 10%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 10% ਵਾਧਾ",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 5000 ਤੋਂ ਬਦਲ ਕੇ 5500 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:\n5500 - 5000\n= 500\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\n500 × 100 / 5000\n= 10\nਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 10%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -299,12 +299,12 @@
       "variant": null
     },
     "english": {
-      "stem": "The unit price of a monthly purchase increased by 20%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "New price after increase:\nNew price after increase =\n100 + 20\n= 120\n\nFor the same expenditure:\nNew consumption =\n100 x 100 / 120\n= 83.33\n\nReduction in consumption is:\nReduction in consumption =\n100 - 83.33\n= 16.67% reduction\n\nSo, reduction in consumption = 16.67% reduction"
+      "stem": "Fuel price increased by 20%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+      "explanation": "New price level:\nNew price index =\n100 + 20\n= 120\n\nPermissible consumption ratio:\nPermissible consumption =\n100 × 100 / 120\n= 83.33\n\nNet consumption reduction:\nReduction in consumption =\n100 - 83.33\n= 16.67% reduction\n\nSo, reduction in consumption = 16.67% reduction"
     },
     "hindi": {
-      "stem": "The unit price of a monthly purchase increased by 20%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "नई कीमत:\nनई कीमत =\n100 + 20\n= 120\n\nसमान खर्च के लिए:\nनई खपत =\n100 x 100 / 120\n= 83.33\n\nखपत में कमी:\nखपत में कमी =\n100 - 83.33\n= 16.67% कमी\n\nआवश्यक प्रतिशत = 16.67% कमी",
+      "stem": "ईंधन की कीमत 20% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?",
+      "explanation": "नई कीमत:\n100 + 20\n= 120\n\nअनुमेय खपत अनुपात:\nअनुमेय खपत =\n100 × 100 / 120\n= 83.33\n\nशुद्ध खपत में कमी:\nखपत में कमी =\n100 - 83.33\n= 16.67% कमी\n\nखपत में कमी = 16.67%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -315,8 +315,8 @@
       }
     },
     "punjabi": {
-      "stem": "The unit price of a monthly purchase increased by 20%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "ਨਵੀਂ ਕੀਮਤ:\nਨਵੀਂ ਕੀਮਤ =\n100 + 20\n= 120\n\nਉਸੇ ਖਰਚ ਲਈ:\nਨਵੀਂ ਖਪਤ =\n100 x 100 / 120\n= 83.33\n\nਖਪਤ ਵਿੱਚ ਕਮੀ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n100 - 83.33\n= 16.67% ਕਮੀ\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 16.67% ਕਮੀ",
+      "stem": "ਈਂਧਨ ਦੀ ਕੀਮਤ 20% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+      "explanation": "ਨਵੀਂ ਕੀਮਤ:\n100 + 20\n= 120\n\nਪ੍ਰਵਾਨਯੋਗ ਖਪਤ ਅਨੁਪਾਤ:\nਪ੍ਰਵਾਨਯੋਗ ਖਪਤ =\n100 × 100 / 120\n= 83.33\n\nਸ਼ੁੱਧ ਖਪਤ ਵਿੱਚ ਕਮੀ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n100 - 83.33\n= 16.67% ਕਮੀ\n\nਖਪਤ ਵਿੱਚ ਕਮੀ = 16.67%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -340,12 +340,12 @@
       "variant": null
     },
     "english": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 120 and selling price is 144. Find the profit or loss percentage on cost price.",
-      "explanation": "Profit amount:\nProfit amount =\n144 - 120\n= 24\nProfit percentage is:\nProfit percentage =\n24 x 100 / 120\n= 20%\nHence, profit on cost price = 20% profit"
+      "stem": "A shopkeeper purchased a new cooking oil tin from a distributor. If the cost price of the cooking oil tin was ₹120 and its selling price was ₹144, find the net profit or loss percentage.",
+      "explanation": "Profit amount:\n144 - 120\n= 24\nProfit %:\n24 × 100 / 120\n= 20\nThe positive difference gives the profit percentage.\nHence, profit on cost price = 20% profit"
     },
     "hindi": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 120 and selling price is 144. Find the profit or loss percentage on cost price.",
-      "explanation": "लाभ:\nलाभ =\n144 - 120\n= 24\nलाभ प्रतिशत:\nलाभ प्रतिशत =\n24 x 100 / 120\n= 20%\nआवश्यक मान = 20% लाभ",
+      "stem": "एक दुकानदार ने तेल का डिब्बा ₹120 में खरीदा और ₹144 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "explanation": "लाभ:\n144 - 120\n= 24\nलाभ प्रतिशत:\n24 × 100 / 120\n= 20\nलाभ प्रतिशत = 20% लाभ",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -356,8 +356,8 @@
       }
     },
     "punjabi": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 120 and selling price is 144. Find the profit or loss percentage on cost price.",
-      "explanation": "ਲਾਭ:\nਲਾਭ =\n144 - 120\n= 24\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ:\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ =\n24 x 100 / 120\n= 20%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 20% ਲਾਭ",
+      "stem": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਖਾਣੇ ਦੇ ਤੇਲ ਦਾ ਡੱਬਾ ₹120 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹144 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲਾਭ:\n144 - 120\n= 24\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ:\n24 × 100 / 120\n= 20\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 20% ਲਾਭ",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -381,12 +381,12 @@
       "variant": null
     },
     "english": {
-      "stem": "In a mixture tank, the mixture has 120 units and contains 25% pure component. How much pure component should be added to make it 50% pure?",
-      "explanation": "Water quantity remains unchanged.\nWater quantity =\n120 - 30\n= 90\nFinal mixture quantity:\nFinal mixture quantity =\n90 x 100 / ( 100 - 50 )\n= 180\nPure component to be added:\nPure component to be added =\n180 - 120\n= 60\nHence, quantity to be added = 60"
+      "stem": "In a milk-water mixture, total quantity is 120 litres and milk is 25%. How much milk is needed to make milk 50% of the mixture?",
+      "explanation": "Water remains unchanged.\nWater quantity =\n120 - 30\n= 90\nFinal mixture quantity:\n90 × 100 / ( 100 - 50 )\n= 180\nMilk to be added:\n180 - 120\n= 60\nHence, milk to be added = 60"
     },
     "hindi": {
-      "stem": "In a mixture tank, the mixture has 120 units and contains 25% pure component. How much pure component should be added to make it 50% pure?",
-      "explanation": "अपरिवर्तित मात्रा:\nअपरिवर्तित मात्रा =\n120 - 30\n= 90\nअंतिम मिश्रण:\nअंतिम मिश्रण =\n90 x 100 / ( 100 - 50 )\n= 180\nजोड़ी जाने वाली मात्रा:\nजोड़ी जाने वाली मात्रा =\n180 - 120\n= 60\nआवश्यक मान = 60",
+      "stem": "एक दूध-पानी मिश्रण की मात्रा 120 लीटर है और उसमें 25% दूध है। दूध को 50% करने के लिए कितना दूध मिलाना होगा?",
+      "explanation": "पानी की मात्रा समान रहेगी।\nपानी की मात्रा =\n120 - 30\n= 90\nअंतिम मिश्रण:\n90 × 100 / ( 100 - 50 )\n= 180\nडाला जाने वाला दूध:\n180 - 120\n= 60\nडाला जाने वाला दूध = 60",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -397,8 +397,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a mixture tank, the mixture has 120 units and contains 25% pure component. How much pure component should be added to make it 50% pure?",
-      "explanation": "ਅਣਬਦਲੀ ਮਾਤਰਾ:\nਅਣਬਦਲੀ ਮਾਤਰਾ =\n120 - 30\n= 90\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\nਅੰਤਿਮ ਮਿਸ਼ਰਣ =\n90 x 100 / ( 100 - 50 )\n= 180\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ:\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ =\n180 - 120\n= 60\nਲੋੜੀਂਦਾ ਮੁੱਲ = 60",
+      "stem": "ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 120 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 50% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+      "explanation": "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।\nਪਾਣੀ ਦੀ ਮਾਤਰਾ =\n120 - 30\n= 90\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\n90 × 100 / ( 100 - 50 )\n= 180\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:\n180 - 120\n= 60\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 60",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -411,23 +411,23 @@
   },
   {
     "id": "ml-011",
-    "seed": 2,
-    "subtype": "increase_then_decrease",
-    "category": "base_change",
-    "difficulty": "hard",
-    "signature": "successive_increase_decrease|840_600_increase:40_decrease:25|ans=630",
-    "answer": "630",
+    "seed": 1,
+    "subtype": "relational_percentage",
+    "category": "comparison",
+    "difficulty": "medium",
+    "signature": "relational_percentage|relational_chain|two_step_relation_chain|120_90_100_90_1_120_20_0_75_25_2|ans=decrease:10",
+    "answer": "10% less",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "relational_chain",
+      "variant": "two_step_relation_chain"
     },
     "english": {
-      "stem": "During an online sale, the marked price of an appliance was 600. It first increased by 40% and then decreased by 25%. Find the final value.",
-      "explanation": "After a 40% increase:\nValue after first change =\n600 x 140 / 100\n= 840\nAfter a 25% decrease:\nFinal value =\n840 x 75 / 100\n= 630\nTherefore, final value = 630"
+      "stem": "A's income is 20% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.",
+      "explanation": "Assume C's income = 100.\nSince B is 25% less than C, B = 100 x 75 / 100 = 75.\nSince A is 20% more than B, A = 75 x 120 / 100 = 90.\nCompared with C = 100, A is 10% less."
     },
     "hindi": {
-      "stem": "During an online sale, the marked price of an appliance was 600. It first increased by 40% and then decreased by 25%. Find the final value.",
-      "explanation": "40% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n600 x 140 / 100\n= 840\n25% कमी के बाद:\nअंतिम मान =\n840 x 75 / 100\n= 630\nआवश्यक मान = 630",
+      "stem": "A की आय B से 20% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+      "explanation": "मान लें C की आय = 100।\nB, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।\nA, B से 20% अधिक है, इसलिए A = 75 x 120 / 100 = 90।\nC = 100 की तुलना में A 10% कम है।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -438,8 +438,8 @@
       }
     },
     "punjabi": {
-      "stem": "During an online sale, the marked price of an appliance was 600. It first increased by 40% and then decreased by 25%. Find the final value.",
-      "explanation": "40% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n600 x 140 / 100\n= 840\n25% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n840 x 75 / 100\n= 630\nਲੋੜੀਂਦਾ ਮੁੱਲ = 630",
+      "stem": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 20% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+      "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।\nA, B ਨਾਲੋਂ 20% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 120 / 100 = 90।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 10% ਘੱਟ ਹੈ।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -452,23 +452,23 @@
   },
   {
     "id": "ml-012",
-    "seed": 2,
-    "subtype": "election_margin",
-    "category": "election",
+    "seed": 1,
+    "subtype": "taxation",
+    "category": "commercial",
     "difficulty": "medium",
-    "signature": "election_margin|filtered_base|invalid_vote_margin|25_10_37.5_258750_1150000_90_1035000_62.5|ans=1150000",
-    "answer": "1150000",
+    "signature": "taxation|50000_10_15_2500|ans=2500",
+    "answer": "2500",
     "topology": {
-      "family": "filtered_base",
-      "variant": "invalid_vote_margin"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In a municipal election, 10% of the votes were invalid. The winner got 62.5% of the valid votes and won by 258750 votes. Find the total number of votes polled.",
-      "explanation": "Direct relation:\n25% of 1035000 votes = 258750\n90% of total votes = 1035000\nTotal votes = 1150000\n\nWinning margin:\nMargin percentage =\n62.5 - 37.5\n= 25%\n\nTotal votes = 1150000"
+      "stem": "The income tax rate is reduced from 15% to 10%. As a result, a person's tax liability decreases by ₹2500. Find the total taxable income of the person.",
+      "explanation": "Difference in tax rates:\nTax rate difference =\n15 - 10\n= 5%\nTotal tax difference:\nRequired answer =\n2500 × 100 / 5\n= 50000\nTherefore, final value = 2500"
     },
     "hindi": {
-      "stem": "In a municipal election, 10% of the votes were invalid. The winner got 62.5% of the valid votes and won by 258750 votes. Find the total number of votes polled.",
-      "explanation": "सीधा संबंध:\nआवश्यक मान = 258750\nकुल वोट = 1035000\nकुल वोट = 1150000\n\nजीत का अंतर:\nजीत का अंतर =\n62.5 - 37.5\n= 25%\n\nकुल वोट = 1150000",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आवश्यक अंतर:\n15 - 10\n= 5%\nआवश्यक अंतर:\nआवश्यक मान =\n2500 × 100 / 5\n= 50000\nअंतिम मान = 2500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -479,8 +479,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a municipal election, 10% of the votes were invalid. The winner got 62.5% of the valid votes and won by 258750 votes. Find the total number of votes polled.",
-      "explanation": "ਸਿੱਧਾ ਸੰਬੰਧ:\nਲੋੜੀਂਦਾ ਮੁੱਲ = 258750\nਕੁੱਲ ਵੋਟ = 1035000\nਕੁੱਲ ਵੋਟ = 1150000\n\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਜਿੱਤ ਦਾ ਅੰਤਰ =\n62.5 - 37.5\n= 25%\n\nਕੁੱਲ ਵੋਟ = 1150000",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲੋੜੀਂਦਾ ਅੰਤਰ:\n15 - 10\n= 5%\nਲੋੜੀਂਦਾ ਅੰਤਰ:\nਲੋੜੀਂਦਾ ਮੁੱਲ =\n2500 × 100 / 5\n= 50000\nਅੰਤਿਮ ਮੁੱਲ = 2500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -493,23 +493,23 @@
   },
   {
     "id": "ml-013",
-    "seed": 2,
-    "subtype": "pass_fail",
-    "category": "comparison",
-    "difficulty": "medium",
-    "signature": "pass_fail|hidden_total|pass_fail_gap|30_210_105_70_55_40_105_700|ans=700",
-    "answer": "700",
+    "seed": 1,
+    "subtype": "commission",
+    "category": "commercial",
+    "difficulty": "hard",
+    "signature": "commission|8_10000_4_2600_25000|ans=2600",
+    "answer": "2600",
     "topology": {
-      "family": "hidden_total",
-      "variant": "pass_fail_gap"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In a screening test, a candidate scored 40% marks and was short of passing by 105 marks. Another candidate scored 70% marks and exceeded the pass mark by 105 marks. Find the maximum marks.",
-      "explanation": "Total marks gap =\n105 + 105\n= 210\nPass mark difference =\n70 - 40\n= 30\nMaximum marks =\n210 x 100 / 30\n= 700\nMaximum marks = 700"
+      "stem": "A salesman gets a commission of 8% on total sales up to ₹10000 and an additional bonus of 4% on sales above this amount. If his total commission is ₹2600, find his total sales.",
+      "explanation": "Commission on base sales:\nBase commission =\n10000 × 8 / 100\n= 800\nSales above base quota:\nDifference =\n25000 - 10000\n= 15000\nTotal commission rate on excess sales:\nCombined total =\n8 + 4\n= 12\nCommission on excess sales:\nBonus commission =\n15000 × 12 / 100\n= 1800\nTogether, they give:\nTotal commission =\n800 + 1800\n= 2600\nHence, final value = 2600"
     },
     "hindi": {
-      "stem": "In a screening test, a candidate scored 40% marks and was short of passing by 105 marks. Another candidate scored 70% marks and exceeded the pass mark by 105 marks. Find the maximum marks.",
-      "explanation": "पास अंक का अंतर =\n105 + 105\n= 210\nपास अंक का अंतर =\n70 - 40\n= 30\nअधिकतम अंक =\n210 x 100 / 30\n= 700\nअधिकतम अंक = 700",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आधार बिक्री पर कमीशन:\nआधार कमीशन =\n10000 × 8 / 100\n= 800\nआधार से ऊपर अतिरिक्त बिक्री:\nआवश्यक अंतर =\n25000 - 10000\n= 15000\nकुल कमीशन:\nसंयुक्त कुल =\n8 + 4\n= 12\nअतिरिक्त बिक्री पर कमीशन:\nबोनस कमीशन =\n15000 × 12 / 100\n= 1800\nदोनों को मिलाकर:\nकुल कमीशन =\n800 + 1800\n= 2600\nअंतिम मान = 2600",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -520,8 +520,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a screening test, a candidate scored 40% marks and was short of passing by 105 marks. Another candidate scored 70% marks and exceeded the pass mark by 105 marks. Find the maximum marks.",
-      "explanation": "ਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n105 + 105\n= 210\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n70 - 40\n= 30\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n210 x 100 / 30\n= 700\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 700",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਆਧਾਰ ਕਮਿਸ਼ਨ =\n10000 × 8 / 100\n= 800\nਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:\nਲੋੜੀਂਦਾ ਅੰਤਰ =\n25000 - 10000\n= 15000\nਕੁੱਲ ਕਮਿਸ਼ਨ:\nਸੰਯੁਕਤ ਕੁੱਲ =\n8 + 4\n= 12\nਵਾਧੂ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਬੋਨਸ ਕਮਿਸ਼ਨ =\n15000 × 12 / 100\n= 1800\nਦੋਵੇਂ ਮਿਲਾ ਕੇ:\nਕੁੱਲ ਕਮਿਸ਼ਨ =\n800 + 1800\n= 2600\nਅੰਤਿਮ ਮੁੱਲ = 2600",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -534,23 +534,23 @@
   },
   {
     "id": "ml-014",
-    "seed": 2,
-    "subtype": "reverse_percentage",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "reverse_percentage|300_50|ans=600",
-    "answer": "600",
+    "seed": 1,
+    "subtype": "venn_diagram",
+    "category": "data_interpretation",
+    "difficulty": "medium",
+    "signature": "venn_diagram|20_175_35_45_40_500|ans=500",
+    "answer": "500",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a coaching institute test, the marks scored is 300, which is 50% of the total. Find the total value represented by 100%.",
-      "explanation": "Total quantity is:\nTotal quantity =\n300 x 100 / 50\n= 600\n\nTherefore, total quantity for the record = 600"
+      "stem": "In an examination, 45% of students failed in Mathematics, 40% failed in English, and 20% failed in both. If 175 students passed in both subjects, find the total number of students who appeared for the exam.",
+      "explanation": "Percentage for at least one category:\nPercentage in at least one subject =\n45 + 40 - 20\n= 65%\n\nPercentage in neither category:\nPercentage failing both subjects =\n100 - 65\n= 35%\n\nTotal students:\n175 × 100 / 35\n= 500\n\nFinal value = 500"
     },
     "hindi": {
-      "stem": "In a coaching institute test, the marks scored is 300, which is 50% of the total. Find the total value represented by 100%.",
-      "explanation": "कुल मान:\nकुल मान =\n300 x 100 / 50\n= 600\n\nआवश्यक मान = 600",
+      "stem": "एक परीक्षा में 45% छात्र गणित में अनुत्तीर्ण हुए, 40% अंग्रेजी में अनुत्तीर्ण हुए, और 20% दोनों में अनुत्तीर्ण हुए। यदि 175 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।",
+      "explanation": "कम से कम एक विषय में प्रतिशत:\n45 + 40 - 20\n= 65%\n\nदोनों विषयों में फेल प्रतिशत:\n100 - 65\n= 35%\n\nकुल छात्र:\n175 × 100 / 35\n= 500\n\nअंतिम मान = 500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -561,8 +561,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a coaching institute test, the marks scored is 300, which is 50% of the total. Find the total value represented by 100%.",
-      "explanation": "ਕੁੱਲ ਮੁੱਲ:\nਕੁੱਲ ਮੁੱਲ =\n300 x 100 / 50\n= 600\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 600",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 45% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 40% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 20% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 175 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:\n45 + 40 - 20\n= 65%\n\nਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਫੇਲ੍ਹ ਪ੍ਰਤੀਸ਼ਤ:\n100 - 65\n= 35%\n\nਕੁੱਲ ਵਿਦਿਆਰਥੀ:\n175 × 100 / 35\n= 500\n\nਅੰਤਿਮ ਮੁੱਲ = 500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -576,22 +576,22 @@
   {
     "id": "ml-015",
     "seed": 2,
-    "subtype": "restore_original",
+    "subtype": "increase_then_decrease",
     "category": "base_change",
-    "difficulty": "medium",
-    "signature": "restore_original|decrease:50_50|ans=100",
-    "answer": "100%",
+    "difficulty": "hard",
+    "signature": "successive_increase_decrease|840_600_increase:40_decrease:25|ans=630",
+    "answer": "630",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a reduction, the salary of an employee was reduced by 50% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "After a 50% reduction, percentage left is:\nRemaining percentage =\n100 - 50\n= 50%\nRequired increase:\nRequired increase =\n50 x 100 / 50\n= 100% increase\nSo, required increase = 100%"
+      "stem": "The marked price of a school bag was ₹600. It first increased by 40% and then decreased by 25%. What will be the final price of the school bag?",
+      "explanation": "After a 40% increase:\nValue after first change =\n600 x 140 / 100\n= 840\nAfter a 25% decrease:\nFinal value =\n840 x 75 / 100\n= 630\nTherefore, final value = 630"
     },
     "hindi": {
-      "stem": "After a reduction, the salary of an employee was reduced by 50% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "शेष मान:\nशेष मान =\n100 - 50\n= 50%\nआवश्यक वृद्धि:\nआवश्यक वृद्धि =\n50 x 100 / 50\n= 100% वृद्धि\nआवश्यक वृद्धि:",
+      "stem": "स्कूल बैग का मूल्य ₹600 था। इसमें पहले 40% वृद्धि और फिर 25% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।",
+      "explanation": "40% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n600 x 140 / 100\n= 840\n25% कमी के बाद:\nअंतिम मान =\n840 x 75 / 100\n= 630\nअंतिम मान = 630",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -602,8 +602,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a reduction, the salary of an employee was reduced by 50% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "ਬਾਕੀ ਮੁੱਲ:\nਬਾਕੀ ਮੁੱਲ =\n100 - 50\n= 50%\nਲੋੜੀਂਦਾ ਵਾਧਾ:\nਲੋੜੀਂਦਾ ਵਾਧਾ =\n50 x 100 / 50\n= 100% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ:",
+      "stem": "ਸਕੂਲ ਬੈਗ ਦੀ ਕੀਮਤ ₹600 ਸੀ। ਪਹਿਲਾਂ 40% ਵਾਧਾ ਅਤੇ ਫਿਰ 25% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "40% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n600 x 140 / 100\n= 840\n25% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n840 x 75 / 100\n= 630\nਅੰਤਿਮ ਮੁੱਲ = 630",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -617,22 +617,22 @@
   {
     "id": "ml-016",
     "seed": 2,
-    "subtype": "population_growth",
-    "category": "population",
+    "subtype": "election_margin",
+    "category": "election",
     "difficulty": "medium",
-    "signature": "population_growth|base_shift|growth_then_decay|87500_decrease:20_70000_increase:25_70000|ans=70000",
-    "answer": "70000",
+    "signature": "election_margin|filtered_base|invalid_vote_margin|16_10_42_7200_50000_90_45000_58|ans=50000",
+    "answer": "50000",
     "topology": {
-      "family": "base_shift",
-      "variant": "growth_then_decay"
+      "family": "filtered_base",
+      "variant": "invalid_vote_margin"
     },
     "english": {
-      "stem": "In a district population survey, the population was 70000. It increased by 25% and then decreased by 20%. Find the final population.",
-      "explanation": "Population after increase:\nPopulation after increase =\n70000 x 125 / 100\n= 87500\nPopulation after decrease:\nPopulation after decrease =\n87500 x 80 / 100\n= 70000\nAccordingly, final population = 70000"
+      "stem": "In a village council election, 10% of the votes were invalid. The winning candidate got 58% of the valid votes and won by 7200 votes. Find the total number of votes polled.",
+      "explanation": "Winning margin:\nMargin percentage =\n58 - 42\n= 16%\nEffective valid votes:\n7200 × 100 / 16\n= 45000\nTotal votes are:\n45000 × 100 / 90\n= 50000\nTherefore, total votes = 50000"
     },
     "hindi": {
-      "stem": "In a district population survey, the population was 70000. It increased by 25% and then decreased by 20%. Find the final population.",
-      "explanation": "वृद्धि के बाद जनसंख्या:\nवृद्धि के बाद जनसंख्या =\n70000 x 125 / 100\n= 87500\nकमी के बाद जनसंख्या:\nकमी के बाद जनसंख्या =\n87500 x 80 / 100\n= 70000\nअंतिम जनसंख्या = 70000",
+      "stem": "एक निर्वाचन में 10% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 58% वोट मिले और जीत का अंतर 7200 वोट था। कुल डाले गए वोट ज्ञात कीजिए।",
+      "explanation": "जीत का अंतर:\nमार्जिन प्रतिशत =\n58 - 42\n= 16%\nकुल वैध वोट:\n7200 × 100 / 16\n= 45000\nकुल वोट:\n45000 × 100 / 90\n= 50000\nकुल डाले गए वोट = 50000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -643,8 +643,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a district population survey, the population was 70000. It increased by 25% and then decreased by 20%. Find the final population.",
-      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n70000 x 125 / 100\n= 87500\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n87500 x 80 / 100\n= 70000\nਅੰਤਿਮ ਆਬਾਦੀ = 70000",
+      "stem": "ਇੱਕ ਚੋਣ ਵਿੱਚ 10% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 58% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 7200 ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n58 - 42\n= 16%\nਕੁੱਲ ਯੋਗ ਵੋਟ:\n7200 × 100 / 16\n= 45000\nਕੁੱਲ ਵੋਟ:\n45000 × 100 / 90\n= 50000\nਕੁੱਲ ਪਏ ਵੋਟ = 50000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -658,22 +658,22 @@
   {
     "id": "ml-017",
     "seed": 2,
-    "subtype": "salary_revision",
-    "category": "finance",
-    "difficulty": "easy",
-    "signature": "salary_revision|18750_15000_increase:25|ans=25",
-    "answer": "25% increase",
+    "subtype": "pass_fail",
+    "category": "comparison",
+    "difficulty": "medium",
+    "signature": "pass_fail|hidden_total|pass_fail_gap|20_140_70_55_45_35_70_700|ans=700",
+    "answer": "700",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "hidden_total",
+      "variant": "pass_fail_gap"
     },
     "english": {
-      "stem": "After a salary revision, the salary of an employee changed from 15000 to 18750. Find the percentage change based on the old salary.",
-      "explanation": "Increase in salary:\nIncrease in salary =\n18750 - 15000\n= 3750\nPercentage change is:\nPercentage change =\n3750 x 100 / 15000\n= 25%\nSo, salary change = 25% increase"
+      "stem": "In a qualifying test, a candidate scored 35% marks and was short of passing by 70 marks. Another candidate scored 55% marks and exceeded the pass mark by 70 marks. Find the maximum marks.",
+      "explanation": "Total marks gap:\n70 + 70\n= 140\nPercentage gap:\n55 - 35\n= 20%\nMaximum marks are:\n140 × 100 / 20\n= 700\nMaximum marks = 700"
     },
     "hindi": {
-      "stem": "After a salary revision, the salary of an employee changed from 15000 to 18750. Find the percentage change based on the old salary.",
-      "explanation": "वेतन में वृद्धि:\nवेतन में वृद्धि =\n18750 - 15000\n= 3750\nप्रतिशत परिवर्तन:\nप्रतिशत परिवर्तन =\n3750 x 100 / 15000\n= 25%\nआवश्यक मान = 25% वृद्धि",
+      "stem": "एक परीक्षा में एक अभ्यर्थी ने 35% अंक प्राप्त किए और 70 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 55% अंक प्राप्त किए और उत्तीर्णांक से 70 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "अंकों का कुल अंतर:\n70 + 70\n= 140\nप्रतिशत अंतर:\n55 - 35\n= 20%\nअधिकतम अंक:\n140 × 100 / 20\n= 700\nअधिकतम अंक = 700",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -684,8 +684,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a salary revision, the salary of an employee changed from 15000 to 18750. Find the percentage change based on the old salary.",
-      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ:\nਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ =\n18750 - 15000\n= 3750\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =\n3750 x 100 / 15000\n= 25%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 25% ਵਾਧਾ",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 35% ਅੰਕ ਲਏ ਅਤੇ 70 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 55% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 70 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:\n70 + 70\n= 140\nਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n55 - 35\n= 20%\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n140 × 100 / 20\n= 700\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 700",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -699,22 +699,22 @@
   {
     "id": "ml-018",
     "seed": 2,
-    "subtype": "price_consumption",
-    "category": "expenditure",
-    "difficulty": "medium",
-    "signature": "price_consumption|increase:50|ans=33.33",
-    "answer": "33.33% reduction",
+    "subtype": "reverse_percentage",
+    "category": "base_change",
+    "difficulty": "easy",
+    "signature": "reverse_percentage|300_50|ans=600",
+    "answer": "600",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "The price of a household appliance increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "New price after increase:\nNew price after increase =\n100 + 50\n= 150\n\nFor the same expenditure:\nNew consumption =\n100 x 100 / 150\n= 66.67\n\nReduction in consumption is:\nReduction in consumption =\n100 - 66.67\n= 33.33% reduction\n\nHence, required reduction = 33.33% reduction"
+      "stem": "In a competitive engineering entrance examination, a candidate secured 300 marks, which corresponds to exactly 50% of the maximum aggregate marks. What are the maximum aggregate marks of the test?",
+      "explanation": "The total overall quantity is calculated as follows:\nMaximum marks =\n300 × 100 / 50\n= 600\n\nMaximum marks = 600"
     },
     "hindi": {
-      "stem": "The price of a household appliance increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "नई कीमत:\nनई कीमत =\n100 + 50\n= 150\n\nसमान खर्च के लिए:\nनई खपत =\n100 x 100 / 150\n= 66.67\n\nखपत में कमी:\nखपत में कमी =\n100 - 66.67\n= 33.33% कमी\n\nआवश्यक प्रतिशत = 33.33% कमी",
+      "stem": "एक विद्यार्थी ने 300 अंक प्राप्त किए, जो अधिकतम अंकों के 50% हैं। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "कुल मात्रा की गणना इस प्रकार की जाती है:\nअधिकतम अंक =\n300 × 100 / 50\n= 600\n\nअधिकतम अंक = 600",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -725,8 +725,8 @@
       }
     },
     "punjabi": {
-      "stem": "The price of a household appliance increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "ਨਵੀਂ ਕੀਮਤ:\nਨਵੀਂ ਕੀਮਤ =\n100 + 50\n= 150\n\nਉਸੇ ਖਰਚ ਲਈ:\nਨਵੀਂ ਖਪਤ =\n100 x 100 / 150\n= 66.67\n\nਖਪਤ ਵਿੱਚ ਕਮੀ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n100 - 66.67\n= 33.33% ਕਮੀ\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 33.33% ਕਮੀ",
+      "stem": "ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 300 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 50% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਕੁੱਲ ਮਾਤਰਾ ਦੀ ਗਣਨਾ ਇਸ ਤਰ੍ਹਾਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ:\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n300 × 100 / 50\n= 600\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 600",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -740,22 +740,22 @@
   {
     "id": "ml-019",
     "seed": 2,
-    "subtype": "profit_loss",
-    "category": "commercial",
+    "subtype": "restore_original",
+    "category": "base_change",
     "difficulty": "medium",
-    "signature": "profit_loss|600_loss_360|ans=loss:40",
-    "answer": "40% loss",
+    "signature": "restore_original|decrease:50_50|ans=100",
+    "answer": "100%",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "A wholesaler sold an item. Its cost price is 600 and selling price is 360. Find the profit or loss percentage on cost price.",
-      "explanation": "Loss amount:\nLoss amount =\n600 - 360\n= 240\n\nLoss percentage is:\nLoss percentage =\n240 x 100 / 600\n= 40%\n\nHence, loss on cost price = 40% loss"
+      "stem": "Due to an off-season clearance sale, the marked price of a mobile phone was reduced by 50% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?",
+      "explanation": "After a 50% reduction, percentage left is:\nRemaining part =\n100 - 50\n= 50%\nRequired increase %:\n50 × 100 / 50\n= 100% increase\nRequired increase = 100%"
     },
     "hindi": {
-      "stem": "A wholesaler sold an item. Its cost price is 600 and selling price is 360. Find the profit or loss percentage on cost price.",
-      "explanation": "हानि:\nहानि =\n600 - 360\n= 240\n\nहानि प्रतिशत:\nहानि प्रतिशत =\n240 x 100 / 600\n= 40%\n\nआवश्यक मान = 40% हानि",
+      "stem": "मोबाइल फोन के मूल्य में 50% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?",
+      "explanation": "बचा हुआ भाग:\n100 - 50\n= 50%\nआवश्यक वृद्धि:\n50 × 100 / 50\n= 100% वृद्धि\nआवश्यक वृद्धि = 100%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -766,8 +766,8 @@
       }
     },
     "punjabi": {
-      "stem": "A wholesaler sold an item. Its cost price is 600 and selling price is 360. Find the profit or loss percentage on cost price.",
-      "explanation": "ਨੁਕਸਾਨ:\nਨੁਕਸਾਨ =\n600 - 360\n= 240\n\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ:\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ =\n240 x 100 / 600\n= 40%\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 40% ਨੁਕਸਾਨ",
+      "stem": "ਮੋਬਾਈਲ ਫੋਨ ਦੀ ਕੀਮਤ ਵਿੱਚ 50% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?",
+      "explanation": "ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:\n100 - 50\n= 50%\nਲੋੜੀਂਦਾ ਵਾਧਾ:\n50 × 100 / 50\n= 100% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ = 100%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -781,22 +781,22 @@
   {
     "id": "ml-020",
     "seed": 2,
-    "subtype": "mixture_percentage",
-    "category": "mixture",
-    "difficulty": "easy",
-    "signature": "mixture_percentage|20_60_40_300|ans=100",
-    "answer": "100",
+    "subtype": "population_growth",
+    "category": "population",
+    "difficulty": "medium",
+    "signature": "population_growth|base_shift|growth_then_decay|48000_decrease:5_45600_increase:20_40000|ans=45600",
+    "answer": "45600",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "base_shift",
+      "variant": "growth_then_decay"
     },
     "english": {
-      "stem": "In a solution container, the solution has 300 units and contains 20% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "Water quantity remains unchanged.\nWater quantity =\n300 - 60\n= 240\nFinal mixture quantity:\nFinal mixture quantity =\n240 x 100 / ( 100 - 40 )\n= 400\nPure component to be added:\nPure component to be added =\n400 - 300\n= 100\nPure component to be added = 100"
+      "stem": "In an urban-rural population report, the population was 40000. It increased by 20% and then decreased by 5%. Find the final population.",
+      "explanation": "Population after increase:\n40000 x 120 / 100\n= 48000\nPopulation after decrease:\n48000 x 95 / 100\n= 45600\nHence, final population = 45600"
     },
     "hindi": {
-      "stem": "In a solution container, the solution has 300 units and contains 20% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "अपरिवर्तित मात्रा:\nअपरिवर्तित मात्रा =\n300 - 60\n= 240\nअंतिम मिश्रण:\nअंतिम मिश्रण =\n240 x 100 / ( 100 - 40 )\n= 400\nजोड़ी जाने वाली मात्रा:\nजोड़ी जाने वाली मात्रा =\n400 - 300\n= 100\nआवश्यक मान = 100",
+      "stem": "एक जिला जनसंख्या रिपोर्ट के अनुसार जनसंख्या 40000 थी। इसमें 20% वृद्धि हुई और फिर 5% कमी हुई। अंतिम जनसंख्या ज्ञात कीजिए।",
+      "explanation": "वृद्धि के बाद जनसंख्या:\n40000 x 120 / 100\n= 48000\nकमी के बाद जनसंख्या:\n48000 x 95 / 100\n= 45600\nअंतिम जनसंख्या = 45600",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -807,8 +807,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a solution container, the solution has 300 units and contains 20% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "ਅਣਬਦਲੀ ਮਾਤਰਾ:\nਅਣਬਦਲੀ ਮਾਤਰਾ =\n300 - 60\n= 240\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\nਅੰਤਿਮ ਮਿਸ਼ਰਣ =\n240 x 100 / ( 100 - 40 )\n= 400\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ:\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ =\n400 - 300\n= 100\nਲੋੜੀਂਦਾ ਮੁੱਲ = 100",
+      "stem": "ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਆਬਾਦੀ ਰਿਪੋਰਟ ਅਨੁਸਾਰ ਆਬਾਦੀ 40000 ਸੀ। ਇਸ ਵਿੱਚ 20% ਵਾਧਾ ਅਤੇ ਫਿਰ 5% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n40000 x 120 / 100\n= 48000\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n48000 x 95 / 100\n= 45600\nਅੰਤਿਮ ਆਬਾਦੀ = 45600",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -821,23 +821,23 @@
   },
   {
     "id": "ml-021",
-    "seed": 3,
-    "subtype": "increase_then_decrease",
-    "category": "base_change",
-    "difficulty": "medium",
-    "signature": "successive_increase_decrease|450_360_increase:25_decrease:10|ans=405",
-    "answer": "405",
+    "seed": 2,
+    "subtype": "salary_revision",
+    "category": "finance",
+    "difficulty": "easy",
+    "signature": "salary_revision|18750_15000_increase:25|ans=25",
+    "answer": "25% increase",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "During an online sale, the marked price of an appliance was 360. It first increased by 25% and then decreased by 10%. Find the final value.",
-      "explanation": "After a 25% increase:\nValue after first change =\n360 x 125 / 100\n= 450\nAfter a 10% decrease:\nFinal value =\n450 x 90 / 100\n= 405\nFinal value = 405"
+      "stem": "Following a corporate annual performance review, the monthly salary was revised from ₹15000 to ₹18750. Find the net percentage change relative to the original salary.",
+      "explanation": "Increase in salary:\n18750 - 15000\n= 3750\n\nChange %:\n3750 × 100 / 15000\n= 25\n\nSo, salary change = 25% increase"
     },
     "hindi": {
-      "stem": "During an online sale, the marked price of an appliance was 360. It first increased by 25% and then decreased by 10%. Find the final value.",
-      "explanation": "25% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n360 x 125 / 100\n= 450\n10% कमी के बाद:\nअंतिम मान =\n450 x 90 / 100\n= 405\nआवश्यक मान = 405",
+      "stem": "एक कर्मचारी का वेतन 15000 से बदलकर 18750 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "वेतन में बदलाव:\n18750 - 15000\n= 3750\n\nप्रतिशत परिवर्तन:\n3750 × 100 / 15000\n= 25\n\nवेतन में बदलाव = 25%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -848,8 +848,8 @@
       }
     },
     "punjabi": {
-      "stem": "During an online sale, the marked price of an appliance was 360. It first increased by 25% and then decreased by 10%. Find the final value.",
-      "explanation": "25% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n360 x 125 / 100\n= 450\n10% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n450 x 90 / 100\n= 405\nਲੋੜੀਂਦਾ ਮੁੱਲ = 405",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 15000 ਤੋਂ ਬਦਲ ਕੇ 18750 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:\n18750 - 15000\n= 3750\n\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\n3750 × 100 / 15000\n= 25\n\nਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 25%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -862,23 +862,23 @@
   },
   {
     "id": "ml-022",
-    "seed": 3,
-    "subtype": "election_margin",
-    "category": "election",
+    "seed": 2,
+    "subtype": "price_consumption",
+    "category": "expenditure",
     "difficulty": "hard",
-    "signature": "election_margin|successive_filtering|turnout_margin|30_20_35_417600_2175000_80_80_1392000_1740000_65|ans=2175000",
-    "answer": "2175000",
+    "signature": "price_consumption|15_increase:50|ans=23.33",
+    "answer": "23.33% reduction",
     "topology": {
-      "family": "successive_filtering",
-      "variant": "turnout_margin"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In a village council election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winner got 65% of the valid votes and won by 417600 votes. Find the number of registered voters.",
-      "explanation": "Winning margin:\nMargin percentage =\n65 - 35\n= 30%\nEffective valid votes:\nEffective valid votes =\n417600 x 100 / 30\n= 1392000\nVotes polled are:\nVotes polled =\n1392000 x 100 / 80\n= 1740000\nRegistered voters are:\nRegistered voters =\n1740000 x 100 / 80\n= 2175000\nTherefore, total votes = 2175000"
+      "stem": "Fuel price increased by 50%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+      "explanation": "New price level:\nNew price index =\n100 + 50\n= 150\nNew expenditure level:\nNew expenditure index =\n100 + 15\n= 115\nRequired reduction in consumption:\nConsumption difference =\n150 - 115\n= 35\nSo, reduction in consumption = 23.33% reduction"
     },
     "hindi": {
-      "stem": "In a village council election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winner got 65% of the valid votes and won by 417600 votes. Find the number of registered voters.",
-      "explanation": "जीत का अंतर:\nजीत का अंतर =\n65 - 35\n= 30%\nकुल वैध वोट:\nकुल वैध वोट =\n417600 x 100 / 30\n= 1392000\nकुल वोट:\nकुल वोट =\n1392000 x 100 / 80\n= 1740000\nकुल पंजीकृत मतदाता:\nकुल पंजीकृत मतदाता =\n1740000 x 100 / 80\n= 2175000\nकुल वोट = 2175000",
+      "stem": "ईंधन की कीमत 50% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?",
+      "explanation": "नई कीमत:\n100 + 50\n= 150\nनया खर्च स्तर:\nनया व्यय सूचकांक =\n100 + 15\n= 115\nखपत में कमी:\nआवश्यक अंतर =\n150 - 115\n= 35\nखपत में कमी = 23.33%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -889,8 +889,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a village council election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winner got 65% of the valid votes and won by 417600 votes. Find the number of registered voters.",
-      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਜਿੱਤ ਦਾ ਅੰਤਰ =\n65 - 35\n= 30%\nਕੁੱਲ ਵੈਧ ਵੋਟ:\nਕੁੱਲ ਵੈਧ ਵੋਟ =\n417600 x 100 / 30\n= 1392000\nਕੁੱਲ ਵੋਟ:\nਕੁੱਲ ਵੋਟ =\n1392000 x 100 / 80\n= 1740000\nਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:\nਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ =\n1740000 x 100 / 80\n= 2175000\nਕੁੱਲ ਵੋਟ = 2175000",
+      "stem": "ਈਂਧਨ ਦੀ ਕੀਮਤ 50% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+      "explanation": "ਨਵੀਂ ਕੀਮਤ:\n100 + 50\n= 150\nਨਵਾਂ ਖਰਚਾ ਪੱਧਰ:\nਨਵਾਂ ਖਰਚਾ ਸੂਚਕਾਂਕ =\n100 + 15\n= 115\nਖਪਤ ਵਿੱਚ ਕਮੀ:\nਲੋੜੀਂਦਾ ਅੰਤਰ =\n150 - 115\n= 35\nਖਪਤ ਵਿੱਚ ਕਮੀ = 23.33%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -903,64 +903,23 @@
   },
   {
     "id": "ml-023",
-    "seed": 3,
-    "subtype": "pass_fail",
-    "category": "comparison",
+    "seed": 2,
+    "subtype": "profit_loss",
+    "category": "commercial",
     "difficulty": "medium",
-    "signature": "pass_fail|base_shift|successive_mark_adjustment|65_20_5_70_45_60_1200|ans=1200",
-    "answer": "1200",
-    "topology": {
-      "family": "base_shift",
-      "variant": "successive_mark_adjustment"
-    },
-    "english": {
-      "stem": "In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 20%, the score was still short of the pass mark by 60 marks. The pass mark was 70%. Find the maximum marks.",
-      "explanation": "After adding the bonus:\nAdjusted score =\n45 + 20\n= 65\nPass mark difference:\nPass mark difference =\n70 - 65\n= 5\nMaximum marks are:\nMaximum marks =\n60 x 100 / 5\n= 1200\nHence, maximum marks in the test = 1200"
-    },
-    "hindi": {
-      "stem": "In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 20%, the score was still short of the pass mark by 60 marks. The pass mark was 70%. Find the maximum marks.",
-      "explanation": "After adding the bonus:\nप्राप्त अंक =\n45 + 20\n= 65\nपास अंक का अंतर:\nपास अंक का अंतर =\n70 - 65\n= 5\nअधिकतम अंक:\nअधिकतम अंक =\n60 x 100 / 5\n= 1200\nअधिकतम अंक = 1200",
-      "metrics": {
-        "localizationCoverage": 86,
-        "missingIntentCount": 1,
-        "fallbackCount": 1,
-        "scriptConsistencyScore": 86,
-        "equationPreservationScore": 100,
-        "multilingualReadinessScore": 84
-      }
-    },
-    "punjabi": {
-      "stem": "In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 20%, the score was still short of the pass mark by 60 marks. The pass mark was 70%. Find the maximum marks.",
-      "explanation": "After adding the bonus:\nਪ੍ਰਾਪਤ ਅੰਕ =\n45 + 20\n= 65\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n70 - 65\n= 5\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n60 x 100 / 5\n= 1200\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200",
-      "metrics": {
-        "localizationCoverage": 86,
-        "missingIntentCount": 1,
-        "fallbackCount": 1,
-        "scriptConsistencyScore": 86,
-        "equationPreservationScore": 100,
-        "multilingualReadinessScore": 84
-      }
-    }
-  },
-  {
-    "id": "ml-024",
-    "seed": 3,
-    "subtype": "reverse_percentage",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "reverse_percentage|144_40|ans=360",
-    "answer": "360",
+    "signature": "profit_loss|600_loss_360|ans=loss:40",
+    "answer": "40% loss",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a district census report, the counted population is 144, which is 40% of the total. Find the total value represented by 100%.",
-      "explanation": "Total quantity is:\nTotal quantity =\n144 x 100 / 40\n= 360\nRequired total quantity for the record = 360"
+      "stem": "A shopkeeper purchased a new rice bag from a distributor. If the cost price of the rice bag was ₹600 and its selling price was ₹360, find the net profit or loss percentage.",
+      "explanation": "Loss amount:\n600 - 360\n= 240\nLoss %:\n240 × 100 / 600\n= 40\nThe negative value indicates a loss over the cost price.\nHence, loss on cost price = 40% loss"
     },
     "hindi": {
-      "stem": "In a district census report, the counted population is 144, which is 40% of the total. Find the total value represented by 100%.",
-      "explanation": "कुल मान:\nकुल मान =\n144 x 100 / 40\n= 360\nआवश्यक मान = 360",
+      "stem": "एक दुकानदार ने चावल का बोरा ₹600 में खरीदा और ₹360 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "explanation": "हानि:\n600 - 360\n= 240\nहानि प्रतिशत:\n240 × 100 / 600\n= 40\nऋणात्मक मान लागत मूल्य पर हानि को दर्शाता है।\nहानि प्रतिशत = 40% हानि",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -971,8 +930,49 @@
       }
     },
     "punjabi": {
-      "stem": "In a district census report, the counted population is 144, which is 40% of the total. Find the total value represented by 100%.",
-      "explanation": "ਕੁੱਲ ਮੁੱਲ:\nਕੁੱਲ ਮੁੱਲ =\n144 x 100 / 40\n= 360\nਲੋੜੀਂਦਾ ਮੁੱਲ = 360",
+      "stem": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਚਾਵਲ ਦੀ ਬੋਰੀ ₹600 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹360 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਨੁਕਸਾਨ:\n600 - 360\n= 240\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ:\n240 × 100 / 600\n= 40\nਨਕਾਰਾਤਮਕ ਮੁੱਲ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਨੁਕਸਾਨ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 40% ਨੁਕਸਾਨ",
+      "metrics": {
+        "localizationCoverage": 100,
+        "missingIntentCount": 0,
+        "fallbackCount": 0,
+        "scriptConsistencyScore": 100,
+        "equationPreservationScore": 100,
+        "multilingualReadinessScore": 100
+      }
+    }
+  },
+  {
+    "id": "ml-024",
+    "seed": 2,
+    "subtype": "mixture_percentage",
+    "category": "mixture",
+    "difficulty": "easy",
+    "signature": "mixture_percentage|20_60_40_300|ans=100",
+    "answer": "100",
+    "topology": {
+      "family": null,
+      "variant": null
+    },
+    "english": {
+      "stem": "In a milk-water mixture, total quantity is 300 litres and milk is 20%. How much milk is needed to make milk 40% of the mixture?",
+      "explanation": "Water remains unchanged.\nWater quantity =\n300 - 60\n= 240\nFinal mixture quantity:\n240 × 100 / ( 100 - 40 )\n= 400\nMilk to be added:\n400 - 300\n= 100\nMilk to be added = 100"
+    },
+    "hindi": {
+      "stem": "एक दूध-पानी मिश्रण की मात्रा 300 लीटर है और उसमें 20% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?",
+      "explanation": "पानी की मात्रा समान रहेगी।\nपानी की मात्रा =\n300 - 60\n= 240\nअंतिम मिश्रण:\n240 × 100 / ( 100 - 40 )\n= 400\nडाला जाने वाला दूध:\n400 - 300\n= 100\nडाला जाने वाला दूध = 100",
+      "metrics": {
+        "localizationCoverage": 100,
+        "missingIntentCount": 0,
+        "fallbackCount": 0,
+        "scriptConsistencyScore": 100,
+        "equationPreservationScore": 100,
+        "multilingualReadinessScore": 100
+      }
+    },
+    "punjabi": {
+      "stem": "ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 300 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+      "explanation": "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।\nਪਾਣੀ ਦੀ ਮਾਤਰਾ =\n300 - 60\n= 240\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\n240 × 100 / ( 100 - 40 )\n= 400\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:\n400 - 300\n= 100\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 100",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -985,23 +985,23 @@
   },
   {
     "id": "ml-025",
-    "seed": 3,
-    "subtype": "restore_original",
-    "category": "base_change",
-    "difficulty": "medium",
-    "signature": "restore_original|decrease:40_60|ans=66.67",
-    "answer": "66.67%",
+    "seed": 2,
+    "subtype": "relational_percentage",
+    "category": "comparison",
+    "difficulty": "hard",
+    "signature": "relational_percentage|inverse_percentage_mapping|hidden_base_relation_chain|140_70_100_70_1_140_40_0_50_50_2|ans=decrease:30",
+    "answer": "30% less",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "inverse_percentage_mapping",
+      "variant": "hidden_base_relation_chain"
     },
     "english": {
-      "stem": "After a warehouse stock reduction, the quantity in a mixture tank was reduced by 40% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "Shortcut:\n60% value = 40\nSo,\n100% value =\n66.67\n\nAfter a 40% reduction, percentage left is:\nRemaining percentage =\n100 - 40\n= 60%\nRequired increase = 66.67%"
+      "stem": "A's income is 40% more than B's income. B's income is 50% less than C's income. Find by what percent A's income is more or less than C's income.",
+      "explanation": "Assume C's income = 100.\nSince B is 50% less than C, B = 100 x 50 / 100 = 50.\nSince A is 40% more than B, A = 50 x 140 / 100 = 70.\nCompared with C = 100, A is 30% less."
     },
     "hindi": {
-      "stem": "After a warehouse stock reduction, the quantity in a mixture tank was reduced by 40% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "शॉर्टकट:\n60% मान = 40\nतो,\n100% मान =\n66.67\n\nशेष मान:\nशेष मान =\n100 - 40\n= 60%\nआवश्यक वृद्धि:",
+      "stem": "A की आय B से 40% अधिक है। B की आय C से 50% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+      "explanation": "मान लें C की आय = 100।\nB, C से 50% कम है, इसलिए B = 100 x 50 / 100 = 50।\nA, B से 40% अधिक है, इसलिए A = 50 x 140 / 100 = 70।\nC = 100 की तुलना में A 30% कम है।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1012,8 +1012,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a warehouse stock reduction, the quantity in a mixture tank was reduced by 40% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "ਸ਼ਾਰਟਕੱਟ:\n60% ਮੁੱਲ = 40\nਸੋ,\n100% ਮੁੱਲ =\n66.67\n\nਬਾਕੀ ਮੁੱਲ:\nਬਾਕੀ ਮੁੱਲ =\n100 - 40\n= 60%\nਲੋੜੀਂਦਾ ਵਾਧਾ:",
+      "stem": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+      "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 50 / 100 = 50।\nA, B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 50 x 140 / 100 = 70।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 30% ਘੱਟ ਹੈ।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1026,23 +1026,23 @@
   },
   {
     "id": "ml-026",
-    "seed": 3,
-    "subtype": "population_growth",
-    "category": "population",
+    "seed": 2,
+    "subtype": "taxation",
+    "category": "commercial",
     "difficulty": "medium",
-    "signature": "population_growth|layered_population|migration_adjusted_population|144000_153600_increase:20_9600_8_120000|ans=153600",
-    "answer": "153600",
+    "signature": "taxation|100000_20_25_5000|ans=5000",
+    "answer": "5000",
     "topology": {
-      "family": "layered_population",
-      "variant": "migration_adjusted_population"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "According to a census report, the population was 120000. It increased by 20%. In addition, people equal to 8% of the original population migrated in. Find the final population.",
-      "explanation": "Population after increase =\n120000 x 120 / 100\n= 144000\nPopulation added by migration =\n120000 x 8 / 100\n= 9600\nFinal population after migration =\n144000 + 9600\n= 153600\nHence, final population = 153600"
+      "stem": "The income tax rate is reduced from 25% to 20%. As a result, a person's tax liability decreases by ₹5000. Find the total taxable income of the person.",
+      "explanation": "Difference in tax rates:\nTax rate difference =\n25 - 20\n= 5%\n\nTotal tax difference:\nRequired answer =\n5000 × 100 / 5\n= 100000\n\nTherefore, final value = 5000"
     },
     "hindi": {
-      "stem": "According to a census report, the population was 120000. It increased by 20%. In addition, people equal to 8% of the original population migrated in. Find the final population.",
-      "explanation": "वृद्धि के बाद जनसंख्या =\n120000 x 120 / 100\n= 144000\nअंतिम जनसंख्या =\n120000 x 8 / 100\n= 9600\nअंतिम जनसंख्या =\n144000 + 9600\n= 153600\nअंतिम जनसंख्या = 153600",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आवश्यक अंतर:\n25 - 20\n= 5%\n\nआवश्यक अंतर:\nआवश्यक मान =\n5000 × 100 / 5\n= 100000\n\nअंतिम मान = 5000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1053,8 +1053,8 @@
       }
     },
     "punjabi": {
-      "stem": "According to a census report, the population was 120000. It increased by 20%. In addition, people equal to 8% of the original population migrated in. Find the final population.",
-      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n120000 x 120 / 100\n= 144000\nਅੰਤਿਮ ਆਬਾਦੀ =\n120000 x 8 / 100\n= 9600\nਅੰਤਿਮ ਆਬਾਦੀ =\n144000 + 9600\n= 153600\nਅੰਤਿਮ ਆਬਾਦੀ = 153600",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲੋੜੀਂਦਾ ਅੰਤਰ:\n25 - 20\n= 5%\n\nਲੋੜੀਂਦਾ ਅੰਤਰ:\nਲੋੜੀਂਦਾ ਮੁੱਲ =\n5000 × 100 / 5\n= 100000\n\nਅੰਤਿਮ ਮੁੱਲ = 5000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1067,23 +1067,23 @@
   },
   {
     "id": "ml-027",
-    "seed": 3,
-    "subtype": "salary_revision",
-    "category": "finance",
-    "difficulty": "easy",
-    "signature": "salary_revision|12000_10000_increase:20|ans=20",
-    "answer": "20% increase",
+    "seed": 2,
+    "subtype": "commission",
+    "category": "commercial",
+    "difficulty": "hard",
+    "signature": "commission|10_20000_5_6500_50000|ans=6500",
+    "answer": "6500",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a salary revision, the salary of an employee changed from 10000 to 12000. Find the percentage change based on the old salary.",
-      "explanation": "Increase in salary:\nIncrease in salary =\n12000 - 10000\n= 2000\n\nPercentage change is:\nPercentage change =\n2000 x 100 / 10000\n= 20%\n\nSo, salary change = 20% increase"
+      "stem": "A salesman gets a commission of 10% on total sales up to ₹20000 and an additional bonus of 5% on sales above this amount. If his total commission is ₹6500, find his total sales.",
+      "explanation": "Commission on base sales:\nBase commission =\n20000 × 10 / 100\n= 2000\n\nSales above base quota:\nDifference =\n50000 - 20000\n= 30000\n\nTotal commission rate on excess sales:\nCombined total =\n10 + 5\n= 15\n\nCommission on excess sales:\nBonus commission =\n30000 × 15 / 100\n= 4500\n\nTotal of these parts is:\nTotal commission =\n2000 + 4500\n= 6500\n\nHence, final value = 6500"
     },
     "hindi": {
-      "stem": "After a salary revision, the salary of an employee changed from 10000 to 12000. Find the percentage change based on the old salary.",
-      "explanation": "वेतन में वृद्धि:\nवेतन में वृद्धि =\n12000 - 10000\n= 2000\n\nप्रतिशत परिवर्तन:\nप्रतिशत परिवर्तन =\n2000 x 100 / 10000\n= 20%\n\nआवश्यक मान = 20% वृद्धि",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आधार बिक्री पर कमीशन:\nआधार कमीशन =\n20000 × 10 / 100\n= 2000\n\nआधार से ऊपर अतिरिक्त बिक्री:\nआवश्यक अंतर =\n50000 - 20000\n= 30000\n\nकुल कमीशन:\nसंयुक्त कुल =\n10 + 5\n= 15\n\nअतिरिक्त बिक्री पर कमीशन:\nबोनस कमीशन =\n30000 × 15 / 100\n= 4500\n\nइन भागों का कुल योग है:\nकुल कमीशन =\n2000 + 4500\n= 6500\n\nअंतिम मान = 6500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1094,8 +1094,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a salary revision, the salary of an employee changed from 10000 to 12000. Find the percentage change based on the old salary.",
-      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ:\nਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ =\n12000 - 10000\n= 2000\n\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =\n2000 x 100 / 10000\n= 20%\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 20% ਵਾਧਾ",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਆਧਾਰ ਕਮਿਸ਼ਨ =\n20000 × 10 / 100\n= 2000\n\nਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:\nਲੋੜੀਂਦਾ ਅੰਤਰ =\n50000 - 20000\n= 30000\n\nਕੁੱਲ ਕਮਿਸ਼ਨ:\nਸੰਯੁਕਤ ਕੁੱਲ =\n10 + 5\n= 15\n\nਵਾਧੂ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਬੋਨਸ ਕਮਿਸ਼ਨ =\n30000 × 15 / 100\n= 4500\n\nਇਹਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਕੁੱਲ ਜੋੜ ਹੈ:\nਕੁੱਲ ਕਮਿਸ਼ਨ =\n2000 + 4500\n= 6500\n\nਅੰਤਿਮ ਮੁੱਲ = 6500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1108,23 +1108,23 @@
   },
   {
     "id": "ml-028",
-    "seed": 3,
-    "subtype": "price_consumption",
-    "category": "expenditure",
+    "seed": 2,
+    "subtype": "venn_diagram",
+    "category": "data_interpretation",
     "difficulty": "medium",
-    "signature": "price_consumption|increase:40|ans=28.57",
-    "answer": "28.57% reduction",
+    "signature": "venn_diagram|25_75_5_65_55_1500|ans=1500",
+    "answer": "1500",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "The price of a household appliance increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "New price after increase:\nNew price after increase =\n100 + 40\n= 140\n\nFor the same expenditure:\nNew consumption =\n100 x 100 / 140\n= 71.43\n\nReduction in consumption is:\nReduction in consumption =\n100 - 71.43\n= 28.57% reduction\n\nHence, required reduction = 28.57% reduction"
+      "stem": "In an examination, 65% of students failed in Mathematics, 55% failed in English, and 25% failed in both. If 75 students passed in both subjects, find the total number of students who appeared for the exam.",
+      "explanation": "Percentage for at least one category:\nPercentage in at least one subject =\n65 + 55 - 25\n= 95%\nPercentage in neither category:\nPercentage failing both subjects =\n100 - 95\n= 5%\nTotal students:\n75 × 100 / 5\n= 1500\nFinal value = 1500"
     },
     "hindi": {
-      "stem": "The price of a household appliance increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "नई कीमत:\nनई कीमत =\n100 + 40\n= 140\n\nसमान खर्च के लिए:\nनई खपत =\n100 x 100 / 140\n= 71.43\n\nखपत में कमी:\nखपत में कमी =\n100 - 71.43\n= 28.57% कमी\n\nआवश्यक प्रतिशत = 28.57% कमी",
+      "stem": "एक परीक्षा में 65% छात्र गणित में अनुत्तीर्ण हुए, 55% अंग्रेजी में अनुत्तीर्ण हुए, और 25% दोनों में अनुत्तीर्ण हुए। यदि 75 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।",
+      "explanation": "कम से कम एक विषय में प्रतिशत:\n65 + 55 - 25\n= 95%\nदोनों विषयों में फेल प्रतिशत:\n100 - 95\n= 5%\nकुल छात्र:\n75 × 100 / 5\n= 1500\nअंतिम मान = 1500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1135,8 +1135,8 @@
       }
     },
     "punjabi": {
-      "stem": "The price of a household appliance increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "ਨਵੀਂ ਕੀਮਤ:\nਨਵੀਂ ਕੀਮਤ =\n100 + 40\n= 140\n\nਉਸੇ ਖਰਚ ਲਈ:\nਨਵੀਂ ਖਪਤ =\n100 x 100 / 140\n= 71.43\n\nਖਪਤ ਵਿੱਚ ਕਮੀ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n100 - 71.43\n= 28.57% ਕਮੀ\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 28.57% ਕਮੀ",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 65% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 55% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 25% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 75 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:\n65 + 55 - 25\n= 95%\nਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਫੇਲ੍ਹ ਪ੍ਰਤੀਸ਼ਤ:\n100 - 95\n= 5%\nਕੁੱਲ ਵਿਦਿਆਰਥੀ:\n75 × 100 / 5\n= 1500\nਅੰਤਿਮ ਮੁੱਲ = 1500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1150,22 +1150,22 @@
   {
     "id": "ml-029",
     "seed": 3,
-    "subtype": "profit_loss",
-    "category": "commercial",
+    "subtype": "increase_then_decrease",
+    "category": "base_change",
     "difficulty": "medium",
-    "signature": "profit_loss|360_profit_450|ans=profit:25",
-    "answer": "25% profit",
+    "signature": "successive_increase_decrease|450_360_increase:25_decrease:10|ans=405",
+    "answer": "405",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "A retailer sold a machine. Its cost price is 360 and selling price is 450. Find the profit or loss percentage on cost price.",
-      "explanation": "Profit amount:\nProfit amount =\n450 - 360\n= 90\nProfit percentage is:\nProfit percentage =\n90 x 100 / 360\n= 25%\nThus, profit percentage = 25% profit"
+      "stem": "Laptop price was ₹360. It first increased by 25% and then decreased by 10%. What will be the final price of the laptop?",
+      "explanation": "After a 25% increase:\nValue after first change =\n360 x 125 / 100\n= 450\nAfter a 10% decrease:\nFinal value =\n450 x 90 / 100\n= 405\nFinal value = 405"
     },
     "hindi": {
-      "stem": "A retailer sold a machine. Its cost price is 360 and selling price is 450. Find the profit or loss percentage on cost price.",
-      "explanation": "लाभ:\nलाभ =\n450 - 360\n= 90\nलाभ प्रतिशत:\nलाभ प्रतिशत =\n90 x 100 / 360\n= 25%\nआवश्यक प्रतिशत = 25% लाभ",
+      "stem": "लैपटॉप का मूल्य ₹360 था। इसमें पहले 25% वृद्धि और फिर 10% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।",
+      "explanation": "25% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n360 x 125 / 100\n= 450\n10% कमी के बाद:\nअंतिम मान =\n450 x 90 / 100\n= 405\nअंतिम मान = 405",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1176,8 +1176,8 @@
       }
     },
     "punjabi": {
-      "stem": "A retailer sold a machine. Its cost price is 360 and selling price is 450. Find the profit or loss percentage on cost price.",
-      "explanation": "ਲਾਭ:\nਲਾਭ =\n450 - 360\n= 90\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ:\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ =\n90 x 100 / 360\n= 25%\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 25% ਲਾਭ",
+      "stem": "ਲੈਪਟਾਪ ਦੀ ਕੀਮਤ ₹360 ਸੀ। ਪਹਿਲਾਂ 25% ਵਾਧਾ ਅਤੇ ਫਿਰ 10% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "25% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n360 x 125 / 100\n= 450\n10% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n450 x 90 / 100\n= 405\nਅੰਤਿਮ ਮੁੱਲ = 405",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1191,22 +1191,22 @@
   {
     "id": "ml-030",
     "seed": 3,
-    "subtype": "mixture_percentage",
-    "category": "mixture",
-    "difficulty": "easy",
-    "signature": "mixture_percentage|25_50_40_200|ans=50",
-    "answer": "50",
+    "subtype": "election_margin",
+    "category": "election",
+    "difficulty": "hard",
+    "signature": "election_margin|successive_filtering|turnout_margin|20_20_40_18000_187500_60_80_90000_112500_60|ans=187500",
+    "answer": "187500",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "successive_filtering",
+      "variant": "turnout_margin"
     },
     "english": {
-      "stem": "In a milk-water mixture, the mixture has 200 units and contains 25% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "Water quantity remains unchanged.\nWater quantity =\n200 - 50\n= 150\nFinal mixture quantity:\nFinal mixture quantity =\n150 x 100 / ( 100 - 40 )\n= 250\nPure component to be added:\nPure component to be added =\n250 - 200\n= 50\nPure component to be added = 50"
+      "stem": "In a municipal election, 60% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winning candidate got 60% of the valid votes and won by 18000 votes. Find the number of registered voters.",
+      "explanation": "Winning margin:\nMargin percentage =\n60 - 40\n= 20%\nEffective valid votes:\n18000 × 100 / 20\n= 90000\nVotes polled are:\n90000 × 100 / 80\n= 112500\nRegistered voters are:\n112500 × 100 / 60\n= 187500\nRegistered voters = 187500"
     },
     "hindi": {
-      "stem": "In a milk-water mixture, the mixture has 200 units and contains 25% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "अपरिवर्तित मात्रा:\nअपरिवर्तित मात्रा =\n200 - 50\n= 150\nअंतिम मिश्रण:\nअंतिम मिश्रण =\n150 x 100 / ( 100 - 40 )\n= 250\nजोड़ी जाने वाली मात्रा:\nजोड़ी जाने वाली मात्रा =\n250 - 200\n= 50\nआवश्यक मान = 50",
+      "stem": "एक निर्वाचन में 60% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 60% वोट मिले और जीत का अंतर 18000 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।",
+      "explanation": "जीत का अंतर:\nमार्जिन प्रतिशत =\n60 - 40\n= 20%\nकुल वैध वोट:\n18000 × 100 / 20\n= 90000\nकुल वोट:\n90000 × 100 / 80\n= 112500\nकुल पंजीकृत मतदाता:\n112500 × 100 / 60\n= 187500\nपंजीकृत मतदाता = 187500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1217,8 +1217,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a milk-water mixture, the mixture has 200 units and contains 25% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "ਅਣਬਦਲੀ ਮਾਤਰਾ:\nਅਣਬਦਲੀ ਮਾਤਰਾ =\n200 - 50\n= 150\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\nਅੰਤਿਮ ਮਿਸ਼ਰਣ =\n150 x 100 / ( 100 - 40 )\n= 250\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ:\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ =\n250 - 200\n= 50\nਲੋੜੀਂਦਾ ਮੁੱਲ = 50",
+      "stem": "ਇੱਕ ਚੋਣ ਵਿੱਚ 60% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 18000 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n60 - 40\n= 20%\nਕੁੱਲ ਯੋਗ ਵੋਟ:\n18000 × 100 / 20\n= 90000\nਕੁੱਲ ਵੋਟ:\n90000 × 100 / 80\n= 112500\nਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:\n112500 × 100 / 60\n= 187500\nਰਜਿਸਟਰਡ ਵੋਟਰ = 187500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1231,23 +1231,23 @@
   },
   {
     "id": "ml-031",
-    "seed": 4,
-    "subtype": "increase_then_decrease",
-    "category": "base_change",
+    "seed": 3,
+    "subtype": "pass_fail",
+    "category": "comparison",
     "difficulty": "medium",
-    "signature": "successive_increase_decrease|450_360_increase:25_decrease:25|ans=337.5",
-    "answer": "337.5",
+    "signature": "pass_fail|base_shift|successive_mark_adjustment|45_5_5_50_40_60_1200|ans=1200",
+    "answer": "1200",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "base_shift",
+      "variant": "successive_mark_adjustment"
     },
     "english": {
-      "stem": "In a warehouse stock audit, the listed price of a product was 360. It first increased by 25% and then decreased by 25%. Find the final value.",
-      "explanation": "After a 25% increase:\nValue after first change =\n360 x 125 / 100\n= 450\nAfter a 25% decrease:\nFinal value =\n450 x 75 / 100\n= 337.5\nHence, final value = 337.5"
+      "stem": "In a screening test, a candidate first scored 40% marks. After adding a bonus of 5%, the score was still short of the pass mark by 60 marks. The pass mark was 50%. Find the maximum marks.",
+      "explanation": "After adding the bonus:\nAdjusted score =\n40 + 5\n= 45\n\nRequired percentage gap:\n50 - 45\n= 5%\n\nMaximum marks are:\n60 × 100 / 5\n= 1200\n\nThus, maximum marks = 1200"
     },
     "hindi": {
-      "stem": "In a warehouse stock audit, the listed price of a product was 360. It first increased by 25% and then decreased by 25%. Find the final value.",
-      "explanation": "25% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n360 x 125 / 100\n= 450\n25% कमी के बाद:\nअंतिम मान =\n450 x 75 / 100\n= 337.5\nआवश्यक मान = 337.5",
+      "stem": "एक परीक्षा में अभ्यर्थी ने पहले 40% अंक प्राप्त किए। 5% बोनस जोड़ने के बाद भी वह 60 अंकों से कम रह गया। उत्तीर्णांक 50% हैं। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "बोनस जोड़ने के बाद:\nप्राप्त अंक =\n40 + 5\n= 45\n\nआवश्यक प्रतिशत अंतर:\n50 - 45\n= 5%\n\nअधिकतम अंक:\n60 × 100 / 5\n= 1200\n\nअधिकतम अंक = 1200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1258,8 +1258,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a warehouse stock audit, the listed price of a product was 360. It first increased by 25% and then decreased by 25%. Find the final value.",
-      "explanation": "25% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n360 x 125 / 100\n= 450\n25% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n450 x 75 / 100\n= 337.5\nਲੋੜੀਂਦਾ ਮੁੱਲ = 337.5",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 40% ਅੰਕ ਲਏ। 5% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 60 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 50% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:\nਪ੍ਰਾਪਤ ਅੰਕ =\n40 + 5\n= 45\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n50 - 45\n= 5%\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n60 × 100 / 5\n= 1200\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1272,64 +1272,23 @@
   },
   {
     "id": "ml-032",
-    "seed": 4,
-    "subtype": "election_margin",
-    "category": "election",
-    "difficulty": "medium",
-    "signature": "election_margin|multi_entity_distribution|multi_candidate_margin|2_64000_43_12_3200000_45|ans=3200000",
-    "answer": "3200000",
+    "seed": 3,
+    "subtype": "reverse_percentage",
+    "category": "base_change",
+    "difficulty": "easy",
+    "signature": "reverse_percentage|144_40|ans=360",
+    "answer": "360",
     "topology": {
-      "family": "multi_entity_distribution",
-      "variant": "multi_candidate_margin"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In an employee union election, candidate A got 45% of the votes and candidate C got 12%. Candidate A defeated candidate B by 64000 votes. Find the total number of votes.",
-      "explanation": "Remaining candidate's vote share:\nVotes remaining for other candidates =\n100 - 45 - 12\n= 43\nWinning margin:\nRemaining vote share =\n45 - 43\n= 2%\nTotal votes are:\nTotal votes =\n64000 x 100 / 2\n= 3200000\nTherefore, total votes = 3200000"
+      "stem": "In a competitive engineering entrance examination, a candidate secured 144 marks, which corresponds to exactly 40% of the maximum aggregate marks. What are the maximum aggregate marks of the test?",
+      "explanation": "Shortcut:\n40% quantity = 144\nSo,\n100% quantity =\n360\n\nApply the next relation:\nThe total overall quantity is calculated as follows:\nMaximum marks =\n144 × 100 / 40\n= 360\nMaximum marks = 360"
     },
     "hindi": {
-      "stem": "In an employee union election, candidate A got 45% of the votes and candidate C got 12%. Candidate A defeated candidate B by 64000 votes. Find the total number of votes.",
-      "explanation": "जीत का अंतर:\nVotes remaining for other candidates =\n100 - 45 - 12\n= 43\nजीत का अंतर:\nजीत का अंतर =\n45 - 43\n= 2%\nकुल वोट:\nकुल वोट =\n64000 x 100 / 2\n= 3200000\nकुल वोट = 3200000",
-      "metrics": {
-        "localizationCoverage": 86,
-        "missingIntentCount": 1,
-        "fallbackCount": 1,
-        "scriptConsistencyScore": 86,
-        "equationPreservationScore": 100,
-        "multilingualReadinessScore": 84
-      }
-    },
-    "punjabi": {
-      "stem": "In an employee union election, candidate A got 45% of the votes and candidate C got 12%. Candidate A defeated candidate B by 64000 votes. Find the total number of votes.",
-      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nVotes remaining for other candidates =\n100 - 45 - 12\n= 43\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਜਿੱਤ ਦਾ ਅੰਤਰ =\n45 - 43\n= 2%\nਕੁੱਲ ਵੋਟ:\nਕੁੱਲ ਵੋਟ =\n64000 x 100 / 2\n= 3200000\nਕੁੱਲ ਵੋਟ = 3200000",
-      "metrics": {
-        "localizationCoverage": 86,
-        "missingIntentCount": 1,
-        "fallbackCount": 1,
-        "scriptConsistencyScore": 86,
-        "equationPreservationScore": 100,
-        "multilingualReadinessScore": 84
-      }
-    }
-  },
-  {
-    "id": "ml-033",
-    "seed": 4,
-    "subtype": "pass_fail",
-    "category": "comparison",
-    "difficulty": "hard",
-    "signature": "pass_fail|successive_filtering|remaining_marks_required|680_40_20_35_595_935_55_340_50_1700|ans=1700",
-    "answer": "1700",
-    "topology": {
-      "family": "successive_filtering",
-      "variant": "remaining_marks_required"
-    },
-    "english": {
-      "stem": "In a scholarship exam, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 595 marks. Find the maximum marks.",
-      "explanation": "Marks already secured:\nMarks already secured =\n40 x 50 / 100\n= 20\nExtra marks required:\nRequired marks gap =\n55 - 20\n= 35\nMaximum marks are:\nMaximum marks =\n595 x 100 / 35\n= 1700\nMaximum marks = 1700"
-    },
-    "hindi": {
-      "stem": "In a scholarship exam, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 595 marks. Find the maximum marks.",
-      "explanation": "प्राप्त अंक:\nप्राप्त अंक =\n40 x 50 / 100\n= 20\nपास अंक का अंतर:\nपास अंक का अंतर =\n55 - 20\n= 35\nअधिकतम अंक:\nअधिकतम अंक =\n595 x 100 / 35\n= 1700\nअधिकतम अंक = 1700",
+      "stem": "एक विद्यार्थी ने 144 अंक प्राप्त किए, जो अधिकतम अंकों के 40% हैं। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "संक्षिप्त विधि:\n40% मात्रा = 144\nतो,\n100% मात्रा =\n360\n\nअगला प्रतिशत संबंध लगाएं:\nकुल मात्रा की गणना इस प्रकार की जाती है:\nअधिकतम अंक =\n144 × 100 / 40\n= 360\nअधिकतम अंक = 360",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1340,8 +1299,49 @@
       }
     },
     "punjabi": {
-      "stem": "In a scholarship exam, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 55% overall, the student still needs 595 marks. Find the maximum marks.",
-      "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ:\nਪ੍ਰਾਪਤ ਅੰਕ =\n40 x 50 / 100\n= 20\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n55 - 20\n= 35\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n595 x 100 / 35\n= 1700\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1700",
+      "stem": "ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 144 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 40% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਸੰਖੇਪ ਵਿਧੀ:\n40% ਮਾਤਰਾ = 144\nਤਾਂ,\n100% ਮਾਤਰਾ =\n360\n\nਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:\nਕੁੱਲ ਮਾਤਰਾ ਦੀ ਗਣਨਾ ਇਸ ਤਰ੍ਹਾਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ:\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n144 × 100 / 40\n= 360\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 360",
+      "metrics": {
+        "localizationCoverage": 100,
+        "missingIntentCount": 0,
+        "fallbackCount": 0,
+        "scriptConsistencyScore": 100,
+        "equationPreservationScore": 100,
+        "multilingualReadinessScore": 100
+      }
+    }
+  },
+  {
+    "id": "ml-033",
+    "seed": 3,
+    "subtype": "restore_original",
+    "category": "base_change",
+    "difficulty": "medium",
+    "signature": "restore_original|decrease:40_60|ans=66.67",
+    "answer": "66.67%",
+    "topology": {
+      "family": null,
+      "variant": null
+    },
+    "english": {
+      "stem": "Due to an off-season clearance sale, the marked price of a bicycle was reduced by 40% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?",
+      "explanation": "After a 40% reduction, percentage left is:\nRemaining part =\n100 - 40\n= 60%\n\nRequired increase %:\n40 × 100 / 60\n= 66.67% increase\n\nRequired increase = 66.67%"
+    },
+    "hindi": {
+      "stem": "साइकिल के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?",
+      "explanation": "बचा हुआ भाग:\n100 - 40\n= 60%\n\nआवश्यक वृद्धि:\n40 × 100 / 60\n= 66.67% वृद्धि\nआवश्यक वृद्धि = 66.67%",
+      "metrics": {
+        "localizationCoverage": 100,
+        "missingIntentCount": 0,
+        "fallbackCount": 0,
+        "scriptConsistencyScore": 100,
+        "equationPreservationScore": 100,
+        "multilingualReadinessScore": 100
+      }
+    },
+    "punjabi": {
+      "stem": "ਸਾਈਕਲ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?",
+      "explanation": "ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:\n100 - 40\n= 60%\n\nਲੋੜੀਂਦਾ ਵਾਧਾ:\n40 × 100 / 60\n= 66.67% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ = 66.67%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1354,23 +1354,23 @@
   },
   {
     "id": "ml-034",
-    "seed": 4,
-    "subtype": "reverse_percentage",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "reverse_percentage|90_25|ans=360",
-    "answer": "360",
+    "seed": 3,
+    "subtype": "population_growth",
+    "category": "population",
+    "difficulty": "medium",
+    "signature": "population_growth|layered_population|migration_adjusted_population|69000_70200_increase:15_1200_2_60000|ans=70200",
+    "answer": "70200",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "layered_population",
+      "variant": "migration_adjusted_population"
     },
     "english": {
-      "stem": "In a warehouse stock audit, the sold quantity is 90, which is 25% of the total. Find the total value represented by 100%.",
-      "explanation": "Shortcut:\n25% quantity = 90\nSo,\n100% quantity =\n360\n\nHence, total quantity for the record = 360"
+      "stem": "According to a census report, the population was 60000. It increased by 15%. In addition, people equal to 2% of the original population migrated in. Find the final population.",
+      "explanation": "Population after increase:\n60000 x 115 / 100\n= 69000\nPopulation added by migration:\n60000 × 2 / 100\n= 1200\nFinal population after migration:\n69000 + 1200\n= 70200\nFinal population = 70200"
     },
     "hindi": {
-      "stem": "In a warehouse stock audit, the sold quantity is 90, which is 25% of the total. Find the total value represented by 100%.",
-      "explanation": "शॉर्टकट:\n25% मात्रा = 90\nतो,\n100% मात्रा =\n360\n\nआवश्यक मान = 360",
+      "stem": "एक नगर जनसंख्या रिपोर्ट में जनसंख्या 60000 थी। इसमें 15% वृद्धि हुई। साथ ही मूल जनसंख्या के 2% लोग बाहर से आए। अंतिम जनसंख्या ज्ञात कीजिए।",
+      "explanation": "वृद्धि के बाद जनसंख्या:\n60000 x 115 / 100\n= 69000\nप्रवास से जोड़ी गई जनसंख्या:\n60000 × 2 / 100\n= 1200\nअंतिम जनसंख्या:\n69000 + 1200\n= 70200\nअंतिम जनसंख्या = 70200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1381,8 +1381,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a warehouse stock audit, the sold quantity is 90, which is 25% of the total. Find the total value represented by 100%.",
-      "explanation": "ਸ਼ਾਰਟਕੱਟ:\n25% ਮਾਤਰਾ = 90\nਸੋ,\n100% ਮਾਤਰਾ =\n360\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 360",
+      "stem": "ਇੱਕ ਸ਼ਹਿਰੀ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 60000 ਸੀ। ਇਸ ਵਿੱਚ 15% ਵਾਧਾ ਹੋਇਆ। ਨਾਲ ਹੀ ਮੂਲ ਆਬਾਦੀ ਦੇ 2% ਲੋਕ ਬਾਹਰੋਂ ਆਏ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\n60000 x 115 / 100\n= 69000\nਪਰਵਾਸ ਨਾਲ ਜੋੜੀ ਗਈ ਆਬਾਦੀ:\n60000 × 2 / 100\n= 1200\nਅੰਤਿਮ ਆਬਾਦੀ:\n69000 + 1200\n= 70200\nਅੰਤਿਮ ਆਬਾਦੀ = 70200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1395,23 +1395,23 @@
   },
   {
     "id": "ml-035",
-    "seed": 4,
-    "subtype": "restore_original",
-    "category": "base_change",
-    "difficulty": "medium",
-    "signature": "restore_original|decrease:40_60|ans=66.67",
-    "answer": "66.67%",
+    "seed": 3,
+    "subtype": "salary_revision",
+    "category": "finance",
+    "difficulty": "easy",
+    "signature": "salary_revision|12000_10000_increase:20|ans=20",
+    "answer": "20% increase",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a warehouse stock reduction, the quantity in a mixture tank was reduced by 40% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "After a 40% reduction, percentage left is:\nRemaining percentage =\n100 - 40\n= 60%\nRequired increase:\nRequired increase =\n40 x 100 / 60\n= 66.67% increase\nRequired increase = 66.67%"
+      "stem": "Following a corporate annual performance review, the monthly salary was revised from ₹10000 to ₹12000. Find the net percentage change relative to the original salary.",
+      "explanation": "Increase in salary:\n12000 - 10000\n= 2000\n\nChange %:\n2000 × 100 / 10000\n= 20\n\nSo, salary change = 20% increase"
     },
     "hindi": {
-      "stem": "After a warehouse stock reduction, the quantity in a mixture tank was reduced by 40% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "शेष मान:\nशेष मान =\n100 - 40\n= 60%\nआवश्यक वृद्धि:\nआवश्यक वृद्धि =\n40 x 100 / 60\n= 66.67% वृद्धि\nआवश्यक वृद्धि:",
+      "stem": "एक कर्मचारी का वेतन 10000 से बदलकर 12000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "वेतन में बदलाव:\n12000 - 10000\n= 2000\n\nप्रतिशत परिवर्तन:\n2000 × 100 / 10000\n= 20\n\nवेतन में बदलाव = 20%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1422,8 +1422,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a warehouse stock reduction, the quantity in a mixture tank was reduced by 40% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "ਬਾਕੀ ਮੁੱਲ:\nਬਾਕੀ ਮੁੱਲ =\n100 - 40\n= 60%\nਲੋੜੀਂਦਾ ਵਾਧਾ:\nਲੋੜੀਂਦਾ ਵਾਧਾ =\n40 x 100 / 60\n= 66.67% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ:",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 10000 ਤੋਂ ਬਦਲ ਕੇ 12000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:\n12000 - 10000\n= 2000\n\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\n2000 × 100 / 10000\n= 20\n\nਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 20%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1436,23 +1436,23 @@
   },
   {
     "id": "ml-036",
-    "seed": 4,
-    "subtype": "population_growth",
-    "category": "population",
+    "seed": 3,
+    "subtype": "price_consumption",
+    "category": "expenditure",
     "difficulty": "hard",
-    "signature": "population_growth|layered_population|male_female_population_shift|5_55_93500_172975_10_45_76500_88825_84150_170000|ans=172975",
-    "answer": "172975",
+    "signature": "price_consumption|560_400_increase:40_5_7000|ans=400",
+    "answer": "400% reduction",
     "topology": {
-      "family": "layered_population",
-      "variant": "male_female_population_shift"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "According to a census report, the total population was 170000. Males were 45% and females were the rest. The male population increased by 10%, while the female population decreased by 5%. Find the final population.",
-      "explanation": "Male population:\nMale population =\n170000 x 45 / 100\n= 76500\nFemale population:\nFemale population =\n170000 - 76500\n= 93500\nMale population after growth:\nMale population after growth =\n76500 x (100 + 10) / 100\n= 84150\nFemale population after reduction:\nFemale population after decrease =\n93500 x ( 100 - 5 ) / 100\n= 88825\nFinal population:\nFinal population =\n84150 + 88825\n= 172975\nHence, final population = 172975"
+      "stem": "Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+      "explanation": "Price increase multiplier:\n1 + 40 / 100\n= 1.4\n\nExpenditure per unit difference:\n7000 / 5\n= 1400\n\nHence, required reduction = 400% reduction"
     },
     "hindi": {
-      "stem": "According to a census report, the total population was 170000. Males were 45% and females were the rest. The male population increased by 10%, while the female population decreased by 5%. Find the final population.",
-      "explanation": "अंतिम जनसंख्या:\nअंतिम जनसंख्या =\n170000 x 45 / 100\n= 76500\nअंतिम जनसंख्या:\nअंतिम जनसंख्या =\n170000 - 76500\n= 93500\nवृद्धि के बाद जनसंख्या:\nवृद्धि के बाद जनसंख्या =\n76500 x (100 + 10) / 100\n= 84150\nकमी के बाद जनसंख्या:\nकमी के बाद जनसंख्या =\n93500 x ( 100 - 5 ) / 100\n= 88825\nअंतिम जनसंख्या:\nअंतिम जनसंख्या =\n84150 + 88825\n= 172975\nअंतिम जनसंख्या = 172975",
+      "stem": "ईंधन की कीमत 40% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?",
+      "explanation": "कीमत वृद्धि गुणक:\n1 + 40 / 100\n= 1.4\n\nआवश्यक अंतर:\n7000 / 5\n= 1400\n\nखपत में कमी = 400%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1463,8 +1463,8 @@
       }
     },
     "punjabi": {
-      "stem": "According to a census report, the total population was 170000. Males were 45% and females were the rest. The male population increased by 10%, while the female population decreased by 5%. Find the final population.",
-      "explanation": "ਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n170000 x 45 / 100\n= 76500\nਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n170000 - 76500\n= 93500\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n76500 x (100 + 10) / 100\n= 84150\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n93500 x ( 100 - 5 ) / 100\n= 88825\nਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n84150 + 88825\n= 172975\nਅੰਤਿਮ ਆਬਾਦੀ = 172975",
+      "stem": "ਈਂਧਨ ਦੀ ਕੀਮਤ 40% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+      "explanation": "ਕੀਮਤ ਵਾਧਾ ਗੁਣਕ:\n1 + 40 / 100\n= 1.4\n\nਲੋੜੀਂਦਾ ਅੰਤਰ:\n7000 / 5\n= 1400\n\nਖਪਤ ਵਿੱਚ ਕਮੀ = 400%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1477,23 +1477,23 @@
   },
   {
     "id": "ml-037",
-    "seed": 4,
-    "subtype": "salary_revision",
-    "category": "finance",
-    "difficulty": "easy",
-    "signature": "salary_revision|12000_10000_increase:20|ans=20",
-    "answer": "20% increase",
+    "seed": 3,
+    "subtype": "profit_loss",
+    "category": "commercial",
+    "difficulty": "medium",
+    "signature": "profit_loss|360_profit_450|ans=profit:25",
+    "answer": "25% profit",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a salary revision, the salary of an employee changed from 10000 to 12000. Find the percentage change based on the old salary.",
-      "explanation": "Increase in salary:\nIncrease in salary =\n12000 - 10000\n= 2000\nPercentage change is:\nPercentage change =\n2000 x 100 / 10000\n= 20%\nSo, salary change = 20% increase"
+      "stem": "A shopkeeper purchased a new mobile phone from a distributor. If the cost price of the mobile phone was ₹360 and its selling price was ₹450, find the net profit or loss percentage.",
+      "explanation": "Profit amount:\n450 - 360\n= 90\nProfit %:\n90 × 100 / 360\n= 25\nThe positive difference gives the profit percentage.\nThus, profit % = 25% profit"
     },
     "hindi": {
-      "stem": "After a salary revision, the salary of an employee changed from 10000 to 12000. Find the percentage change based on the old salary.",
-      "explanation": "वेतन में वृद्धि:\nवेतन में वृद्धि =\n12000 - 10000\n= 2000\nप्रतिशत परिवर्तन:\nप्रतिशत परिवर्तन =\n2000 x 100 / 10000\n= 20%\nआवश्यक मान = 20% वृद्धि",
+      "stem": "एक दुकानदार ने मोबाइल फोन ₹360 में खरीदा और ₹450 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "explanation": "लाभ:\n450 - 360\n= 90\nलाभ प्रतिशत:\n90 × 100 / 360\n= 25\nलाभ प्रतिशत = 25% लाभ",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1504,8 +1504,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a salary revision, the salary of an employee changed from 10000 to 12000. Find the percentage change based on the old salary.",
-      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ:\nਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ =\n12000 - 10000\n= 2000\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =\n2000 x 100 / 10000\n= 20%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 20% ਵਾਧਾ",
+      "stem": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਮੋਬਾਈਲ ਫੋਨ ₹360 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹450 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲਾਭ:\n450 - 360\n= 90\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ:\n90 × 100 / 360\n= 25\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 25% ਲਾਭ",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1518,23 +1518,23 @@
   },
   {
     "id": "ml-038",
-    "seed": 4,
-    "subtype": "price_consumption",
-    "category": "expenditure",
-    "difficulty": "medium",
-    "signature": "price_consumption|increase:40|ans=28.57",
-    "answer": "28.57% reduction",
+    "seed": 3,
+    "subtype": "mixture_percentage",
+    "category": "mixture",
+    "difficulty": "easy",
+    "signature": "mixture_percentage|25_50_40_200|ans=50",
+    "answer": "50",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "The unit price of a monthly purchase increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "Shortcut:\nReduction in consumption =\n40 x 100 / (100 + 40)\n= 28.57% reduction\n\nHence, required reduction = 28.57% reduction"
+      "stem": "In a milk-water mixture, total quantity is 200 litres and milk is 25%. How much milk is needed to make milk 40% of the mixture?",
+      "explanation": "Water remains unchanged.\nWater quantity =\n200 - 50\n= 150\nFinal mixture quantity:\n150 × 100 / ( 100 - 40 )\n= 250\nMilk to be added:\n250 - 200\n= 50\nMilk to be added = 50"
     },
     "hindi": {
-      "stem": "The unit price of a monthly purchase increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "शॉर्टकट:\nखपत में कमी =\n40 x 100 / (100 + 40)\n= 28.57% कमी\n\nआवश्यक प्रतिशत = 28.57% कमी",
+      "stem": "एक दूध-पानी मिश्रण की मात्रा 200 लीटर है और उसमें 25% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?",
+      "explanation": "पानी की मात्रा समान रहेगी।\nपानी की मात्रा =\n200 - 50\n= 150\nअंतिम मिश्रण:\n150 × 100 / ( 100 - 40 )\n= 250\nडाला जाने वाला दूध:\n250 - 200\n= 50\nडाला जाने वाला दूध = 50",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1545,8 +1545,8 @@
       }
     },
     "punjabi": {
-      "stem": "The unit price of a monthly purchase increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "ਸ਼ਾਰਟਕੱਟ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n40 x 100 / (100 + 40)\n= 28.57% ਕਮੀ\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 28.57% ਕਮੀ",
+      "stem": "ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 200 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+      "explanation": "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।\nਪਾਣੀ ਦੀ ਮਾਤਰਾ =\n200 - 50\n= 150\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\n150 × 100 / ( 100 - 40 )\n= 250\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:\n250 - 200\n= 50\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 50",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1559,23 +1559,23 @@
   },
   {
     "id": "ml-039",
-    "seed": 4,
-    "subtype": "profit_loss",
-    "category": "commercial",
-    "difficulty": "medium",
-    "signature": "profit_loss|360_loss_270|ans=loss:25",
-    "answer": "25% loss",
+    "seed": 3,
+    "subtype": "relational_percentage",
+    "category": "comparison",
+    "difficulty": "hard",
+    "signature": "relational_percentage|reverse_relation|reverse_relation_inference|125_93.75_100_93.75_1_125_25_0_75_25_2|ans=decrease:6.25",
+    "answer": "6.25% less",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "reverse_relation",
+      "variant": "reverse_relation_inference"
     },
     "english": {
-      "stem": "A wholesaler sold an item. Its cost price is 360 and selling price is 270. Find the profit or loss percentage on cost price.",
-      "explanation": "Loss amount:\nLoss amount =\n360 - 270\n= 90\nLoss percentage is:\nLoss percentage =\n90 x 100 / 360\n= 25%\nHence, loss on cost price = 25% loss"
+      "stem": "A's income is 25% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.",
+      "explanation": "Assume C's income = 100.\nSince B is 25% less than C, B = 100 x 75 / 100 = 75.\nSince A is 25% more than B, A = 75 x 125 / 100 = 93.75.\nCompared with C = 100, A is 6.25% less."
     },
     "hindi": {
-      "stem": "A wholesaler sold an item. Its cost price is 360 and selling price is 270. Find the profit or loss percentage on cost price.",
-      "explanation": "हानि:\nहानि =\n360 - 270\n= 90\nहानि प्रतिशत:\nहानि प्रतिशत =\n90 x 100 / 360\n= 25%\nआवश्यक मान = 25% हानि",
+      "stem": "A की आय B से 25% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+      "explanation": "मान लें C की आय = 100।\nB, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।\nA, B से 25% अधिक है, इसलिए A = 75 x 125 / 100 = 93.75।\nC = 100 की तुलना में A 6.25% कम है।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1586,8 +1586,8 @@
       }
     },
     "punjabi": {
-      "stem": "A wholesaler sold an item. Its cost price is 360 and selling price is 270. Find the profit or loss percentage on cost price.",
-      "explanation": "ਨੁਕਸਾਨ:\nਨੁਕਸਾਨ =\n360 - 270\n= 90\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ:\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ =\n90 x 100 / 360\n= 25%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 25% ਨੁਕਸਾਨ",
+      "stem": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+      "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।\nA, B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 125 / 100 = 93.75।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 6.25% ਘੱਟ ਹੈ।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1600,23 +1600,23 @@
   },
   {
     "id": "ml-040",
-    "seed": 4,
-    "subtype": "mixture_percentage",
-    "category": "mixture",
-    "difficulty": "easy",
-    "signature": "mixture_percentage|25_50_40_200|ans=50",
-    "answer": "50",
+    "seed": 3,
+    "subtype": "taxation",
+    "category": "commercial",
+    "difficulty": "medium",
+    "signature": "taxation|80000_15_20_4000|ans=4000",
+    "answer": "4000",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a mixture tank, the mixture has 200 units and contains 25% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "Water quantity remains unchanged.\nWater quantity =\n200 - 50\n= 150\n\nFinal mixture quantity:\nFinal mixture quantity =\n150 x 100 / ( 100 - 40 )\n= 250\n\nPure component to be added:\nPure component to be added =\n250 - 200\n= 50\n\nPure component to be added = 50"
+      "stem": "The income tax rate is reduced from 20% to 15%. As a result, a person's tax liability decreases by ₹4000. Find the total taxable income of the person.",
+      "explanation": "Difference in tax rates:\nTax rate difference =\n20 - 15\n= 5%\n\nTotal tax difference:\nRequired answer =\n4000 × 100 / 5\n= 80000\n\nHence, final value = 4000"
     },
     "hindi": {
-      "stem": "In a mixture tank, the mixture has 200 units and contains 25% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "अपरिवर्तित मात्रा:\nअपरिवर्तित मात्रा =\n200 - 50\n= 150\n\nअंतिम मिश्रण:\nअंतिम मिश्रण =\n150 x 100 / ( 100 - 40 )\n= 250\n\nजोड़ी जाने वाली मात्रा:\nजोड़ी जाने वाली मात्रा =\n250 - 200\n= 50\n\nआवश्यक मान = 50",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आवश्यक अंतर:\n20 - 15\n= 5%\n\nआवश्यक अंतर:\nआवश्यक मान =\n4000 × 100 / 5\n= 80000\n\nअंतिम मान = 4000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1627,8 +1627,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a mixture tank, the mixture has 200 units and contains 25% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "ਅਣਬਦਲੀ ਮਾਤਰਾ:\nਅਣਬਦਲੀ ਮਾਤਰਾ =\n200 - 50\n= 150\n\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\nਅੰਤਿਮ ਮਿਸ਼ਰਣ =\n150 x 100 / ( 100 - 40 )\n= 250\n\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ:\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ =\n250 - 200\n= 50\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 50",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲੋੜੀਂਦਾ ਅੰਤਰ:\n20 - 15\n= 5%\n\nਲੋੜੀਂਦਾ ਅੰਤਰ:\nਲੋੜੀਂਦਾ ਮੁੱਲ =\n4000 × 100 / 5\n= 80000\n\nਅੰਤਿਮ ਮੁੱਲ = 4000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1641,23 +1641,23 @@
   },
   {
     "id": "ml-041",
-    "seed": 5,
-    "subtype": "increase_then_decrease",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "successive_increase_decrease|240_200_increase:20_decrease:10|ans=216",
-    "answer": "216",
+    "seed": 3,
+    "subtype": "commission",
+    "category": "commercial",
+    "difficulty": "hard",
+    "signature": "commission|8_20000_4_4000_40000|ans=4000",
+    "answer": "4000",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "During a seasonal sale, the price of a machine was 200. It first increased by 20% and then decreased by 10%. Find the final value.",
-      "explanation": "After a 20% increase:\nValue after first change =\n200 x 120 / 100\n= 240\n\nAfter a 10% decrease:\nFinal value =\n240 x 90 / 100\n= 216\n\nFinal value = 216"
+      "stem": "A salesman gets a commission of 8% on total sales up to ₹20000 and an additional bonus of 4% on sales above this amount. If his total commission is ₹4000, find his total sales.",
+      "explanation": "Commission on base sales:\nBase commission =\n20000 × 8 / 100\n= 1600\nSales above base quota:\nDifference =\n40000 - 20000\n= 20000\nTotal commission rate on excess sales:\nCombined total =\n8 + 4\n= 12\nCommission on excess sales:\nBonus commission =\n20000 × 12 / 100\n= 2400\nTotal of these parts is:\nTotal commission =\n1600 + 2400\n= 4000\nHence, final value = 4000"
     },
     "hindi": {
-      "stem": "During a seasonal sale, the price of a machine was 200. It first increased by 20% and then decreased by 10%. Find the final value.",
-      "explanation": "20% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n200 x 120 / 100\n= 240\n\n10% कमी के बाद:\nअंतिम मान =\n240 x 90 / 100\n= 216\n\nआवश्यक मान = 216",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आधार बिक्री पर कमीशन:\nआधार कमीशन =\n20000 × 8 / 100\n= 1600\nआधार से ऊपर अतिरिक्त बिक्री:\nआवश्यक अंतर =\n40000 - 20000\n= 20000\nकुल कमीशन:\nसंयुक्त कुल =\n8 + 4\n= 12\nअतिरिक्त बिक्री पर कमीशन:\nबोनस कमीशन =\n20000 × 12 / 100\n= 2400\nइन भागों का कुल योग है:\nकुल कमीशन =\n1600 + 2400\n= 4000\nअंतिम मान = 4000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1668,8 +1668,8 @@
       }
     },
     "punjabi": {
-      "stem": "During a seasonal sale, the price of a machine was 200. It first increased by 20% and then decreased by 10%. Find the final value.",
-      "explanation": "20% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n200 x 120 / 100\n= 240\n\n10% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n240 x 90 / 100\n= 216\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 216",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਆਧਾਰ ਕਮਿਸ਼ਨ =\n20000 × 8 / 100\n= 1600\nਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:\nਲੋੜੀਂਦਾ ਅੰਤਰ =\n40000 - 20000\n= 20000\nਕੁੱਲ ਕਮਿਸ਼ਨ:\nਸੰਯੁਕਤ ਕੁੱਲ =\n8 + 4\n= 12\nਵਾਧੂ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਬੋਨਸ ਕਮਿਸ਼ਨ =\n20000 × 12 / 100\n= 2400\nਇਹਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਕੁੱਲ ਜੋੜ ਹੈ:\nਕੁੱਲ ਕਮਿਸ਼ਨ =\n1600 + 2400\n= 4000\nਅੰਤਿਮ ਮੁੱਲ = 4000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1682,64 +1682,23 @@
   },
   {
     "id": "ml-042",
-    "seed": 5,
-    "subtype": "election_margin",
-    "category": "election",
+    "seed": 3,
+    "subtype": "venn_diagram",
+    "category": "data_interpretation",
     "difficulty": "medium",
-    "signature": "election_margin|remaining_component|remaining_vote_margin|28_16_1183000_28_4225000_56|ans=4225000",
-    "answer": "4225000",
+    "signature": "venn_diagram|20_300_25_55_40_1200|ans=1200",
+    "answer": "1200",
     "topology": {
-      "family": "remaining_component",
-      "variant": "remaining_vote_margin"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In a college union election, one candidate got 56% of the votes and another got 16%. The remaining votes went to a third candidate. The first candidate defeated the third candidate by 1183000 votes. Find the total number of votes.",
-      "explanation": "Remaining candidate's vote share:\nVotes remaining for other candidates =\n100 - 56 - 16\n= 28\nWinning margin:\nRemaining vote share =\n56 - 28\n= 28%\nTotal votes are:\nTotal votes =\n1183000 x 100 / 28\n= 4225000\nHence, total votes polled = 4225000"
+      "stem": "In an examination, 55% of students failed in Mathematics, 40% failed in English, and 20% failed in both. If 300 students passed in both subjects, find the total number of students who appeared for the exam.",
+      "explanation": "Percentage for at least one category:\nPercentage in at least one subject =\n55 + 40 - 20\n= 75%\n\nPercentage in neither category:\nPercentage failing both subjects =\n100 - 75\n= 25%\n\nTotal students:\n300 × 100 / 25\n= 1200\n\nTherefore, final value = 1200"
     },
     "hindi": {
-      "stem": "In a college union election, one candidate got 56% of the votes and another got 16%. The remaining votes went to a third candidate. The first candidate defeated the third candidate by 1183000 votes. Find the total number of votes.",
-      "explanation": "जीत का अंतर:\nVotes remaining for other candidates =\n100 - 56 - 16\n= 28\nजीत का अंतर:\nजीत का अंतर =\n56 - 28\n= 28%\nकुल वोट:\nकुल वोट =\n1183000 x 100 / 28\n= 4225000\nकुल वोट = 4225000",
-      "metrics": {
-        "localizationCoverage": 86,
-        "missingIntentCount": 1,
-        "fallbackCount": 1,
-        "scriptConsistencyScore": 86,
-        "equationPreservationScore": 100,
-        "multilingualReadinessScore": 84
-      }
-    },
-    "punjabi": {
-      "stem": "In a college union election, one candidate got 56% of the votes and another got 16%. The remaining votes went to a third candidate. The first candidate defeated the third candidate by 1183000 votes. Find the total number of votes.",
-      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nVotes remaining for other candidates =\n100 - 56 - 16\n= 28\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਜਿੱਤ ਦਾ ਅੰਤਰ =\n56 - 28\n= 28%\nਕੁੱਲ ਵੋਟ:\nਕੁੱਲ ਵੋਟ =\n1183000 x 100 / 28\n= 4225000\nਕੁੱਲ ਵੋਟ = 4225000",
-      "metrics": {
-        "localizationCoverage": 86,
-        "missingIntentCount": 1,
-        "fallbackCount": 1,
-        "scriptConsistencyScore": 86,
-        "equationPreservationScore": 100,
-        "multilingualReadinessScore": 84
-      }
-    }
-  },
-  {
-    "id": "ml-043",
-    "seed": 5,
-    "subtype": "pass_fail",
-    "category": "comparison",
-    "difficulty": "hard",
-    "signature": "pass_fail|successive_filtering|remaining_marks_required|900_50_30_30_540_1080_60_540_60_1800|ans=1800",
-    "answer": "1800",
-    "topology": {
-      "family": "successive_filtering",
-      "variant": "remaining_marks_required"
-    },
-    "english": {
-      "stem": "In a scholarship exam, 50% of the paper has been evaluated. A student scored 60% of those marks. To secure 60% overall, the student still needs 540 marks. Find the maximum marks.",
-      "explanation": "Marks already secured:\nMarks already secured =\n50 x 60 / 100\n= 30\nExtra marks required:\nRequired marks gap =\n60 - 30\n= 30\nMaximum marks are:\nMaximum marks =\n540 x 100 / 30\n= 1800\nMaximum marks = 1800"
-    },
-    "hindi": {
-      "stem": "In a scholarship exam, 50% of the paper has been evaluated. A student scored 60% of those marks. To secure 60% overall, the student still needs 540 marks. Find the maximum marks.",
-      "explanation": "प्राप्त अंक:\nप्राप्त अंक =\n50 x 60 / 100\n= 30\nपास अंक का अंतर:\nपास अंक का अंतर =\n60 - 30\n= 30\nअधिकतम अंक:\nअधिकतम अंक =\n540 x 100 / 30\n= 1800\nअधिकतम अंक = 1800",
+      "stem": "एक परीक्षा में 55% छात्र गणित में अनुत्तीर्ण हुए, 40% अंग्रेजी में अनुत्तीर्ण हुए, और 20% दोनों में अनुत्तीर्ण हुए। यदि 300 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।",
+      "explanation": "कम से कम एक विषय में प्रतिशत:\n55 + 40 - 20\n= 75%\n\nदोनों विषयों में फेल प्रतिशत:\n100 - 75\n= 25%\n\nकुल छात्र:\n300 × 100 / 25\n= 1200\n\nअंतिम मान = 1200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1750,8 +1709,49 @@
       }
     },
     "punjabi": {
-      "stem": "In a scholarship exam, 50% of the paper has been evaluated. A student scored 60% of those marks. To secure 60% overall, the student still needs 540 marks. Find the maximum marks.",
-      "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ:\nਪ੍ਰਾਪਤ ਅੰਕ =\n50 x 60 / 100\n= 30\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ:\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n60 - 30\n= 30\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n540 x 100 / 30\n= 1800\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1800",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 55% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 40% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 20% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 300 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:\n55 + 40 - 20\n= 75%\n\nਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਫੇਲ੍ਹ ਪ੍ਰਤੀਸ਼ਤ:\n100 - 75\n= 25%\n\nਕੁੱਲ ਵਿਦਿਆਰਥੀ:\n300 × 100 / 25\n= 1200\n\nਅੰਤਿਮ ਮੁੱਲ = 1200",
+      "metrics": {
+        "localizationCoverage": 100,
+        "missingIntentCount": 0,
+        "fallbackCount": 0,
+        "scriptConsistencyScore": 100,
+        "equationPreservationScore": 100,
+        "multilingualReadinessScore": 100
+      }
+    }
+  },
+  {
+    "id": "ml-043",
+    "seed": 4,
+    "subtype": "increase_then_decrease",
+    "category": "base_change",
+    "difficulty": "medium",
+    "signature": "successive_increase_decrease|450_360_increase:25_decrease:25|ans=337.5",
+    "answer": "337.5",
+    "topology": {
+      "family": null,
+      "variant": null
+    },
+    "english": {
+      "stem": "Television price was ₹360. It first increased by 25% and then decreased by 25%. What will be the final price of the television?",
+      "explanation": "After a 25% increase:\nValue after first change =\n360 x 125 / 100\n= 450\n\nAfter a 25% decrease:\nFinal value =\n450 x 75 / 100\n= 337.5\n\nHence, final value = 337.5"
+    },
+    "hindi": {
+      "stem": "टेलीविजन का मूल्य ₹360 था। इसमें पहले 25% वृद्धि और फिर 25% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।",
+      "explanation": "25% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n360 x 125 / 100\n= 450\n\n25% कमी के बाद:\nअंतिम मान =\n450 x 75 / 100\n= 337.5\n\nअंतिम मान = 337.5",
+      "metrics": {
+        "localizationCoverage": 100,
+        "missingIntentCount": 0,
+        "fallbackCount": 0,
+        "scriptConsistencyScore": 100,
+        "equationPreservationScore": 100,
+        "multilingualReadinessScore": 100
+      }
+    },
+    "punjabi": {
+      "stem": "ਟੈਲੀਵਿਜ਼ਨ ਦੀ ਕੀਮਤ ₹360 ਸੀ। ਪਹਿਲਾਂ 25% ਵਾਧਾ ਅਤੇ ਫਿਰ 25% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "25% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n360 x 125 / 100\n= 450\n\n25% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n450 x 75 / 100\n= 337.5\n\nਅੰਤਿਮ ਮੁੱਲ = 337.5",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1764,23 +1764,23 @@
   },
   {
     "id": "ml-044",
-    "seed": 5,
-    "subtype": "reverse_percentage",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "reverse_percentage|40_20|ans=200",
-    "answer": "200",
+    "seed": 4,
+    "subtype": "election_margin",
+    "category": "election",
+    "difficulty": "medium",
+    "signature": "election_margin|multi_entity_distribution|multi_candidate_margin|24_12000_28_20_50000_52|ans=50000",
+    "answer": "50000",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "multi_entity_distribution",
+      "variant": "multi_candidate_margin"
     },
     "english": {
-      "stem": "In a coaching institute test, the marks scored is 40, which is 20% of the total. Find the total value represented by 100%.",
-      "explanation": "Total quantity is:\nTotal quantity =\n40 x 100 / 20\n= 200\nHence, total quantity for the record = 200"
+      "stem": "In a constituency election, the winning candidate got 52% of the votes and candidate C got 20%. The winning candidate defeated candidate B by 12000 votes. Find the total number of votes.",
+      "explanation": "Remaining candidate's vote share:\nVotes remaining for other candidates =\n100 - 52 - 20\n= 28\n\nWinning margin:\nRemaining vote share =\n52 - 28\n= 24%\n\nTotal votes are:\n12000 × 100 / 24\n= 50000\n\nTherefore, total votes = 50000"
     },
     "hindi": {
-      "stem": "In a coaching institute test, the marks scored is 40, which is 20% of the total. Find the total value represented by 100%.",
-      "explanation": "कुल मान:\nकुल मान =\n40 x 100 / 20\n= 200\nआवश्यक मान = 200",
+      "stem": "एक निर्वाचन में विजयी उम्मीदवार को 52% वोट और प्रत्याशी C को 20% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 12000 वोटों से हराया। कुल वोट ज्ञात कीजिए।",
+      "explanation": "जीत का अंतर:\nअन्य उम्मीदवारों के वोट =\n100 - 52 - 20\n= 28\n\nजीत का अंतर:\nमार्जिन प्रतिशत =\n52 - 28\n= 24%\n\nकुल वोट:\n12000 × 100 / 24\n= 50000\n\nकुल डाले गए वोट = 50000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1791,8 +1791,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a coaching institute test, the marks scored is 40, which is 20% of the total. Find the total value represented by 100%.",
-      "explanation": "ਕੁੱਲ ਮੁੱਲ:\nਕੁੱਲ ਮੁੱਲ =\n40 x 100 / 20\n= 200\nਲੋੜੀਂਦਾ ਮੁੱਲ = 200",
+      "stem": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 52% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 20% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 12000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =\n100 - 52 - 20\n= 28\n\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n52 - 28\n= 24%\n\nਕੁੱਲ ਵੋਟ:\n12000 × 100 / 24\n= 50000\n\nਕੁੱਲ ਪਏ ਵੋਟ = 50000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1805,23 +1805,23 @@
   },
   {
     "id": "ml-045",
-    "seed": 5,
-    "subtype": "restore_original",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "restore_original|decrease:25_75|ans=33.33",
-    "answer": "33.33%",
+    "seed": 4,
+    "subtype": "pass_fail",
+    "category": "comparison",
+    "difficulty": "hard",
+    "signature": "pass_fail|successive_filtering|remaining_marks_required|160_40_24_13_52_148_37_96_60_400|ans=400",
+    "answer": "400",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "successive_filtering",
+      "variant": "remaining_marks_required"
     },
     "english": {
-      "stem": "After a discount, the price of a machine was reduced by 25% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "Shortcut:\n75% value = 25\nSo,\n100% value =\n33.33\n\nAfter a 25% reduction, percentage left is:\nRemaining percentage =\n100 - 25\n= 75%\nHence, increase needed to restore the value = 33.33%"
+      "stem": "In a qualifying test, 40% of the paper has been evaluated. A student scored 60% of those marks. To secure 37% overall, the student still needs 52 marks. Find the maximum marks.",
+      "explanation": "Marks already secured:\n40 × 60 / 100\n= 24\n\nRequired percentage gap:\n37 - 24\n= 13%\n\nMaximum marks are:\n52 × 100 / 13\n= 400\n\nMaximum marks = 400"
     },
     "hindi": {
-      "stem": "After a discount, the price of a machine was reduced by 25% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "शॉर्टकट:\n75% मान = 25\nतो,\n100% मान =\n33.33\n\nशेष मान:\nशेष मान =\n100 - 25\n= 75%\nआवश्यक वृद्धि:",
+      "stem": "एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 37% अंक पाने के लिए उसे अभी 52 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "प्राप्त अंक:\n40 × 60 / 100\n= 24\n\nआवश्यक प्रतिशत अंतर:\n37 - 24\n= 13%\n\nअधिकतम अंक:\n52 × 100 / 13\n= 400\n\nअधिकतम अंक = 400",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1832,8 +1832,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a discount, the price of a machine was reduced by 25% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "ਸ਼ਾਰਟਕੱਟ:\n75% ਮੁੱਲ = 25\nਸੋ,\n100% ਮੁੱਲ =\n33.33\n\nਬਾਕੀ ਮੁੱਲ:\nਬਾਕੀ ਮੁੱਲ =\n100 - 25\n= 75%\nਲੋੜੀਂਦਾ ਵਾਧਾ:",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 37% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 52 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ:\n40 × 60 / 100\n= 24\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n37 - 24\n= 13%\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n52 × 100 / 13\n= 400\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 400",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1846,23 +1846,23 @@
   },
   {
     "id": "ml-046",
-    "seed": 5,
-    "subtype": "population_growth",
-    "category": "population",
-    "difficulty": "hard",
-    "signature": "population_growth|layered_population|male_female_population_shift|10_50_90000_189000_20_50_90000_81000_108000_180000|ans=189000",
-    "answer": "189000",
+    "seed": 4,
+    "subtype": "reverse_percentage",
+    "category": "base_change",
+    "difficulty": "easy",
+    "signature": "reverse_percentage|90_25|ans=360",
+    "answer": "360",
     "topology": {
-      "family": "layered_population",
-      "variant": "male_female_population_shift"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In a district population survey, the total population was 180000. Males were 50% and females were the rest. The male population increased by 20%, while the female population decreased by 10%. Find the final population.",
-      "explanation": "Male population:\nMale population =\n180000 x 50 / 100\n= 90000\nFemale population:\nFemale population =\n180000 - 90000\n= 90000\nMale population after growth:\nMale population after growth =\n90000 x (100 + 20) / 100\n= 108000\nFemale population after reduction:\nFemale population after decrease =\n90000 x ( 100 - 10 ) / 100\n= 81000\nFinal population:\nFinal population =\n108000 + 81000\n= 189000\nFinal population = 189000"
+      "stem": "In a wholesale grocery warehouse, a batch of 90 kg of sugar represents exactly 25% of the total quantity of available stock. Find the total sugar stock currently stored in the warehouse.",
+      "explanation": "Shortcut:\n25% quantity = 90\nSo,\n100% quantity =\n360\n\nApply the next relation:\nThe total overall quantity is calculated as follows:\nTotal sugar stock =\n90 × 100 / 25\n= 360\nTotal sugar stock = 360"
     },
     "hindi": {
-      "stem": "In a district population survey, the total population was 180000. Males were 50% and females were the rest. The male population increased by 20%, while the female population decreased by 10%. Find the final population.",
-      "explanation": "अंतिम जनसंख्या:\nअंतिम जनसंख्या =\n180000 x 50 / 100\n= 90000\nअंतिम जनसंख्या:\nअंतिम जनसंख्या =\n180000 - 90000\n= 90000\nवृद्धि के बाद जनसंख्या:\nवृद्धि के बाद जनसंख्या =\n90000 x (100 + 20) / 100\n= 108000\nकमी के बाद जनसंख्या:\nकमी के बाद जनसंख्या =\n90000 x ( 100 - 10 ) / 100\n= 81000\nअंतिम जनसंख्या:\nअंतिम जनसंख्या =\n108000 + 81000\n= 189000\nअंतिम जनसंख्या = 189000",
+      "stem": "90 kg चीनी कुल स्टॉक का 25% है। कुल स्टॉक ज्ञात कीजिए।",
+      "explanation": "संक्षिप्त विधि:\n25% मात्रा = 90\nतो,\n100% मात्रा =\n360\n\nअगला प्रतिशत संबंध लगाएं:\nकुल मात्रा की गणना इस प्रकार की जाती है:\nकुल चीनी स्टॉक =\n90 × 100 / 25\n= 360\nकुल चीनी स्टॉक = 360",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1873,8 +1873,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a district population survey, the total population was 180000. Males were 50% and females were the rest. The male population increased by 20%, while the female population decreased by 10%. Find the final population.",
-      "explanation": "ਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n180000 x 50 / 100\n= 90000\nਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n180000 - 90000\n= 90000\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n90000 x (100 + 20) / 100\n= 108000\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n90000 x ( 100 - 10 ) / 100\n= 81000\nਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n108000 + 81000\n= 189000\nਅੰਤਿਮ ਆਬਾਦੀ = 189000",
+      "stem": "90 kg ਚੀਨੀ ਕੁੱਲ ਸਟਾਕ ਦਾ 25% ਹੈ। ਕੁੱਲ ਸਟਾਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਸੰਖੇਪ ਵਿਧੀ:\n25% ਮਾਤਰਾ = 90\nਤਾਂ,\n100% ਮਾਤਰਾ =\n360\n\nਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:\nਕੁੱਲ ਮਾਤਰਾ ਦੀ ਗਣਨਾ ਇਸ ਤਰ੍ਹਾਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ:\nਕੁੱਲ ਚੀਨੀ ਸਟਾਕ =\n90 × 100 / 25\n= 360\nਕੁੱਲ ਚੀਨੀ ਸਟਾਕ = 360",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1887,23 +1887,23 @@
   },
   {
     "id": "ml-047",
-    "seed": 5,
-    "subtype": "salary_revision",
-    "category": "finance",
-    "difficulty": "easy",
-    "signature": "salary_revision|6600_6000_increase:10|ans=10",
-    "answer": "10% increase",
+    "seed": 4,
+    "subtype": "restore_original",
+    "category": "base_change",
+    "difficulty": "medium",
+    "signature": "restore_original|decrease:40_60|ans=66.67",
+    "answer": "66.67%",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a salary revision, the salary of an employee changed from 6000 to 6600. Find the percentage change based on the old salary.",
-      "explanation": "Increase in salary:\nIncrease in salary =\n6600 - 6000\n= 600\nPercentage change is:\nPercentage change =\n600 x 100 / 6000\n= 10%\nSalary change = 10% increase"
+      "stem": "Due to an off-season clearance sale, the marked price of a cooking oil tin was reduced by 40% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?",
+      "explanation": "Shortcut:\n60% value = 40\nSo,\n100% value =\n66.67\n\nApply the next relation:\nAfter a 40% reduction, percentage left is:\nRemaining part =\n100 - 40\n= 60%\nRequired increase %:\n40 × 100 / 60\n= 66.67% increase\nRequired increase = 66.67%"
     },
     "hindi": {
-      "stem": "After a salary revision, the salary of an employee changed from 6000 to 6600. Find the percentage change based on the old salary.",
-      "explanation": "वेतन में वृद्धि:\nवेतन में वृद्धि =\n6600 - 6000\n= 600\nप्रतिशत परिवर्तन:\nप्रतिशत परिवर्तन =\n600 x 100 / 6000\n= 10%\nआवश्यक मान = 10% वृद्धि",
+      "stem": "तेल का डिब्बा के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?",
+      "explanation": "संक्षिप्त विधि:\n60% मान = 40\nतो,\n100% मान =\n66.67\n\nअगला प्रतिशत संबंध लगाएं:\nबचा हुआ भाग:\n100 - 40\n= 60%\nआवश्यक वृद्धि:\n40 × 100 / 60\n= 66.67% वृद्धि\nआवश्यक वृद्धि = 66.67%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1914,8 +1914,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a salary revision, the salary of an employee changed from 6000 to 6600. Find the percentage change based on the old salary.",
-      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ:\nਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ =\n6600 - 6000\n= 600\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =\n600 x 100 / 6000\n= 10%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 10% ਵਾਧਾ",
+      "stem": "ਖਾਣੇ ਦੇ ਤੇਲ ਦਾ ਡੱਬਾ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?",
+      "explanation": "ਸੰਖੇਪ ਵਿਧੀ:\n60% ਮੁੱਲ = 40\nਤਾਂ,\n100% ਮੁੱਲ =\n66.67\n\nਅਗਲਾ ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਲਗਾਓ:\nਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:\n100 - 40\n= 60%\nਲੋੜੀਂਦਾ ਵਾਧਾ:\n40 × 100 / 60\n= 66.67% ਵਾਧਾ\nਲੋੜੀਂਦਾ ਵਾਧਾ = 66.67%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1928,23 +1928,23 @@
   },
   {
     "id": "ml-048",
-    "seed": 5,
-    "subtype": "price_consumption",
-    "category": "expenditure",
-    "difficulty": "easy",
-    "signature": "price_consumption|increase:25|ans=20",
-    "answer": "20% reduction",
+    "seed": 4,
+    "subtype": "population_growth",
+    "category": "population",
+    "difficulty": "hard",
+    "signature": "population_growth|layered_population|male_female_population_shift|5_40_160000_416000_10_60_240000_152000_264000_400000|ans=416000",
+    "answer": "416000",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "layered_population",
+      "variant": "male_female_population_shift"
     },
     "english": {
-      "stem": "The unit price of a monthly purchase increased by 25%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "New price after increase:\nNew price after increase =\n100 + 25\n= 125\nFor the same expenditure:\nNew consumption =\n100 x 100 / 125\n= 80\nReduction in consumption is:\nReduction in consumption =\n100 - 80\n= 20% reduction\nReduction in consumption = 20% reduction"
+      "stem": "In an urban-rural population report, the total population was 400000. Males were 60% and females were the rest. The male population increased by 10%, while the female population decreased by 5%. Find the final population.",
+      "explanation": "Male population:\n400000 × 60 / 100\n= 240000\n\nFemale population:\n400000 - 240000\n= 160000\n\nMale population after growth:\n240000 × (100 + 10) / 100\n= 264000\n\nFemale population after reduction:\nFemale population after decrease =\n160000 × ( 100 - 5 ) / 100\n= 152000\n\nFinal population:\n264000 + 152000\n= 416000\n\nFinal population = 416000"
     },
     "hindi": {
-      "stem": "The unit price of a monthly purchase increased by 25%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "नई कीमत:\nनई कीमत =\n100 + 25\n= 125\nसमान खर्च के लिए:\nनई खपत =\n100 x 100 / 125\n= 80\nखपत में कमी:\nखपत में कमी =\n100 - 80\n= 20% कमी\nआवश्यक प्रतिशत = 20% कमी",
+      "stem": "एक जनसंख्या रिपोर्ट में कुल जनसंख्या 400000 थी। पुरुष 60% थे और शेष महिलाएं थीं। पुरुष जनसंख्या 10% बढ़ी, जबकि महिला जनसंख्या 5% घटी। अंतिम जनसंख्या ज्ञात कीजिए।",
+      "explanation": "पुरुष जनसंख्या:\n400000 × 60 / 100\n= 240000\n\nमहिला जनसंख्या:\n400000 - 240000\n= 160000\n\nवृद्धि के बाद पुरुष जनसंख्या:\n240000 × (100 + 10) / 100\n= 264000\n\nकमी के बाद महिला जनसंख्या:\n160000 × ( 100 - 5 ) / 100\n= 152000\n\nअंतिम जनसंख्या:\n264000 + 152000\n= 416000\n\nअंतिम जनसंख्या = 416000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1955,8 +1955,8 @@
       }
     },
     "punjabi": {
-      "stem": "The unit price of a monthly purchase increased by 25%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "ਨਵੀਂ ਕੀਮਤ:\nਨਵੀਂ ਕੀਮਤ =\n100 + 25\n= 125\nਉਸੇ ਖਰਚ ਲਈ:\nਨਵੀਂ ਖਪਤ =\n100 x 100 / 125\n= 80\nਖਪਤ ਵਿੱਚ ਕਮੀ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n100 - 80\n= 20% ਕਮੀ\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 20% ਕਮੀ",
+      "stem": "ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ 400000 ਸੀ। ਮਰਦ 60% ਸਨ ਅਤੇ ਬਾਕੀ ਔਰਤਾਂ ਸਨ। ਮਰਦ ਆਬਾਦੀ 10% ਵਧੀ, ਜਦਕਿ ਔਰਤ ਆਬਾਦੀ 5% ਘਟੀ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਮਰਦ ਆਬਾਦੀ:\n400000 × 60 / 100\n= 240000\n\nਔਰਤ ਆਬਾਦੀ:\n400000 - 240000\n= 160000\n\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਰਦ ਆਬਾਦੀ:\n240000 × (100 + 10) / 100\n= 264000\n\nਕਮੀ ਤੋਂ ਬਾਅਦ ਔਰਤ ਆਬਾਦੀ:\n160000 × ( 100 - 5 ) / 100\n= 152000\n\nਅੰਤਿਮ ਆਬਾਦੀ:\n264000 + 152000\n= 416000\n\nਅੰਤਿਮ ਆਬਾਦੀ = 416000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1969,23 +1969,23 @@
   },
   {
     "id": "ml-049",
-    "seed": 5,
-    "subtype": "profit_loss",
-    "category": "commercial",
+    "seed": 4,
+    "subtype": "salary_revision",
+    "category": "finance",
     "difficulty": "easy",
-    "signature": "profit_loss|200_profit_240|ans=profit:20",
-    "answer": "20% profit",
+    "signature": "salary_revision|12000_10000_increase:20|ans=20",
+    "answer": "20% increase",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 200 and selling price is 240. Find the profit or loss percentage on cost price.",
-      "explanation": "Profit amount:\nProfit amount =\n240 - 200\n= 40\nProfit percentage is:\nProfit percentage =\n40 x 100 / 200\n= 20%\nHence, profit on cost price = 20% profit"
+      "stem": "Following a corporate annual performance review, the monthly salary was revised from ₹10000 to ₹12000. Find the net percentage change relative to the original salary.",
+      "explanation": "Increase in salary:\n12000 - 10000\n= 2000\n\nChange %:\n2000 × 100 / 10000\n= 20\n\nSo, salary change = 20% increase"
     },
     "hindi": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 200 and selling price is 240. Find the profit or loss percentage on cost price.",
-      "explanation": "लाभ:\nलाभ =\n240 - 200\n= 40\nलाभ प्रतिशत:\nलाभ प्रतिशत =\n40 x 100 / 200\n= 20%\nआवश्यक मान = 20% लाभ",
+      "stem": "एक कर्मचारी का वेतन 10000 से बदलकर 12000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "वेतन में बदलाव:\n12000 - 10000\n= 2000\n\nप्रतिशत परिवर्तन:\n2000 × 100 / 10000\n= 20\n\nवेतन में बदलाव = 20%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -1996,8 +1996,8 @@
       }
     },
     "punjabi": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 200 and selling price is 240. Find the profit or loss percentage on cost price.",
-      "explanation": "ਲਾਭ:\nਲਾਭ =\n240 - 200\n= 40\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ:\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ =\n40 x 100 / 200\n= 20%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 20% ਲਾਭ",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 10000 ਤੋਂ ਬਦਲ ਕੇ 12000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:\n12000 - 10000\n= 2000\n\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\n2000 × 100 / 10000\n= 20\n\nਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 20%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2010,23 +2010,23 @@
   },
   {
     "id": "ml-050",
-    "seed": 5,
-    "subtype": "mixture_percentage",
-    "category": "mixture",
-    "difficulty": "medium",
-    "signature": "mixture_percentage|20_30_50_150|ans=90",
-    "answer": "90",
+    "seed": 4,
+    "subtype": "price_consumption",
+    "category": "expenditure",
+    "difficulty": "hard",
+    "signature": "price_consumption|1400_1000_increase:40_2_7000|ans=1000",
+    "answer": "1000% reduction",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a mixture tank, the mixture has 150 units and contains 20% pure component. How much pure component should be added to make it 50% pure?",
-      "explanation": "Water quantity remains unchanged.\nWater quantity =\n150 - 30\n= 120\n\nFinal mixture quantity:\nFinal mixture quantity =\n120 x 100 / ( 100 - 50 )\n= 240\n\nPure component to be added:\nPure component to be added =\n240 - 150\n= 90\n\nPure component to be added = 90"
+      "stem": "Fuel price increased by 40%. If total expenditure is kept the same, by what percent should consumption be reduced?",
+      "explanation": "Price increase multiplier:\n1 + 40 / 100\n= 1.4\n\nExpenditure per unit difference:\n7000 / 2\n= 3500\n\nReduction in consumption = 1000% reduction"
     },
     "hindi": {
-      "stem": "In a mixture tank, the mixture has 150 units and contains 20% pure component. How much pure component should be added to make it 50% pure?",
-      "explanation": "अपरिवर्तित मात्रा:\nअपरिवर्तित मात्रा =\n150 - 30\n= 120\n\nअंतिम मिश्रण:\nअंतिम मिश्रण =\n120 x 100 / ( 100 - 50 )\n= 240\n\nजोड़ी जाने वाली मात्रा:\nजोड़ी जाने वाली मात्रा =\n240 - 150\n= 90\n\nआवश्यक मान = 90",
+      "stem": "ईंधन की कीमत 40% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?",
+      "explanation": "कीमत वृद्धि गुणक:\n1 + 40 / 100\n= 1.4\n\nआवश्यक अंतर:\n7000 / 2\n= 3500\n\nखपत में कमी = 1000%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2037,8 +2037,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a mixture tank, the mixture has 150 units and contains 20% pure component. How much pure component should be added to make it 50% pure?",
-      "explanation": "ਅਣਬਦਲੀ ਮਾਤਰਾ:\nਅਣਬਦਲੀ ਮਾਤਰਾ =\n150 - 30\n= 120\n\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\nਅੰਤਿਮ ਮਿਸ਼ਰਣ =\n120 x 100 / ( 100 - 50 )\n= 240\n\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ:\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ =\n240 - 150\n= 90\n\nਲੋੜੀਂਦਾ ਮੁੱਲ = 90",
+      "stem": "ਈਂਧਨ ਦੀ ਕੀਮਤ 40% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+      "explanation": "ਕੀਮਤ ਵਾਧਾ ਗੁਣਕ:\n1 + 40 / 100\n= 1.4\n\nਲੋੜੀਂਦਾ ਅੰਤਰ:\n7000 / 2\n= 3500\n\nਖਪਤ ਵਿੱਚ ਕਮੀ = 1000%",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2051,23 +2051,23 @@
   },
   {
     "id": "ml-051",
-    "seed": 6,
-    "subtype": "increase_then_decrease",
-    "category": "base_change",
+    "seed": 4,
+    "subtype": "profit_loss",
+    "category": "commercial",
     "difficulty": "medium",
-    "signature": "successive_increase_decrease|110_100_increase:10_decrease:25|ans=82.5",
-    "answer": "82.5",
+    "signature": "profit_loss|360_loss_270|ans=loss:25",
+    "answer": "25% loss",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a warehouse stock audit, the listed price of a product was 100. It first increased by 10% and then decreased by 25%. Find the final value.",
-      "explanation": "After a 10% increase:\nValue after first change =\n100 x 110 / 100\n= 110\nAfter a 25% decrease:\nFinal value =\n110 x 75 / 100\n= 82.5\nTherefore, final value = 82.5"
+      "stem": "A shopkeeper purchased a new mobile phone from a distributor. If the cost price of the mobile phone was ₹360 and its selling price was ₹270, find the net profit or loss percentage.",
+      "explanation": "Loss amount:\n360 - 270\n= 90\n\nLoss %:\n90 × 100 / 360\n= 25\n\nThe negative value indicates a loss over the cost price.\nHence, loss on cost price = 25% loss"
     },
     "hindi": {
-      "stem": "In a warehouse stock audit, the listed price of a product was 100. It first increased by 10% and then decreased by 25%. Find the final value.",
-      "explanation": "10% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n100 x 110 / 100\n= 110\n25% कमी के बाद:\nअंतिम मान =\n110 x 75 / 100\n= 82.5\nआवश्यक मान = 82.5",
+      "stem": "एक दुकानदार ने मोबाइल फोन ₹360 में खरीदा और ₹270 में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "explanation": "हानि:\n360 - 270\n= 90\n\nहानि प्रतिशत:\n90 × 100 / 360\n= 25\n\nऋणात्मक मान लागत मूल्य पर हानि को दर्शाता है।\nहानि प्रतिशत = 25% हानि",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2078,8 +2078,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a warehouse stock audit, the listed price of a product was 100. It first increased by 10% and then decreased by 25%. Find the final value.",
-      "explanation": "10% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n100 x 110 / 100\n= 110\n25% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n110 x 75 / 100\n= 82.5\nਲੋੜੀਂਦਾ ਮੁੱਲ = 82.5",
+      "stem": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਮੋਬਾਈਲ ਫੋਨ ₹360 ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹270 ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਨੁਕਸਾਨ:\n360 - 270\n= 90\n\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ:\n90 × 100 / 360\n= 25\n\nਨਕਾਰਾਤਮਕ ਮੁੱਲ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਨੁਕਸਾਨ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 25% ਨੁਕਸਾਨ",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2092,23 +2092,23 @@
   },
   {
     "id": "ml-052",
-    "seed": 6,
-    "subtype": "election_margin",
-    "category": "election",
-    "difficulty": "hard",
-    "signature": "election_margin|effective_percentage|filtered_valid_vote_margin|30_20_35_882000_756000_5250000_60_80_2520000_3150000_65_1638000|ans=1638000",
-    "answer": "1638000",
+    "seed": 4,
+    "subtype": "mixture_percentage",
+    "category": "mixture",
+    "difficulty": "easy",
+    "signature": "mixture_percentage|25_50_40_200|ans=50",
+    "answer": "50",
     "topology": {
-      "family": "effective_percentage",
-      "variant": "filtered_valid_vote_margin"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "In a municipal election, 60% of the registered voters voted and 80% of those votes were valid. The winner got 65% of the valid votes. The margin between the two candidates was 756000 votes. Find the winner's votes.",
-      "explanation": "Effective valid votes:\nEffective valid votes =\n756000 x 100 / 30\n= 2520000\nWinner's votes are:\nWinner's votes =\n2520000 x 65 / 100\n= 1638000\nTherefore, winner's votes = 1638000"
+      "stem": "In a milk-water mixture, total quantity is 200 litres and milk is 25%. How much milk is needed to make milk 40% of the mixture?",
+      "explanation": "Water remains unchanged.\nWater quantity =\n200 - 50\n= 150\nFinal mixture quantity:\n150 × 100 / ( 100 - 40 )\n= 250\nMilk to be added:\n250 - 200\n= 50\nMilk to be added = 50"
     },
     "hindi": {
-      "stem": "In a municipal election, 60% of the registered voters voted and 80% of those votes were valid. The winner got 65% of the valid votes. The margin between the two candidates was 756000 votes. Find the winner's votes.",
-      "explanation": "कुल वैध वोट:\nकुल वैध वोट =\n756000 x 100 / 30\n= 2520000\nकुल वोट:\nकुल वोट =\n2520000 x 65 / 100\n= 1638000\nकुल वोट = 1638000",
+      "stem": "एक दूध-पानी मिश्रण की मात्रा 200 लीटर है और उसमें 25% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?",
+      "explanation": "पानी की मात्रा समान रहेगी।\nपानी की मात्रा =\n200 - 50\n= 150\nअंतिम मिश्रण:\n150 × 100 / ( 100 - 40 )\n= 250\nडाला जाने वाला दूध:\n250 - 200\n= 50\nडाला जाने वाला दूध = 50",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2119,8 +2119,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a municipal election, 60% of the registered voters voted and 80% of those votes were valid. The winner got 65% of the valid votes. The margin between the two candidates was 756000 votes. Find the winner's votes.",
-      "explanation": "ਕੁੱਲ ਵੈਧ ਵੋਟ:\nਕੁੱਲ ਵੈਧ ਵੋਟ =\n756000 x 100 / 30\n= 2520000\nਕੁੱਲ ਵੋਟ:\nਕੁੱਲ ਵੋਟ =\n2520000 x 65 / 100\n= 1638000\nਕੁੱਲ ਵੋਟ = 1638000",
+      "stem": "ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 200 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+      "explanation": "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।\nਪਾਣੀ ਦੀ ਮਾਤਰਾ =\n200 - 50\n= 150\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\n150 × 100 / ( 100 - 40 )\n= 250\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:\n250 - 200\n= 50\nਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 50",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2133,23 +2133,23 @@
   },
   {
     "id": "ml-053",
-    "seed": 6,
-    "subtype": "pass_fail",
+    "seed": 4,
+    "subtype": "relational_percentage",
     "category": "comparison",
-    "difficulty": "medium",
-    "signature": "pass_fail|base_shift|successive_mark_adjustment|55_15_5_60_40_75_1500|ans=1500",
-    "answer": "1500",
+    "difficulty": "hard",
+    "signature": "relational_percentage|reverse_relation|reverse_relation_inference|125_62.5_100_62.5_1_125_25_0_50_50_2|ans=decrease:37.5",
+    "answer": "37.5% less",
     "topology": {
-      "family": "base_shift",
-      "variant": "successive_mark_adjustment"
+      "family": "reverse_relation",
+      "variant": "reverse_relation_inference"
     },
     "english": {
-      "stem": "In a recruitment test, a candidate first scored 40% marks. After adding a bonus of 15%, the score was still short of the pass mark by 75 marks. The pass mark was 60%. Find the maximum marks.",
-      "explanation": "Adjusted score =\n40 + 15\n= 55\nPass mark difference =\n60 - 55\n= 5\nMaximum marks =\n75 x 100 / 5\n= 1500\nHence, maximum marks in the test = 1500"
+      "stem": "A's income is 25% more than B's income. B's income is 50% less than C's income. Find by what percent A's income is more or less than C's income.",
+      "explanation": "Assume C's income = 100.\nSince B is 50% less than C, B = 100 x 50 / 100 = 50.\nSince A is 25% more than B, A = 50 x 125 / 100 = 62.5.\nCompared with C = 100, A is 37.5% less."
     },
     "hindi": {
-      "stem": "In a recruitment test, a candidate first scored 40% marks. After adding a bonus of 15%, the score was still short of the pass mark by 75 marks. The pass mark was 60%. Find the maximum marks.",
-      "explanation": "प्राप्त अंक =\n40 + 15\n= 55\nपास अंक का अंतर =\n60 - 55\n= 5\nअधिकतम अंक =\n75 x 100 / 5\n= 1500\nअधिकतम अंक = 1500",
+      "stem": "A की आय B से 25% अधिक है। B की आय C से 50% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?",
+      "explanation": "मान लें C की आय = 100।\nB, C से 50% कम है, इसलिए B = 100 x 50 / 100 = 50।\nA, B से 25% अधिक है, इसलिए A = 50 x 125 / 100 = 62.5।\nC = 100 की तुलना में A 37.5% कम है।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2160,8 +2160,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a recruitment test, a candidate first scored 40% marks. After adding a bonus of 15%, the score was still short of the pass mark by 75 marks. The pass mark was 60%. Find the maximum marks.",
-      "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ =\n40 + 15\n= 55\nਪਾਸ ਅੰਕਾਂ ਦਾ ਅੰਤਰ =\n60 - 55\n= 5\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n75 x 100 / 5\n= 1500\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1500",
+      "stem": "A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+      "explanation": "ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।\nB, C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 50 / 100 = 50।\nA, B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 50 x 125 / 100 = 62.5।\nC = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 37.5% ਘੱਟ ਹੈ।",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2174,23 +2174,23 @@
   },
   {
     "id": "ml-054",
-    "seed": 6,
-    "subtype": "reverse_percentage",
-    "category": "base_change",
+    "seed": 4,
+    "subtype": "taxation",
+    "category": "commercial",
     "difficulty": "medium",
-    "signature": "reverse_percentage|5_5|ans=100",
-    "answer": "100",
+    "signature": "taxation|80000_20_25_4000|ans=4000",
+    "answer": "4000",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a warehouse stock audit, the sold quantity is 5, which is 5% of the total. Find the total value represented by 100%.",
-      "explanation": "Total quantity is:\nTotal quantity =\n5 x 100 / 5\n= 100\nHence, total quantity for the record = 100"
+      "stem": "The income tax rate is reduced from 25% to 20%. As a result, a person's tax liability decreases by ₹4000. Find the total taxable income of the person.",
+      "explanation": "Difference in tax rates:\nTax rate difference =\n25 - 20\n= 5%\nTotal tax difference:\nRequired answer =\n4000 × 100 / 5\n= 80000\nTherefore, final value = 4000"
     },
     "hindi": {
-      "stem": "In a warehouse stock audit, the sold quantity is 5, which is 5% of the total. Find the total value represented by 100%.",
-      "explanation": "कुल मान:\nकुल मान =\n5 x 100 / 5\n= 100\nआवश्यक मान = 100",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आवश्यक अंतर:\n25 - 20\n= 5%\nआवश्यक अंतर:\nआवश्यक मान =\n4000 × 100 / 5\n= 80000\nअंतिम मान = 4000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2201,8 +2201,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a warehouse stock audit, the sold quantity is 5, which is 5% of the total. Find the total value represented by 100%.",
-      "explanation": "ਕੁੱਲ ਮੁੱਲ:\nਕੁੱਲ ਮੁੱਲ =\n5 x 100 / 5\n= 100\nਲੋੜੀਂਦਾ ਮੁੱਲ = 100",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਲੋੜੀਂਦਾ ਅੰਤਰ:\n25 - 20\n= 5%\nਲੋੜੀਂਦਾ ਅੰਤਰ:\nਲੋੜੀਂਦਾ ਮੁੱਲ =\n4000 × 100 / 5\n= 80000\nਅੰਤਿਮ ਮੁੱਲ = 4000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2215,23 +2215,23 @@
   },
   {
     "id": "ml-055",
-    "seed": 6,
-    "subtype": "restore_original",
-    "category": "base_change",
-    "difficulty": "easy",
-    "signature": "restore_original|decrease:10_90|ans=11.11",
-    "answer": "11.11%",
+    "seed": 4,
+    "subtype": "commission",
+    "category": "commercial",
+    "difficulty": "hard",
+    "signature": "commission|10_15000_2_4500_40000|ans=4500",
+    "answer": "4500",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a discount, the price of a machine was reduced by 10% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "Shortcut:\n90% value = 10\nSo,\n100% value =\n11.11\n\nAfter a 10% reduction, percentage left is:\nRemaining percentage =\n100 - 10\n= 90%\nHence, increase needed to restore the value = 11.11%"
+      "stem": "A salesman gets a commission of 10% on total sales up to ₹15000 and an additional bonus of 2% on sales above this amount. If his total commission is ₹4500, find his total sales.",
+      "explanation": "Commission on base sales:\nBase commission =\n15000 × 10 / 100\n= 1500\n\nSales above base quota:\nDifference =\n40000 - 15000\n= 25000\n\nTotal commission rate on excess sales:\nCombined total =\n10 + 2\n= 12\n\nCommission on excess sales:\nBonus commission =\n25000 × 12 / 100\n= 3000\n\nThe combined value is:\nTotal commission =\n1500 + 3000\n= 4500\n\nHence, final value = 4500"
     },
     "hindi": {
-      "stem": "After a discount, the price of a machine was reduced by 10% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "शॉर्टकट:\n90% मान = 10\nतो,\n100% मान =\n11.11\n\nशेष मान:\nशेष मान =\n100 - 10\n= 90%\nआवश्यक वृद्धि:",
+      "stem": "एक कर्मचारी का वेतन  से बदलकर  हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "explanation": "आधार बिक्री पर कमीशन:\nआधार कमीशन =\n15000 × 10 / 100\n= 1500\n\nआधार से ऊपर अतिरिक्त बिक्री:\nआवश्यक अंतर =\n40000 - 15000\n= 25000\n\nकुल कमीशन:\nसंयुक्त कुल =\n10 + 2\n= 12\n\nअतिरिक्त बिक्री पर कमीशन:\nबोनस कमीशन =\n25000 × 12 / 100\n= 3000\n\nसंयुक्त मान है:\nकुल कमीशन =\n1500 + 3000\n= 4500\n\nअंतिम मान = 4500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2242,8 +2242,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a discount, the price of a machine was reduced by 10% from its original level. By what percent should it be increased to restore the original level?",
-      "explanation": "ਸ਼ਾਰਟਕੱਟ:\n90% ਮੁੱਲ = 10\nਸੋ,\n100% ਮੁੱਲ =\n11.11\n\nਬਾਕੀ ਮੁੱਲ:\nਬਾਕੀ ਮੁੱਲ =\n100 - 10\n= 90%\nਲੋੜੀਂਦਾ ਵਾਧਾ:",
+      "stem": "ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ  ਤੋਂ ਬਦਲ ਕੇ  ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਆਧਾਰ ਕਮਿਸ਼ਨ =\n15000 × 10 / 100\n= 1500\n\nਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:\nਲੋੜੀਂਦਾ ਅੰਤਰ =\n40000 - 15000\n= 25000\n\nਕੁੱਲ ਕਮਿਸ਼ਨ:\nਸੰਯੁਕਤ ਕੁੱਲ =\n10 + 2\n= 12\n\nਵਾਧੂ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:\nਬੋਨਸ ਕਮਿਸ਼ਨ =\n25000 × 12 / 100\n= 3000\n\nਸੰਯੁਕਤ ਮੁੱਲ ਹੈ:\nਕੁੱਲ ਕਮਿਸ਼ਨ =\n1500 + 3000\n= 4500\n\nਅੰਤਿਮ ਮੁੱਲ = 4500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2256,23 +2256,23 @@
   },
   {
     "id": "ml-056",
-    "seed": 6,
-    "subtype": "population_growth",
-    "category": "population",
+    "seed": 4,
+    "subtype": "venn_diagram",
+    "category": "data_interpretation",
     "difficulty": "medium",
-    "signature": "population_growth|layered_population|migration_adjusted_population|172500_180000_increase:15_7500_5_150000|ans=180000",
-    "answer": "180000",
+    "signature": "venn_diagram|10_250_25_45_40_1000|ans=1000",
+    "answer": "1000",
     "topology": {
-      "family": "layered_population",
-      "variant": "migration_adjusted_population"
+      "family": null,
+      "variant": null
     },
     "english": {
-      "stem": "According to a census report, the population was 150000. It increased by 15%. In addition, people equal to 5% of the original population migrated in. Find the final population.",
-      "explanation": "Population after increase:\nPopulation after increase =\n150000 x 115 / 100\n= 172500\nPopulation added by migration:\nPopulation added by migration =\n150000 x 5 / 100\n= 7500\nFinal population after migration:\nFinal population after migration =\n172500 + 7500\n= 180000\nHence, final population = 180000"
+      "stem": "In an examination, 45% of students failed in Mathematics, 40% failed in English, and 10% failed in both. If 250 students passed in both subjects, find the total number of students who appeared for the exam.",
+      "explanation": "Percentage for at least one category:\nPercentage in at least one subject =\n45 + 40 - 10\n= 75%\nPercentage in neither category:\nPercentage failing both subjects =\n100 - 75\n= 25%\nTotal students:\n250 × 100 / 25\n= 1000\nHence, final value = 1000"
     },
     "hindi": {
-      "stem": "According to a census report, the population was 150000. It increased by 15%. In addition, people equal to 5% of the original population migrated in. Find the final population.",
-      "explanation": "वृद्धि के बाद जनसंख्या:\nवृद्धि के बाद जनसंख्या =\n150000 x 115 / 100\n= 172500\nअंतिम जनसंख्या:\nअंतिम जनसंख्या =\n150000 x 5 / 100\n= 7500\nअंतिम जनसंख्या:\nअंतिम जनसंख्या =\n172500 + 7500\n= 180000\nअंतिम जनसंख्या = 180000",
+      "stem": "एक परीक्षा में 45% छात्र गणित में अनुत्तीर्ण हुए, 40% अंग्रेजी में अनुत्तीर्ण हुए, और 10% दोनों में अनुत्तीर्ण हुए। यदि 250 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।",
+      "explanation": "कम से कम एक विषय में प्रतिशत:\n45 + 40 - 10\n= 75%\nदोनों विषयों में फेल प्रतिशत:\n100 - 75\n= 25%\nकुल छात्र:\n250 × 100 / 25\n= 1000\nअंतिम मान = 1000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2283,8 +2283,8 @@
       }
     },
     "punjabi": {
-      "stem": "According to a census report, the population was 150000. It increased by 15%. In addition, people equal to 5% of the original population migrated in. Find the final population.",
-      "explanation": "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:\nਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ =\n150000 x 115 / 100\n= 172500\nਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n150000 x 5 / 100\n= 7500\nਅੰਤਿਮ ਆਬਾਦੀ:\nਅੰਤਿਮ ਆਬਾਦੀ =\n172500 + 7500\n= 180000\nਅੰਤਿਮ ਆਬਾਦੀ = 180000",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 45% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 40% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 10% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 250 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:\n45 + 40 - 10\n= 75%\nਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਫੇਲ੍ਹ ਪ੍ਰਤੀਸ਼ਤ:\n100 - 75\n= 25%\nਕੁੱਲ ਵਿਦਿਆਰਥੀ:\n250 × 100 / 25\n= 1000\nਅੰਤਿਮ ਮੁੱਲ = 1000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2297,23 +2297,23 @@
   },
   {
     "id": "ml-057",
-    "seed": 6,
-    "subtype": "salary_revision",
-    "category": "finance",
+    "seed": 5,
+    "subtype": "increase_then_decrease",
+    "category": "base_change",
     "difficulty": "easy",
-    "signature": "salary_revision|4200_4000_increase:5|ans=5",
-    "answer": "5% increase",
+    "signature": "successive_increase_decrease|240_200_increase:20_decrease:10|ans=216",
+    "answer": "216",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "After a salary revision, the salary of an employee changed from 4000 to 4200. Find the percentage change based on the old salary.",
-      "explanation": "Increase in salary:\nIncrease in salary =\n4200 - 4000\n= 200\nPercentage change is:\nPercentage change =\n200 x 100 / 4000\n= 5%\nHence, salary revision = 5% increase"
+      "stem": "The marked price of a mobile phone was ₹200. It first increased by 20% and then decreased by 10%. What will be the final price of the mobile phone?",
+      "explanation": "After a 20% increase:\nValue after first change =\n200 x 120 / 100\n= 240\n\nAfter a 10% decrease:\nFinal value =\n240 x 90 / 100\n= 216\n\nFinal value = 216"
     },
     "hindi": {
-      "stem": "After a salary revision, the salary of an employee changed from 4000 to 4200. Find the percentage change based on the old salary.",
-      "explanation": "वेतन में वृद्धि:\nवेतन में वृद्धि =\n4200 - 4000\n= 200\nप्रतिशत परिवर्तन:\nप्रतिशत परिवर्तन =\n200 x 100 / 4000\n= 5%\nआवश्यक मान = 5% वृद्धि",
+      "stem": "मोबाइल फोन का मूल्य ₹200 था। इसमें पहले 20% वृद्धि और फिर 10% कमी हुई। अंतिम मूल्य ज्ञात कीजिए।",
+      "explanation": "20% वृद्धि के बाद:\nपहले बदलाव के बाद मान =\n200 x 120 / 100\n= 240\n\n10% कमी के बाद:\nअंतिम मान =\n240 x 90 / 100\n= 216\n\nअंतिम मान = 216",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2324,8 +2324,8 @@
       }
     },
     "punjabi": {
-      "stem": "After a salary revision, the salary of an employee changed from 4000 to 4200. Find the percentage change based on the old salary.",
-      "explanation": "ਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ:\nਤਨਖਾਹ ਵਿੱਚ ਵਾਧਾ =\n4200 - 4000\n= 200\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:\nਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ =\n200 x 100 / 4000\n= 5%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 5% ਵਾਧਾ",
+      "stem": "ਮੋਬਾਈਲ ਫੋਨ ਦੀ ਕੀਮਤ ₹200 ਸੀ। ਪਹਿਲਾਂ 20% ਵਾਧਾ ਅਤੇ ਫਿਰ 10% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "explanation": "20% ਵਾਧੇ ਤੋਂ ਬਾਅਦ:\nਪਹਿਲੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਮੁੱਲ =\n200 x 120 / 100\n= 240\n\n10% ਕਮੀ ਤੋਂ ਬਾਅਦ:\nਅੰਤਿਮ ਮੁੱਲ =\n240 x 90 / 100\n= 216\n\nਅੰਤਿਮ ਮੁੱਲ = 216",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2338,23 +2338,23 @@
   },
   {
     "id": "ml-058",
-    "seed": 6,
-    "subtype": "price_consumption",
-    "category": "expenditure",
-    "difficulty": "easy",
-    "signature": "price_consumption|increase:10|ans=9.09",
-    "answer": "9.09% reduction",
+    "seed": 5,
+    "subtype": "election_margin",
+    "category": "election",
+    "difficulty": "medium",
+    "signature": "election_margin|remaining_component|remaining_vote_margin|20_12_12000_34_60000_54|ans=60000",
+    "answer": "60000",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "remaining_component",
+      "variant": "remaining_vote_margin"
     },
     "english": {
-      "stem": "The unit price of a monthly purchase increased by 10%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "Direct relation:\nReduction in consumption =\n10 x 100 / (100 + 10)\n= 9.09% reduction\n\nHence, required reduction = 9.09% reduction"
+      "stem": "In an employee union election, the winning candidate got 54% of the votes and another candidate got 12%. The remaining votes went to a third candidate. The winning candidate defeated the third candidate by 12000 votes. Find the total number of votes.",
+      "explanation": "Remaining candidate's vote share:\nVotes remaining for other candidates =\n100 - 54 - 12\n= 34\nWinning margin:\nRemaining vote share =\n54 - 34\n= 20%\nTotal votes are:\n12000 × 100 / 20\n= 60000\nHence, total votes polled = 60000"
     },
     "hindi": {
-      "stem": "The unit price of a monthly purchase increased by 10%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "सीधा संबंध:\nखपत में कमी =\n10 x 100 / (100 + 10)\n= 9.09% कमी\n\nआवश्यक प्रतिशत = 9.09% कमी",
+      "stem": "एक निर्वाचन में विजयी उम्मीदवार को 54% वोट और दूसरे प्रत्याशी को 12% वोट मिले। शेष वोट तीसरे प्रत्याशी को मिले। विजयी उम्मीदवार ने तीसरे प्रत्याशी को 12000 वोटों से हराया। कुल वोट ज्ञात कीजिए।",
+      "explanation": "जीत का अंतर:\nअन्य उम्मीदवारों के वोट =\n100 - 54 - 12\n= 34\nजीत का अंतर:\nमार्जिन प्रतिशत =\n54 - 34\n= 20%\nकुल वोट:\n12000 × 100 / 20\n= 60000\nकुल डाले गए वोट = 60000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2365,8 +2365,8 @@
       }
     },
     "punjabi": {
-      "stem": "The unit price of a monthly purchase increased by 10%. If total expenditure is kept the same, by what percent should consumption be reduced?",
-      "explanation": "ਸਿੱਧਾ ਸੰਬੰਧ:\nਖਪਤ ਵਿੱਚ ਕਮੀ =\n10 x 100 / (100 + 10)\n= 9.09% ਕਮੀ\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = 9.09% ਕਮੀ",
+      "stem": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 54% ਵੋਟ ਅਤੇ ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੂੰ 12% ਵੋਟ ਮਿਲੇ। ਬਾਕੀ ਵੋਟ ਤੀਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਤੀਜੇ ਨੂੰ 12000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਜਿੱਤ ਦਾ ਅੰਤਰ:\nਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =\n100 - 54 - 12\n= 34\nਜਿੱਤ ਦਾ ਅੰਤਰ:\nਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =\n54 - 34\n= 20%\nਕੁੱਲ ਵੋਟ:\n12000 × 100 / 20\n= 60000\nਕੁੱਲ ਪਏ ਵੋਟ = 60000",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2379,23 +2379,23 @@
   },
   {
     "id": "ml-059",
-    "seed": 6,
-    "subtype": "profit_loss",
-    "category": "commercial",
-    "difficulty": "easy",
-    "signature": "profit_loss|100_loss_90|ans=loss:10",
-    "answer": "10% loss",
+    "seed": 5,
+    "subtype": "pass_fail",
+    "category": "comparison",
+    "difficulty": "hard",
+    "signature": "pass_fail|successive_filtering|remaining_marks_required|250_50_30_13_65_215_43_150_60_500|ans=500",
+    "answer": "500",
     "topology": {
-      "family": null,
-      "variant": null
+      "family": "successive_filtering",
+      "variant": "remaining_marks_required"
     },
     "english": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 100 and selling price is 90. Find the profit or loss percentage on cost price.",
-      "explanation": "Loss amount:\nLoss amount =\n100 - 90\n= 10\nLoss percentage is:\nLoss percentage =\n10 x 100 / 100\n= 10%\nHence, loss on cost price = 10% loss"
+      "stem": "In a screening test, 50% of the paper has been evaluated. A student scored 60% of those marks. To secure 43% overall, the student still needs 65 marks. Find the maximum marks.",
+      "explanation": "Marks already secured:\n50 × 60 / 100\n= 30\n\nRequired percentage gap:\n43 - 30\n= 13%\n\nMaximum marks are:\n65 × 100 / 13\n= 500\n\nThus, maximum marks = 500"
     },
     "hindi": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 100 and selling price is 90. Find the profit or loss percentage on cost price.",
-      "explanation": "हानि:\nहानि =\n100 - 90\n= 10\nहानि प्रतिशत:\nहानि प्रतिशत =\n10 x 100 / 100\n= 10%\nआवश्यक मान = 10% हानि",
+      "stem": "एक परीक्षा में 50% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 43% अंक पाने के लिए उसे अभी 65 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "प्राप्त अंक:\n50 × 60 / 100\n= 30\n\nआवश्यक प्रतिशत अंतर:\n43 - 30\n= 13%\n\nअधिकतम अंक:\n65 × 100 / 13\n= 500\n\nअधिकतम अंक = 500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2406,8 +2406,8 @@
       }
     },
     "punjabi": {
-      "stem": "A shopkeeper sold an appliance. Its cost price is 100 and selling price is 90. Find the profit or loss percentage on cost price.",
-      "explanation": "ਨੁਕਸਾਨ:\nਨੁਕਸਾਨ =\n100 - 90\n= 10\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ:\nਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ =\n10 x 100 / 100\n= 10%\nਲੋੜੀਂਦਾ ਮੁੱਲ = 10% ਨੁਕਸਾਨ",
+      "stem": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 50% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 43% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 65 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਪ੍ਰਾਪਤ ਅੰਕ:\n50 × 60 / 100\n= 30\n\nਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:\n43 - 30\n= 13%\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:\n65 × 100 / 13\n= 500\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 500",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2420,23 +2420,23 @@
   },
   {
     "id": "ml-060",
-    "seed": 6,
-    "subtype": "mixture_percentage",
-    "category": "mixture",
+    "seed": 5,
+    "subtype": "reverse_percentage",
+    "category": "base_change",
     "difficulty": "easy",
-    "signature": "mixture_percentage|20_20_40_100|ans=33.33",
-    "answer": "33.33",
+    "signature": "reverse_percentage|40_20|ans=200",
+    "answer": "200",
     "topology": {
       "family": null,
       "variant": null
     },
     "english": {
-      "stem": "In a milk-water mixture, the mixture has 100 units and contains 20% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "Water quantity remains unchanged.\nWater quantity =\n100 - 20\n= 80\nFinal mixture quantity:\nFinal mixture quantity =\n80 x 100 / ( 100 - 40 )\n= 133.33\nPure component to be added:\nPure component to be added =\n133.33 - 100\n= 33.33\nThus, pure component to be added = 33.33"
+      "stem": "In a competitive engineering entrance examination, a candidate secured 40 marks, which corresponds to exactly 20% of the maximum aggregate marks. What are the maximum aggregate marks of the test?",
+      "explanation": "The total overall quantity is calculated as follows:\nMaximum marks =\n40 × 100 / 20\n= 200\n\nMaximum marks = 200"
     },
     "hindi": {
-      "stem": "In a milk-water mixture, the mixture has 100 units and contains 20% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "अपरिवर्तित मात्रा:\nअपरिवर्तित मात्रा =\n100 - 20\n= 80\nअंतिम मिश्रण:\nअंतिम मिश्रण =\n80 x 100 / ( 100 - 40 )\n= 133.33\nजोड़ी जाने वाली मात्रा:\nजोड़ी जाने वाली मात्रा =\n133.33 - 100\n= 33.33\nआवश्यक मान = 33.33",
+      "stem": "एक विद्यार्थी ने 40 अंक प्राप्त किए, जो अधिकतम अंकों के 20% हैं। अधिकतम अंक ज्ञात कीजिए।",
+      "explanation": "कुल मात्रा की गणना इस प्रकार की जाती है:\nअधिकतम अंक =\n40 × 100 / 20\n= 200\n\nअधिकतम अंक = 200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,
@@ -2447,8 +2447,8 @@
       }
     },
     "punjabi": {
-      "stem": "In a milk-water mixture, the mixture has 100 units and contains 20% pure component. How much pure component should be added to make it 40% pure?",
-      "explanation": "ਅਣਬਦਲੀ ਮਾਤਰਾ:\nਅਣਬਦਲੀ ਮਾਤਰਾ =\n100 - 20\n= 80\nਅੰਤਿਮ ਮਿਸ਼ਰਣ:\nਅੰਤਿਮ ਮਿਸ਼ਰਣ =\n80 x 100 / ( 100 - 40 )\n= 133.33\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ:\nਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ =\n133.33 - 100\n= 33.33\nਲੋੜੀਂਦਾ ਮੁੱਲ = 33.33",
+      "stem": "ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 40 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 20% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+      "explanation": "ਕੁੱਲ ਮਾਤਰਾ ਦੀ ਗਣਨਾ ਇਸ ਤਰ੍ਹਾਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ:\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =\n40 × 100 / 20\n= 200\n\nਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200",
       "metrics": {
         "localizationCoverage": 100,
         "missingIntentCount": 0,

@@ -1184,6 +1184,15 @@ router.post(
           });
       }
 
+      const isMigratedQuantV2Pattern =
+        pattern.generationDomain ===
+          "quant-v2-profit-loss" ||
+        pattern.generationDomain ===
+          "quant-v2-interest" ||
+        /profit[_ -]?loss|discount|simple[_ -]?interest|compound[_ -]?interest|\binterest\b|\bsi[_ -]?ci\b/i.test(
+          `${pattern.topic ?? ""} ${pattern.subtopic ?? ""} ${pattern.id ?? ""}`,
+        );
+
       if (
         pattern.type === "di" &&
         !pattern.diPattern
@@ -1221,8 +1230,11 @@ router.post(
             enableNameClash:
               Boolean(enableNameClash),
             useScheduler:
-              Boolean(useScheduler) &&
-              Number(count) > 1,
+              Number(count) > 1 &&
+              (
+                Boolean(useScheduler) ||
+                isMigratedQuantV2Pattern
+              ),
             schedulerProfile:
               typeof schedulerProfile ===
               "string"

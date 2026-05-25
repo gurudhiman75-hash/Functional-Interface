@@ -1,0 +1,157 @@
+{
+  "summary": {
+    "multi_entity_distribution": {
+      "questions": 477,
+      "distractors_checked": 1908,
+      "near_miss_fraction": 0.365,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "unknown": {
+      "questions": 14860,
+      "distractors_checked": 50317,
+      "near_miss_fraction": 0.203,
+      "trivial_fraction": 0.015,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "filtered_base": {
+      "questions": 502,
+      "distractors_checked": 2008,
+      "near_miss_fraction": 0.389,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "base_shift": {
+      "questions": 1343,
+      "distractors_checked": 5372,
+      "near_miss_fraction": 0.511,
+      "trivial_fraction": 0.009,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Distractors reasonable"
+    },
+    "direct_mapping": {
+      "questions": 1732,
+      "distractors_checked": 6928,
+      "near_miss_fraction": 0.453,
+      "trivial_fraction": 0.005,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Distractors reasonable"
+    },
+    "layered_population": {
+      "questions": 1346,
+      "distractors_checked": 5384,
+      "near_miss_fraction": 0.868,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Distractors reasonable"
+    },
+    "effective_percentage": {
+      "questions": 507,
+      "distractors_checked": 2028,
+      "near_miss_fraction": 0.5,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Distractors reasonable"
+    },
+    "multi_entity_percentage_network": {
+      "questions": 789,
+      "distractors_checked": 0,
+      "near_miss_fraction": 0.0,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "successive_filtering": {
+      "questions": 1372,
+      "distractors_checked": 5488,
+      "near_miss_fraction": 0.409,
+      "trivial_fraction": 0.014,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Distractors reasonable"
+    },
+    "reverse_relation": {
+      "questions": 748,
+      "distractors_checked": 0,
+      "near_miss_fraction": 0.0,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "inverse_percentage_mapping": {
+      "questions": 548,
+      "distractors_checked": 0,
+      "near_miss_fraction": 0.0,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "remaining_component": {
+      "questions": 488,
+      "distractors_checked": 1952,
+      "near_miss_fraction": 0.384,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "relational_chain": {
+      "questions": 1073,
+      "distractors_checked": 0,
+      "near_miss_fraction": 0.0,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "percentage_ratio_hybrid": {
+      "questions": 494,
+      "distractors_checked": 0,
+      "near_miss_fraction": 0.0,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "hidden_total": {
+      "questions": 694,
+      "distractors_checked": 2776,
+      "near_miss_fraction": 0.463,
+      "trivial_fraction": 0.016,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Distractors reasonable"
+    },
+    "none": {
+      "questions": 2942,
+      "distractors_checked": 11408,
+      "near_miss_fraction": 0.213,
+      "trivial_fraction": 0.016,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    },
+    "profit_loss_discount": {
+      "questions": 320,
+      "distractors_checked": 558,
+      "near_miss_fraction": 0.005,
+      "trivial_fraction": 0.0,
+      "ugly_decimal_fraction": 0.0,
+      "avg_eliminate_risk": null,
+      "suggestion": "Increase near-miss distractors"
+    }
+  }
+}

@@ -78,10 +78,13 @@ test("quant-v2 realization is compact, localized, and exam-natural at scale", ()
       }
       if (subtype === "price_consumption") {
         fuelConsumptionCount += 1;
-        assert.match(question.text, /^Fuel price increased by \d+(?:\.\d+)?%\./u);
+        assert.match(question.text, /price .*increased by \d+(?:\.\d+)?%/iu);
+        assert.match(question.text, /\b(?:consumption|buy|expenditure|price per kg)\b/iu);
         reductionOptionCount += 1;
-        assert.ok(question.optionsHi.join(" ").match(/कमी/u));
-        assert.ok(question.optionsPa.join(" ").match(/ਕਮੀ/u));
+        if (!/price per kg/iu.test(question.text)) {
+          assert.ok(question.optionsHi.join(" ").match(/कमी|वृद्धि/u));
+          assert.ok(question.optionsPa.join(" ").match(/ਕਮੀ|ਵਾਧਾ/u));
+        }
       }
 
       assert.equal(

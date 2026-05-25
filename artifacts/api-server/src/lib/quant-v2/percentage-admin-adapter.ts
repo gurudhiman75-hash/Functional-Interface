@@ -47,6 +47,9 @@ import {
   createDistractorIntelligence,
   validateDistractorIntelligence,
 } from "../../quant-v2/quality/distractor-intelligence";
+import {
+  validatePercentageIndependentSolver,
+} from "../../quant-v2/validators/percentage-independent-solver";
 
 type QuantV2FactoryKey = keyof typeof PERCENTAGE_MOTIF_FACTORIES;
 
@@ -78,6 +81,26 @@ const LEGACY_MOTIF_TO_FACTORY: Record<string, QuantV2FactoryKey> = {
   perc_relational_chain: "relationalPercentage",
   perc_reverse_relation: "relationalPercentage",
   perc_ratio_percentage_hybrid: "relationalPercentage",
+  perc_venn_diagram: "vennDiagram",
+  perc_taxation: "taxation",
+  perc_commission: "commission",
+  perc_geom_dimensional_scale: "perc_geom_dimensional_scale",
+  perc_demo_cross_tab_literacy: "perc_demo_cross_tab_literacy",
+  perc_budget_cascading_remainder: "perc_budget_cascading_remainder",
+  perc_const_absolute_offset: "perc_const_absolute_offset",
+  perc_exam_weighted_aggregate: "perc_exam_weighted_aggregate",
+  perc_asset_variable_depreciation: "perc_asset_variable_depreciation",
+  perc_workforce_hierarchical_attrition: "perc_workforce_hierarchical_attrition",
+  perc_elect_three_candidate_forfeiture: "perc_elect_three_candidate_forfeiture",
+  perc_agri_land_yield_compound: "perc_agri_land_yield_compound",
+  perc_demo_multi_factor_growth: "perc_demo_multi_factor_growth",
+  perc_comm_tiered_salary_override: "perc_comm_tiered_salary_override",
+  perc_asset_compound_leakage: "perc_asset_compound_leakage",
+  perc_num_linear_equation_balancing: "perc_num_linear_equation_balancing",
+  perc_num_fractional_perturbation_complex: "perc_num_fractional_perturbation_complex",
+  perc_tax_bracket_retained_income: "perc_tax_bracket_retained_income",
+  perc_num_square_proportional_delta: "perc_num_square_proportional_delta",
+  perc_mix_alloy_replacement: "perc_mix_alloy_replacement",
 };
 
 const COMMERCIAL_CORPUS_ROTATION: QuantV2FactoryKey[] = [
@@ -97,6 +120,9 @@ const COMMERCIAL_CORPUS_ROTATION: QuantV2FactoryKey[] = [
   "electionLead",
   "priceConsumption",
   "mixturePercentage",
+  "vennDiagram",
+  "taxation",
+  "commission",
 ];
 
 function hashText(value: string) {
@@ -359,6 +385,13 @@ function buildValidatorReports(input: ReturnType<typeof buildQuantV2Artifacts>) 
     distractorIntelligence: resultToIssues(
       validateDistractorIntelligence(distractorIntelligence),
     ),
+    independentSolver: resultToIssues(
+      validatePercentageIndependentSolver({
+        problem,
+        graph,
+        localized,
+      }),
+    ),
     localization,
     multilingualStem,
     svg: svgValidation,
@@ -477,12 +510,70 @@ function buildQuantV2Artifacts(input: {
   };
 }
 
+function buildValidatedQuantV2Artifacts(input: {
+  pattern: Pattern;
+  options?: GeneratorOptions;
+}) {
+  let lastArtifacts: ReturnType<typeof buildQuantV2Artifacts> | undefined;
+  let rejectedCount = 0;
+  const maxAttempts = 12;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const artifacts = buildQuantV2Artifacts(input);
+    const canonicalReport = validatePercentageProblem(artifacts.problem);
+    const electionMargin = Number(artifacts.problem.variables.margin);
+    const hasElectionDistractorBelowMargin =
+      artifacts.problem.subtype === "election_margin" &&
+      Number.isFinite(electionMargin) &&
+      artifacts.problem.distractors.some(
+        (d) => Number.isFinite(d) && d <= electionMargin,
+      );
+    const solverReport = validatePercentageIndependentSolver({
+      problem: artifacts.problem,
+      graph: artifacts.graph,
+      localized: artifacts.localized,
+    });
+    if (
+      solverReport.valid &&
+      canonicalReport.valid &&
+      !hasElectionDistractorBelowMargin
+    ) {
+      return {
+        ...artifacts,
+        rejectedCandidateCount: rejectedCount,
+      };
+    }
+    rejectedCount += 1;
+    lastArtifacts = artifacts;
+  }
+
+  throw new Error(
+    `Quant V2 Percentage validation failed after ${maxAttempts} attempts: ${[
+      ...validatePercentageProblem(lastArtifacts!.problem).issues,
+      ...(lastArtifacts!.problem.subtype === "election_margin" &&
+      Number.isFinite(Number(lastArtifacts!.problem.variables.margin)) &&
+      lastArtifacts!.problem.distractors.some(
+        (d) =>
+          Number.isFinite(d) &&
+          d <= Number(lastArtifacts!.problem.variables.margin),
+      )
+        ? ["Election distractor cannot be less than or equal to margin."]
+        : []),
+      ...validatePercentageIndependentSolver({
+      problem: lastArtifacts!.problem,
+      graph: lastArtifacts!.graph,
+      localized: lastArtifacts!.localized,
+    }).issues,
+    ].join(" | ")}`,
+  );
+}
+
 export function createQuantV2PercentageQuestionCandidate(
   pattern: Pattern,
   options?: GeneratorOptions,
 ): FormulaQuestion {
   const startedAt = Date.now();
-  const artifacts = buildQuantV2Artifacts({
+  const artifacts = buildValidatedQuantV2Artifacts({
     pattern,
     options,
   });
@@ -524,6 +615,7 @@ export function createQuantV2PercentageQuestionCandidate(
     debugSource: "quant-v2-percentage-adapter",
     featureFlag: "quantV2Percentage",
     selectedFactory: artifacts.selectedFactory,
+    rejectedCandidateCount: artifacts.rejectedCandidateCount,
     signature,
     subtype: problem.subtype,
     category: problem.category,
@@ -620,7 +712,7 @@ export function createQuantV2PercentageQuestionCandidate(
     },
     generationMetrics: {
       generationDurationMs: Date.now() - startedAt,
-      validationRetries: 0,
+      validationRetries: artifacts.rejectedCandidateCount,
       uniquenessFailures: 0,
       branchingFactor: graph.branches.length,
       branchingComplexity: graph.branches.length,
@@ -715,7 +807,7 @@ export function createQuantV2PercentageQuestionCandidate(
       compatibilityWarnings: [],
       inferenceDepth: graph.steps.length,
       validationWarnings: failedValidators,
-      validationRetries: 0,
+      validationRetries: artifacts.rejectedCandidateCount,
       uniquenessFailures: 0,
       branchingFactor: graph.branches.length,
       branchingComplexity: graph.branches.length,
@@ -725,7 +817,7 @@ export function createQuantV2PercentageQuestionCandidate(
       uniquenessVerified: true,
       generationMetrics: {
         generationDurationMs: Date.now() - startedAt,
-        validationRetries: 0,
+        validationRetries: artifacts.rejectedCandidateCount,
         uniquenessFailures: 0,
         branchingFactor: graph.branches.length,
         branchingComplexity: graph.branches.length,

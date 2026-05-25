@@ -208,7 +208,7 @@ export function shouldSurfaceShortcut(input: {
     return false;
   }
   if (input.rhythmProfile === "shortcut_first_rhythm") {
-    return true;
+    return process.env.QUANT_V2_SHOW_SHORTCUTS === "1";
   }
 
   return false;

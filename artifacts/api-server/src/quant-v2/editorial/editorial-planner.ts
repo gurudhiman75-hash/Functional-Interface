@@ -12,6 +12,7 @@ const STYLE_ROTATION = [
   "exam_standard",
   "coaching",
   "compact",
+  "shortcut_first",
 ] as const satisfies readonly EditorialStyle[];
 
 function hashText(text: string) {

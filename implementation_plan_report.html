@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementation Plan: Quant v2 Percentage Engine Expansion</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- MathJax for high-grade LaTeX math rendering -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #131a30;
+      --accent-primary: #6366f1;
+      --accent-secondary: #4f46e5;
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --card-glass: rgba(19, 26, 48, 0.7);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #0ea5e9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 60px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+      border-radius: 2px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      border-radius: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* Tabs Navigation */
+    .tabs-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tab-btn:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Premium Cards & Layouts */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--card-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--info));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-glow);
+      color: var(--accent-primary);
+      font-size: 1.2rem;
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 1px solid transparent;
+      display: flex;
+      gap: 16px;
+    }
+
+    .alert-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .alert-content h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .alert-content p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .alert-important {
+      background: rgba(99, 102, 241, 0.08);
+      border-color: rgba(99, 102, 241, 0.25);
+      color: #a5b4fc;
+    }
+
+    .alert-tip {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.25);
+      color: #a7f3d0;
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.25);
+      color: #fde68a;
+    }
+
+    /* Math Formulas style */
+    .formula-block {
+      background: rgba(0, 0, 0, 0.2);
+      border-left: 3px solid var(--accent-primary);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 1.1rem;
+      overflow-x: auto;
+    }
+
+    .formula-derivation {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Checklist & Code */
+    .task-list {
+      list-style: none;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .task-checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 3px;
+      font-size: 0.75rem;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .task-item.completed .task-checkbox {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+
+    .task-item.in-progress .task-checkbox {
+      background: var(--warning);
+      border-color: var(--warning);
+      color: white;
+    }
+
+    .task-desc {
+      font-size: 0.95rem;
+    }
+
+    .task-desc code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #f472b6;
+    }
+
+    .code-snippet {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    /* Footer / Download Button */
+    .action-bar {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .btn-download {
+      font-family: 'Outfit', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.45);
+    }
+
+    .btn-download svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .tabs-nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .tab-btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <span class="badge">Quant v2 Engine Report</span>
+      <h1>Percentage Engine Expansion</h1>
+      <p class="subtitle">System Design, Advanced Mathematical Motifs, and High-Grade LaTeX Integration Plan</p>
+    </div>
+  </header>
+
+  <main class="container" style="margin-top: 40px;">
+    
+    <!-- Highlights Section -->
+    <div class="alert alert-important">
+      <div class="alert-icon">💡</div>
+      <div class="alert-content">
+        <h4>High-End Competitive Exam Alignment</h4>
+        <p>This implementation plan expands the cognitive variety, pedagogical quality, and mathematical robustness of the active <strong>Quant v2 Percentage Engine</strong> under <code>src/quant-v2/</code> to match premium exams like SSC CGL and SBI PO.</p>
+      </div>
+    </div>
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab(event, 'motifs')">1. Mathematical Motifs</button>
+      <button class="tab-btn" onclick="switchTab(event, 'collisions')">2. Seed Uniqueness</button>
+      <button class="tab-btn" onclick="switchTab(event, 'presentation')">3. Editorial & LaTeX</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tasks')">4. Execution Checklist</button>
+    </div>
+
+    <!-- Tab 1: Mathematical Motifs -->
+    <div id="motifs" class="tab-content active">
+      <div class="grid">
+        <!-- Venn Diagrams -->
+        <div class="card">
+          <h3>
+            <div class="card-icon">📊</div>
+            Venn Diagrams
+          </h3>
+          <p>Models double-subject exam pass/fail structures with robust sets overlap.</p>
+          <div class="formula-block">
+            $$P_{both}\% = P_M\% + P_P\% + F_B\% - 100\%$$
+            $$S_{total} = \frac{S_{both} \times 100}{P_{both}}$$
+          </div>
+          <p class="formula-derivation">Where \(P_M\) & \(P_P\) are individual pass rates, \(F_B\) fail rate in both, \(S_{both}\) absolute count of double pass, resolving to a clean integer total student count.</p>
+        </div>
+
+        <!-- Taxation Shifts -->
+        <div class="card">
+          <h3>
+            <div class="card-icon">💸</div>
+            Taxation Shifts
+          </h3>
+          <p>Models inverse proportional relationship between tax rate shift and net income.</p>
+          <div class="formula-block">
+            $$\text{Tax Rate } \% = \frac{r_n \times 100}{r_t + r_n}\%$$
+          </div>
+          <p class="formula-derivation">Derived from conserving net income difference: tax increase (\(T \times r_t\)) equals net income decrease (\((1 - T) \times r_n\)).</p>
+        </div>
+
+        <!-- Commissions -->
+        <div class="card">
+          <h3>
+            <div class="card-icon">📈</div>
+            Slab Commissions
+          </h3>
+          <p>Calculates gross sales based on tiered commission slabs with absolute deposits.</p>
+          <div class="formula-block">
+            $$S = \frac{D - B \times (1 - x/100)}{1 - y/100} + B$$
+          </div>
+          <p class="formula-derivation">Where deposit is \(D\), base limit is \(B\), commission rates are \(x\%\) below and \(y\%\) above \(B\).</p>
+        </div>
+
+        <!-- Price Consumption -->
+        <div class="card">
+          <h3>
+            <div class="card-icon">🛒</div>
+            Price-Consumption
+          </h3>
+          <p>Integrates fixed expenditure quantity bounds and partial adjustment rate formulas.</p>
+          <div class="formula-block">
+            $$\text{Reduction } \% = \frac{p - e}{100 + p} \times 100$$
+          </div>
+          <p class="formula-derivation">Where price rises by \(p\%\), household increases expenditure by only \(e\%\), keeping division perfect.</p>
+        </div>
+
+        <!-- Fresh vs Dry Fruits -->
+        <div class="card">
+          <h3>
+            <div class="card-icon">🍎</div>
+            Fruit Pulp Conservation
+          </h3>
+          <p>Pulp weight remains absolutely constant during dehydration.</p>
+          <div class="formula-block">
+            $$F \times (100 - W_f) = D \times (100 - W_d)$$
+          </div>
+          <p class="formula-derivation">Fresh weight \(F\) with \(W_f\%\) water vs Dry weight \(D\) with \(W_d\%\) water.</p>
+        </div>
+
+        <!-- Successive Budget Slabs -->
+        <div class="card">
+          <h3>
+            <div class="card-icon">💼</div>
+            Salary Budget Slabs
+          </h3>
+          <p>Multi-stage expenditures with remainder percentages and absolute leftover charity.</p>
+          <div class="formula-block">
+            $$I = \frac{L + D}{(1 - x/100)(1 - y/100)}$$
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Seed Uniqueness -->
+    <div id="collisions" class="tab-content">
+      <div class="card" style="margin-bottom: 24px;">
+        <h3>
+          <div class="card-icon">🔑</div>
+          Solving the Birthday Paradox in Signature Generation
+        </h3>
+        <p style="margin-bottom: 16px;">The active test suite tests 100 seeds per variant to enforce absolute deterministic variety. The previous implementation scrambled parameter values independently via a pseudo-random hash under small modulos (e.g. 4), triggering signature collisions within 100 seeds with extreme probability (>99%).</p>
+        
+        <div class="alert alert-tip" style="margin-bottom: 20px;">
+          <div class="alert-icon">✔️</div>
+          <div class="alert-content">
+            <h4>Our Systematic Grid Solution</h4>
+            <p>We replace the independent pseudo-random scrambles with a coordinate-grid sequential lookup using prime numbers and coprime moduli steps. This guarantees that all parameter pairs are systematically generated without any repeats within the 100-seed space.</p>
+          </div>
+        </div>
+
+        <div class="code-snippet">
+// Implementing Coordinate Grid Indexing in topology-builders.ts
+const scoredPercent = [30, 35, 40, 45][(ctx.serial - 1) % 4]!;
+const gapPercent = [5, 10, 15, 20][Math.trunc((ctx.serial - 1) / 4) % 4]!;
+
+// Resulting combination period = 4 * 4 = 16.
+// Combined with base totals (which cycle modulo 11 and 18, period 198), 
+// overall combination period is LCM(16, 198) = 1584.
+// Guaranteed 0 collisions in 100 seeds.
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Presentation -->
+    <div id="presentation" class="tab-content">
+      <div class="grid">
+        <div class="card">
+          <h3>
+            <div class="card-icon">📝</div>
+            Textbook-Grade MathJax
+          </h3>
+          <p style="margin-bottom: 12px;">Standardize all mathematical equations and formulas in explanations to utilize beautiful inline LaTeX math blocks instead of raw computer notation.</p>
+          
+          <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
+            <thead>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                <th style="padding: 10px; color: var(--text-muted);">Legacy String</th>
+                <th style="padding: 10px; color: var(--accent-primary);">LaTeX Standard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 10px; font-family: monospace;">margin * 100 / gap</td>
+                <td style="padding: 10px;">\(\frac{\text{margin} \times 100}{\text{gap}}\)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 10px; font-family: monospace;">x * (100 - y) / 100</td>
+                <td style="padding: 10px;">\(x \times \left(1 - \frac{y}{100}\right)\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>
+            <div class="card-icon">🔢</div>
+            Mixed Fractions Realization
+          </h3>
+          <p style="margin-bottom: 12px;">Enables mixed reciprocal fractions rendering dynamically under <code>stem-realizer.ts</code> to mimic premium classroom techniques.</p>
+
+          <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
+            <thead>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                <th style="padding: 10px; color: var(--text-muted);">Decimal Value</th>
+                <th style="padding: 10px; color: var(--accent-primary);">Mixed Fraction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 10px; font-family: monospace;">14.2857 %</td>
+                <td style="padding: 10px;">\(14\frac{2}{7}\%\)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 10px; font-family: monospace;">11.1111 %</td>
+                <td style="padding: 10px;">\(11\frac{1}{9}\%\)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 10px; font-family: monospace;">9.0909 %</td>
+                <td style="padding: 10px;">\(9\frac{1}{11}\%\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Execution Checklist -->
+    <div id="tasks" class="tab-content">
+      <div class="card">
+        <h3>
+          <div class="card-icon">✅</div>
+          Engineering Tasks Checklist
+        </h3>
+        <p style="margin-bottom: 20px; color: var(--text-muted);">A structured checklist mapping our planned file changes during the implementation phase.</p>
+        
+        <ul class="task-list">
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Fix <code>passFailGap</code> and <code>remainingMarksRequired</code> monotonicity bounds in <code>topology-builders.ts</code>.</div>
+          </li>
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Add <code>"venn_diagram"</code> to subtypes in <code>percentage-types.ts</code>.</div>
+          </li>
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Implement <code>createVennDiagramProblem</code>, <code>createTaxationProblem</code>, and <code>createCommissionProblem</code> in <code>percentage-motif-factories.ts</code>.</div>
+          </li>
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Add <code>buildTaxationGraph</code>, <code>buildCommissionGraph</code>, and <code>buildVennDiagramGraph</code> in <code>reasoning-graph-builders.ts</code>.</div>
+          </li>
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Implement <code>formatPercentMixed</code> in <code>stem-realizer.ts</code> to output LaTeX fractions.</div>
+          </li>
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Add localized variables translations in <code>hi.ts</code> and <code>pa.ts</code>.</div>
+          </li>
+          <li class="task-item">
+            <div class="task-checkbox">✔</div>
+            <div class="task-desc">Run test suite <code>pnpm --dir artifacts/api-server run test:quant-v2</code> to verify 100% green status.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Action Bar for Download/Print -->
+    <div class="action-bar">
+      <button class="btn-download" onclick="window.print()">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+        </svg>
+        Download / Print PDF Report
+      </button>
+    </div>
+
+  </main>
+
+  <script>
+    function switchTab(event, tabId) {
+      // Hide all tabs content
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Deactivate all buttons
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+
+      // Activate selected tab & button
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>

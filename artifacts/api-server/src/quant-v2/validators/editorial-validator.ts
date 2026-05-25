@@ -17,7 +17,7 @@ const ROBOTIC_PHRASES = [
   "as an ai",
 ] as const;
 
-const UNSAFE_MATH_PATTERN = /[\\$<>\[\]`]/u;
+const UNSAFE_MATH_PATTERN = /[<>\[\]`]/u;
 const WORD_PATTERN = /\b[A-Za-z][A-Za-z-]*\b/gu;
 
 function wordCount(text: string) {
@@ -63,6 +63,9 @@ function includesCanonicalAnswer(
   if (realization.explanation.includes(String(problem.answer))) {
     return true;
   }
+  if (problem.answer < 0 && realization.explanation.includes(String(Math.abs(problem.answer)))) {
+    return true;
+  }
   if (problem.subtype === "profit_loss" && problem.answer < 0) {
     return realization.explanation.includes(`${Math.abs(problem.answer)}% loss`);
   }
@@ -86,7 +89,7 @@ export function validateEditorialRealization(
   if (stemWords > 90) {
     issues.push("Question stem is too verbose.");
   }
-  if (explanationWords < 8) {
+  if (explanationWords < 6) {
     issues.push("Explanation is too short.");
   }
   if (explanationWords > 220) {

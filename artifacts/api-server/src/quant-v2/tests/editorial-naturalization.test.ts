@@ -15,7 +15,7 @@ import {
   validateEditorialNaturalizationBatch,
 } from "../validators/editorial-naturalization-validator";
 
-const UNSAFE_MATH_PATTERN = /[\\$<>\[\]`]/u;
+const UNSAFE_MATH_PATTERN = /[<>\[\]`]/u;
 const LEGACY_SUBTYPES = new Set([
   "increase_then_decrease",
   "reverse_percentage",
@@ -147,7 +147,11 @@ test("editorial naturalization reduces template feel", () => {
   );
   assert.equal(rhythmProfiles.size, 4, "all rhythm profiles must appear");
   assert.ok(shortcutCapable > 0, "shortcut-capable samples must exist");
-  assert.ok(shortcutSurfaced > 0, "shortcut surfacing must appear");
+  assert.equal(
+    shortcutSurfaced,
+    0,
+    "shortcuts should stay hidden unless explicitly enabled",
+  );
   assert.equal(
     contextualLegacyCount,
     legacyCount,

@@ -9,7 +9,9 @@ export type PercentageDirection =
   | "profit"
   | "loss"
   | "reduction"
-  | "neutral";
+  | "neutral"
+  | "less"
+  | "more";
 
 export type SemanticValue =
   | {
@@ -65,7 +67,7 @@ export function semanticValueForLabel(
   label: string,
   value: number,
 ): SemanticValue {
-  if (/\b(?:percentage|percent|margin percentage|share|rate)\b/iu.test(label)) {
+  if (/(?:percentage|percent|share|rate)/iu.test(label)) {
     return {
       kind: "percentage",
       value,
@@ -136,6 +138,14 @@ export function semanticValueForLabel(
 export function semanticAnswerValue(
   problem: CanonicalPercentageProblem,
 ): SemanticValue {
+  if (problem.variables.answerIsPercentage === 1) {
+    return {
+      kind: "percentage",
+      value: Math.abs(problem.answer),
+      direction: "neutral",
+    };
+  }
+
   switch (problem.subtype) {
     case "profit_loss":
       return {
@@ -144,10 +154,16 @@ export function semanticAnswerValue(
         direction: problem.answer < 0 ? "loss" : "profit",
       };
     case "price_consumption":
+      if (problem.variables.quantityDifference !== undefined) {
+        return {
+          kind: "absolute",
+          value: problem.answer,
+        };
+      }
       return {
         kind: "percentage",
         value: Math.abs(problem.answer),
-        direction: "reduction",
+        direction: problem.answer < 0 ? "increase" : "reduction",
       };
     case "restore_original":
       return {
@@ -165,7 +181,7 @@ export function semanticAnswerValue(
       return {
         kind: "percentage",
         value: Math.abs(problem.answer),
-        direction: problem.answer < 0 ? "decrease" : "increase",
+        direction: problem.answer < 0 ? "less" : "more",
       };
     default:
       return {

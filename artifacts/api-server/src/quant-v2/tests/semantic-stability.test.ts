@@ -139,7 +139,11 @@ test("semantic stability keeps final realization safe for localization", () => {
     ).semanticStabilityScore;
   }
 
-  assert.ok(shortcutSamples > 0, "shortcut samples must be covered");
+  assert.equal(
+    shortcutSamples,
+    0,
+    "shortcuts should stay hidden unless explicitly enabled",
+  );
   assert.ok(semanticLossSamples > 0, "semantic loss samples must be covered");
   assert.ok(endingVariants.size >= 6, "contextual ending variation must appear");
   assert.ok(

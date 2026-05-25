@@ -79,16 +79,17 @@ export function validateRealizationNaturalness(input: {
   }
   if (
     input.problem.subtype === "price_consumption" &&
-    (!/कमी/u.test(hindiOptions) || !/ਕਮੀ/u.test(punjabiOptions))
+    input.problem.variables.quantityDifference === undefined &&
+    (!/कमी|वृद्धि/u.test(hindiOptions) || !/ਕਮੀ|ਵਾਧਾ/u.test(punjabiOptions))
   ) {
-    issues.push("Reduction options are not semantically localized.");
+    issues.push("Consumption-change options are not semantically localized.");
     optionLocalizationScore = 75;
   }
   if (
     input.problem.subtype === "price_consumption" &&
-    !/\bFuel price increased by \d+(?:\.\d+)?%\./u.test(stem)
+    !/price .*increased by \d+(?:\.\d+)?%/iu.test(stem)
   ) {
-    issues.push("Fuel-consumption scenario is not aligned to compact English cadence.");
+    issues.push("Price-consumption scenario is not aligned to compact English cadence.");
     examCadenceScore = scorePenalty(examCadenceScore, 30);
   }
 

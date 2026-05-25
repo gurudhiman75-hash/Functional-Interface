@@ -14,10 +14,13 @@ import {
   validateEditorialRealization,
 } from "../validators/editorial-validator";
 
-const UNSAFE_MATH_PATTERN = /[\\$<>\[\]`]/u;
+const UNSAFE_MATH_PATTERN = /[<>\[\]`]/u;
 
 function includesAnswerText(problem: { subtype: string; answer: number }, text: string) {
   if (text.includes(String(problem.answer))) {
+    return true;
+  }
+  if (problem.answer < 0 && text.includes(String(Math.abs(problem.answer)))) {
     return true;
   }
   return problem.subtype === "profit_loss" &&

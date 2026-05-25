@@ -72,6 +72,33 @@ function reversePercentageContext(intent: StemIntent) {
   return Number(intent.values.part ?? 0) >= 100 ? "applicants" : "sugar";
 }
 
+function priceConsumptionContext(intent: StemIntent, language: "hi" | "pa") {
+  const text = intent.fallbackText.toLowerCase();
+  if (/\bsugar\b/u.test(text)) {
+    return language === "hi"
+      ? { item: "चीनी", unit: "प्रति kg" }
+      : { item: "ਚੀਨੀ", unit: "ਪ੍ਰਤੀ kg" };
+  }
+  if (/\brice\b/u.test(text)) {
+    return language === "hi"
+      ? { item: "चावल", unit: "प्रति kg" }
+      : { item: "ਚਾਵਲ", unit: "ਪ੍ਰਤੀ kg" };
+  }
+  if (/\bwheat\b/u.test(text)) {
+    return language === "hi"
+      ? { item: "गेहूं", unit: "प्रति kg" }
+      : { item: "ਕਣਕ", unit: "ਪ੍ਰਤੀ kg" };
+  }
+  if (/\bfuel\b/u.test(text)) {
+    return language === "hi"
+      ? { item: "ईंधन", unit: "प्रति लीटर" }
+      : { item: "ਈਂਧਨ", unit: "ਪ੍ਰਤੀ ਲੀਟਰ" };
+  }
+  return language === "hi"
+    ? { item: "वस्तु", unit: "प्रति इकाई" }
+    : { item: "ਚੀਜ਼", unit: "ਪ੍ਰਤੀ ਇਕਾਈ" };
+}
+
 function renderHindi(intent: StemIntent, profile?: RealizationProfile) {
   const v = intent.values;
   const commercialObject = commercialObjectForIntent(intent);
@@ -130,11 +157,24 @@ function renderHindi(intent: StemIntent, profile?: RealizationProfile) {
       }
       return `${n(v.part)} kg चीनी कुल स्टॉक का ${absPercent(v.percent)} है। कुल स्टॉक ज्ञात कीजिए।`;
     case "stem.restore_original":
-      return `एक वस्तु के मूल्य में ${absPercent(v.cutPercent)} कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?`;
+      return `${commercialObject.hi} के मूल्य में ${absPercent(v.cutPercent)} कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?`;
     case "stem.salary_increment":
       return `एक कर्मचारी का वेतन ${n(v.oldSalary)} से बदलकर ${n(v.newSalary)} हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।`;
     case "stem.price_consumption":
-      return `ईंधन की कीमत ${absPercent(v.priceIncreasePercent)} बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?`;
+      {
+      const commodity = priceConsumptionContext(intent, "hi");
+      if (v.expenditureIncreasePercent !== undefined) {
+        return `${commodity.item} की कीमत ${absPercent(v.priceIncreasePercent)} बढ़ गई, लेकिन कुल खर्च केवल ${absPercent(v.expenditureIncreasePercent)} बढ़ाया गया। खपत में प्रतिशत परिवर्तन ज्ञात कीजिए।`;
+      }
+      if (v.quantityDifference !== undefined) {
+        return `${commodity.item} की कीमत ${absPercent(v.priceIncreasePercent)} बढ़ गई। ${currency(v.totalExpenditure, profile)} में ${n(v.quantityDifference)} kg कम ${commodity.item} मिलती है। मूल कीमत ${commodity.unit} ज्ञात कीजिए।`;
+      }
+      return `${commodity.item} की कीमत ${absPercent(v.priceIncreasePercent)} बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?`;
+      }
+    case "stem.taxation":
+      return `आयकर दर ${absPercent(v.oldTaxRate)} से घटकर ${absPercent(v.newTaxRate)} हो गई। इससे कर देयता ${currency(v.taxDifference, profile)} कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।`;
+    case "stem.commission":
+      return `एक विक्रेता को ${currency(v.baseSales, profile)} तक की बिक्री पर ${absPercent(v.baseCommissionRate)} कमीशन और इससे अधिक बिक्री पर अतिरिक्त ${absPercent(v.bonusRate)} बोनस मिलता है। यदि कुल कमीशन ${currency(v.totalCommission, profile)} है, तो कुल बिक्री ज्ञात कीजिए।`;
     case "stem.shopkeeper_profit":
       return `एक दुकानदार ने ${commercialObject.hi} ${currency(v.costPrice, profile)} में खरीदा और ${currency(v.sellingPrice, profile)} में बेचा। लागत मूल्य पर लाभ या हानि प्रतिशत ज्ञात कीजिए।`;
     case "stem.mixture_water_milk":
@@ -147,6 +187,8 @@ function renderHindi(intent: StemIntent, profile?: RealizationProfile) {
         return `A की आय B से ${absPercent(v.relation1Percent)} ${relationWordHi(v.relation1Direction)} है। B की आय C से ${absPercent(v.relation2Percent)} ${relationWordHi(v.relation2Direction)} है। A की आय C से कितने प्रतिशत अधिक या कम है?`;
       }
       return `A की आय B से ${absPercent(v.relation1Percent)} ${relationWordHi(v.relation1Direction)} है। A की आय B से कितने प्रतिशत अधिक या कम है?`;
+    case "stem.venn_diagram":
+      return `एक परीक्षा में ${absPercent(v.subjectA)} छात्र गणित में अनुत्तीर्ण हुए, ${absPercent(v.subjectB)} अंग्रेजी में अनुत्तीर्ण हुए, और ${absPercent(v.bothPct)} दोनों में अनुत्तीर्ण हुए। यदि ${n(v.neitherValue)} छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।`;
     default:
       return intent.fallbackText;
   }
@@ -210,11 +252,24 @@ function renderPunjabi(intent: StemIntent, profile?: RealizationProfile) {
       }
       return `${n(v.part)} kg ਚੀਨੀ ਕੁੱਲ ਸਟਾਕ ਦਾ ${absPercent(v.percent)} ਹੈ। ਕੁੱਲ ਸਟਾਕ ਪਤਾ ਕਰੋ।`;
     case "stem.restore_original":
-      return `ਇੱਕ ਵਸਤੂ ਦੀ ਕੀਮਤ ਵਿੱਚ ${absPercent(v.cutPercent)} ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?`;
+      return `${commercialObject.pa} ਦੀ ਕੀਮਤ ਵਿੱਚ ${absPercent(v.cutPercent)} ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?`;
     case "stem.salary_increment":
       return `ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ ${n(v.oldSalary)} ਤੋਂ ਬਦਲ ਕੇ ${n(v.newSalary)} ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।`;
     case "stem.price_consumption":
-      return `ਈਂਧਨ ਦੀ ਕੀਮਤ ${absPercent(v.priceIncreasePercent)} ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?`;
+      {
+      const commodity = priceConsumptionContext(intent, "pa");
+      if (v.expenditureIncreasePercent !== undefined) {
+        return `${commodity.item} ਦੀ ਕੀਮਤ ${absPercent(v.priceIncreasePercent)} ਵਧ ਗਈ, ਪਰ ਕੁੱਲ ਖਰਚ ਸਿਰਫ ${absPercent(v.expenditureIncreasePercent)} ਵਧਾਇਆ ਗਿਆ। ਖਪਤ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।`;
+      }
+      if (v.quantityDifference !== undefined) {
+        return `${commodity.item} ਦੀ ਕੀਮਤ ${absPercent(v.priceIncreasePercent)} ਵਧ ਗਈ। ${currency(v.totalExpenditure, profile)} ਵਿੱਚ ${n(v.quantityDifference)} kg ਘੱਟ ${commodity.item} ਮਿਲਦੀ ਹੈ। ਮੂਲ ਕੀਮਤ ${commodity.unit} ਪਤਾ ਕਰੋ।`;
+      }
+      return `${commodity.item} ਦੀ ਕੀਮਤ ${absPercent(v.priceIncreasePercent)} ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?`;
+      }
+    case "stem.taxation":
+      return `ਆਮਦਨ ਕਰ ਦੀ ਦਰ ${absPercent(v.oldTaxRate)} ਤੋਂ ਘਟ ਕੇ ${absPercent(v.newTaxRate)} ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ${currency(v.taxDifference, profile)} ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।`;
+    case "stem.commission":
+      return `ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ${currency(v.baseSales, profile)} ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ ${absPercent(v.baseCommissionRate)} ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ ${absPercent(v.bonusRate)} ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ${currency(v.totalCommission, profile)} ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।`;
     case "stem.shopkeeper_profit":
       return `ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ${commercialObject.pa} ${currency(v.costPrice, profile)} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ${currency(v.sellingPrice, profile)} ਵਿੱਚ ਵੇਚਿਆ। ਲਾਗਤ ਮੁੱਲ ਤੇ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।`;
     case "stem.mixture_water_milk":
@@ -227,6 +282,8 @@ function renderPunjabi(intent: StemIntent, profile?: RealizationProfile) {
         return `A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ${absPercent(v.relation1Percent)} ${relationWordPa(v.relation1Direction)} ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ${absPercent(v.relation2Percent)} ${relationWordPa(v.relation2Direction)} ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?`;
       }
       return `A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ${absPercent(v.relation1Percent)} ${relationWordPa(v.relation1Direction)} ਹੈ। A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?`;
+    case "stem.venn_diagram":
+      return `ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ${absPercent(v.subjectA)} ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ${absPercent(v.subjectB)} ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ ${absPercent(v.bothPct)} ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ ${n(v.neitherValue)} ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
     default:
       return intent.fallbackText;
   }

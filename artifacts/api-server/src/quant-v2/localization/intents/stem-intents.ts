@@ -16,9 +16,12 @@ export type StemIntentKey =
   | "stem.restore_original"
   | "stem.salary_increment"
   | "stem.price_consumption"
+  | "stem.taxation"
+  | "stem.commission"
   | "stem.shopkeeper_profit"
   | "stem.mixture_water_milk"
   | "stem.relational_percentage"
+  | "stem.venn_diagram"
   | "stem.general_percentage";
 
 export type ScenarioAnchor =
@@ -33,6 +36,9 @@ export type ScenarioAnchor =
   | "shopkeeper_profit"
   | "mixture_water_milk"
   | "relational_percentage"
+  | "taxation"
+  | "commission"
+  | "advanced_percentage"
   | "general_percentage";
 
 export interface StemIntent {
@@ -70,9 +76,29 @@ function scenarioAnchor(problem: CanonicalPercentageProblem): ScenarioAnchor {
     case "restore_original":
       return "restore_price";
     case "salary_revision":
-    case "taxation":
-    case "commission":
       return "salary_increase";
+    case "taxation":
+      return "taxation";
+    case "commission":
+      return "commission";
+    case "perc_geom_dimensional_scale":
+    case "perc_demo_cross_tab_literacy":
+    case "perc_budget_cascading_remainder":
+    case "perc_const_absolute_offset":
+    case "perc_exam_weighted_aggregate":
+    case "perc_asset_variable_depreciation":
+    case "perc_workforce_hierarchical_attrition":
+    case "perc_elect_three_candidate_forfeiture":
+    case "perc_agri_land_yield_compound":
+    case "perc_demo_multi_factor_growth":
+    case "perc_comm_tiered_salary_override":
+    case "perc_asset_compound_leakage":
+    case "perc_num_linear_equation_balancing":
+    case "perc_num_fractional_perturbation_complex":
+    case "perc_tax_bracket_retained_income":
+    case "perc_num_square_proportional_delta":
+    case "perc_mix_alloy_replacement":
+      return "advanced_percentage";
     case "price_consumption":
     case "fixed_expenditure":
       return "fuel_consumption";
@@ -83,6 +109,8 @@ function scenarioAnchor(problem: CanonicalPercentageProblem): ScenarioAnchor {
       return "mixture_water_milk";
     case "relational_percentage":
       return "relational_percentage";
+    case "venn_diagram":
+      return "general_percentage";
     default:
       return "general_percentage";
   }
@@ -112,9 +140,11 @@ function stemIntentKey(problem: CanonicalPercentageProblem): StemIntentKey {
     case "restore_original":
       return "stem.restore_original";
     case "salary_revision":
-    case "taxation":
-    case "commission":
       return "stem.salary_increment";
+    case "taxation":
+      return "stem.taxation";
+    case "commission":
+      return "stem.commission";
     case "price_consumption":
     case "fixed_expenditure":
       return "stem.price_consumption";
@@ -125,6 +155,8 @@ function stemIntentKey(problem: CanonicalPercentageProblem): StemIntentKey {
       return "stem.mixture_water_milk";
     case "relational_percentage":
       return "stem.relational_percentage";
+    case "venn_diagram":
+      return "stem.venn_diagram";
     default:
       return "stem.general_percentage";
   }

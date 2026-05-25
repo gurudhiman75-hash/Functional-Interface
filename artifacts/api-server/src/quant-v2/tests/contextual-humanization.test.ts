@@ -34,6 +34,10 @@ const DOMAIN_PATTERNS = {
   restore_original: /\b(?:reduction|remaining|required increase|original)\b/iu,
   reverse_percentage: /\b(?:quantity|total|100%)\b/iu,
   increase_then_decrease: /\b(?:increase|decrease|final value|change)\b/iu,
+  relational_percentage: /\b(?:income|more|less|assume|compared)\b/iu,
+  commission: /\b(?:commission|sales|bonus|base|excess|total)\b/iu,
+  taxation: /\b(?:tax|income|rate|difference|payable|amount)\b/iu,
+  venn_diagram: /\b(?:both|neither|passed|failed|subjects|only|students)\b/iu,
 } as const;
 
 function domainPattern(subtype: string) {
@@ -127,7 +131,11 @@ test("contextual humanization keeps explanations domain-native", () => {
     ).contextualRealismScore;
   }
 
-  assert.ok(shortcutSamples > 0, "shortcut samples must be covered");
+  assert.equal(
+    shortcutSamples,
+    0,
+    "shortcuts should stay hidden unless explicitly enabled",
+  );
   assert.ok(semanticLossSamples > 0, "semantic loss samples must be covered");
   assert.ok(
     averageContextualRealism / 1000 >= 95,

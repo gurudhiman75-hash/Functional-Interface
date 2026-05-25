@@ -25,6 +25,8 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.new_price": "नई कीमत",
   "label.new_consumption": "नई खपत",
   "label.reduction_consumption": "खपत में कमी",
+  "label.increase_consumption": "खपत में वृद्धि",
+  "label.consumption_change": "खपत में प्रतिशत परिवर्तन",
   "label.salary_difference": "वेतन में बदलाव",
   "label.percentage_change": "प्रतिशत परिवर्तन",
   "label.profit_amount": "लाभ",
@@ -41,6 +43,33 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.quantity_to_add": "जोड़ी जाने वाली मात्रा",
   "label.required_difference": "आवश्यक अंतर",
   "label.required_value": "आवश्यक मान",
+  "label.price_increase_multiplier": "कीमत वृद्धि गुणक",
+  "label.expenditure_difference": "प्रति इकाई खर्च का अंतर",
+  "label.new_price_level": "नया मूल्य स्तर",
+  "label.new_expenditure_level": "नया खर्च स्तर",
+  "label.permissible_consumption_ratio": "अनुमेय खपत अनुपात",
+  "label.net_consumption_reduction": "शुद्ध खपत में कमी",
+  "label.new_price_index": "नया मूल्य सूचकांक",
+  "label.new_expenditure_index": "नया व्यय सूचकांक",
+  "label.consumption_gap": "खपत का अंतर",
+  "label.permissible_consumption": "अनुमेय खपत",
+  "label.percentage_at_least_one": "कम से कम एक विषय में प्रतिशत",
+  "label.percentage_neither": "दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत",
+  "label.total_students": "कुल छात्र",
+  "label.tax_rate_difference": "कर दर का अंतर",
+  "label.total_tax_difference": "कुल कर का अंतर",
+  "label.tax_decrease": "कर में कमी",
+  "label.taxable_income": "कुल करयोग्य आय",
+  "label.commission_on_base": "आधार बिक्री पर कमीशन",
+  "label.excess_commission": "आधार से ऊपर कमीशन",
+  "label.excess_sales": "आधार से ऊपर अतिरिक्त बिक्री",
+  "label.commission_on_excess": "अतिरिक्त बिक्री पर कमीशन",
+  "label.effective_commission_rate": "अतिरिक्त बिक्री पर प्रभावी कमीशन दर",
+  "label.base_commission": "आधार कमीशन",
+  "label.bonus_commission": "बोनस कमीशन",
+  "label.total_commission": "कुल कमीशन",
+  "label.total_sales": "कुल बिक्री",
+  "label.combined_total": "संयुक्त कुल",
 };
 
 const TRANSITIONS: Partial<Record<EditorialIntentKey, string>> = {
@@ -49,6 +78,7 @@ const TRANSITIONS: Partial<Record<EditorialIntentKey, string>> = {
   "transition.so": "तो,",
   "transition.thus": "इस प्रकार,",
   "transition.accordingly": "अतः,",
+  "transition.now": "अब,",
 };
 
 function label(intent: EditorialIntent) {
@@ -147,7 +177,7 @@ export const hindiRenderer: LanguageRenderer = {
       return intent.sourceText;
     }
     if (intent.key === "shortcut.heading") {
-      return "शॉर्टकट:";
+      return "संक्षिप्त विधि:";
     }
     if (intent.kind === "shortcut") {
       return shortcut(intent);
@@ -199,6 +229,15 @@ export const hindiRenderer: LanguageRenderer = {
     }
     if (intent.key === "narration.growth_period") {
       return `${intent.params?.years} वर्षों तक वृद्धि लागू होती है।`;
+    }
+    if (intent.key === "narration.add_parts") {
+      return "भागों को जोड़ें।";
+    }
+    if (intent.key === "narration.combined_value") {
+      return "संयुक्त मान है:";
+    }
+    if (intent.key === "narration.total_parts") {
+      return "इन भागों का कुल योग है:";
     }
     if (intent.kind === "transition") {
       return TRANSITIONS[intent.key] ?? intent.fallbackText;

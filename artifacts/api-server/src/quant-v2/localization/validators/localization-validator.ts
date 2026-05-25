@@ -46,7 +46,7 @@ function equationLines(text: string) {
     .split("\n")
     .map((line) => line.trim())
     .filter((line) =>
-      /^(?:=\s*)?[-+]?[\d][\d\s().xX*/+\-/%^]*$/u.test(line),
+      /^(?:=\s*)?[-+]?(?:[\dxX(])[\d\s().xX×*/+\-/%^=]*$/u.test(line),
     );
 }
 
@@ -54,7 +54,7 @@ function isNeutralLine(line: string) {
   const trimmed = line.trim();
   return (
     trimmed.length === 0 ||
-    /^(?:=\s*)?[-+]?[\d][\d\s().xX*/+\-/%^]*$/u.test(trimmed)
+    /^(?:=\s*)?[-+]?(?:[\dxX(])[\d\s().xX×*/+\-/%^=]*$/u.test(trimmed)
   );
 }
 

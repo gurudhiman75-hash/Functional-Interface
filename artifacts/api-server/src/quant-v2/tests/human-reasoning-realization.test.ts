@@ -15,12 +15,15 @@ import {
   validateHumanReasoningRealization,
 } from "../validators/human-reasoning-validator";
 
-const UNSAFE_MATH_PATTERN = /[\\$<>\[\]`]/u;
+const UNSAFE_MATH_PATTERN = /[<>\[\]`]/u;
 const INTERNAL_NAME_PATTERN =
   /\b(?:gapPercent|remainingPercent|consumptionIndex|firstMultiplier|secondMultiplier|growthMultiplier|afterFirst|finalValue|totalVotes|validVotes|totalMarks|projectedPopulation|salaryDifference|revisionPercent|priceDifference|profitLossPercent|fixedComponent|finalMixtureTotal|addedQuantity)\b/u;
 
 function includesAnswerText(problem: { subtype: string; answer: number }, text: string) {
-  if (text.includes(String(problem.answer))) {
+  const answerStr = String(Number.isInteger(problem.answer) ? problem.answer : Number(problem.answer.toFixed(2)));
+  const absAnswerStr = String(Math.abs(Number.isInteger(problem.answer) ? problem.answer : Number(problem.answer.toFixed(2))));
+  
+  if (text.includes(answerStr) || text.includes(absAnswerStr)) {
     return true;
   }
   return problem.subtype === "profit_loss" &&
@@ -116,7 +119,11 @@ test("human reasoning realization hides solver semantics", () => {
     scores.teacher += metrics.teacherStyleRealismScore;
   }
 
-  assert.ok(shortcutCount > 0, "shortcut humanization must appear");
+  assert.equal(
+    shortcutCount,
+    0,
+    "shortcuts should stay hidden unless explicitly enabled",
+  );
   assert.ok(scores.humanization / 1000 >= 90, "average humanization must stay high");
   assert.ok(scores.leakage / 1000 >= 95, "solver leakage must stay very low");
   assert.ok(scores.readability / 1000 >= 90, "equation readability must stay high");

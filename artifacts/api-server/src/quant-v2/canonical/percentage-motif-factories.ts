@@ -39,6 +39,7 @@ import {
   selectPopulationTopology,
 } from "../reasoning/topology-selectors";
 import { beautifyCanonicalValues } from "../realism/value-beautifier";
+import { ADVANCED_PERCENTAGE_MOTIF_FACTORIES } from "./percentage-advanced-motifs";
 
 export type PercentageMotifFactoryInput =
   | number
@@ -158,7 +159,7 @@ export function createRelationalPercentageProblem(
     variant === "reverse_relation_inference" ||
     variant === "hidden_base_relation_chain";
   const directions = [1, -1, 1, -1].slice(0, relationCount);
-  const relationPercents = Array.from({ length: relationCount }, (_, index) =>
+  const relationPercents: number[] = Array.from({ length: relationCount }, (_, index) =>
     rng.pick(RELATIONAL_PERCENTAGES.slice(index % 2, index % 2 + 4)),
   );
   const multipliers = relationPercents.map((percent, index) =>
@@ -380,13 +381,19 @@ export function createReversePercentageProblem(
     candidates: [
       {
         trap: "wrong_base",
-        value: percentageOf(part, percent),
+        value: safeDivide(part * 100, Math.max(1, 100 - percent)),
       },
-      samePercentageAssumptionDistractor(part, percent),
-      reverseDirectionDistractor(part, percent),
+      {
+        trap: "simple_addition",
+        value: sanitizeValue(part + Math.max(10, part * 0.25)),
+      },
       {
         trap: "reverse_direction",
-        value: sanitizeValue(part - percent),
+        value: sanitizeValue(answer + part),
+      },
+      {
+        trap: "same_percentage_assumption",
+        value: sanitizeValue(answer * ((100 + percent) / 100)),
       },
     ],
     traps: [
@@ -476,7 +483,7 @@ export function createSalaryRevisionProblem(
       },
       {
         trap: "simple_addition",
-        value: sanitizeValue(newSalary - oldSalary),
+        value: safeDivide((newSalary - oldSalary) * 100, oldSalary - (newSalary - oldSalary)),
       },
       reverseDirectionDistractor(revisionPercent, 10),
       samePercentageAssumptionDistractor(revisionPercent, revisionPercent),
@@ -493,7 +500,65 @@ export function createPriceConsumptionProblem(
   input?: PercentageMotifFactoryInput,
 ): CanonicalPercentageProblem {
   const rng = rngFromInput(input);
+  const variant = rng.pick(["standard", "fixed_expenditure_quantity", "partial_expenditure_adjustment"] as const);
   const priceIncreasePercent = rng.pick([10, 20, 25, 40, 50] as const);
+  
+  if (variant === "fixed_expenditure_quantity") {
+    const originalPrice = rng.pick([100, 200, 400, 500, 1000] as const);
+    const newPrice = originalPrice * (1 + priceIncreasePercent / 100);
+    const quantityDifference = rng.pick([2, 4, 5, 10] as const);
+    // (Total / originalPrice) - (Total / newPrice) = quantityDifference
+    // Total * (newPrice - originalPrice) / (originalPrice * newPrice) = quantityDifference
+    const totalExpenditure = quantityDifference * originalPrice * newPrice / (newPrice - originalPrice);
+    
+    return problem({
+      id: "price_consumption",
+      category: "expenditure",
+      subtype: "price_consumption",
+      reasoningPattern: "difference_mapping",
+      variables: {
+        priceIncreasePercent,
+        quantityDifference,
+        totalExpenditure,
+        originalPrice,
+        newPrice,
+      },
+      answer: originalPrice,
+      candidates: [
+        { trap: "wrong_base", value: newPrice },
+        { trap: "simple_addition", value: originalPrice + quantityDifference },
+        reverseDirectionDistractor(originalPrice, 10),
+      ],
+      traps: ["wrong_base", "simple_addition"],
+      difficulty: "hard",
+    });
+  }
+  
+  if (variant === "partial_expenditure_adjustment") {
+    const expenditureIncreasePercent = rng.pick([5, 10, 15] as const);
+    const answer = sanitizeValue(((priceIncreasePercent - expenditureIncreasePercent) / (100 + priceIncreasePercent)) * 100);
+    
+    return problem({
+      id: "price_consumption",
+      category: "expenditure",
+      subtype: "price_consumption",
+      reasoningPattern: "fixed_base_relation",
+      variables: {
+        priceIncreasePercent,
+        expenditureIncreasePercent,
+      },
+      answer,
+      candidates: [
+        { trap: "simple_addition", value: priceIncreasePercent - expenditureIncreasePercent },
+        { trap: "wrong_base", value: ((priceIncreasePercent - expenditureIncreasePercent) / 100) * 100 },
+        reverseDirectionDistractor(answer, 10),
+      ],
+      traps: ["wrong_base", "simple_addition"],
+      difficulty: "hard",
+    });
+  }
+
+  // Standard Variant
   const answer = sanitizeValue(
     (priceIncreasePercent * 100) / (100 + priceIncreasePercent),
   );
@@ -626,6 +691,170 @@ export function createMixturePercentageProblem(
   });
 }
 
+export function createTaxationProblem(
+  input?: PercentageMotifFactoryInput,
+): CanonicalPercentageProblem {
+  const rng = rngFromInput(input);
+  const income = rng.pick([40000, 50000, 60000, 80000, 100000] as const);
+  const rate1 = rng.pick([5, 10, 15, 20, 25] as const);
+  let rate2: number = rng.pick([5, 10, 15, 20, 25] as const);
+  if (rate1 === rate2) rate2 = rate1 > 5 ? rate1 - 5 : rate1 + 5;
+  
+  const oldTaxRate = Math.max(rate1, rate2);
+  const newTaxRate = Math.min(rate1, rate2);
+  
+  const oldTax = percentageOf(income, oldTaxRate);
+  const newTax = percentageOf(income, newTaxRate);
+  
+  const taxDifference = oldTax - newTax;
+  const taxRateDifference = oldTaxRate - newTaxRate;
+  
+  return problem({
+    id: "taxation",
+    category: "commercial",
+    subtype: "taxation",
+    reasoningPattern: "difference_mapping",
+    variables: {
+      income,
+      oldTaxRate,
+      newTaxRate,
+      taxRateDifference,
+      taxDifference,
+    },
+    answer: income,
+    candidates: [
+      {
+        trap: "simple_addition",
+        value: taxDifference,
+      },
+      {
+        trap: "wrong_base",
+        value: percentageOf(income, oldTaxRate),
+      },
+      {
+        trap: "same_percentage_assumption",
+        value: taxDifference + 1000,
+      },
+      reverseDirectionDistractor(income, oldTaxRate - newTaxRate),
+    ],
+    traps: ["simple_addition", "wrong_base"],
+    difficulty: "medium",
+  });
+}
+
+export function createVennDiagramProblem(
+  input?: PercentageMotifFactoryInput,
+): CanonicalPercentageProblem {
+  const rng = rngFromInput(input);
+  const total = rng.pick([400, 500, 600, 800, 1000, 1200, 1500, 2000] as const);
+  
+  const onlyAPct = rng.pick([20, 25, 30, 35, 40] as const);
+  const onlyBPct = rng.pick([15, 20, 25, 30] as const);
+  const bothPct = rng.pick([10, 15, 20, 25] as const);
+  const nonePct = 100 - (onlyAPct + onlyBPct + bothPct);
+  
+  const subjectA = onlyAPct + bothPct;
+  const subjectB = onlyBPct + bothPct;
+  const neitherValue = percentageOf(total, nonePct);
+  
+  return problem({
+    id: "venn_diagram",
+    category: "data_interpretation",
+    subtype: "venn_diagram",
+    reasoningPattern: "difference_mapping",
+    variables: {
+      total,
+      subjectA,
+      subjectB,
+      bothPct,
+      nonePct,
+      neitherValue,
+    },
+    answer: total,
+    candidates: [
+      {
+        trap: "simple_addition",
+        value: Math.round(neitherValue / ((subjectA + subjectB) / 100)),
+      },
+      {
+        trap: "wrong_base",
+        value: total + 200,
+      },
+      {
+        trap: "ratio_confusion",
+        value: total - 100,
+      },
+      reverseDirectionDistractor(total, subjectA),
+    ],
+    traps: ["simple_addition", "wrong_base"],
+    difficulty: "medium",
+  });
+}
+
+export function createCommissionProblem(
+  input?: PercentageMotifFactoryInput,
+): CanonicalPercentageProblem {
+  const rng = rngFromInput(input);
+  const baseSales = rng.pick([10000, 15000, 20000] as const);
+  const totalSales = rng.pick(
+    ([20000, 25000, 30000, 40000, 50000] as const).filter((value) => value > baseSales),
+  );
+  const baseCommissionRate = rng.pick([5, 8, 10] as const);
+  const bonusRate = rng.pick([2, 3, 4, 5] as const);
+  
+  const baseCommission = percentageOf(baseSales, baseCommissionRate);
+  const excessSales = totalSales - baseSales;
+  const bonusCommission = percentageOf(excessSales, baseCommissionRate + bonusRate);
+  const totalCommission = baseCommission + bonusCommission;
+  const totalBonusRate = baseCommissionRate + bonusRate;
+  const nearLow = sanitizeValue(Math.max(baseSales + 1000, totalSales * 0.72));
+  const nearHigh = sanitizeValue(totalSales * 1.28);
+  const wrongRateBase = sanitizeValue(
+    baseSales + safeDivide((totalCommission - baseCommission) * 100, Math.max(1, baseCommissionRate)),
+  );
+  const boundedWrongRateBase = sanitizeValue(
+    Math.min(totalSales * 1.35, Math.max(Math.max(baseSales + 500, totalSales * 0.65), wrongRateBase)),
+  );
+  
+  return problem({
+    id: "commission",
+    category: "commercial",
+    subtype: "commission",
+    reasoningPattern: "successive_base_change",
+    variables: {
+      totalSales,
+      baseSales,
+      baseCommissionRate,
+      bonusRate,
+      baseCommission,
+      excessSales,
+      totalBonusRate,
+      totalCommission,
+    },
+    answer: totalSales,
+    candidates: [
+      {
+        trap: "simple_addition",
+        value: nearLow,
+      },
+      {
+        trap: "wrong_base",
+        value: boundedWrongRateBase,
+      },
+      {
+        trap: "same_percentage_assumption",
+        value: nearHigh,
+      },
+      {
+        trap: "reverse_direction",
+        value: sanitizeValue(Math.max(baseSales + 800, totalSales * 0.9)),
+      },
+    ],
+    traps: ["simple_addition", "wrong_base"],
+    difficulty: "hard",
+  });
+}
+
 export const PERCENTAGE_MOTIF_FACTORIES = {
   successiveIncreaseDecrease: createSuccessiveIncreaseDecreaseProblem,
   electionLead: createElectionLeadProblem,
@@ -638,8 +867,14 @@ export const PERCENTAGE_MOTIF_FACTORIES = {
   profitLoss: createProfitLossProblem,
   mixturePercentage: createMixturePercentageProblem,
   relationalPercentage: createRelationalPercentageProblem,
+  taxation: createTaxationProblem,
+  commission: createCommissionProblem,
+  vennDiagram: createVennDiagramProblem,
+  ...ADVANCED_PERCENTAGE_MOTIF_FACTORIES,
 } satisfies Record<string, PercentageMotifFactory>;
 
-export const PERCENTAGE_MOTIF_FACTORY_LIST = Object.values(
+export const PERCENTAGE_MOTIF_FACTORY_LIST = Object.entries(
   PERCENTAGE_MOTIF_FACTORIES,
-);
+)
+  .filter(([key]) => !key.startsWith("perc_"))
+  .map(([, factory]) => factory);

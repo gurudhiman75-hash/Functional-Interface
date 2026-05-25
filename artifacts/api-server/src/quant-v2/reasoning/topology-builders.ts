@@ -224,10 +224,23 @@ function filteringChain(
   };
 }
 
+
+
+function examTotal(serial: number, offset = 0): number {
+  const base = 200 + ((serial + offset - 1) % 13) * 100;
+  return base;
+}
+
+function populationTotal(serial: number, offset = 0): number {
+  const base = humanizedPopulationTotal(serial, offset);
+  const variation = ((serial + offset) % 17) * 5000;
+  return base + variation;
+}
+
 function electionPercents(ctx: BuildContext) {
-  const winnerOptions = [55, 60, 62.5, 65, 70] as const;
-  const winnerPercent =
-    winnerOptions[ctx.serial % winnerOptions.length]!;
+  const winnerOptions = [55, 58, 60, 62.5, 65, 68, 70] as const;
+  const index = (ctx.serial - 1) % winnerOptions.length;
+  const winnerPercent = winnerOptions[index]!;
   const loserPercent = sanitizeValue(100 - winnerPercent);
   const gapPercent = sanitizeValue(winnerPercent - loserPercent);
 
@@ -239,7 +252,9 @@ function electionPercents(ctx: BuildContext) {
 }
 
 function totalBase(ctx: BuildContext, offset = 0) {
-  return humanizedElectionTotal(ctx.serial, offset);
+  const index = Math.trunc((ctx.serial + offset - 1) / 7) % 20;
+  const base = 50000 + index * 10000;
+  return base;
 }
 
 function cleanMargin(total: number, gapPercent: number) {
@@ -358,10 +373,11 @@ function directMargin(ctx: BuildContext): TopologyBuildResult {
 
 function invalidVoteMargin(ctx: BuildContext): TopologyBuildResult {
   const { winnerPercent, loserPercent, gapPercent } = electionPercents(ctx);
-  const totalVotes = totalBase(ctx, 40);
   const invalidPercent = [10, 20][ctx.serial % 2]!;
   const validPercent = sanitizeValue(100 - invalidPercent);
-  const validVotes = percentageOf(totalVotes, validPercent);
+  const k = 1 + ((ctx.serial - 1) % 11);
+  const validVotes = validPercent === 90 ? 22500 * k : 10000 * k;
+  const totalVotes = sanitizeValue((validVotes * 100) / validPercent);
   const margin = cleanMargin(validVotes, gapPercent);
   const chain = filteringChain(
     "total_to_valid_votes",
@@ -520,12 +536,24 @@ function invalidVoteMargin(ctx: BuildContext): TopologyBuildResult {
 
 function turnoutMargin(ctx: BuildContext): TopologyBuildResult {
   const { winnerPercent, loserPercent, gapPercent } = electionPercents(ctx);
-  const registeredVoters = totalBase(ctx, 80);
-  const turnoutPercent = [60, 80][ctx.serial % 2]!;
-  const votedVotes = percentageOf(registeredVoters, turnoutPercent);
+  const turnoutPercent = [60, 80, 75][ctx.serial % 3]!;
   const invalidPercent = [10, 20][ctx.serial % 2]!;
   const validPercent = sanitizeValue(100 - invalidPercent);
-  const validVotes = percentageOf(votedVotes, validPercent);
+  
+  const k = 1 + ((ctx.serial - 1) % 8);
+  let validVotes = 0;
+  if (validPercent === 90 && (turnoutPercent === 60 || turnoutPercent === 75)) {
+    validVotes = 67500 * k;
+  } else if (validPercent === 90 && turnoutPercent === 80) {
+    validVotes = 45000 * k;
+  } else if (validPercent === 80 && (turnoutPercent === 60 || turnoutPercent === 75)) {
+    validVotes = 30000 * k;
+  } else {
+    validVotes = 40000 * k;
+  }
+
+  const votedVotes = sanitizeValue((validVotes * 100) / validPercent);
+  const registeredVoters = sanitizeValue((votedVotes * 100) / turnoutPercent);
   const margin = cleanMargin(validVotes, gapPercent);
   const chain = filteringChain(
     "registered_to_valid_votes",
@@ -696,9 +724,10 @@ function turnoutMargin(ctx: BuildContext): TopologyBuildResult {
 }
 
 function multiCandidateMargin(ctx: BuildContext): TopologyBuildResult {
-  const totalVotes = totalBase(ctx, 120);
-  const winnerPercent = [45, 48, 50, 52][ctx.serial % 4]!;
-  const thirdPercent = [12, 15, 18, 20][ctx.serial % 4]!;
+  const idx = (ctx.serial - 1) % 4;
+  const totalVotes = 50000 + (Math.trunc((ctx.serial - 1) / 4) % 25) * 10000;
+  const winnerPercent = [45, 48, 50, 52][idx]!;
+  const thirdPercent = [12, 15, 18, 20][idx]!;
   const runnerPercent = sanitizeValue(100 - winnerPercent - thirdPercent);
   const gapPercent = sanitizeValue(winnerPercent - runnerPercent);
   const margin = cleanMargin(totalVotes, gapPercent);
@@ -830,9 +859,10 @@ function multiCandidateMargin(ctx: BuildContext): TopologyBuildResult {
 }
 
 function remainingVoteMargin(ctx: BuildContext): TopologyBuildResult {
-  const totalVotes = totalBase(ctx, 160);
-  const winnerPercent = [54, 56, 58, 60][ctx.serial % 4]!;
-  const knownOtherPercent = [12, 16, 20, 24][ctx.serial % 4]!;
+  const idx = (ctx.serial - 1) % 4;
+  const totalVotes = 50000 + (Math.trunc((ctx.serial - 1) / 4) % 25) * 10000;
+  const winnerPercent = [54, 56, 58, 60][idx]!;
+  const knownOtherPercent = [12, 16, 20, 24][idx]!;
   const remainingPercent = sanitizeValue(
     100 - winnerPercent - knownOtherPercent,
   );
@@ -942,12 +972,21 @@ function filteredValidVoteMargin(ctx: BuildContext): TopologyBuildResult {
   const winnerPercent = [55, 60, 65, 70][ctx.serial % 4]!;
   const loserPercent = sanitizeValue(100 - winnerPercent);
   const gapPercent = sanitizeValue(winnerPercent - loserPercent);
-  const registeredVoters = totalBase(ctx, 200);
   const turnoutPercent = [60, 75, 80][ctx.serial % 3]!;
-  const votedVotes = percentageOf(registeredVoters, turnoutPercent);
   const validPercent = 80;
   const invalidPercent = sanitizeValue(100 - validPercent);
-  const validVotes = percentageOf(votedVotes, validPercent);
+  
+  const k = 1 + ((ctx.serial - 1) % 11);
+  let validVotes = 0;
+  if (turnoutPercent === 60) {
+    validVotes = 30000 * k;
+  } else if (turnoutPercent === 75) {
+    validVotes = 7500 * k;
+  } else {
+    validVotes = 40000 * k;
+  }
+  const votedVotes = sanitizeValue((validVotes * 100) / validPercent);
+  const registeredVoters = sanitizeValue((votedVotes * 100) / turnoutPercent);
   const winnerVotes = percentageOf(validVotes, winnerPercent);
   const margin = cleanMargin(validVotes, gapPercent);
   const chain = filteringChain(
@@ -1106,9 +1145,11 @@ function filteredValidVoteMargin(ctx: BuildContext): TopologyBuildResult {
 }
 
 function simpleShortfall(ctx: BuildContext): TopologyBuildResult {
-  const totalMarks = humanizedExamTotal(ctx.serial);
-  const scoredPercent = [30, 35, 40, 45][ctx.serial % 4]!;
-  const gapPercent = [5, 10, 15, 20][ctx.serial % 4]!;
+  const totalMarks = examTotal(ctx.serial);
+  const param1Index = (ctx.serial - 1) % 4;
+  const param2Index = Math.trunc((ctx.serial - 1) / 4) % 4;
+  const scoredPercent = [30, 35, 40, 45][param1Index]!;
+  const gapPercent = [5, 10, 15, 20][param2Index]!;
   const passPercent = scoredPercent + gapPercent;
   const shortBy = percentageOf(totalMarks, gapPercent);
   const metadata = topology(
@@ -1181,10 +1222,13 @@ function simpleShortfall(ctx: BuildContext): TopologyBuildResult {
 }
 
 function passFailGap(ctx: BuildContext): TopologyBuildResult {
-  const totalMarks = humanizedExamTotal(ctx.serial, 4);
-  const scoredPercent = [30, 35, 40, 45][ctx.serial % 4]!;
-  const highScorePercent = [60, 65, 70, 75][ctx.serial % 4]!;
-  const passPercent = [45, 50, 55, 60][ctx.serial % 4]!;
+  const totalMarks = examTotal(ctx.serial, 4);
+  const p1 = (ctx.serial - 1) % 4;
+  const p2 = Math.trunc((ctx.serial - 1) / 4) % 3;
+  const p3 = Math.trunc((ctx.serial - 1) / 12) % 3;
+  const scoredPercent = [30, 35, 40, 45][p1]!;
+  const passPercent = scoredPercent + [10, 15, 20][p2]!;
+  const highScorePercent = passPercent + [10, 15, 20][p3]!;
   const shortBy = percentageOf(totalMarks, passPercent - scoredPercent);
   const excessBy = percentageOf(totalMarks, highScorePercent - passPercent);
   const combinedGapPercent = sanitizeValue(highScorePercent - scoredPercent);
@@ -1291,11 +1335,14 @@ function passFailGap(ctx: BuildContext): TopologyBuildResult {
 }
 
 function successiveMarkAdjustment(ctx: BuildContext): TopologyBuildResult {
-  const totalMarks = humanizedExamTotal(ctx.serial, 8);
-  const rawPercent = [30, 35, 40, 45][ctx.serial % 4]!;
-  const bonusPercent = [5, 10, 15, 20][ctx.serial % 4]!;
+  const totalMarks = examTotal(ctx.serial, 8);
+  const p1 = (ctx.serial - 1) % 4;
+  const p2 = Math.trunc((ctx.serial - 1) / 4) % 4;
+  const p3 = Math.trunc((ctx.serial - 1) / 16) % 3;
+  const rawPercent = [30, 35, 40, 45][p1]!;
+  const bonusPercent = [5, 10, 15, 20][p2]!;
   const adjustedPercent = sanitizeValue(rawPercent + bonusPercent);
-  const passPercent = adjustedPercent + [5, 10, 15][ctx.serial % 3]!;
+  const passPercent = adjustedPercent + [5, 10, 15][p3]!;
   const gapPercent = sanitizeValue(passPercent - adjustedPercent);
   const shortBy = percentageOf(totalMarks, gapPercent);
   const metadata = topology(
@@ -1382,17 +1429,20 @@ function successiveMarkAdjustment(ctx: BuildContext): TopologyBuildResult {
 }
 
 function remainingMarksRequired(ctx: BuildContext): TopologyBuildResult {
-  const totalMarks = humanizedExamTotal(ctx.serial, 12);
-  const completedPercent = [40, 50, 60, 75][ctx.serial % 4]!;
-  const scoredOnCompletedPercent = [50, 60, 70, 80][ctx.serial % 4]!;
-  const requiredOverallPercent = [55, 60, 65, 70][ctx.serial % 4]!;
+  const totalMarks = examTotal(ctx.serial, 12);
+  const p1 = (ctx.serial - 1) % 3;
+  const p2 = Math.trunc((ctx.serial - 1) / 3) % 3;
+  const p3 = Math.trunc((ctx.serial - 1) / 9) % 3;
+  const completedPercent = [40, 50, 60][p1]!;
+  const scoredOnCompletedPercent = [50, 60, 70][p2]!;
   const completedMarks = percentageOf(totalMarks, completedPercent);
   const scoredMarks = percentageOf(completedMarks, scoredOnCompletedPercent);
-  const requiredMarks = percentageOf(totalMarks, requiredOverallPercent);
-  const remainingMarksRequired = sanitizeValue(requiredMarks - scoredMarks);
   const effectiveScoredPercent = sanitizeValue(
     (completedPercent * scoredOnCompletedPercent) / 100,
   );
+  const requiredOverallPercent = effectiveScoredPercent + [13, 17, 23][p3]!;
+  const requiredMarks = percentageOf(totalMarks, requiredOverallPercent);
+  const remainingMarksRequired = sanitizeValue(requiredMarks - scoredMarks);
   const gapPercent = sanitizeValue(
     requiredOverallPercent - effectiveScoredPercent,
   );
@@ -1575,8 +1625,9 @@ function remainingMarksRequired(ctx: BuildContext): TopologyBuildResult {
 }
 
 function singleGrowth(ctx: BuildContext): TopologyBuildResult {
-  const population = humanizedPopulationTotal(ctx.serial);
-  const rate = [10, 20][ctx.serial % 2]!;
+  const cycle = ((ctx.serial - 1) % 100) + 1;
+  const population = 10000 + cycle * 2500;
+  const rate = [10, 20][(ctx.serial - 1) % 2]!;
   const years = 2;
   const projectedPopulation = sanitizeValue(
     population * (1 + rate / 100) ** years,
@@ -1650,9 +1701,12 @@ function singleGrowth(ctx: BuildContext): TopologyBuildResult {
 }
 
 function growthThenDecay(ctx: BuildContext): TopologyBuildResult {
-  const population = humanizedPopulationTotal(ctx.serial, 4);
-  const growthRate = [10, 20, 25, 40][ctx.serial % 4]!;
-  const decayRate = [5, 10, 20, 25][ctx.serial % 4]!;
+  const k = 1 + ((ctx.serial - 1) % 15);
+  const population = 20000 * k;
+  const param1Index = (ctx.serial - 1) % 4;
+  const param2Index = Math.trunc((ctx.serial - 1) / 4) % 4;
+  const growthRate = [10, 20, 25, 40][param1Index]!;
+  const decayRate = [5, 10, 20, 25][param2Index]!;
   const afterGrowth = applyPercentage(population, growthRate);
   const finalPopulation = applyPercentage(afterGrowth, -decayRate);
   const metadata = topology(
@@ -1752,9 +1806,12 @@ function growthThenDecay(ctx: BuildContext): TopologyBuildResult {
 }
 
 function migrationAdjustedPopulation(ctx: BuildContext): TopologyBuildResult {
-  const population = humanizedPopulationTotal(ctx.serial, 8);
-  const growthRate = [5, 10, 15, 20][ctx.serial % 4]!;
-  const migrationPercent = [2, 4, 5, 8][ctx.serial % 4]!;
+  const k = 1 + ((ctx.serial - 1) % 15);
+  const population = 20000 * k;
+  const param1Index = (ctx.serial - 1) % 4;
+  const param2Index = Math.trunc((ctx.serial - 1) / 4) % 4;
+  const growthRate = [5, 10, 15, 20][param1Index]!;
+  const migrationPercent = [2, 4, 5, 8][param2Index]!;
   const afterGrowth = applyPercentage(population, growthRate);
   const migration = percentageOf(population, migrationPercent);
   const finalPopulation = sanitizeValue(afterGrowth + migration);
@@ -1841,11 +1898,15 @@ function migrationAdjustedPopulation(ctx: BuildContext): TopologyBuildResult {
 }
 
 function maleFemalePopulationShift(ctx: BuildContext): TopologyBuildResult {
-  const totalPopulation = humanizedPopulationTotal(ctx.serial, 12);
-  const malePercent = [45, 50, 55, 60][ctx.serial % 4]!;
+  const k = 1 + ((ctx.serial - 1) % 5);
+  const totalPopulation = 100000 * k;
+  const p1 = (ctx.serial - 1) % 4;
+  const p2 = Math.trunc((ctx.serial - 1) / 4) % 4;
+  const p3 = Math.trunc((ctx.serial - 1) / 16) % 4;
+  const malePercent = [45, 50, 55, 60][p1]!;
   const femalePercent = sanitizeValue(100 - malePercent);
-  const maleGrowthRate = [10, 20, 25, 40][ctx.serial % 4]!;
-  const femaleDecayRate = [5, 10, 15, 20][ctx.serial % 4]!;
+  const maleGrowthRate = [10, 20, 25, 40][p2]!;
+  const femaleDecayRate = [5, 8, 12, 15][p3]!;
   const malePopulation = percentageOf(totalPopulation, malePercent);
   const femalePopulation = percentageOf(totalPopulation, femalePercent);
   const shiftedMalePopulation = applyPercentage(malePopulation, maleGrowthRate);

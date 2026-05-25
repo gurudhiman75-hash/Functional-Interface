@@ -63,9 +63,27 @@ export type PercentageSubtype =
   | "invalid_votes"
   | "taxation"
   | "commission"
+  | "venn_diagram"
   | "part_whole"
   | "ratio_percentage"
-  | "relational_percentage";
+  | "relational_percentage"
+  | "perc_geom_dimensional_scale"
+  | "perc_demo_cross_tab_literacy"
+  | "perc_budget_cascading_remainder"
+  | "perc_const_absolute_offset"
+  | "perc_exam_weighted_aggregate"
+  | "perc_asset_variable_depreciation"
+  | "perc_workforce_hierarchical_attrition"
+  | "perc_elect_three_candidate_forfeiture"
+  | "perc_agri_land_yield_compound"
+  | "perc_demo_multi_factor_growth"
+  | "perc_comm_tiered_salary_override"
+  | "perc_asset_compound_leakage"
+  | "perc_num_linear_equation_balancing"
+  | "perc_num_fractional_perturbation_complex"
+  | "perc_tax_bracket_retained_income"
+  | "perc_num_square_proportional_delta"
+  | "perc_mix_alloy_replacement";
 
 export type ReasoningPattern =
   | "compound_shift"
@@ -133,9 +151,27 @@ export const PERCENTAGE_SUBTYPES: readonly PercentageSubtype[] = [
   "invalid_votes",
   "taxation",
   "commission",
+  "venn_diagram",
   "part_whole",
   "ratio_percentage",
   "relational_percentage",
+  "perc_geom_dimensional_scale",
+  "perc_demo_cross_tab_literacy",
+  "perc_budget_cascading_remainder",
+  "perc_const_absolute_offset",
+  "perc_exam_weighted_aggregate",
+  "perc_asset_variable_depreciation",
+  "perc_workforce_hierarchical_attrition",
+  "perc_elect_three_candidate_forfeiture",
+  "perc_agri_land_yield_compound",
+  "perc_demo_multi_factor_growth",
+  "perc_comm_tiered_salary_override",
+  "perc_asset_compound_leakage",
+  "perc_num_linear_equation_balancing",
+  "perc_num_fractional_perturbation_complex",
+  "perc_tax_bracket_retained_income",
+  "perc_num_square_proportional_delta",
+  "perc_mix_alloy_replacement",
 ];
 
 export const REASONING_PATTERNS: readonly ReasoningPattern[] = [

@@ -77,7 +77,7 @@ function humanExpression(
         /\b[A-Za-z_][A-Za-z0-9_]*\b/gu,
         (key) => (typeof variables[key] === "number" ? n(variables[key]) : ""),
       )
-      .replace(/\*/gu, "x")
+      .replace(/\*/gu, "×")
       .replace(/\s+%/gu, "%")
       .replace(/\s+;/gu, ";")
       .replace(/\s+/gu, " "),
@@ -636,6 +636,46 @@ function stepObservation(
       return problem.subtype === "election_margin"
         ? "Total votes are:"
         : fallback;
+    case "calculate_new_price_multiplier":
+      return "Price increase multiplier:";
+    case "map_expenditure_to_quantity_gap":
+      return "Expenditure per unit difference:";
+    case "derive_new_price_index":
+      return "New price level:";
+    case "derive_new_expenditure_index":
+      return "New expenditure level:";
+    case "derive_adjusted_consumption_index":
+      return "New consumption index:";
+    case "derive_adjusted_consumption_reduction":
+      return "Required reduction in consumption:";
+    case "balance_consumption_for_fixed_expenditure":
+      return "Permissible consumption ratio:";
+    case "derive_consumption_percentage_reduction":
+      return "Net consumption reduction:";
+    case "calculate_commission_on_base_sales":
+      return "Commission on base sales:";
+    case "calculate_excess_commission":
+      return "Commission above base quota:";
+    case "calculate_sales_above_base":
+      return "Sales above base quota:";
+    case "calculate_total_rate_on_excess":
+      return "Total commission rate on excess sales:";
+    case "calculate_commission_on_excess_sales":
+      return "Commission on excess sales:";
+    case "add_base_and_bonus_commissions":
+      return "Total commission earned:";
+    case "calculate_total_sales":
+      return "Total sales:";
+    case "calculate_difference_in_tax_rate":
+      return "Difference in tax rates:";
+    case "map_tax_difference_to_total":
+      return "Total taxable income:";
+    case "calculate_total_percentage_with_overlap":
+      return "Percentage for at least one category:";
+    case "calculate_percentage_of_none":
+      return "Percentage passing both subjects / failing neither:";
+    case "map_none_percentage_to_total":
+      return "Total students:";
     case "derive_pass_mark_gap":
     case "derive_pass_gap_after_adjustment":
       return "Required percentage gap:";
@@ -652,7 +692,7 @@ function stepObservation(
     case "map_remaining_marks_required_to_total":
       return "Maximum marks are:";
     case "reverse_part_percent_relation":
-      return "Total quantity is:";
+      return "100% total setup:";
     case "map_lost_percent_to_recovery_percent":
       return "Required increase %:";
     case "map_salary_difference_to_old_salary_percent":
@@ -681,10 +721,7 @@ function stepObservation(
       return "Population after growth:";
     case "derive_remaining_percent_after_cut":
       return `After a ${n(v.cutPercent)}% reduction, percentage left is:`;
-    case "derive_new_price_index":
-      return "New price after increase:";
-    case "balance_consumption_for_fixed_expenditure":
-      return "For the same expenditure:";
+
     case "derive_consumption_reduction_percent":
       return "Reduction in consumption is:";
     case "derive_unchanged_non_added_component":
@@ -830,11 +867,26 @@ function finalEndingText(problem: CanonicalPercentageProblem) {
         "Final population",
       ])} = ${answer}`;
     case "price_consumption":
-      return `${pickEnding(problem, [
-        "So, reduction in consumption",
-        "Hence, required reduction",
-        "Reduction in consumption",
-      ])} = ${answer}`;
+      if (problem.variables.quantityDifference !== undefined) {
+        return `Original price per kg = ${answer}`;
+      }
+      return problem.answer < 0
+        ? `${pickEnding(problem, [
+            "So, increase in consumption",
+            "Hence, consumption increase",
+            "Increase in consumption",
+          ])} = ${answer}`
+        : `${pickEnding(problem, [
+            "So, reduction in consumption",
+            "Hence, required reduction",
+            "Reduction in consumption",
+          ])} = ${answer}`;
+    case "taxation":
+      return `Total taxable income = ${answer}`;
+    case "commission":
+      return `Total sales = ${answer}`;
+    case "venn_diagram":
+      return `Total students = ${answer}`;
     case "salary_revision":
       return `${pickEnding(problem, [
         "So, salary change",
@@ -874,6 +926,48 @@ function finalEndingText(problem: CanonicalPercentageProblem) {
         "Final value",
       ])} = ${answer}`;
   }
+}
+
+function renderPriceConsumptionQuantityEquation(
+  problem: CanonicalPercentageProblem,
+  seed?: number | string,
+) {
+  if (
+    problem.subtype !== "price_consumption" ||
+    typeof problem.variables.quantityDifference !== "number" ||
+    typeof problem.variables.totalExpenditure !== "number" ||
+    typeof problem.variables.priceIncreasePercent !== "number"
+  ) {
+    return undefined;
+  }
+
+  const expenditure = problem.variables.totalExpenditure;
+  const reduction = problem.variables.quantityDifference;
+  const newPriceIndex = 100 + problem.variables.priceIncreasePercent;
+  const ratio = newPriceIndex / 100;
+  const answer = problem.answer;
+  const introVariants = [
+    "Let original price per kg = x.",
+    "Let original price per kg be x.",
+    "Assume the original price per kg is x.",
+    "Take the original price per kg as x.",
+  ];
+  const introIndex = Math.abs(
+    String(`${seed ?? ""}|price_consumption:absolute_quantity_equation|${expenditure}|${newPriceIndex}`)
+      .split("")
+      .reduce((sum, char) => sum + char.charCodeAt(0), 0),
+  ) % introVariants.length;
+
+  return [
+    introVariants[introIndex]!,
+    `New price per kg = x × ${n(newPriceIndex)} / 100 = ${n(ratio)}x.`,
+    `Old quantity = ${n(expenditure)}/x.`,
+    `New quantity = ${n(expenditure)}/(${n(ratio)}x).`,
+    "Quantity reduction:",
+    `${n(expenditure)}/x - ${n(expenditure)}/(${n(ratio)}x) = ${n(reduction)}`,
+    `x = ${n(answer)}`,
+    finalEndingText(problem),
+  ];
 }
 
 function suppressConnector(
@@ -998,6 +1092,21 @@ export function realizeExplanationWithNaturalization(input: {
   const phraseVariants: string[] = [];
   const explanationPatternIds: string[] = [];
   let emittedStepCount = 0;
+
+  const priceQuantityLines = renderPriceConsumptionQuantityEquation(input.problem, input.seed);
+  if (priceQuantityLines) {
+    return {
+      explanation: priceQuantityLines.join("\n").trim(),
+      naturalization: {
+        rhythmProfile,
+        phraseVariants: [`price_consumption:absolute_quantity_equation:${priceQuantityLines[0]}`],
+        shortcutSurfaced: false,
+        explanationPatternIds: ["price_consumption:absolute_quantity_equation"],
+        naturalizationScore: 100,
+      },
+    };
+  }
+
   const shortcutSurfaced = shouldSurfaceShortcut({
     hasShortcut: Boolean(input.graph.shortcutEquation),
     rhythmProfile,
@@ -1093,6 +1202,18 @@ export function realizeExplanationWithNaturalization(input: {
   ) {
     lines.push(`Growth is applied for ${n(input.problem.variables.years)} years.`);
     explanationPatternIds.push("population_growth:pedagogical_bridge");
+  }
+
+  if (
+    input.problem.subtype === "profit_loss" &&
+    (lines.join(" ").match(/\b[A-Za-z][A-Za-z-]*\b/g)?.length ?? 0) < 12
+  ) {
+    lines.push(
+      input.problem.answer < 0
+        ? "The negative value indicates a loss over the cost price."
+        : "The positive difference gives the profit percentage."
+    );
+    explanationPatternIds.push("profit_loss:pedagogical_bridge");
   }
 
   const previousLine = lines[lines.length - 1]?.trim() ?? "";

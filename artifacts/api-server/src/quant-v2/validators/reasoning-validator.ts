@@ -12,6 +12,10 @@ const VARIABLE_PATTERN = /\b[A-Za-z_][A-Za-z0-9_]*\b/gu;
 const PLACEHOLDER_PATTERN = /\{([A-Za-z_][A-Za-z0-9_]*)\}/gu;
 const NUMERIC_WORDS = new Set([
   "e",
+  "frac",
+  "times",
+  "left",
+  "right"
 ]);
 
 function addIssue(issues: string[], message: string) {

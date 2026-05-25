@@ -1,0 +1,241 @@
+{
+  "sourceFolder": "C:\\Users\\gurbaj\\Downloads\\f\\ssc cgl tier 1 pyq",
+  "ocrEnabled": true,
+  "pdfCount": 3,
+  "duplicateFileGroups": [],
+  "documents": [
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-1 by Cracku.pdf",
+      "extractionMode": "text-layer",
+      "quantQuestionsExtracted": 27,
+      "totalPages": 29,
+      "textChars": 29758
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "extractionMode": "text-layer",
+      "quantQuestionsExtracted": 27,
+      "totalPages": 28,
+      "textChars": 29611
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "extractionMode": "text-layer",
+      "quantQuestionsExtracted": 25,
+      "totalPages": 30,
+      "textChars": 30885
+    }
+  ],
+  "totalQuantQuestionsExtracted": 79,
+  "topicCounts": {
+    "geometry_mensuration": 12,
+    "algebra": 8,
+    "other_quant": 7,
+    "ratio_proportion": 7,
+    "speed_distance": 6,
+    "profit_loss_discount": 6,
+    "data_interpretation": 6,
+    "percentage": 6,
+    "trigonometry": 5,
+    "time_work": 5,
+    "simple_compound_interest": 3,
+    "number_system": 3,
+    "simplification": 3,
+    "average": 2
+  },
+  "familyCounts": {
+    "percentage_other_or_unclassified": 7,
+    "di_percentage_comparison": 3,
+    "pl_partial_inventory_allocation": 2,
+    "pl_successive_discount_equivalent": 2,
+    "relation_chain": 2,
+    "pl_markup_discount_triangle": 2
+  },
+  "percentageLikeCount": 12,
+  "profitLossLikeCount": 6,
+  "extractionIssues": [],
+  "gapFindings": [
+    {
+      "area": "SSC Quant topic coverage",
+      "finding": "Percentage and Profit/Loss cover only part of the extracted SSC CGL Quant mix; geometry, algebra, time-work, ratio, speed-distance, SI/CI, trigonometry, and DI need their own V2 chapters."
+    },
+    {
+      "area": "Percentage DI hybrid",
+      "finding": "PYQs frequently ask percentage/comparison questions from bar graphs, pie charts, tables, imports, sales, and poverty-line data. Standalone Percentage V2 should add lightweight DI-percentage families if it is expected to cover SSC Tier 1 patterns."
+    },
+    {
+      "area": "Profit/Loss inventory and discount comparison",
+      "finding": "Extracted PYQs include partial stock allocation, bill discount differences, maximum discount comparison, faulty weighing, dozen/unit conversion, and markup-discount inverses. Profit/Loss has many of these families, but needs more high-scale distractor-safe variants."
+    },
+    {
+      "area": "OCR extraction",
+      "finding": "OCR mode was enabled; review per-file extraction counts to decide if page ranges/language settings need tuning."
+    }
+  ],
+  "samplePercentageLike": [
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-1 by Cracku.pdf",
+      "questionNo": 58,
+      "topic": "data_interpretation",
+      "family": "di_percentage_comparison",
+      "opening": "Tue following bar graph shows the sales of books (in thousands) from six branches of a publishing company during two consecutive years 2018 and 2019. Total sales of branch for both years is what percentage of the total sales of branch A 73.",
+      "text": "58. Tue following bar graph shows the sales of books (in thousands) from six branches of a publishing company during two consecutive years 2018 and 2019. Total sales of branch for both years is what percentage of the total sales of branch A 73.17% B",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-1 by Cracku.pdf",
+      "questionNo": 63,
+      "topic": "data_interpretation",
+      "family": "di_percentage_comparison",
+      "opening": "Study the given graph carefully and the question that follows. The imports in 1977 were approximately hoe many times that of the year 1976? A 1.11 B 1.22 C 1.33 = 1+ 1+ 1− y y 1 3 y 2 3 2 4 5 5 4 2 3 7 5 37 35 D 1.44 General Science Notes f",
+      "text": "63. Study the given graph carefully and the question that follows. The imports in 1977 were approximately hoe many times that of the year 1976? A 1.11 B 1.22 C 1.33 = 1+ 1+ 1− y y 1 3 y 2 3 2 4 5 5 4 2 3 7 5 37 35 D 1.44 General Science Notes for SSC CGL",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-1 by Cracku.pdf",
+      "questionNo": 71,
+      "topic": "percentage",
+      "family": "relation_chain",
+      "opening": "Out of the total toffees, are wasted. 35% of the rest are given to S and of the total are given to N. If the toffees with N are 10 more than the wasted toffees, then how many toffees were given to S? A 126 B 150 C 110 D 135",
+      "text": "71. Out of the total toffees, are wasted. 35% of the rest are given to S and of the total are given to N. If the toffees with N are 10 more than the wasted toffees, then how many toffees were given to S? A 126 B 150 C 110 D 135",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 54,
+      "topic": "data_interpretation",
+      "family": "percentage_other_or_unclassified",
+      "opening": "The pie chart below shows the distribution of female employees working in a company in fi ve different districts (A, B, C, D and E). x +14 x +49 2 x −2 x −",
+      "text": "54. The pie chart below shows the distribution of female employees working in a company in fi ve different districts (A, B, C, D and E). x +14 x +49 2 x −2 x −",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 57,
+      "topic": "percentage",
+      "family": "percentage_other_or_unclassified",
+      "opening": "A is 50% more e fi cient then B. B worked to fi nish the same work in 20 days. If A and B worked together, then how much time will they take to fi nish the same work? A 10 days B 7 days C 8 days D 9 days SSC CGL Important Questions PDF",
+      "text": "57. A is 50% more e fi cient then B. B worked to fi nish the same work in 20 days. If A and B worked together, then how much time will they take to fi nish the same work? A 10 days B 7 days C 8 days D 9 days SSC CGL Important Questions PDF",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 68,
+      "topic": "percentage",
+      "family": "percentage_other_or_unclassified",
+      "opening": "What is the value of ? A B 2.5 5 % 2 1 3 % 3 1 x + 17 1 3 2 4 2 6 3 6 2 5 cos",
+      "text": "68. What is the value of ? A B 2.5 5 % 2 1 3 % 3 1 x + 17 1 3 2 4 2 6 3 6 2 5 cos",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 71,
+      "topic": "percentage",
+      "family": "percentage_other_or_unclassified",
+      "opening": "In the fi rst month, the income of Mohan increases by 30%. In the second month his income decreases by 30%. What will be percentage increase or decrease in the income after two months? A 15% increase B 9% increase C 15% decrease D 9% decrea",
+      "text": "71. In the fi rst month, the income of Mohan increases by 30%. In the second month his income decreases by 30%. What will be percentage increase or decrease in the income after two months? A 15% increase B 9% increase C 15% decrease D 9% decrease",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 75,
+      "topic": "data_interpretation",
+      "family": "di_percentage_comparison",
+      "opening": "The following table shows the percentage of population of four states below poverty line and the proportion of males and females below and above poverty line. If the total population of State B is 7,200, then what is the number of females b",
+      "text": "75. The following table shows the percentage of population of four states below poverty line and the proportion of males and females below and above poverty line. If the total population of State B is 7,200, then what is the number of females below poverty line in that state? A 1,025 B 1,125 C 1,075 D 1,250 Daily Free SSC Practice Set",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "questionNo": 59,
+      "topic": "data_interpretation",
+      "family": "percentage_other_or_unclassified",
+      "opening": "Study the given table and answer the question that follows. The table represents the expenditure of a company (in thousand rupees) per annum over the given year. What is the average amount of salary per year, which the company has to pay du",
+      "text": "59. Study the given table and answer the question that follows. The table represents the expenditure of a company (in thousand rupees) per annum over the given year. What is the average amount of salary per year, which the company has to pay during these four years? A Rs. 2,80,000 B Rs. 3,00,000 C Rs. 2,00,000 D Rs. 2,75,000",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "questionNo": 60,
+      "topic": "percentage",
+      "family": "relation_chain",
+      "opening": "Tarun owned a plot of land having an area that was 10% more than the area of the plot owned by Basab, while the area of the plot of land owned by Nakul was 40% more than the area of the plot owned by Tarun. If the area of the plot owned by ",
+      "text": "60. Tarun owned a plot of land having an area that was 10% more than the area of the plot owned by Basab, while the area of the plot of land owned by Nakul was 40% more than the area of the plot owned by Tarun. If the area of the plot owned by Nakul was 2695 square feet, what was the area (in square feet) of the plot owned by Basab? A 1750 B 1740 C 1780 D 1800 1500 + Free Must Solved SSC Questions (With Solutions)",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "questionNo": 68,
+      "topic": "percentage",
+      "family": "percentage_other_or_unclassified",
+      "opening": "A 40-litre mixture contains 25% alcohol and 75% water. If 10 litres of water are added to the mixture, the percentage of alcohol in the new mixture is: A 27% B 18% C 20% D 25% ∠ P SR 160 ∘ 80 ∘ 40 ∘ 100 ∘ a + 2 b + 2 c = 2 152 a + 3 b − 3 c",
+      "text": "68. A 40-litre mixture contains 25% alcohol and 75% water. If 10 litres of water are added to the mixture, the percentage of alcohol in the new mixture is: A 27% B 18% C 20% D 25% ∠ P SR 160 ∘ 80 ∘ 40 ∘ 100 ∘ a + 2 b + 2 c = 2 152 a + 3 b − 3 c + 3 3 abc",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "questionNo": 69,
+      "topic": "data_interpretation",
+      "family": "percentage_other_or_unclassified",
+      "opening": "The following bar chart shows the vends of foreign direct investment (FDI) into India from all over the world. What was the average of India's FDI over the years 1992 - 1997? A 15.2 B 15.7 C 15.6 D 15.5 SSC Exam Free Videos (Youtube)",
+      "text": "69. The following bar chart shows the vends of foreign direct investment (FDI) into India from all over the world. What was the average of India's FDI over the years 1992 - 1997? A 15.2 B 15.7 C 15.6 D 15.5 SSC Exam Free Videos (Youtube)",
+      "extractionMode": "text-layer"
+    }
+  ],
+  "sampleProfitLossLike": [
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-1 by Cracku.pdf",
+      "questionNo": 56,
+      "topic": "profit_loss_discount",
+      "family": "pl_partial_inventory_allocation",
+      "opening": "A shopkeeper bought certain number of apples for Rs.3,600. He sold one- fi fth of them at a loss of 10%, one- fourth of the remaining apples at a loss of 5%, and two-third of the rest at a pro fi t of 15%. At what price (in Rs.) should he s",
+      "text": "56. A shopkeeper bought certain number of apples for Rs.3,600. He sold one- fi fth of them at a loss of 10%, one- fourth of the remaining apples at a loss of 5%, and two-third of the rest at a pro fi t of 15%. At what price (in Rs.) should he sell the remaining apples to earn a pro fi t of 27% overall? A 1,548 B 1,584 C 1,845 cosec α + β = ( ) sec α ×cosec β +cosec α ×sec β sec α ×sec β ×cosec α ×cosec β cosec",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-1 by Cracku.pdf",
+      "questionNo": 69,
+      "topic": "profit_loss_discount",
+      "family": "pl_successive_discount_equivalent",
+      "opening": "Applied to a bill for Rs. 50,000, the difference between a discount of 40% and two successive discounts of 36% and 4%,is : A Rs. 875 B Rs. 1,440 C Rs. 1,250 D Rs. 720 SSC Exam Free Videos (Youtube)",
+      "text": "69. Applied to a bill for Rs. 50,000, the difference between a discount of 40% and two successive discounts of 36% and 4%,is : A Rs. 875 B Rs. 1,440 C Rs. 1,250 D Rs. 720 SSC Exam Free Videos (Youtube)",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 55,
+      "topic": "profit_loss_discount",
+      "family": "pl_successive_discount_equivalent",
+      "opening": "The difference between a discount of 40% and two successive discounts of 30% on a certain bill was Rs. 220. Find the amount of the bill (in Rs. ). A 2200 B 1100 C 1000 D 2000",
+      "text": "55. The difference between a discount of 40% and two successive discounts of 30% on a certain bill was Rs. 220. Find the amount of the bill (in Rs. ). A 2200 B 1100 C 1000 D 2000",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-3 by Cracku.pdf",
+      "questionNo": 59,
+      "topic": "profit_loss_discount",
+      "family": "pl_markup_discount_triangle",
+      "opening": "The cost price of an article is decreased by 10% and then increased by 20%. If the fi nal price is Rs. 540, then the original cost price is: A Rs. 500 B Rs. 650 C Rs. 550 D Rs. 600",
+      "text": "59. The cost price of an article is decreased by 10% and then increased by 20%. If the fi nal price is Rs. 540, then the original cost price is: A Rs. 500 B Rs. 650 C Rs. 550 D Rs. 600",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "questionNo": 63,
+      "topic": "profit_loss_discount",
+      "family": "pl_partial_inventory_allocation",
+      "opening": "A shopkeeper purchased 1600 mangos at the rate of Rs. 120 per dozen. Out of these, he sold 900 mangoes at Rs. 15 per mango and the remaining mangoes at Rs. 14 per mango. His gain percentage is: A 45.625% B 38.265% C 35.625% D 48.765% Genera",
+      "text": "63. A shopkeeper purchased 1600 mangos at the rate of Rs. 120 per dozen. Out of these, he sold 900 mangoes at Rs. 15 per mango and the remaining mangoes at Rs. 14 per mango. His gain percentage is: A 45.625% B 38.265% C 35.625% D 48.765% General Science Notes for SSC CGL",
+      "extractionMode": "text-layer"
+    },
+    {
+      "file": "SSC CGL Tier l 25th July 2023 Shift-4 by Cracku.pdf",
+      "questionNo": 70,
+      "topic": "profit_loss_discount",
+      "family": "pl_markup_discount_triangle",
+      "opening": "The marked price of a microwave oven is Rs. 15,990 and it is sold for Rs. 12,792. What is the rate of discount offered? A 25% B 20% C 21% D 24%",
+      "text": "70. The marked price of a microwave oven is Rs. 15,990 and it is sold for Rs. 12,792. What is the rate of discount offered? A 25% B 20% C 21% D 24%",
+      "extractionMode": "text-layer"
+    }
+  ]
+}

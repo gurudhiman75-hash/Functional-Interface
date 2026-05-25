@@ -27,7 +27,7 @@ function nonBlankLines(text: string) {
 
 function shortcutBlockEnd(lines: readonly string[]) {
   const start = lines.findIndex((line) =>
-    /^(?:Shortcut|Direct relation|शॉर्टकट|ਸ਼ਾਰਟਕੱਟ)/u.test(line),
+    /^(?:Shortcut|Direct relation|संक्षिप्त विधि|ਸੰਖੇਪ ਵਿਧੀ)/u.test(line),
   );
   if (start < 0) {
     return -1;

@@ -5,27 +5,27 @@
 <text x="80" y="65" font-size="13" font-weight="400" fill="#607067">election_margin · medium</text>
 <rect x="80" y="78" width="560" height="114" rx="8" fill="#fff8df" stroke="#9fb7aa" stroke-width="1.2"/>
 <text x="102" y="106" font-size="16" font-weight="700" fill="#1f2a24">शॉर्टकट</text>
-<text class="eq" x="102" y="132" font-size="18" fill="#10251b">25 % validVotes = 258750</text>
+<text class="eq" x="102" y="132" font-size="18" fill="#10251b">16 % validVotes = 7200</text>
 <text class="eq" x="102" y="154" font-size="18" fill="#10251b">90 % totalVotes = validVotes</text>
-<text class="eq" x="102" y="176" font-size="18" fill="#10251b">answer = 1150000</text>
+<text class="eq" x="102" y="176" font-size="18" fill="#10251b">answer = 50000</text>
 <path d="M 360 196 L 360 206" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <path d="M 355 200 L 360 208 L 365 200" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <rect x="80" y="216" width="560" height="76" rx="8" fill="#eef4ff" stroke="#9fb7aa" stroke-width="1.2"/>
 <text x="102" y="244" font-size="16" font-weight="700" fill="#1f2a24">कुल वैध वोट</text>
-<text class="eq" x="102" y="270" font-size="18" fill="#10251b">25 = 62.5 - 37.5</text>
+<text class="eq" x="102" y="270" font-size="18" fill="#10251b">16 = 58 - 42</text>
 <path d="M 360 296 L 360 306" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <path d="M 355 300 L 360 308 L 365 300" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <rect x="80" y="316" width="560" height="76" rx="8" fill="#eef4ff" stroke="#9fb7aa" stroke-width="1.2"/>
 <text x="102" y="344" font-size="16" font-weight="700" fill="#1f2a24">कुल वैध वोट</text>
-<text class="eq" x="102" y="370" font-size="18" fill="#10251b">1035000 = 258750 × 100 / 25</text>
+<text class="eq" x="102" y="370" font-size="18" fill="#10251b">45000 = 7200 × 100 / 16</text>
 <path d="M 360 396 L 360 406" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <path d="M 355 400 L 360 408 L 365 400" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <rect x="80" y="416" width="560" height="76" rx="8" fill="#eef4ff" stroke="#9fb7aa" stroke-width="1.2"/>
 <text x="102" y="444" font-size="16" font-weight="700" fill="#1f2a24">कुल वैध वोट</text>
-<text class="eq" x="102" y="470" font-size="18" fill="#10251b">1150000 = 1035000 × 100 / 90</text>
+<text class="eq" x="102" y="470" font-size="18" fill="#10251b">50000 = 45000 × 100 / 90</text>
 <path d="M 360 496 L 360 506" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <path d="M 355 500 L 360 508 L 365 500" stroke="#1f7a4f" stroke-width="1.5" fill="none"/>
 <rect x="80" y="516" width="560" height="76" rx="8" fill="#eaf7ef" stroke="#1f7a4f" stroke-width="2"/>
 <text x="102" y="544" font-size="16" font-weight="700" fill="#1f2a24">उत्तर</text>
-<text class="eq" x="102" y="570" font-size="18" fill="#10251b">1150000</text>
+<text class="eq" x="102" y="570" font-size="18" fill="#10251b">50000</text>
 </svg>

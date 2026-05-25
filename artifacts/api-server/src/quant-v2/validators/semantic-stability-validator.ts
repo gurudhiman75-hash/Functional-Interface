@@ -58,7 +58,13 @@ function resultLines(explanation: string) {
 
 function hasFormatterLeak(realization: EditorialRealization) {
   return resultLines(realization.explanation).some(({ label }) => {
+    if (/^(?:answer|result|finalValue|remaining part)$/i.test(label)) {
+      return false;
+    }
     const semantic = semanticValueForLabel(label, 1);
+    if (semantic.kind !== "percentage") {
+      console.log("FORMATTER LEAK TRIGGERED BY LABEL:", label);
+    }
     return semantic.kind !== "percentage";
   });
 }

@@ -1,0 +1,321 @@
+export,id,family,correct,distractors,ugly_decimal,large_scale,suggestion
+corpus-2026-05-21-191626,pl_cp_sp_percent|400|500|25,profit_loss_discount,25% profit,"[30.0, 20.0, 50.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_percent_to_sp|800|30|1,profit_loss_discount,₹1040,[],False,False,ok
+corpus-2026-05-21-191626,pl_sp_percent_to_cp|600|25|-1,profit_loss_discount,₹800,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_discount_to_sp|800|20,profit_loss_discount,₹640,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_sp_discount_percent|600|360|40,profit_loss_discount,40%,"[40.0, 45.0, 35.0, 80.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_mp_discount_to_percent|800|1000|10,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+corpus-2026-05-21-191626,pl_successive_discounts|400|25|20,profit_loss_discount,₹240,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_for_target_profit|1200|10|10,profit_loss_discount,₹1466.67,[],False,False,ok
+corpus-2026-05-21-191626,pl_equal_sp_profit_loss|600|30|30|461.54|857.14,profit_loss_discount,9% loss,"[14.0, 4.0, 18.0]",False,False,ok
+corpus-2026-05-21-191626,pl_two_article_overall|800|15|300|15|920|255,profit_loss_discount,6.82% profit,"[11.82, 1.82, 13.64]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_sp_percent|1200|1080|10,profit_loss_discount,10% loss,"[15.0, 5.0, 20.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_percent_to_sp|1000|40|-1,profit_loss_discount,₹600,[],False,False,ok
+corpus-2026-05-21-191626,pl_sp_percent_to_cp|400|40|-1,profit_loss_discount,₹666.67,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_discount_to_sp|1200|10,profit_loss_discount,₹1080,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_sp_discount_percent|800|560|30,profit_loss_discount,30%,"[30.0, 35.0, 25.0, 60.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_mp_discount_to_percent|400|600|12.5,profit_loss_discount,31.25% profit,"[36.25, 26.25, 62.5]",False,False,ok
+corpus-2026-05-21-191626,pl_successive_discounts|400|30|25,profit_loss_discount,₹210,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_for_target_profit|800|20|25,profit_loss_discount,₹1280,[],False,False,ok
+corpus-2026-05-21-191626,pl_equal_sp_profit_loss|1200|20|10|1000|1333.33,profit_loss_discount,2.86% profit,"[7.86, 2.14, 5.72]",False,False,ok
+corpus-2026-05-21-191626,pl_two_article_overall|1200|10|1200|15|1320|1020,profit_loss_discount,2.5% loss,"[7.5, 5.0, 17.5]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_sp_percent|400|450|12.5,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_percent_to_sp|400|15|-1,profit_loss_discount,₹340,[],False,False,ok
+corpus-2026-05-21-191626,pl_sp_percent_to_cp|400|12.5|-1,profit_loss_discount,₹457.14,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_discount_to_sp|1000|40,profit_loss_discount,₹600,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_sp_discount_percent|500|450|10,profit_loss_discount,10%,"[10.0, 15.0, 5.0, 20.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_mp_discount_to_percent|500|900|30,profit_loss_discount,26% profit,"[31.0, 21.0, 52.0]",False,False,ok
+corpus-2026-05-21-191626,pl_successive_discounts|1000|25|5,profit_loss_discount,₹712.5,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_for_target_profit|400|12.5|30,profit_loss_discount,₹642.86,[],False,False,ok
+corpus-2026-05-21-191626,pl_equal_sp_profit_loss|1000|30|20|769.23|1250,profit_loss_discount,0.95% loss,"[5.95, 4.05, 1.9]",False,False,ok
+corpus-2026-05-21-191626,pl_two_article_overall|400|15|1600|10|460|1440,profit_loss_discount,5% loss,"[10.0, 20.0, 17.5]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_sp_percent|500|400|20,profit_loss_discount,20% loss,"[25.0, 15.0, 40.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_percent_to_sp|800|10|1,profit_loss_discount,₹880,[],False,False,ok
+corpus-2026-05-21-191626,pl_sp_percent_to_cp|800|30|1,profit_loss_discount,₹615.38,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_discount_to_sp|400|25,profit_loss_discount,₹300,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_sp_discount_percent|600|510|15,profit_loss_discount,15%,"[15.0, 20.0, 10.0, 30.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_mp_discount_to_percent|600|960|20,profit_loss_discount,28% profit,"[33.0, 23.0, 56.0]",False,False,ok
+corpus-2026-05-21-191626,pl_successive_discounts|800|15|25,profit_loss_discount,₹510,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_for_target_profit|1000|15|20,profit_loss_discount,₹1437.5,[],False,False,ok
+corpus-2026-05-21-191626,pl_equal_sp_profit_loss|800|30|25|615.38|1066.67,profit_loss_discount,4.88% loss,"[9.88, 0.12, 9.76]",False,False,ok
+corpus-2026-05-21-191626,pl_two_article_overall|1000|25|1600|20|1250|1280,profit_loss_discount,2.69% loss,"[7.69, 2.31, 5.38]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_sp_percent|500|350|30,profit_loss_discount,30% loss,"[35.0, 25.0, 60.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_percent_to_sp|800|20|1,profit_loss_discount,₹960,[],False,False,ok
+corpus-2026-05-21-191626,pl_sp_percent_to_cp|500|10|1,profit_loss_discount,₹454.55,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_discount_to_sp|600|12.5,profit_loss_discount,₹525,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_sp_discount_percent|500|400|20,profit_loss_discount,20%,"[20.0, 25.0, 15.0, 40.0]",False,False,ok
+corpus-2026-05-21-191626,pl_cp_mp_discount_to_percent|500|750|25,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+corpus-2026-05-21-191626,pl_successive_discounts|1000|20|15,profit_loss_discount,₹680,[],False,False,ok
+corpus-2026-05-21-191626,pl_mp_for_target_profit|1200|15|10,profit_loss_discount,₹1533.33,[],False,False,ok
+corpus-2026-05-21-191626,pl_equal_sp_profit_loss|500|25|10|400|555.56,profit_loss_discount,4.65% profit,"[9.65, 0.35, 9.3]",False,False,ok
+corpus-2026-05-21-191626,pl_two_article_overall|1000|10|500|20|1100|400,profit_loss_discount,0% profit,"[5.0, 15.0, 12.5]",False,False,ok
+profit-loss-comprehensive-60,pl_dual_item_mixed_baseline|5000|10|20|3333.33|1666.67,profit_loss_discount,₹3333.33,[],False,False,ok
+profit-loss-comprehensive-60,pl_gst_after_discount|2000|10|12,profit_loss_discount,₹2016,[],False,False,ok
+profit-loss-comprehensive-60,pl_mp_for_target_profit|720|30|25,profit_loss_discount,₹1248,[],False,False,ok
+profit-loss-comprehensive-60,pl_partial_inventory_allocation|1|4|25|16,profit_loss_discount,13% profit,"[20.5, 41.0, 18.0]",False,False,ok
+profit-loss-comprehensive-60,pl_hybrid_promotion_scaling|2|1|10,profit_loss_discount,40%,"[40.0, 43.33, 50.0, 45.0]",False,False,ok
+profit-loss-comprehensive-60,pl_sp_difference_two_rates|10|40|450,profit_loss_discount,₹1500,[],False,False,ok
+profit-loss-comprehensive-60,pl_cp_mp_discount_to_percent|1500|1875|12.5,profit_loss_discount,9.38% profit,"[14.38, 4.38, 18.76]",False,False,ok
+profit-loss-comprehensive-60,pl_same_profit_amount_different_rates|20|30|30|20,profit_loss_discount,₹30,[],False,False,ok
+profit-loss-comprehensive-60,pl_target_profit_discount_calibration|40|12,profit_loss_discount,20%,"[20.0, 28.0, 25.0, 15.0]",False,False,ok
+profit-loss-comprehensive-60,pl_fractional_value_shift|10|10|400,profit_loss_discount,₹2000,[],False,False,ok
+profit-loss-comprehensive-60,pl_cp_percent_to_sp|1000|20|1,profit_loss_discount,₹1200,[],False,False,ok
+profit-loss-comprehensive-60,pl_asymmetric_item_equivalence|20|25,profit_loss_discount,20% loss,"[25.0, 5.0, 15.0]",False,False,ok
+profit-loss-comprehensive-60,pl_repair_overhead_cost|8000|1500|10450,profit_loss_discount,10% profit,"[30.63, 18.75, 15.0]",False,False,ok
+profit-loss-comprehensive-60,pl_required_sp_after_overhead|5000|1000|10,profit_loss_discount,₹6600,[],False,False,ok
+profit-loss-comprehensive-60,pl_compound_error_baseline_shift|20|25|1000,profit_loss_discount,₹4000,[],False,False,ok
+profit-loss-comprehensive-60,pl_successive_discounts|360|12.5|20,profit_loss_discount,₹252,[],False,False,ok
+profit-loss-comprehensive-60,pl_markup_discount_triangle|40|20,profit_loss_discount,12% profit,"[20.0, 60.0, 17.0]",False,False,ok
+profit-loss-comprehensive-60,pl_multi_condition_inverse_absolute|20|1000|15|1100,profit_loss_discount,₹2000,[],False,False,ok
+profit-loss-comprehensive-60,pl_sp_percent_to_cp|675|25|-1,profit_loss_discount,₹900,[],False,False,ok
+profit-loss-comprehensive-60,pl_sequential_supply_chain|1200|15|10|20,profit_loss_discount,₹1821.6,[],False,False,ok
+profit-loss-comprehensive-60,pl_dual_item_identical_sp|400|30|30,profit_loss_discount,9% loss,"[30.0, 14.0, 4.0]",False,False,ok
+profit-loss-comprehensive-60,pl_mp_sp_discount_percent|1200|720|40,profit_loss_discount,40%,"[40.0, 45.0, 35.0, 80.0]",False,False,ok
+profit-loss-comprehensive-60,pl_buy_get_free_discount|4|1,profit_loss_discount,20%,"[20.0, 25.0, 10.0, 15.0]",False,False,ok
+profit-loss-comprehensive-60,pl_supply_chain_mixed_profit_loss|20|-10|25,profit_loss_discount,35% profit,"[10.0, 40.0, 30.0]",False,False,ok
+profit-loss-comprehensive-60,pl_cashback_coupon_discount|2000|10|400,profit_loss_discount,30%,"[30.0, 32.22, 10.0, 35.0]",False,False,ok
+profit-loss-comprehensive-60,pl_equal_sp_profit_loss|500|25|25|400|666.67,profit_loss_discount,6.25% loss,"[11.25, 1.25, 12.5]",False,False,ok
+profit-loss-comprehensive-60,pl_equal_profit_loss_amount|1000|600|150|150,profit_loss_discount,"No profit, no loss","[15.0, 25.0, 5.0]",False,False,ok
+profit-loss-comprehensive-60,pl_mp_discount_to_sp|900|40,profit_loss_discount,₹540,[],False,False,ok
+profit-loss-comprehensive-60,pl_required_sp_after_loss|900|25|10,profit_loss_discount,₹1320,[],False,False,ok
+profit-loss-comprehensive-60,pl_loss_recovery_cp_from_difference|25|15|400,profit_loss_discount,₹1000,[],False,False,ok
+profit-loss-comprehensive-60,pl_manufacturing_breakdown|1000|3|2|10|15,profit_loss_discount,₹1120,[],False,False,ok
+profit-loss-comprehensive-60,pl_dishonest_dealer_dual_fraud|10|20,profit_loss_discount,37.5% profit,"[30.0, 32.0, 42.5]",False,False,ok
+profit-loss-comprehensive-60,pl_two_article_overall|800|25|400|10|1000|360,profit_loss_discount,13.33% profit,"[18.33, 8.33, 26.66]",False,False,ok
+profit-loss-comprehensive-60,pl_no_profit_no_loss|240|240,profit_loss_discount,"No profit, no loss","[5.0, 10.0, 2.5]",False,False,ok
+profit-loss-comprehensive-60,pl_tax_inclusive_back_calc|2800|12,profit_loss_discount,₹2500,[],False,False,ok
+profit-loss-comprehensive-60,pl_profit_after_commission_tax|1200|1920|5,profit_loss_discount,52% profit,"[60.0, 8.0, 57.0]",False,False,ok
+profit-loss-comprehensive-60,pl_dishonest_dealer_absolute_hybrid|30|10|1000|800,profit_loss_discount,46.25% profit,"[17.0, 55.0, 51.25]",False,False,ok
+profit-loss-comprehensive-60,pl_cp_sp_percent|1000|1200|20,profit_loss_discount,20% profit,"[25.0, 15.0, 40.0]",False,False,ok
+profit-loss-comprehensive-60,pl_target_profit_mp_calibration|800|10|10,profit_loss_discount,₹977.78,[],False,False,ok
+profit-loss-comprehensive-60,pl_inverse_markup_from_cp_discount_profit|500|10|25,profit_loss_discount,38.89% profit,"[35.0, 33.89, 43.89]",False,False,ok
+profit-loss-comprehensive-60,pl_dishonest_dealer_weight_fraud|1000|900|20,profit_loss_discount,33.33% profit,"[10.0, 11.11, 38.33]",False,False,ok
+profit-loss-comprehensive-60,pl_inverse_discount_from_cp_mp_profit|1000|1500|20,profit_loss_discount,20%,"[20.0, 30.0, 25.0, 15.0]",False,False,ok
+profit-loss-comprehensive-60,pl_successive_discount_equivalent|15|20,profit_loss_discount,32%,"[32.0, 35.0, 17.5, 37.0]",False,False,ok
+profit-loss-comprehensive-60,pl_inverse_cp_from_mp_discount_profit|977.78|10|10,profit_loss_discount,₹800,[],False,False,ok
+profit-loss-comprehensive-60,pl_mp_sp_discount_percent|500|325|35,profit_loss_discount,35%,"[35.0, 40.0, 30.0, 70.0]",False,False,ok
+profit-loss-comprehensive-60,pl_equal_sp_profit_loss|360|20|20|300|450,profit_loss_discount,4% loss,"[9.0, 1.0, 8.0]",False,False,ok
+profit-loss-comprehensive-60,pl_mp_discount_to_sp|360|35,profit_loss_discount,₹234,[],False,False,ok
+profit-loss-comprehensive-60,pl_two_article_overall|900|10|600|20|990|480,profit_loss_discount,2% loss,"[7.0, 3.0, 4.0]",False,False,ok
+profit-loss-comprehensive-60,pl_no_profit_no_loss|200|200,profit_loss_discount,"No profit, no loss","[5.0, 10.0, 2.5]",False,False,ok
+profit-loss-comprehensive-60,pl_cp_sp_percent|500|375|25,profit_loss_discount,25% loss,"[30.0, 20.0, 50.0]",False,False,ok
+profit-loss-comprehensive-60,pl_target_profit_mp_calibration|8000|15|25,profit_loss_discount,₹12266.67,[],False,False,ok
+profit-loss-comprehensive-60,pl_mp_for_target_profit|900|15|20,profit_loss_discount,₹1293.75,[],False,False,ok
+profit-loss-comprehensive-60,pl_cp_mp_discount_to_percent|720|900|15,profit_loss_discount,6.25% profit,"[11.25, 1.25, 12.5]",False,False,ok
+profit-loss-comprehensive-60,pl_target_profit_discount_calibration|50|20,profit_loss_discount,20%,"[20.0, 30.0, 25.0, 15.0]",False,False,ok
+profit-loss-comprehensive-60,pl_fractional_value_shift|25|15|400,profit_loss_discount,₹1000,[],False,False,ok
+profit-loss-comprehensive-60,pl_cp_percent_to_sp|300|35|1,profit_loss_discount,₹405,[],False,False,ok
+profit-loss-comprehensive-60,pl_asymmetric_item_equivalence|15|12,profit_loss_discount,25% profit,"[20.0, 3.0, 30.0]",False,False,ok
+profit-loss-comprehensive-60,pl_successive_discounts|500|12.5|15,profit_loss_discount,₹371.88,[],False,False,ok
+profit-loss-comprehensive-60,pl_markup_discount_triangle|30|15,profit_loss_discount,10.5% profit,"[15.0, 45.0, 15.5]",False,False,ok
+profit-loss-comprehensive-60,pl_sp_percent_to_cp|1800|20|1,profit_loss_discount,₹1500,[],False,False,ok
+profit-loss-language-context-50,pl_dual_item_mixed_baseline|5000|10|20|3333.33|1666.67,profit_loss_discount,₹3333.33,[],False,False,ok
+profit-loss-language-context-50,pl_gst_after_discount|5000|20|5,profit_loss_discount,₹4200,[],False,False,ok
+profit-loss-language-context-50,pl_mp_for_target_profit|800|10|20,profit_loss_discount,₹1100,[],False,False,ok
+profit-loss-language-context-50,pl_partial_inventory_allocation|1|3|10|20,profit_loss_discount,25% profit,"[15.0, 10.0, 30.0]",False,False,ok
+profit-loss-language-context-50,pl_hybrid_promotion_scaling|4|1|25,profit_loss_discount,40%,"[40.0, 45.0, 25.0, 35.0]",False,False,ok
+profit-loss-language-context-50,pl_sp_difference_two_rates|20|25|50,profit_loss_discount,₹1000,[],False,False,ok
+profit-loss-language-context-50,pl_cp_mp_discount_to_percent|400|720|20,profit_loss_discount,44% profit,"[49.0, 39.0, 88.0]",False,False,ok
+profit-loss-language-context-50,pl_same_profit_amount_different_rates|20|40|2|1,profit_loss_discount,2,"[2.0, 1.0, 3.0, 1.6]",False,False,ok
+profit-loss-language-context-50,pl_target_profit_discount_calibration|50|20,profit_loss_discount,20%,"[20.0, 30.0, 25.0, 15.0]",False,False,ok
+profit-loss-language-context-50,pl_fractional_value_shift|10|10|400,profit_loss_discount,₹2000,[],False,False,ok
+profit-loss-language-context-50,pl_cp_percent_to_sp|1000|20|1,profit_loss_discount,₹1200,[],False,False,ok
+profit-loss-language-context-50,pl_asymmetric_item_equivalence|18|15,profit_loss_discount,20% profit,"[16.67, 3.0, 25.0]",False,False,ok
+profit-loss-language-context-50,pl_repair_overhead_cost|12000|500|15000,profit_loss_discount,20% profit,"[25.0, 4.17, 15.0]",False,False,ok
+profit-loss-language-context-50,pl_required_sp_after_overhead|10000|1000|30,profit_loss_discount,₹14300,[],False,False,ok
+profit-loss-language-context-50,pl_compound_error_baseline_shift|20|25|1000,profit_loss_discount,₹4000,[],False,False,ok
+profit-loss-language-context-50,pl_successive_discounts|900|10|20,profit_loss_discount,₹648,[],False,False,ok
+profit-loss-language-context-50,pl_markup_discount_triangle|40|20,profit_loss_discount,12% profit,"[20.0, 60.0, 17.0]",False,False,ok
+profit-loss-language-context-50,pl_multi_condition_inverse_absolute|20|1000|15|1100,profit_loss_discount,₹2000,[],False,False,ok
+profit-loss-language-context-50,pl_sp_percent_to_cp|675|25|-1,profit_loss_discount,₹900,[],False,False,ok
+profit-loss-language-context-50,pl_sequential_supply_chain|1200|25|20|10,profit_loss_discount,₹1980,[],False,False,ok
+profit-loss-language-context-50,pl_dual_item_identical_sp|400|30|30,profit_loss_discount,9% loss,"[30.0, 14.0, 4.0]",False,False,ok
+profit-loss-language-context-50,pl_mp_sp_discount_percent|1200|720|40,profit_loss_discount,40%,"[40.0, 45.0, 35.0, 80.0]",False,False,ok
+profit-loss-language-context-50,pl_buy_get_free_discount|4|1,profit_loss_discount,20%,"[20.0, 25.0, 10.0, 15.0]",False,False,ok
+profit-loss-language-context-50,pl_supply_chain_mixed_profit_loss|40|-25|20,profit_loss_discount,26% profit,"[35.0, 15.0, 31.0]",False,False,ok
+profit-loss-language-context-50,pl_cashback_coupon_discount|3000|10|400,profit_loss_discount,23.33%,"[23.33, 24.81, 10.0, 28.33]",False,False,ok
+profit-loss-language-context-50,pl_equal_sp_profit_loss|900|10|10|818.18|1000,profit_loss_discount,1% loss,"[6.0, 4.0, 2.0]",False,False,ok
+profit-loss-language-context-50,pl_equal_profit_loss_amount|1000|600|150|150,profit_loss_discount,"No profit, no loss","[15.0, 25.0, 5.0]",False,False,ok
+profit-loss-language-context-50,pl_mp_discount_to_sp|900|40,profit_loss_discount,₹540,[],False,False,ok
+profit-loss-language-context-50,pl_required_sp_after_loss|900|10|15,profit_loss_discount,₹1150,[],False,False,ok
+profit-loss-language-context-50,pl_loss_recovery_cp_from_difference|25|15|400,profit_loss_discount,₹1000,[],False,False,ok
+profit-loss-language-context-50,pl_manufacturing_breakdown|3000|4|1|10|5,profit_loss_discount,₹3270,[],False,False,ok
+profit-loss-language-context-50,pl_dishonest_dealer_dual_fraud|10|20,profit_loss_discount,37.5% profit,"[30.0, 32.0, 42.5]",False,False,ok
+profit-loss-language-context-50,pl_two_article_overall|750|20|250|10|900|225,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+profit-loss-language-context-50,pl_no_profit_no_loss|500|500,profit_loss_discount,"No profit, no loss","[5.0, 10.0, 2.5]",False,False,ok
+profit-loss-language-context-50,pl_tax_inclusive_back_calc|525|5,profit_loss_discount,₹500,[],False,False,ok
+profit-loss-language-context-50,pl_profit_after_commission_tax|1200|1800|10,profit_loss_discount,35% profit,"[50.0, 15.0, 40.0]",False,False,ok
+profit-loss-language-context-50,pl_dishonest_dealer_absolute_hybrid|30|10|1000|800,profit_loss_discount,46.25% profit,"[17.0, 55.0, 51.25]",False,False,ok
+profit-loss-language-context-50,pl_cp_sp_percent|1000|1200|20,profit_loss_discount,20% profit,"[25.0, 15.0, 40.0]",False,False,ok
+profit-loss-language-context-50,pl_target_profit_mp_calibration|3000|15|10,profit_loss_discount,₹3833.33,[],False,False,ok
+profit-loss-language-context-50,pl_inverse_markup_from_cp_discount_profit|500|10|25,profit_loss_discount,38.89% markup,"[35.0, 33.89, 43.89]",False,False,ok
+profit-loss-language-context-50,pl_dishonest_dealer_weight_fraud|1000|800|20,profit_loss_discount,50% profit,"[20.0, 25.0, 55.0]",False,False,ok
+profit-loss-language-context-50,pl_inverse_discount_from_cp_mp_profit|1500|2400|20,profit_loss_discount,25%,"[25.0, 40.0, 30.0, 20.0]",False,False,ok
+profit-loss-language-context-50,pl_successive_discount_equivalent|15|20,profit_loss_discount,32%,"[32.0, 35.0, 17.5, 37.0]",False,False,ok
+profit-loss-language-context-50,pl_inverse_cp_from_mp_discount_profit|977.78|10|10,profit_loss_discount,₹800,[],False,False,ok
+profit-loss-language-context-50,pl_mp_sp_discount_percent|300|195|35,profit_loss_discount,35%,"[35.0, 40.0, 30.0, 70.0]",False,False,ok
+profit-loss-language-context-50,pl_mp_discount_to_sp|1200|25,profit_loss_discount,₹900,[],False,False,ok
+profit-loss-language-context-50,pl_cp_sp_percent|1200|1080|10,profit_loss_discount,10% loss,"[15.0, 5.0, 20.0]",False,False,ok
+profit-loss-language-context-50,pl_cp_mp_discount_to_percent|1200|1680|10,profit_loss_discount,26% profit,"[31.0, 21.0, 52.0]",False,False,ok
+profit-loss-language-context-50,pl_cp_percent_to_sp|500|15|-1,profit_loss_discount,₹425,[],False,False,ok
+profit-loss-language-context-50,pl_sp_percent_to_cp|787.5|12.5|-1,profit_loss_discount,₹900,[],False,False,ok
+profit-loss-phase1-60,pl_cp_sp_percent|400|500|25,profit_loss_discount,25% profit,"[30.0, 20.0, 50.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_percent_to_sp|800|30|1,profit_loss_discount,₹1040,[],False,False,ok
+profit-loss-phase1-60,pl_sp_percent_to_cp|600|25|-1,profit_loss_discount,₹800,[],False,False,ok
+profit-loss-phase1-60,pl_mp_discount_to_sp|800|20,profit_loss_discount,₹640,[],False,False,ok
+profit-loss-phase1-60,pl_mp_sp_discount_percent|600|360|40,profit_loss_discount,40%,"[40.0, 45.0, 35.0, 80.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_mp_discount_to_percent|800|1000|10,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+profit-loss-phase1-60,pl_successive_discounts|400|25|20,profit_loss_discount,₹240,[],False,False,ok
+profit-loss-phase1-60,pl_mp_for_target_profit|1200|10|10,profit_loss_discount,₹1466.67,[],False,False,ok
+profit-loss-phase1-60,pl_equal_sp_profit_loss|600|30|30|461.54|857.14,profit_loss_discount,9% loss,"[14.0, 4.0, 18.0]",False,False,ok
+profit-loss-phase1-60,pl_two_article_overall|800|15|300|15|920|255,profit_loss_discount,6.82% profit,"[11.82, 1.82, 13.64]",False,False,ok
+profit-loss-phase1-60,pl_cp_sp_percent|1200|1080|10,profit_loss_discount,10% loss,"[15.0, 5.0, 20.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_percent_to_sp|1000|40|-1,profit_loss_discount,₹600,[],False,False,ok
+profit-loss-phase1-60,pl_sp_percent_to_cp|400|40|-1,profit_loss_discount,₹666.67,[],False,False,ok
+profit-loss-phase1-60,pl_mp_discount_to_sp|1200|10,profit_loss_discount,₹1080,[],False,False,ok
+profit-loss-phase1-60,pl_mp_sp_discount_percent|800|560|30,profit_loss_discount,30%,"[30.0, 35.0, 25.0, 60.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_mp_discount_to_percent|400|600|12.5,profit_loss_discount,31.25% profit,"[36.25, 26.25, 62.5]",False,False,ok
+profit-loss-phase1-60,pl_successive_discounts|400|30|25,profit_loss_discount,₹210,[],False,False,ok
+profit-loss-phase1-60,pl_mp_for_target_profit|800|20|25,profit_loss_discount,₹1280,[],False,False,ok
+profit-loss-phase1-60,pl_equal_sp_profit_loss|1200|20|10|1000|1333.33,profit_loss_discount,2.86% profit,"[7.86, 2.14, 5.72]",False,False,ok
+profit-loss-phase1-60,pl_two_article_overall|1200|10|1200|15|1320|1020,profit_loss_discount,2.5% loss,"[7.5, 5.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_sp_percent|400|450|12.5,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_percent_to_sp|400|15|-1,profit_loss_discount,₹340,[],False,False,ok
+profit-loss-phase1-60,pl_sp_percent_to_cp|400|12.5|-1,profit_loss_discount,₹457.14,[],False,False,ok
+profit-loss-phase1-60,pl_mp_discount_to_sp|1000|40,profit_loss_discount,₹600,[],False,False,ok
+profit-loss-phase1-60,pl_mp_sp_discount_percent|500|450|10,profit_loss_discount,10%,"[10.0, 15.0, 5.0, 20.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_mp_discount_to_percent|500|900|30,profit_loss_discount,26% profit,"[31.0, 21.0, 52.0]",False,False,ok
+profit-loss-phase1-60,pl_successive_discounts|1000|25|5,profit_loss_discount,₹712.5,[],False,False,ok
+profit-loss-phase1-60,pl_mp_for_target_profit|400|12.5|30,profit_loss_discount,₹642.86,[],False,False,ok
+profit-loss-phase1-60,pl_equal_sp_profit_loss|1000|30|20|769.23|1250,profit_loss_discount,0.95% loss,"[5.95, 4.05, 1.9]",False,False,ok
+profit-loss-phase1-60,pl_two_article_overall|400|15|1600|10|460|1440,profit_loss_discount,5% loss,[10.0],False,False,ok
+profit-loss-phase1-60,pl_cp_sp_percent|500|400|20,profit_loss_discount,20% loss,"[25.0, 15.0, 40.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_percent_to_sp|800|10|1,profit_loss_discount,₹880,[],False,False,ok
+profit-loss-phase1-60,pl_sp_percent_to_cp|800|30|1,profit_loss_discount,₹615.38,[],False,False,ok
+profit-loss-phase1-60,pl_mp_discount_to_sp|400|25,profit_loss_discount,₹300,[],False,False,ok
+profit-loss-phase1-60,pl_mp_sp_discount_percent|600|510|15,profit_loss_discount,15%,"[15.0, 20.0, 10.0, 30.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_mp_discount_to_percent|600|960|20,profit_loss_discount,28% profit,"[33.0, 23.0, 56.0]",False,False,ok
+profit-loss-phase1-60,pl_successive_discounts|800|15|25,profit_loss_discount,₹510,[],False,False,ok
+profit-loss-phase1-60,pl_mp_for_target_profit|1000|15|20,profit_loss_discount,₹1437.5,[],False,False,ok
+profit-loss-phase1-60,pl_equal_sp_profit_loss|800|30|25|615.38|1066.67,profit_loss_discount,4.88% loss,"[9.88, 0.12, 9.76]",False,False,ok
+profit-loss-phase1-60,pl_two_article_overall|1000|25|1600|20|1250|1280,profit_loss_discount,2.69% loss,"[7.69, 2.31, 5.38]",False,False,ok
+profit-loss-phase1-60,pl_cp_sp_percent|500|350|30,profit_loss_discount,30% loss,"[35.0, 25.0, 60.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_percent_to_sp|800|20|1,profit_loss_discount,₹960,[],False,False,ok
+profit-loss-phase1-60,pl_sp_percent_to_cp|500|10|1,profit_loss_discount,₹454.55,[],False,False,ok
+profit-loss-phase1-60,pl_mp_discount_to_sp|600|12.5,profit_loss_discount,₹525,[],False,False,ok
+profit-loss-phase1-60,pl_mp_sp_discount_percent|500|400|20,profit_loss_discount,20%,"[20.0, 25.0, 15.0, 40.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_mp_discount_to_percent|500|750|25,profit_loss_discount,12.5% profit,"[17.5, 7.5, 25.0]",False,False,ok
+profit-loss-phase1-60,pl_successive_discounts|1000|20|15,profit_loss_discount,₹680,[],False,False,ok
+profit-loss-phase1-60,pl_mp_for_target_profit|1200|15|10,profit_loss_discount,₹1533.33,[],False,False,ok
+profit-loss-phase1-60,pl_equal_sp_profit_loss|500|25|10|400|555.56,profit_loss_discount,4.65% profit,"[9.65, 0.35, 9.3]",False,False,ok
+profit-loss-phase1-60,pl_two_article_overall|1000|10|500|20|1100|400,profit_loss_discount,0% profit,[5.0],False,False,ok
+profit-loss-phase1-60,pl_cp_sp_percent|1000|1400|40,profit_loss_discount,40% profit,"[45.0, 35.0, 80.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_percent_to_sp|1000|25|-1,profit_loss_discount,₹750,[],False,False,ok
+profit-loss-phase1-60,pl_sp_percent_to_cp|1200|10|1,profit_loss_discount,₹1090.91,[],False,False,ok
+profit-loss-phase1-60,pl_mp_discount_to_sp|500|30,profit_loss_discount,₹350,[],False,False,ok
+profit-loss-phase1-60,pl_mp_sp_discount_percent|1000|750|25,profit_loss_discount,25%,"[25.0, 30.0, 20.0, 50.0]",False,False,ok
+profit-loss-phase1-60,pl_cp_mp_discount_to_percent|500|800|25,profit_loss_discount,20% profit,"[25.0, 15.0, 40.0]",False,False,ok
+profit-loss-phase1-60,pl_successive_discounts|500|20|25,profit_loss_discount,₹300,[],False,False,ok
+profit-loss-phase1-60,pl_mp_for_target_profit|600|12.5|20,profit_loss_discount,₹843.75,[],False,False,ok
+profit-loss-phase1-60,pl_equal_sp_profit_loss|600|20|30|500|857.14,profit_loss_discount,11.58% loss,"[16.58, 6.58, 23.16]",False,False,ok
+profit-loss-phase1-60,pl_two_article_overall|800|15|300|5|920|285,profit_loss_discount,9.55% profit,"[14.55, 4.55, 19.1]",False,False,ok
+profit-loss-polish-50,pl_dual_item_mixed_baseline|5000|10|20|3333.33|1666.67,profit_loss_discount,₹3333.33,[],False,False,ok
+profit-loss-polish-50,pl_gst_after_discount|2000|10|12,profit_loss_discount,₹2016,[],False,False,ok
+profit-loss-polish-50,pl_mp_for_target_profit|360|15|20,profit_loss_discount,₹517.5,[],False,False,ok
+profit-loss-polish-50,pl_partial_inventory_allocation|1|4|25|18,profit_loss_discount,15.67% profit,"[21.5, 43.0, 20.67]",False,False,ok
+profit-loss-polish-50,pl_hybrid_promotion_scaling|2|1|10,profit_loss_discount,40%,"[40.0, 43.33, 50.0, 45.0]",False,False,ok
+profit-loss-polish-50,pl_sp_difference_two_rates|10|40|450,profit_loss_discount,₹1500,[],False,False,ok
+profit-loss-polish-50,pl_cp_mp_discount_to_percent|1500|1875|12.5,profit_loss_discount,9.38% profit,"[14.38, 4.38, 18.76]",False,False,ok
+profit-loss-polish-50,pl_same_profit_amount_different_rates|20|40|2|1,profit_loss_discount,2,"[2.0, 1.0, 3.0, 1.6]",False,False,ok
+profit-loss-polish-50,pl_target_profit_discount_calibration|40|12,profit_loss_discount,20%,"[20.0, 28.0, 25.0, 15.0]",False,False,ok
+profit-loss-polish-50,pl_fractional_value_shift|10|10|400,profit_loss_discount,₹2000,[],False,False,ok
+profit-loss-polish-50,pl_cp_percent_to_sp|1000|20|1,profit_loss_discount,₹1200,[],False,False,ok
+profit-loss-polish-50,pl_asymmetric_item_equivalence|20|25,profit_loss_discount,20% loss,"[25.0, 5.0, 15.0]",False,False,ok
+profit-loss-polish-50,pl_repair_overhead_cost|8000|1500|10450,profit_loss_discount,10% profit,"[30.63, 18.75, 15.0]",False,False,ok
+profit-loss-polish-50,pl_required_sp_after_overhead|15000|2000|10,profit_loss_discount,₹18700,[],False,False,ok
+profit-loss-polish-50,pl_compound_error_baseline_shift|25|25|937.5,profit_loss_discount,₹3000,[],False,False,ok
+profit-loss-polish-50,pl_successive_discounts|900|10|20,profit_loss_discount,₹648,[],False,False,ok
+profit-loss-polish-50,pl_markup_discount_triangle|40|20,profit_loss_discount,12% profit,"[20.0, 60.0, 17.0]",False,False,ok
+profit-loss-polish-50,pl_multi_condition_inverse_absolute|25|975|10|1350,profit_loss_discount,₹2500,[],False,False,ok
+profit-loss-polish-50,pl_sp_percent_to_cp|675|25|-1,profit_loss_discount,₹900,[],False,False,ok
+profit-loss-polish-50,pl_sequential_supply_chain|1200|15|10|20,profit_loss_discount,₹1821.6,[],False,False,ok
+profit-loss-polish-50,pl_dual_item_identical_sp|800|25|25,profit_loss_discount,6.25% loss,"[25.0, 11.25, 1.25]",False,False,ok
+profit-loss-polish-50,pl_mp_sp_discount_percent|1200|720|40,profit_loss_discount,40%,"[40.0, 45.0, 35.0, 80.0]",False,False,ok
+profit-loss-polish-50,pl_buy_get_free_discount|4|1,profit_loss_discount,20%,"[20.0, 25.0, 10.0, 15.0]",False,False,ok
+profit-loss-polish-50,pl_supply_chain_mixed_profit_loss|20|-10|25,profit_loss_discount,35% profit,"[10.0, 40.0, 30.0]",False,False,ok
+profit-loss-polish-50,pl_cashback_coupon_discount|3000|10|400,profit_loss_discount,23.33%,"[23.33, 24.81, 10.0, 28.33]",False,False,ok
+profit-loss-polish-50,pl_equal_sp_profit_loss|900|10|10|818.18|1000,profit_loss_discount,1% loss,"[6.0, 4.0, 2.0]",False,False,ok
+profit-loss-polish-50,pl_equal_profit_loss_amount|800|900|200|200,profit_loss_discount,"No profit, no loss","[25.0, 22.22, 5.0]",False,False,ok
+profit-loss-polish-50,pl_mp_discount_to_sp|900|40,profit_loss_discount,₹540,[],False,False,ok
+profit-loss-polish-50,pl_required_sp_after_loss|900|25|10,profit_loss_discount,₹1320,[],False,False,ok
+profit-loss-polish-50,pl_loss_recovery_cp_from_difference|15|5|600,profit_loss_discount,₹3000,[],False,False,ok
+profit-loss-polish-50,pl_manufacturing_breakdown|1000|3|2|10|15,profit_loss_discount,₹1120,[],False,False,ok
+profit-loss-polish-50,pl_dishonest_dealer_dual_fraud|5|5,profit_loss_discount,10.53% profit,"[10.0, 10.25, 15.53]",False,False,ok
+profit-loss-polish-50,pl_two_article_overall|800|25|400|10|1000|360,profit_loss_discount,13.33% profit,"[18.33, 8.33, 26.66]",False,False,ok
+profit-loss-polish-50,pl_no_profit_no_loss|240|240,profit_loss_discount,"No profit, no loss","[5.0, 10.0, 2.5]",False,False,ok
+profit-loss-polish-50,pl_tax_inclusive_back_calc|2800|12,profit_loss_discount,₹2500,[],False,False,ok
+profit-loss-polish-50,pl_profit_after_commission_tax|1500|1875|12.5,profit_loss_discount,9.38% profit,"[25.0, 15.63, 14.38]",False,False,ok
+profit-loss-polish-50,pl_dishonest_dealer_absolute_hybrid|25|5|1000|800,profit_loss_discount,48.44% profit,"[18.75, 50.0, 53.44]",False,False,ok
+profit-loss-polish-50,pl_cp_sp_percent|1000|1200|20,profit_loss_discount,20% profit,"[25.0, 15.0, 40.0]",False,False,ok
+profit-loss-polish-50,pl_target_profit_mp_calibration|800|10|10,profit_loss_discount,₹977.78,[],False,False,ok
+profit-loss-polish-50,pl_inverse_markup_from_cp_discount_profit|500|10|25,profit_loss_discount,38.89% markup,"[35.0, 33.89, 43.89]",False,False,ok
+profit-loss-polish-50,pl_dishonest_dealer_weight_fraud|1000|900|20,profit_loss_discount,33.33% profit,"[10.0, 11.11, 38.33]",False,False,ok
+profit-loss-polish-50,pl_inverse_discount_from_cp_mp_profit|1000|1400|10,profit_loss_discount,21.43%,"[21.43, 30.0, 26.43, 16.43]",False,False,ok
+profit-loss-polish-50,pl_successive_discount_equivalent|10|10|10,profit_loss_discount,27.1%,"[27.1, 30.0, 10.0, 32.1]",False,False,ok
+profit-loss-polish-50,pl_inverse_cp_from_mp_discount_profit|977.78|10|10,profit_loss_discount,₹800,[],False,False,ok
+profit-loss-polish-50,pl_mp_sp_discount_percent|720|504|30,profit_loss_discount,30%,"[30.0, 35.0, 25.0, 60.0]",False,False,ok
+profit-loss-polish-50,pl_mp_discount_to_sp|720|25,profit_loss_discount,₹540,[],False,False,ok
+profit-loss-polish-50,pl_cp_sp_percent|900|810|10,profit_loss_discount,10% loss,"[15.0, 5.0, 20.0]",False,False,ok
+profit-loss-polish-50,pl_cp_mp_discount_to_percent|300|420|5,profit_loss_discount,33% profit,"[38.0, 28.0, 66.0]",False,False,ok
+profit-loss-polish-50,pl_cp_percent_to_sp|500|15|-1,profit_loss_discount,₹425,[],False,False,ok
+profit-loss-polish-50,pl_sp_percent_to_cp|1800|20|1,profit_loss_discount,₹1500,[],False,False,ok
+profit-loss-polish-50-visible,pl_dual_item_mixed_baseline|5000|10|20|3333.33|1666.67,profit_loss_discount,₹3333.33,[],False,False,ok
+profit-loss-polish-50-visible,pl_gst_after_discount|2000|10|12,profit_loss_discount,₹2016,[],False,False,ok
+profit-loss-polish-50-visible,pl_mp_for_target_profit|360|15|20,profit_loss_discount,₹517.5,[],False,False,ok
+profit-loss-polish-50-visible,pl_partial_inventory_allocation|1|4|25|18,profit_loss_discount,15.67% profit,"[21.5, 43.0, 20.67]",False,False,ok
+profit-loss-polish-50-visible,pl_hybrid_promotion_scaling|2|1|10,profit_loss_discount,40%,"[40.0, 43.33, 50.0, 45.0]",False,False,ok
+profit-loss-polish-50-visible,pl_sp_difference_two_rates|10|40|450,profit_loss_discount,₹1500,[],False,False,ok
+profit-loss-polish-50-visible,pl_cp_mp_discount_to_percent|1500|1875|12.5,profit_loss_discount,9.38% profit,"[14.38, 4.38, 18.76]",False,False,ok
+profit-loss-polish-50-visible,pl_same_profit_amount_different_rates|20|40|2|1,profit_loss_discount,2,"[2.0, 1.0, 3.0, 1.6]",False,False,ok
+profit-loss-polish-50-visible,pl_target_profit_discount_calibration|40|12,profit_loss_discount,20%,"[20.0, 28.0, 25.0, 15.0]",False,False,ok
+profit-loss-polish-50-visible,pl_fractional_value_shift|10|10|400,profit_loss_discount,₹2000,[],False,False,ok
+profit-loss-polish-50-visible,pl_cp_percent_to_sp|1000|20|1,profit_loss_discount,₹1200,[],False,False,ok
+profit-loss-polish-50-visible,pl_asymmetric_item_equivalence|20|25,profit_loss_discount,20% loss,"[25.0, 5.0, 15.0]",False,False,ok
+profit-loss-polish-50-visible,pl_repair_overhead_cost|8000|1500|10450,profit_loss_discount,10% profit,"[30.63, 18.75, 15.0]",False,False,ok
+profit-loss-polish-50-visible,pl_required_sp_after_overhead|15000|2000|10,profit_loss_discount,₹18700,[],False,False,ok
+profit-loss-polish-50-visible,pl_compound_error_baseline_shift|25|25|937.5,profit_loss_discount,₹3000,[],False,False,ok
+profit-loss-polish-50-visible,pl_successive_discounts|900|10|20,profit_loss_discount,₹648,[],False,False,ok
+profit-loss-polish-50-visible,pl_markup_discount_triangle|40|20,profit_loss_discount,12% profit,"[20.0, 60.0, 17.0]",False,False,ok
+profit-loss-polish-50-visible,pl_multi_condition_inverse_absolute|25|975|10|1350,profit_loss_discount,₹2500,[],False,False,ok
+profit-loss-polish-50-visible,pl_sp_percent_to_cp|675|25|-1,profit_loss_discount,₹900,[],False,False,ok
+profit-loss-polish-50-visible,pl_sequential_supply_chain|1200|15|10|20,profit_loss_discount,₹1821.6,[],False,False,ok
+profit-loss-polish-50-visible,pl_dual_item_identical_sp|800|25|25,profit_loss_discount,6.25% loss,"[25.0, 11.25, 1.25]",False,False,ok
+profit-loss-polish-50-visible,pl_mp_sp_discount_percent|1200|720|40,profit_loss_discount,40%,"[40.0, 45.0, 35.0, 80.0]",False,False,ok
+profit-loss-polish-50-visible,pl_buy_get_free_discount|4|1,profit_loss_discount,20%,"[20.0, 25.0, 10.0, 15.0]",False,False,ok
+profit-loss-polish-50-visible,pl_supply_chain_mixed_profit_loss|20|-10|25,profit_loss_discount,35% profit,"[10.0, 40.0, 30.0]",False,False,ok
+profit-loss-polish-50-visible,pl_cashback_coupon_discount|3000|10|400,profit_loss_discount,23.33%,"[23.33, 24.81, 10.0, 28.33]",False,False,ok
+profit-loss-polish-50-visible,pl_equal_sp_profit_loss|900|10|10|818.18|1000,profit_loss_discount,1% loss,"[6.0, 4.0, 2.0]",False,False,ok
+profit-loss-polish-50-visible,pl_equal_profit_loss_amount|800|900|200|200,profit_loss_discount,"No profit, no loss","[25.0, 22.22, 5.0]",False,False,ok
+profit-loss-polish-50-visible,pl_mp_discount_to_sp|900|40,profit_loss_discount,₹540,[],False,False,ok
+profit-loss-polish-50-visible,pl_required_sp_after_loss|900|25|10,profit_loss_discount,₹1320,[],False,False,ok
+profit-loss-polish-50-visible,pl_loss_recovery_cp_from_difference|15|5|600,profit_loss_discount,₹3000,[],False,False,ok
+profit-loss-polish-50-visible,pl_manufacturing_breakdown|1000|3|2|10|15,profit_loss_discount,₹1120,[],False,False,ok
+profit-loss-polish-50-visible,pl_dishonest_dealer_dual_fraud|5|5,profit_loss_discount,10.53% profit,"[10.0, 10.25, 15.53]",False,False,ok
+profit-loss-polish-50-visible,pl_two_article_overall|800|25|400|10|1000|360,profit_loss_discount,13.33% profit,"[18.33, 8.33, 26.66]",False,False,ok
+profit-loss-polish-50-visible,pl_no_profit_no_loss|240|240,profit_loss_discount,"No profit, no loss","[5.0, 10.0, 2.5]",False,False,ok
+profit-loss-polish-50-visible,pl_tax_inclusive_back_calc|2800|12,profit_loss_discount,₹2500,[],False,False,ok
+profit-loss-polish-50-visible,pl_profit_after_commission_tax|1500|1875|12.5,profit_loss_discount,9.38% profit,"[25.0, 15.63, 14.38]",False,False,ok
+profit-loss-polish-50-visible,pl_dishonest_dealer_absolute_hybrid|25|5|1000|800,profit_loss_discount,48.44% profit,"[18.75, 50.0, 53.44]",False,False,ok
+profit-loss-polish-50-visible,pl_cp_sp_percent|1000|1200|20,profit_loss_discount,20% profit,"[25.0, 15.0, 40.0]",False,False,ok
+profit-loss-polish-50-visible,pl_target_profit_mp_calibration|800|10|10,profit_loss_discount,₹977.78,[],False,False,ok
+profit-loss-polish-50-visible,pl_inverse_markup_from_cp_discount_profit|500|10|25,profit_loss_discount,38.89% markup,"[35.0, 33.89, 43.89]",False,False,ok
+profit-loss-polish-50-visible,pl_dishonest_dealer_weight_fraud|1000|900|20,profit_loss_discount,33.33% profit,"[10.0, 11.11, 38.33]",False,False,ok
+profit-loss-polish-50-visible,pl_inverse_discount_from_cp_mp_profit|1000|1400|10,profit_loss_discount,21.43%,"[21.43, 30.0, 26.43, 16.43]",False,False,ok
+profit-loss-polish-50-visible,pl_successive_discount_equivalent|10|10|10,profit_loss_discount,27.1%,"[27.1, 30.0, 10.0, 32.1]",False,False,ok
+profit-loss-polish-50-visible,pl_inverse_cp_from_mp_discount_profit|977.78|10|10,profit_loss_discount,₹800,[],False,False,ok
+profit-loss-polish-50-visible,pl_mp_sp_discount_percent|720|504|30,profit_loss_discount,30%,"[30.0, 35.0, 25.0, 60.0]",False,False,ok
+profit-loss-polish-50-visible,pl_mp_discount_to_sp|720|25,profit_loss_discount,₹540,[],False,False,ok
+profit-loss-polish-50-visible,pl_cp_sp_percent|900|810|10,profit_loss_discount,10% loss,"[15.0, 5.0, 20.0]",False,False,ok
+profit-loss-polish-50-visible,pl_cp_mp_discount_to_percent|300|420|5,profit_loss_discount,33% profit,"[38.0, 28.0, 66.0]",False,False,ok
+profit-loss-polish-50-visible,pl_cp_percent_to_sp|500|15|-1,profit_loss_discount,₹425,[],False,False,ok
+profit-loss-polish-50-visible,pl_sp_percent_to_cp|1800|20|1,profit_loss_discount,₹1500,[],False,False,ok

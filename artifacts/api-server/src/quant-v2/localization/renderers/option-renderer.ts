@@ -10,6 +10,9 @@ function n(value: number) {
 }
 
 function answerNeedsPercent(problem: CanonicalPercentageProblem) {
+  if (problem.variables.answerIsPercentage === 1) {
+    return true;
+  }
   return [
     "profit_loss",
     "restore_original",
@@ -39,11 +42,14 @@ export function renderOption(input: {
   }
 
   if (input.problem.subtype === "price_consumption") {
+    if (input.problem.variables.quantityDifference !== undefined) {
+      return amount;
+    }
     if (language === "hi") {
-      return `${amount}% कमी`;
+      return `${amount}% ${value < 0 ? "वृद्धि" : "कमी"}`;
     }
     if (language === "pa") {
-      return `${amount}% ਕਮੀ`;
+      return `${amount}% ${value < 0 ? "ਵਾਧਾ" : "ਕਮੀ"}`;
     }
     return `${amount}%`;
   }

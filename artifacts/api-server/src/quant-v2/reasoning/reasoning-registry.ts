@@ -16,6 +16,10 @@ import {
   buildReversePercentageGraph,
   buildSalaryRevisionGraph,
   buildSuccessiveChangeGraph,
+  buildTaxationGraph,
+  buildCommissionGraph,
+  buildVennDiagramGraph,
+  buildAdvancedPercentageGraph,
   type ReasoningGraphBuilder,
 } from "./reasoning-graph-builders";
 
@@ -33,6 +37,26 @@ export const REASONING_GRAPH_BUILDERS: Partial<
   profit_loss: buildProfitLossGraph,
   mixture_percentage: buildMixturePercentageGraph,
   relational_percentage: buildRelationalPercentageGraph,
+  taxation: buildTaxationGraph,
+  commission: buildCommissionGraph,
+  venn_diagram: buildVennDiagramGraph,
+  perc_geom_dimensional_scale: buildAdvancedPercentageGraph,
+  perc_demo_cross_tab_literacy: buildAdvancedPercentageGraph,
+  perc_budget_cascading_remainder: buildAdvancedPercentageGraph,
+  perc_const_absolute_offset: buildAdvancedPercentageGraph,
+  perc_exam_weighted_aggregate: buildAdvancedPercentageGraph,
+  perc_asset_variable_depreciation: buildAdvancedPercentageGraph,
+  perc_workforce_hierarchical_attrition: buildAdvancedPercentageGraph,
+  perc_elect_three_candidate_forfeiture: buildAdvancedPercentageGraph,
+  perc_agri_land_yield_compound: buildAdvancedPercentageGraph,
+  perc_demo_multi_factor_growth: buildAdvancedPercentageGraph,
+  perc_comm_tiered_salary_override: buildAdvancedPercentageGraph,
+  perc_asset_compound_leakage: buildAdvancedPercentageGraph,
+  perc_num_linear_equation_balancing: buildAdvancedPercentageGraph,
+  perc_num_fractional_perturbation_complex: buildAdvancedPercentageGraph,
+  perc_tax_bracket_retained_income: buildAdvancedPercentageGraph,
+  perc_num_square_proportional_delta: buildAdvancedPercentageGraph,
+  perc_mix_alloy_replacement: buildAdvancedPercentageGraph,
 };
 
 export function buildReasoningGraph(

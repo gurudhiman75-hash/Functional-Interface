@@ -27,6 +27,10 @@ const DOMAIN_TERMS = {
   restore_original: /\b(?:reduction|remaining|required increase|original)\b/iu,
   reverse_percentage: /\b(?:quantity|total|100%)\b/iu,
   increase_then_decrease: /\b(?:increase|decrease|final value|change)\b/iu,
+  relational_percentage: /\b(?:income|more|less|assume|compared)\b/iu,
+  commission: /\b(?:commission|sales|bonus|base|excess|total)\b/iu,
+  taxation: /\b(?:tax|income|rate|difference|payable|amount)\b/iu,
+  venn_diagram: /\b(?:both|neither|passed|failed|subjects|only|students)\b/iu,
 } as const;
 
 const BARE_SHORTCUT_PATTERN = /Shortcut:\n\s*\d+(?:\.\d+)?%\s*=\s*\d/iu;

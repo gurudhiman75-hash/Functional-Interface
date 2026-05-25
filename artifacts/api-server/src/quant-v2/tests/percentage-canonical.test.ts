@@ -3,7 +3,14 @@ import test from "node:test";
 import {
   PERCENTAGE_MOTIF_FACTORIES,
 } from "../canonical/percentage-motif-factories";
+import {
+  ADVANCED_PERCENTAGE_MOTIF_IDS,
+  renderAdvancedPercentageExplanation,
+  renderAdvancedPercentageStem,
+} from "../canonical/percentage-advanced-motifs";
+import { buildReasoningGraph } from "../reasoning/reasoning-registry";
 import { validatePercentageProblem } from "../validators/problem-validator";
+import { validatePercentageIndependentSolver } from "../validators/percentage-independent-solver";
 import { createProblemSignature } from "../utils/problem-signature";
 
 function stableJson(value: unknown) {
@@ -68,6 +75,43 @@ test("canonical percentage factories are deterministic and valid", () => {
     }
 
     assert.ok(signatures.size > 1, `${name} should produce more than one sample`);
+  }
+});
+
+test("advanced percentage motifs have solver-backed multilingual realizations", () => {
+  const salaryLeakRe = /monthly salary was revised|एक कर्मचारी का वेतन|ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ/iu;
+  const genericLabelRe = /total overall quantity|कुल मात्रा|ਕੁੱਲ ਮਾਤਰਾ/iu;
+
+  for (const id of ADVANCED_PERCENTAGE_MOTIF_IDS) {
+    const factory = PERCENTAGE_MOTIF_FACTORIES[id];
+    assert.ok(factory, `missing advanced factory ${id}`);
+
+    for (let seed = 1; seed <= 10; seed += 1) {
+      const problem = factory(seed);
+      const graph = buildReasoningGraph(problem);
+      const solver = validatePercentageIndependentSolver({
+        problem,
+        graph,
+      });
+      assert.equal(
+        solver.valid,
+        true,
+        `${id} seed ${seed} solver failed: ${solver.issues.join("; ")}`,
+      );
+
+      const rendered = [
+        renderAdvancedPercentageStem(problem, "en"),
+        renderAdvancedPercentageStem(problem, "hi"),
+        renderAdvancedPercentageStem(problem, "pa"),
+        renderAdvancedPercentageExplanation(problem, "en"),
+        renderAdvancedPercentageExplanation(problem, "hi"),
+        renderAdvancedPercentageExplanation(problem, "pa"),
+      ].join("\n");
+
+      assert.equal(salaryLeakRe.test(rendered), false, `${id} leaked salary text`);
+      assert.equal(genericLabelRe.test(rendered), false, `${id} leaked generic labels`);
+      assert.ok(rendered.includes(String(problem.answer)), `${id} rendering must include answer`);
+    }
   }
 });
 

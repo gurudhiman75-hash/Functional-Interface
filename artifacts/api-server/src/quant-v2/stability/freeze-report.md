@@ -32,9 +32,9 @@ All reference samples pass:
 
 ## Metric Calibration Status
 
-- overallQualityScore min: 72
+- overallQualityScore min: 76
 - overallQualityScore max: 96
-- overallQualityScore average: 86.9
+- overallQualityScore average: 86.92
 
 Scores are deterministic, explainable, and non-random. They are intended for QA ranking and regression detection, not for changing generation behavior.
 

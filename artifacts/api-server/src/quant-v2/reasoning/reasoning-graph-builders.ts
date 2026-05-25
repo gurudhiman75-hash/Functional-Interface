@@ -4,6 +4,7 @@ import type {
   ReasoningPattern,
 } from "../canonical/percentage-types";
 import { sanitizeEquation } from "./equation-utils";
+import { buildAdvancedPercentageGraph } from "../canonical/percentage-advanced-motifs";
 import type {
   ReasoningGraph,
   ReasoningStep,
@@ -13,6 +14,8 @@ import type {
 export type ReasoningGraphBuilder = (
   problem: CanonicalPercentageProblem,
 ) => ReasoningGraph;
+
+export { buildAdvancedPercentageGraph };
 
 type StepInput = {
   id: string;
@@ -446,6 +449,82 @@ export function buildSalaryRevisionGraph(
 export function buildPriceConsumptionGraph(
   problem: CanonicalPercentageProblem,
 ): ReasoningGraph {
+  if (problem.variables.quantityDifference !== undefined) {
+    return graph(problem, {
+      subtype: "price_consumption",
+      reasoningPattern: "difference_mapping",
+      insightKey: "fixed_expenditure_quantity_mapping",
+      steps: [
+        step({
+          id: "calculate_price_ratio",
+          type: "apply_multiplier",
+          descriptionKey: "calculate_new_price_multiplier",
+          inputVariables: ["priceIncreasePercent"],
+          outputVariable: "priceRatio",
+          equation: "priceRatio = 1 + {priceIncreasePercent} / 100",
+        }),
+        step({
+          id: "map_expenditure_gap",
+          type: "map_percentage_to_value",
+          descriptionKey: "map_expenditure_to_quantity_gap",
+          inputVariables: ["totalExpenditure", "quantityDifference"],
+          outputVariable: "priceGap",
+          equation: "priceGap = {totalExpenditure} / {quantityDifference}",
+        }),
+        finalStep(["priceGap", "priceRatio", "answer"], "answer = {priceGap} * ({priceRatio} - 1) / {priceRatio}"),
+      ],
+      finalEquation: "answer = ({totalExpenditure} * ({priceIncreasePercent} / 100)) / ({quantityDifference} * (1 + ({priceIncreasePercent} / 100)))",
+      shortcutEquation: "answer = ({totalExpenditure} * ({priceIncreasePercent} / 100)) / ({quantityDifference} * (1 + ({priceIncreasePercent} / 100)))",
+      trapSummary: trapSummary(problem),
+    });
+  }
+
+  if (problem.variables.expenditureIncreasePercent !== undefined) {
+    return graph(problem, {
+      subtype: "price_consumption",
+      reasoningPattern: "fixed_base_relation",
+      insightKey: "partial_expenditure_adjustment",
+      steps: [
+        step({
+          id: "derive_new_price_index",
+          type: "apply_multiplier",
+          descriptionKey: "derive_new_price_index",
+          inputVariables: ["priceIncreasePercent"],
+          outputVariable: "newPriceIndex",
+          equation: "newPriceIndex = 100 + {priceIncreasePercent}",
+        }),
+        step({
+          id: "derive_new_expenditure_index",
+          type: "apply_multiplier",
+          descriptionKey: "derive_new_expenditure_index",
+          inputVariables: ["expenditureIncreasePercent"],
+          outputVariable: "newExpenditureIndex",
+          equation: "newExpenditureIndex = 100 + {expenditureIncreasePercent}",
+        }),
+        step({
+          id: "derive_new_consumption_index",
+          type: "fixed_expenditure_relation",
+          descriptionKey: "derive_adjusted_consumption_index",
+          inputVariables: ["newPriceIndex", "newExpenditureIndex"],
+          outputVariable: "consumptionIndex",
+          equation: "consumptionIndex = {newExpenditureIndex} * 100 / {newPriceIndex}",
+        }),
+        step({
+          id: "derive_consumption_reduction",
+          type: "derive_percentage_gap",
+          descriptionKey: "derive_adjusted_consumption_reduction",
+          inputVariables: ["consumptionIndex"],
+          outputVariable: "consumptionReduction",
+          equation: "consumptionReduction = 100 - {consumptionIndex}",
+        }),
+        finalStep(["consumptionReduction", "answer"], "answer = {consumptionReduction}"),
+      ],
+      finalEquation: "answer = ({priceIncreasePercent} - {expenditureIncreasePercent}) * 100 / (100 + {priceIncreasePercent})",
+      shortcutEquation: "answer = ({priceIncreasePercent} - {expenditureIncreasePercent}) * 100 / (100 + {priceIncreasePercent})",
+      trapSummary: trapSummary(problem),
+    });
+  }
+
   return graph(problem, {
     subtype: "price_consumption",
     reasoningPattern: "fixed_base_relation",
@@ -472,32 +551,32 @@ export function buildPriceConsumptionGraph(
         ],
         outputVariable: "consumptionIndex",
         equation:
-          "consumptionIndex = 100 * 100 / newPriceIndex",
+          "consumptionIndex = 100 * 100 / {newPriceIndex}",
         trapWarning: "wrong_base",
       }),
       step({
         id: "derive_consumption_reduction",
         type: "derive_percentage_gap",
-        descriptionKey: "derive_consumption_reduction_percent",
+        descriptionKey: "derive_consumption_percentage_reduction",
         inputVariables: [
           "consumptionIndex",
         ],
-        outputVariable: "reductionPercent",
+        outputVariable: "consumptionReduction",
         equation:
-          "reductionPercent = 100 - consumptionIndex",
+          "consumptionReduction = 100 - {consumptionIndex}",
         trapWarning: "reverse_direction",
       }),
       finalStep([
-        "reductionPercent",
+        "consumptionReduction",
         "answer",
-      ]),
+      ], "answer = {consumptionReduction}"),
     ],
     finalEquation:
-      "answer = {priceIncreasePercent} * 100 / (100 + {priceIncreasePercent})",
+      "answer = \\frac{{priceIncreasePercent} \\times 100}{100 + {priceIncreasePercent}}",
     shortcutEquation:
-      "answer = {priceIncreasePercent} * 100 / (100 + {priceIncreasePercent})",
+      "answer = \\frac{{priceIncreasePercent} \\times 100}{100 + {priceIncreasePercent}}",
     trapSummary: trapSummary(problem, [
-      "fixed_expenditure_wrong_base",
+      "price_consumption_linear_error",
     ]),
   });
 }
@@ -700,4 +779,129 @@ export function buildRelationalPercentageGraph(
       "inverse_relation_error",
     ]),
   };
+}
+
+export function buildVennDiagramGraph(
+  problem: CanonicalPercentageProblem,
+): ReasoningGraph {
+  return graph(problem, {
+    subtype: "venn_diagram",
+    reasoningPattern: "difference_mapping",
+    insightKey: "venn_intersection_principle",
+    steps: [
+      step({
+        id: "calculate_union",
+        type: "aggregate_components",
+        descriptionKey: "calculate_total_percentage_with_overlap",
+        inputVariables: ["subjectA", "subjectB", "bothPct"],
+        outputVariable: "unionPct",
+        equation: "unionPct = {subjectA} + {subjectB} - {bothPct}",
+      }),
+      step({
+        id: "calculate_none",
+        type: "derive_remaining_component",
+        descriptionKey: "calculate_percentage_of_none",
+        inputVariables: ["unionPct"],
+        outputVariable: "nonePct",
+        equation: "nonePct = 100 - {unionPct}",
+      }),
+      step({
+        id: "map_none_to_total",
+        type: "reverse_calculation",
+        descriptionKey: "map_none_percentage_to_total",
+        inputVariables: ["neitherValue", "nonePct"],
+        outputVariable: "total",
+        equation: "total = {neitherValue} * 100 / {nonePct}",
+      }),
+      finalStep(["total", "answer"], "answer = {total}"),
+    ],
+    finalEquation: "answer = {neitherValue} * 100 / (100 - ({subjectA} + {subjectB} - {bothPct}))",
+    trapSummary: trapSummary(problem),
+  });
+}
+
+export function buildTaxationGraph(
+  problem: CanonicalPercentageProblem,
+): ReasoningGraph {
+  return graph(problem, {
+    subtype: "taxation",
+    reasoningPattern: "difference_mapping",
+    insightKey: "tax_difference_mapping",
+    steps: [
+      step({
+        id: "calculate_tax_difference_rate",
+        type: "derive_percentage_gap",
+        descriptionKey: "calculate_difference_in_tax_rate",
+        inputVariables: ["oldTaxRate", "newTaxRate"],
+        outputVariable: "taxRateDifference",
+        equation: "taxRateDifference = {oldTaxRate} - {newTaxRate}",
+      }),
+      step({
+        id: "map_tax_difference_to_income",
+        type: "map_percentage_to_value",
+        descriptionKey: "map_tax_difference_to_total",
+        inputVariables: ["taxDifference", "taxRateDifference"],
+        outputVariable: "income",
+        equation: "income = {taxDifference} * 100 / {taxRateDifference}",
+      }),
+      finalStep(["income", "answer"], "answer = {income}"),
+    ],
+    finalEquation: "answer = {taxDifference} * 100 / ({oldTaxRate} - {newTaxRate})",
+    trapSummary: trapSummary(problem),
+  });
+}
+
+export function buildCommissionGraph(
+  problem: CanonicalPercentageProblem,
+): ReasoningGraph {
+  return graph(problem, {
+    subtype: "commission",
+    reasoningPattern: "successive_base_change",
+    insightKey: "split_commission_bases",
+    steps: [
+      step({
+        id: "calculate_base_commission",
+        type: "apply_multiplier",
+        descriptionKey: "calculate_commission_on_base_sales",
+        inputVariables: ["baseSales", "baseCommissionRate"],
+        outputVariable: "baseCommission",
+        equation: "baseCommission = {baseSales} * {baseCommissionRate} / 100",
+      }),
+      step({
+        id: "calculate_excess_commission",
+        type: "derive_percentage_gap",
+        descriptionKey: "calculate_excess_commission",
+        inputVariables: ["totalCommission", "baseCommission"],
+        outputVariable: "excessCommission",
+        equation: "excessCommission = {totalCommission} - {baseCommission}",
+      }),
+      step({
+        id: "calculate_bonus_rate",
+        type: "aggregate_components",
+        descriptionKey: "calculate_total_rate_on_excess",
+        inputVariables: ["baseCommissionRate", "bonusRate"],
+        outputVariable: "totalBonusRate",
+        equation: "totalBonusRate = {baseCommissionRate} + {bonusRate}",
+      }),
+      step({
+        id: "calculate_excess_sales",
+        type: "reverse_calculation",
+        descriptionKey: "calculate_sales_above_base",
+        inputVariables: ["excessCommission", "totalBonusRate"],
+        outputVariable: "excessSales",
+        equation: "excessSales = {excessCommission} * 100 / {totalBonusRate}",
+      }),
+      step({
+        id: "calculate_total_sales",
+        type: "aggregate_components",
+        descriptionKey: "calculate_total_sales",
+        inputVariables: ["baseSales", "excessSales"],
+        outputVariable: "totalSales",
+        equation: "totalSales = {baseSales} + {excessSales}",
+      }),
+      finalStep(["totalSales", "answer"], "answer = {totalSales}"),
+    ],
+    finalEquation: "answer = {baseSales} + (({totalCommission} - ({baseSales} * {baseCommissionRate} / 100)) * 100 / ({baseCommissionRate} + {bonusRate}))",
+    trapSummary: trapSummary(problem),
+  });
 }

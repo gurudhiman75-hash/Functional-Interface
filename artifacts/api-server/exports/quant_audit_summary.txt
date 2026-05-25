@@ -1,0 +1,25 @@
+Quant audit: scanned 25 exports, total questions 1740
+
+Top families:
+ - successive_filtering: 123
+ - relational_chain: 83
+ - direct_mapping: 77
+ - multi_entity_percentage_network: 62
+ - base_shift: 57
+ - layered_population: 47
+ - reverse_relation: 47
+ - effective_percentage: 41
+ - filtered_base: 40
+ - multi_entity_distribution: 30
+ - percentage_ratio_hybrid: 26
+ - remaining_component: 25
+ - hidden_total: 24
+ - inverse_percentage_mapping: 24
+ - pl_cp_mp_discount_to_percent: 21
+ - pl_sp_percent_to_cp: 20
+ - pl_cp_percent_to_sp: 19
+ - pl_successive_discounts: 18
+ - pl_mp_sp_discount_percent: 18
+ - pl_mp_discount_to_sp: 18
+
+Average editorial realism score across questions: 79.9

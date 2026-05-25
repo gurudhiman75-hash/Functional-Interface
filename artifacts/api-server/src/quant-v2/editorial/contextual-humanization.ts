@@ -26,6 +26,9 @@ export function shortcutDomainNoun(problem: CanonicalPercentageProblem) {
 }
 
 export function isPercentageAnswer(problem: CanonicalPercentageProblem) {
+  if (problem.variables.answerIsPercentage === 1) {
+    return true;
+  }
   return [
     "profit_loss",
     "price_consumption",

@@ -5,7 +5,7 @@ import type {
 } from "./editorial-intents";
 
 const EQUATION_LINE_RE =
-  /^(?:=\s*)?[-+]?[\d][\d\s().xX*/+\-/%^]*$/u;
+  /^(?:=\s*)?[-+]?(?:[\d(\\{])[\d\s().xX×*/+\-/%^{}\\]*$/u;
 const ASSIGNMENT_RE =
   /^(.+?)\s*=\s*([-+]?\d+(?:\.\d+)?(?:% [A-Za-z]+)?)$/u;
 const LABEL_ASSIGNMENT_RE = /^(.+?)\s*=$/u;
@@ -20,6 +20,7 @@ const TRANSITION_KEYS: Record<string, EditorialIntentKey> = {
   "So,": "transition.so",
   "Thus,": "transition.thus",
   "Accordingly,": "transition.accordingly",
+  "Now,": "transition.now",
 };
 
 function isEquationLine(line: string) {
@@ -98,6 +99,12 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/new consumption/u.test(normalized)) {
     return "label.new_consumption";
   }
+  if (/increase in consumption|consumption increase/u.test(normalized)) {
+    return "label.increase_consumption";
+  }
+  if (/percentage change in consumption|consumption change/u.test(normalized)) {
+    return "label.consumption_change";
+  }
   if (/reduction in consumption|required reduction/u.test(normalized)) {
     return "label.reduction_consumption";
   }
@@ -143,10 +150,43 @@ function labelKey(label: string): EditorialIntentKey | undefined {
   if (/pure component|milk to be added|quantity to add/u.test(normalized)) {
     return "label.quantity_to_add";
   }
+  if (/price increase multiplier/u.test(normalized)) return "label.price_increase_multiplier";
+  if (/expenditure per unit difference/u.test(normalized)) return "label.expenditure_difference";
+  if (/tax rate difference|difference in tax rate|difference in tax rates/u.test(normalized)) return "label.tax_rate_difference";
   if (/required difference|difference between|difference in shares|difference/u.test(normalized)) {
     return "label.required_difference";
   }
-  if (/required value|result/u.test(normalized)) {
+  if (/^new price(?: level)?$/u.test(normalized)) return "label.new_price_level";
+  if (/^new expenditure(?: level)?$/u.test(normalized)) return "label.new_expenditure_level";
+  if (/^(?:required )?reduction in consumption$/u.test(normalized)) return "label.reduction_consumption";
+  if (/required difference/u.test(normalized)) return "label.required_difference";
+  if (/permissible consumption ratio/u.test(normalized)) return "label.permissible_consumption_ratio";
+  if (/net consumption reduction/u.test(normalized)) return "label.net_consumption_reduction";
+  if (/new price index/u.test(normalized)) return "label.new_price_index";
+  if (/new expenditure index/u.test(normalized)) return "label.new_expenditure_index";
+  if (/new consumption index/u.test(normalized)) return "label.permissible_consumption";
+  if (/consumption difference/u.test(normalized)) return "label.consumption_gap";
+  if (/permissible consumption/u.test(normalized)) return "label.permissible_consumption";
+  if (/percentage (?:for|in) at least one/u.test(normalized)) return "label.percentage_at_least_one";
+  if (/percentage (?:in )?neither/u.test(normalized)) return "label.percentage_neither";
+  if (/percentage passing both|failing neither/u.test(normalized)) return "label.percentage_neither";
+  if (/percentage failing both/u.test(normalized)) return "label.percentage_neither";
+  if (/total students/u.test(normalized)) return "label.total_students";
+  if (/tax rate difference|difference in tax rate|difference in tax rates/u.test(normalized)) return "label.tax_rate_difference";
+  if (/total tax difference/u.test(normalized)) return "label.total_tax_difference";
+  if (/tax decrease/u.test(normalized)) return "label.tax_decrease";
+  if (/total taxable income|taxable income/u.test(normalized)) return "label.taxable_income";
+  if (/commission on base sales/u.test(normalized)) return "label.commission_on_base";
+  if (/commission above base quota/u.test(normalized)) return "label.excess_commission";
+  if (/excess sales above base|sales above base quota/u.test(normalized)) return "label.excess_sales";
+  if (/commission on excess sales/u.test(normalized)) return "label.commission_on_excess";
+  if (/total commission rate on excess sales|effective commission rate/u.test(normalized)) return "label.effective_commission_rate";
+  if (/base commission/u.test(normalized)) return "label.base_commission";
+  if (/bonus commission/u.test(normalized)) return "label.bonus_commission";
+  if (/total commission/u.test(normalized)) return "label.total_commission";
+  if (/total sales/u.test(normalized)) return "label.total_sales";
+  if (/combined total/u.test(normalized)) return "label.combined_total";
+  if (/required value|result|required answer/u.test(normalized)) {
     return "label.required_value";
   }
   return undefined;
@@ -225,11 +265,15 @@ function narrationIntent(line: string): EditorialIntent | undefined {
     [/^Direct relation:?$/u, "narration.direct_relation"],
     [/^Using the percentage relation:?$/u, "narration.percentage_relation"],
     [/^Apply the next relation:?$/u, "narration.percentage_relation"],
+    [/^Apply next percentage relation:?$/u, "narration.percentage_relation"],
     [/^Convert the given relation:?$/u, "narration.percentage_relation"],
     [/^Value after this relation:?$/u, "narration.percentage_relation"],
     [/^After adding the bonus:?$/u, "narration.after_bonus"],
     [/^Now compare it with 100:?$/u, "narration.direct_relation"],
     [/^Let the original value be 100:?$/u, "narration.original_value"],
+    [/^Add the parts\.?$/i, "narration.add_parts"],
+    [/^The combined value is:?$/i, "narration.combined_value"],
+    [/^Total of these parts is:?$/i, "narration.total_parts"],
   ];
 
   for (const [pattern, key] of narrationMap) {

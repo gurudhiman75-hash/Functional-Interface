@@ -14,6 +14,16 @@ import { localizeReasoningFragments } from "../../semantic/reasoningLexicon";
 import { normalizeTeacherExplanation } from "../../quality/teacher-explanation-normalizer";
 import { semanticAnswerText } from "../../editorial/contextual-humanization";
 import { renderRelationalPercentageExplanation } from "../../editorial/relation-explanation";
+import { renderAdvancedLocalizedRealization } from "../../canonical/percentage-advanced-motifs";
+import { roundClean } from "../../utils/math-utils";
+
+function n(value: number | undefined) {
+  if (typeof value !== "number") return "";
+  const rounded = roundClean(value, 2);
+  return Number.isInteger(rounded)
+    ? String(rounded)
+    : String(rounded).replace(/0+$/u, "").replace(/\.$/u, "");
+}
 
 function normalizedRenderedLabel(text: string) {
   return text
@@ -110,6 +120,13 @@ const LOCALIZED_FALLBACKS: Record<Exclude<LanguageCode, "en">, Array<[RegExp, st
     [/^Water remains unchanged\.$/u, "पानी की मात्रा समान रहेगी।"],
     [/^Water quantity\s*:?$/u, "पानी की मात्रा:"],
     [/^Water quantity\s*=$/u, "पानी की मात्रा ="],
+    [/^Now compute the total:$/u, "प्रतिशत संबंध:"],
+    [/^Reverse percentage setup:$/u, "प्रतिशत संबंध:"],
+    [/^100% total setup:$/u, "100% संबंध:"],
+    [/^The total overall quantity is calculated as follows:$/u, "प्रतिशत संबंध:"],
+    [/^Growth is applied for (\d+) years\.$/u, "$1 वर्षों के लिए वृद्धि लागू की गई है।"],
+    [/^The negative value indicates a loss over the cost price\.$/u, "ऋणात्मक मान लागत मूल्य पर हानि को दर्शाता है।"],
+    [/^The positive difference gives the profit percentage\.$/u, "धनात्मक अंतर लाभ प्रतिशत देता है।"],
   ],
   pa: [
     [/^Change %\s*:?$/u, "ਬਦਲਾਅ ਪ੍ਰਤੀਸ਼ਤ:"],
@@ -145,6 +162,13 @@ const LOCALIZED_FALLBACKS: Record<Exclude<LanguageCode, "en">, Array<[RegExp, st
     [/^Water remains unchanged\.$/u, "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।"],
     [/^Water quantity\s*:?$/u, "ਪਾਣੀ ਦੀ ਮਾਤਰਾ:"],
     [/^Water quantity\s*=$/u, "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ="],
+    [/^Now compute the total:$/u, "ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ:"],
+    [/^Reverse percentage setup:$/u, "ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ:"],
+    [/^100% total setup:$/u, "100% ਸੰਬੰਧ:"],
+    [/^The total overall quantity is calculated as follows:$/u, "ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ:"],
+    [/^Growth is applied for (\d+) years\.$/u, "$1 ਸਾਲਾਂ ਲਈ ਵਾਧਾ ਲਾਗੂ ਕੀਤਾ ਗਿਆ ਹੈ।"],
+    [/^The negative value indicates a loss over the cost price\.$/u, "ਨਕਾਰਾਤਮਕ ਮੁੱਲ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਨੁਕਸਾਨ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।"],
+    [/^The positive difference gives the profit percentage\.$/u, "ਸਕਾਰਾਤਮਕ ਅੰਤਰ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਦਿੰਦਾ ਹੈ।"],
   ],
 };
 
@@ -187,7 +211,12 @@ function localizedFinalAnswerLabel(
     if (problem.subtype === "population_growth") return "अंतिम जनसंख्या";
     if (problem.subtype === "mixture_percentage") return "डाला जाने वाला दूध";
     if (problem.subtype === "restore_original") return "आवश्यक वृद्धि";
-    if (problem.subtype === "price_consumption") return "खपत में कमी";
+    if (problem.subtype === "price_consumption") {
+      if (problem.variables.quantityDifference !== undefined) return "मूल कीमत प्रति किग्रा";
+      return problem.answer < 0 ? "खपत में वृद्धि" : "खपत में कमी";
+    }
+    if (problem.subtype === "taxation") return "कुल करयोग्य आय";
+    if (problem.subtype === "commission") return "कुल बिक्री";
     if (problem.subtype === "salary_revision") return "वेतन में बदलाव";
     if (problem.subtype === "profit_loss") {
       return problem.answer < 0 ? "हानि प्रतिशत" : "लाभ प्रतिशत";
@@ -199,6 +228,7 @@ function localizedFinalAnswerLabel(
       if (/\bvoters?\b|\bvotes?\b/.test(reverseStem)) return "कुल मतदाता";
       return "कुल चीनी स्टॉक";
     }
+    if (problem.subtype === "venn_diagram") return "कुल छात्र";
     if (problem.subtype === "election_margin") {
       if (variant === "filtered_valid_vote_margin") {
         return "विजयी उम्मीदवार के वोट";
@@ -216,7 +246,12 @@ function localizedFinalAnswerLabel(
     if (problem.subtype === "population_growth") return "ਅੰਤਿਮ ਆਬਾਦੀ";
     if (problem.subtype === "mixture_percentage") return "ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ";
     if (problem.subtype === "restore_original") return "ਲੋੜੀਂਦਾ ਵਾਧਾ";
-    if (problem.subtype === "price_consumption") return "ਖਪਤ ਵਿੱਚ ਕਮੀ";
+    if (problem.subtype === "price_consumption") {
+      if (problem.variables.quantityDifference !== undefined) return "ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ";
+      return problem.answer < 0 ? "ਖਪਤ ਵਿੱਚ ਵਾਧਾ" : "ਖਪਤ ਵਿੱਚ ਕਮੀ";
+    }
+    if (problem.subtype === "taxation") return "ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ";
+    if (problem.subtype === "commission") return "ਕੁੱਲ ਵਿਕਰੀ";
     if (problem.subtype === "salary_revision") return "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ";
     if (problem.subtype === "profit_loss") {
       return problem.answer < 0 ? "ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ" : "ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ";
@@ -228,6 +263,7 @@ function localizedFinalAnswerLabel(
       if (/\bvoters?\b|\bvotes?\b/.test(reverseStem)) return "ਕੁੱਲ ਵੋਟਰ";
       return "ਕੁੱਲ ਚੀਨੀ ਸਟਾਕ";
     }
+    if (problem.subtype === "venn_diagram") return "ਕੁੱਲ ਵਿਦਿਆਰਥੀ";
     if (problem.subtype === "election_margin") {
       if (variant === "filtered_valid_vote_margin") {
         return "ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ";
@@ -244,7 +280,15 @@ function localizedFinalAnswerLabel(
   if (problem.subtype === "population_growth") return "Final population";
   if (problem.subtype === "mixture_percentage") return "Milk to be added";
   if (problem.subtype === "restore_original") return "Required increase";
-  if (problem.subtype === "price_consumption") return "Reduction in consumption";
+  if (problem.subtype === "price_consumption") {
+    return problem.variables.quantityDifference !== undefined
+      ? "Original price per kg"
+      : problem.answer < 0
+        ? "Increase in consumption"
+        : "Reduction in consumption";
+  }
+  if (problem.subtype === "taxation") return "Total taxable income";
+  if (problem.subtype === "commission") return "Total sales";
   if (problem.subtype === "salary_revision") return "Salary change";
   if (problem.subtype === "profit_loss") {
     return problem.answer < 0 ? "Loss percentage" : "Profit percentage";
@@ -413,6 +457,83 @@ function polishProblemSpecificEnding(input: {
 
 }
 
+function renderPriceConsumptionQuantityLocalized(input: {
+  language: LanguageCode;
+  problem: CanonicalPercentageProblem;
+  stem: string;
+}): LocalizedRealization | undefined {
+  const { language, problem, stem } = input;
+  if (
+    problem.subtype !== "price_consumption" ||
+    typeof problem.variables.quantityDifference !== "number" ||
+    typeof problem.variables.totalExpenditure !== "number" ||
+    typeof problem.variables.priceIncreasePercent !== "number"
+  ) {
+    return undefined;
+  }
+
+  const expenditure = problem.variables.totalExpenditure;
+  const reduction = problem.variables.quantityDifference;
+  const newPriceIndex = 100 + problem.variables.priceIncreasePercent;
+  const ratio = newPriceIndex / 100;
+  const answer = problem.answer;
+  const numericEquation = `${n(expenditure)}/x - ${n(expenditure)}/(${n(ratio)}x) = ${n(reduction)}`;
+  const solveLine = `x = ${n(answer)}`;
+
+  const localizedLines =
+    language === "hi"
+      ? [
+          "मान लें मूल कीमत प्रति किग्रा = x।",
+          `नई कीमत प्रति किग्रा = x × ${n(newPriceIndex)} / 100 = ${n(ratio)}x।`,
+          `पुरानी मात्रा = ${n(expenditure)} / x।`,
+          `नई मात्रा = ${n(expenditure)} / ${n(ratio)}x।`,
+          "मात्रा में कमी:",
+          numericEquation,
+          solveLine,
+          `मूल कीमत प्रति किग्रा = ${n(answer)}`,
+        ]
+      : language === "pa"
+        ? [
+            "ਮੰਨ ਲਓ ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = x।",
+            `ਨਵੀਂ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = x × ${n(newPriceIndex)} / 100 = ${n(ratio)}x।`,
+            `ਪੁਰਾਣੀ ਮਾਤਰਾ = ${n(expenditure)} / x।`,
+            `ਨਵੀਂ ਮਾਤਰਾ = ${n(expenditure)} / ${n(ratio)}x।`,
+            "ਮਾਤਰਾ ਵਿੱਚ ਕਮੀ:",
+            numericEquation,
+            solveLine,
+            `ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = ${n(answer)}`,
+          ]
+        : [
+            "Let original price per kg = x.",
+            `New price per kg = x × ${n(newPriceIndex)} / 100 = ${n(ratio)}x.`,
+            `Old quantity = ${n(expenditure)}/x.`,
+            `New quantity = ${n(expenditure)}/(${n(ratio)}x).`,
+            "Quantity reduction:",
+            numericEquation,
+            solveLine,
+            `Original price per kg = ${n(answer)}`,
+          ];
+
+  return {
+    language,
+    stem,
+    explanation: localizedLines.join("\n"),
+    lines: localizedLines.map((line) => ({
+      intentKey: "fallback.english",
+      sourceText: line,
+      renderedText: line,
+      kind: "narration",
+      fallbackUsed: false,
+    })),
+    coverage: {
+      totalIntentLines: localizedLines.length,
+      localizedIntentLines: localizedLines.length,
+      fallbackCount: 0,
+      missingIntents: [],
+    },
+  };
+}
+
 export function renderLocalizedRealization(input: {
   language: LanguageCode;
   problem: CanonicalPercentageProblem;
@@ -420,8 +541,26 @@ export function renderLocalizedRealization(input: {
   editorial: EditorialRealization;
   realizationProfile?: RealizationProfile;
 }): LocalizedRealization {
+  const advanced = renderAdvancedLocalizedRealization({
+    language: input.language,
+    problem: input.problem,
+    editorial: input.editorial,
+  });
+  if (advanced) {
+    return advanced;
+  }
+
+  const stem = renderLocalizedStem(input);
+  const priceQuantity = renderPriceConsumptionQuantityLocalized({
+    language: input.language,
+    problem: input.problem,
+    stem,
+  });
+  if (priceQuantity) {
+    return priceQuantity;
+  }
+
   if (input.problem.subtype === "relational_percentage") {
-    const stem = renderLocalizedStem(input);
     const explanation = renderRelationalPercentageExplanation(
       input.problem,
       input.language,
@@ -553,7 +692,9 @@ export function renderLocalizedRealization(input: {
         .map((line) => line.intentKey),
     ),
   ];
-  const stem = renderLocalizedStem(input);
+  if (missingIntents.length > 0) {
+    console.log("MISSING INTENTS:", missingIntents, "for problem", input.problem.subtype);
+  }
 
   const explanation = displayLines.map((line) => line.renderedText).join("\n");
 

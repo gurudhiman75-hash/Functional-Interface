@@ -20,11 +20,12 @@ function stableNumber(value: number) {
 }
 
 function percentageVector(problem: CanonicalPercentageProblem) {
-  return Object.entries(problem.variables)
+  const vector = Object.entries(problem.variables)
     .filter(([key]) => /percent|rate|share|direction/iu.test(key))
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([key, value]) => `${key}:${stableNumber(Math.abs(value))}`)
     .join(",");
+  return vector || `answer:${stableNumber(Math.abs(problem.answer))}`;
 }
 
 function numericInstantiation(problem: CanonicalPercentageProblem) {

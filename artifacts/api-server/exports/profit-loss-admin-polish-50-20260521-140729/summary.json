@@ -1,0 +1,20 @@
+{
+  "exportName": "profit-loss-admin-polish-50-20260521-140729",
+  "count": 50,
+  "familyDistribution": {
+    "pl_successive_discounts": 7,
+    "pl_mp_for_target_profit": 5,
+    "pl_two_article_overall": 3,
+    "pl_equal_sp_profit_loss": 5,
+    "pl_mp_sp_discount_percent": 4,
+    "pl_mp_discount_to_sp": 4,
+    "pl_cp_mp_discount_to_percent": 7,
+    "pl_cp_sp_percent": 4,
+    "pl_cp_percent_to_sp": 5,
+    "pl_sp_percent_to_cp": 6
+  },
+  "uglyDecimalCount": 0,
+  "grammarScan": "pass",
+  "punjabiTermScan": "pass",
+  "noProfitNoLossScan": "pass"
+}

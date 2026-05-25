@@ -198,6 +198,14 @@ type AdapterDependencies = {
     pattern: Pattern,
     options?: GeneratorOptions,
   ) => FormulaQuestion;
+  createQuantV2ProfitLossQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
+  createQuantV2InterestQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
   createDIQuestionSet: (
     pattern: Pattern,
     options?: GeneratorOptions,
@@ -1604,6 +1612,26 @@ export function createDomainAdapters(
     "quant-v2-percentage": buildQuestionAdapter(
       "quant-v2-percentage",
       deps.createQuantV2PercentageQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 12,
+        minAttempts: 20,
+        difficultyContribution:
+          buildQuantDifficultyContribution,
+      },
+    ),
+    "quant-v2-profit-loss": buildQuestionAdapter(
+      "quant-v2-profit-loss",
+      deps.createQuantV2ProfitLossQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 12,
+        minAttempts: 20,
+        difficultyContribution:
+          buildQuantDifficultyContribution,
+      },
+    ),
+    "quant-v2-interest": buildQuestionAdapter(
+      "quant-v2-interest",
+      deps.createQuantV2InterestQuestionCandidate,
       {
         maxAttemptsMultiplier: 12,
         minAttempts: 20,

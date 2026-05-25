@@ -114,6 +114,9 @@ export const SCENARIO_FAMILIES = {
     "online_sales_growth",
     "product_pricing",
   ],
+  commission: ["sales_commission_report"],
+  taxation: ["income_tax_return"],
+  venn_diagram: ["class_subject_survey"],
 } as const satisfies Partial<
   Record<ScenarioRegistryKey, readonly ScenarioFamily[]>
 >;

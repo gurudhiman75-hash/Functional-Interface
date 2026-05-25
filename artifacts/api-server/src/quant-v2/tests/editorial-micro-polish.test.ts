@@ -93,7 +93,11 @@ test("editorial micro polish removes final English rough edges", () => {
       .editorialPolishScore;
   }
 
-  assert.ok(shortcutSamples > 0, "shortcut samples must be covered");
+  assert.equal(
+    shortcutSamples,
+    0,
+    "shortcuts should stay hidden unless explicitly enabled",
+  );
   assert.ok(lossSamples > 0, "loss samples must be covered");
   assert.ok(averagePolish / 1000 >= 95, "average micro polish must stay high");
 });

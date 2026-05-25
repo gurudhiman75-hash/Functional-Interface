@@ -44,6 +44,9 @@ export type ScenarioFamily =
   | "retailer_discount"
   | "online_sales_growth"
   | "mixture_container"
+  | "sales_commission_report"
+  | "income_tax_return"
+  | "class_subject_survey"
   | "general_percentage";
 
 export interface ScenarioContext {

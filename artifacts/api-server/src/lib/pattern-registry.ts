@@ -6,7 +6,9 @@ import type {
 } from "./core/generator-engine";
 import { percentageMotifIds } from "./motifs/percentage";
 import { ALL_PATTERNS } from "./patterns";
-import { isQuantV2PercentageEnabled } from "./quant-v2/percentage-admin-adapter";
+import {
+  resolveMigratedQuantV2DomainFromAlias,
+} from "./quant-v2/migrated-quant-topics";
 
 export type QuestionPatternDomain =
   | "reasoning"
@@ -112,7 +114,6 @@ const examProfileMap: Record<
   patwari: "punjab_state",
   cooperative: "punjab_state",
   punjabpsc: "punjab_state",
-  punjab_state: "punjab_state",
 };
 
 const ENGINE_PATTERN_CODING_MOTIF_IDS = [
@@ -3564,24 +3565,25 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       id: "profit-loss",
       domain: "quant",
       topic: "profit-loss",
-      label: "Profit & Loss",
+      label: "Profit, Loss & Discount",
       description:
-        "SSC-style profit, loss, discount, markup, dishonest dealer, and multi-stage trade questions.",
+        "Phase 1 SSC-style profit, loss, marked price, discount, and two-article trade questions.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "base-percentage-transformation",
-        "multiplicative-percentage-chaining",
-        "hidden-base-tracking",
-        "quantity-manipulation-profit",
-        "markup-discount-compression",
-        "equivalent-change-reduction",
-        "ratio-based-profit-reconstruction",
-        "multi-state-transaction-flow",
-        "profit-discount-trap",
+        "pl_cp_sp_percent",
+        "pl_cp_percent_to_sp",
+        "pl_sp_percent_to_cp",
+        "pl_mp_discount_to_sp",
+        "pl_mp_sp_discount_percent",
+        "pl_cp_mp_discount_to_percent",
+        "pl_successive_discounts",
+        "pl_mp_for_target_profit",
+        "pl_equal_sp_profit_loss",
+        "pl_two_article_overall",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -3599,9 +3601,11 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "hard",
       ],
       compatibleMotifs: [
-        "hidden-base-tracking",
-        "markup-discount-compression",
-        "multiplicative-percentage-chaining",
+        "pl_mp_discount_to_sp",
+        "pl_mp_sp_discount_percent",
+        "pl_cp_mp_discount_to_percent",
+        "pl_successive_discounts",
+        "pl_mp_for_target_profit",
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -3621,7 +3625,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "quantity-manipulation-profit",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "profit-loss-equivalent-change",
@@ -3639,7 +3643,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "equivalent-change-reduction",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "simple-compound-interest",
@@ -6926,16 +6930,18 @@ function buildQuantPattern(
   questionPattern: QuestionPattern,
   difficulty: DifficultyLabel,
 ): Pattern {
-  const isPercentagePattern =
-    questionPattern.id === "percentage" ||
-    /percent|percentage/i.test(
-      `${questionPattern.topic} ${questionPattern.label}`,
+  const migratedQuantV2Domain =
+    resolveMigratedQuantV2DomainFromAlias(
+      questionPattern.id,
+    ) ??
+    resolveMigratedQuantV2DomainFromAlias(
+      questionPattern.topic,
+    ) ??
+    resolveMigratedQuantV2DomainFromAlias(
+      questionPattern.label,
     );
   const generationDomain: Pattern["generationDomain"] =
-    isPercentagePattern &&
-    isQuantV2PercentageEnabled()
-      ? "quant-v2-percentage"
-      : "quant";
+    migratedQuantV2Domain ?? "quant";
   const base = {
     type: "formula" as const,
     section: "Quant",

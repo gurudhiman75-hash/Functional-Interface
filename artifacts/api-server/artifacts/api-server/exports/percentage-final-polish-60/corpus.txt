@@ -1,0 +1,3303 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-23-001116
+Preset: ssc_percentage_audit
+Profile: multilingual_review
+Count: 60
+Estimated Size: ~0.8 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+A's income is 25% more than B's income. B's income is 40% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 25% अधिक है। B की आय C से 40% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 40% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 25% less | 5% more | 33.33% more | 20% more
+Answer: 25% less
+Difficulty: Medium
+Topology: relational_chain:two_step_relation_chain
+Realism: 78
+
+Explanation EN:
+Assume C's income = 100.
+Since B is 40% less than C, B = 100 x 60 / 100 = 60.
+Since A is 25% more than B, A = 60 x 125 / 100 = 75.
+Compared with C = 100, A is 25% less.
+
+Explanation HI:
+मान लें C की आय = 100।
+B, C से 40% कम है, इसलिए B = 100 x 60 / 100 = 60।
+A, B से 25% अधिक है, इसलिए A = 60 x 125 / 100 = 75।
+C = 100 की तुलना में A 25% कम है।
+
+Explanation PA:
+ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।
+B, C ਨਾਲੋਂ 40% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 60 / 100 = 60।
+A, B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 60 x 125 / 100 = 75।
+C = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 25% ਘੱਟ ਹੈ।
+
+[Q2]
+EN:
+Due to an off-season clearance sale, the marked price of a school bag was reduced by 40% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?
+
+HI:
+स्कूल बैग के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਸਕੂਲ ਬੈਗ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 66.67% | 40% | 60% | 33.33%
+Answer: 66.67%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 40% reduction, percentage left is:
+Remaining part =
+100 - 40
+= 60%
+Required increase %:
+40 × 100 / 60
+= 66.67% increase
+Required increase = 66.67%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 40
+= 60%
+आवश्यक वृद्धि:
+40 × 100 / 60
+= 66.67% वृद्धि
+आवश्यक वृद्धि = 66.67%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 40
+= 60%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+40 × 100 / 60
+= 66.67% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ = 66.67%
+
+[Q3]
+EN:
+In a district population survey, the total population was 400000. Males were 55% and females were the rest. The male population increased by 20%, while the female population decreased by 8%. Find the final population.
+
+HI:
+एक जनसंख्या रिपोर्ट में कुल जनसंख्या 400000 थी। पुरुष 55% थे और शेष महिलाएं थीं। पुरुष जनसंख्या 20% बढ़ी, जबकि महिला जनसंख्या 8% घटी। अंतिम जनसंख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ 400000 ਸੀ। ਮਰਦ 55% ਸਨ ਅਤੇ ਬਾਕੀ ਔਰਤਾਂ ਸਨ। ਮਰਦ ਆਬਾਦੀ 20% ਵਧੀ, ਜਦਕਿ ਔਰਤ ਆਬਾਦੀ 8% ਘਟੀ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Options: 429600 | 450000 | 265000 | 430000
+Answer: 429600
+Difficulty: Hard
+Topology: layered_population:male_female_population_shift
+Realism: 78
+
+Explanation EN:
+Male population:
+400000 × 55 / 100
+= 220000
+Female population:
+400000 - 220000
+= 180000
+Male population after growth:
+220000 × (100 + 20) / 100
+= 264000
+Female population after reduction:
+Female population after decrease =
+180000 × ( 100 - 8 ) / 100
+= 165600
+Final population:
+264000 + 165600
+= 429600
+Final population = 429600
+
+Explanation HI:
+पुरुष जनसंख्या:
+400000 × 55 / 100
+= 220000
+महिला जनसंख्या:
+400000 - 220000
+= 180000
+वृद्धि के बाद पुरुष जनसंख्या:
+220000 × (100 + 20) / 100
+= 264000
+कमी के बाद महिला जनसंख्या:
+180000 × ( 100 - 8 ) / 100
+= 165600
+अंतिम जनसंख्या:
+264000 + 165600
+= 429600
+अंतिम जनसंख्या = 429600
+
+Explanation PA:
+ਮਰਦ ਆਬਾਦੀ:
+400000 × 55 / 100
+= 220000
+ਔਰਤ ਆਬਾਦੀ:
+400000 - 220000
+= 180000
+ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਰਦ ਆਬਾਦੀ:
+220000 × (100 + 20) / 100
+= 264000
+ਕਮੀ ਤੋਂ ਬਾਅਦ ਔਰਤ ਆਬਾਦੀ:
+180000 × ( 100 - 8 ) / 100
+= 165600
+ਅੰਤਿਮ ਆਬਾਦੀ:
+264000 + 165600
+= 429600
+ਅੰਤਿਮ ਆਬਾਦੀ = 429600
+
+[Q4]
+EN:
+Fuel price increased by 10%. If total expenditure is kept the same, by what percent should consumption be reduced?
+
+HI:
+ईंधन की कीमत 10% बढ़ गई। यदि कुल खर्च समान रखना हो, तो खपत कितने प्रतिशत घटानी होगी?
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 10% ਵਧ ਗਈ। ਜੇ ਕੁੱਲ ਖਰਚ ਇੱਕੋ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਖਪਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?
+
+Options: 9.09% | 10% | 90% | 11.11%
+Answer: 9.09%
+Difficulty: Easy
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+New price level:
+New price index =
+100 + 10
+= 110
+
+Permissible consumption ratio:
+New consumption index =
+100 × 100 / 110
+= 90.91
+
+Net consumption reduction:
+Reduction in consumption =
+100 - 90.91
+= 9.09% reduction
+
+Hence, required reduction = 9.09% reduction
+
+Explanation HI:
+नई कीमत:
+100 + 10
+= 110
+
+अनुमेय खपत अनुपात:
+नई खपत =
+100 × 100 / 110
+= 90.91
+
+शुद्ध खपत में कमी:
+खपत में कमी =
+100 - 90.91
+= 9.09% कमी
+
+खपत में कमी = 9.09%
+
+Explanation PA:
+ਨਵੀਂ ਕੀਮਤ:
+100 + 10
+= 110
+
+ਪ੍ਰਵਾਨਯੋਗ ਖਪਤ ਅਨੁਪਾਤ:
+ਨਵੀਂ ਖਪਤ =
+100 × 100 / 110
+= 90.91
+
+ਸ਼ੁੱਧ ਖਪਤ ਵਿੱਚ ਕਮੀ:
+ਖਪਤ ਵਿੱਚ ਕਮੀ =
+100 - 90.91
+= 9.09% ਕਮੀ
+
+ਖਪਤ ਵਿੱਚ ਕਮੀ = 9.09%
+
+[Q5]
+EN:
+A milk-water mixture contains 100 litres, of which 20% is milk. How much milk should be added so that milk becomes 40% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 100 लीटर है और उसमें 20% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 100 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 33.33 | 20 | 40 | 80
+Answer: 33.33
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 78
+
+Explanation EN:
+Water remains unchanged.
+Water quantity =
+100 - 20
+= 80
+
+Final mixture quantity:
+80 × 100 / ( 100 - 40 )
+= 133.33
+
+Milk to be added:
+133.33 - 100
+= 33.33
+
+Thus, milk to be added = 33.33
+
+Explanation HI:
+पानी की मात्रा समान रहेगी।
+पानी की मात्रा =
+100 - 20
+= 80
+
+अंतिम मिश्रण:
+80 × 100 / ( 100 - 40 )
+= 133.33
+
+डाला जाने वाला दूध:
+133.33 - 100
+= 33.33
+
+डाला जाने वाला दूध = 33.33
+
+Explanation PA:
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ =
+100 - 20
+= 80
+
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+80 × 100 / ( 100 - 40 )
+= 133.33
+
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+133.33 - 100
+= 33.33
+
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 33.33
+
+[Q6]
+EN:
+In a student union election, 80% of the registered voters cast their votes. Out of these, 20% votes were invalid. The winning candidate got 70% of the valid votes and won by 112000 votes. Find the number of registered voters.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले और जीत का अंतर 112000 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 112000 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 437500 | 280000 | 350000 | 160000
+Answer: 437500
+Difficulty: Hard
+Topology: successive_filtering:turnout_margin
+Realism: 92
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+70 - 30
+= 40%
+
+Effective valid votes:
+112000 × 100 / 40
+= 280000
+
+Votes polled are:
+280000 × 100 / 80
+= 350000
+
+Registered voters are:
+350000 × 100 / 80
+= 437500
+
+Registered voters = 437500
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+70 - 30
+= 40%
+
+कुल वैध वोट:
+112000 × 100 / 40
+= 280000
+
+कुल वोट:
+280000 × 100 / 80
+= 350000
+
+कुल पंजीकृत मतदाता:
+350000 × 100 / 80
+= 437500
+
+पंजीकृत मतदाता = 437500
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+70 - 30
+= 40%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+112000 × 100 / 40
+= 280000
+
+ਕੁੱਲ ਵੋਟ:
+280000 × 100 / 80
+= 350000
+
+ਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:
+350000 × 100 / 80
+= 437500
+
+ਰਜਿਸਟਰਡ ਵੋਟਰ = 437500
+
+[Q7]
+EN:
+In a recruitment test, a candidate scored 30% marks and was short of passing by 60 marks. Another candidate scored 55% marks and exceeded the pass mark by 90 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 30% अंक प्राप्त किए और 60 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 55% अंक प्राप्त किए और उत्तीर्णांक से 90 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 30% ਅੰਕ ਲਏ ਅਤੇ 60 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 55% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 90 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 600 | 375 | 4000 | 580
+Answer: 600
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+60 + 90
+= 150
+Percentage gap:
+55 - 30
+= 25%
+Maximum marks are:
+150 × 100 / 25
+= 600
+Thus, maximum marks = 600
+
+Explanation HI:
+अंकों का कुल अंतर:
+60 + 90
+= 150
+प्रतिशत अंतर:
+55 - 30
+= 25%
+अधिकतम अंक:
+150 × 100 / 25
+= 600
+अधिकतम अंक = 600
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+60 + 90
+= 150
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+55 - 30
+= 25%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+150 × 100 / 25
+= 600
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 600
+
+[Q8]
+EN:
+A's income is 20% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 20% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 20% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 10% less | 15% more | 11.11% more | 35% more
+Answer: 10% less
+Difficulty: Hard
+Topology: reverse_relation:reverse_relation_inference
+Realism: 78
+
+Explanation EN:
+Assume C's income = 100.
+Since B is 25% less than C, B = 100 x 75 / 100 = 75.
+Since A is 20% more than B, A = 75 x 120 / 100 = 90.
+Compared with C = 100, A is 10% less.
+
+Explanation HI:
+मान लें C की आय = 100।
+B, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।
+A, B से 20% अधिक है, इसलिए A = 75 x 120 / 100 = 90।
+C = 100 की तुलना में A 10% कम है।
+
+Explanation PA:
+ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।
+B, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।
+A, B ਨਾਲੋਂ 20% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 120 / 100 = 90।
+C = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 10% ਘੱਟ ਹੈ।
+
+[Q9]
+EN:
+A's income is 40% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 40% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 5% more | 15% more | 15.24% more | 35% more
+Answer: 5% more
+Difficulty: Hard
+Topology: inverse_percentage_mapping:hidden_base_relation_chain
+Realism: 78
+
+Explanation EN:
+Assume C's income = 100.
+Since B is 25% less than C, B = 100 x 75 / 100 = 75.
+Since A is 40% more than B, A = 75 x 140 / 100 = 105.
+Compared with C = 100, A is 5% more.
+
+Explanation HI:
+मान लें C की आय = 100।
+B, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।
+A, B से 40% अधिक है, इसलिए A = 75 x 140 / 100 = 105।
+C = 100 की तुलना में A 5% अधिक है।
+
+Explanation PA:
+ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।
+B, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।
+A, B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 140 / 100 = 105।
+C = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 5% ਵੱਧ ਹੈ।
+
+[Q10]
+EN:
+Following a corporate annual performance review, the monthly salary was revised from ₹5000 to ₹5250. Find the net percentage change relative to the original salary.
+
+HI:
+एक कर्मचारी का वेतन 5000 से बदलकर 5250 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 5000 ਤੋਂ ਬਦਲ ਕੇ 5250 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 5% | 4.76% | 5.26% | 4.5%
+Answer: 5%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 72
+
+Explanation EN:
+Increase in salary:
+5250 - 5000
+= 250
+
+Change %:
+250 × 100 / 5000
+= 5
+
+Hence, salary revision = 5% increase
+
+Explanation HI:
+वेतन में बदलाव:
+5250 - 5000
+= 250
+
+प्रतिशत परिवर्तन:
+250 × 100 / 5000
+= 5
+
+वेतन में बदलाव = 5%
+
+Explanation PA:
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:
+5250 - 5000
+= 250
+
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:
+250 × 100 / 5000
+= 5
+
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 5%
+
+[Q11]
+EN:
+In a competitive engineering entrance examination, a candidate secured 10 marks, which corresponds to exactly 10% of the maximum aggregate marks. What are the maximum aggregate marks of the test?
+
+HI:
+एक विद्यार्थी ने 10 अंक प्राप्त किए, जो अधिकतम अंकों के 10% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 10 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 10% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 100 | 11.11 | 20 | 110
+Answer: 100
+Difficulty: Medium
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+Now compute the total:
+Maximum marks =
+10 × 100 / 10
+= 100
+
+Maximum marks = 100
+
+Explanation HI:
+कुल मान ज्ञात करें:
+अधिकतम अंक =
+10 × 100 / 10
+= 100
+
+अधिकतम अंक = 100
+
+Explanation PA:
+ਕੁੱਲ ਮਾਤਰਾ ਕੱਢੋ:
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =
+10 × 100 / 10
+= 100
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 100
+
+[Q12]
+EN:
+In an employee union election, 80% of the registered voters voted and 80% of those votes were valid. The winning candidate got 60% of the valid votes. The margin between the two candidates was 64000 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 60% वोट मिले। जीत का अंतर 64000 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 64000 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 192000 | 300000 | 240000 | 190000
+Answer: 192000
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 96
+
+Explanation EN:
+Effective valid votes:
+64000 × 100 / 20
+= 320000
+Winner's votes are:
+320000 × 60 / 100
+= 192000
+Therefore, winning candidate's votes = 192000
+
+Explanation HI:
+कुल वैध वोट:
+64000 × 100 / 20
+= 320000
+विजयी उम्मीदवार के वोट:
+320000 × 60 / 100
+= 192000
+विजयी उम्मीदवार के वोट = 192000
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+64000 × 100 / 20
+= 320000
+ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ:
+320000 × 60 / 100
+= 192000
+ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ = 192000
+
+[Q13]
+EN:
+A salesman gets a commission of 8% on total sales up to ₹10000 and an additional bonus of 4% on sales above this amount. If his total commission is ₹2600, find his total sales.
+
+HI:
+एक विक्रेता को ₹10000 तक की बिक्री पर 8% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 4% बोनस मिलता है। यदि कुल कमीशन ₹2600 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹10000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 8% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 4% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹2600 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 25000 | 18000 | 33000 | 32000
+Answer: 25000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+10000 × 8 / 100
+= 800
+
+Commission above base quota:
+2600 - 800
+= 1800
+
+Total commission rate on excess sales:
+8 + 4
+= 12%
+
+Sales above base quota:
+1800 × 100 / 12
+= 15000
+
+Total sales:
+10000 + 15000
+= 25000
+
+Total sales = 25000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+10000 × 8 / 100
+= 800
+
+आधार से ऊपर कमीशन:
+2600 - 800
+= 1800
+
+कुल कमीशन:
+8 + 4
+= 12%
+
+आधार से ऊपर अतिरिक्त बिक्री:
+1800 × 100 / 12
+= 15000
+
+कुल बिक्री:
+10000 + 15000
+= 25000
+
+कुल बिक्री = 25000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+10000 × 8 / 100
+= 800
+
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+2600 - 800
+= 1800
+
+ਕੁੱਲ ਕਮਿਸ਼ਨ:
+8 + 4
+= 12%
+
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+1800 × 100 / 12
+= 15000
+
+ਕੁੱਲ ਵਿਕਰੀ:
+10000 + 15000
+= 25000
+
+ਕੁੱਲ ਵਿਕਰੀ = 25000
+
+[Q14]
+EN:
+The price of a commodity increased by 10%, but a household decided to increase its total expenditure by only 5%. Find the percentage change in consumption.
+
+HI:
+ईंधन की कीमत 10% बढ़ गई, लेकिन कुल खर्च केवल 5% बढ़ाया गया। खपत में प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 10% ਵਧ ਗਈ, ਪਰ ਕੁੱਲ ਖਰਚ ਸਿਰਫ 5% ਵਧਾਇਆ ਗਿਆ। ਖਪਤ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 4.55% | 5% | 4.1% | 24.55%
+Answer: 4.55%
+Difficulty: Hard
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+New price level:
+New price index =
+100 + 10
+= 110
+New expenditure level:
+New expenditure index =
+100 + 5
+= 105
+New consumption index:
+105 × 100 / 110
+= 95.45
+Required reduction in consumption:
+Reduction in consumption =
+100 - 95.45
+= 4.55% reduction
+So, reduction in consumption = 4.55% reduction
+
+Explanation HI:
+नई कीमत:
+100 + 10
+= 110
+नया खर्च स्तर:
+नया व्यय सूचकांक =
+100 + 5
+= 105
+नई खपत:
+105 × 100 / 110
+= 95.45
+खपत में कमी:
+100 - 95.45
+= 4.55% कमी
+खपत में कमी = 4.55%
+
+Explanation PA:
+ਨਵੀਂ ਕੀਮਤ:
+100 + 10
+= 110
+ਨਵਾਂ ਖਰਚਾ ਪੱਧਰ:
+ਨਵਾਂ ਖਰਚਾ ਸੂਚਕਾਂਕ =
+100 + 5
+= 105
+ਨਵੀਂ ਖਪਤ:
+105 × 100 / 110
+= 95.45
+ਖਪਤ ਵਿੱਚ ਕਮੀ:
+100 - 95.45
+= 4.55% ਕਮੀ
+ਖਪਤ ਵਿੱਚ ਕਮੀ = 4.55%
+
+[Q15]
+EN:
+A vessel has 200 litres of milk-water mixture with 25% milk. How much milk should be added so that milk becomes 40% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 200 लीटर है और उसमें 25% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 200 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 50 | 30 | 80 | 15
+Answer: 50
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water remains unchanged.
+Water quantity =
+200 - 50
+= 150
+Final mixture quantity:
+150 × 100 / ( 100 - 40 )
+= 250
+Milk to be added:
+250 - 200
+= 50
+Milk to be added = 50
+
+Explanation HI:
+पानी की मात्रा समान रहेगी।
+पानी की मात्रा =
+200 - 50
+= 150
+अंतिम मिश्रण:
+150 × 100 / ( 100 - 40 )
+= 250
+डाला जाने वाला दूध:
+250 - 200
+= 50
+डाला जाने वाला दूध = 50
+
+Explanation PA:
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ =
+200 - 50
+= 150
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+150 × 100 / ( 100 - 40 )
+= 250
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+250 - 200
+= 50
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 50
+
+[Q16]
+EN:
+In a qualifying test, 40% of the paper has been evaluated. A student scored 60% of those marks. To secure 37% overall, the student still needs 182 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 37% अंक पाने के लिए उसे अभी 182 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 37% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 182 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1400 | 790 | 490 | 290
+Answer: 1400
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured:
+40 × 60 / 100
+= 24
+Required percentage gap:
+37 - 24
+= 13%
+Maximum marks are:
+182 × 100 / 13
+= 1400
+Maximum marks = 1400
+
+Explanation HI:
+प्राप्त अंक:
+40 × 60 / 100
+= 24
+आवश्यक प्रतिशत अंतर:
+37 - 24
+= 13%
+अधिकतम अंक:
+182 × 100 / 13
+= 1400
+अधिकतम अंक = 1400
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 × 60 / 100
+= 24
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+37 - 24
+= 13%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+182 × 100 / 13
+= 1400
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1400
+
+[Q17]
+EN:
+The income tax rate is reduced from 15% to 10%. As a result, a person's tax liability decreases by ₹3000. Find the total taxable income of the person.
+
+HI:
+आयकर दर 15% से घटकर 10% हो गई। इससे कर देयता ₹3000 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 15% ਤੋਂ ਘਟ ਕੇ 10% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹3000 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 60000 | 3000 | 9000 | 4000
+Answer: 60000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+15 - 10
+= 5%
+
+Total taxable income:
+3000 × 100 / 5
+= 60000
+
+Total taxable income = 60000
+
+Explanation HI:
+आवश्यक अंतर:
+15 - 10
+= 5%
+
+कुल करयोग्य आय:
+3000 × 100 / 5
+= 60000
+
+कुल करयोग्य आय = 60000
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਅੰਤਰ:
+15 - 10
+= 5%
+
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+3000 × 100 / 5
+= 60000
+
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 60000
+
+[Q18]
+EN:
+In a constituency election, the winning candidate got 45% of the votes and candidate C got 12%. The winning candidate defeated candidate B by 1400 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 45% वोट और प्रत्याशी C को 12% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 1400 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 45% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 12% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 1400 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 70000 | 4000 | 3000 | 60000
+Answer: 70000
+Difficulty: Medium
+Topology: multi_entity_distribution:multi_candidate_margin
+Realism: 78
+
+Explanation EN:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 45 - 12
+= 43
+
+Winning margin:
+Remaining vote share =
+45 - 43
+= 2%
+
+Total votes are:
+1400 × 100 / 2
+= 70000
+
+Hence, total votes polled = 70000
+
+Explanation HI:
+जीत का अंतर:
+अन्य उम्मीदवारों के वोट =
+100 - 45 - 12
+= 43
+
+जीत का अंतर:
+मार्जिन प्रतिशत =
+45 - 43
+= 2%
+
+कुल वोट:
+1400 × 100 / 2
+= 70000
+
+कुल डाले गए वोट = 70000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 45 - 12
+= 43
+
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+45 - 43
+= 2%
+
+ਕੁੱਲ ਵੋਟ:
+1400 × 100 / 2
+= 70000
+
+ਕੁੱਲ ਪਏ ਵੋਟ = 70000
+
+[Q19]
+EN:
+In a municipal election, 60% of the registered voters voted and 80% of those votes were valid. The winning candidate got 70% of the valid votes. The margin between the two candidates was 84000 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 60% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 70% वोट मिले। जीत का अंतर 84000 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 60% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 70% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 84000 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 147000 | 305000 | 185000 | 145000
+Answer: 147000
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 97
+
+Explanation EN:
+Effective valid votes:
+84000 × 100 / 40
+= 210000
+Winner's votes are:
+210000 × 70 / 100
+= 147000
+Hence, winning candidate's votes = 147000
+
+Explanation HI:
+कुल वैध वोट:
+84000 × 100 / 40
+= 210000
+विजयी उम्मीदवार के वोट:
+210000 × 70 / 100
+= 147000
+विजयी उम्मीदवार के वोट = 147000
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+84000 × 100 / 40
+= 210000
+ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ:
+210000 × 70 / 100
+= 147000
+ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ = 147000
+
+[Q20]
+EN:
+Due to an off-season clearance sale, the marked price of a sugar packet was reduced by 10% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?
+
+HI:
+चीनी का पैकेट के मूल्य में 10% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਚੀਨੀ ਦਾ ਪੈਕੇਟ ਦੀ ਕੀਮਤ ਵਿੱਚ 10% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 11.11% | 10% | 90% | 88.89%
+Answer: 11.11%
+Difficulty: Easy
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 10% reduction, percentage left is:
+Remaining part =
+100 - 10
+= 90%
+Required increase %:
+10 × 100 / 90
+= 11.11% increase
+Required increase = 11.11%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 10
+= 90%
+आवश्यक वृद्धि:
+10 × 100 / 90
+= 11.11% वृद्धि
+आवश्यक वृद्धि = 11.11%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 10
+= 90%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+10 × 100 / 90
+= 11.11% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ = 11.11%
+
+[Q21]
+EN:
+A milk-water mixture contains 120 litres, of which 25% is milk. Find the milk to be added so that milk becomes 50% of the mixture.
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 120 लीटर है और उसमें 25% दूध है। दूध को 50% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 120 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 50% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 60 | 30 | 25 | 90
+Answer: 60
+Difficulty: Medium
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water remains unchanged.
+Water quantity =
+120 - 30
+= 90
+Final mixture quantity:
+90 × 100 / ( 100 - 50 )
+= 180
+Milk to be added:
+180 - 120
+= 60
+Hence, milk to be added = 60
+
+Explanation HI:
+पानी की मात्रा समान रहेगी।
+पानी की मात्रा =
+120 - 30
+= 90
+अंतिम मिश्रण:
+90 × 100 / ( 100 - 50 )
+= 180
+डाला जाने वाला दूध:
+180 - 120
+= 60
+डाला जाने वाला दूध = 60
+
+Explanation PA:
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ =
+120 - 30
+= 90
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+90 × 100 / ( 100 - 50 )
+= 180
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+180 - 120
+= 60
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 60
+
+[Q22]
+EN:
+In a recruitment test, a candidate first scored 35% marks. After adding a bonus of 5%, the score was still short of the pass mark by 100 marks. The pass mark was 50%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 35% अंक प्राप्त किए। 5% बोनस जोड़ने के बाद भी वह 100 अंकों से कम रह गया। उत्तीर्णांक 50% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 35% ਅੰਕ ਲਏ। 5% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 100 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 50% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1000 | 665 | 200 | 980
+Answer: 1000
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 98
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+35 + 5
+= 40
+Required percentage gap:
+50 - 40
+= 10%
+Maximum marks are:
+100 × 100 / 10
+= 1000
+Maximum marks = 1000
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+35 + 5
+= 40
+आवश्यक प्रतिशत अंतर:
+50 - 40
+= 10%
+अधिकतम अंक:
+100 × 100 / 10
+= 1000
+अधिकतम अंक = 1000
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+35 + 5
+= 40
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+50 - 40
+= 10%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+100 × 100 / 10
+= 1000
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1000
+
+[Q23]
+EN:
+In a student union election, the winning candidate secured 55% of the votes and defeated the opponent by 8000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 55% वोट मिले और उसने प्रतिद्वंद्वी को 8000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 55% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 8000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 80000 | 15000 | 18000 | 81000
+Answer: 80000
+Difficulty: Medium
+Topology: direct_mapping:direct_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+55 - 45
+= 10%
+Total votes are:
+8000 × 100 / 10
+= 80000
+Hence, total votes polled = 80000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+55 - 45
+= 10%
+कुल वोट:
+8000 × 100 / 10
+= 80000
+कुल डाले गए वोट = 80000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+55 - 45
+= 10%
+ਕੁੱਲ ਵੋਟ:
+8000 × 100 / 10
+= 80000
+ਕੁੱਲ ਪਏ ਵੋਟ = 80000
+
+[Q24]
+EN:
+The price of a commodity increased by 50%, but a household decided to increase its total expenditure by only 15%. Find the percentage change in consumption.
+
+HI:
+ईंधन की कीमत 50% बढ़ गई, लेकिन कुल खर्च केवल 15% बढ़ाया गया। खपत में प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 50% ਵਧ ਗਈ, ਪਰ ਕੁੱਲ ਖਰਚ ਸਿਰਫ 15% ਵਧਾਇਆ ਗਿਆ। ਖਪਤ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 23.33% | 35% | 21% | 3.33%
+Answer: 23.33%
+Difficulty: Hard
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+New price index =
+100 + 50
+= 150
+New expenditure index =
+100 + 15
+= 115
+New consumption index =
+115 × 100 / 150
+= 76.67
+Reduction in consumption =
+100 - 76.67
+= 23.33% reduction
+So, reduction in consumption = 23.33% reduction
+
+Explanation HI:
+नई कीमत =
+100 + 50
+= 150
+नया व्यय सूचकांक =
+100 + 15
+= 115
+नई खपत =
+115 × 100 / 150
+= 76.67
+खपत में कमी =
+100 - 76.67
+= 23.33% कमी
+खपत में कमी = 23.33%
+
+Explanation PA:
+ਨਵੀਂ ਕੀਮਤ =
+100 + 50
+= 150
+ਨਵਾਂ ਖਰਚਾ ਸੂਚਕਾਂਕ =
+100 + 15
+= 115
+ਨਵੀਂ ਖਪਤ =
+115 × 100 / 150
+= 76.67
+ਖਪਤ ਵਿੱਚ ਕਮੀ =
+100 - 76.67
+= 23.33% ਕਮੀ
+ਖਪਤ ਵਿੱਚ ਕਮੀ = 23.33%
+
+[Q25]
+EN:
+In a scholarship exam, 50% of the paper has been evaluated. A student scored 50% of those marks. To secure 38% overall, the student still needs 156 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 50% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 38% अंक पाने के लिए उसे अभी 156 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 50% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 38% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 156 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 1000 | 410 | 250
+Answer: 1200
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured:
+50 × 50 / 100
+= 25
+Required percentage gap:
+38 - 25
+= 13%
+Maximum marks are:
+156 × 100 / 13
+= 1200
+Thus, maximum marks = 1200
+
+Explanation HI:
+प्राप्त अंक:
+50 × 50 / 100
+= 25
+आवश्यक प्रतिशत अंतर:
+38 - 25
+= 13%
+अधिकतम अंक:
+156 × 100 / 13
+= 1200
+अधिकतम अंक = 1200
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+50 × 50 / 100
+= 25
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+38 - 25
+= 13%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+156 × 100 / 13
+= 1200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200
+
+[Q26]
+EN:
+The income tax rate is reduced from 20% to 5%. As a result, a person's tax liability decreases by ₹9000. Find the total taxable income of the person.
+
+HI:
+आयकर दर 20% से घटकर 5% हो गई। इससे कर देयता ₹9000 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 20% ਤੋਂ ਘਟ ਕੇ 5% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹9000 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 60000 | 9000 | 12000 | 10000
+Answer: 60000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+20 - 5
+= 15%
+Total taxable income:
+9000 × 100 / 15
+= 60000
+Total taxable income = 60000
+
+Explanation HI:
+आवश्यक अंतर:
+20 - 5
+= 15%
+कुल करयोग्य आय:
+9000 × 100 / 15
+= 60000
+कुल करयोग्य आय = 60000
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਅੰਤਰ:
+20 - 5
+= 15%
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+9000 × 100 / 15
+= 60000
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 60000
+
+[Q27]
+EN:
+In a competitive engineering entrance examination, a candidate secured 60 marks, which corresponds to exactly 50% of the maximum aggregate marks. What are the maximum aggregate marks of the test?
+
+HI:
+एक विद्यार्थी ने 60 अंक प्राप्त किए, जो अधिकतम अंकों के 50% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 60 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 50% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 120 | 75 | 180 | 100
+Answer: 120
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+Now compute the total:
+Maximum marks =
+60 × 100 / 50
+= 120
+Maximum marks = 120
+
+Explanation HI:
+कुल मान ज्ञात करें:
+अधिकतम अंक =
+60 × 100 / 50
+= 120
+अधिकतम अंक = 120
+
+Explanation PA:
+ਕੁੱਲ ਮਾਤਰਾ ਕੱਢੋ:
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =
+60 × 100 / 50
+= 120
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 120
+
+[Q28]
+EN:
+Following a corporate annual performance review, the monthly salary was revised from ₹8000 to ₹9600. Find the net percentage change relative to the original salary.
+
+HI:
+एक कर्मचारी का वेतन 8000 से बदलकर 9600 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 8000 ਤੋਂ ਬਦਲ ਕੇ 9600 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 20% | 16.67% | 25% | 18%
+Answer: 20%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 72
+
+Explanation EN:
+Increase in salary:
+9600 - 8000
+= 1600
+Change %:
+1600 × 100 / 8000
+= 20
+Hence, salary revision = 20% increase
+
+Explanation HI:
+वेतन में बदलाव:
+9600 - 8000
+= 1600
+प्रतिशत परिवर्तन:
+1600 × 100 / 8000
+= 20
+वेतन में बदलाव = 20%
+
+Explanation PA:
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:
+9600 - 8000
+= 1600
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:
+1600 × 100 / 8000
+= 20
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 20%
+
+[Q29]
+EN:
+In a student union election, 80% of the registered voters cast their votes. Out of these, 10% votes were invalid. The winning candidate got $62\frac{1}{2}\%$ of the valid votes and won by 22500 votes. Find the number of registered voters.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया। इनमें से 10% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 62.5% वोट मिले और जीत का अंतर 22500 वोट था। पंजीकृत मतदाताओं की संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ 10% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 62.5% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 22500 ਵੋਟ ਸੀ। ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 125000 | 90000 | 115000 | 35000
+Answer: 125000
+Difficulty: Hard
+Topology: successive_filtering:turnout_margin
+Realism: 92
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+62.5 - 37.5
+= 25%
+
+Effective valid votes:
+22500 × 100 / 25
+= 90000
+
+Votes polled are:
+90000 × 100 / 90
+= 100000
+
+Registered voters are:
+100000 × 100 / 80
+= 125000
+
+Registered voters = 125000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+62.5 - 37.5
+= 25%
+
+कुल वैध वोट:
+22500 × 100 / 25
+= 90000
+
+कुल वोट:
+90000 × 100 / 90
+= 100000
+
+कुल पंजीकृत मतदाता:
+100000 × 100 / 80
+= 125000
+
+पंजीकृत मतदाता = 125000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+62.5 - 37.5
+= 25%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+22500 × 100 / 25
+= 90000
+
+ਕੁੱਲ ਵੋਟ:
+90000 × 100 / 90
+= 100000
+
+ਕੁੱਲ ਰਜਿਸਟਰਡ ਵੋਟਰ:
+100000 × 100 / 80
+= 125000
+
+ਰਜਿਸਟਰਡ ਵੋਟਰ = 125000
+
+[Q30]
+EN:
+In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 15%, the score was still short of the pass mark by 210 marks. The pass mark was 75%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 45% अंक प्राप्त किए। 15% बोनस जोड़ने के बाद भी वह 210 अंकों से कम रह गया। उत्तीर्णांक 75% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 45% ਅੰਕ ਲਏ। 15% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 210 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 75% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1400 | 700 | 3000 | 280
+Answer: 1400
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 94
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+45 + 15
+= 60
+
+Required percentage gap:
+75 - 60
+= 15%
+
+Maximum marks are:
+210 × 100 / 15
+= 1400
+
+Thus, maximum marks = 1400
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+45 + 15
+= 60
+
+आवश्यक प्रतिशत अंतर:
+75 - 60
+= 15%
+
+अधिकतम अंक:
+210 × 100 / 15
+= 1400
+
+अधिकतम अंक = 1400
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+45 + 15
+= 60
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+75 - 60
+= 15%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+210 × 100 / 15
+= 1400
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1400
+
+[Q31]
+EN:
+In a screening test, 40% of the paper has been evaluated. A student scored 60% of those marks. To secure 47% overall, the student still needs 184 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 47% अंक पाने के लिए उसे अभी 184 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 47% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 184 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 800 | 1000 | 390 | 345
+Answer: 800
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 92
+
+Explanation EN:
+Marks already secured:
+40 × 60 / 100
+= 24
+
+Required percentage gap:
+47 - 24
+= 23%
+
+Maximum marks are:
+184 × 100 / 23
+= 800
+
+Maximum marks = 800
+
+Explanation HI:
+प्राप्त अंक:
+40 × 60 / 100
+= 24
+
+आवश्यक प्रतिशत अंतर:
+47 - 24
+= 23%
+
+अधिकतम अंक:
+184 × 100 / 23
+= 800
+
+अधिकतम अंक = 800
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 × 60 / 100
+= 24
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+47 - 24
+= 23%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+184 × 100 / 23
+= 800
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 800
+
+[Q32]
+EN:
+In an employee recruitment drive for the state administrative services, 120 successful candidates constitute 20% of the total registered applicants. Find the total number of registered applicants who applied.
+
+HI:
+120 अभ्यर्थी कुल आवेदकों के 20% हैं। कुल आवेदक ज्ञात कीजिए।
+
+PA:
+120 ਉਮੀਦਵਾਰ ਕੁੱਲ ਅਰਜ਼ੀਦਾਰਾਂ ਦੇ 20% ਹਨ। ਕੁੱਲ ਅਰਜ਼ੀਦਾਰ ਪਤਾ ਕਰੋ।
+
+Options: 600 | 150 | 720 | 580
+Answer: 600
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+Now compute the total:
+Total applicants =
+120 × 100 / 20
+= 600
+
+Total applicants = 600
+
+Explanation HI:
+कुल मान ज्ञात करें:
+कुल आवेदक =
+120 × 100 / 20
+= 600
+
+कुल आवेदक = 600
+
+Explanation PA:
+ਕੁੱਲ ਮਾਤਰਾ ਕੱਢੋ:
+ਕੁੱਲ ਅਰਜ਼ੀਦਾਰ =
+120 × 100 / 20
+= 600
+
+ਕੁੱਲ ਅਰਜ਼ੀਦਾਰ = 600
+
+[Q33]
+EN:
+A salesman gets a commission of 10% on total sales up to ₹20000 and an additional bonus of 3% on sales above this amount. If his total commission is ₹3300, find his total sales.
+
+HI:
+एक विक्रेता को ₹20000 तक की बिक्री पर 10% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 3% बोनस मिलता है। यदि कुल कमीशन ₹3300 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹20000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 10% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 3% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹3300 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 30000 | 22000 | 33000 | 38000
+Answer: 30000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+20000 × 10 / 100
+= 2000
+Commission above base quota:
+3300 - 2000
+= 1300
+Total commission rate on excess sales:
+10 + 3
+= 13%
+Sales above base quota:
+1300 × 100 / 13
+= 10000
+Total sales:
+20000 + 10000
+= 30000
+Total sales = 30000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+20000 × 10 / 100
+= 2000
+आधार से ऊपर कमीशन:
+3300 - 2000
+= 1300
+कुल कमीशन:
+10 + 3
+= 13%
+आधार से ऊपर अतिरिक्त बिक्री:
+1300 × 100 / 13
+= 10000
+कुल बिक्री:
+20000 + 10000
+= 30000
+कुल बिक्री = 30000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+20000 × 10 / 100
+= 2000
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+3300 - 2000
+= 1300
+ਕੁੱਲ ਕਮਿਸ਼ਨ:
+10 + 3
+= 13%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+1300 × 100 / 13
+= 10000
+ਕੁੱਲ ਵਿਕਰੀ:
+20000 + 10000
+= 30000
+ਕੁੱਲ ਵਿਕਰੀ = 30000
+
+[Q34]
+EN:
+Due to an off-season clearance sale, the marked price of a wheat bag was reduced by 20% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?
+
+HI:
+गेहूं का बोरा के मूल्य में 20% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਕਣਕ ਦੀ ਬੋਰੀ ਦੀ ਕੀਮਤ ਵਿੱਚ 20% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 25% | 20% | 80% | 75%
+Answer: 25%
+Difficulty: Easy
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 20% reduction, percentage left is:
+Remaining part =
+100 - 20
+= 80%
+Required increase %:
+20 × 100 / 80
+= 25% increase
+Required increase = 25%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 20
+= 80%
+आवश्यक वृद्धि:
+20 × 100 / 80
+= 25% वृद्धि
+आवश्यक वृद्धि = 25%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 20
+= 80%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+20 × 100 / 80
+= 25% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ = 25%
+
+[Q35]
+EN:
+In a screening test, a candidate first scored 45% marks. After adding a bonus of 15%, the score was still short of the pass mark by 65 marks. The pass mark was 65%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 45% अंक प्राप्त किए। 15% बोनस जोड़ने के बाद भी वह 65 अंकों से कम रह गया। उत्तीर्णांक 65% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 45% ਅੰਕ ਲਏ। 15% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 65 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 65% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1300 | 325 | 100 | 1000
+Answer: 1300
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 96
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+45 + 15
+= 60
+Required percentage gap:
+65 - 60
+= 5%
+Maximum marks are:
+65 × 100 / 5
+= 1300
+Thus, maximum marks = 1300
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+45 + 15
+= 60
+आवश्यक प्रतिशत अंतर:
+65 - 60
+= 5%
+अधिकतम अंक:
+65 × 100 / 5
+= 1300
+अधिकतम अंक = 1300
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+45 + 15
+= 60
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+65 - 60
+= 5%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+65 × 100 / 5
+= 1300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1300
+
+[Q36]
+EN:
+In a recruitment test, a candidate scored 45% marks and was short of passing by 45 marks. Another candidate scored 75% marks and exceeded the pass mark by 45 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 45% अंक प्राप्त किए और 45 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 75% अंक प्राप्त किए और उत्तीर्णांक से 45 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 45% ਅੰਕ ਲਏ ਅਤੇ 45 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 75% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 45 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 150 | 3000 | 280
+Answer: 300
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+45 + 45
+= 90
+
+Percentage gap:
+75 - 45
+= 30%
+
+Maximum marks are:
+90 × 100 / 30
+= 300
+
+Maximum marks = 300
+
+Explanation HI:
+अंकों का कुल अंतर:
+45 + 45
+= 90
+
+प्रतिशत अंतर:
+75 - 45
+= 30%
+
+अधिकतम अंक:
+90 × 100 / 30
+= 300
+
+अधिकतम अंक = 300
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+45 + 45
+= 90
+
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+75 - 45
+= 30%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+90 × 100 / 30
+= 300
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q37]
+EN:
+A salesman gets a commission of 8% on total sales up to ₹10000 and an additional bonus of 5% on sales above this amount. If his total commission is ₹3400, find his total sales.
+
+HI:
+एक विक्रेता को ₹10000 तक की बिक्री पर 8% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 5% बोनस मिलता है। यदि कुल कमीशन ₹3400 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹10000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 8% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 5% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹3400 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 30000 | 22000 | 41000 | 38000
+Answer: 30000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+10000 × 8 / 100
+= 800
+Commission above base quota:
+3400 - 800
+= 2600
+Total commission rate on excess sales:
+8 + 5
+= 13%
+Sales above base quota:
+2600 × 100 / 13
+= 20000
+Total sales:
+10000 + 20000
+= 30000
+Total sales = 30000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+10000 × 8 / 100
+= 800
+आधार से ऊपर कमीशन:
+3400 - 800
+= 2600
+कुल कमीशन:
+8 + 5
+= 13%
+आधार से ऊपर अतिरिक्त बिक्री:
+2600 × 100 / 13
+= 20000
+कुल बिक्री:
+10000 + 20000
+= 30000
+कुल बिक्री = 30000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+10000 × 8 / 100
+= 800
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+3400 - 800
+= 2600
+ਕੁੱਲ ਕਮਿਸ਼ਨ:
+8 + 5
+= 13%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+2600 × 100 / 13
+= 20000
+ਕੁੱਲ ਵਿਕਰੀ:
+10000 + 20000
+= 30000
+ਕੁੱਲ ਵਿਕਰੀ = 30000
+
+[Q38]
+EN:
+In a qualifying test, 40% of the paper has been evaluated. A student scored 70% of those marks. To secure 41% overall, the student still needs 143 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 70% अंक प्राप्त किए। कुल 41% अंक पाने के लिए उसे अभी 143 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 70% ਅੰਕ ਲਏ। ਕੁੱਲ 41% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 143 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1100 | 495 | 350 | 205
+Answer: 1100
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured =
+40 × 70 / 100
+= 28
+Required percentage gap =
+41 - 28
+= 13%
+Maximum marks =
+143 × 100 / 13
+= 1100
+Hence, maximum marks in the test = 1100
+
+Explanation HI:
+प्राप्त अंक =
+40 × 70 / 100
+= 28
+आवश्यक प्रतिशत अंतर =
+41 - 28
+= 13%
+अधिकतम अंक =
+143 × 100 / 13
+= 1100
+अधिकतम अंक = 1100
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+40 × 70 / 100
+= 28
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ =
+41 - 28
+= 13%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =
+143 × 100 / 13
+= 1100
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1100
+
+[Q39]
+EN:
+The income tax rate is reduced from 20% to 10%. As a result, a person's tax liability decreases by ₹5000. Find the total taxable income of the person.
+
+HI:
+आयकर दर 20% से घटकर 10% हो गई। इससे कर देयता ₹5000 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 20% ਤੋਂ ਘਟ ਕੇ 10% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹5000 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 50000 | 5000 | 10000 | 6000
+Answer: 50000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+20 - 10
+= 10%
+Total taxable income:
+5000 × 100 / 10
+= 50000
+Total taxable income = 50000
+
+Explanation HI:
+आवश्यक अंतर:
+20 - 10
+= 10%
+कुल करयोग्य आय:
+5000 × 100 / 10
+= 50000
+कुल करयोग्य आय = 50000
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਅੰਤਰ:
+20 - 10
+= 10%
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+5000 × 100 / 10
+= 50000
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 50000
+
+[Q40]
+EN:
+In a qualifying test, a candidate scored 30% marks and was short of passing by 165 marks. Another candidate scored 55% marks and exceeded the pass mark by 110 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 30% अंक प्राप्त किए और 165 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 55% अंक प्राप्त किए और उत्तीर्णांक से 110 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 30% ਅੰਕ ਲਏ ਅਤੇ 165 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 55% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 110 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1100 | 610 | 1000 | 990
+Answer: 1100
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+165 + 110
+= 275
+
+Percentage gap:
+55 - 30
+= 25%
+
+Maximum marks are:
+275 × 100 / 25
+= 1100
+
+Hence, maximum marks in the test = 1100
+
+Explanation HI:
+अंकों का कुल अंतर:
+165 + 110
+= 275
+
+प्रतिशत अंतर:
+55 - 30
+= 25%
+
+अधिकतम अंक:
+275 × 100 / 25
+= 1100
+
+अधिकतम अंक = 1100
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+165 + 110
+= 275
+
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+55 - 30
+= 25%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+275 × 100 / 25
+= 1100
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1100
+
+[Q41]
+EN:
+In a qualifying test, 60% of the paper has been evaluated. A student scored 60% of those marks. To secure 59% overall, the student still needs 69 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 60% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 59% अंक पाने के लिए उसे अभी 69 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 60% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 59% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 69 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 7000 | 115 | 135
+Answer: 300
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 78
+
+Explanation EN:
+Marks already secured:
+60 × 60 / 100
+= 36
+Required percentage gap:
+59 - 36
+= 23%
+Maximum marks are:
+69 × 100 / 23
+= 300
+Thus, maximum marks = 300
+
+Explanation HI:
+प्राप्त अंक:
+60 × 60 / 100
+= 36
+आवश्यक प्रतिशत अंतर:
+59 - 36
+= 23%
+अधिकतम अंक:
+69 × 100 / 23
+= 300
+अधिकतम अंक = 300
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+60 × 60 / 100
+= 36
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+59 - 36
+= 23%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+69 × 100 / 23
+= 300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q42]
+EN:
+In a qualifying test, 60% of the paper has been evaluated. A student scored 50% of those marks. To secure 43% overall, the student still needs 169 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 60% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 43% अंक पाने के लिए उसे अभी 169 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 60% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 43% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 169 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1300 | 2000 | 395 | 250
+Answer: 1300
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured:
+60 × 50 / 100
+= 30
+Required percentage gap:
+43 - 30
+= 13%
+Maximum marks are:
+169 × 100 / 13
+= 1300
+Thus, maximum marks = 1300
+
+Explanation HI:
+प्राप्त अंक:
+60 × 50 / 100
+= 30
+आवश्यक प्रतिशत अंतर:
+43 - 30
+= 13%
+अधिकतम अंक:
+169 × 100 / 13
+= 1300
+अधिकतम अंक = 1300
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+60 × 50 / 100
+= 30
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+43 - 30
+= 13%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+169 × 100 / 13
+= 1300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1300
+
+[Q43]
+EN:
+A salesman gets a commission of 5% on total sales up to ₹10000 and an additional bonus of 4% on sales above this amount. If his total commission is ₹2300, find his total sales.
+
+HI:
+एक विक्रेता को ₹10000 तक की बिक्री पर 5% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 4% बोनस मिलता है। यदि कुल कमीशन ₹2300 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹10000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 5% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 4% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹2300 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 30000 | 22000 | 41000 | 38000
+Answer: 30000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Base commission =
+10000 × 5 / 100
+= 500
+Commission above base quota =
+2300 - 500
+= 1800
+Total commission rate on excess sales =
+5 + 4
+= 9%
+Sales above base quota =
+1800 × 100 / 9
+= 20000
+Total sales =
+10000 + 20000
+= 30000
+Total sales = 30000
+
+Explanation HI:
+आधार कमीशन =
+10000 × 5 / 100
+= 500
+आधार से ऊपर कमीशन =
+2300 - 500
+= 1800
+कुल कमीशन =
+5 + 4
+= 9%
+आधार से ऊपर अतिरिक्त बिक्री =
+1800 × 100 / 9
+= 20000
+कुल बिक्री =
+10000 + 20000
+= 30000
+कुल बिक्री = 30000
+
+Explanation PA:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+10000 × 5 / 100
+= 500
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ =
+2300 - 500
+= 1800
+ਕੁੱਲ ਕਮਿਸ਼ਨ =
+5 + 4
+= 9%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ =
+1800 × 100 / 9
+= 20000
+ਕੁੱਲ ਵਿਕਰੀ =
+10000 + 20000
+= 30000
+ਕੁੱਲ ਵਿਕਰੀ = 30000
+
+[Q44]
+EN:
+In a qualifying test, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 43% overall, the student still needs 161 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 43% अंक पाने के लिए उसे अभी 161 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 43% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 161 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 700 | 2000 | 375 | 345
+Answer: 700
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured:
+40 × 50 / 100
+= 20
+Required percentage gap:
+43 - 20
+= 23%
+Maximum marks are:
+161 × 100 / 23
+= 700
+Hence, maximum marks in the test = 700
+
+Explanation HI:
+प्राप्त अंक:
+40 × 50 / 100
+= 20
+आवश्यक प्रतिशत अंतर:
+43 - 20
+= 23%
+अधिकतम अंक:
+161 × 100 / 23
+= 700
+अधिकतम अंक = 700
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 × 50 / 100
+= 20
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+43 - 20
+= 23%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+161 × 100 / 23
+= 700
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 700
+
+[Q45]
+EN:
+In a recruitment test, a candidate scored 45% marks and was short of passing by 70 marks. Another candidate scored 75% marks and exceeded the pass mark by 140 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 45% अंक प्राप्त किए और 70 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 75% अंक प्राप्त किए और उत्तीर्णांक से 140 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 45% ਅੰਕ ਲਏ ਅਤੇ 70 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 75% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 140 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 700 | 380 | 6000 | 680
+Answer: 700
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+70 + 140
+= 210
+
+Percentage gap:
+75 - 45
+= 30%
+
+Maximum marks are:
+210 × 100 / 30
+= 700
+
+Hence, maximum marks in the test = 700
+
+Explanation HI:
+अंकों का कुल अंतर:
+70 + 140
+= 210
+
+प्रतिशत अंतर:
+75 - 45
+= 30%
+
+अधिकतम अंक:
+210 × 100 / 30
+= 700
+
+अधिकतम अंक = 700
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+70 + 140
+= 210
+
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+75 - 45
+= 30%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+210 × 100 / 30
+= 700
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 700
+
+[Q46]
+EN:
+In a scholarship exam, a candidate first scored 35% marks. After adding a bonus of 5%, the score was still short of the pass mark by 75 marks. The pass mark was 55%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 35% अंक प्राप्त किए। 5% बोनस जोड़ने के बाद भी वह 75 अंकों से कम रह गया। उत्तीर्णांक 55% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 35% ਅੰਕ ਲਏ। 5% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 75 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 55% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 500 | 375 | 1000 | 135
+Answer: 500
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 98
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+35 + 5
+= 40
+Required percentage gap:
+55 - 40
+= 15%
+Maximum marks are:
+75 × 100 / 15
+= 500
+Hence, maximum marks in the test = 500
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+35 + 5
+= 40
+आवश्यक प्रतिशत अंतर:
+55 - 40
+= 15%
+अधिकतम अंक:
+75 × 100 / 15
+= 500
+अधिकतम अंक = 500
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+35 + 5
+= 40
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+55 - 40
+= 15%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+75 × 100 / 15
+= 500
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 500
+
+[Q47]
+EN:
+The income tax rate is reduced from 25% to 15%. As a result, a person's tax liability decreases by ₹8000. Find the total taxable income of the person.
+
+HI:
+आयकर दर 25% से घटकर 15% हो गई। इससे कर देयता ₹8000 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 25% ਤੋਂ ਘਟ ਕੇ 15% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹8000 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 80000 | 8000 | 20000 | 9000
+Answer: 80000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+25 - 15
+= 10%
+Total taxable income:
+8000 × 100 / 10
+= 80000
+Total taxable income = 80000
+
+Explanation HI:
+आवश्यक अंतर:
+25 - 15
+= 10%
+कुल करयोग्य आय:
+8000 × 100 / 10
+= 80000
+कुल करयोग्य आय = 80000
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਅੰਤਰ:
+25 - 15
+= 10%
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+8000 × 100 / 10
+= 80000
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 80000
+
+[Q48]
+EN:
+In a screening test, 50% of the paper has been evaluated. A student scored 50% of those marks. To secure 42% overall, the student still needs 221 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 50% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 42% अंक पाने के लिए उसे अभी 221 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 50% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 42% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 221 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1300 | 3000 | 525 | 380
+Answer: 1300
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 92
+
+Explanation EN:
+Marks already secured:
+50 × 50 / 100
+= 25
+Required percentage gap:
+42 - 25
+= 17%
+Maximum marks are:
+221 × 100 / 17
+= 1300
+Thus, maximum marks = 1300
+
+Explanation HI:
+प्राप्त अंक:
+50 × 50 / 100
+= 25
+आवश्यक प्रतिशत अंतर:
+42 - 25
+= 17%
+अधिकतम अंक:
+221 × 100 / 17
+= 1300
+अधिकतम अंक = 1300
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+50 × 50 / 100
+= 25
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+42 - 25
+= 17%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+221 × 100 / 17
+= 1300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1300
+
+[Q49]
+EN:
+In a recruitment test, a candidate scored 40% marks and was short of passing by 45 marks. Another candidate scored 75% marks and exceeded the pass mark by 60 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 40% अंक प्राप्त किए और 45 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 75% अंक प्राप्त किए और उत्तीर्णांक से 60 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 40% ਅੰਕ ਲਏ ਅਤੇ 45 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 75% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 60 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 190 | 4000 | 280
+Answer: 300
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+45 + 60
+= 105
+
+Percentage gap:
+75 - 40
+= 35%
+
+Maximum marks are:
+105 × 100 / 35
+= 300
+
+Thus, maximum marks = 300
+
+Explanation HI:
+अंकों का कुल अंतर:
+45 + 60
+= 105
+
+प्रतिशत अंतर:
+75 - 40
+= 35%
+
+अधिकतम अंक:
+105 × 100 / 35
+= 300
+
+अधिकतम अंक = 300
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+45 + 60
+= 105
+
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+75 - 40
+= 35%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+105 × 100 / 35
+= 300
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q50]
+EN:
+A salesman gets a commission of 5% on total sales up to ₹20000 and an additional bonus of 3% on sales above this amount. If his total commission is ₹2600, find his total sales.
+
+HI:
+एक विक्रेता को ₹20000 तक की बिक्री पर 5% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 3% बोनस मिलता है। यदि कुल कमीशन ₹2600 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹20000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 5% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 3% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹2600 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 40000 | 29000 | 52000 | 51000
+Answer: 40000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Base commission =
+20000 × 5 / 100
+= 1000
+Commission above base quota =
+2600 - 1000
+= 1600
+Total commission rate on excess sales =
+5 + 3
+= 8%
+Sales above base quota =
+1600 × 100 / 8
+= 20000
+Total sales =
+20000 + 20000
+= 40000
+Total sales = 40000
+
+Explanation HI:
+आधार कमीशन =
+20000 × 5 / 100
+= 1000
+आधार से ऊपर कमीशन =
+2600 - 1000
+= 1600
+कुल कमीशन =
+5 + 3
+= 8%
+आधार से ऊपर अतिरिक्त बिक्री =
+1600 × 100 / 8
+= 20000
+कुल बिक्री =
+20000 + 20000
+= 40000
+कुल बिक्री = 40000
+
+Explanation PA:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+20000 × 5 / 100
+= 1000
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ =
+2600 - 1000
+= 1600
+ਕੁੱਲ ਕਮਿਸ਼ਨ =
+5 + 3
+= 8%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ =
+1600 × 100 / 8
+= 20000
+ਕੁੱਲ ਵਿਕਰੀ =
+20000 + 20000
+= 40000
+ਕੁੱਲ ਵਿਕਰੀ = 40000
+
+[Q51]
+EN:
+In a screening test, a candidate scored 40% marks and was short of passing by 60 marks. Another candidate scored 60% marks and exceeded the pass mark by 60 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 40% अंक प्राप्त किए और 60 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 60% अंक प्राप्त किए और उत्तीर्णांक से 60 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 40% ਅੰਕ ਲਏ ਅਤੇ 60 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 60% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 60 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 600 | 240 | 2000 | 580
+Answer: 600
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+60 + 60
+= 120
+Percentage gap:
+60 - 40
+= 20%
+Maximum marks are:
+120 × 100 / 20
+= 600
+Thus, maximum marks = 600
+
+Explanation HI:
+अंकों का कुल अंतर:
+60 + 60
+= 120
+प्रतिशत अंतर:
+60 - 40
+= 20%
+अधिकतम अंक:
+120 × 100 / 20
+= 600
+अधिकतम अंक = 600
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+60 + 60
+= 120
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+60 - 40
+= 20%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+120 × 100 / 20
+= 600
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 600
+
+[Q52]
+EN:
+In a screening test, a candidate first scored 30% marks. After adding a bonus of 5%, the score was still short of the pass mark by 40 marks. The pass mark was 40%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 30% अंक प्राप्त किए। 5% बोनस जोड़ने के बाद भी वह 40 अंकों से कम रह गया। उत्तीर्णांक 40% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 30% ਅੰਕ ਲਏ। 5% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 40 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 40% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 800 | 400 | 200 | 100
+Answer: 800
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 98
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+30 + 5
+= 35
+
+Required percentage gap:
+40 - 35
+= 5%
+
+Maximum marks are:
+40 × 100 / 5
+= 800
+
+Hence, maximum marks in the test = 800
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+30 + 5
+= 35
+
+आवश्यक प्रतिशत अंतर:
+40 - 35
+= 5%
+
+अधिकतम अंक:
+40 × 100 / 5
+= 800
+
+अधिकतम अंक = 800
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+30 + 5
+= 35
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+40 - 35
+= 5%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+40 × 100 / 5
+= 800
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 800
+
+[Q53]
+EN:
+The income tax rate is reduced from 25% to 10%. As a result, a person's tax liability decreases by ₹7500. Find the total taxable income of the person.
+
+HI:
+आयकर दर 25% से घटकर 10% हो गई। इससे कर देयता ₹7500 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 25% ਤੋਂ ਘਟ ਕੇ 10% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹7500 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 50000 | 8000 | 13000 | 9000
+Answer: 50000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+25 - 10
+= 15%
+Total taxable income:
+7500 × 100 / 15
+= 50000
+Total taxable income = 50000
+
+Explanation HI:
+आवश्यक अंतर:
+25 - 10
+= 15%
+कुल करयोग्य आय:
+7500 × 100 / 15
+= 50000
+कुल करयोग्य आय = 50000
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਅੰਤਰ:
+25 - 10
+= 15%
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+7500 × 100 / 15
+= 50000
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 50000
+
+[Q54]
+EN:
+A salesman gets a commission of 10% on total sales up to ₹15000 and an additional bonus of 4% on sales above this amount. If his total commission is ₹2900, find his total sales.
+
+HI:
+एक विक्रेता को ₹15000 तक की बिक्री पर 10% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 4% बोनस मिलता है। यदि कुल कमीशन ₹2900 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹15000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 10% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 4% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹2900 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 25000 | 18000 | 29000 | 32000
+Answer: 25000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+15000 × 10 / 100
+= 1500
+
+Commission above base quota:
+2900 - 1500
+= 1400
+
+Total commission rate on excess sales:
+10 + 4
+= 14%
+
+Sales above base quota:
+1400 × 100 / 14
+= 10000
+
+Total sales:
+15000 + 10000
+= 25000
+
+Total sales = 25000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+15000 × 10 / 100
+= 1500
+
+आधार से ऊपर कमीशन:
+2900 - 1500
+= 1400
+
+कुल कमीशन:
+10 + 4
+= 14%
+
+आधार से ऊपर अतिरिक्त बिक्री:
+1400 × 100 / 14
+= 10000
+
+कुल बिक्री:
+15000 + 10000
+= 25000
+
+कुल बिक्री = 25000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+15000 × 10 / 100
+= 1500
+
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+2900 - 1500
+= 1400
+
+ਕੁੱਲ ਕਮਿਸ਼ਨ:
+10 + 4
+= 14%
+
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+1400 × 100 / 14
+= 10000
+
+ਕੁੱਲ ਵਿਕਰੀ:
+15000 + 10000
+= 25000
+
+ਕੁੱਲ ਵਿਕਰੀ = 25000
+
+[Q55]
+EN:
+In a screening test, 50% of the paper has been evaluated. A student scored 50% of those marks. To secure 38% overall, the student still needs 130 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 50% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 38% अंक पाने के लिए उसे अभी 130 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 50% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 38% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 130 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1000 | 2000 | 340 | 210
+Answer: 1000
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 92
+
+Explanation EN:
+Marks already secured:
+50 × 50 / 100
+= 25
+Required percentage gap:
+38 - 25
+= 13%
+Maximum marks are:
+130 × 100 / 13
+= 1000
+Thus, maximum marks = 1000
+
+Explanation HI:
+प्राप्त अंक:
+50 × 50 / 100
+= 25
+आवश्यक प्रतिशत अंतर:
+38 - 25
+= 13%
+अधिकतम अंक:
+130 × 100 / 13
+= 1000
+अधिकतम अंक = 1000
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+50 × 50 / 100
+= 25
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+38 - 25
+= 13%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+130 × 100 / 13
+= 1000
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1000
+
+[Q56]
+EN:
+In a recruitment test, a candidate scored 40% marks and failed by 240 marks. The pass mark was 60%. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 40% अंक प्राप्त किए और 240 अंकों से अनुत्तीर्ण हुआ। उत्तीर्णांक 60% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 40% ਅੰਕ ਲਏ ਅਤੇ 240 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਪਾਸ ਅੰਕ 60% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 400 | 600 | 1080
+Answer: 1200
+Difficulty: Easy
+Topology: direct_mapping:simple_shortfall
+Realism: 78
+
+Explanation EN:
+Required percentage gap:
+60 - 40
+= 20%
+Maximum marks are:
+240 × 100 / 20
+= 1200
+Hence, maximum marks in the test = 1200
+
+Explanation HI:
+आवश्यक प्रतिशत अंतर:
+60 - 40
+= 20%
+अधिकतम अंक:
+240 × 100 / 20
+= 1200
+अधिकतम अंक = 1200
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+60 - 40
+= 20%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+240 × 100 / 20
+= 1200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1200
+
+[Q57]
+EN:
+In a scholarship exam, 50% of the paper has been evaluated. A student scored 70% of those marks. To secure 52% overall, the student still needs 221 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 50% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 70% अंक प्राप्त किए। कुल 52% अंक पाने के लिए उसे अभी 221 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 50% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 70% ਅੰਕ ਲਏ। ਕੁੱਲ 52% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 221 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1300 | 1000 | 425 | 325
+Answer: 1300
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 92
+
+Explanation EN:
+Marks already secured:
+50 × 70 / 100
+= 35
+Required percentage gap:
+52 - 35
+= 17%
+Maximum marks are:
+221 × 100 / 17
+= 1300
+Hence, maximum marks in the test = 1300
+
+Explanation HI:
+प्राप्त अंक:
+50 × 70 / 100
+= 35
+आवश्यक प्रतिशत अंतर:
+52 - 35
+= 17%
+अधिकतम अंक:
+221 × 100 / 17
+= 1300
+अधिकतम अंक = 1300
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+50 × 70 / 100
+= 35
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+52 - 35
+= 17%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+221 × 100 / 17
+= 1300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1300
+
+[Q58]
+EN:
+In a qualifying test, a candidate scored 45% marks and was short of passing by 80 marks. Another candidate scored 70% marks and exceeded the pass mark by 120 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 45% अंक प्राप्त किए और 80 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 70% अंक प्राप्त किए और उत्तीर्णांक से 120 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 45% ਅੰਕ ਲਏ ਅਤੇ 80 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 70% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 120 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 800 | 365 | 5000 | 780
+Answer: 800
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+80 + 120
+= 200
+Percentage gap:
+70 - 45
+= 25%
+Maximum marks are:
+200 × 100 / 25
+= 800
+Thus, maximum marks = 800
+
+Explanation HI:
+अंकों का कुल अंतर:
+80 + 120
+= 200
+प्रतिशत अंतर:
+70 - 45
+= 25%
+अधिकतम अंक:
+200 × 100 / 25
+= 800
+अधिकतम अंक = 800
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+80 + 120
+= 200
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+70 - 45
+= 25%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+200 × 100 / 25
+= 800
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 800
+
+[Q59]
+EN:
+In a scholarship exam, 40% of the paper has been evaluated. A student scored 60% of those marks. To secure 41% overall, the student still needs 51 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 60% अंक प्राप्त किए। कुल 41% अंक पाने के लिए उसे अभी 51 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 60% ਅੰਕ ਲਏ। ਕੁੱਲ 41% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 51 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 270 | 125 | 86.44
+Answer: 300
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 90
+
+Explanation EN:
+Marks already secured:
+40 × 60 / 100
+= 24
+Required percentage gap:
+41 - 24
+= 17%
+Maximum marks are:
+51 × 100 / 17
+= 300
+Maximum marks = 300
+
+Explanation HI:
+प्राप्त अंक:
+40 × 60 / 100
+= 24
+आवश्यक प्रतिशत अंतर:
+41 - 24
+= 17%
+अधिकतम अंक:
+51 × 100 / 17
+= 300
+अधिकतम अंक = 300
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 × 60 / 100
+= 24
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+41 - 24
+= 17%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+51 × 100 / 17
+= 300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q60]
+EN:
+In a screening test, a candidate first scored 40% marks. After adding a bonus of 20%, the score was still short of the pass mark by 210 marks. The pass mark was 75%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 40% अंक प्राप्त किए। 20% बोनस जोड़ने के बाद भी वह 210 अंकों से कम रह गया। उत्तीर्णांक 75% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 40% ਅੰਕ ਲਏ। 20% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 210 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 75% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 1400 | 600 | 3000 | 280
+Answer: 1400
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 96
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+40 + 20
+= 60
+Required percentage gap:
+75 - 60
+= 15%
+Maximum marks are:
+210 × 100 / 15
+= 1400
+Maximum marks = 1400
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+40 + 20
+= 60
+आवश्यक प्रतिशत अंतर:
+75 - 60
+= 15%
+अधिकतम अंक:
+210 × 100 / 15
+= 1400
+अधिकतम अंक = 1400
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+40 + 20
+= 60
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+75 - 60
+= 15%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+210 × 100 / 15
+= 1400
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 1400
+

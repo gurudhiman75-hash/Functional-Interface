@@ -450,6 +450,9 @@ type GenerationDebugMetadata = {
   selectedPattern: string;
   generationDomain?:
     | "quant"
+    | "quant-v2-percentage"
+    | "quant-v2-profit-loss"
+    | "quant-v2-interest"
     | "reasoning"
     | "english"
     | "punjabi"
@@ -6634,6 +6637,28 @@ function renderDistribution(
   );
 }
 
+function isProfitLossRegistryPattern(
+  pattern?: {
+    id?: string;
+    topic?: string;
+    label?: string;
+  } | null,
+) {
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
+  return /profit[-_\s]*loss|discount/u.test(text);
+}
+
+function isInterestRegistryPattern(
+  pattern?: {
+    id?: string;
+    topic?: string;
+    label?: string;
+  } | null,
+) {
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
+  return /simple[-_\s]*interest|compound[-_\s]*interest|\bsi[-_\s]*ci\b|\binterest\b/u.test(text);
+}
+
 export default function AdminGeneratorPage() {
   const [patternId, setPatternId] =
     useState("");
@@ -8236,6 +8261,19 @@ export default function AdminGeneratorPage() {
           selectedRegistryPattern.enabled !==
             false,
       );
+    const isProfitLossGeneration =
+      useRegistryPattern &&
+      isProfitLossRegistryPattern(
+        selectedRegistryPattern,
+      );
+    const effectiveRegistryLanguages =
+      isProfitLossGeneration
+        ? (["en", "hi", "pa"] as RegistryLanguage[])
+        : registryLanguages;
+    const effectiveUseScheduler =
+      count > 1 &&
+      (useScheduler ||
+        isProfitLossGeneration);
     const timeoutMs =
       useRegistryPattern
         ? 90_000
@@ -8256,7 +8294,7 @@ export default function AdminGeneratorPage() {
           difficultySettings,
         );
       const schedulerPayload =
-        count > 1 && useScheduler
+        effectiveUseScheduler
           ? {
               useScheduler: true,
               schedulerProfile,
@@ -8277,9 +8315,9 @@ export default function AdminGeneratorPage() {
             examStyle:
               registryExamStyle,
             languages:
-              registryLanguages,
+              effectiveRegistryLanguages,
             availableLangs:
-              registryLanguages,
+              effectiveRegistryLanguages,
             enableNameClash,
             seatingGeneration: {
               quality:
@@ -8292,7 +8330,7 @@ export default function AdminGeneratorPage() {
             patternId,
             count,
             languages:
-              registryLanguages,
+              effectiveRegistryLanguages,
             seatingGeneration: {
               quality:
                 seatingGenerationQuality,
@@ -8373,12 +8411,12 @@ export default function AdminGeneratorPage() {
         useRegistryPattern
           ? prepareGeneratedQuestionForLanguages(
               question,
-              registryLanguages,
+              effectiveRegistryLanguages,
               selectedRegistryPattern.id,
             )
           : prepareGeneratedQuestionForLanguages(
               question,
-              registryLanguages,
+              effectiveRegistryLanguages,
               patternId,
             ),
       );
@@ -9703,6 +9741,19 @@ export default function AdminGeneratorPage() {
         pattern.id ===
         registryPatternId,
     );
+  const selectedRegistryPatternIsProfitLoss =
+    isProfitLossRegistryPattern(
+      selectedRegistryPattern,
+    );
+  const selectedRegistryPatternIsInterest =
+    isInterestRegistryPattern(
+      selectedRegistryPattern,
+    );
+  const schedulerIsMandatory =
+    count > 1 &&
+    generationMode === "registry" &&
+    (selectedRegistryPatternIsProfitLoss ||
+      selectedRegistryPatternIsInterest);
   const registryDomains = [
     "quant",
     "reasoning",
@@ -10979,6 +11030,12 @@ export default function AdminGeneratorPage() {
                 false
                   ? " - Coming Soon"
                   : ""}
+                {selectedRegistryPatternIsProfitLoss
+                  ? " - Profit/Loss V2"
+                  : ""}
+                {selectedRegistryPatternIsInterest
+                  ? " - Interest V2"
+                  : ""}
               </div>
             ) : null}
           </div>
@@ -11896,23 +11953,34 @@ export default function AdminGeneratorPage() {
                   Corpus Scheduler
                 </h2>
                 <p className="mt-1 text-sm text-slate-600">
-                  Optional R7 set-level balancing for batches. Single-question generation remains unchanged.
+                  {schedulerIsMandatory
+                    ? "Required for migrated Quant V2 batches so family balance is applied. Single-question generation remains unchanged."
+                    : "Optional R7 set-level balancing for batches. Single-question generation remains unchanged."}
                 </p>
               </div>
               <label className="flex items-center gap-2 rounded border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700">
                 <input
                   type="checkbox"
-                  checked={useScheduler}
+                  checked={
+                    useScheduler ||
+                    schedulerIsMandatory
+                  }
+                  disabled={
+                    schedulerIsMandatory
+                  }
                   onChange={(event) =>
                     setUseScheduler(
                       event.target.checked,
                     )
                   }
                 />
-                Use scheduler
+                {schedulerIsMandatory
+                  ? "Scheduler required"
+                  : "Use scheduler"}
               </label>
             </div>
-            {useScheduler ? (
+            {useScheduler ||
+            schedulerIsMandatory ? (
               <div className="mt-4 grid gap-3 md:grid-cols-[260px_minmax(0,1fr)]">
                 <div>
                   <label className="block text-sm font-medium text-slate-800">

@@ -134,6 +134,21 @@ const SCENARIO_TEXT = {
     entityLabel: "mixture",
     domainNoun: "quantity",
   },
+  sales_commission_report: {
+    opening: "In a sales commission report",
+    entityLabel: "agent",
+    domainNoun: "sales",
+  },
+  income_tax_return: {
+    opening: "In an income tax return",
+    entityLabel: "taxpayer",
+    domainNoun: "income",
+  },
+  class_subject_survey: {
+    opening: "In a class subject survey",
+    entityLabel: "student",
+    domainNoun: "students",
+  },
   general_percentage: {
     opening: "In a percentage problem",
     entityLabel: "value",

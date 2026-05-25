@@ -7,7 +7,9 @@ import type { CorpusQualityReport } from "../corpus-scheduler/corpus-quality-eva
 
 export type CorpusAuditPresetId =
   | "ssc_percentage_audit"
+  | "profit_loss_audit"
   | "banking_relational_audit"
+  | "percentage_advanced_coverage_audit"
   | "punjabi_realism_audit"
   | "compactness_stress_test"
   | "difficulty_distribution_audit";

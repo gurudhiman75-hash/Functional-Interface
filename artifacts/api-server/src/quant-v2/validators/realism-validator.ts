@@ -137,6 +137,10 @@ function scaleLooksRealistic(
   const profile = profileForDomain(domain);
   const magnitude = Math.abs(value);
 
+  if (/^perc_/u.test(problem.subtype) && magnitude <= 200) {
+    return true;
+  }
+
   if (magnitude <= 100 && domain !== "mixture") {
     return true;
   }

@@ -17,10 +17,15 @@
     "effective_percentage",
     "filtered_base",
     "hidden_total",
+    "inverse_percentage_mapping",
     "layered_population",
     "multi_entity_distribution",
+    "multi_entity_percentage_network",
     "none",
+    "percentage_ratio_hybrid",
+    "relational_chain",
     "remaining_component",
+    "reverse_relation",
     "successive_filtering"
   ],
   "supportedVisualizationNodes": [

@@ -25,6 +25,8 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.new_price": "ਨਵੀਂ ਕੀਮਤ",
   "label.new_consumption": "ਨਵੀਂ ਖਪਤ",
   "label.reduction_consumption": "ਖਪਤ ਵਿੱਚ ਕਮੀ",
+  "label.increase_consumption": "ਖਪਤ ਵਿੱਚ ਵਾਧਾ",
+  "label.consumption_change": "ਖਪਤ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ",
   "label.salary_difference": "ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ",
   "label.percentage_change": "ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ",
   "label.profit_amount": "ਲਾਭ",
@@ -41,14 +43,42 @@ const LABELS: Partial<Record<EditorialIntentKey, string>> = {
   "label.quantity_to_add": "ਜੋੜੀ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ",
   "label.required_difference": "ਲੋੜੀਂਦਾ ਅੰਤਰ",
   "label.required_value": "ਲੋੜੀਂਦਾ ਮੁੱਲ",
+  "label.price_increase_multiplier": "ਕੀਮਤ ਵਾਧਾ ਗੁਣਕ",
+  "label.expenditure_difference": "ਪ੍ਰਤੀ ਯੂਨਿਟ ਖਰਚੇ ਦਾ ਅੰਤਰ",
+  "label.new_price_level": "ਨਵਾਂ ਕੀਮਤ ਪੱਧਰ",
+  "label.new_expenditure_level": "ਨਵਾਂ ਖਰਚਾ ਪੱਧਰ",
+  "label.permissible_consumption_ratio": "ਪ੍ਰਵਾਨਯੋਗ ਖਪਤ ਅਨੁਪਾਤ",
+  "label.net_consumption_reduction": "ਸ਼ੁੱਧ ਖਪਤ ਵਿੱਚ ਕਮੀ",
+  "label.new_price_index": "ਨਵਾਂ ਕੀਮਤ ਸੂਚਕਾਂਕ",
+  "label.new_expenditure_index": "ਨਵਾਂ ਖਰਚਾ ਸੂਚਕਾਂਕ",
+  "label.consumption_gap": "ਖਪਤ ਦਾ ਅੰਤਰ",
+  "label.permissible_consumption": "ਪ੍ਰਵਾਨਯੋਗ ਖਪਤ",
+  "label.percentage_at_least_one": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ",
+  "label.percentage_neither": "ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ",
+  "label.total_students": "ਕੁੱਲ ਵਿਦਿਆਰਥੀ",
+  "label.tax_rate_difference": "ਟੈਕਸ ਦਰ ਦਾ ਅੰਤਰ",
+  "label.total_tax_difference": "ਕੁੱਲ ਟੈਕਸ ਦਾ ਅੰਤਰ",
+  "label.tax_decrease": "ਟੈਕਸ ਵਿੱਚ ਕਮੀ",
+  "label.taxable_income": "ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ",
+  "label.commission_on_base": "ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ",
+  "label.excess_commission": "ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ",
+  "label.excess_sales": "ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ",
+  "label.commission_on_excess": "ਵਾਧੂ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ",
+  "label.effective_commission_rate": "ਵਾਧੂ ਵਿਕਰੀ ਉੱਤੇ ਪ੍ਰਭਾਵੀ ਕਮਿਸ਼ਨ ਦਰ",
+  "label.base_commission": "ਆਧਾਰ ਕਮਿਸ਼ਨ",
+  "label.bonus_commission": "ਬੋਨਸ ਕਮਿਸ਼ਨ",
+  "label.total_commission": "ਕੁੱਲ ਕਮਿਸ਼ਨ",
+  "label.total_sales": "ਕੁੱਲ ਵਿਕਰੀ",
+  "label.combined_total": "ਸੰਯੁਕਤ ਕੁੱਲ",
 };
 
 const TRANSITIONS: Partial<Record<EditorialIntentKey, string>> = {
   "transition.therefore": "ਇਸ ਲਈ,",
-  "transition.hence": "ਅਤੇ ਇਸ ਲਈ,",
-  "transition.so": "ਸੋ,",
+  "transition.hence": "ਇਸ ਲਈ,",
+  "transition.so": "ਤਾਂ,",
   "transition.thus": "ਇਸ ਤਰ੍ਹਾਂ,",
   "transition.accordingly": "ਇਸ ਅਨੁਸਾਰ,",
+  "transition.now": "ਹੁਣ,",
 };
 
 function label(intent: EditorialIntent) {
@@ -147,7 +177,7 @@ export const punjabiRenderer: LanguageRenderer = {
       return intent.sourceText;
     }
     if (intent.key === "shortcut.heading") {
-      return "ਸ਼ਾਰਟਕੱਟ:";
+      return "ਸੰਖੇਪ ਵਿਧੀ:";
     }
     if (intent.kind === "shortcut") {
       return shortcut(intent);
@@ -198,7 +228,16 @@ export const punjabiRenderer: LanguageRenderer = {
       return "ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:";
     }
     if (intent.key === "narration.growth_period") {
-      return `${intent.params?.years} ਸਾਲਾਂ ਲਈ ਵਾਧਾ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।`;
+      return `ਵਾਧਾ ${intent.params?.years} ਸਾਲਾਂ ਲਈ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।`;
+    }
+    if (intent.key === "narration.add_parts") {
+      return "ਹਿੱਸਿਆਂ ਨੂੰ ਜੋੜੋ।";
+    }
+    if (intent.key === "narration.combined_value") {
+      return "ਸੰਯੁਕਤ ਮੁੱਲ ਹੈ:";
+    }
+    if (intent.key === "narration.total_parts") {
+      return "ਇਹਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਕੁੱਲ ਜੋੜ ਹੈ:";
     }
     if (intent.kind === "transition") {
       return TRANSITIONS[intent.key] ?? intent.fallbackText;

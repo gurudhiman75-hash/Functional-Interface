@@ -1,0 +1,3055 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-23-103220
+Preset: ssc_percentage_audit
+Profile: multilingual_review
+Count: 60
+Estimated Size: ~0.8 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+A's income is 40% more than B's income. B's income is 40% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 40% अधिक है। B की आय C से 40% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 40% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 16% less | 20% more | 19.05% more | 4% more
+Answer: 16% less
+Difficulty: Hard
+Topology: inverse_percentage_mapping:hidden_base_relation_chain
+Realism: 78
+
+Explanation EN:
+Assume C's income = 100.
+Since B is 40% less than C, B = 100 x 60 / 100 = 60.
+Since A is 40% more than B, A = 60 x 140 / 100 = 84.
+Compared with C = 100, A is 16% less.
+
+Explanation HI:
+मान लें C की आय = 100।
+B, C से 40% कम है, इसलिए B = 100 x 60 / 100 = 60।
+A, B से 40% अधिक है, इसलिए A = 60 x 140 / 100 = 84।
+C = 100 की तुलना में A 16% कम है।
+
+Explanation PA:
+ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।
+B, C ਨਾਲੋਂ 40% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 60 / 100 = 60।
+A, B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 60 x 140 / 100 = 84।
+C = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 16% ਘੱਟ ਹੈ।
+
+[Q2]
+EN:
+A's income is 10% more than B's income. B's income is 50% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 10% अधिक है। B की आय C से 50% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 10% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 45% less | 20% more | 81.82% more | 10% more
+Answer: 45% less
+Difficulty: Medium
+Topology: relational_chain:two_step_relation_chain
+Realism: 78
+
+Explanation EN:
+Assume C's income = 100.
+Since B is 50% less than C, B = 100 x 50 / 100 = 50.
+Since A is 10% more than B, A = 50 x 110 / 100 = 55.
+Compared with C = 100, A is 45% less.
+
+Explanation HI:
+मान लें C की आय = 100।
+B, C से 50% कम है, इसलिए B = 100 x 50 / 100 = 50।
+A, B से 10% अधिक है, इसलिए A = 50 x 110 / 100 = 55।
+C = 100 की तुलना में A 45% कम है।
+
+Explanation PA:
+ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।
+B, C ਨਾਲੋਂ 50% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 50 / 100 = 50।
+A, B ਨਾਲੋਂ 10% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 50 x 110 / 100 = 55।
+C = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 45% ਘੱਟ ਹੈ।
+
+[Q3]
+EN:
+In a student union election, the winning candidate secured 65% of the votes and defeated the opponent by 36000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को कुल वोटों के 65% वोट मिले और उसने प्रतिद्वंद्वी को 36000 वोटों से हराया। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ ਵੋਟਾਂ ਦੇ 65% ਵੋਟ ਮਿਲੇ ਅਤੇ ਉਸ ਨੇ ਮੁਕਾਬਲੇਦਾਰ ਨੂੰ 36000 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 120000 | 55000 | 105000 | 108000
+Answer: 120000
+Difficulty: Easy
+Topology: direct_mapping:direct_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+65 - 35
+= 30%
+Total votes are:
+36000 × 100 / 30
+= 120000
+Total votes = 120000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+65 - 35
+= 30%
+कुल वोट:
+36000 × 100 / 30
+= 120000
+कुल डाले गए वोट = 120000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+65 - 35
+= 30%
+ਕੁੱਲ ਵੋਟ:
+36000 × 100 / 30
+= 120000
+ਕੁੱਲ ਪਏ ਵੋਟ = 120000
+
+[Q4]
+EN:
+The price of a commodity increased by 10%, but a household decided to increase its total expenditure by only 15%. Find the percentage change in consumption.
+
+HI:
+ईंधन की कीमत 10% बढ़ गई, लेकिन कुल खर्च केवल 15% बढ़ाया गया। खपत में प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਈਂਧਨ ਦੀ ਕੀਮਤ 10% ਵਧ ਗਈ, ਪਰ ਕੁੱਲ ਖਰਚ ਸਿਰਫ 15% ਵਧਾਇਆ ਗਿਆ। ਖਪਤ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 4.55% | 15% | 15.91% | 15.45%
+Answer: 4.55%
+Difficulty: Hard
+Topology: none:price_consumption
+Realism: 75
+
+Explanation EN:
+New price level:
+New price index =
+100 + 10
+= 110
+New expenditure level:
+New expenditure index =
+100 + 15
+= 115
+New consumption index:
+115 × 100 / 110
+= 104.55
+Required reduction in consumption:
+Reduction in consumption =
+100 - 104.55
+= 4.55% reduction
+Hence, consumption increase = 4.55% increase
+
+Explanation HI:
+नई कीमत:
+100 + 10
+= 110
+नया खर्च स्तर:
+नया व्यय सूचकांक =
+100 + 15
+= 115
+नई खपत:
+115 × 100 / 110
+= 104.55
+खपत में कमी:
+100 - 104.55
+= 4.55% कमी
+खपत में वृद्धि = 4.55%
+
+Explanation PA:
+ਨਵੀਂ ਕੀਮਤ:
+100 + 10
+= 110
+ਨਵਾਂ ਖਰਚਾ ਪੱਧਰ:
+ਨਵਾਂ ਖਰਚਾ ਸੂਚਕਾਂਕ =
+100 + 15
+= 115
+ਨਵੀਂ ਖਪਤ:
+115 × 100 / 110
+= 104.55
+ਖਪਤ ਵਿੱਚ ਕਮੀ:
+100 - 104.55
+= 4.55% ਕਮੀ
+ਖਪਤ ਵਿੱਚ ਵਾਧਾ = 4.55%
+
+[Q5]
+EN:
+In a scholarship exam, 40% of the paper has been evaluated. A student scored 50% of those marks. To secure 43% overall, the student still needs 69 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 50% अंक प्राप्त किए। कुल 43% अंक पाने के लिए उसे अभी 69 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 50% ਅੰਕ ਲਏ। ਕੁੱਲ 43% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 69 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 300 | 985 | 160 | 145
+Answer: 300
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 92
+
+Explanation EN:
+Marks already secured:
+40 × 50 / 100
+= 20
+Required percentage gap:
+43 - 20
+= 23%
+Maximum marks are:
+69 × 100 / 23
+= 300
+Hence, maximum marks in the test = 300
+
+Explanation HI:
+प्राप्त अंक:
+40 × 50 / 100
+= 20
+आवश्यक प्रतिशत अंतर:
+43 - 20
+= 23%
+अधिकतम अंक:
+69 × 100 / 23
+= 300
+अधिकतम अंक = 300
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 × 50 / 100
+= 20
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+43 - 20
+= 23%
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+69 × 100 / 23
+= 300
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 300
+
+[Q6]
+EN:
+In a fraction, the numerator is increased by 50% and the denominator is decreased by 25%. Find the percentage increase in the fraction.
+
+HI:
+एक भिन्न में अंश 50% बढ़ाया गया और हर 25% घटाया गया। भिन्न में प्रतिशत वृद्धि ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਭਿੰਨ ਵਿੱਚ ਅੰਸ਼ 50% ਵਧਾਇਆ ਗਿਆ ਅਤੇ ਹਰ 25% ਘਟਾਇਆ ਗਿਆ। ਭਿੰਨ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।
+
+Options: 100% | 75% | 25% | 50%
+Answer: 100%
+Difficulty: Hard
+Topology: none:perc_num_fractional_perturbation_complex
+Realism: 82
+
+Explanation EN:
+New index:
+(100 + 50) / (100 - 25)
+= 2
+Increase in fraction:
+(2 - 1) x 100
+= 100
+Increase in fraction = 100%
+
+Explanation HI:
+नया सूचकांक:
+(100 + 50) / (100 - 25)
+= 2
+भिन्न में वृद्धि:
+(2 - 1) x 100
+= 100
+भिन्न में वृद्धि = 100%
+
+Explanation PA:
+ਨਵਾਂ ਸੂਚਕਾਂਕ:
+(100 + 50) / (100 - 25)
+= 2
+ਭਿੰਨ ਵਿੱਚ ਵਾਧਾ:
+(2 - 1) x 100
+= 100
+ਭਿੰਨ ਵਿੱਚ ਵਾਧਾ = 100%
+
+[Q7]
+EN:
+A's income is 25% more than B's income. B's income is 25% less than C's income. Find by what percent A's income is more or less than C's income.
+
+HI:
+A की आय B से 25% अधिक है। B की आय C से 25% कम है। A की आय C से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ। A ਦੀ ਆਮਦਨ C ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 6.25% less | 20% more | 6.67% more | 15% more
+Answer: 6.25% less
+Difficulty: Hard
+Topology: reverse_relation:reverse_relation_inference
+Realism: 78
+
+Explanation EN:
+Assume C's income = 100.
+Since B is 25% less than C, B = 100 x 75 / 100 = 75.
+Since A is 25% more than B, A = 75 x 125 / 100 = 93.75.
+Compared with C = 100, A is 6.25% less.
+
+Explanation HI:
+मान लें C की आय = 100।
+B, C से 25% कम है, इसलिए B = 100 x 75 / 100 = 75।
+A, B से 25% अधिक है, इसलिए A = 75 x 125 / 100 = 93.75।
+C = 100 की तुलना में A 6.25% कम है।
+
+Explanation PA:
+ਮੰਨ ਲਓ C ਦੀ ਆਮਦਨ = 100।
+B, C ਨਾਲੋਂ 25% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 100 x 75 / 100 = 75।
+A, B ਨਾਲੋਂ 25% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 75 x 125 / 100 = 93.75।
+C = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 6.25% ਘੱਟ ਹੈ।
+
+[Q8]
+EN:
+A's income is 40% more than B's income. B's income is 20% less than C's income. C's income is 40% more than D's income. Find by what percent A's income is more or less than D's income.
+
+HI:
+A की आय B से 40% अधिक है। B की आय C से 20% कम है। C की आय D से 40% अधिक है। A की आय D से कितने प्रतिशत अधिक या कम है?
+
+PA:
+A ਦੀ ਆਮਦਨ B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। B ਦੀ ਆਮਦਨ C ਨਾਲੋਂ 20% ਘੱਟ ਹੈ। C ਦੀ ਆਮਦਨ D ਨਾਲੋਂ 40% ਵੱਧ ਹੈ। A ਦੀ ਆਮਦਨ D ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?
+
+Options: 56.8% more | 60% more | 3.78% more | 40% more
+Answer: 56.8% more
+Difficulty: Hard
+Topology: multi_entity_percentage_network:three_step_relation_chain
+Realism: 78
+
+Explanation EN:
+Assume D's income = 100.
+Since C is 40% more than D, C = 100 x 140 / 100 = 140.
+Since B is 20% less than C, B = 140 x 80 / 100 = 112.
+Since A is 40% more than B, A = 112 x 140 / 100 = 156.8.
+Compared with D = 100, A is 56.8% more.
+
+Explanation HI:
+मान लें D की आय = 100।
+C, D से 40% अधिक है, इसलिए C = 100 x 140 / 100 = 140।
+B, C से 20% कम है, इसलिए B = 140 x 80 / 100 = 112।
+A, B से 40% अधिक है, इसलिए A = 112 x 140 / 100 = 156.8।
+D = 100 की तुलना में A 56.8% अधिक है।
+
+Explanation PA:
+ਮੰਨ ਲਓ D ਦੀ ਆਮਦਨ = 100।
+C, D ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ C = 100 x 140 / 100 = 140।
+B, C ਨਾਲੋਂ 20% ਘੱਟ ਹੈ, ਇਸ ਲਈ B = 140 x 80 / 100 = 112।
+A, B ਨਾਲੋਂ 40% ਵੱਧ ਹੈ, ਇਸ ਲਈ A = 112 x 140 / 100 = 156.8।
+D = 100 ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਤੇ A 56.8% ਵੱਧ ਹੈ।
+
+[Q9]
+EN:
+In a district population survey, the population was 200000. It increased by 10% and then decreased by 5%. Find the final population.
+
+HI:
+एक जिला जनसंख्या रिपोर्ट के अनुसार जनसंख्या 200000 थी। इसमें 10% वृद्धि हुई और फिर 5% कमी हुई। अंतिम जनसंख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਆਬਾਦੀ ਰਿਪੋਰਟ ਅਨੁਸਾਰ ਆਬਾਦੀ 200000 ਸੀ। ਇਸ ਵਿੱਚ 10% ਵਾਧਾ ਅਤੇ ਫਿਰ 5% ਕਮੀ ਹੋਈ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Options: 209000 | 210000 | 190000 | 220000
+Answer: 209000
+Difficulty: Medium
+Topology: base_shift:growth_then_decay
+Realism: 94
+
+Explanation EN:
+Population after increase:
+200000 x 110 / 100
+= 220000
+
+Population after decrease:
+220000 x 95 / 100
+= 209000
+
+Hence, final population = 209000
+
+Explanation HI:
+वृद्धि के बाद जनसंख्या:
+200000 x 110 / 100
+= 220000
+
+कमी के बाद जनसंख्या:
+220000 x 95 / 100
+= 209000
+
+अंतिम जनसंख्या = 209000
+
+Explanation PA:
+ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:
+200000 x 110 / 100
+= 220000
+
+ਕਮੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:
+220000 x 95 / 100
+= 209000
+
+ਅੰਤਿਮ ਆਬਾਦੀ = 209000
+
+[Q10]
+EN:
+Following a corporate annual performance review, the monthly salary was revised from ₹15000 to ₹18000. Find the net percentage change relative to the original salary.
+
+HI:
+एक कर्मचारी का वेतन 15000 से बदलकर 18000 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 15000 ਤੋਂ ਬਦਲ ਕੇ 18000 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 20% | 16.67% | 25% | 18%
+Answer: 20%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 72
+
+Explanation EN:
+Increase in salary:
+18000 - 15000
+= 3000
+Change %:
+3000 × 100 / 15000
+= 20
+So, salary change = 20% increase
+
+Explanation HI:
+वेतन में बदलाव:
+18000 - 15000
+= 3000
+प्रतिशत परिवर्तन:
+3000 × 100 / 15000
+= 20
+वेतन में बदलाव = 20%
+
+Explanation PA:
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:
+18000 - 15000
+= 3000
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:
+3000 × 100 / 15000
+= 20
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 20%
+
+[Q11]
+EN:
+A salesman gets a commission of 10% on total sales up to ₹15000 and an additional bonus of 5% on sales above this amount. If his total commission is ₹3000, find his total sales.
+
+HI:
+एक विक्रेता को ₹15000 तक की बिक्री पर 10% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 5% बोनस मिलता है। यदि कुल कमीशन ₹3000 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹15000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 10% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 5% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹3000 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 25000 | 18000 | 30000 | 32000
+Answer: 25000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+15000 × 10 / 100
+= 1500
+Commission above base quota:
+3000 - 1500
+= 1500
+Total commission rate on excess sales:
+10 + 5
+= 15%
+Sales above base quota:
+1500 × 100 / 15
+= 10000
+Total sales:
+15000 + 10000
+= 25000
+Total sales = 25000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+15000 × 10 / 100
+= 1500
+आधार से ऊपर कमीशन:
+3000 - 1500
+= 1500
+अतिरिक्त बिक्री पर प्रभावी कमीशन दर:
+10 + 5
+= 15%
+आधार से ऊपर अतिरिक्त बिक्री:
+1500 × 100 / 15
+= 10000
+कुल बिक्री:
+15000 + 10000
+= 25000
+कुल बिक्री = 25000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+15000 × 10 / 100
+= 1500
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+3000 - 1500
+= 1500
+ਵਾਧੂ ਵਿਕਰੀ ਉੱਤੇ ਪ੍ਰਭਾਵੀ ਕਮਿਸ਼ਨ ਦਰ:
+10 + 5
+= 15%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+1500 × 100 / 15
+= 10000
+ਕੁੱਲ ਵਿਕਰੀ:
+15000 + 10000
+= 25000
+ਕੁੱਲ ਵਿਕਰੀ = 25000
+
+[Q12]
+EN:
+From a vessel, 20% of the liquid is removed and replaced by water. This is done 2 times. Find the percentage of original liquid left.
+
+HI:
+एक बर्तन से 20% द्रव निकाला गया और पानी से प्रतिस्थापित किया गया। यह प्रक्रिया 2 बार की गई। बचा हुआ मूल द्रव प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਬਰਤਨ ਵਿੱਚੋਂ 20% ਤਰਲ ਕੱਢਿਆ ਗਿਆ ਅਤੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਗਿਆ। ਇਹ ਪ੍ਰਕਿਰਿਆ 2 ਵਾਰ ਕੀਤੀ ਗਈ। ਬਚਿਆ ਹੋਇਆ ਮੂਲ ਤਰਲ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 64% | 60% | 80% | 40%
+Answer: 64%
+Difficulty: Hard
+Topology: none:perc_mix_alloy_replacement
+Realism: 82
+
+Explanation EN:
+Original liquid left index:
+100 x (100 - 20)^2 / 100^2
+= 64
+Original liquid left = 64%
+
+Explanation HI:
+बचा हुआ मूल द्रव सूचकांक:
+100 x (100 - 20)^2 / 100^2
+= 64
+बचा हुआ मूल द्रव = 64%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਮੂਲ ਤਰਲ ਸੂਚਕਾਂਕ:
+100 x (100 - 20)^2 / 100^2
+= 64
+ਬਚਿਆ ਹੋਇਆ ਮੂਲ ਤਰਲ = 64%
+
+[Q13]
+EN:
+In a competitive engineering entrance examination, a candidate secured 10 marks, which corresponds to exactly 5% of the maximum aggregate marks. What are the maximum aggregate marks of the test?
+
+HI:
+एक विद्यार्थी ने 10 अंक प्राप्त किए, जो अधिकतम अंकों के 5% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 10 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 5% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 200 | 10.53 | 20 | 210
+Answer: 200
+Difficulty: Medium
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+100% total setup:
+Maximum marks =
+10 × 100 / 5
+= 200
+Maximum marks = 200
+
+Explanation HI:
+100% संबंध:
+अधिकतम अंक =
+10 × 100 / 5
+= 200
+अधिकतम अंक = 200
+
+Explanation PA:
+100% ਸੰਬੰਧ:
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =
+10 × 100 / 5
+= 200
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 200
+
+[Q14]
+EN:
+In an employee union election, the winning candidate got 50% of the votes and candidate C got 18%. The winning candidate defeated candidate B by 50400 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 50% वोट और प्रत्याशी C को 18% वोट मिले। विजयी उम्मीदवार ने प्रत्याशी B को 50400 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 50% ਵੋਟ ਅਤੇ ਉਮੀਦਵਾਰ C ਨੂੰ 18% ਵੋਟ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਉਮੀਦਵਾਰ B ਨੂੰ 50400 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 280000 | 160000 | 100000 | 252000
+Answer: 280000
+Difficulty: Medium
+Topology: multi_entity_distribution:multi_candidate_margin
+Realism: 78
+
+Explanation EN:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 50 - 18
+= 32
+
+Winning margin:
+Remaining vote share =
+50 - 32
+= 18%
+
+Total votes are:
+50400 × 100 / 18
+= 280000
+
+Total votes = 280000
+
+Explanation HI:
+जीत का अंतर:
+अन्य उम्मीदवारों के वोट =
+100 - 50 - 18
+= 32
+
+जीत का अंतर:
+मार्जिन प्रतिशत =
+50 - 32
+= 18%
+
+कुल वोट:
+50400 × 100 / 18
+= 280000
+
+कुल डाले गए वोट = 280000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 50 - 18
+= 32
+
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+50 - 32
+= 18%
+
+ਕੁੱਲ ਵੋਟ:
+50400 × 100 / 18
+= 280000
+
+ਕੁੱਲ ਪਏ ਵੋਟ = 280000
+
+[Q15]
+EN:
+The price of sugar increased by 10%. As a result, a person can buy 4 kg less for ₹44000. Find the original price per kg.
+
+HI:
+चीनी की कीमत 10% बढ़ गई। ₹44000 में 4 kg कम चीनी मिलती है। मूल कीमत प्रति kg ज्ञात कीजिए।
+
+PA:
+ਚੀਨੀ ਦੀ ਕੀਮਤ 10% ਵਧ ਗਈ। ₹44000 ਵਿੱਚ 4 kg ਘੱਟ ਚੀਨੀ ਮਿਲਦੀ ਹੈ। ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ kg ਪਤਾ ਕਰੋ।
+
+Options: 1000 | 2000 | 3000 | 900
+Answer: 1000
+Difficulty: Hard
+Topology: none:price_consumption
+Realism: 60
+
+Explanation EN:
+Let original price per kg = x.
+New price per kg =
+x x 110 / 100
+= 1.1x
+Old quantity = expenditure / x
+New quantity = expenditure / (x x newPriceIndex / 100)
+Quantity reduction = old quantity - new quantity.
+Equation:
+expenditure / x - expenditure / (x x 110 / 100) = 4
+Using the given expenditure:
+44000/x - 44000/(1.1x) = 4
+x = 1000
+Original price per kg = 1000
+
+Explanation HI:
+Let original price per kg = x.
+नई कीमत =
+x x 110 / 100
+= 1.1x
+Old quantity = expenditure / x
+New quantity = expenditure / (x x newPriceIndex / 100)
+Quantity reduction = old quantity - new quantity.
+Equation:
+मूल कीमत प्रति किग्रा = 4
+Using the given expenditure:
+मूल कीमत प्रति किग्रा = 4
+मूल कीमत प्रति किग्रा = 1000
+मूल कीमत प्रति किग्रा = 1000
+
+Explanation PA:
+Let original price per kg = x.
+ਨਵੀਂ ਕੀਮਤ =
+x x 110 / 100
+= 1.1x
+Old quantity = expenditure / x
+New quantity = expenditure / (x x newPriceIndex / 100)
+Quantity reduction = old quantity - new quantity.
+Equation:
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 4
+Using the given expenditure:
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 4
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 1000
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 1000
+
+[Q16]
+EN:
+A vessel has 200 litres of milk-water mixture with 25% milk. How much milk should be added so that milk becomes 40% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 200 लीटर है और उसमें 25% दूध है। दूध को 40% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 200 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 50 | 30 | 80 | 15
+Answer: 50
+Difficulty: Easy
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water remains unchanged.
+Water quantity =
+200 - 50
+= 150
+Final mixture quantity:
+150 × 100 / ( 100 - 40 )
+= 250
+Milk to be added:
+250 - 200
+= 50
+Milk to be added = 50
+
+Explanation HI:
+पानी की मात्रा समान रहेगी।
+पानी की मात्रा =
+200 - 50
+= 150
+अंतिम मिश्रण:
+150 × 100 / ( 100 - 40 )
+= 250
+डाला जाने वाला दूध:
+250 - 200
+= 50
+डाला जाने वाला दूध = 50
+
+Explanation PA:
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ =
+200 - 50
+= 150
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+150 × 100 / ( 100 - 40 )
+= 250
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+250 - 200
+= 50
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 50
+
+[Q17]
+EN:
+In a municipal election, 20% of the votes were invalid. The winning candidate got 60% of the valid votes and won by 16000 votes. Find the total number of votes polled.
+
+HI:
+एक निर्वाचन में 20% वोट अवैध थे। विजयी उम्मीदवार को वैध वोटों के 60% वोट मिले और जीत का अंतर 16000 वोट था। कुल डाले गए वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 20% ਵੋਟ ਅਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ ਅਤੇ ਜਿੱਤ ਦਾ ਅੰਤਰ 16000 ਵੋਟ ਸੀ। ਕੁੱਲ ਪਏ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 100000 | 80000 | 25000 | 20000
+Answer: 100000
+Difficulty: Medium
+Topology: filtered_base:invalid_vote_margin
+Realism: 78
+
+Explanation EN:
+Winning margin:
+Margin percentage =
+60 - 40
+= 20%
+
+Effective valid votes:
+16000 × 100 / 20
+= 80000
+
+Total votes are:
+80000 × 100 / 80
+= 100000
+
+Hence, total votes polled = 100000
+
+Explanation HI:
+जीत का अंतर:
+मार्जिन प्रतिशत =
+60 - 40
+= 20%
+
+कुल वैध वोट:
+16000 × 100 / 20
+= 80000
+
+कुल वोट:
+80000 × 100 / 80
+= 100000
+
+कुल डाले गए वोट = 100000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+60 - 40
+= 20%
+
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+16000 × 100 / 20
+= 80000
+
+ਕੁੱਲ ਵੋਟ:
+80000 × 100 / 80
+= 100000
+
+ਕੁੱਲ ਪਏ ਵੋਟ = 100000
+
+[Q18]
+EN:
+In a population, males are 40% and females are 60%. Male population increases by 30% while female population decreases by 10%. Find the net percentage increase in population.
+
+HI:
+एक जनसंख्या में पुरुष 40% और महिलाएं 60% हैं। पुरुष जनसंख्या 30% बढ़ती है जबकि महिला जनसंख्या 10% घटती है। कुल जनसंख्या में प्रतिशत वृद्धि ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਬਾਦੀ ਵਿੱਚ ਮਰਦ 40% ਅਤੇ ਔਰਤਾਂ 60% ਹਨ। ਮਰਦ ਆਬਾਦੀ 30% ਵਧਦੀ ਹੈ ਜਦਕਿ ਔਰਤ ਆਬਾਦੀ 10% ਘਟਦੀ ਹੈ। ਕੁੱਲ ਆਬਾਦੀ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।
+
+Options: 6% | 20% | 30% | 1%
+Answer: 6%
+Difficulty: Hard
+Topology: none:perc_demo_multi_factor_growth
+Realism: 82
+
+Explanation EN:
+New index:
+40 x 130 / 100 + 60 x 90 / 100
+= 106
+Net population increase:
+106 - 100
+= 6
+Net population increase = 6%
+
+Explanation HI:
+नया सूचकांक:
+40 x 130 / 100 + 60 x 90 / 100
+= 106
+जनसंख्या में कुल वृद्धि:
+106 - 100
+= 6
+जनसंख्या में कुल वृद्धि = 6%
+
+Explanation PA:
+ਨਵਾਂ ਸੂਚਕਾਂਕ:
+40 x 130 / 100 + 60 x 90 / 100
+= 106
+ਆਬਾਦੀ ਵਿੱਚ ਕੁੱਲ ਵਾਧਾ:
+106 - 100
+= 6
+ਆਬਾਦੀ ਵਿੱਚ ਕੁੱਲ ਵਾਧਾ = 6%
+
+[Q19]
+EN:
+In a competitive engineering entrance examination, a candidate secured 240 marks, which corresponds to exactly 40% of the maximum aggregate marks. What are the maximum aggregate marks of the test?
+
+HI:
+एक विद्यार्थी ने 240 अंक प्राप्त किए, जो अधिकतम अंकों के 40% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੇ 240 ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦੇ 40% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 600 | 400 | 300 | 840
+Answer: 600
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+100% total setup:
+Maximum marks =
+240 × 100 / 40
+= 600
+Maximum marks = 600
+
+Explanation HI:
+100% संबंध:
+अधिकतम अंक =
+240 × 100 / 40
+= 600
+अधिकतम अंक = 600
+
+Explanation PA:
+100% ਸੰਬੰਧ:
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ =
+240 × 100 / 40
+= 600
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 600
+
+[Q20]
+EN:
+In a recruitment test, a candidate scored 45% marks and was short of passing by 90 marks. Another candidate scored 70% marks and exceeded the pass mark by 135 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में एक अभ्यर्थी ने 45% अंक प्राप्त किए और 90 अंकों से अनुत्तीर्ण हुआ। दूसरे अभ्यर्थी ने 70% अंक प्राप्त किए और उत्तीर्णांक से 135 अंक अधिक पाए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ 45% ਅੰਕ ਲਏ ਅਤੇ 90 ਅੰਕਾਂ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ। ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੇ 70% ਅੰਕ ਲਏ ਅਤੇ ਪਾਸ ਅੰਕਾਂ ਤੋਂ 135 ਅੰਕ ਵੱਧ ਲਏ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 900 | 410 | 6000 | 880
+Answer: 900
+Difficulty: Medium
+Topology: hidden_total:pass_fail_gap
+Realism: 78
+
+Explanation EN:
+Total marks gap:
+90 + 135
+= 225
+
+Percentage gap:
+70 - 45
+= 25%
+
+Maximum marks are:
+225 × 100 / 25
+= 900
+
+Maximum marks = 900
+
+Explanation HI:
+अंकों का कुल अंतर:
+90 + 135
+= 225
+
+प्रतिशत अंतर:
+70 - 45
+= 25%
+
+अधिकतम अंक:
+225 × 100 / 25
+= 900
+
+अधिकतम अंक = 900
+
+Explanation PA:
+ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਅੰਤਰ:
+90 + 135
+= 225
+
+ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+70 - 45
+= 25%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+225 × 100 / 25
+= 900
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 900
+
+[Q21]
+EN:
+Due to an off-season clearance sale, the marked price of a wheat bag was reduced by 20% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?
+
+HI:
+गेहूं का बोरा के मूल्य में 20% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਕਣਕ ਦੀ ਬੋਰੀ ਦੀ ਕੀਮਤ ਵਿੱਚ 20% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 25% | 20% | 80% | 75%
+Answer: 25%
+Difficulty: Easy
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 20% reduction, percentage left is:
+Remaining part =
+100 - 20
+= 80%
+Required increase %:
+20 × 100 / 80
+= 25% increase
+Required increase = 25%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 20
+= 80%
+आवश्यक वृद्धि:
+20 × 100 / 80
+= 25% वृद्धि
+आवश्यक वृद्धि = 25%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 20
+= 80%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+20 × 100 / 80
+= 25% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ = 25%
+
+[Q22]
+EN:
+A milk-water mixture contains 150 litres, of which 20% is milk. How much milk should be added so that milk becomes 50% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 150 लीटर है और उसमें 20% दूध है। दूध को 50% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 150 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 20% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 50% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 90 | 45 | 75 | 30
+Answer: 90
+Difficulty: Medium
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water remains unchanged.
+Water quantity =
+150 - 30
+= 120
+
+Final mixture quantity:
+120 × 100 / ( 100 - 50 )
+= 240
+
+Milk to be added:
+240 - 150
+= 90
+
+Milk to be added = 90
+
+Explanation HI:
+पानी की मात्रा समान रहेगी।
+पानी की मात्रा =
+150 - 30
+= 120
+
+अंतिम मिश्रण:
+120 × 100 / ( 100 - 50 )
+= 240
+
+डाला जाने वाला दूध:
+240 - 150
+= 90
+
+डाला जाने वाला दूध = 90
+
+Explanation PA:
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ =
+150 - 30
+= 120
+
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+120 × 100 / ( 100 - 50 )
+= 240
+
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+240 - 150
+= 90
+
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 90
+
+[Q23]
+EN:
+A person spends 10% of income on food, then 20% of the remainder on rent, and allocates 25% of the next remainder to savings. If Rs. 27000 is still unallocated, find the income.
+
+HI:
+एक व्यक्ति आय का 10% भोजन पर, फिर शेष का 20% किराए पर, और फिर अगले शेष का 25% बचत में रखता है। यदि ₹27000 बचते हैं, तो आय ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਅਕਤੀ ਆਮਦਨ ਦਾ 10% ਖਾਣੇ ਤੇ, ਫਿਰ ਬਾਕੀ ਦਾ 20% ਕਿਰਾਏ ਤੇ, ਅਤੇ ਫਿਰ ਅਗਲੇ ਬਾਕੀ ਦਾ 25% ਬਚਤ ਲਈ ਰੱਖਦਾ ਹੈ। ਜੇ ₹27000 ਬਚਦੇ ਹਨ, ਤਾਂ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 50000 | 40000 | 60000 | 45000
+Answer: 50000
+Difficulty: Hard
+Topology: none:perc_budget_cascading_remainder
+Realism: 50
+
+Explanation EN:
+Remaining income index:
+100 x 90 / 100 x 80 / 100 x 75 / 100
+= 54
+Income:
+27000 x 100 / 54
+= 50000
+Income = 50000
+
+Explanation HI:
+शेष आय सूचकांक:
+100 x 90 / 100 x 80 / 100 x 75 / 100
+= 54
+आय:
+27000 x 100 / 54
+= 50000
+आय = 50000
+
+Explanation PA:
+ਬਚੀ ਆਮਦਨ ਸੂਚਕਾਂਕ:
+100 x 90 / 100 x 80 / 100 x 75 / 100
+= 54
+ਆਮਦਨ:
+27000 x 100 / 54
+= 50000
+ਆਮਦਨ = 50000
+
+[Q24]
+EN:
+In an examination, 55% of students failed in Mathematics, 35% failed in English, and 20% failed in both. If 600 students passed in both subjects, find the total number of students who appeared for the exam.
+
+HI:
+एक परीक्षा में 55% छात्र गणित में अनुत्तीर्ण हुए, 35% अंग्रेजी में अनुत्तीर्ण हुए, और 20% दोनों में अनुत्तीर्ण हुए। यदि 600 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 55% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 35% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 20% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 600 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 2000 | 665 | 3000 | 1000
+Answer: 2000
+Difficulty: Medium
+Topology: none:venn_diagram
+Realism: 75
+
+Explanation EN:
+Percentage for at least one category:
+Percentage in at least one subject =
+55 + 35 - 20
+= 70%
+Percentage passing both subjects / failing neither:
+100 - 70
+= 30%
+Total students:
+600 × 100 / 30
+= 2000
+Total students = 2000
+
+Explanation HI:
+कम से कम एक विषय में प्रतिशत:
+55 + 35 - 20
+= 70%
+दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत:
+100 - 70
+= 30%
+कुल छात्र:
+600 × 100 / 30
+= 2000
+कुल छात्र = 2000
+
+Explanation PA:
+ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:
+55 + 35 - 20
+= 70%
+ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ:
+100 - 70
+= 30%
+ਕੁੱਲ ਵਿਦਿਆਰਥੀ:
+600 × 100 / 30
+= 2000
+ਕੁੱਲ ਵਿਦਿਆਰਥੀ = 2000
+
+[Q25]
+EN:
+In a migration report, the population was 220000. It increased by 20%. In addition, people equal to 8% of the original population migrated in. Find the final population.
+
+HI:
+एक नगर जनसंख्या रिपोर्ट में जनसंख्या 220000 थी। इसमें 20% वृद्धि हुई। साथ ही मूल जनसंख्या के 8% लोग बाहर से आए। अंतिम जनसंख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸ਼ਹਿਰੀ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 220000 ਸੀ। ਇਸ ਵਿੱਚ 20% ਵਾਧਾ ਹੋਇਆ। ਨਾਲ ਹੀ ਮੂਲ ਆਬਾਦੀ ਦੇ 8% ਲੋਕ ਬਾਹਰੋਂ ਆਏ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Options: 281600 | 285000 | 265000 | 280000
+Answer: 281600
+Difficulty: Medium
+Topology: layered_population:migration_adjusted_population
+Realism: 93
+
+Explanation EN:
+Population after increase:
+220000 x 120 / 100
+= 264000
+Population added by migration:
+220000 × 8 / 100
+= 17600
+Final population after migration:
+264000 + 17600
+= 281600
+Accordingly, final population = 281600
+
+Explanation HI:
+वृद्धि के बाद जनसंख्या:
+220000 x 120 / 100
+= 264000
+प्रवास से जोड़ी गई जनसंख्या:
+220000 × 8 / 100
+= 17600
+अंतिम जनसंख्या:
+264000 + 17600
+= 281600
+अंतिम जनसंख्या = 281600
+
+Explanation PA:
+ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:
+220000 x 120 / 100
+= 264000
+ਪਰਵਾਸ ਨਾਲ ਜੋੜੀ ਗਈ ਆਬਾਦੀ:
+220000 × 8 / 100
+= 17600
+ਅੰਤਿਮ ਆਬਾਦੀ:
+264000 + 17600
+= 281600
+ਅੰਤਿਮ ਆਬਾਦੀ = 281600
+
+[Q26]
+EN:
+The income tax rate is reduced from 20% to 5%. As a result, a person's tax liability decreases by ₹15000. Find the total taxable income of the person.
+
+HI:
+आयकर दर 20% से घटकर 5% हो गई। इससे कर देयता ₹15000 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 20% ਤੋਂ ਘਟ ਕੇ 5% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹15000 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 100000 | 15000 | 20000 | 10000
+Answer: 100000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+20 - 5
+= 15%
+Total taxable income:
+15000 × 100 / 15
+= 100000
+Total taxable income = 100000
+
+Explanation HI:
+कर दर का अंतर:
+20 - 5
+= 15%
+कुल करयोग्य आय:
+15000 × 100 / 15
+= 100000
+कुल करयोग्य आय = 100000
+
+Explanation PA:
+ਟੈਕਸ ਦਰ ਦਾ ਅੰਤਰ:
+20 - 5
+= 15%
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+15000 × 100 / 15
+= 100000
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 100000
+
+[Q27]
+EN:
+Due to an off-season clearance sale, the marked price of a bicycle was reduced by 50% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?
+
+HI:
+साइकिल के मूल्य में 50% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਸਾਈਕਲ ਦੀ ਕੀਮਤ ਵਿੱਚ 50% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 100% | 50% | 20% | 75%
+Answer: 100%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 50% reduction, percentage left is:
+Remaining part =
+100 - 50
+= 50%
+Required increase %:
+50 × 100 / 50
+= 100% increase
+Required increase = 100%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 50
+= 50%
+आवश्यक वृद्धि:
+50 × 100 / 50
+= 100% वृद्धि
+आवश्यक वृद्धि = 100%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 50
+= 50%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+50 × 100 / 50
+= 100% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ = 100%
+
+[Q28]
+EN:
+In a constituency election, 80% of the registered voters voted and 80% of those votes were valid. The winning candidate got 60% of the valid votes. The margin between the two candidates was 32000 votes. Find the winning candidate's votes.
+
+HI:
+एक निर्वाचन में 80% पंजीकृत मतदाताओं ने मतदान किया और उनमें से 80% वोट वैध थे। विजयी उम्मीदवार को वैध वोटों के 60% वोट मिले। जीत का अंतर 32000 वोट था। विजयी उम्मीदवार के वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 80% ਰਜਿਸਟਰਡ ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ 80% ਵੋਟ ਯੋਗ ਸਨ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ ਯੋਗ ਵੋਟਾਂ ਦੇ 60% ਵੋਟ ਮਿਲੇ। ਜਿੱਤ ਦਾ ਅੰਤਰ 32000 ਵੋਟ ਸੀ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 96000 | 150000 | 120000 | 97000
+Answer: 96000
+Difficulty: Hard
+Topology: effective_percentage:filtered_valid_vote_margin
+Realism: 98
+
+Explanation EN:
+Effective valid votes:
+32000 × 100 / 20
+= 160000
+Winner's votes are:
+160000 × 60 / 100
+= 96000
+Winning candidate's votes = 96000
+
+Explanation HI:
+कुल वैध वोट:
+32000 × 100 / 20
+= 160000
+विजयी उम्मीदवार के वोट:
+160000 × 60 / 100
+= 96000
+विजयी उम्मीदवार के वोट = 96000
+
+Explanation PA:
+ਕੁੱਲ ਯੋਗ ਵੋਟ:
+32000 × 100 / 20
+= 160000
+ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ:
+160000 × 60 / 100
+= 96000
+ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਦੇ ਵੋਟ = 96000
+
+[Q29]
+EN:
+In a municipal election, the winning candidate got 58% of the votes and another candidate got 20%. The remaining votes went to a third candidate. The winning candidate defeated the third candidate by 50400 votes. Find the total number of votes.
+
+HI:
+एक निर्वाचन में विजयी उम्मीदवार को 58% वोट और दूसरे प्रत्याशी को 20% वोट मिले। शेष वोट तीसरे प्रत्याशी को मिले। विजयी उम्मीदवार ने तीसरे प्रत्याशी को 50400 वोटों से हराया। कुल वोट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੂੰ 58% ਵੋਟ ਅਤੇ ਦੂਜੇ ਉਮੀਦਵਾਰ ਨੂੰ 20% ਵੋਟ ਮਿਲੇ। ਬਾਕੀ ਵੋਟ ਤੀਜੇ ਉਮੀਦਵਾਰ ਨੂੰ ਮਿਲੇ। ਜਿੱਤਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਨੇ ਤੀਜੇ ਨੂੰ 50400 ਵੋਟਾਂ ਨਾਲ ਹਰਾਇਆ। ਕੁੱਲ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 140000 | 135000 | 85000 | 230000
+Answer: 140000
+Difficulty: Medium
+Topology: remaining_component:remaining_vote_margin
+Realism: 78
+
+Explanation EN:
+Remaining candidate's vote share:
+Votes remaining for other candidates =
+100 - 58 - 20
+= 22
+
+Winning margin:
+Remaining vote share =
+58 - 22
+= 36%
+
+Total votes are:
+50400 × 100 / 36
+= 140000
+
+Therefore, total votes = 140000
+
+Explanation HI:
+जीत का अंतर:
+अन्य उम्मीदवारों के वोट =
+100 - 58 - 20
+= 22
+
+जीत का अंतर:
+मार्जिन प्रतिशत =
+58 - 22
+= 36%
+
+कुल वोट:
+50400 × 100 / 36
+= 140000
+
+कुल डाले गए वोट = 140000
+
+Explanation PA:
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਵੋਟ =
+100 - 58 - 20
+= 22
+
+ਜਿੱਤ ਦਾ ਅੰਤਰ:
+ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ =
+58 - 22
+= 36%
+
+ਕੁੱਲ ਵੋਟ:
+50400 × 100 / 36
+= 140000
+
+ਕੁੱਲ ਪਏ ਵੋਟ = 140000
+
+[Q30]
+EN:
+A salesperson has fixed salary ₹40000 and earns 5% commission on sales. After 20% tax on gross income, net income is ₹36800. Find total sales.
+
+HI:
+एक विक्रेता का निश्चित वेतन ₹40000 है और बिक्री पर 5% कमीशन मिलता है। सकल आय पर 20% कर के बाद शुद्ध आय ₹36800 है। कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਦੀ ਨਿਸ਼ਚਿਤ ਤਨਖਾਹ ₹40000 ਹੈ ਅਤੇ ਵਿਕਰੀ ਤੇ 5% ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਕੁੱਲ ਆਮਦਨ ਤੇ 20% ਕਰ ਤੋਂ ਬਾਅਦ ਸ਼ੁੱਧ ਆਮਦਨ ₹36800 ਹੈ। ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 120000 | 96000 | 41000 | 144000
+Answer: 120000
+Difficulty: Hard
+Topology: none:perc_tax_bracket_retained_income
+Realism: 50
+
+Explanation EN:
+Gross income:
+36800 x 100 / (100 - 20)
+= 46000
+Commission:
+46000 - 40000
+= 6000
+Total sales:
+6000 x 100 / 5
+= 120000
+Total sales = 120000
+
+Explanation HI:
+सकल आय:
+36800 x 100 / (100 - 20)
+= 46000
+कमीशन:
+46000 - 40000
+= 6000
+कुल बिक्री:
+6000 x 100 / 5
+= 120000
+कुल बिक्री = 120000
+
+Explanation PA:
+ਕੁੱਲ ਆਮਦਨ:
+36800 x 100 / (100 - 20)
+= 46000
+ਕਮਿਸ਼ਨ:
+46000 - 40000
+= 6000
+ਕੁੱਲ ਵਿਕਰੀ:
+6000 x 100 / 5
+= 120000
+ਕੁੱਲ ਵਿਕਰੀ = 120000
+
+[Q31]
+EN:
+The price of sugar increased by 50%. As a result, a person can buy 4 kg less for ₹2400. Find the original price per kg.
+
+HI:
+चीनी की कीमत 50% बढ़ गई। ₹2400 में 4 kg कम चीनी मिलती है। मूल कीमत प्रति kg ज्ञात कीजिए।
+
+PA:
+ਚੀਨੀ ਦੀ ਕੀਮਤ 50% ਵਧ ਗਈ। ₹2400 ਵਿੱਚ 4 kg ਘੱਟ ਚੀਨੀ ਮਿਲਦੀ ਹੈ। ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ kg ਪਤਾ ਕਰੋ।
+
+Options: 200 | 300 | 205 | 180
+Answer: 200
+Difficulty: Hard
+Topology: none:price_consumption
+Realism: 60
+
+Explanation EN:
+Let original price per kg = x.
+New price per kg =
+x x 150 / 100
+= 1.5x
+Old quantity = expenditure / x
+New quantity = expenditure / (x x newPriceIndex / 100)
+Quantity reduction = old quantity - new quantity.
+Equation:
+expenditure / x - expenditure / (x x 150 / 100) = 4
+Using the given expenditure:
+2400/x - 2400/(1.5x) = 4
+x = 200
+Original price per kg = 200
+
+Explanation HI:
+Let original price per kg = x.
+नई कीमत =
+x x 150 / 100
+= 1.5x
+Old quantity = expenditure / x
+New quantity = expenditure / (x x newPriceIndex / 100)
+Quantity reduction = old quantity - new quantity.
+Equation:
+मूल कीमत प्रति किग्रा = 4
+Using the given expenditure:
+मूल कीमत प्रति किग्रा = 4
+मूल कीमत प्रति किग्रा = 200
+मूल कीमत प्रति किग्रा = 200
+
+Explanation PA:
+Let original price per kg = x.
+ਨਵੀਂ ਕੀਮਤ =
+x x 150 / 100
+= 1.5x
+Old quantity = expenditure / x
+New quantity = expenditure / (x x newPriceIndex / 100)
+Quantity reduction = old quantity - new quantity.
+Equation:
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 4
+Using the given expenditure:
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 4
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 200
+ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ ਕਿਲੋਗ੍ਰਾਮ = 200
+
+[Q32]
+EN:
+In a wholesale grocery warehouse, a batch of 40 kg of sugar represents exactly 20% of the total quantity of available stock. Find the total sugar stock currently stored in the warehouse.
+
+HI:
+40 kg चीनी कुल स्टॉक का 20% है। कुल स्टॉक ज्ञात कीजिए।
+
+PA:
+40 kg ਚੀਨੀ ਕੁੱਲ ਸਟਾਕ ਦਾ 20% ਹੈ। ਕੁੱਲ ਸਟਾਕ ਪਤਾ ਕਰੋ।
+
+Options: 200 | 50 | 240 | 180
+Answer: 200
+Difficulty: Easy
+Topology: none:reverse_percentage
+Realism: 82
+
+Explanation EN:
+100% total setup:
+Total sugar stock =
+40 × 100 / 20
+= 200
+
+Total sugar stock = 200
+
+Explanation HI:
+100% संबंध:
+कुल चीनी स्टॉक =
+40 × 100 / 20
+= 200
+
+कुल चीनी स्टॉक = 200
+
+Explanation PA:
+100% ਸੰਬੰਧ:
+ਕੁੱਲ ਚੀਨੀ ਸਟਾਕ =
+40 × 100 / 20
+= 200
+
+ਕੁੱਲ ਚੀਨੀ ਸਟਾਕ = 200
+
+[Q33]
+EN:
+A milk-water mixture contains 120 litres, of which 25% is milk. How much milk should be added so that milk becomes 50% of the mixture?
+
+HI:
+एक दूध-पानी मिश्रण की मात्रा 120 लीटर है और उसमें 25% दूध है। दूध को 50% करने के लिए कितना दूध मिलाना होगा?
+
+PA:
+ਇੱਕ ਦੁੱਧ-ਪਾਣੀ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ 120 ਲੀਟਰ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ 25% ਦੁੱਧ ਹੈ। ਦੁੱਧ ਨੂੰ 50% ਕਰਨ ਲਈ ਕਿੰਨਾ ਦੁੱਧ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+
+Options: 60 | 30 | 25 | 90
+Answer: 60
+Difficulty: Medium
+Topology: none:mixture_percentage
+Realism: 82
+
+Explanation EN:
+Water remains unchanged.
+Water quantity =
+120 - 30
+= 90
+Final mixture quantity:
+90 × 100 / ( 100 - 50 )
+= 180
+Milk to be added:
+180 - 120
+= 60
+Hence, milk to be added = 60
+
+Explanation HI:
+पानी की मात्रा समान रहेगी।
+पानी की मात्रा =
+120 - 30
+= 90
+अंतिम मिश्रण:
+90 × 100 / ( 100 - 50 )
+= 180
+डाला जाने वाला दूध:
+180 - 120
+= 60
+डाला जाने वाला दूध = 60
+
+Explanation PA:
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।
+ਪਾਣੀ ਦੀ ਮਾਤਰਾ =
+120 - 30
+= 90
+ਅੰਤਿਮ ਮਿਸ਼ਰਣ:
+90 × 100 / ( 100 - 50 )
+= 180
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ:
+180 - 120
+= 60
+ਪਾਇਆ ਜਾਣ ਵਾਲਾ ਦੁੱਧ = 60
+
+[Q34]
+EN:
+In a screening test, 40% of the paper has been evaluated. A student scored 70% of those marks. To secure 45% overall, the student still needs 119 marks. Find the maximum marks.
+
+HI:
+एक परीक्षा में 40% पेपर का मूल्यांकन हो चुका है। छात्र ने उसमें 70% अंक प्राप्त किए। कुल 45% अंक पाने के लिए उसे अभी 119 अंक चाहिए। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 40% ਪੇਪਰ ਦੀ ਜਾਂਚ ਹੋ ਚੁੱਕੀ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੇ ਉਸ ਵਿੱਚ 70% ਅੰਕ ਲਏ। ਕੁੱਲ 45% ਅੰਕ ਲੈਣ ਲਈ ਉਸ ਨੂੰ ਹੁਣ 119 ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 700 | 475 | 265 | 185
+Answer: 700
+Difficulty: Hard
+Topology: successive_filtering:remaining_marks_required
+Realism: 92
+
+Explanation EN:
+Marks already secured:
+40 × 70 / 100
+= 28
+
+Required percentage gap:
+45 - 28
+= 17%
+
+Maximum marks are:
+119 × 100 / 17
+= 700
+
+Thus, maximum marks = 700
+
+Explanation HI:
+प्राप्त अंक:
+40 × 70 / 100
+= 28
+
+आवश्यक प्रतिशत अंतर:
+45 - 28
+= 17%
+
+अधिकतम अंक:
+119 × 100 / 17
+= 700
+
+अधिकतम अंक = 700
+
+Explanation PA:
+ਪ੍ਰਾਪਤ ਅੰਕ:
+40 × 70 / 100
+= 28
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+45 - 28
+= 17%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+119 × 100 / 17
+= 700
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 700
+
+[Q35]
+EN:
+In a scholarship exam, a candidate first scored 45% marks. After adding a bonus of 10%, the score was still short of the pass mark by 40 marks. The pass mark was 65%. Find the maximum marks.
+
+HI:
+एक परीक्षा में अभ्यर्थी ने पहले 45% अंक प्राप्त किए। 10% बोनस जोड़ने के बाद भी वह 40 अंकों से कम रह गया। उत्तीर्णांक 65% हैं। अधिकतम अंक ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉਮੀਦਵਾਰ ਨੇ ਪਹਿਲਾਂ 45% ਅੰਕ ਲਏ। 10% ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਵੀ ਉਹ 40 ਅੰਕਾਂ ਨਾਲ ਘੱਟ ਰਹਿ ਗਿਆ। ਪਾਸ ਅੰਕ 65% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 400 | 200 | 61.54 | 380
+Answer: 400
+Difficulty: Medium
+Topology: base_shift:successive_mark_adjustment
+Realism: 94
+
+Explanation EN:
+After adding the bonus:
+Adjusted score =
+45 + 10
+= 55
+
+Required percentage gap:
+65 - 55
+= 10%
+
+Maximum marks are:
+40 × 100 / 10
+= 400
+
+Maximum marks = 400
+
+Explanation HI:
+बोनस जोड़ने के बाद:
+प्राप्त अंक =
+45 + 10
+= 55
+
+आवश्यक प्रतिशत अंतर:
+65 - 55
+= 10%
+
+अधिकतम अंक:
+40 × 100 / 10
+= 400
+
+अधिकतम अंक = 400
+
+Explanation PA:
+ਬੋਨਸ ਜੋੜਨ ਤੋਂ ਬਾਅਦ:
+ਪ੍ਰਾਪਤ ਅੰਕ =
+45 + 10
+= 55
+
+ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰ:
+65 - 55
+= 10%
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ:
+40 × 100 / 10
+= 400
+
+ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ = 400
+
+[Q36]
+EN:
+An agent buys property for ₹60000 and sells it at 20% profit. Brokerage is 1% on buying price and 2% on selling price. Find the total brokerage.
+
+HI:
+एक दलाल ₹60000 में संपत्ति खरीदता है और उसे 20% लाभ पर बेचता है। खरीद मूल्य पर 1% और बिक्री मूल्य पर 2% दलाली मिलती है। कुल दलाली ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਏਜੰਟ ₹60000 ਵਿੱਚ ਜਾਇਦਾਦ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਇਸ ਨੂੰ 20% ਲਾਭ ਤੇ ਵੇਚਦਾ ਹੈ। ਖਰੀਦ ਮੁੱਲ ਤੇ 1% ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਤੇ 2% ਦਲਾਲੀ ਮਿਲਦੀ ਹੈ। ਕੁੱਲ ਦਲਾਲੀ ਪਤਾ ਕਰੋ।
+
+Options: 2040 | 1600 | 1800 | 2400
+Answer: 2040
+Difficulty: Hard
+Topology: none:perc_comm_tiered_salary_override
+Realism: 82
+
+Explanation EN:
+Selling price:
+60000 x 120 / 100
+= 72000
+Buying brokerage:
+60000 x 1 / 100
+= 600
+Selling brokerage:
+72000 x 2 / 100
+= 1440
+Total brokerage:
+600 + 1440
+= 2040
+Total brokerage = 2040
+
+Explanation HI:
+विक्रय मूल्य:
+60000 x 120 / 100
+= 72000
+खरीद दलाली:
+60000 x 1 / 100
+= 600
+बिक्री दलाली:
+72000 x 2 / 100
+= 1440
+कुल दलाली:
+600 + 1440
+= 2040
+कुल दलाली = 2040
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ:
+60000 x 120 / 100
+= 72000
+ਖਰੀਦ ਦਲਾਲੀ:
+60000 x 1 / 100
+= 600
+ਵਿਕਰੀ ਦਲਾਲੀ:
+72000 x 2 / 100
+= 1440
+ਕੁੱਲ ਦਲਾਲੀ:
+600 + 1440
+= 2040
+ਕੁੱਲ ਦਲਾਲੀ = 2040
+
+[Q37]
+EN:
+Due to an off-season clearance sale, the marked price of a cooking oil tin was reduced by 40% from its original level. By what percentage should the reduced price be increased to restore it to the original marked price?
+
+HI:
+तेल का डिब्बा के मूल्य में 40% कमी हुई। मूल मूल्य पर वापस आने के लिए कितने प्रतिशत वृद्धि चाहिए?
+
+PA:
+ਖਾਣੇ ਦੇ ਤੇਲ ਦਾ ਡੱਬਾ ਦੀ ਕੀਮਤ ਵਿੱਚ 40% ਕਮੀ ਹੋਈ। ਮੂਲ ਕੀਮਤ ਤੇ ਵਾਪਸ ਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਦੀ ਲੋੜ ਹੈ?
+
+Options: 66.67% | 40% | 60% | 33.33%
+Answer: 66.67%
+Difficulty: Medium
+Topology: none:restore_original
+Realism: 72
+
+Explanation EN:
+After a 40% reduction, percentage left is:
+Remaining part =
+100 - 40
+= 60%
+Required increase %:
+40 × 100 / 60
+= 66.67% increase
+Required increase = 66.67%
+
+Explanation HI:
+बचा हुआ भाग:
+100 - 40
+= 60%
+आवश्यक वृद्धि:
+40 × 100 / 60
+= 66.67% वृद्धि
+आवश्यक वृद्धि = 66.67%
+
+Explanation PA:
+ਬਚਿਆ ਹੋਇਆ ਹਿੱਸਾ:
+100 - 40
+= 60%
+ਲੋੜੀਂਦਾ ਵਾਧਾ:
+40 × 100 / 60
+= 66.67% ਵਾਧਾ
+ਲੋੜੀਂਦਾ ਵਾਧਾ = 66.67%
+
+[Q38]
+EN:
+According to a census report, the population was 40000. It increased by 10%. In addition, people equal to 5% of the original population migrated in. Find the final population.
+
+HI:
+एक नगर जनसंख्या रिपोर्ट में जनसंख्या 40000 थी। इसमें 10% वृद्धि हुई। साथ ही मूल जनसंख्या के 5% लोग बाहर से आए। अंतिम जनसंख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸ਼ਹਿਰੀ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 40000 ਸੀ। ਇਸ ਵਿੱਚ 10% ਵਾਧਾ ਹੋਇਆ। ਨਾਲ ਹੀ ਮੂਲ ਆਬਾਦੀ ਦੇ 5% ਲੋਕ ਬਾਹਰੋਂ ਆਏ। ਅੰਤਿਮ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Options: 46000 | 47000 | 44000 | 45000
+Answer: 46000
+Difficulty: Medium
+Topology: layered_population:migration_adjusted_population
+Realism: 94
+
+Explanation EN:
+Population after increase:
+40000 x 110 / 100
+= 44000
+
+Population added by migration:
+40000 × 5 / 100
+= 2000
+
+Final population after migration:
+44000 + 2000
+= 46000
+
+Final population = 46000
+
+Explanation HI:
+वृद्धि के बाद जनसंख्या:
+40000 x 110 / 100
+= 44000
+
+प्रवास से जोड़ी गई जनसंख्या:
+40000 × 5 / 100
+= 2000
+
+अंतिम जनसंख्या:
+44000 + 2000
+= 46000
+
+अंतिम जनसंख्या = 46000
+
+Explanation PA:
+ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:
+40000 x 110 / 100
+= 44000
+
+ਪਰਵਾਸ ਨਾਲ ਜੋੜੀ ਗਈ ਆਬਾਦੀ:
+40000 × 5 / 100
+= 2000
+
+ਅੰਤਿਮ ਆਬਾਦੀ:
+44000 + 2000
+= 46000
+
+ਅੰਤਿਮ ਆਬਾਦੀ = 46000
+
+[Q39]
+EN:
+A number is increased by 25% and then decreased by 10%. The final change is 150. Find the original number.
+
+HI:
+एक संख्या को 25% बढ़ाया गया और फिर 10% घटाया गया। अंतिम परिवर्तन 150 है। मूल संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸੰਖਿਆ ਨੂੰ 25% ਵਧਾਇਆ ਗਿਆ ਅਤੇ ਫਿਰ 10% ਘਟਾਇਆ ਗਿਆ। ਅੰਤਿਮ ਬਦਲਾਅ 150 ਹੈ। ਮੂਲ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 1000 | 1400 | 1100
+Answer: 1200
+Difficulty: Hard
+Topology: none:perc_num_linear_equation_balancing
+Realism: 82
+
+Explanation EN:
+Final index:
+(100 + 25) x (100 - 10) / 100
+= 112.5
+Change index:
+|112.5 - 100|
+= 12.5
+Original number:
+150 x 100 / 12.5
+= 1200
+Original number = 1200
+
+Explanation HI:
+अंतिम सूचकांक:
+(100 + 25) x (100 - 10) / 100
+= 112.5
+परिवर्तन सूचकांक:
+|112.5 - 100|
+= 12.5
+मूल संख्या:
+150 x 100 / 12.5
+= 1200
+मूल संख्या = 1200
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕਾਂਕ:
+(100 + 25) x (100 - 10) / 100
+= 112.5
+ਬਦਲਾਅ ਸੂਚਕਾਂਕ:
+|112.5 - 100|
+= 12.5
+ਮੂਲ ਸੰਖਿਆ:
+150 x 100 / 12.5
+= 1200
+ਮੂਲ ਸੰਖਿਆ = 1200
+
+[Q40]
+EN:
+A farmer increases cultivated area by 10% and yield per acre by 25%. Find the percentage increase in total production.
+
+HI:
+एक किसान खेती का क्षेत्र 10% और प्रति एकड़ उपज 25% बढ़ाता है। कुल उत्पादन में प्रतिशत वृद्धि ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਿਸਾਨ ਖੇਤੀ ਦਾ ਖੇਤਰ 10% ਅਤੇ ਪ੍ਰਤੀ ਏਕੜ ਪੈਦਾਵਾਰ 25% ਵਧਾਉਂਦਾ ਹੈ। ਕੁੱਲ ਉਤਪਾਦਨ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।
+
+Options: 37.5% | 35% | 10% | 25%
+Answer: 37.5%
+Difficulty: Medium
+Topology: none:perc_agri_land_yield_compound
+Realism: 82
+
+Explanation EN:
+New index:
+(100 + 10) x (100 + 25) / 100
+= 137.5
+Increase in production:
+137.5 - 100
+= 37.5
+Increase in production = 37.5%
+
+Explanation HI:
+नया सूचकांक:
+(100 + 10) x (100 + 25) / 100
+= 137.5
+उत्पादन में वृद्धि:
+137.5 - 100
+= 37.5
+उत्पादन में वृद्धि = 37.5%
+
+Explanation PA:
+ਨਵਾਂ ਸੂਚਕਾਂਕ:
+(100 + 10) x (100 + 25) / 100
+= 137.5
+ਉਤਪਾਦਨ ਵਿੱਚ ਵਾਧਾ:
+137.5 - 100
+= 37.5
+ਉਤਪਾਦਨ ਵਿੱਚ ਵਾਧਾ = 37.5%
+
+[Q41]
+EN:
+In a fraction, the numerator is increased by 25% and the denominator is decreased by 20%. Find the percentage increase in the fraction.
+
+HI:
+एक भिन्न में अंश 25% बढ़ाया गया और हर 20% घटाया गया। भिन्न में प्रतिशत वृद्धि ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਭਿੰਨ ਵਿੱਚ ਅੰਸ਼ 25% ਵਧਾਇਆ ਗਿਆ ਅਤੇ ਹਰ 20% ਘਟਾਇਆ ਗਿਆ। ਭਿੰਨ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।
+
+Options: 56.25% | 45% | 5% | 25%
+Answer: 56.25%
+Difficulty: Hard
+Topology: none:perc_num_fractional_perturbation_complex
+Realism: 82
+
+Explanation EN:
+New index:
+(100 + 25) / (100 - 20)
+= 1.56
+Increase in fraction:
+(1.56 - 1) x 100
+= 56.25
+Increase in fraction = 56.25%
+
+Explanation HI:
+नया सूचकांक:
+(100 + 25) / (100 - 20)
+= 1.56
+भिन्न में वृद्धि:
+(1.56 - 1) x 100
+= 56.25
+भिन्न में वृद्धि = 56.25%
+
+Explanation PA:
+ਨਵਾਂ ਸੂਚਕਾਂਕ:
+(100 + 25) / (100 - 20)
+= 1.56
+ਭਿੰਨ ਵਿੱਚ ਵਾਧਾ:
+(1.56 - 1) x 100
+= 56.25
+ਭਿੰਨ ਵਿੱਚ ਵਾਧਾ = 56.25%
+
+[Q42]
+EN:
+A number is increased by 50% and then decreased by 40%. The final change is 100. Find the original number.
+
+HI:
+एक संख्या को 50% बढ़ाया गया और फिर 40% घटाया गया। अंतिम परिवर्तन 100 है। मूल संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸੰਖਿਆ ਨੂੰ 50% ਵਧਾਇਆ ਗਿਆ ਅਤੇ ਫਿਰ 40% ਘਟਾਇਆ ਗਿਆ। ਅੰਤਿਮ ਬਦਲਾਅ 100 ਹੈ। ਮੂਲ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।
+
+Options: 1000 | 800 | 1200 | 900
+Answer: 1000
+Difficulty: Hard
+Topology: none:perc_num_linear_equation_balancing
+Realism: 82
+
+Explanation EN:
+Final index:
+(100 + 50) x (100 - 40) / 100
+= 90
+Change index:
+|90 - 100|
+= 10
+Original number:
+100 x 100 / 10
+= 1000
+Original number = 1000
+
+Explanation HI:
+अंतिम सूचकांक:
+(100 + 50) x (100 - 40) / 100
+= 90
+परिवर्तन सूचकांक:
+|90 - 100|
+= 10
+मूल संख्या:
+100 x 100 / 10
+= 1000
+मूल संख्या = 1000
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕਾਂਕ:
+(100 + 50) x (100 - 40) / 100
+= 90
+ਬਦਲਾਅ ਸੂਚਕਾਂਕ:
+|90 - 100|
+= 10
+ਮੂਲ ਸੰਖਿਆ:
+100 x 100 / 10
+= 1000
+ਮੂਲ ਸੰਖਿਆ = 1000
+
+[Q43]
+EN:
+A person spends 20% of income on food, then 25% of the remainder on rent, and allocates 20% of the next remainder to savings. If Rs. 28800 is still unallocated, find the income.
+
+HI:
+एक व्यक्ति आय का 20% भोजन पर, फिर शेष का 25% किराए पर, और फिर अगले शेष का 20% बचत में रखता है। यदि ₹28800 बचते हैं, तो आय ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਅਕਤੀ ਆਮਦਨ ਦਾ 20% ਖਾਣੇ ਤੇ, ਫਿਰ ਬਾਕੀ ਦਾ 25% ਕਿਰਾਏ ਤੇ, ਅਤੇ ਫਿਰ ਅਗਲੇ ਬਾਕੀ ਦਾ 20% ਬਚਤ ਲਈ ਰੱਖਦਾ ਹੈ। ਜੇ ₹28800 ਬਚਦੇ ਹਨ, ਤਾਂ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 60000 | 48000 | 82000 | 72000
+Answer: 60000
+Difficulty: Hard
+Topology: none:perc_budget_cascading_remainder
+Realism: 50
+
+Explanation EN:
+Remaining income index:
+100 x 80 / 100 x 75 / 100 x 80 / 100
+= 48
+Income:
+28800 x 100 / 48
+= 60000
+Income = 60000
+
+Explanation HI:
+शेष आय सूचकांक:
+100 x 80 / 100 x 75 / 100 x 80 / 100
+= 48
+आय:
+28800 x 100 / 48
+= 60000
+आय = 60000
+
+Explanation PA:
+ਬਚੀ ਆਮਦਨ ਸੂਚਕਾਂਕ:
+100 x 80 / 100 x 75 / 100 x 80 / 100
+= 48
+ਆਮਦਨ:
+28800 x 100 / 48
+= 60000
+ਆਮਦਨ = 60000
+
+[Q44]
+EN:
+In an urban-rural population report, the population was 132500. It increased by 10% per year for 2 years. Find the population after this period.
+
+HI:
+एक जनसंख्या रिपोर्ट में जनसंख्या 132500 थी। यह 2 वर्षों तक प्रति वर्ष 10% बढ़ी। इस अवधि के बाद जनसंख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਬਾਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਆਬਾਦੀ 132500 ਸੀ। ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 10% ਵਧੀ। ਇਸ ਅਵਧੀ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।
+
+Options: 160325 | 160000 | 145000 | 135000
+Answer: 160325
+Difficulty: Easy
+Topology: direct_mapping:single_growth
+Realism: 78
+
+Explanation EN:
+Population after growth:
+132500 x (110 / 100)^2
+= 160325
+Growth is applied for 2 years.
+Hence, final population = 160325
+
+Explanation HI:
+वृद्धि के बाद जनसंख्या:
+132500 x (110 / 100)^2
+= 160325
+2 वर्षों तक वृद्धि लागू होती है।
+अंतिम जनसंख्या = 160325
+
+Explanation PA:
+ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਆਬਾਦੀ:
+132500 x (110 / 100)^2
+= 160325
+ਵਾਧਾ 2 ਸਾਲਾਂ ਲਈ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।
+ਅੰਤਿਮ ਆਬਾਦੀ = 160325
+
+[Q45]
+EN:
+A salesman gets a commission of 5% on total sales up to ₹20000 and an additional bonus of 5% on sales above this amount. If his total commission is ₹3000, find his total sales.
+
+HI:
+एक विक्रेता को ₹20000 तक की बिक्री पर 5% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 5% बोनस मिलता है। यदि कुल कमीशन ₹3000 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹20000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 5% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 5% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹3000 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 40000 | 29000 | 54000 | 51000
+Answer: 40000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+20000 × 5 / 100
+= 1000
+Commission above base quota:
+3000 - 1000
+= 2000
+Total commission rate on excess sales:
+5 + 5
+= 10%
+Sales above base quota:
+2000 × 100 / 10
+= 20000
+Total sales:
+20000 + 20000
+= 40000
+Total sales = 40000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+20000 × 5 / 100
+= 1000
+आधार से ऊपर कमीशन:
+3000 - 1000
+= 2000
+अतिरिक्त बिक्री पर प्रभावी कमीशन दर:
+5 + 5
+= 10%
+आधार से ऊपर अतिरिक्त बिक्री:
+2000 × 100 / 10
+= 20000
+कुल बिक्री:
+20000 + 20000
+= 40000
+कुल बिक्री = 40000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+20000 × 5 / 100
+= 1000
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+3000 - 1000
+= 2000
+ਵਾਧੂ ਵਿਕਰੀ ਉੱਤੇ ਪ੍ਰਭਾਵੀ ਕਮਿਸ਼ਨ ਦਰ:
+5 + 5
+= 10%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+2000 × 100 / 10
+= 20000
+ਕੁੱਲ ਵਿਕਰੀ:
+20000 + 20000
+= 40000
+ਕੁੱਲ ਵਿਕਰੀ = 40000
+
+[Q46]
+EN:
+In an examination, 35% of students failed in Mathematics, 35% failed in English, and 15% failed in both. If 270 students passed in both subjects, find the total number of students who appeared for the exam.
+
+HI:
+एक परीक्षा में 35% छात्र गणित में अनुत्तीर्ण हुए, 35% अंग्रेजी में अनुत्तीर्ण हुए, और 15% दोनों में अनुत्तीर्ण हुए। यदि 270 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 35% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 35% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 15% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 270 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 600 | 385 | 800 | 500
+Answer: 600
+Difficulty: Medium
+Topology: none:venn_diagram
+Realism: 75
+
+Explanation EN:
+Percentage for at least one category:
+Percentage in at least one subject =
+35 + 35 - 15
+= 55%
+Percentage passing both subjects / failing neither:
+100 - 55
+= 45%
+Total students:
+270 × 100 / 45
+= 600
+Total students = 600
+
+Explanation HI:
+कम से कम एक विषय में प्रतिशत:
+35 + 35 - 15
+= 55%
+दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत:
+100 - 55
+= 45%
+कुल छात्र:
+270 × 100 / 45
+= 600
+कुल छात्र = 600
+
+Explanation PA:
+ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:
+35 + 35 - 15
+= 55%
+ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ:
+100 - 55
+= 45%
+ਕੁੱਲ ਵਿਦਿਆਰਥੀ:
+270 × 100 / 45
+= 600
+ਕੁੱਲ ਵਿਦਿਆਰਥੀ = 600
+
+[Q47]
+EN:
+Following a corporate annual performance review, the monthly salary was revised from ₹10000 to ₹10500. Find the net percentage change relative to the original salary.
+
+HI:
+एक कर्मचारी का वेतन 10000 से बदलकर 10500 हो गया। पुराने वेतन के आधार पर प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਮਚਾਰੀ ਦੀ ਤਨਖਾਹ 10000 ਤੋਂ ਬਦਲ ਕੇ 10500 ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਦੇ ਆਧਾਰ ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 5% | 4.76% | 5.26% | 4.5%
+Answer: 5%
+Difficulty: Easy
+Topology: none:salary_revision
+Realism: 72
+
+Explanation EN:
+Increase in salary:
+10500 - 10000
+= 500
+Change %:
+500 × 100 / 10000
+= 5
+Salary change = 5% increase
+
+Explanation HI:
+वेतन में बदलाव:
+10500 - 10000
+= 500
+प्रतिशत परिवर्तन:
+500 × 100 / 10000
+= 5
+वेतन में बदलाव = 5%
+
+Explanation PA:
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ:
+10500 - 10000
+= 500
+ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ:
+500 × 100 / 10000
+= 5
+ਤਨਖਾਹ ਵਿੱਚ ਬਦਲਾਅ = 5%
+
+[Q48]
+EN:
+In an examination, 65% of students failed in Mathematics, 55% failed in English, and 25% failed in both. If 75 students passed in both subjects, find the total number of students who appeared for the exam.
+
+HI:
+एक परीक्षा में 65% छात्र गणित में अनुत्तीर्ण हुए, 55% अंग्रेजी में अनुत्तीर्ण हुए, और 25% दोनों में अनुत्तीर्ण हुए। यदि 75 छात्र दोनों विषयों में उत्तीर्ण हुए, तो परीक्षा में उपस्थित होने वाले छात्रों की कुल संख्या ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 65% ਵਿਦਿਆਰਥੀ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, 55% ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ, ਅਤੇ 25% ਦੋਵਾਂ ਵਿੱਚ ਫੇਲ੍ਹ ਹੋਏ। ਜੇਕਰ 75 ਵਿਦਿਆਰਥੀ ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ ਹੋਏ, ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਬੈਠਣ ਵਾਲੇ ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 1500 | 63 | 2000 | 1000
+Answer: 1500
+Difficulty: Medium
+Topology: none:venn_diagram
+Realism: 75
+
+Explanation EN:
+Percentage for at least one category:
+Percentage in at least one subject =
+65 + 55 - 25
+= 95%
+Percentage passing both subjects / failing neither:
+100 - 95
+= 5%
+Total students:
+75 × 100 / 5
+= 1500
+Total students = 1500
+
+Explanation HI:
+कम से कम एक विषय में प्रतिशत:
+65 + 55 - 25
+= 95%
+दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत:
+100 - 95
+= 5%
+कुल छात्र:
+75 × 100 / 5
+= 1500
+कुल छात्र = 1500
+
+Explanation PA:
+ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:
+65 + 55 - 25
+= 95%
+ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ:
+100 - 95
+= 5%
+ਕੁੱਲ ਵਿਦਿਆਰਥੀ:
+75 × 100 / 5
+= 1500
+ਕੁੱਲ ਵਿਦਿਆਰਥੀ = 1500
+
+[Q49]
+EN:
+The side of a square is increased by 20%. Find the percentage increase in its area.
+
+HI:
+एक वर्ग की भुजा 20% बढ़ाई गई। उसके क्षेत्रफल में प्रतिशत वृद्धि ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਰਗ ਦੀ ਭੁਜਾ 20% ਵਧਾਈ ਗਈ। ਇਸ ਦੇ ਖੇਤਰਫਲ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।
+
+Options: 44% | 40% | 20% | 30%
+Answer: 44%
+Difficulty: Easy
+Topology: none:perc_geom_dimensional_scale
+Realism: 82
+
+Explanation EN:
+Area index:
+(100 + 20)^2 / 100
+= 144
+Increase in area:
+144 - 100
+= 44
+Increase in area = 44%
+
+Explanation HI:
+क्षेत्रफल सूचकांक:
+(100 + 20)^2 / 100
+= 144
+क्षेत्रफल में वृद्धि:
+144 - 100
+= 44
+क्षेत्रफल में वृद्धि = 44%
+
+Explanation PA:
+ਖੇਤਰਫਲ ਸੂਚਕਾਂਕ:
+(100 + 20)^2 / 100
+= 144
+ਖੇਤਰਫਲ ਵਿੱਚ ਵਾਧਾ:
+144 - 100
+= 44
+ਖੇਤਰਫਲ ਵਿੱਚ ਵਾਧਾ = 44%
+
+[Q50]
+EN:
+A salesman gets a commission of 8% on total sales up to ₹15000 and an additional bonus of 3% on sales above this amount. If his total commission is ₹3950, find his total sales.
+
+HI:
+एक विक्रेता को ₹15000 तक की बिक्री पर 8% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 3% बोनस मिलता है। यदि कुल कमीशन ₹3950 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹15000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 8% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 3% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹3950 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 40000 | 29000 | 49000 | 51000
+Answer: 40000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+15000 × 8 / 100
+= 1200
+Commission above base quota:
+3950 - 1200
+= 2750
+Total commission rate on excess sales:
+8 + 3
+= 11%
+Sales above base quota:
+2750 × 100 / 11
+= 25000
+Total sales:
+15000 + 25000
+= 40000
+Total sales = 40000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+15000 × 8 / 100
+= 1200
+आधार से ऊपर कमीशन:
+3950 - 1200
+= 2750
+अतिरिक्त बिक्री पर प्रभावी कमीशन दर:
+8 + 3
+= 11%
+आधार से ऊपर अतिरिक्त बिक्री:
+2750 × 100 / 11
+= 25000
+कुल बिक्री:
+15000 + 25000
+= 40000
+कुल बिक्री = 40000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+15000 × 8 / 100
+= 1200
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+3950 - 1200
+= 2750
+ਵਾਧੂ ਵਿਕਰੀ ਉੱਤੇ ਪ੍ਰਭਾਵੀ ਕਮਿਸ਼ਨ ਦਰ:
+8 + 3
+= 11%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+2750 × 100 / 11
+= 25000
+ਕੁੱਲ ਵਿਕਰੀ:
+15000 + 25000
+= 40000
+ਕੁੱਲ ਵਿਕਰੀ = 40000
+
+[Q51]
+EN:
+In an exam, Paper I has 80 marks and Paper II has 120 marks. A student scores 75% in Paper I and 60% in Paper II. Find the overall percentage.
+
+HI:
+एक परीक्षा में पेपर I 80 अंकों का और पेपर II 120 अंकों का है। छात्र पेपर I में 75% और पेपर II में 60% अंक पाता है। कुल प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਪੇਪਰ I 80 ਅੰਕਾਂ ਦਾ ਅਤੇ ਪੇਪਰ II 120 ਅੰਕਾਂ ਦਾ ਹੈ। ਵਿਦਿਆਰਥੀ ਪੇਪਰ I ਵਿੱਚ 75% ਅਤੇ ਪੇਪਰ II ਵਿੱਚ 60% ਅੰਕ ਲੈਂਦਾ ਹੈ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 66% | 67.5% | 75% | 60%
+Answer: 66%
+Difficulty: Medium
+Topology: none:perc_exam_weighted_aggregate
+Realism: 60
+
+Explanation EN:
+Marks in Paper I:
+80 x 75 / 100
+= 60
+Marks in Paper II:
+120 x 60 / 100
+= 72
+Overall percentage:
+(60 + 72) x 100 / 200
+= 66
+Overall percentage = 66%
+
+Explanation HI:
+पेपर I के अंक:
+80 x 75 / 100
+= 60
+पेपर II के अंक:
+120 x 60 / 100
+= 72
+कुल प्रतिशत:
+(60 + 72) x 100 / 200
+= 66
+कुल प्रतिशत = 66%
+
+Explanation PA:
+ਪੇਪਰ I ਦੇ ਅੰਕ:
+80 x 75 / 100
+= 60
+ਪੇਪਰ II ਦੇ ਅੰਕ:
+120 x 60 / 100
+= 72
+ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ:
+(60 + 72) x 100 / 200
+= 66
+ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ = 66%
+
+[Q52]
+EN:
+In a population survey, males are 60% and females are 40%. Male literacy is 70% and female literacy is 55%. Find the overall literacy percentage.
+
+HI:
+एक जनसंख्या सर्वे में पुरुष 60% और महिलाएं 40% हैं। पुरुष साक्षरता 70% और महिला साक्षरता 55% है। कुल साक्षरता प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਬਾਦੀ ਸਰਵੇ ਵਿੱਚ ਮਰਦ 60% ਅਤੇ ਔਰਤਾਂ 40% ਹਨ। ਮਰਦ ਸਾਖਰਤਾ 70% ਅਤੇ ਔਰਤ ਸਾਖਰਤਾ 55% ਹੈ। ਕੁੱਲ ਸਾਖਰਤਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 64% | 62.5% | 70% | 55%
+Answer: 64%
+Difficulty: Medium
+Topology: none:perc_demo_cross_tab_literacy
+Realism: 78
+
+Explanation EN:
+Male literacy contribution:
+60 x 70 / 100
+= 42
+Female literacy contribution:
+40 x 55 / 100
+= 22
+Overall literacy:
+42 + 22
+= 64
+Overall literacy = 64%
+
+Explanation HI:
+पुरुष साक्षरता योगदान:
+60 x 70 / 100
+= 42
+महिला साक्षरता योगदान:
+40 x 55 / 100
+= 22
+कुल साक्षरता:
+42 + 22
+= 64
+कुल साक्षरता = 64%
+
+Explanation PA:
+ਮਰਦ ਸਾਖਰਤਾ ਯੋਗਦਾਨ:
+60 x 70 / 100
+= 42
+ਔਰਤ ਸਾਖਰਤਾ ਯੋਗਦਾਨ:
+40 x 55 / 100
+= 22
+ਕੁੱਲ ਸਾਖਰਤਾ:
+42 + 22
+= 64
+ਕੁੱਲ ਸਾਖਰਤਾ = 64%
+
+[Q53]
+EN:
+The length of a rectangle is increased by 25% and its breadth is decreased by 10%. Find the percentage change in area.
+
+HI:
+एक आयत की लंबाई 25% बढ़ाई गई और चौड़ाई 10% घटाई गई। क्षेत्रफल में प्रतिशत परिवर्तन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਯਤ ਦੀ ਲੰਬਾਈ 25% ਵਧਾਈ ਗਈ ਅਤੇ ਚੌੜਾਈ 10% ਘਟਾਈ ਗਈ। ਖੇਤਰਫਲ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।
+
+Options: 12.5% | 15% | 35% | 17.5%
+Answer: 12.5%
+Difficulty: Medium
+Topology: none:perc_geom_dimensional_scale
+Realism: 82
+
+Explanation EN:
+Area index:
+(100 + 25) x (100 - 10) / 100
+= 112.5
+Increase in area:
+112.5 - 100
+= 12.5
+Increase in area = 12.5%
+
+Explanation HI:
+क्षेत्रफल सूचकांक:
+(100 + 25) x (100 - 10) / 100
+= 112.5
+क्षेत्रफल में वृद्धि:
+112.5 - 100
+= 12.5
+क्षेत्रफल में वृद्धि = 12.5%
+
+Explanation PA:
+ਖੇਤਰਫਲ ਸੂਚਕਾਂਕ:
+(100 + 25) x (100 - 10) / 100
+= 112.5
+ਖੇਤਰਫਲ ਵਿੱਚ ਵਾਧਾ:
+112.5 - 100
+= 12.5
+ਖੇਤਰਫਲ ਵਿੱਚ ਵਾਧਾ = 12.5%
+
+[Q54]
+EN:
+The income tax rate is reduced from 15% to 5%. As a result, a person's tax liability decreases by ₹4000. Find the total taxable income of the person.
+
+HI:
+आयकर दर 15% से घटकर 5% हो गई। इससे कर देयता ₹4000 कम हो जाती है। कुल करयोग्य आय ज्ञात कीजिए।
+
+PA:
+ਆਮਦਨ ਕਰ ਦੀ ਦਰ 15% ਤੋਂ ਘਟ ਕੇ 5% ਹੋ ਗਈ। ਇਸ ਨਾਲ ਕਰ ਦੇਣਦਾਰੀ ₹4000 ਘੱਟ ਜਾਂਦੀ ਹੈ। ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ ਪਤਾ ਕਰੋ।
+
+Options: 40000 | 4000 | 6000 | 5000
+Answer: 40000
+Difficulty: Medium
+Topology: none:taxation
+Realism: 72
+
+Explanation EN:
+Difference in tax rates:
+Tax rate difference =
+15 - 5
+= 10%
+Total taxable income:
+4000 × 100 / 10
+= 40000
+Total taxable income = 40000
+
+Explanation HI:
+कर दर का अंतर:
+15 - 5
+= 10%
+कुल करयोग्य आय:
+4000 × 100 / 10
+= 40000
+कुल करयोग्य आय = 40000
+
+Explanation PA:
+ਟੈਕਸ ਦਰ ਦਾ ਅੰਤਰ:
+15 - 5
+= 10%
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ:
+4000 × 100 / 10
+= 40000
+ਕੁੱਲ ਕਰਯੋਗ ਆਮਦਨ = 40000
+
+[Q55]
+EN:
+A salesman gets a commission of 10% on total sales up to ₹15000 and an additional bonus of 4% on sales above this amount. If his total commission is ₹2900, find his total sales.
+
+HI:
+एक विक्रेता को ₹15000 तक की बिक्री पर 10% कमीशन और इससे अधिक बिक्री पर अतिरिक्त 4% बोनस मिलता है। यदि कुल कमीशन ₹2900 है, तो कुल बिक्री ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਿਕਰੇਤਾ ਨੂੰ ₹15000 ਤੱਕ ਦੀ ਵਿਕਰੀ ਤੇ 10% ਕਮਿਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਵੱਧ ਵਿਕਰੀ ਤੇ ਵਾਧੂ 4% ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਕਮਿਸ਼ਨ ₹2900 ਹੈ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।
+
+Options: 25000 | 18000 | 29000 | 32000
+Answer: 25000
+Difficulty: Hard
+Topology: none:commission
+Realism: 75
+
+Explanation EN:
+Commission on base sales:
+Base commission =
+15000 × 10 / 100
+= 1500
+Commission above base quota:
+2900 - 1500
+= 1400
+Total commission rate on excess sales:
+10 + 4
+= 14%
+Sales above base quota:
+1400 × 100 / 14
+= 10000
+Total sales:
+15000 + 10000
+= 25000
+Total sales = 25000
+
+Explanation HI:
+आधार बिक्री पर कमीशन:
+आधार कमीशन =
+15000 × 10 / 100
+= 1500
+आधार से ऊपर कमीशन:
+2900 - 1500
+= 1400
+अतिरिक्त बिक्री पर प्रभावी कमीशन दर:
+10 + 4
+= 14%
+आधार से ऊपर अतिरिक्त बिक्री:
+1400 × 100 / 14
+= 10000
+कुल बिक्री:
+15000 + 10000
+= 25000
+कुल बिक्री = 25000
+
+Explanation PA:
+ਆਧਾਰ ਵਿਕਰੀ 'ਤੇ ਕਮਿਸ਼ਨ:
+ਆਧਾਰ ਕਮਿਸ਼ਨ =
+15000 × 10 / 100
+= 1500
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਕਮਿਸ਼ਨ:
+2900 - 1500
+= 1400
+ਵਾਧੂ ਵਿਕਰੀ ਉੱਤੇ ਪ੍ਰਭਾਵੀ ਕਮਿਸ਼ਨ ਦਰ:
+10 + 4
+= 14%
+ਆਧਾਰ ਤੋਂ ਉੱਪਰ ਵਾਧੂ ਵਿਕਰੀ:
+1400 × 100 / 14
+= 10000
+ਕੁੱਲ ਵਿਕਰੀ:
+15000 + 10000
+= 25000
+ਕੁੱਲ ਵਿਕਰੀ = 25000
+
+[Q56]
+EN:
+In a population survey, males are 40% and females are 60%. Male literacy is 70% and female literacy is 55%. Find the overall literacy percentage.
+
+HI:
+एक जनसंख्या सर्वे में पुरुष 40% और महिलाएं 60% हैं। पुरुष साक्षरता 70% और महिला साक्षरता 55% है। कुल साक्षरता प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਆਬਾਦੀ ਸਰਵੇ ਵਿੱਚ ਮਰਦ 40% ਅਤੇ ਔਰਤਾਂ 60% ਹਨ। ਮਰਦ ਸਾਖਰਤਾ 70% ਅਤੇ ਔਰਤ ਸਾਖਰਤਾ 55% ਹੈ। ਕੁੱਲ ਸਾਖਰਤਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 61% | 62.5% | 70% | 55%
+Answer: 61%
+Difficulty: Medium
+Topology: none:perc_demo_cross_tab_literacy
+Realism: 78
+
+Explanation EN:
+Male literacy contribution:
+40 x 70 / 100
+= 28
+Female literacy contribution:
+60 x 55 / 100
+= 33
+Overall literacy:
+28 + 33
+= 61
+Overall literacy = 61%
+
+Explanation HI:
+पुरुष साक्षरता योगदान:
+40 x 70 / 100
+= 28
+महिला साक्षरता योगदान:
+60 x 55 / 100
+= 33
+कुल साक्षरता:
+28 + 33
+= 61
+कुल साक्षरता = 61%
+
+Explanation PA:
+ਮਰਦ ਸਾਖਰਤਾ ਯੋਗਦਾਨ:
+40 x 70 / 100
+= 28
+ਔਰਤ ਸਾਖਰਤਾ ਯੋਗਦਾਨ:
+60 x 55 / 100
+= 33
+ਕੁੱਲ ਸਾਖਰਤਾ:
+28 + 33
+= 61
+ਕੁੱਲ ਸਾਖਰਤਾ = 61%
+
+[Q57]
+EN:
+In an exam, Paper I has 80 marks and Paper II has 120 marks. A student scores 70% in Paper I and 60% in Paper II. Find the overall percentage.
+
+HI:
+एक परीक्षा में पेपर I 80 अंकों का और पेपर II 120 अंकों का है। छात्र पेपर I में 70% और पेपर II में 60% अंक पाता है। कुल प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਪੇਪਰ I 80 ਅੰਕਾਂ ਦਾ ਅਤੇ ਪੇਪਰ II 120 ਅੰਕਾਂ ਦਾ ਹੈ। ਵਿਦਿਆਰਥੀ ਪੇਪਰ I ਵਿੱਚ 70% ਅਤੇ ਪੇਪਰ II ਵਿੱਚ 60% ਅੰਕ ਲੈਂਦਾ ਹੈ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 64% | 65% | 70% | 60%
+Answer: 64%
+Difficulty: Medium
+Topology: none:perc_exam_weighted_aggregate
+Realism: 60
+
+Explanation EN:
+Marks in Paper I:
+80 x 70 / 100
+= 56
+Marks in Paper II:
+120 x 60 / 100
+= 72
+Overall percentage:
+(56 + 72) x 100 / 200
+= 64
+Overall percentage = 64%
+
+Explanation HI:
+पेपर I के अंक:
+80 x 70 / 100
+= 56
+पेपर II के अंक:
+120 x 60 / 100
+= 72
+कुल प्रतिशत:
+(56 + 72) x 100 / 200
+= 64
+कुल प्रतिशत = 64%
+
+Explanation PA:
+ਪੇਪਰ I ਦੇ ਅੰਕ:
+80 x 70 / 100
+= 56
+ਪੇਪਰ II ਦੇ ਅੰਕ:
+120 x 60 / 100
+= 72
+ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ:
+(56 + 72) x 100 / 200
+= 64
+ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ = 64%
+
+[Q58]
+EN:
+The price of rice increases by 25%. With the same budget, a family buys 8 kg less rice. Find the original quantity bought.
+
+HI:
+चावल की कीमत 25% बढ़ जाती है। समान बजट में एक परिवार 8 kg कम चावल खरीदता है। मूल खरीदी गई मात्रा ज्ञात कीजिए।
+
+PA:
+ਚੌਲਾਂ ਦੀ ਕੀਮਤ 25% ਵਧ ਜਾਂਦੀ ਹੈ। ਉਸੇ ਬਜਟ ਵਿੱਚ ਇੱਕ ਪਰਿਵਾਰ 8 kg ਘੱਟ ਚੌਲ ਖਰੀਦਦਾ ਹੈ। ਮੂਲ ਖਰੀਦੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 40 | 30 | 50 | 20
+Answer: 40
+Difficulty: Hard
+Topology: none:perc_const_absolute_offset
+Realism: 82
+
+Explanation EN:
+Let original price per kg = x.
+New price per kg = x x 125 / 100.
+For the same expenditure:
+Old quantity = expenditure / x.
+New quantity = expenditure / (x x 125 / 100).
+Difference = expenditure/x - expenditure/(x x 125/100) = 8.
+New quantity index = 100 x 100 / 125 = 80.
+Quantity reduction = 100 - 80 = 20%.
+Original quantity = 8 x 100 / 20 = 40.
+Original quantity = 40
+
+Explanation HI:
+मान लें मूल कीमत प्रति kg = x।
+नई कीमत प्रति kg = x x 125 / 100।
+समान खर्च के लिए:
+पुरानी मात्रा = खर्च / x।
+नई मात्रा = खर्च / (x x 125 / 100)।
+अंतर = खर्च / x - खर्च / (x x 125 / 100) = 8।
+नई मात्रा सूचकांक = 100 x 100 / 125 = 80।
+मात्रा में कमी = 100 - 80 = 20%।
+मूल मात्रा = 8 x 100 / 20 = 40।
+मूल मात्रा = 40
+
+Explanation PA:
+ਮੰਨ ਲਓ ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ kg = x।
+ਨਵੀਂ ਕੀਮਤ ਪ੍ਰਤੀ kg = x x 125 / 100।
+ਉਸੇ ਖਰਚ ਲਈ:
+ਪੁਰਾਣੀ ਮਾਤਰਾ = ਖਰਚ / x।
+ਨਵੀਂ ਮਾਤਰਾ = ਖਰਚ / (x x 125 / 100)।
+ਅੰਤਰ = ਖਰਚ / x - ਖਰਚ / (x x 125 / 100) = 8।
+ਨਵੀਂ ਮਾਤਰਾ ਸੂਚਕਾਂਕ = 100 x 100 / 125 = 80।
+ਮਾਤਰਾ ਵਿੱਚ ਕਮੀ = 100 - 80 = 20%।
+ਮੂਲ ਮਾਤਰਾ = 8 x 100 / 20 = 40।
+ਮੂਲ ਮਾਤਰਾ = 40
+
+[Q59]
+EN:
+The price of rice increases by 100%. With the same budget, a family buys 30 kg less rice. Find the original quantity bought.
+
+HI:
+चावल की कीमत 100% बढ़ जाती है। समान बजट में एक परिवार 30 kg कम चावल खरीदता है। मूल खरीदी गई मात्रा ज्ञात कीजिए।
+
+PA:
+ਚੌਲਾਂ ਦੀ ਕੀਮਤ 100% ਵਧ ਜਾਂਦੀ ਹੈ। ਉਸੇ ਬਜਟ ਵਿੱਚ ਇੱਕ ਪਰਿਵਾਰ 30 kg ਘੱਟ ਚੌਲ ਖਰੀਦਦਾ ਹੈ। ਮੂਲ ਖਰੀਦੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 60 | 50 | 31 | 70
+Answer: 60
+Difficulty: Hard
+Topology: none:perc_const_absolute_offset
+Realism: 82
+
+Explanation EN:
+Let original price per kg = x.
+New price per kg = x x 200 / 100.
+For the same expenditure:
+Old quantity = expenditure / x.
+New quantity = expenditure / (x x 200 / 100).
+Difference = expenditure/x - expenditure/(x x 200/100) = 30.
+New quantity index = 100 x 100 / 200 = 50.
+Quantity reduction = 100 - 50 = 50%.
+Original quantity = 30 x 100 / 50 = 60.
+Original quantity = 60
+
+Explanation HI:
+मान लें मूल कीमत प्रति kg = x।
+नई कीमत प्रति kg = x x 200 / 100।
+समान खर्च के लिए:
+पुरानी मात्रा = खर्च / x।
+नई मात्रा = खर्च / (x x 200 / 100)।
+अंतर = खर्च / x - खर्च / (x x 200 / 100) = 30।
+नई मात्रा सूचकांक = 100 x 100 / 200 = 50।
+मात्रा में कमी = 100 - 50 = 50%।
+मूल मात्रा = 30 x 100 / 50 = 60।
+मूल मात्रा = 60
+
+Explanation PA:
+ਮੰਨ ਲਓ ਮੂਲ ਕੀਮਤ ਪ੍ਰਤੀ kg = x।
+ਨਵੀਂ ਕੀਮਤ ਪ੍ਰਤੀ kg = x x 200 / 100।
+ਉਸੇ ਖਰਚ ਲਈ:
+ਪੁਰਾਣੀ ਮਾਤਰਾ = ਖਰਚ / x।
+ਨਵੀਂ ਮਾਤਰਾ = ਖਰਚ / (x x 200 / 100)।
+ਅੰਤਰ = ਖਰਚ / x - ਖਰਚ / (x x 200 / 100) = 30।
+ਨਵੀਂ ਮਾਤਰਾ ਸੂਚਕਾਂਕ = 100 x 100 / 200 = 50।
+ਮਾਤਰਾ ਵਿੱਚ ਕਮੀ = 100 - 50 = 50%।
+ਮੂਲ ਮਾਤਰਾ = 30 x 100 / 50 = 60।
+ਮੂਲ ਮਾਤਰਾ = 60
+
+[Q60]
+EN:
+A machine depreciates by 10% in the first year and by 20% in the second year. Find the net percentage decrease in value.
+
+HI:
+एक मशीन पहले वर्ष 10% और दूसरे वर्ष 20% घटती है। मूल्य में कुल प्रतिशत कमी ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਮਸ਼ੀਨ ਪਹਿਲੇ ਸਾਲ 10% ਅਤੇ ਦੂਜੇ ਸਾਲ 20% ਘਟਦੀ ਹੈ। ਮੁੱਲ ਵਿੱਚ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਕਮੀ ਪਤਾ ਕਰੋ।
+
+Options: 28% | 30% | 10% | 20%
+Answer: 28%
+Difficulty: Medium
+Topology: none:perc_asset_variable_depreciation
+Realism: 82
+
+Explanation EN:
+New index:
+100 x 90 / 100 x 80 / 100
+= 72
+Net percentage decrease:
+100 - 72
+= 28
+Net percentage decrease = 28%
+
+Explanation HI:
+नया सूचकांक:
+100 x 90 / 100 x 80 / 100
+= 72
+कुल प्रतिशत कमी:
+100 - 72
+= 28
+कुल प्रतिशत कमी = 28%
+
+Explanation PA:
+ਨਵਾਂ ਸੂਚਕਾਂਕ:
+100 x 90 / 100 x 80 / 100
+= 72
+ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਕਮੀ:
+100 - 72
+= 28
+ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਕਮੀ = 28%
+

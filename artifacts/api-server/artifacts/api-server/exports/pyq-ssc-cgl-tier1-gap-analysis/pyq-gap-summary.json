@@ -1,0 +1,49 @@
+{
+  "sourceFolder": "C:\\Users\\gurbaj\\Downloads\\f\\ssc cgl tier 1 pyq",
+  "ocrEnabled": true,
+  "pdfCount": 1,
+  "duplicateFileGroups": [],
+  "documents": [
+    {
+      "file": "ssc-cgl-12th-sep-shift-1.pdf",
+      "extractionMode": "text-layer",
+      "quantQuestionsExtracted": 1,
+      "totalPages": 58,
+      "textChars": 5597
+    }
+  ],
+  "totalQuantQuestionsExtracted": 1,
+  "topicCounts": {
+    "trigonometry": 1
+  },
+  "familyCounts": {},
+  "percentageLikeCount": 0,
+  "profitLossLikeCount": 0,
+  "extractionIssues": [
+    {
+      "file": "ssc-cgl-12th-sep-shift-1.pdf",
+      "issue": "low_quant_question_extraction",
+      "count": 1
+    }
+  ],
+  "gapFindings": [
+    {
+      "area": "SSC Quant topic coverage",
+      "finding": "Percentage and Profit/Loss cover only part of the extracted SSC CGL Quant mix; geometry, algebra, time-work, ratio, speed-distance, SI/CI, trigonometry, and DI need their own V2 chapters."
+    },
+    {
+      "area": "Percentage DI hybrid",
+      "finding": "PYQs frequently ask percentage/comparison questions from bar graphs, pie charts, tables, imports, sales, and poverty-line data. Standalone Percentage V2 should add lightweight DI-percentage families if it is expected to cover SSC Tier 1 patterns."
+    },
+    {
+      "area": "Profit/Loss inventory and discount comparison",
+      "finding": "Extracted PYQs include partial stock allocation, bill discount differences, maximum discount comparison, faulty weighing, dozen/unit conversion, and markup-discount inverses. Profit/Loss has many of these families, but needs more high-scale distractor-safe variants."
+    },
+    {
+      "area": "OCR extraction",
+      "finding": "OCR mode was enabled; review per-file extraction counts to decide if page ranges/language settings need tuning."
+    }
+  ],
+  "samplePercentageLike": [],
+  "sampleProfitLossLike": []
+}

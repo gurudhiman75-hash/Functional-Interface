@@ -69,6 +69,7 @@ function allowedAnchorKeys(domain: SemanticAnchorDomain) {
         "school_bag",
         "shirt",
         "rice_bag",
+        "income",
       ];
     case "election":
       return ["votes", "winning_candidate", "valid_votes"];

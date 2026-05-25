@@ -140,6 +140,7 @@ function validateContradictions(
   issues: string[],
 ) {
   const v = problem.variables;
+  const numericDistractors = problem.distractors.filter((d) => Number.isFinite(d));
 
   if (problem.id === "election_margin") {
     const variant = problem.topology?.variant;
@@ -197,6 +198,16 @@ function validateContradictions(
     if ((v.priceIncreasePercent ?? 0) <= 0) {
       issues.push("Price-consumption increase must be positive.");
     }
+    if (v.quantityDifference !== undefined) {
+      if ((v.totalExpenditure ?? 0) <= 0) {
+        issues.push("Price-per-unit setup requires positive total expenditure.");
+      }
+      for (const d of numericDistractors) {
+        if (d <= 0) {
+          issues.push(`Price-per-unit distractor must be positive: ${d}.`);
+        }
+      }
+    }
   }
 
   if (problem.id === "mixture_percentage") {
@@ -214,6 +225,36 @@ function validateContradictions(
     }
     if (closeEnough(v.oldSalary ?? 0, v.newSalary ?? 0)) {
       issues.push("Salary revision must change the salary.");
+    }
+    for (const d of numericDistractors) {
+      if (Math.abs(d) > 500) {
+        issues.push(`Salary revision distractor is unrealistic: ${d}.`);
+      }
+    }
+  }
+
+  if (problem.id === "reverse_percentage") {
+    if ((v.part ?? 0) <= 0 || (v.percent ?? 0) <= 0) {
+      issues.push("Reverse percentage requires positive part and percent.");
+    }
+    if ((problem.answer ?? 0) <= (v.part ?? 0)) {
+      issues.push("Reverse percentage total must exceed the given part.");
+    }
+    for (const d of numericDistractors) {
+      if (d <= 0) {
+        issues.push(`Reverse percentage distractor must be positive: ${d}.`);
+      }
+      if (d <= (v.part ?? 0)) {
+        issues.push(`Reverse percentage distractor cannot be less than or equal to the given part: ${d}.`);
+      }
+    }
+  }
+
+  if (problem.id === "election_margin") {
+    for (const d of numericDistractors) {
+      if (d <= 0) {
+        issues.push(`Election distractor must be positive: ${d}.`);
+      }
     }
   }
 

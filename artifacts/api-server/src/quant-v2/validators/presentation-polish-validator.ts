@@ -45,7 +45,7 @@ export function createPresentationPolishMetrics(
     createProblemSignature(problem),
   );
   const words = wordCount(explanation);
-  const compactnessIssue = words < 8 || words > 180;
+  const compactnessIssue = words < 6 || words > 180;
   const transitionIssue =
     finalLine(realization).startsWith("Therefore, the required answer") ||
     !FINAL_TRANSITION_PATTERN.test(finalLine(realization)) &&

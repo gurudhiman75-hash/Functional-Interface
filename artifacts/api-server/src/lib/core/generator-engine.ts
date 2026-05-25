@@ -63,6 +63,7 @@ import {
 import {
   createCorpusSchedulerState,
   generateScheduledQuestion,
+  interleaveScheduledPreviewQuestions,
   summarizeCorpusScheduler,
   type CorpusSchedulerProfileId,
 } from "../../quant-v2/corpus-scheduler/corpus-scheduler";
@@ -117,9 +118,20 @@ import {
 } from "../quant-scenarios";
 import {
   createQuantV2PercentageQuestionCandidate,
-  isQuantV2PercentageEnabled,
   isQuantV2PercentagePattern,
 } from "../quant-v2/percentage-admin-adapter";
+import {
+  createQuantV2ProfitLossQuestionCandidate,
+  isQuantV2ProfitLossPattern,
+} from "../quant-v2/profit-loss-admin-adapter";
+import {
+  createQuantV2InterestQuestionCandidate,
+  isQuantV2InterestPattern,
+} from "../quant-v2/interest-admin-adapter";
+import {
+  assertLegacyQuantNotMigrated,
+  resolveMigratedQuantV2Domain,
+} from "../quant-v2/migrated-quant-topics";
 import {
   normalizeQuantMathText,
   normalizeQuantOptionValue,
@@ -259,6 +271,8 @@ type QuestionType =
 export type GenerationDomain =
   | "quant"
   | "quant-v2-percentage"
+  | "quant-v2-profit-loss"
+  | "quant-v2-interest"
   | "reasoning"
   | "english"
   | "punjabi"
@@ -971,14 +985,16 @@ export type QuantArchetypeContext = {
 export function inferGenerationDomain(
   pattern: Pattern,
 ): GenerationDomain {
+  const migratedQuantV2Domain =
+    resolveMigratedQuantV2Domain(
+      pattern,
+    );
+
+  if (migratedQuantV2Domain) {
+    return migratedQuantV2Domain;
+  }
+
   if (pattern.generationDomain) {
-    if (
-      pattern.generationDomain ===
-        "quant-v2-percentage" &&
-      !isQuantV2PercentageEnabled()
-    ) {
-      return "quant";
-    }
     return pattern.generationDomain;
   }
 
@@ -1019,10 +1035,21 @@ export function inferGenerationDomain(
   }
 
   if (
-    isQuantV2PercentageEnabled() &&
     isQuantV2PercentagePattern(pattern)
   ) {
     return "quant-v2-percentage";
+  }
+
+  if (
+    isQuantV2ProfitLossPattern(pattern)
+  ) {
+    return "quant-v2-profit-loss";
+  }
+
+  if (
+    isQuantV2InterestPattern(pattern)
+  ) {
+    return "quant-v2-interest";
   }
 
   const topicCluster =
@@ -1052,6 +1079,10 @@ function createFormulaQuestionCandidate(
   pattern: Pattern,
   options?: GeneratorOptions,
 ): FormulaQuestion {
+  assertLegacyQuantNotMigrated(
+    pattern,
+  );
+
   const generationStartedAt =
     Date.now();
   const examProfile =
@@ -3664,19 +3695,49 @@ function generateScheduledQuestionsWithAdapter(
     );
   }
 
+  const orderedQuestions =
+    (
+      adapter.domain ===
+        "quant-v2-percentage" ||
+      adapter.domain ===
+        "quant-v2-profit-loss" ||
+      adapter.domain ===
+        "quant-v2-interest"
+    ) && questions.length > 1
+      ? interleaveScheduledPreviewQuestions(
+          questions,
+          options.seed ??
+            options.generationContext?.seed ??
+            "admin-generator",
+          previewFamilyKey,
+        )
+      : questions;
+
   const schedulerSummary =
     summarizeCorpusScheduler(
       schedulerState,
     );
 
   return {
-    questions,
+    questions: orderedQuestions,
     schedulerSummary,
     corpusQuality:
       evaluateCorpusQuality(
         schedulerSummary,
       ),
   };
+}
+
+function previewFamilyKey(question: FormulaQuestion) {
+  const anyQuestion = question as any;
+  return String(
+    anyQuestion.debugMetadata?.quantV2?.topology?.family ??
+      anyQuestion.debugMetadata?.quantV2?.problem?.subtype ??
+      anyQuestion.debugMetadata?.selectedMotif ??
+      anyQuestion.semanticMetadata?.problem?.subtype ??
+      anyQuestion.motifs?.[0] ??
+      "unknown",
+  );
 }
 
 function getDomainAdapterRegistry() {
@@ -3688,6 +3749,8 @@ function getDomainAdapterRegistry() {
     createPunjabiQuestionCandidate,
     createKnowledgeQuestionCandidate,
     createQuantV2PercentageQuestionCandidate,
+    createQuantV2ProfitLossQuestionCandidate,
+    createQuantV2InterestQuestionCandidate,
     createDIQuestionSet,
   });
 }
@@ -3904,6 +3967,12 @@ export async function generateFromPattern(
   const cacheEligible =
     count > 0 &&
     effectiveGenerationDomain !==
+      "quant-v2-percentage" &&
+    effectiveGenerationDomain !==
+      "quant-v2-profit-loss" &&
+    effectiveGenerationDomain !==
+      "quant-v2-interest" &&
+    effectiveGenerationDomain !==
       "seating-arrangement" &&
     effectiveGenerationDomain !==
       "knowledge" &&
@@ -3953,14 +4022,18 @@ export async function generateFromPattern(
         };
 
         let result: GeneratorResult;
+        const migratedQuantV2Batch =
+          (
+            generationDomain ===
+              "quant-v2-percentage" ||
+            generationDomain ===
+              "quant-v2-profit-loss" ||
+            generationDomain ===
+              "quant-v2-interest"
+          );
         const useCorpusScheduler =
-          Boolean(
-            generationScopedOptions
-              .useScheduler,
-          ) &&
           count > 1 &&
-          generationDomain ===
-            "quant-v2-percentage";
+          migratedQuantV2Batch;
 
         if (useCorpusScheduler) {
           const scheduled =

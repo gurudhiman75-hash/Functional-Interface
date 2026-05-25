@@ -1,0 +1,250 @@
+{
+  "generatedCount": 100,
+  "topologyDistribution": {
+    "relational_chain:two_step_relation_chain": 8,
+    "none:restore_original": 5,
+    "layered_population:male_female_population_shift": 3,
+    "none:price_consumption": 12,
+    "effective_percentage:filtered_valid_vote_margin": 4,
+    "none:mixture_percentage": 6,
+    "relational_chain:single_relation": 3,
+    "none:reverse_percentage": 7,
+    "none:salary_revision": 4,
+    "hidden_total:pass_fail_gap": 4,
+    "successive_filtering:turnout_margin": 1,
+    "multi_entity_percentage_network:three_step_relation_chain": 7,
+    "direct_mapping:single_growth": 2,
+    "remaining_component:remaining_vote_margin": 3,
+    "reverse_relation:reverse_relation_inference": 5,
+    "successive_filtering:remaining_marks_required": 6,
+    "percentage_ratio_hybrid:ratio_percentage_bridge": 5,
+    "layered_population:migration_adjusted_population": 2,
+    "direct_mapping:direct_margin": 3,
+    "filtered_base:invalid_vote_margin": 2,
+    "base_shift:growth_then_decay": 3,
+    "base_shift:successive_mark_adjustment": 1,
+    "direct_mapping:simple_shortfall": 2,
+    "multi_entity_distribution:multi_candidate_margin": 1,
+    "inverse_percentage_mapping:hidden_base_relation_chain": 1
+  },
+  "subtypeDistribution": {
+    "relational_percentage": 29,
+    "restore_original": 5,
+    "population_growth": 10,
+    "price_consumption": 12,
+    "election_margin": 14,
+    "mixture_percentage": 6,
+    "reverse_percentage": 7,
+    "salary_revision": 4,
+    "pass_fail": 13
+  },
+  "difficultyDistribution": {
+    "Medium": 34,
+    "Hard": 36,
+    "Easy": 30
+  },
+  "compactnessDistribution": {
+    "compact": 100
+  },
+  "domainDistribution": {
+    "comparison": 37,
+    "base_change": 12,
+    "population": 10,
+    "expenditure": 12,
+    "election": 14,
+    "mixture": 6,
+    "finance": 4,
+    "ratio_mapping": 5
+  },
+  "objectFrequency": {
+    "school bag": 1,
+    "mobile phone": 2,
+    "refrigerator": 1,
+    "wheat bag": 1
+  },
+  "realismScores": {
+    "min": 60,
+    "max": 98,
+    "average": 78.82
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [
+    "Opening repeated 8 times: a's income is 25% more than b's",
+    "Opening repeated 9 times: a's income is 40% more than b's"
+  ],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 8.16,
+    "hindiAverageLines": 7.98,
+    "punjabiAverageLines": 7.98
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 2.3,
+  "exportWarnings": [
+    "Opening repeated 8 times: a's income is 25% more than b's",
+    "Opening repeated 9 times: a's income is 40% more than b's"
+  ],
+  "scheduler": {
+    "profileId": "balanced_mock",
+    "targetCount": 100,
+    "acceptedCount": 100,
+    "topologyDistribution": {
+      "relational_chain:two_step_relation_chain": 8,
+      "simple:restore_original": 5,
+      "layered_population:male_female_population_shift": 3,
+      "simple:price_consumption": 12,
+      "effective_percentage:filtered_valid_vote_margin": 4,
+      "simple:mixture_percentage": 6,
+      "relational_chain:single_relation": 3,
+      "simple:reverse_percentage": 7,
+      "simple:salary_revision": 4,
+      "hidden_total:pass_fail_gap": 4,
+      "successive_filtering:turnout_margin": 1,
+      "multi_entity_percentage_network:three_step_relation_chain": 7,
+      "direct_mapping:single_growth": 2,
+      "remaining_component:remaining_vote_margin": 3,
+      "reverse_relation:reverse_relation_inference": 5,
+      "successive_filtering:remaining_marks_required": 6,
+      "percentage_ratio_hybrid:ratio_percentage_bridge": 5,
+      "layered_population:migration_adjusted_population": 2,
+      "direct_mapping:direct_margin": 3,
+      "filtered_base:invalid_vote_margin": 2,
+      "base_shift:growth_then_decay": 3,
+      "base_shift:successive_mark_adjustment": 1,
+      "direct_mapping:simple_shortfall": 2,
+      "multi_entity_distribution:multi_candidate_margin": 1,
+      "inverse_percentage_mapping:hidden_base_relation_chain": 1
+    },
+    "topologyGroupDistribution": {
+      "relational": 18,
+      "reverse_logic": 22,
+      "filtered": 28,
+      "hybrid": 25,
+      "simple_template": 6,
+      "multi_step": 1
+    },
+    "examinerIntentDistribution": {
+      "reverse_relation": 29,
+      "hidden_total": 12,
+      "wrong_base": 21,
+      "consumption_inverse": 12,
+      "valid_vs_total": 7,
+      "component_balance": 6,
+      "denominator_confusion": 7,
+      "hidden_base": 6
+    },
+    "semanticAnchorDistribution": {
+      "relational:income": 29,
+      "general:general_quantity": 12,
+      "population:population": 10,
+      "expenditure:fuel": 12,
+      "election:votes": 14,
+      "mixture:milk_water_mixture": 6,
+      "salary:salary": 4,
+      "marks:marks": 13
+    },
+    "familyDistribution": {
+      "two_step_relation_chain": 14,
+      "restore_original": 5,
+      "population_growth": 10,
+      "price_consumption": 12,
+      "election_margin": 14,
+      "mixture_percentage": 6,
+      "single_relation": 8,
+      "reverse_percentage": 7,
+      "salary_revision": 4,
+      "pass_fail": 13,
+      "multi_step_relation_chain": 7
+    },
+    "distractorTrapDistribution": {
+      "inverse_relation_error": 58,
+      "near_miss": 129,
+      "wrong_base": 34,
+      "reverse_percentage": 19,
+      "multiplicative_confusion": 17,
+      "additive_error": 15,
+      "filtering_mistake": 21,
+      "valid_vs_total_confusion": 7
+    },
+    "difficultyDistribution": {
+      "medium": 34,
+      "hard": 36,
+      "easy": 30
+    },
+    "duplicateRisk": {
+      "repeatedFingerprintCount": 0,
+      "repeatedFingerprintShare": 0,
+      "uniqueFingerprintCount": 100,
+      "repeatedTopologyVectorCount": 6,
+      "repeatedOperationCount": 75
+    },
+    "pacingReport": {
+      "hardStreakLimit": 3,
+      "events": [
+        "Hard-streak softened near slot 87."
+      ]
+    },
+    "rejectionReasons": {
+      "topology clustering": 26,
+      "examiner intent clustering": 535,
+      "semantic anchor clustering": 633,
+      "distractor trap clustering: valid_vs_total_confusion": 3,
+      "distractor trap clustering: near_miss": 924,
+      "distractor trap clustering: multiplicative_confusion": 8,
+      "distractor trap clustering: filtering_mistake": 10,
+      "distractor trap clustering: wrong_base": 277,
+      "answer-pattern repetition": 647,
+      "examiner intent repeated too close": 444,
+      "semantic anchor repeated too close": 517,
+      "distractor trap clustering: inverse_relation_error": 668,
+      "distractor trap clustering: reverse_percentage": 18,
+      "distractor trap clustering: additive_error": 11,
+      "operation-chain repetition": 214,
+      "stem opening repetition": 490,
+      "topology repeated too close": 182,
+      "simple-template saturation": 12,
+      "hard difficulty pacing streak": 12,
+      "fingerprint collision": 169,
+      "topology plus percentage-vector collision": 266
+    },
+    "repeatedOpeningWarnings": [
+      "Stem opening repeated 9 times: as income is 40 more than",
+      "Stem opening repeated 8 times: as income is 25 more than"
+    ],
+    "balanceWarnings": [
+      "stem opening repetition needs review"
+    ]
+  },
+  "corpusQuality": {
+    "score": 84,
+    "tier": "A",
+    "dimensions": {
+      "topologyBalance": 87,
+      "semanticDiversity": 93,
+      "trapDiversity": 81,
+      "duplicateResistance": 100,
+      "difficultyPacing": 74,
+      "examinerIntentCoverage": 92
+    },
+    "strengths": [
+      "topology mix is well distributed",
+      "semantic anchors are varied",
+      "distractor traps cover multiple mistake modes",
+      "fingerprint collision risk is controlled"
+    ],
+    "risks": [
+      "difficulty pacing needs smoother sequencing",
+      "stem opening repetition needs review"
+    ]
+  }
+}

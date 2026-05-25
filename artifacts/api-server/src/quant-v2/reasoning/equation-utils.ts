@@ -1,8 +1,8 @@
 import { roundClean } from "../utils/math-utils";
 
-const UNSAFE_EQUATION_PATTERN = /[\\$<>\[\]`]/u;
+const UNSAFE_EQUATION_PATTERN = /[<>\[\]`]/u;
 const ALLOWED_EQUATION_PATTERN =
-  /^[A-Za-z0-9_{}\s+\-*/^().,;=%:|]+$/u;
+  /^[A-Za-z0-9_{}\s+\-*/^().,;=%:|\$\\]+$/u;
 
 function stableNumberText(value: number) {
   const rounded = roundClean(value, 4);

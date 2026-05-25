@@ -366,10 +366,13 @@ test("percentage blocker labels and semantic families stay aligned", () => {
     (sample) => sample.problem.subtype === "restore_original",
   );
   const restoreLocalized = localizedPair(restore);
-  assert.match(restore.editorial.stem, /^Marked price was reduced/u);
+  assert.match(
+    restore.editorial.stem,
+    /^(?:Due to an off-season|During a store clearance|In a temporary discount|After a seasonal markdown)/u,
+  );
   assert.equal(/\bsalary\b/iu.test(restore.editorial.stem), false, restore.editorial.stem);
-  assert.match(restoreLocalized.hi.stem, /वस्तु के मूल्य/u);
-  assert.match(restoreLocalized.pa.stem, /ਵਸਤੂ ਦੀ ਕੀਮਤ/u);
+  assert.match(restoreLocalized.hi.stem, /के मूल्य/u);
+  assert.match(restoreLocalized.pa.stem, /ਦੀ ਕੀਮਤ/u);
 });
 
 test("reverse percentage English explanations use contextual labels", () => {
@@ -406,6 +409,9 @@ test("multilingual reference export shape is stable", () => {
     assert.equal(typeof sample.punjabi.stem, "string");
     assert.equal(typeof sample.hindi.explanation, "string");
     assert.equal(typeof sample.punjabi.explanation, "string");
+    if (!DEVANAGARI_RE.test(sample.hindi.stem)) {
+      console.log("FAILING SAMPLE:", sample.id, sample.subtype, "STEM:", sample.hindi.stem);
+    }
     assert.ok(DEVANAGARI_RE.test(sample.hindi.stem));
     assert.ok(GURMUKHI_RE.test(sample.punjabi.stem));
     assert.ok(DEVANAGARI_RE.test(sample.hindi.explanation));

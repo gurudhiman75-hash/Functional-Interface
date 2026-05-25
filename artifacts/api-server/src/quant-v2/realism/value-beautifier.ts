@@ -37,7 +37,7 @@ function distinctFromAll(
 ) {
   return (
     Number.isFinite(candidate) &&
-    candidate >= 0 &&
+    candidate > 0 &&
     !closeEnough(candidate, answer) &&
     values.every((value) => !closeEnough(value, candidate))
   );

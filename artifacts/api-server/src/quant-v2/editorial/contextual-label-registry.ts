@@ -60,5 +60,36 @@ export function contextualOutputLabel(
     }
   }
 
+  if (problem.subtype === "commission") {
+    if (output === "baseCommission") return "Base commission";
+    if (output === "excessCommission") return "Commission above base quota";
+    if (output === "totalBonusRate") return "Total commission rate on excess sales";
+    if (output === "excessSales") return "Sales above base quota";
+    if (output === "totalCommission") return "Total commission";
+    if (output === "totalSales") return "Total sales";
+  }
+
+  if (problem.subtype === "taxation") {
+    if (output === "taxRateDifference") return "Tax rate difference";
+    if (output === "taxDifference") return "Tax decrease";
+    if (output === "income") return "Total taxable income";
+  }
+
+  if (problem.subtype === "venn_diagram") {
+    if (output === "unionPct") return "Percentage in at least one subject";
+    if (output === "nonePct") return "Percentage passing both subjects / failing neither";
+    if (output === "total") return "Total students";
+  }
+
+  if (problem.subtype === "price_consumption") {
+    if (output === "priceRatio") return "Price increase multiplier";
+    if (output === "priceGap") return "Expenditure per unit difference";
+    if (output === "newPriceIndex") return "New price index";
+    if (output === "newExpenditureIndex") return "New expenditure index";
+    if (output === "consumptionGap") return "Consumption difference";
+    if (output === "consumptionIndex") return "New consumption index";
+    if (output === "consumptionReduction") return "Reduction in consumption";
+  }
+
   return undefined;
 }

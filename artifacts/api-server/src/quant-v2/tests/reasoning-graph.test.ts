@@ -21,7 +21,7 @@ const SHORTCUT_SUBTYPES = new Set([
 ]);
 
 const SEMANTIC_KEY_PATTERN = /^[a-z][a-z0-9_]*$/u;
-const RENDERING_DELIMITER_PATTERN = /[\\$<>\[\]`]/u;
+const RENDERING_DELIMITER_PATTERN = /[<>\[\]`]/u;
 const PROSE_MARKER_PATTERN =
   /\b(the|therefore|hence|because|find|calculate|student|question|answer is|correct answer)\b/iu;
 
