@@ -120,6 +120,22 @@ const LOCALIZED_FALLBACKS: Record<Exclude<LanguageCode, "en">, Array<[RegExp, st
     [/^Water remains unchanged\.$/u, "पानी की मात्रा समान रहेगी।"],
     [/^Water quantity\s*:?$/u, "पानी की मात्रा:"],
     [/^Water quantity\s*=$/u, "पानी की मात्रा ="],
+    [/^Only Mathematics region\s*:?$/u, "केवल गणित क्षेत्र:"],
+    [/^Only Mathematics\s*:?$/u, "केवल गणित:"],
+    [/^Only Mathematics\s*=$/u, "केवल गणित ="],
+    [/^Only English region\s*:?$/u, "केवल अंग्रेज़ी क्षेत्र:"],
+    [/^Only English\s*:?$/u, "केवल अंग्रेज़ी:"],
+    [/^Only English\s*=$/u, "केवल अंग्रेज़ी ="],
+    [/^Marks in Paper I\s*:?$/u, "पेपर I में अंक:"],
+    [/^Marks in Paper I\s*=$/u, "पेपर I में अंक ="],
+    [/^Marks in Paper II\s*:?$/u, "पेपर II में अंक:"],
+    [/^Marks in Paper II\s*=$/u, "पेपर II में अंक ="],
+    [/^Total students\s*:?$/u, "कुल छात्र:"],
+    [/^Total students\s*=$/u, "कुल छात्र ="],
+    [/^Percentage for at least one category\s*:?$/u, "कम से कम एक विषय में प्रतिशत:"],
+    [/^Percentage in at least one subject\s*=$/u, "कम से कम एक विषय में प्रतिशत ="],
+    [/^Percentage passing both subjects \/ failing neither\s*:?$/u, "दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत:"],
+    [/^Percentage passing both subjects \/ failing neither\s*=$/u, "दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत ="],
     [/^Now compute the total:$/u, "प्रतिशत संबंध:"],
     [/^Reverse percentage setup:$/u, "प्रतिशत संबंध:"],
     [/^100% total setup:$/u, "100% संबंध:"],
@@ -162,6 +178,22 @@ const LOCALIZED_FALLBACKS: Record<Exclude<LanguageCode, "en">, Array<[RegExp, st
     [/^Water remains unchanged\.$/u, "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਇੱਕੋ ਰਹੇਗੀ।"],
     [/^Water quantity\s*:?$/u, "ਪਾਣੀ ਦੀ ਮਾਤਰਾ:"],
     [/^Water quantity\s*=$/u, "ਪਾਣੀ ਦੀ ਮਾਤਰਾ ="],
+    [/^Only Mathematics region\s*:?$/u, "ਕੇਵਲ ਗਣਿਤ ਖੇਤਰ:"],
+    [/^Only Mathematics\s*:?$/u, "ਕੇਵਲ ਗਣਿਤ:"],
+    [/^Only Mathematics\s*=$/u, "ਕੇਵਲ ਗਣਿਤ ="],
+    [/^Only English region\s*:?$/u, "ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ ਖੇਤਰ:"],
+    [/^Only English\s*:?$/u, "ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ:"],
+    [/^Only English\s*=$/u, "ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ ="],
+    [/^Marks in Paper I\s*:?$/u, "ਪੇਪਰ I ਵਿੱਚ ਅੰਕ:"],
+    [/^Marks in Paper I\s*=$/u, "ਪੇਪਰ I ਵਿੱਚ ਅੰਕ ="],
+    [/^Marks in Paper II\s*:?$/u, "ਪੇਪਰ II ਵਿੱਚ ਅੰਕ:"],
+    [/^Marks in Paper II\s*=$/u, "ਪੇਪਰ II ਵਿੱਚ ਅੰਕ ="],
+    [/^Total students\s*:?$/u, "ਕੁੱਲ ਵਿਦਿਆਰਥੀ:"],
+    [/^Total students\s*=$/u, "ਕੁੱਲ ਵਿਦਿਆਰਥੀ ="],
+    [/^Percentage for at least one category\s*:?$/u, "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ:"],
+    [/^Percentage in at least one subject\s*=$/u, "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ="],
+    [/^Percentage passing both subjects \/ failing neither\s*:?$/u, "ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ:"],
+    [/^Percentage passing both subjects \/ failing neither\s*=$/u, "ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ ="],
     [/^Now compute the total:$/u, "ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ:"],
     [/^Reverse percentage setup:$/u, "ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ:"],
     [/^100% total setup:$/u, "100% ਸੰਬੰਧ:"],
@@ -402,6 +434,42 @@ function localizedProblemSpecificLabel(input: {
     }
   }
 
+  if (/^Only Mathematics(?: region)?$/iu.test(sourceLabel)) {
+    if (input.language === "hi") return `केवल गणित${suffix}`;
+    if (input.language === "pa") return `ਕੇਵਲ ਗਣਿਤ${suffix}`;
+    return `Only Mathematics${suffix}`;
+  }
+
+  if (/^Only English(?: region)?$/iu.test(sourceLabel)) {
+    if (input.language === "hi") return `केवल अंग्रेज़ी${suffix}`;
+    if (input.language === "pa") return `ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ${suffix}`;
+    return `Only English${suffix}`;
+  }
+
+  if (/^Total students$/iu.test(sourceLabel)) {
+    if (input.language === "hi") return `कुल छात्र${suffix}`;
+    if (input.language === "pa") return `ਕੁੱਲ ਵਿਦਿਆਰਥੀ${suffix}`;
+    return `Total students${suffix}`;
+  }
+
+  if (/^Percentage for at least one category$/iu.test(sourceLabel)) {
+    if (input.language === "hi") return `कम से कम एक विषय में प्रतिशत${suffix}`;
+    if (input.language === "pa") return `ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ${suffix}`;
+    return `Percentage for at least one category${suffix}`;
+  }
+
+  if (/^Percentage in at least one subject$/iu.test(sourceLabel)) {
+    if (input.language === "hi") return `कम से कम एक विषय में प्रतिशत${suffix}`;
+    if (input.language === "pa") return `ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ${suffix}`;
+    return `Percentage in at least one subject${suffix}`;
+  }
+
+  if (/^Percentage passing both subjects \/ failing neither$/iu.test(sourceLabel)) {
+    if (input.language === "hi") return `दोनों विषयों में पास / किसी में फेल नहीं प्रतिशत${suffix}`;
+    if (input.language === "pa") return `ਦੋਵਾਂ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਪਾਸ / ਕਿਸੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ ਪ੍ਰਤੀਸ਼ਤ${suffix}`;
+    return `Percentage passing both subjects / failing neither${suffix}`;
+  }
+
   if (
     input.problem.subtype === "election_margin" &&
     /^Winner'?s votes(?: are)?$/iu.test(sourceLabel)
@@ -534,6 +602,66 @@ function renderPriceConsumptionQuantityLocalized(input: {
   };
 }
 
+function renderVennLocalizedRealization(input: {
+  language: LanguageCode;
+  problem: CanonicalPercentageProblem;
+  stem: string;
+}): LocalizedRealization | undefined {
+  if (input.problem.subtype !== "venn_diagram" || input.language === "en") {
+    return undefined;
+  }
+
+  const v = input.problem.variables;
+  const union = (v.subjectA ?? 0) + (v.subjectB ?? 0) - (v.bothPct ?? 0);
+  const onlyA = (v.subjectA ?? 0) - (v.bothPct ?? 0);
+  const onlyB = (v.subjectB ?? 0) - (v.bothPct ?? 0);
+  const neither = 100 - union;
+  const lines = input.language === "hi"
+    ? [
+        "केवल गणित में असफल:",
+        `केवल गणित = ${n(v.subjectA)} - ${n(v.bothPct)} = ${n(onlyA)}%`,
+        "केवल अंग्रेज़ी में असफल:",
+        `केवल अंग्रेज़ी = ${n(v.subjectB)} - ${n(v.bothPct)} = ${n(onlyB)}%`,
+        "कम से कम एक विषय में असफल:",
+        `यूनियन = ${n(v.subjectA)} + ${n(v.subjectB)} - ${n(v.bothPct)} = ${n(union)}%`,
+        "किसी भी विषय में असफल नहीं / दोनों में पास:",
+        `कोई नहीं = 100 - ${n(union)} = ${n(neither)}%`,
+        "कुल विद्यार्थी:",
+        `कुल विद्यार्थी = ${n(v.neitherValue)} x 100 / ${n(neither)} = ${n(input.problem.answer)}`,
+      ]
+    : [
+        "ਕੇਵਲ ਗਣਿਤ ਵਿੱਚ ਫੇਲ੍ਹ:",
+        `ਕੇਵਲ ਗਣਿਤ = ${n(v.subjectA)} - ${n(v.bothPct)} = ${n(onlyA)}%`,
+        "ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਫੇਲ੍ਹ:",
+        `ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ = ${n(v.subjectB)} - ${n(v.bothPct)} = ${n(onlyB)}%`,
+        "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਸ਼ੇ ਵਿੱਚ ਫੇਲ੍ਹ:",
+        `ਯੂਨੀਅਨ = ${n(v.subjectA)} + ${n(v.subjectB)} - ${n(v.bothPct)} = ${n(union)}%`,
+        "ਕਿਸੇ ਵੀ ਵਿਸ਼ੇ ਵਿੱਚ ਫੇਲ੍ਹ ਨਹੀਂ / ਦੋਵਾਂ ਵਿੱਚ ਪਾਸ:",
+        `ਕੋਈ ਨਹੀਂ = 100 - ${n(union)} = ${n(neither)}%`,
+        "ਕੁੱਲ ਵਿਦਿਆਰਥੀ:",
+        `ਕੁੱਲ ਵਿਦਿਆਰਥੀ = ${n(v.neitherValue)} x 100 / ${n(neither)} = ${n(input.problem.answer)}`,
+      ];
+
+  return {
+    language: input.language,
+    stem: input.stem,
+    explanation: lines.join("\n"),
+    lines: lines.map((line) => ({
+      intentKey: "venn.diagram",
+      sourceText: line,
+      renderedText: line,
+      kind: "narration",
+      fallbackUsed: false,
+    })),
+    coverage: {
+      totalIntentLines: lines.length,
+      localizedIntentLines: lines.length,
+      fallbackCount: 0,
+      missingIntents: [],
+    },
+  };
+}
+
 export function renderLocalizedRealization(input: {
   language: LanguageCode;
   problem: CanonicalPercentageProblem;
@@ -558,6 +686,14 @@ export function renderLocalizedRealization(input: {
   });
   if (priceQuantity) {
     return priceQuantity;
+  }
+  const venn = renderVennLocalizedRealization({
+    language: input.language,
+    problem: input.problem,
+    stem,
+  });
+  if (venn) {
+    return venn;
   }
 
   if (input.problem.subtype === "relational_percentage") {

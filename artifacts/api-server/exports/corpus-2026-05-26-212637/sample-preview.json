@@ -1,0 +1,1502 @@
+[
+  {
+    "index": 0,
+    "question": "Parallel rates are 12, 15, 18 units per hour for times 6 hours. Find total output.",
+    "options": [
+      "270 units",
+      "266 units",
+      "273 units",
+      "405 units"
+    ],
+    "answer": "270 units",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_parallel_machine_batches"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_parallel_machine_batches",
+      "category": "time_work",
+      "subtype": "tw_parallel_machine_batches",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_parallel_machine_batches"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Parallel rates are 12, 15, 18 units per hour for times 6 hours. Find total output.",
+        "options": [
+          "270 units",
+          "266 units",
+          "273 units",
+          "405 units"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nO=\\sum r_it_i\n\\]\nSubstitute the given values.\n\\[\nO=12\\times 6+15\\times 6+18\\times 6\n\\]\nSimplify to get the required value.\n\\[\nO=270\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=270\n\\]\nShortcut / Exam Method:\n\\[\nO=total\\ rate\\times time\n\\]\nAnswer: 270 units"
+      },
+      "hi": {
+        "question": "समानांतर दरें 12, 15, 18 प्रति घंटा और सक्रिय समय 6 घंटे हैं। कुल उत्पादन ज्ञात करें।",
+        "options": [
+          "270 इकाइयाँ",
+          "266 इकाइयाँ",
+          "273 इकाइयाँ",
+          "405 इकाइयाँ"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nO=\\sum r_it_i\n\\]\nदिए गए मान रखें।\n\\[\nO=12\\times 6+15\\times 6+18\\times 6\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nO=270\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=270\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nO=total\\ rate\\times time\n\\]\nउत्तर: 270 इकाइयाँ"
+      },
+      "pa": {
+        "question": "ਸਮਾਂਤਰ ਦਰਾਂ 12, 15, 18 ਪ੍ਰਤੀ ਘੰਟਾ ਅਤੇ ਸਰਗਰਮ ਸਮਾਂ 6 ਘੰਟੇ ਹਨ। ਕੁੱਲ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "270 ਇਕਾਈਆਂ",
+          "266 ਇਕਾਈਆਂ",
+          "273 ਇਕਾਈਆਂ",
+          "405 ਇਕਾਈਆਂ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nO=\\sum r_it_i\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nO=12\\times 6+15\\times 6+18\\times 6\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nO=270\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=270\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nO=total\\ rate\\times time\n\\]\nਉੱਤਰ: 270 ਇਕਾਈਆਂ"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 1,
+    "question": "A mixed team has worker counts 6, 8 and relative efficiencies 4, 3. Find the time for 300 units of work.",
+    "options": [
+      "4.25 days",
+      "6.25 days",
+      "9.38 days",
+      "2.25 days"
+    ],
+    "answer": "6.25 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_group_conversion_and_or"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_group_conversion_and_or",
+      "category": "time_work",
+      "subtype": "tw_group_conversion_and_or",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_group_conversion_and_or"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A mixed team has worker counts 6, 8 and relative efficiencies 4, 3. Find the time for 300 units of work.",
+        "options": [
+          "4.25 days",
+          "6.25 days",
+          "9.38 days",
+          "2.25 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT=\\frac{W}{\\sum ne}\n\\]\nSubstitute the given values.\n\\[\nT=\\frac{300}{6\\times 4+8\\times 3}\n\\]\nSimplify to get the required value.\n\\[\nT=6.25\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=6.25\n\\]\nShortcut / Exam Method:\n\\[\nT=W/R\n\\]\nAnswer: 6.25 days"
+      },
+      "hi": {
+        "question": "मजदूरों को समान दक्षता इकाइयों में बदलें। संख्याएँ 6, 8 और दक्षताएँ 4, 3 हैं। 300 इकाई काम का समय ज्ञात करें।",
+        "options": [
+          "4.25 दिन",
+          "6.25 दिन",
+          "9.38 दिन",
+          "2.25 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT=\\frac{W}{\\sum ne}\n\\]\nदिए गए मान रखें।\n\\[\nT=\\frac{300}{6\\times 4+8\\times 3}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=6.25\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=6.25\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=W/R\n\\]\nउत्तर: 6.25 दिन"
+      },
+      "pa": {
+        "question": "ਮਜ਼ਦੂਰਾਂ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਇਕਾਈ ਵਿੱਚ ਬਦਲੋ। ਗਿਣਤੀਆਂ 6, 8 ਅਤੇ ਕੁਸ਼ਲਤਾਵਾਂ 4, 3 ਹਨ। 300 ਇਕਾਈ ਕੰਮ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "4.25 ਦਿਨ",
+          "6.25 ਦਿਨ",
+          "9.38 ਦਿਨ",
+          "2.25 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT=\\frac{W}{\\sum ne}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nT=\\frac{300}{6\\times 4+8\\times 3}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=6.25\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=6.25\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=W/R\n\\]\nਉੱਤਰ: 6.25 ਦਿਨ"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 2,
+    "question": "In a phased job, the first phase lasts 5 days. Individual times of A, B and C are 8, 14 and 14 days. After that, B and C join. Find total time.",
+    "options": [
+      "7.4 days",
+      "6.4 days",
+      "10.4 days",
+      "5.12 days"
+    ],
+    "answer": "6.4 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_multi_phase_join_leave"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_multi_phase_join_leave",
+      "category": "time_work",
+      "subtype": "tw_multi_phase_join_leave",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_multi_phase_join_leave"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a phased job, the first phase lasts 5 days. Individual times of A, B and C are 8, 14 and 14 days. After that, B and C join. Find total time.",
+        "options": [
+          "7.4 days",
+          "6.4 days",
+          "10.4 days",
+          "5.12 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\n\\sum r_it_i=W\n\\]\nSubstitute the given values.\n\\[\nW_1=7\\times 5\n\\]\nSimplify to get the required value.\n\\[\nT=5+\\frac{21}{15}=6.4\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=6.4\n\\]\nShortcut / Exam Method:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nAnswer: 6.4 days"
+      },
+      "hi": {
+        "question": "A, B और C अकेले 8, 14 और 14 दिन लेते हैं। पहले 5 दिन प्रारंभिक चरण चलता है, फिर B and C join। कुल समय ज्ञात करें।",
+        "options": [
+          "7.4 दिन",
+          "6.4 दिन",
+          "10.4 दिन",
+          "5.12 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\n\\sum r_it_i=W\n\\]\nदिए गए मान रखें।\n\\[\nW_1=7\\times 5\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=5+\\frac{21}{15}=6.4\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=6.4\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nउत्तर: 6.4 दिन"
+      },
+      "pa": {
+        "question": "A, B ਅਤੇ C ਇਕੱਲੇ 8, 14 ਅਤੇ 14 ਦਿਨ ਲੈਂਦੇ ਹਨ। ਪਹਿਲੇ 5 ਦਿਨ ਪਹਿਲਾ ਚਰਨ ਚੱਲਦਾ ਹੈ, ਫਿਰ B and C join। ਕੁੱਲ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "7.4 ਦਿਨ",
+          "6.4 ਦਿਨ",
+          "10.4 ਦਿਨ",
+          "5.12 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\n\\sum r_it_i=W\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nW_1=7\\times 5\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=5+\\frac{21}{15}=6.4\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=6.4\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nਉੱਤਰ: 6.4 ਦਿਨ"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 3,
+    "question": "Machines or workers operate with rates 12, 15, 18 and active times 6. Find output.",
+    "options": [
+      "270 pages",
+      "269 pages",
+      "202.5 pages",
+      "275 pages"
+    ],
+    "answer": "270 pages",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_typist_pages_per_hour"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_typist_pages_per_hour",
+      "category": "time_work",
+      "subtype": "tw_typist_pages_per_hour",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_typist_pages_per_hour"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Machines or workers operate with rates 12, 15, 18 and active times 6. Find output.",
+        "options": [
+          "270 pages",
+          "269 pages",
+          "202.5 pages",
+          "275 pages"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nO=\\sum r_it_i\n\\]\nSubstitute the given values.\n\\[\nO=12\\times 6+15\\times 6+18\\times 6\n\\]\nSimplify to get the required value.\n\\[\nO=270\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=270\n\\]\nShortcut / Exam Method:\n\\[\nO=total\\ rate\\times time\n\\]\nAnswer: 270 pages"
+      },
+      "hi": {
+        "question": "समानांतर दरें 12, 15, 18 प्रति घंटा और सक्रिय समय 6 घंटे हैं। कुल उत्पादन ज्ञात करें।",
+        "options": [
+          "270 पृष्ठ",
+          "269 पृष्ठ",
+          "202.5 पृष्ठ",
+          "275 पृष्ठ"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nO=\\sum r_it_i\n\\]\nदिए गए मान रखें।\n\\[\nO=12\\times 6+15\\times 6+18\\times 6\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nO=270\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=270\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nO=total\\ rate\\times time\n\\]\nउत्तर: 270 पृष्ठ"
+      },
+      "pa": {
+        "question": "ਸਮਾਂਤਰ ਦਰਾਂ 12, 15, 18 ਪ੍ਰਤੀ ਘੰਟਾ ਅਤੇ ਸਰਗਰਮ ਸਮਾਂ 6 ਘੰਟੇ ਹਨ। ਕੁੱਲ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "270 ਸਫ਼ੇ",
+          "269 ਸਫ਼ੇ",
+          "202.5 ਸਫ਼ੇ",
+          "275 ਸਫ਼ੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nO=\\sum r_it_i\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nO=12\\times 6+15\\times 6+18\\times 6\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nO=270\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=270\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nO=total\\ rate\\times time\n\\]\nਉੱਤਰ: 270 ਸਫ਼ੇ"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 4,
+    "question": "The total wage is ₹9000. Actual work contributions are 24:36:40. Find the share.",
+    "options": [
+      "₹2160",
+      "₹2157",
+      "₹2156",
+      "₹2592"
+    ],
+    "answer": "₹2160",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_wage_distribution_efficiency"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_wage_distribution_efficiency",
+      "category": "time_work",
+      "subtype": "tw_wage_distribution_efficiency",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_wage_distribution_efficiency"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "The total wage is ₹9000. Actual work contributions are 24:36:40. Find the share.",
+        "options": [
+          "₹2160",
+          "₹2157",
+          "₹2156",
+          "₹2592"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nShare=\\frac{c_i}{\\sum c}\\times W\n\\]\nSubstitute the given values.\n\\[\nShare=\\frac{24}{100}\\times 9000\n\\]\nSimplify to get the required value.\n\\[\nShare=2160\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=2160\n\\]\nShortcut / Exam Method:\n\\[\nShare=contribution\\ ratio\\times wage\n\\]\nAnswer: ₹2160"
+      },
+      "hi": {
+        "question": "₹9000 की मजदूरी योगदान 24:36:40 के अनुपात में बाँटी जाती है। आवश्यक हिस्सा ज्ञात करें।",
+        "options": [
+          "₹2160",
+          "₹2157",
+          "₹2156",
+          "₹2592"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nShare=\\frac{c_i}{\\sum c}\\times W\n\\]\nदिए गए मान रखें।\n\\[\nShare=\\frac{24}{100}\\times 9000\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nShare=2160\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=2160\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nShare=contribution\\ ratio\\times wage\n\\]\nउत्तर: ₹2160"
+      },
+      "pa": {
+        "question": "₹9000 ਦੀ ਮਜ਼ਦੂਰੀ ਯੋਗਦਾਨ 24:36:40 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਦੀ ਹੈ। ਲੋੜੀਂਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹2160",
+          "₹2157",
+          "₹2156",
+          "₹2592"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nShare=\\frac{c_i}{\\sum c}\\times W\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nShare=\\frac{24}{100}\\times 9000\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nShare=2160\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=2160\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nShare=contribution\\ ratio\\times wage\n\\]\nਉੱਤਰ: ₹2160"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 5,
+    "question": "A tank has filling pipe time 12, 18 hours and leak/emptying time 36 hours. Find the required time.",
+    "options": [
+      "9 hours",
+      "6 hours",
+      "5 hours",
+      "10.8 hours"
+    ],
+    "answer": "9 hours",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "pc_two_fillers_one_empty"
+    },
+    "semanticAnchors": {
+      "scenario": "pc_two_fillers_one_empty",
+      "category": "time_work",
+      "subtype": "pc_two_fillers_one_empty",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "pc_two_fillers_one_empty"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A tank has filling pipe time 12, 18 hours and leak/emptying time 36 hours. Find the required time.",
+        "options": [
+          "9 hours",
+          "6 hours",
+          "5 hours",
+          "10.8 hours"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT=\\frac{work\\ left}{r_{fill}-r_{empty}}\n\\]\nSubstitute the given values.\n\\[\nr=1/12+1/18-1/36\n\\]\nSimplify to get the required value.\n\\[\nT=9\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=9\n\\]\nShortcut / Exam Method:\n\\[\nT=remaining/net\\ rate\n\\]\nAnswer: 9 hours"
+      },
+      "hi": {
+        "question": "भरने वाले पाइप के समय 12, 18 घंटे और खाली करने का समय 36 घंटे है। आवश्यक समय ज्ञात करें।",
+        "options": [
+          "9 घंटे",
+          "6 घंटे",
+          "5 घंटे",
+          "10.8 घंटे"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT=\\frac{work\\ left}{r_{fill}-r_{empty}}\n\\]\nदिए गए मान रखें।\n\\[\nr=1/12+1/18-1/36\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=9\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=9\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=remaining/net\\ rate\n\\]\nउत्तर: 9 घंटे"
+      },
+      "pa": {
+        "question": "ਭਰਨ ਵਾਲੇ ਪਾਈਪ ਦੇ ਸਮੇਂ 12, 18 ਘੰਟੇ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦਾ ਸਮਾਂ 36 ਘੰਟੇ ਹੈ। ਲੋੜੀਂਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "9 ਘੰਟੇ",
+          "6 ਘੰਟੇ",
+          "5 ਘੰਟੇ",
+          "10.8 ਘੰਟੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT=\\frac{work\\ left}{r_{fill}-r_{empty}}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nr=1/12+1/18-1/36\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=9\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=9\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=remaining/net\\ rate\n\\]\nਉੱਤਰ: 9 ਘੰਟੇ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 6,
+    "question": "Normally a tank fills in 15 hours, but with leakage it takes 25 hours. Find the leak's emptying time.",
+    "options": [
+      "37.5 hours",
+      "43.5 hours",
+      "40.5 hours",
+      "46.88 hours"
+    ],
+    "answer": "37.5 hours",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "pc_leak_hidden_rate"
+    },
+    "semanticAnchors": {
+      "scenario": "pc_leak_hidden_rate",
+      "category": "time_work",
+      "subtype": "pc_leak_hidden_rate",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "pc_leak_hidden_rate"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Normally a tank fills in 15 hours, but with leakage it takes 25 hours. Find the leak's emptying time.",
+        "options": [
+          "37.5 hours",
+          "43.5 hours",
+          "40.5 hours",
+          "46.88 hours"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\n\\frac{1}{L}=\\frac{1}{F}-\\frac{1}{T}\n\\]\nSubstitute the given values.\n\\[\n\\frac{1}{L}=\\frac{1}{15}-\\frac{1}{25}\n\\]\nSimplify to get the required value.\n\\[\nL=37.5\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=37.5\n\\]\nShortcut / Exam Method:\n\\[\nL=\\frac{FT}{T-F}\n\\]\nAnswer: 37.5 hours"
+      },
+      "hi": {
+        "question": "एक पाइप टंकी 15 घंटे में भरता है। रिसाव होने पर 25 घंटे लगते हैं। रिसाव अकेला भरी टंकी कितने घंटे में खाली करेगा?",
+        "options": [
+          "37.5 घंटे",
+          "43.5 घंटे",
+          "40.5 घंटे",
+          "46.88 घंटे"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\n\\frac{1}{L}=\\frac{1}{F}-\\frac{1}{T}\n\\]\nदिए गए मान रखें।\n\\[\n\\frac{1}{L}=\\frac{1}{15}-\\frac{1}{25}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nL=37.5\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=37.5\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nL=\\frac{FT}{T-F}\n\\]\nउत्तर: 37.5 घंटे"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਪਾਈਪ ਟੈਂਕੀ 15 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਰਿਸਾਅ ਹੋਣ ਤੇ 25 ਘੰਟੇ ਲੱਗਦੇ ਹਨ। ਰਿਸਾਅ ਇਕੱਲਾ ਭਰੀ ਟੈਂਕੀ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰੇਗਾ?",
+        "options": [
+          "37.5 ਘੰਟੇ",
+          "43.5 ਘੰਟੇ",
+          "40.5 ਘੰਟੇ",
+          "46.88 ਘੰਟੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\n\\frac{1}{L}=\\frac{1}{F}-\\frac{1}{T}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\n\\frac{1}{L}=\\frac{1}{15}-\\frac{1}{25}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nL=37.5\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=37.5\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nL=\\frac{FT}{T-F}\n\\]\nਉੱਤਰ: 37.5 ਘੰਟੇ"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 7,
+    "question": "A, B and C have chained efficiency ratios A:B=4:7, B:C=7:8. Find A:B:C.",
+    "options": [
+      "4:7:8",
+      "4:7:8:2",
+      "4:7:8:3",
+      "8:7:4"
+    ],
+    "answer": "4:7:8",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_efficiency_chain"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_efficiency_chain",
+      "category": "time_work",
+      "subtype": "tw_efficiency_chain",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_efficiency_chain"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A, B and C have chained efficiency ratios A:B=4:7, B:C=7:8. Find A:B:C.",
+        "options": [
+          "4:7:8",
+          "4:7:8:2",
+          "4:7:8:3",
+          "8:7:4"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nB\\ common\n\\]\nSubstitute the given values.\n\\[\nLCM(7,7)=7\n\\]\nSimplify to get the required value.\n\\[\nA:B:C=4:7:8\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=4:7:8\n\\]\nShortcut / Exam Method:\n\\[\nA:B:C=4:7:8\n\\]\nAnswer: 4:7:8"
+      },
+      "hi": {
+        "question": "दक्षता अनुपात A:B=4:7 और B:C=7:8 है। A:B:C ज्ञात करें।",
+        "options": [
+          "4:7:8",
+          "4:7:8:2",
+          "4:7:8:3",
+          "8:7:4"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nB\\ common\n\\]\nदिए गए मान रखें।\n\\[\nLCM(7,7)=7\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nA:B:C=4:7:8\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=4:7:8\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nA:B:C=4:7:8\n\\]\nउत्तर: 4:7:8"
+      },
+      "pa": {
+        "question": "ਕੁਸ਼ਲਤਾ ਅਨੁਪਾਤ A:B=4:7 ਅਤੇ B:C=7:8 ਹੈ। A:B:C ਪਤਾ ਕਰੋ।",
+        "options": [
+          "4:7:8",
+          "4:7:8:2",
+          "4:7:8:3",
+          "8:7:4"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nB\\ common\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nLCM(7,7)=7\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nA:B:C=4:7:8\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=4:7:8\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nA:B:C=4:7:8\n\\]\nਉੱਤਰ: 4:7:8"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 8,
+    "question": "A contributes 36 work units in 4 days. Find A's daily rate.",
+    "options": [
+      "9 work units",
+      "14 work units",
+      "6.75 work units",
+      "11 work units"
+    ],
+    "answer": "9 work units",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_reverse_contribution_deduction"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_reverse_contribution_deduction",
+      "category": "time_work",
+      "subtype": "tw_reverse_contribution_deduction",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_reverse_contribution_deduction"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A contributes 36 work units in 4 days. Find A's daily rate.",
+        "options": [
+          "9 work units",
+          "14 work units",
+          "6.75 work units",
+          "11 work units"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nr=\\frac{W}{t}\n\\]\nSubstitute the given values.\n\\[\nr=\\frac{36}{4}\n\\]\nSimplify to get the required value.\n\\[\nr=9\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=9\n\\]\nShortcut / Exam Method:\n\\[\nr=W/t\n\\]\nAnswer: 9 work units"
+      },
+      "hi": {
+        "question": "A 4 दिन में 36 काम इकाइयाँ करता है। A की दैनिक दर ज्ञात करें।",
+        "options": [
+          "9 काम इकाइयाँ",
+          "14 काम इकाइयाँ",
+          "6.75 काम इकाइयाँ",
+          "11 काम इकाइयाँ"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nr=\\frac{W}{t}\n\\]\nदिए गए मान रखें।\n\\[\nr=\\frac{36}{4}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nr=9\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=9\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nr=W/t\n\\]\nउत्तर: 9 काम इकाइयाँ"
+      },
+      "pa": {
+        "question": "A 4 ਦਿਨਾਂ ਵਿੱਚ 36 ਕੰਮ ਇਕਾਈਆਂ ਕਰਦਾ ਹੈ। A ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "9 ਕੰਮ ਇਕਾਈਆਂ",
+          "14 ਕੰਮ ਇਕਾਈਆਂ",
+          "6.75 ਕੰਮ ਇਕਾਈਆਂ",
+          "11 ਕੰਮ ਇਕਾਈਆਂ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nr=\\frac{W}{t}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nr=\\frac{36}{4}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nr=9\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=9\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nr=W/t\n\\]\nਉੱਤਰ: 9 ਕੰਮ ਇਕਾਈਆਂ"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 9,
+    "question": "A contract pays ₹8000 with a bonus of ₹150 per day for early completion. The work is completed 4 days early. Find the earning.",
+    "options": [
+      "₹12900",
+      "₹8604",
+      "₹8600",
+      "₹8602"
+    ],
+    "answer": "₹8600",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_contract_penalty_bonus"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_contract_penalty_bonus",
+      "category": "time_work",
+      "subtype": "tw_contract_penalty_bonus",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_contract_penalty_bonus"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A contract pays ₹8000 with a bonus of ₹150 per day for early completion. The work is completed 4 days early. Find the earning.",
+        "options": [
+          "₹12900",
+          "₹8604",
+          "₹8600",
+          "₹8602"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nE=base+bonus\n\\]\nSubstitute the given values.\n\\[\nE=8000+4\\times 150\n\\]\nSimplify to get the required value.\n\\[\nE=8600\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=8600\n\\]\nShortcut / Exam Method:\n\\[\nE=base+adjustment\n\\]\nAnswer: ₹8600"
+      },
+      "hi": {
+        "question": "एक ठेके में ₹8000 मिलते हैं और जल्दी पूरा करने पर प्रति दिन ₹150 बोनस है। काम 4 दिन पहले पूरा हुआ। कमाई ज्ञात करें।",
+        "options": [
+          "₹12900",
+          "₹8604",
+          "₹8600",
+          "₹8602"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nE=base+bonus\n\\]\nदिए गए मान रखें।\n\\[\nE=8000+4\\times 150\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nE=8600\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=8600\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nE=base+adjustment\n\\]\nउत्तर: ₹8600"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਠੇਕੇ ਵਿੱਚ ₹8000 ਮਿਲਦੇ ਹਨ ਅਤੇ ਜਲਦੀ ਪੂਰਾ ਕਰਨ ਤੇ ਪ੍ਰਤੀ ਦਿਨ ₹150 ਬੋਨਸ ਹੈ। ਕੰਮ 4 ਦਿਨ ਪਹਿਲਾਂ ਪੂਰਾ ਹੋਇਆ। ਕਮਾਈ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹12900",
+          "₹8604",
+          "₹8600",
+          "₹8602"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nE=base+bonus\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nE=8000+4\\times 150\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nE=8600\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=8600\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nE=base+adjustment\n\\]\nਉੱਤਰ: ₹8600"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 10,
+    "question": "A work is planned to finish in 10 days. After 4 days of work, find the remaining fraction.",
+    "options": [
+      "2/5",
+      "5/3",
+      "3/5",
+      "3/2"
+    ],
+    "answer": "3/5",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_basic_residual_work"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_basic_residual_work",
+      "category": "time_work",
+      "subtype": "tw_basic_residual_work",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_basic_residual_work"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A work is planned to finish in 10 days. After 4 days of work, find the remaining fraction.",
+        "options": [
+          "2/5",
+          "5/3",
+          "3/5",
+          "3/2"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nR=1-\\frac{t}{T}\n\\]\nSubstitute the given values.\n\\[\nR=1-\\frac{4}{10}\n\\]\nSimplify to get the required value.\n\\[\nR=\\frac{6}{10}=3/5\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=3/5\n\\]\nShortcut / Exam Method:\n\\[\nR=\\frac{10-4}{10}=3/5\n\\]\nAnswer: 3/5"
+      },
+      "hi": {
+        "question": "एक काम 10 दिन में पूरा होता है। 4 दिन काम होने के बाद कितना भाग शेष रहेगा?",
+        "options": [
+          "2/5",
+          "5/3",
+          "3/5",
+          "3/2"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nR=1-\\frac{t}{T}\n\\]\nदिए गए मान रखें।\n\\[\nR=1-\\frac{4}{10}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nR=\\frac{6}{10}=3/5\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=3/5\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nR=\\frac{10-4}{10}=3/5\n\\]\nउत्तर: 3/5"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੁੰਦਾ ਹੈ। 4 ਦਿਨ ਕੰਮ ਹੋਣ ਤੋਂ ਬਾਅਦ ਕਿੰਨਾ ਹਿੱਸਾ ਬਾਕੀ ਰਹੇਗਾ?",
+        "options": [
+          "2/5",
+          "5/3",
+          "3/5",
+          "3/2"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nR=1-\\frac{t}{T}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nR=1-\\frac{4}{10}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nR=\\frac{6}{10}=3/5\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=3/5\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nR=\\frac{10-4}{10}=3/5\n\\]\nਉੱਤਰ: 3/5"
+      }
+    },
+    "realismScore": 74
+  },
+  {
+    "index": 11,
+    "question": "A and B work in alternate hours, starting with A. Their hourly outputs are 6 and 6 units. Find the time for 72 units.",
+    "options": [
+      "8 hours",
+      "18 hours",
+      "10 hours",
+      "12 hours"
+    ],
+    "answer": "12 hours",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_alternating_hours"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_alternating_hours",
+      "category": "time_work",
+      "subtype": "tw_alternating_hours",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_alternating_hours"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B work in alternate hours, starting with A. Their hourly outputs are 6 and 6 units. Find the time for 72 units.",
+        "options": [
+          "8 hours",
+          "18 hours",
+          "10 hours",
+          "12 hours"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nW_{cycle}=\\sum r_i\n\\]\nSubstitute the given values.\n\\[\nW_{cycle}=6+6\n\\]\nSimplify to get the required value.\n\\[\nT=12\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=12\n\\]\nShortcut / Exam Method:\n\\[\nT=cycles+final\\ turn\n\\]\nAnswer: 12 hours"
+      },
+      "hi": {
+        "question": "कुल काम 72 इकाई है। क्रमिक चक्र में दरें 6, 6 इकाई प्रति घंटा हैं। काम पूरा होने का समय ज्ञात करें।",
+        "options": [
+          "8 घंटे",
+          "18 घंटे",
+          "10 घंटे",
+          "12 घंटे"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nदिए गए मान रखें।\n\\[\nW_{cycle}=6+6\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=12\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=12\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=cycles+final\\ turn\n\\]\nउत्तर: 12 घंटे"
+      },
+      "pa": {
+        "question": "ਕੁੱਲ ਕੰਮ 72 ਇਕਾਈ ਹੈ। ਲਗਾਤਾਰ ਚੱਕਰ ਵਿੱਚ ਦਰਾਂ 6, 6 ਇਕਾਈ ਪ੍ਰਤੀ ਘੰਟਾ ਹਨ। ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "8 ਘੰਟੇ",
+          "18 ਘੰਟੇ",
+          "10 ਘੰਟੇ",
+          "12 ਘੰਟੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nW_{cycle}=6+6\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=12\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=12\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=cycles+final\\ turn\n\\]\nਉੱਤਰ: 12 ਘੰਟੇ"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 12,
+    "question": "After a tank becomes full, the pipe continues to run at 15 litres per minute for 4 minutes. Find the wasted water.",
+    "options": [
+      "72 litres",
+      "60 litres",
+      "65 litres",
+      "61 litres"
+    ],
+    "answer": "60 litres",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "pc_overflow_waste_rate"
+    },
+    "semanticAnchors": {
+      "scenario": "pc_overflow_waste_rate",
+      "category": "time_work",
+      "subtype": "pc_overflow_waste_rate",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "pc_overflow_waste_rate"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "After a tank becomes full, the pipe continues to run at 15 litres per minute for 4 minutes. Find the wasted water.",
+        "options": [
+          "72 litres",
+          "60 litres",
+          "65 litres",
+          "61 litres"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nWaste=r\\times t\n\\]\nSubstitute the given values.\n\\[\nWaste=15\\times 4\n\\]\nSimplify to get the required value.\n\\[\nWaste=60\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=60\n\\]\nShortcut / Exam Method:\n\\[\nWaste=extra\\ inflow\n\\]\nAnswer: 60 litres"
+      },
+      "hi": {
+        "question": "टंकी भरने के बाद पाइप 15 लीटर प्रति मिनट की दर से 4 मिनट और चलता है। व्यर्थ पानी ज्ञात करें।",
+        "options": [
+          "72 लीटर",
+          "60 लीटर",
+          "65 लीटर",
+          "61 लीटर"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nWaste=r\\times t\n\\]\nदिए गए मान रखें।\n\\[\nWaste=15\\times 4\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nWaste=60\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=60\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nWaste=extra\\ inflow\n\\]\nउत्तर: 60 लीटर"
+      },
+      "pa": {
+        "question": "ਟੈਂਕੀ ਭਰਨ ਤੋਂ ਬਾਅਦ ਪਾਈਪ 15 ਲੀਟਰ ਪ੍ਰਤੀ ਮਿੰਟ ਦੀ ਦਰ ਨਾਲ 4 ਮਿੰਟ ਹੋਰ ਚੱਲਦਾ ਹੈ। ਵਿਅਰਥ ਪਾਣੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "72 ਲੀਟਰ",
+          "60 ਲੀਟਰ",
+          "65 ਲੀਟਰ",
+          "61 ਲੀਟਰ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nWaste=r\\times t\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nWaste=15\\times 4\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nWaste=60\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=60\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nWaste=extra\\ inflow\n\\]\nਉੱਤਰ: 60 ਲੀਟਰ"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 13,
+    "question": "A completes a job in 30 days, while B completes it in 8 days. Find the time required when both work together.",
+    "options": [
+      "8 days",
+      "6.32 days",
+      "38 days",
+      "19 days"
+    ],
+    "answer": "6.32 days",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_basic_combined_work"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_basic_combined_work",
+      "category": "time_work",
+      "subtype": "tw_basic_combined_work",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_basic_combined_work"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A completes a job in 30 days, while B completes it in 8 days. Find the time required when both work together.",
+        "options": [
+          "8 days",
+          "6.32 days",
+          "38 days",
+          "19 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nW=LCM(30,8)=120\n\\]\nSubstitute the given values.\n\\[\nA=120/30=4,\\quad B=120/8=15\n\\]\nSimplify to get the required value.\n\\[\nT=\\frac{120}{4+15}=6.32\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=6.32\n\\]\nShortcut / Exam Method:\n\\[\nT=\\frac{30\\times 8}{30+8}=6.32\n\\]\nAnswer: 6.32 days"
+      },
+      "hi": {
+        "question": "A एक काम 30 दिन में और B वही काम 8 दिन में पूरा करता है। दोनों मिलकर काम कितने दिन में पूरा करेंगे?",
+        "options": [
+          "8 दिन",
+          "6.32 दिन",
+          "38 दिन",
+          "19 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nW=LCM(30,8)=120\n\\]\nदिए गए मान रखें।\n\\[\nA=120/30=4,\\quad B=120/8=15\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=\\frac{120}{4+15}=6.32\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=6.32\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=\\frac{30\\times 8}{30+8}=6.32\n\\]\nउत्तर: 6.32 दिन"
+      },
+      "pa": {
+        "question": "A ਇੱਕ ਕੰਮ 30 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B ਉਹੀ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਦੋਵੇਂ ਮਿਲ ਕੇ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਨਗੇ?",
+        "options": [
+          "8 ਦਿਨ",
+          "6.32 ਦਿਨ",
+          "38 ਦਿਨ",
+          "19 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nW=LCM(30,8)=120\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nA=120/30=4,\\quad B=120/8=15\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=\\frac{120}{4+15}=6.32\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=6.32\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=\\frac{30\\times 8}{30+8}=6.32\n\\]\nਉੱਤਰ: 6.32 ਦਿਨ"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 14,
+    "question": "A worker finishes \\(\\frac{2}{5}\\) of the work in 8 days. Find the total time.",
+    "options": [
+      "3.2 days",
+      "40 days",
+      "20 days",
+      "13 days"
+    ],
+    "answer": "20 days",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_work_fraction_days"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_work_fraction_days",
+      "category": "time_work",
+      "subtype": "tw_work_fraction_days",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_work_fraction_days"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A worker finishes \\(\\frac{2}{5}\\) of the work in 8 days. Find the total time.",
+        "options": [
+          "3.2 days",
+          "40 days",
+          "20 days",
+          "13 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nSubstitute the given values.\n\\[\nT=8\\times \\frac{5}{2}\n\\]\nSimplify to get the required value.\n\\[\nT=20\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=20\n\\]\nShortcut / Exam Method:\n\\[\nT=8\\div \\frac{2}{5}=20\n\\]\nAnswer: 20 days"
+      },
+      "hi": {
+        "question": "A किसी काम का \\(\\frac{2}{5}\\) भाग 8 दिन में करता है। पूरा काम कितने दिन में होगा?",
+        "options": [
+          "3.2 दिन",
+          "40 दिन",
+          "20 दिन",
+          "13 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nदिए गए मान रखें।\n\\[\nT=8\\times \\frac{5}{2}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=20\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=20\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=8\\div \\frac{2}{5}=20\n\\]\nउत्तर: 20 दिन"
+      },
+      "pa": {
+        "question": "A ਕਿਸੇ ਕੰਮ ਦਾ \\(\\frac{2}{5}\\) ਹਿੱਸਾ 8 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਵੇਗਾ?",
+        "options": [
+          "3.2 ਦਿਨ",
+          "40 ਦਿਨ",
+          "20 ਦਿਨ",
+          "13 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nT=8\\times \\frac{5}{2}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=20\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=20\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=8\\div \\frac{2}{5}=20\n\\]\nਉੱਤਰ: 20 ਦਿਨ"
+      }
+    },
+    "realismScore": 75
+  },
+  {
+    "index": 15,
+    "question": "A completes \\(\\frac{2}{5}\\) of a work in 8 days. Find the time needed for the whole work.",
+    "options": [
+      "13 days",
+      "3.2 days",
+      "20 days",
+      "40 days"
+    ],
+    "answer": "20 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_partial_completion_then_team"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_partial_completion_then_team",
+      "category": "time_work",
+      "subtype": "tw_partial_completion_then_team",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_partial_completion_then_team"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A completes \\(\\frac{2}{5}\\) of a work in 8 days. Find the time needed for the whole work.",
+        "options": [
+          "13 days",
+          "3.2 days",
+          "20 days",
+          "40 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nSubstitute the given values.\n\\[\nT=8\\times \\frac{5}{2}\n\\]\nSimplify to get the required value.\n\\[\nT=20\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=20\n\\]\nShortcut / Exam Method:\n\\[\nT=8\\div \\frac{2}{5}=20\n\\]\nAnswer: 20 days"
+      },
+      "hi": {
+        "question": "A किसी काम का \\(\\frac{2}{5}\\) भाग 8 दिन में करता है। पूरा काम कितने दिन में होगा?",
+        "options": [
+          "13 दिन",
+          "3.2 दिन",
+          "20 दिन",
+          "40 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nदिए गए मान रखें।\n\\[\nT=8\\times \\frac{5}{2}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=20\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=20\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=8\\div \\frac{2}{5}=20\n\\]\nउत्तर: 20 दिन"
+      },
+      "pa": {
+        "question": "A ਕਿਸੇ ਕੰਮ ਦਾ \\(\\frac{2}{5}\\) ਹਿੱਸਾ 8 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਵੇਗਾ?",
+        "options": [
+          "13 ਦਿਨ",
+          "3.2 ਦਿਨ",
+          "20 ਦਿਨ",
+          "40 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nT=8\\times \\frac{5}{2}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=20\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=20\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=8\\div \\frac{2}{5}=20\n\\]\nਉੱਤਰ: 20 ਦਿਨ"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 16,
+    "question": "Pipe A fills a tank in 20 hours. Pipes A and B together fill it in 6 hours. Find the time taken by B alone.",
+    "options": [
+      "6.57 hours",
+      "14.57 hours",
+      "8.57 hours",
+      "10.71 hours"
+    ],
+    "answer": "8.57 hours",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "pc_find_pipe_rate_from_net_time"
+    },
+    "semanticAnchors": {
+      "scenario": "pc_find_pipe_rate_from_net_time",
+      "category": "time_work",
+      "subtype": "pc_find_pipe_rate_from_net_time",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "pc_find_pipe_rate_from_net_time"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Pipe A fills a tank in 20 hours. Pipes A and B together fill it in 6 hours. Find the time taken by B alone.",
+        "options": [
+          "6.57 hours",
+          "14.57 hours",
+          "8.57 hours",
+          "10.71 hours"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\n\\frac{1}{B}=\\frac{1}{T}-\\frac{1}{A}\n\\]\nSubstitute the given values.\n\\[\n\\frac{1}{B}=\\frac{1}{6}-\\frac{1}{20}\n\\]\nSimplify to get the required value.\n\\[\nB=8.57\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=8.57\n\\]\nShortcut / Exam Method:\n\\[\nB=\\frac{AT}{A-T}\n\\]\nAnswer: 8.57 hours"
+      },
+      "hi": {
+        "question": "पाइप A टंकी 20 घंटे में भरता है। A और B मिलकर 6 घंटे में भरते हैं। B अकेला कितना समय लेगा?",
+        "options": [
+          "6.57 घंटे",
+          "14.57 घंटे",
+          "8.57 घंटे",
+          "10.71 घंटे"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\n\\frac{1}{B}=\\frac{1}{T}-\\frac{1}{A}\n\\]\nदिए गए मान रखें।\n\\[\n\\frac{1}{B}=\\frac{1}{6}-\\frac{1}{20}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nB=8.57\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=8.57\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nB=\\frac{AT}{A-T}\n\\]\nउत्तर: 8.57 घंटे"
+      },
+      "pa": {
+        "question": "ਪਾਈਪ A ਟੈਂਕੀ 20 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। A ਅਤੇ B ਮਿਲ ਕੇ 6 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦੇ ਹਨ। B ਇਕੱਲਾ ਕਿੰਨਾ ਸਮਾਂ ਲਵੇਗਾ?",
+        "options": [
+          "6.57 ਘੰਟੇ",
+          "14.57 ਘੰਟੇ",
+          "8.57 ਘੰਟੇ",
+          "10.71 ਘੰਟੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\n\\frac{1}{B}=\\frac{1}{T}-\\frac{1}{A}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\n\\frac{1}{B}=\\frac{1}{6}-\\frac{1}{20}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nB=8.57\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=8.57\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nB=\\frac{AT}{A-T}\n\\]\nਉੱਤਰ: 8.57 ਘੰਟੇ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 17,
+    "question": "Output rates are 20, 25, 30 per hour. With active hours 6, 5, 4, find the total produced.",
+    "options": [
+      "364 units",
+      "456.25 units",
+      "360 units",
+      "365 units"
+    ],
+    "answer": "365 units",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_machine_parallel_scheduling"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_machine_parallel_scheduling",
+      "category": "time_work",
+      "subtype": "tw_machine_parallel_scheduling",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_machine_parallel_scheduling"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Output rates are 20, 25, 30 per hour. With active hours 6, 5, 4, find the total produced.",
+        "options": [
+          "364 units",
+          "456.25 units",
+          "360 units",
+          "365 units"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nO=\\sum r_it_i\n\\]\nSubstitute the given values.\n\\[\nO=20\\times 6+25\\times 5+30\\times 4\n\\]\nSimplify to get the required value.\n\\[\nO=365\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=365\n\\]\nShortcut / Exam Method:\n\\[\nO=total\\ rate\\times time\n\\]\nAnswer: 365 units"
+      },
+      "hi": {
+        "question": "समानांतर दरें 20, 25, 30 प्रति घंटा और सक्रिय समय 6, 5, 4 घंटे हैं। कुल उत्पादन ज्ञात करें।",
+        "options": [
+          "364 इकाइयाँ",
+          "456.25 इकाइयाँ",
+          "360 इकाइयाँ",
+          "365 इकाइयाँ"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nO=\\sum r_it_i\n\\]\nदिए गए मान रखें।\n\\[\nO=20\\times 6+25\\times 5+30\\times 4\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nO=365\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=365\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nO=total\\ rate\\times time\n\\]\nउत्तर: 365 इकाइयाँ"
+      },
+      "pa": {
+        "question": "ਸਮਾਂਤਰ ਦਰਾਂ 20, 25, 30 ਪ੍ਰਤੀ ਘੰਟਾ ਅਤੇ ਸਰਗਰਮ ਸਮਾਂ 6, 5, 4 ਘੰਟੇ ਹਨ। ਕੁੱਲ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "364 ਇਕਾਈਆਂ",
+          "456.25 ਇਕਾਈਆਂ",
+          "360 ਇਕਾਈਆਂ",
+          "365 ਇਕਾਈਆਂ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nO=\\sum r_it_i\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nO=20\\times 6+25\\times 5+30\\times 4\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nO=365\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=365\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nO=total\\ rate\\times time\n\\]\nਉੱਤਰ: 365 ਇਕਾਈਆਂ"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 18,
+    "question": "A needs 10 days for the whole work. Find the work done in one day.",
+    "options": [
+      "10",
+      "9/10",
+      "1/11",
+      "1/10"
+    ],
+    "answer": "1/10",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_one_day_work_fraction"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_one_day_work_fraction",
+      "category": "time_work",
+      "subtype": "tw_one_day_work_fraction",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_one_day_work_fraction"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A needs 10 days for the whole work. Find the work done in one day.",
+        "options": [
+          "10",
+          "9/10",
+          "1/11",
+          "1/10"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nr=\\frac{1}{T}\n\\]\nSubstitute the given values.\n\\[\nr=\\frac{1}{10}\n\\]\nSimplify to get the required value.\n\\[\nr=1/10\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=1/10\n\\]\nShortcut / Exam Method:\n\\[\nr=1/10=1/10\n\\]\nAnswer: 1/10"
+      },
+      "hi": {
+        "question": "A एक काम 10 दिन में पूरा करता है। एक दिन का काम ज्ञात करें।",
+        "options": [
+          "10",
+          "9/10",
+          "1/11",
+          "1/10"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nr=\\frac{1}{T}\n\\]\nदिए गए मान रखें।\n\\[\nr=\\frac{1}{10}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nr=1/10\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=1/10\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nr=1/10=1/10\n\\]\nउत्तर: 1/10"
+      },
+      "pa": {
+        "question": "A ਇੱਕ ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਇੱਕ ਦਿਨ ਦਾ ਕੰਮ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "10",
+          "9/10",
+          "1/11",
+          "1/10"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nr=\\frac{1}{T}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nr=\\frac{1}{10}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nr=1/10\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=1/10\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nr=1/10=1/10\n\\]\nਉੱਤਰ: 1/10"
+      }
+    },
+    "realismScore": 72
+  },
+  {
+    "index": 19,
+    "question": "80 pages are printed per hour for 8 hours, but only 85% are accepted. Find the accepted pages.",
+    "options": [
+      "550 pages",
+      "544 pages",
+      "541 pages",
+      "435.2 pages"
+    ],
+    "answer": "544 pages",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_work_quality_rejection"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_work_quality_rejection",
+      "category": "time_work",
+      "subtype": "tw_work_quality_rejection",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_work_quality_rejection"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "80 pages are printed per hour for 8 hours, but only 85% are accepted. Find the accepted pages.",
+        "options": [
+          "550 pages",
+          "544 pages",
+          "541 pages",
+          "435.2 pages"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nAccepted=Produced\\times \\frac{p}{100}\n\\]\nSubstitute the given values.\n\\[\nAccepted=80\\times 8\\times \\frac{85}{100}\n\\]\nSimplify to get the required value.\n\\[\nAccepted=544\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=544\n\\]\nShortcut / Exam Method:\n\\[\nAccepted=gross\\times p/100\n\\]\nAnswer: 544 pages"
+      },
+      "hi": {
+        "question": "प्रति घंटे 80 पृष्ठ 8 घंटे छपते हैं, लेकिन केवल 85% स्वीकार होते हैं। स्वीकार पृष्ठ ज्ञात करें।",
+        "options": [
+          "550 पृष्ठ",
+          "544 पृष्ठ",
+          "541 पृष्ठ",
+          "435.2 पृष्ठ"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nAccepted=Produced\\times \\frac{p}{100}\n\\]\nदिए गए मान रखें।\n\\[\nAccepted=80\\times 8\\times \\frac{85}{100}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nAccepted=544\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=544\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nAccepted=gross\\times p/100\n\\]\nउत्तर: 544 पृष्ठ"
+      },
+      "pa": {
+        "question": "ਪ੍ਰਤੀ ਘੰਟਾ 80 ਸਫ਼ੇ 8 ਘੰਟੇ ਛਪਦੇ ਹਨ, ਪਰ ਕੇਵਲ 85% ਮਨਜ਼ੂਰ ਹੁੰਦੇ ਹਨ। ਮਨਜ਼ੂਰ ਸਫ਼ੇ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "550 ਸਫ਼ੇ",
+          "544 ਸਫ਼ੇ",
+          "541 ਸਫ਼ੇ",
+          "435.2 ਸਫ਼ੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nAccepted=Produced\\times \\frac{p}{100}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nAccepted=80\\times 8\\times \\frac{85}{100}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nAccepted=544\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=544\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nAccepted=gross\\times p/100\n\\]\nਉੱਤਰ: 544 ਸਫ਼ੇ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 20,
+    "question": "A works for one day and then rests for one day. On a working day A completes 8 units. Find the time for 60 units.",
+    "options": [
+      "9.5 days",
+      "11.5 days",
+      "18.13 days",
+      "14.5 days"
+    ],
+    "answer": "14.5 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_work_rest_cycle"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_work_rest_cycle",
+      "category": "time_work",
+      "subtype": "tw_work_rest_cycle",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_work_rest_cycle"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A works for one day and then rests for one day. On a working day A completes 8 units. Find the time for 60 units.",
+        "options": [
+          "9.5 days",
+          "11.5 days",
+          "18.13 days",
+          "14.5 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nW_{cycle}=\\sum r_i\n\\]\nSubstitute the given values.\n\\[\nW_{cycle}=8+0\n\\]\nSimplify to get the required value.\n\\[\nT=14.5\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=14.5\n\\]\nShortcut / Exam Method:\n\\[\nT=cycles+final\\ turn\n\\]\nAnswer: 14.5 days"
+      },
+      "hi": {
+        "question": "कुल काम 60 इकाई है। क्रमिक चक्र में दरें 8, 0 इकाई प्रति दिन हैं। काम पूरा होने का समय ज्ञात करें।",
+        "options": [
+          "9.5 दिन",
+          "11.5 दिन",
+          "18.13 दिन",
+          "14.5 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nदिए गए मान रखें।\n\\[\nW_{cycle}=8+0\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=14.5\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=14.5\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=cycles+final\\ turn\n\\]\nउत्तर: 14.5 दिन"
+      },
+      "pa": {
+        "question": "ਕੁੱਲ ਕੰਮ 60 ਇਕਾਈ ਹੈ। ਲਗਾਤਾਰ ਚੱਕਰ ਵਿੱਚ ਦਰਾਂ 8, 0 ਇਕਾਈ ਪ੍ਰਤੀ ਦਿਨ ਹਨ। ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "9.5 ਦਿਨ",
+          "11.5 ਦਿਨ",
+          "18.13 ਦਿਨ",
+          "14.5 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nW_{cycle}=8+0\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=14.5\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=14.5\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=cycles+final\\ turn\n\\]\nਉੱਤਰ: 14.5 ਦਿਨ"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 21,
+    "question": "Pipe data are: fill times 12 hours and empty time none hours. Find the tank completion time.",
+    "options": [
+      "13 hours",
+      "14.4 hours",
+      "17 hours",
+      "12 hours"
+    ],
+    "answer": "12 hours",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "pc_pipe_closed_before_completion"
+    },
+    "semanticAnchors": {
+      "scenario": "pc_pipe_closed_before_completion",
+      "category": "time_work",
+      "subtype": "pc_pipe_closed_before_completion",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "pc_pipe_closed_before_completion"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Pipe data are: fill times 12 hours and empty time none hours. Find the tank completion time.",
+        "options": [
+          "13 hours",
+          "14.4 hours",
+          "17 hours",
+          "12 hours"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT=\\frac{work\\ left}{r_{fill}-r_{empty}}\n\\]\nSubstitute the given values.\n\\[\nr=1/12\n\\]\nSimplify to get the required value.\n\\[\nT=12\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=12\n\\]\nShortcut / Exam Method:\n\\[\nT=remaining/net\\ rate\n\\]\nAnswer: 12 hours"
+      },
+      "hi": {
+        "question": "भरने वाले पाइप के समय 12 घंटे और खाली करने का समय नहीं घंटे है। आवश्यक समय ज्ञात करें।",
+        "options": [
+          "13 घंटे",
+          "14.4 घंटे",
+          "17 घंटे",
+          "12 घंटे"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT=\\frac{work\\ left}{r_{fill}-r_{empty}}\n\\]\nदिए गए मान रखें।\n\\[\nr=1/12\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=12\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=12\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=remaining/net\\ rate\n\\]\nउत्तर: 12 घंटे"
+      },
+      "pa": {
+        "question": "ਭਰਨ ਵਾਲੇ ਪਾਈਪ ਦੇ ਸਮੇਂ 12 ਘੰਟੇ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦਾ ਸਮਾਂ ਨਹੀਂ ਘੰਟੇ ਹੈ। ਲੋੜੀਂਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "13 ਘੰਟੇ",
+          "14.4 ਘੰਟੇ",
+          "17 ਘੰਟੇ",
+          "12 ਘੰਟੇ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT=\\frac{work\\ left}{r_{fill}-r_{empty}}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nr=1/12\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=12\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=12\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=remaining/net\\ rate\n\\]\nਉੱਤਰ: 12 ਘੰਟੇ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 22,
+    "question": "A mixed team has worker counts 3, 4 and relative efficiencies 4, 3. Find the time for 300 units of work.",
+    "options": [
+      "8.5 days",
+      "18.75 days",
+      "12.5 days",
+      "13.5 days"
+    ],
+    "answer": "12.5 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_team_a_vs_team_b"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_team_a_vs_team_b",
+      "category": "time_work",
+      "subtype": "tw_team_a_vs_team_b",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_team_a_vs_team_b"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A mixed team has worker counts 3, 4 and relative efficiencies 4, 3. Find the time for 300 units of work.",
+        "options": [
+          "8.5 days",
+          "18.75 days",
+          "12.5 days",
+          "13.5 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT=\\frac{W}{\\sum ne}\n\\]\nSubstitute the given values.\n\\[\nT=\\frac{300}{3\\times 4+4\\times 3}\n\\]\nSimplify to get the required value.\n\\[\nT=12.5\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=12.5\n\\]\nShortcut / Exam Method:\n\\[\nT=W/R\n\\]\nAnswer: 12.5 days"
+      },
+      "hi": {
+        "question": "मजदूरों को समान दक्षता इकाइयों में बदलें। संख्याएँ 3, 4 और दक्षताएँ 4, 3 हैं। 300 इकाई काम का समय ज्ञात करें।",
+        "options": [
+          "8.5 दिन",
+          "18.75 दिन",
+          "12.5 दिन",
+          "13.5 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT=\\frac{W}{\\sum ne}\n\\]\nदिए गए मान रखें।\n\\[\nT=\\frac{300}{3\\times 4+4\\times 3}\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=12.5\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=12.5\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=W/R\n\\]\nउत्तर: 12.5 दिन"
+      },
+      "pa": {
+        "question": "ਮਜ਼ਦੂਰਾਂ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਇਕਾਈ ਵਿੱਚ ਬਦਲੋ। ਗਿਣਤੀਆਂ 3, 4 ਅਤੇ ਕੁਸ਼ਲਤਾਵਾਂ 4, 3 ਹਨ। 300 ਇਕਾਈ ਕੰਮ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "8.5 ਦਿਨ",
+          "18.75 ਦਿਨ",
+          "12.5 ਦਿਨ",
+          "13.5 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT=\\frac{W}{\\sum ne}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nT=\\frac{300}{3\\times 4+4\\times 3}\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=12.5\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=12.5\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=W/R\n\\]\nਉੱਤਰ: 12.5 ਦਿਨ"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 23,
+    "question": "A and B begin a job together. After 2 days A leaves. If A and B alone take 15 and 8 days, find when the job ends.",
+    "options": [
+      "6.93 days",
+      "5.93 days",
+      "1.93 days",
+      "8.67 days"
+    ],
+    "answer": "6.93 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_forward_leave"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_forward_leave",
+      "category": "time_work",
+      "subtype": "tw_forward_leave",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_forward_leave"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B begin a job together. After 2 days A leaves. If A and B alone take 15 and 8 days, find when the job ends.",
+        "options": [
+          "6.93 days",
+          "5.93 days",
+          "1.93 days",
+          "8.67 days"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nW=(r_A+r_B)t_1+r_Bt_2\n\\]\nSubstitute the given values.\n\\[\nW_1=(56+105)\\times 2\n\\]\nSimplify to get the required value.\n\\[\nT=2+\\frac{518}{105}=6.93\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=6.93\n\\]\nShortcut / Exam Method:\n\\[\nT=2+\\frac{W-W_1}{B}\n\\]\nAnswer: 6.93 days"
+      },
+      "hi": {
+        "question": "A और B साथ काम शुरू करते हैं। A 15 दिन और B 8 दिन में अकेले काम करते हैं। 2 दिन बाद A चला जाता है। कुल समय ज्ञात करें।",
+        "options": [
+          "6.93 दिन",
+          "5.93 दिन",
+          "1.93 दिन",
+          "8.67 दिन"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nW=(r_A+r_B)t_1+r_Bt_2\n\\]\nदिए गए मान रखें।\n\\[\nW_1=(56+105)\\times 2\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT=2+\\frac{518}{105}=6.93\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=6.93\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=2+\\frac{W-W_1}{B}\n\\]\nउत्तर: 6.93 दिन"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਇਕੱਠੇ ਕੰਮ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। A 15 ਦਿਨ ਅਤੇ B 8 ਦਿਨ ਵਿੱਚ ਇਕੱਲੇ ਕੰਮ ਕਰਦੇ ਹਨ। 2 ਦਿਨ ਬਾਅਦ A ਚਲਾ ਜਾਂਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "6.93 ਦਿਨ",
+          "5.93 ਦਿਨ",
+          "1.93 ਦਿਨ",
+          "8.67 ਦਿਨ"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nW=(r_A+r_B)t_1+r_Bt_2\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nW_1=(56+105)\\times 2\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT=2+\\frac{518}{105}=6.93\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=6.93\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=2+\\frac{W-W_1}{B}\n\\]\nਉੱਤਰ: 6.93 ਦਿਨ"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 24,
+    "question": "The efficiencies of A and B are in the ratio 18:6. Find their time ratio.",
+    "options": [
+      "18:6",
+      "6:24",
+      "1:3",
+      "24:6"
+    ],
+    "answer": "1:3",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_time_ratio_from_efficiency"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_time_ratio_from_efficiency",
+      "category": "time_work",
+      "subtype": "tw_time_ratio_from_efficiency",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_time_ratio_from_efficiency"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "The efficiencies of A and B are in the ratio 18:6. Find their time ratio.",
+        "options": [
+          "18:6",
+          "6:24",
+          "1:3",
+          "24:6"
+        ],
+        "explanation": "Use the governing rate-state formula.\n\\[\nT_A:T_B=E_B:E_A\n\\]\nSubstitute the given values.\n\\[\nT_A:T_B=6:18\n\\]\nSimplify to get the required value.\n\\[\nT_A:T_B=1:3\n\\]\nTherefore the required answer is obtained.\n\\[\nAns=1:3\n\\]\nShortcut / Exam Method:\n\\[\nT=1:3\n\\]\nAnswer: 1:3"
+      },
+      "hi": {
+        "question": "A और B की दक्षता का अनुपात 18:6 है। उनका समय अनुपात ज्ञात करें।",
+        "options": [
+          "18:6",
+          "6:24",
+          "1:3",
+          "24:6"
+        ],
+        "explanation": "मुख्य दर-समय सूत्र का उपयोग करें।\n\\[\nT_A:T_B=E_B:E_A\n\\]\nदिए गए मान रखें।\n\\[\nT_A:T_B=6:18\n\\]\nसरल करके आवश्यक मान निकालें।\n\\[\nT_A:T_B=1:3\n\\]\nअतः आवश्यक उत्तर मिल गया।\n\\[\nAns=1:3\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=1:3\n\\]\nउत्तर: 1:3"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਕੁਸ਼ਲਤਾ ਦਾ ਅਨੁਪਾਤ 18:6 ਹੈ। ਉਹਨਾਂ ਦਾ ਸਮਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "18:6",
+          "6:24",
+          "1:3",
+          "24:6"
+        ],
+        "explanation": "ਮੁੱਖ ਦਰ-ਸਮਾਂ ਸੂਤਰ ਵਰਤੋ।\n\\[\nT_A:T_B=E_B:E_A\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ।\n\\[\nT_A:T_B=6:18\n\\]\nਸਰਲ ਕਰਕੇ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\\[\nT_A:T_B=1:3\n\\]\nਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਮਿਲ ਗਿਆ।\n\\[\nAns=1:3\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=1:3\n\\]\nਉੱਤਰ: 1:3"
+      }
+    },
+    "realismScore": 73
+  }
+]

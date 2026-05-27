@@ -7,8 +7,11 @@ import type {
 import { percentageMotifIds } from "./motifs/percentage";
 import { ALL_PATTERNS } from "./patterns";
 import {
+  listQuantV2Topics,
   resolveMigratedQuantV2DomainFromAlias,
 } from "./quant-v2/migrated-quant-topics";
+import { RATIO_PROPORTION_FAMILY_IDS } from "../quant-v2/canonical/ratio-proportion-motif-factories";
+import { TIME_WORK_FAMILY_IDS } from "../quant-v2/canonical/time-work-motif-factories";
 
 export type QuestionPatternDomain =
   | "reasoning"
@@ -34,6 +37,7 @@ export interface QuestionPattern {
   compatibleMotifs: string[];
   examStyles?: string[];
   enabled?: boolean;
+  legacyDisabled?: boolean;
 }
 
 export interface Motif {
@@ -3226,14 +3230,16 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       id: "ratio-proportion",
       domain: "quant",
       topic: "ratio-proportion",
-      label: "Ratio & Proportion",
+      label: "Ratio, Proportion & Variation V2",
+      description:
+        "Quant V2 ratio chapter with solver-backed sharing, proportion, transformation, ages, partnership, variation, scaling, and chain-ratio families.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "ratio-normalization-switch",
+        ...RATIO_PROPORTION_FAMILY_IDS,
       ],
       examStyles: ["ssc", "banking", "cat"],
       enabled: true,
@@ -3242,41 +3248,16 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       id: "time-work",
       domain: "quant",
       topic: "time-work",
-      label: "Time & Work",
+      label: "Time & Work V2",
+      description:
+        "Quant V2 Time & Work / Pipes & Cisterns chapter with solver-backed rate-state, LCM/unit-work, timeline, cycle, wage, pipe, resource, and applied families.",
       supportedDifficulties: [
         "easy",
         "medium",
         "hard",
       ],
       compatibleMotifs: [
-        "tw-basic-2-sum",
-        "tw-basic-3-sum",
-        "tw-component-extract",
-        "tw-eff-integer",
-        "tw-eff-pct-boost",
-        "tw-eff-pct-reduce",
-        "tw-comparison-hidden",
-        "tw-stage-join-start",
-        "tw-stage-leave-start",
-        "tw-stage-deadline-exit",
-        "tw-stage-asymmetric-3",
-        "tw-stage-handoff",
-        "tw-stage-staggered-join",
-        "tw-cycle-alternate-2",
-        "tw-cycle-alternate-3",
-        "tw-cycle-assist-single",
-        "tw-cycle-assist-group",
-        "tw-cycle-helper-toggle",
-        "tw-group-mdh-standard",
-        "tw-group-equivalence-or",
-        "tw-group-system-and",
-        "tw-contractor-pressure",
-        "tw-wage-efficiency",
-        "tw-wage-work-done",
-        "tw-pipe-fill-leak",
-        "tw-pipe-clock-sync",
-        "tw-pipe-threshold",
-        "tw-regressive-climb",
+        ...TIME_WORK_FAMILY_IDS,
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
@@ -3301,7 +3282,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "tw-stage-staggered-join",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "time-work-efficiency",
@@ -3326,7 +3307,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "tw-wage-work-done",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "time-work-pipes",
@@ -3347,7 +3328,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "tw-regressive-climb",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "speed-distance",
@@ -3608,7 +3589,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "pl_mp_for_target_profit",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "profit-loss-dishonest-dealer",
@@ -3626,6 +3608,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "profit-loss-equivalent-change",
@@ -3644,13 +3627,14 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: false,
+      legacyDisabled: true,
     },
     {
-      id: "simple-compound-interest",
+      id: "interest",
       domain: "quant",
       topic: "si-ci",
       label:
-        "Simple & Compound Interest",
+        "Interest / SI & CI",
       description:
         "SSC-style simple interest, compound interest, SI-CI comparison, depreciation, and fractional compounding questions.",
       supportedDifficulties: [
@@ -3712,7 +3696,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "si-installment",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "compound-interest",
@@ -3736,7 +3721,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "ci-continuous",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "interest-si-vs-ci",
@@ -3757,7 +3743,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "transaction-arbitrage",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "interest-fractional-compounding",
@@ -3777,7 +3764,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "ci-effective-annual-rate",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "interest-growth-decay",
@@ -3798,7 +3786,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "transaction-arbitrage",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
+      legacyDisabled: true,
     },
     {
       id: "mixture-alligation",
@@ -3822,7 +3811,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "mixture-weighted-average",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "mixture-alligation-alligation",
@@ -3842,7 +3831,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "cost-profit-blend",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "mixture-alligation-replacement",
@@ -3861,7 +3850,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "multi-phase-purity-transition",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "mixture-alligation-weighted",
@@ -3925,7 +3914,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "pipes-efficiency-rate",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "boats-streams",
@@ -6757,6 +6746,7 @@ export function listQuestionPatterns(
 
   for (const pattern of QUESTION_PATTERN_REGISTRY) {
     if (
+      pattern.legacyDisabled ||
       !includeDisabled &&
       pattern.enabled === false
     ) {
@@ -6769,6 +6759,56 @@ export function listQuestionPatterns(
   }
 
   return [...byId.values()];
+}
+
+export function listEnabledQuantV2AdminPatterns() {
+  const expectedDomains = new Set(
+    listQuantV2Topics()
+      .filter((topic) => topic.adminEnabled)
+      .map((topic) => topic.generationDomain),
+  );
+
+  return listQuestionPatterns(false).filter(
+    (pattern) =>
+      expectedDomains.has(
+        resolveMigratedQuantV2DomainFromAlias(
+          pattern.id,
+        ) ??
+          resolveMigratedQuantV2DomainFromAlias(
+            pattern.topic,
+          ) ??
+          resolveMigratedQuantV2DomainFromAlias(
+            pattern.label,
+          ) ??
+          "",
+      ),
+  );
+}
+
+export function getQuestionPatternRegistryConsistencyReport() {
+  const idCounts = new Map<string, number>();
+  const duplicateIds: string[] = [];
+
+  for (const pattern of QUESTION_PATTERN_REGISTRY) {
+    const next =
+      (idCounts.get(pattern.id) ?? 0) + 1;
+    idCounts.set(pattern.id, next);
+    if (next === 2) {
+      duplicateIds.push(pattern.id);
+    }
+  }
+
+  return {
+    totalEntries:
+      QUESTION_PATTERN_REGISTRY.length,
+    exposedEntries:
+      listQuestionPatterns().length,
+    duplicateIds,
+    enabledQuantV2AdminPatternIds:
+      listEnabledQuantV2AdminPatterns().map(
+        (pattern) => pattern.id,
+      ),
+  };
 }
 
 export function findQuestionPattern(
@@ -7124,10 +7164,11 @@ function buildQuantPattern(
         variables: {},
         formula: "0",
       };
+    case "interest":
     case "simple-compound-interest":
       return {
         ...base,
-        id: `registry-simple-compound-interest-${difficulty.toLowerCase()}`,
+        id: `registry-interest-${difficulty.toLowerCase()}`,
         reasoningCapabilities: [
           "arithmetic",
           "direct",

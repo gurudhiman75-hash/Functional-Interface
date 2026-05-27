@@ -404,7 +404,7 @@ function legacyStem(
     case "relational_percentage":
       return relationalStem(problem, seed);
     case "venn_diagram":
-      return `${phraseVariant(LEGACY_STEM_PHRASE_BANKS.venn, seed, `${v.subjectA}|${v.subjectB}|${v.bothPct}`)}, ${percent(v.subjectA)} of students failed in Mathematics, ${percent(v.subjectB)} failed in English, and ${percent(v.bothPct)} failed in both. If ${n(v.neitherValue)} students passed in both subjects, find the total number of students who appeared for the exam.`;
+      return `${phraseVariant(LEGACY_STEM_PHRASE_BANKS.venn, seed, `${v.subjectA}|${v.subjectB}|${v.bothPct}`)}, ${percent(v.subjectA)} of students failed in Mathematics, ${percent(v.subjectB)} failed in English, and ${percent(v.bothPct)} failed in both. If ${n(v.neitherValue)} students failed in neither subject (passed both subjects), find the total number of students who appeared for the exam.`;
     case "taxation":
       return `${phraseVariant(LEGACY_STEM_PHRASE_BANKS.taxation, seed, `${v.oldTaxRate}|${v.newTaxRate}|${v.taxDifference}`)} from ${percent(v.oldTaxRate)} to ${percent(v.newTaxRate)}. As a result, a person's tax liability decreases by ${currency(v.taxDifference, realizationProfile)}. Find the total taxable income of the person.`;
     case "commission":

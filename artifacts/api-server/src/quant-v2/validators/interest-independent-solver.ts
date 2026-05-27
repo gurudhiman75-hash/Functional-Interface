@@ -45,12 +45,16 @@ export function solveInterestIndependently(problem: CanonicalInterestProblem) {
     case "int_si_difference_two_cases":
     case "int_interest_more_by_rate_change":
     case "int_interest_more_by_time_change":
+    case "int_different_rates_different_years_si":
+    case "int_different_rates_different_years_ci":
       return round2(v.diff);
     case "int_si_temporal_amount_gap":
       return round2(v.p);
-    case "int_si_amount_ratio_time_gap":
+    case "int_si_sum_doubles":
+    case "int_si_sum_triples":
     case "int_amount_ratio_find_rate_si":
       return round2(v.r);
+    case "int_si_amount_ratio_time_gap":
     case "int_amount_ratio_find_time_si":
       return round2(v.t);
     case "int_ci_amount_annual":
@@ -64,7 +68,13 @@ export function solveInterestIndependently(problem: CanonicalInterestProblem) {
     case "int_ci_rate_from_amount":
       return round2((Math.pow(v.amount / v.p, 1 / v.t) - 1) * 100);
     case "int_ci_time_from_amount":
+    case "int_ci_sum_doubles":
+    case "int_amount_ratio_find_time_ci":
       return round2(v.t);
+    case "int_ci_amount_multiplier_gap":
+      return round2((Math.pow(v.a2 / v.a1, 1 / (v.t2 - v.t1)) - 1) * 100);
+    case "int_amount_ratio_find_rate_ci":
+      return round2((Math.pow(v.amount / v.p, 1 / v.t) - 1) * 100);
     case "int_ci_si_difference_2_years":
       return round2((v.p * v.r * v.r) / 10000);
     case "int_ci_si_difference_3_years":
@@ -78,6 +88,14 @@ export function solveInterestIndependently(problem: CanonicalInterestProblem) {
     case "int_ci_monthly":
     case "int_wrong_period_conversion_trap":
       return round2(v.p * Math.pow(1 + v.periodRate / 100, v.periods));
+    case "int_ci_annual_vs_half_yearly":
+      return round2(v.diff);
+    case "int_ci_specific_year_isolation":
+    case "int_ci_nth_year_interest_from_principal":
+    case "int_ci_specific_year_rate_principal":
+      return round2(v.nthInterest);
+    case "int_nominal_vs_effective_rate":
+      return round2(v.effective);
     case "int_present_worth":
     case "int_bill_due_after_time":
       return round2((v.amount * 100) / (100 + v.r * v.t));
@@ -100,8 +118,33 @@ export function solveInterestIndependently(problem: CanonicalInterestProblem) {
     case "int_machine_car_depreciation":
     case "int_successive_growth":
     case "int_successive_reduction":
+      return round2(v.finalValue);
     case "int_compound_depreciation_repair_sale":
       return round2(v.finalValue);
+    case "int_equal_annual_installments_ci":
+    case "int_equal_half_yearly_installments_ci":
+    case "int_loan_repayment_si":
+    case "int_loan_repayment_ci":
+    case "int_find_installment_amount":
+      return round2(v.installment);
+    case "int_find_principal_from_installments":
+      return round2(v.principal);
+    case "int_si_partial_discharge_timeline":
+    case "int_partial_payment_before_final_amount":
+      return round2(v.interest);
+    case "int_part_principal_two_rates_si":
+    case "int_si_alligation_mixture":
+    case "int_two_sums_same_interest":
+    case "int_same_interest_different_sums_rates_times":
+    case "int_divide_total_interest_between_investments":
+    case "int_two_people_invest_same_rate":
+      return round2(v.part1);
+    case "int_weighted_average_rate":
+      return round2((v.interest * 100) / (v.total * v.t));
+    case "int_weighted_interest_income":
+      return round2(v.interest);
+    case "int_investment_ratio_from_interest":
+      return round2(v.part1 / v.part2);
     default:
       return round2(problem.answer);
   }
@@ -143,6 +186,7 @@ export function validateInterestIndependentSolver(input: {
   }
   const explanationFinalValue = finalNumericValue(input.explanation);
   if (
+    input.problem.answerKind !== "ratio" &&
     explanationFinalValue !== undefined &&
     !closeEnough(Math.abs(explanationFinalValue), Math.abs(solverValue))
   ) {

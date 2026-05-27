@@ -1,0 +1,7768 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-26-191033
+Run: run-2e92106f-bc41-4a76-9e13-3955fb16be15
+Seed: ratio-proportion-audit:run-2e92106f-bc41-4a76-9e13-3955fb16be15
+Explicit seed: no
+Preset: ratio_proportion_audit
+Profile: multilingual_review
+Count: 100
+Estimated Size: ~2.3 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+If \(A:B=11:12\) and \(B:C=8:13\), find \(A:B:C\).
+
+HI:
+यदि \(A:B=11:12\) और \(B:C=8:13\) है, तो \(A:B:C\) ज्ञात करें।
+
+PA:
+ਜੇ \(A:B=11:12\) ਅਤੇ \(B:C=8:13\) ਹੈ, ਤਾਂ \(A:B:C\) ਪਤਾ ਕਰੋ।
+
+Options: 88:96:156 | 22:24:39 | 11:12:13 | 39:24:22
+Answer: 22:24:39
+Difficulty: Hard
+Topology: ratio_proportion:rp_chain_ratio_network
+Realism: 86
+
+Explanation EN:
+Make the B part common.
+
+\[
+L=\operatorname{lcm}(12,8)=24
+\]
+
+Scale the first ratio.
+
+\[
+A:B=22:24
+\]
+
+Scale the second ratio.
+
+\[
+B:C=24:39
+\]
+
+Combine the ratios.
+
+\[
+A:B:C=22:24:39
+\]
+
+Answer: 22:24:39
+
+Explanation HI:
+B के भाग को समान करें।
+
+\[
+L=\operatorname{lcm}(12,8)=24
+\]
+
+पहले अनुपात को बढ़ाएँ।
+
+\[
+A:B=22:24
+\]
+
+दूसरे अनुपात को बढ़ाएँ।
+
+\[
+B:C=24:39
+\]
+
+अनुपातों को मिलाएँ।
+
+\[
+A:B:C=22:24:39
+\]
+
+उत्तर: 22:24:39
+
+Explanation PA:
+B ਦੇ ਭਾਗ ਨੂੰ ਸਾਂਝਾ ਕਰੋ।
+
+\[
+L=\operatorname{lcm}(12,8)=24
+\]
+
+ਪਹਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।
+
+\[
+A:B=22:24
+\]
+
+ਦੂਜੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।
+
+\[
+B:C=24:39
+\]
+
+ਅਨੁਪਾਤਾਂ ਨੂੰ ਜੋੜੋ।
+
+\[
+A:B:C=22:24:39
+\]
+
+ਉੱਤਰ: 22:24:39
+
+[Q2]
+EN:
+A is \(\frac{10}{23}\) of the total. Find the ratio \(A:B\).
+
+HI:
+A, कुल का \(\frac{10}{23}\) है। अनुपात \(A:B\) ज्ञात करें।
+
+PA:
+A, ਕੁੱਲ ਦਾ \(\frac{10}{23}\) ਹੈ। ਅਨੁਪਾਤ \(A:B\) ਪਤਾ ਕਰੋ।
+
+Options: 10:23 | 23:10 | 13:10 | 10:13
+Answer: 10:13
+Difficulty: Easy
+Topology: ratio_proportion:rp_fraction_to_ratio
+Realism: 74
+
+Explanation EN:
+Use total parts from the fraction.
+
+\[
+A=10,\quad A+B=23
+\]
+
+Find B's parts.
+
+\[
+B=23-10=13
+\]
+
+Write the ratio.
+
+\[
+A:B=10:13=10:13
+\]
+
+Answer: 10:13
+
+Explanation HI:
+भिन्न से कुल भाग लें।
+
+\[
+A=10,\quad A+B=23
+\]
+
+B के भाग ज्ञात करें।
+
+\[
+B=23-10=13
+\]
+
+अनुपात लिखें।
+
+\[
+A:B=10:13=10:13
+\]
+
+उत्तर: 10:13
+
+Explanation PA:
+ਭਿੰਨ ਤੋਂ ਕੁੱਲ ਭਾਗ ਲਓ।
+
+\[
+A=10,\quad A+B=23
+\]
+
+B ਦੇ ਭਾਗ ਪਤਾ ਕਰੋ।
+
+\[
+B=23-10=13
+\]
+
+ਅਨੁਪਾਤ ਲਿਖੋ।
+
+\[
+A:B=10:13=10:13
+\]
+
+ਉੱਤਰ: 10:13
+
+[Q3]
+EN:
+The ratio of two quantities is \(2:3\). Their product is 2400. Find the second quantity.
+
+HI:
+दो संख्याओं का अनुपात \(2:3\) है और उनका गुणनफल 2400 है। दूसरी संख्या ज्ञात करें।
+
+PA:
+ਦੋ ਸੰਖਿਆਵਾਂ ਦਾ ਅਨੁਪਾਤ \(2:3\) ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਗੁਣਨਫਲ 2400 ਹੈ। ਦੂਜੀ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।
+
+Options: 20 | 480 | 40 | 60
+Answer: 60
+Difficulty: Medium
+Topology: ratio_proportion:rp_product_based_ratio_recovery
+Realism: 83
+
+Explanation EN:
+Let the two numbers be proportional parts.
+
+\[
+A=2k,\quad B=3k
+\]
+
+Use the product condition.
+
+\[
+2k\times 3k=2400
+\]
+
+Solve for k.
+
+\[
+6k^2=2400,\quad k=20
+\]
+
+Find the required number.
+
+\[
+B=3\times 20=60
+\]
+
+Answer: 60
+
+Explanation HI:
+मान लें संख्याएँ अनुपाती भाग हैं।
+
+\[
+A=2k,\quad B=3k
+\]
+
+गुणनफल की शर्त लगाएँ।
+
+\[
+2k\times 3k=2400
+\]
+
+k का मान निकालें।
+
+\[
+6k^2=2400,\quad k=20
+\]
+
+आवश्यक संख्या ज्ञात करें।
+
+\[
+B=3\times 20=60
+\]
+
+उत्तर: 60
+
+Explanation PA:
+ਮੰਨ ਲਓ ਸੰਖਿਆਵਾਂ ਅਨੁਪਾਤੀ ਭਾਗ ਹਨ।
+
+\[
+A=2k,\quad B=3k
+\]
+
+ਗੁਣਨਫਲ ਦੀ ਸ਼ਰਤ ਲਗਾਓ।
+
+\[
+2k\times 3k=2400
+\]
+
+k ਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+6k^2=2400,\quad k=20
+\]
+
+ਲੋੜੀਂਦੀ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।
+
+\[
+B=3\times 20=60
+\]
+
+ਉੱਤਰ: 60
+
+[Q4]
+EN:
+When the first term of a ratio is multiplied by 2 and the second by 5, the ratio becomes \(2:7\). Find the original ratio.
+
+HI:
+किसी अनुपात के पहले पद को 2 और दूसरे पद को 5 से गुणा करने पर अनुपात \(2:7\) हो जाता है। मूल अनुपात ज्ञात करें।
+
+PA:
+ਕਿਸੇ ਅਨੁਪਾਤ ਦੇ ਪਹਿਲੇ ਪਦ ਨੂੰ 2 ਅਤੇ ਦੂਜੇ ਪਦ ਨੂੰ 5 ਨਾਲ ਗੁਣਾ ਕਰਨ ਤੇ ਅਨੁਪਾਤ \(2:7\) ਹੋ ਜਾਂਦਾ ਹੈ। ਅਸਲ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 7:5 | 2:7 | 5:7 | 4:35
+Answer: 5:7
+Difficulty: Medium
+Topology: ratio_proportion:rp_reverse_ratio_scaling
+Realism: 83
+
+Explanation EN:
+Undo the two scale factors.
+
+\[
+A:B=\frac{2}{2}:\frac{7}{5}
+\]
+
+Simplify the ratio.
+
+\[
+A:B=5:7
+\]
+
+Answer: 5:7
+
+Explanation HI:
+दोनों गुणकों को उल्टा लगाएँ।
+
+\[
+A:B=\frac{2}{2}:\frac{7}{5}
+\]
+
+अनुपात सरल करें।
+
+\[
+A:B=5:7
+\]
+
+उत्तर: 5:7
+
+Explanation PA:
+ਦੋਵੇਂ ਗੁਣਕ ਉਲਟੇ ਲਗਾਓ।
+
+\[
+A:B=\frac{2}{2}:\frac{7}{5}
+\]
+
+ਅਨੁਪਾਤ ਸਧਾਰੋ।
+
+\[
+A:B=5:7
+\]
+
+ਉੱਤਰ: 5:7
+
+[Q5]
+EN:
+A invests ₹6000 for 12 months and B invests ₹8000 for 9 months. If the total profit is ₹2000, find A's share.
+
+HI:
+A 12 महीने के लिए ₹6000 और B 9 महीने के लिए ₹8000 निवेश करता है। यदि कुल लाभ ₹2000 है, तो A का हिस्सा ज्ञात करें।
+
+PA:
+A 12 ਮਹੀਨੇ ਲਈ ₹6000 ਅਤੇ B 9 ਮਹੀਨੇ ਲਈ ₹8000 ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਲਾਭ ₹2000 ਹੈ, ਤਾਂ A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹6000 | ₹999 | ₹1002 | ₹1000
+Answer: ₹1000
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_time_variation
+Realism: 81
+
+Explanation EN:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=6000\times 12:8000\times 9
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=72000:72000=1:1
+\]
+
+Use the total profit.
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+Find A's share.
+
+\[
+A=1k=1000
+\]
+
+Answer: ₹1000
+
+Explanation HI:
+लाभ अनुपात पूँजी × समय होता है।
+
+\[
+A:B=6000\times 12:8000\times 9
+\]
+
+प्रभावी पूँजी अनुपात सरल करें।
+
+\[
+A:B=72000:72000=1:1
+\]
+
+कुल लाभ का उपयोग करें।
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+A का हिस्सा निकालें।
+
+\[
+A=1k=1000
+\]
+
+उत्तर: ₹1000
+
+Explanation PA:
+ਲਾਭ ਅਨੁਪਾਤ ਪੂੰਜੀ × ਸਮਾਂ ਹੁੰਦਾ ਹੈ।
+
+\[
+A:B=6000\times 12:8000\times 9
+\]
+
+ਪ੍ਰਭਾਵੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A:B=72000:72000=1:1
+\]
+
+ਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+A ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=1k=1000
+\]
+
+ਉੱਤਰ: ₹1000
+
+[Q6]
+EN:
+A blueprint is drawn to the scale \(1:100\). A wall measures 4.5 cm on the drawing. Find its actual length in cm.
+
+HI:
+एक नक्शे का पैमाना \(1:100\) है। चित्र में दीवार 4.5 cm है। वास्तविक लंबाई cm में ज्ञात करें।
+
+PA:
+ਇੱਕ ਨਕਸ਼ੇ ਦਾ ਪੈਮਾਨਾ \(1:100\) ਹੈ। ਚਿੱਤਰ ਵਿੱਚ ਕੰਧ 4.5 cm ਹੈ। ਅਸਲ ਲੰਬਾਈ cm ਵਿੱਚ ਪਤਾ ਕਰੋ।
+
+Options: 100 cm | 450 cm | 4.5 cm | 45 cm
+Answer: 450 cm
+Difficulty: Medium
+Topology: ratio_proportion:rp_blueprint_scaling
+Realism: 82
+
+Explanation EN:
+Multiply drawing length by the scale factor.
+
+\[
+L=4.5\times 100=450\,\mathrm{cm}
+\]
+
+Answer: 450 cm
+
+Explanation HI:
+चित्र की लंबाई को पैमाना गुणक से गुणा करें।
+
+\[
+L=4.5\times 100=450\,\mathrm{cm}
+\]
+
+उत्तर: 450 cm
+
+Explanation PA:
+ਚਿੱਤਰ ਦੀ ਲੰਬਾਈ ਨੂੰ ਪੈਮਾਨੇ ਦੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+L=4.5\times 100=450\,\mathrm{cm}
+\]
+
+ਉੱਤਰ: 450 cm
+
+[Q7]
+EN:
+Three partners put in ₹4000, ₹5000 and ₹6000. The profit is ₹15000. What is B's share?
+
+HI:
+A, B और C क्रमशः ₹4000, ₹5000 और ₹6000 लगाते हैं। कुल लाभ ₹15000 है। B का हिस्सा ज्ञात करें।
+
+PA:
+A, B ਅਤੇ C ਕ੍ਰਮਵਾਰ ₹4000, ₹5000 ਅਤੇ ₹6000 ਲਗਾਉਂਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ₹15000 ਹੈ। B ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹10000 | ₹4000 | ₹5000 | ₹5010
+Answer: ₹5000
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_profit_distribution
+Realism: 80
+
+Explanation EN:
+For the same time, profit ratio equals capital ratio.
+
+\[
+A:B:C=4:5:6
+\]
+
+Find the required share.
+
+\[
+B=\frac{5000}{15000}\times 15000=5000
+\]
+
+Answer: ₹5000
+
+Explanation HI:
+समान समय के लिए लाभ अनुपात पूँजी अनुपात के बराबर होता है।
+
+\[
+A:B:C=4:5:6
+\]
+
+आवश्यक हिस्सा निकालें।
+
+\[
+B=\frac{5000}{15000}\times 15000=5000
+\]
+
+उत्तर: ₹5000
+
+Explanation PA:
+ਇੱਕੋ ਸਮੇਂ ਲਈ ਲਾਭ ਅਨੁਪਾਤ ਪੂੰਜੀ ਅਨੁਪਾਤ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ।
+
+\[
+A:B:C=4:5:6
+\]
+
+ਲੋੜੀਂਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+B=\frac{5000}{15000}\times 15000=5000
+\]
+
+ਉੱਤਰ: ₹5000
+
+[Q8]
+EN:
+If \(A:B=2:3\), what fraction of the total is A?
+
+HI:
+यदि \(A:B=2:3\) है, तो कुल का कितना भाग A है?
+
+PA:
+ਜੇ \(A:B=2:3\) ਹੈ, ਤਾਂ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਭਾਗ A ਹੈ?
+
+Options: 2/1 | 2/5 | 3/5 | 5/2
+Answer: 2/5
+Difficulty: Easy
+Topology: ratio_proportion:rp_ratio_to_fraction
+Realism: 74
+
+Explanation EN:
+Add the ratio parts to get the total parts.
+
+\[
+2+3=5
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{2}{5}=2/5
+\]
+
+Answer: 2/5
+
+Explanation HI:
+कुल भाग पाने के लिए अनुपात के भाग जोड़ें।
+
+\[
+2+3=5
+\]
+
+आवश्यक भाग को कुल भागों पर लिखें।
+
+\[
+A=\frac{2}{5}=2/5
+\]
+
+उत्तर: 2/5
+
+Explanation PA:
+ਕੁੱਲ ਭਾਗਾਂ ਲਈ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਜੋੜੋ।
+
+\[
+2+3=5
+\]
+
+ਲੋੜੀਂਦੇ ਭਾਗ ਨੂੰ ਕੁੱਲ ਭਾਗਾਂ ਉੱਤੇ ਲਿਖੋ।
+
+\[
+A=\frac{2}{5}=2/5
+\]
+
+ਉੱਤਰ: 2/5
+
+[Q9]
+EN:
+A class has 195 students. The ratio of boys to girls is \(5:8\). Find the number of boys.
+
+HI:
+लड़कों और लड़कियों का अनुपात \(5:8\) है। कुल विद्यार्थी 195 हैं। लड़कों की संख्या ज्ञात करें।
+
+PA:
+ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ \(5:8\) ਹੈ। ਕੁੱਲ ਵਿਦਿਆਰਥੀ 195 ਹਨ। ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 75 | 15 | 120 | 45
+Answer: 75
+Difficulty: Easy
+Topology: ratio_proportion:rp_sum_based_ratio_recovery
+Realism: 72
+
+Explanation EN:
+Let boys and girls be proportional to the ratio.
+
+\[
+B=5k,\quad G=8k
+\]
+
+Use the total students.
+
+\[
+5k+8k=195
+\]
+
+Solve the equation.
+
+\[
+13k=195,\quad k=15
+\]
+
+Find the number of boys.
+
+\[
+B=5k=75
+\]
+
+Answer: 75
+
+Explanation HI:
+लड़कों और लड़कियों को अनुपात के अनुसार मानें।
+
+\[
+B=5k,\quad G=8k
+\]
+
+कुल विद्यार्थियों का उपयोग करें।
+
+\[
+5k+8k=195
+\]
+
+समीकरण हल करें।
+
+\[
+13k=195,\quad k=15
+\]
+
+लड़कों की संख्या निकालें।
+
+\[
+B=5k=75
+\]
+
+उत्तर: 75
+
+Explanation PA:
+ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਨੂੰ ਅਨੁਪਾਤ ਅਨੁਸਾਰ ਮੰਨੋ।
+
+\[
+B=5k,\quad G=8k
+\]
+
+ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+5k+8k=195
+\]
+
+ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।
+
+\[
+13k=195,\quad k=15
+\]
+
+ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।
+
+\[
+B=5k=75
+\]
+
+ਉੱਤਰ: 75
+
+[Q10]
+EN:
+Out of 1100 marks, the shares of Maths and Science are in the ratio \(5:6\). Find the share of Science.
+
+HI:
+कुल अंक 1100 है। गणित और विज्ञान का अनुपात \(5:6\) है। विज्ञान का हिस्सा ज्ञात करें।
+
+PA:
+ਕੁੱਲ ਅੰਕ 1100 ਹੈ। ਗਣਿਤ ਅਤੇ ਵਿਗਿਆਨ ਦਾ ਅਨੁਪਾਤ \(5:6\) ਹੈ। ਵਿਗਿਆਨ ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: 500 | 100 | 600 | 550
+Answer: 600
+Difficulty: Easy
+Topology: ratio_proportion:rp_direct_sharing
+Realism: 73
+
+Explanation EN:
+Write the given ratio.
+
+\[
+Maths=5k,\quad Science=6k
+\]
+
+Use the total marks.
+
+\[
+5k+6k=1100
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{1100}{11}=100
+\]
+
+Compute Science's share.
+
+\[
+Science=6k=6\times 100=600
+\]
+
+Answer: 600
+
+Explanation HI:
+दिया गया अनुपात लिखें।
+
+\[
+Maths=5k,\quad Science=6k
+\]
+
+कुल अंक का उपयोग करें।
+
+\[
+5k+6k=1100
+\]
+
+सामान्य गुणक ज्ञात करें।
+
+\[
+k=\frac{1100}{11}=100
+\]
+
+विज्ञान का हिस्सा निकालें।
+
+\[
+Science=6k=6\times 100=600
+\]
+
+उत्तर: 600
+
+Explanation PA:
+ਦਿੱਤਾ ਅਨੁਪਾਤ ਲਿਖੋ।
+
+\[
+Maths=5k,\quad Science=6k
+\]
+
+ਕੁੱਲ ਅੰਕ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+5k+6k=1100
+\]
+
+ਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+k=\frac{1100}{11}=100
+\]
+
+ਵਿਗਿਆਨ ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+Science=6k=6\times 100=600
+\]
+
+ਉੱਤਰ: 600
+
+[Q11]
+EN:
+If \(5:8 = 20:x\), find \(x\).
+
+HI:
+यदि \(5:8 = 20:x\) है, तो \(x\) ज्ञात करें।
+
+PA:
+ਜੇ \(5:8 = 20:x\) ਹੈ, ਤਾਂ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 13 | 32 | 20 | 28
+Answer: 32
+Difficulty: Easy
+Topology: ratio_proportion:rp_missing_term_proportion
+Realism: 75
+
+Explanation EN:
+Write the proportion as fractions.
+
+\[
+\frac{5}{8}=\frac{20}{x}
+\]
+
+Cross-multiply.
+
+\[
+5x=8\times 20
+\]
+
+Solve for the missing term.
+
+\[
+x=\frac{8\times 20}{5}=32
+\]
+
+Answer: 32
+
+Explanation HI:
+अनुपात को भिन्न के रूप में लिखें।
+
+\[
+\frac{5}{8}=\frac{20}{x}
+\]
+
+क्रॉस-गुणा करें।
+
+\[
+5x=8\times 20
+\]
+
+लुप्त पद ज्ञात करें।
+
+\[
+x=\frac{8\times 20}{5}=32
+\]
+
+उत्तर: 32
+
+Explanation PA:
+ਅਨੁਪਾਤ ਨੂੰ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।
+
+\[
+\frac{5}{8}=\frac{20}{x}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰੋ।
+
+\[
+5x=8\times 20
+\]
+
+ਗੁੰਮ ਪਦ ਪਤਾ ਕਰੋ।
+
+\[
+x=\frac{8\times 20}{5}=32
+\]
+
+ਉੱਤਰ: 32
+
+[Q12]
+EN:
+Marks in Maths, Science and English are in the ratio \(4:5:6\). Total marks are 300. Find the marks in Science.
+
+HI:
+गणित, विज्ञान और अंग्रेज़ी के अंक \(4:5:6\) के अनुपात में हैं। कुल अंक 300 हैं। Science के अंक ज्ञात करें।
+
+PA:
+ਗਣਿਤ, ਵਿਗਿਆਨ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੇ ਅੰਕ \(4:5:6\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਕੁੱਲ ਅੰਕ 300 ਹਨ। Science ਦੇ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 200 | 20 | 100 | 80
+Answer: 100
+Difficulty: Medium
+Topology: ratio_proportion:rp_marks_distribution_ratio
+Realism: 84
+
+Explanation EN:
+Find one ratio unit.
+
+\[
+k=\frac{300}{15}=20
+\]
+
+Multiply by the required subject part.
+
+\[
+Science=5\times 20=100
+\]
+
+Answer: 100
+
+Explanation HI:
+एक अनुपात इकाई निकालें।
+
+\[
+k=\frac{300}{15}=20
+\]
+
+आवश्यक विषय के भाग से गुणा करें।
+
+\[
+Science=5\times 20=100
+\]
+
+उत्तर: 100
+
+Explanation PA:
+ਇੱਕ ਅਨੁਪਾਤ ਇਕਾਈ ਕੱਢੋ।
+
+\[
+k=\frac{300}{15}=20
+\]
+
+ਲੋੜੀਂਦੇ ਵਿਸ਼ੇ ਦੇ ਭਾਗ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+Science=5\times 20=100
+\]
+
+ਉੱਤਰ: 100
+
+[Q13]
+EN:
+A:B in age is \(2:3\) and B is 18 years older than A. Find B's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(2:3\) है। आयु का अंतर 18 वर्ष है। B की आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(2:3\) ਹੈ। ਉਮਰ ਦਾ ਫਰਕ 18 ਸਾਲ ਹੈ। B ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 54 years | 62 years | 36 years | 18 years
+Answer: 54 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_difference_constant
+Realism: 81
+
+Explanation EN:
+Let the ages be proportional parts.
+
+\[
+A=2k,\quad B=3k
+\]
+
+Use the constant age difference.
+
+\[
+3k-2k=18
+\]
+
+Find k and the required age.
+
+\[
+k=18,\quad B=3\times 18=54
+\]
+
+Answer: 54 years
+
+Explanation HI:
+आयु को अनुपाती भाग मानें।
+
+\[
+A=2k,\quad B=3k
+\]
+
+स्थिर आयु अंतर का उपयोग करें।
+
+\[
+3k-2k=18
+\]
+
+k और आवश्यक आयु निकालें।
+
+\[
+k=18,\quad B=3\times 18=54
+\]
+
+उत्तर: 54 वर्ष
+
+Explanation PA:
+ਉਮਰਾਂ ਨੂੰ ਅਨੁਪਾਤੀ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=2k,\quad B=3k
+\]
+
+ਸਥਿਰ ਉਮਰ ਫਰਕ ਵਰਤੋ।
+
+\[
+3k-2k=18
+\]
+
+k ਅਤੇ ਲੋੜੀਂਦੀ ਉਮਰ ਕੱਢੋ।
+
+\[
+k=18,\quad B=3\times 18=54
+\]
+
+ਉੱਤਰ: 54 ਸਾਲ
+
+[Q14]
+EN:
+\(x\) is directly proportional to \(y\). When \(y=12\), \(x=432\). Find \(x\) when \(y=15\).
+
+HI:
+यदि \(x\), \(y\) के सीधे अनुपाती है और \(y=12\) पर \(x=432\) है, तो \(y=15\) पर \(x\) ज्ञात करें।
+
+PA:
+ਜੇ \(x\), \(y\) ਦੇ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ \(y=12\) ਤੇ \(x=432\) ਹੈ, ਤਾਂ \(y=15\) ਤੇ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 345.6 | 540 | 432 | 435
+Answer: 540
+Difficulty: Medium
+Topology: ratio_proportion:rp_direct_variation_basic
+Realism: 84
+
+Explanation EN:
+For direct variation, the ratios are equal.
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+Substitute the values.
+
+\[
+\frac{432}{12}=\frac{x_2}{15}
+\]
+
+Solve for the new value.
+
+\[
+x_2=\frac{432\times 15}{12}=540
+\]
+
+Answer: 540
+
+Explanation HI:
+सीधे अनुपात में अनुपात बराबर होते हैं।
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+मान रखें।
+
+\[
+\frac{432}{12}=\frac{x_2}{15}
+\]
+
+नया मान ज्ञात करें।
+
+\[
+x_2=\frac{432\times 15}{12}=540
+\]
+
+उत्तर: 540
+
+Explanation PA:
+ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਅਨੁਪਾਤ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+ਮੁੱਲ ਰੱਖੋ।
+
+\[
+\frac{432}{12}=\frac{x_2}{15}
+\]
+
+ਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+\[
+x_2=\frac{432\times 15}{12}=540
+\]
+
+ਉੱਤਰ: 540
+
+[Q15]
+EN:
+7500 votes were cast, out of which 1500 were invalid. The valid votes for A and B are in the ratio \(2:3\). Find A's valid votes.
+
+HI:
+एक चुनाव में 7500 मत पड़े, जिनमें 1500 अमान्य थे। A और B के वैध मतों का अनुपात \(2:3\) है। A के मत ज्ञात करें।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 7500 ਵੋਟਾਂ ਪਈਆਂ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ 1500 ਅਵੈਧ ਸਨ। A ਅਤੇ B ਦੇ ਵੈਧ ਵੋਟਾਂ ਦਾ ਅਨੁਪਾਤ \(2:3\) ਹੈ। A ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 1500 | 3000 | 3600 | 2400
+Answer: 2400
+Difficulty: Medium
+Topology: ratio_proportion:rp_voter_turnout_ratio
+Realism: 82
+
+Explanation EN:
+First find the valid votes.
+
+\[
+V=7500-1500=6000
+\]
+
+Divide valid votes in the given ratio.
+
+\[
+A=\frac{2}{2+3}\times 6000=2400
+\]
+
+Answer: 2400
+
+Explanation HI:
+पहले वैध मत निकालें।
+
+\[
+V=7500-1500=6000
+\]
+
+वैध मतों को दिए अनुपात में बाँटें।
+
+\[
+A=\frac{2}{2+3}\times 6000=2400
+\]
+
+उत्तर: 2400
+
+Explanation PA:
+ਪਹਿਲਾਂ ਵੈਧ ਵੋਟਾਂ ਕੱਢੋ।
+
+\[
+V=7500-1500=6000
+\]
+
+ਵੈਧ ਵੋਟਾਂ ਨੂੰ ਦਿੱਤੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੋ।
+
+\[
+A=\frac{2}{2+3}\times 6000=2400
+\]
+
+ਉੱਤਰ: 2400
+
+[Q16]
+EN:
+Two mixture quantities have ratio \(7:9\). The first falls by 10% and the second by 50%. Find the new ratio.
+
+HI:
+दो मिश्रणों की मात्राओं का अनुपात \(7:9\) है। पहली मात्रा 10% और दूसरी मात्रा 50% घटती है। नया अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਮਿਸ਼ਰਣਾਂ ਦੀਆਂ ਮਾਤਰਾਂ ਦਾ ਅਨੁਪਾਤ \(7:9\) ਹੈ। ਪਹਿਲੀ ਮਾਤਰਾ 10% ਅਤੇ ਦੂਜੀ ਮਾਤਰਾ 50% ਘਟਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 770:1350 | 350:810 | 7:5 | 7:9
+Answer: 7:5
+Difficulty: Medium
+Topology: ratio_proportion:rp_ratio_after_decrease
+Realism: 80
+
+Explanation EN:
+Let the original quantities be ratio parts.
+
+\[
+A=7,\quad B=9
+\]
+
+Apply the decreases.
+
+\[
+A':B'=7\left(1-\frac{10}{100}\right):9\left(1-\frac{50}{100}\right)
+\]
+
+Simplify the ratio.
+
+\[
+A':B'=630:450=7:5
+\]
+
+Answer: 7:5
+
+Explanation HI:
+मूल मात्राओं को अनुपात के भाग मानें।
+
+\[
+A=7,\quad B=9
+\]
+
+घटाव लगाएँ।
+
+\[
+A':B'=7\left(1-\frac{10}{100}\right):9\left(1-\frac{50}{100}\right)
+\]
+
+अनुपात सरल करें।
+
+\[
+A':B'=630:450=7:5
+\]
+
+उत्तर: 7:5
+
+Explanation PA:
+ਮੂਲ ਮਾਤਰਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=7,\quad B=9
+\]
+
+ਘਟਾਓ ਲਗਾਓ।
+
+\[
+A':B'=7\left(1-\frac{10}{100}\right):9\left(1-\frac{50}{100}\right)
+\]
+
+ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A':B'=630:450=7:5
+\]
+
+ਉੱਤਰ: 7:5
+
+[Q17]
+EN:
+Presently, parent:child age ratio is \(8:3\). After 6 years it is \(9:4\). What is the present age of the parent?
+
+HI:
+माता/पिता और बच्चे की वर्तमान आयु का अनुपात \(8:3\) है। 6 वर्ष बाद अनुपात \(9:4\) होगा। माता/पिता की वर्तमान आयु ज्ञात करें।
+
+PA:
+ਮਾਤਾ/ਪਿਤਾ ਅਤੇ ਬੱਚੇ ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(8:3\) ਹੈ। 6 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \(9:4\) ਹੋਵੇਗਾ। ਮਾਤਾ/ਪਿਤਾ ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 18 years | 54 years | 48 years | 6 years
+Answer: 48 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_multi_generation
+Realism: 80
+
+Explanation EN:
+Let present ages be proportional parts.
+
+\[
+P=8k,\quad C=3k
+\]
+
+Use the future ratio.
+
+\[
+\frac{8k+6}{3k+6}=\frac{9}{4}
+\]
+
+Solve and find the required age.
+
+\[
+k=6,\quad P=8\times 6=48
+\]
+
+Answer: 48 years
+
+Explanation HI:
+वर्तमान आयु अनुपाती भाग मानें।
+
+\[
+P=8k,\quad C=3k
+\]
+
+भविष्य अनुपात का उपयोग करें।
+
+\[
+\frac{8k+6}{3k+6}=\frac{9}{4}
+\]
+
+हल करके आवश्यक आयु निकालें।
+
+\[
+k=6,\quad P=8\times 6=48
+\]
+
+उत्तर: 48 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰਾਂ ਅਨੁਪਾਤੀ ਭਾਗ ਮੰਨੋ।
+
+\[
+P=8k,\quad C=3k
+\]
+
+ਭਵਿੱਖ ਅਨੁਪਾਤ ਵਰਤੋ।
+
+\[
+\frac{8k+6}{3k+6}=\frac{9}{4}
+\]
+
+ਹੱਲ ਕਰਕੇ ਲੋੜੀਂਦੀ ਉਮਰ ਕੱਢੋ।
+
+\[
+k=6,\quad P=8\times 6=48
+\]
+
+ਉੱਤਰ: 48 ਸਾਲ
+
+[Q18]
+EN:
+The amounts with A and B are in the ratio \(7:5\). When A gives ₹2400 to B, the ratio becomes \(13:11\). Find A's original amount.
+
+HI:
+A और B के पास धन का अनुपात \(7:5\) है। A द्वारा B को ₹2400 देने के बाद अनुपात \(13:11\) हो जाता है। A की मूल राशि ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਕੋਲ ਪੈਸੇ ਦਾ ਅਨੁਪਾਤ \(7:5\) ਹੈ। A ਵੱਲੋਂ B ਨੂੰ ₹2400 ਦੇਣ ਤੋਂ ਬਾਅਦ ਅਨੁਪਾਤ \(13:11\) ਹੋ ਜਾਂਦਾ ਹੈ। A ਦੀ ਮੂਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹24000 | ₹36000 | ₹31200 | ₹33600
+Answer: ₹33600
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_after_transfer
+Realism: 86
+
+Explanation EN:
+Let the original amounts be ratio parts.
+
+\[
+A=7k,\quad B=5k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{7k-2400}{5k+2400}=\frac{13}{11}
+\]
+
+Cross-multiply and solve.
+
+\[
+11(7k-2400)=13(5k+2400)
+\]
+
+Find the common multiplier.
+
+\[
+12k=57600,\quad k=4800
+\]
+
+Compute A's original amount.
+
+\[
+A=7k=7\times 4800=33600
+\]
+
+Answer: ₹33600
+
+Explanation HI:
+मूल राशियों को अनुपात के भाग मानें।
+
+\[
+A=7k,\quad B=5k
+\]
+
+हस्तांतरण के बाद समीकरण बनाएँ।
+
+\[
+\frac{7k-2400}{5k+2400}=\frac{13}{11}
+\]
+
+क्रॉस-गुणा करके हल करें।
+
+\[
+11(7k-2400)=13(5k+2400)
+\]
+
+सामान्य गुणक ज्ञात करें।
+
+\[
+12k=57600,\quad k=4800
+\]
+
+A की मूल राशि निकालें।
+
+\[
+A=7k=7\times 4800=33600
+\]
+
+उत्तर: ₹33600
+
+Explanation PA:
+ਮੂਲ ਰਕਮਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=7k,\quad B=5k
+\]
+
+ਤਬਾਦਲੇ ਤੋਂ ਬਾਅਦ ਸਮੀਕਰਨ ਬਣਾਓ।
+
+\[
+\frac{7k-2400}{5k+2400}=\frac{13}{11}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰਕੇ ਹੱਲ ਕਰੋ।
+
+\[
+11(7k-2400)=13(5k+2400)
+\]
+
+ਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+12k=57600,\quad k=4800
+\]
+
+A ਦੀ ਮੂਲ ਰਕਮ ਕੱਢੋ।
+
+\[
+A=7k=7\times 4800=33600
+\]
+
+ਉੱਤਰ: ₹33600
+
+[Q19]
+EN:
+A and B invest for different durations: ₹12000 for 10 months and ₹9000 for 12 months. Divide the ₹14000 profit and find A's share.
+
+HI:
+A ₹12000 को 10 महीने के लिए और B ₹9000 को 12 महीने के लिए लगाता है। कुल लाभ ₹14000 है। A का हिस्सा ज्ञात करें।
+
+PA:
+A ₹12000 ਨੂੰ 10 ਮਹੀਨੇ ਲਈ ਅਤੇ B ₹9000 ਨੂੰ 12 ਮਹੀਨੇ ਲਈ ਲਗਾਉਂਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ₹14000 ਹੈ। A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹6631.58 | ₹7000 | ₹7368.42 | ₹8000
+Answer: ₹7368.42
+Difficulty: Hard
+Topology: ratio_proportion:rp_partnership_partial_exit
+Realism: 90
+
+Explanation EN:
+Profit is divided in the ratio of effective capitals.
+
+\[
+A:B=12000\times 10:9000\times 12=10:9
+\]
+
+Find A's share.
+
+\[
+A=\frac{10}{10+9}\times 14000=7368.42
+\]
+
+Answer: ₹7368.42
+
+Explanation HI:
+लाभ प्रभावी पूँजी के अनुपात में बँटता है।
+
+\[
+A:B=12000\times 10:9000\times 12=10:9
+\]
+
+A का हिस्सा निकालें।
+
+\[
+A=\frac{10}{10+9}\times 14000=7368.42
+\]
+
+उत्तर: ₹7368.42
+
+Explanation PA:
+ਲਾਭ ਪ੍ਰਭਾਵੀ ਪੂੰਜੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ।
+
+\[
+A:B=12000\times 10:9000\times 12=10:9
+\]
+
+A ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=\frac{10}{10+9}\times 14000=7368.42
+\]
+
+ਉੱਤਰ: ₹7368.42
+
+[Q20]
+EN:
+A's age and B's age are currently in the ratio \(3:5\). After 4 years, their ratio becomes \(7:11\). Find A's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(3:5\) है। 4 वर्ष बाद अनुपात \(7:11\) होगा। A की वर्तमान आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(3:5\) ਹੈ। 4 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \(7:11\) ਹੋਵੇਗਾ। A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 8 years | 40 years | 24 years | 28 years
+Answer: 24 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_future_ratio
+Realism: 81
+
+Explanation EN:
+Let present ages be ratio parts.
+
+\[
+A=3k,\quad B=5k
+\]
+
+Use the future-age ratio.
+
+\[
+\frac{3k+4}{5k+4}=\frac{7}{11}
+\]
+
+Solve for the multiplier.
+
+\[
+-2k=-16,\quad k=8
+\]
+
+Find A's present age.
+
+\[
+A=3k=24
+\]
+
+Answer: 24 years
+
+Explanation HI:
+वर्तमान आयु को अनुपात के भाग मानें।
+
+\[
+A=3k,\quad B=5k
+\]
+
+भविष्य की आयु का अनुपात लगाएँ।
+
+\[
+\frac{3k+4}{5k+4}=\frac{7}{11}
+\]
+
+गुणक ज्ञात करें।
+
+\[
+-2k=-16,\quad k=8
+\]
+
+A की वर्तमान आयु निकालें।
+
+\[
+A=3k=24
+\]
+
+उत्तर: 24 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=3k,\quad B=5k
+\]
+
+ਭਵਿੱਖ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।
+
+\[
+\frac{3k+4}{5k+4}=\frac{7}{11}
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+-2k=-16,\quad k=8
+\]
+
+A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।
+
+\[
+A=3k=24
+\]
+
+ਉੱਤਰ: 24 ਸਾਲ
+
+[Q21]
+EN:
+A is given as 25% of A+B. Express \(A:B\).
+
+HI:
+A, A और B के कुल का 25% है। \(A:B\) ज्ञात करें।
+
+PA:
+A, A ਅਤੇ B ਦੇ ਕੁੱਲ ਦਾ 25% ਹੈ। \(A:B\) ਪਤਾ ਕਰੋ।
+
+Options: 25:100 | 100:25 | 3:1 | 1:3
+Answer: 1:3
+Difficulty: Easy
+Topology: ratio_proportion:rp_percentage_to_ratio
+Realism: 73
+
+Explanation EN:
+Convert the percentage of total into a fraction.
+
+\[
+A=\frac{25}{100}(A+B)
+\]
+
+The remaining part belongs to B.
+
+\[
+A:B=25:75=1:3
+\]
+
+Answer: 1:3
+
+Explanation HI:
+कुल का प्रतिशत भिन्न में बदलें।
+
+\[
+A=\frac{25}{100}(A+B)
+\]
+
+शेष भाग B का होगा।
+
+\[
+A:B=25:75=1:3
+\]
+
+उत्तर: 1:3
+
+Explanation PA:
+ਕੁੱਲ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਭਿੰਨ ਵਿੱਚ ਬਦਲੋ।
+
+\[
+A=\frac{25}{100}(A+B)
+\]
+
+ਬਾਕੀ ਭਾਗ B ਦਾ ਹੋਵੇਗਾ।
+
+\[
+A:B=25:75=1:3
+\]
+
+ਉੱਤਰ: 1:3
+
+[Q22]
+EN:
+With 12 workers, a job takes 60 days. Find the time needed when 15 workers do the same job.
+
+HI:
+12 मजदूर एक काम को 60 दिनों में पूरा करते हैं। यदि मजदूर 15 हों, तो कितने दिन लगेंगे?
+
+PA:
+12 ਮਜ਼ਦੂਰ ਇੱਕ ਕੰਮ ਨੂੰ 60 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਜੇ ਮਜ਼ਦੂਰ 15 ਹੋਣ, ਤਾਂ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 75 | 60 | 48 | 3
+Answer: 48
+Difficulty: Medium
+Topology: ratio_proportion:rp_inverse_variation_basic
+Realism: 81
+
+Explanation EN:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+12\times 60=15\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{12\times 60}{15}=48
+\]
+
+Answer: 48
+
+Explanation HI:
+मजदूर और दिन व्युत्क्रमानुपाती हैं।
+
+\[
+W_1D_1=W_2D_2
+\]
+
+मान रखें।
+
+\[
+12\times 60=15\times D_2
+\]
+
+दिनों की संख्या निकालें।
+
+\[
+D_2=\frac{12\times 60}{15}=48
+\]
+
+उत्तर: 48
+
+Explanation PA:
+ਮਜ਼ਦੂਰ ਅਤੇ ਦਿਨ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ।
+
+\[
+W_1D_1=W_2D_2
+\]
+
+ਮੁੱਲ ਰੱਖੋ।
+
+\[
+12\times 60=15\times D_2
+\]
+
+ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।
+
+\[
+D_2=\frac{12\times 60}{15}=48
+\]
+
+ਉੱਤਰ: 48
+
+[Q23]
+EN:
+Initially, A's income and B's income are in the ratio \(8:9\). They increase by 50% and 20% respectively. Find the new ratio.
+
+HI:
+A और B की आय का अनुपात \(8:9\) है। A की आय 50% और B की आय 20% बढ़ती है। नया अनुपात ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ \(8:9\) ਹੈ। A ਦੀ ਆਮਦਨ 50% ਅਤੇ B ਦੀ ਆਮਦਨ 20% ਵਧਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 8:9 | 960:1350 | 10:9 | 58:29
+Answer: 10:9
+Difficulty: Medium
+Topology: ratio_proportion:rp_ratio_after_increase
+Realism: 84
+
+Explanation EN:
+Let the original incomes be ratio parts.
+
+\[
+A=8,\quad B=9
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=8\left(1+\frac{50}{100}\right):9\left(1+\frac{20}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=1200:1080=10:9
+\]
+
+Answer: 10:9
+
+Explanation HI:
+मूल आय को अनुपात के भाग मानें।
+
+\[
+A=8,\quad B=9
+\]
+
+प्रतिशत वृद्धि लगाएँ।
+
+\[
+A':B'=8\left(1+\frac{50}{100}\right):9\left(1+\frac{20}{100}\right)
+\]
+
+नया अनुपात सरल करें।
+
+\[
+A':B'=1200:1080=10:9
+\]
+
+उत्तर: 10:9
+
+Explanation PA:
+ਮੂਲ ਆਮਦਨ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=8,\quad B=9
+\]
+
+ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਗਾਓ।
+
+\[
+A':B'=8\left(1+\frac{50}{100}\right):9\left(1+\frac{20}{100}\right)
+\]
+
+ਨਵਾਂ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A':B'=1200:1080=10:9
+\]
+
+ਉੱਤਰ: 10:9
+
+[Q24]
+EN:
+In a town, the ratio of males to females is \(7:8\). The population is 13500. Find the number of males.
+
+HI:
+एक नगर में पुरुषों और महिलाओं का अनुपात \(7:8\) है। कुल जनसंख्या 13500 है। पुरुषों की संख्या ज्ञात करें।
+
+PA:
+ਇੱਕ ਸ਼ਹਿਰ ਵਿੱਚ ਮਰਦਾਂ ਅਤੇ ਔਰਤਾਂ ਦਾ ਅਨੁਪਾਤ \(7:8\) ਹੈ। ਕੁੱਲ ਆਬਾਦੀ 13500 ਹੈ। ਮਰਦਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 13500 | 6300 | 7200 | 900
+Answer: 6300
+Difficulty: Medium
+Topology: ratio_proportion:rp_population_gender_ratio
+Realism: 81
+
+Explanation EN:
+Find one ratio unit from the total population.
+
+\[
+k=\frac{13500}{7+8}=900
+\]
+
+Multiply by the required part.
+
+\[
+M=7\times 900=6300
+\]
+
+Answer: 6300
+
+Explanation HI:
+कुल जनसंख्या से एक अनुपात इकाई निकालें।
+
+\[
+k=\frac{13500}{7+8}=900
+\]
+
+आवश्यक भाग से गुणा करें।
+
+\[
+M=7\times 900=6300
+\]
+
+उत्तर: 6300
+
+Explanation PA:
+ਕੁੱਲ ਆਬਾਦੀ ਤੋਂ ਇੱਕ ਅਨੁਪਾਤ ਇਕਾਈ ਕੱਢੋ।
+
+\[
+k=\frac{13500}{7+8}=900
+\]
+
+ਲੋੜੀਂਦੇ ਭਾਗ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+M=7\times 900=6300
+\]
+
+ਉੱਤਰ: 6300
+
+[Q25]
+EN:
+The areas of two similar figures are in the ratio \(4:9\). Find the ratio of their corresponding sides.
+
+HI:
+दो समान आकृतियों के क्षेत्रफलों का अनुपात \(4:9\) है। उनकी संबंधित भुजाओं का अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਸਮਰੂਪ ਆਕ੍ਰਿਤੀਆਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ \(4:9\) ਹੈ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਸੰਬੰਧਿਤ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 2:3 | 4:9 | 3:2 | 8:27
+Answer: 2:3
+Difficulty: Medium
+Topology: ratio_proportion:rp_similarity_scaling
+Realism: 81
+
+Explanation EN:
+Area ratio is the square of side ratio.
+
+\[
+A_1:A_2=4:9
+\]
+
+Take square roots of both parts.
+
+\[
+S_1:S_2=\sqrt{4}:\sqrt{9}=2:3
+\]
+
+Answer: 2:3
+
+Explanation HI:
+क्षेत्रफल अनुपात भुजा अनुपात का वर्ग होता है।
+
+\[
+A_1:A_2=4:9
+\]
+
+दोनों भागों का वर्गमूल लें।
+
+\[
+S_1:S_2=\sqrt{4}:\sqrt{9}=2:3
+\]
+
+उत्तर: 2:3
+
+Explanation PA:
+ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਹੁੰਦਾ ਹੈ।
+
+\[
+A_1:A_2=4:9
+\]
+
+ਦੋਵੇਂ ਭਾਗਾਂ ਦਾ ਵਰਗਮੂਲ ਲਵੋ।
+
+\[
+S_1:S_2=\sqrt{4}:\sqrt{9}=2:3
+\]
+
+ਉੱਤਰ: 2:3
+
+[Q26]
+EN:
+A's salary and B's salary are in the ratio \(7:11\). B earns ₹1600 more than A. Find A's salary.
+
+HI:
+A और B के वेतन का अनुपात \(7:11\) है। B, A से ₹1600 अधिक कमाता है। A का वेतन ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਤਨਖਾਹ ਦਾ ਅਨੁਪਾਤ \(7:11\) ਹੈ। B, A ਨਾਲੋਂ ₹1600 ਵੱਧ ਕਮਾਂਦਾ ਹੈ। A ਦੀ ਤਨਖਾਹ ਪਤਾ ਕਰੋ।
+
+Options: ₹1600 | ₹4400 | ₹2800 | ₹400
+Answer: ₹2800
+Difficulty: Medium
+Topology: ratio_proportion:rp_difference_based_ratio_recovery
+Realism: 80
+
+Explanation EN:
+Let the salaries be in ratio form.
+
+\[
+A=7k,\quad B=11k
+\]
+
+Use the salary difference.
+
+\[
+11k-7k=1600
+\]
+
+Solve for the multiplier.
+
+\[
+4k=1600,\quad k=400
+\]
+
+Compute the required value.
+
+\[
+A=7k=2800
+\]
+
+Answer: ₹2800
+
+Explanation HI:
+वेतन को अनुपात के रूप में मानें।
+
+\[
+A=7k,\quad B=11k
+\]
+
+वेतन के अंतर का उपयोग करें।
+
+\[
+11k-7k=1600
+\]
+
+गुणक ज्ञात करें।
+
+\[
+4k=1600,\quad k=400
+\]
+
+आवश्यक मान निकालें।
+
+\[
+A=7k=2800
+\]
+
+उत्तर: ₹2800
+
+Explanation PA:
+ਤਨਖਾਹਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਰੂਪ ਵਿੱਚ ਮੰਨੋ।
+
+\[
+A=7k,\quad B=11k
+\]
+
+ਤਨਖਾਹ ਦੇ ਅੰਤਰ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+11k-7k=1600
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+4k=1600,\quad k=400
+\]
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+A=7k=2800
+\]
+
+ਉੱਤਰ: ₹2800
+
+[Q27]
+EN:
+A mixture uses flour and sugar in the ratio \(5:3\). Find sugar when flour is 1500 g.
+
+HI:
+एक विधि में आटा और चीनी का अनुपात \(5:3\) है। यदि आटा 1500 g है, तो चीनी की मात्रा ज्ञात करें।
+
+PA:
+ਇੱਕ ਵਿਧੀ ਵਿੱਚ ਆਟਾ ਅਤੇ ਚੀਨੀ ਦਾ ਅਨੁਪਾਤ \(5:3\) ਹੈ। ਜੇ ਆਟਾ 1500 g ਹੈ, ਤਾਂ ਚੀਨੀ ਦੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 600 | 300 | 2400 | 900
+Answer: 900
+Difficulty: Medium
+Topology: ratio_proportion:rp_recipe_scaling_ratio
+Realism: 84
+
+Explanation EN:
+Find one ratio unit from flour.
+
+\[
+k=\frac{1500}{5}=300
+\]
+
+Multiply by the sugar part.
+
+\[
+S=3\times 300=900
+\]
+
+Answer: 900
+
+Explanation HI:
+आटे से एक अनुपात इकाई निकालें।
+
+\[
+k=\frac{1500}{5}=300
+\]
+
+चीनी के भाग से गुणा करें।
+
+\[
+S=3\times 300=900
+\]
+
+उत्तर: 900
+
+Explanation PA:
+ਆਟੇ ਤੋਂ ਇੱਕ ਅਨੁਪਾਤ ਇਕਾਈ ਕੱਢੋ।
+
+\[
+k=\frac{1500}{5}=300
+\]
+
+ਚੀਨੀ ਦੇ ਭਾਗ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+S=3\times 300=900
+\]
+
+ਉੱਤਰ: 900
+
+[Q28]
+EN:
+The current age ratio of A and B is \(7:10\). It was \(37:55\) 5 years ago. Find B's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(7:10\) है। 5 वर्ष पहले अनुपात \(37:55\) था। B की वर्तमान आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(7:10\) ਹੈ। 5 ਸਾਲ ਪਹਿਲਾਂ ਅਨੁਪਾਤ \(37:55\) ਸੀ। B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 42 years | 60 years | 6 years | 55 years
+Answer: 60 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_past_ratio
+Realism: 81
+
+Explanation EN:
+Let present ages be ratio parts.
+
+\[
+A=7k,\quad B=10k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{7k-5}{10k-5}=\frac{37}{55}
+\]
+
+Solve for the multiplier.
+
+\[
+15k=90,\quad k=6
+\]
+
+Find B's present age.
+
+\[
+B=10k=60
+\]
+
+Answer: 60 years
+
+Explanation HI:
+वर्तमान आयु को अनुपात के भाग मानें।
+
+\[
+A=7k,\quad B=10k
+\]
+
+पूर्व आयु का अनुपात लगाएँ।
+
+\[
+\frac{7k-5}{10k-5}=\frac{37}{55}
+\]
+
+गुणक ज्ञात करें।
+
+\[
+15k=90,\quad k=6
+\]
+
+B की वर्तमान आयु निकालें।
+
+\[
+B=10k=60
+\]
+
+उत्तर: 60 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=7k,\quad B=10k
+\]
+
+ਪਿਛਲੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।
+
+\[
+\frac{7k-5}{10k-5}=\frac{37}{55}
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+15k=90,\quad k=6
+\]
+
+B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।
+
+\[
+B=10k=60
+\]
+
+ਉੱਤਰ: 60 ਸਾਲ
+
+[Q29]
+EN:
+Which of the following ratios is equivalent to \(5:8\)?
+
+HI:
+\(5:8\) के बराबर अनुपात ज्ञात करें।
+
+PA:
+\(5:8\) ਦੇ ਬਰਾਬਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 20:8 | 20:32 | 9:12 | 32:20
+Answer: 20:32
+Difficulty: Easy
+Topology: ratio_proportion:rp_equivalent_ratio_generation
+Realism: 72
+
+Explanation EN:
+Multiply both terms by the same number.
+
+\[
+5:8=(5\times 4):(8\times 4)
+\]
+
+So the equivalent ratio is obtained.
+
+\[
+20:32
+\]
+
+Answer: 20:32
+
+Explanation HI:
+दोनों पदों को एक ही संख्या से गुणा करें।
+
+\[
+5:8=(5\times 4):(8\times 4)
+\]
+
+इसलिए बराबर अनुपात मिलता है।
+
+\[
+20:32
+\]
+
+उत्तर: 20:32
+
+Explanation PA:
+ਦੋਵੇਂ ਪਦਾਂ ਨੂੰ ਇੱਕੋ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+5:8=(5\times 4):(8\times 4)
+\]
+
+ਇਸ ਲਈ ਬਰਾਬਰ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।
+
+\[
+20:32
+\]
+
+ਉੱਤਰ: 20:32
+
+[Q30]
+EN:
+The ratio of A to B is \(1:4\). Express A as a percentage of total.
+
+HI:
+यदि \(A:B=1:4\) है, तो A को कुल के प्रतिशत के रूप में ज्ञात करें।
+
+PA:
+ਜੇ \(A:B=1:4\) ਹੈ, ਤਾਂ A ਨੂੰ ਕੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਪਤਾ ਕਰੋ।
+
+Options: 80% | 120% | 20% | 5%
+Answer: 20%
+Difficulty: Easy
+Topology: ratio_proportion:rp_ratio_to_percentage
+Realism: 76
+
+Explanation EN:
+Write the required fraction first.
+
+\[
+A=1,\quad A+B=5
+\]
+
+Convert the fraction into percentage.
+
+\[
+P=\frac{1}{5}\times 100=20\%
+\]
+
+Answer: 20%
+
+Explanation HI:
+पहले आवश्यक भिन्न लिखें।
+
+\[
+A=1,\quad A+B=5
+\]
+
+भिन्न को प्रतिशत में बदलें।
+
+\[
+P=\frac{1}{5}\times 100=20\%
+\]
+
+उत्तर: 20%
+
+Explanation PA:
+ਪਹਿਲਾਂ ਲੋੜੀਂਦੀ ਭਿੰਨ ਲਿਖੋ।
+
+\[
+A=1,\quad A+B=5
+\]
+
+ਭਿੰਨ ਨੂੰ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਬਦਲੋ।
+
+\[
+P=\frac{1}{5}\times 100=20\%
+\]
+
+ਉੱਤਰ: 20%
+
+[Q31]
+EN:
+Output varies jointly as the number of machines and working hours. 8 machines working for 6 hours produce 1920 units. How many units will 10 machines produce in 9 hours?
+
+HI:
+उत्पादन मशीनों की संख्या और काम के घंटों के संयुक्त अनुपात में बदलता है। 8 मशीनें 6 घंटे में 1920 इकाइयाँ बनाती हैं। 10 मशीनें 9 घंटे में कितनी इकाइयाँ बनाएँगी?
+
+PA:
+ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਦੀ ਗਿਣਤੀ ਅਤੇ ਕੰਮ ਦੇ ਘੰਟਿਆਂ ਦੇ ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। 8 ਮਸ਼ੀਨਾਂ 6 ਘੰਟਿਆਂ ਵਿੱਚ 1920 ਇਕਾਈਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। 10 ਮਸ਼ੀਨਾਂ 9 ਘੰਟਿਆਂ ਵਿੱਚ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਬਣਾਉਣਗੀਆਂ?
+
+Options: 2400 | 3600 | 1920 | 2880
+Answer: 3600
+Difficulty: Hard
+Topology: ratio_proportion:rp_joint_variation
+Realism: 86
+
+Explanation EN:
+For joint variation, output is proportional to machines and hours.
+
+\[
+O=kMH
+\]
+
+Use the ratio form.
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+Compute the new output.
+
+\[
+O_2=1920\times \frac{10\times 9}{8\times 6}=3600
+\]
+
+Answer: 3600
+
+Explanation HI:
+संयुक्त अनुपात में उत्पादन मशीनों और घंटों के अनुपाती है।
+
+\[
+O=kMH
+\]
+
+अनुपात रूप का उपयोग करें।
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+नया उत्पादन निकालें।
+
+\[
+O_2=1920\times \frac{10\times 9}{8\times 6}=3600
+\]
+
+उत्तर: 3600
+
+Explanation PA:
+ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਅਤੇ ਘੰਟਿਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ।
+
+\[
+O=kMH
+\]
+
+ਅਨੁਪਾਤ ਰੂਪ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+ਨਵਾਂ ਉਤਪਾਦਨ ਕੱਢੋ।
+
+\[
+O_2=1920\times \frac{10\times 9}{8\times 6}=3600
+\]
+
+ਉੱਤਰ: 3600
+
+[Q32]
+EN:
+The ratio \(A:B=8:9\) is given. A equals 56. Find B.
+
+HI:
+\(A:B=8:9\) है। यदि A = 56, तो B ज्ञात करें।
+
+PA:
+\(A:B=8:9\) ਹੈ। ਜੇ A = 56, ਤਾਂ B ਪਤਾ ਕਰੋ।
+
+Options: 56 | 63 | 7 | 119
+Answer: 63
+Difficulty: Medium
+Topology: ratio_proportion:rp_partial_value_ratio_recovery
+Realism: 82
+
+Explanation EN:
+Let the common multiplier be k.
+
+\[
+A=8k,\quad B=9k
+\]
+
+Use the given part to find k.
+
+\[
+8k=56,\quad k=7
+\]
+
+Compute the required value.
+
+\[
+B=9\times 7=63
+\]
+
+Answer: 63
+
+Explanation HI:
+साझा गुणक k मानें।
+
+\[
+A=8k,\quad B=9k
+\]
+
+दिए गए भाग से k निकालें।
+
+\[
+8k=56,\quad k=7
+\]
+
+आवश्यक मान निकालें।
+
+\[
+B=9\times 7=63
+\]
+
+उत्तर: 63
+
+Explanation PA:
+ਸਾਂਝਾ ਗੁਣਕ k ਮੰਨੋ।
+
+\[
+A=8k,\quad B=9k
+\]
+
+ਦਿੱਤੇ ਭਾਗ ਤੋਂ k ਕੱਢੋ।
+
+\[
+8k=56,\quad k=7
+\]
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+B=9\times 7=63
+\]
+
+ਉੱਤਰ: 63
+
+[Q33]
+EN:
+The map distance of a route is 15 cm, and the scale is \(1:600000\). Find the actual distance in km.
+
+HI:
+एक नक्शे का पैमाना \(1:600000\) है, इसलिए 1 cm 6 km को दर्शाता है। यदि नक्शे पर सड़क 15 cm है, तो उसकी वास्तविक लंबाई ज्ञात करें।
+
+PA:
+ਇੱਕ ਨਕਸ਼ੇ ਦਾ ਪੈਮਾਨਾ \(1:600000\) ਹੈ, ਇਸ ਲਈ 1 cm 6 km ਦਰਸਾਉਂਦਾ ਹੈ। ਜੇ ਨਕਸ਼ੇ ਤੇ ਸੜਕ 15 cm ਹੈ, ਤਾਂ ਉਸਦੀ ਅਸਲ ਲੰਬਾਈ ਪਤਾ ਕਰੋ।
+
+Options: 90 km | 6 km | 15 km | 900 km
+Answer: 90 km
+Difficulty: Medium
+Topology: ratio_proportion:rp_map_scale_ratio
+Realism: 81
+
+Explanation EN:
+Use the map scale.
+
+\[
+1\,\mathrm{cm}=6\,\mathrm{km}
+\]
+
+Multiply by the map distance.
+
+\[
+D=15\times 6=90\,\mathrm{km}
+\]
+
+Answer: 90 km
+
+Explanation HI:
+नक्शे के पैमाने का उपयोग करें।
+
+\[
+1\,\mathrm{cm}=6\,\mathrm{km}
+\]
+
+नक्शे की दूरी से गुणा करें।
+
+\[
+D=15\times 6=90\,\mathrm{km}
+\]
+
+उत्तर: 90 km
+
+Explanation PA:
+ਨਕਸ਼ੇ ਦੇ ਪੈਮਾਨੇ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+1\,\mathrm{cm}=6\,\mathrm{km}
+\]
+
+ਨਕਸ਼ੇ ਦੀ ਦੂਰੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+D=15\times 6=90\,\mathrm{km}
+\]
+
+ਉੱਤਰ: 90 km
+
+[Q34]
+EN:
+The shadow of a 8 m pole is 5 m. If a tree's shadow is 15 m at the same time, find the tree's height.
+
+HI:
+8 m ऊँचे खंभे की छाया 5 m है। उसी समय एक पेड़ की छाया 15 m है। पेड़ की ऊँचाई ज्ञात करें।
+
+PA:
+8 m ਉੱਚੇ ਖੰਭੇ ਦੀ ਛਾਂ 5 m ਹੈ। ਉਸੇ ਸਮੇਂ ਇੱਕ ਦਰੱਖਤ ਦੀ ਛਾਂ 15 m ਹੈ। ਦਰੱਖਤ ਦੀ ਉਚਾਈ ਪਤਾ ਕਰੋ।
+
+Options: 15 m | 9.38 m | 24 m | 23 m
+Answer: 24 m
+Difficulty: Medium
+Topology: ratio_proportion:rp_shadow_height_ratio
+Realism: 83
+
+Explanation EN:
+Use proportional heights and shadows.
+
+\[
+\frac{H}{15}=\frac{8}{5}
+\]
+
+Solve for the tree height.
+
+\[
+H=\frac{8\times 15}{5}=24
+\]
+
+Answer: 24 m
+
+Explanation HI:
+ऊँचाई और छाया समानुपाती हैं।
+
+\[
+\frac{H}{15}=\frac{8}{5}
+\]
+
+पेड़ की ऊँचाई निकालें।
+
+\[
+H=\frac{8\times 15}{5}=24
+\]
+
+उत्तर: 24 m
+
+Explanation PA:
+ਉਚਾਈ ਅਤੇ ਛਾਂ ਸਮਾਨੁਪਾਤੀ ਹਨ।
+
+\[
+\frac{H}{15}=\frac{8}{5}
+\]
+
+ਦਰੱਖਤ ਦੀ ਉਚਾਈ ਕੱਢੋ।
+
+\[
+H=\frac{8\times 15}{5}=24
+\]
+
+ਉੱਤਰ: 24 m
+
+[Q35]
+EN:
+A:B is \(9:5\). A transfers ₹50 to B, while B transfers ₹10 to A. What is the resulting ratio?
+
+HI:
+A और B के पास राशि का अनुपात \(9:5\) है। A, B को ₹50 देता है और B, A को ₹10 देता है। नया अनुपात ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਕੋਲ ਰਕਮ ਦਾ ਅਨੁਪਾਤ \(9:5\) ਹੈ। A, B ਨੂੰ ₹50 ਦਿੰਦਾ ਹੈ ਅਤੇ B, A ਨੂੰ ₹10 ਦਿੰਦਾ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 580:400 | 59:39 | 9:5 | 390:590
+Answer: 59:39
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_after_exchange
+Realism: 87
+
+Explanation EN:
+Write the initial amounts.
+
+\[
+A=9k=630,\quad B=5k=350
+\]
+
+Apply both transfers.
+
+\[
+A'=630-50+10=590,\quad B'=350-10+50=390
+\]
+
+Simplify the final ratio.
+
+\[
+A':B'=590:390=59:39
+\]
+
+Answer: 59:39
+
+Explanation HI:
+प्रारंभिक राशियाँ लिखें।
+
+\[
+A=9k=630,\quad B=5k=350
+\]
+
+दोनों लेन-देन लगाएँ।
+
+\[
+A'=630-50+10=590,\quad B'=350-10+50=390
+\]
+
+अंतिम अनुपात सरल करें।
+
+\[
+A':B'=590:390=59:39
+\]
+
+उत्तर: 59:39
+
+Explanation PA:
+ਸ਼ੁਰੂਆਤੀ ਰਕਮਾਂ ਲਿਖੋ।
+
+\[
+A=9k=630,\quad B=5k=350
+\]
+
+ਦੋਵੇਂ ਲੈਣ-ਦੇਣ ਲਗਾਓ।
+
+\[
+A'=630-50+10=590,\quad B'=350-10+50=390
+\]
+
+ਅੰਤਿਮ ਅਨੁਪਾਤ ਸਧਾਰੋ।
+
+\[
+A':B'=590:390=59:39
+\]
+
+ਉੱਤਰ: 59:39
+
+[Q36]
+EN:
+\(x\) varies directly as \(y\) and inversely as \(z\). If \(x=240\) when \(y=8\) and \(z=3\), find \(x\) when \(y=12\) and \(z=6\).
+
+HI:
+\(x\), \(y\) के सीधे और \(z\) के व्युत्क्रमानुपाती है। यदि \(y=8\) और \(z=3\) पर \(x=240\) है, तो \(y=12\) और \(z=6\) पर \(x\) ज्ञात करें।
+
+PA:
+\(x\), \(y\) ਦੇ ਸਿੱਧੇ ਅਤੇ \(z\) ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਜੇ \(y=8\) ਅਤੇ \(z=3\) ਤੇ \(x=240\) ਹੈ, ਤਾਂ \(y=12\) ਅਤੇ \(z=6\) ਤੇ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 240 | 360 | 180 | 720
+Answer: 180
+Difficulty: Hard
+Topology: ratio_proportion:rp_combined_direct_inverse
+Realism: 88
+
+Explanation EN:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=240\times \frac{12}{8}\times \frac{3}{6}=180
+\]
+
+Answer: 180
+
+Explanation HI:
+संयुक्त सीधे और व्युत्क्रम अनुपात का उपयोग करें।
+
+\[
+x=k\frac{y}{z}
+\]
+
+दोनों स्थितियों की तुलना करें।
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+नया मान निकालें।
+
+\[
+x_2=240\times \frac{12}{8}\times \frac{3}{6}=180
+\]
+
+उत्तर: 180
+
+Explanation PA:
+ਸੰਯੁਕਤ ਸਿੱਧੇ ਅਤੇ ਉਲਟ ਅਨੁਪਾਤ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+x=k\frac{y}{z}
+\]
+
+ਦੋਹਾਂ ਹਾਲਤਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+ਨਵਾਂ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+x_2=240\times \frac{12}{8}\times \frac{3}{6}=180
+\]
+
+ਉੱਤਰ: 180
+
+[Q37]
+EN:
+Section I has 50 students with boys:girls \(3:2\). Section II has 40 students with boys:girls \(1:1\). Find the overall boys:girls ratio.
+
+HI:
+पहले वर्ग में 50 विद्यार्थी हैं और लड़के:लड़कियाँ \(3:2\) हैं। दूसरे वर्ग में 40 विद्यार्थी हैं और अनुपात \(1:1\) है। कुल लड़के:लड़कियाँ अनुपात ज्ञात करें।
+
+PA:
+ਪਹਿਲੇ ਸੈਕਸ਼ਨ ਵਿੱਚ 50 ਵਿਦਿਆਰਥੀ ਹਨ ਅਤੇ ਮੁੰਡੇ:ਕੁੜੀਆਂ \(3:2\) ਹਨ। ਦੂਜੇ ਸੈਕਸ਼ਨ ਵਿੱਚ 40 ਵਿਦਿਆਰਥੀ ਹਨ ਅਤੇ ਅਨੁਪਾਤ \(1:1\) ਹੈ। ਕੁੱਲ ਮੁੰਡੇ:ਕੁੜੀਆਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 1:1 | 5:4 | 3:2 | 4:3
+Answer: 5:4
+Difficulty: Hard
+Topology: ratio_proportion:rp_weighted_ratio_balancing
+Realism: 89
+
+Explanation EN:
+Find boys and girls in Section I.
+
+\[
+B_1=30,\quad G_1=20
+\]
+
+Find boys and girls in Section II.
+
+\[
+B_2=20,\quad G_2=20
+\]
+
+Combine and simplify.
+
+\[
+B:G=50:40=5:4
+\]
+
+Answer: 5:4
+
+Explanation HI:
+पहले वर्ग में लड़के और लड़कियाँ निकालें।
+
+\[
+B_1=30,\quad G_1=20
+\]
+
+दूसरे वर्ग में लड़के और लड़कियाँ निकालें।
+
+\[
+B_2=20,\quad G_2=20
+\]
+
+मिलाकर सरल करें।
+
+\[
+B:G=50:40=5:4
+\]
+
+उत्तर: 5:4
+
+Explanation PA:
+ਪਹਿਲੇ ਸੈਕਸ਼ਨ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਕੱਢੋ।
+
+\[
+B_1=30,\quad G_1=20
+\]
+
+ਦੂਜੇ ਸੈਕਸ਼ਨ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਕੱਢੋ।
+
+\[
+B_2=20,\quad G_2=20
+\]
+
+ਮਿਲਾ ਕੇ ਸਧਾਰੋ।
+
+\[
+B:G=50:40=5:4
+\]
+
+ਉੱਤਰ: 5:4
+
+[Q38]
+EN:
+For the same duration, A and B invest in the ratio \(5:8\). If the total profit is ₹13000, find A's share.
+
+HI:
+A और B समान समय के लिए \(5:8\) के अनुपात में निवेश करते हैं। कुल लाभ ₹13000 है। A का लाभांश ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਇੱਕੋ ਸਮੇਂ ਲਈ \(5:8\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ₹13000 ਹੈ। A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹1000 | ₹6500 | ₹5000 | ₹8000
+Answer: ₹5000
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_basic
+Realism: 83
+
+Explanation EN:
+For equal time, profit is divided in the investment ratio.
+
+\[
+A:B=5:8
+\]
+
+Use the total profit.
+
+\[
+5k+8k=13000,\quad k=1000
+\]
+
+Find A's profit share.
+
+\[
+A=5k=5000
+\]
+
+Answer: ₹5000
+
+Explanation HI:
+समान समय में लाभ निवेश के अनुपात में बँटता है।
+
+\[
+A:B=5:8
+\]
+
+कुल लाभ का उपयोग करें।
+
+\[
+5k+8k=13000,\quad k=1000
+\]
+
+A का लाभांश निकालें।
+
+\[
+A=5k=5000
+\]
+
+उत्तर: ₹5000
+
+Explanation PA:
+ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ।
+
+\[
+A:B=5:8
+\]
+
+ਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+5k+8k=13000,\quad k=1000
+\]
+
+A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=5k=5000
+\]
+
+ਉੱਤਰ: ₹5000
+
+[Q39]
+EN:
+The sides of two similar figures are in the ratio \(9:13\). Find the ratio of their areas.
+
+HI:
+दो समान आकृतियों की भुजाओं का अनुपात \(9:13\) है। उनके क्षेत्रफलों का अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਸਮਰੂਪ ਆਕ੍ਰਿਤੀਆਂ ਦੀਆਂ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ \(9:13\) ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 729:2197 | 81:169 | 169:81 | 9:13
+Answer: 81:169
+Difficulty: Hard
+Topology: ratio_proportion:rp_side_area_volume_ratio
+Realism: 88
+
+Explanation EN:
+Start with the side ratio.
+
+\[
+S_1:S_2=9:13
+\]
+
+Area ratio is the square of side ratio.
+
+\[
+A_1:A_2=9^{2}:13^{2}=81:169
+\]
+
+Answer: 81:169
+
+Explanation HI:
+भुजा अनुपात से शुरू करें।
+
+\[
+S_1:S_2=9:13
+\]
+
+क्षेत्रफल अनुपात भुजा अनुपात का वर्ग होता है।
+
+\[
+A_1:A_2=9^{2}:13^{2}=81:169
+\]
+
+उत्तर: 81:169
+
+Explanation PA:
+ਭੁਜਾ ਅਨੁਪਾਤ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ।
+
+\[
+S_1:S_2=9:13
+\]
+
+ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਹੁੰਦਾ ਹੈ।
+
+\[
+A_1:A_2=9^{2}:13^{2}=81:169
+\]
+
+ਉੱਤਰ: 81:169
+
+[Q40]
+EN:
+A and B should be in the ratio \(7:5\). A has ₹840 and B has ₹500. How much should be added to B to restore the ratio?
+
+HI:
+A और B का आवश्यक अनुपात \(7:5\) है। अभी A के पास ₹840 और B के पास ₹500 हैं। अनुपात वापस लाने के लिए B में कितनी राशि जोड़नी होगी?
+
+PA:
+A ਅਤੇ B ਦਾ ਲੋੜੀਂਦਾ ਅਨੁਪਾਤ \(7:5\) ਹੈ। ਹੁਣ A ਕੋਲ ₹840 ਅਤੇ B ਕੋਲ ₹500 ਹਨ। ਅਨੁਪਾਤ ਵਾਪਸ ਲਿਆਉਣ ਲਈ B ਵਿੱਚ ਕਿੰਨੀ ਰਕਮ ਜੋੜਨੀ ਪਵੇਗੀ?
+
+Options: ₹100 | ₹101 | ₹340 | ₹140
+Answer: ₹100
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_restoration
+Realism: 86
+
+Explanation EN:
+Let the amount added to B be x.
+
+\[
+\frac{840}{500+x}=\frac{7}{5}
+\]
+
+Cross-multiply and solve.
+
+\[
+5\times 840=7(500+x)
+\]
+
+Find x.
+
+\[
+x=100
+\]
+
+Answer: ₹100
+
+Explanation HI:
+मान लें B में जोड़ी गई राशि x है।
+
+\[
+\frac{840}{500+x}=\frac{7}{5}
+\]
+
+क्रॉस-गुणा करके हल करें।
+
+\[
+5\times 840=7(500+x)
+\]
+
+x का मान निकालें।
+
+\[
+x=100
+\]
+
+उत्तर: ₹100
+
+Explanation PA:
+ਮੰਨ ਲਓ B ਵਿੱਚ ਜੋੜੀ ਰਕਮ x ਹੈ।
+
+\[
+\frac{840}{500+x}=\frac{7}{5}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰਕੇ ਹੱਲ ਕਰੋ।
+
+\[
+5\times 840=7(500+x)
+\]
+
+x ਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+x=100
+\]
+
+ਉੱਤਰ: ₹100
+
+[Q41]
+EN:
+A and B have present ages in the ratio \(6:7\). Their age ratio after 4 years will be \(13:15\). Find A's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(6:7\) है। 4 वर्ष बाद अनुपात \(13:15\) होगा। A की वर्तमान आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(6:7\) ਹੈ। 4 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \(13:15\) ਹੋਵੇਗਾ। A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 52 years | 8 years | 56 years | 48 years
+Answer: 48 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_future_ratio
+Realism: 81
+
+Explanation EN:
+Let present ages be ratio parts.
+
+\[
+A=6k,\quad B=7k
+\]
+
+Use the future-age ratio.
+
+\[
+\frac{6k+4}{7k+4}=\frac{13}{15}
+\]
+
+Solve for the multiplier.
+
+\[
+-1k=-8,\quad k=8
+\]
+
+Find A's present age.
+
+\[
+A=6k=48
+\]
+
+Answer: 48 years
+
+Explanation HI:
+वर्तमान आयु को अनुपात के भाग मानें।
+
+\[
+A=6k,\quad B=7k
+\]
+
+भविष्य की आयु का अनुपात लगाएँ।
+
+\[
+\frac{6k+4}{7k+4}=\frac{13}{15}
+\]
+
+गुणक ज्ञात करें।
+
+\[
+-1k=-8,\quad k=8
+\]
+
+A की वर्तमान आयु निकालें।
+
+\[
+A=6k=48
+\]
+
+उत्तर: 48 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=6k,\quad B=7k
+\]
+
+ਭਵਿੱਖ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।
+
+\[
+\frac{6k+4}{7k+4}=\frac{13}{15}
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+-1k=-8,\quad k=8
+\]
+
+A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।
+
+\[
+A=6k=48
+\]
+
+ਉੱਤਰ: 48 ਸਾਲ
+
+[Q42]
+EN:
+A is 75% of B. Find \(A:B\).
+
+HI:
+A, B का 75% है। \(A:B\) ज्ञात करें।
+
+PA:
+A, B ਦਾ 75% ਹੈ। \(A:B\) ਪਤਾ ਕਰੋ।
+
+Options: 75:100 | 3:4 | 4:3 | 100:75
+Answer: 3:4
+Difficulty: Easy
+Topology: ratio_proportion:rp_percentage_to_ratio
+Realism: 75
+
+Explanation EN:
+Write A as a fraction of B.
+
+\[
+A=\frac{75}{100}B
+\]
+
+Clear the denominator to get the ratio.
+
+\[
+A:B=75:100=3:4
+\]
+
+Answer: 3:4
+
+Explanation HI:
+A को B के भिन्न के रूप में लिखें।
+
+\[
+A=\frac{75}{100}B
+\]
+
+हर हटाकर अनुपात निकालें।
+
+\[
+A:B=75:100=3:4
+\]
+
+उत्तर: 3:4
+
+Explanation PA:
+A ਨੂੰ B ਦੀ ਭਿੰਨ ਵਜੋਂ ਲਿਖੋ।
+
+\[
+A=\frac{75}{100}B
+\]
+
+ਹਰ ਹਟਾ ਕੇ ਅਨੁਪਾਤ ਕੱਢੋ।
+
+\[
+A:B=75:100=3:4
+\]
+
+ਉੱਤਰ: 3:4
+
+[Q43]
+EN:
+12 workers finish a work in 140 days. If the number of workers is 15, how many days will be required?
+
+HI:
+12 मजदूर एक काम को 140 दिनों में पूरा करते हैं। यदि मजदूर 15 हों, तो कितने दिन लगेंगे?
+
+PA:
+12 ਮਜ਼ਦੂਰ ਇੱਕ ਕੰਮ ਨੂੰ 140 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਜੇ ਮਜ਼ਦੂਰ 15 ਹੋਣ, ਤਾਂ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 112 | 3 | 175 | 140
+Answer: 112
+Difficulty: Medium
+Topology: ratio_proportion:rp_inverse_variation_basic
+Realism: 82
+
+Explanation EN:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+12\times 140=15\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{12\times 140}{15}=112
+\]
+
+Answer: 112
+
+Explanation HI:
+मजदूर और दिन व्युत्क्रमानुपाती हैं।
+
+\[
+W_1D_1=W_2D_2
+\]
+
+मान रखें।
+
+\[
+12\times 140=15\times D_2
+\]
+
+दिनों की संख्या निकालें।
+
+\[
+D_2=\frac{12\times 140}{15}=112
+\]
+
+उत्तर: 112
+
+Explanation PA:
+ਮਜ਼ਦੂਰ ਅਤੇ ਦਿਨ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ।
+
+\[
+W_1D_1=W_2D_2
+\]
+
+ਮੁੱਲ ਰੱਖੋ।
+
+\[
+12\times 140=15\times D_2
+\]
+
+ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।
+
+\[
+D_2=\frac{12\times 140}{15}=112
+\]
+
+ਉੱਤਰ: 112
+
+[Q44]
+EN:
+The incomes of A and B are in the ratio \(7:8\). A's income increases by 20% and B's income increases by 25%. Find the new ratio.
+
+HI:
+A और B की आय का अनुपात \(7:8\) है। A की आय 20% और B की आय 25% बढ़ती है। नया अनुपात ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ \(7:8\) ਹੈ। A ਦੀ ਆਮਦਨ 20% ਅਤੇ B ਦੀ ਆਮਦਨ 25% ਵਧਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 875:960 | 27:33 | 7:8 | 21:25
+Answer: 21:25
+Difficulty: Medium
+Topology: ratio_proportion:rp_ratio_after_increase
+Realism: 84
+
+Explanation EN:
+Let the original incomes be ratio parts.
+
+\[
+A=7,\quad B=8
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=7\left(1+\frac{20}{100}\right):8\left(1+\frac{25}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=840:1000=21:25
+\]
+
+Answer: 21:25
+
+Explanation HI:
+मूल आय को अनुपात के भाग मानें।
+
+\[
+A=7,\quad B=8
+\]
+
+प्रतिशत वृद्धि लगाएँ।
+
+\[
+A':B'=7\left(1+\frac{20}{100}\right):8\left(1+\frac{25}{100}\right)
+\]
+
+नया अनुपात सरल करें।
+
+\[
+A':B'=840:1000=21:25
+\]
+
+उत्तर: 21:25
+
+Explanation PA:
+ਮੂਲ ਆਮਦਨ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=7,\quad B=8
+\]
+
+ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਗਾਓ।
+
+\[
+A':B'=7\left(1+\frac{20}{100}\right):8\left(1+\frac{25}{100}\right)
+\]
+
+ਨਵਾਂ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A':B'=840:1000=21:25
+\]
+
+ਉੱਤਰ: 21:25
+
+[Q45]
+EN:
+The male:female ratio in a village is \(4:5\) and total population is 10800. How many males are there?
+
+HI:
+एक नगर में पुरुषों और महिलाओं का अनुपात \(4:5\) है। कुल जनसंख्या 10800 है। पुरुषों की संख्या ज्ञात करें।
+
+PA:
+ਇੱਕ ਸ਼ਹਿਰ ਵਿੱਚ ਮਰਦਾਂ ਅਤੇ ਔਰਤਾਂ ਦਾ ਅਨੁਪਾਤ \(4:5\) ਹੈ। ਕੁੱਲ ਆਬਾਦੀ 10800 ਹੈ। ਮਰਦਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 4800 | 6000 | 1200 | 10800
+Answer: 4800
+Difficulty: Medium
+Topology: ratio_proportion:rp_population_gender_ratio
+Realism: 84
+
+Explanation EN:
+Find one ratio unit from the total population.
+
+\[
+k=\frac{10800}{4+5}=1200
+\]
+
+Multiply by the required part.
+
+\[
+M=4\times 1200=4800
+\]
+
+Answer: 4800
+
+Explanation HI:
+कुल जनसंख्या से एक अनुपात इकाई निकालें।
+
+\[
+k=\frac{10800}{4+5}=1200
+\]
+
+आवश्यक भाग से गुणा करें।
+
+\[
+M=4\times 1200=4800
+\]
+
+उत्तर: 4800
+
+Explanation PA:
+ਕੁੱਲ ਆਬਾਦੀ ਤੋਂ ਇੱਕ ਅਨੁਪਾਤ ਇਕਾਈ ਕੱਢੋ।
+
+\[
+k=\frac{10800}{4+5}=1200
+\]
+
+ਲੋੜੀਂਦੇ ਭਾਗ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+M=4\times 1200=4800
+\]
+
+ਉੱਤਰ: 4800
+
+[Q46]
+EN:
+For two similar figures, the area ratio is \(16:49\). What is the side ratio?
+
+HI:
+दो समान आकृतियों के क्षेत्रफलों का अनुपात \(16:49\) है। उनकी संबंधित भुजाओं का अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਸਮਰੂਪ ਆਕ੍ਰਿਤੀਆਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ \(16:49\) ਹੈ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਸੰਬੰਧਿਤ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 4:7 | 7:4 | 64:343 | 16:49
+Answer: 4:7
+Difficulty: Medium
+Topology: ratio_proportion:rp_similarity_scaling
+Realism: 81
+
+Explanation EN:
+Area ratio is the square of side ratio.
+
+\[
+A_1:A_2=16:49
+\]
+
+Take square roots of both parts.
+
+\[
+S_1:S_2=\sqrt{16}:\sqrt{49}=4:7
+\]
+
+Answer: 4:7
+
+Explanation HI:
+क्षेत्रफल अनुपात भुजा अनुपात का वर्ग होता है।
+
+\[
+A_1:A_2=16:49
+\]
+
+दोनों भागों का वर्गमूल लें।
+
+\[
+S_1:S_2=\sqrt{16}:\sqrt{49}=4:7
+\]
+
+उत्तर: 4:7
+
+Explanation PA:
+ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਹੁੰਦਾ ਹੈ।
+
+\[
+A_1:A_2=16:49
+\]
+
+ਦੋਵੇਂ ਭਾਗਾਂ ਦਾ ਵਰਗਮੂਲ ਲਵੋ।
+
+\[
+S_1:S_2=\sqrt{16}:\sqrt{49}=4:7
+\]
+
+ਉੱਤਰ: 4:7
+
+[Q47]
+EN:
+B earns ₹450 more than A, and their salaries are in the ratio \(4:7\). Find A's salary.
+
+HI:
+A और B के वेतन का अनुपात \(4:7\) है। B, A से ₹450 अधिक कमाता है। A का वेतन ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਤਨਖਾਹ ਦਾ ਅਨੁਪਾਤ \(4:7\) ਹੈ। B, A ਨਾਲੋਂ ₹450 ਵੱਧ ਕਮਾਂਦਾ ਹੈ। A ਦੀ ਤਨਖਾਹ ਪਤਾ ਕਰੋ।
+
+Options: ₹1050 | ₹600 | ₹150 | ₹450
+Answer: ₹600
+Difficulty: Medium
+Topology: ratio_proportion:rp_difference_based_ratio_recovery
+Realism: 80
+
+Explanation EN:
+Let the salaries be in ratio form.
+
+\[
+A=4k,\quad B=7k
+\]
+
+Use the salary difference.
+
+\[
+7k-4k=450
+\]
+
+Solve for the multiplier.
+
+\[
+3k=450,\quad k=150
+\]
+
+Compute the required value.
+
+\[
+A=4k=600
+\]
+
+Answer: ₹600
+
+Explanation HI:
+वेतन को अनुपात के रूप में मानें।
+
+\[
+A=4k,\quad B=7k
+\]
+
+वेतन के अंतर का उपयोग करें।
+
+\[
+7k-4k=450
+\]
+
+गुणक ज्ञात करें।
+
+\[
+3k=450,\quad k=150
+\]
+
+आवश्यक मान निकालें।
+
+\[
+A=4k=600
+\]
+
+उत्तर: ₹600
+
+Explanation PA:
+ਤਨਖਾਹਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਰੂਪ ਵਿੱਚ ਮੰਨੋ।
+
+\[
+A=4k,\quad B=7k
+\]
+
+ਤਨਖਾਹ ਦੇ ਅੰਤਰ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+7k-4k=450
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+3k=450,\quad k=150
+\]
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+A=4k=600
+\]
+
+ਉੱਤਰ: ₹600
+
+[Q48]
+EN:
+Flour:sugar is \(7:4\). For 2100 g of flour, how much sugar is needed?
+
+HI:
+एक विधि में आटा और चीनी का अनुपात \(7:4\) है। यदि आटा 2100 g है, तो चीनी की मात्रा ज्ञात करें।
+
+PA:
+ਇੱਕ ਵਿਧੀ ਵਿੱਚ ਆਟਾ ਅਤੇ ਚੀਨੀ ਦਾ ਅਨੁਪਾਤ \(7:4\) ਹੈ। ਜੇ ਆਟਾ 2100 g ਹੈ, ਤਾਂ ਚੀਨੀ ਦੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+
+Options: 1200 | 300 | 3300 | 900
+Answer: 1200
+Difficulty: Medium
+Topology: ratio_proportion:rp_recipe_scaling_ratio
+Realism: 82
+
+Explanation EN:
+Find one ratio unit from flour.
+
+\[
+k=\frac{2100}{7}=300
+\]
+
+Multiply by the sugar part.
+
+\[
+S=4\times 300=1200
+\]
+
+Answer: 1200
+
+Explanation HI:
+आटे से एक अनुपात इकाई निकालें।
+
+\[
+k=\frac{2100}{7}=300
+\]
+
+चीनी के भाग से गुणा करें।
+
+\[
+S=4\times 300=1200
+\]
+
+उत्तर: 1200
+
+Explanation PA:
+ਆਟੇ ਤੋਂ ਇੱਕ ਅਨੁਪਾਤ ਇਕਾਈ ਕੱਢੋ।
+
+\[
+k=\frac{2100}{7}=300
+\]
+
+ਚੀਨੀ ਦੇ ਭਾਗ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+S=4\times 300=1200
+\]
+
+ਉੱਤਰ: 1200
+
+[Q49]
+EN:
+A and B have present ages in the ratio \(4:7\). 8 years ago, their age ratio was \(1:2\). Find B's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(4:7\) है। 8 वर्ष पहले अनुपात \(1:2\) था। B की वर्तमान आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(4:7\) ਹੈ। 8 ਸਾਲ ਪਹਿਲਾਂ ਅਨੁਪਾਤ \(1:2\) ਸੀ। B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 48 years | 56 years | 32 years | 8 years
+Answer: 56 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_past_ratio
+Realism: 84
+
+Explanation EN:
+Let present ages be ratio parts.
+
+\[
+A=4k,\quad B=7k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{4k-8}{7k-8}=\frac{1}{2}
+\]
+
+Solve for the multiplier.
+
+\[
+1k=8,\quad k=8
+\]
+
+Find B's present age.
+
+\[
+B=7k=56
+\]
+
+Answer: 56 years
+
+Explanation HI:
+वर्तमान आयु को अनुपात के भाग मानें।
+
+\[
+A=4k,\quad B=7k
+\]
+
+पूर्व आयु का अनुपात लगाएँ।
+
+\[
+\frac{4k-8}{7k-8}=\frac{1}{2}
+\]
+
+गुणक ज्ञात करें।
+
+\[
+1k=8,\quad k=8
+\]
+
+B की वर्तमान आयु निकालें।
+
+\[
+B=7k=56
+\]
+
+उत्तर: 56 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=4k,\quad B=7k
+\]
+
+ਪਿਛਲੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।
+
+\[
+\frac{4k-8}{7k-8}=\frac{1}{2}
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+1k=8,\quad k=8
+\]
+
+B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।
+
+\[
+B=7k=56
+\]
+
+ਉੱਤਰ: 56 ਸਾਲ
+
+[Q50]
+EN:
+Which of the following ratios is equivalent to \(3:5\)?
+
+HI:
+\(3:5\) के बराबर अनुपात ज्ञात करें।
+
+PA:
+\(3:5\) ਦੇ ਬਰਾਬਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 9:5 | 15:9 | 9:15 | 6:8
+Answer: 9:15
+Difficulty: Easy
+Topology: ratio_proportion:rp_equivalent_ratio_generation
+Realism: 72
+
+Explanation EN:
+Multiply both terms by the same number.
+
+\[
+3:5=(3\times 3):(5\times 3)
+\]
+
+So the equivalent ratio is obtained.
+
+\[
+9:15
+\]
+
+Answer: 9:15
+
+Explanation HI:
+दोनों पदों को एक ही संख्या से गुणा करें।
+
+\[
+3:5=(3\times 3):(5\times 3)
+\]
+
+इसलिए बराबर अनुपात मिलता है।
+
+\[
+9:15
+\]
+
+उत्तर: 9:15
+
+Explanation PA:
+ਦੋਵੇਂ ਪਦਾਂ ਨੂੰ ਇੱਕੋ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+3:5=(3\times 3):(5\times 3)
+\]
+
+ਇਸ ਲਈ ਬਰਾਬਰ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।
+
+\[
+9:15
+\]
+
+ਉੱਤਰ: 9:15
+
+[Q51]
+EN:
+If \(A:B=5:4\), what percentage is A of B?
+
+HI:
+यदि \(A:B=5:4\) है, तो A को B के प्रतिशत के रूप में ज्ञात करें।
+
+PA:
+ਜੇ \(A:B=5:4\) ਹੈ, ਤਾਂ A ਨੂੰ B ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਪਤਾ ਕਰੋ।
+
+Options: 125% | 9% | 100% | 175%
+Answer: 125%
+Difficulty: Easy
+Topology: ratio_proportion:rp_ratio_to_percentage
+Realism: 72
+
+Explanation EN:
+Write the required fraction first.
+
+\[
+A=5,\quad B=4
+\]
+
+Convert the fraction into percentage.
+
+\[
+P=\frac{5}{4}\times 100=125\%
+\]
+
+Answer: 125%
+
+Explanation HI:
+पहले आवश्यक भिन्न लिखें।
+
+\[
+A=5,\quad B=4
+\]
+
+भिन्न को प्रतिशत में बदलें।
+
+\[
+P=\frac{5}{4}\times 100=125\%
+\]
+
+उत्तर: 125%
+
+Explanation PA:
+ਪਹਿਲਾਂ ਲੋੜੀਂਦੀ ਭਿੰਨ ਲਿਖੋ।
+
+\[
+A=5,\quad B=4
+\]
+
+ਭਿੰਨ ਨੂੰ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਬਦਲੋ।
+
+\[
+P=\frac{5}{4}\times 100=125\%
+\]
+
+ਉੱਤਰ: 125%
+
+[Q52]
+EN:
+Machine output is jointly proportional to the number of machines and hours worked. 4 machines make 1200 units in 5 hours. Find the output for 6 machines in 8 hours.
+
+HI:
+उत्पादन मशीनों की संख्या और काम के घंटों के संयुक्त अनुपात में बदलता है। 4 मशीनें 5 घंटे में 1200 इकाइयाँ बनाती हैं। 6 मशीनें 8 घंटे में कितनी इकाइयाँ बनाएँगी?
+
+PA:
+ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਦੀ ਗਿਣਤੀ ਅਤੇ ਕੰਮ ਦੇ ਘੰਟਿਆਂ ਦੇ ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। 4 ਮਸ਼ੀਨਾਂ 5 ਘੰਟਿਆਂ ਵਿੱਚ 1200 ਇਕਾਈਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। 6 ਮਸ਼ੀਨਾਂ 8 ਘੰਟਿਆਂ ਵਿੱਚ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਬਣਾਉਣਗੀਆਂ?
+
+Options: 2880 | 1200 | 1800 | 1920
+Answer: 2880
+Difficulty: Hard
+Topology: ratio_proportion:rp_joint_variation
+Realism: 90
+
+Explanation EN:
+For joint variation, output is proportional to machines and hours.
+
+\[
+O=kMH
+\]
+
+Use the ratio form.
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+Compute the new output.
+
+\[
+O_2=1200\times \frac{6\times 8}{4\times 5}=2880
+\]
+
+Answer: 2880
+
+Explanation HI:
+संयुक्त अनुपात में उत्पादन मशीनों और घंटों के अनुपाती है।
+
+\[
+O=kMH
+\]
+
+अनुपात रूप का उपयोग करें।
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+नया उत्पादन निकालें।
+
+\[
+O_2=1200\times \frac{6\times 8}{4\times 5}=2880
+\]
+
+उत्तर: 2880
+
+Explanation PA:
+ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਅਤੇ ਘੰਟਿਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ।
+
+\[
+O=kMH
+\]
+
+ਅਨੁਪਾਤ ਰੂਪ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+ਨਵਾਂ ਉਤਪਾਦਨ ਕੱਢੋ।
+
+\[
+O_2=1200\times \frac{6\times 8}{4\times 5}=2880
+\]
+
+ਉੱਤਰ: 2880
+
+[Q53]
+EN:
+The ratio \(A:B=6:13\) is given. B equals 65. Find A.
+
+HI:
+\(A:B=6:13\) है। यदि B = 65, तो A ज्ञात करें।
+
+PA:
+\(A:B=6:13\) ਹੈ। ਜੇ B = 65, ਤਾਂ A ਪਤਾ ਕਰੋ।
+
+Options: 65 | 5 | 95 | 30
+Answer: 30
+Difficulty: Medium
+Topology: ratio_proportion:rp_partial_value_ratio_recovery
+Realism: 83
+
+Explanation EN:
+Let the common multiplier be k.
+
+\[
+A=6k,\quad B=13k
+\]
+
+Use the given part to find k.
+
+\[
+13k=65,\quad k=5
+\]
+
+Compute the required value.
+
+\[
+A=6\times 5=30
+\]
+
+Answer: 30
+
+Explanation HI:
+साझा गुणक k मानें।
+
+\[
+A=6k,\quad B=13k
+\]
+
+दिए गए भाग से k निकालें।
+
+\[
+13k=65,\quad k=5
+\]
+
+आवश्यक मान निकालें।
+
+\[
+A=6\times 5=30
+\]
+
+उत्तर: 30
+
+Explanation PA:
+ਸਾਂਝਾ ਗੁਣਕ k ਮੰਨੋ।
+
+\[
+A=6k,\quad B=13k
+\]
+
+ਦਿੱਤੇ ਭਾਗ ਤੋਂ k ਕੱਢੋ।
+
+\[
+13k=65,\quad k=5
+\]
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+A=6\times 5=30
+\]
+
+ਉੱਤਰ: 30
+
+[Q54]
+EN:
+The scale of a map is \(1:200000\), so 1 cm represents 2 km. If a road is 6 cm on the map, find its actual length.
+
+HI:
+एक नक्शे का पैमाना \(1:200000\) है, इसलिए 1 cm 2 km को दर्शाता है। यदि नक्शे पर सड़क 6 cm है, तो उसकी वास्तविक लंबाई ज्ञात करें।
+
+PA:
+ਇੱਕ ਨਕਸ਼ੇ ਦਾ ਪੈਮਾਨਾ \(1:200000\) ਹੈ, ਇਸ ਲਈ 1 cm 2 km ਦਰਸਾਉਂਦਾ ਹੈ। ਜੇ ਨਕਸ਼ੇ ਤੇ ਸੜਕ 6 cm ਹੈ, ਤਾਂ ਉਸਦੀ ਅਸਲ ਲੰਬਾਈ ਪਤਾ ਕਰੋ।
+
+Options: 6 km | 12 km | 2 km | 120 km
+Answer: 12 km
+Difficulty: Medium
+Topology: ratio_proportion:rp_map_scale_ratio
+Realism: 83
+
+Explanation EN:
+Use the map scale.
+
+\[
+1\,\mathrm{cm}=2\,\mathrm{km}
+\]
+
+Multiply by the map distance.
+
+\[
+D=6\times 2=12\,\mathrm{km}
+\]
+
+Answer: 12 km
+
+Explanation HI:
+नक्शे के पैमाने का उपयोग करें।
+
+\[
+1\,\mathrm{cm}=2\,\mathrm{km}
+\]
+
+नक्शे की दूरी से गुणा करें।
+
+\[
+D=6\times 2=12\,\mathrm{km}
+\]
+
+उत्तर: 12 km
+
+Explanation PA:
+ਨਕਸ਼ੇ ਦੇ ਪੈਮਾਨੇ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+1\,\mathrm{cm}=2\,\mathrm{km}
+\]
+
+ਨਕਸ਼ੇ ਦੀ ਦੂਰੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+D=6\times 2=12\,\mathrm{km}
+\]
+
+ਉੱਤਰ: 12 km
+
+[Q55]
+EN:
+The shadow of a 6 m pole is 4 m. If a tree's shadow is 14 m at the same time, find the tree's height.
+
+HI:
+6 m ऊँचे खंभे की छाया 4 m है। उसी समय एक पेड़ की छाया 14 m है। पेड़ की ऊँचाई ज्ञात करें।
+
+PA:
+6 m ਉੱਚੇ ਖੰਭੇ ਦੀ ਛਾਂ 4 m ਹੈ। ਉਸੇ ਸਮੇਂ ਇੱਕ ਦਰੱਖਤ ਦੀ ਛਾਂ 14 m ਹੈ। ਦਰੱਖਤ ਦੀ ਉਚਾਈ ਪਤਾ ਕਰੋ।
+
+Options: 20 m | 9.33 m | 21 m | 14 m
+Answer: 21 m
+Difficulty: Medium
+Topology: ratio_proportion:rp_shadow_height_ratio
+Realism: 82
+
+Explanation EN:
+Use proportional heights and shadows.
+
+\[
+\frac{H}{14}=\frac{6}{4}
+\]
+
+Solve for the tree height.
+
+\[
+H=\frac{6\times 14}{4}=21
+\]
+
+Answer: 21 m
+
+Explanation HI:
+ऊँचाई और छाया समानुपाती हैं।
+
+\[
+\frac{H}{14}=\frac{6}{4}
+\]
+
+पेड़ की ऊँचाई निकालें।
+
+\[
+H=\frac{6\times 14}{4}=21
+\]
+
+उत्तर: 21 m
+
+Explanation PA:
+ਉਚਾਈ ਅਤੇ ਛਾਂ ਸਮਾਨੁਪਾਤੀ ਹਨ।
+
+\[
+\frac{H}{14}=\frac{6}{4}
+\]
+
+ਦਰੱਖਤ ਦੀ ਉਚਾਈ ਕੱਢੋ।
+
+\[
+H=\frac{6\times 14}{4}=21
+\]
+
+ਉੱਤਰ: 21 m
+
+[Q56]
+EN:
+A and B have money in the ratio \(5:3\). A gives ₹80 to B and B gives ₹20 to A. Find the new ratio.
+
+HI:
+A और B के पास राशि का अनुपात \(5:3\) है। A, B को ₹80 देता है और B, A को ₹20 देता है। नया अनुपात ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਕੋਲ ਰਕਮ ਦਾ ਅਨੁਪਾਤ \(5:3\) ਹੈ। A, B ਨੂੰ ₹80 ਦਿੰਦਾ ਹੈ ਅਤੇ B, A ਨੂੰ ₹20 ਦਿੰਦਾ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 9:7 | 420:540 | 5:3 | 520:440
+Answer: 9:7
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_after_exchange
+Realism: 90
+
+Explanation EN:
+Write the initial amounts.
+
+\[
+A=5k=600,\quad B=3k=360
+\]
+
+Apply both transfers.
+
+\[
+A'=600-80+20=540,\quad B'=360-20+80=420
+\]
+
+Simplify the final ratio.
+
+\[
+A':B'=540:420=9:7
+\]
+
+Answer: 9:7
+
+Explanation HI:
+प्रारंभिक राशियाँ लिखें।
+
+\[
+A=5k=600,\quad B=3k=360
+\]
+
+दोनों लेन-देन लगाएँ।
+
+\[
+A'=600-80+20=540,\quad B'=360-20+80=420
+\]
+
+अंतिम अनुपात सरल करें।
+
+\[
+A':B'=540:420=9:7
+\]
+
+उत्तर: 9:7
+
+Explanation PA:
+ਸ਼ੁਰੂਆਤੀ ਰਕਮਾਂ ਲਿਖੋ।
+
+\[
+A=5k=600,\quad B=3k=360
+\]
+
+ਦੋਵੇਂ ਲੈਣ-ਦੇਣ ਲਗਾਓ।
+
+\[
+A'=600-80+20=540,\quad B'=360-20+80=420
+\]
+
+ਅੰਤਿਮ ਅਨੁਪਾਤ ਸਧਾਰੋ।
+
+\[
+A':B'=540:420=9:7
+\]
+
+ਉੱਤਰ: 9:7
+
+[Q57]
+EN:
+For \(x\propto \frac{y}{z}\), \(x=504\) when \(y=9\) and \(z=5\). Find \(x\) when \(y=15\) and \(z=6\).
+
+HI:
+\(x\), \(y\) के सीधे और \(z\) के व्युत्क्रमानुपाती है। यदि \(y=9\) और \(z=5\) पर \(x=504\) है, तो \(y=15\) और \(z=6\) पर \(x\) ज्ञात करें।
+
+PA:
+\(x\), \(y\) ਦੇ ਸਿੱਧੇ ਅਤੇ \(z\) ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਜੇ \(y=9\) ਅਤੇ \(z=5\) ਤੇ \(x=504\) ਹੈ, ਤਾਂ \(y=15\) ਅਤੇ \(z=6\) ਤੇ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 700 | 504 | 840 | 1008
+Answer: 700
+Difficulty: Hard
+Topology: ratio_proportion:rp_combined_direct_inverse
+Realism: 90
+
+Explanation EN:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=504\times \frac{15}{9}\times \frac{5}{6}=700
+\]
+
+Answer: 700
+
+Explanation HI:
+संयुक्त सीधे और व्युत्क्रम अनुपात का उपयोग करें।
+
+\[
+x=k\frac{y}{z}
+\]
+
+दोनों स्थितियों की तुलना करें।
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+नया मान निकालें।
+
+\[
+x_2=504\times \frac{15}{9}\times \frac{5}{6}=700
+\]
+
+उत्तर: 700
+
+Explanation PA:
+ਸੰਯੁਕਤ ਸਿੱਧੇ ਅਤੇ ਉਲਟ ਅਨੁਪਾਤ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+x=k\frac{y}{z}
+\]
+
+ਦੋਹਾਂ ਹਾਲਤਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+ਨਵਾਂ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+x_2=504\times \frac{15}{9}\times \frac{5}{6}=700
+\]
+
+ਉੱਤਰ: 700
+
+[Q58]
+EN:
+A school combines two groups of 80 and 70 students. Their boys:girls ratios are \(5:3\) and \(4:3\). Find the final ratio.
+
+HI:
+पहले वर्ग में 80 विद्यार्थी हैं और लड़के:लड़कियाँ \(5:3\) हैं। दूसरे वर्ग में 70 विद्यार्थी हैं और अनुपात \(4:3\) है। कुल लड़के:लड़कियाँ अनुपात ज्ञात करें।
+
+PA:
+ਪਹਿਲੇ ਸੈਕਸ਼ਨ ਵਿੱਚ 80 ਵਿਦਿਆਰਥੀ ਹਨ ਅਤੇ ਮੁੰਡੇ:ਕੁੜੀਆਂ \(5:3\) ਹਨ। ਦੂਜੇ ਸੈਕਸ਼ਨ ਵਿੱਚ 70 ਵਿਦਿਆਰਥੀ ਹਨ ਅਤੇ ਅਨੁਪਾਤ \(4:3\) ਹੈ। ਕੁੱਲ ਮੁੰਡੇ:ਕੁੜੀਆਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 9:6 | 5:3 | 4:3 | 3:2
+Answer: 3:2
+Difficulty: Hard
+Topology: ratio_proportion:rp_weighted_ratio_balancing
+Realism: 89
+
+Explanation EN:
+Find boys and girls in Section I.
+
+\[
+B_1=50,\quad G_1=30
+\]
+
+Find boys and girls in Section II.
+
+\[
+B_2=40,\quad G_2=30
+\]
+
+Combine and simplify.
+
+\[
+B:G=90:60=3:2
+\]
+
+Answer: 3:2
+
+Explanation HI:
+पहले वर्ग में लड़के और लड़कियाँ निकालें।
+
+\[
+B_1=50,\quad G_1=30
+\]
+
+दूसरे वर्ग में लड़के और लड़कियाँ निकालें।
+
+\[
+B_2=40,\quad G_2=30
+\]
+
+मिलाकर सरल करें।
+
+\[
+B:G=90:60=3:2
+\]
+
+उत्तर: 3:2
+
+Explanation PA:
+ਪਹਿਲੇ ਸੈਕਸ਼ਨ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਕੱਢੋ।
+
+\[
+B_1=50,\quad G_1=30
+\]
+
+ਦੂਜੇ ਸੈਕਸ਼ਨ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਕੱਢੋ।
+
+\[
+B_2=40,\quad G_2=30
+\]
+
+ਮਿਲਾ ਕੇ ਸਧਾਰੋ।
+
+\[
+B:G=90:60=3:2
+\]
+
+ਉੱਤਰ: 3:2
+
+[Q59]
+EN:
+A and B run a business with investments in the ratio \(2:3\). The total profit is ₹3000. Find A's profit share.
+
+HI:
+A और B समान समय के लिए \(2:3\) के अनुपात में निवेश करते हैं। कुल लाभ ₹3000 है। A का लाभांश ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਇੱਕੋ ਸਮੇਂ ਲਈ \(2:3\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ₹3000 ਹੈ। A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹1800 | ₹1500 | ₹600 | ₹1200
+Answer: ₹1200
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_basic
+Realism: 82
+
+Explanation EN:
+For equal time, profit is divided in the investment ratio.
+
+\[
+A:B=2:3
+\]
+
+Use the total profit.
+
+\[
+2k+3k=3000,\quad k=600
+\]
+
+Find A's profit share.
+
+\[
+A=2k=1200
+\]
+
+Answer: ₹1200
+
+Explanation HI:
+समान समय में लाभ निवेश के अनुपात में बँटता है।
+
+\[
+A:B=2:3
+\]
+
+कुल लाभ का उपयोग करें।
+
+\[
+2k+3k=3000,\quad k=600
+\]
+
+A का लाभांश निकालें।
+
+\[
+A=2k=1200
+\]
+
+उत्तर: ₹1200
+
+Explanation PA:
+ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ।
+
+\[
+A:B=2:3
+\]
+
+ਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+2k+3k=3000,\quad k=600
+\]
+
+A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=2k=1200
+\]
+
+ਉੱਤਰ: ₹1200
+
+[Q60]
+EN:
+Corresponding sides of two similar figures are in the ratio \(10:11\). What is the ratio of their areas?
+
+HI:
+दो समान आकृतियों की भुजाओं का अनुपात \(10:11\) है। उनके क्षेत्रफलों का अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਸਮਰੂਪ ਆਕ੍ਰਿਤੀਆਂ ਦੀਆਂ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ \(10:11\) ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 10:11 | 1000:1331 | 100:121 | 121:100
+Answer: 100:121
+Difficulty: Hard
+Topology: ratio_proportion:rp_side_area_volume_ratio
+Realism: 86
+
+Explanation EN:
+Start with the side ratio.
+
+\[
+S_1:S_2=10:11
+\]
+
+Area ratio is the square of side ratio.
+
+\[
+A_1:A_2=10^{2}:11^{2}=100:121
+\]
+
+Answer: 100:121
+
+Explanation HI:
+भुजा अनुपात से शुरू करें।
+
+\[
+S_1:S_2=10:11
+\]
+
+क्षेत्रफल अनुपात भुजा अनुपात का वर्ग होता है।
+
+\[
+A_1:A_2=10^{2}:11^{2}=100:121
+\]
+
+उत्तर: 100:121
+
+Explanation PA:
+ਭੁਜਾ ਅਨੁਪਾਤ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ।
+
+\[
+S_1:S_2=10:11
+\]
+
+ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਹੁੰਦਾ ਹੈ।
+
+\[
+A_1:A_2=10^{2}:11^{2}=100:121
+\]
+
+ਉੱਤਰ: 100:121
+
+[Q61]
+EN:
+The required ratio of A to B is \(4:3\). Presently A has ₹800 and B has ₹540. Find the amount to add to B.
+
+HI:
+A और B का आवश्यक अनुपात \(4:3\) है। अभी A के पास ₹800 और B के पास ₹540 हैं। अनुपात वापस लाने के लिए B में कितनी राशि जोड़नी होगी?
+
+PA:
+A ਅਤੇ B ਦਾ ਲੋੜੀਂਦਾ ਅਨੁਪਾਤ \(4:3\) ਹੈ। ਹੁਣ A ਕੋਲ ₹800 ਅਤੇ B ਕੋਲ ₹540 ਹਨ। ਅਨੁਪਾਤ ਵਾਪਸ ਲਿਆਉਣ ਲਈ B ਵਿੱਚ ਕਿੰਨੀ ਰਕਮ ਜੋੜਨੀ ਪਵੇਗੀ?
+
+Options: ₹180 | ₹260 | ₹60 | ₹80
+Answer: ₹60
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_restoration
+Realism: 89
+
+Explanation EN:
+Let the amount added to B be x.
+
+\[
+\frac{800}{540+x}=\frac{4}{3}
+\]
+
+Cross-multiply and solve.
+
+\[
+3\times 800=4(540+x)
+\]
+
+Find x.
+
+\[
+x=60
+\]
+
+Answer: ₹60
+
+Explanation HI:
+मान लें B में जोड़ी गई राशि x है।
+
+\[
+\frac{800}{540+x}=\frac{4}{3}
+\]
+
+क्रॉस-गुणा करके हल करें।
+
+\[
+3\times 800=4(540+x)
+\]
+
+x का मान निकालें।
+
+\[
+x=60
+\]
+
+उत्तर: ₹60
+
+Explanation PA:
+ਮੰਨ ਲਓ B ਵਿੱਚ ਜੋੜੀ ਰਕਮ x ਹੈ।
+
+\[
+\frac{800}{540+x}=\frac{4}{3}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰਕੇ ਹੱਲ ਕਰੋ।
+
+\[
+3\times 800=4(540+x)
+\]
+
+x ਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+x=60
+\]
+
+ਉੱਤਰ: ₹60
+
+[Q62]
+EN:
+If \(A:B=9:10\) and \(B:C=15:16\), find \(A:B:C\).
+
+HI:
+यदि \(A:B=9:10\) और \(B:C=15:16\) है, तो \(A:B:C\) ज्ञात करें।
+
+PA:
+ਜੇ \(A:B=9:10\) ਅਤੇ \(B:C=15:16\) ਹੈ, ਤਾਂ \(A:B:C\) ਪਤਾ ਕਰੋ।
+
+Options: 27:30:32 | 9:10:16 | 32:30:27 | 135:150:160
+Answer: 27:30:32
+Difficulty: Hard
+Topology: ratio_proportion:rp_chain_ratio_network
+Realism: 87
+
+Explanation EN:
+Make the B part common.
+
+\[
+L=\operatorname{lcm}(10,15)=30
+\]
+
+Scale the first ratio.
+
+\[
+A:B=27:30
+\]
+
+Scale the second ratio.
+
+\[
+B:C=30:32
+\]
+
+Combine the ratios.
+
+\[
+A:B:C=27:30:32
+\]
+
+Answer: 27:30:32
+
+Explanation HI:
+B के भाग को समान करें।
+
+\[
+L=\operatorname{lcm}(10,15)=30
+\]
+
+पहले अनुपात को बढ़ाएँ।
+
+\[
+A:B=27:30
+\]
+
+दूसरे अनुपात को बढ़ाएँ।
+
+\[
+B:C=30:32
+\]
+
+अनुपातों को मिलाएँ।
+
+\[
+A:B:C=27:30:32
+\]
+
+उत्तर: 27:30:32
+
+Explanation PA:
+B ਦੇ ਭਾਗ ਨੂੰ ਸਾਂਝਾ ਕਰੋ।
+
+\[
+L=\operatorname{lcm}(10,15)=30
+\]
+
+ਪਹਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।
+
+\[
+A:B=27:30
+\]
+
+ਦੂਜੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।
+
+\[
+B:C=30:32
+\]
+
+ਅਨੁਪਾਤਾਂ ਨੂੰ ਜੋੜੋ।
+
+\[
+A:B:C=27:30:32
+\]
+
+ਉੱਤਰ: 27:30:32
+
+[Q63]
+EN:
+A is \(\frac{15}{34}\) of the total. Find the ratio \(A:B\).
+
+HI:
+A, कुल का \(\frac{15}{34}\) है। अनुपात \(A:B\) ज्ञात करें।
+
+PA:
+A, ਕੁੱਲ ਦਾ \(\frac{15}{34}\) ਹੈ। ਅਨੁਪਾਤ \(A:B\) ਪਤਾ ਕਰੋ।
+
+Options: 15:34 | 19:15 | 15:19 | 34:15
+Answer: 15:19
+Difficulty: Easy
+Topology: ratio_proportion:rp_fraction_to_ratio
+Realism: 74
+
+Explanation EN:
+Use total parts from the fraction.
+
+\[
+A=15,\quad A+B=34
+\]
+
+Find B's parts.
+
+\[
+B=34-15=19
+\]
+
+Write the ratio.
+
+\[
+A:B=15:19=15:19
+\]
+
+Answer: 15:19
+
+Explanation HI:
+भिन्न से कुल भाग लें।
+
+\[
+A=15,\quad A+B=34
+\]
+
+B के भाग ज्ञात करें।
+
+\[
+B=34-15=19
+\]
+
+अनुपात लिखें।
+
+\[
+A:B=15:19=15:19
+\]
+
+उत्तर: 15:19
+
+Explanation PA:
+ਭਿੰਨ ਤੋਂ ਕੁੱਲ ਭਾਗ ਲਓ।
+
+\[
+A=15,\quad A+B=34
+\]
+
+B ਦੇ ਭਾਗ ਪਤਾ ਕਰੋ।
+
+\[
+B=34-15=19
+\]
+
+ਅਨੁਪਾਤ ਲਿਖੋ।
+
+\[
+A:B=15:19=15:19
+\]
+
+ਉੱਤਰ: 15:19
+
+[Q64]
+EN:
+If \(A:B=3:4\) and \(AB=2700\), find A.
+
+HI:
+दो संख्याओं का अनुपात \(3:4\) है और उनका गुणनफल 2700 है। पहली संख्या ज्ञात करें।
+
+PA:
+ਦੋ ਸੰਖਿਆਵਾਂ ਦਾ ਅਨੁਪਾਤ \(3:4\) ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਗੁਣਨਫਲ 2700 ਹੈ। ਪਹਿਲੀ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।
+
+Options: 60 | 15 | 45 | 385.71
+Answer: 45
+Difficulty: Medium
+Topology: ratio_proportion:rp_product_based_ratio_recovery
+Realism: 82
+
+Explanation EN:
+Let the two numbers be proportional parts.
+
+\[
+A=3k,\quad B=4k
+\]
+
+Use the product condition.
+
+\[
+3k\times 4k=2700
+\]
+
+Solve for k.
+
+\[
+12k^2=2700,\quad k=15
+\]
+
+Find the required number.
+
+\[
+A=3\times 15=45
+\]
+
+Answer: 45
+
+Explanation HI:
+मान लें संख्याएँ अनुपाती भाग हैं।
+
+\[
+A=3k,\quad B=4k
+\]
+
+गुणनफल की शर्त लगाएँ।
+
+\[
+3k\times 4k=2700
+\]
+
+k का मान निकालें।
+
+\[
+12k^2=2700,\quad k=15
+\]
+
+आवश्यक संख्या ज्ञात करें।
+
+\[
+A=3\times 15=45
+\]
+
+उत्तर: 45
+
+Explanation PA:
+ਮੰਨ ਲਓ ਸੰਖਿਆਵਾਂ ਅਨੁਪਾਤੀ ਭਾਗ ਹਨ।
+
+\[
+A=3k,\quad B=4k
+\]
+
+ਗੁਣਨਫਲ ਦੀ ਸ਼ਰਤ ਲਗਾਓ।
+
+\[
+3k\times 4k=2700
+\]
+
+k ਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+12k^2=2700,\quad k=15
+\]
+
+ਲੋੜੀਂਦੀ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।
+
+\[
+A=3\times 15=45
+\]
+
+ਉੱਤਰ: 45
+
+[Q65]
+EN:
+When the first term of a ratio is multiplied by 3 and the second by 4, the ratio becomes \(1:3\). Find the original ratio.
+
+HI:
+किसी अनुपात के पहले पद को 3 और दूसरे पद को 4 से गुणा करने पर अनुपात \(1:3\) हो जाता है। मूल अनुपात ज्ञात करें।
+
+PA:
+ਕਿਸੇ ਅਨੁਪਾਤ ਦੇ ਪਹਿਲੇ ਪਦ ਨੂੰ 3 ਅਤੇ ਦੂਜੇ ਪਦ ਨੂੰ 4 ਨਾਲ ਗੁਣਾ ਕਰਨ ਤੇ ਅਨੁਪਾਤ \(1:3\) ਹੋ ਜਾਂਦਾ ਹੈ। ਅਸਲ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 9:4 | 1:3 | 4:9 | 3:12
+Answer: 4:9
+Difficulty: Medium
+Topology: ratio_proportion:rp_reverse_ratio_scaling
+Realism: 80
+
+Explanation EN:
+Undo the two scale factors.
+
+\[
+A:B=\frac{1}{3}:\frac{3}{4}
+\]
+
+Simplify the ratio.
+
+\[
+A:B=4:9
+\]
+
+Answer: 4:9
+
+Explanation HI:
+दोनों गुणकों को उल्टा लगाएँ।
+
+\[
+A:B=\frac{1}{3}:\frac{3}{4}
+\]
+
+अनुपात सरल करें।
+
+\[
+A:B=4:9
+\]
+
+उत्तर: 4:9
+
+Explanation PA:
+ਦੋਵੇਂ ਗੁਣਕ ਉਲਟੇ ਲਗਾਓ।
+
+\[
+A:B=\frac{1}{3}:\frac{3}{4}
+\]
+
+ਅਨੁਪਾਤ ਸਧਾਰੋ।
+
+\[
+A:B=4:9
+\]
+
+ਉੱਤਰ: 4:9
+
+[Q66]
+EN:
+A invests ₹7500 for 8 months and B invests ₹4500 for 10 months. If the total profit is ₹4200, find A's share.
+
+HI:
+A 8 महीने के लिए ₹7500 और B 10 महीने के लिए ₹4500 निवेश करता है। यदि कुल लाभ ₹4200 है, तो A का हिस्सा ज्ञात करें।
+
+PA:
+A 8 ਮਹੀਨੇ ਲਈ ₹7500 ਅਤੇ B 10 ਮਹੀਨੇ ਲਈ ₹4500 ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਲਾਭ ₹4200 ਹੈ, ਤਾਂ A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹2100 | ₹7500 | ₹1800 | ₹2400
+Answer: ₹2400
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_time_variation
+Realism: 80
+
+Explanation EN:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=7500\times 8:4500\times 10
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=60000:45000=4:3
+\]
+
+Use the total profit.
+
+\[
+4k+3k=4200,\quad k=600
+\]
+
+Find A's share.
+
+\[
+A=4k=2400
+\]
+
+Answer: ₹2400
+
+Explanation HI:
+लाभ अनुपात पूँजी × समय होता है।
+
+\[
+A:B=7500\times 8:4500\times 10
+\]
+
+प्रभावी पूँजी अनुपात सरल करें।
+
+\[
+A:B=60000:45000=4:3
+\]
+
+कुल लाभ का उपयोग करें।
+
+\[
+4k+3k=4200,\quad k=600
+\]
+
+A का हिस्सा निकालें।
+
+\[
+A=4k=2400
+\]
+
+उत्तर: ₹2400
+
+Explanation PA:
+ਲਾਭ ਅਨੁਪਾਤ ਪੂੰਜੀ × ਸਮਾਂ ਹੁੰਦਾ ਹੈ।
+
+\[
+A:B=7500\times 8:4500\times 10
+\]
+
+ਪ੍ਰਭਾਵੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A:B=60000:45000=4:3
+\]
+
+ਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+4k+3k=4200,\quad k=600
+\]
+
+A ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=4k=2400
+\]
+
+ਉੱਤਰ: ₹2400
+
+[Q67]
+EN:
+On a blueprint, \(1\) cm represents 125 cm. If a line is 4 cm, find the actual length.
+
+HI:
+एक नक्शे का पैमाना \(1:125\) है। चित्र में दीवार 4 cm है। वास्तविक लंबाई cm में ज्ञात करें।
+
+PA:
+ਇੱਕ ਨਕਸ਼ੇ ਦਾ ਪੈਮਾਨਾ \(1:125\) ਹੈ। ਚਿੱਤਰ ਵਿੱਚ ਕੰਧ 4 cm ਹੈ। ਅਸਲ ਲੰਬਾਈ cm ਵਿੱਚ ਪਤਾ ਕਰੋ।
+
+Options: 4 cm | 500 cm | 50 cm | 125 cm
+Answer: 500 cm
+Difficulty: Medium
+Topology: ratio_proportion:rp_blueprint_scaling
+Realism: 83
+
+Explanation EN:
+Multiply drawing length by the scale factor.
+
+\[
+L=4\times 125=500\,\mathrm{cm}
+\]
+
+Answer: 500 cm
+
+Explanation HI:
+चित्र की लंबाई को पैमाना गुणक से गुणा करें।
+
+\[
+L=4\times 125=500\,\mathrm{cm}
+\]
+
+उत्तर: 500 cm
+
+Explanation PA:
+ਚਿੱਤਰ ਦੀ ਲੰਬਾਈ ਨੂੰ ਪੈਮਾਨੇ ਦੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+L=4\times 125=500\,\mathrm{cm}
+\]
+
+ਉੱਤਰ: 500 cm
+
+[Q68]
+EN:
+Three partners put in ₹8000, ₹10000 and ₹14000. The profit is ₹24000. What is A's share?
+
+HI:
+A, B और C क्रमशः ₹8000, ₹10000 और ₹14000 लगाते हैं। कुल लाभ ₹24000 है। A का हिस्सा ज्ञात करें।
+
+PA:
+A, B ਅਤੇ C ਕ੍ਰਮਵਾਰ ₹8000, ₹10000 ਅਤੇ ₹14000 ਲਗਾਉਂਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ₹24000 ਹੈ। A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹7500 | ₹6000 | ₹8000 | ₹18000
+Answer: ₹6000
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_profit_distribution
+Realism: 82
+
+Explanation EN:
+For the same time, profit ratio equals capital ratio.
+
+\[
+A:B:C=4:5:7
+\]
+
+Find the required share.
+
+\[
+A=\frac{8000}{32000}\times 24000=6000
+\]
+
+Answer: ₹6000
+
+Explanation HI:
+समान समय के लिए लाभ अनुपात पूँजी अनुपात के बराबर होता है।
+
+\[
+A:B:C=4:5:7
+\]
+
+आवश्यक हिस्सा निकालें।
+
+\[
+A=\frac{8000}{32000}\times 24000=6000
+\]
+
+उत्तर: ₹6000
+
+Explanation PA:
+ਇੱਕੋ ਸਮੇਂ ਲਈ ਲਾਭ ਅਨੁਪਾਤ ਪੂੰਜੀ ਅਨੁਪਾਤ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ।
+
+\[
+A:B:C=4:5:7
+\]
+
+ਲੋੜੀਂਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=\frac{8000}{32000}\times 24000=6000
+\]
+
+ਉੱਤਰ: ₹6000
+
+[Q69]
+EN:
+If \(A:B=15:22\), what fraction of the total is A?
+
+HI:
+यदि \(A:B=15:22\) है, तो कुल का कितना भाग A है?
+
+PA:
+ਜੇ \(A:B=15:22\) ਹੈ, ਤਾਂ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਭਾਗ A ਹੈ?
+
+Options: 37/15 | 15/37 | 15/7 | 22/37
+Answer: 15/37
+Difficulty: Easy
+Topology: ratio_proportion:rp_ratio_to_fraction
+Realism: 72
+
+Explanation EN:
+Add the ratio parts to get the total parts.
+
+\[
+15+22=37
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{15}{37}=15/37
+\]
+
+Answer: 15/37
+
+Explanation HI:
+कुल भाग पाने के लिए अनुपात के भाग जोड़ें।
+
+\[
+15+22=37
+\]
+
+आवश्यक भाग को कुल भागों पर लिखें।
+
+\[
+A=\frac{15}{37}=15/37
+\]
+
+उत्तर: 15/37
+
+Explanation PA:
+ਕੁੱਲ ਭਾਗਾਂ ਲਈ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਜੋੜੋ।
+
+\[
+15+22=37
+\]
+
+ਲੋੜੀਂਦੇ ਭਾਗ ਨੂੰ ਕੁੱਲ ਭਾਗਾਂ ਉੱਤੇ ਲਿਖੋ।
+
+\[
+A=\frac{15}{37}=15/37
+\]
+
+ਉੱਤਰ: 15/37
+
+[Q70]
+EN:
+In a class, boys and girls are in the ratio \(5:8\). There are 260 students in all. Find the number of boys.
+
+HI:
+लड़कों और लड़कियों का अनुपात \(5:8\) है। कुल विद्यार्थी 260 हैं। लड़कों की संख्या ज्ञात करें।
+
+PA:
+ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ \(5:8\) ਹੈ। ਕੁੱਲ ਵਿਦਿਆਰਥੀ 260 ਹਨ। ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 160 | 60 | 100 | 20
+Answer: 100
+Difficulty: Easy
+Topology: ratio_proportion:rp_sum_based_ratio_recovery
+Realism: 73
+
+Explanation EN:
+Let boys and girls be proportional to the ratio.
+
+\[
+B=5k,\quad G=8k
+\]
+
+Use the total students.
+
+\[
+5k+8k=260
+\]
+
+Solve the equation.
+
+\[
+13k=260,\quad k=20
+\]
+
+Find the number of boys.
+
+\[
+B=5k=100
+\]
+
+Answer: 100
+
+Explanation HI:
+लड़कों और लड़कियों को अनुपात के अनुसार मानें।
+
+\[
+B=5k,\quad G=8k
+\]
+
+कुल विद्यार्थियों का उपयोग करें।
+
+\[
+5k+8k=260
+\]
+
+समीकरण हल करें।
+
+\[
+13k=260,\quad k=20
+\]
+
+लड़कों की संख्या निकालें।
+
+\[
+B=5k=100
+\]
+
+उत्तर: 100
+
+Explanation PA:
+ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਨੂੰ ਅਨੁਪਾਤ ਅਨੁਸਾਰ ਮੰਨੋ।
+
+\[
+B=5k,\quad G=8k
+\]
+
+ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+5k+8k=260
+\]
+
+ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।
+
+\[
+13k=260,\quad k=20
+\]
+
+ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।
+
+\[
+B=5k=100
+\]
+
+ਉੱਤਰ: 100
+
+[Q71]
+EN:
+₹300 is divided among A and B in the ratio \(2:3\). Find B's share.
+
+HI:
+कुल वेतन राशि ₹300 है। A और B का अनुपात \(2:3\) है। B का हिस्सा ज्ञात करें।
+
+PA:
+ਕੁੱਲ ਤਨਖਾਹ ਰਕਮ ₹300 ਹੈ। A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ \(2:3\) ਹੈ। B ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹120 | ₹60 | ₹180 | ₹150
+Answer: ₹180
+Difficulty: Easy
+Topology: ratio_proportion:rp_direct_sharing
+Realism: 75
+
+Explanation EN:
+Write the given ratio.
+
+\[
+A=2k,\quad B=3k
+\]
+
+Use the total salary fund.
+
+\[
+2k+3k=300
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{300}{5}=60
+\]
+
+Compute B's share.
+
+\[
+B=3k=3\times 60=180
+\]
+
+Answer: ₹180
+
+Explanation HI:
+दिया गया अनुपात लिखें।
+
+\[
+A=2k,\quad B=3k
+\]
+
+कुल वेतन राशि का उपयोग करें।
+
+\[
+2k+3k=300
+\]
+
+सामान्य गुणक ज्ञात करें।
+
+\[
+k=\frac{300}{5}=60
+\]
+
+B का हिस्सा निकालें।
+
+\[
+B=3k=3\times 60=180
+\]
+
+उत्तर: ₹180
+
+Explanation PA:
+ਦਿੱਤਾ ਅਨੁਪਾਤ ਲਿਖੋ।
+
+\[
+A=2k,\quad B=3k
+\]
+
+ਕੁੱਲ ਤਨਖਾਹ ਰਕਮ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+2k+3k=300
+\]
+
+ਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+k=\frac{300}{5}=60
+\]
+
+B ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+B=3k=3\times 60=180
+\]
+
+ਉੱਤਰ: ₹180
+
+[Q72]
+EN:
+If \(7:9 = 28:x\), find \(x\).
+
+HI:
+यदि \(7:9 = 28:x\) है, तो \(x\) ज्ञात करें।
+
+PA:
+ਜੇ \(7:9 = 28:x\) ਹੈ, ਤਾਂ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 22 | 36 | 37 | 28
+Answer: 36
+Difficulty: Easy
+Topology: ratio_proportion:rp_missing_term_proportion
+Realism: 73
+
+Explanation EN:
+Write the proportion as fractions.
+
+\[
+\frac{7}{9}=\frac{28}{x}
+\]
+
+Cross-multiply.
+
+\[
+7x=9\times 28
+\]
+
+Solve for the missing term.
+
+\[
+x=\frac{9\times 28}{7}=36
+\]
+
+Answer: 36
+
+Explanation HI:
+अनुपात को भिन्न के रूप में लिखें।
+
+\[
+\frac{7}{9}=\frac{28}{x}
+\]
+
+क्रॉस-गुणा करें।
+
+\[
+7x=9\times 28
+\]
+
+लुप्त पद ज्ञात करें।
+
+\[
+x=\frac{9\times 28}{7}=36
+\]
+
+उत्तर: 36
+
+Explanation PA:
+ਅਨੁਪਾਤ ਨੂੰ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।
+
+\[
+\frac{7}{9}=\frac{28}{x}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰੋ।
+
+\[
+7x=9\times 28
+\]
+
+ਗੁੰਮ ਪਦ ਪਤਾ ਕਰੋ।
+
+\[
+x=\frac{9\times 28}{7}=36
+\]
+
+ਉੱਤਰ: 36
+
+[Q73]
+EN:
+Marks in Maths, Science and English are in the ratio \(3:4:5\). Total marks are 240. Find the marks in Science.
+
+HI:
+गणित, विज्ञान और अंग्रेज़ी के अंक \(3:4:5\) के अनुपात में हैं। कुल अंक 240 हैं। Science के अंक ज्ञात करें।
+
+PA:
+ਗਣਿਤ, ਵਿਗਿਆਨ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੇ ਅੰਕ \(3:4:5\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਕੁੱਲ ਅੰਕ 240 ਹਨ। Science ਦੇ ਅੰਕ ਪਤਾ ਕਰੋ।
+
+Options: 20 | 80 | 160 | 60
+Answer: 80
+Difficulty: Medium
+Topology: ratio_proportion:rp_marks_distribution_ratio
+Realism: 81
+
+Explanation EN:
+Find one ratio unit.
+
+\[
+k=\frac{240}{12}=20
+\]
+
+Multiply by the required subject part.
+
+\[
+Science=4\times 20=80
+\]
+
+Answer: 80
+
+Explanation HI:
+एक अनुपात इकाई निकालें।
+
+\[
+k=\frac{240}{12}=20
+\]
+
+आवश्यक विषय के भाग से गुणा करें।
+
+\[
+Science=4\times 20=80
+\]
+
+उत्तर: 80
+
+Explanation PA:
+ਇੱਕ ਅਨੁਪਾਤ ਇਕਾਈ ਕੱਢੋ।
+
+\[
+k=\frac{240}{12}=20
+\]
+
+ਲੋੜੀਂਦੇ ਵਿਸ਼ੇ ਦੇ ਭਾਗ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+Science=4\times 20=80
+\]
+
+ਉੱਤਰ: 80
+
+[Q74]
+EN:
+The present ages of A and B are in the ratio \(2:3\). Their age difference is 18 years. Find the age of A.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(2:3\) है। आयु का अंतर 18 वर्ष है। A की आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(2:3\) ਹੈ। ਉਮਰ ਦਾ ਫਰਕ 18 ਸਾਲ ਹੈ। A ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 18 years | 54 years | 36 years | 46 years
+Answer: 36 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_difference_constant
+Realism: 83
+
+Explanation EN:
+Let the ages be proportional parts.
+
+\[
+A=2k,\quad B=3k
+\]
+
+Use the constant age difference.
+
+\[
+3k-2k=18
+\]
+
+Find k and the required age.
+
+\[
+k=18,\quad A=2\times 18=36
+\]
+
+Answer: 36 years
+
+Explanation HI:
+आयु को अनुपाती भाग मानें।
+
+\[
+A=2k,\quad B=3k
+\]
+
+स्थिर आयु अंतर का उपयोग करें।
+
+\[
+3k-2k=18
+\]
+
+k और आवश्यक आयु निकालें।
+
+\[
+k=18,\quad A=2\times 18=36
+\]
+
+उत्तर: 36 वर्ष
+
+Explanation PA:
+ਉਮਰਾਂ ਨੂੰ ਅਨੁਪਾਤੀ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=2k,\quad B=3k
+\]
+
+ਸਥਿਰ ਉਮਰ ਫਰਕ ਵਰਤੋ।
+
+\[
+3k-2k=18
+\]
+
+k ਅਤੇ ਲੋੜੀਂਦੀ ਉਮਰ ਕੱਢੋ।
+
+\[
+k=18,\quad A=2\times 18=36
+\]
+
+ਉੱਤਰ: 36 ਸਾਲ
+
+[Q75]
+EN:
+For two directly varying quantities \(x\) and \(y\), \(x=576\) at \(y=12\). Find \(x\) at \(y=15\).
+
+HI:
+यदि \(x\), \(y\) के सीधे अनुपाती है और \(y=12\) पर \(x=576\) है, तो \(y=15\) पर \(x\) ज्ञात करें।
+
+PA:
+ਜੇ \(x\), \(y\) ਦੇ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ \(y=12\) ਤੇ \(x=576\) ਹੈ, ਤਾਂ \(y=15\) ਤੇ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 720 | 576 | 579 | 460.8
+Answer: 720
+Difficulty: Medium
+Topology: ratio_proportion:rp_direct_variation_basic
+Realism: 81
+
+Explanation EN:
+For direct variation, the ratios are equal.
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+Substitute the values.
+
+\[
+\frac{576}{12}=\frac{x_2}{15}
+\]
+
+Solve for the new value.
+
+\[
+x_2=\frac{576\times 15}{12}=720
+\]
+
+Answer: 720
+
+Explanation HI:
+सीधे अनुपात में अनुपात बराबर होते हैं।
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+मान रखें।
+
+\[
+\frac{576}{12}=\frac{x_2}{15}
+\]
+
+नया मान ज्ञात करें।
+
+\[
+x_2=\frac{576\times 15}{12}=720
+\]
+
+उत्तर: 720
+
+Explanation PA:
+ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਅਨੁਪਾਤ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+ਮੁੱਲ ਰੱਖੋ।
+
+\[
+\frac{576}{12}=\frac{x_2}{15}
+\]
+
+ਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+\[
+x_2=\frac{576\times 15}{12}=720
+\]
+
+ਉੱਤਰ: 720
+
+[Q76]
+EN:
+6000 votes were cast, out of which 1800 were invalid. The valid votes for A and B are in the ratio \(5:4\). Find A's valid votes.
+
+HI:
+एक चुनाव में 6000 मत पड़े, जिनमें 1800 अमान्य थे। A और B के वैध मतों का अनुपात \(5:4\) है। A के मत ज्ञात करें।
+
+PA:
+ਇੱਕ ਚੋਣ ਵਿੱਚ 6000 ਵੋਟਾਂ ਪਈਆਂ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ 1800 ਅਵੈਧ ਸਨ। A ਅਤੇ B ਦੇ ਵੈਧ ਵੋਟਾਂ ਦਾ ਅਨੁਪਾਤ \(5:4\) ਹੈ। A ਦੇ ਵੋਟ ਪਤਾ ਕਰੋ।
+
+Options: 3333.33 | 1800 | 1866.67 | 2333.33
+Answer: 2333.33
+Difficulty: Medium
+Topology: ratio_proportion:rp_voter_turnout_ratio
+Realism: 84
+
+Explanation EN:
+First find the valid votes.
+
+\[
+V=6000-1800=4200
+\]
+
+Divide valid votes in the given ratio.
+
+\[
+A=\frac{5}{5+4}\times 4200=2333.3333333333335
+\]
+
+Answer: 2333.33
+
+Explanation HI:
+पहले वैध मत निकालें।
+
+\[
+V=6000-1800=4200
+\]
+
+वैध मतों को दिए अनुपात में बाँटें।
+
+\[
+A=\frac{5}{5+4}\times 4200=2333.3333333333335
+\]
+
+उत्तर: 2333.33
+
+Explanation PA:
+ਪਹਿਲਾਂ ਵੈਧ ਵੋਟਾਂ ਕੱਢੋ।
+
+\[
+V=6000-1800=4200
+\]
+
+ਵੈਧ ਵੋਟਾਂ ਨੂੰ ਦਿੱਤੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੋ।
+
+\[
+A=\frac{5}{5+4}\times 4200=2333.3333333333335
+\]
+
+ਉੱਤਰ: 2333.33
+
+[Q77]
+EN:
+Two quantities are in the ratio \(6:7\). They decrease by 10% and 20% respectively. Find the new ratio.
+
+HI:
+दो मिश्रणों की मात्राओं का अनुपात \(6:7\) है। पहली मात्रा 10% और दूसरी मात्रा 20% घटती है। नया अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਮਿਸ਼ਰਣਾਂ ਦੀਆਂ ਮਾਤਰਾਂ ਦਾ ਅਨੁਪਾਤ \(6:7\) ਹੈ। ਪਹਿਲੀ ਮਾਤਰਾ 10% ਅਤੇ ਦੂਜੀ ਮਾਤਰਾ 20% ਘਟਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 480:630 | 27:28 | 660:840 | 6:7
+Answer: 27:28
+Difficulty: Medium
+Topology: ratio_proportion:rp_ratio_after_decrease
+Realism: 81
+
+Explanation EN:
+Let the original quantities be ratio parts.
+
+\[
+A=6,\quad B=7
+\]
+
+Apply the decreases.
+
+\[
+A':B'=6\left(1-\frac{10}{100}\right):7\left(1-\frac{20}{100}\right)
+\]
+
+Simplify the ratio.
+
+\[
+A':B'=540:560=27:28
+\]
+
+Answer: 27:28
+
+Explanation HI:
+मूल मात्राओं को अनुपात के भाग मानें।
+
+\[
+A=6,\quad B=7
+\]
+
+घटाव लगाएँ।
+
+\[
+A':B'=6\left(1-\frac{10}{100}\right):7\left(1-\frac{20}{100}\right)
+\]
+
+अनुपात सरल करें।
+
+\[
+A':B'=540:560=27:28
+\]
+
+उत्तर: 27:28
+
+Explanation PA:
+ਮੂਲ ਮਾਤਰਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=6,\quad B=7
+\]
+
+ਘਟਾਓ ਲਗਾਓ।
+
+\[
+A':B'=6\left(1-\frac{10}{100}\right):7\left(1-\frac{20}{100}\right)
+\]
+
+ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A':B'=540:560=27:28
+\]
+
+ਉੱਤਰ: 27:28
+
+[Q78]
+EN:
+The present ages of a parent and child are in the ratio \(5:2\). After 8 years, the ratio will be \(2:1\). Find the present age of the parent.
+
+HI:
+माता/पिता और बच्चे की वर्तमान आयु का अनुपात \(5:2\) है। 8 वर्ष बाद अनुपात \(2:1\) होगा। माता/पिता की वर्तमान आयु ज्ञात करें।
+
+PA:
+ਮਾਤਾ/ਪਿਤਾ ਅਤੇ ਬੱਚੇ ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(5:2\) ਹੈ। 8 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \(2:1\) ਹੋਵੇਗਾ। ਮਾਤਾ/ਪਿਤਾ ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 8 years | 48 years | 16 years | 40 years
+Answer: 40 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_multi_generation
+Realism: 80
+
+Explanation EN:
+Let present ages be proportional parts.
+
+\[
+P=5k,\quad C=2k
+\]
+
+Use the future ratio.
+
+\[
+\frac{5k+8}{2k+8}=\frac{2}{1}
+\]
+
+Solve and find the required age.
+
+\[
+k=8,\quad P=5\times 8=40
+\]
+
+Answer: 40 years
+
+Explanation HI:
+वर्तमान आयु अनुपाती भाग मानें।
+
+\[
+P=5k,\quad C=2k
+\]
+
+भविष्य अनुपात का उपयोग करें।
+
+\[
+\frac{5k+8}{2k+8}=\frac{2}{1}
+\]
+
+हल करके आवश्यक आयु निकालें।
+
+\[
+k=8,\quad P=5\times 8=40
+\]
+
+उत्तर: 40 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰਾਂ ਅਨੁਪਾਤੀ ਭਾਗ ਮੰਨੋ।
+
+\[
+P=5k,\quad C=2k
+\]
+
+ਭਵਿੱਖ ਅਨੁਪਾਤ ਵਰਤੋ।
+
+\[
+\frac{5k+8}{2k+8}=\frac{2}{1}
+\]
+
+ਹੱਲ ਕਰਕੇ ਲੋੜੀਂਦੀ ਉਮਰ ਕੱਢੋ।
+
+\[
+k=8,\quad P=5\times 8=40
+\]
+
+ਉੱਤਰ: 40 ਸਾਲ
+
+[Q79]
+EN:
+A and B initially have money in the ratio \(11:7\). A gives ₹4800 to B, and the ratio becomes \(1:1\). Find A's original amount.
+
+HI:
+A और B के पास धन का अनुपात \(11:7\) है। A द्वारा B को ₹4800 देने के बाद अनुपात \(1:1\) हो जाता है। A की मूल राशि ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਕੋਲ ਪੈਸੇ ਦਾ ਅਨੁਪਾਤ \(11:7\) ਹੈ। A ਵੱਲੋਂ B ਨੂੰ ₹4800 ਦੇਣ ਤੋਂ ਬਾਅਦ ਅਨੁਪਾਤ \(1:1\) ਹੋ ਜਾਂਦਾ ਹੈ। A ਦੀ ਮੂਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹21600 | ₹31200 | ₹26400 | ₹16800
+Answer: ₹26400
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_after_transfer
+Realism: 89
+
+Explanation EN:
+Let the original amounts be ratio parts.
+
+\[
+A=11k,\quad B=7k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{11k-4800}{7k+4800}=\frac{1}{1}
+\]
+
+Cross-multiply and solve.
+
+\[
+1(11k-4800)=1(7k+4800)
+\]
+
+Find the common multiplier.
+
+\[
+4k=9600,\quad k=2400
+\]
+
+Compute A's original amount.
+
+\[
+A=11k=11\times 2400=26400
+\]
+
+Answer: ₹26400
+
+Explanation HI:
+मूल राशियों को अनुपात के भाग मानें।
+
+\[
+A=11k,\quad B=7k
+\]
+
+हस्तांतरण के बाद समीकरण बनाएँ।
+
+\[
+\frac{11k-4800}{7k+4800}=\frac{1}{1}
+\]
+
+क्रॉस-गुणा करके हल करें।
+
+\[
+1(11k-4800)=1(7k+4800)
+\]
+
+सामान्य गुणक ज्ञात करें।
+
+\[
+4k=9600,\quad k=2400
+\]
+
+A की मूल राशि निकालें।
+
+\[
+A=11k=11\times 2400=26400
+\]
+
+उत्तर: ₹26400
+
+Explanation PA:
+ਮੂਲ ਰਕਮਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=11k,\quad B=7k
+\]
+
+ਤਬਾਦਲੇ ਤੋਂ ਬਾਅਦ ਸਮੀਕਰਨ ਬਣਾਓ।
+
+\[
+\frac{11k-4800}{7k+4800}=\frac{1}{1}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰਕੇ ਹੱਲ ਕਰੋ।
+
+\[
+1(11k-4800)=1(7k+4800)
+\]
+
+ਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+4k=9600,\quad k=2400
+\]
+
+A ਦੀ ਮੂਲ ਰਕਮ ਕੱਢੋ।
+
+\[
+A=11k=11\times 2400=26400
+\]
+
+ਉੱਤਰ: ₹26400
+
+[Q80]
+EN:
+A and B invest for different durations: ₹5000 for 12 months and ₹7000 for 6 months. Divide the ₹8700 profit and find A's share.
+
+HI:
+A ₹5000 को 12 महीने के लिए और B ₹7000 को 6 महीने के लिए लगाता है। कुल लाभ ₹8700 है। A का हिस्सा ज्ञात करें।
+
+PA:
+A ₹5000 ਨੂੰ 12 ਮਹੀਨੇ ਲਈ ਅਤੇ B ₹7000 ਨੂੰ 6 ਮਹੀਨੇ ਲਈ ਲਗਾਉਂਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ₹8700 ਹੈ। A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹4350 | ₹3625 | ₹5117.65 | ₹3582.35
+Answer: ₹5117.65
+Difficulty: Hard
+Topology: ratio_proportion:rp_partnership_partial_exit
+Realism: 90
+
+Explanation EN:
+Profit is divided in the ratio of effective capitals.
+
+\[
+A:B=5000\times 12:7000\times 6=10:7
+\]
+
+Find A's share.
+
+\[
+A=\frac{10}{10+7}\times 8700=5117.65
+\]
+
+Answer: ₹5117.65
+
+Explanation HI:
+लाभ प्रभावी पूँजी के अनुपात में बँटता है।
+
+\[
+A:B=5000\times 12:7000\times 6=10:7
+\]
+
+A का हिस्सा निकालें।
+
+\[
+A=\frac{10}{10+7}\times 8700=5117.65
+\]
+
+उत्तर: ₹5117.65
+
+Explanation PA:
+ਲਾਭ ਪ੍ਰਭਾਵੀ ਪੂੰਜੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ।
+
+\[
+A:B=5000\times 12:7000\times 6=10:7
+\]
+
+A ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=\frac{10}{10+7}\times 8700=5117.65
+\]
+
+ਉੱਤਰ: ₹5117.65
+
+[Q81]
+EN:
+Two similar figures have corresponding sides in the ratio \(3:4\). Find the ratio of their areas.
+
+HI:
+दो समान आकृतियों की भुजाओं का अनुपात \(3:4\) है। उनके क्षेत्रफलों का अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਸਮਰੂਪ ਆਕ੍ਰਿਤੀਆਂ ਦੀਆਂ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ \(3:4\) ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 27:64 | 9:16 | 16:9 | 3:4
+Answer: 9:16
+Difficulty: Hard
+Topology: ratio_proportion:rp_side_area_volume_ratio
+Realism: 88
+
+Explanation EN:
+Start with the side ratio.
+
+\[
+S_1:S_2=3:4
+\]
+
+Area ratio is the square of side ratio.
+
+\[
+A_1:A_2=3^{2}:4^{2}=9:16
+\]
+
+Answer: 9:16
+
+Explanation HI:
+भुजा अनुपात से शुरू करें।
+
+\[
+S_1:S_2=3:4
+\]
+
+क्षेत्रफल अनुपात भुजा अनुपात का वर्ग होता है।
+
+\[
+A_1:A_2=3^{2}:4^{2}=9:16
+\]
+
+उत्तर: 9:16
+
+Explanation PA:
+ਭੁਜਾ ਅਨੁਪਾਤ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ।
+
+\[
+S_1:S_2=3:4
+\]
+
+ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਹੁੰਦਾ ਹੈ।
+
+\[
+A_1:A_2=3^{2}:4^{2}=9:16
+\]
+
+ਉੱਤਰ: 9:16
+
+[Q82]
+EN:
+If \(A:B=7:9\) and \(B:C=12:13\), find \(A:B:C\).
+
+HI:
+यदि \(A:B=7:9\) और \(B:C=12:13\) है, तो \(A:B:C\) ज्ञात करें।
+
+PA:
+ਜੇ \(A:B=7:9\) ਅਤੇ \(B:C=12:13\) ਹੈ, ਤਾਂ \(A:B:C\) ਪਤਾ ਕਰੋ।
+
+Options: 39:36:28 | 7:9:13 | 84:108:117 | 28:36:39
+Answer: 28:36:39
+Difficulty: Hard
+Topology: ratio_proportion:rp_chain_ratio_network
+Realism: 87
+
+Explanation EN:
+Make the B part common.
+
+\[
+L=\operatorname{lcm}(9,12)=36
+\]
+
+Scale the first ratio.
+
+\[
+A:B=28:36
+\]
+
+Scale the second ratio.
+
+\[
+B:C=36:39
+\]
+
+Combine the ratios.
+
+\[
+A:B:C=28:36:39
+\]
+
+Answer: 28:36:39
+
+Explanation HI:
+B के भाग को समान करें।
+
+\[
+L=\operatorname{lcm}(9,12)=36
+\]
+
+पहले अनुपात को बढ़ाएँ।
+
+\[
+A:B=28:36
+\]
+
+दूसरे अनुपात को बढ़ाएँ।
+
+\[
+B:C=36:39
+\]
+
+अनुपातों को मिलाएँ।
+
+\[
+A:B:C=28:36:39
+\]
+
+उत्तर: 28:36:39
+
+Explanation PA:
+B ਦੇ ਭਾਗ ਨੂੰ ਸਾਂਝਾ ਕਰੋ।
+
+\[
+L=\operatorname{lcm}(9,12)=36
+\]
+
+ਪਹਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।
+
+\[
+A:B=28:36
+\]
+
+ਦੂਜੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।
+
+\[
+B:C=36:39
+\]
+
+ਅਨੁਪਾਤਾਂ ਨੂੰ ਜੋੜੋ।
+
+\[
+A:B:C=28:36:39
+\]
+
+ਉੱਤਰ: 28:36:39
+
+[Q83]
+EN:
+A is \(\frac{17}{38}\) of the total. Find the ratio \(A:B\).
+
+HI:
+A, कुल का \(\frac{17}{38}\) है। अनुपात \(A:B\) ज्ञात करें।
+
+PA:
+A, ਕੁੱਲ ਦਾ \(\frac{17}{38}\) ਹੈ। ਅਨੁਪਾਤ \(A:B\) ਪਤਾ ਕਰੋ।
+
+Options: 17:21 | 17:38 | 21:17 | 38:17
+Answer: 17:21
+Difficulty: Easy
+Topology: ratio_proportion:rp_fraction_to_ratio
+Realism: 74
+
+Explanation EN:
+Use total parts from the fraction.
+
+\[
+A=17,\quad A+B=38
+\]
+
+Find B's parts.
+
+\[
+B=38-17=21
+\]
+
+Write the ratio.
+
+\[
+A:B=17:21=17:21
+\]
+
+Answer: 17:21
+
+Explanation HI:
+भिन्न से कुल भाग लें।
+
+\[
+A=17,\quad A+B=38
+\]
+
+B के भाग ज्ञात करें।
+
+\[
+B=38-17=21
+\]
+
+अनुपात लिखें।
+
+\[
+A:B=17:21=17:21
+\]
+
+उत्तर: 17:21
+
+Explanation PA:
+ਭਿੰਨ ਤੋਂ ਕੁੱਲ ਭਾਗ ਲਓ।
+
+\[
+A=17,\quad A+B=38
+\]
+
+B ਦੇ ਭਾਗ ਪਤਾ ਕਰੋ।
+
+\[
+B=38-17=21
+\]
+
+ਅਨੁਪਾਤ ਲਿਖੋ।
+
+\[
+A:B=17:21=17:21
+\]
+
+ਉੱਤਰ: 17:21
+
+[Q84]
+EN:
+A invests ₹9000 for 8 months and B invests ₹6000 for 12 months. If the total profit is ₹2000, find A's share.
+
+HI:
+A 8 महीने के लिए ₹9000 और B 12 महीने के लिए ₹6000 निवेश करता है। यदि कुल लाभ ₹2000 है, तो A का हिस्सा ज्ञात करें।
+
+PA:
+A 8 ਮਹੀਨੇ ਲਈ ₹9000 ਅਤੇ B 12 ਮਹੀਨੇ ਲਈ ₹6000 ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਲਾਭ ₹2000 ਹੈ, ਤਾਂ A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹9000 | ₹1002 | ₹1000 | ₹999
+Answer: ₹1000
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_time_variation
+Realism: 83
+
+Explanation EN:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=9000\times 8:6000\times 12
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=72000:72000=1:1
+\]
+
+Use the total profit.
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+Find A's share.
+
+\[
+A=1k=1000
+\]
+
+Answer: ₹1000
+
+Explanation HI:
+लाभ अनुपात पूँजी × समय होता है।
+
+\[
+A:B=9000\times 8:6000\times 12
+\]
+
+प्रभावी पूँजी अनुपात सरल करें।
+
+\[
+A:B=72000:72000=1:1
+\]
+
+कुल लाभ का उपयोग करें।
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+A का हिस्सा निकालें।
+
+\[
+A=1k=1000
+\]
+
+उत्तर: ₹1000
+
+Explanation PA:
+ਲਾਭ ਅਨੁਪਾਤ ਪੂੰਜੀ × ਸਮਾਂ ਹੁੰਦਾ ਹੈ।
+
+\[
+A:B=9000\times 8:6000\times 12
+\]
+
+ਪ੍ਰਭਾਵੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A:B=72000:72000=1:1
+\]
+
+ਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+A ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=1k=1000
+\]
+
+ਉੱਤਰ: ₹1000
+
+[Q85]
+EN:
+If \(A:B=7:11\), what fraction of the total is A?
+
+HI:
+यदि \(A:B=7:11\) है, तो कुल का कितना भाग A है?
+
+PA:
+ਜੇ \(A:B=7:11\) ਹੈ, ਤਾਂ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਭਾਗ A ਹੈ?
+
+Options: 7/18 | 18/7 | 11/18 | 7/4
+Answer: 7/18
+Difficulty: Easy
+Topology: ratio_proportion:rp_ratio_to_fraction
+Realism: 72
+
+Explanation EN:
+Add the ratio parts to get the total parts.
+
+\[
+7+11=18
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{7}{18}=7/18
+\]
+
+Answer: 7/18
+
+Explanation HI:
+कुल भाग पाने के लिए अनुपात के भाग जोड़ें।
+
+\[
+7+11=18
+\]
+
+आवश्यक भाग को कुल भागों पर लिखें।
+
+\[
+A=\frac{7}{18}=7/18
+\]
+
+उत्तर: 7/18
+
+Explanation PA:
+ਕੁੱਲ ਭਾਗਾਂ ਲਈ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਜੋੜੋ।
+
+\[
+7+11=18
+\]
+
+ਲੋੜੀਂਦੇ ਭਾਗ ਨੂੰ ਕੁੱਲ ਭਾਗਾਂ ਉੱਤੇ ਲਿਖੋ।
+
+\[
+A=\frac{7}{18}=7/18
+\]
+
+ਉੱਤਰ: 7/18
+
+[Q86]
+EN:
+The class strength is 70, and boys and girls are in the ratio \(3:4\). Find the number of boys.
+
+HI:
+लड़कों और लड़कियों का अनुपात \(3:4\) है। कुल विद्यार्थी 70 हैं। लड़कों की संख्या ज्ञात करें।
+
+PA:
+ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ \(3:4\) ਹੈ। ਕੁੱਲ ਵਿਦਿਆਰਥੀ 70 ਹਨ। ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+
+Options: 30 | 40 | 10 | 50
+Answer: 30
+Difficulty: Easy
+Topology: ratio_proportion:rp_sum_based_ratio_recovery
+Realism: 73
+
+Explanation EN:
+Let boys and girls be proportional to the ratio.
+
+\[
+B=3k,\quad G=4k
+\]
+
+Use the total students.
+
+\[
+3k+4k=70
+\]
+
+Solve the equation.
+
+\[
+7k=70,\quad k=10
+\]
+
+Find the number of boys.
+
+\[
+B=3k=30
+\]
+
+Answer: 30
+
+Explanation HI:
+लड़कों और लड़कियों को अनुपात के अनुसार मानें।
+
+\[
+B=3k,\quad G=4k
+\]
+
+कुल विद्यार्थियों का उपयोग करें।
+
+\[
+3k+4k=70
+\]
+
+समीकरण हल करें।
+
+\[
+7k=70,\quad k=10
+\]
+
+लड़कों की संख्या निकालें।
+
+\[
+B=3k=30
+\]
+
+उत्तर: 30
+
+Explanation PA:
+ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਨੂੰ ਅਨੁਪਾਤ ਅਨੁਸਾਰ ਮੰਨੋ।
+
+\[
+B=3k,\quad G=4k
+\]
+
+ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+3k+4k=70
+\]
+
+ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।
+
+\[
+7k=70,\quad k=10
+\]
+
+ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।
+
+\[
+B=3k=30
+\]
+
+ਉੱਤਰ: 30
+
+[Q87]
+EN:
+₹660 is divided among A and B in the ratio \(4:7\). Find B's share.
+
+HI:
+कुल राशि ₹660 है। A और B का अनुपात \(4:7\) है। B का हिस्सा ज्ञात करें।
+
+PA:
+ਕੁੱਲ ਰਕਮ ₹660 ਹੈ। A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ \(4:7\) ਹੈ। B ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹240 | ₹330 | ₹60 | ₹420
+Answer: ₹420
+Difficulty: Easy
+Topology: ratio_proportion:rp_direct_sharing
+Realism: 72
+
+Explanation EN:
+Write the given ratio.
+
+\[
+A=4k,\quad B=7k
+\]
+
+Use the total sum.
+
+\[
+4k+7k=660
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{660}{11}=60
+\]
+
+Compute B's share.
+
+\[
+B=7k=7\times 60=420
+\]
+
+Answer: ₹420
+
+Explanation HI:
+दिया गया अनुपात लिखें।
+
+\[
+A=4k,\quad B=7k
+\]
+
+कुल राशि का उपयोग करें।
+
+\[
+4k+7k=660
+\]
+
+सामान्य गुणक ज्ञात करें।
+
+\[
+k=\frac{660}{11}=60
+\]
+
+B का हिस्सा निकालें।
+
+\[
+B=7k=7\times 60=420
+\]
+
+उत्तर: ₹420
+
+Explanation PA:
+ਦਿੱਤਾ ਅਨੁਪਾਤ ਲਿਖੋ।
+
+\[
+A=4k,\quad B=7k
+\]
+
+ਕੁੱਲ ਰਕਮ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+4k+7k=660
+\]
+
+ਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+k=\frac{660}{11}=60
+\]
+
+B ਦਾ ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+B=7k=7\times 60=420
+\]
+
+ਉੱਤਰ: ₹420
+
+[Q88]
+EN:
+If \(3:5 = 24:x\), find \(x\).
+
+HI:
+यदि \(3:5 = 24:x\) है, तो \(x\) ज्ञात करें।
+
+PA:
+ਜੇ \(3:5 = 24:x\) ਹੈ, ਤਾਂ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 40 | 14 | 29 | 24
+Answer: 40
+Difficulty: Easy
+Topology: ratio_proportion:rp_missing_term_proportion
+Realism: 76
+
+Explanation EN:
+Write the proportion as fractions.
+
+\[
+\frac{3}{5}=\frac{24}{x}
+\]
+
+Cross-multiply.
+
+\[
+3x=5\times 24
+\]
+
+Solve for the missing term.
+
+\[
+x=\frac{5\times 24}{3}=40
+\]
+
+Answer: 40
+
+Explanation HI:
+अनुपात को भिन्न के रूप में लिखें।
+
+\[
+\frac{3}{5}=\frac{24}{x}
+\]
+
+क्रॉस-गुणा करें।
+
+\[
+3x=5\times 24
+\]
+
+लुप्त पद ज्ञात करें।
+
+\[
+x=\frac{5\times 24}{3}=40
+\]
+
+उत्तर: 40
+
+Explanation PA:
+ਅਨੁਪਾਤ ਨੂੰ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।
+
+\[
+\frac{3}{5}=\frac{24}{x}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰੋ।
+
+\[
+3x=5\times 24
+\]
+
+ਗੁੰਮ ਪਦ ਪਤਾ ਕਰੋ।
+
+\[
+x=\frac{5\times 24}{3}=40
+\]
+
+ਉੱਤਰ: 40
+
+[Q89]
+EN:
+For two directly varying quantities \(x\) and \(y\), \(x=144\) at \(y=12\). Find \(x\) at \(y=15\).
+
+HI:
+यदि \(x\), \(y\) के सीधे अनुपाती है और \(y=12\) पर \(x=144\) है, तो \(y=15\) पर \(x\) ज्ञात करें।
+
+PA:
+ਜੇ \(x\), \(y\) ਦੇ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ \(y=12\) ਤੇ \(x=144\) ਹੈ, ਤਾਂ \(y=15\) ਤੇ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 115.2 | 180 | 147 | 144
+Answer: 180
+Difficulty: Medium
+Topology: ratio_proportion:rp_direct_variation_basic
+Realism: 83
+
+Explanation EN:
+For direct variation, the ratios are equal.
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+Substitute the values.
+
+\[
+\frac{144}{12}=\frac{x_2}{15}
+\]
+
+Solve for the new value.
+
+\[
+x_2=\frac{144\times 15}{12}=180
+\]
+
+Answer: 180
+
+Explanation HI:
+सीधे अनुपात में अनुपात बराबर होते हैं।
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+मान रखें।
+
+\[
+\frac{144}{12}=\frac{x_2}{15}
+\]
+
+नया मान ज्ञात करें।
+
+\[
+x_2=\frac{144\times 15}{12}=180
+\]
+
+उत्तर: 180
+
+Explanation PA:
+ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਅਨੁਪਾਤ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+ਮੁੱਲ ਰੱਖੋ।
+
+\[
+\frac{144}{12}=\frac{x_2}{15}
+\]
+
+ਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+\[
+x_2=\frac{144\times 15}{12}=180
+\]
+
+ਉੱਤਰ: 180
+
+[Q90]
+EN:
+Two quantities are in the ratio \(7:9\). They decrease by 10% and 20% respectively. Find the new ratio.
+
+HI:
+दो मिश्रणों की मात्राओं का अनुपात \(7:9\) है। पहली मात्रा 10% और दूसरी मात्रा 20% घटती है। नया अनुपात ज्ञात करें।
+
+PA:
+ਦੋ ਮਿਸ਼ਰਣਾਂ ਦੀਆਂ ਮਾਤਰਾਂ ਦਾ ਅਨੁਪਾਤ \(7:9\) ਹੈ। ਪਹਿਲੀ ਮਾਤਰਾ 10% ਅਤੇ ਦੂਜੀ ਮਾਤਰਾ 20% ਘਟਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 560:810 | 7:8 | 7:9 | 770:1080
+Answer: 7:8
+Difficulty: Medium
+Topology: ratio_proportion:rp_ratio_after_decrease
+Realism: 81
+
+Explanation EN:
+Let the original quantities be ratio parts.
+
+\[
+A=7,\quad B=9
+\]
+
+Apply the decreases.
+
+\[
+A':B'=7\left(1-\frac{10}{100}\right):9\left(1-\frac{20}{100}\right)
+\]
+
+Simplify the ratio.
+
+\[
+A':B'=630:720=7:8
+\]
+
+Answer: 7:8
+
+Explanation HI:
+मूल मात्राओं को अनुपात के भाग मानें।
+
+\[
+A=7,\quad B=9
+\]
+
+घटाव लगाएँ।
+
+\[
+A':B'=7\left(1-\frac{10}{100}\right):9\left(1-\frac{20}{100}\right)
+\]
+
+अनुपात सरल करें।
+
+\[
+A':B'=630:720=7:8
+\]
+
+उत्तर: 7:8
+
+Explanation PA:
+ਮੂਲ ਮਾਤਰਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=7,\quad B=9
+\]
+
+ਘਟਾਓ ਲਗਾਓ।
+
+\[
+A':B'=7\left(1-\frac{10}{100}\right):9\left(1-\frac{20}{100}\right)
+\]
+
+ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A':B'=630:720=7:8
+\]
+
+ਉੱਤਰ: 7:8
+
+[Q91]
+EN:
+A and B initially have money in the ratio \(11:7\). A gives ₹2400 to B, and the ratio becomes \(1:1\). Find A's original amount.
+
+HI:
+A और B के पास धन का अनुपात \(11:7\) है। A द्वारा B को ₹2400 देने के बाद अनुपात \(1:1\) हो जाता है। A की मूल राशि ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਕੋਲ ਪੈਸੇ ਦਾ ਅਨੁਪਾਤ \(11:7\) ਹੈ। A ਵੱਲੋਂ B ਨੂੰ ₹2400 ਦੇਣ ਤੋਂ ਬਾਅਦ ਅਨੁਪਾਤ \(1:1\) ਹੋ ਜਾਂਦਾ ਹੈ। A ਦੀ ਮੂਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹8400 | ₹13200 | ₹10800 | ₹15600
+Answer: ₹13200
+Difficulty: Hard
+Topology: ratio_proportion:rp_ratio_after_transfer
+Realism: 88
+
+Explanation EN:
+Let the original amounts be ratio parts.
+
+\[
+A=11k,\quad B=7k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{11k-2400}{7k+2400}=\frac{1}{1}
+\]
+
+Cross-multiply and solve.
+
+\[
+1(11k-2400)=1(7k+2400)
+\]
+
+Find the common multiplier.
+
+\[
+4k=4800,\quad k=1200
+\]
+
+Compute A's original amount.
+
+\[
+A=11k=11\times 1200=13200
+\]
+
+Answer: ₹13200
+
+Explanation HI:
+मूल राशियों को अनुपात के भाग मानें।
+
+\[
+A=11k,\quad B=7k
+\]
+
+हस्तांतरण के बाद समीकरण बनाएँ।
+
+\[
+\frac{11k-2400}{7k+2400}=\frac{1}{1}
+\]
+
+क्रॉस-गुणा करके हल करें।
+
+\[
+1(11k-2400)=1(7k+2400)
+\]
+
+सामान्य गुणक ज्ञात करें।
+
+\[
+4k=4800,\quad k=1200
+\]
+
+A की मूल राशि निकालें।
+
+\[
+A=11k=11\times 1200=13200
+\]
+
+उत्तर: ₹13200
+
+Explanation PA:
+ਮੂਲ ਰਕਮਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=11k,\quad B=7k
+\]
+
+ਤਬਾਦਲੇ ਤੋਂ ਬਾਅਦ ਸਮੀਕਰਨ ਬਣਾਓ।
+
+\[
+\frac{11k-2400}{7k+2400}=\frac{1}{1}
+\]
+
+ਕਰਾਸ-ਗੁਣਾ ਕਰਕੇ ਹੱਲ ਕਰੋ।
+
+\[
+1(11k-2400)=1(7k+2400)
+\]
+
+ਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+4k=4800,\quad k=1200
+\]
+
+A ਦੀ ਮੂਲ ਰਕਮ ਕੱਢੋ।
+
+\[
+A=11k=11\times 1200=13200
+\]
+
+ਉੱਤਰ: ₹13200
+
+[Q92]
+EN:
+At present, the age ratio of A to B is \(2:3\). It becomes \(8:11\) after 10 years. Find A's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(2:3\) है। 10 वर्ष बाद अनुपात \(8:11\) होगा। A की वर्तमान आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(2:3\) ਹੈ। 10 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \(8:11\) ਹੋਵੇਗਾ। A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 45 years | 15 years | 40 years | 30 years
+Answer: 30 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_future_ratio
+Realism: 84
+
+Explanation EN:
+Let present ages be ratio parts.
+
+\[
+A=2k,\quad B=3k
+\]
+
+Use the future-age ratio.
+
+\[
+\frac{2k+10}{3k+10}=\frac{8}{11}
+\]
+
+Solve for the multiplier.
+
+\[
+-2k=-30,\quad k=15
+\]
+
+Find A's present age.
+
+\[
+A=2k=30
+\]
+
+Answer: 30 years
+
+Explanation HI:
+वर्तमान आयु को अनुपात के भाग मानें।
+
+\[
+A=2k,\quad B=3k
+\]
+
+भविष्य की आयु का अनुपात लगाएँ।
+
+\[
+\frac{2k+10}{3k+10}=\frac{8}{11}
+\]
+
+गुणक ज्ञात करें।
+
+\[
+-2k=-30,\quad k=15
+\]
+
+A की वर्तमान आयु निकालें।
+
+\[
+A=2k=30
+\]
+
+उत्तर: 30 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=2k,\quad B=3k
+\]
+
+ਭਵਿੱਖ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।
+
+\[
+\frac{2k+10}{3k+10}=\frac{8}{11}
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+-2k=-30,\quad k=15
+\]
+
+A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।
+
+\[
+A=2k=30
+\]
+
+ਉੱਤਰ: 30 ਸਾਲ
+
+[Q93]
+EN:
+12 workers finish a work in 100 days. If the number of workers is 15, how many days will be required?
+
+HI:
+12 मजदूर एक काम को 100 दिनों में पूरा करते हैं। यदि मजदूर 15 हों, तो कितने दिन लगेंगे?
+
+PA:
+12 ਮਜ਼ਦੂਰ ਇੱਕ ਕੰਮ ਨੂੰ 100 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਜੇ ਮਜ਼ਦੂਰ 15 ਹੋਣ, ਤਾਂ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 125 | 3 | 100 | 80
+Answer: 80
+Difficulty: Medium
+Topology: ratio_proportion:rp_inverse_variation_basic
+Realism: 80
+
+Explanation EN:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+12\times 100=15\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{12\times 100}{15}=80
+\]
+
+Answer: 80
+
+Explanation HI:
+मजदूर और दिन व्युत्क्रमानुपाती हैं।
+
+\[
+W_1D_1=W_2D_2
+\]
+
+मान रखें।
+
+\[
+12\times 100=15\times D_2
+\]
+
+दिनों की संख्या निकालें।
+
+\[
+D_2=\frac{12\times 100}{15}=80
+\]
+
+उत्तर: 80
+
+Explanation PA:
+ਮਜ਼ਦੂਰ ਅਤੇ ਦਿਨ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ।
+
+\[
+W_1D_1=W_2D_2
+\]
+
+ਮੁੱਲ ਰੱਖੋ।
+
+\[
+12\times 100=15\times D_2
+\]
+
+ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।
+
+\[
+D_2=\frac{12\times 100}{15}=80
+\]
+
+ਉੱਤਰ: 80
+
+[Q94]
+EN:
+Two incomes are in the ratio \(3:4\). After increases of 20% and 20%, find their new ratio.
+
+HI:
+A और B की आय का अनुपात \(3:4\) है। A की आय 20% और B की आय 20% बढ़ती है। नया अनुपात ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ \(3:4\) ਹੈ। A ਦੀ ਆਮਦਨ 20% ਅਤੇ B ਦੀ ਆਮਦਨ 20% ਵਧਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+
+Options: 3:4 | 23:24 | 4:3 | 360:480
+Answer: 3:4
+Difficulty: Medium
+Topology: ratio_proportion:rp_ratio_after_increase
+Realism: 82
+
+Explanation EN:
+Let the original incomes be ratio parts.
+
+\[
+A=3,\quad B=4
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=3\left(1+\frac{20}{100}\right):4\left(1+\frac{20}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=360:480=3:4
+\]
+
+Answer: 3:4
+
+Explanation HI:
+मूल आय को अनुपात के भाग मानें।
+
+\[
+A=3,\quad B=4
+\]
+
+प्रतिशत वृद्धि लगाएँ।
+
+\[
+A':B'=3\left(1+\frac{20}{100}\right):4\left(1+\frac{20}{100}\right)
+\]
+
+नया अनुपात सरल करें।
+
+\[
+A':B'=360:480=3:4
+\]
+
+उत्तर: 3:4
+
+Explanation PA:
+ਮੂਲ ਆਮਦਨ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=3,\quad B=4
+\]
+
+ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਗਾਓ।
+
+\[
+A':B'=3\left(1+\frac{20}{100}\right):4\left(1+\frac{20}{100}\right)
+\]
+
+ਨਵਾਂ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+
+\[
+A':B'=360:480=3:4
+\]
+
+ਉੱਤਰ: 3:4
+
+[Q95]
+EN:
+A and B receive salaries in the ratio \(4:7\). The difference is ₹300. Find A's salary.
+
+HI:
+A और B के वेतन का अनुपात \(4:7\) है। B, A से ₹300 अधिक कमाता है। A का वेतन ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਤਨਖਾਹ ਦਾ ਅਨੁਪਾਤ \(4:7\) ਹੈ। B, A ਨਾਲੋਂ ₹300 ਵੱਧ ਕਮਾਂਦਾ ਹੈ। A ਦੀ ਤਨਖਾਹ ਪਤਾ ਕਰੋ।
+
+Options: ₹400 | ₹700 | ₹100 | ₹300
+Answer: ₹400
+Difficulty: Medium
+Topology: ratio_proportion:rp_difference_based_ratio_recovery
+Realism: 81
+
+Explanation EN:
+Let the salaries be in ratio form.
+
+\[
+A=4k,\quad B=7k
+\]
+
+Use the salary difference.
+
+\[
+7k-4k=300
+\]
+
+Solve for the multiplier.
+
+\[
+3k=300,\quad k=100
+\]
+
+Compute the required value.
+
+\[
+A=4k=400
+\]
+
+Answer: ₹400
+
+Explanation HI:
+वेतन को अनुपात के रूप में मानें।
+
+\[
+A=4k,\quad B=7k
+\]
+
+वेतन के अंतर का उपयोग करें।
+
+\[
+7k-4k=300
+\]
+
+गुणक ज्ञात करें।
+
+\[
+3k=300,\quad k=100
+\]
+
+आवश्यक मान निकालें।
+
+\[
+A=4k=400
+\]
+
+उत्तर: ₹400
+
+Explanation PA:
+ਤਨਖਾਹਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਰੂਪ ਵਿੱਚ ਮੰਨੋ।
+
+\[
+A=4k,\quad B=7k
+\]
+
+ਤਨਖਾਹ ਦੇ ਅੰਤਰ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+7k-4k=300
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+3k=300,\quad k=100
+\]
+
+ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+A=4k=400
+\]
+
+ਉੱਤਰ: ₹400
+
+[Q96]
+EN:
+At present, A's age and B's age are in the ratio \(4:5\). Earlier by 8 years, the ratio was \(10:13\). Find B's present age.
+
+HI:
+A और B की वर्तमान आयु का अनुपात \(4:5\) है। 8 वर्ष पहले अनुपात \(10:13\) था। B की वर्तमान आयु ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \(4:5\) ਹੈ। 8 ਸਾਲ ਪਹਿਲਾਂ ਅਨੁਪਾਤ \(10:13\) ਸੀ। B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।
+
+Options: 60 years | 48 years | 52 years | 12 years
+Answer: 60 years
+Difficulty: Medium
+Topology: ratio_proportion:rp_age_past_ratio
+Realism: 83
+
+Explanation EN:
+Let present ages be ratio parts.
+
+\[
+A=4k,\quad B=5k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{4k-8}{5k-8}=\frac{10}{13}
+\]
+
+Solve for the multiplier.
+
+\[
+2k=24,\quad k=12
+\]
+
+Find B's present age.
+
+\[
+B=5k=60
+\]
+
+Answer: 60 years
+
+Explanation HI:
+वर्तमान आयु को अनुपात के भाग मानें।
+
+\[
+A=4k,\quad B=5k
+\]
+
+पूर्व आयु का अनुपात लगाएँ।
+
+\[
+\frac{4k-8}{5k-8}=\frac{10}{13}
+\]
+
+गुणक ज्ञात करें।
+
+\[
+2k=24,\quad k=12
+\]
+
+B की वर्तमान आयु निकालें।
+
+\[
+B=5k=60
+\]
+
+उत्तर: 60 वर्ष
+
+Explanation PA:
+ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।
+
+\[
+A=4k,\quad B=5k
+\]
+
+ਪਿਛਲੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।
+
+\[
+\frac{4k-8}{5k-8}=\frac{10}{13}
+\]
+
+ਗੁਣਕ ਪਤਾ ਕਰੋ।
+
+\[
+2k=24,\quad k=12
+\]
+
+B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।
+
+\[
+B=5k=60
+\]
+
+ਉੱਤਰ: 60 ਸਾਲ
+
+[Q97]
+EN:
+Output varies jointly as the number of machines and working hours. 4 machines working for 5 hours produce 960 units. How many units will 6 machines produce in 8 hours?
+
+HI:
+उत्पादन मशीनों की संख्या और काम के घंटों के संयुक्त अनुपात में बदलता है। 4 मशीनें 5 घंटे में 960 इकाइयाँ बनाती हैं। 6 मशीनें 8 घंटे में कितनी इकाइयाँ बनाएँगी?
+
+PA:
+ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਦੀ ਗਿਣਤੀ ਅਤੇ ਕੰਮ ਦੇ ਘੰਟਿਆਂ ਦੇ ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। 4 ਮਸ਼ੀਨਾਂ 5 ਘੰਟਿਆਂ ਵਿੱਚ 960 ਇਕਾਈਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। 6 ਮਸ਼ੀਨਾਂ 8 ਘੰਟਿਆਂ ਵਿੱਚ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਬਣਾਉਣਗੀਆਂ?
+
+Options: 1536 | 960 | 1440 | 2304
+Answer: 2304
+Difficulty: Hard
+Topology: ratio_proportion:rp_joint_variation
+Realism: 86
+
+Explanation EN:
+For joint variation, output is proportional to machines and hours.
+
+\[
+O=kMH
+\]
+
+Use the ratio form.
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+Compute the new output.
+
+\[
+O_2=960\times \frac{6\times 8}{4\times 5}=2304
+\]
+
+Answer: 2304
+
+Explanation HI:
+संयुक्त अनुपात में उत्पादन मशीनों और घंटों के अनुपाती है।
+
+\[
+O=kMH
+\]
+
+अनुपात रूप का उपयोग करें।
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+नया उत्पादन निकालें।
+
+\[
+O_2=960\times \frac{6\times 8}{4\times 5}=2304
+\]
+
+उत्तर: 2304
+
+Explanation PA:
+ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਅਤੇ ਘੰਟਿਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ।
+
+\[
+O=kMH
+\]
+
+ਅਨੁਪਾਤ ਰੂਪ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+ਨਵਾਂ ਉਤਪਾਦਨ ਕੱਢੋ।
+
+\[
+O_2=960\times \frac{6\times 8}{4\times 5}=2304
+\]
+
+ਉੱਤਰ: 2304
+
+[Q98]
+EN:
+A map uses the scale \(1:600000\). Thus 1 cm represents 6 km. A road measures 11 cm on the map. Find the actual length.
+
+HI:
+एक नक्शे का पैमाना \(1:600000\) है, इसलिए 1 cm 6 km को दर्शाता है। यदि नक्शे पर सड़क 11 cm है, तो उसकी वास्तविक लंबाई ज्ञात करें।
+
+PA:
+ਇੱਕ ਨਕਸ਼ੇ ਦਾ ਪੈਮਾਨਾ \(1:600000\) ਹੈ, ਇਸ ਲਈ 1 cm 6 km ਦਰਸਾਉਂਦਾ ਹੈ। ਜੇ ਨਕਸ਼ੇ ਤੇ ਸੜਕ 11 cm ਹੈ, ਤਾਂ ਉਸਦੀ ਅਸਲ ਲੰਬਾਈ ਪਤਾ ਕਰੋ।
+
+Options: 6 km | 11 km | 66 km | 660 km
+Answer: 66 km
+Difficulty: Medium
+Topology: ratio_proportion:rp_map_scale_ratio
+Realism: 82
+
+Explanation EN:
+Use the map scale.
+
+\[
+1\,\mathrm{cm}=6\,\mathrm{km}
+\]
+
+Multiply by the map distance.
+
+\[
+D=11\times 6=66\,\mathrm{km}
+\]
+
+Answer: 66 km
+
+Explanation HI:
+नक्शे के पैमाने का उपयोग करें।
+
+\[
+1\,\mathrm{cm}=6\,\mathrm{km}
+\]
+
+नक्शे की दूरी से गुणा करें।
+
+\[
+D=11\times 6=66\,\mathrm{km}
+\]
+
+उत्तर: 66 km
+
+Explanation PA:
+ਨਕਸ਼ੇ ਦੇ ਪੈਮਾਨੇ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+1\,\mathrm{cm}=6\,\mathrm{km}
+\]
+
+ਨਕਸ਼ੇ ਦੀ ਦੂਰੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+
+\[
+D=11\times 6=66\,\mathrm{km}
+\]
+
+ਉੱਤਰ: 66 km
+
+[Q99]
+EN:
+\(x\) is proportional to \(y\) and inversely proportional to \(z\). Given \(x=648\) for \(y=9\), \(z=5\), find \(x\) for \(y=15\), \(z=6\).
+
+HI:
+\(x\), \(y\) के सीधे और \(z\) के व्युत्क्रमानुपाती है। यदि \(y=9\) और \(z=5\) पर \(x=648\) है, तो \(y=15\) और \(z=6\) पर \(x\) ज्ञात करें।
+
+PA:
+\(x\), \(y\) ਦੇ ਸਿੱਧੇ ਅਤੇ \(z\) ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਜੇ \(y=9\) ਅਤੇ \(z=5\) ਤੇ \(x=648\) ਹੈ, ਤਾਂ \(y=15\) ਅਤੇ \(z=6\) ਤੇ \(x\) ਪਤਾ ਕਰੋ।
+
+Options: 900 | 1296 | 648 | 1080
+Answer: 900
+Difficulty: Hard
+Topology: ratio_proportion:rp_combined_direct_inverse
+Realism: 90
+
+Explanation EN:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=648\times \frac{15}{9}\times \frac{5}{6}=900
+\]
+
+Answer: 900
+
+Explanation HI:
+संयुक्त सीधे और व्युत्क्रम अनुपात का उपयोग करें।
+
+\[
+x=k\frac{y}{z}
+\]
+
+दोनों स्थितियों की तुलना करें।
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+नया मान निकालें।
+
+\[
+x_2=648\times \frac{15}{9}\times \frac{5}{6}=900
+\]
+
+उत्तर: 900
+
+Explanation PA:
+ਸੰਯੁਕਤ ਸਿੱਧੇ ਅਤੇ ਉਲਟ ਅਨੁਪਾਤ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+x=k\frac{y}{z}
+\]
+
+ਦੋਹਾਂ ਹਾਲਤਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+ਨਵਾਂ ਮੁੱਲ ਕੱਢੋ।
+
+\[
+x_2=648\times \frac{15}{9}\times \frac{5}{6}=900
+\]
+
+ਉੱਤਰ: 900
+
+[Q100]
+EN:
+For the same duration, A and B invest in the ratio \(4:7\). If the total profit is ₹6600, find A's share.
+
+HI:
+A और B समान समय के लिए \(4:7\) के अनुपात में निवेश करते हैं। कुल लाभ ₹6600 है। A का लाभांश ज्ञात करें।
+
+PA:
+A ਅਤੇ B ਇੱਕੋ ਸਮੇਂ ਲਈ \(4:7\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ₹6600 ਹੈ। A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਪਤਾ ਕਰੋ।
+
+Options: ₹3300 | ₹2400 | ₹4200 | ₹600
+Answer: ₹2400
+Difficulty: Medium
+Topology: ratio_proportion:rp_partnership_basic
+Realism: 84
+
+Explanation EN:
+For equal time, profit is divided in the investment ratio.
+
+\[
+A:B=4:7
+\]
+
+Use the total profit.
+
+\[
+4k+7k=6600,\quad k=600
+\]
+
+Find A's profit share.
+
+\[
+A=4k=2400
+\]
+
+Answer: ₹2400
+
+Explanation HI:
+समान समय में लाभ निवेश के अनुपात में बँटता है।
+
+\[
+A:B=4:7
+\]
+
+कुल लाभ का उपयोग करें।
+
+\[
+4k+7k=6600,\quad k=600
+\]
+
+A का लाभांश निकालें।
+
+\[
+A=4k=2400
+\]
+
+उत्तर: ₹2400
+
+Explanation PA:
+ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ।
+
+\[
+A:B=4:7
+\]
+
+ਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।
+
+\[
+4k+7k=6600,\quad k=600
+\]
+
+A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਕੱਢੋ।
+
+\[
+A=4k=2400
+\]
+
+ਉੱਤਰ: ₹2400
+

@@ -1,0 +1,1627 @@
+[
+  {
+    "index": 0,
+    "question": "₹6000 is divided into two parts carrying simple interest at 6% and 11% per annum. After 4 years, the combined interest is ₹2160. Find the ratio of the two investments.",
+    "options": [
+      "2:3",
+      "3:2",
+      "11:12",
+      "5:12"
+    ],
+    "answer": "2:3",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_investment_ratio_from_interest"
+    },
+    "semanticAnchors": {
+      "scenario": "two parts of a loan",
+      "category": "interest",
+      "subtype": "int_investment_ratio_from_interest",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "two parts of a loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹6000 is divided into two parts carrying simple interest at 6% and 11% per annum. After 4 years, the combined interest is ₹2160. Find the ratio of the two investments.",
+        "options": [
+          "2:3",
+          "3:2",
+          "11:12",
+          "5:12"
+        ],
+        "explanation": "Total interest condition\n\\(x \\times 6 \\times 4/100 + (6000 - x) \\times 11 \\times 4/100 = 2160\\)\n= 2160\n\nAmount at lower rate\n\\(2400\\)\n= 2400\n\nAnswer = 2:3"
+      },
+      "hi": {
+        "question": "₹6000 को दो भागों में बाँटा गया जिन पर 6% और 11% वार्षिक साधारण ब्याज मिलता है। 4 वर्ष बाद कुल ब्याज ₹2160 है। दोनों निवेशों का अनुपात ज्ञात कीजिए।",
+        "options": [
+          "2:3",
+          "3:2",
+          "11:12",
+          "5:12"
+        ],
+        "explanation": "कुल ब्याज की शर्त\n\\(x \\times 6 \\times 4/100 + (6000 - x) \\times 11 \\times 4/100 = 2160\\)\n= 2160\n\nकम दर पर राशि\n\\(2400\\)\n= 2400\n\nउत्तर = 2:3"
+      },
+      "pa": {
+        "question": "₹6000 ਨੂੰ ਦੋ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਜਿਨ੍ਹਾਂ ਤੇ 6% ਅਤੇ 11% ਸਾਲਾਨਾ ਸਧਾਰਣ ਬਿਆਜ ਮਿਲਦਾ ਹੈ। 4 ਸਾਲ ਬਾਅਦ ਕੁੱਲ ਬਿਆਜ ₹2160 ਹੈ। ਦੋਵੇਂ ਨਿਵੇਸ਼ਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "2:3",
+          "3:2",
+          "11:12",
+          "5:12"
+        ],
+        "explanation": "ਕੁੱਲ ਬਿਆਜ ਦੀ ਸ਼ਰਤ\n\\(x \\times 6 \\times 4/100 + (6000 - x) \\times 11 \\times 4/100 = 2160\\)\n= 2160\n\nਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ\n\\(2400\\)\n= 2400\n\nਉੱਤਰ = 2:3"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 1,
+    "question": "At simple interest, a business advance amounts to ₹9280 in 2 years and ₹11200 in 5 years. Find the principal.",
+    "options": [
+      "₹8000",
+      "₹9280",
+      "₹11200",
+      "₹8640"
+    ],
+    "answer": "₹8000",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_si_temporal_amount_gap"
+    },
+    "semanticAnchors": {
+      "scenario": "business advance",
+      "category": "interest",
+      "subtype": "int_si_temporal_amount_gap",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "business advance"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "At simple interest, a business advance amounts to ₹9280 in 2 years and ₹11200 in 5 years. Find the principal.",
+        "options": [
+          "₹8000",
+          "₹9280",
+          "₹11200",
+          "₹8640"
+        ],
+        "explanation": "One-year interest\n\\((11200 - 9280) / (5 - 2)\\)\n= 640\n\nPrincipal\n\\(9280 - 640 \\times 2\\)\n= 8000\n\nAnswer = ₹8000"
+      },
+      "hi": {
+        "question": "साधारण ब्याज पर एक व्यापार अग्रिम 2 वर्ष में ₹9280 और 5 वर्ष में ₹11200 हो जाता है। मूलधन ज्ञात कीजिए।",
+        "options": [
+          "₹8000",
+          "₹9280",
+          "₹11200",
+          "₹8640"
+        ],
+        "explanation": "एक वर्ष का ब्याज\n\\((11200 - 9280) / (5 - 2)\\)\n= 640\n\nमूलधन\n\\(9280 - 640 \\times 2\\)\n= 8000\n\nउत्तर = ₹8000"
+      },
+      "pa": {
+        "question": "ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਇੱਕ ਕਾਰੋਬਾਰੀ ਅਡਵਾਂਸ 2 ਸਾਲ ਵਿੱਚ ₹9280 ਅਤੇ 5 ਸਾਲ ਵਿੱਚ ₹11200 ਹੋ ਜਾਂਦਾ ਹੈ। ਮੂਲਧਨ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹8000",
+          "₹9280",
+          "₹11200",
+          "₹8640"
+        ],
+        "explanation": "ਇੱਕ ਸਾਲ ਦਾ ਬਿਆਜ\n\\((11200 - 9280) / (5 - 2)\\)\n= 640\n\nਮੂਲਧਨ\n\\(9280 - 640 \\times 2\\)\n= 8000\n\nਉੱਤਰ = ₹8000"
+      }
+    },
+    "realismScore": 94
+  },
+  {
+    "index": 2,
+    "question": "₹2000 amounts to ₹3906.25 in 3 years at compound interest. Find the annual rate.",
+    "options": [
+      "25% rate",
+      "30% rate",
+      "20% rate",
+      "31.25% rate"
+    ],
+    "answer": "25% rate",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_rate_from_amount"
+    },
+    "semanticAnchors": {
+      "scenario": "education loan",
+      "category": "interest",
+      "subtype": "int_ci_rate_from_amount",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "education loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹2000 amounts to ₹3906.25 in 3 years at compound interest. Find the annual rate.",
+        "options": [
+          "25% rate",
+          "30% rate",
+          "20% rate",
+          "31.25% rate"
+        ],
+        "explanation": "Compound amount\n\\(2000 \\times (1 + 25/100)^{3}\\)\n= 3906.25\n\nCompound interest\n\\(3906.25 - 2000\\)\n= 1906.25\n\nRate\n\\(3906.25 \\times 100 / (2000 \\times 3)\\)\n= 25\n\nAnswer = 25% rate"
+      },
+      "hi": {
+        "question": "₹2000 का शिक्षा ऋण चक्रवृद्धि ब्याज पर 3 वर्ष में ₹3906.25 हो जाता है। वार्षिक दर ज्ञात कीजिए।",
+        "options": [
+          "25% दर",
+          "30% दर",
+          "20% दर",
+          "31.25% दर"
+        ],
+        "explanation": "चक्रवृद्धि कुल राशि\n\\(2000 \\times (1 + 25/100)^{3}\\)\n= 3906.25\n\nचक्रवृद्धि ब्याज\n\\(3906.25 - 2000\\)\n= 1906.25\n\nदर\n\\(3906.25 \\times 100 / (2000 \\times 3)\\)\n= 25\n\nउत्तर = 25% दर"
+      },
+      "pa": {
+        "question": "₹2000 ਦਾ ਸਿੱਖਿਆ ਕਰਜ਼ਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 3 ਸਾਲ ਵਿੱਚ ₹3906.25 ਹੋ ਜਾਂਦਾ ਹੈ। ਸਾਲਾਨਾ ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "25% ਦਰ",
+          "30% ਦਰ",
+          "20% ਦਰ",
+          "31.25% ਦਰ"
+        ],
+        "explanation": "ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ\n\\(2000 \\times (1 + 25/100)^{3}\\)\n= 3906.25\n\nਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ\n\\(3906.25 - 2000\\)\n= 1906.25\n\nਦਰ\n\\(3906.25 \\times 100 / (2000 \\times 3)\\)\n= 25\n\nਉੱਤਰ = 25% ਦਰ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 3,
+    "question": "A merchant bill of ₹2000 is due after 2 years at 8% per annum. Find the banker's gain.",
+    "options": [
+      "₹44.14",
+      "₹275.86",
+      "₹320",
+      "₹1724.14"
+    ],
+    "answer": "₹44.14",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_bankers_gain"
+    },
+    "semanticAnchors": {
+      "scenario": "merchant bill",
+      "category": "interest",
+      "subtype": "int_bankers_gain",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "merchant bill"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A merchant bill of ₹2000 is due after 2 years at 8% per annum. Find the banker's gain.",
+        "options": [
+          "₹44.14",
+          "₹275.86",
+          "₹320",
+          "₹1724.14"
+        ],
+        "explanation": "Present worth\n\\(2000 \\times 100 / (100 + 8 \\times 2)\\)\n= 1724.14\n\nTrue discount\n\\(2000 - 1724.14\\)\n= 275.86\n\nBanker's discount\n\\(2000 \\times 8 \\times 2 / 100\\)\n= 320\n\nBanker's gain\n\\(44.14\\)\n= 44.14\n\nAnswer = ₹44.14"
+      },
+      "hi": {
+        "question": "₹2000 का व्यापारी बिल 2 वर्ष बाद देय है और दर 8% प्रतिवर्ष है। बैंकर्स लाभ ज्ञात कीजिए।",
+        "options": [
+          "₹44.14",
+          "₹275.86",
+          "₹320",
+          "₹1724.14"
+        ],
+        "explanation": "वर्तमान मूल्य\n\\(2000 \\times 100 / (100 + 8 \\times 2)\\)\n= 1724.14\n\nसच्ची छूट\n\\(2000 - 1724.14\\)\n= 275.86\n\nबैंकर्स डिस्काउंट\n\\(2000 \\times 8 \\times 2 / 100\\)\n= 320\n\nबैंकर्स लाभ\n\\(44.14\\)\n= 44.14\n\nउत्तर = ₹44.14"
+      },
+      "pa": {
+        "question": "₹2000 ਦਾ ਵਪਾਰੀ ਬਿੱਲ 2 ਸਾਲ ਬਾਅਦ ਦੇਣਯੋਗ ਹੈ ਅਤੇ ਦਰ 8% ਪ੍ਰਤੀ ਸਾਲ ਹੈ। ਬੈਂਕਰ ਲਾਭ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹44.14",
+          "₹275.86",
+          "₹320",
+          "₹1724.14"
+        ],
+        "explanation": "ਮੌਜੂਦਾ ਮੁੱਲ\n\\(2000 \\times 100 / (100 + 8 \\times 2)\\)\n= 1724.14\n\nਅਸਲ ਛੂਟ\n\\(2000 - 1724.14\\)\n= 275.86\n\nਬੈਂਕਰ ਛੂਟ\n\\(2000 \\times 8 \\times 2 / 100\\)\n= 320\n\nਬੈਂਕਰ ਲਾਭ\n\\(44.14\\)\n= 44.14\n\nਉੱਤਰ = ₹44.14"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 4,
+    "question": "₹1000 is invested at 20% per annum, compounded annually, for 2 years. Find the compound interest.",
+    "options": [
+      "₹440",
+      "₹400",
+      "₹1440",
+      "₹484"
+    ],
+    "answer": "₹440",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_from_amount"
+    },
+    "semanticAnchors": {
+      "scenario": "term deposit",
+      "category": "interest",
+      "subtype": "int_ci_from_amount",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "term deposit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹1000 is invested at 20% per annum, compounded annually, for 2 years. Find the compound interest.",
+        "options": [
+          "₹440",
+          "₹400",
+          "₹1440",
+          "₹484"
+        ],
+        "explanation": "Compound amount\n\\(1000 \\times (1 + 20/100)^{2}\\)\n= 1440\n\nCompound interest\n\\(1440 - 1000\\)\n= 440\n\nCompound interest\n\nAnswer = ₹440"
+      },
+      "hi": {
+        "question": "टर्म डिपॉजिट ₹1000 है, दर 20% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि ब्याज ज्ञात कीजिए।",
+        "options": [
+          "₹440",
+          "₹400",
+          "₹1440",
+          "₹484"
+        ],
+        "explanation": "चक्रवृद्धि कुल राशि\n\\(1000 \\times (1 + 20/100)^{2}\\)\n= 1440\n\nचक्रवृद्धि ब्याज\n\\(1440 - 1000\\)\n= 440\n\nचक्रवृद्धि ब्याज\n\nउत्तर = ₹440"
+      },
+      "pa": {
+        "question": "ਟਰਮ ਡਿਪਾਜ਼ਿਟ ₹1000 ਹੈ, ਦਰ 20% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹440",
+          "₹400",
+          "₹1440",
+          "₹484"
+        ],
+        "explanation": "ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ\n\\(1000 \\times (1 + 20/100)^{2}\\)\n= 1440\n\nਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ\n\\(1440 - 1000\\)\n= 440\n\nਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ\n\nਉੱਤਰ = ₹440"
+      }
+    },
+    "realismScore": 79
+  },
+  {
+    "index": 5,
+    "question": "A fixed deposit of ₹10000 is invested at 10% compound interest. Find the interest earned in the 2nd year only.",
+    "options": [
+      "₹1100",
+      "₹2000",
+      "₹2100",
+      "₹11000"
+    ],
+    "answer": "₹1100",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_nth_year_interest_from_principal"
+    },
+    "semanticAnchors": {
+      "scenario": "fixed deposit",
+      "category": "interest",
+      "subtype": "int_ci_nth_year_interest_from_principal",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "fixed deposit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A fixed deposit of ₹10000 is invested at 10% compound interest. Find the interest earned in the 2nd year only.",
+        "options": [
+          "₹1100",
+          "₹2000",
+          "₹2100",
+          "₹11000"
+        ],
+        "explanation": "Opening amount before year 2\n\\(10000 \\times (1 + 10/100)^{1}\\)\n= 11000\n\nInterest for that year\n\\(11000 \\times 10 / 100\\)\n= 1100\n\nAnswer = ₹1100"
+      },
+      "hi": {
+        "question": "₹10000 का सावधि जमा 10% चक्रवृद्धि ब्याज पर लगाया गया। केवल 2वें वर्ष में मिला ब्याज ज्ञात कीजिए।",
+        "options": [
+          "₹1100",
+          "₹2000",
+          "₹2100",
+          "₹11000"
+        ],
+        "explanation": "2वें वर्ष से पहले राशि\n\\(10000 \\times (1 + 10/100)^{1}\\)\n= 11000\n\nउस वर्ष का ब्याज\n\\(11000 \\times 10 / 100\\)\n= 1100\n\nउत्तर = ₹1100"
+      },
+      "pa": {
+        "question": "₹10000 ਦਾ ਮਿਆਦੀ ਜਮ੍ਹਾਂ 10% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ ਲਗਾਇਆ ਗਿਆ। ਸਿਰਫ਼ 2ਵੇਂ ਸਾਲ ਦਾ ਬਿਆਜ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1100",
+          "₹2000",
+          "₹2100",
+          "₹11000"
+        ],
+        "explanation": "2ਵੇਂ ਸਾਲ ਤੋਂ ਪਹਿਲਾਂ ਰਕਮ\n\\(10000 \\times (1 + 10/100)^{1}\\)\n= 11000\n\nਉਸ ਸਾਲ ਦਾ ਬਿਆਜ\n\\(11000 \\times 10 / 100\\)\n= 1100\n\nਉੱਤਰ = ₹1100"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 6,
+    "question": "A sum becomes thrice itself in 12 years at simple interest. Find the rate.",
+    "options": [
+      "16.67% rate",
+      "25% rate",
+      "21.67% rate",
+      "11.67% rate"
+    ],
+    "answer": "16.67% rate",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_si_sum_triples"
+    },
+    "semanticAnchors": {
+      "scenario": "fixed deposit",
+      "category": "interest",
+      "subtype": "int_si_sum_triples",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "fixed deposit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A sum becomes thrice itself in 12 years at simple interest. Find the rate.",
+        "options": [
+          "16.67% rate",
+          "25% rate",
+          "21.67% rate",
+          "11.67% rate"
+        ],
+        "explanation": "Interest part of principal\n\\(3/1 - 1\\)\n= 2\n\nRate\n\\((3/1 - 1) \\times 100 / 12\\)\n= 16.67\n\nAnswer = 16.67% rate"
+      },
+      "hi": {
+        "question": "एक सावधि जमा साधारण ब्याज पर 12 वर्ष में अपने का 3/1 हो जाता है। दर ज्ञात कीजिए।",
+        "options": [
+          "16.67% दर",
+          "25% दर",
+          "21.67% दर",
+          "11.67% दर"
+        ],
+        "explanation": "मूलधन का ब्याज भाग\n\\(3/1 - 1\\)\n= 2\n\nदर\n\\((3/1 - 1) \\times 100 / 12\\)\n= 16.67\n\nउत्तर = 16.67% दर"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਮਿਆਦੀ ਜਮ੍ਹਾਂ ਸਧਾਰਣ ਬਿਆਜ ਤੇ 12 ਸਾਲ ਵਿੱਚ ਆਪਣੇ ਦਾ 3/1 ਹੋ ਜਾਂਦਾ ਹੈ। ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "16.67% ਦਰ",
+          "25% ਦਰ",
+          "21.67% ਦਰ",
+          "11.67% ਦਰ"
+        ],
+        "explanation": "ਮੂਲਧਨ ਦਾ ਬਿਆਜ ਹਿੱਸਾ\n\\(3/1 - 1\\)\n= 2\n\nਦਰ\n\\((3/1 - 1) \\times 100 / 12\\)\n= 16.67\n\nਉੱਤਰ = 16.67% ਦਰ"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 7,
+    "question": "₹2400 is invested at 15% per annum simple interest for 4 years. Find the simple interest.",
+    "options": [
+      "₹1440",
+      "₹3840",
+      "₹2304",
+      "₹1584"
+    ],
+    "answer": "₹1440",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_interest_included_excluded_amount"
+    },
+    "semanticAnchors": {
+      "scenario": "loan",
+      "category": "interest",
+      "subtype": "int_interest_included_excluded_amount",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹2400 is invested at 15% per annum simple interest for 4 years. Find the simple interest.",
+        "options": [
+          "₹1440",
+          "₹3840",
+          "₹2304",
+          "₹1584"
+        ],
+        "explanation": "Simple interest\n\\(2400 \\times 15 \\times 4 / 100\\)\n= 1440\n\nAmount\n\\(2400 + 1440\\)\n= 3840\n\nSimple interest\n\nAnswer = ₹1440"
+      },
+      "hi": {
+        "question": "₹2400 का ऋण 15% प्रतिवर्ष की दर से 4 वर्ष के लिए साधारण ब्याज पर है। साधारण ब्याज ज्ञात कीजिए।",
+        "options": [
+          "₹1440",
+          "₹3840",
+          "₹2304",
+          "₹1584"
+        ],
+        "explanation": "साधारण ब्याज\n\\(2400 \\times 15 \\times 4 / 100\\)\n= 1440\n\nकुल राशि\n\\(2400 + 1440\\)\n= 3840\n\nसाधारण ब्याज\n\nउत्तर = ₹1440"
+      },
+      "pa": {
+        "question": "₹2400 ਦਾ ਕਰਜ਼ਾ 15% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 4 ਸਾਲ ਲਈ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਹੈ। ਸਧਾਰਣ ਬਿਆਜ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1440",
+          "₹3840",
+          "₹2304",
+          "₹1584"
+        ],
+        "explanation": "ਸਧਾਰਣ ਬਿਆਜ\n\\(2400 \\times 15 \\times 4 / 100\\)\n= 1440\n\nਕੁੱਲ ਰਕਮ\n\\(2400 + 1440\\)\n= 3840\n\nਸਧਾਰਣ ਬਿਆਜ\n\nਉੱਤਰ = ₹1440"
+      }
+    },
+    "realismScore": 83
+  },
+  {
+    "index": 8,
+    "question": "On ₹4000, the compound interest and simple interest are compared at 10% per annum for 2 years. Find the difference.",
+    "options": [
+      "₹40",
+      "₹800",
+      "₹80",
+      "₹400"
+    ],
+    "answer": "₹40",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_si_ci_amount_difference"
+    },
+    "semanticAnchors": {
+      "scenario": "business advance",
+      "category": "interest",
+      "subtype": "int_si_ci_amount_difference",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "business advance"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "On ₹4000, the compound interest and simple interest are compared at 10% per annum for 2 years. Find the difference.",
+        "options": [
+          "₹40",
+          "₹800",
+          "₹80",
+          "₹400"
+        ],
+        "explanation": "Difference for 2 years\n\\(4000 \\times (10/100)^{2}\\)\n= 40\n\nDifference\n\\(40\\)\n= 40\n\nAnswer = ₹40"
+      },
+      "hi": {
+        "question": "₹4000 पर 10% प्रतिवर्ष की दर से 2 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। अंतर ज्ञात कीजिए।",
+        "options": [
+          "₹40",
+          "₹800",
+          "₹80",
+          "₹400"
+        ],
+        "explanation": "2 वर्ष का अंतर\n\\(4000 \\times (10/100)^{2}\\)\n= 40\n\nअंतर\n\\(40\\)\n= 40\n\nउत्तर = ₹40"
+      },
+      "pa": {
+        "question": "₹4000 ਤੇ 10% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹40",
+          "₹800",
+          "₹80",
+          "₹400"
+        ],
+        "explanation": "2 ਸਾਲ ਦਾ ਅੰਤਰ\n\\(4000 \\times (10/100)^{2}\\)\n= 40\n\nਅੰਤਰ\n\\(40\\)\n= 40\n\nਉੱਤਰ = ₹40"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 9,
+    "question": "A solar unit is worth ₹20000. Its value grows by 20% each year for 2 years. Find the final value.",
+    "options": [
+      "₹27600",
+      "₹28000",
+      "₹24000",
+      "₹20000"
+    ],
+    "answer": "₹27600",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_successive_growth"
+    },
+    "semanticAnchors": {
+      "scenario": "solar unit",
+      "category": "interest",
+      "subtype": "int_successive_growth",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "solar unit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A solar unit is worth ₹20000. Its value grows by 20% each year for 2 years. Find the final value.",
+        "options": [
+          "₹27600",
+          "₹28000",
+          "₹24000",
+          "₹20000"
+        ],
+        "explanation": "Value index\n\\(100 \\times (120/100)^{2}\\)\n= 144\n\nFinal value\n\\(20000 \\times 144 / 100\\)\n= 27600\n\nAnswer = ₹27600"
+      },
+      "hi": {
+        "question": "एक सौर इकाई का मूल्य ₹20000 है और यह 2 वर्षों तक हर वर्ष 20% बढ़ता है। अंतिम मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹27600",
+          "₹28000",
+          "₹24000",
+          "₹20000"
+        ],
+        "explanation": "मूल्य सूचकांक\n\\(100 \\times (120/100)^{2}\\)\n= 144\n\nअंतिम मूल्य\n\\(20000 \\times 144 / 100\\)\n= 27600\n\nउत्तर = ₹27600"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੌਰ ਯੂਨਿਟ ਦਾ ਮੁੱਲ ₹20000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 20% ਵਧਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹27600",
+          "₹28000",
+          "₹24000",
+          "₹20000"
+        ],
+        "explanation": "ਮੁੱਲ ਸੂਚਕ\n\\(100 \\times (120/100)^{2}\\)\n= 144\n\nਅੰਤਿਮ ਮੁੱਲ\n\\(20000 \\times 144 / 100\\)\n= 27600\n\nਉੱਤਰ = ₹27600"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 10,
+    "question": "₹10000 is divided into two parts carrying simple interest at 10% and 15% per annum. After 3 years, the combined interest is ₹3600. Find the amount invested at 10%.",
+    "options": [
+      "₹6000",
+      "₹5000",
+      "₹12000",
+      "₹4000"
+    ],
+    "answer": "₹6000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_same_interest_different_sums_rates_times"
+    },
+    "semanticAnchors": {
+      "scenario": "investment scheme",
+      "category": "interest",
+      "subtype": "int_same_interest_different_sums_rates_times",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "investment scheme"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹10000 is divided into two parts carrying simple interest at 10% and 15% per annum. After 3 years, the combined interest is ₹3600. Find the amount invested at 10%.",
+        "options": [
+          "₹6000",
+          "₹5000",
+          "₹12000",
+          "₹4000"
+        ],
+        "explanation": "Total interest condition\n\\(x \\times 10 \\times 3/100 + (10000 - x) \\times 15 \\times 3/100 = 3600\\)\n= 3600\n\nAmount at lower rate\n\\(6000\\)\n= 6000\n\nAnswer = ₹6000"
+      },
+      "hi": {
+        "question": "₹10000 को दो भागों में बाँटा गया जिन पर 10% और 15% वार्षिक साधारण ब्याज मिलता है। 3 वर्ष बाद कुल ब्याज ₹3600 है। 10% पर लगाई गई राशि ज्ञात कीजिए।",
+        "options": [
+          "₹6000",
+          "₹5000",
+          "₹12000",
+          "₹4000"
+        ],
+        "explanation": "कुल ब्याज की शर्त\n\\(x \\times 10 \\times 3/100 + (10000 - x) \\times 15 \\times 3/100 = 3600\\)\n= 3600\n\nकम दर पर राशि\n\\(6000\\)\n= 6000\n\nउत्तर = ₹6000"
+      },
+      "pa": {
+        "question": "₹10000 ਨੂੰ ਦੋ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਜਿਨ੍ਹਾਂ ਤੇ 10% ਅਤੇ 15% ਸਾਲਾਨਾ ਸਧਾਰਣ ਬਿਆਜ ਮਿਲਦਾ ਹੈ। 3 ਸਾਲ ਬਾਅਦ ਕੁੱਲ ਬਿਆਜ ₹3600 ਹੈ। 10% ਤੇ ਲਗਾਈ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹6000",
+          "₹5000",
+          "₹12000",
+          "₹4000"
+        ],
+        "explanation": "ਕੁੱਲ ਬਿਆਜ ਦੀ ਸ਼ਰਤ\n\\(x \\times 10 \\times 3/100 + (10000 - x) \\times 15 \\times 3/100 = 3600\\)\n= 3600\n\nਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ\n\\(6000\\)\n= 6000\n\nਉੱਤਰ = ₹6000"
+      }
+    },
+    "realismScore": 83
+  },
+  {
+    "index": 11,
+    "question": "₹8000 is divided into two parts carrying simple interest at 5% and 9% per annum. After 4 years, the combined interest is ₹2112. Find the amount invested at 5%.",
+    "options": [
+      "₹4800",
+      "₹4000",
+      "₹10560",
+      "₹3200"
+    ],
+    "answer": "₹4800",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_part_principal_two_rates_si"
+    },
+    "semanticAnchors": {
+      "scenario": "two funds",
+      "category": "interest",
+      "subtype": "int_part_principal_two_rates_si",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "two funds"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹8000 is divided into two parts carrying simple interest at 5% and 9% per annum. After 4 years, the combined interest is ₹2112. Find the amount invested at 5%.",
+        "options": [
+          "₹4800",
+          "₹4000",
+          "₹10560",
+          "₹3200"
+        ],
+        "explanation": "Total interest condition\n\\(x \\times 5 \\times 4/100 + (8000 - x) \\times 9 \\times 4/100 = 2112\\)\n= 2112\n\nAmount at lower rate\n\\(4800\\)\n= 4800\n\nAnswer = ₹4800"
+      },
+      "hi": {
+        "question": "₹8000 को दो भागों में बाँटा गया जिन पर 5% और 9% वार्षिक साधारण ब्याज मिलता है। 4 वर्ष बाद कुल ब्याज ₹2112 है। 5% पर लगाई गई राशि ज्ञात कीजिए।",
+        "options": [
+          "₹4800",
+          "₹4000",
+          "₹10560",
+          "₹3200"
+        ],
+        "explanation": "कुल ब्याज की शर्त\n\\(x \\times 5 \\times 4/100 + (8000 - x) \\times 9 \\times 4/100 = 2112\\)\n= 2112\n\nकम दर पर राशि\n\\(4800\\)\n= 4800\n\nउत्तर = ₹4800"
+      },
+      "pa": {
+        "question": "₹8000 ਨੂੰ ਦੋ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਜਿਨ੍ਹਾਂ ਤੇ 5% ਅਤੇ 9% ਸਾਲਾਨਾ ਸਧਾਰਣ ਬਿਆਜ ਮਿਲਦਾ ਹੈ। 4 ਸਾਲ ਬਾਅਦ ਕੁੱਲ ਬਿਆਜ ₹2112 ਹੈ। 5% ਤੇ ਲਗਾਈ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹4800",
+          "₹4000",
+          "₹10560",
+          "₹3200"
+        ],
+        "explanation": "ਕੁੱਲ ਬਿਆਜ ਦੀ ਸ਼ਰਤ\n\\(x \\times 5 \\times 4/100 + (8000 - x) \\times 9 \\times 4/100 = 2112\\)\n= 2112\n\nਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ\n\\(4800\\)\n= 4800\n\nਉੱਤਰ = ₹4800"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 12,
+    "question": "A total of ₹8000 is split between two simple-interest schemes at 5% and 7% per annum for 2 years. The total interest is ₹1040. Find the average annual rate.",
+    "options": [
+      "6.5% rate",
+      "11.5% rate",
+      "1.5% rate",
+      "8.13% rate"
+    ],
+    "answer": "6.5% rate",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_weighted_average_rate"
+    },
+    "semanticAnchors": {
+      "scenario": "two funds",
+      "category": "interest",
+      "subtype": "int_weighted_average_rate",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "two funds"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A total of ₹8000 is split between two simple-interest schemes at 5% and 7% per annum for 2 years. The total interest is ₹1040. Find the average annual rate.",
+        "options": [
+          "6.5% rate",
+          "11.5% rate",
+          "1.5% rate",
+          "8.13% rate"
+        ],
+        "explanation": "Total interest condition\n\\(x \\times 5 \\times 2/100 + (8000 - x) \\times 7 \\times 2/100 = 1040\\)\n= 1040\n\nAmount at lower rate\n\\(2000\\)\n= 2000\n\nAnswer = 6.5% rate"
+      },
+      "hi": {
+        "question": "₹8000 को दो साधारण ब्याज योजनाओं में 5% और 7% वार्षिक दर पर 2 वर्ष के लिए लगाया गया। कुल ब्याज ₹1040 है। औसत वार्षिक दर ज्ञात कीजिए।",
+        "options": [
+          "6.5% दर",
+          "11.5% दर",
+          "1.5% दर",
+          "8.13% दर"
+        ],
+        "explanation": "कुल ब्याज की शर्त\n\\(x \\times 5 \\times 2/100 + (8000 - x) \\times 7 \\times 2/100 = 1040\\)\n= 1040\n\nकम दर पर राशि\n\\(2000\\)\n= 2000\n\nउत्तर = 6.5% दर"
+      },
+      "pa": {
+        "question": "₹8000 ਨੂੰ ਦੋ ਸਧਾਰਣ ਬਿਆਜ ਯੋਜਨਾਵਾਂ ਵਿੱਚ 5% ਅਤੇ 7% ਸਾਲਾਨਾ ਦਰ ਤੇ 2 ਸਾਲ ਲਈ ਲਗਾਇਆ ਗਿਆ। ਕੁੱਲ ਬਿਆਜ ₹1040 ਹੈ। ਔਸਤ ਸਾਲਾਨਾ ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "6.5% ਦਰ",
+          "11.5% ਦਰ",
+          "1.5% ਦਰ",
+          "8.13% ਦਰ"
+        ],
+        "explanation": "ਕੁੱਲ ਬਿਆਜ ਦੀ ਸ਼ਰਤ\n\\(x \\times 5 \\times 2/100 + (8000 - x) \\times 7 \\times 2/100 = 1040\\)\n= 1040\n\nਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ\n\\(2000\\)\n= 2000\n\nਉੱਤਰ = 6.5% ਦਰ"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 13,
+    "question": "A scheme quotes 12% nominal annual interest compounded quarterly. Find the effective annual rate.",
+    "options": [
+      "12.55% effective annual rate",
+      "12% effective annual rate",
+      "3% effective annual rate",
+      "15% effective annual rate"
+    ],
+    "answer": "12.55% effective annual rate",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_nominal_vs_effective_rate"
+    },
+    "semanticAnchors": {
+      "scenario": "shop expansion loan",
+      "category": "interest",
+      "subtype": "int_nominal_vs_effective_rate",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "shop expansion loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A scheme quotes 12% nominal annual interest compounded quarterly. Find the effective annual rate.",
+        "options": [
+          "12.55% effective annual rate",
+          "12% effective annual rate",
+          "3% effective annual rate",
+          "15% effective annual rate"
+        ],
+        "explanation": "Rate per period\n\\(12 / 4\\)\n= 3\n\nEffective annual rate\n\\((1 + 12/400)^{4} - 1\\)\n= 12.55\n\nAnswer = 12.55% effective annual rate"
+      },
+      "hi": {
+        "question": "एक योजना 12% नाममात्र वार्षिक ब्याज बताती है, जिसकी चक्रवृद्धि त्रैमासिक है। प्रभावी वार्षिक दर ज्ञात कीजिए।",
+        "options": [
+          "12.55% प्रभावी वार्षिक दर",
+          "12% प्रभावी वार्षिक दर",
+          "3% प्रभावी वार्षिक दर",
+          "15% प्रभावी वार्षिक दर"
+        ],
+        "explanation": "प्रति अवधि दर\n\\(12 / 4\\)\n= 3\n\nप्रभावी वार्षिक दर\n\\((1 + 12/400)^{4} - 1\\)\n= 12.55\n\nउत्तर = 12.55% प्रभावी वार्षिक दर"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਯੋਜਨਾ 12% ਨਾਮਾਤਰ ਸਾਲਾਨਾ ਬਿਆਜ ਦਿੰਦੀ ਹੈ, ਜਿਸ ਦੀ ਚੱਕਰਵ੍ਰਿੱਧੀ ਤਿਮਾਹੀ ਹੈ। ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "12.55% ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ",
+          "12% ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ",
+          "3% ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ",
+          "15% ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ"
+        ],
+        "explanation": "ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ\n\\(12 / 4\\)\n= 3\n\nਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ\n\\((1 + 12/400)^{4} - 1\\)\n= 12.55\n\nਉੱਤਰ = 12.55% ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ"
+      }
+    },
+    "realismScore": 85
+  },
+  {
+    "index": 14,
+    "question": "On ₹64000, the compound interest and simple interest are compared at 5% per annum for 2 years. Find the difference.",
+    "options": [
+      "₹160",
+      "₹6400",
+      "₹320",
+      "₹3200"
+    ],
+    "answer": "₹160",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_hybrid_si_ci_crossover"
+    },
+    "semanticAnchors": {
+      "scenario": "loan",
+      "category": "interest",
+      "subtype": "int_hybrid_si_ci_crossover",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "On ₹64000, the compound interest and simple interest are compared at 5% per annum for 2 years. Find the difference.",
+        "options": [
+          "₹160",
+          "₹6400",
+          "₹320",
+          "₹3200"
+        ],
+        "explanation": "Difference for 2 years\n\\(64000 \\times (5/100)^{2}\\)\n= 160\n\nDifference\n\\(160\\)\n= 160\n\nAnswer = ₹160"
+      },
+      "hi": {
+        "question": "₹64000 पर 5% प्रतिवर्ष की दर से 2 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। अंतर ज्ञात कीजिए।",
+        "options": [
+          "₹160",
+          "₹6400",
+          "₹320",
+          "₹3200"
+        ],
+        "explanation": "2 वर्ष का अंतर\n\\(64000 \\times (5/100)^{2}\\)\n= 160\n\nअंतर\n\\(160\\)\n= 160\n\nउत्तर = ₹160"
+      },
+      "pa": {
+        "question": "₹64000 ਤੇ 5% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹160",
+          "₹6400",
+          "₹320",
+          "₹3200"
+        ],
+        "explanation": "2 ਸਾਲ ਦਾ ਅੰਤਰ\n\\(64000 \\times (5/100)^{2}\\)\n= 160\n\nਅੰਤਰ\n\\(160\\)\n= 160\n\nਉੱਤਰ = ₹160"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 15,
+    "question": "₹12000 is lent at 10% p.a., compounded half-yearly, for 1 year. Find the amount.",
+    "options": [
+      "₹13230",
+      "₹13200",
+      "₹12600",
+      "₹14553"
+    ],
+    "answer": "₹13230",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_half_yearly"
+    },
+    "semanticAnchors": {
+      "scenario": "monthly saving account",
+      "category": "interest",
+      "subtype": "int_ci_half_yearly",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "monthly saving account"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹12000 is lent at 10% p.a., compounded half-yearly, for 1 year. Find the amount.",
+        "options": [
+          "₹13230",
+          "₹13200",
+          "₹12600",
+          "₹14553"
+        ],
+        "explanation": "Rate per period\n\\(10 / 2\\)\n= 5\n\nAmount\n\\(12000 \\times (1 + 5/100)^{2}\\)\n= 13230\n\nAnswer = ₹13230"
+      },
+      "hi": {
+        "question": "₹12000 का मासिक बचत खाता 10% नाममात्र वार्षिक दर पर अर्धवार्षिक चक्रवृद्धि है। कुल राशि ज्ञात कीजिए।",
+        "options": [
+          "₹13230",
+          "₹13200",
+          "₹12600",
+          "₹14553"
+        ],
+        "explanation": "प्रति अवधि दर\n\\(10 / 2\\)\n= 5\n\nकुल राशि\n\\(12000 \\times (1 + 5/100)^{2}\\)\n= 13230\n\nउत्तर = ₹13230"
+      },
+      "pa": {
+        "question": "₹12000 ਦਾ ਮਾਸਿਕ ਬਚਤ ਖਾਤਾ 10% ਨਾਮਾਤਰ ਸਾਲਾਨਾ ਦਰ ਤੇ ਅੱਧ-ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹13230",
+          "₹13200",
+          "₹12600",
+          "₹14553"
+        ],
+        "explanation": "ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ\n\\(10 / 2\\)\n= 5\n\nਕੁੱਲ ਰਕਮ\n\\(12000 \\times (1 + 5/100)^{2}\\)\n= 13230\n\nਉੱਤਰ = ₹13230"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 16,
+    "question": "On a fixed deposit of ₹15000, simple interest is compared for 2 years at 10% and 15% per annum. Find the difference in interest.",
+    "options": [
+      "₹1500",
+      "₹750",
+      "₹4500",
+      "₹3000"
+    ],
+    "answer": "₹1500",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_interest_more_by_time_change"
+    },
+    "semanticAnchors": {
+      "scenario": "fixed deposit",
+      "category": "interest",
+      "subtype": "int_interest_more_by_time_change",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "fixed deposit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "On a fixed deposit of ₹15000, simple interest is compared for 2 years at 10% and 15% per annum. Find the difference in interest.",
+        "options": [
+          "₹1500",
+          "₹750",
+          "₹4500",
+          "₹3000"
+        ],
+        "explanation": "Rate difference\n\\(15 - 10\\)\n= 5\n\nInterest difference\n\\(15000 \\times 5 \\times 2 / 100\\)\n= 1500\n\nAnswer = ₹1500"
+      },
+      "hi": {
+        "question": "₹15000 के सावधि जमा पर 2 वर्ष के लिए 10% और 15% प्रतिवर्ष की दरों पर साधारण ब्याज की तुलना की गई। ब्याज का अंतर ज्ञात कीजिए।",
+        "options": [
+          "₹1500",
+          "₹750",
+          "₹4500",
+          "₹3000"
+        ],
+        "explanation": "दर का अंतर\n\\(15 - 10\\)\n= 5\n\nब्याज का अंतर\n\\(15000 \\times 5 \\times 2 / 100\\)\n= 1500\n\nउत्तर = ₹1500"
+      },
+      "pa": {
+        "question": "₹15000 ਦੇ ਮਿਆਦੀ ਜਮ੍ਹਾਂ ਤੇ 2 ਸਾਲ ਲਈ 10% ਅਤੇ 15% ਪ੍ਰਤੀ ਸਾਲ ਦਰਾਂ ਉੱਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕੀਤੀ ਗਈ। ਬਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1500",
+          "₹750",
+          "₹4500",
+          "₹3000"
+        ],
+        "explanation": "ਦਰ ਦਾ ਅੰਤਰ\n\\(15 - 10\\)\n= 5\n\nਬਿਆਜ ਦਾ ਅੰਤਰ\n\\(15000 \\times 5 \\times 2 / 100\\)\n= 1500\n\nਉੱਤਰ = ₹1500"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 17,
+    "question": "A sum amounts to ₹3906.25 in 3 years and amounts to ₹4882.81 in 4 years at compound interest. Find the annual rate.",
+    "options": [
+      "25% rate",
+      "12.5% rate",
+      "30% rate",
+      "20% rate"
+    ],
+    "answer": "25% rate",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_amount_multiplier_gap"
+    },
+    "semanticAnchors": {
+      "scenario": "term deposit",
+      "category": "interest",
+      "subtype": "int_ci_amount_multiplier_gap",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "term deposit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A sum amounts to ₹3906.25 in 3 years and amounts to ₹4882.81 in 4 years at compound interest. Find the annual rate.",
+        "options": [
+          "25% rate",
+          "12.5% rate",
+          "30% rate",
+          "20% rate"
+        ],
+        "explanation": "Amount ratio for the gap\n\\(4882.81 / 3906.25\\)\n= 1.25\n\nAnnual rate\n\\((( 4882.81 / 3906.25 )^(1 / 1) - 1) \\times 100\\)\n= 25\n\nAnswer = 25% rate"
+      },
+      "hi": {
+        "question": "एक राशि चक्रवृद्धि ब्याज पर 3 वर्ष में ₹3906.25 और 4 वर्ष में ₹4882.81 हो जाती है। वार्षिक दर ज्ञात कीजिए।",
+        "options": [
+          "25% दर",
+          "12.5% दर",
+          "30% दर",
+          "20% दर"
+        ],
+        "explanation": "अंतराल के लिए राशि अनुपात\n\\(4882.81 / 3906.25\\)\n= 1.25\n\nवार्षिक दर\n\\((( 4882.81 / 3906.25 )^(1 / 1) - 1) \\times 100\\)\n= 25\n\nउत्तर = 25% दर"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਰਕਮ ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 3 ਸਾਲ ਵਿੱਚ ₹3906.25 ਅਤੇ 4 ਸਾਲ ਵਿੱਚ ₹4882.81 ਹੋ ਜਾਂਦੀ ਹੈ। ਸਾਲਾਨਾ ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "25% ਦਰ",
+          "12.5% ਦਰ",
+          "30% ਦਰ",
+          "20% ਦਰ"
+        ],
+        "explanation": "ਅੰਤਰਾਲ ਲਈ ਰਕਮ ਅਨੁਪਾਤ\n\\(4882.81 / 3906.25\\)\n= 1.25\n\nਸਾਲਾਨਾ ਦਰ\n\\((( 4882.81 / 3906.25 )^(1 / 1) - 1) \\times 100\\)\n= 25\n\nਉੱਤਰ = 25% ਦਰ"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 18,
+    "question": "Two deposits together make ₹8000. They earn simple interest at 8% and 10% per annum for 2 years, giving ₹1408 in all. Find the total interest.",
+    "options": [
+      "₹1408",
+      "₹4000",
+      "₹8800",
+      "₹3200"
+    ],
+    "answer": "₹1408",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_weighted_interest_income"
+    },
+    "semanticAnchors": {
+      "scenario": "two savings plans",
+      "category": "interest",
+      "subtype": "int_weighted_interest_income",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "two savings plans"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two deposits together make ₹8000. They earn simple interest at 8% and 10% per annum for 2 years, giving ₹1408 in all. Find the total interest.",
+        "options": [
+          "₹1408",
+          "₹4000",
+          "₹8800",
+          "₹3200"
+        ],
+        "explanation": "Total interest condition\n\\(x \\times 8 \\times 2/100 + (8000 - x) \\times 10 \\times 2/100 = 1408\\)\n= 1408\n\nAmount at lower rate\n\\(4800\\)\n= 4800\n\nAnswer = ₹1408"
+      },
+      "hi": {
+        "question": "दो जमाओं का योग ₹8000 है। वे 2 वर्ष के लिए 8% और 10% वार्षिक साधारण ब्याज पर कुल ₹1408 कमाती हैं। कुल ब्याज ज्ञात कीजिए।",
+        "options": [
+          "₹1408",
+          "₹4000",
+          "₹8800",
+          "₹3200"
+        ],
+        "explanation": "कुल ब्याज की शर्त\n\\(x \\times 8 \\times 2/100 + (8000 - x) \\times 10 \\times 2/100 = 1408\\)\n= 1408\n\nकम दर पर राशि\n\\(4800\\)\n= 4800\n\nउत्तर = ₹1408"
+      },
+      "pa": {
+        "question": "ਦੋ ਜਮ੍ਹਾਂ ਰਕਮਾਂ ਦਾ ਜੋੜ ₹8000 ਹੈ। ਉਹ 2 ਸਾਲ ਲਈ 8% ਅਤੇ 10% ਸਾਲਾਨਾ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਕੁੱਲ ₹1408 ਕਮਾਉਂਦੀਆਂ ਹਨ। ਕੁੱਲ ਬਿਆਜ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1408",
+          "₹4000",
+          "₹8800",
+          "₹3200"
+        ],
+        "explanation": "ਕੁੱਲ ਬਿਆਜ ਦੀ ਸ਼ਰਤ\n\\(x \\times 8 \\times 2/100 + (8000 - x) \\times 10 \\times 2/100 = 1408\\)\n= 1408\n\nਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ\n\\(4800\\)\n= 4800\n\nਉੱਤਰ = ₹1408"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 19,
+    "question": "A sum amounts to ₹13310 at 10% compound interest for 3 years. Find the principal.",
+    "options": [
+      "₹10000",
+      "₹3000",
+      "₹13310",
+      "₹3310"
+    ],
+    "answer": "₹10000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_principal_from_amount"
+    },
+    "semanticAnchors": {
+      "scenario": "monthly saving account",
+      "category": "interest",
+      "subtype": "int_ci_principal_from_amount",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "monthly saving account"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A sum amounts to ₹13310 at 10% compound interest for 3 years. Find the principal.",
+        "options": [
+          "₹10000",
+          "₹3000",
+          "₹13310",
+          "₹3310"
+        ],
+        "explanation": "Compound amount\n\\(10000 \\times (1 + 10/100)^{3}\\)\n= 13310\n\nCompound interest\n\\(13310 - 10000\\)\n= 3310\n\nPrincipal\n\\(13310 \\times 100 / (10 \\times 3)\\)\n= 10000\n\nAnswer = ₹10000"
+      },
+      "hi": {
+        "question": "मासिक बचत खाता 10% चक्रवृद्धि ब्याज पर 3 वर्ष में ₹13310 हो जाता है। मूलधन ज्ञात कीजिए।",
+        "options": [
+          "₹10000",
+          "₹3000",
+          "₹13310",
+          "₹3310"
+        ],
+        "explanation": "चक्रवृद्धि कुल राशि\n\\(10000 \\times (1 + 10/100)^{3}\\)\n= 13310\n\nचक्रवृद्धि ब्याज\n\\(13310 - 10000\\)\n= 3310\n\nमूलधन\n\\(13310 \\times 100 / (10 \\times 3)\\)\n= 10000\n\nउत्तर = ₹10000"
+      },
+      "pa": {
+        "question": "ਮਾਸਿਕ ਬਚਤ ਖਾਤਾ 10% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 3 ਸਾਲ ਵਿੱਚ ₹13310 ਹੋ ਜਾਂਦਾ ਹੈ। ਮੂਲਧਨ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹10000",
+          "₹3000",
+          "₹13310",
+          "₹3310"
+        ],
+        "explanation": "ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ\n\\(10000 \\times (1 + 10/100)^{3}\\)\n= 13310\n\nਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ\n\\(13310 - 10000\\)\n= 3310\n\nਮੂਲਧਨ\n\\(13310 \\times 100 / (10 \\times 3)\\)\n= 10000\n\nਉੱਤਰ = ₹10000"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 20,
+    "question": "₹12000 is invested at 25% per annum, compounded annually, for 3 years. Find the compound interest.",
+    "options": [
+      "₹11437.5",
+      "₹9000",
+      "₹23437.5",
+      "₹12581.25"
+    ],
+    "answer": "₹11437.5",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_three_year_formula"
+    },
+    "semanticAnchors": {
+      "scenario": "investment scheme",
+      "category": "interest",
+      "subtype": "int_ci_three_year_formula",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "investment scheme"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹12000 is invested at 25% per annum, compounded annually, for 3 years. Find the compound interest.",
+        "options": [
+          "₹11437.5",
+          "₹9000",
+          "₹23437.5",
+          "₹12581.25"
+        ],
+        "explanation": "Compound amount\n\\(12000 \\times (1 + 25/100)^{3}\\)\n= 23437.5\n\nCompound interest\n\\(23437.5 - 12000\\)\n= 11437.5\n\nCompound interest\n\nAnswer = ₹11437.5"
+      },
+      "hi": {
+        "question": "निवेश योजना ₹12000 है, दर 25% प्रतिवर्ष है और ब्याज 3 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि ब्याज ज्ञात कीजिए।",
+        "options": [
+          "₹11437.5",
+          "₹9000",
+          "₹23437.5",
+          "₹12581.25"
+        ],
+        "explanation": "चक्रवृद्धि कुल राशि\n\\(12000 \\times (1 + 25/100)^{3}\\)\n= 23437.5\n\nचक्रवृद्धि ब्याज\n\\(23437.5 - 12000\\)\n= 11437.5\n\nचक्रवृद्धि ब्याज\n\nउत्तर = ₹11437.5"
+      },
+      "pa": {
+        "question": "ਨਿਵੇਸ਼ ਯੋਜਨਾ ₹12000 ਹੈ, ਦਰ 25% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 3 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹11437.5",
+          "₹9000",
+          "₹23437.5",
+          "₹12581.25"
+        ],
+        "explanation": "ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ\n\\(12000 \\times (1 + 25/100)^{3}\\)\n= 23437.5\n\nਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ\n\\(23437.5 - 12000\\)\n= 11437.5\n\nਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ\n\nਉੱਤਰ = ₹11437.5"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 21,
+    "question": "A shop expansion loan of ₹8000 is offered at 10% per annum. Find how much more the amount is in one year when compounded half-yearly instead of annually.",
+    "options": [
+      "₹20",
+      "₹8800",
+      "₹880",
+      "₹40"
+    ],
+    "answer": "₹20",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_annual_vs_half_yearly"
+    },
+    "semanticAnchors": {
+      "scenario": "shop expansion loan",
+      "category": "interest",
+      "subtype": "int_ci_annual_vs_half_yearly",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "shop expansion loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A shop expansion loan of ₹8000 is offered at 10% per annum. Find how much more the amount is in one year when compounded half-yearly instead of annually.",
+        "options": [
+          "₹20",
+          "₹8800",
+          "₹880",
+          "₹40"
+        ],
+        "explanation": "Annual compounding amount\n\\(8000 \\times (1 + 10/100)\\)\n= 8800\n\nHalf-yearly compounding amount\n\\(8000 \\times (1 + 10/200)^{2}\\)\n= 8820\n\nExtra amount\n\\(8820 - 8800\\)\n= 20\n\nAnswer = ₹20"
+      },
+      "hi": {
+        "question": "₹8000 का दुकान विस्तार ऋण 10% वार्षिक दर पर है। वार्षिक के स्थान पर अर्धवार्षिक चक्रवृद्धि करने पर 1 वर्ष में राशि कितनी अधिक होगी?",
+        "options": [
+          "₹20",
+          "₹8800",
+          "₹880",
+          "₹40"
+        ],
+        "explanation": "वार्षिक चक्रवृद्धि राशि\n\\(8000 \\times (1 + 10/100)\\)\n= 8800\n\nअर्धवार्षिक चक्रवृद्धि राशि\n\\(8000 \\times (1 + 10/200)^{2}\\)\n= 8820\n\nअधिक राशि\n\\(8820 - 8800\\)\n= 20\n\nउत्तर = ₹20"
+      },
+      "pa": {
+        "question": "₹8000 ਦਾ ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ 10% ਸਾਲਾਨਾ ਦਰ ਤੇ ਹੈ। ਸਾਲਾਨਾ ਦੀ ਥਾਂ ਅੱਧ-ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਕਰਨ ਤੇ 1 ਸਾਲ ਵਿੱਚ ਰਕਮ ਕਿੰਨੀ ਵੱਧ ਹੋਵੇਗੀ?",
+        "options": [
+          "₹20",
+          "₹8800",
+          "₹880",
+          "₹40"
+        ],
+        "explanation": "ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਰਕਮ\n\\(8000 \\times (1 + 10/100)\\)\n= 8800\n\nਅੱਧ-ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਰਕਮ\n\\(8000 \\times (1 + 10/200)^{2}\\)\n= 8820\n\nਵਾਧੂ ਰਕਮ\n\\(8820 - 8800\\)\n= 20\n\nਉੱਤਰ = ₹20"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 22,
+    "question": "₹1200 earns ₹300 simple interest in 5 years. Find the rate.",
+    "options": [
+      "5% rate",
+      "10% rate",
+      "6.25% rate",
+      "13% rate"
+    ],
+    "answer": "5% rate",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "interest",
+      "variant": "int_si_rate_from_si_pt"
+    },
+    "semanticAnchors": {
+      "scenario": "loan",
+      "category": "interest",
+      "subtype": "int_si_rate_from_si_pt",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹1200 earns ₹300 simple interest in 5 years. Find the rate.",
+        "options": [
+          "5% rate",
+          "10% rate",
+          "6.25% rate",
+          "13% rate"
+        ],
+        "explanation": "Simple interest\n\\(1200 \\times 5 \\times 5 / 100\\)\n= 300\n\nAmount\n\\(1200 + 300\\)\n= 1500\n\nRate\n\\(300 \\times 100 / (1200 \\times 5)\\)\n= 5\n\nAnswer = 5% rate"
+      },
+      "hi": {
+        "question": "₹1200 के ऋण पर 5 वर्ष में ₹300 साधारण ब्याज मिलता है। दर ज्ञात कीजिए।",
+        "options": [
+          "5% दर",
+          "10% दर",
+          "6.25% दर",
+          "13% दर"
+        ],
+        "explanation": "साधारण ब्याज\n\\(1200 \\times 5 \\times 5 / 100\\)\n= 300\n\nकुल राशि\n\\(1200 + 300\\)\n= 1500\n\nदर\n\\(300 \\times 100 / (1200 \\times 5)\\)\n= 5\n\nउत्तर = 5% दर"
+      },
+      "pa": {
+        "question": "₹1200 ਦੇ ਕਰਜ਼ਾ ਤੇ 5 ਸਾਲ ਵਿੱਚ ₹300 ਸਧਾਰਣ ਬਿਆਜ ਮਿਲਦਾ ਹੈ। ਦਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "5% ਦਰ",
+          "10% ਦਰ",
+          "6.25% ਦਰ",
+          "13% ਦਰ"
+        ],
+        "explanation": "ਸਧਾਰਣ ਬਿਆਜ\n\\(1200 \\times 5 \\times 5 / 100\\)\n= 300\n\nਕੁੱਲ ਰਕਮ\n\\(1200 + 300\\)\n= 1500\n\nਦਰ\n\\(300 \\times 100 / (1200 \\times 5)\\)\n= 5\n\nਉੱਤਰ = 5% ਦਰ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 23,
+    "question": "₹10000 is lent at 8% p.a., compounded quarterly, for 1 year. Find the amount.",
+    "options": [
+      "₹10824.32",
+      "₹10800",
+      "₹10200",
+      "₹11906.75"
+    ],
+    "answer": "₹10824.32",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_ci_quarterly"
+    },
+    "semanticAnchors": {
+      "scenario": "loan",
+      "category": "interest",
+      "subtype": "int_ci_quarterly",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹10000 is lent at 8% p.a., compounded quarterly, for 1 year. Find the amount.",
+        "options": [
+          "₹10824.32",
+          "₹10800",
+          "₹10200",
+          "₹11906.75"
+        ],
+        "explanation": "Rate per period\n\\(8 / 4\\)\n= 2\n\nAmount\n\\(10000 \\times (1 + 2/100)^{4}\\)\n= 10824.32\n\nAnswer = ₹10824.32"
+      },
+      "hi": {
+        "question": "₹10000 का ऋण 8% नाममात्र वार्षिक दर पर त्रैमासिक चक्रवृद्धि है। कुल राशि ज्ञात कीजिए।",
+        "options": [
+          "₹10824.32",
+          "₹10800",
+          "₹10200",
+          "₹11906.75"
+        ],
+        "explanation": "प्रति अवधि दर\n\\(8 / 4\\)\n= 2\n\nकुल राशि\n\\(10000 \\times (1 + 2/100)^{4}\\)\n= 10824.32\n\nउत्तर = ₹10824.32"
+      },
+      "pa": {
+        "question": "₹10000 ਦਾ ਕਰਜ਼ਾ 8% ਨਾਮਾਤਰ ਸਾਲਾਨਾ ਦਰ ਤੇ ਤਿਮਾਹੀ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹10824.32",
+          "₹10800",
+          "₹10200",
+          "₹11906.75"
+        ],
+        "explanation": "ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ\n\\(8 / 4\\)\n= 2\n\nਕੁੱਲ ਰਕਮ\n\\(10000 \\times (1 + 2/100)^{4}\\)\n= 10824.32\n\nਉੱਤਰ = ₹10824.32"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 24,
+    "question": "₹8000 is borrowed at 10% compound interest and repaid in 3 equal yearly installments. Find each installment.",
+    "options": [
+      "₹3216.92",
+      "₹2666.67",
+      "₹2933.33",
+      "₹9650.76"
+    ],
+    "answer": "₹3216.92",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "interest",
+      "variant": "int_equal_annual_installments_ci"
+    },
+    "semanticAnchors": {
+      "scenario": "education loan",
+      "category": "interest",
+      "subtype": "int_equal_annual_installments_ci",
+      "reasoningPattern": "interest",
+      "canonicalScenario": {
+        "domain": "interest",
+        "object": "education loan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "₹8000 is borrowed at 10% compound interest and repaid in 3 equal yearly installments. Find each installment.",
+        "options": [
+          "₹3216.92",
+          "₹2666.67",
+          "₹2933.33",
+          "₹9650.76"
+        ],
+        "explanation": "Amount payable\n\\(8000 \\times (1 + 10/100)^{3}\\)\n= 9650.76\n\nEach installment\n\\(8000 \\times (1 + 10/100)^{3} / ((1 + 10/100)^{2} + \\cdots + 1)\\)\n= 3216.92\n\nAnswer = ₹3216.92"
+      },
+      "hi": {
+        "question": "₹8000 का ऋण 10% चक्रवृद्धि ब्याज पर 3 बराबर वार्षिक किस्तों में चुकाना है। प्रत्येक किस्त ज्ञात कीजिए।",
+        "options": [
+          "₹3216.92",
+          "₹2666.67",
+          "₹2933.33",
+          "₹9650.76"
+        ],
+        "explanation": "देय राशि\n\\(8000 \\times (1 + 10/100)^{3}\\)\n= 9650.76\n\nप्रत्येक किस्त\n\\(8000 \\times (1 + 10/100)^{3} / ((1 + 10/100)^{2} + \\cdots + 1)\\)\n= 3216.92\n\nउत्तर = ₹3216.92"
+      },
+      "pa": {
+        "question": "₹8000 ਦਾ ਕਰਜ਼ਾ 10% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 3 ਬਰਾਬਰ ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਚੁਕਾਉਣਾ ਹੈ। ਹਰ ਕਿਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹3216.92",
+          "₹2666.67",
+          "₹2933.33",
+          "₹9650.76"
+        ],
+        "explanation": "ਦੇਣਯੋਗ ਰਕਮ\n\\(8000 \\times (1 + 10/100)^{3}\\)\n= 9650.76\n\nਹਰ ਕਿਸ਼ਤ\n\\(8000 \\times (1 + 10/100)^{3} / ((1 + 10/100)^{2} + \\cdots + 1)\\)\n= 3216.92\n\nਉੱਤਰ = ₹3216.92"
+      }
+    },
+    "realismScore": 92
+  }
+]

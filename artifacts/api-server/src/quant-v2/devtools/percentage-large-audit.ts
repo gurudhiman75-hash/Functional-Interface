@@ -120,6 +120,13 @@ function graphOf(question: FormulaQuestion) {
     question.reasoningGraph;
 }
 
+function visualOf(question: FormulaQuestion) {
+  return (question.debugMetadata?.quantV2 as any)?.visual ??
+    (question.debugMetadata?.quantV2 as any)?.semanticMetadata?.visual ??
+    (question as any).visual ??
+    (question.semanticMetadata as any)?.visual;
+}
+
 function increment(map: Map<string, number>, key: string) {
   map.set(key, (map.get(key) ?? 0) + 1);
 }
@@ -201,6 +208,67 @@ function commissionDegenerateDetails(question: FormulaQuestion) {
   ) {
     return { baseQuota, baseCommission, totalCommission, excessSales, totalSales };
   }
+  return undefined;
+}
+
+function vennVisualIssue(question: FormulaQuestion) {
+  if (familyOf(question) !== "venn_diagram" && problemOf(question)?.subtype !== "venn_diagram") {
+    return undefined;
+  }
+
+  const problem = problemOf(question);
+  const variables = problem?.variables ?? {};
+  const visual = visualOf(question);
+  if (!visual || visual.type !== "venn") {
+    return { reason: "missing venn visual payload" };
+  }
+
+  const subjectA = Number(variables.subjectA);
+  const subjectB = Number(variables.subjectB);
+  const both = Number(variables.bothPct);
+  const neither = Number(variables.nonePct);
+  const onlyA = subjectA - both;
+  const onlyB = subjectB - both;
+  const union = subjectA + subjectB - both;
+  const regions = visual.regions ?? {};
+  const close = (left: number, right: number) =>
+    Number.isFinite(left) && Number.isFinite(right) && Math.abs(left - right) < 0.01;
+
+  if (
+    visual.universe !== 100 ||
+    !close(Number(visual.sets?.[0]?.value), subjectA) ||
+    !close(Number(visual.sets?.[1]?.value), subjectB) ||
+    !close(Number(visual.intersection), both) ||
+    !close(Number(visual.outside), neither) ||
+    !close(Number(regions.onlyA), onlyA) ||
+    !close(Number(regions.onlyB), onlyB) ||
+    !close(Number(regions.both), both) ||
+    !close(Number(regions.neither), neither)
+  ) {
+    return { reason: "visual values do not match canonical variables", visual, variables };
+  }
+
+  if ([onlyA, onlyB, both, neither].some((value) => value < 0)) {
+    return { reason: "negative venn region", onlyA, onlyB, both, neither };
+  }
+
+  if (!close(onlyA + onlyB + both + neither, 100)) {
+    return { reason: "regions do not sum to universe", onlyA, onlyB, both, neither };
+  }
+
+  if (!close(union, subjectA + subjectB - both)) {
+    return { reason: "union formula mismatch", union, subjectA, subjectB, both };
+  }
+
+  const visualDerivedAnswer = Number(variables.neitherValue) * 100 / neither;
+  if (!close(visualDerivedAnswer, Number(problem?.answer))) {
+    return {
+      reason: "visual-derived answer mismatch",
+      visualDerivedAnswer,
+      answer: problem?.answer,
+    };
+  }
+
   return undefined;
 }
 
@@ -357,6 +425,7 @@ async function main() {
     lowRealism: 0,
     optionQuality: 0,
     familyCap: 0,
+    vennVisual: 0,
   };
   let realismTotal = 0;
 
@@ -496,6 +565,11 @@ async function main() {
       counters.optionQuality += 1;
       addExample(examples, question, index, "absurd option scale");
     }
+    const vennIssue = vennVisualIssue(question);
+    if (vennIssue) {
+      counters.vennVisual += 1;
+      addExample(examples, question, index, "venn visual payload issue", vennIssue);
+    }
   });
 
   const familyCapTable = [...familyCounts.entries()]
@@ -557,6 +631,7 @@ async function main() {
     counters.trivialWeighted === 0 &&
     counters.trivialCrossTab === 0 &&
     counters.priceAbsoluteExplanation === 0 &&
+    counters.vennVisual === 0 &&
     firstWindowReports.every((report) => report.pass) &&
     averageRealism >= 75 &&
     averageRealism >= 78 &&

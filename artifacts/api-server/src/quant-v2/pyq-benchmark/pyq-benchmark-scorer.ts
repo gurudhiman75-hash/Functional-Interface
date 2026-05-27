@@ -30,6 +30,12 @@ const ADVANCED_PROFIT_LOSS_PATTERNS =
 const ADVANCED_INTEREST_PATTERNS =
   /installment|bankers|present_worth|true_discount|alligation|partial|specific_year|nominal|effective|mixed_condition|crossover|frequency|fractional|different_rates|weighted/u;
 
+const ADVANCED_RATIO_PROPORTION_PATTERNS =
+  /transfer|chain_ratio|joint_variation|combined_direct_inverse|side_area_volume|age_future|age_past|partnership_time/u;
+
+const ADVANCED_TIME_WORK_PATTERNS =
+  /cycle|leave|join|phase|replacement|pairwise|unknown|helper|contract|leak|overflow|resource|negative|decay|schedule|deadline|hidden/u;
+
 const INVERSE_OR_HIDDEN =
   /reverse|inverse|hidden|target|recover|required|difference|calibration|from_difference|back_calc|mixed_baseline/u;
 
@@ -99,6 +105,18 @@ function inferDifficulty(input: PyqBenchmarkInput, steps: number): PyqDifficulty
     return steps >= 4 ? "advanced" : "hard";
   }
   if (
+    input.topic === "ratio-proportion" &&
+    ADVANCED_RATIO_PROPORTION_PATTERNS.test(text)
+  ) {
+    return steps >= 4 ? "advanced" : "hard";
+  }
+  if (
+    input.topic === "time-work" &&
+    ADVANCED_TIME_WORK_PATTERNS.test(text)
+  ) {
+    return steps >= 4 ? "advanced" : "hard";
+  }
+  if (
     input.topic === "percentage" &&
     ADVANCED_PERCENTAGE_FAMILIES.has(input.family)
   ) {
@@ -127,6 +145,15 @@ function semanticTrapTypes(input: PyqBenchmarkInput) {
   if (/installment|repayment|partial|discharge/iu.test(text)) inferred.push("ignoring repayment timing");
   if (/nth|specific_year|second year|third year/iu.test(text)) inferred.push("nth-year interest vs total CI");
   if (/alligation|split|two parts|weighted|portfolio/iu.test(text)) inferred.push("wrong weighted-average side");
+  if (/ratio|proportion|variation|partnership|age|map scale|similar|workers|A:B|B:C/iu.test(text)) inferred.push("ratio base confusion");
+  if (/inverse|workers|days|varies inversely/iu.test(text)) inferred.push("direct/inverse variation confusion");
+  if (/side|area|volume|similar/iu.test(text)) inferred.push("wrong geometry scaling power");
+  if (/transfer|given by A to B|after.*given/iu.test(text)) inferred.push("transfer direction error");
+  if (/time[-_ ]?work|pipe|cistern|leak|tank|worker|work|wage|cycle|alternate|food|resource/iu.test(text)) inferred.push("rate-state sign or unit-work confusion");
+  if (/leak|empty|drain/iu.test(text)) inferred.push("adding emptying rate instead of subtracting");
+  if (/alternate|cycle|rest/iu.test(text)) inferred.push("terminal cycle boundary error");
+  if (/wage|helper|contract/iu.test(text)) inferred.push("wage share by time instead of contribution");
+  if (/partnership|invests|profit/iu.test(text)) inferred.push("ignoring partnership time");
   if (/successive|compound|increase.*decrease|decrease.*increase/iu.test(text)) inferred.push("additive vs multiplicative");
   if (/false|weight|dishonest|fraud/iu.test(text)) inferred.push("wrong denominator in false weight");
   if (/weighted|literacy|aggregate/iu.test(text)) inferred.push("simple average instead of weighted average");
@@ -148,6 +175,19 @@ function optionQuality(question: FormulaQuestion) {
   if (new Set(options).size !== options.length) {
     score -= 35;
     notes.push("duplicate options");
+  }
+  const correctAnswerText = answerText(question);
+  const ratioOptions =
+    /:/u.test(correctAnswerText) &&
+    options.every((option) => /^\s*\d+(?:\.\d+)?:\d+(?:\.\d+)?(?::\d+(?:\.\d+)?)?\s*$/u.test(String(option)));
+  const fractionOptions =
+    /^\s*\d+\/\d+\s*$/u.test(correctAnswerText) &&
+    options.every((option) => /^\s*\d+\/\d+\s*$/u.test(String(option)));
+  if (ratioOptions || fractionOptions) {
+    return {
+      score: clamp(score),
+      notes: [...new Set(notes)],
+    };
   }
   const answerMatch = answerText(question).match(/-?\d+(?:\.\d+)?/u);
   const answer = answerMatch ? Number(answerMatch[0]) : undefined;

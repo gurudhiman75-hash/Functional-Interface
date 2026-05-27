@@ -38,6 +38,55 @@ type AuditExample = {
   details?: Record<string, unknown>;
 };
 
+const BANNED_EN_OPENERS = [
+  "A shopkeeper lists the item:",
+  "A store runs an offer where",
+  "A trader buys goods and records that",
+  "A customer is billed as follows",
+  "A seller gives the following price details",
+  "A dealer marks the goods and notes that",
+  "In the given case",
+  "In one transaction",
+  "For this sale",
+  "For this transaction",
+  "In this markup-discount case",
+];
+
+const BANNED_HI_PA_WRAPPERS = [
+  "दुकानदार वस्तु का विवरण देता है",
+  "एक दुकान ऐसा प्रस्ताव चलाती है",
+  "एक व्यापारी माल खरीदकर लिखता है",
+  "एक डीलर माल अंकित करके लिखता है",
+  "ग्राहक को इस प्रकार बिल किया गया",
+  "विक्रेता निम्न मूल्य विवरण देता है",
+  "ਦੁਕਾਨਦਾਰ ਵਸਤੂ ਦਾ ਵੇਰਵਾ ਦਿੰਦਾ ਹੈ",
+  "ਇੱਕ ਸਟੋਰ ਐਸੀ ਪੇਸ਼ਕਸ਼ ਚਲਾਉਂਦਾ ਹੈ",
+  "ਇੱਕ ਵਪਾਰੀ ਸਮਾਨ ਖਰੀਦ ਕੇ ਲਿਖਦਾ ਹੈ",
+  "ਇੱਕ ਡੀਲਰ ਸਮਾਨ ਅੰਕਿਤ ਕਰ ਕੇ ਲਿਖਦਾ ਹੈ",
+  "ਗਾਹਕ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਬਿੱਲ ਕੀਤਾ ਗਿਆ",
+  "ਵਿਕਰੇਤਾ ਹੇਠਲੇ ਕੀਮਤ ਵੇਰਵੇ ਦਿੰਦਾ ਹੈ",
+  "दिए गए प्रश्न में",
+  "एक लेन-देन में",
+  "इस बिक्री में",
+  "इस लेन-देन में",
+  "इस मार्कअप-छूट प्रश्न में",
+  "ਦਿੱਤੇ ਪ੍ਰਸ਼ਨ ਵਿੱਚ",
+  "ਇੱਕ ਲੈਣ-ਦੇਣ ਵਿੱਚ",
+  "ਇਸ ਵਿਕਰੀ ਵਿੱਚ",
+  "ਇਸ ਲੈਣ-ਦੇਣ ਵਿੱਚ",
+  "ਇਸ ਮਾਰਕਅਪ-ਛੂਟ ਪ੍ਰਸ਼ਨ ਵਿੱਚ",
+];
+
+const DIRECT_SIMPLE_FAMILIES = new Set([
+  "pl_cp_sp_percent",
+  "pl_cp_percent_to_sp",
+  "pl_sp_percent_to_cp",
+  "pl_mp_discount_to_sp",
+  "pl_mp_sp_discount_percent",
+  "pl_no_profit_no_loss",
+  "pl_buy_get_free_discount",
+]);
+
 function argValue(name: string) {
   const eqPrefix = `--${name}=`;
   const eqMatch = process.argv.find((arg) => arg.startsWith(eqPrefix));
@@ -83,8 +132,11 @@ function topologyOf(question: FormulaQuestion) {
 }
 
 function macroFamily(family: string) {
+  if (/buy_get|promotion|cashback|gst|tax|coupon/u.test(family)) return "promotion_tax_macro";
+  if (/target|markup|inverse/u.test(family)) return "markup_target_macro";
+  if (/successive/u.test(family)) return "successive_discount_macro";
   if (/discount|marked|mp/u.test(family)) return "discount_macro";
-  if (/equal_sp|two_article|successive/u.test(family)) return "multi_article_macro";
+  if (/equal_sp|two_article/u.test(family)) return "multi_article_macro";
   if (/cp_sp|cp_percent|sp_percent/u.test(family)) return "basic_cp_sp_macro";
   return family;
 }
@@ -105,6 +157,10 @@ function problemOf(question: FormulaQuestion) {
 
 function stemOpening(question: FormulaQuestion) {
   return normalizeText(question.text).split(/\s+/u).slice(0, 8).join(" ");
+}
+
+function stemOpening4(question: FormulaQuestion) {
+  return normalizeText(question.text).split(/\s+/u).slice(0, 4).join(" ");
 }
 
 function fullOpeningSentence(question: FormulaQuestion) {
@@ -142,6 +198,58 @@ function hasAbsurdOptionScale(question: FormulaQuestion) {
     if (isPercent) return option > 150;
     return option < answer * 0.25 || option > answer * 2.5;
   });
+}
+
+function hasOptionFormatInconsistency(question: FormulaQuestion) {
+  const options = (question.options ?? []).map(String);
+  const answer = answerText(question);
+  if (!options.length) return false;
+  if (/^₹/u.test(answer)) {
+    return options.some((option) => !/^₹\d/u.test(option) || /%/u.test(option));
+  }
+  const percentOptions = options.filter((option) => /%/u.test(option));
+  if (percentOptions.length && percentOptions.length !== options.length) {
+    return !/no profit, no loss/iu.test(answer);
+  }
+  const labelled = percentOptions.map((option) =>
+    /\b(?:profit|loss|discount|markup)\b/iu.test(option),
+  );
+  return labelled.some(Boolean) && !labelled.every(Boolean);
+}
+
+function hasUglyDecimalRupee(text: unknown) {
+  const matches = String(text ?? "").match(/₹\d+(?:,\d{3})*\.(\d+)/gu) ?? [];
+  return matches.some((match) => {
+    const decimal = match.split(".").at(-1) ?? "";
+    return decimal.length > 1 && !/^(25|50|5|75)$/u.test(decimal);
+  });
+}
+
+function hasBasicRealismTooHigh(question: FormulaQuestion) {
+  if (!DIRECT_SIMPLE_FAMILIES.has(familyOf(question))) return false;
+  if (realismOf(question) <= 78) return false;
+  return !/\b(?:at a loss of|at a profit of|cost price|marked price|sold for|buy \d+ get \d+ free)\b/iu.test(
+    String(question.text ?? ""),
+  );
+}
+
+function difficultyOf(question: FormulaQuestion) {
+  return String((question as any).difficultyLabel ?? (question as any).difficulty ?? "Medium");
+}
+
+function hasDifficultyMismatch(question: FormulaQuestion) {
+  if (familyOf(question) === "pl_asymmetric_item_equivalence" && /Hard/u.test(difficultyOf(question))) return true;
+  return DIRECT_SIMPLE_FAMILIES.has(familyOf(question)) && /Medium|Hard/u.test(difficultyOf(question));
+}
+
+function hasBannedEnglishOpener(question: FormulaQuestion) {
+  const text = String(question.text ?? "");
+  return BANNED_EN_OPENERS.some((opener) => text.startsWith(opener));
+}
+
+function hasBannedHiPaWrapper(question: FormulaQuestion) {
+  const text = `${question.textHi ?? ""}\n${question.textPa ?? ""}`;
+  return BANNED_HI_PA_WRAPPERS.some((phrase) => text.includes(phrase));
 }
 
 function hasEnglishLeak(text: unknown) {
@@ -413,6 +521,7 @@ async function main() {
   const familyCounts = new Map<string, number>();
   const topologyCounts = new Map<string, number>();
   const openingCounts = new Map<string, number>();
+  const opening4Counts = new Map<string, number>();
   const fullOpeningCounts = new Map<string, number>();
   const explanationIntroCounts = new Map<string, number>();
   const familyPhraseVariants = new Map<string, Set<string>>();
@@ -426,7 +535,14 @@ async function main() {
     englishLeakage: 0,
     genericLabels: 0,
     optionQuality: 0,
+    optionFormatInconsistency: 0,
+    absurdDistractorScale: 0,
+    uglyDecimalRupeeAnswers: 0,
+    uglyDecimalRupeeOptions: 0,
+    basicRealismTooHigh: 0,
     lowRealism: 0,
+    flatRealismValues: 0,
+    difficultyMismatch: 0,
     familyCap: 0,
     degenerateCases: 0,
     badCasing: 0,
@@ -435,10 +551,15 @@ async function main() {
     denominatorFormatting: 0,
     explanationNonsense: 0,
     bannedGenericOpeners: 0,
+    bannedHiPaWrappers: 0,
     awkwardGender: 0,
     weightFraudContext: 0,
   };
   let realismTotal = 0;
+  let minRealism = Number.POSITIVE_INFINITY;
+  let maxRealism = Number.NEGATIVE_INFINITY;
+  const realismCounts = new Map<string, number>();
+  const difficultyDistribution = new Map<string, number>();
 
   orderedQuestions.forEach((question, index) => {
     const family = familyOf(question);
@@ -446,9 +567,14 @@ async function main() {
     const realism = realismOf(question);
     const problem = problemOf(question);
     realismTotal += realism;
+    minRealism = Math.min(minRealism, realism);
+    maxRealism = Math.max(maxRealism, realism);
+    increment(realismCounts, String(realism));
+    increment(difficultyDistribution, difficultyOf(question));
     increment(familyCounts, family);
     increment(topologyCounts, topology);
     increment(openingCounts, stemOpening(question));
+    increment(opening4Counts, stemOpening4(question));
     increment(fullOpeningCounts, fullOpeningSentence(question));
     increment(explanationIntroCounts, explanationIntroLine(question));
     const variants = familyPhraseVariants.get(family) ?? new Set<string>();
@@ -516,9 +642,36 @@ async function main() {
       counters.explanationNonsense += 1;
       addExample(examples, question, index, "dual-item mixed baseline ratio explanation has = 0");
     }
-    if (/^(?:For the given sale record|For this shop transaction|For the selected item|In an exam-style pricing case|In a commercial arithmetic question|For a wholesale-retail example|In a pricing worksheet|From a customer invoice|For the sold item)\b/u.test(String(question.text ?? ""))) {
+    if (
+      hasBannedEnglishOpener(question) ||
+      /^(?:For the given sale record|For this shop transaction|For the selected item|In an exam-style pricing case|In a commercial arithmetic question|For a wholesale-retail example|In a pricing worksheet|From a customer invoice|For the sold item)\b/u.test(String(question.text ?? ""))
+    ) {
       counters.bannedGenericOpeners += 1;
       addExample(examples, question, index, "banned generic opener");
+    }
+    if (hasBannedHiPaWrapper(question)) {
+      counters.bannedHiPaWrappers += 1;
+      addExample(examples, question, index, "banned HI/PA wrapper");
+    }
+    if (hasDifficultyMismatch(question)) {
+      counters.difficultyMismatch += 1;
+      addExample(examples, question, index, "direct/simple family marked Medium/Hard", {
+        difficulty: difficultyOf(question),
+      });
+    }
+    if (hasUglyDecimalRupee(answerText(question))) {
+      counters.uglyDecimalRupeeAnswers += 1;
+      addExample(examples, question, index, "ugly decimal rupee answer", { answer: answerText(question) });
+    }
+    if ((question.options ?? []).some(hasUglyDecimalRupee)) {
+      counters.uglyDecimalRupeeOptions += 1;
+      addExample(examples, question, index, "ugly decimal rupee option", { options: question.options });
+    }
+    if (hasBasicRealismTooHigh(question)) {
+      counters.basicRealismTooHigh += 1;
+      addExample(examples, question, index, "basic direct formula realism exceeds 78", {
+        realism,
+      });
     }
     if (hasAwkwardBoughtSoldGender(question.textHi) || hasAwkwardBoughtSoldGender(question.textPa)) {
       counters.awkwardGender += 1;
@@ -545,8 +698,16 @@ async function main() {
     }
     const optionIssue = localOptionIssue(question);
     if (optionIssue) {
-      counters.optionQuality += 1;
+      if (optionIssue === "absurd option scale") {
+        counters.absurdDistractorScale += 1;
+      } else {
+        counters.optionQuality += 1;
+      }
       addExample(examples, question, index, optionIssue);
+    }
+    if (hasOptionFormatInconsistency(question)) {
+      counters.optionFormatInconsistency += 1;
+      addExample(examples, question, index, "option format inconsistency", { options: question.options });
     }
     const degenerateReasons = profitLossDegenerateReasons(problem);
     if (degenerateReasons.length) {
@@ -586,10 +747,20 @@ async function main() {
     auditFirstWindow(`${seed}:preview:${index}`),
   );
   const averageRealism = Number((realismTotal / Math.max(1, orderedQuestions.length)).toFixed(2));
+  const repeatedRealismValues = [...realismCounts.entries()]
+    .map(([score, value]) => ({ score: Number(score), count: value }))
+    .sort((left, right) => right.count - left.count);
+  counters.flatRealismValues = repeatedRealismValues.filter(
+    (entry) => entry.count > Math.max(30, Math.floor(count * 0.25)),
+  ).length;
   const lowRealismLimit = Math.floor(count * 0.05);
   const firstOpeningLimit = count >= 500 ? 15 : Number.POSITIVE_INFINITY;
+  const first4OpeningLimit = count >= 500 ? 24 : Number.POSITIVE_INFINITY;
   const fullOpeningLimit = count >= 500 ? 5 : Number.POSITIVE_INFINITY;
   const phraseDiversityFailures = [
+    ...[...opening4Counts.entries()]
+      .filter(([, value]) => value > first4OpeningLimit)
+      .map(([phrase, value]) => ({ kind: "first4", phrase, count: value, limit: first4OpeningLimit })),
     ...[...openingCounts.entries()]
       .filter(([, value]) => value > firstOpeningLimit)
       .map(([phrase, value]) => ({ kind: "first8", phrase, count: value, limit: firstOpeningLimit })),
@@ -614,6 +785,12 @@ async function main() {
     counters.undefinedLike === 0 &&
     counters.englishLeakage === 0 &&
     counters.optionQuality === 0 &&
+    counters.optionFormatInconsistency === 0 &&
+    counters.absurdDistractorScale === 0 &&
+    counters.uglyDecimalRupeeAnswers === 0 &&
+    counters.uglyDecimalRupeeOptions === 0 &&
+    counters.basicRealismTooHigh === 0 &&
+    counters.difficultyMismatch === 0 &&
     counters.degenerateCases === 0 &&
     counters.badCasing === 0 &&
     counters.markupLabel === 0 &&
@@ -621,8 +798,10 @@ async function main() {
     counters.denominatorFormatting === 0 &&
     counters.explanationNonsense === 0 &&
     counters.bannedGenericOpeners === 0 &&
+    counters.bannedHiPaWrappers === 0 &&
     counters.awkwardGender === 0 &&
     counters.weightFraudContext === 0 &&
+    counters.flatRealismValues === 0 &&
     counters.familyCap === 0 &&
     firstWindowReports.every((report) => report.pass) &&
     averageRealism >= 75 &&
@@ -633,6 +812,12 @@ async function main() {
   const report = {
     totalGenerated: orderedQuestions.length,
     status: pass ? "PASS" : "FAIL",
+    realism: {
+      average: averageRealism,
+      min: Number.isFinite(minRealism) ? minRealism : 0,
+      max: Number.isFinite(maxRealism) ? maxRealism : 0,
+      repeatedValues: repeatedRealismValues.slice(0, 10),
+    },
     averageRealism,
     counters,
     generationStats,
@@ -642,9 +827,14 @@ async function main() {
     },
     familyCapTable,
     familyDistribution: Object.fromEntries([...familyCounts.entries()].sort((a, b) => b[1] - a[1])),
+    difficultyDistribution: Object.fromEntries([...difficultyDistribution.entries()].sort((a, b) => a[0].localeCompare(b[0]))),
     topologyDistribution: Object.fromEntries([...topologyCounts.entries()].sort((a, b) => b[1] - a[1])),
     firstWindowSequences: firstWindowReports,
     top20RepeatedStemOpenings: [...openingCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 20)
+      .map(([opening, openingCount]) => ({ opening, count: openingCount })),
+    top20RepeatedFirst4StemOpenings: [...opening4Counts.entries()]
       .sort((a, b) => b[1] - a[1])
       .slice(0, 20)
       .map(([opening, openingCount]) => ({ opening, count: openingCount })),
@@ -662,6 +852,16 @@ async function main() {
     worst20Questions: examples
       .sort((left, right) => left.realism - right.realism)
       .slice(0, 20),
+    top10LowRealismExamples: orderedQuestions
+      .map((question, index) => ({
+        index,
+        family: familyOf(question),
+        realism: realismOf(question),
+        question: question.text,
+        answer: answerText(question),
+      }))
+      .sort((left, right) => left.realism - right.realism)
+      .slice(0, 10),
   };
 
   console.log(JSON.stringify(report, null, 2));

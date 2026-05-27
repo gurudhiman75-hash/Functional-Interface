@@ -1,0 +1,1502 @@
+[
+  {
+    "index": 0,
+    "question": "A takes 24 days to finish a work and B takes 6 days for the same work. In how many days can A and B finish it together?",
+    "options": [
+      "6 days",
+      "15 days",
+      "30 days",
+      "4 4/5 days"
+    ],
+    "answer": "4 4/5 days",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_basic_combined_work"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_basic_combined_work",
+      "category": "time_work",
+      "subtype": "tw_basic_combined_work",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_basic_combined_work"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A takes 24 days to finish a work and B takes 6 days for the same work. In how many days can A and B finish it together?",
+        "options": [
+          "6 days",
+          "15 days",
+          "30 days",
+          "4 4/5 days"
+        ],
+        "explanation": "Take the LCM as total work.\n\\[\nW=LCM(24,6)=24\n\\]\nFind each worker's one-period efficiency.\n\\[\nA=24/24=1,\\quad B=24/6=4\n\\]\nDivide total work by the combined efficiency.\n\\[\nT=\\frac{24}{1+4}=4.8\n\\]\nShortcut / Exam Method:\n\\[\nT=\\frac{24\\times 6}{24+6}=4.8\n\\]\nAnswer: 4 4/5 days"
+      },
+      "hi": {
+        "question": "A अकेला काम 24 दिन में करता है और B अकेला 6 दिन में करता है। साथ काम करने पर कितने दिन लगेंगे?",
+        "options": [
+          "6 दिन",
+          "15 दिन",
+          "30 दिन",
+          "4 दिन"
+        ],
+        "explanation": "कुल काम के लिए LCM लें।\n\\[\nW=LCM(24,6)=24\n\\]\nप्रत्येक मजदूर की एक-अवधि दक्षता निकालें।\n\\[\nA=24/24=1,\\quad B=24/6=4\n\\]\nकुल काम को संयुक्त दक्षता से भाग दें।\n\\[\nT=\\frac{24}{1+4}=4.8\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=\\frac{24\\times 6}{24+6}=4.8\n\\]\nउत्तर: 4 4/5 दिन"
+      },
+      "pa": {
+        "question": "A ਇਕੱਲਾ ਕੰਮ 24 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ ਅਤੇ B ਇਕੱਲਾ 6 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। ਇਕੱਠੇ ਕੰਮ ਕਰਨ ਤੇ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?",
+        "options": [
+          "6 ਦਿਨ",
+          "15 ਦਿਨ",
+          "30 ਦਿਨ",
+          "4 ਦਿਨ"
+        ],
+        "explanation": "ਕੁੱਲ ਕੰਮ ਲਈ LCM ਲਵੋ।\n\\[\nW=LCM(24,6)=24\n\\]\nਹਰ ਮਜ਼ਦੂਰ ਦੀ ਇੱਕ-ਅਵਧੀ ਕੁਸ਼ਲਤਾ ਕੱਢੋ।\n\\[\nA=24/24=1,\\quad B=24/6=4\n\\]\nਕੁੱਲ ਕੰਮ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।\n\\[\nT=\\frac{24}{1+4}=4.8\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=\\frac{24\\times 6}{24+6}=4.8\n\\]\nਉੱਤਰ: 4 4/5 ਦਿਨ"
+      }
+    },
+    "realismScore": 74
+  },
+  {
+    "index": 1,
+    "question": "A team can complete a job in 15 days. If it works for 10 days, what fraction of the job will still be unfinished?",
+    "options": [
+      "1/2",
+      "1/3",
+      "2/3",
+      "3/1"
+    ],
+    "answer": "1/3",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_basic_residual_work"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_basic_residual_work",
+      "category": "time_work",
+      "subtype": "tw_basic_residual_work",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_basic_residual_work"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A team can complete a job in 15 days. If it works for 10 days, what fraction of the job will still be unfinished?",
+        "options": [
+          "1/2",
+          "1/3",
+          "2/3",
+          "3/1"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nR=1-\\frac{t}{T}\n\\]\nPut the given values into that relation.\n\\[\nR=1-\\frac{10}{15}\n\\]\nSolve for the asked value.\n\\[\nR=\\frac{5}{15}=1/3\n\\]\nShortcut / Exam Method:\n\\[\nR=\\frac{15-10}{15}=1/3\n\\]\nAnswer: 1/3"
+      },
+      "hi": {
+        "question": "एक दल काम 15 दिन में पूरा कर सकता है। 10 दिन काम करने के बाद काम का कितना भाग बाकी रहेगा?",
+        "options": [
+          "1/2",
+          "1/3",
+          "2/3",
+          "3/1"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nR=1-\\frac{t}{T}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nR=1-\\frac{10}{15}\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nR=\\frac{5}{15}=1/3\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nR=\\frac{15-10}{15}=1/3\n\\]\nउत्तर: 1/3"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਟੀਮ ਕੰਮ 15 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰ ਸਕਦੀ ਹੈ। 10 ਦਿਨ ਕੰਮ ਕਰਨ ਤੋਂ ਬਾਅਦ ਕਿੰਨਾ ਹਿੱਸਾ ਬਾਕੀ ਰਹੇਗਾ?",
+        "options": [
+          "1/2",
+          "1/3",
+          "2/3",
+          "3/1"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nR=1-\\frac{t}{T}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nR=1-\\frac{10}{15}\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nR=\\frac{5}{15}=1/3\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nR=\\frac{15-10}{15}=1/3\n\\]\nਉੱਤਰ: 1/3"
+      }
+    },
+    "realismScore": 73
+  },
+  {
+    "index": 2,
+    "question": "A:B working capacity is 4:5. The two complete a work in 10 days. Find A's individual time in days?",
+    "options": [
+      "22 1/2 days",
+      "19 days",
+      "12 1/2 days",
+      "8 days"
+    ],
+    "answer": "22 1/2 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_efficiency_ratio_scaling"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_efficiency_ratio_scaling",
+      "category": "time_work",
+      "subtype": "tw_efficiency_ratio_scaling",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_efficiency_ratio_scaling"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A:B working capacity is 4:5. The two complete a work in 10 days. Find A's individual time in days?",
+        "options": [
+          "22 1/2 days",
+          "19 days",
+          "12 1/2 days",
+          "8 days"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nW=(a+b)T\n\\]\nPut the given values into that relation.\n\\[\nW=(4+5)\\times 10\n\\]\nSolve for the asked value.\n\\[\nT_A=\\frac{90}{4}=22.5\n\\]\nShortcut / Exam Method:\n\\[\nT_A=\\frac{(a+b)T}{a}=\\frac{(4+5)10}{4}=22.5\n\\]\nAnswer: 22 1/2 days"
+      },
+      "hi": {
+        "question": "दो मजदूरों A और B की क्षमता 4:5 है। दोनों काम 10 दिन में पूरा करते हैं। A अकेले का समय कितना होगा?",
+        "options": [
+          "22 दिन",
+          "19 दिन",
+          "12 दिन",
+          "8 दिन"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nW=(a+b)T\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nW=(4+5)\\times 10\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nT_A=\\frac{90}{4}=22.5\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT_A=\\frac{(a+b)T}{a}=\\frac{(4+5)10}{4}=22.5\n\\]\nउत्तर: 22 1/2 दिन"
+      },
+      "pa": {
+        "question": "ਦੋ ਮਜ਼ਦੂਰਾਂ A ਅਤੇ B ਦੀ ਸਮਰੱਥਾ 4:5 ਹੈ। ਦੋਵੇਂ ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। A ਇਕੱਲੇ ਦਾ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "22 ਦਿਨ",
+          "19 ਦਿਨ",
+          "12 ਦਿਨ",
+          "8 ਦਿਨ"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nW=(a+b)T\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nW=(4+5)\\times 10\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nT_A=\\frac{90}{4}=22.5\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT_A=\\frac{(a+b)T}{a}=\\frac{(4+5)10}{4}=22.5\n\\]\nਉੱਤਰ: 22 1/2 ਦਿਨ"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 3,
+    "question": "A and B together can complete a work in 8 days. A alone can complete it in 30 days. In how many days will B alone complete it?",
+    "options": [
+      "22 days",
+      "38 days",
+      "10.91 days",
+      "19 days"
+    ],
+    "answer": "10.91 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_individual_from_combined"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_individual_from_combined",
+      "category": "time_work",
+      "subtype": "tw_individual_from_combined",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_individual_from_combined"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B together can complete a work in 8 days. A alone can complete it in 30 days. In how many days will B alone complete it?",
+        "options": [
+          "22 days",
+          "38 days",
+          "10.91 days",
+          "19 days"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\n\\frac{1}{B}=\\frac{1}{T}-\\frac{1}{A}\n\\]\nPut the given values into that relation.\n\\[\n\\frac{1}{B}=\\frac{1}{8}-\\frac{1}{30}\n\\]\nSolve for the asked value.\n\\[\nB=10.91\n\\]\nShortcut / Exam Method:\n\\[\nB=\\frac{8\\times 30}{30-8}=10.91\n\\]\nAnswer: 10.91 days"
+      },
+      "hi": {
+        "question": "A और B मिलकर काम 8 दिन में पूरा करते हैं। A अकेला वही काम 30 दिन में करता है। B अकेला कितने दिन लेगा?",
+        "options": [
+          "22 दिन",
+          "38 दिन",
+          "10.91 दिन",
+          "19 दिन"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\n\\frac{1}{B}=\\frac{1}{T}-\\frac{1}{A}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\n\\frac{1}{B}=\\frac{1}{8}-\\frac{1}{30}\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nB=10.91\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nB=\\frac{8\\times 30}{30-8}=10.91\n\\]\nउत्तर: 10.91 दिन"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਮਿਲ ਕੇ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ ਉਹੀ ਕੰਮ 30 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। B ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?",
+        "options": [
+          "22 ਦਿਨ",
+          "38 ਦਿਨ",
+          "10.91 ਦਿਨ",
+          "19 ਦਿਨ"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\n\\frac{1}{B}=\\frac{1}{T}-\\frac{1}{A}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\n\\frac{1}{B}=\\frac{1}{8}-\\frac{1}{30}\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nB=10.91\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nB=\\frac{8\\times 30}{30-8}=10.91\n\\]\nਉੱਤਰ: 10.91 ਦਿਨ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 4,
+    "question": "A worker finishes \\(\\frac{2}{5}\\) of a work in 6 days. How many days are needed for the full work?",
+    "options": [
+      "2 2/5 days",
+      "11 days",
+      "30 days",
+      "15 days"
+    ],
+    "answer": "15 days",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_work_fraction_days"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_work_fraction_days",
+      "category": "time_work",
+      "subtype": "tw_work_fraction_days",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_work_fraction_days"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A worker finishes \\(\\frac{2}{5}\\) of a work in 6 days. How many days are needed for the full work?",
+        "options": [
+          "2 2/5 days",
+          "11 days",
+          "30 days",
+          "15 days"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nPut the given values into that relation.\n\\[\nT=6\\times \\frac{5}{2}\n\\]\nSolve for the asked value.\n\\[\nT=15\n\\]\nShortcut / Exam Method:\n\\[\nT=6\\div \\frac{2}{5}=15\n\\]\nAnswer: 15 days"
+      },
+      "hi": {
+        "question": "एक मजदूर काम का \\(\\frac{2}{5}\\) भाग 6 दिन में पूरा करता है। पूरा काम करने में कितने दिन लगेंगे?",
+        "options": [
+          "2 दिन",
+          "11 दिन",
+          "30 दिन",
+          "15 दिन"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nT=6\\times \\frac{5}{2}\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nT=15\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=6\\div \\frac{2}{5}=15\n\\]\nउत्तर: 15 दिन"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਮਜ਼ਦੂਰ ਕੰਮ ਦਾ \\(\\frac{2}{5}\\) ਹਿੱਸਾ 6 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?",
+        "options": [
+          "2 ਦਿਨ",
+          "11 ਦਿਨ",
+          "30 ਦਿਨ",
+          "15 ਦਿਨ"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nT=6\\times \\frac{5}{2}\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nT=15\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=6\\div \\frac{2}{5}=15\n\\]\nਉੱਤਰ: 15 ਦਿਨ"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 5,
+    "question": "15 workers finish a job in 16 days, working 6 hours daily. How many workers should work 8 hours daily to finish it in 12 days?",
+    "options": [
+      "11 workers",
+      "18 workers",
+      "20 workers",
+      "15 workers"
+    ],
+    "answer": "15 workers",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_man_days_hours_basic"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_man_days_hours_basic",
+      "category": "time_work",
+      "subtype": "tw_man_days_hours_basic",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_man_days_hours_basic"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "15 workers finish a job in 16 days, working 6 hours daily. How many workers should work 8 hours daily to finish it in 12 days?",
+        "options": [
+          "11 workers",
+          "18 workers",
+          "20 workers",
+          "15 workers"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nM_1D_1H_1=M_2D_2H_2\n\\]\nPut the given values into that relation.\n\\[\n15\\times 16\\times 6=M_2\\times 12\\times 8\n\\]\nSolve for the asked value.\n\\[\nM_2=15\n\\]\nShortcut / Exam Method:\n\\[\nM_2=\\frac{15\\times 16\\times 6}{12\\times 8}=15\n\\]\nAnswer: 15 workers"
+      },
+      "hi": {
+        "question": "15 मजदूर 16 दिन तक रोज 6 घंटे काम करके काम पूरा करते हैं। वही काम 12 दिन में रोज 8 घंटे काम करके कितने मजदूर करेंगे?",
+        "options": [
+          "11 मजदूर",
+          "18 मजदूर",
+          "20 मजदूर",
+          "15 मजदूर"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nM_1D_1H_1=M_2D_2H_2\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\n15\\times 16\\times 6=M_2\\times 12\\times 8\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nM_2=15\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nM_2=\\frac{15\\times 16\\times 6}{12\\times 8}=15\n\\]\nउत्तर: 15 मजदूर"
+      },
+      "pa": {
+        "question": "15 ਮਜ਼ਦੂਰ 16 ਦਿਨ ਰੋਜ਼ 6 ਘੰਟੇ ਕੰਮ ਕਰਕੇ ਕੰਮ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਉਹੀ ਕੰਮ 12 ਦਿਨਾਂ ਵਿੱਚ ਰੋਜ਼ 8 ਘੰਟੇ ਕੰਮ ਕਰਕੇ ਕਿੰਨੇ ਮਜ਼ਦੂਰ ਕਰਨਗੇ?",
+        "options": [
+          "11 ਮਜ਼ਦੂਰ",
+          "18 ਮਜ਼ਦੂਰ",
+          "20 ਮਜ਼ਦੂਰ",
+          "15 ਮਜ਼ਦੂਰ"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nM_1D_1H_1=M_2D_2H_2\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\n15\\times 16\\times 6=M_2\\times 12\\times 8\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nM_2=15\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nM_2=\\frac{15\\times 16\\times 6}{12\\times 8}=15\n\\]\nਉੱਤਰ: 15 ਮਜ਼ਦੂਰ"
+      }
+    },
+    "realismScore": 83
+  },
+  {
+    "index": 6,
+    "question": "A finishes a job in 15 days and B in 8 days. What is A:B work ratio over the same duration?",
+    "options": [
+      "8:23",
+      "8:15",
+      "15:8",
+      "23:8"
+    ],
+    "answer": "8:15",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_work_done_ratio_from_times"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_work_done_ratio_from_times",
+      "category": "time_work",
+      "subtype": "tw_work_done_ratio_from_times",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_work_done_ratio_from_times"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A finishes a job in 15 days and B in 8 days. What is A:B work ratio over the same duration?",
+        "options": [
+          "8:23",
+          "8:15",
+          "15:8",
+          "23:8"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nW_A:W_B=\\frac{1}{15}:\\frac{1}{8}\n\\]\nPut the given values into that relation.\n\\[\nW_A:W_B=8:15\n\\]\nSolve for the asked value.\n\\[\nW_A:W_B=8:15\n\\]\nShortcut / Exam Method:\n\\[\nE=8:15\n\\]\nAnswer: 8:15"
+      },
+      "hi": {
+        "question": "A और B वही काम क्रमशः 15 और 8 दिन में करते हैं। एक दिन के योगदान का अनुपात क्या होगा?",
+        "options": [
+          "8:23",
+          "8:15",
+          "15:8",
+          "23:8"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nW_A:W_B=\\frac{1}{15}:\\frac{1}{8}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nW_A:W_B=8:15\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nW_A:W_B=8:15\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nE=8:15\n\\]\nउत्तर: 8:15"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਉਹੀ ਕੰਮ ਕ੍ਰਮਵਾਰ 15 ਅਤੇ 8 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। ਇੱਕ ਦਿਨ ਦੇ ਯੋਗਦਾਨ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "8:23",
+          "8:15",
+          "15:8",
+          "23:8"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nW_A:W_B=\\frac{1}{15}:\\frac{1}{8}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nW_A:W_B=8:15\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nW_A:W_B=8:15\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nE=8:15\n\\]\nਉੱਤਰ: 8:15"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 7,
+    "question": "The working capacities of A and B are in the ratio 10:20. What is the ratio of the times taken by A and B for the same work?",
+    "options": [
+      "2:1",
+      "30:20",
+      "10:20",
+      "20:30"
+    ],
+    "answer": "2:1",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_time_ratio_from_efficiency"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_time_ratio_from_efficiency",
+      "category": "time_work",
+      "subtype": "tw_time_ratio_from_efficiency",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_time_ratio_from_efficiency"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "The working capacities of A and B are in the ratio 10:20. What is the ratio of the times taken by A and B for the same work?",
+        "options": [
+          "2:1",
+          "30:20",
+          "10:20",
+          "20:30"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nT_A:T_B=E_B:E_A\n\\]\nPut the given values into that relation.\n\\[\nT_A:T_B=20:10\n\\]\nSolve for the asked value.\n\\[\nT_A:T_B=2:1\n\\]\nShortcut / Exam Method:\n\\[\nT=2:1\n\\]\nAnswer: 2:1"
+      },
+      "hi": {
+        "question": "A और B की कार्य क्षमता का अनुपात 10:20 है। समान काम के लिए उनके समय का अनुपात क्या होगा?",
+        "options": [
+          "2:1",
+          "30:20",
+          "10:20",
+          "20:30"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nT_A:T_B=E_B:E_A\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nT_A:T_B=20:10\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nT_A:T_B=2:1\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=2:1\n\\]\nउत्तर: 2:1"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਕੰਮ ਸਮਰੱਥਾ ਦਾ ਅਨੁਪਾਤ 10:20 ਹੈ। ਇੱਕੋ ਕੰਮ ਲਈ ਉਹਨਾਂ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "2:1",
+          "30:20",
+          "10:20",
+          "20:30"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nT_A:T_B=E_B:E_A\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nT_A:T_B=20:10\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nT_A:T_B=2:1\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=2:1\n\\]\nਉੱਤਰ: 2:1"
+      }
+    },
+    "realismScore": 72
+  },
+  {
+    "index": 8,
+    "question": "If wages for equal time are ₹450 and ₹600 for A and B, what is their work ratio?",
+    "options": [
+      "45:30",
+      "600:450",
+      "3:4",
+      "1050:600"
+    ],
+    "answer": "3:4",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_efficiency_from_wages"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_efficiency_from_wages",
+      "category": "time_work",
+      "subtype": "tw_efficiency_from_wages",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_efficiency_from_wages"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "If wages for equal time are ₹450 and ₹600 for A and B, what is their work ratio?",
+        "options": [
+          "45:30",
+          "600:450",
+          "3:4",
+          "1050:600"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nW_A:W_B=E_A:E_B\n\\]\nPut the given values into that relation.\n\\[\nE_A:E_B=450:600\n\\]\nSolve for the asked value.\n\\[\nE_A:E_B=3:4\n\\]\nShortcut / Exam Method:\n\\[\nE=3:4\n\\]\nAnswer: 3:4"
+      },
+      "hi": {
+        "question": "बराबर समय के लिए A को ₹450 और B को ₹600 मिलते हैं। उनके काम का अनुपात क्या होगा?",
+        "options": [
+          "45:30",
+          "600:450",
+          "3:4",
+          "1050:600"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nW_A:W_B=E_A:E_B\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nE_A:E_B=450:600\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nE_A:E_B=3:4\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nE=3:4\n\\]\nउत्तर: 3:4"
+      },
+      "pa": {
+        "question": "ਬਰਾਬਰ ਸਮੇਂ ਲਈ A ਨੂੰ ₹450 ਅਤੇ B ਨੂੰ ₹600 ਮਿਲਦੇ ਹਨ। ਉਹਨਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "45:30",
+          "600:450",
+          "3:4",
+          "1050:600"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nW_A:W_B=E_A:E_B\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nE_A:E_B=450:600\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nE_A:E_B=3:4\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nE=3:4\n\\]\nਉੱਤਰ: 3:4"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 9,
+    "question": "A completes a work in 20 days. What part of the work is completed per day?",
+    "options": [
+      "20",
+      "1/20",
+      "1/21",
+      "19/20"
+    ],
+    "answer": "1/20",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_one_day_work_fraction"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_one_day_work_fraction",
+      "category": "time_work",
+      "subtype": "tw_one_day_work_fraction",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_one_day_work_fraction"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A completes a work in 20 days. What part of the work is completed per day?",
+        "options": [
+          "20",
+          "1/20",
+          "1/21",
+          "19/20"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nr=\\frac{1}{T}\n\\]\nPut the given values into that relation.\n\\[\nr=\\frac{1}{20}\n\\]\nSolve for the asked value.\n\\[\nr=1/20\n\\]\nShortcut / Exam Method:\n\\[\nr=1/20=1/20\n\\]\nAnswer: 1/20"
+      },
+      "hi": {
+        "question": "A को पूरा काम करने में 20 दिन लगते हैं। एक दिन का काम भिन्न में कितना होगा?",
+        "options": [
+          "20",
+          "1/20",
+          "1/21",
+          "19/20"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nr=\\frac{1}{T}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nr=\\frac{1}{20}\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nr=1/20\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nr=1/20=1/20\n\\]\nउत्तर: 1/20"
+      },
+      "pa": {
+        "question": "A ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ 20 ਦਿਨ ਲੱਗਦੇ ਹਨ। ਇੱਕ ਦਿਨ ਦਾ ਕੰਮ ਭਿੰਨ ਵਿੱਚ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "20",
+          "1/20",
+          "1/21",
+          "19/20"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nr=\\frac{1}{T}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nr=\\frac{1}{20}\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nr=1/20\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nr=1/20=1/20\n\\]\nਉੱਤਰ: 1/20"
+      }
+    },
+    "realismScore": 75
+  },
+  {
+    "index": 10,
+    "question": "A job needs 10 days to finish. After 4 days of work, what part of the job is still left?",
+    "options": [
+      "3/5",
+      "2/5",
+      "5/3",
+      "3/2"
+    ],
+    "answer": "3/5",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_remaining_work_fraction"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_remaining_work_fraction",
+      "category": "time_work",
+      "subtype": "tw_remaining_work_fraction",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_remaining_work_fraction"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A job needs 10 days to finish. After 4 days of work, what part of the job is still left?",
+        "options": [
+          "3/5",
+          "2/5",
+          "5/3",
+          "3/2"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nR=1-\\frac{t}{T}\n\\]\nPut the given values into that relation.\n\\[\nR=1-\\frac{4}{10}\n\\]\nSolve for the asked value.\n\\[\nR=\\frac{6}{10}=3/5\n\\]\nShortcut / Exam Method:\n\\[\nR=\\frac{10-4}{10}=3/5\n\\]\nAnswer: 3/5"
+      },
+      "hi": {
+        "question": "10 दिन के काम में से 4 दिन काम हो चुका है। काम का कौन-सा भाग अभी बचा है?",
+        "options": [
+          "3/5",
+          "2/5",
+          "5/3",
+          "3/2"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nR=1-\\frac{t}{T}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nR=1-\\frac{4}{10}\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nR=\\frac{6}{10}=3/5\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nR=\\frac{10-4}{10}=3/5\n\\]\nउत्तर: 3/5"
+      },
+      "pa": {
+        "question": "10 ਦਿਨਾਂ ਦੇ ਕੰਮ ਵਿੱਚੋਂ 4 ਦਿਨ ਕੰਮ ਹੋ ਚੁੱਕਾ ਹੈ। ਕੰਮ ਦਾ ਕਿਹੜਾ ਹਿੱਸਾ ਅਜੇ ਬਾਕੀ ਹੈ?",
+        "options": [
+          "3/5",
+          "2/5",
+          "5/3",
+          "3/2"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nR=1-\\frac{t}{T}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nR=1-\\frac{4}{10}\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nR=\\frac{6}{10}=3/5\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nR=\\frac{10-4}{10}=3/5\n\\]\nਉੱਤਰ: 3/5"
+      }
+    },
+    "realismScore": 73
+  },
+  {
+    "index": 11,
+    "question": "A begins a job alone. A can finish it in 30 days and B can finish it in 12 days. If B joins after 3 days, when will the job be completed from the start?",
+    "options": [
+      "13.39 days",
+      "10.71 days",
+      "13.71 days",
+      "16.71 days"
+    ],
+    "answer": "10.71 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_delayed_join"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_delayed_join",
+      "category": "time_work",
+      "subtype": "tw_delayed_join",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_delayed_join"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A begins a job alone. A can finish it in 30 days and B can finish it in 12 days. If B joins after 3 days, when will the job be completed from the start?",
+        "options": [
+          "13.39 days",
+          "10.71 days",
+          "13.71 days",
+          "16.71 days"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\nW_1=r_At_1,\\ T_2=\\frac{W-W_1}{r_A+r_B}\n\\]\nSubtract the work already completed.\n\\[\nW_1=2\\times 3,\\quad R=60-6\n\\]\nUse the active rate for the remaining phase.\n\\[\nT=3+\\frac{54}{2+5}=10.71\n\\]\nShortcut / Exam Method:\n\\[\nT=3+\\frac{60-2\\times 3}{2+5}\n\\]\nAnswer: 10.71 days"
+      },
+      "hi": {
+        "question": "A काम 30 दिन में और B 12 दिन में पूरा करता है। A अकेला शुरू करता है और 3 दिन बाद B जुड़ता है। शुरू से कुल कितने दिन लगेंगे?",
+        "options": [
+          "13.39 दिन",
+          "10.71 दिन",
+          "13.71 दिन",
+          "16.71 दिन"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\nW_1=r_At_1,\\ T_2=\\frac{W-W_1}{r_A+r_B}\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nW_1=2\\times 3,\\quad R=60-6\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nT=3+\\frac{54}{2+5}=10.71\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=3+\\frac{60-2\\times 3}{2+5}\n\\]\nउत्तर: 10.71 दिन"
+      },
+      "pa": {
+        "question": "A ਕੰਮ 30 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B 12 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। A ਇਕੱਲਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ 3 ਦਿਨਾਂ ਬਾਅਦ B ਜੁੜਦਾ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕੁੱਲ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?",
+        "options": [
+          "13.39 ਦਿਨ",
+          "10.71 ਦਿਨ",
+          "13.71 ਦਿਨ",
+          "16.71 ਦਿਨ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\nW_1=r_At_1,\\ T_2=\\frac{W-W_1}{r_A+r_B}\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nW_1=2\\times 3,\\quad R=60-6\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nT=3+\\frac{54}{2+5}=10.71\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=3+\\frac{60-2\\times 3}{2+5}\n\\]\nਉੱਤਰ: 10.71 ਦਿਨ"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 12,
+    "question": "A and B work together at first. A's time is 10 days and B's time is 30 days. If A leaves after 2 days, when will the job be finished from the start?",
+    "options": [
+      "24 days",
+      "28 4/5 days",
+      "23 days",
+      "20 days"
+    ],
+    "answer": "24 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_forward_leave"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_forward_leave",
+      "category": "time_work",
+      "subtype": "tw_forward_leave",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_forward_leave"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B work together at first. A's time is 10 days and B's time is 30 days. If A leaves after 2 days, when will the job be finished from the start?",
+        "options": [
+          "24 days",
+          "28 4/5 days",
+          "23 days",
+          "20 days"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\nW=(r_A+r_B)t_1+r_Bt_2\n\\]\nSubtract the work already completed.\n\\[\nW_1=(12+4)\\times 2\n\\]\nUse the active rate for the remaining phase.\n\\[\nT=2+\\frac{88}{4}=24\n\\]\nShortcut / Exam Method:\n\\[\nT=2+\\frac{W-W_1}{B}\n\\]\nAnswer: 24 days"
+      },
+      "hi": {
+        "question": "A और B पहले साथ काम करते हैं। A का समय 10 दिन और B का 30 दिन है। A 2 दिन बाद जाए तो काम कब पूरा होगा?",
+        "options": [
+          "24 दिन",
+          "28 दिन",
+          "23 दिन",
+          "20 दिन"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\nW=(r_A+r_B)t_1+r_Bt_2\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nW_1=(12+4)\\times 2\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nT=2+\\frac{88}{4}=24\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=2+\\frac{W-W_1}{B}\n\\]\nउत्तर: 24 दिन"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਪਹਿਲਾਂ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹਨ। A ਦਾ ਸਮਾਂ 10 ਦਿਨ ਅਤੇ B ਦਾ 30 ਦਿਨ ਹੈ। A 2 ਦਿਨਾਂ ਬਾਅਦ ਜਾਵੇ ਤਾਂ ਕੰਮ ਕਦੋਂ ਪੂਰਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "24 ਦਿਨ",
+          "28 ਦਿਨ",
+          "23 ਦਿਨ",
+          "20 ਦਿਨ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\nW=(r_A+r_B)t_1+r_Bt_2\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nW_1=(12+4)\\times 2\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nT=2+\\frac{88}{4}=24\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=2+\\frac{W-W_1}{B}\n\\]\nਉੱਤਰ: 24 ਦਿਨ"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 13,
+    "question": "A and B work on a job but leave before it is completed. A leaves 2 days early and B leaves 3 days early. If their individual times are 6 and 15 days, how long does the job take?",
+    "options": [
+      "6.57 days",
+      "4.93 days",
+      "9.57 days",
+      "1.57 days"
+    ],
+    "answer": "6.57 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_backward_leave"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_backward_leave",
+      "category": "time_work",
+      "subtype": "tw_backward_leave",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_backward_leave"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B work on a job but leave before it is completed. A leaves 2 days early and B leaves 3 days early. If their individual times are 6 and 15 days, how long does the job take?",
+        "options": [
+          "6.57 days",
+          "4.93 days",
+          "9.57 days",
+          "1.57 days"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nr_A(T-a)+r_B(T-b)=W\n\\]\nPut the given values into that relation.\n\\[\n10(T-2)+4(T-3)=60\n\\]\nSolve for the asked value.\n\\[\nT=6.57\n\\]\nShortcut / Exam Method:\n\\[\nT=\\frac{W+A\\times 2+B\\times 3}{A+B}\n\\]\nAnswer: 6.57 days"
+      },
+      "hi": {
+        "question": "A और B अलग-अलग काम 6 और 15 दिन में कर सकते हैं। A अंतिम 2 दिन और B अंतिम 3 दिन अनुपस्थित रहता है। काम कितने दिन में पूरा होगा?",
+        "options": [
+          "6.57 दिन",
+          "4.93 दिन",
+          "9.57 दिन",
+          "1.57 दिन"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nr_A(T-a)+r_B(T-b)=W\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\n10(T-2)+4(T-3)=60\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nT=6.57\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=\\frac{W+A\\times 2+B\\times 3}{A+B}\n\\]\nउत्तर: 6.57 दिन"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਵੱਖ-ਵੱਖ ਕੰਮ 6 ਅਤੇ 15 ਦਿਨਾਂ ਵਿੱਚ ਕਰ ਸਕਦੇ ਹਨ। A ਆਖਰੀ 2 ਦਿਨ ਅਤੇ B ਆਖਰੀ 3 ਦਿਨ ਗੈਰਹਾਜ਼ਰ ਰਹਿੰਦਾ ਹੈ। ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "6.57 ਦਿਨ",
+          "4.93 ਦਿਨ",
+          "9.57 ਦਿਨ",
+          "1.57 ਦਿਨ"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nr_A(T-a)+r_B(T-b)=W\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\n10(T-2)+4(T-3)=60\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nT=6.57\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=\\frac{W+A\\times 2+B\\times 3}{A+B}\n\\]\nਉੱਤਰ: 6.57 ਦਿਨ"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 14,
+    "question": "A team processes 12 files per day for the first 5 days. After that, more workers join and the team processes 37 files per day. If 180 files must be completed, how many days are needed in all?",
+    "options": [
+      "8.24 days",
+      "6.24 days",
+      "10.3 days",
+      "14.24 days"
+    ],
+    "answer": "8.24 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_multi_phase_join_leave"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_multi_phase_join_leave",
+      "category": "time_work",
+      "subtype": "tw_multi_phase_join_leave",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_multi_phase_join_leave"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A team processes 12 files per day for the first 5 days. After that, more workers join and the team processes 37 files per day. If 180 files must be completed, how many days are needed in all?",
+        "options": [
+          "8.24 days",
+          "6.24 days",
+          "10.3 days",
+          "14.24 days"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\n\\sum r_it_i=W\n\\]\nSubtract the work already completed.\n\\[\nW_1=12\\times 5\n\\]\nUse the active rate for the remaining phase.\n\\[\nT=5+\\frac{120}{37}=8.24\n\\]\nShortcut / Exam Method:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nAnswer: 8.24 days"
+      },
+      "hi": {
+        "question": "एक काम में 180 फाइलें हैं। पहले 5 दिन रोज 12 फाइलें और बाद में रोज 37 फाइलें पूरी होती हैं। कुल समय कितना होगा?",
+        "options": [
+          "8.24 दिन",
+          "6.24 दिन",
+          "10.3 दिन",
+          "14.24 दिन"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\n\\sum r_it_i=W\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nW_1=12\\times 5\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nT=5+\\frac{120}{37}=8.24\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nउत्तर: 8.24 दिन"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕੰਮ ਵਿੱਚ 180 ਫਾਈਲਾਂ ਹਨ। ਪਹਿਲਾਂ 5 ਦਿਨ ਰੋਜ਼ 12 ਫਾਈਲਾਂ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਰੋਜ਼ 37 ਫਾਈਲਾਂ ਪੂਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "8.24 ਦਿਨ",
+          "6.24 ਦਿਨ",
+          "10.3 ਦਿਨ",
+          "14.24 ਦਿਨ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\n\\sum r_it_i=W\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nW_1=12\\times 5\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nT=5+\\frac{120}{37}=8.24\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nਉੱਤਰ: 8.24 ਦਿਨ"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 15,
+    "question": "The fraction \\(\\frac{2}{5}\\) of a job is completed in 6 days. How many days will the whole job take?",
+    "options": [
+      "11 days",
+      "30 days",
+      "15 days",
+      "2 2/5 days"
+    ],
+    "answer": "15 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_partial_completion_then_team"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_partial_completion_then_team",
+      "category": "time_work",
+      "subtype": "tw_partial_completion_then_team",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_partial_completion_then_team"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "The fraction \\(\\frac{2}{5}\\) of a job is completed in 6 days. How many days will the whole job take?",
+        "options": [
+          "11 days",
+          "30 days",
+          "15 days",
+          "2 2/5 days"
+        ],
+        "explanation": "Set up the rate relation for this case.\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nPut the given values into that relation.\n\\[\nT=6\\times \\frac{5}{2}\n\\]\nSolve for the asked value.\n\\[\nT=15\n\\]\nShortcut / Exam Method:\n\\[\nT=6\\div \\frac{2}{5}=15\n\\]\nAnswer: 15 days"
+      },
+      "hi": {
+        "question": "एक मजदूर काम का \\(\\frac{2}{5}\\) भाग 6 दिन में पूरा करता है। पूरा काम करने में कितने दिन लगेंगे?",
+        "options": [
+          "11 दिन",
+          "30 दिन",
+          "15 दिन",
+          "2 दिन"
+        ],
+        "explanation": "इस स्थिति के लिए दर-संबंध बनाएँ।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nदिए गए मान उसी संबंध में रखें।\n\\[\nT=6\\times \\frac{5}{2}\n\\]\nपूछे गए मान के लिए हल करें।\n\\[\nT=15\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=6\\div \\frac{2}{5}=15\n\\]\nउत्तर: 15 दिन"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਮਜ਼ਦੂਰ ਕੰਮ ਦਾ \\(\\frac{2}{5}\\) ਹਿੱਸਾ 6 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?",
+        "options": [
+          "11 ਦਿਨ",
+          "30 ਦਿਨ",
+          "15 ਦਿਨ",
+          "2 ਦਿਨ"
+        ],
+        "explanation": "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।\n\\[\nT=d\\times \\frac{q}{p}\n\\]\nਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।\n\\[\nT=6\\times \\frac{5}{2}\n\\]\nਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।\n\\[\nT=15\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=6\\div \\frac{2}{5}=15\n\\]\nਉੱਤਰ: 15 ਦਿਨ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 16,
+    "question": "Workers can complete a job in 8 days if there is no break. Work is paused for 2 days. What is the total elapsed time?",
+    "options": [
+      "15 days",
+      "6 days",
+      "10 days",
+      "8 days"
+    ],
+    "answer": "10 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_interrupted_work"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_interrupted_work",
+      "category": "time_work",
+      "subtype": "tw_interrupted_work",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_interrupted_work"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Workers can complete a job in 8 days if there is no break. Work is paused for 2 days. What is the total elapsed time?",
+        "options": [
+          "15 days",
+          "6 days",
+          "10 days",
+          "8 days"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\nT_{calendar}=T_{active}+T_{idle}\n\\]\nSubtract the work already completed.\n\\[\nT_{active}=\\frac{168}{6+15}\n\\]\nUse the active rate for the remaining phase.\n\\[\nT=T_{active}+2=10\n\\]\nShortcut / Exam Method:\n\\[\nT=t_a+t_i\n\\]\nAnswer: 10 days"
+      },
+      "hi": {
+        "question": "एक दल को काम पूरा करने के लिए 8 कामकाजी दिन चाहिए। बीच में 2 दिन काम रुकता है। कुल कैलेंडर समय कितना होगा?",
+        "options": [
+          "15 दिन",
+          "6 दिन",
+          "10 दिन",
+          "8 दिन"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\nT_{calendar}=T_{active}+T_{idle}\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nT_{active}=\\frac{168}{6+15}\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nT=T_{active}+2=10\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=t_a+t_i\n\\]\nउत्तर: 10 दिन"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਟੀਮ ਨੂੰ ਕੰਮ ਪੂਰਾ ਕਰਨ ਲਈ 8 ਕੰਮਕਾਜੀ ਦਿਨ ਚਾਹੀਦੇ ਹਨ। ਵਿਚਕਾਰ 2 ਦਿਨ ਕੰਮ ਰੁਕਦਾ ਹੈ। ਕੁੱਲ ਕੈਲੰਡਰ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "15 ਦਿਨ",
+          "6 ਦਿਨ",
+          "10 ਦਿਨ",
+          "8 ਦਿਨ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\nT_{calendar}=T_{active}+T_{idle}\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nT_{active}=\\frac{168}{6+15}\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nT=T_{active}+2=10\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=t_a+t_i\n\\]\nਉੱਤਰ: 10 ਦਿਨ"
+      }
+    },
+    "realismScore": 83
+  },
+  {
+    "index": 17,
+    "question": "A work order has 240 forms. The first team completes 44 forms per day for 5 days, then the changed team completes 35 per day. What is the completion time?",
+    "options": [
+      "5.57 days",
+      "3.57 days",
+      "6.69 days",
+      "10.57 days"
+    ],
+    "answer": "5.57 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_replacement_worker"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_replacement_worker",
+      "category": "time_work",
+      "subtype": "tw_replacement_worker",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_replacement_worker"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A work order has 240 forms. The first team completes 44 forms per day for 5 days, then the changed team completes 35 per day. What is the completion time?",
+        "options": [
+          "5.57 days",
+          "3.57 days",
+          "6.69 days",
+          "10.57 days"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\nr_1t_1+r_2t_2=W\n\\]\nSubtract the work already completed.\n\\[\nW_1=44\\times 5\n\\]\nUse the active rate for the remaining phase.\n\\[\nT=5+\\frac{20}{35}=5.57\n\\]\nShortcut / Exam Method:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nAnswer: 5.57 days"
+      },
+      "hi": {
+        "question": "एक काम में 240 फाइलें हैं। पहले 5 दिन रोज 44 फाइलें और बाद में रोज 35 फाइलें पूरी होती हैं। कुल समय कितना होगा?",
+        "options": [
+          "5.57 दिन",
+          "3.57 दिन",
+          "6.69 दिन",
+          "10.57 दिन"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\nr_1t_1+r_2t_2=W\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nW_1=44\\times 5\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nT=5+\\frac{20}{35}=5.57\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nउत्तर: 5.57 दिन"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕੰਮ ਵਿੱਚ 240 ਫਾਈਲਾਂ ਹਨ। ਪਹਿਲਾਂ 5 ਦਿਨ ਰੋਜ਼ 44 ਫਾਈਲਾਂ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਰੋਜ਼ 35 ਫਾਈਲਾਂ ਪੂਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "5.57 ਦਿਨ",
+          "3.57 ਦਿਨ",
+          "6.69 ਦਿਨ",
+          "10.57 ਦਿਨ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\nr_1t_1+r_2t_2=W\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nW_1=44\\times 5\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nT=5+\\frac{20}{35}=5.57\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=t_1+\\frac{W-W_1}{r_2}\n\\]\nਉੱਤਰ: 5.57 ਦਿਨ"
+      }
+    },
+    "realismScore": 83
+  },
+  {
+    "index": 18,
+    "question": "A team of 8 workers has completed 80 items from a 240-item order. With 8 days left, how many workers must be added?",
+    "options": [
+      "13 workers",
+      "12 workers",
+      "15 workers",
+      "18 workers"
+    ],
+    "answer": "12 workers",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_worker_added_to_meet_deadline"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_worker_added_to_meet_deadline",
+      "category": "time_work",
+      "subtype": "tw_worker_added_to_meet_deadline",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_worker_added_to_meet_deadline"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A team of 8 workers has completed 80 items from a 240-item order. With 8 days left, how many workers must be added?",
+        "options": [
+          "13 workers",
+          "12 workers",
+          "15 workers",
+          "18 workers"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\nN_{extra}=\\left\\lceil\\frac{R}{r\\times t}\\right\\rceil-N_c\n\\]\nSubtract the work already completed.\n\\[\nN_{extra}=\\left\\lceil\\frac{160}{1\\times 8}\\right\\rceil-8\n\\]\nUse the active rate for the remaining phase.\n\\[\nN_{extra}=12\n\\]\nShortcut / Exam Method:\n\\[\nN_{extra}=N_r-N_c\n\\]\nAnswer: 12 workers"
+      },
+      "hi": {
+        "question": "8 मजदूरों ने 240 में से 80 फाइलें कर दी हैं। शेष काम 8 दिन में पूरा करने के लिए कितने अतिरिक्त मजदूर चाहिए?",
+        "options": [
+          "13 मजदूर",
+          "12 मजदूर",
+          "15 मजदूर",
+          "18 मजदूर"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\nN_{extra}=\\left\\lceil\\frac{R}{r\\times t}\\right\\rceil-N_c\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nN_{extra}=\\left\\lceil\\frac{160}{1\\times 8}\\right\\rceil-8\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nN_{extra}=12\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nN_{extra}=N_r-N_c\n\\]\nउत्तर: 12 मजदूर"
+      },
+      "pa": {
+        "question": "8 ਮਜ਼ਦੂਰਾਂ ਨੇ 240 ਵਿੱਚੋਂ 80 ਫਾਈਲਾਂ ਕਰ ਦਿੱਤੀਆਂ ਹਨ। ਬਾਕੀ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਨ ਲਈ ਕਿੰਨੇ ਵਾਧੂ ਮਜ਼ਦੂਰ ਚਾਹੀਦੇ ਹਨ?",
+        "options": [
+          "13 ਮਜ਼ਦੂਰ",
+          "12 ਮਜ਼ਦੂਰ",
+          "15 ਮਜ਼ਦੂਰ",
+          "18 ਮਜ਼ਦੂਰ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\nN_{extra}=\\left\\lceil\\frac{R}{r\\times t}\\right\\rceil-N_c\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nN_{extra}=\\left\\lceil\\frac{160}{1\\times 8}\\right\\rceil-8\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nN_{extra}=12\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nN_{extra}=N_r-N_c\n\\]\nਉੱਤਰ: 12 ਮਜ਼ਦੂਰ"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 19,
+    "question": "A job was planned with 10 workers. When 6 days had passed, 2 workers left. How many extra days will be needed?",
+    "options": [
+      "9 1/2 days",
+      "4 1/2 days",
+      "5 1/2 days",
+      "5 2/5 days"
+    ],
+    "answer": "4 1/2 days",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_worker_removed_delay"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_worker_removed_delay",
+      "category": "time_work",
+      "subtype": "tw_worker_removed_delay",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_worker_removed_delay"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A job was planned with 10 workers. When 6 days had passed, 2 workers left. How many extra days will be needed?",
+        "options": [
+          "9 1/2 days",
+          "4 1/2 days",
+          "5 1/2 days",
+          "5 2/5 days"
+        ],
+        "explanation": "Split the work into timeline phases.\n\\[\nD=T_{actual}-T_{planned}\n\\]\nSubtract the work already completed.\n\\[\nR=240-10\\times 6\n\\]\nUse the active rate for the remaining phase.\n\\[\nD=\\frac{180}{8}-\\frac{180}{10}\n\\]\nShortcut / Exam Method:\n\\[\nD=T_a-T_p\n\\]\nAnswer: 4 1/2 days"
+      },
+      "hi": {
+        "question": "एक काम 10 मजदूरों से होना था। 6 दिन बाद 2 मजदूर चले गए। कितने अतिरिक्त दिन लगेंगे?",
+        "options": [
+          "9 दिन",
+          "4 दिन",
+          "5 दिन",
+          "5 दिन"
+        ],
+        "explanation": "काम को समय-चरणों में बाँटें।\n\\[\nD=T_{actual}-T_{planned}\n\\]\nअब तक पूरा हुआ काम घटाएँ।\n\\[\nR=240-10\\times 6\n\\]\nशेष चरण के लिए सक्रिय दर लगाएँ।\n\\[\nD=\\frac{180}{8}-\\frac{180}{10}\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nD=T_a-T_p\n\\]\nउत्तर: 4 1/2 दिन"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕੰਮ 10 ਮਜ਼ਦੂਰਾਂ ਨਾਲ ਹੋਣਾ ਸੀ। 6 ਦਿਨਾਂ ਬਾਅਦ 2 ਮਜ਼ਦੂਰ ਚਲੇ ਗਏ। ਕਿੰਨੇ ਵਾਧੂ ਦਿਨ ਲੱਗਣਗੇ?",
+        "options": [
+          "9 ਦਿਨ",
+          "4 ਦਿਨ",
+          "5 ਦਿਨ",
+          "5 ਦਿਨ"
+        ],
+        "explanation": "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।\n\\[\nD=T_{actual}-T_{planned}\n\\]\nਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।\n\\[\nR=240-10\\times 6\n\\]\nਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।\n\\[\nD=\\frac{180}{8}-\\frac{180}{10}\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nD=T_a-T_p\n\\]\nਉੱਤਰ: 4 1/2 ਦਿਨ"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 20,
+    "question": "Three machines work in parallel and make 12, 15 and 18 parts per hour. For 5 hours, what is the total number of parts?",
+    "options": [
+      "270 items",
+      "230 items",
+      "225 items",
+      "226 items"
+    ],
+    "answer": "225 items",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_machine_breakdown_midway"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_machine_breakdown_midway",
+      "category": "time_work",
+      "subtype": "tw_machine_breakdown_midway",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_machine_breakdown_midway"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Three machines work in parallel and make 12, 15 and 18 parts per hour. For 5 hours, what is the total number of parts?",
+        "options": [
+          "270 items",
+          "230 items",
+          "225 items",
+          "226 items"
+        ],
+        "explanation": "Write output as rate multiplied by active time.\n\\[\nO=\\sum r_it_i\n\\]\nAdd the outputs of all active agents.\n\\[\nO=12\\times 5+15\\times 5+18\\times 5\n\\]\nSimplify the total output.\n\\[\nO=225\n\\]\nShortcut / Exam Method:\n\\[\nO=(r_1+r_2+r_3)t\n\\]\nAnswer: 225 items"
+      },
+      "hi": {
+        "question": "मशीन A, B और C प्रति घंटे 12, 15 और 18 वस्तुएँ बनाती हैं। वे क्रमशः 5 घंटे चलें तो कुल कितनी वस्तुएँ बनेंगी?",
+        "options": [
+          "270 वस्तुएँ",
+          "230 वस्तुएँ",
+          "225 वस्तुएँ",
+          "226 वस्तुएँ"
+        ],
+        "explanation": "उत्पादन को दर गुणा सक्रिय समय लिखें।\n\\[\nO=\\sum r_it_i\n\\]\nसभी सक्रिय साधनों का उत्पादन जोड़ें।\n\\[\nO=12\\times 5+15\\times 5+18\\times 5\n\\]\nकुल उत्पादन सरल करें।\n\\[\nO=225\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nO=(r_1+r_2+r_3)t\n\\]\nउत्तर: 225 वस्तुएँ"
+      },
+      "pa": {
+        "question": "ਮਸ਼ੀਨ A, B ਅਤੇ C ਪ੍ਰਤੀ ਘੰਟਾ 12, 15 ਅਤੇ 18 ਵਸਤੂਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਕ੍ਰਮਵਾਰ 5 ਘੰਟੇ ਚੱਲਣ ਤਾਂ ਕੁੱਲ ਕਿੰਨੀਆਂ ਵਸਤੂਆਂ ਬਣਣਗੀਆਂ?",
+        "options": [
+          "270 ਵਸਤੂਆਂ",
+          "230 ਵਸਤੂਆਂ",
+          "225 ਵਸਤੂਆਂ",
+          "226 ਵਸਤੂਆਂ"
+        ],
+        "explanation": "ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।\n\\[\nO=\\sum r_it_i\n\\]\nਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।\n\\[\nO=12\\times 5+15\\times 5+18\\times 5\n\\]\nਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।\n\\[\nO=225\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nO=(r_1+r_2+r_3)t\n\\]\nਉੱਤਰ: 225 ਵਸਤੂਆਂ"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 21,
+    "question": "A and B work on alternate days, starting with A. A completes 10 files in a day and B completes 6 files in a day. If 120 files are to be completed, in how many days will the job be finished?",
+    "options": [
+      "12 4/5 days",
+      "22 1/5 days",
+      "14 4/5 days",
+      "10 4/5 days"
+    ],
+    "answer": "14 4/5 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_alternating_days_two_workers"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_alternating_days_two_workers",
+      "category": "time_work",
+      "subtype": "tw_alternating_days_two_workers",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_alternating_days_two_workers"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B work on alternate days, starting with A. A completes 10 files in a day and B completes 6 files in a day. If 120 files are to be completed, in how many days will the job be finished?",
+        "options": [
+          "12 4/5 days",
+          "22 1/5 days",
+          "14 4/5 days",
+          "10 4/5 days"
+        ],
+        "explanation": "Find the work completed in one full cycle.\n\\[\nW_{cycle}=\\sum r_i\n\\]\nCount full cycles before the last turn.\n\\[\nW_{cycle}=10+6\n\\]\nAdd only the needed part of the final turn.\n\\[\nT=14.8\n\\]\nShortcut / Exam Method:\n\\[\nT=cycles+final\\ turn\n\\]\nAnswer: 14 4/5 days"
+      },
+      "hi": {
+        "question": "A और B बारी-बारी दिन काम करते हैं और शुरुआत A करता है। A अपनी बारी में 10 फाइलें और B 6 फाइलें करता है। 120 फाइलें कितने दिनों में पूरी होंगी?",
+        "options": [
+          "12 दिन",
+          "22 दिन",
+          "14 दिन",
+          "10 दिन"
+        ],
+        "explanation": "एक पूरे चक्र में हुआ काम निकालें।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nअंतिम बारी से पहले पूरे चक्र गिनें।\n\\[\nW_{cycle}=10+6\n\\]\nअंतिम बारी का केवल आवश्यक भाग जोड़ें।\n\\[\nT=14.8\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=cycles+final\\ turn\n\\]\nउत्तर: 14 4/5 दिन"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਵਾਰੀ-ਵਾਰੀ ਦਿਨ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤ A ਕਰਦਾ ਹੈ। A ਆਪਣੀ ਵਾਰੀ ਵਿੱਚ 10 ਫਾਈਲਾਂ ਅਤੇ B 6 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 120 ਫਾਈਲਾਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰੀਆਂ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "12 ਦਿਨ",
+          "22 ਦਿਨ",
+          "14 ਦਿਨ",
+          "10 ਦਿਨ"
+        ],
+        "explanation": "ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।\n\\[\nW_{cycle}=10+6\n\\]\nਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।\n\\[\nT=14.8\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=cycles+final\\ turn\n\\]\nਉੱਤਰ: 14 4/5 ਦਿਨ"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 22,
+    "question": "Starting with A, two workers alternate. A completes 10 records and B completes 5 records on their respective turns. What is the completion time in hours for 72 records?",
+    "options": [
+      "7.52 hours",
+      "13 2/5 hours",
+      "9 2/5 hours",
+      "10 2/5 hours"
+    ],
+    "answer": "9 2/5 hours",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_alternating_hours"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_alternating_hours",
+      "category": "time_work",
+      "subtype": "tw_alternating_hours",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_alternating_hours"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Starting with A, two workers alternate. A completes 10 records and B completes 5 records on their respective turns. What is the completion time in hours for 72 records?",
+        "options": [
+          "7.52 hours",
+          "13 2/5 hours",
+          "9 2/5 hours",
+          "10 2/5 hours"
+        ],
+        "explanation": "Find the work completed in one full cycle.\n\\[\nW_{cycle}=\\sum r_i\n\\]\nCount full cycles before the last turn.\n\\[\nW_{cycle}=10+5\n\\]\nAdd only the needed part of the final turn.\n\\[\nT=9.4\n\\]\nShortcut / Exam Method:\n\\[\nT=cycles+final\\ turn\n\\]\nAnswer: 9 2/5 hours"
+      },
+      "hi": {
+        "question": "दो मजदूर बारी-बारी काम करते हैं और A शुरू करता है। A हर बारी में 10 फाइलें और B 5 फाइलें करता है। 72 फाइलें कितने घंटों में होंगी?",
+        "options": [
+          "7.52 घंटे",
+          "13 घंटे",
+          "9 घंटे",
+          "10 घंटे"
+        ],
+        "explanation": "एक पूरे चक्र में हुआ काम निकालें।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nअंतिम बारी से पहले पूरे चक्र गिनें।\n\\[\nW_{cycle}=10+5\n\\]\nअंतिम बारी का केवल आवश्यक भाग जोड़ें।\n\\[\nT=9.4\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=cycles+final\\ turn\n\\]\nउत्तर: 9 2/5 घंटे"
+      },
+      "pa": {
+        "question": "ਦੋ ਮਜ਼ਦੂਰ ਵਾਰੀ-ਵਾਰੀ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ A ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। A ਹਰ ਵਾਰੀ ਵਿੱਚ 10 ਫਾਈਲਾਂ ਅਤੇ B 5 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 72 ਫਾਈਲਾਂ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "7.52 ਘੰਟੇ",
+          "13 ਘੰਟੇ",
+          "9 ਘੰਟੇ",
+          "10 ਘੰਟੇ"
+        ],
+        "explanation": "ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।\n\\[\nW_{cycle}=10+5\n\\]\nਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।\n\\[\nT=9.4\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=cycles+final\\ turn\n\\]\nਉੱਤਰ: 9 2/5 ਘੰਟੇ"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 23,
+    "question": "Workers A, B and C work one after another daily. A handles 6 files, B 6 files and C 4 files. How many days are needed for 72 files?",
+    "options": [
+      "20 days",
+      "11 1/3 days",
+      "9 1/3 days",
+      "13 1/3 days"
+    ],
+    "answer": "13 1/3 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_alternating_group_cycle"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_alternating_group_cycle",
+      "category": "time_work",
+      "subtype": "tw_alternating_group_cycle",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_alternating_group_cycle"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Workers A, B and C work one after another daily. A handles 6 files, B 6 files and C 4 files. How many days are needed for 72 files?",
+        "options": [
+          "20 days",
+          "11 1/3 days",
+          "9 1/3 days",
+          "13 1/3 days"
+        ],
+        "explanation": "Find the work completed in one full cycle.\n\\[\nW_{cycle}=\\sum r_i\n\\]\nCount full cycles before the last turn.\n\\[\nW_{cycle}=6+6+4\n\\]\nAdd only the needed part of the final turn.\n\\[\nT=13\\frac{1}{3}\n\\]\nShortcut / Exam Method:\n\\[\nT=cycles+final\\ turn\n\\]\nAnswer: 13 1/3 days"
+      },
+      "hi": {
+        "question": "पहले दिन A, दूसरे दिन B और तीसरे दिन C काम करता है, फिर यही क्रम दोहरता है। वे 6, 6 और 4 फॉर्म करते हैं। 72 फॉर्म कितने दिन लेंगे?",
+        "options": [
+          "20 दिन",
+          "11 दिन",
+          "9 दिन",
+          "13 दिन"
+        ],
+        "explanation": "एक पूरे चक्र में हुआ काम निकालें।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nअंतिम बारी से पहले पूरे चक्र गिनें।\n\\[\nW_{cycle}=6+6+4\n\\]\nअंतिम बारी का केवल आवश्यक भाग जोड़ें।\n\\[\nT=13\\frac{1}{3}\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=cycles+final\\ turn\n\\]\nउत्तर: 13 1/3 दिन"
+      },
+      "pa": {
+        "question": "ਪਹਿਲੇ ਦਿਨ A, ਦੂਜੇ ਦਿਨ B ਅਤੇ ਤੀਜੇ ਦਿਨ C ਕੰਮ ਕਰਦਾ ਹੈ, ਫਿਰ ਇਹੀ ਕ੍ਰਮ ਦੁਹਰਦਾ ਹੈ। ਉਹ 6, 6 ਅਤੇ 4 ਫਾਰਮ ਕਰਦੇ ਹਨ। 72 ਫਾਰਮ ਕਿੰਨੇ ਦਿਨ ਲੈਣਗੇ?",
+        "options": [
+          "20 ਦਿਨ",
+          "11 ਦਿਨ",
+          "9 ਦਿਨ",
+          "13 ਦਿਨ"
+        ],
+        "explanation": "ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।\n\\[\nW_{cycle}=6+6+4\n\\]\nਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।\n\\[\nT=13\\frac{1}{3}\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=cycles+final\\ turn\n\\]\nਉੱਤਰ: 13 1/3 ਦਿਨ"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 24,
+    "question": "Starting with A, two workers alternate. A completes 6 records and B completes 4 records on their respective turns. What is the completion time in days for 120 records?",
+    "options": [
+      "12 days",
+      "27 days",
+      "30 days",
+      "24 days"
+    ],
+    "answer": "24 days",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "time_work",
+      "variant": "tw_terminal_overshoot_cycle"
+    },
+    "semanticAnchors": {
+      "scenario": "tw_terminal_overshoot_cycle",
+      "category": "time_work",
+      "subtype": "tw_terminal_overshoot_cycle",
+      "reasoningPattern": "time_work",
+      "canonicalScenario": {
+        "domain": "time_work",
+        "object": "tw_terminal_overshoot_cycle"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Starting with A, two workers alternate. A completes 6 records and B completes 4 records on their respective turns. What is the completion time in days for 120 records?",
+        "options": [
+          "12 days",
+          "27 days",
+          "30 days",
+          "24 days"
+        ],
+        "explanation": "Find the work completed in one full cycle.\n\\[\nW_{cycle}=\\sum r_i\n\\]\nCount full cycles before the last turn.\n\\[\nW_{cycle}=6+4\n\\]\nAdd only the needed part of the final turn.\n\\[\nT=24\n\\]\nShortcut / Exam Method:\n\\[\nT=cycles+final\\ turn\n\\]\nAnswer: 24 days"
+      },
+      "hi": {
+        "question": "A और B बारी-बारी दिन काम करते हैं और शुरुआत A करता है। A अपनी बारी में 6 फाइलें और B 4 फाइलें करता है। 120 फाइलें कितने दिनों में पूरी होंगी?",
+        "options": [
+          "12 दिन",
+          "27 दिन",
+          "30 दिन",
+          "24 दिन"
+        ],
+        "explanation": "एक पूरे चक्र में हुआ काम निकालें।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nअंतिम बारी से पहले पूरे चक्र गिनें।\n\\[\nW_{cycle}=6+4\n\\]\nअंतिम बारी का केवल आवश्यक भाग जोड़ें।\n\\[\nT=24\n\\]\nशॉर्टकट / परीक्षा विधि:\n\\[\nT=cycles+final\\ turn\n\\]\nउत्तर: 24 दिन"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਵਾਰੀ-ਵਾਰੀ ਦਿਨ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤ A ਕਰਦਾ ਹੈ। A ਆਪਣੀ ਵਾਰੀ ਵਿੱਚ 6 ਫਾਈਲਾਂ ਅਤੇ B 4 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 120 ਫਾਈਲਾਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰੀਆਂ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "12 ਦਿਨ",
+          "27 ਦਿਨ",
+          "30 ਦਿਨ",
+          "24 ਦਿਨ"
+        ],
+        "explanation": "ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।\n\\[\nW_{cycle}=\\sum r_i\n\\]\nਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।\n\\[\nW_{cycle}=6+4\n\\]\nਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।\n\\[\nT=24\n\\]\nਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:\n\\[\nT=cycles+final\\ turn\n\\]\nਉੱਤਰ: 24 ਦਿਨ"
+      }
+    },
+    "realismScore": 89
+  }
+]

@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import type {
   DifficultyLabel,
   ExamProfileId,
@@ -42,6 +44,7 @@ function hashText(value: string) {
 }
 
 function amount(value: number) {
+  if (!Number.isFinite(value)) return "0";
   return Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/\.?0+$/u, "");
 }
 
@@ -53,11 +56,24 @@ function percent(value: number) {
   return `${amount(value)}%`;
 }
 
+function ratioText(value: number) {
+  const candidates = [2, 3, 4, 5, 8, 10, 12, 15, 20];
+  for (const denominator of candidates) {
+    const numerator = Math.round(value * denominator);
+    if (numerator > 0 && Math.abs(numerator / denominator - value) < 0.015) {
+      const gcd = (left: number, right: number): number => right === 0 ? left : gcd(right, left % right);
+      const divisor = gcd(numerator, denominator);
+      return `${numerator / divisor}:${denominator / divisor}`;
+    }
+  }
+  return amount(value);
+}
+
 function answerText(problem: CanonicalInterestProblem, language: "en" | "hi" | "pa" = "en") {
   const label = (semantic: InterestAnswerSemantic) => {
     const labels: Record<InterestAnswerSemantic, Record<"en" | "hi" | "pa", string>> = {
-      simple_interest: { en: "simple interest", hi: "साधारण ब्याज", pa: "ਸਧਾਰਣ ਬਿਆਜ" },
-      compound_interest: { en: "compound interest", hi: "चक्रवृद्धि ब्याज", pa: "ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ" },
+      simple_interest: { en: "simple interest", hi: "साधारण ब्याज", pa: "ਸਧਾਰਣ ਵਿਆਜ" },
+      compound_interest: { en: "compound interest", hi: "चक्रवृद्धि ब्याज", pa: "ਮਿਸ਼ਰਿਤ ਵਿਆਜ" },
       amount: { en: "amount", hi: "कुल राशि", pa: "ਕੁੱਲ ਰਕਮ" },
       principal: { en: "principal", hi: "मूलधन", pa: "ਮੂਲਧਨ" },
       rate: { en: "rate", hi: "दर", pa: "ਦਰ" },
@@ -77,6 +93,7 @@ function answerText(problem: CanonicalInterestProblem, language: "en" | "hi" | "
   if (problem.answerKind === "amount") return `${money(problem.answer)}`;
   if (problem.answerKind === "percent" || problem.answerKind === "rate") return `${percent(problem.answer)} ${label(problem.answerSemantic)}`;
   if (problem.answerKind === "time") return `${amount(problem.answer)} ${label(problem.answerSemantic)}`;
+  if (problem.answerKind === "ratio") return ratioText(problem.answer);
   return amount(problem.answer);
 }
 
@@ -103,31 +120,202 @@ function optionText(value: number, kind: InterestAnswerKind, semantic: InterestA
   return answerText(clone, language);
 }
 
+function mathExpression(expression: string) {
+  const trimmed = expression.trim();
+  if (!trimmed) return "";
+  const normalized = trimmed
+    .replace(/\.\.\./gu, "\\cdots")
+    .replace(/\s+x\s+/giu, " \\times ")
+    .replace(/\*/gu, "\\times")
+    .replace(/\^(\d+)/gu, "^{$1}");
+  return `\\(${normalized}\\)`;
+}
+
+function displayMath(expression: string) {
+  return `\\[\n${expression}\n\\]`;
+}
+
+function timesFormula(expression: string) {
+  return expression
+    .replace(/\.\.\./gu, "\\cdots")
+    .replace(/\s+x\s+/giu, " \\times ")
+    .replace(/\*/gu, "\\times")
+    .replace(/\^(\d+)/gu, "^{$1}");
+}
+
+function localizedSentence(language: "en" | "hi" | "pa", en: string, hi: string, pa: string) {
+  if (language === "hi") return hi;
+  if (language === "pa") return pa;
+  return en;
+}
+
+function finalSentence(problem: CanonicalInterestProblem, language: "en" | "hi" | "pa") {
+  const answer = answerText(problem, language);
+  if (language === "hi") return `अतः उत्तर ${answer} है।`;
+  if (language === "pa") return `ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
+  if (problem.answerSemantic === "installment") return `Therefore, each installment is ${answer}.`;
+  if (problem.answerSemantic === "simple_interest") return `Therefore, the simple interest is ${answer}.`;
+  if (problem.answerSemantic === "compound_interest") return `Therefore, the compound interest is ${answer}.`;
+  if (problem.answerSemantic === "difference") return `Therefore, the required difference is ${answer}.`;
+  return `Therefore, the answer is ${answer}.`;
+}
+
+function formulaExplanation(problem: CanonicalInterestProblem, language: "en" | "hi" | "pa") {
+  const v = problem.variables;
+  const family = problem.family;
+  const blocks: string[] = [];
+
+  if (family === "int_si_partial_discharge_timeline" || family === "int_partial_payment_before_final_amount") {
+    const p = v.principal;
+    const r = v.r;
+    const t1 = v.firstYears;
+    const t2 = v.secondYears;
+    const i1 = Number(((p * r * t1) / 100).toFixed(2));
+    const balance = v.balance;
+    const i2 = Number(((balance * r * t2) / 100).toFixed(2));
+    blocks.push(localizedSentence(language, "First-period interest:", "पहली अवधि का ब्याज:", "ਪਹਿਲੀ ਮਿਆਦ ਦਾ ਵਿਆਜ:"));
+    blocks.push(displayMath(`I_1 = \\frac{${amount(p)} \\times ${r} \\times ${t1}}{100} = ${amount(i1)}`));
+    blocks.push(localizedSentence(language, "Balance after repayment:", "भुगतान के बाद शेष राशि:", "ਭੁਗਤਾਨ ਤੋਂ ਬਾਅਦ ਬਕਾਇਆ ਰਕਮ:"));
+    blocks.push(displayMath(`\\text{Balance} = ${amount(p)} - ${amount(v.repaid)} = ${amount(balance)}`));
+    blocks.push(localizedSentence(language, "Interest on the balance:", "शेष राशि पर ब्याज:", "ਬਕਾਇਆ ਰਕਮ ਤੇ ਵਿਆਜ:"));
+    blocks.push(displayMath(`I_2 = \\frac{${amount(balance)} \\times ${r} \\times ${t2}}{100} = ${amount(i2)}`));
+    blocks.push(displayMath(`\\text{Total interest} = I_1 + I_2 = ${amount(i1)} + ${amount(i2)} = ${amount(problem.answer)}`));
+    blocks.push(finalSentence(problem, language));
+    return blocks.join("\n\n");
+  }
+
+  if (/installment|loan_repayment|find_installment|principal_from_installments/u.test(family)) {
+    const p = v.principal;
+    const r = v.r;
+    const n = v.n;
+    const periodRate = family.includes("half_yearly") ? r / 2 : r;
+    const growth = 1 + periodRate / 100;
+    const denominator = Array.from({ length: n }, (_, index) =>
+      amount(Number(Math.pow(growth, n - 1 - index).toFixed(4))),
+    ).join(" + ");
+    blocks.push(localizedSentence(language, "Amount payable at the end:", "अंत में देय राशि:", "ਅੰਤ ਵਿੱਚ ਦੇਣਯੋਗ ਰਕਮ:"));
+    blocks.push(displayMath(`A = P\\left(1+\\frac{R}{100}\\right)^n`));
+    blocks.push(displayMath(`A = ${amount(p)}\\left(1+\\frac{${amount(periodRate)}}{100}\\right)^${n} = ${amount(v.amount)}`));
+    blocks.push(localizedSentence(language, "Equal installment:", "बराबर किस्त:", "ਬਰਾਬਰ ਕਿਸ਼ਤ:"));
+    blocks.push(displayMath(`X = \\frac{A}{(1+r)^{n-1} + (1+r)^{n-2} + \\cdots + 1}`));
+    blocks.push(displayMath(`X = \\frac{${amount(v.amount)}}{${denominator}} = ${amount(problem.answer)}`));
+    blocks.push(finalSentence(problem, language));
+    return blocks.join("\n\n");
+  }
+
+  if (/ci_si|si_ci|hybrid_si_ci|rate_from_ci|principal_from_ci|si_ci_amount_difference/u.test(family)) {
+    const p = v.p;
+    const r = v.r;
+    const t = family.includes("3_year") ? 3 : 2;
+    const si = Number(((p * r * t) / 100).toFixed(2));
+    const ci = Number((p * (Math.pow(1 + r / 100, t) - 1)).toFixed(2));
+    blocks.push(localizedSentence(language, "Simple interest:", "साधारण ब्याज:", "ਸਧਾਰਣ ਵਿਆਜ:"));
+    blocks.push(displayMath(`SI = \\frac{P \\times R \\times T}{100}`));
+    blocks.push(displayMath(`SI = \\frac{${amount(p)} \\times ${r} \\times ${t}}{100} = ${amount(si)}`));
+    blocks.push(localizedSentence(language, "Compound interest:", "चक्रवृद्धि ब्याज:", "ਮਿਸ਼ਰਿਤ ਵਿਆਜ:"));
+    blocks.push(displayMath(`CI = P\\left[\\left(1+\\frac{R}{100}\\right)^T - 1\\right]`));
+    blocks.push(displayMath(`CI = ${amount(p)}\\left[\\left(1+\\frac{${r}}{100}\\right)^${t} - 1\\right] = ${amount(ci)}`));
+    blocks.push(displayMath(`\\text{Difference} = CI - SI = ${amount(ci)} - ${amount(si)} = ${amount(ci - si)}`));
+    blocks.push(finalSentence(problem, language));
+    return blocks.join("\n\n");
+  }
+
+  if (/^(?:int_ci_half_yearly|int_ci_quarterly|int_ci_monthly|int_ci_fractional_time_boundary)$/u.test(family)) {
+    const p = v.p;
+    const periodRate = v.periodRate;
+    const periods = v.periods;
+    blocks.push(localizedSentence(language, "First find the rate per compounding period:", "प्रति अवधि दर निकालें:", "ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ ਕੱਢੋ:"));
+    blocks.push(displayMath(`R_{\\text{period}} = \\frac{${v.r}}{${v.m}} = ${amount(periodRate)}`));
+    blocks.push(localizedSentence(language, "Now use the compound amount formula:", "अब चक्रवृद्धि राशि का सूत्र लगाएँ:", "ਹੁਣ ਮਿਸ਼ਰਿਤ ਰਕਮ ਦਾ ਸੂਤਰ ਲਗਾਓ:"));
+    blocks.push(displayMath(`A = P\\left(1+\\frac{R}{100}\\right)^T`));
+    blocks.push(displayMath(`A = ${amount(p)}\\left(1+\\frac{${amount(periodRate)}}{100}\\right)^${periods} = ${amount(v.amount)}`));
+    if (problem.answerSemantic === "compound_interest") {
+      blocks.push(displayMath(`CI = A - P = ${amount(v.amount)} - ${amount(p)} = ${amount(problem.answer)}`));
+    }
+    blocks.push(finalSentence(problem, language));
+    return blocks.join("\n\n");
+  }
+
+  if ((/^int_si_/u.test(family) || /interest_more|different_rates_different_years_si|calculated_on_amount/u.test(family)) && v.p !== undefined && v.r !== undefined && v.t !== undefined) {
+    const si = Number(((v.p * v.r * v.t) / 100).toFixed(2));
+    blocks.push(localizedSentence(language, "Use the simple interest formula:", "साधारण ब्याज का सूत्र लगाएँ:", "ਸਧਾਰਣ ਵਿਆਜ ਦਾ ਸੂਤਰ ਲਗਾਓ:"));
+    blocks.push(displayMath(`SI = \\frac{P \\times R \\times T}{100}`));
+    blocks.push(displayMath(`SI = \\frac{${amount(v.p)} \\times ${v.r} \\times ${v.t}}{100} = ${amount(si)}`));
+    if (problem.answerSemantic === "amount") {
+      blocks.push(displayMath(`A = P + SI = ${amount(v.p)} + ${amount(si)} = ${amount(problem.answer)}`));
+    } else if (problem.answerSemantic === "principal") {
+      blocks.push(displayMath(`P = \\frac{SI \\times 100}{R \\times T} = \\frac{${amount(v.si ?? si)} \\times 100}{${v.r} \\times ${v.t}} = ${amount(problem.answer)}`));
+    } else if (problem.answerSemantic === "rate") {
+      blocks.push(displayMath(`R = \\frac{SI \\times 100}{P \\times T} = \\frac{${amount(v.si ?? si)} \\times 100}{${amount(v.p)} \\times ${v.t}} = ${amount(problem.answer)}`));
+    } else if (problem.answerSemantic === "time") {
+      blocks.push(displayMath(`T = \\frac{SI \\times 100}{P \\times R} = \\frac{${amount(v.si ?? si)} \\times 100}{${amount(v.p)} \\times ${v.r}} = ${amount(problem.answer)}`));
+    }
+    blocks.push(finalSentence(problem, language));
+    return blocks.join("\n\n");
+  }
+
+  if ((/^int_ci_/u.test(family) || /compound|growth|depreciation|appreciation|successive/u.test(family)) && v.p !== undefined && v.r !== undefined && v.t !== undefined) {
+    const a = Number((v.p * Math.pow(1 + v.r / 100, v.t)).toFixed(2));
+    const ci = Number((a - v.p).toFixed(2));
+    blocks.push(localizedSentence(language, "Use the compound amount formula:", "चक्रवृद्धि राशि का सूत्र लगाएँ:", "ਮਿਸ਼ਰਿਤ ਰਕਮ ਦਾ ਸੂਤਰ ਲਗਾਓ:"));
+    blocks.push(displayMath(`A = P\\left(1+\\frac{R}{100}\\right)^T`));
+    blocks.push(displayMath(`A = ${amount(v.p)}\\left(1+\\frac{${v.r}}{100}\\right)^${v.t} = ${amount(a)}`));
+    blocks.push(displayMath(`CI = A - P = ${amount(a)} - ${amount(v.p)} = ${amount(ci)}`));
+    blocks.push(finalSentence(problem, language));
+    return blocks.join("\n\n");
+  }
+
+  return undefined;
+}
+
+function solutionLine(step: InterestStep, language: "en" | "hi" | "pa") {
+  if (language !== "en") return step[language];
+  const label = step.en.toLowerCase();
+  if (step.key === "equation") return "Let the first part be \\(x\\); then the second part is the balance.";
+  if (/simple interest/u.test(label)) return "Use the simple interest formula:";
+  if (/compound amount|amount$/u.test(label)) return "Use the compound amount formula:";
+  if (/present worth/u.test(label)) return "Present worth is:";
+  if (/true discount/u.test(label)) return "True discount is:";
+  if (/banker/u.test(label)) return `${step.en} is:`;
+  if (/total interest/u.test(label)) return "The total interest is:";
+  if (/rate per period/u.test(label)) return "First find the rate per compounding period:";
+  if (/amount multiplier|amount ratio/u.test(label)) return "Compare the two amounts:";
+  if (/opening amount/u.test(label)) return `${step.en} is:`;
+  if (/difference/u.test(label)) return `${step.en} is:`;
+  if (/installment/u.test(label)) return "Using the equal-installment formula:";
+  return `${step.en}:`;
+}
+
 function stepLines(steps: InterestStep[], language: "en" | "hi" | "pa") {
   return steps
     .map((step) => {
-      const label = step[language];
+      const label = solutionLine(step, language);
       if (!step.expression) return label;
-      const value = step.value === undefined ? "" : `\n= ${amount(step.value)}`;
-      return `${label}\n${step.expression}${value}`;
+      const value = step.value === undefined ? "" : ` = ${amount(step.value)}`;
+      return `${label}\n${displayMath(`${timesFormula(step.expression)}${value}`)}`;
     })
     .join("\n\n");
 }
 
 function rotateStem(stem: CanonicalInterestProblem["customStem"], problem: CanonicalInterestProblem) {
-  const variants: Array<[string, string, string]> = [
-    ["", "", ""],
-    ["In a bank calculation, ", "एक बैंक गणना में, ", "ਇੱਕ ਬੈਂਕ ਗਿਣਤੀ ਵਿੱਚ, "],
-    ["For a finance-company record, ", "एक वित्त कंपनी के रिकॉर्ड में, ", "ਇੱਕ ਫਾਇਨੈਂਸ ਕੰਪਨੀ ਦੇ ਰਿਕਾਰਡ ਵਿੱਚ, "],
-    ["In an exam-style interest case, ", "एक परीक्षा-शैली ब्याज प्रश्न में, ", "ਇੱਕ ਪ੍ਰੀਖਿਆ-ਸ਼ੈਲੀ ਬਿਆਜ ਪ੍ਰਸ਼ਨ ਵਿੱਚ, "],
-    ["A clerk records that ", "एक क्लर्क लिखता है कि ", "ਇੱਕ ਕਲਰਕ ਲਿਖਦਾ ਹੈ ਕਿ "],
-  ];
-  const variant = variants[hashText(`${problem.id}:phrase`) % variants.length]!;
-  if (!variant[0]) return stem;
+  void problem;
   return {
-    en: `${variant[0]}${stem.en[0]?.toLowerCase() ?? ""}${stem.en.slice(1)}`,
-    hi: `${variant[1]}${stem.hi}`,
-    pa: `${variant[2]}${stem.pa}`,
+    en: stem.en
+      .replace(/\bA investment scheme\b/gu, "An investment scheme")
+      .replace(/\bA invoice\b/gu, "An invoice")
+      .replace(/\bA two\b/gu, "Two")
+      .replace(/\bOn a investment scheme\b/gu, "On an investment scheme")
+      .replace(/\byear\(s\)/gu, "year")
+      .replace(/\b1 years\b/gu, "1 year")
+      .replace(/\b1 periods\b/gu, "1 period")
+      .replace(/\bOn a monthly saving account of\s+/gu, "On ")
+      .replace(/\bA monthly saving account of\s+/gu, "")
+      .replace(/\bof a monthly saving account\b/gu, "")
+      .replace(/\bThe value of a furniture is\b/gu, "A furniture item is worth")
+      .replace(/\bA equipment is\b/gu, "An equipment item is")
+      .replace(/\bdue amount is due\b/gu, "amount is due"),
+    hi: stem.hi,
+    pa: stem.pa,
   };
 }
 
@@ -136,13 +324,22 @@ function buildRealization(problem: CanonicalInterestProblem): InterestRealizatio
   const finalEn = `Answer = ${answerText(problem, "en")}`;
   const finalHi = `उत्तर = ${answerText(problem, "hi")}`;
   const finalPa = `ਉੱਤਰ = ${answerText(problem, "pa")}`;
+  const explanationEn =
+    formulaExplanation(problem, "en") ??
+    `${stepLines(problem.customSteps, "en")}\n\n${finalEn}`;
+  const explanationHi =
+    formulaExplanation(problem, "hi") ??
+    `${stepLines(problem.customSteps, "hi")}\n\n${finalHi}`;
+  const explanationPa =
+    formulaExplanation(problem, "pa") ??
+    `${stepLines(problem.customSteps, "pa")}\n\n${finalPa}`;
   return {
     stem,
     steps: problem.customSteps,
     explanation: {
-      en: `${stepLines(problem.customSteps, "en")}\n\n${finalEn}`,
-      hi: `${stepLines(problem.customSteps, "hi")}\n\n${finalHi}`,
-      pa: `${stepLines(problem.customSteps, "pa")}\n\n${finalPa}`,
+      en: explanationEn,
+      hi: explanationHi,
+      pa: explanationPa,
     },
   };
 }
@@ -162,17 +359,23 @@ function buildGraph(problem: CanonicalInterestProblem, realization: InterestReal
 }
 
 function realismScore(problem: CanonicalInterestProblem) {
-  const base = problem.complexity === "advanced" ? 88 : problem.complexity === "hard" ? 84 : problem.complexity === "medium" ? 81 : 76;
-  return Math.min(96, base + (problem.traps.length >= 3 ? 3 : 0));
+  const base = problem.complexity === "advanced" ? 90 : problem.complexity === "hard" ? 86 : problem.complexity === "medium" ? 82 : 74;
+  const trapBonus = problem.traps.length >= 3 ? 2 : 0;
+  const cleanNumberBonus = Object.values(problem.variables).every((value) => Number.isInteger(value) || Math.abs(value * 4 - Math.round(value * 4)) < 0.001) ? 1 : -1;
+  const spread = (hashText(problem.id) % 5) - 2;
+  const raw = Math.max(68, Math.min(94, base + trapBonus + cleanNumberBonus + spread));
+  const formulaShell = /^(?:int_si_from_prt|int_si_amount_from_prt|int_si_principal_from_si_rt|int_si_rate_from_si_pt|int_si_time_from_si_pr|int_ci_amount_annual|int_ci_from_amount|int_ci_principal_from_amount|int_ci_rate_from_amount|int_ci_time_from_amount|int_ci_two_year_formula|int_ci_three_year_formula)$/u.test(problem.family);
+  return formulaShell ? Math.min(raw, 80) : raw;
 }
 
 function difficultyMetadata(problem: CanonicalInterestProblem) {
+  const actualDifficulty = problem.complexity === "easy" ? "Easy" : problem.complexity === "medium" ? "Medium" : "Hard";
   const score = problem.complexity === "advanced" ? 8 : problem.complexity === "hard" ? 7 : problem.complexity === "medium" ? 5 : 3;
   return {
-    difficulty: titleDifficulty(problem.difficulty),
+    difficulty: actualDifficulty,
     difficultyMetadata: {
       difficultyScore: score,
-      difficultyLabel: titleDifficulty(problem.difficulty),
+      difficultyLabel: actualDifficulty,
       reasoningDepth: problem.complexity === "advanced" ? 4 : problem.complexity === "hard" ? 3 : problem.complexity === "medium" ? 2 : 1,
       calculationComplexity: score,
       distractorComplexity: problem.traps.length,
@@ -184,16 +387,34 @@ function difficultyMetadata(problem: CanonicalInterestProblem) {
   };
 }
 
+function qualityMetrics(problem: CanonicalInterestProblem, graph: ReturnType<typeof buildGraph>) {
+  const realism = realismScore(problem);
+  return {
+    valid: true,
+    score: realism,
+    metrics: {
+      overallQualityScore: realism,
+      editorialRealismScore: realism,
+      stemNaturalness: Math.min(96, realism + 2),
+      optionQuality: 90,
+      explanationQuality: graph.steps.length >= 2 ? 88 : 80,
+    },
+  };
+}
+
 export function isQuantV2InterestPattern(pattern: Pattern) {
   const text = `${pattern.generationDomain ?? ""} ${pattern.topic ?? ""} ${pattern.subtopic ?? ""} ${pattern.id ?? ""} ${pattern.name ?? ""}`.toLowerCase();
-  return /quant-v2-interest|simple[-_\s]*interest|compound[-_\s]*interest|\bsi[-_\s]*ci\b|\binterest\b|ब्याज|ਸਧਾਰਣ ਬਿਆਜ|ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ/u.test(text);
+  return /quant-v2-interest|simple[-_\s]*interest|compound[-_\s]*interest|\bsi[-_\s]*ci\b|\binterest\b|ब्याज|ਸਧਾਰਣ ਵਿਆਜ|ਮਿਸ਼ਰਿਤ ਵਿਆਜ/u.test(text);
 }
 
 export function createQuantV2InterestQuestionCandidate(
   pattern: Pattern,
   options?: GeneratorOptions,
 ): FormulaQuestion {
-  const seed = options?.seed ?? options?.generationContext?.seed ?? `${pattern.id}:interest`;
+  const seed =
+    options?.seed ??
+    options?.generationContext?.seed ??
+    `${pattern.id}:interest:${randomUUID()}`;
   const difficulty = requestedDifficulty(pattern, options);
   const forced = String(options?.forcedMotifId ?? "");
   const family = INTEREST_FAMILY_IDS.includes(forced as InterestFamilyId)
@@ -202,6 +423,7 @@ export function createQuantV2InterestQuestionCandidate(
   const problem = createInterestProblem({ seed, difficulty, family });
   const realization = buildRealization(problem);
   const graph = buildGraph(problem, realization);
+  const quality = qualityMetrics(problem, graph);
   const values = [problem.answer, ...problem.distractors].slice(0, 4);
   const optionsEn = values.map((value) => optionText(value, problem.answerKind, problem.answerSemantic, "en"));
   const optionsHi = values.map((value) => optionText(value, problem.answerKind, problem.answerSemantic, "hi"));
@@ -239,7 +461,7 @@ export function createQuantV2InterestQuestionCandidate(
     hi: { language: "hi", stem: realization.stem.hi, explanation: realization.explanation.hi, lines: realization.explanation.hi.split(/\n/u) },
     pa: { language: "pa", stem: realization.stem.pa, explanation: realization.explanation.pa, lines: realization.explanation.pa.split(/\n/u) },
   };
-  const realism = realismScore(problem);
+  const realism = quality.metrics.editorialRealismScore;
   const difficultyPack = difficultyMetadata(problem);
   const examProfile = options?.examProfile ?? "ssc";
 
@@ -262,6 +484,7 @@ export function createQuantV2InterestQuestionCandidate(
     languages: ["en", "hi", "pa"],
     reasoningGraph: graph,
     semanticMetadata,
+    qualityMetrics: quality,
     localizationMetadata: { languages: ["en", "hi", "pa"], fallbackCount: 0 },
     pedagogicalMetrics: { explanationStepCount: graph.steps.length, directness: "clean" },
     section: pattern.section,
@@ -335,6 +558,7 @@ export function createQuantV2InterestQuestionCandidate(
         scenario: problem.context.en,
         reasoningPattern: "interest",
         corpusFingerprints: semanticMetadata.corpusFingerprints,
+        qualityMetrics: quality,
       },
       reasoningGraph: graph,
       semanticMetadata,

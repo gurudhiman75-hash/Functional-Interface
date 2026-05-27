@@ -110,6 +110,59 @@ export interface CanonicalPercentageProblem {
   traps: Trap[];
   difficulty: Difficulty;
   topology?: import("../reasoning/topology-types").TopologyMetadata;
+  visual?: PercentageVisualPayload;
+}
+
+export type PercentageVisualPayload = PercentageVennVisualPayload;
+
+export interface PercentageVennVisualPayload {
+  type: "venn";
+  sets: [
+    {
+      id: "A";
+      label: string;
+      value: number;
+    },
+    {
+      id: "B";
+      label: string;
+      value: number;
+    },
+  ];
+  intersection: number;
+  universe: number;
+  outside: number;
+  unit: "%";
+  regions: {
+    onlyA: number;
+    onlyB: number;
+    both: number;
+    neither: number;
+  };
+  labels: {
+    en: {
+      onlyA: string;
+      onlyB: string;
+      both: string;
+      neither: string;
+      universe: string;
+    };
+    hi: {
+      onlyA: string;
+      onlyB: string;
+      both: string;
+      neither: string;
+      universe: string;
+    };
+    pa: {
+      onlyA: string;
+      onlyB: string;
+      both: string;
+      neither: string;
+      universe: string;
+    };
+  };
+  svg?: string;
 }
 
 export const PERCENTAGE_CATEGORIES: readonly PercentageCategory[] = [

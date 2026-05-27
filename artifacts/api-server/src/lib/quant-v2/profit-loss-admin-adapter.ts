@@ -5,6 +5,7 @@ import type {
   GeneratorOptions,
   Pattern,
 } from "../core/generator-engine";
+import { randomUUID } from "node:crypto";
 import {
   PROFIT_LOSS_FAMILY_IDS,
   PROFIT_LOSS_MOTIF_FACTORIES,
@@ -49,6 +50,14 @@ function percent(value: number) {
   return `${amount(value)}%`;
 }
 
+function isCleanDisplayNumber(value: number) {
+  const rounded = round2(value);
+  if (Number.isInteger(rounded)) return true;
+  if (Number.isInteger(round2(rounded * 10))) return true;
+  const decimal = Math.abs(rounded % 1);
+  return [0.25, 0.5, 0.75].some((allowed) => Math.abs(decimal - allowed) < 0.001);
+}
+
 function answerText(problem: CanonicalProfitLossProblem) {
   if (problem.answerSemantic === "ratio") return amount(problem.answer);
   if (problem.answerKind === "amount") return money(problem.answer);
@@ -59,105 +68,79 @@ function answerText(problem: CanonicalProfitLossProblem) {
   return percent(problem.answer);
 }
 
-function lowerFirst(value: string) {
-  if (/^(?:CP|SP|MP)\b/u.test(value)) return value;
-  return value.length ? `${value[0]!.toLocaleLowerCase("en-US")}${value.slice(1)}` : value;
-}
+const EASY_PROFIT_LOSS_FAMILIES = new Set<ProfitLossFamilyId>([
+  "pl_cp_sp_percent",
+  "pl_cp_percent_to_sp",
+  "pl_sp_percent_to_cp",
+  "pl_mp_discount_to_sp",
+  "pl_mp_sp_discount_percent",
+  "pl_no_profit_no_loss",
+  "pl_buy_get_free_discount",
+]);
 
-function phraseIndex(seed: string, length: number) {
-  return hashText(seed) % Math.max(1, length);
+const HARD_PROFIT_LOSS_FAMILIES = new Set<ProfitLossFamilyId>([
+  "pl_sequential_supply_chain",
+  "pl_supply_chain_mixed_profit_loss",
+  "pl_compound_error_baseline_shift",
+  "pl_dishonest_dealer_weight_fraud",
+  "pl_dishonest_dealer_dual_fraud",
+  "pl_dishonest_dealer_absolute_hybrid",
+  "pl_manufacturing_breakdown",
+  "pl_multi_condition_inverse_absolute",
+]);
+
+function calibratedDifficulty(family: ProfitLossFamilyId): Lowercase<DifficultyLabel> {
+  if (EASY_PROFIT_LOSS_FAMILIES.has(family)) return "easy";
+  if (HARD_PROFIT_LOSS_FAMILIES.has(family)) return "hard";
+  return "medium";
 }
 
 function rotateStem(stem: ProfitLossRealization["stem"], problem: CanonicalProfitLossProblem) {
-  const banks: Partial<Record<ProfitLossFamilyId, Array<[string, string, string]>>> = {
-    pl_cp_sp_percent: [
-      ["", "", ""],
-      ["In a shop sale, ", "एक दुकान की बिक्री में, ", "ਇੱਕ ਦੁਕਾਨੀ ਵਿਕਰੀ ਵਿੱਚ, "],
-      ["During a market transaction, ", "एक बाजार लेन-देन में, ", "ਇੱਕ ਬਾਜ਼ਾਰ ਲੈਣ-ਦੇਣ ਵਿੱਚ, "],
-      ["For a retail item, ", "एक खुदरा वस्तु के लिए, ", "ਇੱਕ ਖੁਦਰਾ ਵਸਤੂ ਲਈ, "],
-    ],
-    pl_cp_percent_to_sp: [
-      ["", "", ""],
-      ["In a retail sale, ", "एक खुदरा बिक्री में, ", "ਇੱਕ ਖੁਦਰਾ ਵਿਕਰੀ ਵਿੱਚ, "],
-      ["For a shopkeeper's pricing, ", "दुकानदार की कीमत निर्धारण में, ", "ਦੁਕਾਨਦਾਰ ਦੀ ਕੀਮਤ ਨਿਰਧਾਰਣ ਵਿੱਚ, "],
-      ["During a regular sale, ", "एक सामान्य बिक्री में, ", "ਇੱਕ ਆਮ ਵਿਕਰੀ ਵਿੱਚ, "],
-    ],
-    pl_sp_percent_to_cp: [
-      ["", "", ""],
-      ["Working backward from the sale, ", "बिक्री से उल्टा निकालते हुए, ", "ਵਿਕਰੀ ਤੋਂ ਉਲਟ ਕੱਢਦੇ ਹੋਏ, "],
-      ["A seller reports the sale price, ", "विक्रेता विक्रय मूल्य बताता है, ", "ਵਿਕਰੇਤਾ ਵਿਕਰੀ ਮੁੱਲ ਦੱਸਦਾ ਹੈ, "],
-      ["In a reverse cost calculation, ", "एक उल्टी लागत गणना में, ", "ਇੱਕ ਉਲਟੀ ਲਾਗਤ ਗਿਣਤੀ ਵਿੱਚ, "],
-    ],
-    pl_mp_discount_to_sp: [
-      ["", "", ""],
-      ["During a discount offer, ", "एक छूट प्रस्ताव में, ", "ਇੱਕ ਛੂਟ ਪੇਸ਼ਕਸ਼ ਵਿੱਚ, "],
-      ["In a marked-price sale, ", "एक अंकित-मूल्य बिक्री में, ", "ਇੱਕ ਅੰਕਿਤ-ਮੁੱਲ ਵਿਕਰੀ ਵਿੱਚ, "],
-      ["For a store discount, ", "एक दुकान की छूट में, ", "ਇੱਕ ਦੁਕਾਨੀ ਛੂਟ ਵਿੱਚ, "],
-    ],
-    pl_mp_sp_discount_percent: [
-      ["", "", ""],
-      ["In a discount calculation, ", "एक छूट गणना में, ", "ਇੱਕ ਛੂਟ ਗਿਣਤੀ ਵਿੱਚ, "],
-      ["For the listed price and sale price, ", "अंकित मूल्य और विक्रय मूल्य के लिए, ", "ਅੰਕਿਤ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਲਈ, "],
-      ["During a clearance sale, ", "एक क्लियरेंस बिक्री में, ", "ਇੱਕ ਕਲੀਅਰੈਂਸ ਵਿਕਰੀ ਵਿੱਚ, "],
-    ],
-    pl_cp_mp_discount_to_percent: [
-      ["", "", ""],
-      ["After markup and discount, ", "बढ़े हुए अंकित मूल्य और छूट के बाद, ", "ਵਧੇ ਹੋਏ ਅੰਕਿਤ ਮੁੱਲ ਅਤੇ ਛੂਟ ਤੋਂ ਬਾਅਦ, "],
-      ["In a markup-discount sale, ", "एक मार्कअप-छूट बिक्री में, ", "ਇੱਕ ਮਾਰਕਅੱਪ-ਛੂਟ ਵਿਕਰੀ ਵਿੱਚ, "],
-      ["For the final shop sale, ", "अंतिम दुकान बिक्री के लिए, ", "ਅੰਤਿਮ ਦੁਕਾਨੀ ਵਿਕਰੀ ਲਈ, "],
-    ],
-    pl_successive_discounts: [
-      ["", "", ""],
-      ["During a two-discount offer, ", "दो छूटों वाले प्रस्ताव में, ", "ਦੋ ਛੂਟਾਂ ਵਾਲੀ ਪੇਸ਼ਕਸ਼ ਵਿੱਚ, "],
-      ["In a successive-discount sale, ", "एक क्रमिक-छूट बिक्री में, ", "ਇੱਕ ਲਗਾਤਾਰ-ਛੂਟ ਵਿਕਰੀ ਵਿੱਚ, "],
-      ["For a festival discount, ", "एक त्योहार छूट में, ", "ਇੱਕ ਤਿਉਹਾਰ ਛੂਟ ਵਿੱਚ, "],
-    ],
-    pl_mp_for_target_profit: [
-      ["", "", ""],
-      ["To set a profitable tag price, ", "लाभ वाला टैग मूल्य रखने के लिए, ", "ਲਾਭ ਵਾਲੀ ਟੈਗ ਕੀਮਤ ਰੱਖਣ ਲਈ, "],
-      ["For the planned discount sale, ", "योजित छूट बिक्री के लिए, ", "ਯੋਜਿਤ ਛੂਟ ਵਿਕਰੀ ਲਈ, "],
-      ["In a target-profit pricing case, ", "लक्षित-लाभ मूल्य निर्धारण में, ", "ਲਕਸ਼ਿਤ-ਲਾਭ ਕੀਮਤ ਨਿਰਧਾਰਣ ਵਿੱਚ, "],
-    ],
-    pl_equal_sp_profit_loss: [
-      ["", "", ""],
-      ["In an equal selling-price case, ", "समान विक्रय मूल्य वाले प्रश्न में, ", "ਇੱਕੋ ਵਿਕਰੀ ਮੁੱਲ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਵਿੱਚ, "],
-      ["For two items sold at the same price, ", "समान मूल्य पर बेची गई दो वस्तुओं के लिए, ", "ਇੱਕੋ ਕੀਮਤ ਤੇ ਵੇਚੀਆਂ ਦੋ ਵਸਤੂਆਂ ਲਈ, "],
-      ["In a paired article sale, ", "दो वस्तुओं की जोड़ी वाली बिक्री में, ", "ਦੋ ਵਸਤੂਆਂ ਦੀ ਜੋੜੀ ਵਾਲੀ ਵਿਕਰੀ ਵਿੱਚ, "],
-    ],
-    pl_two_article_overall: [
-      ["", "", ""],
-      ["For two article sales together, ", "दो वस्तुओं की कुल बिक्री में, ", "ਦੋ ਵਸਤੂਆਂ ਦੀ ਕੁੱਲ ਵਿਕਰੀ ਵਿੱਚ, "],
-      ["Considering both sales together, ", "दोनों बिक्री को साथ लेकर, ", "ਦੋਵੇਂ ਵਿਕਰੀਆਂ ਨੂੰ ਇਕੱਠੇ ਲੈ ਕੇ, "],
-      ["In a combined profit-loss case, ", "एक संयुक्त लाभ-हानि प्रश्न में, ", "ਇੱਕ ਸੰਯੁਕਤ ਲਾਭ-ਨੁਕਸਾਨ ਪ੍ਰਸ਼ਨ ਵਿੱਚ, "],
-    ],
-  };
-  const sharedVariants: Array<[string, string, string]> = [
-    ["At a neighborhood store, ", "पास की दुकान में, ", "ਨੇੜਲੀ ਦੁਕਾਨ ਵਿੱਚ, "],
-    ["A shopkeeper lists the item: ", "दुकानदार वस्तु का विवरण देता है: ", "ਦੁਕਾਨਦਾਰ ਵਸਤੂ ਦਾ ਵੇਰਵਾ ਦਿੰਦਾ ਹੈ: "],
-    ["A trader buys goods and records that ", "एक व्यापारी माल खरीदकर लिखता है कि ", "ਇੱਕ ਵਪਾਰੀ ਸਮਾਨ ਖਰੀਦ ਕੇ ਲਿਖਦਾ ਹੈ ਕਿ "],
-    ["During a festive sale, ", "त्योहारी बिक्री के दौरान, ", "ਤਿਉਹਾਰੀ ਵਿਕਰੀ ਦੌਰਾਨ, "],
-    ["A retailer offers this deal: ", "एक खुदरा विक्रेता यह सौदा देता है: ", "ਇੱਕ ਖੁਦਰਾ ਵਿਕਰੇਤਾ ਇਹ ਸੌਦਾ ਦਿੰਦਾ ਹੈ: "],
-    ["A dealer marks the goods and notes that ", "एक डीलर माल अंकित करके लिखता है कि ", "ਇੱਕ ਡੀਲਰ ਸਮਾਨ ਅੰਕਿਤ ਕਰ ਕੇ ਲਿਖਦਾ ਹੈ ਕਿ "],
-    ["A customer is billed as follows: ", "ग्राहक को इस प्रकार बिल किया गया: ", "ਗਾਹਕ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਬਿੱਲ ਕੀਤਾ ਗਿਆ: "],
-    ["A wholesaler sells onward and records that ", "एक थोक विक्रेता आगे बेचकर लिखता है कि ", "ਇੱਕ ਥੋਕ ਵਿਕਰੇਤਾ ਅੱਗੇ ਵੇਚ ਕੇ ਲਿਖਦਾ ਹੈ ਕਿ "],
-    ["A seller gives the following price details: ", "विक्रेता निम्न मूल्य विवरण देता है: ", "ਵਿਕਰੇਤਾ ਹੇਠਲੇ ਕੀਮਤ ਵੇਰਵੇ ਦਿੰਦਾ ਹੈ: "],
-    ["A store runs an offer where ", "एक दुकान ऐसा प्रस्ताव चलाती है जिसमें ", "ਇੱਕ ਸਟੋਰ ਐਸੀ ਪੇਸ਼ਕਸ਼ ਚਲਾਉਂਦਾ ਹੈ ਜਿਸ ਵਿੱਚ "],
-  ];
-  const variants = [...(banks[problem.family] ?? []), ...sharedVariants];
-  const variant = variants[phraseIndex(`${problem.id}:stem`, variants.length)]!;
-  if (!variant[0] && !variant[1] && !variant[2]) return stem;
+  const article = /^[aeiou]/iu.test(problem.object.en) ? "An" : "A";
+  const markedPattern = new RegExp(`^The marked price of a ${problem.object.en.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")} is (₹[\\d.]+)`, "u");
+  const listedPattern = new RegExp(`^The listed price of a ${problem.object.en.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")} is (₹[\\d.]+)`, "u");
   return {
-    en: `${variant[0]}${lowerFirst(stem.en)}`,
-    hi: `${variant[1]}${stem.hi}`,
-    pa: `${variant[2]}${stem.pa}`,
+    ...stem,
+    en: stem.en
+      .replace(markedPattern, `${article} ${problem.object.en} is marked at $1`)
+      .replace(listedPattern, `${article} ${problem.object.en} is listed at $1`),
   };
 }
 
 function localizedOptions(problem: CanonicalProfitLossProblem, language: "en" | "hi" | "pa") {
-  const displayedDistractors = calibrateDisplayedDistractors({
+  let displayedDistractors = calibrateDisplayedDistractors({
     answer: problem.answer,
     distractors: problem.distractors,
   });
+  if (problem.answerKind === "amount" && problem.answer > 0) {
+    displayedDistractors = displayedDistractors.filter((value) =>
+      value >= problem.answer * 0.35 &&
+      value <= problem.answer * 2.25 &&
+      isCleanDisplayNumber(value),
+    );
+    const fallbackValues = [
+      ...[0.8, 1.2, 0.9, 1.1, 0.75, 1.25].map((ratio) => problem.answer * ratio),
+      problem.answer + 100,
+      problem.answer - 100,
+      problem.answer + 200,
+      problem.answer - 200,
+      problem.answer + 500,
+      problem.answer - 500,
+    ];
+    for (const candidate of fallbackValues) {
+      const value = round2(candidate);
+      if (
+        displayedDistractors.length >= 3 ||
+        value <= 0 ||
+        !isCleanDisplayNumber(value) ||
+        Math.abs(value - problem.answer) <= 0.01 ||
+        displayedDistractors.some((item) => Math.abs(item - value) <= 0.01)
+      ) {
+        continue;
+      }
+      displayedDistractors.push(value);
+    }
+  }
   const optionValues = [
     problem.answer,
     ...displayedDistractors,
@@ -182,15 +165,21 @@ function localizedOptions(problem: CanonicalProfitLossProblem, language: "en" | 
     }
     return "";
   };
-  return optionValues.map((value, index) =>
-    problem.answerSemantic === "ratio"
-      ? amount(value)
-      : problem.answerKind === "amount"
-      ? money(value)
-      : index === 0 && problem.answerSemantic === "no_profit_no_loss"
-        ? localizedNoProfitLoss()
-      : `${percent(value)}${index === 0 ? suffix(problem.answerSemantic) : ""}`,
-  );
+  const percentOption = (value: number, index: number) => {
+    if (index === 0 && problem.answerSemantic === "no_profit_no_loss") {
+      return localizedNoProfitLoss();
+    }
+    if (problem.answerSemantic === "no_profit_no_loss") {
+      const semantic = index % 2 === 0 ? "loss_percent" : "profit_percent";
+      return `${percent(value)}${suffix(semantic)}`;
+    }
+    return `${percent(value)}${suffix(problem.answerSemantic)}`;
+  };
+  return optionValues.map((value, index) => {
+    if (problem.answerSemantic === "ratio") return amount(value);
+    if (problem.answerKind === "amount") return money(value);
+    return percentOption(value, index);
+  });
 }
 
 function stepLines(steps: ProfitLossStep[], language: "en" | "hi" | "pa") {
@@ -485,9 +474,9 @@ function buildRealization(problem: CanonicalProfitLossProblem): ProfitLossRealiz
         },
         {
           key: "overall",
-          en: "Overall percentage",
-          hi: "कुल प्रतिशत",
-          pa: "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ",
+          en: totalSp >= totalCp ? "Profit percentage on total CP" : "Loss percentage on total CP",
+          hi: totalSp >= totalCp ? "कुल क्रय मूल्य पर लाभ प्रतिशत" : "कुल क्रय मूल्य पर हानि प्रतिशत",
+          pa: totalSp >= totalCp ? "ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ" : "ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ",
           expression: `${amount(diff)} x 100 / ${amount(totalCp)}`,
           value: problem.answer,
         },
@@ -522,9 +511,9 @@ function buildRealization(problem: CanonicalProfitLossProblem): ProfitLossRealiz
         },
         {
           key: "overall",
-          en: "Overall percentage",
-          hi: "कुल प्रतिशत",
-          pa: "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ",
+          en: totalSp >= totalCp ? "Profit percentage on total CP" : "Loss percentage on total CP",
+          hi: totalSp >= totalCp ? "कुल क्रय मूल्य पर लाभ प्रतिशत" : "कुल क्रय मूल्य पर हानि प्रतिशत",
+          pa: totalSp >= totalCp ? "ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ" : "ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ",
           expression: `${amount(diff)} x 100 / ${amount(totalCp)}`,
           value: problem.answer,
         },
@@ -612,7 +601,10 @@ function finalAnswerLine(problem: CanonicalProfitLossProblem, language: "en" | "
 function familyFromOptions(options?: GeneratorOptions): ProfitLossFamilyId {
   const forced = options?.forcedMotifId as ProfitLossFamilyId | undefined;
   if (forced && PROFIT_LOSS_FAMILY_IDS.includes(forced)) return forced;
-  const seed = options?.seed ?? "profit-loss";
+  const seed =
+    options?.seed ??
+    options?.generationContext?.seed ??
+    `profit-loss:${randomUUID()}`;
   return PROFIT_LOSS_FAMILY_IDS[Math.abs(hashText(seed)) % PROFIT_LOSS_FAMILY_IDS.length]!;
 }
 
@@ -651,12 +643,27 @@ function buildSvg(problem: CanonicalProfitLossProblem) {
 }
 
 function quality(problem: CanonicalProfitLossProblem, graph: ReturnType<typeof buildReasoningGraph>) {
-  const realism = problem.difficulty === "hard" ? 88 : problem.difficulty === "medium" ? 84 : 80;
+  const base = problem.difficulty === "hard" ? 88 : problem.difficulty === "medium" ? 82 : 71;
+  const complexityBonus = Math.min(4, Math.max(0, graph.steps.length - 2) * 2);
+  const cleanNumberBonus = Object.values(problem.variables).every((value) =>
+    typeof value !== "number" || Number.isInteger(value) || [0.25, 0.33, 0.5, 0.67, 0.75].some((ending) =>
+      Math.abs(Math.abs(value % 1) - ending) < 0.01,
+    )
+  )
+    ? 2
+    : -3;
+  const contextBonus = /gst|cashback|coupon|commission|repair|overhead|dishonest|supply|manufacturing|inventory/u.test(problem.family)
+    ? 3
+    : 0;
+  const directPenalty = EASY_PROFIT_LOSS_FAMILIES.has(problem.family) ? -1 : 0;
+  const deterministicSpread = (hashText(`${problem.id}:realism`) % 7) - 3;
+  const raw = base + complexityBonus + cleanNumberBonus + contextBonus + directPenalty + deterministicSpread;
+  const realism = Math.max(65, Math.min(94, raw));
   return {
     tier: "A",
     metrics: {
       editorialRealismScore: realism,
-      overallQualityScore: 86,
+      overallQualityScore: Math.min(90, realism + 4),
       topologyComplexityScore: graph.steps.length * 18,
       multilingualCoverageScore: 100,
     },
@@ -716,12 +723,19 @@ export function createQuantV2ProfitLossQuestionCandidate(
 ): FormulaQuestion {
   const family = familyFromOptions(options);
   const difficulty = requestedDifficulty(pattern, options);
-  const seed = options?.seed ?? `${pattern.id}:${family}`;
-  const problem = PROFIT_LOSS_MOTIF_FACTORIES[family]({
+  const seed =
+    options?.seed ??
+    options?.generationContext?.seed ??
+    `${pattern.id}:${family}:${randomUUID()}`;
+  const requestedProblem = PROFIT_LOSS_MOTIF_FACTORIES[family]({
     seed,
     difficulty,
     family,
   });
+  const problem: CanonicalProfitLossProblem = {
+    ...requestedProblem,
+    difficulty: calibratedDifficulty(family),
+  };
   const realization = buildRealization(problem);
   const graph = buildReasoningGraph(problem, realization);
   const svgRendering = buildSvg(problem);

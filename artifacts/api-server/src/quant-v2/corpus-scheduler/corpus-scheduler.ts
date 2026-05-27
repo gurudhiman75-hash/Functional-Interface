@@ -2,6 +2,7 @@ import type {
   FormulaQuestion,
   GeneratorOptions,
 } from "../../lib/core/generator-engine";
+import { TIME_WORK_FAMILY_IDS } from "../canonical/time-work-motif-factories";
 
 export type CorpusSchedulerProfileId =
   | "balanced_mock"
@@ -13,14 +14,31 @@ export type CorpusSchedulerProfileId =
   | "pyq_hard"
   | "pyq_plus"
   | "ssc_mock_pyq"
+  | "profit_loss_balanced"
+  | "profit_loss_discount"
+  | "profit_loss_hard"
+  | "profit_loss_pyq_plus"
   | "interest_balanced"
   | "interest_pyq"
   | "interest_hard"
   | "interest_pyq_plus"
+  | "ratio_basic"
+  | "ratio_balanced"
+  | "ratio_hard"
+  | "ratio_pyq_plus"
+  | "ratio_review_100"
+  | "ratio_production_60"
+  | "time_work_basic"
+  | "time_work_balanced"
+  | "time_work_hard"
+  | "time_work_pyq_plus"
+  | "time_work_review_100"
+  | "time_work_production_60"
   | "advanced_coverage_audit";
 
 export type CorpusSchedulerProfile = {
   id: CorpusSchedulerProfileId;
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work";
   label: string;
   description: string;
   maxShare: {
@@ -546,7 +564,168 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
     maxAttemptsPerSlot: 10,
   },
   {
+    id: "profit_loss_balanced",
+    topicId: "profit_loss",
+    label: "Profit/Loss Balanced",
+    description: "Balanced Profit, Loss & Discount V2 rotation across direct, discount, promotion, and inverse families.",
+    maxShare: {
+      simpleTemplate: 0.18,
+      singleTopologyFamily: 0.1,
+      singleExaminerIntent: 0.14,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.1,
+      relational: 0.08,
+      filtered: 0.08,
+      hybrid: 0.2,
+      multiStep: 0.25,
+    },
+    difficultyTarget: {
+      easy: 0.3,
+      medium: 0.48,
+      hard: 0.22,
+    },
+    preferredMotifRotation: [
+      "pl_cp_sp_percent",
+      "pl_cp_percent_to_sp",
+      "pl_sp_percent_to_cp",
+      "pl_mp_discount_to_sp",
+      "pl_mp_sp_discount_percent",
+      "pl_successive_discounts",
+      "pl_mp_for_target_profit",
+      "pl_equal_sp_profit_loss",
+      "pl_two_article_overall",
+      "pl_repair_overhead_cost",
+      "pl_cashback_coupon_discount",
+      "pl_gst_after_discount",
+    ],
+    maxAttemptsPerSlot: 10,
+  },
+  {
+    id: "profit_loss_discount",
+    topicId: "profit_loss",
+    label: "Profit/Loss Discount",
+    description: "Marked-price and discount-heavy Profit/Loss V2 scheduler profile.",
+    maxShare: {
+      simpleTemplate: 0.14,
+      singleTopologyFamily: 0.12,
+      singleExaminerIntent: 0.14,
+      singleSemanticAnchor: 0.12,
+      singleDistractorTrap: 0.28,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.08,
+      hybrid: 0.24,
+      multiStep: 0.28,
+    },
+    difficultyTarget: {
+      easy: 0.24,
+      medium: 0.52,
+      hard: 0.24,
+    },
+    preferredMotifRotation: [
+      "pl_mp_discount_to_sp",
+      "pl_mp_sp_discount_percent",
+      "pl_cp_mp_discount_to_percent",
+      "pl_successive_discounts",
+      "pl_mp_for_target_profit",
+      "pl_markup_discount_triangle",
+      "pl_target_profit_discount_calibration",
+      "pl_successive_discount_equivalent",
+      "pl_cashback_coupon_discount",
+      "pl_gst_after_discount",
+      "pl_tax_inclusive_back_calc",
+    ],
+    maxAttemptsPerSlot: 10,
+  },
+  {
+    id: "profit_loss_hard",
+    topicId: "profit_loss",
+    label: "Profit/Loss Hard",
+    description: "Hard Profit/Loss V2 scheduler profile for fraud, inverse, inventory, and overhead traps.",
+    maxShare: {
+      simpleTemplate: 0.1,
+      singleTopologyFamily: 0.09,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.12,
+      singleDistractorTrap: 0.25,
+      hardStreak: 4,
+    },
+    minShare: {
+      reverseLogic: 0.14,
+      relational: 0.08,
+      filtered: 0.08,
+      hybrid: 0.26,
+      multiStep: 0.34,
+    },
+    difficultyTarget: {
+      easy: 0.12,
+      medium: 0.46,
+      hard: 0.42,
+    },
+    preferredMotifRotation: [
+      "pl_dishonest_dealer_weight_fraud",
+      "pl_dishonest_dealer_dual_fraud",
+      "pl_multi_condition_inverse_absolute",
+      "pl_partial_inventory_allocation",
+      "pl_sequential_supply_chain",
+      "pl_supply_chain_mixed_profit_loss",
+      "pl_compound_error_baseline_shift",
+      "pl_manufacturing_breakdown",
+      "pl_inverse_cp_from_mp_discount_profit",
+      "pl_inverse_discount_from_cp_mp_profit",
+      "pl_profit_after_commission_tax",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "profit_loss_pyq_plus",
+    topicId: "profit_loss",
+    label: "Profit/Loss PYQ+",
+    description: "Advanced PYQ+ Profit/Loss V2 profile with controlled trap density and higher ceiling.",
+    maxShare: {
+      simpleTemplate: 0.08,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.11,
+      singleSemanticAnchor: 0.12,
+      singleDistractorTrap: 0.24,
+      hardStreak: 5,
+    },
+    minShare: {
+      reverseLogic: 0.16,
+      relational: 0.08,
+      filtered: 0.08,
+      hybrid: 0.28,
+      multiStep: 0.38,
+    },
+    difficultyTarget: {
+      easy: 0.08,
+      medium: 0.42,
+      hard: 0.5,
+    },
+    preferredMotifRotation: [
+      "pl_dishonest_dealer_dual_fraud",
+      "pl_multi_condition_inverse_absolute",
+      "pl_manufacturing_breakdown",
+      "pl_compound_error_baseline_shift",
+      "pl_partial_inventory_allocation",
+      "pl_supply_chain_mixed_profit_loss",
+      "pl_inverse_markup_from_cp_discount_profit",
+      "pl_loss_recovery_cp_from_difference",
+      "pl_required_sp_after_loss",
+      "pl_hybrid_promotion_scaling",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
     id: "interest_balanced",
+    topicId: "interest",
     label: "Interest Balanced",
     description: "Balanced SI/CI, repayment, growth, and discount-bill Interest V2 rotation.",
     maxShare: {
@@ -585,6 +764,7 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
   },
   {
     id: "interest_pyq",
+    topicId: "interest",
     label: "Interest PYQ",
     description: "SSC/IBPS style Interest V2 profile with medium-plus reasoning and clean traps.",
     maxShare: {
@@ -623,6 +803,7 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
   },
   {
     id: "interest_hard",
+    topicId: "interest",
     label: "Interest Hard",
     description: "Hard Interest V2 rotation emphasizing inverse, repayment, banker discount, and split-investment traps.",
     maxShare: {
@@ -659,6 +840,7 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
   },
   {
     id: "interest_pyq_plus",
+    topicId: "interest",
     label: "Interest PYQ+",
     description: "Advanced PYQ+ Interest V2 profile with elite hybrids and inverse conditions.",
     maxShare: {
@@ -691,6 +873,589 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
       "int_bd_td_difference",
       "int_weighted_interest_income",
     ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "ratio_basic",
+    topicId: "ratio_proportion",
+    label: "Ratio Basic",
+    description: "Direct Ratio, Proportion & Variation V2 fundamentals with light transformation coverage.",
+    maxShare: {
+      simpleTemplate: 0.36,
+      singleTopologyFamily: 0.12,
+      singleExaminerIntent: 0.14,
+      singleSemanticAnchor: 0.16,
+      singleDistractorTrap: 0.28,
+      hardStreak: 2,
+    },
+    minShare: {
+      reverseLogic: 0.08,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.18,
+      multiStep: 0.16,
+    },
+    difficultyTarget: {
+      easy: 0.42,
+      medium: 0.46,
+      hard: 0.12,
+    },
+    preferredMotifRotation: [
+      "rp_direct_sharing",
+      "rp_sum_based_ratio_recovery",
+      "rp_missing_term_proportion",
+      "rp_ratio_to_fraction",
+      "rp_fraction_to_ratio",
+      "rp_equivalent_ratio_generation",
+      "rp_ratio_to_percentage",
+      "rp_percentage_to_ratio",
+      "rp_partial_value_ratio_recovery",
+      "rp_difference_based_ratio_recovery",
+      "rp_ratio_after_increase",
+      "rp_ratio_after_decrease",
+      "rp_partnership_basic",
+      "rp_direct_variation_basic",
+    ],
+    maxAttemptsPerSlot: 10,
+  },
+  {
+    id: "ratio_balanced",
+    topicId: "ratio_proportion",
+    label: "Ratio Balanced",
+    description: "Balanced Ratio, Proportion & Variation V2 profile across core, ages, partnership, variation, scaling, and chain ratios.",
+    maxShare: {
+      simpleTemplate: 0.26,
+      singleTopologyFamily: 0.1,
+      singleExaminerIntent: 0.13,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.28,
+    },
+    difficultyTarget: {
+      easy: 0.24,
+      medium: 0.5,
+      hard: 0.26,
+    },
+    preferredMotifRotation: [
+      "rp_direct_sharing",
+      "rp_sum_based_ratio_recovery",
+      "rp_difference_based_ratio_recovery",
+      "rp_missing_term_proportion",
+      "rp_ratio_to_fraction",
+      "rp_fraction_to_ratio",
+      "rp_ratio_after_increase",
+      "rp_ratio_after_decrease",
+      "rp_age_future_ratio",
+      "rp_age_past_ratio",
+      "rp_partnership_basic",
+      "rp_partnership_time_variation",
+      "rp_direct_variation_basic",
+      "rp_inverse_variation_basic",
+      "rp_joint_variation",
+      "rp_combined_direct_inverse",
+      "rp_map_scale_ratio",
+      "rp_side_area_volume_ratio",
+      "rp_chain_ratio_network",
+      "rp_ratio_after_transfer",
+      "rp_equivalent_ratio_generation",
+      "rp_ratio_to_percentage",
+      "rp_percentage_to_ratio",
+      "rp_product_based_ratio_recovery",
+      "rp_partial_value_ratio_recovery",
+      "rp_ratio_after_exchange",
+      "rp_ratio_restoration",
+      "rp_reverse_ratio_scaling",
+      "rp_age_difference_constant",
+      "rp_age_multi_generation",
+      "rp_partnership_partial_exit",
+      "rp_partnership_profit_distribution",
+      "rp_population_gender_ratio",
+      "rp_voter_turnout_ratio",
+      "rp_marks_distribution_ratio",
+      "rp_recipe_scaling_ratio",
+      "rp_blueprint_scaling",
+      "rp_shadow_height_ratio",
+      "rp_similarity_scaling",
+      "rp_weighted_ratio_balancing",
+      "rp_multi_equation_ratio",
+      "rp_ratio_graph_deduction",
+      "rp_circular_ratio_dependency",
+      "rp_hidden_total_trap",
+      "rp_fractional_distribution_chain",
+      "rp_variable_power_variation",
+      "rp_workforce_inverse_variation",
+      "rp_speed_distance_inverse",
+      "rp_inventory_allocation",
+      "rp_liquid_replacement_ratio",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "ratio_hard",
+    topicId: "ratio_proportion",
+    label: "Ratio Hard",
+    description: "Hard Ratio, Proportion & Variation V2 profile with transfer equations, chained ratios, geometry powers, and combined variation.",
+    maxShare: {
+      simpleTemplate: 0.12,
+      singleTopologyFamily: 0.1,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.13,
+      singleDistractorTrap: 0.25,
+      hardStreak: 4,
+    },
+    minShare: {
+      reverseLogic: 0.14,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.22,
+      multiStep: 0.38,
+    },
+    difficultyTarget: {
+      easy: 0.1,
+      medium: 0.42,
+      hard: 0.48,
+    },
+    preferredMotifRotation: [
+      "rp_ratio_after_transfer",
+      "rp_chain_ratio_network",
+      "rp_combined_direct_inverse",
+      "rp_joint_variation",
+      "rp_side_area_volume_ratio",
+      "rp_age_future_ratio",
+      "rp_age_past_ratio",
+      "rp_partnership_time_variation",
+      "rp_inverse_variation_basic",
+      "rp_ratio_after_increase",
+      "rp_ratio_after_decrease",
+      "rp_ratio_after_exchange",
+      "rp_ratio_restoration",
+      "rp_partnership_partial_exit",
+      "rp_weighted_ratio_balancing",
+      "rp_product_based_ratio_recovery",
+      "rp_age_difference_constant",
+      "rp_age_multi_generation",
+      "rp_similarity_scaling",
+      "rp_multi_equation_ratio",
+      "rp_ratio_graph_deduction",
+      "rp_circular_ratio_dependency",
+      "rp_hidden_total_trap",
+      "rp_fractional_distribution_chain",
+      "rp_variable_power_variation",
+      "rp_workforce_inverse_variation",
+      "rp_speed_distance_inverse",
+      "rp_inventory_allocation",
+      "rp_liquid_replacement_ratio",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "ratio_pyq_plus",
+    topicId: "ratio_proportion",
+    label: "Ratio PYQ+",
+    description: "PYQ+ Ratio, Proportion & Variation V2 profile with controlled traps and higher-ceiling proportional reasoning.",
+    maxShare: {
+      simpleTemplate: 0.1,
+      singleTopologyFamily: 0.09,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.13,
+      singleDistractorTrap: 0.24,
+      hardStreak: 5,
+    },
+    minShare: {
+      reverseLogic: 0.16,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.22,
+      multiStep: 0.4,
+    },
+    difficultyTarget: {
+      easy: 0.08,
+      medium: 0.4,
+      hard: 0.52,
+    },
+    preferredMotifRotation: [
+      "rp_ratio_after_transfer",
+      "rp_chain_ratio_network",
+      "rp_combined_direct_inverse",
+      "rp_joint_variation",
+      "rp_side_area_volume_ratio",
+      "rp_partnership_time_variation",
+      "rp_age_future_ratio",
+      "rp_age_past_ratio",
+      "rp_inverse_variation_basic",
+      "rp_difference_based_ratio_recovery",
+      "rp_ratio_after_exchange",
+      "rp_ratio_restoration",
+      "rp_partnership_partial_exit",
+      "rp_weighted_ratio_balancing",
+      "rp_product_based_ratio_recovery",
+      "rp_reverse_ratio_scaling",
+      "rp_age_multi_generation",
+      "rp_similarity_scaling",
+      "rp_multi_equation_ratio",
+      "rp_ratio_graph_deduction",
+      "rp_circular_ratio_dependency",
+      "rp_hidden_total_trap",
+      "rp_fractional_distribution_chain",
+      "rp_variable_power_variation",
+      "rp_workforce_inverse_variation",
+      "rp_speed_distance_inverse",
+      "rp_inventory_allocation",
+      "rp_liquid_replacement_ratio",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "ratio_review_100",
+    topicId: "ratio_proportion",
+    label: "Ratio Review 100",
+    description: "100-question review profile that maximizes Phase A Ratio V2 motif coverage.",
+    maxShare: {
+      simpleTemplate: 0.28,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.3,
+    },
+    difficultyTarget: {
+      easy: 0.22,
+      medium: 0.5,
+      hard: 0.28,
+    },
+    preferredMotifRotation: [
+      "rp_direct_sharing",
+      "rp_sum_based_ratio_recovery",
+      "rp_difference_based_ratio_recovery",
+      "rp_missing_term_proportion",
+      "rp_ratio_to_fraction",
+      "rp_fraction_to_ratio",
+      "rp_ratio_after_increase",
+      "rp_ratio_after_decrease",
+      "rp_ratio_after_transfer",
+      "rp_age_future_ratio",
+      "rp_age_past_ratio",
+      "rp_partnership_basic",
+      "rp_partnership_time_variation",
+      "rp_direct_variation_basic",
+      "rp_inverse_variation_basic",
+      "rp_joint_variation",
+      "rp_combined_direct_inverse",
+      "rp_map_scale_ratio",
+      "rp_side_area_volume_ratio",
+      "rp_chain_ratio_network",
+      "rp_equivalent_ratio_generation",
+      "rp_ratio_to_percentage",
+      "rp_percentage_to_ratio",
+      "rp_product_based_ratio_recovery",
+      "rp_partial_value_ratio_recovery",
+      "rp_ratio_after_exchange",
+      "rp_ratio_restoration",
+      "rp_reverse_ratio_scaling",
+      "rp_age_difference_constant",
+      "rp_age_multi_generation",
+      "rp_partnership_partial_exit",
+      "rp_partnership_profit_distribution",
+      "rp_population_gender_ratio",
+      "rp_voter_turnout_ratio",
+      "rp_marks_distribution_ratio",
+      "rp_recipe_scaling_ratio",
+      "rp_blueprint_scaling",
+      "rp_shadow_height_ratio",
+      "rp_similarity_scaling",
+      "rp_weighted_ratio_balancing",
+      "rp_multi_equation_ratio",
+      "rp_ratio_graph_deduction",
+      "rp_circular_ratio_dependency",
+      "rp_hidden_total_trap",
+      "rp_fractional_distribution_chain",
+      "rp_variable_power_variation",
+      "rp_workforce_inverse_variation",
+      "rp_speed_distance_inverse",
+      "rp_inventory_allocation",
+      "rp_liquid_replacement_ratio",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "ratio_production_60",
+    topicId: "ratio_proportion",
+    label: "Ratio Production 60",
+    description: "Production-style 60Q Ratio V2 profile covering direct ratio, proportion, transformation, ages, partnership, variation, scaling, and chain ratios.",
+    maxShare: {
+      simpleTemplate: 0.3,
+      singleTopologyFamily: 0.1,
+      singleExaminerIntent: 0.13,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.28,
+    },
+    difficultyTarget: {
+      easy: 0.24,
+      medium: 0.5,
+      hard: 0.26,
+    },
+    preferredMotifRotation: [
+      "rp_direct_sharing",
+      "rp_sum_based_ratio_recovery",
+      "rp_difference_based_ratio_recovery",
+      "rp_missing_term_proportion",
+      "rp_ratio_after_increase",
+      "rp_ratio_after_decrease",
+      "rp_age_future_ratio",
+      "rp_age_past_ratio",
+      "rp_partnership_basic",
+      "rp_partnership_time_variation",
+      "rp_direct_variation_basic",
+      "rp_inverse_variation_basic",
+      "rp_joint_variation",
+      "rp_combined_direct_inverse",
+      "rp_map_scale_ratio",
+      "rp_side_area_volume_ratio",
+      "rp_chain_ratio_network",
+      "rp_ratio_after_transfer",
+      "rp_ratio_to_fraction",
+      "rp_fraction_to_ratio",
+      "rp_equivalent_ratio_generation",
+      "rp_ratio_to_percentage",
+      "rp_percentage_to_ratio",
+      "rp_product_based_ratio_recovery",
+      "rp_partial_value_ratio_recovery",
+      "rp_ratio_after_exchange",
+      "rp_ratio_restoration",
+      "rp_reverse_ratio_scaling",
+      "rp_age_difference_constant",
+      "rp_age_multi_generation",
+      "rp_partnership_partial_exit",
+      "rp_partnership_profit_distribution",
+      "rp_population_gender_ratio",
+      "rp_voter_turnout_ratio",
+      "rp_marks_distribution_ratio",
+      "rp_recipe_scaling_ratio",
+      "rp_blueprint_scaling",
+      "rp_shadow_height_ratio",
+      "rp_similarity_scaling",
+      "rp_weighted_ratio_balancing",
+      "rp_multi_equation_ratio",
+      "rp_ratio_graph_deduction",
+      "rp_circular_ratio_dependency",
+      "rp_hidden_total_trap",
+      "rp_fractional_distribution_chain",
+      "rp_variable_power_variation",
+      "rp_workforce_inverse_variation",
+      "rp_speed_distance_inverse",
+      "rp_inventory_allocation",
+      "rp_liquid_replacement_ratio",
+    ],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "time_work_basic",
+    topicId: "time_work",
+    label: "Time Work Basic",
+    description: "Core Time & Work V2 profile for combined work, residual work, efficiency, one-day work, and basic pipes/resources.",
+    maxShare: {
+      simpleTemplate: 0.38,
+      singleTopologyFamily: 0.1,
+      singleExaminerIntent: 0.14,
+      singleSemanticAnchor: 0.16,
+      singleDistractorTrap: 0.28,
+      hardStreak: 2,
+    },
+    minShare: {
+      reverseLogic: 0.08,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.18,
+      multiStep: 0.16,
+    },
+    difficultyTarget: {
+      easy: 0.42,
+      medium: 0.46,
+      hard: 0.12,
+    },
+    preferredMotifRotation: [
+      "tw_basic_combined_work",
+      "tw_basic_residual_work",
+      "tw_efficiency_ratio_scaling",
+      "tw_individual_from_combined",
+      "tw_work_fraction_days",
+      "tw_man_days_hours_basic",
+      "tw_work_done_ratio_from_times",
+      "tw_time_ratio_from_efficiency",
+      "tw_efficiency_from_wages",
+      "tw_one_day_work_fraction",
+      "tw_remaining_work_fraction",
+      "pc_basic_fill_empty",
+      "pc_tank_capacity_from_rate",
+      "tw_food_resource_basic",
+      "tw_typist_pages_per_hour",
+    ],
+    maxAttemptsPerSlot: 10,
+  },
+  {
+    id: "time_work_balanced",
+    topicId: "time_work",
+    label: "Time Work Balanced",
+    description: "Balanced Time & Work / Pipes & Cisterns V2 profile across all exposed rate-state families.",
+    maxShare: {
+      simpleTemplate: 0.26,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.3,
+    },
+    difficultyTarget: {
+      easy: 0.22,
+      medium: 0.5,
+      hard: 0.28,
+    },
+    preferredMotifRotation: [...TIME_WORK_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "time_work_hard",
+    topicId: "time_work",
+    label: "Time Work Hard",
+    description: "Hard Time & Work V2 profile emphasizing timelines, cycles, systems, pipes, and PYQ+ traps.",
+    maxShare: {
+      simpleTemplate: 0.14,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.13,
+      singleDistractorTrap: 0.24,
+      hardStreak: 4,
+    },
+    minShare: {
+      reverseLogic: 0.14,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.4,
+    },
+    difficultyTarget: {
+      easy: 0.08,
+      medium: 0.42,
+      hard: 0.5,
+    },
+    preferredMotifRotation: TIME_WORK_FAMILY_IDS.filter((family) =>
+      /leave|phase|cycle|equivalence|pairwise|wage|pipe|leak|resource|advanced|deadline|decay|schedule|negative|positive|hidden/u.test(family),
+    ),
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "time_work_pyq_plus",
+    topicId: "time_work",
+    label: "Time Work PYQ+",
+    description: "PYQ+ Time & Work V2 profile with controlled traps above standard SSC ceiling.",
+    maxShare: {
+      simpleTemplate: 0.1,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.13,
+      singleDistractorTrap: 0.24,
+      hardStreak: 5,
+    },
+    minShare: {
+      reverseLogic: 0.16,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.42,
+    },
+    difficultyTarget: {
+      easy: 0.06,
+      medium: 0.38,
+      hard: 0.56,
+    },
+    preferredMotifRotation: TIME_WORK_FAMILY_IDS.filter((family) =>
+      /multi|cycle|terminal|conditional|equivalence|pairwise|unknown|helper|contract|pipe|leak|overflow|resource|construction|negative|decay|schedule|deadline/u.test(family),
+    ),
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "time_work_review_100",
+    topicId: "time_work",
+    label: "Time Work Review 100",
+    description: "100-question review profile that maximizes Time & Work V2 motif coverage.",
+    maxShare: {
+      simpleTemplate: 0.24,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.32,
+    },
+    difficultyTarget: {
+      easy: 0.18,
+      medium: 0.5,
+      hard: 0.32,
+    },
+    preferredMotifRotation: [...TIME_WORK_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "time_work_production_60",
+    topicId: "time_work",
+    label: "Time Work Production 60",
+    description: "Production-style 60Q Time & Work V2 profile covering core work, timelines, cycles, wages, pipes, resources, and applied contexts.",
+    maxShare: {
+      simpleTemplate: 0.28,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.28,
+    },
+    difficultyTarget: {
+      easy: 0.22,
+      medium: 0.5,
+      hard: 0.28,
+    },
+    preferredMotifRotation: [...TIME_WORK_FAMILY_IDS],
     maxAttemptsPerSlot: 12,
   },
   {
@@ -845,6 +1610,41 @@ function topologyGroup(problem: any, graph: any, topology: string) {
     }
     if (/ci_|compound|growth|depreciation|half|quarter|month|frequency|nominal|successive/u.test(variant)) {
       return "hybrid";
+    }
+    return "simple_template";
+  }
+  if (problem?.category === "ratio_proportion") {
+    const variant = String(problem?.topology?.variant ?? problem?.subtype ?? topology);
+    if (/hidden_total|fractional_distribution|inventory|liquid_replacement/u.test(variant)) {
+      return "filtered";
+    }
+    if (/multi_equation|graph|circular|variable_power|workforce|speed_distance/u.test(variant)) {
+      return "multi_step";
+    }
+    if (/difference|missing_term|fraction_to_ratio|age|transfer/u.test(variant)) {
+      return "reverse_logic";
+    }
+    if (/chain|joint_variation|combined_direct_inverse|partnership_time|side_area_volume/u.test(variant)) {
+      return "multi_step";
+    }
+    if (/increase|decrease|variation|map_scale|partnership/u.test(variant)) {
+      return "hybrid";
+    }
+    return "simple_template";
+  }
+  if (problem?.category === "time_work") {
+    const variant = String(problem?.topology?.variant ?? problem?.subtype ?? topology);
+    if (/food|resource|partial|remaining|hidden|overflow/u.test(variant)) {
+      return "filtered";
+    }
+    if (/cycle|phase|leave|join|replacement|pairwise|unknown|deadline|schedule|decay|multi/u.test(variant)) {
+      return "multi_step";
+    }
+    if (/efficiency|equivalence|ratio|wage|pipe|leak|capacity|machine|construction|painting/u.test(variant)) {
+      return "hybrid";
+    }
+    if (/individual|fraction|one_day|remaining|resource/u.test(variant)) {
+      return "reverse_logic";
     }
     return "simple_template";
   }
@@ -1057,6 +1857,14 @@ function familyKey(problem: any, topology: string) {
   const variant = String(problem?.topology?.variant ?? topology);
   const relationCount = Math.trunc(Number(problem?.variables?.relationCount ?? 0));
 
+  if (problem?.category === "ratio_proportion") {
+    return subtype;
+  }
+
+  if (problem?.category === "time_work") {
+    return subtype;
+  }
+
   if (isElectionFamily(problem, topology)) {
     return "election_margin";
   }
@@ -1142,6 +1950,12 @@ function smallBatchFamilyCap(state: CorpusSchedulerState, family: string) {
       if (family.startsWith("int_")) {
         return 35;
       }
+      if (family.startsWith("rp_")) {
+        return 35;
+      }
+      if (family.startsWith("tw_") || family.startsWith("pc_")) {
+        return 12;
+      }
       return largeAuditCaps[family] ?? 45;
     }
     return proportionalFamilyCap(state, family);
@@ -1149,6 +1963,12 @@ function smallBatchFamilyCap(state: CorpusSchedulerState, family: string) {
   const fixedCap = SMALL_BATCH_FAMILY_CAPS[family];
   if (family.startsWith("int_") && fixedCap === undefined) {
     return 3;
+  }
+  if (family.startsWith("rp_") && fixedCap === undefined) {
+    return 3;
+  }
+  if ((family.startsWith("tw_") || family.startsWith("pc_")) && fixedCap === undefined) {
+    return 2;
   }
   const proportionalCap = proportionalFamilyCap(state, family);
   if (fixedCap === undefined) {
@@ -1220,6 +2040,56 @@ const MOTIF_FAMILY: Record<string, string> = {
   pl_inverse_discount_from_cp_mp_profit: "pl_inverse_discount_from_cp_mp_profit",
   pl_inverse_markup_from_cp_discount_profit: "pl_inverse_markup_from_cp_discount_profit",
   pl_multi_condition_inverse_absolute: "pl_multi_condition_inverse_absolute",
+  rp_direct_sharing: "rp_direct_sharing",
+  rp_sum_based_ratio_recovery: "rp_sum_based_ratio_recovery",
+  rp_difference_based_ratio_recovery: "rp_difference_based_ratio_recovery",
+  rp_missing_term_proportion: "rp_missing_term_proportion",
+  rp_ratio_to_fraction: "rp_ratio_to_fraction",
+  rp_fraction_to_ratio: "rp_fraction_to_ratio",
+  rp_ratio_after_increase: "rp_ratio_after_increase",
+  rp_ratio_after_decrease: "rp_ratio_after_decrease",
+  rp_ratio_after_transfer: "rp_ratio_after_transfer",
+  rp_age_future_ratio: "rp_age_future_ratio",
+  rp_age_past_ratio: "rp_age_past_ratio",
+  rp_partnership_basic: "rp_partnership_basic",
+  rp_partnership_time_variation: "rp_partnership_time_variation",
+  rp_direct_variation_basic: "rp_direct_variation_basic",
+  rp_inverse_variation_basic: "rp_inverse_variation_basic",
+  rp_joint_variation: "rp_joint_variation",
+  rp_combined_direct_inverse: "rp_combined_direct_inverse",
+  rp_map_scale_ratio: "rp_map_scale_ratio",
+  rp_side_area_volume_ratio: "rp_side_area_volume_ratio",
+  rp_chain_ratio_network: "rp_chain_ratio_network",
+  rp_equivalent_ratio_generation: "rp_equivalent_ratio_generation",
+  rp_ratio_to_percentage: "rp_ratio_to_percentage",
+  rp_percentage_to_ratio: "rp_percentage_to_ratio",
+  rp_product_based_ratio_recovery: "rp_product_based_ratio_recovery",
+  rp_partial_value_ratio_recovery: "rp_partial_value_ratio_recovery",
+  rp_ratio_after_exchange: "rp_ratio_after_exchange",
+  rp_ratio_restoration: "rp_ratio_restoration",
+  rp_reverse_ratio_scaling: "rp_reverse_ratio_scaling",
+  rp_age_difference_constant: "rp_age_difference_constant",
+  rp_age_multi_generation: "rp_age_multi_generation",
+  rp_partnership_partial_exit: "rp_partnership_partial_exit",
+  rp_partnership_profit_distribution: "rp_partnership_profit_distribution",
+  rp_population_gender_ratio: "rp_population_gender_ratio",
+  rp_voter_turnout_ratio: "rp_voter_turnout_ratio",
+  rp_marks_distribution_ratio: "rp_marks_distribution_ratio",
+  rp_recipe_scaling_ratio: "rp_recipe_scaling_ratio",
+  rp_blueprint_scaling: "rp_blueprint_scaling",
+  rp_shadow_height_ratio: "rp_shadow_height_ratio",
+  rp_similarity_scaling: "rp_similarity_scaling",
+  rp_weighted_ratio_balancing: "rp_weighted_ratio_balancing",
+  rp_multi_equation_ratio: "rp_multi_equation_ratio",
+  rp_ratio_graph_deduction: "rp_ratio_graph_deduction",
+  rp_circular_ratio_dependency: "rp_circular_ratio_dependency",
+  rp_hidden_total_trap: "rp_hidden_total_trap",
+  rp_fractional_distribution_chain: "rp_fractional_distribution_chain",
+  rp_variable_power_variation: "rp_variable_power_variation",
+  rp_workforce_inverse_variation: "rp_workforce_inverse_variation",
+  rp_speed_distance_inverse: "rp_speed_distance_inverse",
+  rp_inventory_allocation: "rp_inventory_allocation",
+  rp_liquid_replacement_ratio: "rp_liquid_replacement_ratio",
   perc_venn_diagram: "venn_diagram",
   perc_taxation: "taxation",
   perc_commission: "commission",
@@ -1240,6 +2110,7 @@ const MOTIF_FAMILY: Record<string, string> = {
   perc_tax_bracket_retained_income: "perc_tax_bracket_retained_income",
   perc_num_square_proportional_delta: "perc_num_square_proportional_delta",
   perc_mix_alloy_replacement: "perc_mix_alloy_replacement",
+  ...Object.fromEntries(TIME_WORK_FAMILY_IDS.map((family) => [family, family])),
 };
 
 const PRODUCTION_FALLBACK_MOTIFS = [
@@ -1257,6 +2128,61 @@ const PRODUCTION_FALLBACK_MOTIFS = [
   "perc_population_growth",
   ...PRODUCTION_ADVANCED_MOTIFS,
 ];
+
+const RATIO_PROPORTION_FALLBACK_MOTIFS = [
+  "rp_direct_sharing",
+  "rp_sum_based_ratio_recovery",
+  "rp_difference_based_ratio_recovery",
+  "rp_missing_term_proportion",
+  "rp_ratio_to_fraction",
+  "rp_fraction_to_ratio",
+  "rp_ratio_after_increase",
+  "rp_ratio_after_decrease",
+  "rp_ratio_after_transfer",
+  "rp_age_future_ratio",
+  "rp_age_past_ratio",
+  "rp_partnership_basic",
+  "rp_partnership_time_variation",
+  "rp_direct_variation_basic",
+  "rp_inverse_variation_basic",
+  "rp_joint_variation",
+  "rp_combined_direct_inverse",
+  "rp_map_scale_ratio",
+  "rp_side_area_volume_ratio",
+  "rp_chain_ratio_network",
+  "rp_equivalent_ratio_generation",
+  "rp_ratio_to_percentage",
+  "rp_percentage_to_ratio",
+  "rp_product_based_ratio_recovery",
+  "rp_partial_value_ratio_recovery",
+  "rp_ratio_after_exchange",
+  "rp_ratio_restoration",
+  "rp_reverse_ratio_scaling",
+  "rp_age_difference_constant",
+  "rp_age_multi_generation",
+  "rp_partnership_partial_exit",
+  "rp_partnership_profit_distribution",
+  "rp_population_gender_ratio",
+  "rp_voter_turnout_ratio",
+  "rp_marks_distribution_ratio",
+  "rp_recipe_scaling_ratio",
+  "rp_blueprint_scaling",
+  "rp_shadow_height_ratio",
+  "rp_similarity_scaling",
+  "rp_weighted_ratio_balancing",
+  "rp_multi_equation_ratio",
+  "rp_ratio_graph_deduction",
+  "rp_circular_ratio_dependency",
+  "rp_hidden_total_trap",
+  "rp_fractional_distribution_chain",
+  "rp_variable_power_variation",
+  "rp_workforce_inverse_variation",
+  "rp_speed_distance_inverse",
+  "rp_inventory_allocation",
+  "rp_liquid_replacement_ratio",
+] as const;
+
+const TIME_WORK_FALLBACK_MOTIFS = [...TIME_WORK_FAMILY_IDS] as const;
 
 function cappedMotif(state: CorpusSchedulerState, motifId: string | undefined) {
   const family = motifId ? MOTIF_FAMILY[motifId] : undefined;
@@ -1281,8 +2207,14 @@ function firstUncappedMotif(state: CorpusSchedulerState, slotIndex: number) {
       return motif;
     }
   }
-  for (let offset = 0; offset < PRODUCTION_FALLBACK_MOTIFS.length; offset += 1) {
-    const motif = PRODUCTION_FALLBACK_MOTIFS[(slotIndex + offset) % PRODUCTION_FALLBACK_MOTIFS.length]!;
+  const fallbackMotifs =
+    state.profile.topicId === "ratio_proportion"
+      ? RATIO_PROPORTION_FALLBACK_MOTIFS
+      : state.profile.topicId === "time_work"
+        ? TIME_WORK_FALLBACK_MOTIFS
+      : PRODUCTION_FALLBACK_MOTIFS;
+  for (let offset = 0; offset < fallbackMotifs.length; offset += 1) {
+    const motif = fallbackMotifs[(slotIndex + offset) % fallbackMotifs.length]!;
     if (!cappedMotif(state, motif)) {
       return motif;
     }
@@ -1631,6 +2563,19 @@ export function suggestSchedulerMotif(
   state: CorpusSchedulerState,
   slotIndex: number,
 ) {
+  const percentageProfile =
+    state.profile.topicId === "percentage" ||
+    (
+      !state.profile.topicId &&
+      state.profile.preferredMotifRotation.some(
+        (motif) => motif.startsWith("perc_"),
+      )
+    );
+
+  if (!percentageProfile) {
+    return firstUncappedMotif(state, slotIndex);
+  }
+
   if (state.profile.id === "advanced_coverage_audit") {
     return firstUncappedMotif(state, slotIndex);
   }

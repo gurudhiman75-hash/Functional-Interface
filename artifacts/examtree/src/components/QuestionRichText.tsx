@@ -43,6 +43,14 @@ function unwrapGurmukhiTextMath(value: string) {
     );
 }
 
+function normalizeDisplayMathBlocks(value: string) {
+  return value.replace(
+    /\\\[([\s\S]*?)\\\]/g,
+    (_match, inner: string) =>
+      `\\[${inner.trim().replace(/\s*\n\s*/g, " ")}\\]`,
+  );
+}
+
 function splitTextAndStandaloneUrls(text: string): Piece[] {
   const lines = text.split("\n");
   const out: Piece[] = [];
@@ -326,7 +334,7 @@ export function QuestionRichText({
 }) {
   const normalizedContent =
     typeof content === "string"
-      ? unwrapGurmukhiTextMath(content)
+      ? normalizeDisplayMathBlocks(unwrapGurmukhiTextMath(content))
       : content === null ||
           content === undefined
         ? ""

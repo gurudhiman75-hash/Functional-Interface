@@ -4,6 +4,8 @@ export type PyqBenchmarkTopic =
   | "percentage"
   | "profit-loss"
   | "interest"
+  | "ratio-proportion"
+  | "time-work"
   | "data_interpretation";
 
 export type PyqDifficultyBand =

@@ -251,8 +251,16 @@ const successiveDiscounts: ProfitLossMotifFactory = ({ seed, difficulty, family 
 };
 
 const mpForTargetProfit: ProfitLossMotifFactory = ({ seed, difficulty, family }) => {
-  const { object, percent, amount } = base(seed, family, difficulty);
-  const discount = pick([20, 25], `${seed}:discount`);
+  const { object } = base(seed, family, difficulty);
+  const scenario = pick([
+    { amount: 800, percent: 25, discount: 20 },
+    { amount: 1000, percent: 20, discount: 25 },
+    { amount: 1500, percent: 20, discount: 10 },
+    { amount: 2000, percent: 25, discount: 20 },
+    { amount: 500, percent: 20, discount: 25 },
+    { amount: 1200, percent: 20, discount: 10 },
+  ], `${seed}:scenario`);
+  const { amount, percent, discount } = scenario;
   const targetSp = amount * (100 + percent) / 100;
   const mp = round2(targetSp * 100 / (100 - discount));
   return problem({

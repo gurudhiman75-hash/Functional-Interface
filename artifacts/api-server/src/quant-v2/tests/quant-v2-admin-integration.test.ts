@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import { randomUUID } from "node:crypto";
 import test from "node:test";
 import type {
+  GeneratorOptions,
   FormulaQuestion,
   Pattern,
 } from "../../lib/core/generator-engine";
@@ -19,23 +21,43 @@ import {
   isQuantV2InterestPattern,
 } from "../../lib/quant-v2/interest-admin-adapter";
 import {
+  createQuantV2RatioProportionQuestionCandidate,
+  isQuantV2RatioProportionPattern,
+} from "../../lib/quant-v2/ratio-proportion-admin-adapter";
+import {
+  createQuantV2TimeWorkQuestionCandidate,
+  isQuantV2TimeWorkPattern,
+} from "../../lib/quant-v2/time-work-admin-adapter";
+import {
   createDomainAdapters,
   resolveDomainAdapter,
 } from "../../lib/core/domain-adapters";
 import {
   createCorpusSchedulerState,
+  createScheduledGeneratorOptions,
+  CORPUS_SCHEDULER_PROFILES,
   generateScheduledQuestion,
   interleaveScheduledPreviewQuestions,
   summarizeCorpusScheduler,
 } from "../corpus-scheduler/corpus-scheduler";
-import { resolveQuestionPatternToPattern } from "../../lib/pattern-registry";
+import {
+  getQuestionPatternRegistryConsistencyReport,
+  listEnabledQuantV2AdminPatterns,
+  listQuestionPatterns,
+  resolveQuestionPatternToPattern,
+} from "../../lib/pattern-registry";
 import {
   validateQuantV2AdminIntegration,
 } from "../../lib/quant-v2/quant-v2-integration-validator";
 import {
   LEGACY_MIGRATED_QUANT_ERROR,
+  listQuantV2Topics,
   resolveMigratedQuantV2DomainFromAlias,
+  resolveQuantV2TopicForAuditPreset,
+  validateQuantV2SchedulerProfileForPreset,
+  validateQuantV2TopologyForPreset,
 } from "../../lib/quant-v2/migrated-quant-topics";
+import { CORPUS_AUDIT_PRESETS } from "../corpus-audit/corpus-audit-presets";
 
 const SAMPLE_COUNT = 2000;
 
@@ -94,6 +116,36 @@ const interestPattern: Pattern = {
   generationDomain: "quant-v2-interest",
 };
 
+const ratioProportionPattern: Pattern = {
+  id: "registry-ratio-proportion-admin-integration",
+  type: "formula",
+  section: "Quant",
+  topic: "ratio_proportion",
+  subtopic: "ratio_proportion",
+  difficulty: "Medium",
+  templateVariants: [
+    "Quant-v2 ratio proportion integration pattern",
+  ],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-ratio-proportion",
+};
+
+const timeWorkPattern: Pattern = {
+  id: "registry-time-work-admin-integration",
+  type: "formula",
+  section: "Quant",
+  topic: "time_work",
+  subtopic: "time_work",
+  difficulty: "Medium",
+  templateVariants: [
+    "Quant-v2 time work integration pattern",
+  ],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-time-work",
+};
+
 function asFormula(question: unknown): FormulaQuestion {
   assert.ok(question && typeof question === "object");
   assert.ok(!("questionType" in question));
@@ -131,6 +183,52 @@ function combinedQuestionText(question: FormulaQuestion) {
     ...((question as any).optionsHi ?? []),
     ...((question as any).optionsPa ?? []),
   ].filter(Boolean).join("\n");
+}
+
+function normalizedStem(question: FormulaQuestion) {
+  return String(question.text ?? "")
+    .toLowerCase()
+    .replace(/\s+/gu, " ")
+    .trim();
+}
+
+function batchStemSignature(questions: FormulaQuestion[]) {
+  return questions.map(normalizedStem).join("\n---\n");
+}
+
+async function generateQuantV2Batch(
+  pattern: Pattern,
+  schedulerProfile: NonNullable<GeneratorOptions["schedulerProfile"]>,
+  generate: (options: GeneratorOptions) => FormulaQuestion,
+  seed?: string,
+) {
+  const state = createCorpusSchedulerState({
+    targetCount: 50,
+    profileId: schedulerProfile,
+  });
+  const seedPrefix = seed ?? `unseeded:${randomUUID()}`;
+  const questions: FormulaQuestion[] = [];
+  for (let index = 0; index < 50; index += 1) {
+    questions.push(
+      generateScheduledQuestion({
+        state,
+        index,
+        seedPrefix,
+        examProfile: "ssc",
+        generate: (scheduledOptions) =>
+          generate({
+            ...scheduledOptions,
+            schedulerProfile,
+            examProfile: "ssc",
+          }),
+      }).question,
+    );
+  }
+  return interleaveScheduledPreviewQuestions(
+    questions,
+    seedPrefix,
+    previewFamily,
+  );
 }
 
 function hasUglyDecimalAnswer(question: FormulaQuestion) {
@@ -171,6 +269,8 @@ test("percentage admin adapter generates quant-v2-compatible samples", () => {
         createQuantV2PercentageQuestionCandidate,
         createQuantV2ProfitLossQuestionCandidate,
         createQuantV2InterestQuestionCandidate,
+        createQuantV2RatioProportionQuestionCandidate,
+        createQuantV2TimeWorkQuestionCandidate,
         createDIQuestionSet: () => {
           throw new Error("DI adapter is not used in this test.");
         },
@@ -258,6 +358,8 @@ test("profit loss admin adapter generates multilingual phase-1 samples", () => {
       createQuantV2PercentageQuestionCandidate,
       createQuantV2ProfitLossQuestionCandidate,
       createQuantV2InterestQuestionCandidate,
+      createQuantV2RatioProportionQuestionCandidate,
+      createQuantV2TimeWorkQuestionCandidate,
       createDIQuestionSet: () => {
         throw new Error("DI adapter is not used in this test.");
       },
@@ -326,6 +428,8 @@ test("interest admin adapter generates multilingual Quant V2 samples", () => {
       createQuantV2PercentageQuestionCandidate,
       createQuantV2ProfitLossQuestionCandidate,
       createQuantV2InterestQuestionCandidate,
+      createQuantV2RatioProportionQuestionCandidate,
+      createQuantV2TimeWorkQuestionCandidate,
       createDIQuestionSet: () => {
         throw new Error("DI adapter is not used in this test.");
       },
@@ -356,6 +460,111 @@ test("interest admin adapter generates multilingual Quant V2 samples", () => {
     assert.ok(question.textHi?.length);
     assert.ok(question.textPa?.length);
     assert.ok(question.explanation.length > 10);
+    assert.ok(question.debugMetadata?.quantV2);
+    assert.equal(new Set(question.options).size, question.options.length);
+  }
+});
+
+test("ratio proportion admin adapter generates multilingual Quant V2 samples", () => {
+  assert.equal(isQuantV2RatioProportionPattern(ratioProportionPattern), true);
+
+  const adapter = resolveDomainAdapter(
+    createDomainAdapters({
+      createFormulaQuestionCandidate: stubQuestion,
+      createReasoningQuestionCandidate: stubQuestion,
+      createSeatingQuestionCandidate: stubQuestion,
+      createEnglishQuestionCandidate: stubQuestion,
+      createPunjabiQuestionCandidate: stubQuestion,
+      createKnowledgeQuestionCandidate: stubQuestion,
+      createQuantV2PercentageQuestionCandidate,
+      createQuantV2ProfitLossQuestionCandidate,
+      createQuantV2InterestQuestionCandidate,
+      createQuantV2RatioProportionQuestionCandidate,
+      createQuantV2TimeWorkQuestionCandidate,
+      createDIQuestionSet: () => {
+        throw new Error("DI adapter is not used in this test.");
+      },
+    }),
+    "quant-v2-ratio-proportion",
+  );
+  assert.equal(adapter.domain, "quant-v2-ratio-proportion");
+
+  for (const family of [
+    "rp_direct_sharing",
+    "rp_ratio_after_transfer",
+    "rp_partnership_time_variation",
+    "rp_inverse_variation_basic",
+    "rp_chain_ratio_network",
+  ]) {
+    const question = createQuantV2RatioProportionQuestionCandidate(
+      ratioProportionPattern,
+      {
+        seed: `ratio-proportion-admin-${family}`,
+        forcedMotifId: family,
+      },
+    );
+    assert.equal(
+      question.debugMetadata?.generationDomain,
+      "quant-v2-ratio-proportion",
+    );
+    assert.ok(question.text.length > 10);
+    assert.ok(question.textHi?.length);
+    assert.ok(question.textPa?.length);
+    assert.ok(question.explanation.length > 10);
+    assert.ok(question.debugMetadata?.quantV2);
+    assert.equal(new Set(question.options).size, question.options.length);
+  }
+});
+
+test("time work admin adapter generates multilingual Quant V2 samples", () => {
+  assert.equal(isQuantV2TimeWorkPattern(timeWorkPattern), true);
+
+  const adapter = resolveDomainAdapter(
+    createDomainAdapters({
+      createFormulaQuestionCandidate: stubQuestion,
+      createReasoningQuestionCandidate: stubQuestion,
+      createSeatingQuestionCandidate: stubQuestion,
+      createEnglishQuestionCandidate: stubQuestion,
+      createPunjabiQuestionCandidate: stubQuestion,
+      createKnowledgeQuestionCandidate: stubQuestion,
+      createQuantV2PercentageQuestionCandidate,
+      createQuantV2ProfitLossQuestionCandidate,
+      createQuantV2InterestQuestionCandidate,
+      createQuantV2RatioProportionQuestionCandidate,
+      createQuantV2TimeWorkQuestionCandidate,
+      createDIQuestionSet: () => {
+        throw new Error("DI adapter is not used in this test.");
+      },
+    }),
+    "quant-v2-time-work",
+  );
+  assert.equal(adapter.domain, "quant-v2-time-work");
+
+  for (const family of [
+    "tw_basic_combined_work",
+    "tw_delayed_join",
+    "tw_alternating_days_two_workers",
+    "tw_wage_distribution_efficiency",
+    "pc_basic_fill_empty",
+    "tw_food_resource_basic",
+  ]) {
+    const question = createQuantV2TimeWorkQuestionCandidate(
+      timeWorkPattern,
+      {
+        seed: `time-work-admin-${family}`,
+        forcedMotifId: family,
+      },
+    );
+    assert.equal(
+      question.debugMetadata?.generationDomain,
+      "quant-v2-time-work",
+    );
+    assert.ok(question.text.length > 10);
+    assert.ok(question.textHi?.length);
+    assert.ok(question.textPa?.length);
+    assert.ok(question.explanation.includes("Shortcut / Exam Method"));
+    assert.ok(question.explanationHi?.includes("शॉर्टकट / परीक्षा विधि"));
+    assert.ok(question.explanationPa?.includes("ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ"));
     assert.ok(question.debugMetadata?.quantV2);
     assert.equal(new Set(question.options).size, question.options.length);
   }
@@ -529,6 +738,17 @@ test("migrated quant aliases always route to Quant V2", () => {
       ["si-ci", "quant-v2-interest"],
       ["si and ci", "quant-v2-interest"],
       ["simple and compound interest", "quant-v2-interest"],
+      ["ratio", "quant-v2-ratio-proportion"],
+      ["ratios", "quant-v2-ratio-proportion"],
+      ["proportion", "quant-v2-ratio-proportion"],
+      ["variation", "quant-v2-ratio-proportion"],
+      ["ratio-proportion", "quant-v2-ratio-proportion"],
+      ["ratio, proportion & variation", "quant-v2-ratio-proportion"],
+      ["time-work", "quant-v2-time-work"],
+      ["time and work", "quant-v2-time-work"],
+      ["pipes", "quant-v2-time-work"],
+      ["pipes and cisterns", "quant-v2-time-work"],
+      ["work and wages", "quant-v2-time-work"],
     ];
 
     for (const [alias, expectedDomain] of aliases) {
@@ -550,6 +770,396 @@ test("migrated quant aliases always route to Quant V2", () => {
   }
 });
 
+test("Quant V2 topic registry is the single source for migrated admin topics", () => {
+  const topics = listQuantV2Topics().filter(
+    (topic) => topic.adminEnabled,
+  );
+  const domains = new Set(
+    topics.map((topic) => topic.generationDomain),
+  );
+  assert.deepEqual(
+    [...domains].sort(),
+    [
+      "quant-v2-interest",
+      "quant-v2-percentage",
+      "quant-v2-profit-loss",
+      "quant-v2-ratio-proportion",
+      "quant-v2-time-work",
+    ],
+  );
+
+  const adminPatterns =
+    listEnabledQuantV2AdminPatterns();
+  assert.deepEqual(
+    adminPatterns.map((pattern) => pattern.label).sort(),
+    topics.map((topic) => topic.displayLabel).sort(),
+  );
+  assert.deepEqual(
+    adminPatterns.map((pattern) => pattern.id).sort(),
+    ["interest", "percentage", "profit-loss", "ratio-proportion", "time-work"],
+  );
+
+  const visiblePatternIds = new Set(
+    listQuestionPatterns(false).map(
+      (pattern) => pattern.id,
+    ),
+  );
+  for (const legacyId of [
+    "profit-loss-discount",
+    "profit-loss-dishonest-dealer",
+    "profit-loss-equivalent-change",
+    "simple-compound-interest",
+    "simple-interest",
+    "compound-interest",
+    "interest-si-vs-ci",
+    "interest-fractional-compounding",
+    "interest-growth-decay",
+    "time-work-phases",
+    "time-work-efficiency",
+    "time-work-pipes",
+  ]) {
+    assert.equal(
+      visiblePatternIds.has(legacyId),
+      false,
+      `${legacyId} should not be selectable from admin registry`,
+    );
+  }
+
+  const report =
+    getQuestionPatternRegistryConsistencyReport();
+  assert.deepEqual(report.duplicateIds, []);
+  assert.deepEqual(
+    report.enabledQuantV2AdminPatternIds.sort(),
+    ["interest", "percentage", "profit-loss", "ratio-proportion", "time-work"],
+  );
+});
+
+test("Quant V2 corpus audit topology options are topic-specific", () => {
+  const ownership = new Map<string, string>();
+  for (const topic of listQuantV2Topics()) {
+    assert.ok(topic.generationDomain.startsWith("quant-v2-"));
+    assert.ok(
+      topic.validTopologyGroups.some(
+        (group) =>
+          group.id === topic.defaultTopology,
+      ),
+    );
+    for (const group of topic.validTopologyGroups) {
+      assert.equal(
+        ownership.has(group.id),
+        false,
+        `${group.id} belongs to multiple Quant V2 topics`,
+      );
+      ownership.set(group.id, topic.topicId);
+    }
+    for (const alias of topic.aliases) {
+      assert.equal(
+        resolveMigratedQuantV2DomainFromAlias(alias),
+        topic.generationDomain,
+      );
+    }
+  }
+
+  for (const preset of CORPUS_AUDIT_PRESETS) {
+    const topic =
+      resolveQuantV2TopicForAuditPreset(
+        preset.id,
+      );
+    assert.ok(topic);
+    assert.equal(
+      preset.generationDomain,
+      topic.generationDomain,
+    );
+    assert.equal(
+      preset.defaultTopology,
+      topic.defaultTopology,
+    );
+    assert.deepEqual(
+      preset.topologyOptions?.map(
+        (option) => option.id,
+      ),
+      topic.validTopologyGroups.map(
+        (option) => option.id,
+      ),
+    );
+  }
+
+  const interestPreset =
+    CORPUS_AUDIT_PRESETS.find(
+      (preset) => preset.id === "interest_audit",
+    );
+  const profitLossPreset =
+    CORPUS_AUDIT_PRESETS.find(
+      (preset) => preset.id === "profit_loss_audit",
+    );
+  const ratioPreset =
+    CORPUS_AUDIT_PRESETS.find(
+      (preset) => preset.id === "ratio_proportion_audit",
+    );
+  const timeWorkPreset =
+    CORPUS_AUDIT_PRESETS.find(
+      (preset) => preset.id === "time_work_audit",
+    );
+  assert.ok(interestPreset);
+  assert.ok(profitLossPreset);
+  assert.ok(ratioPreset);
+  assert.ok(timeWorkPreset);
+  assert.equal(
+    interestPreset.topologyOptions?.some(
+      (option) =>
+        option.id.includes("percentage"),
+    ),
+    false,
+  );
+  assert.equal(
+    profitLossPreset.topologyOptions?.some(
+      (option) =>
+        option.id.includes("percentage"),
+    ),
+    false,
+  );
+  assert.equal(
+    ratioPreset.topologyOptions?.some(
+      (option) =>
+        option.id.includes("percentage"),
+    ),
+    false,
+  );
+  assert.equal(
+    timeWorkPreset.topologyOptions?.some(
+      (option) =>
+        option.id.includes("percentage"),
+    ),
+    false,
+  );
+
+  assert.equal(
+    validateQuantV2TopologyForPreset(
+      "interest_audit",
+      "mixed_percentage",
+    ).valid,
+    false,
+  );
+  assert.equal(
+    validateQuantV2TopologyForPreset(
+      "profit_loss_audit",
+      "mixed_percentage",
+    ).valid,
+    false,
+  );
+  assert.equal(
+    validateQuantV2TopologyForPreset(
+      "ratio_proportion_audit",
+      "mixed_percentage",
+    ).valid,
+    false,
+  );
+  assert.equal(
+    validateQuantV2TopologyForPreset(
+      "time_work_audit",
+      "mixed_percentage",
+    ).valid,
+    false,
+  );
+  assert.deepEqual(
+    validateQuantV2TopologyForPreset(
+      "interest_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      topology: "mixed_interest",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2TopologyForPreset(
+      "ratio_proportion_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      topology: "mixed_ratio_proportion",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2TopologyForPreset(
+      "time_work_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      topology: "mixed_time_work",
+    },
+  );
+  assert.equal(
+    validateQuantV2SchedulerProfileForPreset(
+      "interest_audit",
+      "balanced_mock",
+    ).valid,
+    false,
+  );
+  assert.deepEqual(
+    validateQuantV2SchedulerProfileForPreset(
+      "profit_loss_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      schedulerProfile:
+        "profit_loss_balanced",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2SchedulerProfileForPreset(
+      "ratio_proportion_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      schedulerProfile:
+        "ratio_basic",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2SchedulerProfileForPreset(
+      "time_work_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      schedulerProfile:
+        "time_work_basic",
+    },
+  );
+});
+
+test("Quant V2 scheduler profiles are topic-specific", () => {
+  const profileIds = new Set(
+    CORPUS_SCHEDULER_PROFILES.map(
+      (profile) => profile.id,
+    ),
+  );
+
+  for (const topic of listQuantV2Topics()) {
+    for (const profileId of topic.schedulerProfiles) {
+      assert.equal(
+        profileIds.has(profileId as any),
+        true,
+        `${topic.topicId} references missing scheduler profile ${profileId}`,
+      );
+    }
+  }
+
+  const profitLossTopic = listQuantV2Topics().find(
+    (topic) => topic.topicId === "profit_loss",
+  );
+  const interestTopic = listQuantV2Topics().find(
+    (topic) => topic.topicId === "interest",
+  );
+  const ratioTopic = listQuantV2Topics().find(
+    (topic) => topic.topicId === "ratio_proportion",
+  );
+  const timeWorkTopic = listQuantV2Topics().find(
+    (topic) => topic.topicId === "time_work",
+  );
+  assert.ok(profitLossTopic);
+  assert.ok(interestTopic);
+  assert.ok(ratioTopic);
+  assert.ok(timeWorkTopic);
+  assert.equal(
+    profitLossTopic.schedulerProfiles.some(
+      (profile) => profile.includes("percentage") || profile.startsWith("pyq_"),
+    ),
+    false,
+  );
+  assert.equal(
+    interestTopic.schedulerProfiles.every(
+      (profile) => profile.startsWith("interest_"),
+    ),
+    true,
+  );
+  assert.equal(
+    ratioTopic.schedulerProfiles.every(
+      (profile) => profile.startsWith("ratio_"),
+    ),
+    true,
+  );
+  assert.equal(
+    timeWorkTopic.schedulerProfiles.every(
+      (profile) => profile.startsWith("time_work_"),
+    ),
+    true,
+  );
+
+  const interestState =
+    createCorpusSchedulerState({
+      targetCount: 10,
+      profileId: "interest_balanced",
+    });
+  const interestOptions =
+    createScheduledGeneratorOptions({
+      state: interestState,
+      index: 0,
+      attempt: 0,
+      seedPrefix: "registry-scheduler-interest",
+    });
+  assert.match(
+    String(interestOptions.forcedMotifId),
+    /^int_/u,
+  );
+
+  const profitLossState =
+    createCorpusSchedulerState({
+      targetCount: 10,
+      profileId: "profit_loss_balanced",
+    });
+  const profitLossOptions =
+    createScheduledGeneratorOptions({
+      state: profitLossState,
+      index: 0,
+      attempt: 0,
+      seedPrefix: "registry-scheduler-profit-loss",
+    });
+  assert.match(
+    String(profitLossOptions.forcedMotifId),
+    /^pl_/u,
+  );
+
+  const ratioState =
+    createCorpusSchedulerState({
+      targetCount: 10,
+      profileId: "ratio_balanced",
+    });
+  const ratioOptions =
+    createScheduledGeneratorOptions({
+      state: ratioState,
+      index: 0,
+      attempt: 0,
+      seedPrefix: "registry-scheduler-ratio",
+    });
+  assert.match(
+    String(ratioOptions.forcedMotifId),
+    /^rp_/u,
+  );
+
+  const timeWorkState =
+    createCorpusSchedulerState({
+      targetCount: 10,
+      profileId: "time_work_balanced",
+    });
+  const timeWorkOptions =
+    createScheduledGeneratorOptions({
+      state: timeWorkState,
+      index: 0,
+      attempt: 0,
+      seedPrefix: "registry-scheduler-time-work",
+    });
+  assert.match(
+    String(timeWorkOptions.forcedMotifId),
+    /^(tw|pc)_/u,
+  );
+});
+
 test("legacy quant adapter is not reachable for migrated topics", () => {
   const registry = createDomainAdapters({
     createFormulaQuestionCandidate: () => {
@@ -563,6 +1173,8 @@ test("legacy quant adapter is not reachable for migrated topics", () => {
     createQuantV2PercentageQuestionCandidate,
     createQuantV2ProfitLossQuestionCandidate,
     createQuantV2InterestQuestionCandidate,
+    createQuantV2RatioProportionQuestionCandidate,
+    createQuantV2TimeWorkQuestionCandidate,
     createDIQuestionSet: () => {
       throw new Error("DI adapter is not used in this test.");
     },
@@ -596,6 +1208,24 @@ test("legacy quant adapter is not reachable for migrated topics", () => {
       },
       "quant-v2-interest",
     ],
+    [
+      {
+        ...ratioProportionPattern,
+        topic: "ratio, proportion & variation",
+        subtopic: "ratio-proportion",
+        generationDomain: "quant" as const,
+      },
+      "quant-v2-ratio-proportion",
+    ],
+    [
+      {
+        ...timeWorkPattern,
+        topic: "time and work",
+        subtopic: "pipes and cisterns",
+        generationDomain: "quant" as const,
+      },
+      "quant-v2-time-work",
+    ],
   ] as const) {
     const adapter = resolveDomainAdapter(
       registry,
@@ -620,17 +1250,31 @@ test("legacy quant adapter is not reachable for migrated topics", () => {
                 seed: `migrated-routing-${pattern.topic}`,
               },
             )
-          : createQuantV2InterestQuestionCandidate(
-              pattern,
-              {
-                seed: `migrated-routing-${pattern.topic}`,
-              },
-            ),
+          : expectedDomain === "quant-v2-interest"
+            ? createQuantV2InterestQuestionCandidate(
+                pattern,
+                {
+                  seed: `migrated-routing-${pattern.topic}`,
+                },
+              )
+            : expectedDomain === "quant-v2-ratio-proportion"
+              ? createQuantV2RatioProportionQuestionCandidate(
+                pattern,
+                {
+                  seed: `migrated-routing-${pattern.topic}`,
+                },
+              )
+              : createQuantV2TimeWorkQuestionCandidate(
+                pattern,
+                {
+                  seed: `migrated-routing-${pattern.topic}`,
+                },
+              ),
     );
 
     assert.match(
       String(question.debugMetadata?.generationDomain),
-      /^quant-v2-(percentage|profit-loss|interest)$/u,
+      /^quant-v2-(percentage|profit-loss|interest|ratio-proportion|time-work)$/u,
     );
     assert.ok(question.debugMetadata?.quantV2);
   }
@@ -657,6 +1301,119 @@ test("non-percentage quant registry patterns stay on legacy quant", () => {
       process.env.QUANT_V2_PERCENTAGE_ENABLED = previousFlag;
     }
   }
+});
+
+test("Quant V2 unseeded corpus batches are fresh while explicit seeds are reproducible", async () => {
+  const cases = [
+    {
+      pattern: percentagePattern,
+      schedulerProfile: "balanced_mock" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2PercentageQuestionCandidate(
+          percentagePattern,
+          options,
+        ),
+      label: "Percentage",
+    },
+    {
+      pattern: profitLossPattern,
+      schedulerProfile: "profit_loss_balanced" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2ProfitLossQuestionCandidate(
+          profitLossPattern,
+          options,
+        ),
+      label: "Profit/Loss",
+    },
+    {
+      pattern: interestPattern,
+      schedulerProfile: "interest_balanced" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2InterestQuestionCandidate(
+          interestPattern,
+          options,
+        ),
+      label: "Interest",
+    },
+    {
+      pattern: ratioProportionPattern,
+      schedulerProfile: "ratio_balanced" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2RatioProportionQuestionCandidate(
+          ratioProportionPattern,
+          options,
+        ),
+      label: "Ratio/Proportion",
+    },
+    {
+      pattern: timeWorkPattern,
+      schedulerProfile: "time_work_balanced" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2TimeWorkQuestionCandidate(
+          timeWorkPattern,
+          options,
+        ),
+      label: "Time Work",
+    },
+  ];
+
+  for (const item of cases) {
+    const first = await generateQuantV2Batch(
+      item.pattern,
+      item.schedulerProfile,
+      item.generate,
+    );
+    const second = await generateQuantV2Batch(
+      item.pattern,
+      item.schedulerProfile,
+      item.generate,
+    );
+
+    assert.notEqual(
+      batchStemSignature(first),
+      batchStemSignature(second),
+      `${item.label} unseeded runs should not produce identical 50Q batches`,
+    );
+    assert.notEqual(
+      batchStemSignature(first.slice(0, 6)),
+      batchStemSignature(second.slice(0, 6)),
+      `${item.label} unseeded preview window should vary`,
+    );
+
+    const stemSet = new Set(first.map(normalizedStem));
+    assert.equal(
+      stemSet.size,
+      first.length,
+      `${item.label} batch contains duplicate normalized stems`,
+    );
+  }
+
+  const seededA = await generateQuantV2Batch(
+    profitLossPattern,
+    "profit_loss_balanced",
+    (options) =>
+      createQuantV2ProfitLossQuestionCandidate(
+        profitLossPattern,
+        options,
+      ),
+    "quant-v2-repeatability-check",
+  );
+  const seededB = await generateQuantV2Batch(
+    profitLossPattern,
+    "profit_loss_balanced",
+    (options) =>
+      createQuantV2ProfitLossQuestionCandidate(
+        profitLossPattern,
+        options,
+      ),
+    "quant-v2-repeatability-check",
+  );
+
+  assert.equal(
+    batchStemSignature(seededA),
+    batchStemSignature(seededB),
+    "Explicit seed should reproduce the same Profit/Loss batch",
+  );
 });
 
 export {};

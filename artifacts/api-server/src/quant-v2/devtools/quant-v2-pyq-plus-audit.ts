@@ -2,10 +2,16 @@ import type { FormulaQuestion, Pattern } from "../../lib/core/generator-engine";
 import { createQuantV2PercentageQuestionCandidate } from "../../lib/quant-v2/percentage-admin-adapter";
 import { createQuantV2ProfitLossQuestionCandidate } from "../../lib/quant-v2/profit-loss-admin-adapter";
 import { createQuantV2InterestQuestionCandidate } from "../../lib/quant-v2/interest-admin-adapter";
+import { createQuantV2RatioProportionQuestionCandidate } from "../../lib/quant-v2/ratio-proportion-admin-adapter";
+import { createQuantV2TimeWorkQuestionCandidate } from "../../lib/quant-v2/time-work-admin-adapter";
 import { PROFIT_LOSS_FAMILY_IDS } from "../canonical/profit-loss-motif-factories";
 import { INTEREST_FAMILY_IDS } from "../canonical/interest-motif-factories";
+import { RATIO_PROPORTION_FAMILY_IDS } from "../canonical/ratio-proportion-motif-factories";
+import { TIME_WORK_FAMILY_IDS } from "../canonical/time-work-motif-factories";
 import type { ProfitLossFamilyId } from "../canonical/profit-loss-types";
 import type { InterestFamilyId } from "../canonical/interest-types";
+import type { RatioProportionFamilyId } from "../canonical/ratio-proportion-types";
+import type { TimeWorkFamilyId } from "../canonical/time-work-types";
 import {
   createCorpusSchedulerState,
   extractCorpusSchedulerMetadata,
@@ -24,6 +30,14 @@ import {
   interestDegenerateReasons,
   validateInterestIndependentSolver,
 } from "../validators/interest-independent-solver";
+import {
+  ratioProportionDegenerateReasons,
+  validateRatioProportionIndependentSolver,
+} from "../validators/ratio-proportion-independent-solver";
+import {
+  timeWorkDegenerateReasons,
+  validateTimeWorkIndependentSolver,
+} from "../validators/time-work-independent-solver";
 
 type SupportedTopic = Exclude<PyqBenchmarkTopic, "data_interpretation">;
 
@@ -77,6 +91,32 @@ const interestPattern: Pattern = {
   generationDomain: "quant-v2-interest",
 };
 
+const ratioProportionPattern: Pattern = {
+  id: "pyq-plus-ratio-proportion",
+  type: "formula",
+  section: "Quant",
+  topic: "ratio_proportion",
+  subtopic: "ratio_proportion",
+  difficulty: "Medium",
+  templateVariants: ["Ratio, Proportion & Variation V2 PYQ+ benchmark pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-ratio-proportion",
+};
+
+const timeWorkPattern: Pattern = {
+  id: "pyq-plus-time-work",
+  type: "formula",
+  section: "Quant",
+  topic: "time_work",
+  subtopic: "time_work",
+  difficulty: "Medium",
+  templateVariants: ["Time & Work / Pipes & Cisterns V2 PYQ+ benchmark pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-time-work",
+};
+
 function argValue(name: string) {
   const eqPrefix = `--${name}=`;
   const eqMatch = process.argv.find((arg) => arg.startsWith(eqPrefix));
@@ -100,6 +140,12 @@ function parseTopic(): SupportedTopic {
   }
   if (["interest", "simple-interest", "compound-interest", "si-ci", "si-and-ci"].includes(raw)) {
     return "interest";
+  }
+  if (["ratio-proportion", "ratio", "ratios", "proportion", "variation", "ratio-and-proportion"].includes(raw)) {
+    return "ratio-proportion";
+  }
+  if (["time-work", "time-and-work", "time-work-pipes", "pipes", "pipes-cisterns", "pipes-and-cisterns", "work-wages"].includes(raw)) {
+    return "time-work";
   }
   return "percentage";
 }
@@ -203,6 +249,12 @@ function configuredFamilyCap(topic: SupportedTopic, family: string, count: numbe
     if (topic === "interest") {
       return 35;
     }
+    if (topic === "ratio-proportion") {
+      return 35;
+    }
+    if (topic === "time-work") {
+      return 12;
+    }
     const caps: Record<string, number> = {
       two_step_relation_chain: 45,
       multi_step_relation_chain: 35,
@@ -220,6 +272,12 @@ function configuredFamilyCap(topic: SupportedTopic, family: string, count: numbe
   }
   if (topic === "interest") {
     return 3;
+  }
+  if (topic === "ratio-proportion") {
+    return 3;
+  }
+  if (topic === "time-work") {
+    return 2;
   }
   if (/election|vote/u.test(family)) return Math.ceil((count * 5) / 60);
   if (/relation/u.test(family)) return Math.ceil((count * 5) / 60);
@@ -259,6 +317,38 @@ function forcedInterestFamily(
   return INTEREST_FAMILY_IDS[(slot + attempt) % INTEREST_FAMILY_IDS.length]!;
 }
 
+function forcedRatioProportionFamily(
+  slot: number,
+  attempt: number,
+  count: number,
+  keptFamilyCounts: Map<string, number>,
+): RatioProportionFamilyId {
+  for (let offset = 0; offset < RATIO_PROPORTION_FAMILY_IDS.length; offset += 1) {
+    const family =
+      RATIO_PROPORTION_FAMILY_IDS[(slot + attempt + offset) % RATIO_PROPORTION_FAMILY_IDS.length]!;
+    if ((keptFamilyCounts.get(family) ?? 0) < configuredFamilyCap("ratio-proportion", family, count)) {
+      return family;
+    }
+  }
+  return RATIO_PROPORTION_FAMILY_IDS[(slot + attempt) % RATIO_PROPORTION_FAMILY_IDS.length]!;
+}
+
+function forcedTimeWorkFamily(
+  slot: number,
+  attempt: number,
+  count: number,
+  keptFamilyCounts: Map<string, number>,
+): TimeWorkFamilyId {
+  for (let offset = 0; offset < TIME_WORK_FAMILY_IDS.length; offset += 1) {
+    const family =
+      TIME_WORK_FAMILY_IDS[(slot + attempt + offset) % TIME_WORK_FAMILY_IDS.length]!;
+    if ((keptFamilyCounts.get(family) ?? 0) < configuredFamilyCap("time-work", family, count)) {
+      return family;
+    }
+  }
+  return TIME_WORK_FAMILY_IDS[(slot + attempt) % TIME_WORK_FAMILY_IDS.length]!;
+}
+
 function validateQuestion(topic: SupportedTopic, question: FormulaQuestion) {
   const problem = problemOf(question);
   if (topic === "percentage") {
@@ -281,6 +371,30 @@ function validateQuestion(topic: SupportedTopic, question: FormulaQuestion) {
       ...interestDegenerateReasons(problem),
     ];
   }
+  if (topic === "ratio-proportion") {
+    const solver = validateRatioProportionIndependentSolver({
+      problem,
+      explanation: question.explanation,
+      options: question.options,
+      correct: question.correct,
+    });
+    return [
+      ...solver.issues,
+      ...ratioProportionDegenerateReasons(problem),
+    ];
+  }
+  if (topic === "time-work") {
+    const solver = validateTimeWorkIndependentSolver({
+      problem,
+      explanation: question.explanation,
+      options: question.options,
+      correct: question.correct,
+    });
+    return [
+      ...solver.issues,
+      ...timeWorkDegenerateReasons(problem),
+    ];
+  }
   const solver = validateProfitLossIndependentSolver({
     problem,
     explanation: question.explanation,
@@ -296,7 +410,13 @@ function validateQuestion(topic: SupportedTopic, question: FormulaQuestion) {
 function generateQuestions(topic: SupportedTopic, count: number, seed: string, profileId: string) {
   const state = createCorpusSchedulerState({
     targetCount: count,
-    profileId: topic === "interest" ? "interest_pyq" : profileId,
+    profileId: topic === "interest"
+      ? "interest_pyq"
+      : topic === "ratio-proportion"
+        ? "ratio_pyq_plus"
+        : topic === "time-work"
+          ? "time_work_pyq_plus"
+          : profileId,
   });
   const questions: FormulaQuestion[] = [];
   const keptFingerprints = new Set<string>();
@@ -320,6 +440,10 @@ function generateQuestions(topic: SupportedTopic, count: number, seed: string, p
         ? forcedProfitLossFamily(questions.length, attempt, count, keptFamilyCounts)
         : topic === "interest"
           ? forcedInterestFamily(questions.length, attempt, count, keptFamilyCounts)
+          : topic === "ratio-proportion"
+            ? forcedRatioProportionFamily(questions.length, attempt, count, keptFamilyCounts)
+            : topic === "time-work"
+              ? forcedTimeWorkFamily(questions.length, attempt, count, keptFamilyCounts)
         : undefined;
       const result = generateScheduledQuestion({
         state,
@@ -332,6 +456,10 @@ function generateQuestions(topic: SupportedTopic, count: number, seed: string, p
             ? createQuantV2PercentageQuestionCandidate(percentagePattern, options)
             : topic === "interest"
               ? createQuantV2InterestQuestionCandidate(interestPattern, options)
+              : topic === "ratio-proportion"
+                ? createQuantV2RatioProportionQuestionCandidate(ratioProportionPattern, options)
+                : topic === "time-work"
+                  ? createQuantV2TimeWorkQuestionCandidate(timeWorkPattern, options)
               : createQuantV2ProfitLossQuestionCandidate(profitLossPattern, options),
       });
       const question = result.question;

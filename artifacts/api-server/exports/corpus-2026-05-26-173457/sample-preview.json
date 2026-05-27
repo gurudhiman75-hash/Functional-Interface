@@ -1,0 +1,1627 @@
+[
+  {
+    "index": 0,
+    "question": "The sides of two similar figures are in the ratio \\(11:14\\). Find the ratio of their areas.",
+    "options": [
+      "11:14",
+      "196:121",
+      "1331:2744",
+      "121:196"
+    ],
+    "answer": "121:196",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_side_area_volume_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_side_area_volume_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_side_area_volume_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_side_area_volume_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The sides of two similar figures are in the ratio \\(11:14\\). Find the ratio of their areas.",
+        "options": [
+          "11:14",
+          "196:121",
+          "1331:2744",
+          "121:196"
+        ],
+        "explanation": "Start with the side ratio.\n\n\\[\n\\text{Side ratio}=11:14\n\\]\n\nArea ratio is the square of side ratio.\n\n\\[\n\\text{Area ratio}=11^{2}:14^{2}=121:196\n\\]\n\nAnswer: 121:196"
+      },
+      "hi": {
+        "question": "दो समान आकृतियों की भुजाओं का अनुपात \\(11:14\\) है। उनके क्षेत्रफलों का अनुपात ज्ञात करें।",
+        "options": [
+          "11:14",
+          "196:121",
+          "1331:2744",
+          "121:196"
+        ],
+        "explanation": "भुजा अनुपात से शुरू करें।\n\n\\[\n\\text{Side ratio}=11:14\n\\]\n\nक्षेत्रफल अनुपात भुजा अनुपात का वर्ग होता है।\n\n\\[\n\\text{Area ratio}=11^{2}:14^{2}=121:196\n\\]\n\nउत्तर: 121:196"
+      },
+      "pa": {
+        "question": "ਦੋ ਸਮਰੂਪ ਆਕ੍ਰਿਤੀਆਂ ਦੀਆਂ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ \\(11:14\\) ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "11:14",
+          "196:121",
+          "1331:2744",
+          "121:196"
+        ],
+        "explanation": "ਭੁਜਾ ਅਨੁਪਾਤ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ।\n\n\\[\n\\text{Side ratio}=11:14\n\\]\n\nਖੇਤਰਫਲ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਹੁੰਦਾ ਹੈ।\n\n\\[\n\\text{Area ratio}=11^{2}:14^{2}=121:196\n\\]\n\nਉੱਤਰ: 121:196"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 1,
+    "question": "\\(x\\) is directly proportional to \\(y\\). When \\(y=9\\), \\(x=450\\). Find \\(x\\) when \\(y=14\\).",
+    "options": [
+      "700",
+      "289.29",
+      "450",
+      "455"
+    ],
+    "answer": "700",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_direct_variation_basic"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_direct_variation_basic",
+      "category": "ratio_proportion",
+      "subtype": "rp_direct_variation_basic",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_direct_variation_basic"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "\\(x\\) is directly proportional to \\(y\\). When \\(y=9\\), \\(x=450\\). Find \\(x\\) when \\(y=14\\).",
+        "options": [
+          "700",
+          "289.29",
+          "450",
+          "455"
+        ],
+        "explanation": "For direct variation, the ratios are equal.\n\n\\[\n\\frac{x_1}{y_1}=\\frac{x_2}{y_2}\n\\]\n\nSubstitute the values.\n\n\\[\n\\frac{450}{9}=\\frac{x_2}{14}\n\\]\n\nSolve for the new value.\n\n\\[\nx_2=\\frac{450\\times 14}{9}=700\n\\]\n\nAnswer: 700"
+      },
+      "hi": {
+        "question": "यदि \\(x\\), \\(y\\) के सीधे अनुपाती है और \\(y=9\\) पर \\(x=450\\) है, तो \\(y=14\\) पर \\(x\\) ज्ञात करें।",
+        "options": [
+          "700",
+          "289.29",
+          "450",
+          "455"
+        ],
+        "explanation": "सीधे अनुपात में अनुपात बराबर होते हैं।\n\n\\[\n\\frac{x_1}{y_1}=\\frac{x_2}{y_2}\n\\]\n\nमान रखें।\n\n\\[\n\\frac{450}{9}=\\frac{x_2}{14}\n\\]\n\nनया मान ज्ञात करें।\n\n\\[\nx_2=\\frac{450\\times 14}{9}=700\n\\]\n\nउत्तर: 700"
+      },
+      "pa": {
+        "question": "ਜੇ \\(x\\), \\(y\\) ਦੇ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ \\(y=9\\) ਤੇ \\(x=450\\) ਹੈ, ਤਾਂ \\(y=14\\) ਤੇ \\(x\\) ਪਤਾ ਕਰੋ।",
+        "options": [
+          "700",
+          "289.29",
+          "450",
+          "455"
+        ],
+        "explanation": "ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਅਨੁਪਾਤ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।\n\n\\[\n\\frac{x_1}{y_1}=\\frac{x_2}{y_2}\n\\]\n\nਮੁੱਲ ਰੱਖੋ।\n\n\\[\n\\frac{450}{9}=\\frac{x_2}{14}\n\\]\n\nਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।\n\n\\[\nx_2=\\frac{450\\times 14}{9}=700\n\\]\n\nਉੱਤਰ: 700"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 2,
+    "question": "At present, A's age and B's age are in the ratio \\(5:8\\). After 63 years, they will be in the ratio \\(2:3\\). Find A's present age.",
+    "options": [
+      "378 years",
+      "315 years",
+      "504 years",
+      "63 years"
+    ],
+    "answer": "315 years",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_age_future_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_age_future_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_age_future_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_age_future_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "At present, A's age and B's age are in the ratio \\(5:8\\). After 63 years, they will be in the ratio \\(2:3\\). Find A's present age.",
+        "options": [
+          "378 years",
+          "315 years",
+          "504 years",
+          "63 years"
+        ],
+        "explanation": "Let present ages be ratio parts.\n\n\\[\nA=5k,\\quad B=8k\n\\]\n\nUse the future-age ratio.\n\n\\[\n\\frac{5k+63}{8k+63}=\\frac{2}{3}\n\\]\n\nSolve for the multiplier.\n\n\\[\n-1k=-63,\\quad k=63\n\\]\n\nFind A's present age.\n\n\\[\nA=5k=315\n\\]\n\nAnswer: 315 years"
+      },
+      "hi": {
+        "question": "A और B की वर्तमान आयु का अनुपात \\(5:8\\) है। 63 वर्ष बाद अनुपात \\(2:3\\) होगा। A की वर्तमान आयु ज्ञात करें।",
+        "options": [
+          "378 वर्ष",
+          "315 वर्ष",
+          "504 वर्ष",
+          "63 वर्ष"
+        ],
+        "explanation": "वर्तमान आयु को अनुपात के भाग मानें।\n\n\\[\nA=5k,\\quad B=8k\n\\]\n\nभविष्य की आयु का अनुपात लगाएँ।\n\n\\[\n\\frac{5k+63}{8k+63}=\\frac{2}{3}\n\\]\n\nगुणक ज्ञात करें।\n\n\\[\n-1k=-63,\\quad k=63\n\\]\n\nA की वर्तमान आयु निकालें।\n\n\\[\nA=5k=315\n\\]\n\nउत्तर: 315 years"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \\(5:8\\) ਹੈ। 63 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \\(2:3\\) ਹੋਵੇਗਾ। A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "378 ਸਾਲ",
+          "315 ਸਾਲ",
+          "504 ਸਾਲ",
+          "63 ਸਾਲ"
+        ],
+        "explanation": "ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=5k,\\quad B=8k\n\\]\n\nਭਵਿੱਖ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।\n\n\\[\n\\frac{5k+63}{8k+63}=\\frac{2}{3}\n\\]\n\nਗੁਣਕ ਪਤਾ ਕਰੋ।\n\n\\[\n-1k=-63,\\quad k=63\n\\]\n\nA ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।\n\n\\[\nA=5k=315\n\\]\n\nਉੱਤਰ: 315 years"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 3,
+    "question": "A and B have incomes in the ratio \\(5:7\\). After increases of 20% and 25% respectively, find the new ratio.",
+    "options": [
+      "24:35",
+      "625:840",
+      "5:7",
+      "25:32"
+    ],
+    "answer": "24:35",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_ratio_after_increase"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_ratio_after_increase",
+      "category": "ratio_proportion",
+      "subtype": "rp_ratio_after_increase",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_ratio_after_increase"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B have incomes in the ratio \\(5:7\\). After increases of 20% and 25% respectively, find the new ratio.",
+        "options": [
+          "24:35",
+          "625:840",
+          "5:7",
+          "25:32"
+        ],
+        "explanation": "Let the original incomes be ratio parts.\n\n\\[\nA=5,\\quad B=7\n\\]\n\nApply the percentage increases.\n\n\\[\nA':B'=5\\left(1+\\frac{20}{100}\\right):7\\left(1+\\frac{25}{100}\\right)\n\\]\n\nSimplify the new ratio.\n\n\\[\nA':B'=600:875=24:35\n\\]\n\nAnswer: 24:35"
+      },
+      "hi": {
+        "question": "A और B की आय का अनुपात \\(5:7\\) है। A की आय 20% और B की आय 25% बढ़ती है। नया अनुपात ज्ञात करें।",
+        "options": [
+          "24:35",
+          "625:840",
+          "5:7",
+          "25:32"
+        ],
+        "explanation": "मूल आय को अनुपात के भाग मानें।\n\n\\[\nA=5,\\quad B=7\n\\]\n\nप्रतिशत वृद्धि लगाएँ।\n\n\\[\nA':B'=5\\left(1+\\frac{20}{100}\\right):7\\left(1+\\frac{25}{100}\\right)\n\\]\n\nनया अनुपात सरल करें।\n\n\\[\nA':B'=600:875=24:35\n\\]\n\nउत्तर: 24:35"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ \\(5:7\\) ਹੈ। A ਦੀ ਆਮਦਨ 20% ਅਤੇ B ਦੀ ਆਮਦਨ 25% ਵਧਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "24:35",
+          "625:840",
+          "5:7",
+          "25:32"
+        ],
+        "explanation": "ਮੂਲ ਆਮਦਨ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=5,\\quad B=7\n\\]\n\nਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਗਾਓ।\n\n\\[\nA':B'=5\\left(1+\\frac{20}{100}\\right):7\\left(1+\\frac{25}{100}\\right)\n\\]\n\nਨਵਾਂ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।\n\n\\[\nA':B'=600:875=24:35\n\\]\n\nਉੱਤਰ: 24:35"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 4,
+    "question": "With 18 workers, a job takes 270 days. Find the time needed when 27 workers do the same job.",
+    "options": [
+      "9",
+      "270",
+      "180",
+      "405"
+    ],
+    "answer": "180",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_inverse_variation_basic"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_inverse_variation_basic",
+      "category": "ratio_proportion",
+      "subtype": "rp_inverse_variation_basic",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_inverse_variation_basic"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "With 18 workers, a job takes 270 days. Find the time needed when 27 workers do the same job.",
+        "options": [
+          "9",
+          "270",
+          "180",
+          "405"
+        ],
+        "explanation": "Workers and days vary inversely.\n\n\\[\nW_1D_1=W_2D_2\n\\]\n\nSubstitute the values.\n\n\\[\n18\\times 270=27\\times D_2\n\\]\n\nSolve for the days.\n\n\\[\nD_2=\\frac{18\\times 270}{27}=180\n\\]\n\nAnswer: 180"
+      },
+      "hi": {
+        "question": "18 मजदूर एक काम को 270 दिनों में पूरा करते हैं। यदि मजदूर 27 हों, तो कितने दिन लगेंगे?",
+        "options": [
+          "9",
+          "270",
+          "180",
+          "405"
+        ],
+        "explanation": "मजदूर और दिन व्युत्क्रमानुपाती हैं।\n\n\\[\nW_1D_1=W_2D_2\n\\]\n\nमान रखें।\n\n\\[\n18\\times 270=27\\times D_2\n\\]\n\nदिनों की संख्या निकालें।\n\n\\[\nD_2=\\frac{18\\times 270}{27}=180\n\\]\n\nउत्तर: 180"
+      },
+      "pa": {
+        "question": "18 ਮਜ਼ਦੂਰ ਇੱਕ ਕੰਮ ਨੂੰ 270 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਜੇ ਮਜ਼ਦੂਰ 27 ਹੋਣ, ਤਾਂ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?",
+        "options": [
+          "9",
+          "270",
+          "180",
+          "405"
+        ],
+        "explanation": "ਮਜ਼ਦੂਰ ਅਤੇ ਦਿਨ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ।\n\n\\[\nW_1D_1=W_2D_2\n\\]\n\nਮੁੱਲ ਰੱਖੋ।\n\n\\[\n18\\times 270=27\\times D_2\n\\]\n\nਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।\n\n\\[\nD_2=\\frac{18\\times 270}{27}=180\n\\]\n\nਉੱਤਰ: 180"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 5,
+    "question": "A and B invest in the ratio \\(5:8\\) for the same time. Their total profit is ₹13000. Find A's share of profit.",
+    "options": [
+      "₹6500",
+      "₹1000",
+      "₹5000",
+      "₹8000"
+    ],
+    "answer": "₹5000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_partnership_basic"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_partnership_basic",
+      "category": "ratio_proportion",
+      "subtype": "rp_partnership_basic",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_partnership_basic"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B invest in the ratio \\(5:8\\) for the same time. Their total profit is ₹13000. Find A's share of profit.",
+        "options": [
+          "₹6500",
+          "₹1000",
+          "₹5000",
+          "₹8000"
+        ],
+        "explanation": "For equal time, profit is divided in the investment ratio.\n\n\\[\nA:B=5:8\n\\]\n\nUse the total profit.\n\n\\[\n5k+8k=13000,\\quad k=1000\n\\]\n\nFind A's profit share.\n\n\\[\nA=5k=5000\n\\]\n\nAnswer: ₹5000"
+      },
+      "hi": {
+        "question": "A और B समान समय के लिए \\(5:8\\) के अनुपात में निवेश करते हैं। कुल लाभ ₹13000 है। A का लाभांश ज्ञात करें।",
+        "options": [
+          "₹6500",
+          "₹1000",
+          "₹5000",
+          "₹8000"
+        ],
+        "explanation": "समान समय में लाभ निवेश के अनुपात में बँटता है।\n\n\\[\nA:B=5:8\n\\]\n\nकुल लाभ का उपयोग करें।\n\n\\[\n5k+8k=13000,\\quad k=1000\n\\]\n\nA का लाभांश निकालें।\n\n\\[\nA=5k=5000\n\\]\n\nउत्तर: ₹5000"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਇੱਕੋ ਸਮੇਂ ਲਈ \\(5:8\\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ₹13000 ਹੈ। A ਦਾ ਲਾਭ-ਹਿੱਸਾ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹6500",
+          "₹1000",
+          "₹5000",
+          "₹8000"
+        ],
+        "explanation": "ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ।\n\n\\[\nA:B=5:8\n\\]\n\nਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n5k+8k=13000,\\quad k=1000\n\\]\n\nA ਦਾ ਲਾਭ-ਹਿੱਸਾ ਕੱਢੋ।\n\n\\[\nA=5k=5000\n\\]\n\nਉੱਤਰ: ₹5000"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 6,
+    "question": "A sum of ₹640 is divided in the ratio \\(3:5\\). Find B's share.",
+    "options": [
+      "₹320",
+      "₹80",
+      "₹240",
+      "₹400"
+    ],
+    "answer": "₹400",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_direct_sharing"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_direct_sharing",
+      "category": "ratio_proportion",
+      "subtype": "rp_direct_sharing",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_direct_sharing"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A sum of ₹640 is divided in the ratio \\(3:5\\). Find B's share.",
+        "options": [
+          "₹320",
+          "₹80",
+          "₹240",
+          "₹400"
+        ],
+        "explanation": "Write the given ratio.\n\n\\[\nA=3k,\\quad B=5k\n\\]\n\nUse the total sum.\n\n\\[\n3k+5k=640\n\\]\n\nSolve for the common multiplier.\n\n\\[\nk=\\frac{640}{8}=80\n\\]\n\nCompute B's share.\n\n\\[\nB=5k=5\\times 80=400\n\\]\n\nAnswer: ₹400"
+      },
+      "hi": {
+        "question": "₹640 की राशि को \\(3:5\\) के अनुपात में बाँटा गया है। B का हिस्सा ज्ञात करें।",
+        "options": [
+          "₹320",
+          "₹80",
+          "₹240",
+          "₹400"
+        ],
+        "explanation": "दिया गया अनुपात लिखें।\n\n\\[\nA=3k,\\quad B=5k\n\\]\n\nकुल राशि का उपयोग करें।\n\n\\[\n3k+5k=640\n\\]\n\nसामान्य गुणक ज्ञात करें।\n\n\\[\nk=\\frac{640}{8}=80\n\\]\n\nB का हिस्सा निकालें।\n\n\\[\nB=5k=5\\times 80=400\n\\]\n\nउत्तर: ₹400"
+      },
+      "pa": {
+        "question": "₹640 ਦੀ ਰਕਮ ਨੂੰ \\(3:5\\) ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। B ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹320",
+          "₹80",
+          "₹240",
+          "₹400"
+        ],
+        "explanation": "ਦਿੱਤਾ ਅਨੁਪਾਤ ਲਿਖੋ।\n\n\\[\nA=3k,\\quad B=5k\n\\]\n\nਕੁੱਲ ਰਕਮ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n3k+5k=640\n\\]\n\nਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।\n\n\\[\nk=\\frac{640}{8}=80\n\\]\n\nB ਦਾ ਹਿੱਸਾ ਕੱਢੋ।\n\n\\[\nB=5k=5\\times 80=400\n\\]\n\nਉੱਤਰ: ₹400"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 7,
+    "question": "B earns ₹600 more than A, and their salaries are in the ratio \\(4:7\\). Find A's salary.",
+    "options": [
+      "₹600",
+      "₹1400",
+      "₹800",
+      "₹200"
+    ],
+    "answer": "₹800",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_difference_based_ratio_recovery"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_difference_based_ratio_recovery",
+      "category": "ratio_proportion",
+      "subtype": "rp_difference_based_ratio_recovery",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_difference_based_ratio_recovery"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "B earns ₹600 more than A, and their salaries are in the ratio \\(4:7\\). Find A's salary.",
+        "options": [
+          "₹600",
+          "₹1400",
+          "₹800",
+          "₹200"
+        ],
+        "explanation": "Let the salaries be in ratio form.\n\n\\[\nA=4k,\\quad B=7k\n\\]\n\nUse the salary difference.\n\n\\[\n7k-4k=600\n\\]\n\nSolve for the multiplier.\n\n\\[\n3k=600,\\quad k=200\n\\]\n\nCompute the required value.\n\n\\[\nA=4k=800\n\\]\n\nAnswer: ₹800"
+      },
+      "hi": {
+        "question": "A और B के वेतन का अनुपात \\(4:7\\) है। B, A से ₹600 अधिक कमाता है। A का वेतन ज्ञात करें।",
+        "options": [
+          "₹600",
+          "₹1400",
+          "₹800",
+          "₹200"
+        ],
+        "explanation": "वेतन को अनुपात के रूप में मानें।\n\n\\[\nA=4k,\\quad B=7k\n\\]\n\nवेतन के अंतर का उपयोग करें।\n\n\\[\n7k-4k=600\n\\]\n\nगुणक ज्ञात करें।\n\n\\[\n3k=600,\\quad k=200\n\\]\n\nआवश्यक मान निकालें।\n\n\\[\nA=4k=800\n\\]\n\nउत्तर: ₹800"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਤਨਖਾਹ ਦਾ ਅਨੁਪਾਤ \\(4:7\\) ਹੈ। B, A ਨਾਲੋਂ ₹600 ਵੱਧ ਕਮਾਂਦਾ ਹੈ। A ਦੀ ਤਨਖਾਹ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹600",
+          "₹1400",
+          "₹800",
+          "₹200"
+        ],
+        "explanation": "ਤਨਖਾਹਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਰੂਪ ਵਿੱਚ ਮੰਨੋ।\n\n\\[\nA=4k,\\quad B=7k\n\\]\n\nਤਨਖਾਹ ਦੇ ਅੰਤਰ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n7k-4k=600\n\\]\n\nਗੁਣਕ ਪਤਾ ਕਰੋ।\n\n\\[\n3k=600,\\quad k=200\n\\]\n\nਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।\n\n\\[\nA=4k=800\n\\]\n\nਉੱਤਰ: ₹800"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 8,
+    "question": "If \\(7:9 = 28:x\\), find \\(x\\).",
+    "options": [
+      "28",
+      "22",
+      "36",
+      "37"
+    ],
+    "answer": "36",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_missing_term_proportion"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_missing_term_proportion",
+      "category": "ratio_proportion",
+      "subtype": "rp_missing_term_proportion",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_missing_term_proportion"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "If \\(7:9 = 28:x\\), find \\(x\\).",
+        "options": [
+          "28",
+          "22",
+          "36",
+          "37"
+        ],
+        "explanation": "Write the proportion as fractions.\n\n\\[\n\\frac{7}{9}=\\frac{28}{x}\n\\]\n\nCross-multiply.\n\n\\[\n7x=9\\times 28\n\\]\n\nSolve for the missing term.\n\n\\[\nx=\\frac{9\\times 28}{7}=36\n\\]\n\nAnswer: 36"
+      },
+      "hi": {
+        "question": "यदि \\(7:9 = 28:x\\) है, तो \\(x\\) ज्ञात करें।",
+        "options": [
+          "28",
+          "22",
+          "36",
+          "37"
+        ],
+        "explanation": "अनुपात को भिन्न के रूप में लिखें।\n\n\\[\n\\frac{7}{9}=\\frac{28}{x}\n\\]\n\nक्रॉस-गुणा करें।\n\n\\[\n7x=9\\times 28\n\\]\n\nलुप्त पद ज्ञात करें।\n\n\\[\nx=\\frac{9\\times 28}{7}=36\n\\]\n\nउत्तर: 36"
+      },
+      "pa": {
+        "question": "ਜੇ \\(7:9 = 28:x\\) ਹੈ, ਤਾਂ \\(x\\) ਪਤਾ ਕਰੋ।",
+        "options": [
+          "28",
+          "22",
+          "36",
+          "37"
+        ],
+        "explanation": "ਅਨੁਪਾਤ ਨੂੰ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।\n\n\\[\n\\frac{7}{9}=\\frac{28}{x}\n\\]\n\nਕਰਾਸ-ਗੁਣਾ ਕਰੋ।\n\n\\[\n7x=9\\times 28\n\\]\n\nਗੁੰਮ ਪਦ ਪਤਾ ਕਰੋ।\n\n\\[\nx=\\frac{9\\times 28}{7}=36\n\\]\n\nਉੱਤਰ: 36"
+      }
+    },
+    "realismScore": 73
+  },
+  {
+    "index": 9,
+    "question": "A and B have present ages in the ratio \\(5:7\\). 90 years ago, their age ratio was \\(35:53\\). Find B's present age.",
+    "options": [
+      "405 years",
+      "81 years",
+      "477 years",
+      "567 years"
+    ],
+    "answer": "567 years",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_age_past_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_age_past_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_age_past_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_age_past_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B have present ages in the ratio \\(5:7\\). 90 years ago, their age ratio was \\(35:53\\). Find B's present age.",
+        "options": [
+          "405 years",
+          "81 years",
+          "477 years",
+          "567 years"
+        ],
+        "explanation": "Let present ages be ratio parts.\n\n\\[\nA=5k,\\quad B=7k\n\\]\n\nUse the past-age ratio.\n\n\\[\n\\frac{5k-90}{7k-90}=\\frac{35}{53}\n\\]\n\nSolve for the multiplier.\n\n\\[\n20k=1620,\\quad k=81\n\\]\n\nFind B's present age.\n\n\\[\nB=7k=567\n\\]\n\nAnswer: 567 years"
+      },
+      "hi": {
+        "question": "A और B की वर्तमान आयु का अनुपात \\(5:7\\) है। 90 वर्ष पहले अनुपात \\(35:53\\) था। B की वर्तमान आयु ज्ञात करें।",
+        "options": [
+          "405 वर्ष",
+          "81 वर्ष",
+          "477 वर्ष",
+          "567 वर्ष"
+        ],
+        "explanation": "वर्तमान आयु को अनुपात के भाग मानें।\n\n\\[\nA=5k,\\quad B=7k\n\\]\n\nपूर्व आयु का अनुपात लगाएँ।\n\n\\[\n\\frac{5k-90}{7k-90}=\\frac{35}{53}\n\\]\n\nगुणक ज्ञात करें।\n\n\\[\n20k=1620,\\quad k=81\n\\]\n\nB की वर्तमान आयु निकालें।\n\n\\[\nB=7k=567\n\\]\n\nउत्तर: 567 years"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \\(5:7\\) ਹੈ। 90 ਸਾਲ ਪਹਿਲਾਂ ਅਨੁਪਾਤ \\(35:53\\) ਸੀ। B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "405 ਸਾਲ",
+          "81 ਸਾਲ",
+          "477 ਸਾਲ",
+          "567 ਸਾਲ"
+        ],
+        "explanation": "ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=5k,\\quad B=7k\n\\]\n\nਪਿਛਲੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।\n\n\\[\n\\frac{5k-90}{7k-90}=\\frac{35}{53}\n\\]\n\nਗੁਣਕ ਪਤਾ ਕਰੋ।\n\n\\[\n20k=1620,\\quad k=81\n\\]\n\nB ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।\n\n\\[\nB=7k=567\n\\]\n\nਉੱਤਰ: 567 years"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 10,
+    "question": "In a class, boys and girls are in the ratio \\(5:8\\). There are 260 students in all. Find the number of boys.",
+    "options": [
+      "60",
+      "100",
+      "20",
+      "160"
+    ],
+    "answer": "100",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_sum_based_ratio_recovery"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_sum_based_ratio_recovery",
+      "category": "ratio_proportion",
+      "subtype": "rp_sum_based_ratio_recovery",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_sum_based_ratio_recovery"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a class, boys and girls are in the ratio \\(5:8\\). There are 260 students in all. Find the number of boys.",
+        "options": [
+          "60",
+          "100",
+          "20",
+          "160"
+        ],
+        "explanation": "Let boys and girls be proportional to the ratio.\n\n\\[\nB=5k,\\quad G=8k\n\\]\n\nUse the total students.\n\n\\[\n5k+8k=260\n\\]\n\nSolve the equation.\n\n\\[\n13k=260,\\quad k=20\n\\]\n\nFind the number of boys.\n\n\\[\nB=5k=100\n\\]\n\nAnswer: 100"
+      },
+      "hi": {
+        "question": "लड़कों और लड़कियों का अनुपात \\(5:8\\) है। कुल विद्यार्थी 260 हैं। लड़कों की संख्या ज्ञात करें।",
+        "options": [
+          "60",
+          "100",
+          "20",
+          "160"
+        ],
+        "explanation": "लड़कों और लड़कियों को अनुपात के अनुसार मानें।\n\n\\[\nB=5k,\\quad G=8k\n\\]\n\nकुल विद्यार्थियों का उपयोग करें।\n\n\\[\n5k+8k=260\n\\]\n\nसमीकरण हल करें।\n\n\\[\n13k=260,\\quad k=20\n\\]\n\nलड़कों की संख्या निकालें।\n\n\\[\nB=5k=100\n\\]\n\nउत्तर: 100"
+      },
+      "pa": {
+        "question": "ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ \\(5:8\\) ਹੈ। ਕੁੱਲ ਵਿਦਿਆਰਥੀ 260 ਹਨ। ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "60",
+          "100",
+          "20",
+          "160"
+        ],
+        "explanation": "ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਨੂੰ ਅਨੁਪਾਤ ਅਨੁਸਾਰ ਮੰਨੋ।\n\n\\[\nB=5k,\\quad G=8k\n\\]\n\nਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n5k+8k=260\n\\]\n\nਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।\n\n\\[\n13k=260,\\quad k=20\n\\]\n\nਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।\n\n\\[\nB=5k=100\n\\]\n\nਉੱਤਰ: 100"
+      }
+    },
+    "realismScore": 76
+  },
+  {
+    "index": 11,
+    "question": "The scale of a map is \\(1:400000\\), so 1 cm represents 4 km. If a road is 15 cm on the map, find its actual length.",
+    "options": [
+      "4 km",
+      "60 km",
+      "600 km",
+      "15 km"
+    ],
+    "answer": "60 km",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_map_scale_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_map_scale_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_map_scale_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_map_scale_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The scale of a map is \\(1:400000\\), so 1 cm represents 4 km. If a road is 15 cm on the map, find its actual length.",
+        "options": [
+          "4 km",
+          "60 km",
+          "600 km",
+          "15 km"
+        ],
+        "explanation": "Use the map scale.\n\n\\[\n1\\text{ cm}=4\\text{ km}\n\\]\n\nMultiply by the map distance.\n\n\\[\n\\text{Actual distance}=15\\times 4=60\\text{ km}\n\\]\n\nAnswer: 60 km"
+      },
+      "hi": {
+        "question": "एक नक्शे का पैमाना \\(1:400000\\) है, इसलिए 1 cm 4 km को दर्शाता है। यदि नक्शे पर सड़क 15 cm है, तो उसकी वास्तविक लंबाई ज्ञात करें।",
+        "options": [
+          "4 km",
+          "60 km",
+          "600 km",
+          "15 km"
+        ],
+        "explanation": "नक्शे के पैमाने का उपयोग करें।\n\n\\[\n1\\text{ cm}=4\\text{ km}\n\\]\n\nनक्शे की दूरी से गुणा करें।\n\n\\[\n\\text{Actual distance}=15\\times 4=60\\text{ km}\n\\]\n\nउत्तर: 60 km"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਨਕਸ਼ੇ ਦਾ ਪੈਮਾਨਾ \\(1:400000\\) ਹੈ, ਇਸ ਲਈ 1 cm 4 km ਦਰਸਾਉਂਦਾ ਹੈ। ਜੇ ਨਕਸ਼ੇ ਤੇ ਸੜਕ 15 cm ਹੈ, ਤਾਂ ਉਸਦੀ ਅਸਲ ਲੰਬਾਈ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "4 km",
+          "60 km",
+          "600 km",
+          "15 km"
+        ],
+        "explanation": "ਨਕਸ਼ੇ ਦੇ ਪੈਮਾਨੇ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n1\\text{ cm}=4\\text{ km}\n\\]\n\nਨਕਸ਼ੇ ਦੀ ਦੂਰੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।\n\n\\[\n\\text{Actual distance}=15\\times 4=60\\text{ km}\n\\]\n\nਉੱਤਰ: 60 km"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 12,
+    "question": "A is \\(\\frac{4}{11}\\) of the total. Find the ratio \\(A:B\\).",
+    "options": [
+      "7:4",
+      "4:7",
+      "11:4",
+      "4:11"
+    ],
+    "answer": "4:7",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_fraction_to_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_fraction_to_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_fraction_to_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_fraction_to_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A is \\(\\frac{4}{11}\\) of the total. Find the ratio \\(A:B\\).",
+        "options": [
+          "7:4",
+          "4:7",
+          "11:4",
+          "4:11"
+        ],
+        "explanation": "Use total parts from the fraction.\n\n\\[\nA=4,\\quad A+B=11\n\\]\n\nFind B's parts.\n\n\\[\nB=11-4=7\n\\]\n\nWrite the ratio.\n\n\\[\nA:B=4:7=4:7\n\\]\n\nAnswer: 4:7"
+      },
+      "hi": {
+        "question": "A, कुल का \\(\\frac{4}{11}\\) है। अनुपात \\(A:B\\) ज्ञात करें।",
+        "options": [
+          "7:4",
+          "4:7",
+          "11:4",
+          "4:11"
+        ],
+        "explanation": "भिन्न से कुल भाग लें।\n\n\\[\nA=4,\\quad A+B=11\n\\]\n\nB के भाग ज्ञात करें।\n\n\\[\nB=11-4=7\n\\]\n\nअनुपात लिखें।\n\n\\[\nA:B=4:7=4:7\n\\]\n\nउत्तर: 4:7"
+      },
+      "pa": {
+        "question": "A, ਕੁੱਲ ਦਾ \\(\\frac{4}{11}\\) ਹੈ। ਅਨੁਪਾਤ \\(A:B\\) ਪਤਾ ਕਰੋ।",
+        "options": [
+          "7:4",
+          "4:7",
+          "11:4",
+          "4:11"
+        ],
+        "explanation": "ਭਿੰਨ ਤੋਂ ਕੁੱਲ ਭਾਗ ਲਓ।\n\n\\[\nA=4,\\quad A+B=11\n\\]\n\nB ਦੇ ਭਾਗ ਪਤਾ ਕਰੋ।\n\n\\[\nB=11-4=7\n\\]\n\nਅਨੁਪਾਤ ਲਿਖੋ।\n\n\\[\nA:B=4:7=4:7\n\\]\n\nਉੱਤਰ: 4:7"
+      }
+    },
+    "realismScore": 74
+  },
+  {
+    "index": 13,
+    "question": "A invests ₹9000 for 8 months and B invests ₹6000 for 12 months. If the total profit is ₹1600, find A's share.",
+    "options": [
+      "₹9000",
+      "₹750",
+      "₹805",
+      "₹800"
+    ],
+    "answer": "₹800",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_partnership_time_variation"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_partnership_time_variation",
+      "category": "ratio_proportion",
+      "subtype": "rp_partnership_time_variation",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_partnership_time_variation"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A invests ₹9000 for 8 months and B invests ₹6000 for 12 months. If the total profit is ₹1600, find A's share.",
+        "options": [
+          "₹9000",
+          "₹750",
+          "₹805",
+          "₹800"
+        ],
+        "explanation": "Profit ratio is capital multiplied by time.\n\n\\[\nA:B=9000\\times 8:6000\\times 12\n\\]\n\nSimplify the effective capital ratio.\n\n\\[\nA:B=72000:72000=1:1\n\\]\n\nUse the total profit.\n\n\\[\n1k+1k=1600,\\quad k=800\n\\]\n\nFind A's share.\n\n\\[\nA=1k=800\n\\]\n\nAnswer: ₹800"
+      },
+      "hi": {
+        "question": "A 8 महीने के लिए ₹9000 और B 12 महीने के लिए ₹6000 निवेश करता है। यदि कुल लाभ ₹1600 है, तो A का हिस्सा ज्ञात करें।",
+        "options": [
+          "₹9000",
+          "₹750",
+          "₹805",
+          "₹800"
+        ],
+        "explanation": "लाभ अनुपात पूँजी × समय होता है।\n\n\\[\nA:B=9000\\times 8:6000\\times 12\n\\]\n\nप्रभावी पूँजी अनुपात सरल करें।\n\n\\[\nA:B=72000:72000=1:1\n\\]\n\nकुल लाभ का उपयोग करें।\n\n\\[\n1k+1k=1600,\\quad k=800\n\\]\n\nA का हिस्सा निकालें।\n\n\\[\nA=1k=800\n\\]\n\nउत्तर: ₹800"
+      },
+      "pa": {
+        "question": "A 8 ਮਹੀਨੇ ਲਈ ₹9000 ਅਤੇ B 12 ਮਹੀਨੇ ਲਈ ₹6000 ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ। ਜੇ ਕੁੱਲ ਲਾਭ ₹1600 ਹੈ, ਤਾਂ A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹9000",
+          "₹750",
+          "₹805",
+          "₹800"
+        ],
+        "explanation": "ਲਾਭ ਅਨੁਪਾਤ ਪੂੰਜੀ × ਸਮਾਂ ਹੁੰਦਾ ਹੈ।\n\n\\[\nA:B=9000\\times 8:6000\\times 12\n\\]\n\nਪ੍ਰਭਾਵੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।\n\n\\[\nA:B=72000:72000=1:1\n\\]\n\nਕੁੱਲ ਲਾਭ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n1k+1k=1600,\\quad k=800\n\\]\n\nA ਦਾ ਹਿੱਸਾ ਕੱਢੋ।\n\n\\[\nA=1k=800\n\\]\n\nਉੱਤਰ: ₹800"
+      }
+    },
+    "realismScore": 81
+  },
+  {
+    "index": 14,
+    "question": "If \\(A:B=8:11\\) and \\(B:C=6:7\\), find \\(A:B:C\\).",
+    "options": [
+      "77:66:48",
+      "8:66:7",
+      "8:11:7",
+      "48:66:77"
+    ],
+    "answer": "48:66:77",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_chain_ratio_network"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_chain_ratio_network",
+      "category": "ratio_proportion",
+      "subtype": "rp_chain_ratio_network",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_chain_ratio_network"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "If \\(A:B=8:11\\) and \\(B:C=6:7\\), find \\(A:B:C\\).",
+        "options": [
+          "77:66:48",
+          "8:66:7",
+          "8:11:7",
+          "48:66:77"
+        ],
+        "explanation": "Make the B part common.\n\n\\[\n\\text{LCM of }11\\text{ and }6=66\n\\]\n\nScale the first ratio.\n\n\\[\nA:B=48:66\n\\]\n\nScale the second ratio.\n\n\\[\nB:C=66:77\n\\]\n\nCombine the ratios.\n\n\\[\nA:B:C=48:66:77\n\\]\n\nAnswer: 48:66:77"
+      },
+      "hi": {
+        "question": "यदि \\(A:B=8:11\\) और \\(B:C=6:7\\) है, तो \\(A:B:C\\) ज्ञात करें।",
+        "options": [
+          "77:66:48",
+          "8:66:7",
+          "8:11:7",
+          "48:66:77"
+        ],
+        "explanation": "B के भाग को समान करें।\n\n\\[\n\\text{LCM of }11\\text{ and }6=66\n\\]\n\nपहले अनुपात को बढ़ाएँ।\n\n\\[\nA:B=48:66\n\\]\n\nदूसरे अनुपात को बढ़ाएँ।\n\n\\[\nB:C=66:77\n\\]\n\nअनुपातों को मिलाएँ।\n\n\\[\nA:B:C=48:66:77\n\\]\n\nउत्तर: 48:66:77"
+      },
+      "pa": {
+        "question": "ਜੇ \\(A:B=8:11\\) ਅਤੇ \\(B:C=6:7\\) ਹੈ, ਤਾਂ \\(A:B:C\\) ਪਤਾ ਕਰੋ।",
+        "options": [
+          "77:66:48",
+          "8:66:7",
+          "8:11:7",
+          "48:66:77"
+        ],
+        "explanation": "B ਦੇ ਭਾਗ ਨੂੰ ਸਾਂਝਾ ਕਰੋ।\n\n\\[\n\\text{LCM of }11\\text{ and }6=66\n\\]\n\nਪਹਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।\n\n\\[\nA:B=48:66\n\\]\n\nਦੂਜੇ ਅਨੁਪਾਤ ਨੂੰ ਸਕੇਲ ਕਰੋ।\n\n\\[\nB:C=66:77\n\\]\n\nਅਨੁਪਾਤਾਂ ਨੂੰ ਜੋੜੋ।\n\n\\[\nA:B:C=48:66:77\n\\]\n\nਉੱਤਰ: 48:66:77"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 15,
+    "question": "A and B have money in the ratio \\(11:7\\). After ₹2400 is given by A to B, the ratio becomes \\(1:1\\). Find A's original amount.",
+    "options": [
+      "₹10800",
+      "₹13200",
+      "₹8400",
+      "₹15600"
+    ],
+    "answer": "₹13200",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_ratio_after_transfer"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_ratio_after_transfer",
+      "category": "ratio_proportion",
+      "subtype": "rp_ratio_after_transfer",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_ratio_after_transfer"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A and B have money in the ratio \\(11:7\\). After ₹2400 is given by A to B, the ratio becomes \\(1:1\\). Find A's original amount.",
+        "options": [
+          "₹10800",
+          "₹13200",
+          "₹8400",
+          "₹15600"
+        ],
+        "explanation": "Let the original amounts be ratio parts.\n\n\\[\nA=11k,\\quad B=7k\n\\]\n\nForm the equation after transfer.\n\n\\[\n\\frac{11k-2400}{7k+2400}=\\frac{1}{1}\n\\]\n\nCross-multiply and solve.\n\n\\[\n1(11k-2400)=1(7k+2400)\n\\]\n\nFind the common multiplier.\n\n\\[\n4k=4800,\\quad k=1200\n\\]\n\nCompute A's original amount.\n\n\\[\nA=11k=11\\times 1200=13200\n\\]\n\nAnswer: ₹13200"
+      },
+      "hi": {
+        "question": "A और B के पास धन का अनुपात \\(11:7\\) है। A द्वारा B को ₹2400 देने के बाद अनुपात \\(1:1\\) हो जाता है। A की मूल राशि ज्ञात करें।",
+        "options": [
+          "₹10800",
+          "₹13200",
+          "₹8400",
+          "₹15600"
+        ],
+        "explanation": "मूल राशियों को अनुपात के भाग मानें।\n\n\\[\nA=11k,\\quad B=7k\n\\]\n\nहस्तांतरण के बाद समीकरण बनाएँ।\n\n\\[\n\\frac{11k-2400}{7k+2400}=\\frac{1}{1}\n\\]\n\nक्रॉस-गुणा करके हल करें।\n\n\\[\n1(11k-2400)=1(7k+2400)\n\\]\n\nसामान्य गुणक ज्ञात करें।\n\n\\[\n4k=4800,\\quad k=1200\n\\]\n\nA की मूल राशि निकालें।\n\n\\[\nA=11k=11\\times 1200=13200\n\\]\n\nउत्तर: ₹13200"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਕੋਲ ਪੈਸੇ ਦਾ ਅਨੁਪਾਤ \\(11:7\\) ਹੈ। A ਵੱਲੋਂ B ਨੂੰ ₹2400 ਦੇਣ ਤੋਂ ਬਾਅਦ ਅਨੁਪਾਤ \\(1:1\\) ਹੋ ਜਾਂਦਾ ਹੈ। A ਦੀ ਮੂਲ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹10800",
+          "₹13200",
+          "₹8400",
+          "₹15600"
+        ],
+        "explanation": "ਮੂਲ ਰਕਮਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=11k,\\quad B=7k\n\\]\n\nਤਬਾਦਲੇ ਤੋਂ ਬਾਅਦ ਸਮੀਕਰਨ ਬਣਾਓ।\n\n\\[\n\\frac{11k-2400}{7k+2400}=\\frac{1}{1}\n\\]\n\nਕਰਾਸ-ਗੁਣਾ ਕਰਕੇ ਹੱਲ ਕਰੋ।\n\n\\[\n1(11k-2400)=1(7k+2400)\n\\]\n\nਸਾਂਝਾ ਗੁਣਕ ਪਤਾ ਕਰੋ।\n\n\\[\n4k=4800,\\quad k=1200\n\\]\n\nA ਦੀ ਮੂਲ ਰਕਮ ਕੱਢੋ।\n\n\\[\nA=11k=11\\times 1200=13200\n\\]\n\nਉੱਤਰ: ₹13200"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 16,
+    "question": "\\(x\\) varies directly as \\(y\\) and inversely as \\(z\\). If \\(x=648\\) when \\(y=9\\) and \\(z=5\\), find \\(x\\) when \\(y=15\\) and \\(z=6\\).",
+    "options": [
+      "648",
+      "1080",
+      "900",
+      "1296"
+    ],
+    "answer": "900",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_combined_direct_inverse"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_combined_direct_inverse",
+      "category": "ratio_proportion",
+      "subtype": "rp_combined_direct_inverse",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_combined_direct_inverse"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "\\(x\\) varies directly as \\(y\\) and inversely as \\(z\\). If \\(x=648\\) when \\(y=9\\) and \\(z=5\\), find \\(x\\) when \\(y=15\\) and \\(z=6\\).",
+        "options": [
+          "648",
+          "1080",
+          "900",
+          "1296"
+        ],
+        "explanation": "Use combined direct and inverse variation.\n\n\\[\nx=k\\frac{y}{z}\n\\]\n\nCompare the two cases.\n\n\\[\n\\frac{x_2}{x_1}=\\frac{y_2}{y_1}\\times \\frac{z_1}{z_2}\n\\]\n\nCompute the new value.\n\n\\[\nx_2=648\\times \\frac{15}{9}\\times \\frac{5}{6}=900\n\\]\n\nAnswer: 900"
+      },
+      "hi": {
+        "question": "\\(x\\), \\(y\\) के सीधे और \\(z\\) के व्युत्क्रमानुपाती है। यदि \\(y=9\\) और \\(z=5\\) पर \\(x=648\\) है, तो \\(y=15\\) और \\(z=6\\) पर \\(x\\) ज्ञात करें।",
+        "options": [
+          "648",
+          "1080",
+          "900",
+          "1296"
+        ],
+        "explanation": "संयुक्त सीधे और व्युत्क्रम अनुपात का उपयोग करें।\n\n\\[\nx=k\\frac{y}{z}\n\\]\n\nदोनों स्थितियों की तुलना करें।\n\n\\[\n\\frac{x_2}{x_1}=\\frac{y_2}{y_1}\\times \\frac{z_1}{z_2}\n\\]\n\nनया मान निकालें।\n\n\\[\nx_2=648\\times \\frac{15}{9}\\times \\frac{5}{6}=900\n\\]\n\nउत्तर: 900"
+      },
+      "pa": {
+        "question": "\\(x\\), \\(y\\) ਦੇ ਸਿੱਧੇ ਅਤੇ \\(z\\) ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਜੇ \\(y=9\\) ਅਤੇ \\(z=5\\) ਤੇ \\(x=648\\) ਹੈ, ਤਾਂ \\(y=15\\) ਅਤੇ \\(z=6\\) ਤੇ \\(x\\) ਪਤਾ ਕਰੋ।",
+        "options": [
+          "648",
+          "1080",
+          "900",
+          "1296"
+        ],
+        "explanation": "ਸੰਯੁਕਤ ਸਿੱਧੇ ਅਤੇ ਉਲਟ ਅਨੁਪਾਤ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\nx=k\\frac{y}{z}\n\\]\n\nਦੋਹਾਂ ਹਾਲਤਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।\n\n\\[\n\\frac{x_2}{x_1}=\\frac{y_2}{y_1}\\times \\frac{z_1}{z_2}\n\\]\n\nਨਵਾਂ ਮੁੱਲ ਕੱਢੋ।\n\n\\[\nx_2=648\\times \\frac{15}{9}\\times \\frac{5}{6}=900\n\\]\n\nਉੱਤਰ: 900"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 17,
+    "question": "If \\(A:B=8:15\\), what fraction of the total is A?",
+    "options": [
+      "15/23",
+      "8/23",
+      "23/8",
+      "8/7"
+    ],
+    "answer": "8/23",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_ratio_to_fraction"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_ratio_to_fraction",
+      "category": "ratio_proportion",
+      "subtype": "rp_ratio_to_fraction",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_ratio_to_fraction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "If \\(A:B=8:15\\), what fraction of the total is A?",
+        "options": [
+          "15/23",
+          "8/23",
+          "23/8",
+          "8/7"
+        ],
+        "explanation": "Add the ratio parts to get the total parts.\n\n\\[\n8+15=23\n\\]\n\nWrite the required part over total parts.\n\n\\[\nA=\\frac{8}{23}=8/23\n\\]\n\nAnswer: 8/23"
+      },
+      "hi": {
+        "question": "यदि \\(A:B=8:15\\) है, तो कुल का कितना भाग A है?",
+        "options": [
+          "15/23",
+          "8/23",
+          "23/8",
+          "8/7"
+        ],
+        "explanation": "कुल भाग पाने के लिए अनुपात के भाग जोड़ें।\n\n\\[\n8+15=23\n\\]\n\nआवश्यक भाग को कुल भागों पर लिखें।\n\n\\[\nA=\\frac{8}{23}=8/23\n\\]\n\nउत्तर: 8/23"
+      },
+      "pa": {
+        "question": "ਜੇ \\(A:B=8:15\\) ਹੈ, ਤਾਂ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਭਾਗ A ਹੈ?",
+        "options": [
+          "15/23",
+          "8/23",
+          "23/8",
+          "8/7"
+        ],
+        "explanation": "ਕੁੱਲ ਭਾਗਾਂ ਲਈ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਜੋੜੋ।\n\n\\[\n8+15=23\n\\]\n\nਲੋੜੀਂਦੇ ਭਾਗ ਨੂੰ ਕੁੱਲ ਭਾਗਾਂ ਉੱਤੇ ਲਿਖੋ।\n\n\\[\nA=\\frac{8}{23}=8/23\n\\]\n\nਉੱਤਰ: 8/23"
+      }
+    },
+    "realismScore": 75
+  },
+  {
+    "index": 18,
+    "question": "Output varies jointly as the number of machines and working hours. 4 machines working for 5 hours produce 480 units. How many units will 6 machines produce in 8 hours?",
+    "options": [
+      "720",
+      "480",
+      "1152",
+      "768"
+    ],
+    "answer": "1152",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_joint_variation"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_joint_variation",
+      "category": "ratio_proportion",
+      "subtype": "rp_joint_variation",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_joint_variation"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Output varies jointly as the number of machines and working hours. 4 machines working for 5 hours produce 480 units. How many units will 6 machines produce in 8 hours?",
+        "options": [
+          "720",
+          "480",
+          "1152",
+          "768"
+        ],
+        "explanation": "For joint variation, output is proportional to machines and hours.\n\n\\[\nO=kMH\n\\]\n\nUse the ratio form.\n\n\\[\n\\frac{O_2}{O_1}=\\frac{M_2H_2}{M_1H_1}\n\\]\n\nCompute the new output.\n\n\\[\nO_2=480\\times \\frac{6\\times 8}{4\\times 5}=1152\n\\]\n\nAnswer: 1152"
+      },
+      "hi": {
+        "question": "उत्पादन मशीनों की संख्या और काम के घंटों के संयुक्त अनुपात में बदलता है। 4 मशीनें 5 घंटे में 480 इकाइयाँ बनाती हैं। 6 मशीनें 8 घंटे में कितनी इकाइयाँ बनाएँगी?",
+        "options": [
+          "720",
+          "480",
+          "1152",
+          "768"
+        ],
+        "explanation": "संयुक्त अनुपात में उत्पादन मशीनों और घंटों के अनुपाती है।\n\n\\[\nO=kMH\n\\]\n\nअनुपात रूप का उपयोग करें।\n\n\\[\n\\frac{O_2}{O_1}=\\frac{M_2H_2}{M_1H_1}\n\\]\n\nनया उत्पादन निकालें।\n\n\\[\nO_2=480\\times \\frac{6\\times 8}{4\\times 5}=1152\n\\]\n\nउत्तर: 1152"
+      },
+      "pa": {
+        "question": "ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਦੀ ਗਿਣਤੀ ਅਤੇ ਕੰਮ ਦੇ ਘੰਟਿਆਂ ਦੇ ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। 4 ਮਸ਼ੀਨਾਂ 5 ਘੰਟਿਆਂ ਵਿੱਚ 480 ਇਕਾਈਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। 6 ਮਸ਼ੀਨਾਂ 8 ਘੰਟਿਆਂ ਵਿੱਚ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਬਣਾਉਣਗੀਆਂ?",
+        "options": [
+          "720",
+          "480",
+          "1152",
+          "768"
+        ],
+        "explanation": "ਸਾਂਝੇ ਅਨੁਪਾਤ ਵਿੱਚ ਉਤਪਾਦਨ ਮਸ਼ੀਨਾਂ ਅਤੇ ਘੰਟਿਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ।\n\n\\[\nO=kMH\n\\]\n\nਅਨੁਪਾਤ ਰੂਪ ਦੀ ਵਰਤੋਂ ਕਰੋ।\n\n\\[\n\\frac{O_2}{O_1}=\\frac{M_2H_2}{M_1H_1}\n\\]\n\nਨਵਾਂ ਉਤਪਾਦਨ ਕੱਢੋ।\n\n\\[\nO_2=480\\times \\frac{6\\times 8}{4\\times 5}=1152\n\\]\n\nਉੱਤਰ: 1152"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 19,
+    "question": "Two quantities are in the ratio \\(9:13\\). They decrease by 20% and 20% respectively. Find the new ratio.",
+    "options": [
+      "720:1040",
+      "9:13",
+      "1080:1560",
+      "720:1300"
+    ],
+    "answer": "9:13",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_ratio_after_decrease"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_ratio_after_decrease",
+      "category": "ratio_proportion",
+      "subtype": "rp_ratio_after_decrease",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_ratio_after_decrease"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two quantities are in the ratio \\(9:13\\). They decrease by 20% and 20% respectively. Find the new ratio.",
+        "options": [
+          "720:1040",
+          "9:13",
+          "1080:1560",
+          "720:1300"
+        ],
+        "explanation": "Let the original quantities be ratio parts.\n\n\\[\nA=9,\\quad B=13\n\\]\n\nApply the decreases.\n\n\\[\nA':B'=9\\left(1-\\frac{20}{100}\\right):13\\left(1-\\frac{20}{100}\\right)\n\\]\n\nSimplify the ratio.\n\n\\[\nA':B'=720:1040=9:13\n\\]\n\nAnswer: 9:13"
+      },
+      "hi": {
+        "question": "दो मिश्रणों की मात्राओं का अनुपात \\(9:13\\) है। पहली मात्रा 20% और दूसरी मात्रा 20% घटती है। नया अनुपात ज्ञात करें।",
+        "options": [
+          "720:1040",
+          "9:13",
+          "1080:1560",
+          "720:1300"
+        ],
+        "explanation": "मूल मात्राओं को अनुपात के भाग मानें।\n\n\\[\nA=9,\\quad B=13\n\\]\n\nघटाव लगाएँ।\n\n\\[\nA':B'=9\\left(1-\\frac{20}{100}\\right):13\\left(1-\\frac{20}{100}\\right)\n\\]\n\nअनुपात सरल करें।\n\n\\[\nA':B'=720:1040=9:13\n\\]\n\nउत्तर: 9:13"
+      },
+      "pa": {
+        "question": "ਦੋ ਮਿਸ਼ਰਣਾਂ ਦੀਆਂ ਮਾਤਰਾਂ ਦਾ ਅਨੁਪਾਤ \\(9:13\\) ਹੈ। ਪਹਿਲੀ ਮਾਤਰਾ 20% ਅਤੇ ਦੂਜੀ ਮਾਤਰਾ 20% ਘਟਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "720:1040",
+          "9:13",
+          "1080:1560",
+          "720:1300"
+        ],
+        "explanation": "ਮੂਲ ਮਾਤਰਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=9,\\quad B=13\n\\]\n\nਘਟਾਓ ਲਗਾਓ।\n\n\\[\nA':B'=9\\left(1-\\frac{20}{100}\\right):13\\left(1-\\frac{20}{100}\\right)\n\\]\n\nਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।\n\n\\[\nA':B'=720:1040=9:13\n\\]\n\nਉੱਤਰ: 9:13"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 20,
+    "question": "Initially two mixtures are in the ratio \\(5:6\\). After decreases of 10% and 25% respectively, find the new ratio.",
+    "options": [
+      "5:6",
+      "1:1",
+      "375:540",
+      "550:750"
+    ],
+    "answer": "1:1",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_ratio_after_decrease"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_ratio_after_decrease",
+      "category": "ratio_proportion",
+      "subtype": "rp_ratio_after_decrease",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_ratio_after_decrease"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Initially two mixtures are in the ratio \\(5:6\\). After decreases of 10% and 25% respectively, find the new ratio.",
+        "options": [
+          "5:6",
+          "1:1",
+          "375:540",
+          "550:750"
+        ],
+        "explanation": "Let the original quantities be ratio parts.\n\n\\[\nA=5,\\quad B=6\n\\]\n\nApply the decreases.\n\n\\[\nA':B'=5\\left(1-\\frac{10}{100}\\right):6\\left(1-\\frac{25}{100}\\right)\n\\]\n\nSimplify the ratio.\n\n\\[\nA':B'=450:450=1:1\n\\]\n\nAnswer: 1:1"
+      },
+      "hi": {
+        "question": "दो मिश्रणों की मात्राओं का अनुपात \\(5:6\\) है। पहली मात्रा 10% और दूसरी मात्रा 25% घटती है। नया अनुपात ज्ञात करें।",
+        "options": [
+          "5:6",
+          "1:1",
+          "375:540",
+          "550:750"
+        ],
+        "explanation": "मूल मात्राओं को अनुपात के भाग मानें।\n\n\\[\nA=5,\\quad B=6\n\\]\n\nघटाव लगाएँ।\n\n\\[\nA':B'=5\\left(1-\\frac{10}{100}\\right):6\\left(1-\\frac{25}{100}\\right)\n\\]\n\nअनुपात सरल करें।\n\n\\[\nA':B'=450:450=1:1\n\\]\n\nउत्तर: 1:1"
+      },
+      "pa": {
+        "question": "ਦੋ ਮਿਸ਼ਰਣਾਂ ਦੀਆਂ ਮਾਤਰਾਂ ਦਾ ਅਨੁਪਾਤ \\(5:6\\) ਹੈ। ਪਹਿਲੀ ਮਾਤਰਾ 10% ਅਤੇ ਦੂਜੀ ਮਾਤਰਾ 25% ਘਟਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "5:6",
+          "1:1",
+          "375:540",
+          "550:750"
+        ],
+        "explanation": "ਮੂਲ ਮਾਤਰਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=5,\\quad B=6\n\\]\n\nਘਟਾਓ ਲਗਾਓ।\n\n\\[\nA':B'=5\\left(1-\\frac{10}{100}\\right):6\\left(1-\\frac{25}{100}\\right)\n\\]\n\nਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।\n\n\\[\nA':B'=450:450=1:1\n\\]\n\nਉੱਤਰ: 1:1"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 21,
+    "question": "The sides of two similar solids are in the ratio \\(3:4\\). Find the ratio of their volumes.",
+    "options": [
+      "64:27",
+      "27:64",
+      "3:4",
+      "9:16"
+    ],
+    "answer": "27:64",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_side_area_volume_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_side_area_volume_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_side_area_volume_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_side_area_volume_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The sides of two similar solids are in the ratio \\(3:4\\). Find the ratio of their volumes.",
+        "options": [
+          "64:27",
+          "27:64",
+          "3:4",
+          "9:16"
+        ],
+        "explanation": "Start with the side ratio.\n\n\\[\n\\text{Side ratio}=3:4\n\\]\n\nVolume ratio is the cube of side ratio.\n\n\\[\n\\text{Volume ratio}=3^{3}:4^{3}=27:64\n\\]\n\nAnswer: 27:64"
+      },
+      "hi": {
+        "question": "दो समान घनों/ठोसों की भुजाओं का अनुपात \\(3:4\\) है। उनके आयतनों का अनुपात ज्ञात करें।",
+        "options": [
+          "64:27",
+          "27:64",
+          "3:4",
+          "9:16"
+        ],
+        "explanation": "भुजा अनुपात से शुरू करें।\n\n\\[\n\\text{Side ratio}=3:4\n\\]\n\nआयतन अनुपात भुजा अनुपात का घन होता है।\n\n\\[\n\\text{Volume ratio}=3^{3}:4^{3}=27:64\n\\]\n\nउत्तर: 27:64"
+      },
+      "pa": {
+        "question": "ਦੋ ਸਮਰੂਪ ਠੋਸਾਂ ਦੀਆਂ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ \\(3:4\\) ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਆਇਤਨਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "64:27",
+          "27:64",
+          "3:4",
+          "9:16"
+        ],
+        "explanation": "ਭੁਜਾ ਅਨੁਪਾਤ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ।\n\n\\[\n\\text{Side ratio}=3:4\n\\]\n\nਆਇਤਨ ਅਨੁਪਾਤ ਭੁਜਾ ਅਨੁਪਾਤ ਦਾ ਘਨ ਹੁੰਦਾ ਹੈ।\n\n\\[\n\\text{Volume ratio}=3^{3}:4^{3}=27:64\n\\]\n\nਉੱਤਰ: 27:64"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 22,
+    "question": "For two directly varying quantities \\(x\\) and \\(y\\), \\(x=576\\) at \\(y=12\\). Find \\(x\\) at \\(y=15\\).",
+    "options": [
+      "579",
+      "576",
+      "720",
+      "460.8"
+    ],
+    "answer": "720",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_direct_variation_basic"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_direct_variation_basic",
+      "category": "ratio_proportion",
+      "subtype": "rp_direct_variation_basic",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_direct_variation_basic"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For two directly varying quantities \\(x\\) and \\(y\\), \\(x=576\\) at \\(y=12\\). Find \\(x\\) at \\(y=15\\).",
+        "options": [
+          "579",
+          "576",
+          "720",
+          "460.8"
+        ],
+        "explanation": "For direct variation, the ratios are equal.\n\n\\[\n\\frac{x_1}{y_1}=\\frac{x_2}{y_2}\n\\]\n\nSubstitute the values.\n\n\\[\n\\frac{576}{12}=\\frac{x_2}{15}\n\\]\n\nSolve for the new value.\n\n\\[\nx_2=\\frac{576\\times 15}{12}=720\n\\]\n\nAnswer: 720"
+      },
+      "hi": {
+        "question": "यदि \\(x\\), \\(y\\) के सीधे अनुपाती है और \\(y=12\\) पर \\(x=576\\) है, तो \\(y=15\\) पर \\(x\\) ज्ञात करें।",
+        "options": [
+          "579",
+          "576",
+          "720",
+          "460.8"
+        ],
+        "explanation": "सीधे अनुपात में अनुपात बराबर होते हैं।\n\n\\[\n\\frac{x_1}{y_1}=\\frac{x_2}{y_2}\n\\]\n\nमान रखें।\n\n\\[\n\\frac{576}{12}=\\frac{x_2}{15}\n\\]\n\nनया मान ज्ञात करें।\n\n\\[\nx_2=\\frac{576\\times 15}{12}=720\n\\]\n\nउत्तर: 720"
+      },
+      "pa": {
+        "question": "ਜੇ \\(x\\), \\(y\\) ਦੇ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ \\(y=12\\) ਤੇ \\(x=576\\) ਹੈ, ਤਾਂ \\(y=15\\) ਤੇ \\(x\\) ਪਤਾ ਕਰੋ।",
+        "options": [
+          "579",
+          "576",
+          "720",
+          "460.8"
+        ],
+        "explanation": "ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਅਨੁਪਾਤ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।\n\n\\[\n\\frac{x_1}{y_1}=\\frac{x_2}{y_2}\n\\]\n\nਮੁੱਲ ਰੱਖੋ।\n\n\\[\n\\frac{576}{12}=\\frac{x_2}{15}\n\\]\n\nਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।\n\n\\[\nx_2=\\frac{576\\times 15}{12}=720\n\\]\n\nਉੱਤਰ: 720"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 23,
+    "question": "The present ages of A and B are in the ratio \\(5:8\\). After 35 years, the ratio will be \\(2:3\\). Find A's present age.",
+    "options": [
+      "175 years",
+      "35 years",
+      "210 years",
+      "280 years"
+    ],
+    "answer": "175 years",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_age_future_ratio"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_age_future_ratio",
+      "category": "ratio_proportion",
+      "subtype": "rp_age_future_ratio",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_age_future_ratio"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The present ages of A and B are in the ratio \\(5:8\\). After 35 years, the ratio will be \\(2:3\\). Find A's present age.",
+        "options": [
+          "175 years",
+          "35 years",
+          "210 years",
+          "280 years"
+        ],
+        "explanation": "Let present ages be ratio parts.\n\n\\[\nA=5k,\\quad B=8k\n\\]\n\nUse the future-age ratio.\n\n\\[\n\\frac{5k+35}{8k+35}=\\frac{2}{3}\n\\]\n\nSolve for the multiplier.\n\n\\[\n-1k=-35,\\quad k=35\n\\]\n\nFind A's present age.\n\n\\[\nA=5k=175\n\\]\n\nAnswer: 175 years"
+      },
+      "hi": {
+        "question": "A और B की वर्तमान आयु का अनुपात \\(5:8\\) है। 35 वर्ष बाद अनुपात \\(2:3\\) होगा। A की वर्तमान आयु ज्ञात करें।",
+        "options": [
+          "175 वर्ष",
+          "35 वर्ष",
+          "210 वर्ष",
+          "280 वर्ष"
+        ],
+        "explanation": "वर्तमान आयु को अनुपात के भाग मानें।\n\n\\[\nA=5k,\\quad B=8k\n\\]\n\nभविष्य की आयु का अनुपात लगाएँ।\n\n\\[\n\\frac{5k+35}{8k+35}=\\frac{2}{3}\n\\]\n\nगुणक ज्ञात करें।\n\n\\[\n-1k=-35,\\quad k=35\n\\]\n\nA की वर्तमान आयु निकालें।\n\n\\[\nA=5k=175\n\\]\n\nउत्तर: 175 years"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ \\(5:8\\) ਹੈ। 35 ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ \\(2:3\\) ਹੋਵੇਗਾ। A ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "175 ਸਾਲ",
+          "35 ਸਾਲ",
+          "210 ਸਾਲ",
+          "280 ਸਾਲ"
+        ],
+        "explanation": "ਮੌਜੂਦਾ ਉਮਰ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=5k,\\quad B=8k\n\\]\n\nਭਵਿੱਖ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ ਲਗਾਓ।\n\n\\[\n\\frac{5k+35}{8k+35}=\\frac{2}{3}\n\\]\n\nਗੁਣਕ ਪਤਾ ਕਰੋ।\n\n\\[\n-1k=-35,\\quad k=35\n\\]\n\nA ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੱਢੋ।\n\n\\[\nA=5k=175\n\\]\n\nਉੱਤਰ: 175 years"
+      }
+    },
+    "realismScore": 80
+  },
+  {
+    "index": 24,
+    "question": "The incomes of A and B are in the ratio \\(4:5\\). A's income increases by 25% and B's income increases by 20%. Find the new ratio.",
+    "options": [
+      "4:5",
+      "5:6",
+      "480:625",
+      "29:25"
+    ],
+    "answer": "5:6",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "ratio_proportion",
+      "variant": "rp_ratio_after_increase"
+    },
+    "semanticAnchors": {
+      "scenario": "rp_ratio_after_increase",
+      "category": "ratio_proportion",
+      "subtype": "rp_ratio_after_increase",
+      "reasoningPattern": "ratio_proportion",
+      "canonicalScenario": {
+        "domain": "ratio_proportion",
+        "object": "rp_ratio_after_increase"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The incomes of A and B are in the ratio \\(4:5\\). A's income increases by 25% and B's income increases by 20%. Find the new ratio.",
+        "options": [
+          "4:5",
+          "5:6",
+          "480:625",
+          "29:25"
+        ],
+        "explanation": "Let the original incomes be ratio parts.\n\n\\[\nA=4,\\quad B=5\n\\]\n\nApply the percentage increases.\n\n\\[\nA':B'=4\\left(1+\\frac{25}{100}\\right):5\\left(1+\\frac{20}{100}\\right)\n\\]\n\nSimplify the new ratio.\n\n\\[\nA':B'=500:600=5:6\n\\]\n\nAnswer: 5:6"
+      },
+      "hi": {
+        "question": "A और B की आय का अनुपात \\(4:5\\) है। A की आय 25% और B की आय 20% बढ़ती है। नया अनुपात ज्ञात करें।",
+        "options": [
+          "4:5",
+          "5:6",
+          "480:625",
+          "29:25"
+        ],
+        "explanation": "मूल आय को अनुपात के भाग मानें।\n\n\\[\nA=4,\\quad B=5\n\\]\n\nप्रतिशत वृद्धि लगाएँ।\n\n\\[\nA':B'=4\\left(1+\\frac{25}{100}\\right):5\\left(1+\\frac{20}{100}\\right)\n\\]\n\nनया अनुपात सरल करें।\n\n\\[\nA':B'=500:600=5:6\n\\]\n\nउत्तर: 5:6"
+      },
+      "pa": {
+        "question": "A ਅਤੇ B ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ \\(4:5\\) ਹੈ। A ਦੀ ਆਮਦਨ 25% ਅਤੇ B ਦੀ ਆਮਦਨ 20% ਵਧਦੀ ਹੈ। ਨਵਾਂ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "4:5",
+          "5:6",
+          "480:625",
+          "29:25"
+        ],
+        "explanation": "ਮੂਲ ਆਮਦਨ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗ ਮੰਨੋ।\n\n\\[\nA=4,\\quad B=5\n\\]\n\nਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਗਾਓ।\n\n\\[\nA':B'=4\\left(1+\\frac{25}{100}\\right):5\\left(1+\\frac{20}{100}\\right)\n\\]\n\nਨਵਾਂ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।\n\n\\[\nA':B'=500:600=5:6\n\\]\n\nਉੱਤਰ: 5:6"
+      }
+    },
+    "realismScore": 83
+  }
+]

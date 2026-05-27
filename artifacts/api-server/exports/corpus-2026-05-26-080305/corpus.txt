@@ -1,0 +1,2609 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-26-080305
+Preset: interest_audit
+Profile: multilingual_review
+Count: 50
+Estimated Size: ~1.2 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+An investment scheme of ₹2500 is taken at 4% per annum for 2 years under simple interest. Find the principal.
+
+HI:
+₹2500 का निवेश योजना 4% प्रतिवर्ष की दर से 2 वर्ष के लिए साधारण ब्याज पर है। मूलधन ज्ञात कीजिए।
+
+PA:
+₹2500 ਦਾ ਨਿਵੇਸ਼ ਯੋਜਨਾ 4% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਹੈ। ਮੂਲਧਨ ਪਤਾ ਕਰੋ।
+
+Options: ₹2500 | ₹200 | ₹2700 | ₹216
+Answer: ₹2500
+Difficulty: Medium
+Topology: interest:int_si_principal_from_si_rt
+Realism: 85
+
+Explanation EN:
+Simple interest
+2500 x 4 x 2 / 100
+= 200
+
+Amount
+2500 + 200
+= 2700
+
+Principal
+200 x 100 / (4 x 2)
+= 2500
+
+Answer = ₹2500
+
+Explanation HI:
+साधारण ब्याज
+2500 x 4 x 2 / 100
+= 200
+
+कुल राशि
+2500 + 200
+= 2700
+
+मूलधन
+200 x 100 / (4 x 2)
+= 2500
+
+उत्तर = ₹2500
+
+Explanation PA:
+ਸਧਾਰਣ ਬਿਆਜ
+2500 x 4 x 2 / 100
+= 200
+
+ਕੁੱਲ ਰਕਮ
+2500 + 200
+= 2700
+
+ਮੂਲਧਨ
+200 x 100 / (4 x 2)
+= 2500
+
+ਉੱਤਰ = ₹2500
+
+[Q2]
+EN:
+A term deposit of ₹10000 amounts to ₹20736 at 20% compound interest. Find the time.
+
+HI:
+₹10000 का टर्म डिपॉजिट 20% चक्रवृद्धि ब्याज पर ₹20736 हो जाता है। समय ज्ञात कीजिए।
+
+PA:
+₹10000 ਦਾ ਟਰਮ ਡਿਪਾਜ਼ਿਟ 20% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ ₹20736 ਹੋ ਜਾਂਦਾ ਹੈ। ਸਮਾਂ ਪਤਾ ਕਰੋ।
+
+Options: 4 years | 25 years | 4.4 years | 3.6 years
+Answer: 4 years
+Difficulty: Medium
+Topology: interest:int_ci_sum_doubles
+Realism: 86
+
+Explanation EN:
+Compound multiplier
+20736 / 10000
+= 2.07
+
+Time
+4
+= 4
+
+Answer = 4 years
+
+Explanation HI:
+चक्रवृद्धि गुणक
+20736 / 10000
+= 2.07
+
+समय
+4
+= 4
+
+उत्तर = 4 वर्ष
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਗੁਣਕ
+20736 / 10000
+= 2.07
+
+ਸਮਾਂ
+4
+= 4
+
+ਉੱਤਰ = 4 ਸਾਲ
+
+[Q3]
+EN:
+A loan of ₹12000 is to be repaid in 3 equal yearly installments at 10% simple interest. Find each installment.
+
+HI:
+₹12000 का ऋण 10% साधारण ब्याज पर 3 बराबर वार्षिक किस्तों में चुकाना है। प्रत्येक किस्त ज्ञात कीजिए।
+
+PA:
+₹12000 ਦਾ ਕਰਜ਼ਾ 10% ਸਧਾਰਣ ਬਿਆਜ ਤੇ 3 ਬਰਾਬਰ ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਚੁਕਾਉਣਾ ਹੈ। ਹਰ ਕਿਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: ₹5200 | ₹4000 | ₹4400 | ₹15600
+Answer: ₹5200
+Difficulty: Medium
+Topology: interest:int_loan_repayment_si
+Realism: 83
+
+Explanation EN:
+Amount payable
+12000 x (100 + 10 x 3) / 100
+= 15600
+
+Each installment
+15600 / 3
+= 5200
+
+Answer = ₹5200
+
+Explanation HI:
+देय राशि
+12000 x (100 + 10 x 3) / 100
+= 15600
+
+प्रत्येक किस्त
+15600 / 3
+= 5200
+
+उत्तर = ₹5200
+
+Explanation PA:
+ਦੇਣਯੋਗ ਰਕਮ
+12000 x (100 + 10 x 3) / 100
+= 15600
+
+ਹਰ ਕਿਸ਼ਤ
+15600 / 3
+= 5200
+
+ਉੱਤਰ = ₹5200
+
+[Q4]
+EN:
+For a cooperative society loan, compare CI and SI at 10% per annum for 2 years. Find rate.
+
+HI:
+एक सहकारी समिति ऋण पर 10% प्रतिवर्ष की दर से 2 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। दर ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸਹਿਕਾਰੀ ਸਭਾ ਕਰਜ਼ਾ ਤੇ 10% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਦਰ ਪਤਾ ਕਰੋ।
+
+Options: 10% rate | 15% rate | 5% rate | 12.5% rate
+Answer: 10% rate
+Difficulty: Medium
+Topology: interest:int_rate_from_ci_si_diff_2y
+Realism: 85
+
+Explanation EN:
+Difference for 2 years
+25000 x (10/100)^2
+= 250
+
+Rate
+10
+= 10
+
+Answer = 10% rate
+
+Explanation HI:
+2 वर्ष का अंतर
+25000 x (10/100)^2
+= 250
+
+दर
+10
+= 10
+
+उत्तर = 10% दर
+
+Explanation PA:
+2 ਸਾਲ ਦਾ ਅੰਤਰ
+25000 x (10/100)^2
+= 250
+
+ਦਰ
+10
+= 10
+
+ਉੱਤਰ = 10% ਦਰ
+
+[Q5]
+EN:
+A loan is repaid in 3 equal yearly installments of ₹5619.71 at 12% compound interest. Find the loan amount.
+
+HI:
+एक ऋण ₹5619.71 की 3 बराबर वार्षिक किस्तों में 12% चक्रवृद्धि ब्याज पर चुकाया जाता है। ऋण राशि ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਜ਼ਾ ₹5619.71 ਦੀਆਂ 3 ਬਰਾਬਰ ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ 12% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ ਚੁਕਾਇਆ ਜਾਂਦਾ ਹੈ। ਕਰਜ਼ੇ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹12000 | ₹4000 | ₹4480 | ₹16859.14
+Answer: ₹12000
+Difficulty: Hard
+Topology: interest:int_find_principal_from_installments
+Realism: 91
+
+Explanation EN:
+Amount payable
+12000 x (1 + 12/100)^3
+= 16859.14
+
+Each installment
+16859.14 / 3
+= 5619.71
+
+Answer = ₹12000
+
+Explanation HI:
+देय राशि
+12000 x (1 + 12/100)^3
+= 16859.14
+
+प्रत्येक किस्त
+16859.14 / 3
+= 5619.71
+
+उत्तर = ₹12000
+
+Explanation PA:
+ਦੇਣਯੋਗ ਰਕਮ
+12000 x (1 + 12/100)^3
+= 16859.14
+
+ਹਰ ਕਿਸ਼ਤ
+16859.14 / 3
+= 5619.71
+
+ਉੱਤਰ = ₹12000
+
+[Q6]
+EN:
+A total of ₹20000 is split between two simple-interest schemes at 8% and 12% per annum for 4 years. The total interest is ₹7680. Find the amount invested at 8%.
+
+HI:
+₹20000 को दो साधारण ब्याज योजनाओं में 8% और 12% वार्षिक दर पर 4 वर्ष के लिए लगाया गया। कुल ब्याज ₹7680 है। 8% पर लगाई गई राशि ज्ञात कीजिए।
+
+PA:
+₹20000 ਨੂੰ ਦੋ ਸਧਾਰਣ ਬਿਆਜ ਯੋਜਨਾਵਾਂ ਵਿੱਚ 8% ਅਤੇ 12% ਸਾਲਾਨਾ ਦਰ ਤੇ 4 ਸਾਲ ਲਈ ਲਗਾਇਆ ਗਿਆ। ਕੁੱਲ ਬਿਆਜ ₹7680 ਹੈ। 8% ਤੇ ਲਗਾਈ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹12000 | ₹10000 | ₹24000 | ₹8000
+Answer: ₹12000
+Difficulty: Hard
+Topology: interest:int_two_sums_same_interest
+Realism: 90
+
+Explanation EN:
+Interest equation
+x x 8 x 4/100 + (20000 - x) x 12 x 4/100 = 7680
+= 7680
+
+Amount at lower rate
+12000
+= 12000
+
+Answer = ₹12000
+
+Explanation HI:
+ब्याज समीकरण
+x x 8 x 4/100 + (20000 - x) x 12 x 4/100 = 7680
+= 7680
+
+कम दर पर राशि
+12000
+= 12000
+
+उत्तर = ₹12000
+
+Explanation PA:
+ਬਿਆਜ ਸਮੀਕਰਨ
+x x 8 x 4/100 + (20000 - x) x 12 x 4/100 = 7680
+= 7680
+
+ਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ
+12000
+= 12000
+
+ਉੱਤਰ = ₹12000
+
+[Q7]
+EN:
+A cooperative society loan of ₹4000 is invested at 20% per annum compounded annually for 2 years. Find the compound amount.
+
+HI:
+सहकारी समिति ऋण ₹4000 है, दर 20% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि कुल राशि ज्ञात कीजिए।
+
+PA:
+ਸਹਿਕਾਰੀ ਸਭਾ ਕਰਜ਼ਾ ₹4000 ਹੈ, ਦਰ 20% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹5760 | ₹1600 | ₹1760 | ₹6336
+Answer: ₹5760
+Difficulty: Hard
+Topology: interest:int_ci_fractional_time_boundary
+Realism: 88
+
+Explanation EN:
+Compound amount
+4000 x (1 + 20/100)^2
+= 5760
+
+Compound interest
+5760 - 4000
+= 1760
+
+Amount
+
+Answer = ₹5760
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+4000 x (1 + 20/100)^2
+= 5760
+
+चक्रवृद्धि ब्याज
+5760 - 4000
+= 1760
+
+कुल राशि
+
+उत्तर = ₹5760
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+4000 x (1 + 20/100)^2
+= 5760
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+5760 - 4000
+= 1760
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹5760
+
+[Q8]
+EN:
+A shop expansion loan of ₹5000 is taken at 20% per annum for 3 years under simple interest. Find the simple interest.
+
+HI:
+₹5000 का दुकान विस्तार ऋण 20% प्रतिवर्ष की दर से 3 वर्ष के लिए साधारण ब्याज पर है। साधारण ब्याज ज्ञात कीजिए।
+
+PA:
+₹5000 ਦਾ ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ 20% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 3 ਸਾਲ ਲਈ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਹੈ। ਸਧਾਰਣ ਬਿਆਜ ਪਤਾ ਕਰੋ।
+
+Options: ₹3000 | ₹8000 | ₹4800 | ₹3300
+Answer: ₹3000
+Difficulty: Easy
+Topology: interest:int_si_from_prt
+Realism: 78
+
+Explanation EN:
+Simple interest
+5000 x 20 x 3 / 100
+= 3000
+
+Amount
+5000 + 3000
+= 8000
+
+Simple interest
+
+Answer = ₹3000
+
+Explanation HI:
+साधारण ब्याज
+5000 x 20 x 3 / 100
+= 3000
+
+कुल राशि
+5000 + 3000
+= 8000
+
+साधारण ब्याज
+
+उत्तर = ₹3000
+
+Explanation PA:
+ਸਧਾਰਣ ਬਿਆਜ
+5000 x 20 x 3 / 100
+= 3000
+
+ਕੁੱਲ ਰਕਮ
+5000 + 3000
+= 8000
+
+ਸਧਾਰਣ ਬਿਆਜ
+
+ਉੱਤਰ = ₹3000
+
+[Q9]
+EN:
+A cooperative society loan of ₹10000 is taken at 15% per annum for 3 years under simple interest. Find the rate.
+
+HI:
+₹10000 का सहकारी समिति ऋण 15% प्रतिवर्ष की दर से 3 वर्ष के लिए साधारण ब्याज पर है। दर ज्ञात कीजिए।
+
+PA:
+₹10000 ਦਾ ਸਹਿਕਾਰੀ ਸਭਾ ਕਰਜ਼ਾ 15% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 3 ਸਾਲ ਲਈ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਹੈ। ਦਰ ਪਤਾ ਕਰੋ।
+
+Options: 15% rate | 20% rate | 10% rate | 18.75% rate
+Answer: 15% rate
+Difficulty: Medium
+Topology: interest:int_si_rate_from_si_pt
+Realism: 85
+
+Explanation EN:
+Simple interest
+10000 x 15 x 3 / 100
+= 4500
+
+Amount
+10000 + 4500
+= 14500
+
+Rate
+4500 x 100 / (10000 x 3)
+= 15
+
+Answer = 15% rate
+
+Explanation HI:
+साधारण ब्याज
+10000 x 15 x 3 / 100
+= 4500
+
+कुल राशि
+10000 + 4500
+= 14500
+
+दर
+4500 x 100 / (10000 x 3)
+= 15
+
+उत्तर = 15% दर
+
+Explanation PA:
+ਸਧਾਰਣ ਬਿਆਜ
+10000 x 15 x 3 / 100
+= 4500
+
+ਕੁੱਲ ਰਕਮ
+10000 + 4500
+= 14500
+
+ਦਰ
+4500 x 100 / (10000 x 3)
+= 15
+
+ਉੱਤਰ = 15% ਦਰ
+
+[Q10]
+EN:
+For a shop expansion loan, compare CI and SI at 10% per annum for 2 years. Find difference.
+
+HI:
+एक दुकान विस्तार ऋण पर 10% प्रतिवर्ष की दर से 2 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। अंतर ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ ਤੇ 10% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਅੰਤਰ ਪਤਾ ਕਰੋ।
+
+Options: ₹400 | ₹8000 | ₹800 | ₹4000
+Answer: ₹400
+Difficulty: Hard
+Topology: interest:int_ci_si_difference_2_years
+Realism: 91
+
+Explanation EN:
+Difference for 2 years
+40000 x (10/100)^2
+= 400
+
+Difference
+400
+= 400
+
+Answer = ₹400
+
+Explanation HI:
+2 वर्ष का अंतर
+40000 x (10/100)^2
+= 400
+
+अंतर
+400
+= 400
+
+उत्तर = ₹400
+
+Explanation PA:
+2 ਸਾਲ ਦਾ ਅੰਤਰ
+40000 x (10/100)^2
+= 400
+
+ਅੰਤਰ
+400
+= 400
+
+ਉੱਤਰ = ₹400
+
+[Q11]
+EN:
+For a loan, compare CI and SI at 20% per annum for 3 years. Find difference.
+
+HI:
+एक ऋण पर 20% प्रतिवर्ष की दर से 3 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। अंतर ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਜ਼ਾ ਤੇ 20% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 3 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਅੰਤਰ ਪਤਾ ਕਰੋ।
+
+Options: ₹320 | ₹1000 | ₹200 | ₹500
+Answer: ₹320
+Difficulty: Hard
+Topology: interest:int_ci_si_difference_3_years
+Realism: 92
+
+Explanation EN:
+Difference for 2 years
+2500 x (20/100)^2
+= 100
+
+Difference
+320
+= 320
+
+Answer = ₹320
+
+Explanation HI:
+2 वर्ष का अंतर
+2500 x (20/100)^2
+= 100
+
+अंतर
+320
+= 320
+
+उत्तर = ₹320
+
+Explanation PA:
+2 ਸਾਲ ਦਾ ਅੰਤਰ
+2500 x (20/100)^2
+= 100
+
+ਅੰਤਰ
+320
+= 320
+
+ਉੱਤਰ = ₹320
+
+[Q12]
+EN:
+A term deposit of ₹2500 is invested at 10% per annum compounded annually for 3 years. Find the compound amount.
+
+HI:
+टर्म डिपॉजिट ₹2500 है, दर 10% प्रतिवर्ष है और ब्याज 3 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि कुल राशि ज्ञात कीजिए।
+
+PA:
+ਟਰਮ ਡਿਪਾਜ਼ਿਟ ₹2500 ਹੈ, ਦਰ 10% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 3 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹3327.5 | ₹750 | ₹827.5 | ₹3660.25
+Answer: ₹3327.5
+Difficulty: Medium
+Topology: interest:int_ci_nth_year_interest_from_principal
+Realism: 83
+
+Explanation EN:
+Compound amount
+2500 x (1 + 10/100)^3
+= 3327.5
+
+Compound interest
+3327.5 - 2500
+= 827.5
+
+Amount
+
+Answer = ₹3327.5
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+2500 x (1 + 10/100)^3
+= 3327.5
+
+चक्रवृद्धि ब्याज
+3327.5 - 2500
+= 827.5
+
+कुल राशि
+
+उत्तर = ₹3327.5
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+2500 x (1 + 10/100)^3
+= 3327.5
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+3327.5 - 2500
+= 827.5
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹3327.5
+
+[Q13]
+EN:
+A fixed deposit of ₹3000 is taken at 20% per annum for 3 years under simple interest. Find the time.
+
+HI:
+₹3000 का सावधि जमा 20% प्रतिवर्ष की दर से 3 वर्ष के लिए साधारण ब्याज पर है। समय ज्ञात कीजिए।
+
+PA:
+₹3000 ਦਾ ਮਿਆਦੀ ਜਮ੍ਹਾਂ 20% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 3 ਸਾਲ ਲਈ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਹੈ। ਸਮਾਂ ਪਤਾ ਕਰੋ।
+
+Options: 3 years | 3.3 years | 2.7 years | 4 years
+Answer: 3 years
+Difficulty: Medium
+Topology: interest:int_si_time_from_si_pr
+Realism: 84
+
+Explanation EN:
+Simple interest
+3000 x 20 x 3 / 100
+= 1800
+
+Amount
+3000 + 1800
+= 4800
+
+Time
+1800 x 100 / (3000 x 20)
+= 3
+
+Answer = 3 years
+
+Explanation HI:
+साधारण ब्याज
+3000 x 20 x 3 / 100
+= 1800
+
+कुल राशि
+3000 + 1800
+= 4800
+
+समय
+1800 x 100 / (3000 x 20)
+= 3
+
+उत्तर = 3 वर्ष
+
+Explanation PA:
+ਸਧਾਰਣ ਬਿਆਜ
+3000 x 20 x 3 / 100
+= 1800
+
+ਕੁੱਲ ਰਕਮ
+3000 + 1800
+= 4800
+
+ਸਮਾਂ
+1800 x 100 / (3000 x 20)
+= 3
+
+ਉੱਤਰ = 3 ਸਾਲ
+
+[Q14]
+EN:
+A loan of ₹10000 is invested at 10% per annum compounded annually for 3 years. Find the annual rate.
+
+HI:
+ऋण ₹10000 है, दर 10% प्रतिवर्ष है और ब्याज 3 वर्ष तक वार्षिक चक्रवृद्धि है। वार्षिक दर ज्ञात कीजिए।
+
+PA:
+ਕਰਜ਼ਾ ₹10000 ਹੈ, ਦਰ 10% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 3 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਸਾਲਾਨਾ ਦਰ ਪਤਾ ਕਰੋ।
+
+Options: 10% rate | 15% rate | 5% rate | 12.5% rate
+Answer: 10% rate
+Difficulty: Medium
+Topology: interest:int_ci_rate_from_amount
+Realism: 87
+
+Explanation EN:
+Compound amount
+10000 x (1 + 10/100)^3
+= 13310
+
+Compound interest
+13310 - 10000
+= 3310
+
+Rate
+13310 x 100 / (10000 x 3)
+= 10
+
+Answer = 10% rate
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+10000 x (1 + 10/100)^3
+= 13310
+
+चक्रवृद्धि ब्याज
+13310 - 10000
+= 3310
+
+दर
+13310 x 100 / (10000 x 3)
+= 10
+
+उत्तर = 10% दर
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+10000 x (1 + 10/100)^3
+= 13310
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+13310 - 10000
+= 3310
+
+ਦਰ
+13310 x 100 / (10000 x 3)
+= 10
+
+ਉੱਤਰ = 10% ਦਰ
+
+[Q15]
+EN:
+A fixed deposit of ₹4000 is invested at 5% per annum compounded annually for 2 years. Find the compound interest.
+
+HI:
+सावधि जमा ₹4000 है, दर 5% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि ब्याज ज्ञात कीजिए।
+
+PA:
+ਮਿਆਦੀ ਜਮ੍ਹਾਂ ₹4000 ਹੈ, ਦਰ 5% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਪਤਾ ਕਰੋ।
+
+Options: ₹410 | ₹400 | ₹4410 | ₹451
+Answer: ₹410
+Difficulty: Medium
+Topology: interest:int_ci_three_year_formula
+Realism: 87
+
+Explanation EN:
+Compound amount
+4000 x (1 + 5/100)^2
+= 4410
+
+Compound interest
+4410 - 4000
+= 410
+
+Compound interest
+
+Answer = ₹410
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+4000 x (1 + 5/100)^2
+= 4410
+
+चक्रवृद्धि ब्याज
+4410 - 4000
+= 410
+
+चक्रवृद्धि ब्याज
+
+उत्तर = ₹410
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+4000 x (1 + 5/100)^2
+= 4410
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+4410 - 4000
+= 410
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+
+ਉੱਤਰ = ₹410
+
+[Q16]
+EN:
+On a loan of ₹2400, simple interest is compared for 2 years at 8% and 12% per annum. Find the difference in interest.
+
+HI:
+₹2400 के ऋण पर 2 वर्ष के लिए 8% और 12% प्रतिवर्ष की दरों पर साधारण ब्याज की तुलना की गई। ब्याज का अंतर ज्ञात कीजिए।
+
+PA:
+₹2400 ਦੇ ਕਰਜ਼ਾ ਤੇ 2 ਸਾਲ ਲਈ 8% ਅਤੇ 12% ਪ੍ਰਤੀ ਸਾਲ ਦਰਾਂ ਉੱਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕੀਤੀ ਗਈ। ਬਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।
+
+Options: ₹192 | ₹96 | ₹576 | ₹384
+Answer: ₹192
+Difficulty: Medium
+Topology: interest:int_different_rates_different_years_si
+Realism: 85
+
+Explanation EN:
+Rate difference
+12 - 8
+= 4
+
+Interest difference
+2400 x 4 x 2 / 100
+= 192
+
+Answer = ₹192
+
+Explanation HI:
+दर का अंतर
+12 - 8
+= 4
+
+ब्याज का अंतर
+2400 x 4 x 2 / 100
+= 192
+
+उत्तर = ₹192
+
+Explanation PA:
+ਦਰ ਦਾ ਅੰਤਰ
+12 - 8
+= 4
+
+ਬਿਆਜ ਦਾ ਅੰਤਰ
+2400 x 4 x 2 / 100
+= 192
+
+ਉੱਤਰ = ₹192
+
+[Q17]
+EN:
+The value of an equipment is ₹80000 and it depreciates by 5% each year for 2 years. Find the final value.
+
+HI:
+एक उपकरण का मूल्य ₹80000 है और यह 2 वर्षों तक हर वर्ष 5% घटता है। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਉਪਕਰਣ ਦਾ ਮੁੱਲ ₹80000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 5% ਘਟਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹72200 | ₹72000 | ₹76000 | ₹80000
+Answer: ₹72200
+Difficulty: Hard
+Topology: interest:int_depreciation_ci
+Realism: 91
+
+Explanation EN:
+Final index
+100 x (95/100)^2
+= 90.25
+
+Final value
+80000 x final index / 100
+= 72200
+
+Answer = ₹72200
+
+Explanation HI:
+अंतिम सूचकांक
+100 x (95/100)^2
+= 90.25
+
+अंतिम मूल्य
+80000 x final index / 100
+= 72200
+
+उत्तर = ₹72200
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕ
+100 x (95/100)^2
+= 90.25
+
+ਅੰਤਿਮ ਮੁੱਲ
+80000 x final index / 100
+= 72200
+
+ਉੱਤਰ = ₹72200
+
+[Q18]
+EN:
+A fixed deposit of ₹1600 is invested at 5% per annum compounded annually for 2 years. Find the compound amount.
+
+HI:
+सावधि जमा ₹1600 है, दर 5% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि कुल राशि ज्ञात कीजिए।
+
+PA:
+ਮਿਆਦੀ ਜਮ੍ਹਾਂ ₹1600 ਹੈ, ਦਰ 5% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹1764 | ₹160 | ₹164 | ₹1940.4
+Answer: ₹1764
+Difficulty: Easy
+Topology: interest:int_ci_amount_annual
+Realism: 75
+
+Explanation EN:
+Compound amount
+1600 x (1 + 5/100)^2
+= 1764
+
+Compound interest
+1764 - 1600
+= 164
+
+Amount
+
+Answer = ₹1764
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+1600 x (1 + 5/100)^2
+= 1764
+
+चक्रवृद्धि ब्याज
+1764 - 1600
+= 164
+
+कुल राशि
+
+उत्तर = ₹1764
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+1600 x (1 + 5/100)^2
+= 1764
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+1764 - 1600
+= 164
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹1764
+
+[Q19]
+EN:
+The value of a scooter is ₹50000 and it grows by 10% each year for 2 years. Find the final value.
+
+HI:
+एक स्कूटर का मूल्य ₹50000 है और यह 2 वर्षों तक हर वर्ष 10% बढ़ता है। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸਕੂਟਰ ਦਾ ਮੁੱਲ ₹50000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 10% ਵਧਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹60500 | ₹60000 | ₹55000 | ₹50000
+Answer: ₹60500
+Difficulty: Hard
+Topology: interest:int_successive_growth
+Realism: 92
+
+Explanation EN:
+Final index
+100 x (110/100)^2
+= 121
+
+Final value
+50000 x final index / 100
+= 60500
+
+Answer = ₹60500
+
+Explanation HI:
+अंतिम सूचकांक
+100 x (110/100)^2
+= 121
+
+अंतिम मूल्य
+50000 x final index / 100
+= 60500
+
+उत्तर = ₹60500
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕ
+100 x (110/100)^2
+= 121
+
+ਅੰਤਿਮ ਮੁੱਲ
+50000 x final index / 100
+= 60500
+
+ਉੱਤਰ = ₹60500
+
+[Q20]
+EN:
+A shop expansion loan becomes 2/1 of itself in 4 years at simple interest. Find the rate.
+
+HI:
+एक दुकान विस्तार ऋण साधारण ब्याज पर 4 वर्ष में अपने का 2/1 हो जाता है। दर ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ ਸਧਾਰਣ ਬਿਆਜ ਤੇ 4 ਸਾਲ ਵਿੱਚ ਆਪਣੇ ਦਾ 2/1 ਹੋ ਜਾਂਦਾ ਹੈ। ਦਰ ਪਤਾ ਕਰੋ।
+
+Options: 25% rate | 50% rate | 100% rate | 30% rate
+Answer: 25% rate
+Difficulty: Medium
+Topology: interest:int_si_sum_doubles
+Realism: 87
+
+Explanation EN:
+Interest part of principal
+2/1 - 1
+= 1
+
+Rate
+(2/1 - 1) x 100 / 4
+= 25
+
+Answer = 25% rate
+
+Explanation HI:
+मूलधन का ब्याज भाग
+2/1 - 1
+= 1
+
+दर
+(2/1 - 1) x 100 / 4
+= 25
+
+उत्तर = 25% दर
+
+Explanation PA:
+ਮੂਲਧਨ ਦਾ ਬਿਆਜ ਹਿੱਸਾ
+2/1 - 1
+= 1
+
+ਦਰ
+(2/1 - 1) x 100 / 4
+= 25
+
+ਉੱਤਰ = 25% ਦਰ
+
+[Q21]
+EN:
+The value of a machine is ₹20000 and it grows by 20% each year for 2 years. Find the final value.
+
+HI:
+एक मशीन का मूल्य ₹20000 है और यह 2 वर्षों तक हर वर्ष 20% बढ़ता है। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਮਸ਼ੀਨ ਦਾ ਮੁੱਲ ₹20000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 20% ਵਧਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹28800 | ₹28000 | ₹24000 | ₹20000
+Answer: ₹28800
+Difficulty: Hard
+Topology: interest:int_population_growth_ci
+Realism: 90
+
+Explanation EN:
+Final index
+100 x (120/100)^2
+= 144
+
+Final value
+20000 x final index / 100
+= 28800
+
+Answer = ₹28800
+
+Explanation HI:
+अंतिम सूचकांक
+100 x (120/100)^2
+= 144
+
+अंतिम मूल्य
+20000 x final index / 100
+= 28800
+
+उत्तर = ₹28800
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕ
+100 x (120/100)^2
+= 144
+
+ਅੰਤਿਮ ਮੁੱਲ
+20000 x final index / 100
+= 28800
+
+ਉੱਤਰ = ₹28800
+
+[Q22]
+EN:
+A loan of ₹10000 is to be repaid in 2 equal half-yearly installments at 10% compound interest. Find each installment.
+
+HI:
+₹10000 का ऋण 10% चक्रवृद्धि ब्याज पर 2 बराबर अर्धवार्षिक किस्तों में चुकाना है। प्रत्येक किस्त ज्ञात कीजिए।
+
+PA:
+₹10000 ਦਾ ਕਰਜ਼ਾ 10% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 2 ਬਰਾਬਰ ਅੱਧ-ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਚੁਕਾਉਣਾ ਹੈ। ਹਰ ਕਿਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: ₹6050 | ₹5000 | ₹5500 | ₹12100
+Answer: ₹6050
+Difficulty: Hard
+Topology: interest:int_equal_half_yearly_installments_ci
+Realism: 93
+
+Explanation EN:
+Amount payable
+10000 x (1 + 10/100)^2
+= 12100
+
+Each installment
+12100 / 2
+= 6050
+
+Answer = ₹6050
+
+Explanation HI:
+देय राशि
+10000 x (1 + 10/100)^2
+= 12100
+
+प्रत्येक किस्त
+12100 / 2
+= 6050
+
+उत्तर = ₹6050
+
+Explanation PA:
+ਦੇਣਯੋਗ ਰਕਮ
+10000 x (1 + 10/100)^2
+= 12100
+
+ਹਰ ਕਿਸ਼ਤ
+12100 / 2
+= 6050
+
+ਉੱਤਰ = ₹6050
+
+[Q23]
+EN:
+On a fixed deposit of ₹2500, simple interest is compared for 3 years at 6% and 10% per annum. Find the difference in interest.
+
+HI:
+₹2500 के सावधि जमा पर 3 वर्ष के लिए 6% और 10% प्रतिवर्ष की दरों पर साधारण ब्याज की तुलना की गई। ब्याज का अंतर ज्ञात कीजिए।
+
+PA:
+₹2500 ਦੇ ਮਿਆਦੀ ਜਮ੍ਹਾਂ ਤੇ 3 ਸਾਲ ਲਈ 6% ਅਤੇ 10% ਪ੍ਰਤੀ ਸਾਲ ਦਰਾਂ ਉੱਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕੀਤੀ ਗਈ। ਬਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।
+
+Options: ₹300 | ₹100 | ₹750 | ₹450
+Answer: ₹300
+Difficulty: Medium
+Topology: interest:int_different_rates_different_years_ci
+Realism: 87
+
+Explanation EN:
+Rate difference
+10 - 6
+= 4
+
+Interest difference
+2500 x 4 x 3 / 100
+= 300
+
+Answer = ₹300
+
+Explanation HI:
+दर का अंतर
+10 - 6
+= 4
+
+ब्याज का अंतर
+2500 x 4 x 3 / 100
+= 300
+
+उत्तर = ₹300
+
+Explanation PA:
+ਦਰ ਦਾ ਅੰਤਰ
+10 - 6
+= 4
+
+ਬਿਆਜ ਦਾ ਅੰਤਰ
+2500 x 4 x 3 / 100
+= 300
+
+ਉੱਤਰ = ₹300
+
+[Q24]
+EN:
+A shop expansion loan of ₹2000 is invested at 20% per annum compounded annually for 2 years. Find the compound amount.
+
+HI:
+दुकान विस्तार ऋण ₹2000 है, दर 20% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि कुल राशि ज्ञात कीजिए।
+
+PA:
+ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ ₹2000 ਹੈ, ਦਰ 20% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹2880 | ₹800 | ₹880 | ₹3168
+Answer: ₹2880
+Difficulty: Hard
+Topology: interest:int_si_ci_amount_difference
+Realism: 90
+
+Explanation EN:
+Compound amount
+2000 x (1 + 20/100)^2
+= 2880
+
+Compound interest
+2880 - 2000
+= 880
+
+Amount
+
+Answer = ₹2880
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+2000 x (1 + 20/100)^2
+= 2880
+
+चक्रवृद्धि ब्याज
+2880 - 2000
+= 880
+
+कुल राशि
+
+उत्तर = ₹2880
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+2000 x (1 + 20/100)^2
+= 2880
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+2880 - 2000
+= 880
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹2880
+
+[Q25]
+EN:
+The value of a car is ₹20000 and it grows by 10% each year for 2 years. Find the final value.
+
+HI:
+एक कार का मूल्य ₹20000 है और यह 2 वर्षों तक हर वर्ष 10% बढ़ता है। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਾਰ ਦਾ ਮੁੱਲ ₹20000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 10% ਵਧਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹24200 | ₹24000 | ₹22000 | ₹20000
+Answer: ₹24200
+Difficulty: Medium
+Topology: interest:int_price_appreciation
+Realism: 83
+
+Explanation EN:
+Final index
+100 x (110/100)^2
+= 121
+
+Final value
+20000 x final index / 100
+= 24200
+
+Answer = ₹24200
+
+Explanation HI:
+अंतिम सूचकांक
+100 x (110/100)^2
+= 121
+
+अंतिम मूल्य
+20000 x final index / 100
+= 24200
+
+उत्तर = ₹24200
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕ
+100 x (110/100)^2
+= 121
+
+ਅੰਤਿਮ ਮੁੱਲ
+20000 x final index / 100
+= 24200
+
+ਉੱਤਰ = ₹24200
+
+[Q26]
+EN:
+An investment scheme of ₹10000 amounts to ₹19531.25 at 25% compound interest. Find the time.
+
+HI:
+₹10000 का निवेश योजना 25% चक्रवृद्धि ब्याज पर ₹19531.25 हो जाता है। समय ज्ञात कीजिए।
+
+PA:
+₹10000 ਦਾ ਨਿਵੇਸ਼ ਯੋਜਨਾ 25% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ ₹19531.25 ਹੋ ਜਾਂਦਾ ਹੈ। ਸਮਾਂ ਪਤਾ ਕਰੋ।
+
+Options: 3 years | 33.33 years | 3.3 years | 2.7 years
+Answer: 3 years
+Difficulty: Medium
+Topology: interest:int_ci_amount_multiplier_gap
+Realism: 87
+
+Explanation EN:
+Compound multiplier
+19531.25 / 10000
+= 1.95
+
+Time
+3
+= 3
+
+Answer = 3 years
+
+Explanation HI:
+चक्रवृद्धि गुणक
+19531.25 / 10000
+= 1.95
+
+समय
+3
+= 3
+
+उत्तर = 3 वर्ष
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਗੁਣਕ
+19531.25 / 10000
+= 1.95
+
+ਸਮਾਂ
+3
+= 3
+
+ਉੱਤਰ = 3 ਸਾਲ
+
+[Q27]
+EN:
+For a fixed deposit, compare CI and SI at 5% per annum for 2 years. Find principal.
+
+HI:
+एक सावधि जमा पर 5% प्रतिवर्ष की दर से 2 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। मूलधन ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਮਿਆਦੀ ਜਮ੍ਹਾਂ ਤੇ 5% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਮੂਲਧਨ ਪਤਾ ਕਰੋ।
+
+Options: ₹40000 | ₹4000 | ₹200 | ₹2000
+Answer: ₹40000
+Difficulty: Medium
+Topology: interest:int_principal_from_ci_si_diff_2y
+Realism: 83
+
+Explanation EN:
+Difference for 2 years
+40000 x (5/100)^2
+= 100
+
+Principal
+40000
+= 40000
+
+Answer = ₹40000
+
+Explanation HI:
+2 वर्ष का अंतर
+40000 x (5/100)^2
+= 100
+
+मूलधन
+40000
+= 40000
+
+उत्तर = ₹40000
+
+Explanation PA:
+2 ਸਾਲ ਦਾ ਅੰਤਰ
+40000 x (5/100)^2
+= 100
+
+ਮੂਲਧਨ
+40000
+= 40000
+
+ਉੱਤਰ = ₹40000
+
+[Q28]
+EN:
+A shop expansion loan of ₹12000 is invested at 5% per annum compounded annually for 2 years. Find the principal.
+
+HI:
+दुकान विस्तार ऋण ₹12000 है, दर 5% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। मूलधन ज्ञात कीजिए।
+
+PA:
+ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ ₹12000 ਹੈ, ਦਰ 5% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਮੂਲਧਨ ਪਤਾ ਕਰੋ।
+
+Options: ₹12000 | ₹1200 | ₹13230 | ₹1230
+Answer: ₹12000
+Difficulty: Medium
+Topology: interest:int_ci_principal_from_amount
+Realism: 83
+
+Explanation EN:
+Compound amount
+12000 x (1 + 5/100)^2
+= 13230
+
+Compound interest
+13230 - 12000
+= 1230
+
+Principal
+13230 x 100 / (5 x 2)
+= 12000
+
+Answer = ₹12000
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+12000 x (1 + 5/100)^2
+= 13230
+
+चक्रवृद्धि ब्याज
+13230 - 12000
+= 1230
+
+मूलधन
+13230 x 100 / (5 x 2)
+= 12000
+
+उत्तर = ₹12000
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+12000 x (1 + 5/100)^2
+= 13230
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+13230 - 12000
+= 1230
+
+ਮੂਲਧਨ
+13230 x 100 / (5 x 2)
+= 12000
+
+ਉੱਤਰ = ₹12000
+
+[Q29]
+EN:
+The value of a laptop is ₹5000 and it depreciates by 5% each year for 2 years. Find the final value.
+
+HI:
+एक लैपटॉप का मूल्य ₹5000 है और यह 2 वर्षों तक हर वर्ष 5% घटता है। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਲੈਪਟਾਪ ਦਾ ਮੁੱਲ ₹5000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 5% ਘਟਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹4512.5 | ₹4500 | ₹4750 | ₹5000
+Answer: ₹4512.5
+Difficulty: Hard
+Topology: interest:int_successive_reduction
+Realism: 88
+
+Explanation EN:
+Final index
+100 x (95/100)^2
+= 90.25
+
+Final value
+5000 x final index / 100
+= 4512.5
+
+Answer = ₹4512.5
+
+Explanation HI:
+अंतिम सूचकांक
+100 x (95/100)^2
+= 90.25
+
+अंतिम मूल्य
+5000 x final index / 100
+= 4512.5
+
+उत्तर = ₹4512.5
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕ
+100 x (95/100)^2
+= 90.25
+
+ਅੰਤਿਮ ਮੁੱਲ
+5000 x final index / 100
+= 4512.5
+
+ਉੱਤਰ = ₹4512.5
+
+[Q30]
+EN:
+A fixed deposit of ₹10000 is invested at 5% per annum compounded annually for 2 years. Find the compound amount.
+
+HI:
+सावधि जमा ₹10000 है, दर 5% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि कुल राशि ज्ञात कीजिए।
+
+PA:
+ਮਿਆਦੀ ਜਮ੍ਹਾਂ ₹10000 ਹੈ, ਦਰ 5% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹11025 | ₹1000 | ₹1025 | ₹12127.5
+Answer: ₹11025
+Difficulty: Hard
+Topology: interest:int_ci_annual_vs_half_yearly
+Realism: 94
+
+Explanation EN:
+Compound amount
+10000 x (1 + 5/100)^2
+= 11025
+
+Compound interest
+11025 - 10000
+= 1025
+
+Amount
+
+Answer = ₹11025
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+10000 x (1 + 5/100)^2
+= 11025
+
+चक्रवृद्धि ब्याज
+11025 - 10000
+= 1025
+
+कुल राशि
+
+उत्तर = ₹11025
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+10000 x (1 + 5/100)^2
+= 11025
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+11025 - 10000
+= 1025
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹11025
+
+[Q31]
+EN:
+A total of ₹12000 is split between two simple-interest schemes at 5% and 7% per annum for 4 years. The total interest is ₹2976. Find the amount invested at 5%.
+
+HI:
+₹12000 को दो साधारण ब्याज योजनाओं में 5% और 7% वार्षिक दर पर 4 वर्ष के लिए लगाया गया। कुल ब्याज ₹2976 है। 5% पर लगाई गई राशि ज्ञात कीजिए।
+
+PA:
+₹12000 ਨੂੰ ਦੋ ਸਧਾਰਣ ਬਿਆਜ ਯੋਜਨਾਵਾਂ ਵਿੱਚ 5% ਅਤੇ 7% ਸਾਲਾਨਾ ਦਰ ਤੇ 4 ਸਾਲ ਲਈ ਲਗਾਇਆ ਗਿਆ। ਕੁੱਲ ਬਿਆਜ ₹2976 ਹੈ। 5% ਤੇ ਲਗਾਈ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹4800 | ₹6000 | ₹14880 | ₹7200
+Answer: ₹4800
+Difficulty: Hard
+Topology: interest:int_part_principal_two_rates_si
+Realism: 90
+
+Explanation EN:
+Interest equation
+x x 5 x 4/100 + (12000 - x) x 7 x 4/100 = 2976
+= 2976
+
+Amount at lower rate
+4800
+= 4800
+
+Answer = ₹4800
+
+Explanation HI:
+ब्याज समीकरण
+x x 5 x 4/100 + (12000 - x) x 7 x 4/100 = 2976
+= 2976
+
+कम दर पर राशि
+4800
+= 4800
+
+उत्तर = ₹4800
+
+Explanation PA:
+ਬਿਆਜ ਸਮੀਕਰਨ
+x x 5 x 4/100 + (12000 - x) x 7 x 4/100 = 2976
+= 2976
+
+ਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ
+4800
+= 4800
+
+ਉੱਤਰ = ₹4800
+
+[Q32]
+EN:
+A loan of ₹8000 is compounded monthly at 12% nominal annual rate for 1 periods. Find the amount.
+
+HI:
+₹8000 का ऋण 12% नाममात्र वार्षिक दर पर मासिक चक्रवृद्धि है। कुल राशि ज्ञात कीजिए।
+
+PA:
+₹8000 ਦਾ ਕਰਜ਼ਾ 12% ਨਾਮਾਤਰ ਸਾਲਾਨਾ ਦਰ ਤੇ ਮਾਸਿਕ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹8080 | ₹8960 | ₹8888 | ₹7272
+Answer: ₹8080
+Difficulty: Hard
+Topology: interest:int_ci_monthly
+Realism: 89
+
+Explanation EN:
+Rate per period
+12 / 12
+= 1
+
+Amount
+8000 x (1 + 1/100)^1
+= 8080
+
+Answer = ₹8080
+
+Explanation HI:
+प्रति अवधि दर
+12 / 12
+= 1
+
+कुल राशि
+8000 x (1 + 1/100)^1
+= 8080
+
+उत्तर = ₹8080
+
+Explanation PA:
+ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ
+12 / 12
+= 1
+
+ਕੁੱਲ ਰਕਮ
+8000 x (1 + 1/100)^1
+= 8080
+
+ਉੱਤਰ = ₹8080
+
+[Q33]
+EN:
+At simple interest, a cooperative society loan amounts to ₹11500 in 3 years and ₹12500 in 5 years. Find the principal.
+
+HI:
+साधारण ब्याज पर एक सहकारी समिति ऋण 3 वर्ष में ₹11500 और 5 वर्ष में ₹12500 हो जाता है। मूलधन ज्ञात कीजिए।
+
+PA:
+ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਇੱਕ ਸਹਿਕਾਰੀ ਸਭਾ ਕਰਜ਼ਾ 3 ਸਾਲ ਵਿੱਚ ₹11500 ਅਤੇ 5 ਸਾਲ ਵਿੱਚ ₹12500 ਹੋ ਜਾਂਦਾ ਹੈ। ਮੂਲਧਨ ਪਤਾ ਕਰੋ।
+
+Options: ₹10000 | ₹11500 | ₹12500 | ₹11000
+Answer: ₹10000
+Difficulty: Hard
+Topology: interest:int_si_temporal_amount_gap
+Realism: 91
+
+Explanation EN:
+One-year interest
+(12500 - 11500) / (5 - 3)
+= 500
+
+Principal
+11500 - 500 x 3
+= 10000
+
+Answer = ₹10000
+
+Explanation HI:
+एक वर्ष का ब्याज
+(12500 - 11500) / (5 - 3)
+= 500
+
+मूलधन
+11500 - 500 x 3
+= 10000
+
+उत्तर = ₹10000
+
+Explanation PA:
+ਇੱਕ ਸਾਲ ਦਾ ਬਿਆਜ
+(12500 - 11500) / (5 - 3)
+= 500
+
+ਮੂਲਧਨ
+11500 - 500 x 3
+= 10000
+
+ਉੱਤਰ = ₹10000
+
+[Q34]
+EN:
+A term deposit of ₹1000 is invested at 10% per annum compounded annually for 3 years. Find the compound interest.
+
+HI:
+टर्म डिपॉजिट ₹1000 है, दर 10% प्रतिवर्ष है और ब्याज 3 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि ब्याज ज्ञात कीजिए।
+
+PA:
+ਟਰਮ ਡਿਪਾਜ਼ਿਟ ₹1000 ਹੈ, ਦਰ 10% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 3 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਪਤਾ ਕਰੋ।
+
+Options: ₹331 | ₹300 | ₹1331 | ₹364.1
+Answer: ₹331
+Difficulty: Easy
+Topology: interest:int_ci_from_amount
+Realism: 78
+
+Explanation EN:
+Compound amount
+1000 x (1 + 10/100)^3
+= 1331
+
+Compound interest
+1331 - 1000
+= 331
+
+Compound interest
+
+Answer = ₹331
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+1000 x (1 + 10/100)^3
+= 1331
+
+चक्रवृद्धि ब्याज
+1331 - 1000
+= 331
+
+चक्रवृद्धि ब्याज
+
+उत्तर = ₹331
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+1000 x (1 + 10/100)^3
+= 1331
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+1331 - 1000
+= 331
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+
+ਉੱਤਰ = ₹331
+
+[Q35]
+EN:
+An investment scheme of ₹4000 is invested at 10% per annum compounded annually for 3 years. Find the time.
+
+HI:
+निवेश योजना ₹4000 है, दर 10% प्रतिवर्ष है और ब्याज 3 वर्ष तक वार्षिक चक्रवृद्धि है। समय ज्ञात कीजिए।
+
+PA:
+ਨਿਵੇਸ਼ ਯੋਜਨਾ ₹4000 ਹੈ, ਦਰ 10% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 3 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਸਮਾਂ ਪਤਾ ਕਰੋ।
+
+Options: 3 years | 3.3 years | 2.7 years | 4 years
+Answer: 3 years
+Difficulty: Medium
+Topology: interest:int_ci_time_from_amount
+Realism: 84
+
+Explanation EN:
+Compound amount
+4000 x (1 + 10/100)^3
+= 5324
+
+Compound interest
+5324 - 4000
+= 1324
+
+Time
+5324 x 100 / (4000 x 10)
+= 3
+
+Answer = 3 years
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+4000 x (1 + 10/100)^3
+= 5324
+
+चक्रवृद्धि ब्याज
+5324 - 4000
+= 1324
+
+समय
+5324 x 100 / (4000 x 10)
+= 3
+
+उत्तर = 3 वर्ष
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+4000 x (1 + 10/100)^3
+= 5324
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+5324 - 4000
+= 1324
+
+ਸਮਾਂ
+5324 x 100 / (4000 x 10)
+= 3
+
+ਉੱਤਰ = 3 ਸਾਲ
+
+[Q36]
+EN:
+A loan becomes 3/1 of itself in 12 years at simple interest. Find the rate.
+
+HI:
+एक ऋण साधारण ब्याज पर 12 वर्ष में अपने का 3/1 हो जाता है। दर ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਜ਼ਾ ਸਧਾਰਣ ਬਿਆਜ ਤੇ 12 ਸਾਲ ਵਿੱਚ ਆਪਣੇ ਦਾ 3/1 ਹੋ ਜਾਂਦਾ ਹੈ। ਦਰ ਪਤਾ ਕਰੋ।
+
+Options: 16.67% rate | 25% rate | 21.67% rate | 11.67% rate
+Answer: 16.67% rate
+Difficulty: Medium
+Topology: interest:int_si_sum_triples
+Realism: 83
+
+Explanation EN:
+Interest part of principal
+3/1 - 1
+= 2
+
+Rate
+(3/1 - 1) x 100 / 12
+= 16.67
+
+Answer = 16.67% rate
+
+Explanation HI:
+मूलधन का ब्याज भाग
+3/1 - 1
+= 2
+
+दर
+(3/1 - 1) x 100 / 12
+= 16.67
+
+उत्तर = 16.67% दर
+
+Explanation PA:
+ਮੂਲਧਨ ਦਾ ਬਿਆਜ ਹਿੱਸਾ
+3/1 - 1
+= 2
+
+ਦਰ
+(3/1 - 1) x 100 / 12
+= 16.67
+
+ਉੱਤਰ = 16.67% ਦਰ
+
+[Q37]
+EN:
+A loan of ₹2500 is taken at 5% per annum for 5 years under simple interest. Find the amount.
+
+HI:
+₹2500 का ऋण 5% प्रतिवर्ष की दर से 5 वर्ष के लिए साधारण ब्याज पर है। कुल राशि ज्ञात कीजिए।
+
+PA:
+₹2500 ਦਾ ਕਰਜ਼ਾ 5% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 5 ਸਾਲ ਲਈ ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਹੈ। ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹3125 | ₹625 | ₹781.25 | ₹3437.5
+Answer: ₹3125
+Difficulty: Easy
+Topology: interest:int_si_amount_from_prt
+Realism: 77
+
+Explanation EN:
+Simple interest
+2500 x 5 x 5 / 100
+= 625
+
+Amount
+2500 + 625
+= 3125
+
+Amount
+
+Answer = ₹3125
+
+Explanation HI:
+साधारण ब्याज
+2500 x 5 x 5 / 100
+= 625
+
+कुल राशि
+2500 + 625
+= 3125
+
+कुल राशि
+
+उत्तर = ₹3125
+
+Explanation PA:
+ਸਧਾਰਣ ਬਿਆਜ
+2500 x 5 x 5 / 100
+= 625
+
+ਕੁੱਲ ਰਕਮ
+2500 + 625
+= 3125
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹3125
+
+[Q38]
+EN:
+The value of a furniture is ₹20000 and it depreciates by 5% each year for 2 years. Find the final value.
+
+HI:
+एक फर्नीचर का मूल्य ₹20000 है और यह 2 वर्षों तक हर वर्ष 5% घटता है। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਫਰਨੀਚਰ ਦਾ ਮੁੱਲ ₹20000 ਹੈ ਅਤੇ ਇਹ 2 ਸਾਲਾਂ ਲਈ ਹਰ ਸਾਲ 5% ਘਟਦਾ ਹੈ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹18050 | ₹18000 | ₹19000 | ₹20000
+Answer: ₹18050
+Difficulty: Hard
+Topology: interest:int_machine_car_depreciation
+Realism: 89
+
+Explanation EN:
+Final index
+100 x (95/100)^2
+= 90.25
+
+Final value
+20000 x final index / 100
+= 18050
+
+Answer = ₹18050
+
+Explanation HI:
+अंतिम सूचकांक
+100 x (95/100)^2
+= 90.25
+
+अंतिम मूल्य
+20000 x final index / 100
+= 18050
+
+उत्तर = ₹18050
+
+Explanation PA:
+ਅੰਤਿਮ ਸੂਚਕ
+100 x (95/100)^2
+= 90.25
+
+ਅੰਤਿਮ ਮੁੱਲ
+20000 x final index / 100
+= 18050
+
+ਉੱਤਰ = ₹18050
+
+[Q39]
+EN:
+An investment scheme of ₹8000 is compounded quarterly at 8% nominal annual rate for 4 periods. Find the amount.
+
+HI:
+₹8000 का निवेश योजना 8% नाममात्र वार्षिक दर पर त्रैमासिक चक्रवृद्धि है। कुल राशि ज्ञात कीजिए।
+
+PA:
+₹8000 ਦਾ ਨਿਵੇਸ਼ ਯੋਜਨਾ 8% ਨਾਮਾਤਰ ਸਾਲਾਨਾ ਦਰ ਤੇ ਤਿਮਾਹੀ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹8659.46 | ₹8640 | ₹8160 | ₹9525.41
+Answer: ₹8659.46
+Difficulty: Hard
+Topology: interest:int_ci_quarterly
+Realism: 88
+
+Explanation EN:
+Rate per period
+8 / 4
+= 2
+
+Amount
+8000 x (1 + 2/100)^4
+= 8659.46
+
+Answer = ₹8659.46
+
+Explanation HI:
+प्रति अवधि दर
+8 / 4
+= 2
+
+कुल राशि
+8000 x (1 + 2/100)^4
+= 8659.46
+
+उत्तर = ₹8659.46
+
+Explanation PA:
+ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ
+8 / 4
+= 2
+
+ਕੁੱਲ ਰਕਮ
+8000 x (1 + 2/100)^4
+= 8659.46
+
+ਉੱਤਰ = ₹8659.46
+
+[Q40]
+EN:
+A cooperative society loan of ₹5000 is invested at 20% per annum compounded annually for 2 years. Find the compound interest.
+
+HI:
+सहकारी समिति ऋण ₹5000 है, दर 20% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि ब्याज ज्ञात कीजिए।
+
+PA:
+ਸਹਿਕਾਰੀ ਸਭਾ ਕਰਜ਼ਾ ₹5000 ਹੈ, ਦਰ 20% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਪਤਾ ਕਰੋ।
+
+Options: ₹2200 | ₹2000 | ₹7200 | ₹2420
+Answer: ₹2200
+Difficulty: Medium
+Topology: interest:int_ci_two_year_formula
+Realism: 87
+
+Explanation EN:
+Compound amount
+5000 x (1 + 20/100)^2
+= 7200
+
+Compound interest
+7200 - 5000
+= 2200
+
+Compound interest
+
+Answer = ₹2200
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+5000 x (1 + 20/100)^2
+= 7200
+
+चक्रवृद्धि ब्याज
+7200 - 5000
+= 2200
+
+चक्रवृद्धि ब्याज
+
+उत्तर = ₹2200
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+5000 x (1 + 20/100)^2
+= 7200
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+7200 - 5000
+= 2200
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+
+ਉੱਤਰ = ₹2200
+
+[Q41]
+EN:
+On a term deposit of ₹1500, simple interest is compared for 2 years at 5% and 9% per annum. Find the difference in interest.
+
+HI:
+₹1500 के टर्म डिपॉजिट पर 2 वर्ष के लिए 5% और 9% प्रतिवर्ष की दरों पर साधारण ब्याज की तुलना की गई। ब्याज का अंतर ज्ञात कीजिए।
+
+PA:
+₹1500 ਦੇ ਟਰਮ ਡਿਪਾਜ਼ਿਟ ਤੇ 2 ਸਾਲ ਲਈ 5% ਅਤੇ 9% ਪ੍ਰਤੀ ਸਾਲ ਦਰਾਂ ਉੱਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕੀਤੀ ਗਈ। ਬਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।
+
+Options: ₹120 | ₹60 | ₹270 | ₹150
+Answer: ₹120
+Difficulty: Hard
+Topology: interest:int_si_difference_two_cases
+Realism: 91
+
+Explanation EN:
+Rate difference
+9 - 5
+= 4
+
+Interest difference
+1500 x 4 x 2 / 100
+= 120
+
+Answer = ₹120
+
+Explanation HI:
+दर का अंतर
+9 - 5
+= 4
+
+ब्याज का अंतर
+1500 x 4 x 2 / 100
+= 120
+
+उत्तर = ₹120
+
+Explanation PA:
+ਦਰ ਦਾ ਅੰਤਰ
+9 - 5
+= 4
+
+ਬਿਆਜ ਦਾ ਅੰਤਰ
+1500 x 4 x 2 / 100
+= 120
+
+ਉੱਤਰ = ₹120
+
+[Q42]
+EN:
+A loan of ₹10000 is to be repaid in 2 equal yearly installments at 12% simple interest. Find each installment.
+
+HI:
+₹10000 का ऋण 12% साधारण ब्याज पर 2 बराबर वार्षिक किस्तों में चुकाना है। प्रत्येक किस्त ज्ञात कीजिए।
+
+PA:
+₹10000 ਦਾ ਕਰਜ਼ਾ 12% ਸਧਾਰਣ ਬਿਆਜ ਤੇ 2 ਬਰਾਬਰ ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਚੁਕਾਉਣਾ ਹੈ। ਹਰ ਕਿਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: ₹6200 | ₹5000 | ₹5600 | ₹12400
+Answer: ₹6200
+Difficulty: Hard
+Topology: interest:int_find_installment_amount
+Realism: 92
+
+Explanation EN:
+Amount payable
+10000 x (100 + 12 x 2) / 100
+= 12400
+
+Each installment
+12400 / 2
+= 6200
+
+Answer = ₹6200
+
+Explanation HI:
+देय राशि
+10000 x (100 + 12 x 2) / 100
+= 12400
+
+प्रत्येक किस्त
+12400 / 2
+= 6200
+
+उत्तर = ₹6200
+
+Explanation PA:
+ਦੇਣਯੋਗ ਰਕਮ
+10000 x (100 + 12 x 2) / 100
+= 12400
+
+ਹਰ ਕਿਸ਼ਤ
+12400 / 2
+= 6200
+
+ਉੱਤਰ = ₹6200
+
+[Q43]
+EN:
+A total of ₹15000 is split between two simple-interest schemes at 10% and 15% per annum for 2 years. The total interest is ₹3900. Find the amount invested at 10%.
+
+HI:
+₹15000 को दो साधारण ब्याज योजनाओं में 10% और 15% वार्षिक दर पर 2 वर्ष के लिए लगाया गया। कुल ब्याज ₹3900 है। 10% पर लगाई गई राशि ज्ञात कीजिए।
+
+PA:
+₹15000 ਨੂੰ ਦੋ ਸਧਾਰਣ ਬਿਆਜ ਯੋਜਨਾਵਾਂ ਵਿੱਚ 10% ਅਤੇ 15% ਸਾਲਾਨਾ ਦਰ ਤੇ 2 ਸਾਲ ਲਈ ਲਗਾਇਆ ਗਿਆ। ਕੁੱਲ ਬਿਆਜ ₹3900 ਹੈ। 10% ਤੇ ਲਗਾਈ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹6000 | ₹7500 | ₹19500 | ₹9000
+Answer: ₹6000
+Difficulty: Hard
+Topology: interest:int_si_alligation_mixture
+Realism: 92
+
+Explanation EN:
+Interest equation
+x x 10 x 2/100 + (15000 - x) x 15 x 2/100 = 3900
+= 3900
+
+Amount at lower rate
+6000
+= 6000
+
+Answer = ₹6000
+
+Explanation HI:
+ब्याज समीकरण
+x x 10 x 2/100 + (15000 - x) x 15 x 2/100 = 3900
+= 3900
+
+कम दर पर राशि
+6000
+= 6000
+
+उत्तर = ₹6000
+
+Explanation PA:
+ਬਿਆਜ ਸਮੀਕਰਨ
+x x 10 x 2/100 + (15000 - x) x 15 x 2/100 = 3900
+= 3900
+
+ਘੱਟ ਦਰ ਵਾਲੀ ਰਕਮ
+6000
+= 6000
+
+ਉੱਤਰ = ₹6000
+
+[Q44]
+EN:
+A borrower takes ₹10000 at 10% simple interest. After 1 year(s), ₹2000 of the principal is repaid. Find the total interest for the next 3 years.
+
+HI:
+एक उधारकर्ता ₹10000 10% साधारण ब्याज पर लेता है। 1 वर्ष बाद मूलधन में से ₹2000 चुका देता है। कुल 3 वर्षों का ब्याज ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਰਜ਼ਦਾਰ ₹10000 10% ਸਧਾਰਣ ਬਿਆਜ ਤੇ ਲੈਂਦਾ ਹੈ। 1 ਸਾਲ ਬਾਅਦ ਮੂਲਧਨ ਵਿੱਚੋਂ ₹2000 ਵਾਪਸ ਕਰਦਾ ਹੈ। ਕੁੱਲ 3 ਸਾਲਾਂ ਦਾ ਬਿਆਜ ਪਤਾ ਕਰੋ।
+
+Options: ₹2600 | ₹3000 | ₹2400 | ₹600
+Answer: ₹2600
+Difficulty: Hard
+Topology: interest:int_si_partial_discharge_timeline
+Realism: 94
+
+Explanation EN:
+Interest before repayment
+10000 x 10 x 1 / 100
+= 1000
+
+Interest on balance
+8000 x 10 x 2 / 100
+= 1600
+
+Total interest
+first interest + balance interest
+= 2600
+
+Answer = ₹2600
+
+Explanation HI:
+भुगतान से पहले ब्याज
+10000 x 10 x 1 / 100
+= 1000
+
+शेष पर ब्याज
+8000 x 10 x 2 / 100
+= 1600
+
+कुल ब्याज
+first interest + balance interest
+= 2600
+
+उत्तर = ₹2600
+
+Explanation PA:
+ਭੁਗਤਾਨ ਤੋਂ ਪਹਿਲਾਂ ਬਿਆਜ
+10000 x 10 x 1 / 100
+= 1000
+
+ਬਕਾਇਆ ਤੇ ਬਿਆਜ
+8000 x 10 x 2 / 100
+= 1600
+
+ਕੁੱਲ ਬਿਆਜ
+first interest + balance interest
+= 2600
+
+ਉੱਤਰ = ₹2600
+
+[Q45]
+EN:
+A term deposit of ₹12000 is compounded half-yearly at 10% nominal annual rate for 2 periods. Find the amount.
+
+HI:
+₹12000 का टर्म डिपॉजिट 10% नाममात्र वार्षिक दर पर अर्धवार्षिक चक्रवृद्धि है। कुल राशि ज्ञात कीजिए।
+
+PA:
+₹12000 ਦਾ ਟਰਮ ਡਿਪਾਜ਼ਿਟ 10% ਨਾਮਾਤਰ ਸਾਲਾਨਾ ਦਰ ਤੇ ਅੱਧ-ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹13230 | ₹13200 | ₹12600 | ₹14553
+Answer: ₹13230
+Difficulty: Hard
+Topology: interest:int_ci_half_yearly
+Realism: 88
+
+Explanation EN:
+Rate per period
+10 / 2
+= 5
+
+Amount
+12000 x (1 + 5/100)^2
+= 13230
+
+Answer = ₹13230
+
+Explanation HI:
+प्रति अवधि दर
+10 / 2
+= 5
+
+कुल राशि
+12000 x (1 + 5/100)^2
+= 13230
+
+उत्तर = ₹13230
+
+Explanation PA:
+ਪ੍ਰਤੀ ਅਵਧੀ ਦਰ
+10 / 2
+= 5
+
+ਕੁੱਲ ਰਕਮ
+12000 x (1 + 5/100)^2
+= 13230
+
+ਉੱਤਰ = ₹13230
+
+[Q46]
+EN:
+For an investment scheme, compare CI and SI at 5% per annum for 2 years. Find difference.
+
+HI:
+एक निवेश योजना पर 5% प्रतिवर्ष की दर से 2 वर्ष के लिए चक्रवृद्धि और साधारण ब्याज की तुलना करें। अंतर ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਨਿਵੇਸ਼ ਯੋਜਨਾ ਤੇ 5% ਪ੍ਰਤੀ ਸਾਲ ਦੀ ਦਰ ਨਾਲ 2 ਸਾਲ ਲਈ ਚੱਕਰਵ੍ਰਿੱਧੀ ਅਤੇ ਸਧਾਰਣ ਬਿਆਜ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਅੰਤਰ ਪਤਾ ਕਰੋ।
+
+Options: ₹100 | ₹4000 | ₹200 | ₹2000
+Answer: ₹100
+Difficulty: Medium
+Topology: interest:int_hybrid_si_ci_crossover
+Realism: 85
+
+Explanation EN:
+Difference for 2 years
+40000 x (5/100)^2
+= 100
+
+Difference
+100
+= 100
+
+Answer = ₹100
+
+Explanation HI:
+2 वर्ष का अंतर
+40000 x (5/100)^2
+= 100
+
+अंतर
+100
+= 100
+
+उत्तर = ₹100
+
+Explanation PA:
+2 ਸਾਲ ਦਾ ਅੰਤਰ
+40000 x (5/100)^2
+= 100
+
+ਅੰਤਰ
+100
+= 100
+
+ਉੱਤਰ = ₹100
+
+[Q47]
+EN:
+A shop expansion loan of ₹8000 is invested at 5% per annum compounded annually for 2 years. Find the compound amount.
+
+HI:
+दुकान विस्तार ऋण ₹8000 है, दर 5% प्रतिवर्ष है और ब्याज 2 वर्ष तक वार्षिक चक्रवृद्धि है। चक्रवृद्धि कुल राशि ज्ञात कीजिए।
+
+PA:
+ਦੁਕਾਨ ਵਧਾਉਣ ਦਾ ਕਰਜ਼ਾ ₹8000 ਹੈ, ਦਰ 5% ਪ੍ਰਤੀ ਸਾਲ ਹੈ ਅਤੇ ਬਿਆਜ 2 ਸਾਲ ਲਈ ਸਾਲਾਨਾ ਚੱਕਰਵ੍ਰਿੱਧੀ ਹੈ। ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।
+
+Options: ₹8820 | ₹800 | ₹820 | ₹9702
+Answer: ₹8820
+Difficulty: Hard
+Topology: interest:int_ci_specific_year_isolation
+Realism: 94
+
+Explanation EN:
+Compound amount
+8000 x (1 + 5/100)^2
+= 8820
+
+Compound interest
+8820 - 8000
+= 820
+
+Amount
+
+Answer = ₹8820
+
+Explanation HI:
+चक्रवृद्धि कुल राशि
+8000 x (1 + 5/100)^2
+= 8820
+
+चक्रवृद्धि ब्याज
+8820 - 8000
+= 820
+
+कुल राशि
+
+उत्तर = ₹8820
+
+Explanation PA:
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਕੁੱਲ ਰਕਮ
+8000 x (1 + 5/100)^2
+= 8820
+
+ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ
+8820 - 8000
+= 820
+
+ਕੁੱਲ ਰਕਮ
+
+ਉੱਤਰ = ₹8820
+
+[Q48]
+EN:
+An investment scheme becomes 5/4 of itself in 5 years at simple interest. Find the time.
+
+HI:
+एक निवेश योजना साधारण ब्याज पर 5 वर्ष में अपने का 5/4 हो जाता है। समय ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਨਿਵੇਸ਼ ਯੋਜਨਾ ਸਧਾਰਣ ਬਿਆਜ ਤੇ 5 ਸਾਲ ਵਿੱਚ ਆਪਣੇ ਦਾ 5/4 ਹੋ ਜਾਂਦਾ ਹੈ। ਸਮਾਂ ਪਤਾ ਕਰੋ।
+
+Options: 5 years | 25 years | 5.5 years | 4.5 years
+Answer: 5 years
+Difficulty: Hard
+Topology: interest:int_si_amount_ratio_time_gap
+Realism: 88
+
+Explanation EN:
+Interest part of principal
+5/4 - 1
+= 0.25
+
+Rate
+(5/4 - 1) x 100 / 5
+= 5
+
+Answer = 5 years
+
+Explanation HI:
+मूलधन का ब्याज भाग
+5/4 - 1
+= 0.25
+
+दर
+(5/4 - 1) x 100 / 5
+= 5
+
+उत्तर = 5 वर्ष
+
+Explanation PA:
+ਮੂਲਧਨ ਦਾ ਬਿਆਜ ਹਿੱਸਾ
+5/4 - 1
+= 0.25
+
+ਦਰ
+(5/4 - 1) x 100 / 5
+= 5
+
+ਉੱਤਰ = 5 ਸਾਲ
+
+[Q49]
+EN:
+A loan of ₹6000 is to be repaid in 2 equal yearly installments at 12% compound interest. Find each installment.
+
+HI:
+₹6000 का ऋण 12% चक्रवृद्धि ब्याज पर 2 बराबर वार्षिक किस्तों में चुकाना है। प्रत्येक किस्त ज्ञात कीजिए।
+
+PA:
+₹6000 ਦਾ ਕਰਜ਼ਾ 12% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 2 ਬਰਾਬਰ ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਚੁਕਾਉਣਾ ਹੈ। ਹਰ ਕਿਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: ₹3763.2 | ₹3000 | ₹3360 | ₹7526.4
+Answer: ₹3763.2
+Difficulty: Medium
+Topology: interest:int_loan_repayment_ci
+Realism: 85
+
+Explanation EN:
+Amount payable
+6000 x (1 + 12/100)^2
+= 7526.4
+
+Each installment
+7526.4 / 2
+= 3763.2
+
+Answer = ₹3763.2
+
+Explanation HI:
+देय राशि
+6000 x (1 + 12/100)^2
+= 7526.4
+
+प्रत्येक किस्त
+7526.4 / 2
+= 3763.2
+
+उत्तर = ₹3763.2
+
+Explanation PA:
+ਦੇਣਯੋਗ ਰਕਮ
+6000 x (1 + 12/100)^2
+= 7526.4
+
+ਹਰ ਕਿਸ਼ਤ
+7526.4 / 2
+= 3763.2
+
+ਉੱਤਰ = ₹3763.2
+
+[Q50]
+EN:
+A loan of ₹8000 is to be repaid in 3 equal yearly installments at 5% compound interest. Find each installment.
+
+HI:
+₹8000 का ऋण 5% चक्रवृद्धि ब्याज पर 3 बराबर वार्षिक किस्तों में चुकाना है। प्रत्येक किस्त ज्ञात कीजिए।
+
+PA:
+₹8000 ਦਾ ਕਰਜ਼ਾ 5% ਚੱਕਰਵ੍ਰਿੱਧੀ ਬਿਆਜ ਤੇ 3 ਬਰਾਬਰ ਸਾਲਾਨਾ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਚੁਕਾਉਣਾ ਹੈ। ਹਰ ਕਿਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: ₹3087 | ₹2666.67 | ₹2800 | ₹9261
+Answer: ₹3087
+Difficulty: Hard
+Topology: interest:int_equal_annual_installments_ci
+Realism: 91
+
+Explanation EN:
+Amount payable
+8000 x (1 + 5/100)^3
+= 9261
+
+Each installment
+9261 / 3
+= 3087
+
+Answer = ₹3087
+
+Explanation HI:
+देय राशि
+8000 x (1 + 5/100)^3
+= 9261
+
+प्रत्येक किस्त
+9261 / 3
+= 3087
+
+उत्तर = ₹3087
+
+Explanation PA:
+ਦੇਣਯੋਗ ਰਕਮ
+8000 x (1 + 5/100)^3
+= 9261
+
+ਹਰ ਕਿਸ਼ਤ
+9261 / 3
+= 3087
+
+ਉੱਤਰ = ₹3087
+

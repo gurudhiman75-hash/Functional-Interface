@@ -41,6 +41,11 @@ import {
   estimateCorpusAuditExportSizeMb,
   isCorpusAuditExportProfileId,
 } from "../quant-v2/corpus-audit/corpus-audit-profiles";
+import {
+  resolveMigratedQuantV2Domain,
+  validateQuantV2SchedulerProfileForPreset,
+  validateQuantV2TopologyForPreset,
+} from "../lib/quant-v2/migrated-quant-topics";
 import type {
   CorpusAuditExportOptions,
 } from "../quant-v2/corpus-audit/corpus-audit-types";
@@ -1185,12 +1190,10 @@ router.post(
       }
 
       const isMigratedQuantV2Pattern =
-        pattern.generationDomain ===
-          "quant-v2-profit-loss" ||
-        pattern.generationDomain ===
-          "quant-v2-interest" ||
-        /profit[_ -]?loss|discount|simple[_ -]?interest|compound[_ -]?interest|\binterest\b|\bsi[_ -]?ci\b/i.test(
-          `${pattern.topic ?? ""} ${pattern.subtopic ?? ""} ${pattern.id ?? ""}`,
+        Boolean(
+          resolveMigratedQuantV2Domain(
+            pattern,
+          ),
         );
 
       if (
@@ -1661,13 +1664,48 @@ router.post(
           });
       }
 
+      const resolvedPresetId =
+        typeof presetId === "string"
+          ? presetId
+          : undefined;
+      const topologyValidation =
+        validateQuantV2TopologyForPreset(
+          resolvedPresetId ??
+            "ssc_percentage_audit",
+          topologySelection,
+        );
+
+      if (!topologyValidation.valid) {
+        return res
+          .status(400)
+          .json({
+            error:
+              topologyValidation.error ??
+              "Invalid corpus audit topology.",
+          });
+      }
+
+      const schedulerProfileValidation =
+        validateQuantV2SchedulerProfileForPreset(
+          resolvedPresetId ??
+            "ssc_percentage_audit",
+          schedulerProfile,
+        );
+
+      if (!schedulerProfileValidation.valid) {
+        return res
+          .status(400)
+          .json({
+            error:
+              schedulerProfileValidation.error ??
+              "Invalid corpus audit scheduler profile.",
+          });
+      }
+
       const job =
         startCorpusAuditExportJob({
           count,
-          presetId:
-            typeof presetId === "string"
-              ? presetId
-              : undefined,
+          presetId: resolvedPresetId,
           seed:
             typeof seed === "string"
               ? seed
@@ -1694,11 +1732,7 @@ router.post(
                 )
               : undefined,
           topologySelection:
-            topologySelection === "relational" ||
-            topologySelection === "procedural" ||
-            topologySelection === "mixed"
-              ? topologySelection
-              : undefined,
+            topologyValidation.topology,
           realismProfile:
             realismProfile === "pyq" ||
             realismProfile === "stress" ||
@@ -1741,9 +1775,7 @@ router.post(
               ? useScheduler
               : undefined,
           schedulerProfile:
-            typeof schedulerProfile === "string"
-              ? schedulerProfile
-              : undefined,
+            schedulerProfileValidation.schedulerProfile,
         } satisfies CorpusAuditExportOptions);
 
       return res

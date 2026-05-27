@@ -1,0 +1,2447 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-26-135541
+Run: run-eca181a3-7169-4bc0-827e-33a1a22b5c90
+Seed: profit-loss-audit:run-eca181a3-7169-4bc0-827e-33a1a22b5c90
+Explicit seed: no
+Preset: profit_loss_audit
+Profile: multilingual_review
+Count: 50
+Estimated Size: ~1.2 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+A producer sells a phone for ₹1000 cost base through a chain: producer to distributor at 20% profit, then distributor to dealer at 10% profit, and dealer to buyer at 15% profit. Find the final price.
+
+HI:
+एक फोन की आधार खरीद कीमत ₹1000 है। श्रृंखला में पहले 20% लाभ, फिर 10% लाभ और फिर 15% लाभ लगाया गया। अंतिम मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਫੋਨ ਦੀ ਆਧਾਰ ਖਰੀਦ ਕੀਮਤ ₹1000 ਹੈ। ਲੜੀ ਵਿੱਚ ਪਹਿਲਾਂ 20% ਲਾਭ, ਫਿਰ 10% ਲਾਭ ਅਤੇ ਫਿਰ 15% ਲਾਭ ਲਾਇਆ ਗਿਆ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹1518 | ₹1450 | ₹1200 | ₹1214.4
+Answer: ₹1518
+Difficulty: Hard
+Topology: profit_loss_discount:pl_sequential_supply_chain
+Realism: 94
+
+Explanation EN:
+Customer payment after chain
+1000 x 120 x 110 x 115 / 1000000
+= 1518
+
+Selling price = ₹1518
+
+Explanation HI:
+श्रृंखला के बाद ग्राहक भुगतान
+1000 x 120 x 110 x 115 / 1000000
+= 1518
+
+विक्रय मूल्य = ₹1518
+
+Explanation PA:
+ਲੜੀ ਤੋਂ ਬਾਅਦ ਗਾਹਕ ਭੁਗਤਾਨ
+1000 x 120 x 110 x 115 / 1000000
+= 1518
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹1518
+
+[Q2]
+EN:
+A trader gains ₹200 on one book set costing ₹800 and loses ₹200 on another costing ₹900. Find the overall result.
+
+HI:
+एक व्यापारी ₹800 की एक पुस्तक सेट पर ₹200 लाभ और ₹900 की दूसरी वस्तु पर ₹200 हानि करता है। कुल परिणाम ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਪਾਰੀ ₹800 ਦੀ ਇੱਕ ਕਿਤਾਬਾਂ ਦਾ ਸੈੱਟ ਤੇ ₹200 ਲਾਭ ਅਤੇ ₹900 ਦੀ ਦੂਜੀ ਵਸਤੂ ਤੇ ₹200 ਨੁਕਸਾਨ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।
+
+Options: No profit, no loss | 25% profit | 22.22% loss | 5% profit
+Answer: No profit, no loss
+Difficulty: Medium
+Topology: profit_loss_discount:pl_equal_profit_loss_amount
+Realism: 82
+
+Explanation EN:
+Net rupee result
+200 - 200
+= 0
+
+No profit, no loss
+
+Explanation HI:
+शुद्ध रुपये का परिणाम
+200 - 200
+= 0
+
+न लाभ, न हानि
+
+Explanation PA:
+ਸ਼ੁੱਧ ਰੁਪਏ ਦਾ ਨਤੀਜਾ
+200 - 200
+= 0
+
+ਨਾ ਲਾਭ, ਨਾ ਨੁਕਸਾਨ
+
+[Q3]
+EN:
+A watch is marked at ₹300. Two successive discounts of 12.5% and 5% are given. Find the final selling price.
+
+HI:
+एक घड़ी का अंकित मूल्य ₹300 है। 12.5% और 5% की दो क्रमिक छूट दी गईं। अंतिम विक्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਘੜੀ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹300 ਹੈ। 12.5% ਅਤੇ 5% ਦੀਆਂ ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਦਿੱਤੀਆਂ ਗਈਆਂ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹249.38 | ₹199.5
+Answer: ₹249.38
+Difficulty: Medium
+Topology: profit_loss_discount:pl_successive_discounts
+Realism: 85
+
+Explanation EN:
+Price after first discount
+300 x 87.5 / 100
+= 262.5
+
+Final selling price
+262.5 x 95 / 100
+= 249.38
+
+Selling price = ₹249.38
+
+Explanation HI:
+पहली छूट के बाद मूल्य
+300 x 87.5 / 100
+= 262.5
+
+अंतिम विक्रय मूल्य
+262.5 x 95 / 100
+= 249.38
+
+विक्रय मूल्य = ₹249.38
+
+Explanation PA:
+ਪਹਿਲੀ ਛੂਟ ਤੋਂ ਬਾਅਦ ਮੁੱਲ
+300 x 87.5 / 100
+= 262.5
+
+ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ
+262.5 x 95 / 100
+= 249.38
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹249.38
+
+[Q4]
+EN:
+A mixer is sold for ₹1170 at 30% profit. Find its cost price.
+
+HI:
+एक मिक्सर का विक्रय मूल्य ₹1170 है और इस पर 30% लाभ है। उसका क्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਮਿਕਸਰ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ₹1170 ਹੈ ਅਤੇ ਇਸ ਤੇ 30% ਲਾਭ ਹੈ। ਇਸ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹900 | ₹720 | ₹1080 | ₹1000
+Answer: ₹900
+Difficulty: Easy
+Topology: profit_loss_discount:pl_sp_percent_to_cp
+Realism: 73
+
+Explanation EN:
+Selling price is 100 + profit%
+100 + 30
+= 130
+
+Cost price
+1170 x 100 / 130
+= 900
+
+Cost price = ₹900
+
+Explanation HI:
+विक्रय मूल्य 100 + लाभ% है
+100 + 30
+= 130
+
+क्रय मूल्य
+1170 x 100 / 130
+= 900
+
+क्रय मूल्य = ₹900
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ 100 + ਲਾਭ% ਹੈ
+100 + 30
+= 130
+
+ਖਰੀਦ ਮੁੱਲ
+1170 x 100 / 130
+= 900
+
+ਖਰੀਦ ਮੁੱਲ = ₹900
+
+[Q5]
+EN:
+A bag marked at ₹800 is sold after 25% discount for 20% profit. Find the cost price.
+
+HI:
+एक बैग का अंकित मूल्य ₹800 है। 25% छूट के बाद 20% लाभ होता है। खरीद मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਬੈਗ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹800 ਹੈ। 25% ਛੂਟ ਤੋਂ ਬਾਅਦ 20% ਲਾਭ ਹੁੰਦਾ ਹੈ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹500 | ₹600 | ₹400 | ₹450
+Answer: ₹500
+Difficulty: Medium
+Topology: profit_loss_discount:pl_inverse_cp_from_mp_discount_profit
+Realism: 85
+
+Explanation EN:
+Selling price
+800 x 75 / 100
+= 600
+
+Cost price
+600 x 100 / 120
+= 500
+
+Cost price = ₹500
+
+Explanation HI:
+विक्रय मूल्य
+800 x 75 / 100
+= 600
+
+खरीद मूल्य
+600 x 100 / 120
+= 500
+
+क्रय मूल्य = ₹500
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ
+800 x 75 / 100
+= 600
+
+ਖਰੀਦ ਮੁੱਲ
+600 x 100 / 120
+= 500
+
+ਖਰੀਦ ਮੁੱਲ = ₹500
+
+[Q6]
+EN:
+A bicycle was sold for ₹1500 at 25% loss. At what price should it be sold for 20% profit?
+
+HI:
+एक साइकिल ₹1500 में 25% हानि पर बेचा गया। 20% लाभ के लिए उसे किस मूल्य पर बेचना चाहिए?
+
+PA:
+ਇੱਕ ਸਾਈਕਲ ₹1500 ਵਿੱਚ 25% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ। 20% ਲਾਭ ਲਈ ਇਸਨੂੰ ਕਿਸ ਮੁੱਲ ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?
+
+Options: ₹2400 | ₹1800 | ₹1900 | ₹1920
+Answer: ₹2400
+Difficulty: Medium
+Topology: profit_loss_discount:pl_required_sp_after_loss
+Realism: 87
+
+Explanation EN:
+Cost price
+1500 x 100 / 75
+= 2000
+
+Target selling price
+2000 x 120 / 100
+= 2400
+
+Selling price = ₹2400
+
+Explanation HI:
+खरीद मूल्य
+1500 x 100 / 75
+= 2000
+
+लक्ष्य विक्रय मूल्य
+2000 x 120 / 100
+= 2400
+
+विक्रय मूल्य = ₹2400
+
+Explanation PA:
+ਖਰੀਦ ਮੁੱਲ
+1500 x 100 / 75
+= 2000
+
+ਲਕਸ਼ ਵਿਕਰੀ ਮੁੱਲ
+2000 x 120 / 100
+= 2400
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹2400
+
+[Q7]
+EN:
+The cost price and selling price of a bicycle are both ₹4000. Find the profit or loss.
+
+HI:
+एक साइकिल का खरीद मूल्य और विक्रय मूल्य दोनों ₹4000 हैं। परिणाम ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਸਾਈਕਲ ਦਾ ਖਰੀਦ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਦੋਵੇਂ ₹4000 ਹਨ। ਨਤੀਜਾ ਪਤਾ ਕਰੋ।
+
+Options: No profit, no loss | 5% profit | 10% loss | 2.5% profit
+Answer: No profit, no loss
+Difficulty: Easy
+Topology: profit_loss_discount:pl_no_profit_no_loss
+Realism: 71
+
+Explanation EN:
+Difference between SP and CP
+4000 - 4000
+= 0
+
+No profit, no loss
+
+Explanation HI:
+विक्रय मूल्य और खरीद मूल्य का अंतर
+4000 - 4000
+= 0
+
+न लाभ, न हानि
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ ਅਤੇ ਖਰੀਦ ਮੁੱਲ ਦਾ ਅੰਤਰ
+4000 - 4000
+= 0
+
+ਨਾ ਲਾਭ, ਨਾ ਨੁਕਸਾਨ
+
+[Q8]
+EN:
+A laptop costs ₹1000. By allowing 10% discount, the seller wants 10% profit. Find the required markup percentage.
+
+HI:
+एक लैपटॉप का खरीद मूल्य ₹1000 है। 10% छूट देकर विक्रेता 10% लाभ चाहता है। आवश्यक मार्कअप प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਲੈਪਟਾਪ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹1000 ਹੈ। 10% ਛੂਟ ਦੇ ਕੇ ਵਿਕਰੇਤਾ 10% ਲਾਭ ਚਾਹੁੰਦਾ ਹੈ। ਲੋੜੀਂਦਾ ਮਾਰਕਅਪ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 22.22% markup | 20% markup | 17.22% markup | 27.22% markup
+Answer: 22.22% markup
+Difficulty: Medium
+Topology: profit_loss_discount:pl_inverse_markup_from_cp_discount_profit
+Realism: 86
+
+Explanation EN:
+Required selling price
+1000 x 110 / 100
+= 1100
+
+Required marked price
+1100 x 100 / 90
+= 1222.22
+
+Markup percentage
+(1222.22 - 1000) x 100 / 1000
+= 22.22
+
+Markup percentage = 22.22% markup
+
+Explanation HI:
+आवश्यक विक्रय मूल्य
+1000 x 110 / 100
+= 1100
+
+आवश्यक अंकित मूल्य
+1100 x 100 / 90
+= 1222.22
+
+मार्कअप प्रतिशत
+(1222.22 - 1000) x 100 / 1000
+= 22.22
+
+मार्कअप प्रतिशत = 22.22% मार्कअप
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ
+1000 x 110 / 100
+= 1100
+
+ਲੋੜੀਂਦਾ ਅੰਕਿਤ ਮੁੱਲ
+1100 x 100 / 90
+= 1222.22
+
+ਮਾਰਕਅਪ ਪ੍ਰਤੀਸ਼ਤ
+(1222.22 - 1000) x 100 / 1000
+= 22.22
+
+ਮਾਰਕਅਪ ਪ੍ਰਤੀਸ਼ਤ = 22.22% ਮਾਰਕਅਪ
+
+[Q9]
+EN:
+After 20% discount on a shirt, profit is ₹-400. If discount were 15%, profit would be ₹-350. Find the marked price.
+
+HI:
+एक कमीज पर 20% छूट के बाद लाभ ₹-400 है। यदि छूट 15% होती, तो लाभ ₹-350 होता। अंकित मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਮੀਜ਼ ਤੇ 20% ਛੂਟ ਤੋਂ ਬਾਅਦ ਲਾਭ ₹-400 ਹੈ। ਜੇ ਛੂਟ 15% ਹੁੰਦੀ, ਤਾਂ ਲਾਭ ₹-350 ਹੁੰਦਾ। ਅੰਕਿਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹1000 | ₹1200 | ₹800 | ₹1100
+Answer: ₹1000
+Difficulty: Hard
+Topology: profit_loss_discount:pl_multi_condition_inverse_absolute
+Realism: 89
+
+Explanation EN:
+Profit difference due to discount difference
+-350 - -400
+= 50
+
+Marked price
+50 x 100 / (20 - 15)
+= 1000
+
+Marked price = ₹1000
+
+Explanation HI:
+छूट अंतर से लाभ अंतर
+-350 - -400
+= 50
+
+अंकित मूल्य
+50 x 100 / (20 - 15)
+= 1000
+
+अंकित मूल्य = ₹1000
+
+Explanation PA:
+ਛੂਟ ਅੰਤਰ ਨਾਲ ਲਾਭ ਅੰਤਰ
+-350 - -400
+= 50
+
+ਅੰਕਿਤ ਮੁੱਲ
+50 x 100 / (20 - 15)
+= 1000
+
+ਅੰਕਿਤ ਮੁੱਲ = ₹1000
+
+[Q10]
+EN:
+Manufacturing cost of a appliance is ₹5000, split between material and labour in ratio 2:3. Material rises 25% and labour rises 10%. Find the new cost.
+
+HI:
+एक उपकरण की निर्माण लागत ₹5000 है, जिसमें सामग्री और श्रम का अनुपात 2:3 है। सामग्री 25% और श्रम 10% बढ़ते हैं। नई लागत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਉਪਕਰਣ ਦੀ ਬਣਾਉਣ ਲਾਗਤ ₹5000 ਹੈ, ਜਿਸ ਵਿੱਚ ਸਮੱਗਰੀ ਅਤੇ ਮਜ਼ਦੂਰੀ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਸਮੱਗਰੀ 25% ਅਤੇ ਮਜ਼ਦੂਰੀ 10% ਵਧਦੀ ਹੈ। ਨਵੀਂ ਲਾਗਤ ਪਤਾ ਕਰੋ।
+
+Options: ₹5800 | ₹5875 | ₹6750 | ₹4640
+Answer: ₹5800
+Difficulty: Hard
+Topology: profit_loss_discount:pl_manufacturing_breakdown
+Realism: 94
+
+Explanation EN:
+Weighted new cost index
+(2 x 125 + 3 x 110) / 5
+= 116
+
+New cost
+5000 x 116 / 100
+= 5800
+
+Cost price = ₹5800
+
+Explanation HI:
+भारित नई लागत सूचकांक
+(2 x 125 + 3 x 110) / 5
+= 116
+
+नई लागत
+5000 x 116 / 100
+= 5800
+
+क्रय मूल्य = ₹5800
+
+Explanation PA:
+ਭਾਰਿਤ ਨਵੀਂ ਲਾਗਤ ਸੂਚਕਾਂਕ
+(2 x 125 + 3 x 110) / 5
+= 116
+
+ਨਵੀਂ ਲਾਗਤ
+5000 x 116 / 100
+= 5800
+
+ਖਰੀਦ ਮੁੱਲ = ₹5800
+
+[Q11]
+EN:
+A laptop costing ₹1000 is sold for ₹1800. A selling commission of 15% of SP is paid. Find the net profit or loss percentage.
+
+HI:
+एक लैपटॉप का खरीद मूल्य ₹1000 है और उसे ₹1800 में बेचा गया। विक्रय मूल्य का 15% कमीशन दिया गया। शुद्ध लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਲੈਪਟਾਪ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹1000 ਹੈ ਅਤੇ ਇਸਨੂੰ ₹1800 ਵਿੱਚ ਵੇਚਿਆ ਗਿਆ। ਵਿਕਰੀ ਮੁੱਲ ਦਾ 15% ਕਮਿਸ਼ਨ ਦਿੱਤਾ ਗਿਆ। ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 53% profit | 80% profit | 27% profit | 58% profit
+Answer: 53% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_profit_after_commission_tax
+Realism: 90
+
+Explanation EN:
+Net receipt after commission
+1800 x 85 / 100
+= 1530
+
+Net profit percentage
+(1530 - 1000) x 100 / 1000
+= 53
+
+Profit percentage = 53% profit
+
+Explanation HI:
+कमीशन के बाद शुद्ध प्राप्ति
+1800 x 85 / 100
+= 1530
+
+शुद्ध लाभ प्रतिशत
+(1530 - 1000) x 100 / 1000
+= 53
+
+लाभ प्रतिशत = 53% लाभ
+
+Explanation PA:
+ਕਮਿਸ਼ਨ ਤੋਂ ਬਾਅਦ ਸ਼ੁੱਧ ਪ੍ਰਾਪਤੀ
+1800 x 85 / 100
+= 1530
+
+ਸ਼ੁੱਧ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ
+(1530 - 1000) x 100 / 1000
+= 53
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 53% ਲਾਭ
+
+[Q12]
+EN:
+A chair is listed at ₹1575 including 5% GST. Find the base price before GST.
+
+HI:
+एक कुर्सी का सूची मूल्य ₹1575 है जिसमें 5% GST शामिल है। GST से पहले आधार मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕੁਰਸੀ ਦਾ ਸੂਚੀ ਮੁੱਲ ₹1575 ਹੈ ਜਿਸ ਵਿੱਚ 5% GST ਸ਼ਾਮਲ ਹੈ। GST ਤੋਂ ਪਹਿਲਾਂ ਆਧਾਰ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹1500 | ₹1496.25 | ₹1200 | ₹1800
+Answer: ₹1500
+Difficulty: Medium
+Topology: profit_loss_discount:pl_tax_inclusive_back_calc
+Realism: 82
+
+Explanation EN:
+Base price before GST
+1575 x 100 / 105
+= 1500
+
+Cost price = ₹1500
+
+Explanation HI:
+GST से पहले आधार मूल्य
+1575 x 100 / 105
+= 1500
+
+क्रय मूल्य = ₹1500
+
+Explanation PA:
+GST ਤੋਂ ਪਹਿਲਾਂ ਆਧਾਰ ਮੁੱਲ
+1575 x 100 / 105
+= 1500
+
+ਖਰੀਦ ਮੁੱਲ = ₹1500
+
+[Q13]
+EN:
+A table fan costs ₹600 and is marked at ₹840. After a 20% discount, find the profit or loss percentage.
+
+HI:
+एक टेबल फैन का क्रय मूल्य ₹600 है और अंकित मूल्य ₹840 है। 20% छूट के बाद लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਟੇਬਲ ਫੈਨ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹600 ਹੈ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹840 ਹੈ। 20% ਛੂਟ ਤੋਂ ਬਾਅਦ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 12% profit | 17% profit | 7% profit | 24% profit
+Answer: 12% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_cp_mp_discount_to_percent
+Realism: 85
+
+Explanation EN:
+Selling price after discount
+840 x 80 / 100
+= 672
+
+Profit amount
+672 - 600
+= 72
+
+Percentage on cost price
+72 x 100 / 600
+= 12
+
+Profit percentage = 12% profit
+
+Explanation HI:
+छूट के बाद विक्रय मूल्य
+840 x 80 / 100
+= 672
+
+लाभ राशि
+672 - 600
+= 72
+
+क्रय मूल्य पर प्रतिशत
+72 x 100 / 600
+= 12
+
+लाभ प्रतिशत = 12% लाभ
+
+Explanation PA:
+ਛੂਟ ਤੋਂ ਬਾਅਦ ਵਿਕਰੀ ਮੁੱਲ
+840 x 80 / 100
+= 672
+
+ਲਾਭ ਰਕਮ
+672 - 600
+= 72
+
+ਖਰੀਦ ਮੁੱਲ ਤੇ ਪ੍ਰਤੀਸ਼ਤ
+72 x 100 / 600
+= 12
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 12% ਲਾਭ
+
+[Q14]
+EN:
+A shirt is marked at ₹400. A discount of 15% is given. Find the selling price.
+
+HI:
+एक कमीज का अंकित मूल्य ₹400 है। 15% छूट दी गई। विक्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਮੀਜ਼ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹400 ਹੈ। 15% ਛੂਟ ਦਿੱਤੀ ਗਈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹340 | ₹272 | ₹408 | ₹440
+Answer: ₹340
+Difficulty: Easy
+Topology: profit_loss_discount:pl_mp_discount_to_sp
+Realism: 69
+
+Explanation EN:
+Price left after discount
+100 - 15
+= 85
+
+Selling price
+400 x 85 / 100
+= 340
+
+Selling price = ₹340
+
+Explanation HI:
+छूट के बाद बचा प्रतिशत
+100 - 15
+= 85
+
+विक्रय मूल्य
+400 x 85 / 100
+= 340
+
+विक्रय मूल्य = ₹340
+
+Explanation PA:
+ਛੂਟ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ
+100 - 15
+= 85
+
+ਵਿਕਰੀ ਮੁੱਲ
+400 x 85 / 100
+= 340
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹340
+
+[Q15]
+EN:
+In a promotion on tea packets, the offer is buy 3 get 1 free. Find the effective discount percentage.
+
+HI:
+चाय के पैकेट पर प्रस्ताव है: 3 खरीदें, 1 मुफ्त पाएं। प्रभावी छूट प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਚਾਹ ਦੇ ਪੈਕਟ ਤੇ ਪੇਸ਼ਕਸ਼ ਹੈ: 3 ਖਰੀਦੋ, 1 ਮੁਫ਼ਤ ਪਾਓ। ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 25% | 33.33% | 10% | 30%
+Answer: 25%
+Difficulty: Easy
+Topology: profit_loss_discount:pl_buy_get_free_discount
+Realism: 74
+
+Explanation EN:
+Effective discount
+1 x 100 / (3 + 1)
+= 25
+
+Effective discount percentage = 25%
+
+Explanation HI:
+प्रभावी छूट
+1 x 100 / (3 + 1)
+= 25
+
+प्रभावी छूट प्रतिशत = 25%
+
+Explanation PA:
+ਪ੍ਰਭਾਵੀ ਛੂਟ
+1 x 100 / (3 + 1)
+= 25
+
+ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 25%
+
+[Q16]
+EN:
+Total CP of two table fans is ₹8000. One is sold at 20% profit and the other at 20% loss, giving no overall profit or loss. Find the CP of the first item.
+
+HI:
+दो टेबल फैन का कुल खरीद मूल्य ₹8000 है। एक 20% लाभ पर और दूसरा 20% हानि पर बेचा गया, जिससे कुल न लाभ न हानि हुई। पहली वस्तु का खरीद मूल्य ज्ञात कीजिए।
+
+PA:
+ਦੋ ਟੇਬਲ ਫੈਨ ਦਾ ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ₹8000 ਹੈ। ਇੱਕ 20% ਲਾਭ ਤੇ ਅਤੇ ਦੂਜਾ 20% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਨਾ ਲਾਭ ਨਾ ਨੁਕਸਾਨ ਹੋਇਆ। ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹4000 | ₹3200 | ₹4800 | ₹4400
+Answer: ₹4000
+Difficulty: Medium
+Topology: profit_loss_discount:pl_dual_item_mixed_baseline
+Realism: 84
+
+Explanation EN:
+CP ratio for no overall gain/loss
+1 : 1
+
+Cost price of first item
+8000 x 20 / (20 + 20)
+= 4000
+
+Cost price = ₹4000
+
+Explanation HI:
+न लाभ-न हानि के लिए खरीद मूल्य अनुपात
+1 : 1
+
+पहली वस्तु का खरीद मूल्य
+8000 x 20 / (20 + 20)
+= 4000
+
+क्रय मूल्य = ₹4000
+
+Explanation PA:
+ਨਾ ਲਾਭ-ਨਾ ਨੁਕਸਾਨ ਲਈ ਖਰੀਦ ਮੁੱਲ ਅਨੁਪਾਤ
+1 : 1
+
+ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ
+8000 x 20 / (20 + 20)
+= 4000
+
+ਖਰੀਦ ਮੁੱਲ = ₹4000
+
+[Q17]
+EN:
+A dealer takes 5% extra rice while buying and gives 20% less while selling. Find the profit percentage.
+
+HI:
+एक व्यापारी खरीदते समय 5% अतिरिक्त चावल लेता है और बेचते समय 20% कम देता है। लाभ प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਪਾਰੀ ਖਰੀਦਦੇ ਸਮੇਂ 5% ਵਾਧੂ ਚਾਵਲ ਲੈਂਦਾ ਹੈ ਅਤੇ ਵੇਚਦੇ ਸਮੇਂ 20% ਘੱਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 31.25% profit | 25% profit | 26% profit | 36.25% profit
+Answer: 31.25% profit
+Difficulty: Hard
+Topology: profit_loss_discount:pl_dishonest_dealer_dual_fraud
+Realism: 91
+
+Explanation EN:
+Overall fraud factor
+(105/100) x (100/80) x 100
+= 131.25
+
+Profit percentage
+131.25 - 100
+= 31.25
+
+Profit percentage = 31.25% profit
+
+Explanation HI:
+कुल धोखाधड़ी गुणक
+(105/100) x (100/80) x 100
+= 131.25
+
+लाभ प्रतिशत
+131.25 - 100
+= 31.25
+
+लाभ प्रतिशत = 31.25% लाभ
+
+Explanation PA:
+ਕੁੱਲ ਧੋਖਾਧੜੀ ਗੁਣਕ
+(105/100) x (100/80) x 100
+= 131.25
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ
+131.25 - 100
+= 31.25
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 31.25% ਲਾਭ
+
+[Q18]
+EN:
+A pair of shoes has marked price ₹2500. After 30% discount, 18% GST is charged on the discounted price. Find the final bill.
+
+HI:
+एक जूते की जोड़ी का अंकित मूल्य ₹2500 है। 30% छूट के बाद छूट वाले मूल्य पर 18% GST लगता है। अंतिम बिल ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਜੁੱਤਿਆਂ ਦੀ ਜੋੜੀ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹2500 ਹੈ। 30% ਛੂਟ ਤੋਂ ਬਾਅਦ ਛੂਟ ਵਾਲੇ ਮੁੱਲ ਤੇ 18% GST ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹2065 | ₹2200 | ₹1652 | ₹2478
+Answer: ₹2065
+Difficulty: Medium
+Topology: profit_loss_discount:pl_gst_after_discount
+Realism: 87
+
+Explanation EN:
+Discounted price
+2500 x 70 / 100
+= 1750
+
+Final bill
+1750 x 118 / 100
+= 2065
+
+Final bill = ₹2065
+
+Explanation HI:
+छूट वाला मूल्य
+2500 x 70 / 100
+= 1750
+
+अंतिम बिल
+1750 x 118 / 100
+= 2065
+
+अंतिम बिल = ₹2065
+
+Explanation PA:
+ਛੂਟ ਵਾਲਾ ਮੁੱਲ
+2500 x 70 / 100
+= 1750
+
+ਅੰਤਿਮ ਬਿੱਲ
+1750 x 118 / 100
+= 2065
+
+ਅੰਤਿਮ ਬਿੱਲ = ₹2065
+
+[Q19]
+EN:
+If 15 phones at cost equal 12 phones at selling price, find the gain or loss percent.
+
+HI:
+15 फोन का खरीद मूल्य 12 फोन के विक्रय मूल्य के बराबर है। लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+15 ਫੋਨ ਦਾ ਖਰੀਦ ਮੁੱਲ 12 ਫੋਨ ਦੇ ਵਿਕਰੀ ਮੁੱਲ ਦੇ ਬਰਾਬਰ ਹੈ। ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 25% profit | 20% profit | 3% profit | 30% profit
+Answer: 25% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_asymmetric_item_equivalence
+Realism: 85
+
+Explanation EN:
+Profit/loss percentage from article equivalence
+(15 - 12) x 100 / 12
+= 25
+
+Profit percentage on CP
+|25|
+= 25
+
+Profit percentage = 25% profit
+
+Explanation HI:
+वस्तु-समानता से लाभ/हानि प्रतिशत
+(15 - 12) x 100 / 12
+= 25
+
+क्रय मूल्य पर लाभ प्रतिशत
+|25|
+= 25
+
+लाभ प्रतिशत = 25% लाभ
+
+Explanation PA:
+ਵਸਤੂ-ਸਮਾਨਤਾ ਤੋਂ ਲਾਭ/ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ
+(15 - 12) x 100 / 12
+= 25
+
+ਖਰੀਦ ਮੁੱਲ ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ
+|25|
+= 25
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 25% ਲਾਭ
+
+[Q20]
+EN:
+A shopkeeper buys a bag for ₹1500. He wants 20% profit after giving a 10% discount. What marked price should he set?
+
+HI:
+एक दुकानदार बैग ₹1500 में खरीदता है। वह 10% छूट देने के बाद 20% लाभ चाहता है। उसे कितना अंकित मूल्य रखना चाहिए?
+
+PA:
+ਇੱਕ ਦੁਕਾਨਦਾਰ ਬੈਗ ₹1500 ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ। ਉਹ 10% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ 20% ਲਾਭ ਚਾਹੁੰਦਾ ਹੈ। ਉਸ ਨੂੰ ਕਿੰਨਾ ਅੰਕਿਤ ਮੁੱਲ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ?
+
+Options: ₹2000 | ₹1600 | ₹2400 | ₹2100
+Answer: ₹2000
+Difficulty: Medium
+Topology: profit_loss_discount:pl_mp_for_target_profit
+Realism: 87
+
+Explanation EN:
+Required selling price for target profit
+1500 x 120 / 100
+= 1800
+
+Marked price before discount
+1800 x 100 / 90
+= 2000
+
+Marked price = ₹2000
+
+Explanation HI:
+लक्ष्य लाभ के लिए आवश्यक विक्रय मूल्य
+1500 x 120 / 100
+= 1800
+
+छूट से पहले अंकित मूल्य
+1800 x 100 / 90
+= 2000
+
+अंकित मूल्य = ₹2000
+
+Explanation PA:
+ਲਕਸ਼ ਲਾਭ ਲਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ
+1500 x 120 / 100
+= 1800
+
+ਛੂਟ ਤੋਂ ਪਹਿਲਾਂ ਅੰਕਿਤ ਮੁੱਲ
+1800 x 100 / 90
+= 2000
+
+ਅੰਕਿਤ ਮੁੱਲ = ₹2000
+
+[Q21]
+EN:
+A pair of shoes is marked 50% above cost price. What discount should be allowed to gain 20%?
+
+HI:
+एक जूते की जोड़ी को खरीद मूल्य से 50% अधिक अंकित किया गया। 20% लाभ पाने के लिए कितनी छूट देनी चाहिए?
+
+PA:
+ਇੱਕ ਜੁੱਤਿਆਂ ਦੀ ਜੋੜੀ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ 50% ਵੱਧ ਅੰਕਿਤ ਕੀਤਾ ਗਿਆ। 20% ਲਾਭ ਲਈ ਕਿੰਨੀ ਛੂਟ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?
+
+Options: 20% | 30% | 25% | 15%
+Answer: 20%
+Difficulty: Medium
+Topology: profit_loss_discount:pl_target_profit_discount_calibration
+Realism: 85
+
+Explanation EN:
+Marked price index
+100 + 50
+= 150
+
+Required selling price index
+100 + 20
+= 120
+
+Discount percentage
+(150 - 120) x 100 / 150
+= 20
+
+Discount percentage = 20%
+
+Explanation HI:
+अंकित मूल्य सूचकांक
+100 + 50
+= 150
+
+आवश्यक विक्रय मूल्य सूचकांक
+100 + 20
+= 120
+
+छूट प्रतिशत
+(150 - 120) x 100 / 150
+= 20
+
+छूट प्रतिशत = 20%
+
+Explanation PA:
+ਅੰਕਿਤ ਮੁੱਲ ਸੂਚਕਾਂਕ
+100 + 50
+= 150
+
+ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਸੂਚਕਾਂਕ
+100 + 20
+= 120
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ
+(150 - 120) x 100 / 150
+= 20
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 20%
+
+[Q22]
+EN:
+Two bags are sold for ₹1000 each. One is sold at 20% profit and the other at 20% loss. Find the overall profit or loss percentage.
+
+HI:
+दो बैग प्रत्येक ₹1000 में बेचे गए। एक पर 20% लाभ और दूसरे पर 20% हानि हुई। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਦੋ ਬੈਗ ਹਰ ਇੱਕ ₹1000 ਵਿੱਚ ਵੇਚੇ ਗਏ। ਇੱਕ ਤੇ 20% ਲਾਭ ਅਤੇ ਦੂਜੇ ਤੇ 20% ਨੁਕਸਾਨ ਹੋਇਆ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 4% loss | 20% loss | 9% loss | 1% loss
+Answer: 4% loss
+Difficulty: Medium
+Topology: profit_loss_discount:pl_dual_item_identical_sp
+Realism: 86
+
+Explanation EN:
+Cost price of first item
+1000 x 100 / 120
+= 833.33
+
+Cost price of second item
+1000 x 100 / 80
+= 1250
+
+Loss percentage on total CP
+|2000 - 2083.33| x 100 / 2083.33
+= 4
+
+Overall loss percentage = 4% loss
+
+Explanation HI:
+पहली वस्तु का खरीद मूल्य
+1000 x 100 / 120
+= 833.33
+
+दूसरी वस्तु का खरीद मूल्य
+1000 x 100 / 80
+= 1250
+
+कुल क्रय मूल्य पर हानि प्रतिशत
+|2000 - 2083.33| x 100 / 2083.33
+= 4
+
+कुल हानि प्रतिशत = 4% हानि
+
+Explanation PA:
+ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ
+1000 x 100 / 120
+= 833.33
+
+ਦੂਜੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ
+1000 x 100 / 80
+= 1250
+
+ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ
+|2000 - 2083.33| x 100 / 2083.33
+= 4
+
+ਕੁੱਲ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 4% ਨੁਕਸਾਨ
+
+[Q23]
+EN:
+Two book sets are sold for ₹300 each. One is sold at 30% profit and the other at 30% loss. Find the overall profit or loss percentage.
+
+HI:
+दो पुस्तक सेट प्रत्येक ₹300 में बेची गईं। एक पर 30% लाभ और दूसरी पर 30% हानि हुई। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਦੋ ਕਿਤਾਬਾਂ ਦੇ ਸੈੱਟ ਹਰ ਇੱਕ ₹300 ਵਿੱਚ ਵੇਚੀਆਂ ਗਈਆਂ। ਇੱਕ ਤੇ 30% ਲਾਭ ਅਤੇ ਦੂਜੀ ਤੇ 30% ਨੁਕਸਾਨ ਹੋਇਆ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 9% loss | 14% loss | 4% loss | 18% loss
+Answer: 9% loss
+Difficulty: Medium
+Topology: profit_loss_discount:pl_equal_sp_profit_loss
+Realism: 82
+
+Explanation EN:
+Cost price of first article
+300 x 100 / 130
+= 230.77
+
+Cost price of second article
+300 x 100 / 70
+= 428.57
+
+Loss percentage on total CP
+59.34 x 100 / 659.34
+= 9
+
+Overall loss percentage = 9% loss
+
+Explanation HI:
+पहली वस्तु का क्रय मूल्य
+300 x 100 / 130
+= 230.77
+
+दूसरी वस्तु का क्रय मूल्य
+300 x 100 / 70
+= 428.57
+
+कुल क्रय मूल्य पर हानि प्रतिशत
+59.34 x 100 / 659.34
+= 9
+
+कुल हानि प्रतिशत = 9% हानि
+
+Explanation PA:
+ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ
+300 x 100 / 130
+= 230.77
+
+ਦੂਜੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ
+300 x 100 / 70
+= 428.57
+
+ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ
+59.34 x 100 / 659.34
+= 9
+
+ਕੁੱਲ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 9% ਨੁਕਸਾਨ
+
+[Q24]
+EN:
+A trader sells one article costing ₹900 at 10% profit and another costing ₹600 at 20% loss. Find the overall profit or loss percentage.
+
+HI:
+एक व्यापारी एक वस्तु को ₹900 के क्रय मूल्य पर लेकर 10% लाभ पर और दूसरी वस्तु को ₹600 के क्रय मूल्य पर लेकर 20% हानि पर बेचता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਪਾਰੀ ਇੱਕ ਵਸਤੂ ਨੂੰ ₹900 ਦੇ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲੈ ਕੇ 10% ਲਾਭ ਤੇ ਅਤੇ ਦੂਜੀ ਵਸਤੂ ਨੂੰ ₹600 ਦੇ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲੈ ਕੇ 20% ਨੁਕਸਾਨ ਤੇ ਵੇਚਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 2% loss | 7% loss | 3% loss | 4% loss
+Answer: 2% loss
+Difficulty: Medium
+Topology: profit_loss_discount:pl_two_article_overall
+Realism: 89
+
+Explanation EN:
+Selling price of first article
+900 x 110 / 100
+= 990
+
+Selling price of second article
+600 x 80 / 100
+= 480
+
+Loss percentage on total CP
+30 x 100 / 1500
+= 2
+
+Overall loss percentage = 2% loss
+
+Explanation HI:
+पहली वस्तु का विक्रय मूल्य
+900 x 110 / 100
+= 990
+
+दूसरी वस्तु का विक्रय मूल्य
+600 x 80 / 100
+= 480
+
+कुल क्रय मूल्य पर हानि प्रतिशत
+30 x 100 / 1500
+= 2
+
+कुल हानि प्रतिशत = 2% हानि
+
+Explanation PA:
+ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਵਿਕਰੀ ਮੁੱਲ
+900 x 110 / 100
+= 990
+
+ਦੂਜੀ ਵਸਤੂ ਦਾ ਵਿਕਰੀ ਮੁੱਲ
+600 x 80 / 100
+= 480
+
+ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ
+30 x 100 / 1500
+= 2
+
+ਕੁੱਲ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 2% ਨੁਕਸਾਨ
+
+[Q25]
+EN:
+In a wholesale-retail chain for a chair, the successive changes are 40%, -25%, 20% where negative means loss. Find the net profit or loss percentage.
+
+HI:
+एक कुर्सी की व्यापार श्रृंखला में क्रमिक परिवर्तन 40%, -25%, 20% हैं, जहाँ ऋणात्मक का अर्थ हानि है। शुद्ध लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕੁਰਸੀ ਦੀ ਵਪਾਰ ਲੜੀ ਵਿੱਚ ਲਗਾਤਾਰ ਬਦਲਾਅ 40%, -25%, 20% ਹਨ, ਜਿੱਥੇ ਰਿਣਾਤਮਕ ਦਾ ਅਰਥ ਨੁਕਸਾਨ ਹੈ। ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 26% profit | 35% profit | 15% profit | 31% profit
+Answer: 26% profit
+Difficulty: Hard
+Topology: profit_loss_discount:pl_supply_chain_mixed_profit_loss
+Realism: 94
+
+Explanation EN:
+Chain price index
+(100 + 40) x (100 - 25) x (100 + 20) / 10000
+= 126
+
+Net change
+126 - 100
+= 26
+
+Profit percentage = 26% profit
+
+Explanation HI:
+श्रृंखला मूल्य सूचकांक
+(100 + 40) x (100 - 25) x (100 + 20) / 10000
+= 126
+
+शुद्ध परिवर्तन
+126 - 100
+= 26
+
+लाभ प्रतिशत = 26% लाभ
+
+Explanation PA:
+ਲੜੀ ਮੁੱਲ ਸੂਚਕਾਂਕ
+(100 + 40) x (100 - 25) x (100 + 20) / 10000
+= 126
+
+ਸ਼ੁੱਧ ਬਦਲਾਅ
+126 - 100
+= 26
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 26% ਲਾਭ
+
+[Q26]
+EN:
+Two table fans give the same profit amount. Their profit rates are 15% and 40%. If their CP ratio is written as a:b, find a.
+
+HI:
+दो टेबल फैन पर समान लाभ राशि मिलती है। उनकी लाभ दरें 15% और 40% हैं। यदि खरीद मूल्य अनुपात a:b है, तो a ज्ञात कीजिए।
+
+PA:
+ਦੋ ਟੇਬਲ ਫੈਨ ਤੇ ਇੱਕੋ ਲਾਭ ਰਕਮ ਮਿਲਦੀ ਹੈ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਲਾਭ ਦਰਾਂ 15% ਅਤੇ 40% ਹਨ। ਜੇ ਖਰੀਦ ਮੁੱਲ ਅਨੁਪਾਤ a:b ਹੈ, ਤਾਂ a ਪਤਾ ਕਰੋ।
+
+Options: 8 | 3 | 5 | 11
+Answer: 8
+Difficulty: Medium
+Topology: profit_loss_discount:pl_same_profit_amount_different_rates
+Realism: 84
+
+Explanation EN:
+CP ratio is reverse of rates
+8 : 3
+= 8
+
+Ratio = 8
+
+Explanation HI:
+खरीद मूल्य अनुपात दरों का उल्टा है
+8 : 3
+= 8
+
+अनुपात = 8
+
+Explanation PA:
+ਖਰੀਦ ਮੁੱਲ ਅਨੁਪਾਤ ਦਰਾਂ ਦਾ ਉਲਟ ਹੈ
+8 : 3
+= 8
+
+ਅਨੁਪਾਤ = 8
+
+[Q27]
+EN:
+CP of a watch is ₹1000. What should be the marked price so that after 25% discount there is 20% profit?
+
+HI:
+एक घड़ी का खरीद मूल्य ₹1000 है। 25% छूट के बाद 20% लाभ पाने के लिए अंकित मूल्य कितना होना चाहिए?
+
+PA:
+ਇੱਕ ਘੜੀ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹1000 ਹੈ। 25% ਛੂਟ ਤੋਂ ਬਾਅਦ 20% ਲਾਭ ਲਈ ਅੰਕਿਤ ਮੁੱਲ ਕਿੰਨਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?
+
+Options: ₹1600 | ₹1200 | ₹1450 | ₹1280
+Answer: ₹1600
+Difficulty: Medium
+Topology: profit_loss_discount:pl_target_profit_mp_calibration
+Realism: 85
+
+Explanation EN:
+Required selling price
+1000 x 120 / 100
+= 1200
+
+Marked price
+1200 x 100 / 75
+= 1600
+
+Marked price = ₹1600
+
+Explanation HI:
+आवश्यक विक्रय मूल्य
+1000 x 120 / 100
+= 1200
+
+अंकित मूल्य
+1200 x 100 / 75
+= 1600
+
+अंकित मूल्य = ₹1600
+
+Explanation PA:
+ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ
+1000 x 120 / 100
+= 1200
+
+ਅੰਕਿਤ ਮੁੱਲ
+1200 x 100 / 75
+= 1600
+
+ਅੰਕਿਤ ਮੁੱਲ = ₹1600
+
+[Q28]
+EN:
+A trader loses 10% on a pair of shoes. By increasing SP by ₹600, he gains 10%. Find CP.
+
+HI:
+एक जूते की जोड़ी को 10% हानि पर बेचा गया। यदि ₹600 अधिक में बेचा जाता, तो 10% लाभ होता। खरीद मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਜੁੱਤਿਆਂ ਦੀ ਜੋੜੀ ਨੂੰ 10% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ। ਜੇ ₹600 ਵੱਧ ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ, ਤਾਂ 10% ਲਾਭ ਹੁੰਦਾ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹3000 | ₹6000 | ₹2400 | ₹2700
+Answer: ₹3000
+Difficulty: Medium
+Topology: profit_loss_discount:pl_loss_recovery_cp_from_difference
+Realism: 86
+
+Explanation EN:
+Difference between the two selling-price rates
+10 + 10
+= 20
+
+Cost price
+600 x 100 / 20
+= 3000
+
+Cost price = ₹3000
+
+Explanation HI:
+दो विक्रय-मूल्य दरों का अंतर
+10 + 10
+= 20
+
+खरीद मूल्य
+600 x 100 / 20
+= 3000
+
+क्रय मूल्य = ₹3000
+
+Explanation PA:
+ਦੋ ਵਿਕਰੀ-ਮੁੱਲ ਦਰਾਂ ਦਾ ਅੰਤਰ
+10 + 10
+= 20
+
+ਖਰੀਦ ਮੁੱਲ
+600 x 100 / 20
+= 3000
+
+ਖਰੀਦ ਮੁੱਲ = ₹3000
+
+[Q29]
+EN:
+The difference between selling a laptop at 30% profit and at 15% profit is ₹300. Find the cost price.
+
+HI:
+एक लैपटॉप को 30% लाभ और 15% लाभ पर बेचने के विक्रय मूल्यों का अंतर ₹300 है। खरीद मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਲੈਪਟਾਪ ਨੂੰ 30% ਲਾਭ ਅਤੇ 15% ਲਾਭ ਤੇ ਵੇਚਣ ਦੇ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ₹300 ਹੈ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹2000 | ₹1000 | ₹1600 | ₹2400
+Answer: ₹2000
+Difficulty: Medium
+Topology: profit_loss_discount:pl_sp_difference_two_rates
+Realism: 83
+
+Explanation EN:
+Cost price
+300 x 100 / (30 - 15)
+= 2000
+
+Cost price = ₹2000
+
+Explanation HI:
+खरीद मूल्य
+300 x 100 / (30 - 15)
+= 2000
+
+क्रय मूल्य = ₹2000
+
+Explanation PA:
+ਖਰੀਦ ਮੁੱਲ
+300 x 100 / (30 - 15)
+= 2000
+
+ਖਰੀਦ ਮੁੱਲ = ₹2000
+
+[Q30]
+EN:
+A utensil set is offered successive discounts of 10% and 20%. Find the equivalent discount.
+
+HI:
+एक बर्तन सेट पर क्रमिक छूट 10% और 20% दी गई। समतुल्य छूट ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਬਰਤਨ ਸੈੱਟ ਤੇ ਲਗਾਤਾਰ ਛੂਟ 10% ਅਤੇ 20% ਦਿੱਤੀ ਗਈ। ਸਮਤੁਲ ਛੂਟ ਪਤਾ ਕਰੋ।
+
+Options: 28% | 30% | 15% | 33%
+Answer: 28%
+Difficulty: Medium
+Topology: profit_loss_discount:pl_successive_discount_equivalent
+Realism: 84
+
+Explanation EN:
+Final payable index
+(100 - 10) x (100 - 20) / 100
+= 72
+
+Equivalent discount
+100 - 72
+= 28
+
+Effective discount percentage = 28%
+
+Explanation HI:
+अंतिम देय सूचकांक
+(100 - 10) x (100 - 20) / 100
+= 72
+
+समतुल्य छूट
+100 - 72
+= 28
+
+प्रभावी छूट प्रतिशत = 28%
+
+Explanation PA:
+ਅੰਤਿਮ ਦੇਣਯੋਗ ਸੂਚਕਾਂਕ
+(100 - 10) x (100 - 20) / 100
+= 72
+
+ਸਮਤੁਲ ਛੂਟ
+100 - 72
+= 28
+
+ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 28%
+
+[Q31]
+EN:
+A used bicycle is bought for ₹8000, repaired for ₹500, and sold for ₹10200. Find the profit percentage.
+
+HI:
+एक पुरानी साइकिल ₹8000 में खरीदा गया, उस पर ₹500 अतिरिक्त खर्च हुआ और उसे ₹10200 में बेचा गया। लाभ प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਪੁਰਾਣੀ ਸਾਈਕਲ ₹8000 ਵਿੱਚ ਖਰੀਦਿਆ ਗਿਆ, ਇਸ ਤੇ ₹500 ਵਾਧੂ ਖਰਚ ਹੋਇਆ ਅਤੇ ਇਸਨੂੰ ₹10200 ਵਿੱਚ ਵੇਚਿਆ ਗਿਆ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 20% profit | 27.5% profit | 6.25% profit | 25% profit
+Answer: 20% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_repair_overhead_cost
+Realism: 90
+
+Explanation EN:
+Effective cost price
+8000 + 500
+= 8500
+
+Profit percentage
+(10200 - 8500) x 100 / 8500
+= 20
+
+Profit percentage = 20% profit
+
+Explanation HI:
+प्रभावी खरीद मूल्य
+8000 + 500
+= 8500
+
+लाभ प्रतिशत
+(10200 - 8500) x 100 / 8500
+= 20
+
+लाभ प्रतिशत = 20% लाभ
+
+Explanation PA:
+ਪ੍ਰਭਾਵੀ ਖਰੀਦ ਮੁੱਲ
+8000 + 500
+= 8500
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ
+(10200 - 8500) x 100 / 8500
+= 20
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 20% ਲਾਭ
+
+[Q32]
+EN:
+An offer on coffee jars is buy 2 get 1 free, plus 10% extra discount. Find the effective discount percentage.
+
+HI:
+कॉफी जार पर प्रस्ताव है: 2 खरीदें, 1 मुफ्त पाएं, साथ में 10% अतिरिक्त छूट। प्रभावी छूट प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਕੌਫੀ ਜਾਰ ਤੇ ਪੇਸ਼ਕਸ਼ ਹੈ: 2 ਖਰੀਦੋ, 1 ਮੁਫ਼ਤ ਪਾਓ, ਨਾਲ 10% ਵਾਧੂ ਛੂਟ। ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 40% | 43.33% | 50% | 45%
+Answer: 40%
+Difficulty: Medium
+Topology: profit_loss_discount:pl_hybrid_promotion_scaling
+Realism: 83
+
+Explanation EN:
+Final payable factor
+2/(2+1) x 90/100 x 100
+= 60
+
+Effective discount
+100 - 60
+= 40
+
+Effective discount percentage = 40%
+
+Explanation HI:
+अंतिम देय गुणक
+2/(2+1) x 90/100 x 100
+= 60
+
+प्रभावी छूट
+100 - 60
+= 40
+
+प्रभावी छूट प्रतिशत = 40%
+
+Explanation PA:
+ਅੰਤਿਮ ਦੇਣਯੋਗ ਗੁਣਕ
+2/(2+1) x 90/100 x 100
+= 60
+
+ਪ੍ਰਭਾਵੀ ਛੂਟ
+100 - 60
+= 40
+
+ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 40%
+
+[Q33]
+EN:
+The cost price of a chair is ₹500. It is sold at 10% loss. Find the selling price.
+
+HI:
+एक कुर्सी का क्रय मूल्य ₹500 है। इसे 10% हानि पर बेचा गया। विक्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕੁਰਸੀ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹500 ਹੈ। ਇਸ ਨੂੰ 10% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹450 | ₹360 | ₹540 | ₹550
+Answer: ₹450
+Difficulty: Easy
+Topology: profit_loss_discount:pl_cp_percent_to_sp
+Realism: 75
+
+Explanation EN:
+Selling price percentage
+100 - 10
+= 90
+
+Selling price
+500 x 90 / 100
+= 450
+
+Selling price = ₹450
+
+Explanation HI:
+विक्रय मूल्य प्रतिशत
+100 - 10
+= 90
+
+विक्रय मूल्य
+500 x 90 / 100
+= 450
+
+विक्रय मूल्य = ₹450
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ ਪ੍ਰਤੀਸ਼ਤ
+100 - 10
+= 90
+
+ਵਿਕਰੀ ਮੁੱਲ
+500 x 90 / 100
+= 450
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹450
+
+[Q34]
+EN:
+A shopkeeper marks sugar 20% above CP, gives 20% discount, and gives 800 g instead of 1 kg. Find the profit percentage.
+
+HI:
+एक दुकानदार चीनी को खरीद मूल्य से 20% अधिक अंकित करता है, 20% छूट देता है और 1 kg के स्थान पर 800 g देता है। लाभ प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਦੁਕਾਨਦਾਰ ਚੀਨੀ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ 20% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ, 20% ਛੂਟ ਦਿੰਦਾ ਹੈ ਅਤੇ 1 kg ਦੀ ਥਾਂ 800 g ਦਿੰਦਾ ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 20% profit | 45% profit | 25% profit | 15% profit
+Answer: 20% profit
+Difficulty: Hard
+Topology: profit_loss_discount:pl_dishonest_dealer_absolute_hybrid
+Realism: 91
+
+Explanation EN:
+Price and weight factor
+(120 x 80 / 10000) x 1000 / 800 x 100
+= 120
+
+Profit percentage
+120 - 100
+= 20
+
+Profit percentage = 20% profit
+
+Explanation HI:
+मूल्य और वजन गुणक
+(120 x 80 / 10000) x 1000 / 800 x 100
+= 120
+
+लाभ प्रतिशत
+120 - 100
+= 20
+
+लाभ प्रतिशत = 20% लाभ
+
+Explanation PA:
+ਕੀਮਤ ਅਤੇ ਵਜ਼ਨ ਗੁਣਕ
+(120 x 80 / 10000) x 1000 / 800 x 100
+= 120
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ
+120 - 100
+= 20
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 20% ਲਾਭ
+
+[Q35]
+EN:
+CP of a pair of shoes is ₹1500 and MP is ₹2700. What discount gives 25% profit?
+
+HI:
+एक जूते की जोड़ी का खरीद मूल्य ₹1500 और अंकित मूल्य ₹2700 है। 25% लाभ के लिए कितनी छूट देनी होगी?
+
+PA:
+ਇੱਕ ਜੁੱਤਿਆਂ ਦੀ ਜੋੜੀ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹1500 ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹2700 ਹੈ। 25% ਲਾਭ ਲਈ ਕਿੰਨੀ ਛੂਟ ਦੇਣੀ ਹੋਵੇਗੀ?
+
+Options: 30.56% | 55% | 35.56% | 25.56%
+Answer: 30.56%
+Difficulty: Medium
+Topology: profit_loss_discount:pl_inverse_discount_from_cp_mp_profit
+Realism: 81
+
+Explanation EN:
+Target selling price
+1500 x 125 / 100
+= 1875
+
+Discount percentage
+(2700 - 1875) x 100 / 2700
+= 30.56
+
+Discount percentage = 30.56%
+
+Explanation HI:
+लक्ष्य विक्रय मूल्य
+1500 x 125 / 100
+= 1875
+
+छूट प्रतिशत
+(2700 - 1875) x 100 / 2700
+= 30.56
+
+छूट प्रतिशत = 30.56%
+
+Explanation PA:
+ਲਕਸ਼ ਵਿਕਰੀ ਮੁੱਲ
+1500 x 125 / 100
+= 1875
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ
+(2700 - 1875) x 100 / 2700
+= 30.56
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 30.56%
+
+[Q36]
+EN:
+For a utensil set, markup is 30% and discount is 15%. Find the net profit or loss percentage.
+
+HI:
+एक बर्तन सेट को खरीद मूल्य से 30% अधिक अंकित किया गया और 15% छूट पर बेचा गया। लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਬਰਤਨ ਸੈੱਟ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ 30% ਵੱਧ ਅੰਕਿਤ ਕੀਤਾ ਗਿਆ ਅਤੇ 15% ਛੂਟ ਤੇ ਵੇਚਿਆ ਗਿਆ। ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 10.5% profit | 15% profit | 45% profit | 15.5% profit
+Answer: 10.5% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_markup_discount_triangle
+Realism: 82
+
+Explanation EN:
+Selling price index
+(100 + 30) x (100 - 15) / 100
+= 110.5
+
+Net change from cost price
+110.5 - 100
+= 10.5
+
+Profit percentage = 10.5% profit
+
+Explanation HI:
+विक्रय मूल्य सूचकांक
+(100 + 30) x (100 - 15) / 100
+= 110.5
+
+खरीद मूल्य से शुद्ध परिवर्तन
+110.5 - 100
+= 10.5
+
+लाभ प्रतिशत = 10.5% लाभ
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ ਸੂਚਕਾਂਕ
+(100 + 30) x (100 - 15) / 100
+= 110.5
+
+ਖਰੀਦ ਮੁੱਲ ਤੋਂ ਸ਼ੁੱਧ ਬਦਲਾਅ
+110.5 - 100
+= 10.5
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 10.5% ਲਾਭ
+
+[Q37]
+EN:
+A book set is bought for ₹600 and sold for ₹510. Find the profit or loss percentage.
+
+HI:
+एक पुस्तक सेट का खरीद मूल्य ₹600 है और विक्रय मूल्य ₹510 है। लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਿਤਾਬਾਂ ਦਾ ਸੈੱਟ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹600 ਹੈ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹510 ਹੈ। ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 15% loss | 20% loss | 10% loss | 30% loss
+Answer: 15% loss
+Difficulty: Easy
+Topology: profit_loss_discount:pl_cp_sp_percent
+Realism: 70
+
+Explanation EN:
+Loss amount
+600 - 510
+= 90
+
+Percentage is taken on cost price
+90 x 100 / 600
+= 15
+
+Loss percentage = 15% loss
+
+Explanation HI:
+हानि राशि
+600 - 510
+= 90
+
+प्रतिशत क्रय मूल्य पर निकलेगा
+90 x 100 / 600
+= 15
+
+हानि प्रतिशत = 15% हानि
+
+Explanation PA:
+ਨੁਕਸਾਨ ਰਕਮ
+600 - 510
+= 90
+
+ਪ੍ਰਤੀਸ਼ਤ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨਿਕਲੇਗਾ
+90 x 100 / 600
+= 15
+
+ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 15% ਨੁਕਸਾਨ
+
+[Q38]
+EN:
+A shopkeeper sells pulses using 800 g instead of 1 kg and marks price 20% above cost. Find the profit percentage.
+
+HI:
+एक दुकानदार दाल बेचते समय 1 kg के स्थान पर 800 g देता है और कीमत खरीद मूल्य से 20% अधिक रखता है। लाभ प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਦੁਕਾਨਦਾਰ ਦਾਲ ਵੇਚਦੇ ਸਮੇਂ 1 kg ਦੀ ਥਾਂ 800 g ਦਿੰਦਾ ਹੈ ਅਤੇ ਕੀਮਤ ਖਰੀਦ ਮੁੱਲ ਤੋਂ 20% ਵੱਧ ਰੱਖਦਾ ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 50% profit | 20% profit | 25% profit | 55% profit
+Answer: 50% profit
+Difficulty: Hard
+Topology: profit_loss_discount:pl_dishonest_dealer_weight_fraud
+Realism: 94
+
+Explanation EN:
+Effective sale factor
+(120) x 1000 / 800
+= 150
+
+Profit percentage
+150 - 100
+= 50
+
+Profit percentage = 50% profit
+
+Explanation HI:
+प्रभावी विक्रय गुणक
+(120) x 1000 / 800
+= 150
+
+लाभ प्रतिशत
+150 - 100
+= 50
+
+लाभ प्रतिशत = 50% लाभ
+
+Explanation PA:
+ਪ੍ਰਭਾਵੀ ਵਿਕਰੀ ਗੁਣਕ
+(120) x 1000 / 800
+= 150
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ
+150 - 100
+= 50
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 50% ਲਾਭ
+
+[Q39]
+EN:
+A trader sells 3/5 of a stock of laptops at 15% profit. At what rate should the rest be sold to gain 14% overall?
+
+HI:
+एक व्यापारी लैपटॉप के स्टॉक का 3/5 भाग 15% लाभ पर बेचता है। कुल 14% लाभ पाने के लिए शेष किस दर पर बेचना चाहिए?
+
+PA:
+ਇੱਕ ਵਪਾਰੀ ਲੈਪਟਾਪ ਦੇ ਸਟਾਕ ਦਾ 3/5 ਹਿੱਸਾ 15% ਲਾਭ ਤੇ ਵੇਚਦਾ ਹੈ। ਕੁੱਲ 14% ਲਾਭ ਲਈ ਬਾਕੀ ਕਿਸ ਦਰ ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?
+
+Options: 12.5% profit | 14.5% profit | 29% profit | 17.5% profit
+Answer: 12.5% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_partial_inventory_allocation
+Realism: 87
+
+Explanation EN:
+Weighted overall rate equation
+3/5 x 15 + 2/5 x x = 14
+= 12.5
+
+Profit percentage = 12.5% profit
+
+Explanation HI:
+भारित कुल दर समीकरण
+3/5 x 15 + 2/5 x x = 14
+= 12.5
+
+लाभ प्रतिशत = 12.5% लाभ
+
+Explanation PA:
+ਭਾਰਿਤ ਕੁੱਲ ਦਰ ਸਮੀਕਰਨ
+3/5 x 15 + 2/5 x x = 14
+= 12.5
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 12.5% ਲਾਭ
+
+[Q40]
+EN:
+A calculator is marked at ₹360 and it is sold for ₹315. Find the discount percentage.
+
+HI:
+एक कैलकुलेटर का अंकित मूल्य ₹360 है और विक्रय मूल्य ₹315 है। छूट प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕੈਲਕੂਲੇਟਰ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹360 ਹੈ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹315 ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 12.5% | 17.5% | 7.5% | 25%
+Answer: 12.5%
+Difficulty: Easy
+Topology: profit_loss_discount:pl_mp_sp_discount_percent
+Realism: 74
+
+Explanation EN:
+Discount amount
+360 - 315
+= 45
+
+Discount percentage
+45 x 100 / 360
+= 12.5
+
+Discount percentage = 12.5%
+
+Explanation HI:
+छूट राशि
+360 - 315
+= 45
+
+छूट प्रतिशत
+45 x 100 / 360
+= 12.5
+
+छूट प्रतिशत = 12.5%
+
+Explanation PA:
+ਛੂਟ ਰਕਮ
+360 - 315
+= 45
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ
+45 x 100 / 360
+= 12.5
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 12.5%
+
+[Q41]
+EN:
+For a laptop, a ₹240 rise in selling price changes 15% loss to 5% profit. Find CP.
+
+HI:
+एक लैपटॉप को 15% हानि पर बेचा गया। यदि ₹240 अधिक में बेचा जाता, तो 5% लाभ होता। खरीद मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਲੈਪਟਾਪ ਨੂੰ 15% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ। ਜੇ ₹240 ਵੱਧ ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ, ਤਾਂ 5% ਲਾਭ ਹੁੰਦਾ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹1200 | ₹2400 | ₹960 | ₹1080
+Answer: ₹1200
+Difficulty: Medium
+Topology: profit_loss_discount:pl_fractional_value_shift
+Realism: 86
+
+Explanation EN:
+Difference between the two selling-price rates
+15 + 5
+= 20
+
+Cost price
+240 x 100 / 20
+= 1200
+
+Cost price = ₹1200
+
+Explanation HI:
+दो विक्रय-मूल्य दरों का अंतर
+15 + 5
+= 20
+
+खरीद मूल्य
+240 x 100 / 20
+= 1200
+
+क्रय मूल्य = ₹1200
+
+Explanation PA:
+ਦੋ ਵਿਕਰੀ-ਮੁੱਲ ਦਰਾਂ ਦਾ ਅੰਤਰ
+15 + 5
+= 20
+
+ਖਰੀਦ ਮੁੱਲ
+240 x 100 / 20
+= 1200
+
+ਖਰੀਦ ਮੁੱਲ = ₹1200
+
+[Q42]
+EN:
+A trader bought a used bicycle at 25% less than the usual CP and sold it at 25% profit. The selling price was ₹937.5 less than it would be on the usual CP. Find the usual CP.
+
+HI:
+एक व्यापारी ने पुरानी साइकिल को सामान्य खरीद मूल्य से 25% कम में खरीदा और 25% लाभ पर बेचा। विक्रय मूल्य सामान्य खरीद मूल्य पर होने वाले विक्रय मूल्य से ₹937.5 कम था। सामान्य खरीद मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਵਪਾਰੀ ਨੇ ਪੁਰਾਣੀ ਸਾਈਕਲ ਨੂੰ ਆਮ ਖਰੀਦ ਮੁੱਲ ਤੋਂ 25% ਘੱਟ ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ 25% ਲਾਭ ਤੇ ਵੇਚਿਆ। ਵਿਕਰੀ ਮੁੱਲ ਆਮ ਖਰੀਦ ਮੁੱਲ ਵਾਲੇ ਵਿਕਰੀ ਮੁੱਲ ਤੋਂ ₹937.5 ਘੱਟ ਸੀ। ਆਮ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹3000 | ₹2250 | ₹3750 | ₹2400
+Answer: ₹3000
+Difficulty: Hard
+Topology: profit_loss_discount:pl_compound_error_baseline_shift
+Realism: 90
+
+Explanation EN:
+SP difference rate on usual CP
+25 x 125 / 100
+= 31.25
+
+Usual cost price
+937.5 x 100 / 31.25
+= 3000
+
+Cost price = ₹3000
+
+Explanation HI:
+सामान्य खरीद मूल्य पर विक्रय-मूल्य अंतर दर
+25 x 125 / 100
+= 31.25
+
+सामान्य खरीद मूल्य
+937.5 x 100 / 31.25
+= 3000
+
+क्रय मूल्य = ₹3000
+
+Explanation PA:
+ਆਮ ਖਰੀਦ ਮੁੱਲ ਤੇ ਵਿਕਰੀ-ਮੁੱਲ ਅੰਤਰ ਦਰ
+25 x 125 / 100
+= 31.25
+
+ਆਮ ਖਰੀਦ ਮੁੱਲ
+937.5 x 100 / 31.25
+= 3000
+
+ਖਰੀਦ ਮੁੱਲ = ₹3000
+
+[Q43]
+EN:
+A book set has marked price ₹3000, discount 20%, and cashback ₹200. Find the effective discount percentage.
+
+HI:
+एक पुस्तक सेट का अंकित मूल्य ₹3000 है, छूट 20% है और कैशबैक ₹200 है। प्रभावी छूट प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਿਤਾਬਾਂ ਦਾ ਸੈੱਟ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹3000 ਹੈ, ਛੂਟ 20% ਹੈ ਅਤੇ ਕੈਸ਼ਬੈਕ ₹200 ਹੈ। ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 26.67% | 28.33% | 20% | 31.67%
+Answer: 26.67%
+Difficulty: Medium
+Topology: profit_loss_discount:pl_cashback_coupon_discount
+Realism: 86
+
+Explanation EN:
+Price after discount
+3000 x 80 / 100
+= 2400
+
+Effective discount percentage
+(3000 - (2400 - 200)) x 100 / 3000
+= 26.67
+
+Effective discount percentage = 26.67%
+
+Explanation HI:
+छूट के बाद मूल्य
+3000 x 80 / 100
+= 2400
+
+प्रभावी छूट प्रतिशत
+(3000 - (2400 - 200)) x 100 / 3000
+= 26.67
+
+प्रभावी छूट प्रतिशत = 26.67%
+
+Explanation PA:
+ਛੂਟ ਤੋਂ ਬਾਅਦ ਮੁੱਲ
+3000 x 80 / 100
+= 2400
+
+ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ
+(3000 - (2400 - 200)) x 100 / 3000
+= 26.67
+
+ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 26.67%
+
+[Q44]
+EN:
+A furniture item is bought for ₹5000 and needs ₹2000 overhead cost. At what price should it be sold for 15% profit?
+
+HI:
+एक फर्नीचर वस्तु ₹5000 में खरीदा गया और उस पर ₹2000 अतिरिक्त खर्च हुआ। 15% लाभ के लिए उसे किस मूल्य पर बेचना चाहिए?
+
+PA:
+ਇੱਕ ਫਰਨੀਚਰ ਵਸਤੂ ₹5000 ਵਿੱਚ ਖਰੀਦਿਆ ਗਿਆ ਅਤੇ ਇਸ ਤੇ ₹2000 ਵਾਧੂ ਖਰਚ ਹੋਇਆ। 15% ਲਾਭ ਲਈ ਇਸਨੂੰ ਕਿਸ ਮੁੱਲ ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?
+
+Options: ₹8050 | ₹5750 | ₹7015 | ₹6440
+Answer: ₹8050
+Difficulty: Medium
+Topology: profit_loss_discount:pl_required_sp_after_overhead
+Realism: 84
+
+Explanation EN:
+Effective cost price
+5000 + 2000
+= 7000
+
+Required selling price
+7000 x 115 / 100
+= 8050
+
+Selling price = ₹8050
+
+Explanation HI:
+प्रभावी खरीद मूल्य
+5000 + 2000
+= 7000
+
+आवश्यक विक्रय मूल्य
+7000 x 115 / 100
+= 8050
+
+विक्रय मूल्य = ₹8050
+
+Explanation PA:
+ਪ੍ਰਭਾਵੀ ਖਰੀਦ ਮੁੱਲ
+5000 + 2000
+= 7000
+
+ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ
+7000 x 115 / 100
+= 8050
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹8050
+
+[Q45]
+EN:
+The cost price of a watch is ₹800. It is sold at 40% profit. Find the selling price.
+
+HI:
+एक घड़ी का क्रय मूल्य ₹800 है। इसे 40% लाभ पर बेचा गया। विक्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਘੜੀ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹800 ਹੈ। ਇਸ ਨੂੰ 40% ਲਾਭ ਤੇ ਵੇਚਿਆ ਗਿਆ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹1120 | ₹896 | ₹1344 | ₹1220
+Answer: ₹1120
+Difficulty: Easy
+Topology: profit_loss_discount:pl_cp_percent_to_sp
+Realism: 75
+
+Explanation EN:
+Selling price percentage
+100 + 40
+= 140
+
+Selling price
+800 x 140 / 100
+= 1120
+
+Selling price = ₹1120
+
+Explanation HI:
+विक्रय मूल्य प्रतिशत
+100 + 40
+= 140
+
+विक्रय मूल्य
+800 x 140 / 100
+= 1120
+
+विक्रय मूल्य = ₹1120
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ ਪ੍ਰਤੀਸ਼ਤ
+100 + 40
+= 140
+
+ਵਿਕਰੀ ਮੁੱਲ
+800 x 140 / 100
+= 1120
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹1120
+
+[Q46]
+EN:
+A mixer is bought for ₹600 and sold for ₹540. Find the profit or loss percentage.
+
+HI:
+एक मिक्सर का खरीद मूल्य ₹600 है और विक्रय मूल्य ₹540 है। लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਮਿਕਸਰ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹600 ਹੈ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹540 ਹੈ। ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 10% loss | 15% loss | 5% loss | 20% loss
+Answer: 10% loss
+Difficulty: Easy
+Topology: profit_loss_discount:pl_cp_sp_percent
+Realism: 72
+
+Explanation EN:
+Loss amount
+600 - 540
+= 60
+
+Percentage is taken on cost price
+60 x 100 / 600
+= 10
+
+Loss percentage = 10% loss
+
+Explanation HI:
+हानि राशि
+600 - 540
+= 60
+
+प्रतिशत क्रय मूल्य पर निकलेगा
+60 x 100 / 600
+= 10
+
+हानि प्रतिशत = 10% हानि
+
+Explanation PA:
+ਨੁਕਸਾਨ ਰਕਮ
+600 - 540
+= 60
+
+ਪ੍ਰਤੀਸ਼ਤ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨਿਕਲੇਗਾ
+60 x 100 / 600
+= 10
+
+ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 10% ਨੁਕਸਾਨ
+
+[Q47]
+EN:
+A shirt is marked at ₹800 and it is sold for ₹560. Find the discount percentage.
+
+HI:
+एक कमीज का अंकित मूल्य ₹800 है और विक्रय मूल्य ₹560 है। छूट प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕਮੀਜ਼ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹800 ਹੈ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹560 ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 30% | 35% | 25% | 60%
+Answer: 30%
+Difficulty: Easy
+Topology: profit_loss_discount:pl_mp_sp_discount_percent
+Realism: 69
+
+Explanation EN:
+Discount amount
+800 - 560
+= 240
+
+Discount percentage
+240 x 100 / 800
+= 30
+
+Discount percentage = 30%
+
+Explanation HI:
+छूट राशि
+800 - 560
+= 240
+
+छूट प्रतिशत
+240 x 100 / 800
+= 30
+
+छूट प्रतिशत = 30%
+
+Explanation PA:
+ਛੂਟ ਰਕਮ
+800 - 560
+= 240
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ
+240 x 100 / 800
+= 30
+
+ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 30%
+
+[Q48]
+EN:
+A table fan is sold for ₹315 at 12.5% loss. Find its cost price.
+
+HI:
+एक टेबल फैन का विक्रय मूल्य ₹315 है और इस पर 12.5% हानि है। उसका क्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਟੇਬਲ ਫੈਨ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ₹315 ਹੈ ਅਤੇ ਇਸ ਤੇ 12.5% ਨੁਕਸਾਨ ਹੈ। ਇਸ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹360 | ₹288 | ₹432 | ₹460
+Answer: ₹360
+Difficulty: Easy
+Topology: profit_loss_discount:pl_sp_percent_to_cp
+Realism: 74
+
+Explanation EN:
+Selling price is 100 - loss%
+100 - 12.5
+= 87.5
+
+Cost price
+315 x 100 / 87.5
+= 360
+
+Cost price = ₹360
+
+Explanation HI:
+विक्रय मूल्य 100 - हानि% है
+100 - 12.5
+= 87.5
+
+क्रय मूल्य
+315 x 100 / 87.5
+= 360
+
+क्रय मूल्य = ₹360
+
+Explanation PA:
+ਵਿਕਰੀ ਮੁੱਲ 100 - ਨੁਕਸਾਨ% ਹੈ
+100 - 12.5
+= 87.5
+
+ਖਰੀਦ ਮੁੱਲ
+315 x 100 / 87.5
+= 360
+
+ਖਰੀਦ ਮੁੱਲ = ₹360
+
+[Q49]
+EN:
+A mixer costs ₹720 and is marked at ₹1008. After a 10% discount, find the profit or loss percentage.
+
+HI:
+एक मिक्सर का क्रय मूल्य ₹720 है और अंकित मूल्य ₹1008 है। 10% छूट के बाद लाभ या हानि प्रतिशत ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਮਿਕਸਰ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹720 ਹੈ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹1008 ਹੈ। 10% ਛੂਟ ਤੋਂ ਬਾਅਦ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+
+Options: 26% profit | 31% profit | 21% profit | 52% profit
+Answer: 26% profit
+Difficulty: Medium
+Topology: profit_loss_discount:pl_cp_mp_discount_to_percent
+Realism: 86
+
+Explanation EN:
+Selling price after discount
+1008 x 90 / 100
+= 907.2
+
+Profit amount
+907.2 - 720
+= 187.2
+
+Percentage on cost price
+187.2 x 100 / 720
+= 26
+
+Profit percentage = 26% profit
+
+Explanation HI:
+छूट के बाद विक्रय मूल्य
+1008 x 90 / 100
+= 907.2
+
+लाभ राशि
+907.2 - 720
+= 187.2
+
+क्रय मूल्य पर प्रतिशत
+187.2 x 100 / 720
+= 26
+
+लाभ प्रतिशत = 26% लाभ
+
+Explanation PA:
+ਛੂਟ ਤੋਂ ਬਾਅਦ ਵਿਕਰੀ ਮੁੱਲ
+1008 x 90 / 100
+= 907.2
+
+ਲਾਭ ਰਕਮ
+907.2 - 720
+= 187.2
+
+ਖਰੀਦ ਮੁੱਲ ਤੇ ਪ੍ਰਤੀਸ਼ਤ
+187.2 x 100 / 720
+= 26
+
+ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 26% ਲਾਭ
+
+[Q50]
+EN:
+A chair is marked at ₹1000. A discount of 12.5% is given. Find the selling price.
+
+HI:
+एक कुर्सी का अंकित मूल्य ₹1000 है। 12.5% छूट दी गई। विक्रय मूल्य ज्ञात कीजिए।
+
+PA:
+ਇੱਕ ਕੁਰਸੀ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹1000 ਹੈ। 12.5% ਛੂਟ ਦਿੱਤੀ ਗਈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+
+Options: ₹875 | ₹700 | ₹1050 | ₹975
+Answer: ₹875
+Difficulty: Easy
+Topology: profit_loss_discount:pl_mp_discount_to_sp
+Realism: 71
+
+Explanation EN:
+Price left after discount
+100 - 12.5
+= 87.5
+
+Selling price
+1000 x 87.5 / 100
+= 875
+
+Selling price = ₹875
+
+Explanation HI:
+छूट के बाद बचा प्रतिशत
+100 - 12.5
+= 87.5
+
+विक्रय मूल्य
+1000 x 87.5 / 100
+= 875
+
+विक्रय मूल्य = ₹875
+
+Explanation PA:
+ਛੂਟ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ
+100 - 12.5
+= 87.5
+
+ਵਿਕਰੀ ਮੁੱਲ
+1000 x 87.5 / 100
+= 875
+
+ਵਿਕਰੀ ਮੁੱਲ = ₹875
+

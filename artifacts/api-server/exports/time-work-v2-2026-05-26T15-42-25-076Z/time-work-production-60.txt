@@ -1,0 +1,1977 @@
+Q1. A mixed team has worker counts 2, 3, 4 and relative efficiencies 4, 2, 1. Find the time for 360 units of work.
+A. 15 days
+B. 21 days
+C. 20 days
+D. 10 days
+Answer: 20 days
+Difficulty: Hard
+Family: tw_worker_equivalence_men_women_children
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{W}{\sum ne}
+\]
+Substitute the given values.
+\[
+T=\frac{360}{2\times 4+3\times 2+4\times 1}
+\]
+Simplify to get the required value.
+\[
+T=20
+\]
+Therefore the required answer is obtained.
+\[
+Ans=20
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 20 days
+
+---
+
+Q2. For equal working time, A gets ₹300 and B gets ₹500. What is A:B efficiency?
+A. 800:500
+B. 500:300
+C. 30:25
+D. 3:5
+Answer: 3:5
+Difficulty: Easy
+Family: tw_efficiency_from_wages
+Explanation:
+Use the governing rate-state formula.
+\[
+W_A:W_B=E_A:E_B
+\]
+Substitute the given values.
+\[
+E_A:E_B=300:500
+\]
+Simplify to get the required value.
+\[
+E_A:E_B=3:5
+\]
+Therefore the required answer is obtained.
+\[
+Ans=3:5
+\]
+Shortcut / Exam Method:
+\[
+E=3:5
+\]
+Answer: 3:5
+
+---
+
+Q3. A worker does 15 units per day for 5 days, then slows to 12 units per day. Total work is 180 units. Find total time.
+A. 12.75 days
+B. 9.75 days
+C. 13.75 days
+D. 16.5 days
+Answer: 13.75 days
+Difficulty: Hard
+Family: tw_productivity_decay
+Explanation:
+Use the governing rate-state formula.
+\[
+T=t_1+\frac{W-r_1t_1}{r_2}
+\]
+Substitute the given values.
+\[
+T=5+\frac{180-15\times 5}{12}
+\]
+Simplify to get the required value.
+\[
+T=13.75
+\]
+Therefore the required answer is obtained.
+\[
+Ans=13.75
+\]
+Shortcut / Exam Method:
+\[
+T=phase1+phase2
+\]
+Answer: 13.75 days
+
+---
+
+Q4. 720 person-days of food are available. 20 people consume it for 5 days, then the group becomes 30. Find how many more days the food will last.
+A. 15.5 days
+B. 21.67 days
+C. 15.67 days
+D. 20.67 days
+Answer: 20.67 days
+Difficulty: Medium
+Family: tw_food_population_change
+Explanation:
+Use the governing rate-state formula.
+\[
+D=\frac{S-consumed}{people}
+\]
+Substitute the given values.
+\[
+D=\frac{720-20\times 5}{30}
+\]
+Simplify to get the required value.
+\[
+D=20.67
+\]
+Therefore the required answer is obtained.
+\[
+Ans=20.67
+\]
+Shortcut / Exam Method:
+\[
+D=remaining\ stock/final\ people
+\]
+Answer: 20.67 days
+
+---
+
+Q5. The total wage is ₹9000. Actual work contributions are 15:24. Find the share.
+A. ₹3461.54
+B. ₹3462.54
+C. ₹4326.92
+D. ₹3467.54
+Answer: ₹3461.54
+Difficulty: Medium
+Family: tw_wage_efficiency_ratio
+Explanation:
+Use the governing rate-state formula.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Substitute the given values.
+\[
+Share=\frac{15}{39}\times 9000
+\]
+Simplify to get the required value.
+\[
+Share=3461.54
+\]
+Therefore the required answer is obtained.
+\[
+Ans=3461.54
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹3461.54
+
+---
+
+Q6. A filling pipe adds 12 units per hour and an emptying pipe removes 5 units in the next hour alternately. Tank capacity is 60 units. Find the filling time.
+A. 16.33 hours
+B. 20.42 hours
+C. 17.33 hours
+D. 22.33 hours
+Answer: 16.33 hours
+Difficulty: Hard
+Family: pc_alternating_spill_cycle
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=12-5
+\]
+Substitute the given values.
+\[
+60\ units,\ cycle=7
+\]
+Simplify to get the required value.
+\[
+T=16.33
+\]
+Therefore the required answer is obtained.
+\[
+Ans=16.33
+\]
+Shortcut / Exam Method:
+\[
+T=full\ cycles+terminal\ fill
+\]
+Answer: 16.33 hours
+
+---
+
+Q7. A contract pays ₹8000 with a bonus of ₹150 per day for early completion. The work is completed 2 days early. Find the earning.
+A. ₹8306
+B. ₹8303
+C. ₹8300
+D. ₹10375
+Answer: ₹8300
+Difficulty: Medium
+Family: tw_contract_penalty_bonus
+Explanation:
+Use the governing rate-state formula.
+\[
+E=base+bonus
+\]
+Substitute the given values.
+\[
+E=8000+2\times 150
+\]
+Simplify to get the required value.
+\[
+E=8300
+\]
+Therefore the required answer is obtained.
+\[
+Ans=8300
+\]
+Shortcut / Exam Method:
+\[
+E=base+adjustment
+\]
+Answer: ₹8300
+
+---
+
+Q8. A:B efficiency is 3:4. If both together complete a job in 12 days, how long will A alone take?
+A. 28 days
+B. 19 days
+C. 9 days
+D. 16 days
+Answer: 28 days
+Difficulty: Medium
+Family: tw_efficiency_ratio_scaling
+Explanation:
+Use the governing rate-state formula.
+\[
+W=(a+b)T
+\]
+Substitute the given values.
+\[
+W=(3+4)\times 12
+\]
+Simplify to get the required value.
+\[
+T_A=\frac{84}{3}=28
+\]
+Therefore the required answer is obtained.
+\[
+Ans=28
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(3+4)12}{3}=28
+\]
+Answer: 28 days
+
+---
+
+Q9. A contract wage of ₹12000 is divided in proportion to contributions 30:30:12. Find the required share.
+A. ₹1998
+B. ₹1996
+C. ₹2000
+D. ₹3000
+Answer: ₹2000
+Difficulty: Medium
+Family: tw_wage_with_helper
+Explanation:
+Use the governing rate-state formula.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Substitute the given values.
+\[
+Share=\frac{12}{72}\times 12000
+\]
+Simplify to get the required value.
+\[
+Share=2000
+\]
+Therefore the required answer is obtained.
+\[
+Ans=2000
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2000
+
+---
+
+Q10. The full team takes 8 days. Removing known rates with individual times 16, 32 days, find the remaining worker's time.
+A. 32 days
+B. 25.6 days
+C. 31 days
+D. 38 days
+Answer: 32 days
+Difficulty: Medium
+Family: tw_unknown_worker_from_team
+Explanation:
+Use the governing rate-state formula.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Substitute the given values.
+\[
+r_X=\frac{1}{8}-\frac{1}{16}-\frac{1}{32}
+\]
+Simplify to get the required value.
+\[
+T_X=32
+\]
+Therefore the required answer is obtained.
+\[
+Ans=32
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 32 days
+
+---
+
+Q11. A cyclic schedule contributes 10, 4, 4 units on successive turns. Total work is 90 units. Find completion time.
+A. 10 days
+B. 18.75 days
+C. 14 days
+D. 15 days
+Answer: 15 days
+Difficulty: Hard
+Family: tw_alternating_group_cycle
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=\sum r_i
+\]
+Substitute the given values.
+\[
+W_{cycle}=10+4+4
+\]
+Simplify to get the required value.
+\[
+T=15
+\]
+Therefore the required answer is obtained.
+\[
+Ans=15
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 15 days
+
+---
+
+Q12. A team can complete a work in 18 days. It works for 10 days. What fraction of work is left?
+A. 5/9
+B. 4/9
+C. 4/5
+D. 9/4
+Answer: 4/9
+Difficulty: Easy
+Family: tw_remaining_work_fraction
+Explanation:
+Use the governing rate-state formula.
+\[
+R=1-\frac{t}{T}
+\]
+Substitute the given values.
+\[
+R=1-\frac{10}{18}
+\]
+Simplify to get the required value.
+\[
+R=\frac{8}{18}=4/9
+\]
+Therefore the required answer is obtained.
+\[
+Ans=4/9
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{18-10}{18}=4/9
+\]
+Answer: 4/9
+
+---
+
+Q13. A project has 300 work units. 12 workers work for 10 days, then 4 leave. Find the delay.
+A. 6.5 days
+B. 11.5 days
+C. 11.25 days
+D. 7.5 days
+Answer: 7.5 days
+Difficulty: Medium
+Family: tw_worker_removed_delay
+Explanation:
+Use the governing rate-state formula.
+\[
+D=T_{actual}-T_{planned}
+\]
+Substitute the given values.
+\[
+R=300-12\times 10
+\]
+Simplify to get the required value.
+\[
+D=\frac{180}{8}-\frac{180}{12}
+\]
+Therefore the required answer is obtained.
+\[
+Ans=7.5
+\]
+Shortcut / Exam Method:
+\[
+D=T_a-T_p
+\]
+Answer: 7.5 days
+
+---
+
+Q14. The total wage is ₹9000. Actual work contributions are 24:36:40. Find the share.
+A. ₹2160
+B. ₹2164
+C. ₹3240
+D. ₹2159
+Answer: ₹2160
+Difficulty: Medium
+Family: tw_wage_distribution_efficiency
+Explanation:
+Use the governing rate-state formula.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Substitute the given values.
+\[
+Share=\frac{24}{100}\times 9000
+\]
+Simplify to get the required value.
+\[
+Share=2160
+\]
+Therefore the required answer is obtained.
+\[
+Ans=2160
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2160
+
+---
+
+Q15. 100 pages are printed per hour for 5 hours, but only 95% are accepted. Find the accepted pages.
+A. 478 pages
+B. 480 pages
+C. 570 pages
+D. 475 pages
+Answer: 475 pages
+Difficulty: Medium
+Family: tw_work_quality_rejection
+Explanation:
+Use the governing rate-state formula.
+\[
+Accepted=Produced\times \frac{p}{100}
+\]
+Substitute the given values.
+\[
+Accepted=100\times 5\times \frac{95}{100}
+\]
+Simplify to get the required value.
+\[
+Accepted=475
+\]
+Therefore the required answer is obtained.
+\[
+Ans=475
+\]
+Shortcut / Exam Method:
+\[
+Accepted=gross\times p/100
+\]
+Answer: 475 pages
+
+---
+
+Q16. Output rates are 12, 15, 18 per hour. With active hours 5, find the total produced.
+A. 281.25 pages
+B. 228 pages
+C. 225 pages
+D. 231 pages
+Answer: 225 pages
+Difficulty: Medium
+Family: tw_printer_job_queue
+Explanation:
+Use the governing rate-state formula.
+\[
+O=\sum r_it_i
+\]
+Substitute the given values.
+\[
+O=12\times 5+15\times 5+18\times 5
+\]
+Simplify to get the required value.
+\[
+O=225
+\]
+Therefore the required answer is obtained.
+\[
+Ans=225
+\]
+Shortcut / Exam Method:
+\[
+O=total\ rate\times time
+\]
+Answer: 225 pages
+
+---
+
+Q17. Three pairwise teams complete the work in 10, 12 and 15 days respectively. Find A's individual time.
+A. 18 days
+B. 19 days
+C. 27 days
+D. 24 days
+Answer: 24 days
+Difficulty: Hard
+Family: tw_pairwise_ab_bc_ac
+Explanation:
+Use the governing rate-state formula.
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+Substitute the given values.
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+Simplify to get the required value.
+\[
+T_A=24
+\]
+Therefore the required answer is obtained.
+\[
+Ans=24
+\]
+Shortcut / Exam Method:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+Answer: 24 days
+
+---
+
+Q18. A tank has filling pipe time 12 hours and leak/emptying time 30 hours. Find the required time.
+A. 24.67 hours
+B. 18.67 hours
+C. 23.33 hours
+D. 19.67 hours
+Answer: 18.67 hours
+Difficulty: Hard
+Family: pc_drain_after_partial_fill
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{work\ left}{r_{fill}-r_{empty}}
+\]
+Substitute the given values.
+\[
+r=1/12-1/30
+\]
+Simplify to get the required value.
+\[
+T=18.67
+\]
+Therefore the required answer is obtained.
+\[
+Ans=18.67
+\]
+Shortcut / Exam Method:
+\[
+T=remaining/net\ rate
+\]
+Answer: 18.67 hours
+
+---
+
+Q19. After a tank becomes full, the pipe continues to run at 10 litres per minute for 5 minutes. Find the wasted water.
+A. 56 litres
+B. 50 litres
+C. 62.5 litres
+D. 51 litres
+Answer: 50 litres
+Difficulty: Medium
+Family: pc_overflow_waste_rate
+Explanation:
+Use the governing rate-state formula.
+\[
+Waste=r\times t
+\]
+Substitute the given values.
+\[
+Waste=10\times 5
+\]
+Simplify to get the required value.
+\[
+Waste=50
+\]
+Therefore the required answer is obtained.
+\[
+Ans=50
+\]
+Shortcut / Exam Method:
+\[
+Waste=extra\ inflow
+\]
+Answer: 50 litres
+
+---
+
+Q20. 12 men working 8 hours a day finish a work in 15 days. How many men are needed to finish it in 16 days working 8 hours a day?
+A. 12 workers
+B. 15 workers
+C. 12.8 workers
+D. 11.25 workers
+Answer: 11.25 workers
+Difficulty: Medium
+Family: tw_road_construction_work
+Explanation:
+Use the governing rate-state formula.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Substitute the given values.
+\[
+12\times 15\times 8=M_2\times 16\times 8
+\]
+Simplify to get the required value.
+\[
+M_2=11.25
+\]
+Therefore the required answer is obtained.
+\[
+Ans=11.25
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{12\times 15\times 8}{16\times 8}=11.25
+\]
+Answer: 11.25 workers
+
+---
+
+Q21. If 24 people can use a food stock for 30 days, find the days for 25 people.
+A. 34.8 days
+B. 36 days
+C. 26.8 days
+D. 28.8 days
+Answer: 28.8 days
+Difficulty: Easy
+Family: tw_food_resource_basic
+Explanation:
+Use the governing rate-state formula.
+\[
+M_1D_1=M_2D_2
+\]
+Substitute the given values.
+\[
+24\times 30=25\times D_2
+\]
+Simplify to get the required value.
+\[
+D_2=28.8
+\]
+Therefore the required answer is obtained.
+\[
+Ans=28.8
+\]
+Shortcut / Exam Method:
+\[
+D_2=\frac{24\times 30}{25}
+\]
+Answer: 28.8 days
+
+---
+
+Q22. A contract wage of ₹9000 is divided in proportion to contributions 8:12. Find the required share.
+A. ₹3606
+B. ₹3602
+C. ₹3600
+D. ₹2880
+Answer: ₹3600
+Difficulty: Easy
+Family: tw_wage_partial_time
+Explanation:
+Use the governing rate-state formula.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Substitute the given values.
+\[
+Share=\frac{8}{20}\times 9000
+\]
+Simplify to get the required value.
+\[
+Share=3600
+\]
+Therefore the required answer is obtained.
+\[
+Ans=3600
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹3600
+
+---
+
+Q23. Work has 120 units. The repeating rates are 6, 4 units per day. Find when the work is completed.
+A. 19 days
+B. 18 days
+C. 24 days
+D. 25 days
+Answer: 24 days
+Difficulty: Hard
+Family: tw_alternating_days_two_workers
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=\sum r_i
+\]
+Substitute the given values.
+\[
+W_{cycle}=6+4
+\]
+Simplify to get the required value.
+\[
+T=24
+\]
+Therefore the required answer is obtained.
+\[
+Ans=24
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 24 days
+
+---
+
+Q24. A group consumes food at 36 adult-equivalent units per day. The stock is 720 units. Find how many days it will last.
+A. 24 days
+B. 17 days
+C. 20 days
+D. 30 days
+Answer: 20 days
+Difficulty: Hard
+Family: tw_resource_rate_equivalence
+Explanation:
+Use the governing rate-state formula.
+\[
+D=\frac{S}{R}
+\]
+Substitute the given values.
+\[
+D=\frac{720}{36}
+\]
+Simplify to get the required value.
+\[
+D=20
+\]
+Therefore the required answer is obtained.
+\[
+Ans=20
+\]
+Shortcut / Exam Method:
+\[
+D=stock/rate
+\]
+Answer: 20 days
+
+---
+
+Q25. A phased job has 120 work units. Known phases complete 48 units. The last phase rate is 8 units per day. Find its duration.
+A. 15 days
+B. 11.25 days
+C. 9 days
+D. 10 days
+Answer: 9 days
+Difficulty: Hard
+Family: tw_phase_state_reconstruction
+Explanation:
+Use the governing rate-state formula.
+\[
+x=\frac{W-W_1}{r}
+\]
+Substitute the given values.
+\[
+x=\frac{120-48}{8}
+\]
+Simplify to get the required value.
+\[
+x=9
+\]
+Therefore the required answer is obtained.
+\[
+Ans=9
+\]
+Shortcut / Exam Method:
+\[
+x=remaining/rate
+\]
+Answer: 9 days
+
+---
+
+Q26. Pipe data are: fill times 12 hours and empty time 30 hours. Find the tank completion time.
+A. 14.67 hours
+B. 15.67 hours
+C. 22.4 hours
+D. 18.67 hours
+Answer: 18.67 hours
+Difficulty: Hard
+Family: pc_leak_starts_after_fill
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{work\ left}{r_{fill}-r_{empty}}
+\]
+Substitute the given values.
+\[
+r=1/12-1/30
+\]
+Simplify to get the required value.
+\[
+T=18.67
+\]
+Therefore the required answer is obtained.
+\[
+Ans=18.67
+\]
+Shortcut / Exam Method:
+\[
+T=remaining/net\ rate
+\]
+Answer: 18.67 hours
+
+---
+
+Q27. The efficiencies of A and B are in the ratio 3:4. Together they finish the work in 12 days. Find the time taken by A alone.
+A. 16 days
+B. 28 days
+C. 19 days
+D. 9 days
+Answer: 28 days
+Difficulty: Medium
+Family: tw_relative_efficiency_percent
+Explanation:
+Use the governing rate-state formula.
+\[
+W=(a+b)T
+\]
+Substitute the given values.
+\[
+W=(3+4)\times 12
+\]
+Simplify to get the required value.
+\[
+T_A=\frac{84}{3}=28
+\]
+Therefore the required answer is obtained.
+\[
+Ans=28
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(3+4)12}{3}=28
+\]
+Answer: 28 days
+
+---
+
+Q28. A team completes a work in 8 days. Known worker times are 15 days. Find the unknown worker's time.
+A. 20.57 days
+B. 13.14 days
+C. 14.14 days
+D. 17.14 days
+Answer: 17.14 days
+Difficulty: Medium
+Family: tw_pairwise_total_abc
+Explanation:
+Use the governing rate-state formula.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Substitute the given values.
+\[
+r_X=\frac{1}{8}-\frac{1}{15}
+\]
+Simplify to get the required value.
+\[
+T_X=17.14
+\]
+Therefore the required answer is obtained.
+\[
+Ans=17.14
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 17.14 days
+
+---
+
+Q29. A tank is filled for one hour at 12 units/hour and then drained for one hour at 5 units/hour repeatedly. Capacity is 60 units. Find completion time.
+A. 24.5 hours
+B. 20.33 hours
+C. 18.33 hours
+D. 16.33 hours
+Answer: 16.33 hours
+Difficulty: Hard
+Family: pc_alternating_fill_empty
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=12-5
+\]
+Substitute the given values.
+\[
+60\ units,\ cycle=7
+\]
+Simplify to get the required value.
+\[
+T=16.33
+\]
+Therefore the required answer is obtained.
+\[
+Ans=16.33
+\]
+Shortcut / Exam Method:
+\[
+T=full\ cycles+terminal\ fill
+\]
+Answer: 16.33 hours
+
+---
+
+Q30. A tank has filling pipe time 12 hours and leak/emptying time 36 hours. Find the required time.
+A. 14.4 hours
+B. 19 hours
+C. 18 hours
+D. 22 hours
+Answer: 18 hours
+Difficulty: Medium
+Family: pc_basic_fill_empty
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{work\ left}{r_{fill}-r_{empty}}
+\]
+Substitute the given values.
+\[
+r=1/12-1/36
+\]
+Simplify to get the required value.
+\[
+T=18
+\]
+Therefore the required answer is obtained.
+\[
+Ans=18
+\]
+Shortcut / Exam Method:
+\[
+T=remaining/net\ rate
+\]
+Answer: 18 hours
+
+---
+
+Q31. Use net pipe rate for fill times 12 and emptying time none. Find the time.
+A. 15 hours
+B. 16 hours
+C. 12 hours
+D. 9.6 hours
+Answer: 12 hours
+Difficulty: Hard
+Family: pc_multiple_pipes_timing
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{work\ left}{r_{fill}-r_{empty}}
+\]
+Substitute the given values.
+\[
+r=1/12
+\]
+Simplify to get the required value.
+\[
+T=12
+\]
+Therefore the required answer is obtained.
+\[
+Ans=12
+\]
+Shortcut / Exam Method:
+\[
+T=remaining/net\ rate
+\]
+Answer: 12 hours
+
+---
+
+Q32. A, B and C have chained efficiency ratios A:B=4:7, B:C=3:4. Find A:B:C.
+A. 4:3:4
+B. 12:21:28
+C. 4:7:4
+D. 28:21:12
+Answer: 12:21:28
+Difficulty: Medium
+Family: tw_efficiency_chain
+Explanation:
+Use the governing rate-state formula.
+\[
+B\ common
+\]
+Substitute the given values.
+\[
+LCM(7,3)=21
+\]
+Simplify to get the required value.
+\[
+A:B:C=12:21:28
+\]
+Therefore the required answer is obtained.
+\[
+Ans=12:21:28
+\]
+Shortcut / Exam Method:
+\[
+A:B:C=12:21:28
+\]
+Answer: 12:21:28
+
+---
+
+Q33. Use net pipe rate for fill times 12 and emptying time none. Find the time.
+A. 10 hours
+B. 9.6 hours
+C. 12 hours
+D. 16 hours
+Answer: 12 hours
+Difficulty: Medium
+Family: pc_pipe_closed_before_completion
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{work\ left}{r_{fill}-r_{empty}}
+\]
+Substitute the given values.
+\[
+r=1/12
+\]
+Simplify to get the required value.
+\[
+T=12
+\]
+Therefore the required answer is obtained.
+\[
+Ans=12
+\]
+Shortcut / Exam Method:
+\[
+T=remaining/net\ rate
+\]
+Answer: 12 hours
+
+---
+
+Q34. Work has 72 units. The repeating rates are 10, 0 units per day. Find when the work is completed.
+A. 11.36 days
+B. 18.2 days
+C. 14.2 days
+D. 12.2 days
+Answer: 14.2 days
+Difficulty: Hard
+Family: tw_work_rest_cycle
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=\sum r_i
+\]
+Substitute the given values.
+\[
+W_{cycle}=10+0
+\]
+Simplify to get the required value.
+\[
+T=14.2
+\]
+Therefore the required answer is obtained.
+\[
+Ans=14.2
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 14.2 days
+
+---
+
+Q35. A job changes team after 2 days. A, B and C alone take 6, 20 and 18 days. If B is replaced by C, find the completion time.
+A. 3.55 days
+B. 4.55 days
+C. 0.5 days
+D. 5.69 days
+Answer: 4.55 days
+Difficulty: Medium
+Family: tw_replacement_worker
+Explanation:
+Use the governing rate-state formula.
+\[
+r_1t_1+r_2t_2=W
+\]
+Substitute the given values.
+\[
+W_1=39\times 2
+\]
+Simplify to get the required value.
+\[
+T=2+\frac{102}{40}=4.55
+\]
+Therefore the required answer is obtained.
+\[
+Ans=4.55
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 4.55 days
+
+---
+
+Q36. A contributes 24 work units in 6 days. Find A's daily rate.
+A. 3.2 work units
+B. 10 work units
+C. 4 work units
+D. 1 work units
+Answer: 4 work units
+Difficulty: Medium
+Family: tw_reverse_contribution_deduction
+Explanation:
+Use the governing rate-state formula.
+\[
+r=\frac{W}{t}
+\]
+Substitute the given values.
+\[
+r=\frac{24}{6}
+\]
+Simplify to get the required value.
+\[
+r=4
+\]
+Therefore the required answer is obtained.
+\[
+Ans=4
+\]
+Shortcut / Exam Method:
+\[
+r=W/t
+\]
+Answer: 4 work units
+
+---
+
+Q37. Pipe data are: fill times 12, 18 hours and empty time 36 hours. Find the tank completion time.
+A. 10 hours
+B. 10.8 hours
+C. 9 hours
+D. 14 hours
+Answer: 9 hours
+Difficulty: Medium
+Family: pc_two_fillers_one_empty
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{work\ left}{r_{fill}-r_{empty}}
+\]
+Substitute the given values.
+\[
+r=1/12+1/18-1/36
+\]
+Simplify to get the required value.
+\[
+T=9
+\]
+Therefore the required answer is obtained.
+\[
+Ans=9
+\]
+Shortcut / Exam Method:
+\[
+T=remaining/net\ rate
+\]
+Answer: 9 hours
+
+---
+
+Q38. A finishes in 20 days and B in 8 days. Find their efficiency ratio.
+A. 8:28
+B. 20:8
+C. 28:8
+D. 2:5
+Answer: 2:5
+Difficulty: Easy
+Family: tw_work_done_ratio_from_times
+Explanation:
+Use the governing rate-state formula.
+\[
+W_A:W_B=\frac{1}{20}:\frac{1}{8}
+\]
+Substitute the given values.
+\[
+W_A:W_B=8:20
+\]
+Simplify to get the required value.
+\[
+W_A:W_B=2:5
+\]
+Therefore the required answer is obtained.
+\[
+Ans=2:5
+\]
+Shortcut / Exam Method:
+\[
+E=2:5
+\]
+Answer: 2:5
+
+---
+
+Q39. A pipe fills a tank in 10 hours. With a leak, it fills in 16 hours. Find the time in which the leak alone empties the full tank.
+A. 26.67 hours
+B. 25.67 hours
+C. 21.67 hours
+D. 33.33 hours
+Answer: 26.67 hours
+Difficulty: Medium
+Family: pc_leak_hidden_rate
+Explanation:
+Use the governing rate-state formula.
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+Substitute the given values.
+\[
+\frac{1}{L}=\frac{1}{10}-\frac{1}{16}
+\]
+Simplify to get the required value.
+\[
+L=26.67
+\]
+Therefore the required answer is obtained.
+\[
+Ans=26.67
+\]
+Shortcut / Exam Method:
+\[
+L=\frac{FT}{T-F}
+\]
+Answer: 26.67 hours
+
+---
+
+Q40. A completes \(\frac{3}{8}\) of a work in 8 days. Find the time needed for the whole work.
+A. 21.33 days
+B. 16 days
+C. 3 days
+D. 64 days
+Answer: 21.33 days
+Difficulty: Easy
+Family: tw_work_fraction_days
+Explanation:
+Use the governing rate-state formula.
+\[
+T=d\times \frac{q}{p}
+\]
+Substitute the given values.
+\[
+T=8\times \frac{8}{3}
+\]
+Simplify to get the required value.
+\[
+T=21.33
+\]
+Therefore the required answer is obtained.
+\[
+Ans=21.33
+\]
+Shortcut / Exam Method:
+\[
+T=8\div \frac{3}{8}=21.33
+\]
+Answer: 21.33 days
+
+---
+
+Q41. A completes a job in 24 days, while B completes it in 10 days. Find the time required when both work together.
+A. 10 days
+B. 17 days
+C. 7.06 days
+D. 34 days
+Answer: 7.06 days
+Difficulty: Hard
+Family: tw_lcm_hidden_total_work
+Explanation:
+Use the governing rate-state formula.
+\[
+W=LCM(24,10)=120
+\]
+Substitute the given values.
+\[
+A=120/24=5,\quad B=120/10=12
+\]
+Simplify to get the required value.
+\[
+T=\frac{120}{5+12}=7.06
+\]
+Therefore the required answer is obtained.
+\[
+Ans=7.06
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{24\times 10}{24+10}=7.06
+\]
+Answer: 7.06 days
+
+---
+
+Q42. A and B can finish a work alone in 18 and 6 days. A leaves 2 days before completion and B leaves 3 days before completion. Find the total time.
+A. 11.25 days
+B. 10.25 days
+C. 5.8 days
+D. 7.25 days
+Answer: 7.25 days
+Difficulty: Hard
+Family: tw_backward_leave
+Explanation:
+Use the governing rate-state formula.
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+Substitute the given values.
+\[
+2(T-2)+6(T-3)=36
+\]
+Simplify to get the required value.
+\[
+T=7.25
+\]
+Therefore the required answer is obtained.
+\[
+Ans=7.25
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+Answer: 7.25 days
+
+---
+
+Q43. One team completes 15 units per day while another undoes 4 units per day. For 120 units, find the net completion time.
+A. 9.91 days
+B. 10.91 days
+C. 16.36 days
+D. 14.91 days
+Answer: 10.91 days
+Difficulty: Medium
+Family: tw_digging_filling_negative_work
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{W}{r_+-r_-}
+\]
+Substitute the given values.
+\[
+T=\frac{120}{15-4}
+\]
+Simplify to get the required value.
+\[
+T=10.91
+\]
+Therefore the required answer is obtained.
+\[
+Ans=10.91
+\]
+Shortcut / Exam Method:
+\[
+T=W/net\ rate
+\]
+Answer: 10.91 days
+
+---
+
+Q44. Pipe A fills a tank in 12 hours. Pipes A and B together fill it in 6 hours. Find the time taken by B alone.
+A. 12 hours
+B. 11 hours
+C. 18 hours
+D. 9.6 hours
+Answer: 12 hours
+Difficulty: Medium
+Family: pc_find_pipe_rate_from_net_time
+Explanation:
+Use the governing rate-state formula.
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+Substitute the given values.
+\[
+\frac{1}{B}=\frac{1}{6}-\frac{1}{12}
+\]
+Simplify to get the required value.
+\[
+B=12
+\]
+Therefore the required answer is obtained.
+\[
+Ans=12
+\]
+Shortcut / Exam Method:
+\[
+B=\frac{AT}{A-T}
+\]
+Answer: 12 hours
+
+---
+
+Q45. A completes a job in 30 days, while B completes it in 24 days. Find the time required when both work together.
+A. 13.33 days
+B. 24 days
+C. 54 days
+D. 27 days
+Answer: 13.33 days
+Difficulty: Easy
+Family: tw_basic_combined_work
+Explanation:
+Use the governing rate-state formula.
+\[
+W=LCM(30,24)=120
+\]
+Substitute the given values.
+\[
+A=120/30=4,\quad B=120/24=5
+\]
+Simplify to get the required value.
+\[
+T=\frac{120}{4+5}=13.33
+\]
+Therefore the required answer is obtained.
+\[
+Ans=13.33
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{30\times 24}{30+24}=13.33
+\]
+Answer: 13.33 days
+
+---
+
+Q46. A completes a job in 12 days, while B completes it in 24 days. Find the time required when both work together.
+A. 12 days
+B. 8 days
+C. 18 days
+D. 36 days
+Answer: 8 days
+Difficulty: Easy
+Family: tw_basic_combined_work
+Explanation:
+Use the governing rate-state formula.
+\[
+W=LCM(12,24)=24
+\]
+Substitute the given values.
+\[
+A=24/12=2,\quad B=24/24=1
+\]
+Simplify to get the required value.
+\[
+T=\frac{24}{2+1}=8
+\]
+Therefore the required answer is obtained.
+\[
+Ans=8
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{12\times 24}{12+24}=8
+\]
+Answer: 8 days
+
+---
+
+Q47. Use the equivalence of worker types. The team has counts 2, 3, 4 with unit efficiencies 4, 2, 1. Total work is 300 units. Find the time.
+A. 12.67 days
+B. 13.67 days
+C. 16.67 days
+D. 20 days
+Answer: 16.67 days
+Difficulty: Hard
+Family: tw_worker_equivalence_men_women_children
+Explanation:
+Use the governing rate-state formula.
+\[
+T=\frac{W}{\sum ne}
+\]
+Substitute the given values.
+\[
+T=\frac{300}{2\times 4+3\times 2+4\times 1}
+\]
+Simplify to get the required value.
+\[
+T=16.67
+\]
+Therefore the required answer is obtained.
+\[
+Ans=16.67
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 16.67 days
+
+---
+
+Q48. A and B are paid ₹720 and ₹960 for equal time. Find the ratio of their work rates.
+A. 72:48
+B. 1680:960
+C. 960:720
+D. 3:4
+Answer: 3:4
+Difficulty: Easy
+Family: tw_efficiency_from_wages
+Explanation:
+Use the governing rate-state formula.
+\[
+W_A:W_B=E_A:E_B
+\]
+Substitute the given values.
+\[
+E_A:E_B=720:960
+\]
+Simplify to get the required value.
+\[
+E_A:E_B=3:4
+\]
+Therefore the required answer is obtained.
+\[
+Ans=3:4
+\]
+Shortcut / Exam Method:
+\[
+E=3:4
+\]
+Answer: 3:4
+
+---
+
+Q49. A:B efficiency is 5:7. If both together complete a job in 8 days, how long will A alone take?
+A. 20 days
+B. 19.2 days
+C. 5.71 days
+D. 11.2 days
+Answer: 19.2 days
+Difficulty: Medium
+Family: tw_efficiency_ratio_scaling
+Explanation:
+Use the governing rate-state formula.
+\[
+W=(a+b)T
+\]
+Substitute the given values.
+\[
+W=(5+7)\times 8
+\]
+Simplify to get the required value.
+\[
+T_A=\frac{96}{5}=19.2
+\]
+Therefore the required answer is obtained.
+\[
+Ans=19.2
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(5+7)8}{5}=19.2
+\]
+Answer: 19.2 days
+
+---
+
+Q50. In order, the active turns produce 6, 4, 4 units each. The work has 60 units. Find the total days.
+A. 12.67 days
+B. 16.67 days
+C. 9.67 days
+D. 19 days
+Answer: 12.67 days
+Difficulty: Hard
+Family: tw_alternating_group_cycle
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=\sum r_i
+\]
+Substitute the given values.
+\[
+W_{cycle}=6+4+4
+\]
+Simplify to get the required value.
+\[
+T=12.67
+\]
+Therefore the required answer is obtained.
+\[
+Ans=12.67
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 12.67 days
+
+---
+
+Q51. If a job takes 15 days and 6 days have already been worked, what part is still unfinished?
+A. 2/5
+B. 5/3
+C. 3/5
+D. 3/2
+Answer: 3/5
+Difficulty: Easy
+Family: tw_remaining_work_fraction
+Explanation:
+Use the governing rate-state formula.
+\[
+R=1-\frac{t}{T}
+\]
+Substitute the given values.
+\[
+R=1-\frac{6}{15}
+\]
+Simplify to get the required value.
+\[
+R=\frac{9}{15}=3/5
+\]
+Therefore the required answer is obtained.
+\[
+Ans=3/5
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{15-6}{15}=3/5
+\]
+Answer: 3/5
+
+---
+
+Q52. 12 equal workers planned a job. After 10 days, 3 workers leave. Find how many days the work is delayed.
+A. 4.17 days
+B. 9.33 days
+C. 6.33 days
+D. 3.33 days
+Answer: 3.33 days
+Difficulty: Medium
+Family: tw_worker_removed_delay
+Explanation:
+Use the governing rate-state formula.
+\[
+D=T_{actual}-T_{planned}
+\]
+Substitute the given values.
+\[
+R=240-12\times 10
+\]
+Simplify to get the required value.
+\[
+D=\frac{120}{9}-\frac{120}{12}
+\]
+Therefore the required answer is obtained.
+\[
+Ans=3.33
+\]
+Shortcut / Exam Method:
+\[
+D=T_a-T_p
+\]
+Answer: 3.33 days
+
+---
+
+Q53. After a tank becomes full, the pipe continues to run at 15 litres per minute for 4 minutes. Find the wasted water.
+A. 48 litres
+B. 66 litres
+C. 57 litres
+D. 60 litres
+Answer: 60 litres
+Difficulty: Medium
+Family: pc_overflow_waste_rate
+Explanation:
+Use the governing rate-state formula.
+\[
+Waste=r\times t
+\]
+Substitute the given values.
+\[
+Waste=15\times 4
+\]
+Simplify to get the required value.
+\[
+Waste=60
+\]
+Therefore the required answer is obtained.
+\[
+Ans=60
+\]
+Shortcut / Exam Method:
+\[
+Waste=extra\ inflow
+\]
+Answer: 60 litres
+
+---
+
+Q54. Work has 60 units. The repeating rates are 8, 5 units per day. Find when the work is completed.
+A. 4 days
+B. 9 days
+C. 6 days
+D. 11.25 days
+Answer: 9 days
+Difficulty: Hard
+Family: tw_alternating_days_two_workers
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=\sum r_i
+\]
+Substitute the given values.
+\[
+W_{cycle}=8+5
+\]
+Simplify to get the required value.
+\[
+T=9
+\]
+Therefore the required answer is obtained.
+\[
+Ans=9
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 9 days
+
+---
+
+Q55. A:B efficiency is 4:5. If both together complete a job in 10 days, how long will A alone take?
+A. 22.5 days
+B. 19 days
+C. 12.5 days
+D. 8 days
+Answer: 22.5 days
+Difficulty: Medium
+Family: tw_relative_efficiency_percent
+Explanation:
+Use the governing rate-state formula.
+\[
+W=(a+b)T
+\]
+Substitute the given values.
+\[
+W=(4+5)\times 10
+\]
+Simplify to get the required value.
+\[
+T_A=\frac{90}{4}=22.5
+\]
+Therefore the required answer is obtained.
+\[
+Ans=22.5
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(4+5)10}{4}=22.5
+\]
+Answer: 22.5 days
+
+---
+
+Q56. Efficiency ratios are A:B=2:3 and B:C=5:6. Find A:B:C.
+A. 10:15:18
+B. 2:3:6
+C. 2:5:6
+D. 18:15:10
+Answer: 10:15:18
+Difficulty: Medium
+Family: tw_efficiency_chain
+Explanation:
+Use the governing rate-state formula.
+\[
+B\ common
+\]
+Substitute the given values.
+\[
+LCM(3,5)=15
+\]
+Simplify to get the required value.
+\[
+A:B:C=10:15:18
+\]
+Therefore the required answer is obtained.
+\[
+Ans=10:15:18
+\]
+Shortcut / Exam Method:
+\[
+A:B:C=10:15:18
+\]
+Answer: 10:15:18
+
+---
+
+Q57. A cyclic schedule contributes 10, 0 units on successive turns. Total work is 120 units. Find completion time.
+A. 29 days
+B. 25 days
+C. 24 days
+D. 28.8 days
+Answer: 24 days
+Difficulty: Hard
+Family: tw_work_rest_cycle
+Explanation:
+Use the governing rate-state formula.
+\[
+W_{cycle}=\sum r_i
+\]
+Substitute the given values.
+\[
+W_{cycle}=10+0
+\]
+Simplify to get the required value.
+\[
+T=24
+\]
+Therefore the required answer is obtained.
+\[
+Ans=24
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 24 days
+
+---
+
+Q58. A alone takes 18 days and B alone takes 15 days. Find the ratio of work done by them in the same time.
+A. 33:15
+B. 18:15
+C. 15:33
+D. 5:6
+Answer: 5:6
+Difficulty: Easy
+Family: tw_work_done_ratio_from_times
+Explanation:
+Use the governing rate-state formula.
+\[
+W_A:W_B=\frac{1}{18}:\frac{1}{15}
+\]
+Substitute the given values.
+\[
+W_A:W_B=15:18
+\]
+Simplify to get the required value.
+\[
+W_A:W_B=5:6
+\]
+Therefore the required answer is obtained.
+\[
+Ans=5:6
+\]
+Shortcut / Exam Method:
+\[
+E=5:6
+\]
+Answer: 5:6
+
+---
+
+Q59. A completes \(\frac{1}{3}\) of a work in 9 days. Find the time needed for the whole work.
+A. 3 days
+B. 32 days
+C. 27 days
+D. 12 days
+Answer: 27 days
+Difficulty: Easy
+Family: tw_work_fraction_days
+Explanation:
+Use the governing rate-state formula.
+\[
+T=d\times \frac{q}{p}
+\]
+Substitute the given values.
+\[
+T=9\times \frac{3}{1}
+\]
+Simplify to get the required value.
+\[
+T=27
+\]
+Therefore the required answer is obtained.
+\[
+Ans=27
+\]
+Shortcut / Exam Method:
+\[
+T=9\div \frac{1}{3}=27
+\]
+Answer: 27 days
+
+---
+
+Q60. A needs 10 days and B needs 15 days. In a joint job, A is absent for the last 2 days and B for the last 3 days. Find total duration.
+A. 6.3 days
+B. 8.4 days
+C. 10.4 days
+D. 13.4 days
+Answer: 8.4 days
+Difficulty: Hard
+Family: tw_backward_leave
+Explanation:
+Use the governing rate-state formula.
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+Substitute the given values.
+\[
+6(T-2)+4(T-3)=60
+\]
+Simplify to get the required value.
+\[
+T=8.4
+\]
+Therefore the required answer is obtained.
+\[
+Ans=8.4
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+Answer: 8.4 days

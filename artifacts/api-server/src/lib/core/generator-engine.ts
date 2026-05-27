@@ -129,6 +129,14 @@ import {
   isQuantV2InterestPattern,
 } from "../quant-v2/interest-admin-adapter";
 import {
+  createQuantV2RatioProportionQuestionCandidate,
+  isQuantV2RatioProportionPattern,
+} from "../quant-v2/ratio-proportion-admin-adapter";
+import {
+  createQuantV2TimeWorkQuestionCandidate,
+  isQuantV2TimeWorkPattern,
+} from "../quant-v2/time-work-admin-adapter";
+import {
   assertLegacyQuantNotMigrated,
   resolveMigratedQuantV2Domain,
 } from "../quant-v2/migrated-quant-topics";
@@ -273,6 +281,8 @@ export type GenerationDomain =
   | "quant-v2-percentage"
   | "quant-v2-profit-loss"
   | "quant-v2-interest"
+  | "quant-v2-ratio-proportion"
+  | "quant-v2-time-work"
   | "reasoning"
   | "english"
   | "punjabi"
@@ -626,6 +636,7 @@ type GenerationDebugMetadata = {
   quantV2?: unknown;
   reasoningGraph?: unknown;
   semanticMetadata?: unknown;
+  visual?: unknown;
   svgRendering?: unknown;
   qualityMetrics?: unknown;
   localizationMetadata?: unknown;
@@ -1050,6 +1061,18 @@ export function inferGenerationDomain(
     isQuantV2InterestPattern(pattern)
   ) {
     return "quant-v2-interest";
+  }
+
+  if (
+    isQuantV2RatioProportionPattern(pattern)
+  ) {
+    return "quant-v2-ratio-proportion";
+  }
+
+  if (
+    isQuantV2TimeWorkPattern(pattern)
+  ) {
+    return "quant-v2-time-work";
   }
 
   const topicCluster =
@@ -3647,6 +3670,10 @@ function generateScheduledQuestionsWithAdapter(
   count: number,
   options: GeneratorOptions,
 ) {
+  const seedPrefix =
+    options.seed ??
+    options.generationContext?.seed ??
+    createGenerationContext().seed;
   const schedulerState =
     createCorpusSchedulerState({
       targetCount: count,
@@ -3665,10 +3692,7 @@ function generateScheduledQuestionsWithAdapter(
       generateScheduledQuestion({
         state: schedulerState,
         index,
-        seedPrefix:
-          options.seed ??
-          options.generationContext?.seed ??
-          "admin-generator",
+        seedPrefix,
         examProfile: options.examProfile,
         forcedMotifId:
           options.forcedMotifId,
@@ -3702,13 +3726,15 @@ function generateScheduledQuestionsWithAdapter(
       adapter.domain ===
         "quant-v2-profit-loss" ||
       adapter.domain ===
-        "quant-v2-interest"
+        "quant-v2-interest" ||
+      adapter.domain ===
+        "quant-v2-ratio-proportion" ||
+      adapter.domain ===
+        "quant-v2-time-work"
     ) && questions.length > 1
       ? interleaveScheduledPreviewQuestions(
           questions,
-          options.seed ??
-            options.generationContext?.seed ??
-            "admin-generator",
+          seedPrefix,
           previewFamilyKey,
         )
       : questions;
@@ -3751,6 +3777,8 @@ function getDomainAdapterRegistry() {
     createQuantV2PercentageQuestionCandidate,
     createQuantV2ProfitLossQuestionCandidate,
     createQuantV2InterestQuestionCandidate,
+    createQuantV2RatioProportionQuestionCandidate,
+    createQuantV2TimeWorkQuestionCandidate,
     createDIQuestionSet,
   });
 }
@@ -3973,6 +4001,10 @@ export async function generateFromPattern(
     effectiveGenerationDomain !==
       "quant-v2-interest" &&
     effectiveGenerationDomain !==
+      "quant-v2-ratio-proportion" &&
+    effectiveGenerationDomain !==
+      "quant-v2-time-work" &&
+    effectiveGenerationDomain !==
       "seating-arrangement" &&
     effectiveGenerationDomain !==
       "knowledge" &&
@@ -4029,7 +4061,11 @@ export async function generateFromPattern(
             generationDomain ===
               "quant-v2-profit-loss" ||
             generationDomain ===
-              "quant-v2-interest"
+              "quant-v2-interest" ||
+            generationDomain ===
+              "quant-v2-ratio-proportion" ||
+            generationDomain ===
+              "quant-v2-time-work"
           );
         const useCorpusScheduler =
           count > 1 &&

@@ -1,6 +1,7 @@
 import type {
   CanonicalPercentageProblem,
   Difficulty,
+  PercentageVennVisualPayload,
   Trap,
 } from "./percentage-types";
 import {
@@ -107,6 +108,7 @@ function problem(
     traps: data.traps,
     difficulty: data.difficulty,
     topology: data.topology,
+    visual: data.visual,
   });
 }
 
@@ -756,6 +758,14 @@ export function createVennDiagramProblem(
   const subjectA = onlyAPct + bothPct;
   const subjectB = onlyBPct + bothPct;
   const neitherValue = percentageOf(total, nonePct);
+  const visual = createVennVisual({
+    subjectA,
+    subjectB,
+    bothPct,
+    nonePct,
+    onlyAPct,
+    onlyBPct,
+  });
   
   return problem({
     id: "venn_diagram",
@@ -770,6 +780,7 @@ export function createVennDiagramProblem(
       nonePct,
       neitherValue,
     },
+    visual,
     answer: total,
     candidates: [
       {
@@ -789,6 +800,90 @@ export function createVennDiagramProblem(
     traps: ["simple_addition", "wrong_base"],
     difficulty: "medium",
   });
+}
+
+function createVennVisual(input: {
+  subjectA: number;
+  subjectB: number;
+  bothPct: number;
+  nonePct: number;
+  onlyAPct: number;
+  onlyBPct: number;
+}): PercentageVennVisualPayload {
+  const visual: PercentageVennVisualPayload = {
+    type: "venn",
+    sets: [
+      { id: "A", label: "Math", value: input.subjectA },
+      { id: "B", label: "English", value: input.subjectB },
+    ],
+    intersection: input.bothPct,
+    universe: 100,
+    outside: input.nonePct,
+    unit: "%",
+    regions: {
+      onlyA: input.onlyAPct,
+      onlyB: input.onlyBPct,
+      both: input.bothPct,
+      neither: input.nonePct,
+    },
+    labels: {
+      en: {
+        onlyA: "only Math",
+        onlyB: "only English",
+        both: "both",
+        neither: "neither",
+        universe: "total students",
+      },
+      hi: {
+        onlyA: "केवल गणित",
+        onlyB: "केवल अंग्रेज़ी",
+        both: "दोनों",
+        neither: "कोई नहीं",
+        universe: "कुल विद्यार्थी",
+      },
+      pa: {
+        onlyA: "ਕੇਵਲ ਗਣਿਤ",
+        onlyB: "ਕੇਵਲ ਅੰਗਰੇਜ਼ੀ",
+        both: "ਦੋਵੇਂ",
+        neither: "ਕੋਈ ਨਹੀਂ",
+        universe: "ਕੁੱਲ ਵਿਦਿਆਰਥੀ",
+      },
+    },
+  };
+
+  return {
+    ...visual,
+    svg: renderVennSvg(visual),
+  };
+}
+
+function renderVennSvg(visual: Omit<PercentageVennVisualPayload, "svg">) {
+  const unit = visual.unit;
+  const esc = (value: string) =>
+    value
+      .replace(/&/gu, "&amp;")
+      .replace(/</gu, "&lt;")
+      .replace(/>/gu, "&gt;")
+      .replace(/"/gu, "&quot;");
+  const fmt = (value: number) => `${Number.isInteger(value) ? value : value.toFixed(2)}${unit}`;
+
+  return [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 260" role="img" aria-label="Venn diagram for two subject sets">',
+    '<rect x="12" y="18" width="436" height="218" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>',
+    '<circle cx="185" cy="130" r="82" fill="#60a5fa" fill-opacity="0.28" stroke="#2563eb" stroke-width="2"/>',
+    '<circle cx="275" cy="130" r="82" fill="#34d399" fill-opacity="0.28" stroke="#059669" stroke-width="2"/>',
+    `<text x="142" y="48" fill="#1e3a8a" font-size="15" font-weight="700">${esc(visual.sets[0].label)} (${fmt(visual.sets[0].value)})</text>`,
+    `<text x="258" y="48" fill="#065f46" font-size="15" font-weight="700">${esc(visual.sets[1].label)} (${fmt(visual.sets[1].value)})</text>`,
+    `<text x="144" y="126" text-anchor="middle" fill="#0f172a" font-size="13">${esc(visual.labels.en.onlyA)}</text>`,
+    `<text x="144" y="145" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="700">${fmt(visual.regions.onlyA)}</text>`,
+    `<text x="230" y="126" text-anchor="middle" fill="#0f172a" font-size="13">${esc(visual.labels.en.both)}</text>`,
+    `<text x="230" y="145" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="700">${fmt(visual.regions.both)}</text>`,
+    `<text x="316" y="126" text-anchor="middle" fill="#0f172a" font-size="13">${esc(visual.labels.en.onlyB)}</text>`,
+    `<text x="316" y="145" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="700">${fmt(visual.regions.onlyB)}</text>`,
+    `<text x="230" y="216" text-anchor="middle" fill="#475569" font-size="13">${esc(visual.labels.en.neither)} / outside = ${fmt(visual.regions.neither)}</text>`,
+    `<text x="230" y="238" text-anchor="middle" fill="#475569" font-size="12">${esc(visual.labels.en.universe)} = ${fmt(visual.universe)}</text>`,
+    "</svg>",
+  ].join("");
 }
 
 export function createCommissionProblem(

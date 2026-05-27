@@ -362,6 +362,17 @@ test("scheduled multilingual percentage export blocks final polish regressions",
         assert.equal(/Final value\s*=|अंतिम मान\s*=|ਅੰਤਿਮ ਮੁੱਲ\s*=/u.test(sample.explanation + "\n" + sample.explanationHi + "\n" + sample.explanationPa), false);
       }
 
+      if (subtype === "venn_diagram") {
+        const visual = (sample as any).visual ?? (sample.sourceQuestion as any)?.visual;
+        assert.equal(visual?.type, "venn", "venn questions must export visual.type=venn");
+        const regions = visual.regions;
+        assert.ok(regions, "venn visual must include derived regions");
+        assert.equal(regions.onlyA + regions.onlyB + regions.both + regions.neither, visual.universe);
+        assert.equal(visual.sets[0].value + visual.sets[1].value - visual.intersection, 100 - visual.outside);
+        assert.ok(regions.onlyA >= 0 && regions.onlyB >= 0 && regions.both >= 0 && regions.neither >= 0);
+        assert.ok(String(visual.svg ?? "").includes("<svg"), "venn visual must include deterministic SVG");
+      }
+
       if (subtype === "reverse_percentage") {
         assert.equal(/Final value\s*=|अंतिम मान\s*=|ਅੰਤਿਮ ਮੁੱਲ\s*=/u.test(sample.explanation + "\n" + sample.explanationHi + "\n" + sample.explanationPa), false);
         const part = Number(

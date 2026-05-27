@@ -255,7 +255,7 @@ const asymmetricItemEquivalence = familyFactory(({ seed, difficulty, family, obj
     },
     customSteps: [
       step("perUnit", "Profit/loss percentage from article equivalence", "वस्तु-समानता से लाभ/हानि प्रतिशत", "ਵਸਤੂ-ਸਮਾਨਤਾ ਤੋਂ ਲਾਭ/ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ", `(${pair.x} - ${pair.y}) x 100 / ${pair.y}`, signed),
-      step("absolute", "Required percentage magnitude", "आवश्यक प्रतिशत", "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ", `|${fmt(signed)}|`, Math.abs(signed)),
+      step("absolute", signed >= 0 ? "Profit percentage on CP" : "Loss percentage on CP", signed >= 0 ? "क्रय मूल्य पर लाभ प्रतिशत" : "क्रय मूल्य पर हानि प्रतिशत", signed >= 0 ? "ਖਰੀਦ ਮੁੱਲ ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ" : "ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ", `|${fmt(signed)}|`, Math.abs(signed)),
     ],
     distractorExtras: [Math.abs((pair.x - pair.y) * 100 / pair.x), Math.abs(pair.x - pair.y), Math.abs(signed) + 5],
   });
@@ -357,9 +357,15 @@ const targetProfitDiscountCalibration = familyFactory(({ seed, difficulty, famil
 });
 
 const targetProfitMpCalibration = familyFactory(({ seed, difficulty, family, object }) => {
-  const cp = pick(amountPool, `${seed}:cp`);
-  const profit = pick([10, 15, 20, 25, 30], `${seed}:profit`);
-  const discount = pick([10, 20, 25], `${seed}:discount`);
+  const scenario = pick([
+    { cp: 800, profit: 25, discount: 20 },
+    { cp: 1000, profit: 20, discount: 25 },
+    { cp: 1500, profit: 20, discount: 10 },
+    { cp: 2000, profit: 25, discount: 20 },
+    { cp: 500, profit: 20, discount: 25 },
+    { cp: 1200, profit: 20, discount: 10 },
+  ], `${seed}:scenario`);
+  const { cp, profit, discount } = scenario;
   const requiredSp = cp * (100 + profit) / 100;
   const mp = round2(requiredSp * 100 / (100 - discount));
   return mk({
@@ -437,15 +443,23 @@ const dualItemIdenticalSp = familyFactory(({ seed, difficulty, family, object })
     customSteps: [
       step("cp1", "Cost price of first item", "पहली वस्तु का खरीद मूल्य", "ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ", `${sp} x 100 / ${100 + profit}`, cp1),
       step("cp2", "Cost price of second item", "दूसरी वस्तु का खरीद मूल्य", "ਦੂਜੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ", `${sp} x 100 / ${100 - loss}`, cp2),
-      step("overall", "Overall percentage", "कुल प्रतिशत", "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ", `|${2 * sp} - ${fmt(cp1 + cp2)}| x 100 / ${fmt(cp1 + cp2)}`, Math.abs(signed)),
+      step("overall", signed >= 0 ? "Profit percentage on total CP" : "Loss percentage on total CP", signed >= 0 ? "कुल क्रय मूल्य पर लाभ प्रतिशत" : "कुल क्रय मूल्य पर हानि प्रतिशत", signed >= 0 ? "ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ" : "ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ", `|${2 * sp} - ${fmt(cp1 + cp2)}| x 100 / ${fmt(cp1 + cp2)}`, Math.abs(signed)),
     ],
     distractorExtras: [Math.abs(profit - loss), (profit + loss) / 2, profit * loss / 100],
   });
 });
 
 const dualItemMixedBaseline = familyFactory(({ seed, difficulty, family, object }) => {
-  const totalCp = pick([3000, 4000, 5000, 6000, 8000], `${seed}:total`);
-  const [profit, loss] = pick([[10, 20], [20, 10], [25, 25], [10, 10], [20, 20]], `${seed}:rates`);
+  const scenario = pick([
+    { totalCp: 3000, profit: 10, loss: 20 },
+    { totalCp: 6000, profit: 10, loss: 20 },
+    { totalCp: 3000, profit: 20, loss: 10 },
+    { totalCp: 6000, profit: 20, loss: 10 },
+    { totalCp: 4000, profit: 25, loss: 25 },
+    { totalCp: 5000, profit: 10, loss: 10 },
+    { totalCp: 8000, profit: 20, loss: 20 },
+  ], `${seed}:scenario`);
+  const { totalCp, profit, loss } = scenario;
   const cp1 = round2(totalCp * loss / (profit + loss));
   const cp2 = totalCp - cp1;
   return mk({
@@ -842,7 +856,7 @@ const profitAfterCommissionTax = familyFactory(({ seed, difficulty, family, obje
     },
     customSteps: [
       step("netReceipt", "Net receipt after commission", "कमीशन के बाद शुद्ध प्राप्ति", "ਕਮਿਸ਼ਨ ਤੋਂ ਬਾਅਦ ਸ਼ੁੱਧ ਪ੍ਰਾਪਤੀ", `${fmt(sp)} x ${100 - commission} / 100`, netReceipt),
-      step("profit", "Net percentage", "शुद्ध प्रतिशत", "ਸ਼ੁੱਧ ਪ੍ਰਤੀਸ਼ਤ", `(${fmt(netReceipt)} - ${cp}) x 100 / ${cp}`, profit),
+      step("profit", profit >= 0 ? "Net profit percentage" : "Net loss percentage", profit >= 0 ? "शुद्ध लाभ प्रतिशत" : "शुद्ध हानि प्रतिशत", profit >= 0 ? "ਸ਼ੁੱਧ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ" : "ਸ਼ੁੱਧ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ", `(${fmt(netReceipt)} - ${cp}) x 100 / ${cp}`, profit),
     ],
     distractorExtras: [(sp - cp) * 100 / cp, (sp * commission / 100) * 100 / cp],
   });
@@ -1048,9 +1062,14 @@ const sameProfitAmountDifferentRates = familyFactory(({ seed, difficulty, family
 });
 
 const inverseCpFromMpDiscountProfit = familyFactory(({ seed, difficulty, family, object }) => {
-  const cp = pick([500, 800, 1000, 1200, 1500, 2000], `${seed}:cp`);
-  const profit = pick([10, 20, 25], `${seed}:profit`);
-  const discount = pick([10, 20, 25], `${seed}:discount`);
+  const scenario = pick([
+    { cp: 800, profit: 25, discount: 20 },
+    { cp: 1000, profit: 20, discount: 25 },
+    { cp: 1500, profit: 20, discount: 10 },
+    { cp: 2000, profit: 25, discount: 20 },
+    { cp: 500, profit: 20, discount: 25 },
+  ], `${seed}:scenario`);
+  const { cp, profit, discount } = scenario;
   const sp = cp * (100 + profit) / 100;
   const mp = round2(sp * 100 / (100 - discount));
   return mk({

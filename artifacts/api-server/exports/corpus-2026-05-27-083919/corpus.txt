@@ -1,0 +1,9575 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-27-083919
+Run: run-ea8d5960-6523-484b-8ff9-aa704c75347e
+Seed: time-work-audit:run-ea8d5960-6523-484b-8ff9-aa704c75347e
+Explicit seed: no
+Preset: time_work_audit
+Profile: multilingual_review
+Count: 1000
+Estimated Size: ~23.4 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+A alone finishes a job in 18 days, while B alone finishes it in 24 days. How many days will the job take if both work together?
+
+HI:
+A अकेला काम 18 दिन में करता है और B अकेला 24 दिन में करता है। साथ काम करने पर कितने दिन लगेंगे?
+
+PA:
+A ਇਕੱਲਾ ਕੰਮ 18 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ ਅਤੇ B ਇਕੱਲਾ 24 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। ਇਕੱਠੇ ਕੰਮ ਕਰਨ ਤੇ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 10.29 days | 42 days | 18 days | 21 days
+Answer: 10.29 days
+Difficulty: Easy
+Topology: time_work:tw_basic_combined_work
+Realism: 72
+
+Explanation EN:
+Take the LCM as total work.
+\[
+W=LCM(18,24)=72
+\]
+Find each worker's one-period efficiency.
+\[
+A=72/18=4,\quad B=72/24=3
+\]
+Divide total work by the combined efficiency.
+\[
+T=\frac{72}{4+3}=10.29
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{18\times 24}{18+24}=10.29
+\]
+Answer: 10.29 days
+
+Explanation HI:
+कुल काम के लिए LCM लें।
+\[
+W=LCM(18,24)=72
+\]
+प्रत्येक मजदूर की एक-अवधि दक्षता निकालें।
+\[
+A=72/18=4,\quad B=72/24=3
+\]
+कुल काम को संयुक्त दक्षता से भाग दें।
+\[
+T=\frac{72}{4+3}=10.29
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{18\times 24}{18+24}=10.29
+\]
+उत्तर: 10.29 दिन
+
+Explanation PA:
+ਕੁੱਲ ਕੰਮ ਲਈ LCM ਲਵੋ।
+\[
+W=LCM(18,24)=72
+\]
+ਹਰ ਮਜ਼ਦੂਰ ਦੀ ਇੱਕ-ਅਵਧੀ ਕੁਸ਼ਲਤਾ ਕੱਢੋ।
+\[
+A=72/18=4,\quad B=72/24=3
+\]
+ਕੁੱਲ ਕੰਮ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{72}{4+3}=10.29
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{18\times 24}{18+24}=10.29
+\]
+ਉੱਤਰ: 10.29 ਦਿਨ
+
+[Q2]
+EN:
+A team takes 15 days for a job. After working for 2 days, what fraction of the job remains?
+
+HI:
+एक दल काम 15 दिन में पूरा कर सकता है। 2 दिन काम करने के बाद काम का कितना भाग बाकी रहेगा?
+
+PA:
+ਇੱਕ ਟੀਮ ਕੰਮ 15 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰ ਸਕਦੀ ਹੈ। 2 ਦਿਨ ਕੰਮ ਕਰਨ ਤੋਂ ਬਾਅਦ ਕਿੰਨਾ ਹਿੱਸਾ ਬਾਕੀ ਰਹੇਗਾ?
+
+Options: 13/2 | 13/15 | 2/15 | 15/13
+Answer: 13/15
+Difficulty: Easy
+Topology: time_work:tw_basic_residual_work
+Realism: 73
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{2}{15}
+\]
+Solve for the asked value.
+\[
+R=\frac{13}{15}=13/15
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{15-2}{15}=13/15
+\]
+Answer: 13/15
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+R=1-\frac{t}{T}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+R=1-\frac{2}{15}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+R=\frac{13}{15}=13/15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+R=\frac{15-2}{15}=13/15
+\]
+उत्तर: 13/15
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+R=1-\frac{t}{T}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+R=1-\frac{2}{15}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+R=\frac{13}{15}=13/15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+R=\frac{15-2}{15}=13/15
+\]
+ਉੱਤਰ: 13/15
+
+[Q3]
+EN:
+A and B can work in the ratio 4:5. They complete the job together in 10 days. What is A's time for the same job?
+
+HI:
+दो मजदूरों A और B की क्षमता 4:5 है। दोनों काम 10 दिन में पूरा करते हैं। A अकेले का समय कितना होगा?
+
+PA:
+ਦੋ ਮਜ਼ਦੂਰਾਂ A ਅਤੇ B ਦੀ ਸਮਰੱਥਾ 4:5 ਹੈ। ਦੋਵੇਂ ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। A ਇਕੱਲੇ ਦਾ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 19 days | 12 1/2 days | 8 days | 22 1/2 days
+Answer: 22 1/2 days
+Difficulty: Medium
+Topology: time_work:tw_efficiency_ratio_scaling
+Realism: 83
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W=(a+b)T
+\]
+Put the given values into that relation.
+\[
+W=(4+5)\times 10
+\]
+Solve for the asked value.
+\[
+T_A=\frac{90}{4}=22.5
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(4+5)10}{4}=22.5
+\]
+Answer: 22 1/2 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W=(a+b)T
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+W=(4+5)\times 10
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A=\frac{90}{4}=22.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(4+5)10}{4}=22.5
+\]
+उत्तर: 22 1/2 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W=(a+b)T
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+W=(4+5)\times 10
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A=\frac{90}{4}=22.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(4+5)10}{4}=22.5
+\]
+ਉੱਤਰ: 22 1/2 ਦਿਨ
+
+[Q4]
+EN:
+A needs 30 days for a work and A with B needs 8 days. In how many days can B do the work alone?
+
+HI:
+A और B मिलकर काम 8 दिन में पूरा करते हैं। A अकेला वही काम 30 दिन में करता है। B अकेला कितने दिन लेगा?
+
+PA:
+A ਅਤੇ B ਮਿਲ ਕੇ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ ਉਹੀ ਕੰਮ 30 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। B ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?
+
+Options: 22 days | 38 days | 19 days | 10.91 days
+Answer: 10.91 days
+Difficulty: Medium
+Topology: time_work:tw_individual_from_combined
+Realism: 84
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+Put the given values into that relation.
+\[
+\frac{1}{B}=\frac{1}{8}-\frac{1}{30}
+\]
+Solve for the asked value.
+\[
+B=10.91
+\]
+Shortcut / Exam Method:
+\[
+B=\frac{8\times 30}{30-8}=10.91
+\]
+Answer: 10.91 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+\frac{1}{B}=\frac{1}{8}-\frac{1}{30}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+B=10.91
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+B=\frac{8\times 30}{30-8}=10.91
+\]
+उत्तर: 10.91 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+\frac{1}{B}=\frac{1}{8}-\frac{1}{30}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+B=10.91
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+B=\frac{8\times 30}{30-8}=10.91
+\]
+ਉੱਤਰ: 10.91 ਦਿਨ
+
+[Q5]
+EN:
+A does \(\frac{2}{5}\) of a job in 9 days. What is the time required for the complete job?
+
+HI:
+एक मजदूर काम का \(\frac{2}{5}\) भाग 9 दिन में पूरा करता है। पूरा काम करने में कितने दिन लगेंगे?
+
+PA:
+ਇੱਕ ਮਜ਼ਦੂਰ ਕੰਮ ਦਾ \(\frac{2}{5}\) ਹਿੱਸਾ 9 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 14 days | 22 1/2 days | 3 3/5 days | 45 days
+Answer: 22 1/2 days
+Difficulty: Easy
+Topology: time_work:tw_work_fraction_days
+Realism: 74
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=d\times \frac{q}{p}
+\]
+Put the given values into that relation.
+\[
+T=9\times \frac{5}{2}
+\]
+Solve for the asked value.
+\[
+T=22.5
+\]
+Shortcut / Exam Method:
+\[
+T=9\div \frac{2}{5}=22.5
+\]
+Answer: 22 1/2 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=d\times \frac{q}{p}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=9\times \frac{5}{2}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=22.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=9\div \frac{2}{5}=22.5
+\]
+उत्तर: 22 1/2 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=d\times \frac{q}{p}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=9\times \frac{5}{2}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=22.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=9\div \frac{2}{5}=22.5
+\]
+ਉੱਤਰ: 22 1/2 ਦਿਨ
+
+[Q6]
+EN:
+15 workers finish a job in 16 days, working 6 hours daily. How many workers should work 8 hours daily to finish it in 12 days?
+
+HI:
+15 मजदूर 16 दिन तक रोज 6 घंटे काम करके काम पूरा करते हैं। वही काम 12 दिन में रोज 8 घंटे काम करके कितने मजदूर करेंगे?
+
+PA:
+15 ਮਜ਼ਦੂਰ 16 ਦਿਨ ਰੋਜ਼ 6 ਘੰਟੇ ਕੰਮ ਕਰਕੇ ਕੰਮ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਉਹੀ ਕੰਮ 12 ਦਿਨਾਂ ਵਿੱਚ ਰੋਜ਼ 8 ਘੰਟੇ ਕੰਮ ਕਰਕੇ ਕਿੰਨੇ ਮਜ਼ਦੂਰ ਕਰਨਗੇ?
+
+Options: 20 workers | 15 workers | 18 workers | 11 workers
+Answer: 15 workers
+Difficulty: Medium
+Topology: time_work:tw_man_days_hours_basic
+Realism: 84
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Put the given values into that relation.
+\[
+15\times 16\times 6=M_2\times 12\times 8
+\]
+Solve for the asked value.
+\[
+M_2=15
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{15\times 16\times 6}{12\times 8}=15
+\]
+Answer: 15 workers
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+15\times 16\times 6=M_2\times 12\times 8
+\]
+पूछे गए मान के लिए हल करें।
+\[
+M_2=15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+M_2=\frac{15\times 16\times 6}{12\times 8}=15
+\]
+उत्तर: 15 मजदूर
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+15\times 16\times 6=M_2\times 12\times 8
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+M_2=15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+M_2=\frac{15\times 16\times 6}{12\times 8}=15
+\]
+ਉੱਤਰ: 15 ਮਜ਼ਦੂਰ
+
+[Q7]
+EN:
+A alone takes 10 days and B alone takes 30 days for the same job. What is their work ratio for equal time?
+
+HI:
+A और B वही काम क्रमशः 10 और 30 दिन में करते हैं। एक दिन के योगदान का अनुपात क्या होगा?
+
+PA:
+A ਅਤੇ B ਉਹੀ ਕੰਮ ਕ੍ਰਮਵਾਰ 10 ਅਤੇ 30 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। ਇੱਕ ਦਿਨ ਦੇ ਯੋਗਦਾਨ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 30:40 | 10:30 | 3:1 | 40:30
+Answer: 3:1
+Difficulty: Easy
+Topology: time_work:tw_work_done_ratio_from_times
+Realism: 73
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W_A:W_B=\frac{1}{10}:\frac{1}{30}
+\]
+Put the given values into that relation.
+\[
+W_A:W_B=30:10
+\]
+Solve for the asked value.
+\[
+W_A:W_B=3:1
+\]
+Shortcut / Exam Method:
+\[
+E=3:1
+\]
+Answer: 3:1
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W_A:W_B=\frac{1}{10}:\frac{1}{30}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+W_A:W_B=30:10
+\]
+पूछे गए मान के लिए हल करें।
+\[
+W_A:W_B=3:1
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+E=3:1
+\]
+उत्तर: 3:1
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W_A:W_B=\frac{1}{10}:\frac{1}{30}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+W_A:W_B=30:10
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+W_A:W_B=3:1
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+E=3:1
+\]
+ਉੱਤਰ: 3:1
+
+[Q8]
+EN:
+A and B's capacities are 10:20. Find the time ratio in which they complete the same job?
+
+HI:
+A और B की कार्य क्षमता का अनुपात 10:20 है। समान काम के लिए उनके समय का अनुपात क्या होगा?
+
+PA:
+A ਅਤੇ B ਦੀ ਕੰਮ ਸਮਰੱਥਾ ਦਾ ਅਨੁਪਾਤ 10:20 ਹੈ। ਇੱਕੋ ਕੰਮ ਲਈ ਉਹਨਾਂ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 2:1 | 20:30 | 30:20 | 10:20
+Answer: 2:1
+Difficulty: Easy
+Topology: time_work:tw_time_ratio_from_efficiency
+Realism: 72
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T_A:T_B=E_B:E_A
+\]
+Put the given values into that relation.
+\[
+T_A:T_B=20:10
+\]
+Solve for the asked value.
+\[
+T_A:T_B=2:1
+\]
+Shortcut / Exam Method:
+\[
+T=2:1
+\]
+Answer: 2:1
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T_A:T_B=E_B:E_A
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T_A:T_B=20:10
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A:T_B=2:1
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=2:1
+\]
+उत्तर: 2:1
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T_A:T_B=E_B:E_A
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T_A:T_B=20:10
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A:T_B=2:1
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=2:1
+\]
+ਉੱਤਰ: 2:1
+
+[Q9]
+EN:
+If wages for equal time are ₹450 and ₹600 for A and B, what is their work ratio?
+
+HI:
+बराबर समय के लिए A को ₹450 और B को ₹600 मिलते हैं। उनके काम का अनुपात क्या होगा?
+
+PA:
+ਬਰਾਬਰ ਸਮੇਂ ਲਈ A ਨੂੰ ₹450 ਅਤੇ B ਨੂੰ ₹600 ਮਿਲਦੇ ਹਨ। ਉਹਨਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 45:30 | 600:450 | 1050:600 | 3:4
+Answer: 3:4
+Difficulty: Easy
+Topology: time_work:tw_efficiency_from_wages
+Realism: 74
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W_A:W_B=E_A:E_B
+\]
+Put the given values into that relation.
+\[
+E_A:E_B=450:600
+\]
+Solve for the asked value.
+\[
+E_A:E_B=3:4
+\]
+Shortcut / Exam Method:
+\[
+E=3:4
+\]
+Answer: 3:4
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W_A:W_B=E_A:E_B
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+E_A:E_B=450:600
+\]
+पूछे गए मान के लिए हल करें।
+\[
+E_A:E_B=3:4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+E=3:4
+\]
+उत्तर: 3:4
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W_A:W_B=E_A:E_B
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+E_A:E_B=450:600
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+E_A:E_B=3:4
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+E=3:4
+\]
+ਉੱਤਰ: 3:4
+
+[Q10]
+EN:
+A completes a work in 20 days. What part of the work is completed per day?
+
+HI:
+A को पूरा काम करने में 20 दिन लगते हैं। एक दिन का काम भिन्न में कितना होगा?
+
+PA:
+A ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ 20 ਦਿਨ ਲੱਗਦੇ ਹਨ। ਇੱਕ ਦਿਨ ਦਾ ਕੰਮ ਭਿੰਨ ਵਿੱਚ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 20 | 19/20 | 1/20 | 1/21
+Answer: 1/20
+Difficulty: Easy
+Topology: time_work:tw_one_day_work_fraction
+Realism: 74
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r=\frac{1}{T}
+\]
+Put the given values into that relation.
+\[
+r=\frac{1}{20}
+\]
+Solve for the asked value.
+\[
+r=1/20
+\]
+Shortcut / Exam Method:
+\[
+r=1/20=1/20
+\]
+Answer: 1/20
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r=\frac{1}{T}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r=\frac{1}{20}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+r=1/20
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+r=1/20=1/20
+\]
+उत्तर: 1/20
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r=\frac{1}{T}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r=\frac{1}{20}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+r=1/20
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+r=1/20=1/20
+\]
+ਉੱਤਰ: 1/20
+
+[Q11]
+EN:
+A job can be finished in 20 days. If work continues for 3 days, what fraction is still incomplete?
+
+HI:
+20 दिन के काम में से 3 दिन काम हो चुका है। काम का कौन-सा भाग अभी बचा है?
+
+PA:
+20 ਦਿਨਾਂ ਦੇ ਕੰਮ ਵਿੱਚੋਂ 3 ਦਿਨ ਕੰਮ ਹੋ ਚੁੱਕਾ ਹੈ। ਕੰਮ ਦਾ ਕਿਹੜਾ ਹਿੱਸਾ ਅਜੇ ਬਾਕੀ ਹੈ?
+
+Options: 3/20 | 17/20 | 20/17 | 17/3
+Answer: 17/20
+Difficulty: Easy
+Topology: time_work:tw_remaining_work_fraction
+Realism: 75
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{3}{20}
+\]
+Solve for the asked value.
+\[
+R=\frac{17}{20}=17/20
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{20-3}{20}=17/20
+\]
+Answer: 17/20
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+R=1-\frac{t}{T}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+R=1-\frac{3}{20}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+R=\frac{17}{20}=17/20
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+R=\frac{20-3}{20}=17/20
+\]
+उत्तर: 17/20
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+R=1-\frac{t}{T}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+R=1-\frac{3}{20}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+R=\frac{17}{20}=17/20
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+R=\frac{20-3}{20}=17/20
+\]
+ਉੱਤਰ: 17/20
+
+[Q12]
+EN:
+A begins a job alone. A can finish it in 10 days and B can finish it in 20 days. If B joins after 3 days, when will the job be completed from the start?
+
+HI:
+A काम 10 दिन में और B 20 दिन में पूरा करता है। A अकेला शुरू करता है और 3 दिन बाद B जुड़ता है। शुरू से कुल कितने दिन लगेंगे?
+
+PA:
+A ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B 20 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। A ਇਕੱਲਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ 3 ਦਿਨਾਂ ਬਾਅਦ B ਜੁੜਦਾ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕੁੱਲ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 9 1/5 days | 5 2/3 days | 12 2/3 days | 7 2/3 days
+Answer: 7 2/3 days
+Difficulty: Medium
+Topology: time_work:tw_delayed_join
+Realism: 80
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W_1=r_At_1,\ T_2=\frac{W-W_1}{r_A+r_B}
+\]
+Subtract the work already completed.
+\[
+W_1=8\times 3,\quad R=80-24
+\]
+Use the active rate for the remaining phase.
+\[
+T=3+\frac{56}{8+4}=7\frac{2}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=3+\frac{80-8\times 3}{8+4}
+\]
+Answer: 7 2/3 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W_1=r_At_1,\ T_2=\frac{W-W_1}{r_A+r_B}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=8\times 3,\quad R=80-24
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=3+\frac{56}{8+4}=7\frac{2}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=3+\frac{80-8\times 3}{8+4}
+\]
+उत्तर: 7 2/3 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W_1=r_At_1,\ T_2=\frac{W-W_1}{r_A+r_B}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=8\times 3,\quad R=80-24
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=3+\frac{56}{8+4}=7\frac{2}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=3+\frac{80-8\times 3}{8+4}
+\]
+ਉੱਤਰ: 7 2/3 ਦਿਨ
+
+[Q13]
+EN:
+A and B jointly work for 2 days. A then leaves, and B completes the job. If A and B alone need 12 and 6 days, what is the total time?
+
+HI:
+A और B पहले साथ काम करते हैं। A का समय 12 दिन और B का 6 दिन है। A 2 दिन बाद जाए तो काम कब पूरा होगा?
+
+PA:
+A ਅਤੇ B ਪਹਿਲਾਂ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹਨ। A ਦਾ ਸਮਾਂ 12 ਦਿਨ ਅਤੇ B ਦਾ 6 ਦਿਨ ਹੈ। A 2 ਦਿਨਾਂ ਬਾਅਦ ਜਾਵੇ ਤਾਂ ਕੰਮ ਕਦੋਂ ਪੂਰਾ ਹੋਵੇਗਾ?
+
+Options: 7 1/2 days | 2 days | 5 days | 9 days
+Answer: 5 days
+Difficulty: Medium
+Topology: time_work:tw_forward_leave
+Realism: 80
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+Subtract the work already completed.
+\[
+W_1=(5+10)\times 2
+\]
+Use the active rate for the remaining phase.
+\[
+T=2+\frac{30}{10}=5
+\]
+Shortcut / Exam Method:
+\[
+T=2+\frac{W-W_1}{B}
+\]
+Answer: 5 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=(5+10)\times 2
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=2+\frac{30}{10}=5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=2+\frac{W-W_1}{B}
+\]
+उत्तर: 5 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=(5+10)\times 2
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=2+\frac{30}{10}=5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=2+\frac{W-W_1}{B}
+\]
+ਉੱਤਰ: 5 ਦਿਨ
+
+[Q14]
+EN:
+A and B can separately complete a work in 30 and 12 days. A is absent for the last 2 days and B is absent for the last 3 days. In how many days is the work completed?
+
+HI:
+A और B अलग-अलग काम 30 और 12 दिन में कर सकते हैं। A अंतिम 2 दिन और B अंतिम 3 दिन अनुपस्थित रहता है। काम कितने दिन में पूरा होगा?
+
+PA:
+A ਅਤੇ B ਵੱਖ-ਵੱਖ ਕੰਮ 30 ਅਤੇ 12 ਦਿਨਾਂ ਵਿੱਚ ਕਰ ਸਕਦੇ ਹਨ। A ਆਖਰੀ 2 ਦਿਨ ਅਤੇ B ਆਖਰੀ 3 ਦਿਨ ਗੈਰਹਾਜ਼ਰ ਰਹਿੰਦਾ ਹੈ। ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?
+
+Options: 15.29 days | 14.29 days | 11.29 days | 9.03 days
+Answer: 11.29 days
+Difficulty: Hard
+Topology: time_work:tw_backward_leave
+Realism: 87
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+Put the given values into that relation.
+\[
+6(T-2)+15(T-3)=180
+\]
+Solve for the asked value.
+\[
+T=11.29
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+Answer: 11.29 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+6(T-2)+15(T-3)=180
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=11.29
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+उत्तर: 11.29 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+6(T-2)+15(T-3)=180
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=11.29
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+ਉੱਤਰ: 11.29 ਦਿਨ
+
+[Q15]
+EN:
+A work order has 360 forms. The first team completes 18 forms per day for 5 days, then the changed team completes 53 per day. What is the completion time?
+
+HI:
+एक काम में 360 फाइलें हैं। पहले 5 दिन रोज 18 फाइलें और बाद में रोज 53 फाइलें पूरी होती हैं। कुल समय कितना होगा?
+
+PA:
+ਇੱਕ ਕੰਮ ਵਿੱਚ 360 ਫਾਈਲਾਂ ਹਨ। ਪਹਿਲਾਂ 5 ਦਿਨ ਰੋਜ਼ 18 ਫਾਈਲਾਂ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਰੋਜ਼ 53 ਫਾਈਲਾਂ ਪੂਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 12.11 days | 15.09 days | 10.09 days | 11.09 days
+Answer: 10.09 days
+Difficulty: Hard
+Topology: time_work:tw_multi_phase_join_leave
+Realism: 86
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+\sum r_it_i=W
+\]
+Subtract the work already completed.
+\[
+W_1=18\times 5
+\]
+Use the active rate for the remaining phase.
+\[
+T=5+\frac{270}{53}=10.09
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 10.09 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+\sum r_it_i=W
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=18\times 5
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=5+\frac{270}{53}=10.09
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+उत्तर: 10.09 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+\sum r_it_i=W
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=18\times 5
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=5+\frac{270}{53}=10.09
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+ਉੱਤਰ: 10.09 ਦਿਨ
+
+[Q16]
+EN:
+A completes \(\frac{3}{8}\) of a job in 9 days. In how many days will A complete the whole job?
+
+HI:
+A काम का \(\frac{3}{8}\) भाग 9 दिन में करता है। पूरा काम कितने दिन में होगा?
+
+PA:
+A ਕੰਮ ਦਾ \(\frac{3}{8}\) ਹਿੱਸਾ 9 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਵੇਗਾ?
+
+Options: 3.38 days | 24 days | 17 days | 72 days
+Answer: 24 days
+Difficulty: Medium
+Topology: time_work:tw_partial_completion_then_team
+Realism: 83
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=d\times \frac{q}{p}
+\]
+Put the given values into that relation.
+\[
+T=9\times \frac{8}{3}
+\]
+Solve for the asked value.
+\[
+T=24
+\]
+Shortcut / Exam Method:
+\[
+T=9\div \frac{3}{8}=24
+\]
+Answer: 24 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=d\times \frac{q}{p}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=9\times \frac{8}{3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=24
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=9\div \frac{3}{8}=24
+\]
+उत्तर: 24 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=d\times \frac{q}{p}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=9\times \frac{8}{3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=24
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=9\div \frac{3}{8}=24
+\]
+ਉੱਤਰ: 24 ਦਿਨ
+
+[Q17]
+EN:
+A team can finish a job in 15 days of actual work. The work stops for 2 days in between. In how many calendar days will the job be completed?
+
+HI:
+एक दल को काम पूरा करने के लिए 15 कामकाजी दिन चाहिए। बीच में 2 दिन काम रुकता है। कुल कैलेंडर समय कितना होगा?
+
+PA:
+ਇੱਕ ਟੀਮ ਨੂੰ ਕੰਮ ਪੂਰਾ ਕਰਨ ਲਈ 15 ਕੰਮਕਾਜੀ ਦਿਨ ਚਾਹੀਦੇ ਹਨ। ਵਿਚਕਾਰ 2 ਦਿਨ ਕੰਮ ਰੁਕਦਾ ਹੈ। ਕੁੱਲ ਕੈਲੰਡਰ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 17 days | 12 days | 12 3/4 days | 18 days
+Answer: 17 days
+Difficulty: Medium
+Topology: time_work:tw_interrupted_work
+Realism: 82
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+Subtract the work already completed.
+\[
+T_{active}=\frac{210}{10+4}
+\]
+Use the active rate for the remaining phase.
+\[
+T=T_{active}+2=17
+\]
+Shortcut / Exam Method:
+\[
+T=t_a+t_i
+\]
+Answer: 17 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+T_{active}=\frac{210}{10+4}
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=T_{active}+2=17
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_a+t_i
+\]
+उत्तर: 17 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+T_{active}=\frac{210}{10+4}
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=T_{active}+2=17
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_a+t_i
+\]
+ਉੱਤਰ: 17 ਦਿਨ
+
+[Q18]
+EN:
+For 2 days a team completes 23 forms per day. Then the team changes and completes 28 forms per day. How many days will 120 forms take altogether?
+
+HI:
+पहले 2 दिन रोज 23 दस्तावेज पूरे होते हैं। टीम बदलने के बाद रोज 28 दस्तावेज पूरे होते हैं। 120 दस्तावेजों के लिए कितने दिन चाहिए?
+
+PA:
+ਪਹਿਲਾਂ 2 ਦਿਨ ਰੋਜ਼ 23 ਦਸਤਾਵੇਜ਼ ਪੂਰੇ ਹੁੰਦੇ ਹਨ। ਟੀਮ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਰੋਜ਼ 28 ਦਸਤਾਵੇਜ਼ ਪੂਰੇ ਹੁੰਦੇ ਹਨ। 120 ਦਸਤਾਵੇਜ਼ਾਂ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 10.64 days | 3.71 days | 4.64 days | 6.64 days
+Answer: 4.64 days
+Difficulty: Medium
+Topology: time_work:tw_replacement_worker
+Realism: 82
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+r_1t_1+r_2t_2=W
+\]
+Subtract the work already completed.
+\[
+W_1=23\times 2
+\]
+Use the active rate for the remaining phase.
+\[
+T=2+\frac{74}{28}=4.64
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 4.64 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+r_1t_1+r_2t_2=W
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=23\times 2
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=2+\frac{74}{28}=4.64
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+उत्तर: 4.64 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+r_1t_1+r_2t_2=W
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=23\times 2
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=2+\frac{74}{28}=4.64
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+ਉੱਤਰ: 4.64 ਦਿਨ
+
+[Q19]
+EN:
+10 workers have completed 100 of 240 forms. Only 8 days are left. How many extra workers are needed to finish on time?
+
+HI:
+10 मजदूरों ने 240 में से 100 फाइलें कर दी हैं। शेष काम 8 दिन में पूरा करने के लिए कितने अतिरिक्त मजदूर चाहिए?
+
+PA:
+10 ਮਜ਼ਦੂਰਾਂ ਨੇ 240 ਵਿੱਚੋਂ 100 ਫਾਈਲਾਂ ਕਰ ਦਿੱਤੀਆਂ ਹਨ। ਬਾਕੀ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਨ ਲਈ ਕਿੰਨੇ ਵਾਧੂ ਮਜ਼ਦੂਰ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 6 workers | 6.4 workers | 12 workers | 8 workers
+Answer: 8 workers
+Difficulty: Hard
+Topology: time_work:tw_worker_added_to_meet_deadline
+Realism: 87
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+Subtract the work already completed.
+\[
+N_{extra}=\left\lceil\frac{140}{1\times 8}\right\rceil-10
+\]
+Use the active rate for the remaining phase.
+\[
+N_{extra}=8
+\]
+Shortcut / Exam Method:
+\[
+N_{extra}=N_r-N_c
+\]
+Answer: 8 workers
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+N_{extra}=\left\lceil\frac{140}{1\times 8}\right\rceil-10
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+N_{extra}=8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N_{extra}=N_r-N_c
+\]
+उत्तर: 8 मजदूर
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+N_{extra}=\left\lceil\frac{140}{1\times 8}\right\rceil-10
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+N_{extra}=8
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N_{extra}=N_r-N_c
+\]
+ਉੱਤਰ: 8 ਮਜ਼ਦੂਰ
+
+[Q20]
+EN:
+10 workers were expected to complete a job in the planned time. After working for 6 days, 3 workers left. By how many days will the job be delayed?
+
+HI:
+एक काम 10 मजदूरों से होना था। 6 दिन बाद 3 मजदूर चले गए। कितने अतिरिक्त दिन लगेंगे?
+
+PA:
+ਇੱਕ ਕੰਮ 10 ਮਜ਼ਦੂਰਾਂ ਨਾਲ ਹੋਣਾ ਸੀ। 6 ਦਿਨਾਂ ਬਾਅਦ 3 ਮਜ਼ਦੂਰ ਚਲੇ ਗਏ। ਕਿੰਨੇ ਵਾਧੂ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 5.71 days | 9.64 days | 13.71 days | 7.71 days
+Answer: 7.71 days
+Difficulty: Medium
+Topology: time_work:tw_worker_removed_delay
+Realism: 81
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+D=T_{actual}-T_{planned}
+\]
+Subtract the work already completed.
+\[
+R=240-10\times 6
+\]
+Use the active rate for the remaining phase.
+\[
+D=\frac{180}{7}-\frac{180}{10}
+\]
+Shortcut / Exam Method:
+\[
+D=T_a-T_p
+\]
+Answer: 7.71 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+D=T_{actual}-T_{planned}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+R=240-10\times 6
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+D=\frac{180}{7}-\frac{180}{10}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=T_a-T_p
+\]
+उत्तर: 7.71 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+D=T_{actual}-T_{planned}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+R=240-10\times 6
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+D=\frac{180}{7}-\frac{180}{10}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=T_a-T_p
+\]
+ਉੱਤਰ: 7.71 ਦਿਨ
+
+[Q21]
+EN:
+Three machines work in parallel and make 12, 15 and 18 parts per hour. For 8 hours, what is the total number of parts?
+
+HI:
+मशीन A, B और C प्रति घंटे 12, 15 और 18 वस्तुएँ बनाती हैं। वे क्रमशः 8 घंटे चलें तो कुल कितनी वस्तुएँ बनेंगी?
+
+PA:
+ਮਸ਼ੀਨ A, B ਅਤੇ C ਪ੍ਰਤੀ ਘੰਟਾ 12, 15 ਅਤੇ 18 ਵਸਤੂਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਕ੍ਰਮਵਾਰ 8 ਘੰਟੇ ਚੱਲਣ ਤਾਂ ਕੁੱਲ ਕਿੰਨੀਆਂ ਵਸਤੂਆਂ ਬਣਣਗੀਆਂ?
+
+Options: 363 items | 432 items | 365 items | 360 items
+Answer: 360 items
+Difficulty: Medium
+Topology: time_work:tw_machine_breakdown_midway
+Realism: 83
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 8+15\times 8+18\times 8
+\]
+Simplify the total output.
+\[
+O=360
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 360 items
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+O=\sum r_it_i
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+O=12\times 8+15\times 8+18\times 8
+\]
+कुल उत्पादन सरल करें।
+\[
+O=360
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O=(r_1+r_2+r_3)t
+\]
+उत्तर: 360 वस्तुएँ
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+O=\sum r_it_i
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+O=12\times 8+15\times 8+18\times 8
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+O=360
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O=(r_1+r_2+r_3)t
+\]
+ਉੱਤਰ: 360 ਵਸਤੂਆਂ
+
+[Q22]
+EN:
+Two workers take turns, with A starting. A handles 10 files per turn and B handles 6 files per turn. In how many days will 120 files be finished?
+
+HI:
+A और B बारी-बारी दिन काम करते हैं और शुरुआत A करता है। A अपनी बारी में 10 फाइलें और B 6 फाइलें करता है। 120 फाइलें कितने दिनों में पूरी होंगी?
+
+PA:
+A ਅਤੇ B ਵਾਰੀ-ਵਾਰੀ ਦਿਨ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤ A ਕਰਦਾ ਹੈ। A ਆਪਣੀ ਵਾਰੀ ਵਿੱਚ 10 ਫਾਈਲਾਂ ਅਤੇ B 6 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 120 ਫਾਈਲਾਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰੀਆਂ ਹੋਣਗੀਆਂ?
+
+Options: 11.1 days | 14 4/5 days | 17 4/5 days | 9 4/5 days
+Answer: 14 4/5 days
+Difficulty: Hard
+Topology: time_work:tw_alternating_days_two_workers
+Realism: 88
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+6
+\]
+Add only the needed part of the final turn.
+\[
+T=14.8
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 14 4/5 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=10+6
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=14.8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 14 4/5 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=10+6
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=14.8
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 14 4/5 ਦਿਨ
+
+[Q23]
+EN:
+A handles 6 files on his turn and B handles 5 files on the next turn. They continue alternately from A. How many hours are needed for 90 files?
+
+HI:
+A और B बारी से काम करते हैं। A शुरू करता है और हर बारी में 6 दस्तावेज करता है; B 5 करता है। 90 दस्तावेज कितने घंटों में होंगे?
+
+PA:
+A ਅਤੇ B ਵਾਰੀ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹਨ। A ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ਹਰ ਵਾਰੀ ਵਿੱਚ 6 ਦਸਤਾਵੇਜ਼ ਕਰਦਾ ਹੈ; B 5 ਕਰਦਾ ਹੈ। 90 ਦਸਤਾਵੇਜ਼ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਹੋਣਗੇ?
+
+Options: 13.07 hours | 15 1/3 hours | 16 1/3 hours | 22 1/3 hours
+Answer: 16 1/3 hours
+Difficulty: Hard
+Topology: time_work:tw_alternating_hours
+Realism: 90
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+5
+\]
+Add only the needed part of the final turn.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 16 1/3 hours
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=6+5
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=16\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 16 1/3 घंटे
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=6+5
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=16\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 16 1/3 ਘੰਟੇ
+
+[Q24]
+EN:
+A works on the first day, B on the second and C on the third, then the order repeats. They complete 10, 5 and 3 forms on their days. How long will 72 forms take?
+
+HI:
+पहले दिन A, दूसरे दिन B और तीसरे दिन C काम करता है, फिर यही क्रम दोहरता है। वे 10, 5 और 3 फॉर्म करते हैं। 72 फॉर्म कितने दिन लेंगे?
+
+PA:
+ਪਹਿਲੇ ਦਿਨ A, ਦੂਜੇ ਦਿਨ B ਅਤੇ ਤੀਜੇ ਦਿਨ C ਕੰਮ ਕਰਦਾ ਹੈ, ਫਿਰ ਇਹੀ ਕ੍ਰਮ ਦੁਹਰਦਾ ਹੈ। ਉਹ 10, 5 ਅਤੇ 3 ਫਾਰਮ ਕਰਦੇ ਹਨ। 72 ਫਾਰਮ ਕਿੰਨੇ ਦਿਨ ਲੈਣਗੇ?
+
+Options: 9 3/5 days | 16 days | 12 days | 10 days
+Answer: 12 days
+Difficulty: Hard
+Topology: time_work:tw_alternating_group_cycle
+Realism: 86
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+5+3
+\]
+Add only the needed part of the final turn.
+\[
+T=12
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 12 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=10+5+3
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=12
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 12 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=10+5+3
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=12
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 12 ਦਿਨ
+
+[Q25]
+EN:
+Starting with A, two workers alternate. A completes 10 records and B completes 6 records on their respective turns. What is the completion time in days for 120 records?
+
+HI:
+A और B बारी-बारी दिन काम करते हैं और शुरुआत A करता है। A अपनी बारी में 10 फाइलें और B 6 फाइलें करता है। 120 फाइलें कितने दिनों में पूरी होंगी?
+
+PA:
+A ਅਤੇ B ਵਾਰੀ-ਵਾਰੀ ਦਿਨ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤ A ਕਰਦਾ ਹੈ। A ਆਪਣੀ ਵਾਰੀ ਵਿੱਚ 10 ਫਾਈਲਾਂ ਅਤੇ B 6 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 120 ਫਾਈਲਾਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰੀਆਂ ਹੋਣਗੀਆਂ?
+
+Options: 11.84 days | 18 4/5 days | 15 4/5 days | 14 4/5 days
+Answer: 14 4/5 days
+Difficulty: Hard
+Topology: time_work:tw_terminal_overshoot_cycle
+Realism: 89
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+6
+\]
+Add only the needed part of the final turn.
+\[
+T=14.8
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 14 4/5 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=10+6
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=14.8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 14 4/5 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=10+6
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=14.8
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 14 4/5 ਦਿਨ
+
+[Q26]
+EN:
+A works for one day and rests for one day repeatedly. If A completes 6 metres on each workday, how many days are needed for 60 metres?
+
+HI:
+A एक दिन काम और एक दिन आराम का क्रम रखता है। हर काम वाले दिन 6 मीटर बाड़ लगती है। 60 मीटर के लिए कितने दिन चाहिए?
+
+PA:
+A ਇੱਕ ਦਿਨ ਕੰਮ ਅਤੇ ਇੱਕ ਦਿਨ ਆਰਾਮ ਦਾ ਕ੍ਰਮ ਰੱਖਦਾ ਹੈ। ਹਰ ਕੰਮ ਵਾਲੇ ਦਿਨ 6 ਮੀਟਰ ਬਾੜ ਲੱਗਦੀ ਹੈ। 60 ਮੀਟਰ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 22 days | 25 days | 15 days | 20 days
+Answer: 20 days
+Difficulty: Hard
+Topology: time_work:tw_work_rest_cycle
+Realism: 87
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+0
+\]
+Add only the needed part of the final turn.
+\[
+T=20
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 20 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=6+0
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=20
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 20 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=6+0
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=20
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 20 ਦਿਨ
+
+[Q27]
+EN:
+A, B and C handle documents one day at a time in rotation. They complete 8, 6 and 3 documents on their turns. In how many days will 90 documents be finished?
+
+HI:
+A, B और C एक-एक दिन के क्रम से दस्तावेज संभालते हैं। उनकी दैनिक संख्या 8, 6 और 3 है। 90 दस्तावेज कितने दिन में होंगे?
+
+PA:
+A, B ਅਤੇ C ਇੱਕ-ਇੱਕ ਦਿਨ ਦੇ ਕ੍ਰਮ ਨਾਲ ਦਸਤਾਵੇਜ਼ ਸੰਭਾਲਦੇ ਹਨ। ਉਹਨਾਂ ਦੀ ਰੋਜ਼ਾਨਾ ਗਿਣਤੀ 8, 6 ਅਤੇ 3 ਹੈ। 90 ਦਸਤਾਵੇਜ਼ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਣਗੇ?
+
+Options: 17.63 days | 18 3/4 days | 15.63 days | 11.63 days
+Answer: 15.63 days
+Difficulty: Hard
+Topology: time_work:tw_conditional_activation
+Realism: 87
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=8+6+3
+\]
+Add only the needed part of the final turn.
+\[
+T=15.63
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 15.63 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=8+6+3
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=15.63
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 15.63 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=8+6+3
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=15.63
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 15.63 ਦਿਨ
+
+[Q28]
+EN:
+A and B have working capacities in the ratio 2:3. Together they complete a job in 6 days. In how many days will A alone complete it?
+
+HI:
+A और B की कार्य क्षमता का अनुपात 2:3 है। दोनों मिलकर काम 6 दिन में करते हैं। A अकेला कितने दिन लेगा?
+
+PA:
+A ਅਤੇ B ਦੀ ਕੰਮ ਕਰਨ ਦੀ ਸਮਰੱਥਾ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਦੋਵੇਂ ਮਿਲ ਕੇ ਕੰਮ 6 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?
+
+Options: 11 days | 4 days | 15 days | 9 days
+Answer: 15 days
+Difficulty: Medium
+Topology: time_work:tw_relative_efficiency_percent
+Realism: 83
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W=(a+b)T
+\]
+Put the given values into that relation.
+\[
+W=(2+3)\times 6
+\]
+Solve for the asked value.
+\[
+T_A=\frac{30}{2}=15
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+Answer: 15 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W=(a+b)T
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+W=(2+3)\times 6
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A=\frac{30}{2}=15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+उत्तर: 15 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W=(a+b)T
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+W=(2+3)\times 6
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A=\frac{30}{2}=15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+ਉੱਤਰ: 15 ਦਿਨ
+
+[Q29]
+EN:
+3 men, 4 women work together on 300 boxes. Their daily capacities are 4, 3 boxes respectively. How many days will they take?
+
+HI:
+एक पुरुष रोज 4 वस्तुएँ और एक महिला रोज 3 वस्तुएँ करती है। 3 पुरुष और 4 महिलाएँ मिलकर 300 वस्तुएँ कितने दिन में करेंगे?
+
+PA:
+ਇੱਕ ਆਦਮੀ ਰੋਜ਼ 4 ਵਸਤੂਆਂ ਅਤੇ ਇੱਕ ਔਰਤ ਰੋਜ਼ 3 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ। 3 ਆਦਮੀ ਅਤੇ 4 ਔਰਤਾਂ ਮਿਲ ਕੇ 300 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰਨਗੇ?
+
+Options: 12 1/2 days | 18 1/2 days | 15 1/2 days | 15.63 days
+Answer: 12 1/2 days
+Difficulty: Medium
+Topology: time_work:tw_worker_equivalence_men_women
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=12.5
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 12 1/2 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=12.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 12 1/2 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=12.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 12 1/2 ਦਿਨ
+
+[Q30]
+EN:
+A team has 2 men and 3 women with 4 children. They finish 4, 2, 1 boxes per person per day respectively. How many days are needed for 240 boxes?
+
+HI:
+यदि हर पुरुष रोज 4 वस्तुएँ और हर महिला 2 वस्तुएँ करती है, तो 2 पुरुष और 3 महिलाएँ 240 वस्तुएँ कितने दिन में करेंगे?
+
+PA:
+ਜੇ ਹਰ ਆਦਮੀ ਰੋਜ਼ 4 ਵਸਤੂਆਂ ਅਤੇ ਹਰ ਔਰਤ 2 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ, ਤਾਂ 2 ਆਦਮੀ ਅਤੇ 3 ਔਰਤਾਂ 240 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰਨਗੇ?
+
+Options: 16 days | 10 1/3 days | 13 1/3 days | 9 1/3 days
+Answer: 13 1/3 days
+Difficulty: Hard
+Topology: time_work:tw_worker_equivalence_men_women_children
+Realism: 87
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{240}{2\times 4+3\times 2+4\times 1}
+\]
+Solve for the asked value.
+\[
+T=13\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 13 1/3 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{240}{2\times 4+3\times 2+4\times 1}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=13\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 13 1/3 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{240}{2\times 4+3\times 2+4\times 1}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=13\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 13 1/3 ਦਿਨ
+
+[Q31]
+EN:
+6 men, 8 women work together on 300 boxes. Their daily capacities are 4, 3 boxes respectively. How many days will they take?
+
+HI:
+एक पुरुष रोज 4 वस्तुएँ और एक महिला रोज 3 वस्तुएँ करती है। 6 पुरुष और 8 महिलाएँ मिलकर 300 वस्तुएँ कितने दिन में करेंगे?
+
+PA:
+ਇੱਕ ਆਦਮੀ ਰੋਜ਼ 4 ਵਸਤੂਆਂ ਅਤੇ ਇੱਕ ਔਰਤ ਰੋਜ਼ 3 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ। 6 ਆਦਮੀ ਅਤੇ 8 ਔਰਤਾਂ ਮਿਲ ਕੇ 300 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰਨਗੇ?
+
+Options: 4 1/4 days | 1 1/4 days | 4.69 days | 6 1/4 days
+Answer: 6 1/4 days
+Difficulty: Hard
+Topology: time_work:tw_group_conversion_and_or
+Realism: 90
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{300}{6\times 4+8\times 3}
+\]
+Solve for the asked value.
+\[
+T=6.25
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 6 1/4 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{300}{6\times 4+8\times 3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=6.25
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 6 1/4 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{300}{6\times 4+8\times 3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=6.25
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 6 1/4 ਦਿਨ
+
+[Q32]
+EN:
+The capacity ratio of A to B is 2:3. The capacity ratio of B to C is 5:6. Find the ratio A:B:C?
+
+HI:
+A:B क्षमता अनुपात 2:3 है। B:C क्षमता अनुपात 5:6 है। A:B:C ज्ञात करें?
+
+PA:
+A:B ਸਮਰੱਥਾ ਅਨੁਪਾਤ 2:3 ਹੈ। B:C ਸਮਰੱਥਾ ਅਨੁਪਾਤ 5:6 ਹੈ। A:B:C ਪਤਾ ਕਰੋ?
+
+Options: 2:5:6 | 18:15:10 | 10:15:18 | 2:3:6
+Answer: 10:15:18
+Difficulty: Medium
+Topology: time_work:tw_efficiency_chain
+Realism: 84
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+B_c
+\]
+Put the given values into that relation.
+\[
+LCM(3,5)=15
+\]
+Solve for the asked value.
+\[
+A:B:C=10:15:18
+\]
+Shortcut / Exam Method:
+\[
+A:B:C=10:15:18
+\]
+Answer: 10:15:18
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+B_c
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+LCM(3,5)=15
+\]
+पूछे गए मान के लिए हल करें।
+\[
+A:B:C=10:15:18
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+A:B:C=10:15:18
+\]
+उत्तर: 10:15:18
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+B_c
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+LCM(3,5)=15
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+A:B:C=10:15:18
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+A:B:C=10:15:18
+\]
+ਉੱਤਰ: 10:15:18
+
+[Q33]
+EN:
+A packing job has 240 boxes. If 3 men and 4 women work together, with each man doing 4 boxes and each woman 3 boxes daily, how many days will it take?
+
+HI:
+3 पुरुष और 4 महिलाएँ साथ काम करते हैं। एक पुरुष रोज 4 और एक महिला रोज 3 वस्तुएँ करती है। 240 वस्तुओं के लिए कितने दिन चाहिए?
+
+PA:
+3 ਆਦਮੀ ਅਤੇ 4 ਔਰਤਾਂ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹਨ। ਇੱਕ ਆਦਮੀ ਰੋਜ਼ 4 ਅਤੇ ਇੱਕ ਔਰਤ ਰੋਜ਼ 3 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ। 240 ਵਸਤੂਆਂ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 7 1/2 days | 10 days | 9 days | 15 days
+Answer: 10 days
+Difficulty: Medium
+Topology: time_work:tw_team_a_vs_team_b
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=10
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 10 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 10 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=10
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 10 ਦਿਨ
+
+[Q34]
+EN:
+A and B together complete a work in 10 days, B and C in 12 days, and C and A in 15 days. In how many days will A alone complete it?
+
+HI:
+A और B साथ काम 10 दिन में, B और C 12 दिन में तथा C और A 15 दिन में पूरा करते हैं। A अकेला कितने दिन लेगा?
+
+PA:
+A ਅਤੇ B ਨਾਲ ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ, B ਅਤੇ C 12 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ C ਅਤੇ A 15 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?
+
+Options: 24 days | 29 days | 28 4/5 days | 25 days
+Answer: 24 days
+Difficulty: Hard
+Topology: time_work:tw_pairwise_ab_bc_ac
+Realism: 89
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+Put the given values into that relation.
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+Solve for the asked value.
+\[
+T_A=24
+\]
+Shortcut / Exam Method:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+Answer: 24 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A=24
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+उत्तर: 24 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A=24
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+ਉੱਤਰ: 24 ਦਿਨ
+
+[Q35]
+EN:
+A, B and C together complete a work in 8 days. A and B together can complete it in 15 days. In how many days will C alone complete the work?
+
+HI:
+A, B और C मिलकर काम 8 दिन में करते हैं। A और B मिलकर उसे 15 दिन में कर सकते हैं। C अकेला कितने दिन लेगा?
+
+PA:
+A, B ਅਤੇ C ਮਿਲ ਕੇ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। A ਅਤੇ B ਮਿਲ ਕੇ ਉਸ ਨੂੰ 15 ਦਿਨਾਂ ਵਿੱਚ ਕਰ ਸਕਦੇ ਹਨ। C ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?
+
+Options: 13.71 days | 15.14 days | 21.14 days | 17.14 days
+Answer: 17.14 days
+Difficulty: Medium
+Topology: time_work:tw_pairwise_total_abc
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Put the given values into that relation.
+\[
+r_X=\frac{1}{8}-\frac{1}{15}
+\]
+Solve for the asked value.
+\[
+T_X=17.14
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 17.14 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r_X=\frac{1}{8}-\frac{1}{15}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_X=17.14
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_X=1/r_X
+\]
+उत्तर: 17.14 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r_X=\frac{1}{8}-\frac{1}{15}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_X=17.14
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_X=1/r_X
+\]
+ਉੱਤਰ: 17.14 ਦਿਨ
+
+[Q36]
+EN:
+A job is completed by A, B and C together in 8 days. A and B together can do it in 16 days. What is C's individual time?
+
+HI:
+A, B और C साथ काम 8 दिन में पूरा करते हैं। ज्ञात मजदूर अकेले 16 और 32 दिन लेते हैं। शेष मजदूर का समय ज्ञात करें?
+
+PA:
+A, B ਅਤੇ C ਨਾਲ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਜਾਣੇ ਮਜ਼ਦੂਰ ਇਕੱਲੇ 16 ਅਤੇ 32 ਦਿਨ ਲੈਂਦੇ ਹਨ। ਬਾਕੀ ਮਜ਼ਦੂਰ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ?
+
+Options: 29 days | 38 2/5 days | 32 days | 28 days
+Answer: 32 days
+Difficulty: Medium
+Topology: time_work:tw_unknown_worker_from_team
+Realism: 82
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Put the given values into that relation.
+\[
+r_X=\frac{1}{8}-\frac{1}{16}-\frac{1}{32}
+\]
+Solve for the asked value.
+\[
+T_X=32
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 32 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r_X=\frac{1}{8}-\frac{1}{16}-\frac{1}{32}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_X=32
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_X=1/r_X
+\]
+उत्तर: 32 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r_X=\frac{1}{8}-\frac{1}{16}-\frac{1}{32}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_X=32
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_X=1/r_X
+\]
+ਉੱਤਰ: 32 ਦਿਨ
+
+[Q37]
+EN:
+In 4 days, A checks 36 answer sheets. How many answer sheets are checked in one day?
+
+HI:
+A 4 दिन में 36 उत्तर-पत्रक जाँचता है। A एक दिन में कितने उत्तर-पत्रक जाँचेगा?
+
+PA:
+A 4 ਦਿਨਾਂ ਵਿੱਚ 36 ਉੱਤਰ ਪੱਤਰ ਜਾਂਚਦਾ ਹੈ। A ਇੱਕ ਦਿਨ ਵਿੱਚ ਕਿੰਨੇ ਉੱਤਰ ਪੱਤਰ ਜਾਂਚੇਗਾ?
+
+Options: 9 answer sheets | 13.5 answer sheets | 6 answer sheets | 13 answer sheets
+Answer: 9 answer sheets
+Difficulty: Medium
+Topology: time_work:tw_reverse_contribution_deduction
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r=\frac{W}{t}
+\]
+Put the given values into that relation.
+\[
+r=\frac{36}{4}
+\]
+Solve for the asked value.
+\[
+r=9
+\]
+Shortcut / Exam Method:
+\[
+r=W/t
+\]
+Answer: 9 answer sheets
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r=\frac{W}{t}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r=\frac{36}{4}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+r=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+r=W/t
+\]
+उत्तर: 9 उत्तर-पत्रक
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r=\frac{W}{t}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r=\frac{36}{4}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+r=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+r=W/t
+\]
+ਉੱਤਰ: 9 ਉੱਤਰ ਪੱਤਰ
+
+[Q38]
+EN:
+Out of 120 forms, 60 forms are already complete. The final worker completes 6 forms daily. How many days are needed for the rest?
+
+HI:
+120 फॉर्म में से 60 फॉर्म पूरे हो चुके हैं। अंतिम मजदूर रोज 6 फॉर्म करता है। बाकी के लिए कितने दिन चाहिए?
+
+PA:
+120 ਫਾਰਮਾਂ ਵਿੱਚੋਂ 60 ਫਾਰਮ ਪੂਰੇ ਹੋ ਚੁੱਕੇ ਹਨ। ਆਖਰੀ ਮਜ਼ਦੂਰ ਰੋਜ਼ 6 ਫਾਰਮ ਕਰਦਾ ਹੈ। ਬਾਕੀ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 15 days | 10 days | 12 days | 14 days
+Answer: 10 days
+Difficulty: Hard
+Topology: time_work:tw_phase_state_reconstruction
+Realism: 87
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+x=\frac{W-W_1}{r}
+\]
+Put the given values into that relation.
+\[
+x=\frac{120-60}{6}
+\]
+Solve for the asked value.
+\[
+x=10
+\]
+Shortcut / Exam Method:
+\[
+x=\frac{W_l}{r}
+\]
+Answer: 10 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+x=\frac{W-W_1}{r}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+x=\frac{120-60}{6}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+x=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+x=\frac{W_l}{r}
+\]
+उत्तर: 10 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+x=\frac{W-W_1}{r}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+x=\frac{120-60}{6}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+x=10
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+x=\frac{W_l}{r}
+\]
+ਉੱਤਰ: 10 ਦਿਨ
+
+[Q39]
+EN:
+A, B and C divide ₹9000 according to their contribution ratio 24:36:40. Find A's share?
+
+HI:
+A, B और C ₹9000 को अपने योगदान अनुपात 24:36:40 में बांटते हैं। A का हिस्सा ज्ञात करें?
+
+PA:
+A, B ਅਤੇ C ₹9000 ਨੂੰ ਆਪਣੇ ਯੋਗਦਾਨ ਅਨੁਪਾਤ 24:36:40 ਵਿੱਚ ਵੰਡਦੇ ਹਨ। A ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ?
+
+Options: ₹2159 | ₹1728 | ₹2160 | ₹2166
+Answer: ₹2160
+Difficulty: Medium
+Topology: time_work:tw_wage_distribution_efficiency
+Realism: 80
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{24}{100}\times 9000
+\]
+Apply the wage or contract amount.
+\[
+Share=2160
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2160
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{24}{100}\times 9000
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=2160
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹2160
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{24}{100}\times 9000
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=2160
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹2160
+
+[Q40]
+EN:
+The total wage for a job is ₹7200. A, B and C contribute in the ratio 30:30:12. How much should C receive?
+
+HI:
+A, B और C ₹7200 को अपने योगदान अनुपात 30:30:12 में बांटते हैं। C का हिस्सा ज्ञात करें?
+
+PA:
+A, B ਅਤੇ C ₹7200 ਨੂੰ ਆਪਣੇ ਯੋਗਦਾਨ ਅਨੁਪਾਤ 30:30:12 ਵਿੱਚ ਵੰਡਦੇ ਹਨ। C ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ?
+
+Options: ₹1204 | ₹1200 | ₹1202 | ₹1800
+Answer: ₹1200
+Difficulty: Medium
+Topology: time_work:tw_wage_with_helper
+Realism: 84
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{12}{72}\times 7200
+\]
+Apply the wage or contract amount.
+\[
+Share=1200
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹1200
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{12}{72}\times 7200
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=1200
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹1200
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{12}{72}\times 7200
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=1200
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹1200
+
+[Q41]
+EN:
+A and B divide ₹12000 according to their contribution ratio 8:12. Find A's share?
+
+HI:
+A और B एक काम पूरा कर ₹12000 पाते हैं। उनके काम का अनुपात 8:12 है। A का हिस्सा कितना होगा?
+
+PA:
+A ਅਤੇ B ਇੱਕ ਕੰਮ ਪੂਰਾ ਕਰਕੇ ₹12000 ਲੈਂਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ 8:12 ਹੈ। A ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: ₹4800 | ₹4796 | ₹4797 | ₹5760
+Answer: ₹4800
+Difficulty: Easy
+Topology: time_work:tw_wage_partial_time
+Realism: 75
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{8}{20}\times 12000
+\]
+Apply the wage or contract amount.
+\[
+Share=4800
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹4800
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{8}{20}\times 12000
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=4800
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹4800
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{8}{20}\times 12000
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=4800
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹4800
+
+[Q42]
+EN:
+Two workers receive ₹9000 for a job. Their contributions are proportional to 15:24. How much will A get?
+
+HI:
+A और B एक काम पूरा कर ₹9000 पाते हैं। उनके काम का अनुपात 15:24 है। A का हिस्सा कितना होगा?
+
+PA:
+A ਅਤੇ B ਇੱਕ ਕੰਮ ਪੂਰਾ ਕਰਕੇ ₹9000 ਲੈਂਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ 15:24 ਹੈ। A ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: ₹2769.23 | ₹3462.54 | ₹3461.54 | ₹3465.54
+Answer: ₹3461.54
+Difficulty: Medium
+Topology: time_work:tw_wage_efficiency_ratio
+Realism: 83
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{15}{39}\times 9000
+\]
+Apply the wage or contract amount.
+\[
+Share=3461.54
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹3461.54
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{15}{39}\times 9000
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=3461.54
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹3461.54
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{15}{39}\times 9000
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=3461.54
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹3461.54
+
+[Q43]
+EN:
+A contractor receives ₹6000 and a bonus of ₹250 per day saved. For 4 days saved, what is the total amount?
+
+HI:
+ठेका राशि ₹6000 है। समयसीमा से 4 दिन पहले पूरा करने पर ₹250 प्रति दिन बोनस मिलता है। देय राशि कितनी होगी?
+
+PA:
+ਠੇਕਾ ਰਕਮ ₹6000 ਹੈ। ਸਮਾਂ ਸੀਮਾ ਤੋਂ 4 ਦਿਨ ਪਹਿਲਾਂ ਪੂਰਾ ਕਰਨ ਤੇ ₹250 ਪ੍ਰਤੀ ਦਿਨ ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਦੇਣਯੋਗ ਰਕਮ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+
+Options: ₹5250 | ₹7005 | ₹7000 | ₹6999
+Answer: ₹7000
+Difficulty: Medium
+Topology: time_work:tw_contract_penalty_bonus
+Realism: 83
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+E=base+bonus
+\]
+Use contribution ratio for the share.
+\[
+E=6000+4\times 250
+\]
+Apply the wage or contract amount.
+\[
+E=7000
+\]
+Shortcut / Exam Method:
+\[
+E=base+adjustment
+\]
+Answer: ₹7000
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+E=base+bonus
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+E=6000+4\times 250
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+E=7000
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+E=base+adjustment
+\]
+उत्तर: ₹7000
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+E=base+bonus
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+E=6000+4\times 250
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+E=7000
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+E=base+adjustment
+\]
+ਉੱਤਰ: ₹7000
+
+[Q44]
+EN:
+A machine prints 80 pages per hour. It runs for 6 hours and 85% pages are usable. How many usable pages are obtained?
+
+HI:
+एक मशीन प्रति घंटे 80 पृष्ठ छापती है। वह 6 घंटे चलती है और 85% पृष्ठ उपयोगी हैं। उपयोगी पृष्ठ कितने मिलेंगे?
+
+PA:
+ਇੱਕ ਮਸ਼ੀਨ ਪ੍ਰਤੀ ਘੰਟਾ 80 ਸਫ਼ੇ ਛਾਪਦੀ ਹੈ। ਉਹ 6 ਘੰਟੇ ਚੱਲਦੀ ਹੈ ਅਤੇ 85% ਸਫ਼ੇ ਵਰਤਣਯੋਗ ਹਨ। ਵਰਤਣਯੋਗ ਸਫ਼ੇ ਕਿੰਨੇ ਮਿਲਣਗੇ?
+
+Options: 410 pages | 489.6 pages | 408 pages | 404 pages
+Answer: 408 pages
+Difficulty: Medium
+Topology: time_work:tw_work_quality_rejection
+Realism: 83
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+O_a=O\times \frac{p}{100}
+\]
+Use contribution ratio for the share.
+\[
+O_a=80\times 6\times \frac{85}{100}
+\]
+Apply the wage or contract amount.
+\[
+O_a=408
+\]
+Shortcut / Exam Method:
+\[
+O_a=gross\times p/100
+\]
+Answer: 408 pages
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+O_a=O\times \frac{p}{100}
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+O_a=80\times 6\times \frac{85}{100}
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+O_a=408
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O_a=gross\times p/100
+\]
+उत्तर: 408 पृष्ठ
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+O_a=O\times \frac{p}{100}
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+O_a=80\times 6\times \frac{85}{100}
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+O_a=408
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O_a=gross\times p/100
+\]
+ਉੱਤਰ: 408 ਸਫ਼ੇ
+
+[Q45]
+EN:
+A tank is filled by a pipe taking 12 hours and emptied by another pipe taking 36 hours. In how many hours will the tank be filled if both are opened?
+
+HI:
+भरने वाला पाइप टंकी 12 घंटे में भरता है और रिसाव 36 घंटे में खाली करता है। दोनों साथ हों तो भरने में कितना समय लगेगा?
+
+PA:
+ਭਰਨ ਵਾਲਾ ਪਾਈਪ ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ ਅਤੇ ਰਿਸਾਅ 36 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ। ਦੋਵੇਂ ਨਾਲ ਹੋਣ ਤਾਂ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?
+
+Options: 27 hours | 20 hours | 22 hours | 18 hours
+Answer: 18 hours
+Difficulty: Medium
+Topology: time_work:pc_basic_fill_empty
+Realism: 82
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/36
+\]
+Divide the required tank work by that rate.
+\[
+T=18
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12-1/36
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=18
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 18 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12-1/36
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=18
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 18 ਘੰਟੇ
+
+[Q46]
+EN:
+A tank has two inlet pipes of 12 hours and 18 hours and one outlet pipe of 36 hours. How many hours are needed when all are opened?
+
+HI:
+दो पाइप टंकी 12 और 18 घंटे में भरते हैं, जबकि तीसरा पाइप 36 घंटे में खाली करता है। सभी खुले हों तो कितना समय लगेगा?
+
+PA:
+ਦੋ ਪਾਈਪ ਟੈਂਕੀ 12 ਅਤੇ 18 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦੇ ਹਨ, ਜਦਕਿ ਤੀਜਾ ਪਾਈਪ 36 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ। ਸਾਰੇ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?
+
+Options: 9 hours | 14 hours | 6 3/4 hours | 11 hours
+Answer: 9 hours
+Difficulty: Medium
+Topology: time_work:pc_two_fillers_one_empty
+Realism: 81
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12+1/18-1/36
+\]
+Divide the required tank work by that rate.
+\[
+T=9
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 9 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12+1/18-1/36
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 9 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12+1/18-1/36
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 9 ਘੰਟੇ
+
+[Q47]
+EN:
+A pipe can fill a tank in 15 hours. Due to a leak, the tank is filled in 21 hours. In how many hours can the leak empty the full tank?
+
+HI:
+एक पाइप टंकी 15 घंटे में भरता है। रिसाव के कारण टंकी 21 घंटे में भरती है। रिसाव अकेला भरी टंकी कितने घंटे में खाली करेगा?
+
+PA:
+ਇੱਕ ਪਾਈਪ ਟੈਂਕੀ 15 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਰਿਸਾਅ ਕਾਰਨ ਟੈਂਕੀ 21 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦੀ ਹੈ। ਰਿਸਾਅ ਇਕੱਲਾ ਭਰੀ ਟੈਂਕੀ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰੇਗਾ?
+
+Options: 52 1/2 hours | 78 3/4 hours | 50 1/2 hours | 48 1/2 hours
+Answer: 52 1/2 hours
+Difficulty: Medium
+Topology: time_work:pc_leak_hidden_rate
+Realism: 83
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+Find the effective tank rate.
+\[
+\frac{1}{L}=\frac{1}{15}-\frac{1}{21}
+\]
+Divide the required tank work by that rate.
+\[
+L=52.5
+\]
+Shortcut / Exam Method:
+\[
+L=\frac{FT}{T-F}
+\]
+Answer: 52 1/2 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+\frac{1}{L}=\frac{1}{15}-\frac{1}{21}
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+L=52.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L=\frac{FT}{T-F}
+\]
+उत्तर: 52 1/2 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+\frac{1}{L}=\frac{1}{15}-\frac{1}{21}
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+L=52.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L=\frac{FT}{T-F}
+\]
+ਉੱਤਰ: 52 1/2 ਘੰਟੇ
+
+[Q48]
+EN:
+Pipe A fills a tank in 12 hours. After 2 hours, a leak begins which empties a full tank in 30 hours. Find the total time to fill the tank?
+
+HI:
+पाइप A टंकी 12 घंटे में भरता है। 2 घंटे बाद रिसाव शुरू होता है जो भरी टंकी 30 घंटे में खाली करता है। टंकी भरने का कुल समय क्या होगा?
+
+PA:
+ਪਾਈਪ A ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। 2 ਘੰਟਿਆਂ ਬਾਅਦ ਰਿਸਾਅ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ ਜੋ ਭਰੀ ਟੈਂਕੀ 30 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ। ਟੈਂਕੀ ਭਰਨ ਦਾ ਕੁੱਲ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 20 2/3 hours | 18 2/3 hours | 14 hours | 23 2/3 hours
+Answer: 18 2/3 hours
+Difficulty: Hard
+Topology: time_work:pc_drain_after_partial_fill
+Realism: 88
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/30
+\]
+Divide the required tank work by that rate.
+\[
+T=18\frac{2}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 2/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12-1/30
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=18\frac{2}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 18 2/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12-1/30
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=18\frac{2}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 18 2/3 ਘੰਟੇ
+
+[Q49]
+EN:
+A filling tap adds 12 litres in an hour, then an emptying tap removes 5 litres in the next hour. The tank holds 60 litres. When will the tank become full?
+
+HI:
+एक नल एक घंटे में 12 लीटर भरता है और अगले घंटे निकासी 5 लीटर निकालती है। यह क्रम दोहरता है। 60 लीटर की टंकी कितने घंटे में भरेगी?
+
+PA:
+ਇੱਕ ਨਲ ਇੱਕ ਘੰਟੇ ਵਿੱਚ 12 ਲੀਟਰ ਭਰਦਾ ਹੈ ਅਤੇ ਅਗਲੇ ਘੰਟੇ ਨਿਕਾਸੀ 5 ਲੀਟਰ ਕੱਢਦੀ ਹੈ। ਇਹ ਕ੍ਰਮ ਦੁਹਰਦਾ ਹੈ। 60 ਲੀਟਰ ਦੀ ਟੈਂਕੀ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਭਰੇਗੀ?
+
+Options: 14 1/3 hours | 12 1/3 hours | 24 1/2 hours | 16 1/3 hours
+Answer: 16 1/3 hours
+Difficulty: Hard
+Topology: time_work:pc_alternating_fill_empty
+Realism: 89
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+W_{cycle}=12-5
+\]
+Find the effective tank rate.
+\[
+60\ units,\ cycle=7
+\]
+Divide the required tank work by that rate.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=C_f+t_f
+\]
+Answer: 16 1/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+W_{cycle}=12-5
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+60\ units,\ cycle=7
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=16\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=C_f+t_f
+\]
+उत्तर: 16 1/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+W_{cycle}=12-5
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+60\ units,\ cycle=7
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=16\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=C_f+t_f
+\]
+ਉੱਤਰ: 16 1/3 ਘੰਟੇ
+
+[Q50]
+EN:
+A 60-litre tank is filled by alternate filling and draining hours. Filling adds 12 litres and draining removes 5 litres. In how many hours is the tank full?
+
+HI:
+पहले घंटे 12 लीटर पानी भरता है और अगले घंटे 5 लीटर निकलता है, और यह चलता रहता है। 60 लीटर टंकी को भरने में कितने घंटे लगेंगे?
+
+PA:
+ਪਹਿਲੇ ਘੰਟੇ 12 ਲੀਟਰ ਪਾਣੀ ਭਰਦਾ ਹੈ ਅਤੇ ਅਗਲੇ ਘੰਟੇ 5 ਲੀਟਰ ਨਿਕਲਦਾ ਹੈ, ਅਤੇ ਇਹ ਚਲਦਾ ਰਹਿੰਦਾ ਹੈ। 60 ਲੀਟਰ ਟੈਂਕੀ ਨੂੰ ਭਰਨ ਵਿੱਚ ਕਿੰਨੇ ਘੰਟੇ ਲੱਗਣਗੇ?
+
+Options: 18 1/3 hours | 21 1/3 hours | 16 1/3 hours | 12 1/4 hours
+Answer: 16 1/3 hours
+Difficulty: Hard
+Topology: time_work:pc_alternating_spill_cycle
+Realism: 86
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+W_{cycle}=12-5
+\]
+Find the effective tank rate.
+\[
+60\ units,\ cycle=7
+\]
+Divide the required tank work by that rate.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=C_f+t_f
+\]
+Answer: 16 1/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+W_{cycle}=12-5
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+60\ units,\ cycle=7
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=16\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=C_f+t_f
+\]
+उत्तर: 16 1/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+W_{cycle}=12-5
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+60\ units,\ cycle=7
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=16\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=C_f+t_f
+\]
+ਉੱਤਰ: 16 1/3 ਘੰਟੇ
+
+[Q51]
+EN:
+After a tank is full, water continues to flow at 12 litres per minute for 40 minutes. How many litres overflow?
+
+HI:
+एक पाइप 40 मिनट तक प्रति मिनट 12 लीटर पानी देता है। कुल कितने लीटर पानी मिलेगा?
+
+PA:
+ਇੱਕ ਪਾਈਪ 40 ਮਿੰਟ ਤੱਕ ਪ੍ਰਤੀ ਮਿੰਟ 12 ਲੀਟਰ ਪਾਣੀ ਦਿੰਦਾ ਹੈ। ਕੁੱਲ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਮਿਲੇਗਾ?
+
+Options: 486 litres | 480 litres | 600 litres | 478 litres
+Answer: 480 litres
+Difficulty: Medium
+Topology: time_work:pc_capacity_leakage_rate
+Realism: 82
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=12\times 40
+\]
+Divide the required tank work by that rate.
+\[
+C=480
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 480 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+C=rt
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+C=12\times 40
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+C=480
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+C=r\times t
+\]
+उत्तर: 480 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+C=rt
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+C=12\times 40
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+C=480
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+C=r\times t
+\]
+ਉੱਤਰ: 480 ਲੀਟਰ
+
+[Q52]
+EN:
+After a tank is full, water continues to flow at 12 litres per minute for 40 minutes. How many litres overflow?
+
+HI:
+एक पाइप 40 मिनट तक प्रति मिनट 12 लीटर पानी देता है। कुल कितने लीटर पानी मिलेगा?
+
+PA:
+ਇੱਕ ਪਾਈਪ 40 ਮਿੰਟ ਤੱਕ ਪ੍ਰਤੀ ਮਿੰਟ 12 ਲੀਟਰ ਪਾਣੀ ਦਿੰਦਾ ਹੈ। ਕੁੱਲ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਮਿਲੇਗਾ?
+
+Options: 484 litres | 384 litres | 481 litres | 480 litres
+Answer: 480 litres
+Difficulty: Easy
+Topology: time_work:pc_tank_capacity_from_rate
+Realism: 72
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=12\times 40
+\]
+Divide the required tank work by that rate.
+\[
+C=480
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 480 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+C=rt
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+C=12\times 40
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+C=480
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+C=r\times t
+\]
+उत्तर: 480 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+C=rt
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+C=12\times 40
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+C=480
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+C=r\times t
+\]
+ਉੱਤਰ: 480 ਲੀਟਰ
+
+[Q53]
+EN:
+Pipe A fills in 12 hours and pipe B fills in 18 hours. If pipe B is opened 2 hours later, in how many hours is the tank filled?
+
+HI:
+दो पाइप A और B क्रमशः 12 और 18 घंटे लेते हैं। 2 घंटे बाद पाइप B खोला जाता है। टंकी भरने का समय कितना होगा?
+
+PA:
+ਦੋ ਪਾਈਪ A ਅਤੇ B ਕ੍ਰਮਵਾਰ 12 ਅਤੇ 18 ਘੰਟੇ ਲੈਂਦੇ ਹਨ। 2 ਘੰਟਿਆਂ ਬਾਅਦ ਪਾਈਪ B ਖੋਲ੍ਹਿਆ ਜਾਂਦਾ ਹੈ। ਟੈਂਕੀ ਭਰਨ ਦਾ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 4 hours | 9 3/5 hours | 7 hours | 8 hours
+Answer: 8 hours
+Difficulty: Hard
+Topology: time_work:pc_multiple_pipes_timing
+Realism: 90
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+Subtract the work already completed.
+\[
+W_1=3\times 2
+\]
+Use the active rate for the remaining phase.
+\[
+T=2+\frac{30}{3+2}=8
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+Answer: 8 hours
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=3\times 2
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=2+\frac{30}{3+2}=8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+उत्तर: 8 घंटे
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=3\times 2
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=2+\frac{30}{3+2}=8
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+ਉੱਤਰ: 8 ਘੰਟੇ
+
+[Q54]
+EN:
+A tank receives water for 30 minutes at 15 litres per minute. What is the quantity of water received?
+
+HI:
+एक पाइप हर मिनट 15 लीटर पानी स्थानांतरित करता है। 30 मिनट में कितने लीटर पानी जाएगा?
+
+PA:
+ਇੱਕ ਪਾਈਪ ਹਰ ਮਿੰਟ 15 ਲੀਟਰ ਪਾਣੀ ਤਬਦੀਲ ਕਰਦਾ ਹੈ। 30 ਮਿੰਟ ਵਿੱਚ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਜਾਵੇਗਾ?
+
+Options: 675 litres | 454 litres | 452 litres | 450 litres
+Answer: 450 litres
+Difficulty: Medium
+Topology: time_work:pc_two_tanks_transfer
+Realism: 82
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=15\times 30
+\]
+Divide the required tank work by that rate.
+\[
+C=450
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 450 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+C=rt
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+C=15\times 30
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+C=450
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+C=r\times t
+\]
+उत्तर: 450 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+C=rt
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+C=15\times 30
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+C=450
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+C=r\times t
+\]
+ਉੱਤਰ: 450 ਲੀਟਰ
+
+[Q55]
+EN:
+A pipe supplies 15 litres of water per minute for 5 minutes. How many litres of water are supplied?
+
+HI:
+एक नल प्रति मिनट 15 लीटर पानी देता है। 5 मिनट में कितना पानी देगा?
+
+PA:
+ਇੱਕ ਨਲ ਪ੍ਰਤੀ ਮਿੰਟ 15 ਲੀਟਰ ਪਾਣੀ ਦਿੰਦਾ ਹੈ। 5 ਮਿੰਟ ਵਿੱਚ ਕਿੰਨਾ ਪਾਣੀ ਦੇਵੇਗਾ?
+
+Options: 70 litres | 56.25 litres | 75 litres | 73 litres
+Answer: 75 litres
+Difficulty: Medium
+Topology: time_work:pc_overflow_waste_rate
+Realism: 84
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+V_w=r\times t
+\]
+Find the effective tank rate.
+\[
+V_w=15\times 5
+\]
+Divide the required tank work by that rate.
+\[
+V_w=75
+\]
+Shortcut / Exam Method:
+\[
+V_w=r\times t_e
+\]
+Answer: 75 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+V_w=r\times t
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+V_w=15\times 5
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+V_w=75
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+V_w=r\times t_e
+\]
+उत्तर: 75 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+V_w=r\times t
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+V_w=15\times 5
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+V_w=75
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+V_w=r\times t_e
+\]
+ਉੱਤਰ: 75 ਲੀਟਰ
+
+[Q56]
+EN:
+A tank is already one-fourth full. A pipe can fill the whole tank in 12 hours. In how many hours will the remaining part be filled?
+
+HI:
+टंकी का एक-चौथाई भाग भरा है। पाइप पूरी टंकी 12 घंटे में भरता है। बाकी भरने में कितना समय लगेगा?
+
+PA:
+ਟੈਂਕੀ ਦਾ ਇੱਕ-ਚੌਥਾਈ ਹਿੱਸਾ ਭਰਿਆ ਹੈ। ਪਾਈਪ ਪੂਰੀ ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਬਾਕੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?
+
+Options: 14 hours | 9 hours | 10 4/5 hours | 12 hours
+Answer: 9 hours
+Difficulty: Medium
+Topology: time_work:pc_partial_tank_initially_filled
+Realism: 82
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{1-f}{r_f}
+\]
+Find the effective tank rate.
+\[
+T=\frac{1-1/4}{1/12}
+\]
+Divide the required tank work by that rate.
+\[
+T=9
+\]
+Shortcut / Exam Method:
+\[
+T=(1-f)F
+\]
+Answer: 9 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{1-f}{r_f}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+T=\frac{1-1/4}{1/12}
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=(1-f)F
+\]
+उत्तर: 9 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{1-f}{r_f}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+T=\frac{1-1/4}{1/12}
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=(1-f)F
+\]
+ਉੱਤਰ: 9 ਘੰਟੇ
+
+[Q57]
+EN:
+Pipe A fills a tank in 12 hours. After 2 hours, a leak begins which empties a full tank in 30 hours. Find the total time to fill the tank?
+
+HI:
+पाइप A टंकी 12 घंटे में भरता है। 2 घंटे बाद रिसाव शुरू होता है जो भरी टंकी 30 घंटे में खाली करता है। टंकी भरने का कुल समय क्या होगा?
+
+PA:
+ਪਾਈਪ A ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। 2 ਘੰਟਿਆਂ ਬਾਅਦ ਰਿਸਾਅ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ ਜੋ ਭਰੀ ਟੈਂਕੀ 30 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ। ਟੈਂਕੀ ਭਰਨ ਦਾ ਕੁੱਲ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 28 hours | 22 2/3 hours | 20 2/3 hours | 18 2/3 hours
+Answer: 18 2/3 hours
+Difficulty: Hard
+Topology: time_work:pc_leak_starts_after_fill
+Realism: 90
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/30
+\]
+Divide the required tank work by that rate.
+\[
+T=18\frac{2}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 2/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12-1/30
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=18\frac{2}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 18 2/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12-1/30
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=18\frac{2}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 18 2/3 ਘੰਟੇ
+
+[Q58]
+EN:
+Two filling pipes A and B take 12 and 18 hours respectively. If pipe A is closed after 2 hours, what is the time in hours to fill the tank?
+
+HI:
+दो पाइप A और B क्रमशः 12 और 18 घंटे लेते हैं। 2 घंटे बाद पाइप A बंद कर दिया जाता है। टंकी भरने का समय कितना होगा?
+
+PA:
+ਦੋ ਪਾਈਪ A ਅਤੇ B ਕ੍ਰਮਵਾਰ 12 ਅਤੇ 18 ਘੰਟੇ ਲੈਂਦੇ ਹਨ। 2 ਘੰਟਿਆਂ ਬਾਅਦ ਪਾਈਪ A ਬੰਦ ਕਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਟੈਂਕੀ ਭਰਨ ਦਾ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 18 3/4 hours | 15 hours | 14 hours | 10 hours
+Answer: 15 hours
+Difficulty: Medium
+Topology: time_work:pc_pipe_closed_before_completion
+Realism: 81
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W_1=(r_A+r_B)t_1,\quad T=t_1+\frac{W-W_1}{r_B}
+\]
+Subtract the work already completed.
+\[
+W_1=(3+2)\times 2
+\]
+Use the active rate for the remaining phase.
+\[
+T=2+\frac{26}{2}=15
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_B}
+\]
+Answer: 15 hours
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W_1=(r_A+r_B)t_1,\quad T=t_1+\frac{W-W_1}{r_B}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=(3+2)\times 2
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=2+\frac{26}{2}=15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_B}
+\]
+उत्तर: 15 घंटे
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W_1=(r_A+r_B)t_1,\quad T=t_1+\frac{W-W_1}{r_B}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=(3+2)\times 2
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=2+\frac{26}{2}=15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_B}
+\]
+ਉੱਤਰ: 15 ਘੰਟੇ
+
+[Q59]
+EN:
+Pipe A can fill a tank in 12 hours and pipe B can empty the same tank in 36 hours. If both pipes are opened together, in how many hours will the tank be filled?
+
+HI:
+पाइप A टंकी 12 घंटे में भरता है और पाइप B वही टंकी 36 घंटे में खाली करता है। दोनों साथ खोलें तो टंकी कितने घंटे में भरेगी?
+
+PA:
+ਪਾਈਪ A ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ ਅਤੇ ਪਾਈਪ B ਉਹੀ ਟੈਂਕੀ 36 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ। ਦੋਵੇਂ ਨਾਲ ਖੋਲ੍ਹਣ ਤਾਂ ਟੈਂਕੀ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਭਰੇਗੀ?
+
+Options: 26 hours | 30 hours | 45 hours | 31 hours
+Answer: 30 hours
+Difficulty: Medium
+Topology: time_work:pc_find_pipe_rate_from_net_time
+Realism: 80
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+Find the effective tank rate.
+\[
+\frac{1}{B}=\frac{1}{10}-\frac{1}{15}
+\]
+Divide the required tank work by that rate.
+\[
+B=30
+\]
+Shortcut / Exam Method:
+\[
+B=\frac{AT}{A-T}
+\]
+Answer: 30 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+\frac{1}{B}=\frac{1}{10}-\frac{1}{15}
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+B=30
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+B=\frac{AT}{A-T}
+\]
+उत्तर: 30 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+\frac{1}{B}=\frac{1}{10}-\frac{1}{15}
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+B=30
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+B=\frac{AT}{A-T}
+\]
+ਉੱਤਰ: 30 ਘੰਟੇ
+
+[Q60]
+EN:
+A food stock lasts 24 days for 20 people. How many days will it last for 30 people?
+
+HI:
+भोजन का भंडार 20 लोगों के लिए 24 दिन चलता है। 30 लोगों के लिए कितने दिन चलेगा?
+
+PA:
+ਭੋਜਨ ਦਾ ਭੰਡਾਰ 20 ਲੋਕਾਂ ਲਈ 24 ਦਿਨ ਚੱਲਦਾ ਹੈ। 30 ਲੋਕਾਂ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?
+
+Options: 22 days | 16 days | 12 4/5 days | 13 days
+Answer: 16 days
+Difficulty: Easy
+Topology: time_work:tw_food_resource_basic
+Realism: 72
+
+Explanation EN:
+Convert the stock into consumption units.
+\[
+M_1D_1=M_2D_2
+\]
+Subtract the stock already consumed.
+\[
+20\times 24=30\times D_2
+\]
+Divide the remaining stock by the new daily use.
+\[
+D_2=16
+\]
+Shortcut / Exam Method:
+\[
+D_2=\frac{20\times 24}{30}
+\]
+Answer: 16 days
+
+Explanation HI:
+भंडार को खपत इकाइयों में बदलें।
+\[
+M_1D_1=M_2D_2
+\]
+पहले खपत हुआ भंडार घटाएँ।
+\[
+20\times 24=30\times D_2
+\]
+शेष भंडार को नई दैनिक खपत से भाग दें।
+\[
+D_2=16
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D_2=\frac{20\times 24}{30}
+\]
+उत्तर: 16 दिन
+
+Explanation PA:
+ਭੰਡਾਰ ਨੂੰ ਖਪਤ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+M_1D_1=M_2D_2
+\]
+ਪਹਿਲਾਂ ਖਪਤ ਹੋਇਆ ਭੰਡਾਰ ਘਟਾਓ।
+\[
+20\times 24=30\times D_2
+\]
+ਬਾਕੀ ਭੰਡਾਰ ਨੂੰ ਨਵੀਂ ਰੋਜ਼ਾਨਾ ਖਪਤ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+D_2=16
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D_2=\frac{20\times 24}{30}
+\]
+ਉੱਤਰ: 16 ਦਿਨ
+
+[Q61]
+EN:
+A camp has food for 20 people for 30 days. After 5 days, the camp has 25 people. What is the remaining duration?
+
+HI:
+20 लोगों के लिए भोजन 30 दिन पर्याप्त है। 5 दिन बाद लोगों की संख्या 25 हो जाती है। भोजन और कितने दिन चलेगा?
+
+PA:
+20 ਲੋਕਾਂ ਲਈ ਭੋਜਨ 30 ਦਿਨ ਕਾਫ਼ੀ ਹੈ। 5 ਦਿਨਾਂ ਬਾਅਦ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ 25 ਹੋ ਜਾਂਦੀ ਹੈ। ਭੋਜਨ ਹੋਰ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?
+
+Options: 20 days | 30 days | 16 days | 21 days
+Answer: 20 days
+Difficulty: Medium
+Topology: time_work:tw_food_population_change
+Realism: 83
+
+Explanation EN:
+Convert the stock into consumption units.
+\[
+D=\frac{S-consumed}{people}
+\]
+Subtract the stock already consumed.
+\[
+D=\frac{600-20\times 5}{25}
+\]
+Divide the remaining stock by the new daily use.
+\[
+D=20
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{S_l}{P_2}
+\]
+Answer: 20 days
+
+Explanation HI:
+भंडार को खपत इकाइयों में बदलें।
+\[
+D=\frac{S-consumed}{people}
+\]
+पहले खपत हुआ भंडार घटाएँ।
+\[
+D=\frac{600-20\times 5}{25}
+\]
+शेष भंडार को नई दैनिक खपत से भाग दें।
+\[
+D=20
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=\frac{S_l}{P_2}
+\]
+उत्तर: 20 दिन
+
+Explanation PA:
+ਭੰਡਾਰ ਨੂੰ ਖਪਤ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+D=\frac{S-consumed}{people}
+\]
+ਪਹਿਲਾਂ ਖਪਤ ਹੋਇਆ ਭੰਡਾਰ ਘਟਾਓ।
+\[
+D=\frac{600-20\times 5}{25}
+\]
+ਬਾਕੀ ਭੰਡਾਰ ਨੂੰ ਨਵੀਂ ਰੋਜ਼ਾਨਾ ਖਪਤ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+D=20
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=\frac{S_l}{P_2}
+\]
+ਉੱਤਰ: 20 ਦਿਨ
+
+[Q62]
+EN:
+A camp has food for 24 people for 25 days. After 5 days, the camp has 29 people. What is the remaining duration?
+
+HI:
+भोजन 24 लोगों के लिए 25 दिन चलता। 5 दिन बाद लोग बढ़कर 29 हो जाते हैं। आगे कितने दिन चलेगा?
+
+PA:
+ਭੋਜਨ 24 ਲੋਕਾਂ ਲਈ 25 ਦਿਨ ਚੱਲਦਾ। 5 ਦਿਨਾਂ ਬਾਅਦ ਲੋਕ ਵਧ ਕੇ 29 ਹੋ ਜਾਂਦੇ ਹਨ। ਅੱਗੇ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?
+
+Options: 19.86 days | 21.55 days | 17.55 days | 16.55 days
+Answer: 16.55 days
+Difficulty: Medium
+Topology: time_work:tw_food_remaining_stock
+Realism: 84
+
+Explanation EN:
+Convert the stock into consumption units.
+\[
+D=\frac{S-consumed}{people}
+\]
+Subtract the stock already consumed.
+\[
+D=\frac{600-24\times 5}{29}
+\]
+Divide the remaining stock by the new daily use.
+\[
+D=16.55
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{S_l}{P_2}
+\]
+Answer: 16.55 days
+
+Explanation HI:
+भंडार को खपत इकाइयों में बदलें।
+\[
+D=\frac{S-consumed}{people}
+\]
+पहले खपत हुआ भंडार घटाएँ।
+\[
+D=\frac{600-24\times 5}{29}
+\]
+शेष भंडार को नई दैनिक खपत से भाग दें।
+\[
+D=16.55
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=\frac{S_l}{P_2}
+\]
+उत्तर: 16.55 दिन
+
+Explanation PA:
+ਭੰਡਾਰ ਨੂੰ ਖਪਤ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+D=\frac{S-consumed}{people}
+\]
+ਪਹਿਲਾਂ ਖਪਤ ਹੋਇਆ ਭੰਡਾਰ ਘਟਾਓ।
+\[
+D=\frac{600-24\times 5}{29}
+\]
+ਬਾਕੀ ਭੰਡਾਰ ਨੂੰ ਨਵੀਂ ਰੋਜ਼ਾਨਾ ਖਪਤ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+D=16.55
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=\frac{S_l}{P_2}
+\]
+ਉੱਤਰ: 16.55 ਦਿਨ
+
+[Q63]
+EN:
+720 ration packets are available. Daily consumption is 36 packets. How long will the ration last?
+
+HI:
+राहत शिविर में 720 भोजन पैकेट हैं और रोज 36 पैकेट उपयोग होते हैं। भोजन कितने दिन चलेगा?
+
+PA:
+ਰਾਹਤ ਕੈਂਪ ਵਿੱਚ 720 ਭੋਜਨ ਪੈਕਟ ਹਨ ਅਤੇ ਰੋਜ਼ 36 ਪੈਕਟ ਵਰਤੇ ਜਾਂਦੇ ਹਨ। ਭੋਜਨ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?
+
+Options: 20 days | 18 days | 25 days | 24 days
+Answer: 20 days
+Difficulty: Hard
+Topology: time_work:tw_resource_rate_equivalence
+Realism: 90
+
+Explanation EN:
+Convert the stock into consumption units.
+\[
+D=\frac{S}{R}
+\]
+Subtract the stock already consumed.
+\[
+D=\frac{720}{36}
+\]
+Divide the remaining stock by the new daily use.
+\[
+D=20
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{S}{R}
+\]
+Answer: 20 days
+
+Explanation HI:
+भंडार को खपत इकाइयों में बदलें।
+\[
+D=\frac{S}{R}
+\]
+पहले खपत हुआ भंडार घटाएँ।
+\[
+D=\frac{720}{36}
+\]
+शेष भंडार को नई दैनिक खपत से भाग दें।
+\[
+D=20
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=\frac{S}{R}
+\]
+उत्तर: 20 दिन
+
+Explanation PA:
+ਭੰਡਾਰ ਨੂੰ ਖਪਤ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+D=\frac{S}{R}
+\]
+ਪਹਿਲਾਂ ਖਪਤ ਹੋਇਆ ਭੰਡਾਰ ਘਟਾਓ।
+\[
+D=\frac{720}{36}
+\]
+ਬਾਕੀ ਭੰਡਾਰ ਨੂੰ ਨਵੀਂ ਰੋਜ਼ਾਨਾ ਖਪਤ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+D=20
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=\frac{S}{R}
+\]
+ਉੱਤਰ: 20 ਦਿਨ
+
+[Q64]
+EN:
+Three typists work together for 6 hours. They complete 12, 15 and 18 pages per hour. How many pages are completed?
+
+HI:
+A, B और C एक घंटे में 12, 15 और 18 पृष्ठ करते हैं। 6 घंटे में कुल कितने पृष्ठ होंगे?
+
+PA:
+A, B ਅਤੇ C ਇੱਕ ਘੰਟੇ ਵਿੱਚ 12, 15 ਅਤੇ 18 ਸਫ਼ੇ ਕਰਦੇ ਹਨ। 6 ਘੰਟਿਆਂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਸਫ਼ੇ ਹੋਣਗੇ?
+
+Options: 270 pages | 274 pages | 272 pages | 405 pages
+Answer: 270 pages
+Difficulty: Easy
+Topology: time_work:tw_typist_pages_per_hour
+Realism: 76
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+Simplify the total output.
+\[
+O=270
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 270 pages
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+O=\sum r_it_i
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+कुल उत्पादन सरल करें।
+\[
+O=270
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O=(r_1+r_2+r_3)t
+\]
+उत्तर: 270 पृष्ठ
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+O=\sum r_it_i
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+O=270
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O=(r_1+r_2+r_3)t
+\]
+ਉੱਤਰ: 270 ਸਫ਼ੇ
+
+[Q65]
+EN:
+Printers A, B and C complete 12, 15 and 18 pages in one hour. How many pages will be completed in 8 hours?
+
+HI:
+A, B और C एक घंटे में 12, 15 और 18 पृष्ठ करते हैं। 8 घंटे में कुल कितने पृष्ठ होंगे?
+
+PA:
+A, B ਅਤੇ C ਇੱਕ ਘੰਟੇ ਵਿੱਚ 12, 15 ਅਤੇ 18 ਸਫ਼ੇ ਕਰਦੇ ਹਨ। 8 ਘੰਟਿਆਂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਸਫ਼ੇ ਹੋਣਗੇ?
+
+Options: 366 pages | 357 pages | 288 pages | 360 pages
+Answer: 360 pages
+Difficulty: Medium
+Topology: time_work:tw_printer_job_queue
+Realism: 80
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 8+15\times 8+18\times 8
+\]
+Simplify the total output.
+\[
+O=360
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 360 pages
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+O=\sum r_it_i
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+O=12\times 8+15\times 8+18\times 8
+\]
+कुल उत्पादन सरल करें।
+\[
+O=360
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O=(r_1+r_2+r_3)t
+\]
+उत्तर: 360 पृष्ठ
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+O=\sum r_it_i
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+O=12\times 8+15\times 8+18\times 8
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+O=360
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O=(r_1+r_2+r_3)t
+\]
+ਉੱਤਰ: 360 ਸਫ਼ੇ
+
+[Q66]
+EN:
+16 farm workers can harvest a field in 12 days by working 6 hours a day. How many workers are needed to finish it in 18 days by working 8 hours a day?
+
+HI:
+16 मजदूर 6 घंटे प्रतिदिन काम कर काम 12 दिन में पूरा करते हैं। 8 घंटे प्रतिदिन पर 18 दिन के लिए मजदूरों की संख्या क्या होगी?
+
+PA:
+16 ਮਜ਼ਦੂਰ 6 ਘੰਟੇ ਪ੍ਰਤੀ ਦਿਨ ਕੰਮ ਕਰਕੇ ਕੰਮ 12 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। 8 ਘੰਟੇ ਪ੍ਰਤੀ ਦਿਨ ਤੇ 18 ਦਿਨਾਂ ਲਈ ਮਜ਼ਦੂਰਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੋਵੇਗੀ?
+
+Options: 24 workers | 16 workers | 8 workers | 11 workers
+Answer: 8 workers
+Difficulty: Medium
+Topology: time_work:tw_farm_harvest_workers
+Realism: 80
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Add the outputs of all active agents.
+\[
+16\times 12\times 6=M_2\times 18\times 8
+\]
+Simplify the total output.
+\[
+M_2=8
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{16\times 12\times 6}{18\times 8}=8
+\]
+Answer: 8 workers
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+16\times 12\times 6=M_2\times 18\times 8
+\]
+कुल उत्पादन सरल करें।
+\[
+M_2=8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+M_2=\frac{16\times 12\times 6}{18\times 8}=8
+\]
+उत्तर: 8 मजदूर
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+16\times 12\times 6=M_2\times 18\times 8
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+M_2=8
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+M_2=\frac{16\times 12\times 6}{18\times 8}=8
+\]
+ਉੱਤਰ: 8 ਮਜ਼ਦੂਰ
+
+[Q67]
+EN:
+A job is finished by 10 workers in 15 days when each works 8 hours daily. How many workers are needed for 20 days at 6 hours daily?
+
+HI:
+10 मजदूर 15 दिन तक रोज 8 घंटे काम करके काम पूरा करते हैं। वही काम 20 दिन में रोज 6 घंटे काम करके कितने मजदूर करेंगे?
+
+PA:
+10 ਮਜ਼ਦੂਰ 15 ਦਿਨ ਰੋਜ਼ 8 ਘੰਟੇ ਕੰਮ ਕਰਕੇ ਕੰਮ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਉਹੀ ਕੰਮ 20 ਦਿਨਾਂ ਵਿੱਚ ਰੋਜ਼ 6 ਘੰਟੇ ਕੰਮ ਕਰਕੇ ਕਿੰਨੇ ਮਜ਼ਦੂਰ ਕਰਨਗੇ?
+
+Options: 13 workers | 10 workers | 14 workers | 15 workers
+Answer: 10 workers
+Difficulty: Medium
+Topology: time_work:tw_road_construction_work
+Realism: 82
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Add the outputs of all active agents.
+\[
+10\times 15\times 8=M_2\times 20\times 6
+\]
+Simplify the total output.
+\[
+M_2=10
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{10\times 15\times 8}{20\times 6}=10
+\]
+Answer: 10 workers
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+10\times 15\times 8=M_2\times 20\times 6
+\]
+कुल उत्पादन सरल करें।
+\[
+M_2=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+M_2=\frac{10\times 15\times 8}{20\times 6}=10
+\]
+उत्तर: 10 मजदूर
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+10\times 15\times 8=M_2\times 20\times 6
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+M_2=10
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+M_2=\frac{10\times 15\times 8}{20\times 6}=10
+\]
+ਉੱਤਰ: 10 ਮਜ਼ਦੂਰ
+
+[Q68]
+EN:
+A work requires 18 workers for 8 days with 5 working hours per day. How many workers will be needed for 12 days with 6 hours per day?
+
+HI:
+18 मजदूर रोज 5 घंटे काम करके 8 दिन में काम पूरा करते हैं। रोज 6 घंटे काम करके 12 दिन में काम पूरा करने के लिए कितने मजदूर चाहिए?
+
+PA:
+18 ਮਜ਼ਦੂਰ ਰੋਜ਼ 5 ਘੰਟੇ ਕੰਮ ਕਰਕੇ 8 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਰੋਜ਼ 6 ਘੰਟੇ ਕੰਮ ਕਰਕੇ 12 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਪੂਰਾ ਕਰਨ ਲਈ ਕਿੰਨੇ ਮਜ਼ਦੂਰ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 18 workers | 13 workers | 10 workers | 27 workers
+Answer: 10 workers
+Difficulty: Medium
+Topology: time_work:tw_painting_walls_area_work
+Realism: 84
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Add the outputs of all active agents.
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+Simplify the total output.
+\[
+M_2=10
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+Answer: 10 workers
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+कुल उत्पादन सरल करें।
+\[
+M_2=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+उत्तर: 10 मजदूर
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+M_2=10
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+ਉੱਤਰ: 10 ਮਜ਼ਦੂਰ
+
+[Q69]
+EN:
+A team adds 15 metres to a project each day, but 5 metres are lost each day. What is the time for 150 metres?
+
+HI:
+एक सड़क दल रोज 15 मीटर सड़क बनाता है, जबकि बारिश रोज 5 मीटर खराब करती है। 150 मीटर पूरा करने में कितने दिन लगेंगे?
+
+PA:
+ਇੱਕ ਸੜਕ ਟੀਮ ਰੋਜ਼ 15 ਮੀਟਰ ਸੜਕ ਬਣਾਉਂਦੀ ਹੈ, ਜਦਕਿ ਮੀਂਹ ਰੋਜ਼ 5 ਮੀਟਰ ਖਰਾਬ ਕਰਦਾ ਹੈ। 150 ਮੀਟਰ ਪੂਰਾ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 18 days | 7 1/2 days | 15 days | 20 days
+Answer: 15 days
+Difficulty: Medium
+Topology: time_work:tw_digging_filling_negative_work
+Realism: 82
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+T=\frac{W}{r_+-r_-}
+\]
+Add the outputs of all active agents.
+\[
+T=\frac{150}{15-5}
+\]
+Simplify the total output.
+\[
+T=15
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W}{r_n}
+\]
+Answer: 15 days
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+T=\frac{W}{r_+-r_-}
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+T=\frac{150}{15-5}
+\]
+कुल उत्पादन सरल करें।
+\[
+T=15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W}{r_n}
+\]
+उत्तर: 15 दिन
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+T=\frac{W}{r_+-r_-}
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+T=\frac{150}{15-5}
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+T=15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W}{r_n}
+\]
+ਉੱਤਰ: 15 ਦਿਨ
+
+[Q70]
+EN:
+Three machines work in parallel and make 12, 15 and 18 parts per hour. For 5 hours, what is the total number of parts?
+
+HI:
+तीन मशीनें साथ काम करती हैं और प्रति घंटे 12, 15 और 18 वस्तुएँ बनाती हैं। 5 घंटों के लिए कुल उत्पादन कितना होगा?
+
+PA:
+ਤਿੰਨ ਮਸ਼ੀਨਾਂ ਨਾਲ ਕੰਮ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਪ੍ਰਤੀ ਘੰਟਾ 12, 15 ਅਤੇ 18 ਵਸਤੂਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। 5 ਘੰਟਿਆਂ ਲਈ ਕੁੱਲ ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 230 items | 225 items | 270 items | 228 items
+Answer: 225 items
+Difficulty: Medium
+Topology: time_work:tw_parallel_machine_batches
+Realism: 81
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 5+15\times 5+18\times 5
+\]
+Simplify the total output.
+\[
+O=225
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 225 items
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+O=\sum r_it_i
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+O=12\times 5+15\times 5+18\times 5
+\]
+कुल उत्पादन सरल करें।
+\[
+O=225
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O=(r_1+r_2+r_3)t
+\]
+उत्तर: 225 वस्तुएँ
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+O=\sum r_it_i
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+O=12\times 5+15\times 5+18\times 5
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+O=225
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O=(r_1+r_2+r_3)t
+\]
+ਉੱਤਰ: 225 ਵਸਤੂਆਂ
+
+[Q71]
+EN:
+A can complete a piece of work in 10 days and B can complete the same work in 16 days. In how many days will they complete it working together?
+
+HI:
+एक काम A 10 दिन में और B 16 दिन में पूरा कर सकता है। दोनों साथ हों तो काम कितने दिन में पूरा होगा?
+
+PA:
+ਇੱਕ ਕੰਮ A 10 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B 16 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰ ਸਕਦਾ ਹੈ। ਦੋਵੇਂ ਨਾਲ ਹੋਣ ਤਾਂ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?
+
+Options: 6.15 days | 13 days | 10 days | 26 days
+Answer: 6.15 days
+Difficulty: Hard
+Topology: time_work:tw_lcm_hidden_total_work
+Realism: 91
+
+Explanation EN:
+Take the LCM as total work.
+\[
+W=LCM(10,16)=80
+\]
+Find each worker's one-period efficiency.
+\[
+A=80/10=8,\quad B=80/16=5
+\]
+Divide total work by the combined efficiency.
+\[
+T=\frac{80}{8+5}=6.15
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{10\times 16}{10+16}=6.15
+\]
+Answer: 6.15 days
+
+Explanation HI:
+कुल काम के लिए LCM लें।
+\[
+W=LCM(10,16)=80
+\]
+प्रत्येक मजदूर की एक-अवधि दक्षता निकालें।
+\[
+A=80/10=8,\quad B=80/16=5
+\]
+कुल काम को संयुक्त दक्षता से भाग दें।
+\[
+T=\frac{80}{8+5}=6.15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{10\times 16}{10+16}=6.15
+\]
+उत्तर: 6.15 दिन
+
+Explanation PA:
+ਕੁੱਲ ਕੰਮ ਲਈ LCM ਲਵੋ।
+\[
+W=LCM(10,16)=80
+\]
+ਹਰ ਮਜ਼ਦੂਰ ਦੀ ਇੱਕ-ਅਵਧੀ ਕੁਸ਼ਲਤਾ ਕੱਢੋ।
+\[
+A=80/10=8,\quad B=80/16=5
+\]
+ਕੁੱਲ ਕੰਮ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{80}{8+5}=6.15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{10\times 16}{10+16}=6.15
+\]
+ਉੱਤਰ: 6.15 ਦਿਨ
+
+[Q72]
+EN:
+Workers build 15 metres of boundary each day, while 3 metres are spoiled daily. In how many days will 150 metres be completed?
+
+HI:
+एक सड़क दल रोज 15 मीटर सड़क बनाता है, जबकि बारिश रोज 3 मीटर खराब करती है। 150 मीटर पूरा करने में कितने दिन लगेंगे?
+
+PA:
+ਇੱਕ ਸੜਕ ਟੀਮ ਰੋਜ਼ 15 ਮੀਟਰ ਸੜਕ ਬਣਾਉਂਦੀ ਹੈ, ਜਦਕਿ ਮੀਂਹ ਰੋਜ਼ 3 ਮੀਟਰ ਖਰਾਬ ਕਰਦਾ ਹੈ। 150 ਮੀਟਰ ਪੂਰਾ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 8 1/2 days | 12 1/2 days | 18 3/4 days | 13 1/2 days
+Answer: 12 1/2 days
+Difficulty: Hard
+Topology: time_work:tw_negative_positive_mixed_work
+Realism: 90
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{r_+-r_-}
+\]
+Put the given values into that relation.
+\[
+T=\frac{150}{15-3}
+\]
+Solve for the asked value.
+\[
+T=12.5
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W}{r_n}
+\]
+Answer: 12 1/2 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{r_+-r_-}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{150}{15-3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=12.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W}{r_n}
+\]
+उत्तर: 12 1/2 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{r_+-r_-}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{150}{15-3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=12.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W}{r_n}
+\]
+ਉੱਤਰ: 12 1/2 ਦਿਨ
+
+[Q73]
+EN:
+A production job has 180 items. The first 4 days produce 15 items per day, and after that 12 items per day. What is the total time?
+
+HI:
+एक मशीन 4 दिन तक रोज 15 डिब्बे पैक करती है और फिर रोज 12 डिब्बे पैक करती है। 180 डिब्बे कितने दिन में पैक होंगे?
+
+PA:
+ਇੱਕ ਮਸ਼ੀਨ 4 ਦਿਨ ਤੱਕ ਰੋਜ਼ 15 ਡੱਬੇ ਪੈਕ ਕਰਦੀ ਹੈ ਅਤੇ ਫਿਰ ਰੋਜ਼ 12 ਡੱਬੇ ਪੈਕ ਕਰਦੀ ਹੈ। 180 ਡੱਬੇ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੈਕ ਹੋਣਗੇ?
+
+Options: 14 days | 16 days | 18 days | 21 days
+Answer: 14 days
+Difficulty: Hard
+Topology: time_work:tw_productivity_decay
+Realism: 90
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=t_1+\frac{W-r_1t_1}{r_2}
+\]
+Put the given values into that relation.
+\[
+T=4+\frac{180-15\times 4}{12}
+\]
+Solve for the asked value.
+\[
+T=14
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+t_2
+\]
+Answer: 14 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=t_1+\frac{W-r_1t_1}{r_2}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=4+\frac{180-15\times 4}{12}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=14
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+t_2
+\]
+उत्तर: 14 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=t_1+\frac{W-r_1t_1}{r_2}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=4+\frac{180-15\times 4}{12}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=14
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+t_2
+\]
+ਉੱਤਰ: 14 ਦਿਨ
+
+[Q74]
+EN:
+A factory uses three machines. Machine A makes 20 parts per hour, B makes 25, and C makes 30. How many parts are produced in 6, 5, 4 hours respectively?
+
+HI:
+एक कारखाने में तीन मशीनें हैं। उनकी प्रति घंटे संख्या 20, 25 और 30 है। दिए गए 6, 5, 4 घंटों में कितनी वस्तुएँ बनेंगी?
+
+PA:
+ਇੱਕ ਕਾਰਖਾਨੇ ਵਿੱਚ ਤਿੰਨ ਮਸ਼ੀਨਾਂ ਹਨ। ਉਹਨਾਂ ਦੀ ਪ੍ਰਤੀ ਘੰਟਾ ਗਿਣਤੀ 20, 25 ਅਤੇ 30 ਹੈ। ਦਿੱਤੇ 6, 5, 4 ਘੰਟਿਆਂ ਵਿੱਚ ਕਿੰਨੀਆਂ ਵਸਤੂਆਂ ਬਣਣਗੀਆਂ?
+
+Options: 365 items | 361 items | 362 items | 438 items
+Answer: 365 items
+Difficulty: Hard
+Topology: time_work:tw_machine_parallel_scheduling
+Realism: 93
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=20\times 6+25\times 5+30\times 4
+\]
+Simplify the total output.
+\[
+O=365
+\]
+Shortcut / Exam Method:
+\[
+O=\sum r_it_i
+\]
+Answer: 365 items
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+O=\sum r_it_i
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+O=20\times 6+25\times 5+30\times 4
+\]
+कुल उत्पादन सरल करें।
+\[
+O=365
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O=\sum r_it_i
+\]
+उत्तर: 365 वस्तुएँ
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+O=\sum r_it_i
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+O=20\times 6+25\times 5+30\times 4
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+O=365
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O=\sum r_it_i
+\]
+ਉੱਤਰ: 365 ਵਸਤੂਆਂ
+
+[Q75]
+EN:
+8 workers have done 64 files out of 360. To finish the rest in 12 days, how many additional workers are needed?
+
+HI:
+8 मजदूरों ने 360 फॉर्म में से 64 फॉर्म पूरे कर दिए हैं। केवल 12 दिन बचे हैं। समय पर पूरा करने के लिए कितने अतिरिक्त मजदूर चाहिए?
+
+PA:
+8 ਮਜ਼ਦੂਰਾਂ ਨੇ 360 ਫਾਰਮਾਂ ਵਿੱਚੋਂ 64 ਫਾਰਮ ਪੂਰੇ ਕਰ ਦਿੱਤੇ ਹਨ। ਕੇਵਲ 12 ਦਿਨ ਬਚੇ ਹਨ। ਸਮੇਂ ਤੇ ਪੂਰਾ ਕਰਨ ਲਈ ਕਿੰਨੇ ਵਾਧੂ ਮਜ਼ਦੂਰ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 17 workers | 20 workers | 22 workers | 20.4 workers
+Answer: 17 workers
+Difficulty: Hard
+Topology: time_work:tw_contract_deadline_extra_workers
+Realism: 94
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+Subtract the work already completed.
+\[
+N_{extra}=\left\lceil\frac{296}{1\times 12}\right\rceil-8
+\]
+Use the active rate for the remaining phase.
+\[
+N_{extra}=17
+\]
+Shortcut / Exam Method:
+\[
+N_{extra}=N_r-N_c
+\]
+Answer: 17 workers
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+N_{extra}=\left\lceil\frac{296}{1\times 12}\right\rceil-8
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+N_{extra}=17
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N_{extra}=N_r-N_c
+\]
+उत्तर: 17 मजदूर
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+N_{extra}=\left\lceil\frac{296}{1\times 12}\right\rceil-8
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+N_{extra}=17
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N_{extra}=N_r-N_c
+\]
+ਉੱਤਰ: 17 ਮਜ਼ਦੂਰ
+
+[Q76]
+EN:
+A takes 12 days to finish a work and B takes 6 days for the same work. In how many days can A and B finish it together?
+
+HI:
+A को काम पूरा करने में 12 दिन और B को 6 दिन लगते हैं। दोनों मिलकर कितने दिन लेंगे?
+
+PA:
+A ਨੂੰ ਕੰਮ ਪੂਰਾ ਕਰਨ ਵਿੱਚ 12 ਦਿਨ ਅਤੇ B ਨੂੰ 6 ਦਿਨ ਲੱਗਦੇ ਹਨ। ਦੋਵੇਂ ਮਿਲ ਕੇ ਕਿੰਨੇ ਦਿਨ ਲੈਣਗੇ?
+
+Options: 6 days | 18 days | 9 days | 4 days
+Answer: 4 days
+Difficulty: Easy
+Topology: time_work:tw_basic_combined_work
+Realism: 75
+
+Explanation EN:
+Take the LCM as total work.
+\[
+W=LCM(12,6)=12
+\]
+Find each worker's one-period efficiency.
+\[
+A=12/12=1,\quad B=12/6=2
+\]
+Divide total work by the combined efficiency.
+\[
+T=\frac{12}{1+2}=4
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{12\times 6}{12+6}=4
+\]
+Answer: 4 days
+
+Explanation HI:
+कुल काम के लिए LCM लें।
+\[
+W=LCM(12,6)=12
+\]
+प्रत्येक मजदूर की एक-अवधि दक्षता निकालें।
+\[
+A=12/12=1,\quad B=12/6=2
+\]
+कुल काम को संयुक्त दक्षता से भाग दें।
+\[
+T=\frac{12}{1+2}=4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{12\times 6}{12+6}=4
+\]
+उत्तर: 4 दिन
+
+Explanation PA:
+ਕੁੱਲ ਕੰਮ ਲਈ LCM ਲਵੋ।
+\[
+W=LCM(12,6)=12
+\]
+ਹਰ ਮਜ਼ਦੂਰ ਦੀ ਇੱਕ-ਅਵਧੀ ਕੁਸ਼ਲਤਾ ਕੱਢੋ।
+\[
+A=12/12=1,\quad B=12/6=2
+\]
+ਕੁੱਲ ਕੰਮ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{12}{1+2}=4
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{12\times 6}{12+6}=4
+\]
+ਉੱਤਰ: 4 ਦਿਨ
+
+[Q77]
+EN:
+A team can complete a job in 30 days. If it works for 2 days, what fraction of the job will still be unfinished?
+
+HI:
+एक दल काम 30 दिन में पूरा कर सकता है। 2 दिन काम करने के बाद काम का कितना भाग बाकी रहेगा?
+
+PA:
+ਇੱਕ ਟੀਮ ਕੰਮ 30 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰ ਸਕਦੀ ਹੈ। 2 ਦਿਨ ਕੰਮ ਕਰਨ ਤੋਂ ਬਾਅਦ ਕਿੰਨਾ ਹਿੱਸਾ ਬਾਕੀ ਰਹੇਗਾ?
+
+Options: 14/15 | 14/1 | 15/14 | 1/15
+Answer: 14/15
+Difficulty: Easy
+Topology: time_work:tw_basic_residual_work
+Realism: 75
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{2}{30}
+\]
+Solve for the asked value.
+\[
+R=\frac{28}{30}=14/15
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{30-2}{30}=14/15
+\]
+Answer: 14/15
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+R=1-\frac{t}{T}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+R=1-\frac{2}{30}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+R=\frac{28}{30}=14/15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+R=\frac{30-2}{30}=14/15
+\]
+उत्तर: 14/15
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+R=1-\frac{t}{T}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+R=1-\frac{2}{30}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+R=\frac{28}{30}=14/15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+R=\frac{30-2}{30}=14/15
+\]
+ਉੱਤਰ: 14/15
+
+[Q78]
+EN:
+A and B can work in the ratio 2:3. They complete the job together in 6 days. What is A's time for the same job?
+
+HI:
+A और B की कार्य क्षमता का अनुपात 2:3 है। दोनों मिलकर काम 6 दिन में करते हैं। A अकेला कितने दिन लेगा?
+
+PA:
+A ਅਤੇ B ਦੀ ਕੰਮ ਕਰਨ ਦੀ ਸਮਰੱਥਾ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਦੋਵੇਂ ਮਿਲ ਕੇ ਕੰਮ 6 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?
+
+Options: 9 days | 11 days | 4 days | 15 days
+Answer: 15 days
+Difficulty: Medium
+Topology: time_work:tw_efficiency_ratio_scaling
+Realism: 81
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W=(a+b)T
+\]
+Put the given values into that relation.
+\[
+W=(2+3)\times 6
+\]
+Solve for the asked value.
+\[
+T_A=\frac{30}{2}=15
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+Answer: 15 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W=(a+b)T
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+W=(2+3)\times 6
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A=\frac{30}{2}=15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+उत्तर: 15 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W=(a+b)T
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+W=(2+3)\times 6
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A=\frac{30}{2}=15
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+ਉੱਤਰ: 15 ਦਿਨ
+
+[Q79]
+EN:
+A alone finishes a job in 18 days, while A and B together finish it in 6 days. How many days will B alone take?
+
+HI:
+A और B साथ काम 6 दिन में करते हैं। A अकेला 18 दिन लेता है। B अकेला कितने दिन लेगा?
+
+PA:
+A ਅਤੇ B ਨਾਲ ਕੰਮ 6 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ 18 ਦਿਨ ਲੈਂਦਾ ਹੈ। B ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨ ਲਵੇਗਾ?
+
+Options: 14 days | 12 days | 9 days | 24 days
+Answer: 9 days
+Difficulty: Medium
+Topology: time_work:tw_individual_from_combined
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+Put the given values into that relation.
+\[
+\frac{1}{B}=\frac{1}{6}-\frac{1}{18}
+\]
+Solve for the asked value.
+\[
+B=9
+\]
+Shortcut / Exam Method:
+\[
+B=\frac{6\times 18}{18-6}=9
+\]
+Answer: 9 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+\frac{1}{B}=\frac{1}{6}-\frac{1}{18}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+B=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+B=\frac{6\times 18}{18-6}=9
+\]
+उत्तर: 9 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+\frac{1}{B}=\frac{1}{6}-\frac{1}{18}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+B=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+B=\frac{6\times 18}{18-6}=9
+\]
+ਉੱਤਰ: 9 ਦਿਨ
+
+[Q80]
+EN:
+A worker finishes \(\frac{4}{9}\) of a work in 8 days. How many days are needed for the full work?
+
+HI:
+A 8 दिन में काम का \(\frac{4}{9}\) भाग करता है। पूरा काम कितने दिन में पूरा होगा?
+
+PA:
+A 8 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦਾ \(\frac{4}{9}\) ਹਿੱਸਾ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?
+
+Options: 72 days | 17 days | 18 days | 3.56 days
+Answer: 18 days
+Difficulty: Easy
+Topology: time_work:tw_work_fraction_days
+Realism: 75
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=d\times \frac{q}{p}
+\]
+Put the given values into that relation.
+\[
+T=8\times \frac{9}{4}
+\]
+Solve for the asked value.
+\[
+T=18
+\]
+Shortcut / Exam Method:
+\[
+T=8\div \frac{4}{9}=18
+\]
+Answer: 18 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=d\times \frac{q}{p}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=8\times \frac{9}{4}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=18
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=8\div \frac{4}{9}=18
+\]
+उत्तर: 18 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=d\times \frac{q}{p}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=8\times \frac{9}{4}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=18
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=8\div \frac{4}{9}=18
+\]
+ਉੱਤਰ: 18 ਦਿਨ
+
+[Q81]
+EN:
+A work requires 18 workers for 8 days with 5 working hours per day. How many workers will be needed for 12 days with 6 hours per day?
+
+HI:
+18 मजदूर 5 घंटे प्रतिदिन काम कर काम 8 दिन में पूरा करते हैं। 6 घंटे प्रतिदिन पर 12 दिन के लिए मजदूरों की संख्या क्या होगी?
+
+PA:
+18 ਮਜ਼ਦੂਰ 5 ਘੰਟੇ ਪ੍ਰਤੀ ਦਿਨ ਕੰਮ ਕਰਕੇ ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। 6 ਘੰਟੇ ਪ੍ਰਤੀ ਦਿਨ ਤੇ 12 ਦਿਨਾਂ ਲਈ ਮਜ਼ਦੂਰਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੋਵੇਗੀ?
+
+Options: 18 workers | 13 workers | 27 workers | 10 workers
+Answer: 10 workers
+Difficulty: Medium
+Topology: time_work:tw_man_days_hours_basic
+Realism: 82
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Put the given values into that relation.
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+Solve for the asked value.
+\[
+M_2=10
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+Answer: 10 workers
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+पूछे गए मान के लिए हल करें।
+\[
+M_2=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+उत्तर: 10 मजदूर
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+M_2=10
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+ਉੱਤਰ: 10 ਮਜ਼ਦੂਰ
+
+[Q82]
+EN:
+If A's time is 18 days and B's time is 6 days, what ratio of work will they do in equal time?
+
+HI:
+A काम 18 दिन में और B 6 दिन में पूरा करता है। समान समय में उनके काम का अनुपात क्या होगा?
+
+PA:
+A ਕੰਮ 18 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B 6 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਇੱਕੋ ਜਿਹੇ ਸਮੇਂ ਵਿੱਚ ਉਹਨਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 18:6 | 24:6 | 6:24 | 1:3
+Answer: 1:3
+Difficulty: Easy
+Topology: time_work:tw_work_done_ratio_from_times
+Realism: 75
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W_A:W_B=\frac{1}{18}:\frac{1}{6}
+\]
+Put the given values into that relation.
+\[
+W_A:W_B=6:18
+\]
+Solve for the asked value.
+\[
+W_A:W_B=1:3
+\]
+Shortcut / Exam Method:
+\[
+E=1:3
+\]
+Answer: 1:3
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W_A:W_B=\frac{1}{18}:\frac{1}{6}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+W_A:W_B=6:18
+\]
+पूछे गए मान के लिए हल करें।
+\[
+W_A:W_B=1:3
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+E=1:3
+\]
+उत्तर: 1:3
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W_A:W_B=\frac{1}{18}:\frac{1}{6}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+W_A:W_B=6:18
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+W_A:W_B=1:3
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+E=1:3
+\]
+ਉੱਤਰ: 1:3
+
+[Q83]
+EN:
+For the same work, A and B have capacities 6:10. What is the ratio of their times?
+
+HI:
+A और B की क्षमता 6:10 है। काम पूरा करने के समय का अनुपात ज्ञात करें?
+
+PA:
+A ਅਤੇ B ਦੀ ਸਮਰੱਥਾ 6:10 ਹੈ। ਕੰਮ ਪੂਰਾ ਕਰਨ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ?
+
+Options: 16:10 | 6:10 | 10:16 | 5:3
+Answer: 5:3
+Difficulty: Easy
+Topology: time_work:tw_time_ratio_from_efficiency
+Realism: 75
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T_A:T_B=E_B:E_A
+\]
+Put the given values into that relation.
+\[
+T_A:T_B=10:6
+\]
+Solve for the asked value.
+\[
+T_A:T_B=5:3
+\]
+Shortcut / Exam Method:
+\[
+T=5:3
+\]
+Answer: 5:3
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T_A:T_B=E_B:E_A
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T_A:T_B=10:6
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A:T_B=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=5:3
+\]
+उत्तर: 5:3
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T_A:T_B=E_B:E_A
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T_A:T_B=10:6
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A:T_B=5:3
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=5:3
+\]
+ਉੱਤਰ: 5:3
+
+[Q84]
+EN:
+A gets ₹720 and B gets ₹960 for equal time on the same job. What is A:B work ratio?
+
+HI:
+A और B समान दिन काम करते हैं और उन्हें ₹720 तथा ₹960 मिलते हैं। काम के अनुपात में मजदूरी हो तो A:B काम अनुपात क्या होगा?
+
+PA:
+A ਅਤੇ B ਇੱਕੋ ਜਿਹੇ ਦਿਨ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ ਉਹਨਾਂ ਨੂੰ ₹720 ਅਤੇ ₹960 ਮਿਲਦੇ ਹਨ। ਕੰਮ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਜ਼ਦੂਰੀ ਹੋਵੇ ਤਾਂ A:B ਕੰਮ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 1680:960 | 960:720 | 3:4 | 72:48
+Answer: 3:4
+Difficulty: Easy
+Topology: time_work:tw_efficiency_from_wages
+Realism: 74
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W_A:W_B=E_A:E_B
+\]
+Put the given values into that relation.
+\[
+E_A:E_B=720:960
+\]
+Solve for the asked value.
+\[
+E_A:E_B=3:4
+\]
+Shortcut / Exam Method:
+\[
+E=3:4
+\]
+Answer: 3:4
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W_A:W_B=E_A:E_B
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+E_A:E_B=720:960
+\]
+पूछे गए मान के लिए हल करें।
+\[
+E_A:E_B=3:4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+E=3:4
+\]
+उत्तर: 3:4
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W_A:W_B=E_A:E_B
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+E_A:E_B=720:960
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+E_A:E_B=3:4
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+E=3:4
+\]
+ਉੱਤਰ: 3:4
+
+[Q85]
+EN:
+A job takes 36 days for one worker. What fraction is done by the worker in a single day?
+
+HI:
+यदि एक मजदूर काम 36 दिन में पूरा करता है, तो वह एक दिन में कितना भाग करेगा?
+
+PA:
+ਜੇ ਇੱਕ ਮਜ਼ਦੂਰ ਕੰਮ 36 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ, ਤਾਂ ਉਹ ਇੱਕ ਦਿਨ ਵਿੱਚ ਕਿੰਨਾ ਹਿੱਸਾ ਕਰੇਗਾ?
+
+Options: 35/36 | 36 | 1/36 | 1/37
+Answer: 1/36
+Difficulty: Easy
+Topology: time_work:tw_one_day_work_fraction
+Realism: 72
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r=\frac{1}{T}
+\]
+Put the given values into that relation.
+\[
+r=\frac{1}{36}
+\]
+Solve for the asked value.
+\[
+r=1/36
+\]
+Shortcut / Exam Method:
+\[
+r=1/36=1/36
+\]
+Answer: 1/36
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r=\frac{1}{T}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r=\frac{1}{36}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+r=1/36
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+r=1/36=1/36
+\]
+उत्तर: 1/36
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r=\frac{1}{T}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r=\frac{1}{36}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+r=1/36
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+r=1/36=1/36
+\]
+ਉੱਤਰ: 1/36
+
+[Q86]
+EN:
+If a work is completed in 10 days and 5 days have passed, what fraction of the work is yet to be done?
+
+HI:
+एक काम पूरा होने में 10 दिन लगते हैं। 5 दिन काम हो चुका है। कितना भाग अभी अधूरा है?
+
+PA:
+ਇੱਕ ਕੰਮ ਪੂਰਾ ਹੋਣ ਵਿੱਚ 10 ਦਿਨ ਲੱਗਦੇ ਹਨ। 5 ਦਿਨ ਕੰਮ ਹੋ ਗਿਆ ਹੈ। ਕਿੰਨਾ ਹਿੱਸਾ ਅਜੇ ਅਧੂਰਾ ਹੈ?
+
+Options: 1/2:3 | 1/1 | 1/2 | 2/1
+Answer: 1/2
+Difficulty: Easy
+Topology: time_work:tw_remaining_work_fraction
+Realism: 73
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{5}{10}
+\]
+Solve for the asked value.
+\[
+R=\frac{5}{10}=1/2
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{10-5}{10}=1/2
+\]
+Answer: 1/2
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+R=1-\frac{t}{T}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+R=1-\frac{5}{10}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+R=\frac{5}{10}=1/2
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+R=\frac{10-5}{10}=1/2
+\]
+उत्तर: 1/2
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+R=1-\frac{t}{T}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+R=1-\frac{5}{10}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+R=\frac{5}{10}=1/2
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+R=\frac{10-5}{10}=1/2
+\]
+ਉੱਤਰ: 1/2
+
+[Q87]
+EN:
+A can complete a work in 8 days and B can complete it in 18 days. A starts alone, and after 3 days B joins him. In how many days from the start will the whole work be completed?
+
+HI:
+A काम 8 दिन में और B 18 दिन में पूरा करता है। A अकेला शुरू करता है और 3 दिन बाद B जुड़ता है। शुरू से कुल कितने दिन लगेंगे?
+
+PA:
+A ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B 18 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। A ਇਕੱਲਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ 3 ਦਿਨਾਂ ਬਾਅਦ B ਜੁੜਦਾ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕੁੱਲ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 1.46 days | 6.46 days | 4.85 days | 7.46 days
+Answer: 6.46 days
+Difficulty: Medium
+Topology: time_work:tw_delayed_join
+Realism: 83
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W_1=r_At_1,\ T_2=\frac{W-W_1}{r_A+r_B}
+\]
+Subtract the work already completed.
+\[
+W_1=9\times 3,\quad R=72-27
+\]
+Use the active rate for the remaining phase.
+\[
+T=3+\frac{45}{9+4}=6.46
+\]
+Shortcut / Exam Method:
+\[
+T=3+\frac{72-9\times 3}{9+4}
+\]
+Answer: 6.46 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W_1=r_At_1,\ T_2=\frac{W-W_1}{r_A+r_B}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=9\times 3,\quad R=72-27
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=3+\frac{45}{9+4}=6.46
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=3+\frac{72-9\times 3}{9+4}
+\]
+उत्तर: 6.46 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W_1=r_At_1,\ T_2=\frac{W-W_1}{r_A+r_B}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=9\times 3,\quad R=72-27
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=3+\frac{45}{9+4}=6.46
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=3+\frac{72-9\times 3}{9+4}
+\]
+ਉੱਤਰ: 6.46 ਦਿਨ
+
+[Q88]
+EN:
+A and B work together at first. A's time is 24 days and B's time is 6 days. If A leaves after 4 days, when will the job be finished from the start?
+
+HI:
+A और B मिलकर काम शुरू करते हैं। उनके अकेले समय 24 और 6 दिन हैं। A 4 दिन बाद चला जाता है। कुल समय कितना होगा?
+
+PA:
+A ਅਤੇ B ਮਿਲ ਕੇ ਕੰਮ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਹਨਾਂ ਦੇ ਇਕੱਲੇ ਸਮੇਂ 24 ਅਤੇ 6 ਦਿਨ ਹਨ। A 4 ਦਿਨਾਂ ਬਾਅਦ ਚਲਾ ਜਾਂਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 1/2 days | 6 1/4 days | 7 days | 5 days
+Answer: 5 days
+Difficulty: Medium
+Topology: time_work:tw_forward_leave
+Realism: 83
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+Subtract the work already completed.
+\[
+W_1=(5+20)\times 4
+\]
+Use the active rate for the remaining phase.
+\[
+T=4+\frac{20}{20}=5
+\]
+Shortcut / Exam Method:
+\[
+T=4+\frac{W-W_1}{B}
+\]
+Answer: 5 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=(5+20)\times 4
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=4+\frac{20}{20}=5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=4+\frac{W-W_1}{B}
+\]
+उत्तर: 5 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=(5+20)\times 4
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=4+\frac{20}{20}=5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=4+\frac{W-W_1}{B}
+\]
+ਉੱਤਰ: 5 ਦਿਨ
+
+[Q89]
+EN:
+A and B can separately complete a work in 15 and 30 days. A is absent for the last 2 days and B is absent for the last 3 days. In how many days is the work completed?
+
+HI:
+A और B अलग-अलग काम 15 और 30 दिन में कर सकते हैं। A अंतिम 2 दिन और B अंतिम 3 दिन अनुपस्थित रहता है। काम कितने दिन में पूरा होगा?
+
+PA:
+A ਅਤੇ B ਵੱਖ-ਵੱਖ ਕੰਮ 15 ਅਤੇ 30 ਦਿਨਾਂ ਵਿੱਚ ਕਰ ਸਕਦੇ ਹਨ। A ਆਖਰੀ 2 ਦਿਨ ਅਤੇ B ਆਖਰੀ 3 ਦਿਨ ਗੈਰਹਾਜ਼ਰ ਰਹਿੰਦਾ ਹੈ। ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?
+
+Options: 16 1/3 days | 12 1/3 days | 15 1/3 days | 9.87 days
+Answer: 12 1/3 days
+Difficulty: Hard
+Topology: time_work:tw_backward_leave
+Realism: 87
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+Put the given values into that relation.
+\[
+8(T-2)+4(T-3)=120
+\]
+Solve for the asked value.
+\[
+T=12\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+Answer: 12 1/3 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+8(T-2)+4(T-3)=120
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=12\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+उत्तर: 12 1/3 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r_A(T-a)+r_B(T-b)=W
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+8(T-2)+4(T-3)=120
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=12\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W+A\times 2+B\times 3}{A+B}
+\]
+ਉੱਤਰ: 12 1/3 ਦਿਨ
+
+[Q90]
+EN:
+A job has 120 files. The team handles 8 files daily at first for 3 days, and then 17 files daily. What is the total time?
+
+HI:
+एक टीम पहले 3 दिन रोज 8 फाइलें पूरी करती है। इसके बाद टीम बदलती है और रोज 17 फाइलें पूरी करती है। 120 फाइलों के लिए कुल कितने दिन लगेंगे?
+
+PA:
+ਇੱਕ ਟੀਮ ਪਹਿਲਾਂ 3 ਦਿਨ ਰੋਜ਼ 8 ਫਾਈਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ। ਇਸ ਤੋਂ ਬਾਅਦ ਟੀਮ ਬਦਲਦੀ ਹੈ ਅਤੇ ਰੋਜ਼ 17 ਫਾਈਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ। 120 ਫਾਈਲਾਂ ਲਈ ਕੁੱਲ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 6.65 days | 14.65 days | 10.81 days | 8.65 days
+Answer: 8.65 days
+Difficulty: Hard
+Topology: time_work:tw_multi_phase_join_leave
+Realism: 86
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+\sum r_it_i=W
+\]
+Subtract the work already completed.
+\[
+W_1=8\times 3
+\]
+Use the active rate for the remaining phase.
+\[
+T=3+\frac{96}{17}=8.65
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 8.65 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+\sum r_it_i=W
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=8\times 3
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=3+\frac{96}{17}=8.65
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+उत्तर: 8.65 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+\sum r_it_i=W
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=8\times 3
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=3+\frac{96}{17}=8.65
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+ਉੱਤਰ: 8.65 ਦਿਨ
+
+[Q91]
+EN:
+The fraction \(\frac{4}{9}\) of a job is completed in 8 days. How many days will the whole job take?
+
+HI:
+A 8 दिन में काम का \(\frac{4}{9}\) भाग करता है। पूरा काम कितने दिन में पूरा होगा?
+
+PA:
+A 8 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦਾ \(\frac{4}{9}\) ਹਿੱਸਾ ਕਰਦਾ ਹੈ। ਪੂਰਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?
+
+Options: 18 days | 3.56 days | 17 days | 72 days
+Answer: 18 days
+Difficulty: Medium
+Topology: time_work:tw_partial_completion_then_team
+Realism: 84
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=d\times \frac{q}{p}
+\]
+Put the given values into that relation.
+\[
+T=8\times \frac{9}{4}
+\]
+Solve for the asked value.
+\[
+T=18
+\]
+Shortcut / Exam Method:
+\[
+T=8\div \frac{4}{9}=18
+\]
+Answer: 18 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=d\times \frac{q}{p}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=8\times \frac{9}{4}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=18
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=8\div \frac{4}{9}=18
+\]
+उत्तर: 18 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=d\times \frac{q}{p}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=8\times \frac{9}{4}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=18
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=8\div \frac{4}{9}=18
+\]
+ਉੱਤਰ: 18 ਦਿਨ
+
+[Q92]
+EN:
+A job would be completed in 8 days of work. Due to a 3 days stoppage, in how many calendar days is it completed?
+
+HI:
+एक काम के लिए 8 सक्रिय दिन चाहिए। 3 दिन के विराम के कारण पूरा होने तक कितने दिन बीतेंगे?
+
+PA:
+ਇੱਕ ਕੰਮ ਲਈ 8 ਸਰਗਰਮ ਦਿਨ ਚਾਹੀਦੇ ਹਨ। 3 ਦਿਨ ਦੇ ਵਿਰਾਮ ਕਾਰਨ ਪੂਰਾ ਹੋਣ ਤੱਕ ਕਿੰਨੇ ਦਿਨ ਬੀਤਣਗੇ?
+
+Options: 13 1/5 days | 8 days | 7 days | 11 days
+Answer: 11 days
+Difficulty: Medium
+Topology: time_work:tw_interrupted_work
+Realism: 81
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+Subtract the work already completed.
+\[
+T_{active}=\frac{168}{12+9}
+\]
+Use the active rate for the remaining phase.
+\[
+T=T_{active}+3=11
+\]
+Shortcut / Exam Method:
+\[
+T=t_a+t_i
+\]
+Answer: 11 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+T_{active}=\frac{168}{12+9}
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=T_{active}+3=11
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_a+t_i
+\]
+उत्तर: 11 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+T_{active}=\frac{168}{12+9}
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=T_{active}+3=11
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_a+t_i
+\]
+ਉੱਤਰ: 11 ਦਿਨ
+
+[Q93]
+EN:
+A team processes 12 files per day for the first 3 days. After that, one worker is replaced and the team processes 13 files per day. If 120 files must be completed, how many days are needed in all?
+
+HI:
+एक टीम पहले 3 दिन रोज 12 फाइलें पूरी करती है। इसके बाद टीम बदलती है और रोज 13 फाइलें पूरी करती है। 120 फाइलों के लिए कुल कितने दिन लगेंगे?
+
+PA:
+ਇੱਕ ਟੀਮ ਪਹਿਲਾਂ 3 ਦਿਨ ਰੋਜ਼ 12 ਫਾਈਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ। ਇਸ ਤੋਂ ਬਾਅਦ ਟੀਮ ਬਦਲਦੀ ਹੈ ਅਤੇ ਰੋਜ਼ 13 ਫਾਈਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ। 120 ਫਾਈਲਾਂ ਲਈ ਕੁੱਲ ਕਿੰਨੇ ਦਿਨ ਲੱਗਣਗੇ?
+
+Options: 15.46 days | 11.83 days | 12.46 days | 9.46 days
+Answer: 9.46 days
+Difficulty: Medium
+Topology: time_work:tw_replacement_worker
+Realism: 80
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+r_1t_1+r_2t_2=W
+\]
+Subtract the work already completed.
+\[
+W_1=12\times 3
+\]
+Use the active rate for the remaining phase.
+\[
+T=3+\frac{84}{13}=9.46
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 9.46 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+r_1t_1+r_2t_2=W
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=12\times 3
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=3+\frac{84}{13}=9.46
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+उत्तर: 9.46 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+r_1t_1+r_2t_2=W
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=12\times 3
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=3+\frac{84}{13}=9.46
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+ਉੱਤਰ: 9.46 ਦਿਨ
+
+[Q94]
+EN:
+A job has 180 forms. 8 workers have finished 64 forms, and 8 days remain. How many more workers should be added?
+
+HI:
+एक काम में 180 फॉर्म हैं। 8 मजदूर 64 फॉर्म कर चुके हैं और 8 दिन बचे हैं। कितने और मजदूर जोड़ने होंगे?
+
+PA:
+ਇੱਕ ਕੰਮ ਵਿੱਚ 180 ਫਾਰਮ ਹਨ। 8 ਮਜ਼ਦੂਰ 64 ਫਾਰਮ ਕਰ ਚੁੱਕੇ ਹਨ ਅਤੇ 8 ਦਿਨ ਬਚੇ ਹਨ। ਕਿੰਨੇ ਹੋਰ ਮਜ਼ਦੂਰ ਜੋੜਣੇ ਹੋਣਗੇ?
+
+Options: 9 workers | 3 workers | 8.4 workers | 7 workers
+Answer: 7 workers
+Difficulty: Hard
+Topology: time_work:tw_worker_added_to_meet_deadline
+Realism: 88
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+Subtract the work already completed.
+\[
+N_{extra}=\left\lceil\frac{116}{1\times 8}\right\rceil-8
+\]
+Use the active rate for the remaining phase.
+\[
+N_{extra}=7
+\]
+Shortcut / Exam Method:
+\[
+N_{extra}=N_r-N_c
+\]
+Answer: 7 workers
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+N_{extra}=\left\lceil\frac{116}{1\times 8}\right\rceil-8
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+N_{extra}=7
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N_{extra}=N_r-N_c
+\]
+उत्तर: 7 मजदूर
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+N_{extra}=\left\lceil\frac{116}{1\times 8}\right\rceil-8
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+N_{extra}=7
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N_{extra}=N_r-N_c
+\]
+ਉੱਤਰ: 7 ਮਜ਼ਦੂਰ
+
+[Q95]
+EN:
+12 workers start a job together. After 8 days, 2 of them leave. What is the delay in days compared with the original plan?
+
+HI:
+12 मजदूर साथ काम शुरू करते हैं। 8 दिन बाद उनमें से 2 चले जाते हैं। मूल योजना से कितने दिन की देरी होगी?
+
+PA:
+12 ਮਜ਼ਦੂਰ ਨਾਲ ਕੰਮ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। 8 ਦਿਨਾਂ ਬਾਅਦ ਉਹਨਾਂ ਵਿੱਚੋਂ 2 ਚਲੇ ਜਾਂਦੇ ਹਨ। ਮੂਲ ਯੋਜਨਾ ਨਾਲੋਂ ਕਿੰਨੇ ਦਿਨ ਦੀ ਦੇਰੀ ਹੋਵੇਗੀ?
+
+Options: 1.05 days | 3 2/5 days | 1 2/5 days | 6 2/5 days
+Answer: 1 2/5 days
+Difficulty: Medium
+Topology: time_work:tw_worker_removed_delay
+Realism: 84
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+D=T_{actual}-T_{planned}
+\]
+Subtract the work already completed.
+\[
+R=180-12\times 8
+\]
+Use the active rate for the remaining phase.
+\[
+D=\frac{84}{10}-\frac{84}{12}
+\]
+Shortcut / Exam Method:
+\[
+D=T_a-T_p
+\]
+Answer: 1 2/5 days
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+D=T_{actual}-T_{planned}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+R=180-12\times 8
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+D=\frac{84}{10}-\frac{84}{12}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=T_a-T_p
+\]
+उत्तर: 1 2/5 दिन
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+D=T_{actual}-T_{planned}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+R=180-12\times 8
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+D=\frac{84}{10}-\frac{84}{12}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=T_a-T_p
+\]
+ਉੱਤਰ: 1 2/5 ਦਿਨ
+
+[Q96]
+EN:
+Machines A, B and C make 12, 15 and 18 parts per hour. If they run for 6 hours, how many parts are made?
+
+HI:
+तीन मशीनें साथ काम करती हैं और प्रति घंटे 12, 15 और 18 वस्तुएँ बनाती हैं। 6 घंटों के लिए कुल उत्पादन कितना होगा?
+
+PA:
+ਤਿੰਨ ਮਸ਼ੀਨਾਂ ਨਾਲ ਕੰਮ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਪ੍ਰਤੀ ਘੰਟਾ 12, 15 ਅਤੇ 18 ਵਸਤੂਆਂ ਬਣਾਉਂਦੀਆਂ ਹਨ। 6 ਘੰਟਿਆਂ ਲਈ ਕੁੱਲ ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 270 items | 324 items | 273 items | 275 items
+Answer: 270 items
+Difficulty: Medium
+Topology: time_work:tw_machine_breakdown_midway
+Realism: 80
+
+Explanation EN:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+Simplify the total output.
+\[
+O=270
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 270 items
+
+Explanation HI:
+उत्पादन को दर गुणा सक्रिय समय लिखें।
+\[
+O=\sum r_it_i
+\]
+सभी सक्रिय साधनों का उत्पादन जोड़ें।
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+कुल उत्पादन सरल करें।
+\[
+O=270
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O=(r_1+r_2+r_3)t
+\]
+उत्तर: 270 वस्तुएँ
+
+Explanation PA:
+ਉਤਪਾਦਨ ਨੂੰ ਦਰ ਗੁਣਾ ਸਰਗਰਮ ਸਮਾਂ ਲਿਖੋ।
+\[
+O=\sum r_it_i
+\]
+ਸਾਰੇ ਸਰਗਰਮ ਸਾਧਨਾਂ ਦਾ ਉਤਪਾਦਨ ਜੋੜੋ।
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+ਕੁੱਲ ਉਤਪਾਦਨ ਸਰਲ ਕਰੋ।
+\[
+O=270
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O=(r_1+r_2+r_3)t
+\]
+ਉੱਤਰ: 270 ਵਸਤੂਆਂ
+
+[Q97]
+EN:
+Starting with A, two workers alternate. A completes 6 records and B completes 6 records on their respective turns. What is the completion time in days for 72 records?
+
+HI:
+दो मजदूर बारी-बारी काम करते हैं और A शुरू करता है। A हर बारी में 6 फाइलें और B 6 फाइलें करता है। 72 फाइलें कितने दिनों में होंगी?
+
+PA:
+ਦੋ ਮਜ਼ਦੂਰ ਵਾਰੀ-ਵਾਰੀ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ A ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। A ਹਰ ਵਾਰੀ ਵਿੱਚ 6 ਫਾਈਲਾਂ ਅਤੇ B 6 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 72 ਫਾਈਲਾਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਣਗੀਆਂ?
+
+Options: 17 days | 12 days | 10 days | 14 2/5 days
+Answer: 12 days
+Difficulty: Hard
+Topology: time_work:tw_alternating_days_two_workers
+Realism: 89
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+6
+\]
+Add only the needed part of the final turn.
+\[
+T=12
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 12 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=6+6
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=12
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 12 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=6+6
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=12
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 12 ਦਿਨ
+
+[Q98]
+EN:
+Two workers take turns, with A starting. A handles 10 files per turn and B handles 5 files per turn. In how many hours will 72 files be finished?
+
+HI:
+दो मजदूर बारी-बारी काम करते हैं और A शुरू करता है। A हर बारी में 10 फाइलें और B 5 फाइलें करता है। 72 फाइलें कितने घंटों में होंगी?
+
+PA:
+ਦੋ ਮਜ਼ਦੂਰ ਵਾਰੀ-ਵਾਰੀ ਕੰਮ ਕਰਦੇ ਹਨ ਅਤੇ A ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। A ਹਰ ਵਾਰੀ ਵਿੱਚ 10 ਫਾਈਲਾਂ ਅਤੇ B 5 ਫਾਈਲਾਂ ਕਰਦਾ ਹੈ। 72 ਫਾਈਲਾਂ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਹੋਣਗੀਆਂ?
+
+Options: 4 2/5 hours | 7.05 hours | 10 2/5 hours | 9 2/5 hours
+Answer: 9 2/5 hours
+Difficulty: Hard
+Topology: time_work:tw_alternating_hours
+Realism: 87
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+5
+\]
+Add only the needed part of the final turn.
+\[
+T=9.4
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 9 2/5 hours
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=10+5
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=9.4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 9 2/5 घंटे
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=10+5
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=9.4
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 9 2/5 ਘੰਟੇ
+
+[Q99]
+EN:
+A works on the first day, B on the second and C on the third, then the order repeats. They complete 8, 5 and 3 forms on their days. How long will 120 forms take?
+
+HI:
+A, B और C क्रम से अलग-अलग दिन काम करते हैं। वे अपनी बारी में 8, 5 और 3 फाइलें करते हैं। 120 फाइलें कितने दिन में पूरी होंगी?
+
+PA:
+A, B ਅਤੇ C ਕ੍ਰਮ ਨਾਲ ਵੱਖ-ਵੱਖ ਦਿਨ ਕੰਮ ਕਰਦੇ ਹਨ। ਉਹ ਆਪਣੀ ਵਾਰੀ ਵਿੱਚ 8, 5 ਅਤੇ 3 ਫਾਈਲਾਂ ਕਰਦੇ ਹਨ। 120 ਫਾਈਲਾਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰੀਆਂ ਹੋਣਗੀਆਂ?
+
+Options: 28 days | 27 1/2 days | 20 days | 22 days
+Answer: 22 days
+Difficulty: Hard
+Topology: time_work:tw_alternating_group_cycle
+Realism: 87
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=8+5+3
+\]
+Add only the needed part of the final turn.
+\[
+T=22
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 22 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=8+5+3
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=22
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 22 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=8+5+3
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=22
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 22 ਦਿਨ
+
+[Q100]
+EN:
+A and B work by turns. A starts and completes 6 documents per turn; B completes 5. How many days will 90 documents take?
+
+HI:
+A और B बारी से काम करते हैं। A शुरू करता है और हर बारी में 6 दस्तावेज करता है; B 5 करता है। 90 दस्तावेज कितने दिनों में होंगे?
+
+PA:
+A ਅਤੇ B ਵਾਰੀ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹਨ। A ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ਹਰ ਵਾਰੀ ਵਿੱਚ 6 ਦਸਤਾਵੇਜ਼ ਕਰਦਾ ਹੈ; B 5 ਕਰਦਾ ਹੈ। 90 ਦਸਤਾਵੇਜ਼ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਣਗੇ?
+
+Options: 15 1/3 days | 21 1/3 days | 16 1/3 days | 12 1/4 days
+Answer: 16 1/3 days
+Difficulty: Hard
+Topology: time_work:tw_terminal_overshoot_cycle
+Realism: 86
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+5
+\]
+Add only the needed part of the final turn.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 16 1/3 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=6+5
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=16\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 16 1/3 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=6+5
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=16\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 16 1/3 ਦਿਨ
+
+[Q101]
+EN:
+Only alternate days are working days for A. A finishes 10 metres each working day. How many calendar days are required for 60 metres?
+
+HI:
+A एक दिन काम और एक दिन आराम का क्रम रखता है। हर काम वाले दिन 10 मीटर बाड़ लगती है। 60 मीटर के लिए कितने दिन चाहिए?
+
+PA:
+A ਇੱਕ ਦਿਨ ਕੰਮ ਅਤੇ ਇੱਕ ਦਿਨ ਆਰਾਮ ਦਾ ਕ੍ਰਮ ਰੱਖਦਾ ਹੈ। ਹਰ ਕੰਮ ਵਾਲੇ ਦਿਨ 10 ਮੀਟਰ ਬਾੜ ਲੱਗਦੀ ਹੈ। 60 ਮੀਟਰ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 9 3/5 days | 18 days | 14 days | 12 days
+Answer: 12 days
+Difficulty: Hard
+Topology: time_work:tw_work_rest_cycle
+Realism: 86
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+0
+\]
+Add only the needed part of the final turn.
+\[
+T=12
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 12 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=10+0
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=12
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 12 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=10+0
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=12
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 12 ਦਿਨ
+
+[Q102]
+EN:
+A works on the first day, B on the second and C on the third, then the order repeats. They complete 6, 6 and 4 forms on their days. How long will 72 forms take?
+
+HI:
+पहले दिन A, दूसरे दिन B और तीसरे दिन C काम करता है, फिर यही क्रम दोहरता है। वे 6, 6 और 4 फॉर्म करते हैं। 72 फॉर्म कितने दिन लेंगे?
+
+PA:
+ਪਹਿਲੇ ਦਿਨ A, ਦੂਜੇ ਦਿਨ B ਅਤੇ ਤੀਜੇ ਦਿਨ C ਕੰਮ ਕਰਦਾ ਹੈ, ਫਿਰ ਇਹੀ ਕ੍ਰਮ ਦੁਹਰਦਾ ਹੈ। ਉਹ 6, 6 ਅਤੇ 4 ਫਾਰਮ ਕਰਦੇ ਹਨ। 72 ਫਾਰਮ ਕਿੰਨੇ ਦਿਨ ਲੈਣਗੇ?
+
+Options: 8 1/3 days | 14 1/3 days | 10 days | 13 1/3 days
+Answer: 13 1/3 days
+Difficulty: Hard
+Topology: time_work:tw_conditional_activation
+Realism: 89
+
+Explanation EN:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+6+4
+\]
+Add only the needed part of the final turn.
+\[
+T=13\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 13 1/3 days
+
+Explanation HI:
+एक पूरे चक्र में हुआ काम निकालें।
+\[
+W_{cycle}=\sum r_i
+\]
+अंतिम बारी से पहले पूरे चक्र गिनें।
+\[
+W_{cycle}=6+6+4
+\]
+अंतिम बारी का केवल आवश्यक भाग जोड़ें।
+\[
+T=13\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=cycles+final\ turn
+\]
+उत्तर: 13 1/3 दिन
+
+Explanation PA:
+ਇੱਕ ਪੂਰੇ ਚੱਕਰ ਵਿੱਚ ਹੋਇਆ ਕੰਮ ਕੱਢੋ।
+\[
+W_{cycle}=\sum r_i
+\]
+ਆਖਰੀ ਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ ਗਿਣੋ।
+\[
+W_{cycle}=6+6+4
+\]
+ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।
+\[
+T=13\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=cycles+final\ turn
+\]
+ਉੱਤਰ: 13 1/3 ਦਿਨ
+
+[Q103]
+EN:
+The working capacity of A is to B as 3:4. If both finish the job in 12 days, how many days will A take alone?
+
+HI:
+A की क्षमता B से 3:4 के अनुपात में है। दोनों साथ काम 12 दिन में पूरा करते हैं। A अकेला कितने दिन में करेगा?
+
+PA:
+A ਦੀ ਸਮਰੱਥਾ B ਨਾਲ 3:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਦੋਵੇਂ ਨਾਲ ਕੰਮ 12 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। A ਇਕੱਲਾ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰੇਗਾ?
+
+Options: 16 days | 28 days | 19 days | 9 days
+Answer: 28 days
+Difficulty: Medium
+Topology: time_work:tw_relative_efficiency_percent
+Realism: 81
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+W=(a+b)T
+\]
+Put the given values into that relation.
+\[
+W=(3+4)\times 12
+\]
+Solve for the asked value.
+\[
+T_A=\frac{84}{3}=28
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(3+4)12}{3}=28
+\]
+Answer: 28 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+W=(a+b)T
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+W=(3+4)\times 12
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A=\frac{84}{3}=28
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(3+4)12}{3}=28
+\]
+उत्तर: 28 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+W=(a+b)T
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+W=(3+4)\times 12
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A=\frac{84}{3}=28
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(3+4)12}{3}=28
+\]
+ਉੱਤਰ: 28 ਦਿਨ
+
+[Q104]
+EN:
+In a workshop, each man finishes 4 boxes daily and each woman finishes 3 boxes daily. How long will 3 men and 4 women take to finish 240 boxes?
+
+HI:
+मिश्रित दल में 3 पुरुष और 4 महिलाएँ हैं। उनकी दैनिक संख्या क्रमशः 4 और 3 है। दल 240 वस्तुएँ कितने दिन में करेगा?
+
+PA:
+ਮਿਸ਼ਰਤ ਟੀਮ ਵਿੱਚ 3 ਆਦਮੀ ਅਤੇ 4 ਔਰਤਾਂ ਹਨ। ਉਹਨਾਂ ਦੀ ਰੋਜ਼ਾਨਾ ਗਿਣਤੀ ਕ੍ਰਮਵਾਰ 4 ਅਤੇ 3 ਹੈ। ਟੀਮ 240 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰੇਗੀ?
+
+Options: 6 days | 10 days | 13 days | 15 days
+Answer: 10 days
+Difficulty: Medium
+Topology: time_work:tw_worker_equivalence_men_women
+Realism: 84
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=10
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 10 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 10 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=10
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 10 ਦਿਨ
+
+[Q105]
+EN:
+A team has 2 men and 3 women with 4 children. They finish 4, 2, 1 boxes per person per day respectively. How many days are needed for 360 boxes?
+
+HI:
+यदि हर पुरुष रोज 4 वस्तुएँ और हर महिला 2 वस्तुएँ करती है, तो 2 पुरुष और 3 महिलाएँ 360 वस्तुएँ कितने दिन में करेंगे?
+
+PA:
+ਜੇ ਹਰ ਆਦਮੀ ਰੋਜ਼ 4 ਵਸਤੂਆਂ ਅਤੇ ਹਰ ਔਰਤ 2 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ, ਤਾਂ 2 ਆਦਮੀ ਅਤੇ 3 ਔਰਤਾਂ 360 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰਨਗੇ?
+
+Options: 20 days | 15 days | 19 days | 25 days
+Answer: 20 days
+Difficulty: Hard
+Topology: time_work:tw_worker_equivalence_men_women_children
+Realism: 89
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{360}{2\times 4+3\times 2+4\times 1}
+\]
+Solve for the asked value.
+\[
+T=20
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 20 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{360}{2\times 4+3\times 2+4\times 1}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=20
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 20 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{360}{2\times 4+3\times 2+4\times 1}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=20
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 20 ਦਿਨ
+
+[Q106]
+EN:
+A packing job has 360 boxes. If 6 men and 8 women work together, with each man doing 4 boxes and each woman 3 boxes daily, how many days will it take?
+
+HI:
+यदि हर पुरुष रोज 4 वस्तुएँ और हर महिला 3 वस्तुएँ करती है, तो 6 पुरुष और 8 महिलाएँ 360 वस्तुएँ कितने दिन में करेंगे?
+
+PA:
+ਜੇ ਹਰ ਆਦਮੀ ਰੋਜ਼ 4 ਵਸਤੂਆਂ ਅਤੇ ਹਰ ਔਰਤ 3 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ, ਤਾਂ 6 ਆਦਮੀ ਅਤੇ 8 ਔਰਤਾਂ 360 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰਨਗੇ?
+
+Options: 6 days | 9 1/2 days | 7 1/2 days | 13 1/2 days
+Answer: 7 1/2 days
+Difficulty: Hard
+Topology: time_work:tw_group_conversion_and_or
+Realism: 86
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{360}{6\times 4+8\times 3}
+\]
+Solve for the asked value.
+\[
+T=7.5
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 7 1/2 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{360}{6\times 4+8\times 3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=7.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 7 1/2 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{360}{6\times 4+8\times 3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=7.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 7 1/2 ਦਿਨ
+
+[Q107]
+EN:
+The capacity ratio of A to B is 4:7. The capacity ratio of B to C is 3:4. Find the ratio A:B:C?
+
+HI:
+A:B क्षमता अनुपात 4:7 है। B:C क्षमता अनुपात 3:4 है। A:B:C ज्ञात करें?
+
+PA:
+A:B ਸਮਰੱਥਾ ਅਨੁਪਾਤ 4:7 ਹੈ। B:C ਸਮਰੱਥਾ ਅਨੁਪਾਤ 3:4 ਹੈ। A:B:C ਪਤਾ ਕਰੋ?
+
+Options: 4:7:4 | 12:21:28 | 4:3:4 | 28:21:12
+Answer: 12:21:28
+Difficulty: Medium
+Topology: time_work:tw_efficiency_chain
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+B_c
+\]
+Put the given values into that relation.
+\[
+LCM(7,3)=21
+\]
+Solve for the asked value.
+\[
+A:B:C=12:21:28
+\]
+Shortcut / Exam Method:
+\[
+A:B:C=12:21:28
+\]
+Answer: 12:21:28
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+B_c
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+LCM(7,3)=21
+\]
+पूछे गए मान के लिए हल करें।
+\[
+A:B:C=12:21:28
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+A:B:C=12:21:28
+\]
+उत्तर: 12:21:28
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+B_c
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+LCM(7,3)=21
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+A:B:C=12:21:28
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+A:B:C=12:21:28
+\]
+ਉੱਤਰ: 12:21:28
+
+[Q108]
+EN:
+A team has 3 men and 4 women. They finish 4, 3 boxes per person per day respectively. How many days are needed for 300 boxes?
+
+HI:
+यदि हर पुरुष रोज 4 वस्तुएँ और हर महिला 3 वस्तुएँ करती है, तो 3 पुरुष और 4 महिलाएँ 300 वस्तुएँ कितने दिन में करेंगे?
+
+PA:
+ਜੇ ਹਰ ਆਦਮੀ ਰੋਜ਼ 4 ਵਸਤੂਆਂ ਅਤੇ ਹਰ ਔਰਤ 3 ਵਸਤੂਆਂ ਕਰਦੀ ਹੈ, ਤਾਂ 3 ਆਦਮੀ ਅਤੇ 4 ਔਰਤਾਂ 300 ਵਸਤੂਆਂ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਕਰਨਗੇ?
+
+Options: 17 1/2 days | 9.38 days | 12 1/2 days | 11 1/2 days
+Answer: 12 1/2 days
+Difficulty: Medium
+Topology: time_work:tw_team_a_vs_team_b
+Realism: 81
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=12.5
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 12 1/2 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+T=\frac{W}{\sum ne}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T=12.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=W/R
+\]
+उत्तर: 12 1/2 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+T=\frac{W}{\sum ne}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T=12.5
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=W/R
+\]
+ਉੱਤਰ: 12 1/2 ਦਿਨ
+
+[Q109]
+EN:
+The pairs A+B, B+C and C+A finish a job in 10, 12 and 15 days respectively. What is A's individual time?
+
+HI:
+जोड़े A+B, B+C और C+A काम क्रमशः 10, 12 और 15 दिन में करते हैं। A का अकेला समय क्या होगा?
+
+PA:
+ਜੋੜੇ A+B, B+C ਅਤੇ C+A ਕੰਮ ਕ੍ਰਮਵਾਰ 10, 12 ਅਤੇ 15 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੇ ਹਨ। A ਦਾ ਇਕੱਲਾ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 23 days | 29 days | 24 days | 18 days
+Answer: 24 days
+Difficulty: Hard
+Topology: time_work:tw_pairwise_ab_bc_ac
+Realism: 86
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+Put the given values into that relation.
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+Solve for the asked value.
+\[
+T_A=24
+\]
+Shortcut / Exam Method:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+Answer: 24 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_A=24
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+उत्तर: 24 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+2(A+B+C)=(A+B)+(B+C)+(C+A)
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+AB=10,\ BC=12,\ CA=15
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_A=24
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+A=\frac{AB+AC-BC}{2}
+\]
+ਉੱਤਰ: 24 ਦਿਨ
+
+[Q110]
+EN:
+A, B and C can finish a job together in 8 days. A and B together need 20 days. How many days will C alone take?
+
+HI:
+पूरी टीम A+B+C काम 8 दिन में करती है। ज्ञात मजदूरों के समय 20 दिन हैं। बचे हुए मजदूर का अकेला समय क्या होगा?
+
+PA:
+ਪੂਰੀ ਟੀਮ A+B+C ਕੰਮ 8 ਦਿਨਾਂ ਵਿੱਚ ਕਰਦੀ ਹੈ। ਜਾਣੇ ਮਜ਼ਦੂਰਾਂ ਦੇ ਸਮੇਂ 20 ਦਿਨ ਹਨ। ਬਚੇ ਹੋਏ ਮਜ਼ਦੂਰ ਦਾ ਇਕੱਲਾ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 12 1/3 days | 13 1/3 days | 10 2/3 days | 19 1/3 days
+Answer: 13 1/3 days
+Difficulty: Medium
+Topology: time_work:tw_pairwise_total_abc
+Realism: 81
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Put the given values into that relation.
+\[
+r_X=\frac{1}{8}-\frac{1}{20}
+\]
+Solve for the asked value.
+\[
+T_X=13\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 13 1/3 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r_X=\frac{1}{8}-\frac{1}{20}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_X=13\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_X=1/r_X
+\]
+उत्तर: 13 1/3 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r_X=\frac{1}{8}-\frac{1}{20}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_X=13\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_X=1/r_X
+\]
+ਉੱਤਰ: 13 1/3 ਦਿਨ
+
+[Q111]
+EN:
+A job is completed by A, B and C together in 10 days. A and B together can do it in 20 days. What is C's individual time?
+
+HI:
+A, B और C साथ काम 10 दिन में पूरा करते हैं। ज्ञात मजदूर अकेले 20 और 40 दिन लेते हैं। शेष मजदूर का समय ज्ञात करें?
+
+PA:
+A, B ਅਤੇ C ਨਾਲ ਕੰਮ 10 ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਜਾਣੇ ਮਜ਼ਦੂਰ ਇਕੱਲੇ 20 ਅਤੇ 40 ਦਿਨ ਲੈਂਦੇ ਹਨ। ਬਾਕੀ ਮਜ਼ਦੂਰ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ?
+
+Options: 40 days | 50 days | 42 days | 35 days
+Answer: 40 days
+Difficulty: Medium
+Topology: time_work:tw_unknown_worker_from_team
+Realism: 83
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Put the given values into that relation.
+\[
+r_X=\frac{1}{10}-\frac{1}{20}-\frac{1}{40}
+\]
+Solve for the asked value.
+\[
+T_X=40
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 40 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r_X=\frac{1}{10}-\frac{1}{20}-\frac{1}{40}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+T_X=40
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_X=1/r_X
+\]
+उत्तर: 40 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r_X=r_{team}-\sum r_i
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r_X=\frac{1}{10}-\frac{1}{20}-\frac{1}{40}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+T_X=40
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_X=1/r_X
+\]
+ਉੱਤਰ: 40 ਦਿਨ
+
+[Q112]
+EN:
+An examiner checks 24 answer sheets in 6 days. How many answer sheets are checked per day?
+
+HI:
+A 6 दिन में 24 उत्तर-पत्रक जाँचता है। A एक दिन में कितने उत्तर-पत्रक जाँचेगा?
+
+PA:
+A 6 ਦਿਨਾਂ ਵਿੱਚ 24 ਉੱਤਰ ਪੱਤਰ ਜਾਂਚਦਾ ਹੈ। A ਇੱਕ ਦਿਨ ਵਿੱਚ ਕਿੰਨੇ ਉੱਤਰ ਪੱਤਰ ਜਾਂਚੇਗਾ?
+
+Options: 4 answer sheets | 2 answer sheets | 8 answer sheets | 6 answer sheets
+Answer: 4 answer sheets
+Difficulty: Medium
+Topology: time_work:tw_reverse_contribution_deduction
+Realism: 80
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+r=\frac{W}{t}
+\]
+Put the given values into that relation.
+\[
+r=\frac{24}{6}
+\]
+Solve for the asked value.
+\[
+r=4
+\]
+Shortcut / Exam Method:
+\[
+r=W/t
+\]
+Answer: 4 answer sheets
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+r=\frac{W}{t}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+r=\frac{24}{6}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+r=4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+r=W/t
+\]
+उत्तर: 4 उत्तर-पत्रक
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+r=\frac{W}{t}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+r=\frac{24}{6}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+r=4
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+r=W/t
+\]
+ਉੱਤਰ: 4 ਉੱਤਰ ਪੱਤਰ
+
+[Q113]
+EN:
+A job contains 120 forms. After 48 forms are done, one worker finishes 8 forms each day. How many days are needed to finish it?
+
+HI:
+120 फॉर्म में से 48 फॉर्म पूरे हो चुके हैं। अंतिम मजदूर रोज 8 फॉर्म करता है। बाकी के लिए कितने दिन चाहिए?
+
+PA:
+120 ਫਾਰਮਾਂ ਵਿੱਚੋਂ 48 ਫਾਰਮ ਪੂਰੇ ਹੋ ਚੁੱਕੇ ਹਨ। ਆਖਰੀ ਮਜ਼ਦੂਰ ਰੋਜ਼ 8 ਫਾਰਮ ਕਰਦਾ ਹੈ। ਬਾਕੀ ਲਈ ਕਿੰਨੇ ਦਿਨ ਚਾਹੀਦੇ ਹਨ?
+
+Options: 9 days | 6 days | 4 days | 11 1/4 days
+Answer: 9 days
+Difficulty: Hard
+Topology: time_work:tw_phase_state_reconstruction
+Realism: 89
+
+Explanation EN:
+Set up the rate relation for this case.
+\[
+x=\frac{W-W_1}{r}
+\]
+Put the given values into that relation.
+\[
+x=\frac{120-48}{8}
+\]
+Solve for the asked value.
+\[
+x=9
+\]
+Shortcut / Exam Method:
+\[
+x=\frac{W_l}{r}
+\]
+Answer: 9 days
+
+Explanation HI:
+इस स्थिति के लिए दर-संबंध बनाएँ।
+\[
+x=\frac{W-W_1}{r}
+\]
+दिए गए मान उसी संबंध में रखें।
+\[
+x=\frac{120-48}{8}
+\]
+पूछे गए मान के लिए हल करें।
+\[
+x=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+x=\frac{W_l}{r}
+\]
+उत्तर: 9 दिन
+
+Explanation PA:
+ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।
+\[
+x=\frac{W-W_1}{r}
+\]
+ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+x=\frac{120-48}{8}
+\]
+ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।
+\[
+x=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+x=\frac{W_l}{r}
+\]
+ਉੱਤਰ: 9 ਦਿਨ
+
+[Q114]
+EN:
+A job earns ₹12000 for the workers. If A:B:C contribution ratio is 24:36:40, what is A's wage?
+
+HI:
+एक काम से मजदूरों को ₹12000 मिलते हैं। यदि A:B:C योगदान अनुपात 24:36:40 है, तो A की मजदूरी कितनी होगी?
+
+PA:
+ਇੱਕ ਕੰਮ ਤੋਂ ਮਜ਼ਦੂਰਾਂ ਨੂੰ ₹12000 ਮਿਲਦੇ ਹਨ। ਜੇ A:B:C ਯੋਗਦਾਨ ਅਨੁਪਾਤ 24:36:40 ਹੈ, ਤਾਂ A ਦੀ ਮਜ਼ਦੂਰੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+
+Options: ₹2878 | ₹2885 | ₹3456 | ₹2880
+Answer: ₹2880
+Difficulty: Medium
+Topology: time_work:tw_wage_distribution_efficiency
+Realism: 82
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{24}{100}\times 12000
+\]
+Apply the wage or contract amount.
+\[
+Share=2880
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2880
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{24}{100}\times 12000
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=2880
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹2880
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{24}{100}\times 12000
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=2880
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹2880
+
+[Q115]
+EN:
+A, B and C complete a job and receive ₹9000. Their work shares are in the ratio 30:30:12. What is C's share?
+
+HI:
+A, B और C एक काम पूरा कर ₹9000 पाते हैं। उनके काम के हिस्से 30:30:12 के अनुपात में हैं। C का हिस्सा कितना होगा?
+
+PA:
+A, B ਅਤੇ C ਇੱਕ ਕੰਮ ਪੂਰਾ ਕਰਕੇ ₹9000 ਲੈਂਦੇ ਹਨ। ਉਹਨਾਂ ਦੇ ਕੰਮ ਦੇ ਹਿੱਸੇ 30:30:12 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। C ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: ₹1504 | ₹1500 | ₹1200 | ₹1498
+Answer: ₹1500
+Difficulty: Medium
+Topology: time_work:tw_wage_with_helper
+Realism: 84
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{12}{72}\times 9000
+\]
+Apply the wage or contract amount.
+\[
+Share=1500
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹1500
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{12}{72}\times 9000
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=1500
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹1500
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{12}{72}\times 9000
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=1500
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹1500
+
+[Q116]
+EN:
+A job earns ₹7200 for A and B. If their contribution ratio is 8:12, what is A's wage?
+
+HI:
+A और B एक काम पूरा कर ₹7200 पाते हैं। उनके काम का अनुपात 8:12 है। A का हिस्सा कितना होगा?
+
+PA:
+A ਅਤੇ B ਇੱਕ ਕੰਮ ਪੂਰਾ ਕਰਕੇ ₹7200 ਲੈਂਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ 8:12 ਹੈ। A ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: ₹2878 | ₹3600 | ₹2880 | ₹2886
+Answer: ₹2880
+Difficulty: Easy
+Topology: time_work:tw_wage_partial_time
+Realism: 72
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{8}{20}\times 7200
+\]
+Apply the wage or contract amount.
+\[
+Share=2880
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2880
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{8}{20}\times 7200
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=2880
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹2880
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{8}{20}\times 7200
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=2880
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹2880
+
+[Q117]
+EN:
+A contract payment of ₹7200 is shared between A and B in the ratio 15:24. What amount goes to A?
+
+HI:
+A और B एक काम पूरा कर ₹7200 पाते हैं। उनके काम का अनुपात 15:24 है। A का हिस्सा कितना होगा?
+
+PA:
+A ਅਤੇ B ਇੱਕ ਕੰਮ ਪੂਰਾ ਕਰਕੇ ₹7200 ਲੈਂਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਦਾ ਅਨੁਪਾਤ 15:24 ਹੈ। A ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: ₹2773.23 | ₹4153.85 | ₹2769.23 | ₹2768.23
+Answer: ₹2769.23
+Difficulty: Medium
+Topology: time_work:tw_wage_efficiency_ratio
+Realism: 80
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{15}{39}\times 7200
+\]
+Apply the wage or contract amount.
+\[
+Share=2769.23
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2769.23
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+Share=\frac{15}{39}\times 7200
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+Share=2769.23
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+Share=contribution\ ratio\times wage
+\]
+उत्तर: ₹2769.23
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+Share=\frac{15}{39}\times 7200
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+Share=2769.23
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+Share=contribution\ ratio\times wage
+\]
+ਉੱਤਰ: ₹2769.23
+
+[Q118]
+EN:
+A contractor is to receive ₹9000. For each day of early completion, a bonus of ₹150 is paid. If the work is completed 3 days early, what amount will the contractor receive?
+
+HI:
+एक ठेकेदार को ₹9000 मिलने हैं। समय से पहले हर दिन के लिए ₹150 बोनस मिलता है। काम 3 दिन पहले पूरा हो तो कितनी राशि मिलेगी?
+
+PA:
+ਇੱਕ ਠੇਕੇਦਾਰ ਨੂੰ ₹9000 ਮਿਲਣੇ ਹਨ। ਸਮੇਂ ਤੋਂ ਪਹਿਲਾਂ ਹਰ ਦਿਨ ਲਈ ₹150 ਬੋਨਸ ਮਿਲਦਾ ਹੈ। ਕੰਮ 3 ਦਿਨ ਪਹਿਲਾਂ ਪੂਰਾ ਹੋਵੇ ਤਾਂ ਕਿੰਨੀ ਰਕਮ ਮਿਲੇਗੀ?
+
+Options: ₹11340 | ₹9455 | ₹9453 | ₹9450
+Answer: ₹9450
+Difficulty: Medium
+Topology: time_work:tw_contract_penalty_bonus
+Realism: 82
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+E=base+bonus
+\]
+Use contribution ratio for the share.
+\[
+E=9000+3\times 150
+\]
+Apply the wage or contract amount.
+\[
+E=9450
+\]
+Shortcut / Exam Method:
+\[
+E=base+adjustment
+\]
+Answer: ₹9450
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+E=base+bonus
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+E=9000+3\times 150
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+E=9450
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+E=base+adjustment
+\]
+उत्तर: ₹9450
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+E=base+bonus
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+E=9000+3\times 150
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+E=9450
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+E=base+adjustment
+\]
+ਉੱਤਰ: ₹9450
+
+[Q119]
+EN:
+A printer prints 120 pages per hour for 8 hours. If only 90% of the pages are accepted, how many pages are accepted?
+
+HI:
+एक प्रेस 8 घंटे तक प्रति घंटे 120 पृष्ठ छापती है। यदि 90% जांच में पास होते हैं, तो पृष्ठों की संख्या कितनी होगी?
+
+PA:
+ਇੱਕ ਪ੍ਰੈਸ 8 ਘੰਟਿਆਂ ਤੱਕ ਪ੍ਰਤੀ ਘੰਟਾ 120 ਸਫ਼ੇ ਛਾਪਦੀ ਹੈ। ਜੇ 90% ਜਾਂਚ ਵਿੱਚ ਪਾਸ ਹੁੰਦੇ ਹਨ, ਤਾਂ ਸਫ਼ਿਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+
+Options: 1080 pages | 865 pages | 870 pages | 864 pages
+Answer: 864 pages
+Difficulty: Medium
+Topology: time_work:tw_work_quality_rejection
+Realism: 83
+
+Explanation EN:
+Convert each person's work into contribution units.
+\[
+O_a=O\times \frac{p}{100}
+\]
+Use contribution ratio for the share.
+\[
+O_a=120\times 8\times \frac{90}{100}
+\]
+Apply the wage or contract amount.
+\[
+O_a=864
+\]
+Shortcut / Exam Method:
+\[
+O_a=gross\times p/100
+\]
+Answer: 864 pages
+
+Explanation HI:
+हर व्यक्ति के काम को योगदान इकाइयों में बदलें।
+\[
+O_a=O\times \frac{p}{100}
+\]
+हिस्से के लिए योगदान अनुपात लगाएँ।
+\[
+O_a=120\times 8\times \frac{90}{100}
+\]
+मजदूरी या ठेके की राशि लगाएँ।
+\[
+O_a=864
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+O_a=gross\times p/100
+\]
+उत्तर: 864 पृष्ठ
+
+Explanation PA:
+ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।
+\[
+O_a=O\times \frac{p}{100}
+\]
+ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।
+\[
+O_a=120\times 8\times \frac{90}{100}
+\]
+ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।
+\[
+O_a=864
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+O_a=gross\times p/100
+\]
+ਉੱਤਰ: 864 ਸਫ਼ੇ
+
+[Q120]
+EN:
+Pipe A can fill a tank in 12 hours and pipe B can empty the same tank in 36 hours. If both pipes are opened together, in how many hours will the tank be filled?
+
+HI:
+पाइप A टंकी 12 घंटे में भरता है। निकासी पाइप टंकी 36 घंटे में खाली कर सकता है। दोनों खुले हों तो भरने का समय क्या होगा?
+
+PA:
+ਪਾਈਪ A ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਨਿਕਾਸੀ ਪਾਈਪ ਟੈਂਕੀ 36 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰ ਸਕਦਾ ਹੈ। ਦੋਵੇਂ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਭਰਨ ਦਾ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?
+
+Options: 18 hours | 22 1/2 hours | 16 hours | 24 hours
+Answer: 18 hours
+Difficulty: Medium
+Topology: time_work:pc_basic_fill_empty
+Realism: 81
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/36
+\]
+Divide the required tank work by that rate.
+\[
+T=18
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12-1/36
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=18
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 18 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12-1/36
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=18
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 18 ਘੰਟੇ
+
+[Q121]
+EN:
+A tank has two inlet pipes of 12 hours and 18 hours and one outlet pipe of 36 hours. How many hours are needed when all are opened?
+
+HI:
+दो पाइप टंकी 12 और 18 घंटे में भरते हैं, जबकि तीसरा पाइप 36 घंटे में खाली करता है। सभी खुले हों तो कितना समय लगेगा?
+
+PA:
+ਦੋ ਪਾਈਪ ਟੈਂਕੀ 12 ਅਤੇ 18 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦੇ ਹਨ, ਜਦਕਿ ਤੀਜਾ ਪਾਈਪ 36 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ। ਸਾਰੇ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?
+
+Options: 9 hours | 7 1/5 hours | 11 hours | 15 hours
+Answer: 9 hours
+Difficulty: Medium
+Topology: time_work:pc_two_fillers_one_empty
+Realism: 81
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12+1/18-1/36
+\]
+Divide the required tank work by that rate.
+\[
+T=9
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 9 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12+1/18-1/36
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 9 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12+1/18-1/36
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 9 ਘੰਟੇ
+
+[Q122]
+EN:
+Normally a pipe fills a tank in 12 hours, but with leakage it fills in 22 hours. What is the emptying time of the leak?
+
+HI:
+सामान्य रूप से पाइप टंकी 12 घंटे में भरता है, लेकिन रिसाव के साथ 22 घंटे लगते हैं। रिसाव का खाली करने का समय कितना है?
+
+PA:
+ਆਮ ਤੌਰ ਤੇ ਪਾਈਪ ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ, ਪਰ ਰਿਸਾਅ ਨਾਲ 22 ਘੰਟੇ ਲੱਗਦੇ ਹਨ। ਰਿਸਾਅ ਦਾ ਖਾਲੀ ਕਰਨ ਦਾ ਸਮਾਂ ਕਿੰਨਾ ਹੈ?
+
+Options: 39 3/5 hours | 27 2/5 hours | 22 2/5 hours | 26 2/5 hours
+Answer: 26 2/5 hours
+Difficulty: Medium
+Topology: time_work:pc_leak_hidden_rate
+Realism: 83
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+Find the effective tank rate.
+\[
+\frac{1}{L}=\frac{1}{12}-\frac{1}{22}
+\]
+Divide the required tank work by that rate.
+\[
+L=26.4
+\]
+Shortcut / Exam Method:
+\[
+L=\frac{FT}{T-F}
+\]
+Answer: 26 2/5 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+\frac{1}{L}=\frac{1}{12}-\frac{1}{22}
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+L=26.4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L=\frac{FT}{T-F}
+\]
+उत्तर: 26 2/5 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+\frac{1}{L}=\frac{1}{12}-\frac{1}{22}
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+L=26.4
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L=\frac{FT}{T-F}
+\]
+ਉੱਤਰ: 26 2/5 ਘੰਟੇ
+
+[Q123]
+EN:
+A filling pipe takes 12 hours for the tank. After it works for 2 hours, a leak opens and can empty the tank in 30 hours. What is the total filling time?
+
+HI:
+भरने वाला पाइप टंकी के लिए 12 घंटे लेता है। 2 घंटे बाद रिसाव खुलता है जो टंकी 30 घंटे में खाली कर सकता है। कुल भरने का समय कितना होगा?
+
+PA:
+ਭਰਨ ਵਾਲਾ ਪਾਈਪ ਟੈਂਕੀ ਲਈ 12 ਘੰਟੇ ਲੈਂਦਾ ਹੈ। 2 ਘੰਟਿਆਂ ਬਾਅਦ ਰਿਸਾਅ ਖੁੱਲ੍ਹਦਾ ਹੈ ਜੋ ਟੈਂਕੀ 30 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰ ਸਕਦਾ ਹੈ। ਕੁੱਲ ਭਰਨ ਦਾ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?
+
+Options: 28 hours | 22 2/3 hours | 18 2/3 hours | 17 2/3 hours
+Answer: 18 2/3 hours
+Difficulty: Hard
+Topology: time_work:pc_drain_after_partial_fill
+Realism: 88
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/30
+\]
+Divide the required tank work by that rate.
+\[
+T=18\frac{2}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 2/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+r=1/12-1/30
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=18\frac{2}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{W_l}{r_n}
+\]
+उत्तर: 18 2/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+r=1/12-1/30
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=18\frac{2}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{W_l}{r_n}
+\]
+ਉੱਤਰ: 18 2/3 ਘੰਟੇ
+
+[Q124]
+EN:
+A tap fills 12 litres in one hour and a drain removes 5 litres in the next hour. This pattern repeats. If the tank capacity is 60 litres, in how many hours will it be full?
+
+HI:
+भरने वाला नल एक घंटे में 12 लीटर जोड़ता है, फिर खाली करने वाला नल अगले घंटे 5 लीटर निकालता है। टंकी 60 लीटर की है। कब भरेगी?
+
+PA:
+ਭਰਨ ਵਾਲਾ ਨਲ ਇੱਕ ਘੰਟੇ ਵਿੱਚ 12 ਲੀਟਰ ਜੋੜਦਾ ਹੈ, ਫਿਰ ਖਾਲੀ ਕਰਨ ਵਾਲਾ ਨਲ ਅਗਲੇ ਘੰਟੇ 5 ਲੀਟਰ ਕੱਢਦਾ ਹੈ। ਟੈਂਕੀ 60 ਲੀਟਰ ਦੀ ਹੈ। ਕਦੋਂ ਭਰੇਗੀ?
+
+Options: 19 3/5 hours | 14 1/3 hours | 16 1/3 hours | 21 1/3 hours
+Answer: 16 1/3 hours
+Difficulty: Hard
+Topology: time_work:pc_alternating_fill_empty
+Realism: 88
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+W_{cycle}=12-5
+\]
+Find the effective tank rate.
+\[
+60\ units,\ cycle=7
+\]
+Divide the required tank work by that rate.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=C_f+t_f
+\]
+Answer: 16 1/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+W_{cycle}=12-5
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+60\ units,\ cycle=7
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=16\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=C_f+t_f
+\]
+उत्तर: 16 1/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+W_{cycle}=12-5
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+60\ units,\ cycle=7
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=16\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=C_f+t_f
+\]
+ਉੱਤਰ: 16 1/3 ਘੰਟੇ
+
+[Q125]
+EN:
+Water is added at 12 litres in the first hour and removed at 5 litres in the next hour, and this continues. How many hours will a 60-litre tank take to fill?
+
+HI:
+पहले घंटे 12 लीटर पानी भरता है और अगले घंटे 5 लीटर निकलता है, और यह चलता रहता है। 60 लीटर टंकी को भरने में कितने घंटे लगेंगे?
+
+PA:
+ਪਹਿਲੇ ਘੰਟੇ 12 ਲੀਟਰ ਪਾਣੀ ਭਰਦਾ ਹੈ ਅਤੇ ਅਗਲੇ ਘੰਟੇ 5 ਲੀਟਰ ਨਿਕਲਦਾ ਹੈ, ਅਤੇ ਇਹ ਚਲਦਾ ਰਹਿੰਦਾ ਹੈ। 60 ਲੀਟਰ ਟੈਂਕੀ ਨੂੰ ਭਰਨ ਵਿੱਚ ਕਿੰਨੇ ਘੰਟੇ ਲੱਗਣਗੇ?
+
+Options: 20.42 hours | 16 1/3 hours | 11 1/3 hours | 13 1/3 hours
+Answer: 16 1/3 hours
+Difficulty: Hard
+Topology: time_work:pc_alternating_spill_cycle
+Realism: 86
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+W_{cycle}=12-5
+\]
+Find the effective tank rate.
+\[
+60\ units,\ cycle=7
+\]
+Divide the required tank work by that rate.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=C_f+t_f
+\]
+Answer: 16 1/3 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+W_{cycle}=12-5
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+60\ units,\ cycle=7
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=16\frac{1}{3}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=C_f+t_f
+\]
+उत्तर: 16 1/3 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+W_{cycle}=12-5
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+60\ units,\ cycle=7
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=16\frac{1}{3}
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=C_f+t_f
+\]
+ਉੱਤਰ: 16 1/3 ਘੰਟੇ
+
+[Q126]
+EN:
+Water flows into a tank at 15 litres per minute. In 30 minutes, how many litres will enter the tank?
+
+HI:
+एक पाइप हर मिनट 15 लीटर पानी स्थानांतरित करता है। 30 मिनट में कितने लीटर पानी जाएगा?
+
+PA:
+ਇੱਕ ਪਾਈਪ ਹਰ ਮਿੰਟ 15 ਲੀਟਰ ਪਾਣੀ ਤਬਦੀਲ ਕਰਦਾ ਹੈ। 30 ਮਿੰਟ ਵਿੱਚ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਜਾਵੇਗਾ?
+
+Options: 456 litres | 360 litres | 449 litres | 450 litres
+Answer: 450 litres
+Difficulty: Medium
+Topology: time_work:pc_capacity_leakage_rate
+Realism: 80
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=15\times 30
+\]
+Divide the required tank work by that rate.
+\[
+C=450
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 450 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+C=rt
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+C=15\times 30
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+C=450
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+C=r\times t
+\]
+उत्तर: 450 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+C=rt
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+C=15\times 30
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+C=450
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+C=r\times t
+\]
+ਉੱਤਰ: 450 ਲੀਟਰ
+
+[Q127]
+EN:
+Water flows into a tank at 25 litres per minute. In 20 minutes, how many litres will enter the tank?
+
+HI:
+पानी टंकी में प्रति मिनट 25 लीटर की मात्रा से जाता है। 20 मिनट में कितने लीटर पानी जाएगा?
+
+PA:
+ਪਾਣੀ ਟੈਂਕੀ ਵਿੱਚ ਪ੍ਰਤੀ ਮਿੰਟ 25 ਲੀਟਰ ਦੀ ਮਾਤਰਾ ਨਾਲ ਜਾਂਦਾ ਹੈ। 20 ਮਿੰਟ ਵਿੱਚ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਜਾਵੇਗਾ?
+
+Options: 499 litres | 400 litres | 506 litres | 500 litres
+Answer: 500 litres
+Difficulty: Easy
+Topology: time_work:pc_tank_capacity_from_rate
+Realism: 74
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=25\times 20
+\]
+Divide the required tank work by that rate.
+\[
+C=500
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 500 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+C=rt
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+C=25\times 20
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+C=500
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+C=r\times t
+\]
+उत्तर: 500 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+C=rt
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+C=25\times 20
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+C=500
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+C=r\times t
+\]
+ਉੱਤਰ: 500 ਲੀਟਰ
+
+[Q128]
+EN:
+A tank is filled using pipes A and B. Their individual times are 12 and 18 hours. If pipe B is opened 2 hours later, how long will the tank take to fill?
+
+HI:
+पाइप A टंकी 12 घंटे में और पाइप B 18 घंटे में भरता है। 2 घंटे बाद पाइप B खोला जाता है। शुरू से टंकी कितने घंटे में भरेगी?
+
+PA:
+ਪਾਈਪ A ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਅਤੇ ਪਾਈਪ B 18 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। 2 ਘੰਟਿਆਂ ਬਾਅਦ ਪਾਈਪ B ਖੋਲ੍ਹਿਆ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਟੈਂਕੀ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਭਰੇਗੀ?
+
+Options: 11 hours | 10 hours | 14 hours | 8 hours
+Answer: 8 hours
+Difficulty: Hard
+Topology: time_work:pc_multiple_pipes_timing
+Realism: 89
+
+Explanation EN:
+Split the work into timeline phases.
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+Subtract the work already completed.
+\[
+W_1=3\times 2
+\]
+Use the active rate for the remaining phase.
+\[
+T=2+\frac{30}{3+2}=8
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+Answer: 8 hours
+
+Explanation HI:
+काम को समय-चरणों में बाँटें।
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+अब तक पूरा हुआ काम घटाएँ।
+\[
+W_1=3\times 2
+\]
+शेष चरण के लिए सक्रिय दर लगाएँ।
+\[
+T=2+\frac{30}{3+2}=8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+उत्तर: 8 घंटे
+
+Explanation PA:
+ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।
+\[
+W_1=3\times 2
+\]
+ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।
+\[
+T=2+\frac{30}{3+2}=8
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+ਉੱਤਰ: 8 ਘੰਟੇ
+
+[Q129]
+EN:
+A pipe supplies 12 litres of water per minute for 40 minutes. How many litres of water are supplied?
+
+HI:
+एक पाइप 40 मिनट तक प्रति मिनट 12 लीटर पानी देता है। कुल कितने लीटर पानी मिलेगा?
+
+PA:
+ਇੱਕ ਪਾਈਪ 40 ਮਿੰਟ ਤੱਕ ਪ੍ਰਤੀ ਮਿੰਟ 12 ਲੀਟਰ ਪਾਣੀ ਦਿੰਦਾ ਹੈ। ਕੁੱਲ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਮਿਲੇਗਾ?
+
+Options: 480 litres | 481 litres | 485 litres | 576 litres
+Answer: 480 litres
+Difficulty: Medium
+Topology: time_work:pc_two_tanks_transfer
+Realism: 80
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=12\times 40
+\]
+Divide the required tank work by that rate.
+\[
+C=480
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 480 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+C=rt
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+C=12\times 40
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+C=480
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+C=r\times t
+\]
+उत्तर: 480 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+C=rt
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+C=12\times 40
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+C=480
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+C=r\times t
+\]
+ਉੱਤਰ: 480 ਲੀਟਰ
+
+[Q130]
+EN:
+Water flows into a tank at 10 litres per minute. In 6 minutes, how many litres will enter the tank?
+
+HI:
+पानी टंकी में प्रति मिनट 10 लीटर की मात्रा से जाता है। 6 मिनट में कितने लीटर पानी जाएगा?
+
+PA:
+ਪਾਣੀ ਟੈਂਕੀ ਵਿੱਚ ਪ੍ਰਤੀ ਮਿੰਟ 10 ਲੀਟਰ ਦੀ ਮਾਤਰਾ ਨਾਲ ਜਾਂਦਾ ਹੈ। 6 ਮਿੰਟ ਵਿੱਚ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਜਾਵੇਗਾ?
+
+Options: 60 litres | 62 litres | 48 litres | 66 litres
+Answer: 60 litres
+Difficulty: Medium
+Topology: time_work:pc_overflow_waste_rate
+Realism: 82
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+V_w=r\times t
+\]
+Find the effective tank rate.
+\[
+V_w=10\times 6
+\]
+Divide the required tank work by that rate.
+\[
+V_w=60
+\]
+Shortcut / Exam Method:
+\[
+V_w=r\times t_e
+\]
+Answer: 60 litres
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+V_w=r\times t
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+V_w=10\times 6
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+V_w=60
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+V_w=r\times t_e
+\]
+उत्तर: 60 लीटर
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+V_w=r\times t
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+V_w=10\times 6
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+V_w=60
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+V_w=r\times t_e
+\]
+ਉੱਤਰ: 60 ਲੀਟਰ
+
+[Q131]
+EN:
+If a tank is \(\frac{1}{4}\) full and a pipe fills the tank in 12 hours, how many hours are required to fill it?
+
+HI:
+टंकी का एक-चौथाई भाग भरा है। पाइप पूरी टंकी 12 घंटे में भरता है। बाकी भरने में कितना समय लगेगा?
+
+PA:
+ਟੈਂਕੀ ਦਾ ਇੱਕ-ਚੌਥਾਈ ਹਿੱਸਾ ਭਰਿਆ ਹੈ। ਪਾਈਪ ਪੂਰੀ ਟੈਂਕੀ 12 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਬਾਕੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?
+
+Options: 7 1/5 hours | 7 hours | 13 hours | 9 hours
+Answer: 9 hours
+Difficulty: Medium
+Topology: time_work:pc_partial_tank_initially_filled
+Realism: 82
+
+Explanation EN:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{1-f}{r_f}
+\]
+Find the effective tank rate.
+\[
+T=\frac{1-1/4}{1/12}
+\]
+Divide the required tank work by that rate.
+\[
+T=9
+\]
+Shortcut / Exam Method:
+\[
+T=(1-f)F
+\]
+Answer: 9 hours
+
+Explanation HI:
+भरने की दर धनात्मक और खाली करने की दर ऋणात्मक लें।
+\[
+T=\frac{1-f}{r_f}
+\]
+टंकी की प्रभावी दर निकालें।
+\[
+T=\frac{1-1/4}{1/12}
+\]
+आवश्यक टंकी-काम को उसी दर से भाग दें।
+\[
+T=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=(1-f)F
+\]
+उत्तर: 9 घंटे
+
+Explanation PA:
+ਭਰਨ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ ਰਣਾਤਮਕ ਲਵੋ।
+\[
+T=\frac{1-f}{r_f}
+\]
+ਟੈਂਕੀ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਕੱਢੋ।
+\[
+T=\frac{1-1/4}{1/12}
+\]
+ਲੋੜੀਂਦੇ ਟੈਂਕੀ-ਕੰਮ ਨੂੰ ਉਸ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=9
+\]
+ਸ਼ਾਰਟਕਟ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=(1-f)F
+\]
+ਉੱਤਰ: 9 ਘੰਟੇ
+

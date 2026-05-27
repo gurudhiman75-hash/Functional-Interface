@@ -1,0 +1,1737 @@
+Q1. A teacher evaluates 30 answer sheets in 5 days. What is the daily number of answer sheets evaluated?
+A. 6 answer sheets
+B. 1 answer sheets
+C. 7 answer sheets
+D. 4.5 answer sheets
+Answer: 6 answer sheets
+Difficulty: Medium
+Family: tw_reverse_contribution_deduction
+Explanation:
+Set up the rate relation for this case.
+\[
+r=\frac{W}{t}
+\]
+Put the given values into that relation.
+\[
+r=\frac{30}{5}
+\]
+Solve for the asked value.
+\[
+r=6
+\]
+Shortcut / Exam Method:
+\[
+r=W/t
+\]
+Answer: 6 answer sheets
+
+---
+
+Q2. A job earns ₹7200 for the workers. If A:B:C contribution ratio is 24:36:40, what is A's wage?
+A. ₹1382.4
+B. ₹1728
+C. ₹1729
+D. ₹1732
+Answer: ₹1728
+Difficulty: Medium
+Family: tw_wage_distribution_efficiency
+Explanation:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{24}{100}\times 7200
+\]
+Apply the wage or contract amount.
+\[
+Share=1728
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹1728
+
+---
+
+Q3. A job contract pays ₹6000, with ₹200 extra for every day saved. The job is finished 2 days early. What is the final payment?
+A. ₹6400
+B. ₹6396
+C. ₹6402
+D. ₹7680
+Answer: ₹6400
+Difficulty: Medium
+Family: tw_contract_penalty_bonus
+Explanation:
+Convert each person's work into contribution units.
+\[
+E=base+bonus
+\]
+Use contribution ratio for the share.
+\[
+E=6000+2\times 200
+\]
+Apply the wage or contract amount.
+\[
+E=6400
+\]
+Shortcut / Exam Method:
+\[
+E=base+adjustment
+\]
+Answer: ₹6400
+
+---
+
+Q4. 16 workers can complete a job in 12 days by working 6 hours a day. How many workers are needed to finish it in 18 days by working 8 hours a day?
+A. 8 workers
+B. 11 workers
+C. 24 workers
+D. 16 workers
+Answer: 8 workers
+Difficulty: Medium
+Family: tw_man_days_hours_basic
+Explanation:
+Set up the rate relation for this case.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Put the given values into that relation.
+\[
+16\times 12\times 6=M_2\times 18\times 8
+\]
+Solve for the asked value.
+\[
+M_2=8
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{16\times 12\times 6}{18\times 8}=8
+\]
+Answer: 8 workers
+
+---
+
+Q5. Pipe A can fill a tank in 12 hours and pipe B can fill it in 18 hours. Both pipes are used, and pipe B is opened 2 hours later. In how many hours from the start will the tank be filled?
+A. 10 hours
+B. 11 hours
+C. 8 hours
+D. 14 hours
+Answer: 8 hours
+Difficulty: Hard
+Family: pc_multiple_pipes_timing
+Explanation:
+Split the work into timeline phases.
+\[
+W_1=r_At_1,\quad T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+Subtract the work already completed.
+\[
+W_1=3\times 2
+\]
+Use the active rate for the remaining phase.
+\[
+T=2+\frac{30}{3+2}=8
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_A+r_B}
+\]
+Answer: 8 hours
+
+---
+
+Q6. A and B work on alternate hours, starting with A. A completes 10 files in a hour and B completes 5 files in a hour. If 72 files are to be completed, in how many hours will the job be finished?
+A. 15 2/5 hours
+B. 9 2/5 hours
+C. 10 2/5 hours
+D. 11 3/4 hours
+Answer: 9 2/5 hours
+Difficulty: Hard
+Family: tw_alternating_hours
+Explanation:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+5
+\]
+Add only the needed part of the final turn.
+\[
+T=9.4
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 9 2/5 hours
+
+---
+
+Q7. A, B and C divide ₹9000 according to their contribution ratio 8:12. Find A's share?
+A. ₹5400
+B. ₹3604
+C. ₹3600
+D. ₹3597
+Answer: ₹3600
+Difficulty: Easy
+Family: tw_wage_partial_time
+Explanation:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{8}{20}\times 9000
+\]
+Apply the wage or contract amount.
+\[
+Share=3600
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹3600
+
+---
+
+Q8. The fraction \(\frac{2}{5}\) of a job is completed in 8 days. How many days will the whole job take?
+A. 13 days
+B. 40 days
+C. 3 1/5 days
+D. 20 days
+Answer: 20 days
+Difficulty: Easy
+Family: tw_work_fraction_days
+Explanation:
+Set up the rate relation for this case.
+\[
+T=d\times \frac{q}{p}
+\]
+Put the given values into that relation.
+\[
+T=8\times \frac{5}{2}
+\]
+Solve for the asked value.
+\[
+T=20
+\]
+Shortcut / Exam Method:
+\[
+T=8\div \frac{2}{5}=20
+\]
+Answer: 20 days
+
+---
+
+Q9. Food is sufficient for 30 people for 24 days. After 8 days, the number of people becomes 40. For how many more days will the food last?
+A. 18 days
+B. 8 days
+C. 12 days
+D. 15 days
+Answer: 12 days
+Difficulty: Medium
+Family: tw_food_population_change
+Explanation:
+Convert the stock into consumption units.
+\[
+D=\frac{S-consumed}{people}
+\]
+Subtract the stock already consumed.
+\[
+D=\frac{720-30\times 8}{40}
+\]
+Divide the remaining stock by the new daily use.
+\[
+D=12
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{S_l}{P_2}
+\]
+Answer: 12 days
+
+---
+
+Q10. A tank receives water for 20 minutes at 25 litres per minute. What is the quantity of water received?
+A. 502 litres
+B. 500 litres
+C. 506 litres
+D. 400 litres
+Answer: 500 litres
+Difficulty: Medium
+Family: pc_capacity_leakage_rate
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+C=rt
+\]
+Find the effective tank rate.
+\[
+C=25\times 20
+\]
+Divide the required tank work by that rate.
+\[
+C=500
+\]
+Shortcut / Exam Method:
+\[
+C=r\times t
+\]
+Answer: 500 litres
+
+---
+
+Q11. If A:B working capacity is 8:14, what will be A:B time ratio for one job?
+A. 8:14
+B. 22:14
+C. 14:22
+D. 7:4
+Answer: 7:4
+Difficulty: Easy
+Family: tw_time_ratio_from_efficiency
+Explanation:
+Set up the rate relation for this case.
+\[
+T_A:T_B=E_B:E_A
+\]
+Put the given values into that relation.
+\[
+T_A:T_B=14:8
+\]
+Solve for the asked value.
+\[
+T_A:T_B=7:4
+\]
+Shortcut / Exam Method:
+\[
+T=7:4
+\]
+Answer: 7:4
+
+---
+
+Q12. A team of 8 workers has completed 64 items from a 240-item order. With 8 days left, how many workers must be added?
+A. 14 workers
+B. 11.2 workers
+C. 15 workers
+D. 18 workers
+Answer: 14 workers
+Difficulty: Hard
+Family: tw_contract_deadline_extra_workers
+Explanation:
+Split the work into timeline phases.
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+Subtract the work already completed.
+\[
+N_{extra}=\left\lceil\frac{176}{1\times 8}\right\rceil-8
+\]
+Use the active rate for the remaining phase.
+\[
+N_{extra}=14
+\]
+Shortcut / Exam Method:
+\[
+N_{extra}=N_r-N_c
+\]
+Answer: 14 workers
+
+---
+
+Q13. Two workers take turns, with A starting. A handles 10 files per turn and B handles 6 files per turn. In how many days will 120 files be finished?
+A. 17.76 days
+B. 14 4/5 days
+C. 17 4/5 days
+D. 19 4/5 days
+Answer: 14 4/5 days
+Difficulty: Hard
+Family: tw_terminal_overshoot_cycle
+Explanation:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=10+6
+\]
+Add only the needed part of the final turn.
+\[
+T=14.8
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 14 4/5 days
+
+---
+
+Q14. Machines A, B and C make 12, 15 and 18 items per hour. If they run for 6 hours respectively, how many items are made?
+A. 276 items
+B. 273 items
+C. 337.5 items
+D. 270 items
+Answer: 270 items
+Difficulty: Medium
+Family: tw_machine_breakdown_midway
+Explanation:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 6+15\times 6+18\times 6
+\]
+Simplify the total output.
+\[
+O=270
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 270 items
+
+---
+
+Q15. A tank is filled by a pipe taking 12 hours and emptied by another pipe taking 36 hours. In how many hours will the tank be filled if both are opened?
+A. 14 hours
+B. 20 hours
+C. 18 hours
+D. 21 3/5 hours
+Answer: 18 hours
+Difficulty: Medium
+Family: pc_basic_fill_empty
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/36
+\]
+Divide the required tank work by that rate.
+\[
+T=18
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 hours
+
+---
+
+Q16. In a printing job, three workers complete 12, 15 and 18 pages per hour. How many pages are completed in 5 hours?
+A. 231 pages
+B. 225 pages
+C. 180 pages
+D. 222 pages
+Answer: 225 pages
+Difficulty: Medium
+Family: tw_printer_job_queue
+Explanation:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 5+15\times 5+18\times 5
+\]
+Simplify the total output.
+\[
+O=225
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 225 pages
+
+---
+
+Q17. A job is finished by 18 workers in 8 days when each works 5 hours daily. How many workers are needed for 12 days at 6 hours daily?
+A. 18 workers
+B. 13 workers
+C. 10 workers
+D. 27 workers
+Answer: 10 workers
+Difficulty: Medium
+Family: tw_road_construction_work
+Explanation:
+Write output as rate multiplied by active time.
+\[
+M_1D_1H_1=M_2D_2H_2
+\]
+Add the outputs of all active agents.
+\[
+18\times 8\times 5=M_2\times 12\times 6
+\]
+Simplify the total output.
+\[
+M_2=10
+\]
+Shortcut / Exam Method:
+\[
+M_2=\frac{18\times 8\times 5}{12\times 6}=10
+\]
+Answer: 10 workers
+
+---
+
+Q18. A alone finishes a job in 8 days, while B alone finishes it in 24 days. How many days will the job take if both work together?
+A. 8 days
+B. 6 days
+C. 32 days
+D. 16 days
+Answer: 6 days
+Difficulty: Hard
+Family: tw_lcm_hidden_total_work
+Explanation:
+Take the LCM as total work.
+\[
+W=LCM(8,24)=24
+\]
+Find each worker's one-period efficiency.
+\[
+A=24/8=3,\quad B=24/24=1
+\]
+Divide total work by the combined efficiency.
+\[
+T=\frac{24}{3+1}=6
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{8\times 24}{8+24}=6
+\]
+Answer: 6 days
+
+---
+
+Q19. Workers build 12 metres of boundary each day, while 3 metres are spoiled daily. In how many days will 180 metres be completed?
+A. 20 days
+B. 18 days
+C. 15 days
+D. 10 days
+Answer: 20 days
+Difficulty: Medium
+Family: tw_digging_filling_negative_work
+Explanation:
+Write output as rate multiplied by active time.
+\[
+T=\frac{W}{r_+-r_-}
+\]
+Add the outputs of all active agents.
+\[
+T=\frac{180}{12-3}
+\]
+Simplify the total output.
+\[
+T=20
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W}{r_n}
+\]
+Answer: 20 days
+
+---
+
+Q20. If each man completes 4 items daily and each woman completes 3, how long will 3 men and 4 women take for 300 items?
+A. 18 3/4 days
+B. 16 1/2 days
+C. 12 1/2 days
+D. 14 1/2 days
+Answer: 12 1/2 days
+Difficulty: Medium
+Family: tw_team_a_vs_team_b
+Explanation:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=12.5
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 12 1/2 days
+
+---
+
+Q21. 72 of 300 forms are complete. 12 workers are available and 8 days remain. How many additional workers are required?
+A. 16 workers
+B. 17 workers
+C. 22 workers
+D. 12.75 workers
+Answer: 17 workers
+Difficulty: Hard
+Family: tw_worker_added_to_meet_deadline
+Explanation:
+Split the work into timeline phases.
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+Subtract the work already completed.
+\[
+N_{extra}=\left\lceil\frac{228}{1\times 8}\right\rceil-12
+\]
+Use the active rate for the remaining phase.
+\[
+N_{extra}=17
+\]
+Shortcut / Exam Method:
+\[
+N_{extra}=N_r-N_c
+\]
+Answer: 17 workers
+
+---
+
+Q22. A worker completes 15 forms daily for 4 days and then 12 forms daily. How many days are needed for 180 forms?
+A. 15 days
+B. 19 days
+C. 14 days
+D. 16 4/5 days
+Answer: 14 days
+Difficulty: Hard
+Family: tw_productivity_decay
+Explanation:
+Set up the rate relation for this case.
+\[
+T=t_1+\frac{W-r_1t_1}{r_2}
+\]
+Put the given values into that relation.
+\[
+T=4+\frac{180-15\times 4}{12}
+\]
+Solve for the asked value.
+\[
+T=14
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+t_2
+\]
+Answer: 14 days
+
+---
+
+Q23. A tap fills 12 litres in one hour and a drain removes 5 litres in the next hour. This pattern repeats. If the tank capacity is 60 litres, in how many hours will it be full?
+A. 16 1/3 hours
+B. 24 1/2 hours
+C. 12 1/3 hours
+D. 17 1/3 hours
+Answer: 16 1/3 hours
+Difficulty: Hard
+Family: pc_alternating_fill_empty
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+W_{cycle}=12-5
+\]
+Find the effective tank rate.
+\[
+60\ units,\ cycle=7
+\]
+Divide the required tank work by that rate.
+\[
+T=16\frac{1}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=C_f+t_f
+\]
+Answer: 16 1/3 hours
+
+---
+
+Q24. A filling pipe takes 12 hours for the tank. After it works for 2 hours, a leak opens and can empty the tank in 30 hours. What is the total filling time?
+A. 22 2/5 hours
+B. 17 2/3 hours
+C. 18 2/3 hours
+D. 14 2/3 hours
+Answer: 18 2/3 hours
+Difficulty: Hard
+Family: pc_leak_starts_after_fill
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12-1/30
+\]
+Divide the required tank work by that rate.
+\[
+T=18\frac{2}{3}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 18 2/3 hours
+
+---
+
+Q25. A and B can work in the ratio 2:3. They complete the job together in 6 days. What is A's time for the same job?
+A. 4 days
+B. 9 days
+C. 11 days
+D. 15 days
+Answer: 15 days
+Difficulty: Medium
+Family: tw_efficiency_ratio_scaling
+Explanation:
+Set up the rate relation for this case.
+\[
+W=(a+b)T
+\]
+Put the given values into that relation.
+\[
+W=(2+3)\times 6
+\]
+Solve for the asked value.
+\[
+T_A=\frac{30}{2}=15
+\]
+Shortcut / Exam Method:
+\[
+T_A=\frac{(a+b)T}{a}=\frac{(2+3)6}{2}=15
+\]
+Answer: 15 days
+
+---
+
+Q26. A tank receives water for 4 minutes at 10 litres per minute. What is the quantity of water received?
+A. 40 litres
+B. 48 litres
+C. 36 litres
+D. 37 litres
+Answer: 40 litres
+Difficulty: Medium
+Family: pc_overflow_waste_rate
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+V_w=r\times t
+\]
+Find the effective tank rate.
+\[
+V_w=10\times 4
+\]
+Divide the required tank work by that rate.
+\[
+V_w=40
+\]
+Shortcut / Exam Method:
+\[
+V_w=r\times t_e
+\]
+Answer: 40 litres
+
+---
+
+Q27. A can finish a work in 24 days and B in 10 days. They work together for 3 days, then B alone finishes it. How many days are taken altogether?
+A. 4 3/4 days
+B. 8 3/4 days
+C. 11 3/4 days
+D. 13.13 days
+Answer: 8 3/4 days
+Difficulty: Medium
+Family: tw_forward_leave
+Explanation:
+Split the work into timeline phases.
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+Subtract the work already completed.
+\[
+W_1=(5+12)\times 3
+\]
+Use the active rate for the remaining phase.
+\[
+T=3+\frac{69}{12}=8.75
+\]
+Shortcut / Exam Method:
+\[
+T=3+\frac{W-W_1}{B}
+\]
+Answer: 8 3/4 days
+
+---
+
+Q28. A and B together finish a job in 6 days. A's individual time is 24 days. What is B's individual time?
+A. 30 days
+B. 15 days
+C. 8 days
+D. 18 days
+Answer: 8 days
+Difficulty: Medium
+Family: tw_individual_from_combined
+Explanation:
+Set up the rate relation for this case.
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+Put the given values into that relation.
+\[
+\frac{1}{B}=\frac{1}{6}-\frac{1}{24}
+\]
+Solve for the asked value.
+\[
+B=8
+\]
+Shortcut / Exam Method:
+\[
+B=\frac{6\times 24}{24-6}=8
+\]
+Answer: 8 days
+
+---
+
+Q29. Two pipes fill a tank in 12 and 18 hours, while a third pipe empties it in 36 hours. How long will the tank take to fill if all are open?
+A. 5 hours
+B. 10 4/5 hours
+C. 9 hours
+D. 8 hours
+Answer: 9 hours
+Difficulty: Medium
+Family: pc_two_fillers_one_empty
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+T=\frac{W_l}{r_f-r_e}
+\]
+Find the effective tank rate.
+\[
+r=1/12+1/18-1/36
+\]
+Divide the required tank work by that rate.
+\[
+T=9
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{W_l}{r_n}
+\]
+Answer: 9 hours
+
+---
+
+Q30. A and B can separately complete a job in 10 days and 15 days. What is the time taken when they work together?
+A. 10 days
+B. 6 days
+C. 25 days
+D. 12 1/2 days
+Answer: 6 days
+Difficulty: Easy
+Family: tw_basic_combined_work
+Explanation:
+Take the LCM as total work.
+\[
+W=LCM(10,15)=30
+\]
+Find each worker's one-period efficiency.
+\[
+A=30/10=3,\quad B=30/15=2
+\]
+Divide total work by the combined efficiency.
+\[
+T=\frac{30}{3+2}=6
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{10\times 15}{10+15}=6
+\]
+Answer: 6 days
+
+---
+
+Q31. A team completes a job in 6 actual working days. There is a 1-day stoppage. In how many calendar days is the job completed?
+A. 11 days
+B. 6 days
+C. 10 1/2 days
+D. 7 days
+Answer: 7 days
+Difficulty: Medium
+Family: tw_interrupted_work
+Explanation:
+Split the work into timeline phases.
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+Subtract the work already completed.
+\[
+T_{active}=\frac{60}{6+4}
+\]
+Use the active rate for the remaining phase.
+\[
+T=T_{active}+1=7
+\]
+Shortcut / Exam Method:
+\[
+T=t_a+t_i
+\]
+Answer: 7 days
+
+---
+
+Q32. A finishes a job in 30 days and B in 8 days. What is A:B work ratio over the same duration?
+A. 30:8
+B. 4:15
+C. 8:38
+D. 38:8
+Answer: 4:15
+Difficulty: Easy
+Family: tw_work_done_ratio_from_times
+Explanation:
+Set up the rate relation for this case.
+\[
+W_A:W_B=\frac{1}{30}:\frac{1}{8}
+\]
+Put the given values into that relation.
+\[
+W_A:W_B=8:30
+\]
+Solve for the asked value.
+\[
+W_A:W_B=4:15
+\]
+Shortcut / Exam Method:
+\[
+E=4:15
+\]
+Answer: 4:15
+
+---
+
+Q33. For equal working time, A is paid ₹450 and B is paid ₹600. What is the ratio of their work?
+A. 3:4
+B. 600:450
+C. 45:30
+D. 1050:600
+Answer: 3:4
+Difficulty: Easy
+Family: tw_efficiency_from_wages
+Explanation:
+Set up the rate relation for this case.
+\[
+W_A:W_B=E_A:E_B
+\]
+Put the given values into that relation.
+\[
+E_A:E_B=450:600
+\]
+Solve for the asked value.
+\[
+E_A:E_B=3:4
+\]
+Shortcut / Exam Method:
+\[
+E=3:4
+\]
+Answer: 3:4
+
+---
+
+Q34. A job can be finished in 18 days. If work continues for 10 days, what fraction is still incomplete?
+A. 9/4
+B. 4/5
+C. 4/9
+D. 5/9
+Answer: 4/9
+Difficulty: Easy
+Family: tw_basic_residual_work
+Explanation:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{10}{18}
+\]
+Solve for the asked value.
+\[
+R=\frac{8}{18}=4/9
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{18-10}{18}=4/9
+\]
+Answer: 4/9
+
+---
+
+Q35. The full team A+B+C finishes a job in 8 days. The known worker time is 15 days. How many days will the remaining worker take alone?
+A. 17.14 days
+B. 21.14 days
+C. 16.14 days
+D. 25.71 days
+Answer: 17.14 days
+Difficulty: Medium
+Family: tw_pairwise_total_abc
+Explanation:
+Set up the rate relation for this case.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Put the given values into that relation.
+\[
+r_X=\frac{1}{8}-\frac{1}{15}
+\]
+Solve for the asked value.
+\[
+T_X=17.14
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 17.14 days
+
+---
+
+Q36. A works on the first day, B on the second and C on the third, then the order repeats. They complete 6, 4 and 5 forms on their days. How long will 120 forms take?
+A. 30 days
+B. 25 days
+C. 24 days
+D. 12 days
+Answer: 24 days
+Difficulty: Hard
+Family: tw_conditional_activation
+Explanation:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+4+5
+\]
+Add only the needed part of the final turn.
+\[
+T=24
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 24 days
+
+---
+
+Q37. Pipe A is an inlet of 12 hours and pipe B is an outlet of 36 hours. If both are opened together, how many hours will the tank take to fill?
+A. 24 hours
+B. 19 hours
+C. 30 hours
+D. 23 hours
+Answer: 24 hours
+Difficulty: Medium
+Family: pc_find_pipe_rate_from_net_time
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+\frac{1}{B}=\frac{1}{T}-\frac{1}{A}
+\]
+Find the effective tank rate.
+\[
+\frac{1}{B}=\frac{1}{8}-\frac{1}{12}
+\]
+Divide the required tank work by that rate.
+\[
+B=24
+\]
+Shortcut / Exam Method:
+\[
+B=\frac{AT}{A-T}
+\]
+Answer: 24 hours
+
+---
+
+Q38. A team takes 15 days for a job. After working for 6 days, what fraction of the job remains?
+A. 3/5
+B. 3/2
+C. 2/5
+D. 5/3
+Answer: 3/5
+Difficulty: Easy
+Family: tw_remaining_work_fraction
+Explanation:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{6}{15}
+\]
+Solve for the asked value.
+\[
+R=\frac{9}{15}=3/5
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{15-6}{15}=3/5
+\]
+Answer: 3/5
+
+---
+
+Q39. One man completes 4 items in a day and one woman completes 3 items in a day. If 3 men and 4 women work together, in how many days will they complete 360 items?
+A. 15 days
+B. 18 3/4 days
+C. 21 days
+D. 16 days
+Answer: 15 days
+Difficulty: Medium
+Family: tw_worker_equivalence_men_women
+Explanation:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{360}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=15
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 15 days
+
+---
+
+Q40. 720 ration packets are available. Daily consumption is 30 packets. How long will the ration last?
+A. 30 days
+B. 12 days
+C. 22 days
+D. 24 days
+Answer: 24 days
+Difficulty: Hard
+Family: tw_resource_rate_equivalence
+Explanation:
+Convert the stock into consumption units.
+\[
+D=\frac{S}{R}
+\]
+Subtract the stock already consumed.
+\[
+D=\frac{720}{30}
+\]
+Divide the remaining stock by the new daily use.
+\[
+D=24
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{S}{R}
+\]
+Answer: 24 days
+
+---
+
+Q41. Normally a pipe fills a tank in 12 hours, but with leakage it fills in 17 hours. What is the emptying time of the leak?
+A. 43 4/5 hours
+B. 40 4/5 hours
+C. 46 4/5 hours
+D. 51 hours
+Answer: 40 4/5 hours
+Difficulty: Medium
+Family: pc_leak_hidden_rate
+Explanation:
+Write filling rates as positive and emptying rates as negative.
+\[
+\frac{1}{L}=\frac{1}{F}-\frac{1}{T}
+\]
+Find the effective tank rate.
+\[
+\frac{1}{L}=\frac{1}{12}-\frac{1}{17}
+\]
+Divide the required tank work by that rate.
+\[
+L=40.8
+\]
+Shortcut / Exam Method:
+\[
+L=\frac{FT}{T-F}
+\]
+Answer: 40 4/5 hours
+
+---
+
+Q42. During the first 4 days, 40 documents are finished each day. After the team changes, 79 documents are finished each day. How many days are needed for 240 documents?
+A. 2.01 days
+B. 6.02 days
+C. 5.01 days
+D. 1.01 days
+Answer: 5.01 days
+Difficulty: Hard
+Family: tw_multi_phase_join_leave
+Explanation:
+Split the work into timeline phases.
+\[
+\sum r_it_i=W
+\]
+Subtract the work already completed.
+\[
+W_1=40\times 4
+\]
+Use the active rate for the remaining phase.
+\[
+T=4+\frac{80}{79}=5.01
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 5.01 days
+
+---
+
+Q43. 6 men and 8 women work together. A man completes 4 items per day and a woman completes 3 items per day. How many days are needed for 360 items?
+A. 7 1/2 days
+B. 3 1/2 days
+C. 9 days
+D. 4 1/2 days
+Answer: 7 1/2 days
+Difficulty: Hard
+Family: tw_group_conversion_and_or
+Explanation:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{360}{6\times 4+8\times 3}
+\]
+Solve for the asked value.
+\[
+T=7.5
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 7 1/2 days
+
+---
+
+Q44. Three workers take turns in the order A, B, C. Their daily file counts are 6, 5 and 5. How many days are needed for 90 files?
+A. 25 1/5 days
+B. 16 4/5 days
+C. 20 4/5 days
+D. 15 4/5 days
+Answer: 16 4/5 days
+Difficulty: Hard
+Family: tw_conditional_activation
+Explanation:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+5+5
+\]
+Add only the needed part of the final turn.
+\[
+T=16.8
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 16 4/5 days
+
+---
+
+Q45. If a work is completed in 20 days and 8 days have passed, what fraction of the work is yet to be done?
+A. 5/3
+B. 2/5
+C. 3/5
+D. 3/2
+Answer: 3/5
+Difficulty: Easy
+Family: tw_remaining_work_fraction
+Explanation:
+Set up the rate relation for this case.
+\[
+R=1-\frac{t}{T}
+\]
+Put the given values into that relation.
+\[
+R=1-\frac{8}{20}
+\]
+Solve for the asked value.
+\[
+R=\frac{12}{20}=3/5
+\]
+Shortcut / Exam Method:
+\[
+R=\frac{20-8}{20}=3/5
+\]
+Answer: 3/5
+
+---
+
+Q46. 3 men, 4 women work together on 300 items. Their daily counts are 4, 3. How many days will they take?
+A. 12 1/2 days
+B. 15 days
+C. 13 1/2 days
+D. 17 1/2 days
+Answer: 12 1/2 days
+Difficulty: Medium
+Family: tw_worker_equivalence_men_women
+Explanation:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{300}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=12.5
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 12 1/2 days
+
+---
+
+Q47. A job has 630 files. The team handles 35 files daily at first for 5 days, and then 107 files daily. What is the total time?
+A. 7 1/4 days
+B. 9 1/4 days
+C. 15 1/4 days
+D. 11.57 days
+Answer: 9 1/4 days
+Difficulty: Hard
+Family: tw_multi_phase_join_leave
+Explanation:
+Split the work into timeline phases.
+\[
+\sum r_it_i=W
+\]
+Subtract the work already completed.
+\[
+W_1=35\times 5
+\]
+Use the active rate for the remaining phase.
+\[
+T=5+\frac{455}{107}=9.25
+\]
+Shortcut / Exam Method:
+\[
+T=t_1+\frac{W-W_1}{r_2}
+\]
+Answer: 9 1/4 days
+
+---
+
+Q48. 6 men, 8 women work together on 300 items. Their daily counts are 4, 3. How many days will they take?
+A. 10 1/4 days
+B. 5 days
+C. 9 1/4 days
+D. 6 1/4 days
+Answer: 6 1/4 days
+Difficulty: Hard
+Family: tw_group_conversion_and_or
+Explanation:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{300}{6\times 4+8\times 3}
+\]
+Solve for the asked value.
+\[
+T=6.25
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 6 1/4 days
+
+---
+
+Q49. An examiner checks 24 answer sheets in 6 days. How many answer sheets are checked per day?
+A. 4 answer sheets
+B. 3 answer sheets
+C. 0.5 answer sheets
+D. 5 answer sheets
+Answer: 4 answer sheets
+Difficulty: Medium
+Family: tw_reverse_contribution_deduction
+Explanation:
+Set up the rate relation for this case.
+\[
+r=\frac{W}{t}
+\]
+Put the given values into that relation.
+\[
+r=\frac{24}{6}
+\]
+Solve for the asked value.
+\[
+r=4
+\]
+Shortcut / Exam Method:
+\[
+r=W/t
+\]
+Answer: 4 answer sheets
+
+---
+
+Q50. The total wage for a job is ₹9000. A, B and C contribute in the ratio 24:36:40. How much should A receive?
+A. ₹3240
+B. ₹2157
+C. ₹2160
+D. ₹2164
+Answer: ₹2160
+Difficulty: Medium
+Family: tw_wage_distribution_efficiency
+Explanation:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{24}{100}\times 9000
+\]
+Apply the wage or contract amount.
+\[
+Share=2160
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹2160
+
+---
+
+Q51. A contractor is to receive ₹9000. For each day of early completion, a bonus of ₹150 is paid. If the work is completed 3 days early, what amount will the contractor receive?
+A. ₹11812.5
+B. ₹9456
+C. ₹9450
+D. ₹9453
+Answer: ₹9450
+Difficulty: Medium
+Family: tw_contract_penalty_bonus
+Explanation:
+Convert each person's work into contribution units.
+\[
+E=base+bonus
+\]
+Use contribution ratio for the share.
+\[
+E=9000+3\times 150
+\]
+Apply the wage or contract amount.
+\[
+E=9450
+\]
+Shortcut / Exam Method:
+\[
+E=base+adjustment
+\]
+Answer: ₹9450
+
+---
+
+Q52. A handles 6 files on his turn and B handles 4 files on the next turn. They continue alternately from A. How many hours are needed for 60 files?
+A. 9 hours
+B. 17 hours
+C. 12 hours
+D. 14 hours
+Answer: 12 hours
+Difficulty: Hard
+Family: tw_alternating_hours
+Explanation:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=6+4
+\]
+Add only the needed part of the final turn.
+\[
+T=12
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 12 hours
+
+---
+
+Q53. A, B and C divide ₹12000 according to their contribution ratio 8:12. Find A's share?
+A. ₹4800
+B. ₹4804
+C. ₹7200
+D. ₹4799
+Answer: ₹4800
+Difficulty: Easy
+Family: tw_wage_partial_time
+Explanation:
+Convert each person's work into contribution units.
+\[
+Share=\frac{c_i}{\sum c}\times W
+\]
+Use contribution ratio for the share.
+\[
+Share=\frac{8}{20}\times 12000
+\]
+Apply the wage or contract amount.
+\[
+Share=4800
+\]
+Shortcut / Exam Method:
+\[
+Share=contribution\ ratio\times wage
+\]
+Answer: ₹4800
+
+---
+
+Q54. Two workers take turns, with A starting. A handles 8 files per turn and B handles 4 files per turn. In how many days will 72 files be finished?
+A. 16 days
+B. 12 days
+C. 9 3/5 days
+D. 10 days
+Answer: 12 days
+Difficulty: Hard
+Family: tw_terminal_overshoot_cycle
+Explanation:
+Find the work completed in one full cycle.
+\[
+W_{cycle}=\sum r_i
+\]
+Count full cycles before the last turn.
+\[
+W_{cycle}=8+4
+\]
+Add only the needed part of the final turn.
+\[
+T=12
+\]
+Shortcut / Exam Method:
+\[
+T=cycles+final\ turn
+\]
+Answer: 12 days
+
+---
+
+Q55. Machines A, B and C operate for 5 hours and make 12, 15 and 18 items per hour. How many items are produced?
+A. 220 items
+B. 225 items
+C. 224 items
+D. 281.25 items
+Answer: 225 items
+Difficulty: Medium
+Family: tw_machine_breakdown_midway
+Explanation:
+Write output as rate multiplied by active time.
+\[
+O=\sum r_it_i
+\]
+Add the outputs of all active agents.
+\[
+O=12\times 5+15\times 5+18\times 5
+\]
+Simplify the total output.
+\[
+O=225
+\]
+Shortcut / Exam Method:
+\[
+O=(r_1+r_2+r_3)t
+\]
+Answer: 225 items
+
+---
+
+Q56. 3 men, 4 women work together on 240 items. Their daily counts are 4, 3. How many days will they take?
+A. 10 days
+B. 8 days
+C. 14 days
+D. 11 days
+Answer: 10 days
+Difficulty: Medium
+Family: tw_team_a_vs_team_b
+Explanation:
+Set up the rate relation for this case.
+\[
+T=\frac{W}{\sum ne}
+\]
+Put the given values into that relation.
+\[
+T=\frac{240}{3\times 4+4\times 3}
+\]
+Solve for the asked value.
+\[
+T=10
+\]
+Shortcut / Exam Method:
+\[
+T=W/R
+\]
+Answer: 10 days
+
+---
+
+Q57. 10 workers have done 100 files out of 240. To finish the rest in 8 days, how many additional workers are needed?
+A. 14 workers
+B. 10 workers
+C. 6 workers
+D. 8 workers
+Answer: 8 workers
+Difficulty: Hard
+Family: tw_worker_added_to_meet_deadline
+Explanation:
+Split the work into timeline phases.
+\[
+N_{extra}=\left\lceil\frac{R}{r\times t}\right\rceil-N_c
+\]
+Subtract the work already completed.
+\[
+N_{extra}=\left\lceil\frac{140}{1\times 8}\right\rceil-10
+\]
+Use the active rate for the remaining phase.
+\[
+N_{extra}=8
+\]
+Shortcut / Exam Method:
+\[
+N_{extra}=N_r-N_c
+\]
+Answer: 8 workers
+
+---
+
+Q58. A and B begin a job together. Their individual times are 8 days and 12 days. A leaves after 4 days. What is the total completion time?
+A. 7 1/2 days
+B. 6 days
+C. 1 day
+D. 5 days
+Answer: 6 days
+Difficulty: Medium
+Family: tw_forward_leave
+Explanation:
+Split the work into timeline phases.
+\[
+W=(r_A+r_B)t_1+r_Bt_2
+\]
+Subtract the work already completed.
+\[
+W_1=(15+10)\times 4
+\]
+Use the active rate for the remaining phase.
+\[
+T=4+\frac{20}{10}=6
+\]
+Shortcut / Exam Method:
+\[
+T=4+\frac{W-W_1}{B}
+\]
+Answer: 6 days
+
+---
+
+Q59. The active working time for a job is 8.18 days. If there is an interruption of 2 days, what is the total duration?
+A. 16.18 days
+B. 13.18 days
+C. 12.73 days
+D. 10.18 days
+Answer: 10.18 days
+Difficulty: Medium
+Family: tw_interrupted_work
+Explanation:
+Split the work into timeline phases.
+\[
+T_{calendar}=T_{active}+T_{idle}
+\]
+Subtract the work already completed.
+\[
+T_{active}=\frac{630}{35+42}
+\]
+Use the active rate for the remaining phase.
+\[
+T=T_{active}+2=10.18
+\]
+Shortcut / Exam Method:
+\[
+T=t_a+t_i
+\]
+Answer: 10.18 days
+
+---
+
+Q60. A, B and C together complete a work in 10 days. A and B together can complete it in 12 days. In how many days will C alone complete the work?
+A. 64 days
+B. 60 days
+C. 61 days
+D. 48 days
+Answer: 60 days
+Difficulty: Medium
+Family: tw_pairwise_total_abc
+Explanation:
+Set up the rate relation for this case.
+\[
+r_X=r_{team}-\sum r_i
+\]
+Put the given values into that relation.
+\[
+r_X=\frac{1}{10}-\frac{1}{12}
+\]
+Solve for the asked value.
+\[
+T_X=60
+\]
+Shortcut / Exam Method:
+\[
+T_X=1/r_X
+\]
+Answer: 60 days

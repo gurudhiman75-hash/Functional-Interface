@@ -1,0 +1,665 @@
+Q1. The sides of two similar figures are in the ratio \(10:11\). Find the ratio of their areas.
+A. 121:100
+B. 1000:1331
+C. 100:121
+D. 10:11
+Answer: 100:121
+Difficulty: Hard
+Family: rp_side_area_volume_ratio
+Explanation:
+Start with the side ratio.
+
+\[
+\text{Side ratio}=10:11
+\]
+
+Area ratio is the square of side ratio.
+
+\[
+\text{Area ratio}=10^{2}:11^{2}=100:121
+\]
+
+Answer: 100:121
+
+---
+
+Q2. A's salary and B's salary are in the ratio \(3:5\). B earns ₹600 more than A. Find A's salary.
+A. ₹600
+B. ₹900
+C. ₹300
+D. ₹1500
+Answer: ₹900
+Difficulty: Medium
+Family: rp_difference_based_ratio_recovery
+Explanation:
+Let the salaries be in ratio form.
+
+\[
+A=3k,\quad B=5k
+\]
+
+Use the salary difference.
+
+\[
+5k-3k=600
+\]
+
+Solve for the multiplier.
+
+\[
+2k=600,\quad k=300
+\]
+
+Compute the required value.
+
+\[
+A=3k=900
+\]
+
+Answer: ₹900
+
+---
+
+Q3. The incomes of A and B are in the ratio \(5:7\). A's income increases by 20% and B's income increases by 20%. Find the new ratio.
+A. 25:27
+B. 7:5
+C. 600:840
+D. 5:7
+Answer: 5:7
+Difficulty: Medium
+Family: rp_ratio_after_increase
+Explanation:
+Let the original incomes be ratio parts.
+
+\[
+A=5,\quad B=7
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=5\left(1+\frac{20}{100}\right):7\left(1+\frac{20}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=600:840=5:7
+\]
+
+Answer: 5:7
+
+---
+
+Q4. A and B have money in the ratio \(7:5\). After ₹600 is given by A to B, the ratio becomes \(13:11\). Find A's original amount.
+A. ₹7800
+B. ₹6000
+C. ₹9000
+D. ₹8400
+Answer: ₹8400
+Difficulty: Hard
+Family: rp_ratio_after_transfer
+Explanation:
+Let the original amounts be ratio parts.
+
+\[
+A=7k,\quad B=5k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{7k-600}{5k+600}=\frac{13}{11}
+\]
+
+Cross-multiply and solve.
+
+\[
+11(7k-600)=13(5k+600)
+\]
+
+Find the common multiplier.
+
+\[
+12k=14400,\quad k=1200
+\]
+
+Compute A's original amount.
+
+\[
+A=7k=7\times 1200=8400
+\]
+
+Answer: ₹8400
+
+---
+
+Q5. \(x\) varies directly as \(y\) and inversely as \(z\). If \(x=120\) when \(y=6\) and \(z=4\), find \(x\) when \(y=10\) and \(z=5\).
+A. 120
+B. 250
+C. 200
+D. 160
+Answer: 160
+Difficulty: Hard
+Family: rp_combined_direct_inverse
+Explanation:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=120\times \frac{10}{6}\times \frac{4}{5}=160
+\]
+
+Answer: 160
+
+---
+
+Q6. A marks of 1100 is divided in the ratio \(4:7\). Find Science's share.
+A. 400
+B. 100
+C. 700
+D. 550
+Answer: 700
+Difficulty: Easy
+Family: rp_direct_sharing
+Explanation:
+Write the given ratio.
+
+\[
+Maths=4k,\quad Science=7k
+\]
+
+Use the total marks.
+
+\[
+4k+7k=1100
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{1100}{11}=100
+\]
+
+Compute Science's share.
+
+\[
+Science=7k=7\times 100=700
+\]
+
+Answer: 700
+
+---
+
+Q7. If \(A:B=15:22\), what fraction of the total is A?
+A. 22/37
+B. 15/7
+C. 15/37
+D. 37/15
+Answer: 15/37
+Difficulty: Easy
+Family: rp_ratio_to_fraction
+Explanation:
+Add the ratio parts to get the total parts.
+
+\[
+15+22=37
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{15}{37}=15/37
+\]
+
+Answer: 15/37
+
+---
+
+Q8. 16 workers finish a work in 36 days. If the number of workers is 24, how many days will be required?
+A. 24
+B. 36
+C. 54
+D. 8
+Answer: 24
+Difficulty: Medium
+Family: rp_inverse_variation_basic
+Explanation:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+16\times 36=24\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{16\times 36}{24}=24
+\]
+
+Answer: 24
+
+---
+
+Q9. A invests ₹5000 for 10 months and B invests ₹7000 for 8 months. If the total profit is ₹47700, find A's share.
+A. ₹5000
+B. ₹22500
+C. ₹23850
+D. ₹25200
+Answer: ₹22500
+Difficulty: Medium
+Family: rp_partnership_time_variation
+Explanation:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=5000\times 10:7000\times 8
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=50000:56000=25:28
+\]
+
+Use the total profit.
+
+\[
+25k+28k=47700,\quad k=900
+\]
+
+Find A's share.
+
+\[
+A=25k=22500
+\]
+
+Answer: ₹22500
+
+---
+
+Q10. The present ages of A and B are in the ratio \(4:5\). 16 years ago, the ratio was \(10:13\). Find B's present age.
+A. 104 years
+B. 24 years
+C. 96 years
+D. 120 years
+Answer: 120 years
+Difficulty: Medium
+Family: rp_age_past_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=4k,\quad B=5k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{4k-16}{5k-16}=\frac{10}{13}
+\]
+
+Solve for the multiplier.
+
+\[
+2k=48,\quad k=24
+\]
+
+Find B's present age.
+
+\[
+B=5k=120
+\]
+
+Answer: 120 years
+
+---
+
+Q11. A's salary and B's salary are in the ratio \(5:9\). B earns ₹2000 more than A. Find A's salary.
+A. ₹4500
+B. ₹2000
+C. ₹500
+D. ₹2500
+Answer: ₹2500
+Difficulty: Medium
+Family: rp_difference_based_ratio_recovery
+Explanation:
+Let the salaries be in ratio form.
+
+\[
+A=5k,\quad B=9k
+\]
+
+Use the salary difference.
+
+\[
+9k-5k=2000
+\]
+
+Solve for the multiplier.
+
+\[
+4k=2000,\quad k=500
+\]
+
+Compute the required value.
+
+\[
+A=5k=2500
+\]
+
+Answer: ₹2500
+
+---
+
+Q12. The incomes of A and B are in the ratio \(8:9\). A's income increases by 50% and B's income increases by 20%. Find the new ratio.
+A. 8:9
+B. 10:9
+C. 58:29
+D. 960:1350
+Answer: 10:9
+Difficulty: Medium
+Family: rp_ratio_after_increase
+Explanation:
+Let the original incomes be ratio parts.
+
+\[
+A=8,\quad B=9
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=8\left(1+\frac{50}{100}\right):9\left(1+\frac{20}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=1200:1080=10:9
+\]
+
+Answer: 10:9
+
+---
+
+Q13. A and B have money in the ratio \(7:5\). After ₹2400 is given by A to B, the ratio becomes \(13:11\). Find A's original amount.
+A. ₹33600
+B. ₹24000
+C. ₹36000
+D. ₹31200
+Answer: ₹33600
+Difficulty: Hard
+Family: rp_ratio_after_transfer
+Explanation:
+Let the original amounts be ratio parts.
+
+\[
+A=7k,\quad B=5k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{7k-2400}{5k+2400}=\frac{13}{11}
+\]
+
+Cross-multiply and solve.
+
+\[
+11(7k-2400)=13(5k+2400)
+\]
+
+Find the common multiplier.
+
+\[
+12k=57600,\quad k=4800
+\]
+
+Compute A's original amount.
+
+\[
+A=7k=7\times 4800=33600
+\]
+
+Answer: ₹33600
+
+---
+
+Q14. \(x\) varies directly as \(y\) and inversely as \(z\). If \(x=192\) when \(y=8\) and \(z=3\), find \(x\) when \(y=12\) and \(z=6\).
+A. 192
+B. 288
+C. 144
+D. 576
+Answer: 144
+Difficulty: Hard
+Family: rp_combined_direct_inverse
+Explanation:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=192\times \frac{12}{8}\times \frac{3}{6}=144
+\]
+
+Answer: 144
+
+---
+
+Q15. A sum of ₹1200 is divided in the ratio \(3:5\). Find B's share.
+A. ₹750
+B. ₹450
+C. ₹600
+D. ₹150
+Answer: ₹750
+Difficulty: Easy
+Family: rp_direct_sharing
+Explanation:
+Write the given ratio.
+
+\[
+A=3k,\quad B=5k
+\]
+
+Use the total sum.
+
+\[
+3k+5k=1200
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{1200}{8}=150
+\]
+
+Compute B's share.
+
+\[
+B=5k=5\times 150=750
+\]
+
+Answer: ₹750
+
+---
+
+Q16. If \(A:B=2:3\), what fraction of the total is A?
+A. 3/5
+B. 5/2
+C. 2/5
+D. 2/1
+Answer: 2/5
+Difficulty: Easy
+Family: rp_ratio_to_fraction
+Explanation:
+Add the ratio parts to get the total parts.
+
+\[
+2+3=5
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{2}{5}=2/5
+\]
+
+Answer: 2/5
+
+---
+
+Q17. 20 workers finish a work in 144 days. If the number of workers is 30, how many days will be required?
+A. 144
+B. 216
+C. 96
+D. 10
+Answer: 96
+Difficulty: Medium
+Family: rp_inverse_variation_basic
+Explanation:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+20\times 144=30\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{20\times 144}{30}=96
+\]
+
+Answer: 96
+
+---
+
+Q18. A invests ₹12000 for 7 months and B invests ₹9000 for 11 months. If the total profit is ₹30500, find A's share.
+A. ₹16500
+B. ₹15250
+C. ₹14000
+D. ₹12000
+Answer: ₹14000
+Difficulty: Medium
+Family: rp_partnership_time_variation
+Explanation:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=12000\times 7:9000\times 11
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=84000:99000=28:33
+\]
+
+Use the total profit.
+
+\[
+28k+33k=30500,\quad k=500
+\]
+
+Find A's share.
+
+\[
+A=28k=14000
+\]
+
+Answer: ₹14000
+
+---
+
+Q19. The present ages of A and B are in the ratio \(7:10\). 20 years ago, the ratio was \(37:55\). Find B's present age.
+A. 220 years
+B. 168 years
+C. 24 years
+D. 240 years
+Answer: 240 years
+Difficulty: Medium
+Family: rp_age_past_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=7k,\quad B=10k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{7k-20}{10k-20}=\frac{37}{55}
+\]
+
+Solve for the multiplier.
+
+\[
+15k=360,\quad k=24
+\]
+
+Find B's present age.
+
+\[
+B=10k=240
+\]
+
+Answer: 240 years
+
+---
+
+Q20. The sides of two similar solids are in the ratio \(6:7\). Find the ratio of their volumes.
+A. 216:343
+B. 343:216
+C. 36:49
+D. 6:7
+Answer: 216:343
+Difficulty: Hard
+Family: rp_side_area_volume_ratio
+Explanation:
+Start with the side ratio.
+
+\[
+\text{Side ratio}=6:7
+\]
+
+Volume ratio is the cube of side ratio.
+
+\[
+\text{Volume ratio}=6^{3}:7^{3}=216:343
+\]
+
+Answer: 216:343

@@ -1,7 +1,13 @@
 import type { CorpusAuditPreset, CorpusAuditPresetId } from "./corpus-audit-types";
 import { PROFIT_LOSS_FAMILY_IDS } from "../canonical/profit-loss-motif-factories";
+import { INTEREST_FAMILY_IDS } from "../canonical/interest-motif-factories";
+import { RATIO_PROPORTION_FAMILY_IDS } from "../canonical/ratio-proportion-motif-factories";
+import { TIME_WORK_FAMILY_IDS } from "../canonical/time-work-motif-factories";
+import {
+  resolveQuantV2TopicForAuditPreset,
+} from "../../lib/quant-v2/migrated-quant-topics";
 
-export const CORPUS_AUDIT_PRESETS: readonly CorpusAuditPreset[] = [
+const rawCorpusAuditPresets = [
   {
     id: "ssc_percentage_audit",
     label: "SSC Percentage Audit",
@@ -21,6 +27,39 @@ export const CORPUS_AUDIT_PRESETS: readonly CorpusAuditPreset[] = [
     examProfile: "ssc",
     seedPrefix: "profit-loss-audit",
     forcedMotifIds: [...PROFIT_LOSS_FAMILY_IDS],
+    languages: ["en", "hi", "pa"],
+  },
+  {
+    id: "interest_audit",
+    label: "Simple & Compound Interest Audit",
+    description:
+      "Comprehensive Interest V2 corpus with SI, CI, SI-CI difference, compounding frequency, growth/decay, installments, split investments, and true/banker's discount families.",
+    defaultCount: 1000,
+    examProfile: "ssc",
+    seedPrefix: "interest-audit",
+    forcedMotifIds: [...INTEREST_FAMILY_IDS],
+    languages: ["en", "hi", "pa"],
+  },
+  {
+    id: "ratio_proportion_audit",
+    label: "Ratio, Proportion & Variation Audit",
+    description:
+      "Comprehensive Ratio, Proportion & Variation V2 corpus with sharing, proportion, transformations, ages, partnership, variation, scaling, and chain-ratio families.",
+    defaultCount: 1000,
+    examProfile: "ssc",
+    seedPrefix: "ratio-proportion-audit",
+    forcedMotifIds: [...RATIO_PROPORTION_FAMILY_IDS],
+    languages: ["en", "hi", "pa"],
+  },
+  {
+    id: "time_work_audit",
+    label: "Time & Work / Pipes Audit",
+    description:
+      "Comprehensive Time & Work / Pipes & Cisterns V2 corpus with rate-state, LCM, dynamic timelines, cycles, wages, resources, pipes, and PYQ+ families.",
+    defaultCount: 1000,
+    examProfile: "ssc",
+    seedPrefix: "time-work-audit",
+    forcedMotifIds: [...TIME_WORK_FAMILY_IDS],
     languages: ["en", "hi", "pa"],
   },
   {
@@ -97,7 +136,38 @@ export const CORPUS_AUDIT_PRESETS: readonly CorpusAuditPreset[] = [
     seedPrefix: "difficulty-distribution-audit",
     languages: ["en", "hi", "pa"],
   },
-];
+] satisfies readonly CorpusAuditPreset[];
+
+function attachQuantV2TopicMetadata(
+  preset: CorpusAuditPreset,
+): CorpusAuditPreset {
+  const topic =
+    resolveQuantV2TopicForAuditPreset(
+      preset.id,
+    );
+
+  if (!topic) {
+    return preset;
+  }
+
+  return {
+    ...preset,
+    topicId: topic.topicId,
+    generationDomain:
+      topic.generationDomain,
+    defaultTopology:
+      topic.defaultTopology,
+    topologyOptions:
+      topic.validTopologyGroups,
+    schedulerProfiles:
+      topic.schedulerProfiles,
+  };
+}
+
+export const CORPUS_AUDIT_PRESETS: readonly CorpusAuditPreset[] =
+  rawCorpusAuditPresets.map(
+    attachQuantV2TopicMetadata,
+  );
 
 export function getCorpusAuditPreset(id?: string) {
   return (

@@ -181,6 +181,16 @@ function outputLabel(
       return "Net population change";
     case "apply_weighted_change_to_total_population":
       return "Final population";
+    case "calculate_only_first_set":
+      return "Only Mathematics";
+    case "calculate_only_second_set":
+      return "Only English";
+    case "calculate_total_percentage_with_overlap":
+      return "Union";
+    case "calculate_neither_region":
+      return "Neither / passed both";
+    case "map_none_percentage_to_total":
+      return "Total students";
     default:
       break;
   }
@@ -670,9 +680,14 @@ function stepObservation(
       return "Difference in tax rates:";
     case "map_tax_difference_to_total":
       return "Total taxable income:";
+    case "calculate_only_first_set":
+      return "Only Mathematics region:";
+    case "calculate_only_second_set":
+      return "Only English region:";
     case "calculate_total_percentage_with_overlap":
       return "Percentage for at least one category:";
     case "calculate_percentage_of_none":
+    case "calculate_neither_region":
       return "Percentage passing both subjects / failing neither:";
     case "map_none_percentage_to_total":
       return "Total students:";

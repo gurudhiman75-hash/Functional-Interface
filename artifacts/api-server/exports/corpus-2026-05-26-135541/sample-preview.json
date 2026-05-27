@@ -1,0 +1,1619 @@
+[
+  {
+    "index": 0,
+    "question": "A producer sells a phone for ₹1000 cost base through a chain: producer to distributor at 20% profit, then distributor to dealer at 10% profit, and dealer to buyer at 15% profit. Find the final price.",
+    "options": [
+      "₹1518",
+      "₹1450",
+      "₹1200",
+      "₹1214.4"
+    ],
+    "answer": "₹1518",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_sequential_supply_chain"
+    },
+    "semanticAnchors": {
+      "scenario": "phone",
+      "category": "profit_loss_discount",
+      "subtype": "pl_sequential_supply_chain",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "phone"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A producer sells a phone for ₹1000 cost base through a chain: producer to distributor at 20% profit, then distributor to dealer at 10% profit, and dealer to buyer at 15% profit. Find the final price.",
+        "options": [
+          "₹1518",
+          "₹1450",
+          "₹1200",
+          "₹1214.4"
+        ],
+        "explanation": "Customer payment after chain\n1000 x 120 x 110 x 115 / 1000000\n= 1518\n\nSelling price = ₹1518"
+      },
+      "hi": {
+        "question": "एक फोन की आधार खरीद कीमत ₹1000 है। श्रृंखला में पहले 20% लाभ, फिर 10% लाभ और फिर 15% लाभ लगाया गया। अंतिम मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹1518",
+          "₹1450",
+          "₹1200",
+          "₹1214.4"
+        ],
+        "explanation": "श्रृंखला के बाद ग्राहक भुगतान\n1000 x 120 x 110 x 115 / 1000000\n= 1518\n\nविक्रय मूल्य = ₹1518"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਫੋਨ ਦੀ ਆਧਾਰ ਖਰੀਦ ਕੀਮਤ ₹1000 ਹੈ। ਲੜੀ ਵਿੱਚ ਪਹਿਲਾਂ 20% ਲਾਭ, ਫਿਰ 10% ਲਾਭ ਅਤੇ ਫਿਰ 15% ਲਾਭ ਲਾਇਆ ਗਿਆ। ਅੰਤਿਮ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1518",
+          "₹1450",
+          "₹1200",
+          "₹1214.4"
+        ],
+        "explanation": "ਲੜੀ ਤੋਂ ਬਾਅਦ ਗਾਹਕ ਭੁਗਤਾਨ\n1000 x 120 x 110 x 115 / 1000000\n= 1518\n\nਵਿਕਰੀ ਮੁੱਲ = ₹1518"
+      }
+    },
+    "realismScore": 94
+  },
+  {
+    "index": 1,
+    "question": "A trader gains ₹200 on one book set costing ₹800 and loses ₹200 on another costing ₹900. Find the overall result.",
+    "options": [
+      "No profit, no loss",
+      "25% profit",
+      "22.22% loss",
+      "5% profit"
+    ],
+    "answer": "No profit, no loss",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_equal_profit_loss_amount"
+    },
+    "semanticAnchors": {
+      "scenario": "book set",
+      "category": "profit_loss_discount",
+      "subtype": "pl_equal_profit_loss_amount",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "book set"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A trader gains ₹200 on one book set costing ₹800 and loses ₹200 on another costing ₹900. Find the overall result.",
+        "options": [
+          "No profit, no loss",
+          "25% profit",
+          "22.22% loss",
+          "5% profit"
+        ],
+        "explanation": "Net rupee result\n200 - 200\n= 0\n\nNo profit, no loss"
+      },
+      "hi": {
+        "question": "एक व्यापारी ₹800 की एक पुस्तक सेट पर ₹200 लाभ और ₹900 की दूसरी वस्तु पर ₹200 हानि करता है। कुल परिणाम ज्ञात कीजिए।",
+        "options": [
+          "न लाभ, न हानि",
+          "25% लाभ",
+          "22.22% हानि",
+          "5% लाभ"
+        ],
+        "explanation": "शुद्ध रुपये का परिणाम\n200 - 200\n= 0\n\nन लाभ, न हानि"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਵਪਾਰੀ ₹800 ਦੀ ਇੱਕ ਕਿਤਾਬਾਂ ਦਾ ਸੈੱਟ ਤੇ ₹200 ਲਾਭ ਅਤੇ ₹900 ਦੀ ਦੂਜੀ ਵਸਤੂ ਤੇ ₹200 ਨੁਕਸਾਨ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "ਨਾ ਲਾਭ, ਨਾ ਨੁਕਸਾਨ",
+          "25% ਲਾਭ",
+          "22.22% ਨੁਕਸਾਨ",
+          "5% ਲਾਭ"
+        ],
+        "explanation": "ਸ਼ੁੱਧ ਰੁਪਏ ਦਾ ਨਤੀਜਾ\n200 - 200\n= 0\n\nਨਾ ਲਾਭ, ਨਾ ਨੁਕਸਾਨ"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 2,
+    "question": "A watch is marked at ₹300. Two successive discounts of 12.5% and 5% are given. Find the final selling price.",
+    "options": [
+      "₹249.38",
+      "₹199.5"
+    ],
+    "answer": "₹249.38",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_successive_discounts"
+    },
+    "semanticAnchors": {
+      "scenario": "watch",
+      "category": "profit_loss_discount",
+      "subtype": "pl_successive_discounts",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "watch"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A watch is marked at ₹300. Two successive discounts of 12.5% and 5% are given. Find the final selling price.",
+        "options": [
+          "₹249.38",
+          "₹199.5"
+        ],
+        "explanation": "Price after first discount\n300 x 87.5 / 100\n= 262.5\n\nFinal selling price\n262.5 x 95 / 100\n= 249.38\n\nSelling price = ₹249.38"
+      },
+      "hi": {
+        "question": "एक घड़ी का अंकित मूल्य ₹300 है। 12.5% और 5% की दो क्रमिक छूट दी गईं। अंतिम विक्रय मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹249.38",
+          "₹199.5"
+        ],
+        "explanation": "पहली छूट के बाद मूल्य\n300 x 87.5 / 100\n= 262.5\n\nअंतिम विक्रय मूल्य\n262.5 x 95 / 100\n= 249.38\n\nविक्रय मूल्य = ₹249.38"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਘੜੀ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹300 ਹੈ। 12.5% ਅਤੇ 5% ਦੀਆਂ ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਦਿੱਤੀਆਂ ਗਈਆਂ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹249.38",
+          "₹199.5"
+        ],
+        "explanation": "ਪਹਿਲੀ ਛੂਟ ਤੋਂ ਬਾਅਦ ਮੁੱਲ\n300 x 87.5 / 100\n= 262.5\n\nਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ\n262.5 x 95 / 100\n= 249.38\n\nਵਿਕਰੀ ਮੁੱਲ = ₹249.38"
+      }
+    },
+    "realismScore": 85
+  },
+  {
+    "index": 3,
+    "question": "A mixer is sold for ₹1170 at 30% profit. Find its cost price.",
+    "options": [
+      "₹900",
+      "₹720",
+      "₹1080",
+      "₹1000"
+    ],
+    "answer": "₹900",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_sp_percent_to_cp"
+    },
+    "semanticAnchors": {
+      "scenario": "mixer",
+      "category": "profit_loss_discount",
+      "subtype": "pl_sp_percent_to_cp",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "mixer"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A mixer is sold for ₹1170 at 30% profit. Find its cost price.",
+        "options": [
+          "₹900",
+          "₹720",
+          "₹1080",
+          "₹1000"
+        ],
+        "explanation": "Selling price is 100 + profit%\n100 + 30\n= 130\n\nCost price\n1170 x 100 / 130\n= 900\n\nCost price = ₹900"
+      },
+      "hi": {
+        "question": "एक मिक्सर का विक्रय मूल्य ₹1170 है और इस पर 30% लाभ है। उसका क्रय मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹900",
+          "₹720",
+          "₹1080",
+          "₹1000"
+        ],
+        "explanation": "विक्रय मूल्य 100 + लाभ% है\n100 + 30\n= 130\n\nक्रय मूल्य\n1170 x 100 / 130\n= 900\n\nक्रय मूल्य = ₹900"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਮਿਕਸਰ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ₹1170 ਹੈ ਅਤੇ ਇਸ ਤੇ 30% ਲਾਭ ਹੈ। ਇਸ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹900",
+          "₹720",
+          "₹1080",
+          "₹1000"
+        ],
+        "explanation": "ਵਿਕਰੀ ਮੁੱਲ 100 + ਲਾਭ% ਹੈ\n100 + 30\n= 130\n\nਖਰੀਦ ਮੁੱਲ\n1170 x 100 / 130\n= 900\n\nਖਰੀਦ ਮੁੱਲ = ₹900"
+      }
+    },
+    "realismScore": 73
+  },
+  {
+    "index": 4,
+    "question": "A bag marked at ₹800 is sold after 25% discount for 20% profit. Find the cost price.",
+    "options": [
+      "₹500",
+      "₹600",
+      "₹400",
+      "₹450"
+    ],
+    "answer": "₹500",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_inverse_cp_from_mp_discount_profit"
+    },
+    "semanticAnchors": {
+      "scenario": "bag",
+      "category": "profit_loss_discount",
+      "subtype": "pl_inverse_cp_from_mp_discount_profit",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "bag"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A bag marked at ₹800 is sold after 25% discount for 20% profit. Find the cost price.",
+        "options": [
+          "₹500",
+          "₹600",
+          "₹400",
+          "₹450"
+        ],
+        "explanation": "Selling price\n800 x 75 / 100\n= 600\n\nCost price\n600 x 100 / 120\n= 500\n\nCost price = ₹500"
+      },
+      "hi": {
+        "question": "एक बैग का अंकित मूल्य ₹800 है। 25% छूट के बाद 20% लाभ होता है। खरीद मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹500",
+          "₹600",
+          "₹400",
+          "₹450"
+        ],
+        "explanation": "विक्रय मूल्य\n800 x 75 / 100\n= 600\n\nखरीद मूल्य\n600 x 100 / 120\n= 500\n\nक्रय मूल्य = ₹500"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਬੈਗ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹800 ਹੈ। 25% ਛੂਟ ਤੋਂ ਬਾਅਦ 20% ਲਾਭ ਹੁੰਦਾ ਹੈ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹500",
+          "₹600",
+          "₹400",
+          "₹450"
+        ],
+        "explanation": "ਵਿਕਰੀ ਮੁੱਲ\n800 x 75 / 100\n= 600\n\nਖਰੀਦ ਮੁੱਲ\n600 x 100 / 120\n= 500\n\nਖਰੀਦ ਮੁੱਲ = ₹500"
+      }
+    },
+    "realismScore": 85
+  },
+  {
+    "index": 5,
+    "question": "A bicycle was sold for ₹1500 at 25% loss. At what price should it be sold for 20% profit?",
+    "options": [
+      "₹2400",
+      "₹1800",
+      "₹1900",
+      "₹1920"
+    ],
+    "answer": "₹2400",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_required_sp_after_loss"
+    },
+    "semanticAnchors": {
+      "scenario": "bicycle",
+      "category": "profit_loss_discount",
+      "subtype": "pl_required_sp_after_loss",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "bicycle"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A bicycle was sold for ₹1500 at 25% loss. At what price should it be sold for 20% profit?",
+        "options": [
+          "₹2400",
+          "₹1800",
+          "₹1900",
+          "₹1920"
+        ],
+        "explanation": "Cost price\n1500 x 100 / 75\n= 2000\n\nTarget selling price\n2000 x 120 / 100\n= 2400\n\nSelling price = ₹2400"
+      },
+      "hi": {
+        "question": "एक साइकिल ₹1500 में 25% हानि पर बेचा गया। 20% लाभ के लिए उसे किस मूल्य पर बेचना चाहिए?",
+        "options": [
+          "₹2400",
+          "₹1800",
+          "₹1900",
+          "₹1920"
+        ],
+        "explanation": "खरीद मूल्य\n1500 x 100 / 75\n= 2000\n\nलक्ष्य विक्रय मूल्य\n2000 x 120 / 100\n= 2400\n\nविक्रय मूल्य = ₹2400"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸਾਈਕਲ ₹1500 ਵਿੱਚ 25% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ। 20% ਲਾਭ ਲਈ ਇਸਨੂੰ ਕਿਸ ਮੁੱਲ ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?",
+        "options": [
+          "₹2400",
+          "₹1800",
+          "₹1900",
+          "₹1920"
+        ],
+        "explanation": "ਖਰੀਦ ਮੁੱਲ\n1500 x 100 / 75\n= 2000\n\nਲਕਸ਼ ਵਿਕਰੀ ਮੁੱਲ\n2000 x 120 / 100\n= 2400\n\nਵਿਕਰੀ ਮੁੱਲ = ₹2400"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 6,
+    "question": "The cost price and selling price of a bicycle are both ₹4000. Find the profit or loss.",
+    "options": [
+      "No profit, no loss",
+      "5% profit",
+      "10% loss",
+      "2.5% profit"
+    ],
+    "answer": "No profit, no loss",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_no_profit_no_loss"
+    },
+    "semanticAnchors": {
+      "scenario": "bicycle",
+      "category": "profit_loss_discount",
+      "subtype": "pl_no_profit_no_loss",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "bicycle"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The cost price and selling price of a bicycle are both ₹4000. Find the profit or loss.",
+        "options": [
+          "No profit, no loss",
+          "5% profit",
+          "10% loss",
+          "2.5% profit"
+        ],
+        "explanation": "Difference between SP and CP\n4000 - 4000\n= 0\n\nNo profit, no loss"
+      },
+      "hi": {
+        "question": "एक साइकिल का खरीद मूल्य और विक्रय मूल्य दोनों ₹4000 हैं। परिणाम ज्ञात कीजिए।",
+        "options": [
+          "न लाभ, न हानि",
+          "5% लाभ",
+          "10% हानि",
+          "2.5% लाभ"
+        ],
+        "explanation": "विक्रय मूल्य और खरीद मूल्य का अंतर\n4000 - 4000\n= 0\n\nन लाभ, न हानि"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸਾਈਕਲ ਦਾ ਖਰੀਦ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਦੋਵੇਂ ₹4000 ਹਨ। ਨਤੀਜਾ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "ਨਾ ਲਾਭ, ਨਾ ਨੁਕਸਾਨ",
+          "5% ਲਾਭ",
+          "10% ਨੁਕਸਾਨ",
+          "2.5% ਲਾਭ"
+        ],
+        "explanation": "ਵਿਕਰੀ ਮੁੱਲ ਅਤੇ ਖਰੀਦ ਮੁੱਲ ਦਾ ਅੰਤਰ\n4000 - 4000\n= 0\n\nਨਾ ਲਾਭ, ਨਾ ਨੁਕਸਾਨ"
+      }
+    },
+    "realismScore": 71
+  },
+  {
+    "index": 7,
+    "question": "A laptop costs ₹1000. By allowing 10% discount, the seller wants 10% profit. Find the required markup percentage.",
+    "options": [
+      "22.22% markup",
+      "20% markup",
+      "17.22% markup",
+      "27.22% markup"
+    ],
+    "answer": "22.22% markup",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_inverse_markup_from_cp_discount_profit"
+    },
+    "semanticAnchors": {
+      "scenario": "laptop",
+      "category": "profit_loss_discount",
+      "subtype": "pl_inverse_markup_from_cp_discount_profit",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "laptop"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A laptop costs ₹1000. By allowing 10% discount, the seller wants 10% profit. Find the required markup percentage.",
+        "options": [
+          "22.22% markup",
+          "20% markup",
+          "17.22% markup",
+          "27.22% markup"
+        ],
+        "explanation": "Required selling price\n1000 x 110 / 100\n= 1100\n\nRequired marked price\n1100 x 100 / 90\n= 1222.22\n\nMarkup percentage\n(1222.22 - 1000) x 100 / 1000\n= 22.22\n\nMarkup percentage = 22.22% markup"
+      },
+      "hi": {
+        "question": "एक लैपटॉप का खरीद मूल्य ₹1000 है। 10% छूट देकर विक्रेता 10% लाभ चाहता है। आवश्यक मार्कअप प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "22.22% मार्कअप",
+          "20% मार्कअप",
+          "17.22% मार्कअप",
+          "27.22% मार्कअप"
+        ],
+        "explanation": "आवश्यक विक्रय मूल्य\n1000 x 110 / 100\n= 1100\n\nआवश्यक अंकित मूल्य\n1100 x 100 / 90\n= 1222.22\n\nमार्कअप प्रतिशत\n(1222.22 - 1000) x 100 / 1000\n= 22.22\n\nमार्कअप प्रतिशत = 22.22% मार्कअप"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਲੈਪਟਾਪ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹1000 ਹੈ। 10% ਛੂਟ ਦੇ ਕੇ ਵਿਕਰੇਤਾ 10% ਲਾਭ ਚਾਹੁੰਦਾ ਹੈ। ਲੋੜੀਂਦਾ ਮਾਰਕਅਪ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "22.22% ਮਾਰਕਅਪ",
+          "20% ਮਾਰਕਅਪ",
+          "17.22% ਮਾਰਕਅਪ",
+          "27.22% ਮਾਰਕਅਪ"
+        ],
+        "explanation": "ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ\n1000 x 110 / 100\n= 1100\n\nਲੋੜੀਂਦਾ ਅੰਕਿਤ ਮੁੱਲ\n1100 x 100 / 90\n= 1222.22\n\nਮਾਰਕਅਪ ਪ੍ਰਤੀਸ਼ਤ\n(1222.22 - 1000) x 100 / 1000\n= 22.22\n\nਮਾਰਕਅਪ ਪ੍ਰਤੀਸ਼ਤ = 22.22% ਮਾਰਕਅਪ"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 8,
+    "question": "After 20% discount on a shirt, profit is ₹-400. If discount were 15%, profit would be ₹-350. Find the marked price.",
+    "options": [
+      "₹1000",
+      "₹1200",
+      "₹800",
+      "₹1100"
+    ],
+    "answer": "₹1000",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_multi_condition_inverse_absolute"
+    },
+    "semanticAnchors": {
+      "scenario": "shirt",
+      "category": "profit_loss_discount",
+      "subtype": "pl_multi_condition_inverse_absolute",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "shirt"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "After 20% discount on a shirt, profit is ₹-400. If discount were 15%, profit would be ₹-350. Find the marked price.",
+        "options": [
+          "₹1000",
+          "₹1200",
+          "₹800",
+          "₹1100"
+        ],
+        "explanation": "Profit difference due to discount difference\n-350 - -400\n= 50\n\nMarked price\n50 x 100 / (20 - 15)\n= 1000\n\nMarked price = ₹1000"
+      },
+      "hi": {
+        "question": "एक कमीज पर 20% छूट के बाद लाभ ₹-400 है। यदि छूट 15% होती, तो लाभ ₹-350 होता। अंकित मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹1000",
+          "₹1200",
+          "₹800",
+          "₹1100"
+        ],
+        "explanation": "छूट अंतर से लाभ अंतर\n-350 - -400\n= 50\n\nअंकित मूल्य\n50 x 100 / (20 - 15)\n= 1000\n\nअंकित मूल्य = ₹1000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕਮੀਜ਼ ਤੇ 20% ਛੂਟ ਤੋਂ ਬਾਅਦ ਲਾਭ ₹-400 ਹੈ। ਜੇ ਛੂਟ 15% ਹੁੰਦੀ, ਤਾਂ ਲਾਭ ₹-350 ਹੁੰਦਾ। ਅੰਕਿਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1000",
+          "₹1200",
+          "₹800",
+          "₹1100"
+        ],
+        "explanation": "ਛੂਟ ਅੰਤਰ ਨਾਲ ਲਾਭ ਅੰਤਰ\n-350 - -400\n= 50\n\nਅੰਕਿਤ ਮੁੱਲ\n50 x 100 / (20 - 15)\n= 1000\n\nਅੰਕਿਤ ਮੁੱਲ = ₹1000"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 9,
+    "question": "Manufacturing cost of a appliance is ₹5000, split between material and labour in ratio 2:3. Material rises 25% and labour rises 10%. Find the new cost.",
+    "options": [
+      "₹5800",
+      "₹5875",
+      "₹6750",
+      "₹4640"
+    ],
+    "answer": "₹5800",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_manufacturing_breakdown"
+    },
+    "semanticAnchors": {
+      "scenario": "appliance",
+      "category": "profit_loss_discount",
+      "subtype": "pl_manufacturing_breakdown",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "appliance"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Manufacturing cost of a appliance is ₹5000, split between material and labour in ratio 2:3. Material rises 25% and labour rises 10%. Find the new cost.",
+        "options": [
+          "₹5800",
+          "₹5875",
+          "₹6750",
+          "₹4640"
+        ],
+        "explanation": "Weighted new cost index\n(2 x 125 + 3 x 110) / 5\n= 116\n\nNew cost\n5000 x 116 / 100\n= 5800\n\nCost price = ₹5800"
+      },
+      "hi": {
+        "question": "एक उपकरण की निर्माण लागत ₹5000 है, जिसमें सामग्री और श्रम का अनुपात 2:3 है। सामग्री 25% और श्रम 10% बढ़ते हैं। नई लागत ज्ञात कीजिए।",
+        "options": [
+          "₹5800",
+          "₹5875",
+          "₹6750",
+          "₹4640"
+        ],
+        "explanation": "भारित नई लागत सूचकांक\n(2 x 125 + 3 x 110) / 5\n= 116\n\nनई लागत\n5000 x 116 / 100\n= 5800\n\nक्रय मूल्य = ₹5800"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਉਪਕਰਣ ਦੀ ਬਣਾਉਣ ਲਾਗਤ ₹5000 ਹੈ, ਜਿਸ ਵਿੱਚ ਸਮੱਗਰੀ ਅਤੇ ਮਜ਼ਦੂਰੀ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਸਮੱਗਰੀ 25% ਅਤੇ ਮਜ਼ਦੂਰੀ 10% ਵਧਦੀ ਹੈ। ਨਵੀਂ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹5800",
+          "₹5875",
+          "₹6750",
+          "₹4640"
+        ],
+        "explanation": "ਭਾਰਿਤ ਨਵੀਂ ਲਾਗਤ ਸੂਚਕਾਂਕ\n(2 x 125 + 3 x 110) / 5\n= 116\n\nਨਵੀਂ ਲਾਗਤ\n5000 x 116 / 100\n= 5800\n\nਖਰੀਦ ਮੁੱਲ = ₹5800"
+      }
+    },
+    "realismScore": 94
+  },
+  {
+    "index": 10,
+    "question": "A laptop costing ₹1000 is sold for ₹1800. A selling commission of 15% of SP is paid. Find the net profit or loss percentage.",
+    "options": [
+      "53% profit",
+      "80% profit",
+      "27% profit",
+      "58% profit"
+    ],
+    "answer": "53% profit",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_profit_after_commission_tax"
+    },
+    "semanticAnchors": {
+      "scenario": "laptop",
+      "category": "profit_loss_discount",
+      "subtype": "pl_profit_after_commission_tax",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "laptop"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A laptop costing ₹1000 is sold for ₹1800. A selling commission of 15% of SP is paid. Find the net profit or loss percentage.",
+        "options": [
+          "53% profit",
+          "80% profit",
+          "27% profit",
+          "58% profit"
+        ],
+        "explanation": "Net receipt after commission\n1800 x 85 / 100\n= 1530\n\nNet profit percentage\n(1530 - 1000) x 100 / 1000\n= 53\n\nProfit percentage = 53% profit"
+      },
+      "hi": {
+        "question": "एक लैपटॉप का खरीद मूल्य ₹1000 है और उसे ₹1800 में बेचा गया। विक्रय मूल्य का 15% कमीशन दिया गया। शुद्ध लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "53% लाभ",
+          "80% लाभ",
+          "27% लाभ",
+          "58% लाभ"
+        ],
+        "explanation": "कमीशन के बाद शुद्ध प्राप्ति\n1800 x 85 / 100\n= 1530\n\nशुद्ध लाभ प्रतिशत\n(1530 - 1000) x 100 / 1000\n= 53\n\nलाभ प्रतिशत = 53% लाभ"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਲੈਪਟਾਪ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹1000 ਹੈ ਅਤੇ ਇਸਨੂੰ ₹1800 ਵਿੱਚ ਵੇਚਿਆ ਗਿਆ। ਵਿਕਰੀ ਮੁੱਲ ਦਾ 15% ਕਮਿਸ਼ਨ ਦਿੱਤਾ ਗਿਆ। ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "53% ਲਾਭ",
+          "80% ਲਾਭ",
+          "27% ਲਾਭ",
+          "58% ਲਾਭ"
+        ],
+        "explanation": "ਕਮਿਸ਼ਨ ਤੋਂ ਬਾਅਦ ਸ਼ੁੱਧ ਪ੍ਰਾਪਤੀ\n1800 x 85 / 100\n= 1530\n\nਸ਼ੁੱਧ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ\n(1530 - 1000) x 100 / 1000\n= 53\n\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 53% ਲਾਭ"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 11,
+    "question": "A chair is listed at ₹1575 including 5% GST. Find the base price before GST.",
+    "options": [
+      "₹1500",
+      "₹1496.25",
+      "₹1200",
+      "₹1800"
+    ],
+    "answer": "₹1500",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_tax_inclusive_back_calc"
+    },
+    "semanticAnchors": {
+      "scenario": "chair",
+      "category": "profit_loss_discount",
+      "subtype": "pl_tax_inclusive_back_calc",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "chair"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A chair is listed at ₹1575 including 5% GST. Find the base price before GST.",
+        "options": [
+          "₹1500",
+          "₹1496.25",
+          "₹1200",
+          "₹1800"
+        ],
+        "explanation": "Base price before GST\n1575 x 100 / 105\n= 1500\n\nCost price = ₹1500"
+      },
+      "hi": {
+        "question": "एक कुर्सी का सूची मूल्य ₹1575 है जिसमें 5% GST शामिल है। GST से पहले आधार मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹1500",
+          "₹1496.25",
+          "₹1200",
+          "₹1800"
+        ],
+        "explanation": "GST से पहले आधार मूल्य\n1575 x 100 / 105\n= 1500\n\nक्रय मूल्य = ₹1500"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕੁਰਸੀ ਦਾ ਸੂਚੀ ਮੁੱਲ ₹1575 ਹੈ ਜਿਸ ਵਿੱਚ 5% GST ਸ਼ਾਮਲ ਹੈ। GST ਤੋਂ ਪਹਿਲਾਂ ਆਧਾਰ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹1500",
+          "₹1496.25",
+          "₹1200",
+          "₹1800"
+        ],
+        "explanation": "GST ਤੋਂ ਪਹਿਲਾਂ ਆਧਾਰ ਮੁੱਲ\n1575 x 100 / 105\n= 1500\n\nਖਰੀਦ ਮੁੱਲ = ₹1500"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 12,
+    "question": "A table fan costs ₹600 and is marked at ₹840. After a 20% discount, find the profit or loss percentage.",
+    "options": [
+      "12% profit",
+      "17% profit",
+      "7% profit",
+      "24% profit"
+    ],
+    "answer": "12% profit",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_cp_mp_discount_to_percent"
+    },
+    "semanticAnchors": {
+      "scenario": "table fan",
+      "category": "profit_loss_discount",
+      "subtype": "pl_cp_mp_discount_to_percent",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "table fan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A table fan costs ₹600 and is marked at ₹840. After a 20% discount, find the profit or loss percentage.",
+        "options": [
+          "12% profit",
+          "17% profit",
+          "7% profit",
+          "24% profit"
+        ],
+        "explanation": "Selling price after discount\n840 x 80 / 100\n= 672\n\nProfit amount\n672 - 600\n= 72\n\nPercentage on cost price\n72 x 100 / 600\n= 12\n\nProfit percentage = 12% profit"
+      },
+      "hi": {
+        "question": "एक टेबल फैन का क्रय मूल्य ₹600 है और अंकित मूल्य ₹840 है। 20% छूट के बाद लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "12% लाभ",
+          "17% लाभ",
+          "7% लाभ",
+          "24% लाभ"
+        ],
+        "explanation": "छूट के बाद विक्रय मूल्य\n840 x 80 / 100\n= 672\n\nलाभ राशि\n672 - 600\n= 72\n\nक्रय मूल्य पर प्रतिशत\n72 x 100 / 600\n= 12\n\nलाभ प्रतिशत = 12% लाभ"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਟੇਬਲ ਫੈਨ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹600 ਹੈ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹840 ਹੈ। 20% ਛੂਟ ਤੋਂ ਬਾਅਦ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "12% ਲਾਭ",
+          "17% ਲਾਭ",
+          "7% ਲਾਭ",
+          "24% ਲਾਭ"
+        ],
+        "explanation": "ਛੂਟ ਤੋਂ ਬਾਅਦ ਵਿਕਰੀ ਮੁੱਲ\n840 x 80 / 100\n= 672\n\nਲਾਭ ਰਕਮ\n672 - 600\n= 72\n\nਖਰੀਦ ਮੁੱਲ ਤੇ ਪ੍ਰਤੀਸ਼ਤ\n72 x 100 / 600\n= 12\n\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 12% ਲਾਭ"
+      }
+    },
+    "realismScore": 85
+  },
+  {
+    "index": 13,
+    "question": "A shirt is marked at ₹400. A discount of 15% is given. Find the selling price.",
+    "options": [
+      "₹340",
+      "₹272",
+      "₹408",
+      "₹440"
+    ],
+    "answer": "₹340",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_mp_discount_to_sp"
+    },
+    "semanticAnchors": {
+      "scenario": "shirt",
+      "category": "profit_loss_discount",
+      "subtype": "pl_mp_discount_to_sp",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "shirt"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A shirt is marked at ₹400. A discount of 15% is given. Find the selling price.",
+        "options": [
+          "₹340",
+          "₹272",
+          "₹408",
+          "₹440"
+        ],
+        "explanation": "Price left after discount\n100 - 15\n= 85\n\nSelling price\n400 x 85 / 100\n= 340\n\nSelling price = ₹340"
+      },
+      "hi": {
+        "question": "एक कमीज का अंकित मूल्य ₹400 है। 15% छूट दी गई। विक्रय मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹340",
+          "₹272",
+          "₹408",
+          "₹440"
+        ],
+        "explanation": "छूट के बाद बचा प्रतिशत\n100 - 15\n= 85\n\nविक्रय मूल्य\n400 x 85 / 100\n= 340\n\nविक्रय मूल्य = ₹340"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕਮੀਜ਼ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹400 ਹੈ। 15% ਛੂਟ ਦਿੱਤੀ ਗਈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹340",
+          "₹272",
+          "₹408",
+          "₹440"
+        ],
+        "explanation": "ਛੂਟ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ\n100 - 15\n= 85\n\nਵਿਕਰੀ ਮੁੱਲ\n400 x 85 / 100\n= 340\n\nਵਿਕਰੀ ਮੁੱਲ = ₹340"
+      }
+    },
+    "realismScore": 69
+  },
+  {
+    "index": 14,
+    "question": "In a promotion on tea packets, the offer is buy 3 get 1 free. Find the effective discount percentage.",
+    "options": [
+      "25%",
+      "33.33%",
+      "10%",
+      "30%"
+    ],
+    "answer": "25%",
+    "difficulty": "Easy",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_buy_get_free_discount"
+    },
+    "semanticAnchors": {
+      "scenario": "tea packet",
+      "category": "profit_loss_discount",
+      "subtype": "pl_buy_get_free_discount",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "tea packet"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a promotion on tea packets, the offer is buy 3 get 1 free. Find the effective discount percentage.",
+        "options": [
+          "25%",
+          "33.33%",
+          "10%",
+          "30%"
+        ],
+        "explanation": "Effective discount\n1 x 100 / (3 + 1)\n= 25\n\nEffective discount percentage = 25%"
+      },
+      "hi": {
+        "question": "चाय के पैकेट पर प्रस्ताव है: 3 खरीदें, 1 मुफ्त पाएं। प्रभावी छूट प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "25%",
+          "33.33%",
+          "10%",
+          "30%"
+        ],
+        "explanation": "प्रभावी छूट\n1 x 100 / (3 + 1)\n= 25\n\nप्रभावी छूट प्रतिशत = 25%"
+      },
+      "pa": {
+        "question": "ਚਾਹ ਦੇ ਪੈਕਟ ਤੇ ਪੇਸ਼ਕਸ਼ ਹੈ: 3 ਖਰੀਦੋ, 1 ਮੁਫ਼ਤ ਪਾਓ। ਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "25%",
+          "33.33%",
+          "10%",
+          "30%"
+        ],
+        "explanation": "ਪ੍ਰਭਾਵੀ ਛੂਟ\n1 x 100 / (3 + 1)\n= 25\n\nਪ੍ਰਭਾਵੀ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 25%"
+      }
+    },
+    "realismScore": 74
+  },
+  {
+    "index": 15,
+    "question": "Total CP of two table fans is ₹8000. One is sold at 20% profit and the other at 20% loss, giving no overall profit or loss. Find the CP of the first item.",
+    "options": [
+      "₹4000",
+      "₹3200",
+      "₹4800",
+      "₹4400"
+    ],
+    "answer": "₹4000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_dual_item_mixed_baseline"
+    },
+    "semanticAnchors": {
+      "scenario": "table fan",
+      "category": "profit_loss_discount",
+      "subtype": "pl_dual_item_mixed_baseline",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "table fan"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Total CP of two table fans is ₹8000. One is sold at 20% profit and the other at 20% loss, giving no overall profit or loss. Find the CP of the first item.",
+        "options": [
+          "₹4000",
+          "₹3200",
+          "₹4800",
+          "₹4400"
+        ],
+        "explanation": "CP ratio for no overall gain/loss\n1 : 1\n\nCost price of first item\n8000 x 20 / (20 + 20)\n= 4000\n\nCost price = ₹4000"
+      },
+      "hi": {
+        "question": "दो टेबल फैन का कुल खरीद मूल्य ₹8000 है। एक 20% लाभ पर और दूसरा 20% हानि पर बेचा गया, जिससे कुल न लाभ न हानि हुई। पहली वस्तु का खरीद मूल्य ज्ञात कीजिए।",
+        "options": [
+          "₹4000",
+          "₹3200",
+          "₹4800",
+          "₹4400"
+        ],
+        "explanation": "न लाभ-न हानि के लिए खरीद मूल्य अनुपात\n1 : 1\n\nपहली वस्तु का खरीद मूल्य\n8000 x 20 / (20 + 20)\n= 4000\n\nक्रय मूल्य = ₹4000"
+      },
+      "pa": {
+        "question": "ਦੋ ਟੇਬਲ ਫੈਨ ਦਾ ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ₹8000 ਹੈ। ਇੱਕ 20% ਲਾਭ ਤੇ ਅਤੇ ਦੂਜਾ 20% ਨੁਕਸਾਨ ਤੇ ਵੇਚਿਆ ਗਿਆ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਨਾ ਲਾਭ ਨਾ ਨੁਕਸਾਨ ਹੋਇਆ। ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹4000",
+          "₹3200",
+          "₹4800",
+          "₹4400"
+        ],
+        "explanation": "ਨਾ ਲਾਭ-ਨਾ ਨੁਕਸਾਨ ਲਈ ਖਰੀਦ ਮੁੱਲ ਅਨੁਪਾਤ\n1 : 1\n\nਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ\n8000 x 20 / (20 + 20)\n= 4000\n\nਖਰੀਦ ਮੁੱਲ = ₹4000"
+      }
+    },
+    "realismScore": 84
+  },
+  {
+    "index": 16,
+    "question": "A dealer takes 5% extra rice while buying and gives 20% less while selling. Find the profit percentage.",
+    "options": [
+      "31.25% profit",
+      "25% profit",
+      "26% profit",
+      "36.25% profit"
+    ],
+    "answer": "31.25% profit",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_dishonest_dealer_dual_fraud"
+    },
+    "semanticAnchors": {
+      "scenario": "rice",
+      "category": "profit_loss_discount",
+      "subtype": "pl_dishonest_dealer_dual_fraud",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "rice"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A dealer takes 5% extra rice while buying and gives 20% less while selling. Find the profit percentage.",
+        "options": [
+          "31.25% profit",
+          "25% profit",
+          "26% profit",
+          "36.25% profit"
+        ],
+        "explanation": "Overall fraud factor\n(105/100) x (100/80) x 100\n= 131.25\n\nProfit percentage\n131.25 - 100\n= 31.25\n\nProfit percentage = 31.25% profit"
+      },
+      "hi": {
+        "question": "एक व्यापारी खरीदते समय 5% अतिरिक्त चावल लेता है और बेचते समय 20% कम देता है। लाभ प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "31.25% लाभ",
+          "25% लाभ",
+          "26% लाभ",
+          "36.25% लाभ"
+        ],
+        "explanation": "कुल धोखाधड़ी गुणक\n(105/100) x (100/80) x 100\n= 131.25\n\nलाभ प्रतिशत\n131.25 - 100\n= 31.25\n\nलाभ प्रतिशत = 31.25% लाभ"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਵਪਾਰੀ ਖਰੀਦਦੇ ਸਮੇਂ 5% ਵਾਧੂ ਚਾਵਲ ਲੈਂਦਾ ਹੈ ਅਤੇ ਵੇਚਦੇ ਸਮੇਂ 20% ਘੱਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "31.25% ਲਾਭ",
+          "25% ਲਾਭ",
+          "26% ਲਾਭ",
+          "36.25% ਲਾਭ"
+        ],
+        "explanation": "ਕੁੱਲ ਧੋਖਾਧੜੀ ਗੁਣਕ\n(105/100) x (100/80) x 100\n= 131.25\n\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ\n131.25 - 100\n= 31.25\n\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 31.25% ਲਾਭ"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 17,
+    "question": "A pair of shoes has marked price ₹2500. After 30% discount, 18% GST is charged on the discounted price. Find the final bill.",
+    "options": [
+      "₹2065",
+      "₹2200",
+      "₹1652",
+      "₹2478"
+    ],
+    "answer": "₹2065",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_gst_after_discount"
+    },
+    "semanticAnchors": {
+      "scenario": "pair of shoes",
+      "category": "profit_loss_discount",
+      "subtype": "pl_gst_after_discount",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "pair of shoes"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A pair of shoes has marked price ₹2500. After 30% discount, 18% GST is charged on the discounted price. Find the final bill.",
+        "options": [
+          "₹2065",
+          "₹2200",
+          "₹1652",
+          "₹2478"
+        ],
+        "explanation": "Discounted price\n2500 x 70 / 100\n= 1750\n\nFinal bill\n1750 x 118 / 100\n= 2065\n\nFinal bill = ₹2065"
+      },
+      "hi": {
+        "question": "एक जूते की जोड़ी का अंकित मूल्य ₹2500 है। 30% छूट के बाद छूट वाले मूल्य पर 18% GST लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "options": [
+          "₹2065",
+          "₹2200",
+          "₹1652",
+          "₹2478"
+        ],
+        "explanation": "छूट वाला मूल्य\n2500 x 70 / 100\n= 1750\n\nअंतिम बिल\n1750 x 118 / 100\n= 2065\n\nअंतिम बिल = ₹2065"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਜੁੱਤਿਆਂ ਦੀ ਜੋੜੀ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹2500 ਹੈ। 30% ਛੂਟ ਤੋਂ ਬਾਅਦ ਛੂਟ ਵਾਲੇ ਮੁੱਲ ਤੇ 18% GST ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "₹2065",
+          "₹2200",
+          "₹1652",
+          "₹2478"
+        ],
+        "explanation": "ਛੂਟ ਵਾਲਾ ਮੁੱਲ\n2500 x 70 / 100\n= 1750\n\nਅੰਤਿਮ ਬਿੱਲ\n1750 x 118 / 100\n= 2065\n\nਅੰਤਿਮ ਬਿੱਲ = ₹2065"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 18,
+    "question": "If 15 phones at cost equal 12 phones at selling price, find the gain or loss percent.",
+    "options": [
+      "25% profit",
+      "20% profit",
+      "3% profit",
+      "30% profit"
+    ],
+    "answer": "25% profit",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_asymmetric_item_equivalence"
+    },
+    "semanticAnchors": {
+      "scenario": "phone",
+      "category": "profit_loss_discount",
+      "subtype": "pl_asymmetric_item_equivalence",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "phone"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "If 15 phones at cost equal 12 phones at selling price, find the gain or loss percent.",
+        "options": [
+          "25% profit",
+          "20% profit",
+          "3% profit",
+          "30% profit"
+        ],
+        "explanation": "Profit/loss percentage from article equivalence\n(15 - 12) x 100 / 12\n= 25\n\nProfit percentage on CP\n|25|\n= 25\n\nProfit percentage = 25% profit"
+      },
+      "hi": {
+        "question": "15 फोन का खरीद मूल्य 12 फोन के विक्रय मूल्य के बराबर है। लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "25% लाभ",
+          "20% लाभ",
+          "3% लाभ",
+          "30% लाभ"
+        ],
+        "explanation": "वस्तु-समानता से लाभ/हानि प्रतिशत\n(15 - 12) x 100 / 12\n= 25\n\nक्रय मूल्य पर लाभ प्रतिशत\n|25|\n= 25\n\nलाभ प्रतिशत = 25% लाभ"
+      },
+      "pa": {
+        "question": "15 ਫੋਨ ਦਾ ਖਰੀਦ ਮੁੱਲ 12 ਫੋਨ ਦੇ ਵਿਕਰੀ ਮੁੱਲ ਦੇ ਬਰਾਬਰ ਹੈ। ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "25% ਲਾਭ",
+          "20% ਲਾਭ",
+          "3% ਲਾਭ",
+          "30% ਲਾਭ"
+        ],
+        "explanation": "ਵਸਤੂ-ਸਮਾਨਤਾ ਤੋਂ ਲਾਭ/ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ\n(15 - 12) x 100 / 12\n= 25\n\nਖਰੀਦ ਮੁੱਲ ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ\n|25|\n= 25\n\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 25% ਲਾਭ"
+      }
+    },
+    "realismScore": 85
+  },
+  {
+    "index": 19,
+    "question": "A shopkeeper buys a bag for ₹1500. He wants 20% profit after giving a 10% discount. What marked price should he set?",
+    "options": [
+      "₹2000",
+      "₹1600",
+      "₹2400",
+      "₹2100"
+    ],
+    "answer": "₹2000",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_mp_for_target_profit"
+    },
+    "semanticAnchors": {
+      "scenario": "bag",
+      "category": "profit_loss_discount",
+      "subtype": "pl_mp_for_target_profit",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "bag"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A shopkeeper buys a bag for ₹1500. He wants 20% profit after giving a 10% discount. What marked price should he set?",
+        "options": [
+          "₹2000",
+          "₹1600",
+          "₹2400",
+          "₹2100"
+        ],
+        "explanation": "Required selling price for target profit\n1500 x 120 / 100\n= 1800\n\nMarked price before discount\n1800 x 100 / 90\n= 2000\n\nMarked price = ₹2000"
+      },
+      "hi": {
+        "question": "एक दुकानदार बैग ₹1500 में खरीदता है। वह 10% छूट देने के बाद 20% लाभ चाहता है। उसे कितना अंकित मूल्य रखना चाहिए?",
+        "options": [
+          "₹2000",
+          "₹1600",
+          "₹2400",
+          "₹2100"
+        ],
+        "explanation": "लक्ष्य लाभ के लिए आवश्यक विक्रय मूल्य\n1500 x 120 / 100\n= 1800\n\nछूट से पहले अंकित मूल्य\n1800 x 100 / 90\n= 2000\n\nअंकित मूल्य = ₹2000"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਬੈਗ ₹1500 ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ। ਉਹ 10% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ 20% ਲਾਭ ਚਾਹੁੰਦਾ ਹੈ। ਉਸ ਨੂੰ ਕਿੰਨਾ ਅੰਕਿਤ ਮੁੱਲ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ?",
+        "options": [
+          "₹2000",
+          "₹1600",
+          "₹2400",
+          "₹2100"
+        ],
+        "explanation": "ਲਕਸ਼ ਲਾਭ ਲਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ\n1500 x 120 / 100\n= 1800\n\nਛੂਟ ਤੋਂ ਪਹਿਲਾਂ ਅੰਕਿਤ ਮੁੱਲ\n1800 x 100 / 90\n= 2000\n\nਅੰਕਿਤ ਮੁੱਲ = ₹2000"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 20,
+    "question": "A pair of shoes is marked 50% above cost price. What discount should be allowed to gain 20%?",
+    "options": [
+      "20%",
+      "30%",
+      "25%",
+      "15%"
+    ],
+    "answer": "20%",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_target_profit_discount_calibration"
+    },
+    "semanticAnchors": {
+      "scenario": "pair of shoes",
+      "category": "profit_loss_discount",
+      "subtype": "pl_target_profit_discount_calibration",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "pair of shoes"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A pair of shoes is marked 50% above cost price. What discount should be allowed to gain 20%?",
+        "options": [
+          "20%",
+          "30%",
+          "25%",
+          "15%"
+        ],
+        "explanation": "Marked price index\n100 + 50\n= 150\n\nRequired selling price index\n100 + 20\n= 120\n\nDiscount percentage\n(150 - 120) x 100 / 150\n= 20\n\nDiscount percentage = 20%"
+      },
+      "hi": {
+        "question": "एक जूते की जोड़ी को खरीद मूल्य से 50% अधिक अंकित किया गया। 20% लाभ पाने के लिए कितनी छूट देनी चाहिए?",
+        "options": [
+          "20%",
+          "30%",
+          "25%",
+          "15%"
+        ],
+        "explanation": "अंकित मूल्य सूचकांक\n100 + 50\n= 150\n\nआवश्यक विक्रय मूल्य सूचकांक\n100 + 20\n= 120\n\nछूट प्रतिशत\n(150 - 120) x 100 / 150\n= 20\n\nछूट प्रतिशत = 20%"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਜੁੱਤਿਆਂ ਦੀ ਜੋੜੀ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ 50% ਵੱਧ ਅੰਕਿਤ ਕੀਤਾ ਗਿਆ। 20% ਲਾਭ ਲਈ ਕਿੰਨੀ ਛੂਟ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?",
+        "options": [
+          "20%",
+          "30%",
+          "25%",
+          "15%"
+        ],
+        "explanation": "ਅੰਕਿਤ ਮੁੱਲ ਸੂਚਕਾਂਕ\n100 + 50\n= 150\n\nਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਸੂਚਕਾਂਕ\n100 + 20\n= 120\n\nਛੂਟ ਪ੍ਰਤੀਸ਼ਤ\n(150 - 120) x 100 / 150\n= 20\n\nਛੂਟ ਪ੍ਰਤੀਸ਼ਤ = 20%"
+      }
+    },
+    "realismScore": 85
+  },
+  {
+    "index": 21,
+    "question": "Two bags are sold for ₹1000 each. One is sold at 20% profit and the other at 20% loss. Find the overall profit or loss percentage.",
+    "options": [
+      "4% loss",
+      "20% loss",
+      "9% loss",
+      "1% loss"
+    ],
+    "answer": "4% loss",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_dual_item_identical_sp"
+    },
+    "semanticAnchors": {
+      "scenario": "bag",
+      "category": "profit_loss_discount",
+      "subtype": "pl_dual_item_identical_sp",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "bag"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two bags are sold for ₹1000 each. One is sold at 20% profit and the other at 20% loss. Find the overall profit or loss percentage.",
+        "options": [
+          "4% loss",
+          "20% loss",
+          "9% loss",
+          "1% loss"
+        ],
+        "explanation": "Cost price of first item\n1000 x 100 / 120\n= 833.33\n\nCost price of second item\n1000 x 100 / 80\n= 1250\n\nLoss percentage on total CP\n|2000 - 2083.33| x 100 / 2083.33\n= 4\n\nOverall loss percentage = 4% loss"
+      },
+      "hi": {
+        "question": "दो बैग प्रत्येक ₹1000 में बेचे गए। एक पर 20% लाभ और दूसरे पर 20% हानि हुई। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "4% हानि",
+          "20% हानि",
+          "9% हानि",
+          "1% हानि"
+        ],
+        "explanation": "पहली वस्तु का खरीद मूल्य\n1000 x 100 / 120\n= 833.33\n\nदूसरी वस्तु का खरीद मूल्य\n1000 x 100 / 80\n= 1250\n\nकुल क्रय मूल्य पर हानि प्रतिशत\n|2000 - 2083.33| x 100 / 2083.33\n= 4\n\nकुल हानि प्रतिशत = 4% हानि"
+      },
+      "pa": {
+        "question": "ਦੋ ਬੈਗ ਹਰ ਇੱਕ ₹1000 ਵਿੱਚ ਵੇਚੇ ਗਏ। ਇੱਕ ਤੇ 20% ਲਾਭ ਅਤੇ ਦੂਜੇ ਤੇ 20% ਨੁਕਸਾਨ ਹੋਇਆ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "4% ਨੁਕਸਾਨ",
+          "20% ਨੁਕਸਾਨ",
+          "9% ਨੁਕਸਾਨ",
+          "1% ਨੁਕਸਾਨ"
+        ],
+        "explanation": "ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ\n1000 x 100 / 120\n= 833.33\n\nਦੂਜੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ\n1000 x 100 / 80\n= 1250\n\nਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ\n|2000 - 2083.33| x 100 / 2083.33\n= 4\n\nਕੁੱਲ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 4% ਨੁਕਸਾਨ"
+      }
+    },
+    "realismScore": 86
+  },
+  {
+    "index": 22,
+    "question": "Two book sets are sold for ₹300 each. One is sold at 30% profit and the other at 30% loss. Find the overall profit or loss percentage.",
+    "options": [
+      "9% loss",
+      "14% loss",
+      "4% loss",
+      "18% loss"
+    ],
+    "answer": "9% loss",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_equal_sp_profit_loss"
+    },
+    "semanticAnchors": {
+      "scenario": "book set",
+      "category": "profit_loss_discount",
+      "subtype": "pl_equal_sp_profit_loss",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "book set"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two book sets are sold for ₹300 each. One is sold at 30% profit and the other at 30% loss. Find the overall profit or loss percentage.",
+        "options": [
+          "9% loss",
+          "14% loss",
+          "4% loss",
+          "18% loss"
+        ],
+        "explanation": "Cost price of first article\n300 x 100 / 130\n= 230.77\n\nCost price of second article\n300 x 100 / 70\n= 428.57\n\nLoss percentage on total CP\n59.34 x 100 / 659.34\n= 9\n\nOverall loss percentage = 9% loss"
+      },
+      "hi": {
+        "question": "दो पुस्तक सेट प्रत्येक ₹300 में बेची गईं। एक पर 30% लाभ और दूसरी पर 30% हानि हुई। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "9% हानि",
+          "14% हानि",
+          "4% हानि",
+          "18% हानि"
+        ],
+        "explanation": "पहली वस्तु का क्रय मूल्य\n300 x 100 / 130\n= 230.77\n\nदूसरी वस्तु का क्रय मूल्य\n300 x 100 / 70\n= 428.57\n\nकुल क्रय मूल्य पर हानि प्रतिशत\n59.34 x 100 / 659.34\n= 9\n\nकुल हानि प्रतिशत = 9% हानि"
+      },
+      "pa": {
+        "question": "ਦੋ ਕਿਤਾਬਾਂ ਦੇ ਸੈੱਟ ਹਰ ਇੱਕ ₹300 ਵਿੱਚ ਵੇਚੀਆਂ ਗਈਆਂ। ਇੱਕ ਤੇ 30% ਲਾਭ ਅਤੇ ਦੂਜੀ ਤੇ 30% ਨੁਕਸਾਨ ਹੋਇਆ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "9% ਨੁਕਸਾਨ",
+          "14% ਨੁਕਸਾਨ",
+          "4% ਨੁਕਸਾਨ",
+          "18% ਨੁਕਸਾਨ"
+        ],
+        "explanation": "ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ\n300 x 100 / 130\n= 230.77\n\nਦੂਜੀ ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ\n300 x 100 / 70\n= 428.57\n\nਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ\n59.34 x 100 / 659.34\n= 9\n\nਕੁੱਲ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 9% ਨੁਕਸਾਨ"
+      }
+    },
+    "realismScore": 82
+  },
+  {
+    "index": 23,
+    "question": "A trader sells one article costing ₹900 at 10% profit and another costing ₹600 at 20% loss. Find the overall profit or loss percentage.",
+    "options": [
+      "2% loss",
+      "7% loss",
+      "3% loss",
+      "4% loss"
+    ],
+    "answer": "2% loss",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_two_article_overall"
+    },
+    "semanticAnchors": {
+      "scenario": "chair",
+      "category": "profit_loss_discount",
+      "subtype": "pl_two_article_overall",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "chair"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A trader sells one article costing ₹900 at 10% profit and another costing ₹600 at 20% loss. Find the overall profit or loss percentage.",
+        "options": [
+          "2% loss",
+          "7% loss",
+          "3% loss",
+          "4% loss"
+        ],
+        "explanation": "Selling price of first article\n900 x 110 / 100\n= 990\n\nSelling price of second article\n600 x 80 / 100\n= 480\n\nLoss percentage on total CP\n30 x 100 / 1500\n= 2\n\nOverall loss percentage = 2% loss"
+      },
+      "hi": {
+        "question": "एक व्यापारी एक वस्तु को ₹900 के क्रय मूल्य पर लेकर 10% लाभ पर और दूसरी वस्तु को ₹600 के क्रय मूल्य पर लेकर 20% हानि पर बेचता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "2% हानि",
+          "7% हानि",
+          "3% हानि",
+          "4% हानि"
+        ],
+        "explanation": "पहली वस्तु का विक्रय मूल्य\n900 x 110 / 100\n= 990\n\nदूसरी वस्तु का विक्रय मूल्य\n600 x 80 / 100\n= 480\n\nकुल क्रय मूल्य पर हानि प्रतिशत\n30 x 100 / 1500\n= 2\n\nकुल हानि प्रतिशत = 2% हानि"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਵਪਾਰੀ ਇੱਕ ਵਸਤੂ ਨੂੰ ₹900 ਦੇ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲੈ ਕੇ 10% ਲਾਭ ਤੇ ਅਤੇ ਦੂਜੀ ਵਸਤੂ ਨੂੰ ₹600 ਦੇ ਖਰੀਦ ਮੁੱਲ ਤੇ ਲੈ ਕੇ 20% ਨੁਕਸਾਨ ਤੇ ਵੇਚਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "2% ਨੁਕਸਾਨ",
+          "7% ਨੁਕਸਾਨ",
+          "3% ਨੁਕਸਾਨ",
+          "4% ਨੁਕਸਾਨ"
+        ],
+        "explanation": "ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਵਿਕਰੀ ਮੁੱਲ\n900 x 110 / 100\n= 990\n\nਦੂਜੀ ਵਸਤੂ ਦਾ ਵਿਕਰੀ ਮੁੱਲ\n600 x 80 / 100\n= 480\n\nਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਤੇ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ\n30 x 100 / 1500\n= 2\n\nਕੁੱਲ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ = 2% ਨੁਕਸਾਨ"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 24,
+    "question": "In a wholesale-retail chain for a chair, the successive changes are 40%, -25%, 20% where negative means loss. Find the net profit or loss percentage.",
+    "options": [
+      "26% profit",
+      "35% profit",
+      "15% profit",
+      "31% profit"
+    ],
+    "answer": "26% profit",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "profit_loss_discount",
+      "variant": "pl_supply_chain_mixed_profit_loss"
+    },
+    "semanticAnchors": {
+      "scenario": "chair",
+      "category": "profit_loss_discount",
+      "subtype": "pl_supply_chain_mixed_profit_loss",
+      "reasoningPattern": "profit_loss_discount",
+      "canonicalScenario": {
+        "domain": "profit_loss_discount",
+        "object": "chair"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In a wholesale-retail chain for a chair, the successive changes are 40%, -25%, 20% where negative means loss. Find the net profit or loss percentage.",
+        "options": [
+          "26% profit",
+          "35% profit",
+          "15% profit",
+          "31% profit"
+        ],
+        "explanation": "Chain price index\n(100 + 40) x (100 - 25) x (100 + 20) / 10000\n= 126\n\nNet change\n126 - 100\n= 26\n\nProfit percentage = 26% profit"
+      },
+      "hi": {
+        "question": "एक कुर्सी की व्यापार श्रृंखला में क्रमिक परिवर्तन 40%, -25%, 20% हैं, जहाँ ऋणात्मक का अर्थ हानि है। शुद्ध लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+        "options": [
+          "26% लाभ",
+          "35% लाभ",
+          "15% लाभ",
+          "31% लाभ"
+        ],
+        "explanation": "श्रृंखला मूल्य सूचकांक\n(100 + 40) x (100 - 25) x (100 + 20) / 10000\n= 126\n\nशुद्ध परिवर्तन\n126 - 100\n= 26\n\nलाभ प्रतिशत = 26% लाभ"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਕੁਰਸੀ ਦੀ ਵਪਾਰ ਲੜੀ ਵਿੱਚ ਲਗਾਤਾਰ ਬਦਲਾਅ 40%, -25%, 20% ਹਨ, ਜਿੱਥੇ ਰਿਣਾਤਮਕ ਦਾ ਅਰਥ ਨੁਕਸਾਨ ਹੈ। ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਨੁਕਸਾਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "26% ਲਾਭ",
+          "35% ਲਾਭ",
+          "15% ਲਾਭ",
+          "31% ਲਾਭ"
+        ],
+        "explanation": "ਲੜੀ ਮੁੱਲ ਸੂਚਕਾਂਕ\n(100 + 40) x (100 - 25) x (100 + 20) / 10000\n= 126\n\nਸ਼ੁੱਧ ਬਦਲਾਅ\n126 - 100\n= 26\n\nਲਾਭ ਪ੍ਰਤੀਸ਼ਤ = 26% ਲਾਭ"
+      }
+    },
+    "realismScore": 94
+  }
+]

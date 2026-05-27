@@ -1,0 +1,1965 @@
+Q1. The sides of two similar figures are in the ratio \(8:11\). Find the ratio of their areas.
+A. 64:121
+B. 121:64
+C. 8:11
+D. 512:1331
+Answer: 64:121
+Difficulty: Hard
+Family: rp_side_area_volume_ratio
+Explanation:
+Start with the side ratio.
+
+\[
+\text{Side ratio}=8:11
+\]
+
+Area ratio is the square of side ratio.
+
+\[
+\text{Area ratio}=8^{2}:11^{2}=64:121
+\]
+
+Answer: 64:121
+
+---
+
+Q2. Boys and girls in a class are in the ratio \(7:9\). If the class has 400 students, find the number of girls.
+A. 50
+B. 25
+C. 175
+D. 225
+Answer: 225
+Difficulty: Easy
+Family: rp_sum_based_ratio_recovery
+Explanation:
+Let boys and girls be proportional to the ratio.
+
+\[
+B=7k,\quad G=9k
+\]
+
+Use the total students.
+
+\[
+7k+9k=400
+\]
+
+Solve the equation.
+
+\[
+16k=400,\quad k=25
+\]
+
+Find the number of girls.
+
+\[
+G=9k=225
+\]
+
+Answer: 225
+
+---
+
+Q3. A and B invest in the ratio \(7:9\) for the same time. Their total profit is ₹12800. Find A's share of profit.
+A. ₹6400
+B. ₹5600
+C. ₹800
+D. ₹7200
+Answer: ₹5600
+Difficulty: Medium
+Family: rp_partnership_basic
+Explanation:
+For equal time, profit is divided in the investment ratio.
+
+\[
+A:B=7:9
+\]
+
+Use the total profit.
+
+\[
+7k+9k=12800,\quad k=800
+\]
+
+Find A's profit share.
+
+\[
+A=7k=5600
+\]
+
+Answer: ₹5600
+
+---
+
+Q4. A and B have money in the ratio \(11:7\). After ₹2400 is given by A to B, the ratio becomes \(1:1\). Find A's original amount.
+A. ₹8400
+B. ₹10800
+C. ₹13200
+D. ₹15600
+Answer: ₹13200
+Difficulty: Hard
+Family: rp_ratio_after_transfer
+Explanation:
+Let the original amounts be ratio parts.
+
+\[
+A=11k,\quad B=7k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{11k-2400}{7k+2400}=\frac{1}{1}
+\]
+
+Cross-multiply and solve.
+
+\[
+1(11k-2400)=1(7k+2400)
+\]
+
+Find the common multiplier.
+
+\[
+4k=4800,\quad k=1200
+\]
+
+Compute A's original amount.
+
+\[
+A=11k=11\times 1200=13200
+\]
+
+Answer: ₹13200
+
+---
+
+Q5. A sum of ₹960 is divided in the ratio \(3:5\). Find B's share.
+A. ₹600
+B. ₹360
+C. ₹120
+D. ₹480
+Answer: ₹600
+Difficulty: Easy
+Family: rp_direct_sharing
+Explanation:
+Write the given ratio.
+
+\[
+A=3k,\quad B=5k
+\]
+
+Use the total sum.
+
+\[
+3k+5k=960
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{960}{8}=120
+\]
+
+Compute B's share.
+
+\[
+B=5k=5\times 120=600
+\]
+
+Answer: ₹600
+
+---
+
+Q6. The incomes of A and B are in the ratio \(3:4\). A's income increases by 50% and B's income increases by 10%. Find the new ratio.
+A. 3:4
+B. 330:600
+C. 53:14
+D. 45:44
+Answer: 45:44
+Difficulty: Medium
+Family: rp_ratio_after_increase
+Explanation:
+Let the original incomes be ratio parts.
+
+\[
+A=3,\quad B=4
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=3\left(1+\frac{50}{100}\right):4\left(1+\frac{10}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=450:440=45:44
+\]
+
+Answer: 45:44
+
+---
+
+Q7. With 20 workers, a job takes 144 days. Find the time needed when 30 workers do the same job.
+A. 96
+B. 144
+C. 216
+D. 10
+Answer: 96
+Difficulty: Medium
+Family: rp_inverse_variation_basic
+Explanation:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+20\times 144=30\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{20\times 144}{30}=96
+\]
+
+Answer: 96
+
+---
+
+Q8. If \(A:B=4:7\), what fraction of the total is A?
+A. 4/3
+B. 4/11
+C. 11/4
+D. 7/11
+Answer: 4/11
+Difficulty: Easy
+Family: rp_ratio_to_fraction
+Explanation:
+Add the ratio parts to get the total parts.
+
+\[
+4+7=11
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{4}{11}=4/11
+\]
+
+Answer: 4/11
+
+---
+
+Q9. If \(8:13 = 96:x\), find \(x\).
+A. 109
+B. 59
+C. 156
+D. 96
+Answer: 156
+Difficulty: Easy
+Family: rp_missing_term_proportion
+Explanation:
+Write the proportion as fractions.
+
+\[
+\frac{8}{13}=\frac{96}{x}
+\]
+
+Cross-multiply.
+
+\[
+8x=13\times 96
+\]
+
+Solve for the missing term.
+
+\[
+x=\frac{13\times 96}{8}=156
+\]
+
+Answer: 156
+
+---
+
+Q10. The present ages of A and B are in the ratio \(7:9\). After 60 years, the ratio will be \(9:11\). Find A's present age.
+A. 30 years
+B. 210 years
+C. 220 years
+D. 270 years
+Answer: 210 years
+Difficulty: Medium
+Family: rp_age_future_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=7k,\quad B=9k
+\]
+
+Use the future-age ratio.
+
+\[
+\frac{7k+60}{9k+60}=\frac{9}{11}
+\]
+
+Solve for the multiplier.
+
+\[
+-4k=-120,\quad k=30
+\]
+
+Find A's present age.
+
+\[
+A=7k=210
+\]
+
+Answer: 210 years
+
+---
+
+Q11. A and B have present ages in the ratio \(7:10\). 20 years ago, their age ratio was \(37:55\). Find B's present age.
+A. 220 years
+B. 168 years
+C. 240 years
+D. 24 years
+Answer: 240 years
+Difficulty: Medium
+Family: rp_age_past_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=7k,\quad B=10k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{7k-20}{10k-20}=\frac{37}{55}
+\]
+
+Solve for the multiplier.
+
+\[
+15k=360,\quad k=24
+\]
+
+Find B's present age.
+
+\[
+B=10k=240
+\]
+
+Answer: 240 years
+
+---
+
+Q12. A map uses the scale \(1:600000\). Thus 1 cm represents 6 km. A road measures 8 cm on the map. Find the actual length.
+A. 480 km
+B. 8 km
+C. 48 km
+D. 6 km
+Answer: 48 km
+Difficulty: Medium
+Family: rp_map_scale_ratio
+Explanation:
+Use the map scale.
+
+\[
+1\text{ cm}=6\text{ km}
+\]
+
+Multiply by the map distance.
+
+\[
+\text{Actual distance}=8\times 6=48\text{ km}
+\]
+
+Answer: 48 km
+
+---
+
+Q13. A invests ₹12000 for 7 months and B invests ₹9000 for 11 months. If the total profit is ₹73200, find A's share.
+A. ₹36600
+B. ₹33600
+C. ₹12000
+D. ₹39600
+Answer: ₹33600
+Difficulty: Medium
+Family: rp_partnership_time_variation
+Explanation:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=12000\times 7:9000\times 11
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=84000:99000=28:33
+\]
+
+Use the total profit.
+
+\[
+28k+33k=73200,\quad k=1200
+\]
+
+Find A's share.
+
+\[
+A=28k=33600
+\]
+
+Answer: ₹33600
+
+---
+
+Q14. For \(x\propto \frac{y}{z}\), \(x=384\) when \(y=8\) and \(z=3\). Find \(x\) when \(y=12\) and \(z=6\).
+A. 576
+B. 288
+C. 1152
+D. 384
+Answer: 288
+Difficulty: Hard
+Family: rp_combined_direct_inverse
+Explanation:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=384\times \frac{12}{8}\times \frac{3}{6}=288
+\]
+
+Answer: 288
+
+---
+
+Q15. B earns ₹2000 more than A, and their salaries are in the ratio \(7:11\). Find A's salary.
+A. ₹500
+B. ₹2000
+C. ₹3500
+D. ₹5500
+Answer: ₹3500
+Difficulty: Medium
+Family: rp_difference_based_ratio_recovery
+Explanation:
+Let the salaries be in ratio form.
+
+\[
+A=7k,\quad B=11k
+\]
+
+Use the salary difference.
+
+\[
+11k-7k=2000
+\]
+
+Solve for the multiplier.
+
+\[
+4k=2000,\quad k=500
+\]
+
+Compute the required value.
+
+\[
+A=7k=3500
+\]
+
+Answer: ₹3500
+
+---
+
+Q16. The quantities of two mixtures are in the ratio \(5:6\). The first decreases by 25% and the second decreases by 25%. Find the new ratio.
+A. 5:6
+B. 375:450
+C. 625:750
+D. 375:600
+Answer: 5:6
+Difficulty: Medium
+Family: rp_ratio_after_decrease
+Explanation:
+Let the original quantities be ratio parts.
+
+\[
+A=5,\quad B=6
+\]
+
+Apply the decreases.
+
+\[
+A':B'=5\left(1-\frac{25}{100}\right):6\left(1-\frac{25}{100}\right)
+\]
+
+Simplify the ratio.
+
+\[
+A':B'=375:450=5:6
+\]
+
+Answer: 5:6
+
+---
+
+Q17. A is \(\frac{7}{16}\) of the total. Find the ratio \(A:B\).
+A. 9:7
+B. 7:16
+C. 7:9
+D. 16:7
+Answer: 7:9
+Difficulty: Easy
+Family: rp_fraction_to_ratio
+Explanation:
+Use total parts from the fraction.
+
+\[
+A=7,\quad A+B=16
+\]
+
+Find B's parts.
+
+\[
+B=16-7=9
+\]
+
+Write the ratio.
+
+\[
+A:B=7:9=7:9
+\]
+
+Answer: 7:9
+
+---
+
+Q18. \(x\) is directly proportional to \(y\). When \(y=12\), \(x=144\). Find \(x\) when \(y=15\).
+A. 115.2
+B. 147
+C. 144
+D. 180
+Answer: 180
+Difficulty: Medium
+Family: rp_direct_variation_basic
+Explanation:
+For direct variation, the ratios are equal.
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+Substitute the values.
+
+\[
+\frac{144}{12}=\frac{x_2}{15}
+\]
+
+Solve for the new value.
+
+\[
+x_2=\frac{144\times 15}{12}=180
+\]
+
+Answer: 180
+
+---
+
+Q19. The output of machines varies jointly with their number and working hours. If 6 machines make 720 units in 5 hours, find the output for 9 machines in 7 hours.
+A. 1512
+B. 720
+C. 1080
+D. 1008
+Answer: 1512
+Difficulty: Hard
+Family: rp_joint_variation
+Explanation:
+For joint variation, output is proportional to machines and hours.
+
+\[
+O=kMH
+\]
+
+Use the ratio form.
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+Compute the new output.
+
+\[
+O_2=720\times \frac{9\times 7}{6\times 5}=1512
+\]
+
+Answer: 1512
+
+---
+
+Q20. If \(A:B=7:9\) and \(B:C=12:13\), find \(A:B:C\).
+A. 7:9:13
+B. 84:108:117
+C. 28:36:39
+D. 39:36:28
+Answer: 28:36:39
+Difficulty: Hard
+Family: rp_chain_ratio_network
+Explanation:
+Make the B part common.
+
+\[
+\text{LCM of }9\text{ and }12=36
+\]
+
+Scale the first ratio.
+
+\[
+A:B=28:36
+\]
+
+Scale the second ratio.
+
+\[
+B:C=36:39
+\]
+
+Combine the ratios.
+
+\[
+A:B:C=28:36:39
+\]
+
+Answer: 28:36:39
+
+---
+
+Q21. The ratio of boys to girls is \(7:9\). The total number of students is 240. Find the number of boys.
+A. 30
+B. 15
+C. 135
+D. 105
+Answer: 105
+Difficulty: Easy
+Family: rp_sum_based_ratio_recovery
+Explanation:
+Let boys and girls be proportional to the ratio.
+
+\[
+B=7k,\quad G=9k
+\]
+
+Use the total students.
+
+\[
+7k+9k=240
+\]
+
+Solve the equation.
+
+\[
+16k=240,\quad k=15
+\]
+
+Find the number of boys.
+
+\[
+B=7k=105
+\]
+
+Answer: 105
+
+---
+
+Q22. A and B invest in the ratio \(5:8\) for the same time. Their total profit is ₹11700. Find A's share of profit.
+A. ₹4500
+B. ₹7200
+C. ₹5850
+D. ₹900
+Answer: ₹4500
+Difficulty: Medium
+Family: rp_partnership_basic
+Explanation:
+For equal time, profit is divided in the investment ratio.
+
+\[
+A:B=5:8
+\]
+
+Use the total profit.
+
+\[
+5k+8k=11700,\quad k=900
+\]
+
+Find A's profit share.
+
+\[
+A=5k=4500
+\]
+
+Answer: ₹4500
+
+---
+
+Q23. A and B have money in the ratio \(11:7\). After ₹4800 is given by A to B, the ratio becomes \(1:1\). Find A's original amount.
+A. ₹16800
+B. ₹31200
+C. ₹21600
+D. ₹26400
+Answer: ₹26400
+Difficulty: Hard
+Family: rp_ratio_after_transfer
+Explanation:
+Let the original amounts be ratio parts.
+
+\[
+A=11k,\quad B=7k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{11k-4800}{7k+4800}=\frac{1}{1}
+\]
+
+Cross-multiply and solve.
+
+\[
+1(11k-4800)=1(7k+4800)
+\]
+
+Find the common multiplier.
+
+\[
+4k=9600,\quad k=2400
+\]
+
+Compute A's original amount.
+
+\[
+A=11k=11\times 2400=26400
+\]
+
+Answer: ₹26400
+
+---
+
+Q24. A seats of 550 is divided in the ratio \(4:7\). Find Group A's share.
+A. 275
+B. 350
+C. 200
+D. 50
+Answer: 200
+Difficulty: Easy
+Family: rp_direct_sharing
+Explanation:
+Write the given ratio.
+
+\[
+Group A=4k,\quad Group B=7k
+\]
+
+Use the total seats.
+
+\[
+4k+7k=550
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{550}{11}=50
+\]
+
+Compute Group A's share.
+
+\[
+Group A=4k=4\times 50=200
+\]
+
+Answer: 200
+
+---
+
+Q25. Initially, A's income and B's income are in the ratio \(3:4\). They increase by 20% and 25% respectively. Find the new ratio.
+A. 375:480
+B. 3:4
+C. 18:25
+D. 23:29
+Answer: 18:25
+Difficulty: Medium
+Family: rp_ratio_after_increase
+Explanation:
+Let the original incomes be ratio parts.
+
+\[
+A=3,\quad B=4
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=3\left(1+\frac{20}{100}\right):4\left(1+\frac{25}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=360:500=18:25
+\]
+
+Answer: 18:25
+
+---
+
+Q26. A work is completed by 16 workers in 36 days. How many days will 24 workers take?
+A. 36
+B. 24
+C. 54
+D. 8
+Answer: 24
+Difficulty: Medium
+Family: rp_inverse_variation_basic
+Explanation:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+16\times 36=24\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{16\times 36}{24}=24
+\]
+
+Answer: 24
+
+---
+
+Q27. If \(A:B=13:21\), what fraction of the total is A?
+A. 34/13
+B. 21/34
+C. 13/34
+D. 13/8
+Answer: 13/34
+Difficulty: Easy
+Family: rp_ratio_to_fraction
+Explanation:
+Add the ratio parts to get the total parts.
+
+\[
+13+21=34
+\]
+
+Write the required part over total parts.
+
+\[
+A=\frac{13}{34}=13/34
+\]
+
+Answer: 13/34
+
+---
+
+Q28. If \(2:7 = 10:x\), find \(x\).
+A. 35
+B. 3
+C. 17
+D. 10
+Answer: 35
+Difficulty: Easy
+Family: rp_missing_term_proportion
+Explanation:
+Write the proportion as fractions.
+
+\[
+\frac{2}{7}=\frac{10}{x}
+\]
+
+Cross-multiply.
+
+\[
+2x=7\times 10
+\]
+
+Solve for the missing term.
+
+\[
+x=\frac{7\times 10}{2}=35
+\]
+
+Answer: 35
+
+---
+
+Q29. A and B have present ages in the ratio \(4:7\). Their age ratio after 36 years will be \(5:8\). Find A's present age.
+A. 144 years
+B. 36 years
+C. 180 years
+D. 252 years
+Answer: 144 years
+Difficulty: Medium
+Family: rp_age_future_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=4k,\quad B=7k
+\]
+
+Use the future-age ratio.
+
+\[
+\frac{4k+36}{7k+36}=\frac{5}{8}
+\]
+
+Solve for the multiplier.
+
+\[
+-3k=-108,\quad k=36
+\]
+
+Find A's present age.
+
+\[
+A=4k=144
+\]
+
+Answer: 144 years
+
+---
+
+Q30. At present, A's age and B's age are in the ratio \(7:10\). Earlier by 40 years, the ratio was \(37:55\). Find B's present age.
+A. 48 years
+B. 480 years
+C. 336 years
+D. 440 years
+Answer: 480 years
+Difficulty: Medium
+Family: rp_age_past_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=7k,\quad B=10k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{7k-40}{10k-40}=\frac{37}{55}
+\]
+
+Solve for the multiplier.
+
+\[
+15k=720,\quad k=48
+\]
+
+Find B's present age.
+
+\[
+B=10k=480
+\]
+
+Answer: 480 years
+
+---
+
+Q31. The scale of a map is \(1:1000000\), so 1 cm represents 10 km. If a road is 8 cm on the map, find its actual length.
+A. 10 km
+B. 8 km
+C. 80 km
+D. 800 km
+Answer: 80 km
+Difficulty: Medium
+Family: rp_map_scale_ratio
+Explanation:
+Use the map scale.
+
+\[
+1\text{ cm}=10\text{ km}
+\]
+
+Multiply by the map distance.
+
+\[
+\text{Actual distance}=8\times 10=80\text{ km}
+\]
+
+Answer: 80 km
+
+---
+
+Q32. A invests ₹6000 for 12 months and B invests ₹8000 for 9 months. If the total profit is ₹2000, find A's share.
+A. ₹1002
+B. ₹1000
+C. ₹999
+D. ₹6000
+Answer: ₹1000
+Difficulty: Medium
+Family: rp_partnership_time_variation
+Explanation:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=6000\times 12:8000\times 9
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=72000:72000=1:1
+\]
+
+Use the total profit.
+
+\[
+1k+1k=2000,\quad k=1000
+\]
+
+Find A's share.
+
+\[
+A=1k=1000
+\]
+
+Answer: ₹1000
+
+---
+
+Q33. \(x\) varies directly as \(y\) and inversely as \(z\). If \(x=96\) when \(y=8\) and \(z=3\), find \(x\) when \(y=12\) and \(z=6\).
+A. 288
+B. 144
+C. 72
+D. 96
+Answer: 72
+Difficulty: Hard
+Family: rp_combined_direct_inverse
+Explanation:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=96\times \frac{12}{8}\times \frac{3}{6}=72
+\]
+
+Answer: 72
+
+---
+
+Q34. A's salary and B's salary are in the ratio \(5:9\). B earns ₹1000 more than A. Find A's salary.
+A. ₹2250
+B. ₹1250
+C. ₹250
+D. ₹1000
+Answer: ₹1250
+Difficulty: Medium
+Family: rp_difference_based_ratio_recovery
+Explanation:
+Let the salaries be in ratio form.
+
+\[
+A=5k,\quad B=9k
+\]
+
+Use the salary difference.
+
+\[
+9k-5k=1000
+\]
+
+Solve for the multiplier.
+
+\[
+4k=1000,\quad k=250
+\]
+
+Compute the required value.
+
+\[
+A=5k=1250
+\]
+
+Answer: ₹1250
+
+---
+
+Q35. Initially two mixtures are in the ratio \(7:9\). After decreases of 20% and 10% respectively, find the new ratio.
+A. 630:720
+B. 840:990
+C. 7:9
+D. 56:81
+Answer: 56:81
+Difficulty: Medium
+Family: rp_ratio_after_decrease
+Explanation:
+Let the original quantities be ratio parts.
+
+\[
+A=7,\quad B=9
+\]
+
+Apply the decreases.
+
+\[
+A':B'=7\left(1-\frac{20}{100}\right):9\left(1-\frac{10}{100}\right)
+\]
+
+Simplify the ratio.
+
+\[
+A':B'=560:810=56:81
+\]
+
+Answer: 56:81
+
+---
+
+Q36. A is \(\frac{5}{14}\) of the total. Find the ratio \(A:B\).
+A. 14:5
+B. 5:9
+C. 9:5
+D. 5:14
+Answer: 5:9
+Difficulty: Easy
+Family: rp_fraction_to_ratio
+Explanation:
+Use total parts from the fraction.
+
+\[
+A=5,\quad A+B=14
+\]
+
+Find B's parts.
+
+\[
+B=14-5=9
+\]
+
+Write the ratio.
+
+\[
+A:B=5:9=5:9
+\]
+
+Answer: 5:9
+
+---
+
+Q37. For two directly varying quantities \(x\) and \(y\), \(x=360\) at \(y=9\). Find \(x\) at \(y=14\).
+A. 365
+B. 360
+C. 231.43
+D. 560
+Answer: 560
+Difficulty: Medium
+Family: rp_direct_variation_basic
+Explanation:
+For direct variation, the ratios are equal.
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+Substitute the values.
+
+\[
+\frac{360}{9}=\frac{x_2}{14}
+\]
+
+Solve for the new value.
+
+\[
+x_2=\frac{360\times 14}{9}=560
+\]
+
+Answer: 560
+
+---
+
+Q38. Output varies jointly as the number of machines and working hours. 6 machines working for 5 hours produce 360 units. How many units will 9 machines produce in 7 hours?
+A. 540
+B. 756
+C. 360
+D. 504
+Answer: 756
+Difficulty: Hard
+Family: rp_joint_variation
+Explanation:
+For joint variation, output is proportional to machines and hours.
+
+\[
+O=kMH
+\]
+
+Use the ratio form.
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+Compute the new output.
+
+\[
+O_2=360\times \frac{9\times 7}{6\times 5}=756
+\]
+
+Answer: 756
+
+---
+
+Q39. If \(A:B=8:11\) and \(B:C=6:7\), find \(A:B:C\).
+A. 77:66:48
+B. 8:11:7
+C. 8:66:7
+D. 48:66:77
+Answer: 48:66:77
+Difficulty: Hard
+Family: rp_chain_ratio_network
+Explanation:
+Make the B part common.
+
+\[
+\text{LCM of }11\text{ and }6=66
+\]
+
+Scale the first ratio.
+
+\[
+A:B=48:66
+\]
+
+Scale the second ratio.
+
+\[
+B:C=66:77
+\]
+
+Combine the ratios.
+
+\[
+A:B:C=48:66:77
+\]
+
+Answer: 48:66:77
+
+---
+
+Q40. The sides of two similar solids are in the ratio \(4:5\). Find the ratio of their volumes.
+A. 16:25
+B. 64:125
+C. 4:5
+D. 125:64
+Answer: 64:125
+Difficulty: Hard
+Family: rp_side_area_volume_ratio
+Explanation:
+Start with the side ratio.
+
+\[
+\text{Side ratio}=4:5
+\]
+
+Volume ratio is the cube of side ratio.
+
+\[
+\text{Volume ratio}=4^{3}:5^{3}=64:125
+\]
+
+Answer: 64:125
+
+---
+
+Q41. Production is jointly proportional to machines and hours. 4 machines produce 1200 units in 5 hours. Find the output of 6 machines in 8 hours.
+A. 2880
+B. 1200
+C. 1800
+D. 1920
+Answer: 2880
+Difficulty: Hard
+Family: rp_joint_variation
+Explanation:
+For joint variation, output is proportional to machines and hours.
+
+\[
+O=kMH
+\]
+
+Use the ratio form.
+
+\[
+\frac{O_2}{O_1}=\frac{M_2H_2}{M_1H_1}
+\]
+
+Compute the new output.
+
+\[
+O_2=1200\times \frac{6\times 8}{4\times 5}=2880
+\]
+
+Answer: 2880
+
+---
+
+Q42. If \(A:B=9:10\) and \(B:C=15:16\), find \(A:B:C\).
+A. 32:30:27
+B. 9:10:16
+C. 27:30:32
+D. 135:150:160
+Answer: 27:30:32
+Difficulty: Hard
+Family: rp_chain_ratio_network
+Explanation:
+Make the B part common.
+
+\[
+\text{LCM of }10\text{ and }15=30
+\]
+
+Scale the first ratio.
+
+\[
+A:B=27:30
+\]
+
+Scale the second ratio.
+
+\[
+B:C=30:32
+\]
+
+Combine the ratios.
+
+\[
+A:B:C=27:30:32
+\]
+
+Answer: 27:30:32
+
+---
+
+Q43. The sides of two similar figures are in the ratio \(5:7\). Find the ratio of their areas.
+A. 5:7
+B. 125:343
+C. 25:49
+D. 49:25
+Answer: 25:49
+Difficulty: Hard
+Family: rp_side_area_volume_ratio
+Explanation:
+Start with the side ratio.
+
+\[
+\text{Side ratio}=5:7
+\]
+
+Area ratio is the square of side ratio.
+
+\[
+\text{Area ratio}=5^{2}:7^{2}=25:49
+\]
+
+Answer: 25:49
+
+---
+
+Q44. The ratio of boys to girls is \(5:8\). The total number of students is 325. Find the number of girls.
+A. 125
+B. 25
+C. 200
+D. 75
+Answer: 200
+Difficulty: Easy
+Family: rp_sum_based_ratio_recovery
+Explanation:
+Let boys and girls be proportional to the ratio.
+
+\[
+B=5k,\quad G=8k
+\]
+
+Use the total students.
+
+\[
+5k+8k=325
+\]
+
+Solve the equation.
+
+\[
+13k=325,\quad k=25
+\]
+
+Find the number of girls.
+
+\[
+G=8k=200
+\]
+
+Answer: 200
+
+---
+
+Q45. A and B invest in the ratio \(2:3\) for the same time. Their total profit is ₹4000. Find A's share of profit.
+A. ₹2000
+B. ₹1600
+C. ₹2400
+D. ₹800
+Answer: ₹1600
+Difficulty: Medium
+Family: rp_partnership_basic
+Explanation:
+For equal time, profit is divided in the investment ratio.
+
+\[
+A:B=2:3
+\]
+
+Use the total profit.
+
+\[
+2k+3k=4000,\quad k=800
+\]
+
+Find A's profit share.
+
+\[
+A=2k=1600
+\]
+
+Answer: ₹1600
+
+---
+
+Q46. A and B have money in the ratio \(7:5\). After ₹2400 is given by A to B, the ratio becomes \(13:11\). Find A's original amount.
+A. ₹31200
+B. ₹36000
+C. ₹33600
+D. ₹24000
+Answer: ₹33600
+Difficulty: Hard
+Family: rp_ratio_after_transfer
+Explanation:
+Let the original amounts be ratio parts.
+
+\[
+A=7k,\quad B=5k
+\]
+
+Form the equation after transfer.
+
+\[
+\frac{7k-2400}{5k+2400}=\frac{13}{11}
+\]
+
+Cross-multiply and solve.
+
+\[
+11(7k-2400)=13(5k+2400)
+\]
+
+Find the common multiplier.
+
+\[
+12k=57600,\quad k=4800
+\]
+
+Compute A's original amount.
+
+\[
+A=7k=7\times 4800=33600
+\]
+
+Answer: ₹33600
+
+---
+
+Q47. A marks of 600 is divided in the ratio \(2:3\). Find Science's share.
+A. 360
+B. 300
+C. 240
+D. 120
+Answer: 360
+Difficulty: Easy
+Family: rp_direct_sharing
+Explanation:
+Write the given ratio.
+
+\[
+Maths=2k,\quad Science=3k
+\]
+
+Use the total marks.
+
+\[
+2k+3k=600
+\]
+
+Solve for the common multiplier.
+
+\[
+k=\frac{600}{5}=120
+\]
+
+Compute Science's share.
+
+\[
+Science=3k=3\times 120=360
+\]
+
+Answer: 360
+
+---
+
+Q48. A and B have incomes in the ratio \(5:7\). After increases of 10% and 10% respectively, find the new ratio.
+A. 7:5
+B. 550:770
+C. 15:17
+D. 5:7
+Answer: 5:7
+Difficulty: Medium
+Family: rp_ratio_after_increase
+Explanation:
+Let the original incomes be ratio parts.
+
+\[
+A=5,\quad B=7
+\]
+
+Apply the percentage increases.
+
+\[
+A':B'=5\left(1+\frac{10}{100}\right):7\left(1+\frac{10}{100}\right)
+\]
+
+Simplify the new ratio.
+
+\[
+A':B'=550:770=5:7
+\]
+
+Answer: 5:7
+
+---
+
+Q49. A work is completed by 18 workers in 270 days. How many days will 27 workers take?
+A. 270
+B. 180
+C. 9
+D. 405
+Answer: 180
+Difficulty: Medium
+Family: rp_inverse_variation_basic
+Explanation:
+Workers and days vary inversely.
+
+\[
+W_1D_1=W_2D_2
+\]
+
+Substitute the values.
+
+\[
+18\times 270=27\times D_2
+\]
+
+Solve for the days.
+
+\[
+D_2=\frac{18\times 270}{27}=180
+\]
+
+Answer: 180
+
+---
+
+Q50. If \(A:B=3:7\), what fraction of the total is B?
+A. 10/7
+B. 7/10
+C. 3/10
+D. 7/4
+Answer: 7/10
+Difficulty: Easy
+Family: rp_ratio_to_fraction
+Explanation:
+Add the ratio parts to get the total parts.
+
+\[
+3+7=10
+\]
+
+Write the required part over total parts.
+
+\[
+B=\frac{7}{10}=7/10
+\]
+
+Answer: 7/10
+
+---
+
+Q51. If \(8:13 = 72:x\), find \(x\).
+A. 117
+B. 85
+C. 44
+D. 72
+Answer: 117
+Difficulty: Easy
+Family: rp_missing_term_proportion
+Explanation:
+Write the proportion as fractions.
+
+\[
+\frac{8}{13}=\frac{72}{x}
+\]
+
+Cross-multiply.
+
+\[
+8x=13\times 72
+\]
+
+Solve for the missing term.
+
+\[
+x=\frac{13\times 72}{8}=117
+\]
+
+Answer: 117
+
+---
+
+Q52. At present, A's age and B's age are in the ratio \(3:5\). After 28 years, they will be in the ratio \(7:11\). Find A's present age.
+A. 280 years
+B. 196 years
+C. 56 years
+D. 168 years
+Answer: 168 years
+Difficulty: Medium
+Family: rp_age_future_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=3k,\quad B=5k
+\]
+
+Use the future-age ratio.
+
+\[
+\frac{3k+28}{5k+28}=\frac{7}{11}
+\]
+
+Solve for the multiplier.
+
+\[
+-2k=-112,\quad k=56
+\]
+
+Find A's present age.
+
+\[
+A=3k=168
+\]
+
+Answer: 168 years
+
+---
+
+Q53. The present ages of A and B are in the ratio \(5:7\). 10 years ago, the ratio was \(35:53\). Find B's present age.
+A. 53 years
+B. 45 years
+C. 63 years
+D. 9 years
+Answer: 63 years
+Difficulty: Medium
+Family: rp_age_past_ratio
+Explanation:
+Let present ages be ratio parts.
+
+\[
+A=5k,\quad B=7k
+\]
+
+Use the past-age ratio.
+
+\[
+\frac{5k-10}{7k-10}=\frac{35}{53}
+\]
+
+Solve for the multiplier.
+
+\[
+20k=180,\quad k=9
+\]
+
+Find B's present age.
+
+\[
+B=7k=63
+\]
+
+Answer: 63 years
+
+---
+
+Q54. The scale of a map is \(1:800000\), so 1 cm represents 8 km. If a road is 7 cm on the map, find its actual length.
+A. 560 km
+B. 7 km
+C. 56 km
+D. 8 km
+Answer: 56 km
+Difficulty: Medium
+Family: rp_map_scale_ratio
+Explanation:
+Use the map scale.
+
+\[
+1\text{ cm}=8\text{ km}
+\]
+
+Multiply by the map distance.
+
+\[
+\text{Actual distance}=7\times 8=56\text{ km}
+\]
+
+Answer: 56 km
+
+---
+
+Q55. A invests ₹5000 for 10 months and B invests ₹7000 for 8 months. If the total profit is ₹26500, find A's share.
+A. ₹14000
+B. ₹12500
+C. ₹5000
+D. ₹13250
+Answer: ₹12500
+Difficulty: Medium
+Family: rp_partnership_time_variation
+Explanation:
+Profit ratio is capital multiplied by time.
+
+\[
+A:B=5000\times 10:7000\times 8
+\]
+
+Simplify the effective capital ratio.
+
+\[
+A:B=50000:56000=25:28
+\]
+
+Use the total profit.
+
+\[
+25k+28k=26500,\quad k=500
+\]
+
+Find A's share.
+
+\[
+A=25k=12500
+\]
+
+Answer: ₹12500
+
+---
+
+Q56. For \(x\propto \frac{y}{z}\), \(x=288\) when \(y=9\) and \(z=5\). Find \(x\) when \(y=15\) and \(z=6\).
+A. 400
+B. 288
+C. 576
+D. 480
+Answer: 400
+Difficulty: Hard
+Family: rp_combined_direct_inverse
+Explanation:
+Use combined direct and inverse variation.
+
+\[
+x=k\frac{y}{z}
+\]
+
+Compare the two cases.
+
+\[
+\frac{x_2}{x_1}=\frac{y_2}{y_1}\times \frac{z_1}{z_2}
+\]
+
+Compute the new value.
+
+\[
+x_2=288\times \frac{15}{9}\times \frac{5}{6}=400
+\]
+
+Answer: 400
+
+---
+
+Q57. The salaries of A and B are in the ratio \(7:11\). The difference between their salaries is ₹400. Find their total salary.
+A. ₹400
+B. ₹1100
+C. ₹100
+D. ₹1800
+Answer: ₹1800
+Difficulty: Medium
+Family: rp_difference_based_ratio_recovery
+Explanation:
+Let the salaries be in ratio form.
+
+\[
+A=7k,\quad B=11k
+\]
+
+Use the salary difference.
+
+\[
+11k-7k=400
+\]
+
+Solve for the multiplier.
+
+\[
+4k=400,\quad k=100
+\]
+
+Compute the required value.
+
+\[
+A+B=18k=1800
+\]
+
+Answer: ₹1800
+
+---
+
+Q58. Two quantities are in the ratio \(7:9\). They decrease by 20% and 25% respectively. Find the new ratio.
+A. 7:9
+B. 525:720
+C. 840:1125
+D. 112:135
+Answer: 112:135
+Difficulty: Medium
+Family: rp_ratio_after_decrease
+Explanation:
+Let the original quantities be ratio parts.
+
+\[
+A=7,\quad B=9
+\]
+
+Apply the decreases.
+
+\[
+A':B'=7\left(1-\frac{20}{100}\right):9\left(1-\frac{25}{100}\right)
+\]
+
+Simplify the ratio.
+
+\[
+A':B'=560:675=112:135
+\]
+
+Answer: 112:135
+
+---
+
+Q59. A is \(\frac{3}{10}\) of the total. Find the ratio \(A:B\).
+A. 3:7
+B. 3:10
+C. 7:3
+D. 10:3
+Answer: 3:7
+Difficulty: Easy
+Family: rp_fraction_to_ratio
+Explanation:
+Use total parts from the fraction.
+
+\[
+A=3,\quad A+B=10
+\]
+
+Find B's parts.
+
+\[
+B=10-3=7
+\]
+
+Write the ratio.
+
+\[
+A:B=3:7=3:7
+\]
+
+Answer: 3:7
+
+---
+
+Q60. \(x\) is directly proportional to \(y\). When \(y=12\), \(x=288\). Find \(x\) when \(y=15\).
+A. 360
+B. 230.4
+C. 291
+D. 288
+Answer: 360
+Difficulty: Medium
+Family: rp_direct_variation_basic
+Explanation:
+For direct variation, the ratios are equal.
+
+\[
+\frac{x_1}{y_1}=\frac{x_2}{y_2}
+\]
+
+Substitute the values.
+
+\[
+\frac{288}{12}=\frac{x_2}{15}
+\]
+
+Solve for the new value.
+
+\[
+x_2=\frac{288\times 15}{12}=360
+\]
+
+Answer: 360

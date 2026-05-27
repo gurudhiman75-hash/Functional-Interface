@@ -4,10 +4,19 @@ import type {
   CorpusSchedulerSummary,
 } from "../corpus-scheduler/corpus-scheduler";
 import type { CorpusQualityReport } from "../corpus-scheduler/corpus-quality-evaluator";
+import type {
+  MigratedQuantV2Domain,
+  QuantV2TopicId,
+  QuantV2TopologyGroup,
+  QuantV2TopologyGroupId,
+} from "../../lib/quant-v2/migrated-quant-topics";
 
 export type CorpusAuditPresetId =
   | "ssc_percentage_audit"
   | "profit_loss_audit"
+  | "interest_audit"
+  | "ratio_proportion_audit"
+  | "time_work_audit"
   | "banking_relational_audit"
   | "percentage_advanced_coverage_audit"
   | "punjabi_realism_audit"
@@ -45,6 +54,11 @@ export interface CorpusAuditPreset {
   label: string;
   description: string;
   defaultCount: number;
+  topicId?: QuantV2TopicId;
+  generationDomain?: MigratedQuantV2Domain;
+  defaultTopology?: QuantV2TopologyGroupId;
+  topologyOptions?: readonly QuantV2TopologyGroup[];
+  schedulerProfiles?: readonly string[];
   examProfile: ExamProfileId;
   seedPrefix: string;
   forcedMotifIds?: string[];
@@ -62,7 +76,7 @@ export interface CorpusAuditExportOptions {
   includeFullQuestion?: boolean;
   forcedMotifIds?: string[];
   languages?: Array<"en" | "hi" | "pa">;
-  topologySelection?: "mixed" | "relational" | "procedural";
+  topologySelection?: QuantV2TopologyGroupId;
   realismProfile?: "balanced" | "pyq" | "stress";
   compactnessProfile?: "compact" | "balanced" | "ultra_compact";
   difficultyMix?: "balanced" | "easy" | "medium" | "hard";
@@ -104,6 +118,7 @@ export interface CorpusAuditExportItem {
   topology: unknown;
   reasoningGraph: unknown;
   semanticMetadata: unknown;
+  visual?: unknown;
   validatorReports: unknown;
   traps: unknown;
   qualityMetrics: unknown;
@@ -117,6 +132,9 @@ export interface CorpusAuditExportItem {
 }
 
 export interface CorpusAuditSummary {
+  runId?: string;
+  seed?: string;
+  explicitSeed?: boolean;
   generatedCount: number;
   topologyDistribution: Record<string, number>;
   subtypeDistribution: Record<string, number>;

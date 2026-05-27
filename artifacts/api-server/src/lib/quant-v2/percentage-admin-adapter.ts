@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import type {
   FormulaQuestion,
   GeneratorOptions,
@@ -137,7 +139,12 @@ function hashText(value: string) {
 function nextSequence(options?: GeneratorOptions) {
   const context = options?.generationContext;
   const generationId =
-    context?.generationId ?? String(options?.seed ?? "standalone");
+    context?.generationId ??
+    String(
+      options?.seed ??
+        options?.generationContext?.seed ??
+        `standalone:${randomUUID()}`,
+    );
   const current = sequenceByGenerationId.get(generationId) ?? 0;
   sequenceByGenerationId.set(generationId, current + 1);
   return current;
@@ -177,7 +184,7 @@ function selectFactory(
     };
   }
 
-  const seed = `${options?.seed ?? ""}|${pattern.id}|${pattern.topic}|${pattern.subtopic}|${sequence}`;
+  const seed = `${options?.seed ?? options?.generationContext?.seed ?? ""}|${pattern.id}|${pattern.topic}|${pattern.subtopic}|${sequence}`;
   const key =
     COMMERCIAL_CORPUS_ROTATION[
       (hashText(seed) + sequence) % COMMERCIAL_CORPUS_ROTATION.length
@@ -407,7 +414,11 @@ function buildQuantV2Artifacts(input: {
 }) {
   const sequence = nextSequence(input.options);
   const selected = selectFactory(input.pattern, input.options, sequence);
-  const seed = `${input.options?.seed ?? ""}|${input.pattern.id}|${sequence}|${selected.key}`;
+  const baseSeed =
+    input.options?.seed ??
+    input.options?.generationContext?.seed ??
+    `percentage:${randomUUID()}`;
+  const seed = `${baseSeed}|${input.pattern.id}|${sequence}|${selected.key}`;
   const realizationProfile = resolveRealizationProfile(
     input.options?.examProfile,
   );
@@ -593,6 +604,7 @@ export function createQuantV2PercentageQuestionCandidate(
     validateMetricCalibration(qualityReport),
   );
   const signature = createProblemSignature(problem);
+  const visual = problem.visual ?? null;
   const optionsList = artifacts.optionSets.en;
   const optionsHi = artifacts.optionSets.hi;
   const optionsPa = artifacts.optionSets.pa;
@@ -630,6 +642,7 @@ export function createQuantV2PercentageQuestionCandidate(
     canonicalScenario: artifacts.canonicalScenario,
     corpusFingerprints: artifacts.corpusFingerprints,
     examinerIntent: artifacts.examinerIntent,
+    visual,
   };
 
   return {
@@ -732,6 +745,7 @@ export function createQuantV2PercentageQuestionCandidate(
         canonicalScenario: artifacts.canonicalScenario,
         corpusFingerprints: artifacts.corpusFingerprints,
         examinerIntent: artifacts.examinerIntent,
+        visual,
         answer: {
           raw: problem.answer,
           rendered: answerOption,
@@ -784,7 +798,9 @@ export function createQuantV2PercentageQuestionCandidate(
       canonicalScenario: artifacts.canonicalScenario,
       corpusFingerprints: artifacts.corpusFingerprints,
       examinerIntent: artifacts.examinerIntent,
+      visual,
     },
+    visual,
     svgRendering: svg.rendered as unknown,
     qualityMetrics: qualityReport as unknown,
     localizationMetadata: {
@@ -854,6 +870,7 @@ export function createQuantV2PercentageQuestionCandidate(
           explanation: editorial.explanation,
           artifacts: {
             svg: svg.rendered.svg,
+            visual,
           },
         },
         difficulty: {
@@ -891,6 +908,7 @@ export function createQuantV2PercentageQuestionCandidate(
           canonicalScenario: artifacts.canonicalScenario,
           corpusFingerprints: artifacts.corpusFingerprints,
           examinerIntent: artifacts.examinerIntent,
+          visual,
           displayedDistractors: artifacts.displayedDistractors,
           distractorIntelligence: artifacts.distractorIntelligence,
           answer: {

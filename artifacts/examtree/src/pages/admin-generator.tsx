@@ -453,6 +453,8 @@ type GenerationDebugMetadata = {
     | "quant-v2-percentage"
     | "quant-v2-profit-loss"
     | "quant-v2-interest"
+    | "quant-v2-ratio-proportion"
+    | "quant-v2-time-work"
     | "reasoning"
     | "english"
     | "punjabi"
@@ -592,6 +594,7 @@ type FormulaQuestion = {
   debugSource?: string;
   reasoningGraph?: unknown;
   semanticMetadata?: unknown;
+  visual?: unknown;
   svgRendering?: unknown;
   qualityMetrics?: unknown;
   localizationMetadata?: unknown;
@@ -894,11 +897,45 @@ type QAFilterState = {
     | "review-status";
 };
 
+type VennVisualPayload = {
+  type: "venn";
+  sets?: Array<{ id?: string; label?: string; value?: number }>;
+  intersection?: number;
+  universe?: number;
+  outside?: number;
+  unit?: string;
+  regions?: {
+    onlyA?: number;
+    onlyB?: number;
+    both?: number;
+    neither?: number;
+  };
+  labels?: {
+    en?: {
+      onlyA?: string;
+      onlyB?: string;
+      both?: string;
+      neither?: string;
+      universe?: string;
+    };
+  };
+  svg?: string;
+};
+
 type CorpusAuditPreset = {
   id: string;
   label: string;
   description: string;
   defaultCount: number;
+  topicId?: string;
+  generationDomain?: string;
+  defaultTopology?: string;
+  topologyOptions?: Array<{
+    id: string;
+    label: string;
+    description: string;
+  }>;
+  schedulerProfiles?: string[];
 };
 
 type CorpusAuditExportProfile = {
@@ -941,7 +978,39 @@ type SchedulerProfileId =
   | "ssc_mock"
   | "banking_mock"
   | "railway_mock"
-  | "punjab_state_mock";
+  | "punjab_state_mock"
+  | "pyq_balanced"
+  | "pyq_hard"
+  | "pyq_plus"
+  | "ssc_mock_pyq"
+  | "profit_loss_balanced"
+  | "profit_loss_discount"
+  | "profit_loss_hard"
+  | "profit_loss_pyq_plus"
+  | "interest_balanced"
+  | "interest_pyq"
+  | "interest_hard"
+  | "interest_pyq_plus"
+  | "ratio_basic"
+  | "ratio_balanced"
+  | "ratio_hard"
+  | "ratio_pyq_plus"
+  | "ratio_review_100"
+  | "ratio_production_60"
+  | "time_work_basic"
+  | "time_work_balanced"
+  | "time_work_hard"
+  | "time_work_pyq_plus"
+  | "time_work_review_100"
+  | "time_work_production_60"
+  | "advanced_coverage_audit";
+
+type CorpusAuditTopicId =
+  | "percentage"
+  | "profit_loss"
+  | "interest"
+  | "ratio_proportion"
+  | "time_work";
 
 type SchedulerSummary = {
   profileId: SchedulerProfileId;
@@ -1481,6 +1550,78 @@ function isDISet(
   return (
     "questionType" in question &&
     question.questionType === "di"
+  );
+}
+
+function vennVisualFromQuestion(
+  question: GeneratedQuestion,
+): VennVisualPayload | undefined {
+  if (isDISet(question)) return undefined;
+  const debugQuantV2 = (question.debugMetadata as any)?.quantV2;
+  const semantic = question.semanticMetadata as any;
+  const visual =
+    (question.visual as VennVisualPayload | undefined) ??
+    (debugQuantV2?.visual as VennVisualPayload | undefined) ??
+    (debugQuantV2?.semanticMetadata?.visual as VennVisualPayload | undefined) ??
+    (semantic?.visual as VennVisualPayload | undefined);
+
+  return visual?.type === "venn" ? visual : undefined;
+}
+
+function renderFallbackVennSvg(visual: VennVisualPayload) {
+  const unit = visual.unit ?? "%";
+  const regions = visual.regions ?? {};
+  const labels = visual.labels?.en ?? {};
+  const sets = visual.sets ?? [];
+  const fmt = (value: number | undefined) =>
+    typeof value === "number" && Number.isFinite(value)
+      ? `${Number.isInteger(value) ? value : value.toFixed(2)}${unit}`
+      : "";
+  const escapeXml = (value: string) =>
+    value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+  return [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 260" role="img" aria-label="Venn diagram">',
+    '<rect x="12" y="18" width="436" height="218" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>',
+    '<circle cx="185" cy="130" r="82" fill="#60a5fa" fill-opacity="0.28" stroke="#2563eb" stroke-width="2"/>',
+    '<circle cx="275" cy="130" r="82" fill="#34d399" fill-opacity="0.28" stroke="#059669" stroke-width="2"/>',
+    `<text x="142" y="48" fill="#1e3a8a" font-size="15" font-weight="700">${escapeXml(sets[0]?.label ?? "A")} (${fmt(sets[0]?.value)})</text>`,
+    `<text x="258" y="48" fill="#065f46" font-size="15" font-weight="700">${escapeXml(sets[1]?.label ?? "B")} (${fmt(sets[1]?.value)})</text>`,
+    `<text x="144" y="126" text-anchor="middle" fill="#0f172a" font-size="13">${escapeXml(labels.onlyA ?? "only A")}</text>`,
+    `<text x="144" y="145" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="700">${fmt(regions.onlyA)}</text>`,
+    `<text x="230" y="126" text-anchor="middle" fill="#0f172a" font-size="13">${escapeXml(labels.both ?? "both")}</text>`,
+    `<text x="230" y="145" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="700">${fmt(regions.both)}</text>`,
+    `<text x="316" y="126" text-anchor="middle" fill="#0f172a" font-size="13">${escapeXml(labels.onlyB ?? "only B")}</text>`,
+    `<text x="316" y="145" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="700">${fmt(regions.onlyB)}</text>`,
+    `<text x="230" y="216" text-anchor="middle" fill="#475569" font-size="13">${escapeXml(labels.neither ?? "neither")} = ${fmt(regions.neither)}</text>`,
+    `<text x="230" y="238" text-anchor="middle" fill="#475569" font-size="12">${escapeXml(labels.universe ?? "universe")} = ${fmt(visual.universe)}</text>`,
+    "</svg>",
+  ].join("");
+}
+
+function VennVisualPreview({
+  visual,
+}: {
+  visual: VennVisualPayload;
+}) {
+  const svg = visual.svg ?? renderFallbackVennSvg(visual);
+
+  return (
+    <div className="rounded border bg-white p-3 text-sm">
+      <div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+        Venn Diagram
+      </div>
+      <div
+        className="overflow-auto rounded bg-slate-50 p-2"
+        dangerouslySetInnerHTML={{
+          __html: svg,
+        }}
+      />
+    </div>
   );
 }
 
@@ -3267,35 +3408,217 @@ const REGISTRY_LANGUAGE_OPTIONS: Array<{
   },
 ];
 
+const QUANT_V2_CORPUS_AUDIT_TOPICS: Array<{
+  id: CorpusAuditTopicId;
+  label: string;
+}> = [
+  {
+    id: "percentage",
+    label: "Percentage",
+  },
+  {
+    id: "profit_loss",
+    label: "Profit, Loss & Discount",
+  },
+  {
+    id: "interest",
+    label: "Interest / SI & CI",
+  },
+  {
+    id: "ratio_proportion",
+    label: "Ratio, Proportion & Variation",
+  },
+  {
+    id: "time_work",
+    label: "Time & Work / Pipes",
+  },
+];
+
 const SCHEDULER_PROFILE_OPTIONS: Array<{
   id: SchedulerProfileId;
   label: string;
   description: string;
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work";
 }> = [
   {
     id: "balanced_mock",
+    topicId: "percentage",
     label: "Balanced Mock",
-    description: "General set-level balance.",
+    description: "General Percentage V2 set-level balance.",
   },
   {
     id: "ssc_mock",
+    topicId: "percentage",
     label: "SSC Mock",
-    description: "Compact, arithmetic-heavy pacing.",
+    description: "Compact Percentage V2 arithmetic-heavy pacing.",
   },
   {
     id: "banking_mock",
+    topicId: "percentage",
     label: "Banking Mock",
-    description: "Inference-heavy layered reasoning.",
+    description: "Inference-heavy Percentage V2 layered reasoning.",
   },
   {
     id: "railway_mock",
+    topicId: "percentage",
     label: "Railway Mock",
-    description: "Direct, trap-oriented flow.",
+    description: "Direct Percentage V2 trap-oriented flow.",
   },
   {
     id: "punjab_state_mock",
+    topicId: "percentage",
     label: "Punjab/State Mock",
-    description: "Bilingual state-exam realism.",
+    description: "Bilingual Percentage V2 state-exam realism.",
+  },
+  {
+    id: "pyq_balanced",
+    topicId: "percentage",
+    label: "PYQ Balanced",
+    description: "SSC PYQ-inspired Percentage V2 balance.",
+  },
+  {
+    id: "pyq_hard",
+    topicId: "percentage",
+    label: "PYQ Hard",
+    description: "Hard Percentage V2 inverse and hidden-base mix.",
+  },
+  {
+    id: "pyq_plus",
+    topicId: "percentage",
+    label: "PYQ Plus",
+    description: "Premium Percentage V2 PYQ+ benchmark mix.",
+  },
+  {
+    id: "ssc_mock_pyq",
+    topicId: "percentage",
+    label: "SSC Mock PYQ",
+    description: "SSC mock pacing using the Percentage V2 PYQ+ mix.",
+  },
+  {
+    id: "advanced_coverage_audit",
+    topicId: "percentage",
+    label: "Advanced Coverage Audit",
+    description: "Density-first Percentage V2 advanced motif audit.",
+  },
+  {
+    id: "profit_loss_balanced",
+    topicId: "profit_loss",
+    label: "Profit/Loss Balanced",
+    description: "Balanced Profit, Loss & Discount V2 family rotation.",
+  },
+  {
+    id: "profit_loss_discount",
+    topicId: "profit_loss",
+    label: "Profit/Loss Discount",
+    description: "Marked-price and discount-heavy Profit/Loss V2 rotation.",
+  },
+  {
+    id: "profit_loss_hard",
+    topicId: "profit_loss",
+    label: "Profit/Loss Hard",
+    description: "Fraud, inverse, inventory, and overhead Profit/Loss V2 traps.",
+  },
+  {
+    id: "profit_loss_pyq_plus",
+    topicId: "profit_loss",
+    label: "Profit/Loss PYQ+",
+    description: "Advanced Profit/Loss V2 PYQ+ trap mix.",
+  },
+  {
+    id: "interest_balanced",
+    topicId: "interest",
+    label: "Interest Balanced",
+    description: "Balanced SI/CI, repayment, growth, and discount-bill Interest V2 rotation.",
+  },
+  {
+    id: "interest_pyq",
+    topicId: "interest",
+    label: "Interest PYQ",
+    description: "SSC/IBPS Interest V2 medium-plus reasoning profile.",
+  },
+  {
+    id: "interest_hard",
+    topicId: "interest",
+    label: "Interest Hard",
+    description: "Hard Interest V2 inverse, repayment, and banker discount traps.",
+  },
+  {
+    id: "interest_pyq_plus",
+    topicId: "interest",
+    label: "Interest PYQ+",
+    description: "Advanced PYQ+ Interest V2 hybrid and inverse profile.",
+  },
+  {
+    id: "ratio_basic",
+    topicId: "ratio_proportion",
+    label: "Ratio Basic",
+    description: "Direct Ratio V2 fundamentals and light transformations.",
+  },
+  {
+    id: "ratio_balanced",
+    topicId: "ratio_proportion",
+    label: "Ratio Balanced",
+    description: "Balanced Ratio, Proportion & Variation V2 rotation.",
+  },
+  {
+    id: "ratio_hard",
+    topicId: "ratio_proportion",
+    label: "Ratio Hard",
+    description: "Transfer, chain, geometry, and combined-variation traps.",
+  },
+  {
+    id: "ratio_pyq_plus",
+    topicId: "ratio_proportion",
+    label: "Ratio PYQ+",
+    description: "Advanced PYQ+ Ratio V2 proportional reasoning profile.",
+  },
+  {
+    id: "ratio_review_100",
+    topicId: "ratio_proportion",
+    label: "Ratio Review 100",
+    description: "100Q review coverage for Ratio V2 Phase A/B motifs.",
+  },
+  {
+    id: "ratio_production_60",
+    topicId: "ratio_proportion",
+    label: "Ratio Production 60",
+    description: "Production 60Q Ratio V2 profile with broad motif coverage.",
+  },
+  {
+    id: "time_work_basic",
+    topicId: "time_work",
+    label: "Time Work Basic",
+    description: "Core Time & Work V2 fundamentals and basic pipes/resources.",
+  },
+  {
+    id: "time_work_balanced",
+    topicId: "time_work",
+    label: "Time Work Balanced",
+    description: "Balanced Time & Work / Pipes & Cisterns V2 rotation.",
+  },
+  {
+    id: "time_work_hard",
+    topicId: "time_work",
+    label: "Time Work Hard",
+    description: "Timeline, cycle, system, pipe, and resource traps.",
+  },
+  {
+    id: "time_work_pyq_plus",
+    topicId: "time_work",
+    label: "Time Work PYQ+",
+    description: "Advanced Time & Work V2 PYQ+ rate-state profile.",
+  },
+  {
+    id: "time_work_review_100",
+    topicId: "time_work",
+    label: "Time Work Review 100",
+    description: "100Q review coverage for Time & Work V2 motifs.",
+  },
+  {
+    id: "time_work_production_60",
+    topicId: "time_work",
+    label: "Time Work Production 60",
+    description: "Production 60Q Time & Work V2 broad coverage.",
   },
 ];
 
@@ -5055,6 +5378,11 @@ function renderQuestionWorkspace(
                     />
                   </div>
                 )}
+                {vennVisualFromQuestion(question) ? (
+                  <VennVisualPreview
+                    visual={vennVisualFromQuestion(question)!}
+                  />
+                ) : null}
                 <div className="space-y-2">
                   {question.options.map(
                     (
@@ -6659,6 +6987,116 @@ function isInterestRegistryPattern(
   return /simple[-_\s]*interest|compound[-_\s]*interest|\bsi[-_\s]*ci\b|\binterest\b/u.test(text);
 }
 
+function isRatioProportionRegistryPattern(
+  pattern?: {
+    id?: string;
+    topic?: string;
+    label?: string;
+  } | null,
+) {
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
+  return /ratio[-_\s]*(?:proportion|variation)|ratio,\s*proportion|ratio and proportion|\bratios?\b|\bproportion\b|\bvariation\b/u.test(text);
+}
+
+function isTimeWorkRegistryPattern(
+  pattern?: {
+    id?: string;
+    topic?: string;
+    label?: string;
+  } | null,
+) {
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
+  return /\btime[-_\s]*(?:and\s*)?work\b|pipes?[-_\s]*(?:and\s*)?cisterns?|work[-_\s]*wages?/u.test(text);
+}
+
+function quantV2TopicIdForRegistryPattern(
+  pattern?: {
+    id?: string;
+    topic?: string;
+    label?: string;
+  } | null,
+) {
+  if (isProfitLossRegistryPattern(pattern)) {
+    return "profit_loss" as const;
+  }
+  if (isInterestRegistryPattern(pattern)) {
+    return "interest" as const;
+  }
+  if (isRatioProportionRegistryPattern(pattern)) {
+    return "ratio_proportion" as const;
+  }
+  if (isTimeWorkRegistryPattern(pattern)) {
+    return "time_work" as const;
+  }
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
+  if (/\bpercent(age|ages)?\b/u.test(text)) {
+    return "percentage" as const;
+  }
+  return undefined;
+}
+
+function schedulerOptionsForTopic(
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work",
+) {
+  return topicId
+    ? SCHEDULER_PROFILE_OPTIONS.filter(
+        (profile) =>
+          profile.topicId === topicId,
+      )
+    : SCHEDULER_PROFILE_OPTIONS;
+}
+
+function defaultSchedulerProfileForTopic(
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work",
+) {
+  return (
+    schedulerOptionsForTopic(topicId)[0]?.id ??
+    "balanced_mock"
+  );
+}
+
+function corpusAuditTopicLabel(
+  topicId?: string,
+) {
+  if (topicId === "profit_loss") {
+    return "Profit, Loss & Discount";
+  }
+  if (topicId === "interest") {
+    return "Interest / SI & CI";
+  }
+  if (topicId === "ratio_proportion") {
+    return "Ratio, Proportion & Variation";
+  }
+  if (topicId === "time_work") {
+    return "Time & Work / Pipes";
+  }
+  return "Percentage";
+}
+
+function applyCorpusAuditPresetDefaults(
+  preset: CorpusAuditPreset,
+  setters: {
+    setCount: (value: number) => void;
+    setTopology: (value: string) => void;
+    setSchedulerProfile: (
+      value: SchedulerProfileId,
+    ) => void;
+  },
+) {
+  setters.setCount(
+    preset.defaultCount ?? 1000,
+  );
+  setters.setTopology(
+    preset.defaultTopology ??
+      preset.topologyOptions?.[0]?.id ??
+      "mixed_percentage",
+  );
+  setters.setSchedulerProfile(
+    (preset.schedulerProfiles?.[0] as SchedulerProfileId | undefined) ??
+      "balanced_mock",
+  );
+}
+
 export default function AdminGeneratorPage() {
   const [patternId, setPatternId] =
     useState("");
@@ -6722,6 +7160,12 @@ export default function AdminGeneratorPage() {
     setCorpusAuditPresetId,
   ] = useState("ssc_percentage_audit");
   const [
+    corpusAuditTopicId,
+    setCorpusAuditTopicId,
+  ] = useState<CorpusAuditTopicId>(
+    "percentage",
+  );
+  const [
     corpusAuditCount,
     setCorpusAuditCount,
   ] = useState(1000);
@@ -6752,9 +7196,7 @@ export default function AdminGeneratorPage() {
   const [
     corpusAuditTopology,
     setCorpusAuditTopology,
-  ] = useState<
-    "mixed" | "relational" | "procedural"
-  >("mixed");
+  ] = useState("mixed_percentage");
   const [
     corpusAuditRealismProfile,
     setCorpusAuditRealismProfile,
@@ -7162,8 +7604,20 @@ export default function AdminGeneratorPage() {
             setCorpusAuditPresetId(
               presets[0].id,
             );
-            setCorpusAuditCount(
-              presets[0].defaultCount ?? 1000,
+            setCorpusAuditTopicId(
+              (presets[0].topicId as CorpusAuditTopicId | undefined) ??
+                "percentage",
+            );
+            applyCorpusAuditPresetDefaults(
+              presets[0],
+              {
+                setCount:
+                  setCorpusAuditCount,
+                setTopology:
+                  setCorpusAuditTopology,
+                setSchedulerProfile:
+                  setCorpusAuditSchedulerProfile,
+              },
             );
           }
         }
@@ -7193,6 +7647,82 @@ export default function AdminGeneratorPage() {
 
     loadPatterns();
   }, []);
+
+  useEffect(() => {
+    const preset =
+      corpusAuditPresets.find(
+        (item) =>
+          item.id ===
+          corpusAuditPresetId,
+      );
+    const options =
+      preset?.topologyOptions ?? [];
+
+    if (
+      options.length > 0 &&
+      !options.some(
+        (option) =>
+          option.id ===
+          corpusAuditTopology,
+      )
+    ) {
+      setCorpusAuditTopology(
+        preset?.defaultTopology ??
+          options[0]?.id ??
+          "mixed_percentage",
+      );
+    }
+  }, [
+    corpusAuditPresetId,
+    corpusAuditPresets,
+    corpusAuditTopology,
+  ]);
+
+  useEffect(() => {
+    const currentPreset =
+      corpusAuditPresets.find(
+        (preset) =>
+          preset.id ===
+          corpusAuditPresetId,
+      );
+
+    if (
+      currentPreset?.topicId ===
+      corpusAuditTopicId
+    ) {
+      return;
+    }
+
+    const nextPreset =
+      corpusAuditPresets.find(
+        (preset) =>
+          preset.topicId ===
+          corpusAuditTopicId,
+      );
+
+    if (!nextPreset) {
+      return;
+    }
+
+    setCorpusAuditPresetId(
+      nextPreset.id,
+    );
+    applyCorpusAuditPresetDefaults(
+      nextPreset,
+      {
+        setCount:
+          setCorpusAuditCount,
+        setTopology:
+          setCorpusAuditTopology,
+        setSchedulerProfile:
+          setCorpusAuditSchedulerProfile,
+      },
+    );
+  }, [
+    corpusAuditPresetId,
+    corpusAuditPresets,
+    corpusAuditTopicId,
+  ]);
 
   useEffect(() => {
     async function loadQAReviews() {
@@ -8266,14 +8796,28 @@ export default function AdminGeneratorPage() {
       isProfitLossRegistryPattern(
         selectedRegistryPattern,
       );
+    const isInterestGeneration =
+      useRegistryPattern &&
+      isInterestRegistryPattern(
+        selectedRegistryPattern,
+      );
+    const isRatioGeneration =
+      useRegistryPattern &&
+      isRatioProportionRegistryPattern(
+        selectedRegistryPattern,
+      );
+    const isMigratedQuantV2Generation =
+      isProfitLossGeneration ||
+      isInterestGeneration ||
+      isRatioGeneration;
     const effectiveRegistryLanguages =
-      isProfitLossGeneration
+      isMigratedQuantV2Generation
         ? (["en", "hi", "pa"] as RegistryLanguage[])
         : registryLanguages;
     const effectiveUseScheduler =
       count > 1 &&
       (useScheduler ||
-        isProfitLossGeneration);
+        isMigratedQuantV2Generation);
     const timeoutMs =
       useRegistryPattern
         ? 90_000
@@ -9741,6 +10285,67 @@ export default function AdminGeneratorPage() {
         pattern.id ===
         registryPatternId,
     );
+  const selectedCorpusAuditPreset =
+    corpusAuditPresets.find(
+      (preset) =>
+        preset.id ===
+        corpusAuditPresetId,
+    );
+  const corpusAuditTopicOptions =
+    Array.from(
+      new Map(
+        [
+          ...QUANT_V2_CORPUS_AUDIT_TOPICS,
+          ...corpusAuditPresets
+            .filter(
+              (preset) => preset.topicId,
+            )
+            .map((preset) => ({
+              id:
+                preset.topicId as CorpusAuditTopicId,
+              label: corpusAuditTopicLabel(
+                preset.topicId,
+              ),
+            })),
+        ].map((topic) => [
+          topic.id,
+          topic,
+        ]),
+      ).values(),
+    );
+  const corpusAuditPresetsForTopic =
+    corpusAuditPresets.filter(
+      (preset) =>
+        !preset.topicId ||
+        preset.topicId ===
+          corpusAuditTopicId,
+    );
+  const corpusAuditTopologyOptions =
+    selectedCorpusAuditPreset?.topologyOptions
+      ?.length
+      ? selectedCorpusAuditPreset.topologyOptions
+      : [
+          {
+            id:
+              selectedCorpusAuditPreset?.defaultTopology ??
+              "mixed_percentage",
+            label:
+              selectedCorpusAuditPreset?.defaultTopology ??
+              "Mixed Percentage",
+            description:
+              "Default topology for the selected audit preset.",
+          },
+        ];
+  const corpusAuditSchedulerOptions =
+    selectedCorpusAuditPreset?.schedulerProfiles
+      ?.length
+      ? SCHEDULER_PROFILE_OPTIONS.filter(
+          (profile) =>
+            selectedCorpusAuditPreset.schedulerProfiles?.includes(
+              profile.id,
+            ),
+        )
+      : SCHEDULER_PROFILE_OPTIONS;
   const selectedRegistryPatternIsProfitLoss =
     isProfitLossRegistryPattern(
       selectedRegistryPattern,
@@ -9749,11 +10354,68 @@ export default function AdminGeneratorPage() {
     isInterestRegistryPattern(
       selectedRegistryPattern,
     );
+  const selectedRegistryPatternIsRatio =
+    isRatioProportionRegistryPattern(
+      selectedRegistryPattern,
+    );
+  const selectedRegistryTopicId =
+    quantV2TopicIdForRegistryPattern(
+      selectedRegistryPattern,
+    );
+  const selectedRegistryTopicLabel =
+    selectedRegistryTopicId
+      ? corpusAuditTopicLabel(
+          selectedRegistryTopicId,
+        )
+      : undefined;
+  const schedulerProfileOptions =
+    schedulerOptionsForTopic(
+      selectedRegistryTopicId,
+    );
   const schedulerIsMandatory =
     count > 1 &&
     generationMode === "registry" &&
     (selectedRegistryPatternIsProfitLoss ||
-      selectedRegistryPatternIsInterest);
+      selectedRegistryPatternIsInterest ||
+      selectedRegistryPatternIsRatio);
+
+  useEffect(() => {
+    if (
+      schedulerProfileOptions.length > 0 &&
+      !schedulerProfileOptions.some(
+        (profile) =>
+          profile.id === schedulerProfile,
+      )
+    ) {
+      setSchedulerProfile(
+        defaultSchedulerProfileForTopic(
+          selectedRegistryTopicId,
+        ),
+      );
+    }
+  }, [
+    schedulerProfile,
+    schedulerProfileOptions,
+    selectedRegistryTopicId,
+  ]);
+
+  useEffect(() => {
+    if (
+      corpusAuditSchedulerOptions.length > 0 &&
+      !corpusAuditSchedulerOptions.some(
+        (profile) =>
+          profile.id ===
+          corpusAuditSchedulerProfile,
+      )
+    ) {
+      setCorpusAuditSchedulerProfile(
+        corpusAuditSchedulerOptions[0]!.id,
+      );
+    }
+  }, [
+    corpusAuditSchedulerOptions,
+    corpusAuditSchedulerProfile,
+  ]);
   const registryDomains = [
     "quant",
     "reasoning",
@@ -11036,6 +11698,9 @@ export default function AdminGeneratorPage() {
                 {selectedRegistryPatternIsInterest
                   ? " - Interest V2"
                   : ""}
+                {selectedRegistryPatternIsRatio
+                  ? " - Ratio V2"
+                  : ""}
               </div>
             ) : null}
           </div>
@@ -11111,6 +11776,33 @@ export default function AdminGeneratorPage() {
             <div className="mt-4 grid gap-4 rounded-md border border-amber-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-4">
               <div>
                 <label className="block text-sm font-medium text-slate-800">
+                  Quant V2 Topic
+                </label>
+                <select
+                  value={corpusAuditTopicId}
+                  onChange={(event) =>
+                    setCorpusAuditTopicId(
+                      event.target
+                        .value as CorpusAuditTopicId,
+                    )
+                  }
+                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
+                >
+                  {corpusAuditTopicOptions.map(
+                    (topic) => (
+                      <option
+                        key={topic.id}
+                        value={topic.id}
+                      >
+                        {topic.label}
+                      </option>
+                    ),
+                  )}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-800">
                   Audit Preset
                 </label>
                 <select
@@ -11125,14 +11817,26 @@ export default function AdminGeneratorPage() {
                           item.id === next,
                       );
                     if (preset) {
-                      setCorpusAuditCount(
-                        preset.defaultCount,
+                      setCorpusAuditTopicId(
+                        (preset.topicId as CorpusAuditTopicId | undefined) ??
+                          "percentage",
+                      );
+                      applyCorpusAuditPresetDefaults(
+                        preset,
+                        {
+                          setCount:
+                            setCorpusAuditCount,
+                          setTopology:
+                            setCorpusAuditTopology,
+                          setSchedulerProfile:
+                            setCorpusAuditSchedulerProfile,
+                        },
                       );
                     }
                   }}
                   className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
                 >
-                  {corpusAuditPresets.map(
+                  {corpusAuditPresetsForTopic.map(
                     (preset) => (
                       <option
                         key={preset.id}
@@ -11262,22 +11966,30 @@ export default function AdminGeneratorPage() {
                   value={corpusAuditTopology}
                   onChange={(event) =>
                     setCorpusAuditTopology(
-                      event.target
-                        .value as typeof corpusAuditTopology,
+                      event.target.value,
                     )
                   }
                   className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
                 >
-                  <option value="mixed">
-                    Mixed percentage corpus
-                  </option>
-                  <option value="relational">
-                    Relational percentage only
-                  </option>
-                  <option value="procedural">
-                    Procedural percentage mix
-                  </option>
+                  {corpusAuditTopologyOptions.map(
+                    (option) => (
+                      <option
+                        key={option.id}
+                        value={option.id}
+                      >
+                        {option.label}
+                      </option>
+                    ),
+                  )}
                 </select>
+                <p className="mt-2 text-xs text-slate-500">
+                  {corpusAuditTopologyOptions.find(
+                    (option) =>
+                      option.id ===
+                      corpusAuditTopology,
+                  )?.description ??
+                    "Topic-specific topology selection for this audit preset."}
+                </p>
               </div>
 
               <div>
@@ -11484,36 +12196,46 @@ export default function AdminGeneratorPage() {
                   />
                   Use R7 corpus scheduler
                 </label>
-                {corpusAuditUseScheduler ? (
-                  <div className="mt-2">
-                    <label className="block text-xs font-medium text-slate-700">
-                      Scheduler profile
-                    </label>
-                    <select
-                      value={
-                        corpusAuditSchedulerProfile
-                      }
-                      onChange={(event) =>
-                        setCorpusAuditSchedulerProfile(
-                          event.target
-                            .value as SchedulerProfileId,
-                        )
-                      }
-                      className="mt-1 w-full rounded border border-slate-200 bg-white p-2 text-xs"
-                    >
-                      {SCHEDULER_PROFILE_OPTIONS.map(
-                        (profile) => (
-                          <option
-                            key={profile.id}
-                            value={profile.id}
-                          >
-                            {profile.label}
-                          </option>
-                        ),
-                      )}
-                    </select>
-                  </div>
-                ) : null}
+                <div className="mt-2">
+                  <label className="block text-xs font-medium text-slate-700">
+                    Scheduler profile
+                  </label>
+                  <select
+                    value={
+                      corpusAuditSchedulerProfile
+                    }
+                    onChange={(event) =>
+                      setCorpusAuditSchedulerProfile(
+                        event.target
+                          .value as SchedulerProfileId,
+                      )
+                    }
+                    disabled={
+                      !corpusAuditUseScheduler
+                    }
+                    className="mt-1 w-full rounded border border-slate-200 bg-white p-2 text-xs disabled:bg-slate-50 disabled:text-slate-400"
+                  >
+                    {corpusAuditSchedulerOptions.map(
+                      (profile) => (
+                        <option
+                          key={profile.id}
+                          value={profile.id}
+                        >
+                          {profile.label}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                  <p className="mt-1 text-xs text-slate-500">
+                    {
+                      corpusAuditSchedulerOptions.find(
+                        (profile) =>
+                          profile.id ===
+                          corpusAuditSchedulerProfile,
+                      )?.description
+                    }
+                  </p>
+                </div>
                 <div className="mt-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-900">
                   Estimated export size: ~
                   {estimateCorpusAuditSizeMb()} MB
@@ -11957,6 +12679,12 @@ export default function AdminGeneratorPage() {
                     ? "Required for migrated Quant V2 batches so family balance is applied. Single-question generation remains unchanged."
                     : "Optional R7 set-level balancing for batches. Single-question generation remains unchanged."}
                 </p>
+                {selectedRegistryTopicLabel ? (
+                  <p className="mt-2 text-xs font-semibold text-indigo-700">
+                    Chapter:{" "}
+                    {selectedRegistryTopicLabel}
+                  </p>
+                ) : null}
               </div>
               <label className="flex items-center gap-2 rounded border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700">
                 <input
@@ -11996,7 +12724,7 @@ export default function AdminGeneratorPage() {
                     }
                     className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
                   >
-                    {SCHEDULER_PROFILE_OPTIONS.map(
+                    {schedulerProfileOptions.map(
                       (profile) => (
                         <option
                           key={profile.id}
@@ -12010,7 +12738,7 @@ export default function AdminGeneratorPage() {
                 </div>
                 <div className="rounded border border-indigo-100 bg-indigo-50 p-3 text-sm text-indigo-900">
                   {
-                    SCHEDULER_PROFILE_OPTIONS.find(
+                    schedulerProfileOptions.find(
                       (profile) =>
                         profile.id ===
                         schedulerProfile,

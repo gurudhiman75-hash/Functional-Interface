@@ -2,10 +2,14 @@ import { createWriteStream } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { finished } from "node:stream/promises";
+import { randomUUID } from "node:crypto";
 
 import type { FormulaQuestion, GeneratorOptions, Pattern } from "../../lib/core/generator-engine";
 import { createQuantV2PercentageQuestionCandidate } from "../../lib/quant-v2/percentage-admin-adapter";
 import { createQuantV2ProfitLossQuestionCandidate } from "../../lib/quant-v2/profit-loss-admin-adapter";
+import { createQuantV2InterestQuestionCandidate } from "../../lib/quant-v2/interest-admin-adapter";
+import { createQuantV2RatioProportionQuestionCandidate } from "../../lib/quant-v2/ratio-proportion-admin-adapter";
+import { createQuantV2TimeWorkQuestionCandidate } from "../../lib/quant-v2/time-work-admin-adapter";
 import { COMMERCIAL_OBJECT_POOL } from "../editorial/commercial-object-pools";
 import { validateCorpusAuditBatch } from "../validators/corpus-audit-validator";
 import {
@@ -19,6 +23,10 @@ import {
 } from "../corpus-scheduler/corpus-scheduler";
 import { evaluateCorpusQuality } from "../corpus-scheduler/corpus-quality-evaluator";
 import { getCorpusAuditPreset } from "./corpus-audit-presets";
+import {
+  validateQuantV2SchedulerProfileForPreset,
+  validateQuantV2TopologyForPreset,
+} from "../../lib/quant-v2/migrated-quant-topics";
 import {
   estimateCorpusAuditExportSizeMb,
   getCorpusAuditExportProfile,
@@ -63,16 +71,67 @@ const PROFIT_LOSS_AUDIT_PATTERN: Pattern = {
   generationDomain: "quant-v2-profit-loss",
 };
 
+const INTEREST_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-interest",
+  type: "formula",
+  section: "Quant",
+  topic: "interest",
+  subtopic: "si-ci",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit interest pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-interest",
+};
+
+const RATIO_PROPORTION_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-ratio-proportion",
+  type: "formula",
+  section: "Quant",
+  topic: "ratio_proportion",
+  subtopic: "ratio_proportion",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit ratio proportion variation pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-ratio-proportion",
+};
+
+const TIME_WORK_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-time-work",
+  type: "formula",
+  section: "Quant",
+  topic: "time_work",
+  subtopic: "time_work",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit time work pipes cisterns pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-time-work",
+};
+
 function auditPatternForPreset(presetId: string): Pattern {
-  return presetId === "profit_loss_audit"
-    ? PROFIT_LOSS_AUDIT_PATTERN
-    : PERCENTAGE_AUDIT_PATTERN;
+  if (presetId === "profit_loss_audit") return PROFIT_LOSS_AUDIT_PATTERN;
+  if (presetId === "interest_audit") return INTEREST_AUDIT_PATTERN;
+  if (presetId === "ratio_proportion_audit") return RATIO_PROPORTION_AUDIT_PATTERN;
+  if (presetId === "time_work_audit") return TIME_WORK_AUDIT_PATTERN;
+  return PERCENTAGE_AUDIT_PATTERN;
 }
 
 function generateForPreset(presetId: string, pattern: Pattern, options: GeneratorOptions) {
-  return presetId === "profit_loss_audit"
-    ? createQuantV2ProfitLossQuestionCandidate(pattern, options)
-    : createQuantV2PercentageQuestionCandidate(pattern, options);
+  if (presetId === "profit_loss_audit") {
+    return createQuantV2ProfitLossQuestionCandidate(pattern, options);
+  }
+  if (presetId === "interest_audit") {
+    return createQuantV2InterestQuestionCandidate(pattern, options);
+  }
+  if (presetId === "ratio_proportion_audit") {
+    return createQuantV2RatioProportionQuestionCandidate(pattern, options);
+  }
+  if (presetId === "time_work_audit") {
+    return createQuantV2TimeWorkQuestionCandidate(pattern, options);
+  }
+  return createQuantV2PercentageQuestionCandidate(pattern, options);
 }
 
 type RunningSummary = CorpusAuditSummary & {
@@ -164,11 +223,124 @@ function createSummary(): RunningSummary {
 }
 
 function forcedMotifsForTopology(selection: CorpusAuditExportOptions["topologySelection"]) {
-  if (selection === "relational") {
+  if (selection === "relational_percentage") {
     return [
       "perc_relational_chain",
       "perc_reverse_relation",
       "perc_ratio_percentage_hybrid",
+    ];
+  }
+
+  if (selection === "advanced_percentage") {
+    return [
+      "perc_geom_dimensional_scale",
+      "perc_demo_cross_tab_literacy",
+      "perc_budget_cascading_remainder",
+      "perc_const_absolute_offset",
+      "perc_exam_weighted_aggregate",
+      "perc_asset_variable_depreciation",
+      "perc_workforce_hierarchical_attrition",
+      "perc_elect_three_candidate_forfeiture",
+      "perc_agri_land_yield_compound",
+      "perc_demo_multi_factor_growth",
+      "perc_comm_tiered_salary_override",
+      "perc_asset_compound_leakage",
+      "perc_num_linear_equation_balancing",
+      "perc_num_fractional_perturbation_complex",
+      "perc_tax_bracket_retained_income",
+      "perc_num_square_proportional_delta",
+      "perc_mix_alloy_replacement",
+    ];
+  }
+
+  if (selection === "direct_profit_loss") {
+    return [
+      "pl_cp_sp_percent",
+      "pl_cp_percent_to_sp",
+      "pl_sp_percent_to_cp",
+      "pl_no_profit_no_loss",
+      "pl_equal_sp_profit_loss",
+      "pl_two_article_overall",
+    ];
+  }
+
+  if (selection === "markup_discount_profit_loss") {
+    return [
+      "pl_mp_discount_to_sp",
+      "pl_mp_sp_discount_percent",
+      "pl_cp_mp_discount_to_percent",
+      "pl_successive_discounts",
+      "pl_mp_for_target_profit",
+      "pl_markup_discount_triangle",
+      "pl_target_profit_discount_calibration",
+      "pl_target_profit_mp_calibration",
+      "pl_successive_discount_equivalent",
+    ];
+  }
+
+  if (selection === "advanced_profit_loss") {
+    return [
+      "pl_partial_inventory_allocation",
+      "pl_sequential_supply_chain",
+      "pl_supply_chain_mixed_profit_loss",
+      "pl_compound_error_baseline_shift",
+      "pl_dishonest_dealer_weight_fraud",
+      "pl_dishonest_dealer_dual_fraud",
+      "pl_dishonest_dealer_absolute_hybrid",
+      "pl_profit_after_commission_tax",
+      "pl_repair_overhead_cost",
+      "pl_required_sp_after_overhead",
+      "pl_manufacturing_breakdown",
+      "pl_multi_condition_inverse_absolute",
+    ];
+  }
+
+  if (selection === "simple_interest_core") {
+    return [
+      "int_si_from_prt",
+      "int_si_amount_from_prt",
+      "int_si_principal_from_si_rt",
+      "int_si_rate_from_si_pt",
+      "int_si_time_from_si_pr",
+      "int_si_difference_two_cases",
+      "int_si_sum_doubles",
+      "int_si_sum_triples",
+      "int_si_partial_discharge_timeline",
+      "int_si_alligation_mixture",
+      "int_two_sums_same_interest",
+    ];
+  }
+
+  if (selection === "compound_interest_core") {
+    return [
+      "int_ci_amount_annual",
+      "int_ci_from_amount",
+      "int_ci_principal_from_amount",
+      "int_ci_rate_from_amount",
+      "int_ci_time_from_amount",
+      "int_ci_two_year_formula",
+      "int_ci_three_year_formula",
+      "int_ci_si_difference_2_years",
+      "int_ci_si_difference_3_years",
+      "int_ci_half_yearly",
+      "int_ci_quarterly",
+      "int_ci_monthly",
+    ];
+  }
+
+  if (selection === "advanced_interest") {
+    return [
+      "int_hybrid_si_ci_crossover",
+      "int_si_ci_amount_difference",
+      "int_si_partial_discharge_timeline",
+      "int_ci_specific_year_isolation",
+      "int_ci_nth_year_interest_from_principal",
+      "int_same_interest_different_sums_rates_times",
+      "int_divide_total_interest_between_investments",
+      "int_investment_ratio_from_interest",
+      "int_weighted_interest_income",
+      "int_ci_specific_year_rate_principal",
+      "int_si_ci_mixed_condition_inverse",
     ];
   }
 
@@ -280,6 +452,12 @@ function itemFromQuestion(input: {
       ? quantV2.reasoningGraph ?? input.question.reasoningGraph ?? null
       : null,
     semanticMetadata: quantV2.semanticMetadata ?? input.question.semanticMetadata ?? null,
+    visual:
+      quantV2.visual ??
+      quantV2.semanticMetadata?.visual ??
+      (input.question as any).visual ??
+      (input.question.semanticMetadata as any)?.visual ??
+      null,
     validatorReports: input.includeValidatorReports ? reports : null,
     traps: problem?.traps ?? input.question.examRealismMetadata?.reasoningTraps ?? [],
     qualityMetrics: quantV2.qualityMetrics ?? input.question.qualityMetrics ?? null,
@@ -526,6 +704,15 @@ export async function runCorpusAuditExport(
   const count = sanitizeCount(options.count || preset.defaultCount);
   const batchSize = Math.min(1000, Math.max(1, options.batchSize ?? DEFAULT_BATCH_SIZE));
   const exportId = `corpus-${timestampSlug()}`;
+  const explicitSeed =
+    typeof options.seed === "string" &&
+    options.seed.length > 0;
+  const runId = explicitSeed
+    ? `seeded-${Buffer.from(options.seed!).toString("base64url").slice(0, 18)}`
+    : `run-${randomUUID()}`;
+  const seedPrefix = explicitSeed
+    ? options.seed!
+    : `${preset.seedPrefix}:${runId}`;
   const outputDir = path.resolve(options.outDir ?? path.join(exportRoot(), exportId));
   const files = {
     json: path.join(outputDir, "corpus.json"),
@@ -536,14 +723,41 @@ export async function runCorpusAuditExport(
 
   await mkdir(outputDir, { recursive: true });
 
+  const topologyValidation =
+    validateQuantV2TopologyForPreset(
+      preset.id,
+      options.topologySelection,
+    );
+
+  if (!topologyValidation.valid) {
+    throw new Error(
+      topologyValidation.error ??
+        "Invalid corpus audit topology.",
+    );
+  }
+
+  const topologySelection =
+    topologyValidation.topology;
+  const schedulerProfileValidation =
+    validateQuantV2SchedulerProfileForPreset(
+      preset.id,
+      options.schedulerProfile,
+    );
+
+  if (!schedulerProfileValidation.valid) {
+    throw new Error(
+      schedulerProfileValidation.error ??
+        "Invalid corpus audit scheduler profile.",
+    );
+  }
+
   const jsonStream = createWriteStream(files.json, { encoding: "utf8" });
   const txtStream = createWriteStream(files.txt, { encoding: "utf8" });
   const summary = createSummary();
   const forcedMotifIds =
     options.forcedMotifIds?.length
       ? options.forcedMotifIds
-      : forcedMotifsForTopology(options.topologySelection) ?? preset.forcedMotifIds;
-  const seedPrefix = options.seed ?? preset.seedPrefix;
+      : forcedMotifsForTopology(topologySelection) ?? preset.forcedMotifIds;
   const examProfile = options.examProfile ?? preset.examProfile;
   const includeSvg = options.includeSvg ?? exportProfile.includeSvgByDefault;
   const includeFullQuestion = options.includeFullQuestion ?? false;
@@ -558,7 +772,7 @@ export async function runCorpusAuditExport(
 
   jsonStream.write("[\n");
   txtStream.write(
-    `# Quant V2 Corpus Audit Export\n\nExport: ${exportId}\nPreset: ${preset.id}\nProfile: ${exportProfile.id}\nCount: ${count}\nEstimated Size: ~${estimatedSizeMb} MB\nMultilingual explanations: ${includeMultilingualExplanations ? "yes" : "no"}\n\n`,
+    `# Quant V2 Corpus Audit Export\n\nExport: ${exportId}\nRun: ${runId}\nSeed: ${seedPrefix}\nExplicit seed: ${explicitSeed ? "yes" : "no"}\nPreset: ${preset.id}\nProfile: ${exportProfile.id}\nCount: ${count}\nEstimated Size: ~${estimatedSizeMb} MB\nMultilingual explanations: ${includeMultilingualExplanations ? "yes" : "no"}\n\n`,
   );
 
   let first = true;
@@ -567,7 +781,8 @@ export async function runCorpusAuditExport(
   const schedulerState: CorpusSchedulerState | undefined = options.useScheduler
     ? createCorpusSchedulerState({
         targetCount: count,
-        profileId: options.schedulerProfile ?? "balanced_mock",
+        profileId:
+          schedulerProfileValidation.schedulerProfile,
       })
     : undefined;
   const scheduledQuestions: FormulaQuestion[] = [];
@@ -576,7 +791,7 @@ export async function runCorpusAuditExport(
     const end = Math.min(count, start + batchSize);
     for (let index = start; index < end; index += 1) {
       const forcedMotifId = forcedMotifIds?.[index % forcedMotifIds.length];
-      const question = schedulerState
+      const generatedQuestion = schedulerState
         ? generateScheduledQuestion({
             state: schedulerState,
             index,
@@ -595,6 +810,15 @@ export async function runCorpusAuditExport(
               ...(forcedMotifId ? { forcedMotifId } : {}),
             },
           );
+      const question: FormulaQuestion = {
+        ...generatedQuestion,
+        debugMetadata: {
+          ...generatedQuestion.debugMetadata,
+          runId,
+          corpusSeed: seedPrefix,
+          explicitSeed,
+        },
+      };
       if (schedulerState && count <= 200) {
         scheduledQuestions.push(question);
         continue;
@@ -675,6 +899,9 @@ export async function runCorpusAuditExport(
     includeMultilingualExplanations,
     estimatedSizeMb,
   });
+  finalizedSummary.runId = runId;
+  finalizedSummary.seed = seedPrefix;
+  finalizedSummary.explicitSeed = explicitSeed;
   if (schedulerState) {
     finalizedSummary.scheduler = summarizeCorpusScheduler(schedulerState);
     finalizedSummary.corpusQuality = evaluateCorpusQuality(
