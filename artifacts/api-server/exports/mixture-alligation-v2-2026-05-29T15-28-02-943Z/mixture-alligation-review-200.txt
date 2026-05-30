@@ -1,0 +1,1159 @@
+Q1. A seller prepares the final blend. A store prepares a dry fruit mixture of average price ₹76/kg from two lots costing ₹64/kg and ₹100/kg. In what ratio are the lots mixed?
+  A. 2:1
+  B. 1:2
+  C. 3:1
+  D. 1:1
+Answer: 2:1
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 100</div><div>Lower value = 64</div><div>Mean value = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 76 and 64:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>Difference between 100 and 76:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>Therefore, the required answer is 2:1. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 2:1. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹64 और ₹100 प्रति किग्रा वाले dry fruit को मिलाकर औसत मूल्य ₹76 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 100</div><div>कम मान = 64</div><div>औसत मान = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>76 और 64 का अंतर:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>100 और 76 का अंतर:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>इसलिए आवश्यक उत्तर 2:1 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 2:1 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹64 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ dry fruit ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹76 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 100</div><div>ਘੱਟ ਮੁੱਲ = 64</div><div>ਔਸਤ ਮੁੱਲ = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>76 ਅਤੇ 64 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>100 ਅਤੇ 76 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 2:1 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 2:1 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_price_blend_ratio topology=mixture_alligation:mix_two_price_blend_ratio difficulty=Easy
+
+Q2. A merchant calculates the final average. A shopkeeper mixes sugar costing ₹20 per kg with sugar costing ₹30 per kg to make a mixture worth ₹24 per kg. In what ratio should the two types be mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 30</div><div>Lower value = 20</div><div>Mean value = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 24 and 20:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>Difference between 30 and 24:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹20 और ₹30 प्रति किग्रा वाले sugar को मिलाकर औसत मूल्य ₹24 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 30</div><div>कम मान = 20</div><div>औसत मान = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>24 और 20 का अंतर:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>30 और 24 का अंतर:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹20 ਅਤੇ ₹30 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ sugar ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹24 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 30</div><div>ਘੱਟ ਮੁੱਲ = 20</div><div>ਔਸਤ ਮੁੱਲ = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>24 ਅਤੇ 20 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>30 ਅਤੇ 24 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=alligation_cheaper_dearer_ratio topology=mixture_alligation:alligation_cheaper_dearer_ratio difficulty=Easy
+
+Q3. A merchant prepares goods for sale. How many litres of water should be added to 64 litres of a 50% acid solution to make it a 40% solution?
+  A. 16 litres
+  B. 21 litres
+  C. 11 litres
+  D. 26 litres
+Answer: 16 litres
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is a concentration question. Since only water changes, the amount of solute stays fixed throughout.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 50</div><div>Lower value = 0</div><div>Mean value = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">40</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 40 and 0:</p><div class="mix-math">\[
+40-0=40
+\]</div><p>Difference between 50 and 40:</p><div class="mix-math">\[
+50-40=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=10:40=1:4
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The amount of acid stays fixed unless pure acid is added.</p><div class="mix-math">\[
+0.5\times 64=0.4\times V
+\]</div><p>Solve for the changed quantity.</p><div class="mix-math">\[
+x=16
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-40):(40-0)=10:40=1:4
+\]</div><p>Therefore, the required answer is 16 litres. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 16 litres. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+घोल में 50% तेजाब है। 64 लीटर घोल को 40% करने के लिए कितनी मात्रा बदलनी होगी?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह सांद्रता का प्रश्न है। क्योंकि केवल पानी बदलता है, घुले पदार्थ की मात्रा पूरी प्रक्रिया में स्थिर रहती है।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 50</div><div>कम मान = 0</div><div>औसत मान = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">40</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>40 और 0 का अंतर:</p><div class="mix-math">\[
+40-0=40
+\]</div><p>50 और 40 का अंतर:</p><div class="mix-math">\[
+50-40=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=10:40=1:4
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।</p><div class="mix-math">\[
+0.5\times 64=0.4\times V
+\]</div><p>बदली हुई मात्रा निकालें।</p><div class="mix-math">\[
+x=16
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-40):(40-0)=10:40=1:4
+\]</div><p>इसलिए आवश्यक उत्तर 16 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 16 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 64 ਲੀਟਰ ਘੋਲ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਗਾੜ੍ਹਾਪਣ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਕਿਉਂਕਿ ਸਿਰਫ਼ ਪਾਣੀ ਬਦਲਦਾ ਹੈ, ਘੁੱਲੇ ਪਦਾਰਥ ਦੀ ਮਾਤਰਾ ਪੂਰੀ ਕਿਰਿਆ ਵਿੱਚ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 50</div><div>ਘੱਟ ਮੁੱਲ = 0</div><div>ਔਸਤ ਮੁੱਲ = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">40</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>40 ਅਤੇ 0 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+40-0=40
+\]</div><p>50 ਅਤੇ 40 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+50-40=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=10:40=1:4
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।</p><div class="mix-math">\[
+0.5\times 64=0.4\times V
+\]</div><p>ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।</p><div class="mix-math">\[
+x=16
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-40):(40-0)=10:40=1:4
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 16 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 16 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=concentration_mixing_three_solutions topology=mixture_alligation:concentration_mixing_three_solutions difficulty=Medium
+
+Q4. A trader is preparing a mixture. A vessel contains milk and water in quantities 70 litres and 30 litres. How many litres of water should be added so that the ratio becomes 1:1?
+  A. 40 litres
+  B. 45 litres
+  C. 35 litres
+  D. 50 litres
+Answer: 40 litres
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>Lower value = 0. Higher value = 70. Mean value = 50.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 70</div><div>Lower value = 0</div><div>Mean value = 50</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">70</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">50</div><div class="mix-alligation-bottom-left">50</div><div class="mix-alligation-bottom-right">20</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 50 and 0:</p><div class="mix-math">\[
+50-0=50
+\]</div><p>Difference between 70 and 50:</p><div class="mix-math">\[
+70-50=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=20:50=2:5
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>Milk remains fixed and only the added component changes the other side.</p><div class="mix-math">\[
+\frac{70}{30+x}=\frac{1}{1}
+\]</div><p>Solve the target-ratio equation for the added quantity.</p><div class="mix-math">\[
+x=\frac{1\times 70-1\times 30}{1}=40
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(70-50):(50-0)=20:50=2:5
+\]</div><p>Therefore, the required answer is 40 litres. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 40 litres. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+एक बर्तन में दूध 70 लीटर और पानी 30 लीटर है। अनुपात 1:1 करने के लिए कितने लीटर water मिलाना होगा?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>कम मान 0, अधिक मान 70 और औसत मान 50 है।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 70</div><div>कम मान = 0</div><div>औसत मान = 50</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">70</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">50</div><div class="mix-alligation-bottom-left">50</div><div class="mix-alligation-bottom-right">20</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>50 और 0 का अंतर:</p><div class="mix-math">\[
+50-0=50
+\]</div><p>70 और 50 का अंतर:</p><div class="mix-math">\[
+70-50=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=20:50=2:5
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।</p><div class="mix-math">\[
+\frac{70}{30+x}=\frac{1}{1}
+\]</div><p>लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।</p><div class="mix-math">\[
+x=\frac{1\times 70-1\times 30}{1}=40
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(70-50):(50-0)=20:50=2:5
+\]</div><p>इसलिए आवश्यक उत्तर 40 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 40 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 70 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 30 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 1:1 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਘੱਟ ਮੁੱਲ 0, ਵੱਧ ਮੁੱਲ 70 ਅਤੇ ਔਸਤ ਮੁੱਲ 50 ਹੈ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 70</div><div>ਘੱਟ ਮੁੱਲ = 0</div><div>ਔਸਤ ਮੁੱਲ = 50</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">70</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">50</div><div class="mix-alligation-bottom-left">50</div><div class="mix-alligation-bottom-right">20</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>50 ਅਤੇ 0 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+50-0=50
+\]</div><p>70 ਅਤੇ 50 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+70-50=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=20:50=2:5
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।</p><div class="mix-math">\[
+\frac{70}{30+x}=\frac{1}{1}
+\]</div><p>ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।</p><div class="mix-math">\[
+x=\frac{1\times 70-1\times 30}{1}=40
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(70-50):(50-0)=20:50=2:5
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 40 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 40 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_price_profit_target_gain topology=mixture_alligation:mix_price_profit_target_gain difficulty=Medium
+
+Q5. A milkman adjusts milk and water. Pulses costing ₹25/kg and ₹45/kg are mixed so that the average cost becomes ₹32/kg. What is the mixing ratio?
+  A. 13:7
+  B. 7:13
+  C. 2:1
+  D. 13:8
+Answer: 13:7
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 45</div><div>Lower value = 25</div><div>Mean value = 32</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">45</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">32</div><div class="mix-alligation-bottom-left">7</div><div class="mix-alligation-bottom-right">13</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 32 and 25:</p><div class="mix-math">\[
+32-25=7
+\]</div><p>Difference between 45 and 32:</p><div class="mix-math">\[
+45-32=13
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(45-32):(32-25)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(45-32):(32-25)=13:7=13:7
+\]</div><p>Therefore, the required answer is 13:7. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 13:7. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹25 और ₹45 प्रति किग्रा वाले pulses को मिलाकर औसत मूल्य ₹32 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 45</div><div>कम मान = 25</div><div>औसत मान = 32</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">45</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">32</div><div class="mix-alligation-bottom-left">7</div><div class="mix-alligation-bottom-right">13</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>32 और 25 का अंतर:</p><div class="mix-math">\[
+32-25=7
+\]</div><p>45 और 32 का अंतर:</p><div class="mix-math">\[
+45-32=13
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(45-32):(32-25)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(45-32):(32-25)=13:7=13:7
+\]</div><p>इसलिए आवश्यक उत्तर 13:7 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 13:7 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹25 ਅਤੇ ₹45 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ pulses ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹32 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 45</div><div>ਘੱਟ ਮੁੱਲ = 25</div><div>ਔਸਤ ਮੁੱਲ = 32</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">45</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">32</div><div class="mix-alligation-bottom-left">7</div><div class="mix-alligation-bottom-right">13</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>32 ਅਤੇ 25 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+32-25=7
+\]</div><p>45 ਅਤੇ 32 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+45-32=13
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(45-32):(32-25)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(45-32):(32-25)=13:7=13:7
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 13:7 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 13:7 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_cost_selling_price_alligation topology=mixture_alligation:mix_cost_selling_price_alligation difficulty=Easy
+
+Q6. A grocer mixes the given quantities. A shopkeeper mixes tea costing ₹80 per kg with tea costing ₹120 per kg to make a mixture worth ₹95 per kg. In what ratio should the two types be mixed?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 120</div><div>Lower value = 80</div><div>Mean value = 95</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">120</div><div class="mix-alligation-top-right">80</div><div class="mix-alligation-center">95</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 95 and 80:</p><div class="mix-math">\[
+95-80=15
+\]</div><p>Difference between 120 and 95:</p><div class="mix-math">\[
+120-95=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(120-95):(95-80)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(120-95):(95-80)=25:15=5:3
+\]</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹80 और ₹120 प्रति किग्रा वाले tea को मिलाकर औसत मूल्य ₹95 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 120</div><div>कम मान = 80</div><div>औसत मान = 95</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">120</div><div class="mix-alligation-top-right">80</div><div class="mix-alligation-center">95</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>95 और 80 का अंतर:</p><div class="mix-math">\[
+95-80=15
+\]</div><p>120 और 95 का अंतर:</p><div class="mix-math">\[
+120-95=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(120-95):(95-80)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(120-95):(95-80)=25:15=5:3
+\]</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹80 ਅਤੇ ₹120 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ tea ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹95 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 120</div><div>ਘੱਟ ਮੁੱਲ = 80</div><div>ਔਸਤ ਮੁੱਲ = 95</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">120</div><div class="mix-alligation-top-right">80</div><div class="mix-alligation-center">95</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>95 ਅਤੇ 80 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+95-80=15
+\]</div><p>120 ਅਤੇ 95 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+120-95=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(120-95):(95-80)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(120-95):(95-80)=25:15=5:3
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_grades_of_wheat topology=mixture_alligation:mix_two_grades_of_wheat difficulty=Easy
+
+Q7. A seller prepares the final blend. Cheap paint at ₹48/kg is mixed with dearer paint at ₹80/kg. If the blend is worth ₹60/kg, find the ratio?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 80</div><div>Lower value = 48</div><div>Mean value = 60</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">80</div><div class="mix-alligation-top-right">48</div><div class="mix-alligation-center">60</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">20</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 60 and 48:</p><div class="mix-math">\[
+60-48=12
+\]</div><p>Difference between 80 and 60:</p><div class="mix-math">\[
+80-60=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=20:12=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(80-60):(60-48)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=20:12=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(80-60):(60-48)=20:12=5:3
+\]</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹48 और ₹80 प्रति किग्रा वाले paint को मिलाकर औसत मूल्य ₹60 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 80</div><div>कम मान = 48</div><div>औसत मान = 60</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">80</div><div class="mix-alligation-top-right">48</div><div class="mix-alligation-center">60</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">20</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>60 और 48 का अंतर:</p><div class="mix-math">\[
+60-48=12
+\]</div><p>80 और 60 का अंतर:</p><div class="mix-math">\[
+80-60=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=20:12=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(80-60):(60-48)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=20:12=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(80-60):(60-48)=20:12=5:3
+\]</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹48 ਅਤੇ ₹80 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ paint ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹60 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 80</div><div>ਘੱਟ ਮੁੱਲ = 48</div><div>ਔਸਤ ਮੁੱਲ = 60</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">80</div><div class="mix-alligation-top-right">48</div><div class="mix-alligation-center">60</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">20</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>60 ਅਤੇ 48 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+60-48=12
+\]</div><p>80 ਅਤੇ 60 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+80-60=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=20:12=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(80-60):(60-48)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=20:12=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(80-60):(60-48)=20:12=5:3
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_reverse_alligation topology=mixture_alligation:mix_reverse_alligation difficulty=Easy
+
+Q8. A seller uses the following mixture. 30 litres, 30 litres and 40 litres of oil priced at ₹40, ₹50 and ₹75 per unit are mixed. What is the average price of the mixture?
+  A. ₹57
+  B. ₹62
+  C. ₹52
+  D. ₹67
+Answer: ₹57
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is a weighted-average mixture. The average depends on total value, not on a simple average of the rates.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 75</div><div>Lower value = 40</div><div>Mean value = 57</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">75</div><div class="mix-alligation-top-right">40</div><div class="mix-alligation-center">57</div><div class="mix-alligation-bottom-left">17</div><div class="mix-alligation-bottom-right">18</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 57 and 40:</p><div class="mix-math">\[
+57-40=17
+\]</div><p>Difference between 75 and 57:</p><div class="mix-math">\[
+75-57=18
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=18:17=18:17
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>Find total value by multiplying each quantity with its rate.</p><div class="mix-math">\[
+V=30\times 40+30\times 50+40\times 75
+\]</div><p>Divide total value by total quantity.</p><div class="mix-math">\[
+M=\frac{30\times 40+30\times 50+40\times 75}{30+30+40}=57
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(75-57):(57-40)=18:17=18:17
+\]</div><p>Therefore, the required answer is ₹57. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is ₹57. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+30, 30 और 40 litres मात्रा को ₹40, ₹50 और ₹75 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह भारित औसत का मिश्रण है। औसत कुल मूल्य पर निर्भर करता है, दरों के साधारण औसत पर नहीं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 75</div><div>कम मान = 40</div><div>औसत मान = 57</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">75</div><div class="mix-alligation-top-right">40</div><div class="mix-alligation-center">57</div><div class="mix-alligation-bottom-left">17</div><div class="mix-alligation-bottom-right">18</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>57 और 40 का अंतर:</p><div class="mix-math">\[
+57-40=17
+\]</div><p>75 और 57 का अंतर:</p><div class="mix-math">\[
+75-57=18
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=18:17=18:17
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।</p><div class="mix-math">\[
+V=30\times 40+30\times 50+40\times 75
+\]</div><p>कुल मूल्य को मिश्रण की मात्रा से भाग दें।</p><div class="mix-math">\[
+M=\frac{30\times 40+30\times 50+40\times 75}{30+30+40}=57
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(75-57):(57-40)=18:17=18:17
+\]</div><p>इसलिए आवश्यक उत्तर ₹57 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर ₹57 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+30, 30 ਅਤੇ 40 litres ਮਾਤਰਾ ਨੂੰ ₹40, ₹50 ਅਤੇ ₹75 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਭਾਰਿਤ ਔਸਤ ਵਾਲਾ ਮਿਸ਼ਰਣ ਹੈ। ਔਸਤ ਕੁੱਲ ਮੁੱਲ 'ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ, ਦਰਾਂ ਦੇ ਸਧਾਰਣ ਔਸਤ 'ਤੇ ਨਹੀਂ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 75</div><div>ਘੱਟ ਮੁੱਲ = 40</div><div>ਔਸਤ ਮੁੱਲ = 57</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">75</div><div class="mix-alligation-top-right">40</div><div class="mix-alligation-center">57</div><div class="mix-alligation-bottom-left">17</div><div class="mix-alligation-bottom-right">18</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>57 ਅਤੇ 40 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+57-40=17
+\]</div><p>75 ਅਤੇ 57 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+75-57=18
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=18:17=18:17
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।</p><div class="mix-math">\[
+V=30\times 40+30\times 50+40\times 75
+\]</div><p>ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।</p><div class="mix-math">\[
+M=\frac{30\times 40+30\times 50+40\times 75}{30+30+40}=57
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(75-57):(57-40)=18:17=18:17
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ ₹57 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ ₹57 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=alloy_mean_price_blend topology=mixture_alligation:alloy_mean_price_blend difficulty=Medium
+
+Q9. A chemist mixes 60 kg of one liquid of density 3 kg/litre with 120 kg of another liquid of density 6 kg/litre. Find the density of the resulting mixture?
+  A. 4.5 kg/litre
+  B. 5.5 kg/litre
+  C. 3.5 kg/litre
+  D. 6.5 kg/litre
+Answer: 4.5 kg/litre
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is not a simple average of densities. Density means mass divided by volume, so masses must first be converted into volumes.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>The useful values are shown in the calculation below.</div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Volume Calculation</div><p>Density is mass divided by volume, so first convert each given mass into volume.</p><p>Volume of the first liquid is mass divided by its density.</p><div class="mix-math">\[
+V_1=\frac{60}{3}=20
+\]</div><p>Volume of the second liquid is found in the same way.</p><div class="mix-math">\[
+V_2=\frac{120}{6}=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Total Volume and Mass</div><p>Now add masses and volumes separately.</p><div class="mix-math">\[
+M=60+120=180,\quad V=20+20=40
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Density Calculation</div><p>Density of the mixture is total mass divided by total volume.</p><div class="mix-math">\[
+\rho=\frac{180}{40}=4.5
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Density is mass per unit volume. When masses and densities are given, first convert each mass into volume, then divide total mass by total volume.</p><div class="mix-math">\[
+\rho=\frac{M_1+M_2}{M_1/\rho_1+M_2/\rho_2}
+\]</div><div class="mix-math">\[
+M=60+120=180,\quad V=20+20=40
+\]</div><div class="mix-math">\[
+\rho=\frac{180}{40}=4.5
+\]</div><p>Therefore, the required answer is 4.5 kg/litre. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 4.5 kg/litre. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+एक रसायनज्ञ 3 किग्रा/लीटर घनत्व वाले एक द्रव के 60 किग्रा को 6 किग्रा/लीटर घनत्व वाले दूसरे द्रव के 120 किग्रा के साथ मिलाता है। बने मिश्रण का घनत्व कितना होगा?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह घनत्वों का साधारण औसत नहीं है। घनत्व का अर्थ द्रव्यमान को आयतन से भाग देना है, इसलिए पहले द्रव्यमानों को आयतन में बदलना होगा।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>उपयोगी मान नीचे की गणना में लिखे गए हैं।</div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">आयतन की गणना</div><p>घनत्व द्रव्यमान को आयतन से भाग देने पर मिलता है, इसलिए पहले दिए गए द्रव्यमान को आयतन में बदलें।</p><p>पहले द्रव का आयतन उसके द्रव्यमान को घनत्व से भाग देकर मिलेगा।</p><div class="mix-math">\[
+V_1=\frac{60}{3}=20
+\]</div><p>दूसरे द्रव का आयतन भी इसी तरह निकलेगा।</p><div class="mix-math">\[
+V_2=\frac{120}{6}=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">कुल आयतन और द्रव्यमान</div><p>अब द्रव्यमान और आयतन अलग-अलग जोड़ें।</p><div class="mix-math">\[
+M=60+120=180,\quad V=20+20=40
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">घनत्व की गणना</div><p>मिश्रण का घनत्व कुल द्रव्यमान को कुल आयतन से भाग देने पर मिलेगा।</p><div class="mix-math">\[
+\rho=\frac{180}{40}=4.5
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>घनत्व प्रति इकाई आयतन द्रव्यमान है। जब द्रव्यमान और घनत्व दिए हों, पहले हर द्रव्यमान को आयतन में बदलें, फिर कुल द्रव्यमान को कुल आयतन से भाग दें।</p><div class="mix-math">\[
+\rho=\frac{M_1+M_2}{M_1/\rho_1+M_2/\rho_2}
+\]</div><div class="mix-math">\[
+M=60+120=180,\quad V=20+20=40
+\]</div><div class="mix-math">\[
+\rho=\frac{180}{40}=4.5
+\]</div><p>इसलिए आवश्यक उत्तर 4.5 किग्रा/लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 4.5 किग्रा/लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+ਇੱਕ ਰਸਾਇਣ ਵਿਦਵਾਨ 3 ਕਿਲੋ/ਲੀਟਰ ਘਣਤਾ ਵਾਲੇ ਇੱਕ ਦ੍ਰਵ ਦੇ 60 ਕਿਲੋ ਨੂੰ 6 ਕਿਲੋ/ਲੀਟਰ ਘਣਤਾ ਵਾਲੇ ਦੂਜੇ ਦ੍ਰਵ ਦੇ 120 ਕਿਲੋ ਨਾਲ ਮਿਲਾਉਂਦਾ ਹੈ। ਬਣੇ ਮਿਸ਼ਰਣ ਦੀ ਘਣਤਾ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਘਣਤਾਵਾਂ ਦਾ ਸਧਾਰਣ ਔਸਤ ਨਹੀਂ ਹੈ। ਘਣਤਾ ਦਾ ਅਰਥ ਭਾਰ ਨੂੰ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦੇਣਾ ਹੈ, ਇਸ ਲਈ ਪਹਿਲਾਂ ਭਾਰਾਂ ਨੂੰ ਆਇਤਨ ਵਿੱਚ ਬਦਲਣਾ ਪਵੇਗਾ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਲੋੜੀਂਦੇ ਮੁੱਲ ਹੇਠਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਲਿਖੇ ਹਨ।</div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਆਇਤਨ ਦੀ ਗਿਣਤੀ</div><p>ਘਣਤਾ ਭਾਰ ਨੂੰ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਮਿਲਦੀ ਹੈ, ਇਸ ਲਈ ਪਹਿਲਾਂ ਦਿੱਤੇ ਭਾਰ ਨੂੰ ਆਇਤਨ ਵਿੱਚ ਬਦਲੋ।</p><p>ਪਹਿਲੇ ਦ੍ਰਵ ਦਾ ਆਇਤਨ ਉਸ ਦੇ ਭਾਰ ਨੂੰ ਘਣਤਾ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਮਿਲੇਗਾ।</p><div class="mix-math">\[
+V_1=\frac{60}{3}=20
+\]</div><p>ਦੂਜੇ ਦ੍ਰਵ ਦਾ ਆਇਤਨ ਵੀ ਇਸੇ ਤਰ੍ਹਾਂ ਨਿਕਲੇਗਾ।</p><div class="mix-math">\[
+V_2=\frac{120}{6}=20
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕੁੱਲ ਆਇਤਨ ਅਤੇ ਭਾਰ</div><p>ਹੁਣ ਭਾਰ ਅਤੇ ਆਇਤਨ ਵੱਖ-ਵੱਖ ਜੋੜੋ।</p><div class="mix-math">\[
+M=60+120=180,\quad V=20+20=40
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਘਣਤਾ ਦੀ ਗਿਣਤੀ</div><p>ਮਿਸ਼ਰਣ ਦੀ ਘਣਤਾ ਕੁੱਲ ਭਾਰ ਨੂੰ ਕੁੱਲ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਮਿਲੇਗੀ।</p><div class="mix-math">\[
+\rho=\frac{180}{40}=4.5
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਘਣਤਾ ਇਕਾਈ ਆਇਤਨ ਦਾ ਭਾਰ ਹੈ। ਜਦੋਂ ਭਾਰ ਅਤੇ ਘਣਤਾ ਦਿੱਤੇ ਹੋਣ, ਪਹਿਲਾਂ ਹਰ ਭਾਰ ਨੂੰ ਆਇਤਨ ਵਿੱਚ ਬਦਲੋ, ਫਿਰ ਕੁੱਲ ਭਾਰ ਨੂੰ ਕੁੱਲ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦਿਓ।</p><div class="mix-math">\[
+\rho=\frac{M_1+M_2}{M_1/\rho_1+M_2/\rho_2}
+\]</div><div class="mix-math">\[
+M=60+120=180,\quad V=20+20=40
+\]</div><div class="mix-math">\[
+\rho=\frac{180}{40}=4.5
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 4.5 ਕਿਲੋ/ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 4.5 ਕਿਲੋ/ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_geometric_density_fluid_strata topology=mixture_alligation:mix_geometric_density_fluid_strata difficulty=Hard
+
+Q10. A grocer prepares a clean mixture. A shopkeeper mixes sugar costing ₹20 per kg with sugar costing ₹30 per kg to make a mixture worth ₹24 per kg. In what ratio should the two types be mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 30</div><div>Lower value = 20</div><div>Mean value = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 24 and 20:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>Difference between 30 and 24:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹20 और ₹30 प्रति किग्रा वाले sugar को मिलाकर औसत मूल्य ₹24 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 30</div><div>कम मान = 20</div><div>औसत मान = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>24 और 20 का अंतर:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>30 और 24 का अंतर:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹20 ਅਤੇ ₹30 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ sugar ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹24 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 30</div><div>ਘੱਟ ਮੁੱਲ = 20</div><div>ਔਸਤ ਮੁੱਲ = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>24 ਅਤੇ 20 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>30 ਅਤੇ 24 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_price_blend_ratio topology=mixture_alligation:mix_two_price_blend_ratio difficulty=Easy
+
+Q11. A milkman adjusts milk and water. Cheap grain at ₹24/kg is mixed with dearer grain at ₹40/kg. If the blend is worth ₹30/kg, find the ratio?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 40</div><div>Lower value = 24</div><div>Mean value = 30</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">40</div><div class="mix-alligation-top-right">24</div><div class="mix-alligation-center">30</div><div class="mix-alligation-bottom-left">6</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 30 and 24:</p><div class="mix-math">\[
+30-24=6
+\]</div><p>Difference between 40 and 30:</p><div class="mix-math">\[
+40-30=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=10:6=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(40-30):(30-24)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=10:6=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(40-30):(30-24)=10:6=5:3
+\]</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹24 और ₹40 प्रति किग्रा वाले grain को मिलाकर औसत मूल्य ₹30 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 40</div><div>कम मान = 24</div><div>औसत मान = 30</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">40</div><div class="mix-alligation-top-right">24</div><div class="mix-alligation-center">30</div><div class="mix-alligation-bottom-left">6</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>30 और 24 का अंतर:</p><div class="mix-math">\[
+30-24=6
+\]</div><p>40 और 30 का अंतर:</p><div class="mix-math">\[
+40-30=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=10:6=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(40-30):(30-24)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=10:6=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(40-30):(30-24)=10:6=5:3
+\]</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹24 ਅਤੇ ₹40 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ grain ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹30 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 40</div><div>ਘੱਟ ਮੁੱਲ = 24</div><div>ਔਸਤ ਮੁੱਲ = 30</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">40</div><div class="mix-alligation-top-right">24</div><div class="mix-alligation-center">30</div><div class="mix-alligation-bottom-left">6</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>30 ਅਤੇ 24 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+30-24=6
+\]</div><p>40 ਅਤੇ 30 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+40-30=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=10:6=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(40-30):(30-24)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=10:6=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(40-30):(30-24)=10:6=5:3
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=alligation_cheaper_dearer_ratio topology=mixture_alligation:alligation_cheaper_dearer_ratio difficulty=Easy
+
+Q12. A merchant prepares goods for sale. How many litres of water should be added to 96 litres of a 50% acid solution to make it a 40% solution?
+  A. 24 litres
+  B. 29 litres
+  C. 19 litres
+  D. 34 litres
+Answer: 24 litres
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is a concentration question. Since only water changes, the amount of solute stays fixed throughout.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 50</div><div>Lower value = 0</div><div>Mean value = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">40</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 40 and 0:</p><div class="mix-math">\[
+40-0=40
+\]</div><p>Difference between 50 and 40:</p><div class="mix-math">\[
+50-40=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=10:40=1:4
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The amount of acid stays fixed unless pure acid is added.</p><div class="mix-math">\[
+0.5\times 96=0.4\times V
+\]</div><p>Solve for the changed quantity.</p><div class="mix-math">\[
+x=24
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-40):(40-0)=10:40=1:4
+\]</div><p>Therefore, the required answer is 24 litres. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 24 litres. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+घोल में 50% तेजाब है। 96 लीटर घोल को 40% करने के लिए कितनी मात्रा बदलनी होगी?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह सांद्रता का प्रश्न है। क्योंकि केवल पानी बदलता है, घुले पदार्थ की मात्रा पूरी प्रक्रिया में स्थिर रहती है।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 50</div><div>कम मान = 0</div><div>औसत मान = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">40</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>40 और 0 का अंतर:</p><div class="mix-math">\[
+40-0=40
+\]</div><p>50 और 40 का अंतर:</p><div class="mix-math">\[
+50-40=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=10:40=1:4
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।</p><div class="mix-math">\[
+0.5\times 96=0.4\times V
+\]</div><p>बदली हुई मात्रा निकालें।</p><div class="mix-math">\[
+x=24
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-40):(40-0)=10:40=1:4
+\]</div><p>इसलिए आवश्यक उत्तर 24 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 24 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 96 ਲੀਟਰ ਘੋਲ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਗਾੜ੍ਹਾਪਣ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਕਿਉਂਕਿ ਸਿਰਫ਼ ਪਾਣੀ ਬਦਲਦਾ ਹੈ, ਘੁੱਲੇ ਪਦਾਰਥ ਦੀ ਮਾਤਰਾ ਪੂਰੀ ਕਿਰਿਆ ਵਿੱਚ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 50</div><div>ਘੱਟ ਮੁੱਲ = 0</div><div>ਔਸਤ ਮੁੱਲ = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">40</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>40 ਅਤੇ 0 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+40-0=40
+\]</div><p>50 ਅਤੇ 40 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+50-40=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=10:40=1:4
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।</p><div class="mix-math">\[
+0.5\times 96=0.4\times V
+\]</div><p>ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।</p><div class="mix-math">\[
+x=24
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-40):(40-0)=10:40=1:4
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 24 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 24 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=concentration_mixing_two_solutions topology=mixture_alligation:concentration_mixing_two_solutions difficulty=Medium
+
+Q13. A seller prepares the final blend. A vessel contains milk and water in quantities 45 litres and 30 litres. How many litres of water should be added so that the ratio becomes 1:1?
+  A. 15 litres
+  B. 20 litres
+  C. 10 litres
+  D. 25 litres
+Answer: 15 litres
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>Lower value = 0. Higher value = 60. Mean value = 50.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 60</div><div>Lower value = 0</div><div>Mean value = 50</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">60</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">50</div><div class="mix-alligation-bottom-left">50</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 50 and 0:</p><div class="mix-math">\[
+50-0=50
+\]</div><p>Difference between 60 and 50:</p><div class="mix-math">\[
+60-50=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=10:50=1:5
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>Milk remains fixed and only the added component changes the other side.</p><div class="mix-math">\[
+\frac{45}{30+x}=\frac{1}{1}
+\]</div><p>Solve the target-ratio equation for the added quantity.</p><div class="mix-math">\[
+x=\frac{1\times 45-1\times 30}{1}=15
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(60-50):(50-0)=10:50=1:5
+\]</div><p>Therefore, the required answer is 15 litres. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 15 litres. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+एक बर्तन में दूध 45 लीटर और पानी 30 लीटर है। अनुपात 1:1 करने के लिए कितने लीटर water मिलाना होगा?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>कम मान 0, अधिक मान 60 और औसत मान 50 है।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 60</div><div>कम मान = 0</div><div>औसत मान = 50</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">60</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">50</div><div class="mix-alligation-bottom-left">50</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>50 और 0 का अंतर:</p><div class="mix-math">\[
+50-0=50
+\]</div><p>60 और 50 का अंतर:</p><div class="mix-math">\[
+60-50=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=10:50=1:5
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।</p><div class="mix-math">\[
+\frac{45}{30+x}=\frac{1}{1}
+\]</div><p>लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।</p><div class="mix-math">\[
+x=\frac{1\times 45-1\times 30}{1}=15
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(60-50):(50-0)=10:50=1:5
+\]</div><p>इसलिए आवश्यक उत्तर 15 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 15 लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 45 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 30 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 1:1 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਘੱਟ ਮੁੱਲ 0, ਵੱਧ ਮੁੱਲ 60 ਅਤੇ ਔਸਤ ਮੁੱਲ 50 ਹੈ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 60</div><div>ਘੱਟ ਮੁੱਲ = 0</div><div>ਔਸਤ ਮੁੱਲ = 50</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">60</div><div class="mix-alligation-top-right">0</div><div class="mix-alligation-center">50</div><div class="mix-alligation-bottom-left">50</div><div class="mix-alligation-bottom-right">10</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>50 ਅਤੇ 0 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+50-0=50
+\]</div><p>60 ਅਤੇ 50 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+60-50=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=10:50=1:5
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।</p><div class="mix-math">\[
+\frac{45}{30+x}=\frac{1}{1}
+\]</div><p>ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।</p><div class="mix-math">\[
+x=\frac{1\times 45-1\times 30}{1}=15
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(60-50):(50-0)=10:50=1:5
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 15 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 15 ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_price_profit_target_gain topology=mixture_alligation:mix_price_profit_target_gain difficulty=Medium
+
+Q14. A grocer mixes the given quantities. Cheap sugar at ₹20/kg is mixed with dearer sugar at ₹30/kg. If the blend is worth ₹24/kg, find the ratio?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 30</div><div>Lower value = 20</div><div>Mean value = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 24 and 20:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>Difference between 30 and 24:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹20 और ₹30 प्रति किग्रा वाले sugar को मिलाकर औसत मूल्य ₹24 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 30</div><div>कम मान = 20</div><div>औसत मान = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>24 और 20 का अंतर:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>30 और 24 का अंतर:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹20 ਅਤੇ ₹30 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ sugar ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹24 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 30</div><div>ਘੱਟ ਮੁੱਲ = 20</div><div>ਔਸਤ ਮੁੱਲ = 24</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">30</div><div class="mix-alligation-top-right">20</div><div class="mix-alligation-center">24</div><div class="mix-alligation-bottom-left">4</div><div class="mix-alligation-bottom-right">6</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>24 ਅਤੇ 20 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+24-20=4
+\]</div><p>30 ਅਤੇ 24 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+30-24=6
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(30-24):(24-20)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=6:4=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(30-24):(24-20)=6:4=3:2
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_cost_selling_price_alligation topology=mixture_alligation:mix_cost_selling_price_alligation difficulty=Easy
+
+Q15. A merchant calculates the final average. Dry fruit costing ₹64/kg and ₹100/kg are mixed so that the average cost becomes ₹76/kg. What is the mixing ratio?
+  A. 2:1
+  B. 1:2
+  C. 3:1
+  D. 1:1
+Answer: 2:1
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 100</div><div>Lower value = 64</div><div>Mean value = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 76 and 64:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>Difference between 100 and 76:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>Therefore, the required answer is 2:1. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 2:1. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹64 और ₹100 प्रति किग्रा वाले dry fruit को मिलाकर औसत मूल्य ₹76 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 100</div><div>कम मान = 64</div><div>औसत मान = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>76 और 64 का अंतर:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>100 और 76 का अंतर:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>इसलिए आवश्यक उत्तर 2:1 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 2:1 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹64 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ dry fruit ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹76 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 100</div><div>ਘੱਟ ਮੁੱਲ = 64</div><div>ਔਸਤ ਮੁੱਲ = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>76 ਅਤੇ 64 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>100 ਅਤੇ 76 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 2:1 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 2:1 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_grades_of_wheat topology=mixture_alligation:mix_two_grades_of_wheat difficulty=Easy
+
+Q16. A merchant adjusts the mixture. Wheat costing ₹30/kg and ₹50/kg are mixed so that the average cost becomes ₹38/kg. What is the mixing ratio?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 50</div><div>Lower value = 30</div><div>Mean value = 38</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">30</div><div class="mix-alligation-center">38</div><div class="mix-alligation-bottom-left">8</div><div class="mix-alligation-bottom-right">12</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 38 and 30:</p><div class="mix-math">\[
+38-30=8
+\]</div><p>Difference between 50 and 38:</p><div class="mix-math">\[
+50-38=12
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=12:8=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(50-38):(38-30)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=12:8=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-38):(38-30)=12:8=3:2
+\]</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 3:2. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹30 और ₹50 प्रति किग्रा वाले wheat को मिलाकर औसत मूल्य ₹38 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 50</div><div>कम मान = 30</div><div>औसत मान = 38</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">30</div><div class="mix-alligation-center">38</div><div class="mix-alligation-bottom-left">8</div><div class="mix-alligation-bottom-right">12</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>38 और 30 का अंतर:</p><div class="mix-math">\[
+38-30=8
+\]</div><p>50 और 38 का अंतर:</p><div class="mix-math">\[
+50-38=12
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=12:8=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(50-38):(38-30)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=12:8=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-38):(38-30)=12:8=3:2
+\]</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 3:2 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹30 ਅਤੇ ₹50 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ wheat ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹38 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 50</div><div>ਘੱਟ ਮੁੱਲ = 30</div><div>ਔਸਤ ਮੁੱਲ = 38</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">50</div><div class="mix-alligation-top-right">30</div><div class="mix-alligation-center">38</div><div class="mix-alligation-bottom-left">8</div><div class="mix-alligation-bottom-right">12</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>38 ਅਤੇ 30 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+38-30=8
+\]</div><p>50 ਅਤੇ 38 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+50-38=12
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=12:8=3:2
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(50-38):(38-30)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=12:8=3:2
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(50-38):(38-30)=12:8=3:2
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 3:2 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_reverse_alligation topology=mixture_alligation:mix_reverse_alligation difficulty=Easy
+
+Q17. A milkman adjusts milk and water. 40 litres, 20 litres and 20 litres of solution priced at ₹25, ₹45 and ₹65 per unit are mixed. What is the average price of the mixture?
+  A. ₹40
+  B. ₹45
+  C. ₹35
+  D. ₹50
+Answer: ₹40
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is a weighted-average mixture. The average depends on total value, not on a simple average of the rates.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 65</div><div>Lower value = 25</div><div>Mean value = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">65</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 40 and 25:</p><div class="mix-math">\[
+40-25=15
+\]</div><p>Difference between 65 and 40:</p><div class="mix-math">\[
+65-40=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>Find total value by multiplying each quantity with its rate.</p><div class="mix-math">\[
+V=40\times 25+20\times 45+20\times 65
+\]</div><p>Divide total value by total quantity.</p><div class="mix-math">\[
+M=\frac{40\times 25+20\times 45+20\times 65}{40+20+20}=40
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(65-40):(40-25)=25:15=5:3
+\]</div><p>Therefore, the required answer is ₹40. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is ₹40. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+40, 20 और 20 litres मात्रा को ₹25, ₹45 और ₹65 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह भारित औसत का मिश्रण है। औसत कुल मूल्य पर निर्भर करता है, दरों के साधारण औसत पर नहीं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 65</div><div>कम मान = 25</div><div>औसत मान = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">65</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>40 और 25 का अंतर:</p><div class="mix-math">\[
+40-25=15
+\]</div><p>65 और 40 का अंतर:</p><div class="mix-math">\[
+65-40=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।</p><div class="mix-math">\[
+V=40\times 25+20\times 45+20\times 65
+\]</div><p>कुल मूल्य को मिश्रण की मात्रा से भाग दें।</p><div class="mix-math">\[
+M=\frac{40\times 25+20\times 45+20\times 65}{40+20+20}=40
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(65-40):(40-25)=25:15=5:3
+\]</div><p>इसलिए आवश्यक उत्तर ₹40 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर ₹40 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+40, 20 ਅਤੇ 20 litres ਮਾਤਰਾ ਨੂੰ ₹25, ₹45 ਅਤੇ ₹65 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਭਾਰਿਤ ਔਸਤ ਵਾਲਾ ਮਿਸ਼ਰਣ ਹੈ। ਔਸਤ ਕੁੱਲ ਮੁੱਲ 'ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ, ਦਰਾਂ ਦੇ ਸਧਾਰਣ ਔਸਤ 'ਤੇ ਨਹੀਂ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 65</div><div>ਘੱਟ ਮੁੱਲ = 25</div><div>ਔਸਤ ਮੁੱਲ = 40</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">65</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">40</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>40 ਅਤੇ 25 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+40-25=15
+\]</div><p>65 ਅਤੇ 40 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+65-40=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।</p><div class="mix-math">\[
+V=40\times 25+20\times 45+20\times 65
+\]</div><p>ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।</p><div class="mix-math">\[
+M=\frac{40\times 25+20\times 45+20\times 65}{40+20+20}=40
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(65-40):(40-25)=25:15=5:3
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ ₹40 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ ₹40 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=alloy_mean_price_blend topology=mixture_alligation:alloy_mean_price_blend difficulty=Medium
+
+Q18. A chemist mixes 60 kg of one liquid of density 3 kg/litre with 60 kg of another liquid of density 6 kg/litre. Find the density of the resulting mixture?
+  A. 4 kg/litre
+  B. 5 kg/litre
+  C. 3 kg/litre
+  D. 6 kg/litre
+Answer: 4 kg/litre
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is not a simple average of densities. Density means mass divided by volume, so masses must first be converted into volumes.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>The useful values are shown in the calculation below.</div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Volume Calculation</div><p>Density is mass divided by volume, so first convert each given mass into volume.</p><p>Volume of the first liquid is mass divided by its density.</p><div class="mix-math">\[
+V_1=\frac{60}{3}=20
+\]</div><p>Volume of the second liquid is found in the same way.</p><div class="mix-math">\[
+V_2=\frac{60}{6}=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Total Volume and Mass</div><p>Now add masses and volumes separately.</p><div class="mix-math">\[
+M=60+60=120,\quad V=20+10=30
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Density Calculation</div><p>Density of the mixture is total mass divided by total volume.</p><div class="mix-math">\[
+\rho=\frac{120}{30}=4
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Density is mass per unit volume. When masses and densities are given, first convert each mass into volume, then divide total mass by total volume.</p><div class="mix-math">\[
+\rho=\frac{M_1+M_2}{M_1/\rho_1+M_2/\rho_2}
+\]</div><div class="mix-math">\[
+M=60+60=120,\quad V=20+10=30
+\]</div><div class="mix-math">\[
+\rho=\frac{120}{30}=4
+\]</div><p>Therefore, the required answer is 4 kg/litre. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 4 kg/litre. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+एक रसायनज्ञ 3 किग्रा/लीटर घनत्व वाले एक द्रव के 60 किग्रा को 6 किग्रा/लीटर घनत्व वाले दूसरे द्रव के 60 किग्रा के साथ मिलाता है। बने मिश्रण का घनत्व कितना होगा?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह घनत्वों का साधारण औसत नहीं है। घनत्व का अर्थ द्रव्यमान को आयतन से भाग देना है, इसलिए पहले द्रव्यमानों को आयतन में बदलना होगा।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>उपयोगी मान नीचे की गणना में लिखे गए हैं।</div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">आयतन की गणना</div><p>घनत्व द्रव्यमान को आयतन से भाग देने पर मिलता है, इसलिए पहले दिए गए द्रव्यमान को आयतन में बदलें।</p><p>पहले द्रव का आयतन उसके द्रव्यमान को घनत्व से भाग देकर मिलेगा।</p><div class="mix-math">\[
+V_1=\frac{60}{3}=20
+\]</div><p>दूसरे द्रव का आयतन भी इसी तरह निकलेगा।</p><div class="mix-math">\[
+V_2=\frac{60}{6}=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">कुल आयतन और द्रव्यमान</div><p>अब द्रव्यमान और आयतन अलग-अलग जोड़ें।</p><div class="mix-math">\[
+M=60+60=120,\quad V=20+10=30
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">घनत्व की गणना</div><p>मिश्रण का घनत्व कुल द्रव्यमान को कुल आयतन से भाग देने पर मिलेगा।</p><div class="mix-math">\[
+\rho=\frac{120}{30}=4
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>घनत्व प्रति इकाई आयतन द्रव्यमान है। जब द्रव्यमान और घनत्व दिए हों, पहले हर द्रव्यमान को आयतन में बदलें, फिर कुल द्रव्यमान को कुल आयतन से भाग दें।</p><div class="mix-math">\[
+\rho=\frac{M_1+M_2}{M_1/\rho_1+M_2/\rho_2}
+\]</div><div class="mix-math">\[
+M=60+60=120,\quad V=20+10=30
+\]</div><div class="mix-math">\[
+\rho=\frac{120}{30}=4
+\]</div><p>इसलिए आवश्यक उत्तर 4 किग्रा/लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 4 किग्रा/लीटर है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+ਇੱਕ ਰਸਾਇਣ ਵਿਦਵਾਨ 3 ਕਿਲੋ/ਲੀਟਰ ਘਣਤਾ ਵਾਲੇ ਇੱਕ ਦ੍ਰਵ ਦੇ 60 ਕਿਲੋ ਨੂੰ 6 ਕਿਲੋ/ਲੀਟਰ ਘਣਤਾ ਵਾਲੇ ਦੂਜੇ ਦ੍ਰਵ ਦੇ 60 ਕਿਲੋ ਨਾਲ ਮਿਲਾਉਂਦਾ ਹੈ। ਬਣੇ ਮਿਸ਼ਰਣ ਦੀ ਘਣਤਾ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਘਣਤਾਵਾਂ ਦਾ ਸਧਾਰਣ ਔਸਤ ਨਹੀਂ ਹੈ। ਘਣਤਾ ਦਾ ਅਰਥ ਭਾਰ ਨੂੰ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦੇਣਾ ਹੈ, ਇਸ ਲਈ ਪਹਿਲਾਂ ਭਾਰਾਂ ਨੂੰ ਆਇਤਨ ਵਿੱਚ ਬਦਲਣਾ ਪਵੇਗਾ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਲੋੜੀਂਦੇ ਮੁੱਲ ਹੇਠਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਲਿਖੇ ਹਨ।</div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਆਇਤਨ ਦੀ ਗਿਣਤੀ</div><p>ਘਣਤਾ ਭਾਰ ਨੂੰ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਮਿਲਦੀ ਹੈ, ਇਸ ਲਈ ਪਹਿਲਾਂ ਦਿੱਤੇ ਭਾਰ ਨੂੰ ਆਇਤਨ ਵਿੱਚ ਬਦਲੋ।</p><p>ਪਹਿਲੇ ਦ੍ਰਵ ਦਾ ਆਇਤਨ ਉਸ ਦੇ ਭਾਰ ਨੂੰ ਘਣਤਾ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਮਿਲੇਗਾ।</p><div class="mix-math">\[
+V_1=\frac{60}{3}=20
+\]</div><p>ਦੂਜੇ ਦ੍ਰਵ ਦਾ ਆਇਤਨ ਵੀ ਇਸੇ ਤਰ੍ਹਾਂ ਨਿਕਲੇਗਾ।</p><div class="mix-math">\[
+V_2=\frac{60}{6}=10
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕੁੱਲ ਆਇਤਨ ਅਤੇ ਭਾਰ</div><p>ਹੁਣ ਭਾਰ ਅਤੇ ਆਇਤਨ ਵੱਖ-ਵੱਖ ਜੋੜੋ।</p><div class="mix-math">\[
+M=60+60=120,\quad V=20+10=30
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਘਣਤਾ ਦੀ ਗਿਣਤੀ</div><p>ਮਿਸ਼ਰਣ ਦੀ ਘਣਤਾ ਕੁੱਲ ਭਾਰ ਨੂੰ ਕੁੱਲ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਮਿਲੇਗੀ।</p><div class="mix-math">\[
+\rho=\frac{120}{30}=4
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਘਣਤਾ ਇਕਾਈ ਆਇਤਨ ਦਾ ਭਾਰ ਹੈ। ਜਦੋਂ ਭਾਰ ਅਤੇ ਘਣਤਾ ਦਿੱਤੇ ਹੋਣ, ਪਹਿਲਾਂ ਹਰ ਭਾਰ ਨੂੰ ਆਇਤਨ ਵਿੱਚ ਬਦਲੋ, ਫਿਰ ਕੁੱਲ ਭਾਰ ਨੂੰ ਕੁੱਲ ਆਇਤਨ ਨਾਲ ਭਾਗ ਦਿਓ।</p><div class="mix-math">\[
+\rho=\frac{M_1+M_2}{M_1/\rho_1+M_2/\rho_2}
+\]</div><div class="mix-math">\[
+M=60+60=120,\quad V=20+10=30
+\]</div><div class="mix-math">\[
+\rho=\frac{120}{30}=4
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 4 ਕਿਲੋ/ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 4 ਕਿਲੋ/ਲੀਟਰ ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_geometric_density_fluid_strata topology=mixture_alligation:mix_geometric_density_fluid_strata difficulty=Hard
+
+Q19. A grocer prepares the required ratio. Spices costing ₹36/kg and ₹60/kg are mixed so that the average cost becomes ₹45/kg. What is the mixing ratio?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 60</div><div>Lower value = 36</div><div>Mean value = 45</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">60</div><div class="mix-alligation-top-right">36</div><div class="mix-alligation-center">45</div><div class="mix-alligation-bottom-left">9</div><div class="mix-alligation-bottom-right">15</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 45 and 36:</p><div class="mix-math">\[
+45-36=9
+\]</div><p>Difference between 60 and 45:</p><div class="mix-math">\[
+60-45=15
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=15:9=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(60-45):(45-36)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=15:9=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(60-45):(45-36)=15:9=5:3
+\]</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹36 और ₹60 प्रति किग्रा वाले spices को मिलाकर औसत मूल्य ₹45 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 60</div><div>कम मान = 36</div><div>औसत मान = 45</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">60</div><div class="mix-alligation-top-right">36</div><div class="mix-alligation-center">45</div><div class="mix-alligation-bottom-left">9</div><div class="mix-alligation-bottom-right">15</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>45 और 36 का अंतर:</p><div class="mix-math">\[
+45-36=9
+\]</div><p>60 और 45 का अंतर:</p><div class="mix-math">\[
+60-45=15
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=15:9=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(60-45):(45-36)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=15:9=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(60-45):(45-36)=15:9=5:3
+\]</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹36 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ spices ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹45 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 60</div><div>ਘੱਟ ਮੁੱਲ = 36</div><div>ਔਸਤ ਮੁੱਲ = 45</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">60</div><div class="mix-alligation-top-right">36</div><div class="mix-alligation-center">45</div><div class="mix-alligation-bottom-left">9</div><div class="mix-alligation-bottom-right">15</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>45 ਅਤੇ 36 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+45-36=9
+\]</div><p>60 ਅਤੇ 45 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+60-45=15
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=15:9=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(60-45):(45-36)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=15:9=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(60-45):(45-36)=15:9=5:3
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_price_blend_ratio topology=mixture_alligation:mix_two_price_blend_ratio difficulty=Easy
+
+Q20. A grocer mixes the given quantities. Pulses costing ₹25/kg and ₹45/kg are mixed so that the average cost becomes ₹32/kg. What is the mixing ratio?
+  A. 13:7
+  B. 7:13
+  C. 2:1
+  D. 13:8
+Answer: 13:7
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 45</div><div>Lower value = 25</div><div>Mean value = 32</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">45</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">32</div><div class="mix-alligation-bottom-left">7</div><div class="mix-alligation-bottom-right">13</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 32 and 25:</p><div class="mix-math">\[
+32-25=7
+\]</div><p>Difference between 45 and 32:</p><div class="mix-math">\[
+45-32=13
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(45-32):(32-25)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(45-32):(32-25)=13:7=13:7
+\]</div><p>Therefore, the required answer is 13:7. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 13:7. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹25 और ₹45 प्रति किग्रा वाले pulses को मिलाकर औसत मूल्य ₹32 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 45</div><div>कम मान = 25</div><div>औसत मान = 32</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">45</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">32</div><div class="mix-alligation-bottom-left">7</div><div class="mix-alligation-bottom-right">13</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>32 और 25 का अंतर:</p><div class="mix-math">\[
+32-25=7
+\]</div><p>45 और 32 का अंतर:</p><div class="mix-math">\[
+45-32=13
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(45-32):(32-25)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(45-32):(32-25)=13:7=13:7
+\]</div><p>इसलिए आवश्यक उत्तर 13:7 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 13:7 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹25 ਅਤੇ ₹45 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ pulses ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹32 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 45</div><div>ਘੱਟ ਮੁੱਲ = 25</div><div>ਔਸਤ ਮੁੱਲ = 32</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">45</div><div class="mix-alligation-top-right">25</div><div class="mix-alligation-center">32</div><div class="mix-alligation-bottom-left">7</div><div class="mix-alligation-bottom-right">13</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>32 ਅਤੇ 25 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+32-25=7
+\]</div><p>45 ਅਤੇ 32 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+45-32=13
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(45-32):(32-25)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=13:7=13:7
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(45-32):(32-25)=13:7=13:7
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 13:7 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 13:7 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=alligation_cheaper_dearer_ratio topology=mixture_alligation:alligation_cheaper_dearer_ratio difficulty=Easy

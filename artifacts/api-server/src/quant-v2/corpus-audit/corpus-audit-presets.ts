@@ -3,6 +3,9 @@ import { PROFIT_LOSS_FAMILY_IDS } from "../canonical/profit-loss-motif-factories
 import { INTEREST_FAMILY_IDS } from "../canonical/interest-motif-factories";
 import { RATIO_PROPORTION_FAMILY_IDS } from "../canonical/ratio-proportion-motif-factories";
 import { TIME_WORK_FAMILY_IDS } from "../canonical/time-work-motif-factories";
+import { TIME_SPEED_DISTANCE_FAMILY_IDS } from "../canonical/time-speed-distance-motif-factories";
+import { MIXTURE_ALLIGATION_FAMILY_IDS } from "../canonical/mixture-alligation-motif-factories";
+import { NUMBER_SYSTEM_FAMILY_IDS } from "../canonical/number-system-motif-factories";
 import {
   resolveQuantV2TopicForAuditPreset,
 } from "../../lib/quant-v2/migrated-quant-topics";
@@ -60,6 +63,39 @@ const rawCorpusAuditPresets = [
     examProfile: "ssc",
     seedPrefix: "time-work-audit",
     forcedMotifIds: [...TIME_WORK_FAMILY_IDS],
+    languages: ["en", "hi", "pa"],
+  },
+  {
+    id: "time_speed_distance_audit",
+    label: "Time, Speed & Distance Audit",
+    description:
+      "Comprehensive Time, Speed & Distance V2 corpus with journeys, relative motion, trains, boats, races, circular tracks, escalators, and PYQ+ traps.",
+    defaultCount: 1000,
+    examProfile: "ssc",
+    seedPrefix: "time-speed-distance-audit",
+    forcedMotifIds: [...TIME_SPEED_DISTANCE_FAMILY_IDS],
+    languages: ["en", "hi", "pa"],
+  },
+  {
+    id: "mixture_alligation_audit",
+    label: "Mixture & Alligation Audit",
+    description:
+      "Comprehensive Mixture & Alligation V2 corpus with alligation, weighted average, replacement, dilution, concentration, dealer, vessel, alloy, and PYQ+ trap families.",
+    defaultCount: 1000,
+    examProfile: "ssc",
+    seedPrefix: "mixture-alligation-audit",
+    forcedMotifIds: [...MIXTURE_ALLIGATION_FAMILY_IDS],
+    languages: ["en", "hi", "pa"],
+  },
+  {
+    id: "number_system_audit",
+    label: "Number System Audit",
+    description:
+      "Comprehensive Number System V2 corpus with divisibility, factors, HCF/LCM, remainders, last digits, digit logic, factorials, and modular reasoning.",
+    defaultCount: 1000,
+    examProfile: "ssc",
+    seedPrefix: "number-system-audit",
+    forcedMotifIds: [...NUMBER_SYSTEM_FAMILY_IDS],
     languages: ["en", "hi", "pa"],
   },
   {

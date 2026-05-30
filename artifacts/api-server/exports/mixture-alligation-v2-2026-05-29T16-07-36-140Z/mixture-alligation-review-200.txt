@@ -1,0 +1,57 @@
+Q1. A trader wants a coffee blend costing ₹65/kg by using grades priced at ₹50/kg and ₹90/kg. What ratio should he use?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 90</div><div>Lower value = 50</div><div>Mean value = 65</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">90</div><div class="mix-alligation-top-right">50</div><div class="mix-alligation-center">65</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 65 and 50:</p><div class="mix-math">\[
+65-50=15
+\]</div><p>Difference between 90 and 65:</p><div class="mix-math">\[
+90-65=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(90-65):(65-50)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(90-65):(65-50)=25:15=5:3
+\]</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 5:3. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹50 और ₹90 प्रति किग्रा वाले coffee को मिलाकर औसत मूल्य ₹65 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 90</div><div>कम मान = 50</div><div>औसत मान = 65</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">90</div><div class="mix-alligation-top-right">50</div><div class="mix-alligation-center">65</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>65 और 50 का अंतर:</p><div class="mix-math">\[
+65-50=15
+\]</div><p>90 और 65 का अंतर:</p><div class="mix-math">\[
+90-65=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(90-65):(65-50)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(90-65):(65-50)=25:15=5:3
+\]</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 5:3 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹50 ਅਤੇ ₹90 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ coffee ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹65 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 90</div><div>ਘੱਟ ਮੁੱਲ = 50</div><div>ਔਸਤ ਮੁੱਲ = 65</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">90</div><div class="mix-alligation-top-right">50</div><div class="mix-alligation-center">65</div><div class="mix-alligation-bottom-left">15</div><div class="mix-alligation-bottom-right">25</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>65 ਅਤੇ 50 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+65-50=15
+\]</div><p>90 ਅਤੇ 65 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+90-65=25
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(90-65):(65-50)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=25:15=5:3
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(90-65):(65-50)=25:15=5:3
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 5:3 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_price_blend_ratio topology=mixture_alligation:mix_two_price_blend_ratio difficulty=Easy

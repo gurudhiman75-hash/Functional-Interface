@@ -28,7 +28,7 @@ const MATH_JAX_CONFIG = {
     packages: { "[+]": ["ams", "boldsymbol"] },
   },
   options: {
-    ignoreHtmlClass: "punjabi-text|punjabi-content",
+    ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "math-only",
   },
 };

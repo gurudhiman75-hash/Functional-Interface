@@ -1,0 +1,57 @@
+Q1. A store prepares a dry fruit mixture of average price ₹76/kg from two lots costing ₹64/kg and ₹100/kg. In what ratio are the lots mixed?
+  A. 2:1
+  B. 1:2
+  C. 3:1
+  D. 1:1
+Answer: 2:1
+Explanation:
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">Concept</div><p>This is an alligation question. The required mean lies between the lower and higher values, so the quantities must balance the two gaps from the mean.</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">Given</div><div class="mix-given-list"><div>Higher value = 100</div><div>Lower value = 64</div><div>Mean value = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">Alligation Diagram</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Cross Differences</div><p>Difference between 76 and 64:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>Difference between 100 and 76:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Interpret Ratio</div><p>Opposite differences give the required quantity ratio.</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">Working</div><p>The mean lies between the two prices, so compare each price with the mean.</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>Simplify the alligation ratio.</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">Shortcut / Exam Method</div><p>Write the opposite differences directly.</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>Therefore, the required answer is 2:1. Hence, the correct answer is Option (A).</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">Final Answer</div><p>Therefore, the required answer is 2:1. Hence, the correct answer is Option (A).</p></div></div>
+Hindi:
+₹64 और ₹100 प्रति किग्रा वाले dry fruit को मिलाकर औसत मूल्य ₹76 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">विचार</div><p>यह मिश्रण-विधि का प्रश्न है। आवश्यक औसत कम और अधिक मान के बीच है, इसलिए मात्राएँ औसत से बने दोनों अंतरों को संतुलित करती हैं।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">दिया गया</div><div class="mix-given-list"><div>अधिक मान = 100</div><div>कम मान = 64</div><div>औसत मान = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">मिश्रण आरेख</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">क्रॉस अंतर</div><p>76 और 64 का अंतर:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>100 और 76 का अंतर:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">अनुपात का अर्थ</div><p>उलटे अंतर आवश्यक मात्राओं का अनुपात देते हैं।</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">हल</div><p>औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>मिश्रण अनुपात सरल करें।</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">शॉर्टकट / परीक्षा विधि</div><p>विपरीत अंतर सीधे लिखें।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>इसलिए आवश्यक उत्तर 2:1 है। अतः सही उत्तर विकल्प (A) है।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">अंतिम उत्तर</div><p>इसलिए आवश्यक उत्तर 2:1 है। अतः सही उत्तर विकल्प (A) है।</p></div></div>
+Punjabi:
+₹64 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ dry fruit ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹76 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+<div class="mix-explanation-page"><div class="mix-explanation-block mix-concept"><div class="mix-block-title">ਵਿਚਾਰ</div><p>ਇਹ ਐਲੀਗੇਸ਼ਨ ਤਰੀਕੇ ਦਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਲੋੜੀਂਦਾ ਔਸਤ ਘੱਟ ਅਤੇ ਵੱਧ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਾਤਰਾਵਾਂ ਔਸਤ ਤੋਂ ਬਣੇ ਦੋਵੇਂ ਫਰਕ ਸੰਤੁਲਿਤ ਕਰਦੀਆਂ ਹਨ।</p></div><div class="mix-explanation-block mix-given"><div class="mix-block-title">ਦਿੱਤਾ ਗਿਆ</div><div class="mix-given-list"><div>ਵੱਧ ਮੁੱਲ = 100</div><div>ਘੱਟ ਮੁੱਲ = 64</div><div>ਔਸਤ ਮੁੱਲ = 76</div></div></div><div class="mix-explanation-block mix-diagram-block"><div class="mix-block-title">ਐਲੀਗੇਸ਼ਨ ਚਿੱਤਰ</div><div class="mix-alligation-diagram"><div class="mix-alligation-top-left">100</div><div class="mix-alligation-top-right">64</div><div class="mix-alligation-center">76</div><div class="mix-alligation-bottom-left">12</div><div class="mix-alligation-bottom-right">24</div><div class="mix-alligation-line mix-alligation-line-a"></div><div class="mix-alligation-line mix-alligation-line-b"></div><div class="mix-alligation-line mix-alligation-line-c"></div><div class="mix-alligation-line mix-alligation-line-d"></div></div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਕ੍ਰਾਸ ਫਰਕ</div><p>76 ਅਤੇ 64 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+76-64=12
+\]</div><p>100 ਅਤੇ 76 ਦਾ ਫਰਕ:</p><div class="mix-math">\[
+100-76=24
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਅਨੁਪਾਤ ਦਾ ਅਰਥ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+C_q:D_q=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-working"><div class="mix-block-title">ਹੱਲ</div><p>ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।</p><div class="mix-math">\[
+C:D=(100-76):(76-64)
+\]</div><p>ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।</p><div class="mix-math">\[
+C:D=24:12=2:1
+\]</div></div><div class="mix-explanation-block mix-shortcut"><div class="mix-block-title">ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ</div><p>ਉਲਟੇ ਫਰਕਾਂ ਤੋਂ ਮਾਤਰਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।</p><div class="mix-math">\[
+(D-M):(M-C)
+\]</div><div class="mix-math">\[
+(100-76):(76-64)=24:12=2:1
+\]</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 2:1 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div><div class="mix-explanation-block mix-answer"><div class="mix-block-title">ਅੰਤਿਮ ਉੱਤਰ</div><p>ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਜਵਾਬ 2:1 ਹੈ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।</p></div></div>
+Meta: family=mix_two_price_blend_ratio topology=mixture_alligation:mix_two_price_blend_ratio difficulty=Easy

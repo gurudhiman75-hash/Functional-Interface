@@ -214,6 +214,18 @@ type AdapterDependencies = {
     pattern: Pattern,
     options?: GeneratorOptions,
   ) => FormulaQuestion;
+  createQuantV2TimeSpeedDistanceQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
+  createQuantV2MixtureAlligationQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
+  createQuantV2NumberSystemQuestionCandidate: (
+    pattern: Pattern,
+    options?: GeneratorOptions,
+  ) => FormulaQuestion;
   createDIQuestionSet: (
     pattern: Pattern,
     options?: GeneratorOptions,
@@ -1660,6 +1672,36 @@ export function createDomainAdapters(
     "quant-v2-time-work": buildQuestionAdapter(
       "quant-v2-time-work",
       deps.createQuantV2TimeWorkQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 12,
+        minAttempts: 20,
+        difficultyContribution:
+          buildQuantDifficultyContribution,
+      },
+    ),
+    "quant-v2-time-speed-distance": buildQuestionAdapter(
+      "quant-v2-time-speed-distance",
+      deps.createQuantV2TimeSpeedDistanceQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 12,
+        minAttempts: 20,
+        difficultyContribution:
+          buildQuantDifficultyContribution,
+      },
+    ),
+    "quant-v2-mixture-alligation": buildQuestionAdapter(
+      "quant-v2-mixture-alligation",
+      deps.createQuantV2MixtureAlligationQuestionCandidate,
+      {
+        maxAttemptsMultiplier: 12,
+        minAttempts: 20,
+        difficultyContribution:
+          buildQuantDifficultyContribution,
+      },
+    ),
+    "quant-v2-number-system": buildQuestionAdapter(
+      "quant-v2-number-system",
+      deps.createQuantV2NumberSystemQuestionCandidate,
       {
         maxAttemptsMultiplier: 12,
         minAttempts: 20,

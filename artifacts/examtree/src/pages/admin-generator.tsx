@@ -455,6 +455,8 @@ type GenerationDebugMetadata = {
     | "quant-v2-interest"
     | "quant-v2-ratio-proportion"
     | "quant-v2-time-work"
+    | "quant-v2-time-speed-distance"
+    | "quant-v2-mixture-alligation"
     | "reasoning"
     | "english"
     | "punjabi"
@@ -1003,6 +1005,20 @@ type SchedulerProfileId =
   | "time_work_pyq_plus"
   | "time_work_review_100"
   | "time_work_production_60"
+  | "tsd_basic"
+  | "tsd_balanced"
+  | "tsd_hard"
+  | "tsd_pyq_plus"
+  | "tsd_review_100"
+  | "tsd_review_200"
+  | "tsd_production_60"
+  | "mix_basic"
+  | "mix_balanced"
+  | "mix_hard"
+  | "mix_pyq_plus"
+  | "mix_review_100"
+  | "mix_review_200"
+  | "mix_production_60"
   | "advanced_coverage_audit";
 
 type CorpusAuditTopicId =
@@ -1010,7 +1026,9 @@ type CorpusAuditTopicId =
   | "profit_loss"
   | "interest"
   | "ratio_proportion"
-  | "time_work";
+  | "time_work"
+  | "time_speed_distance"
+  | "mixture_alligation";
 
 type SchedulerSummary = {
   profileId: SchedulerProfileId;
@@ -3432,13 +3450,21 @@ const QUANT_V2_CORPUS_AUDIT_TOPICS: Array<{
     id: "time_work",
     label: "Time & Work / Pipes",
   },
+  {
+    id: "time_speed_distance",
+    label: "Time, Speed & Distance",
+  },
+  {
+    id: "mixture_alligation",
+    label: "Mixture & Alligation",
+  },
 ];
 
 const SCHEDULER_PROFILE_OPTIONS: Array<{
   id: SchedulerProfileId;
   label: string;
   description: string;
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work";
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation";
 }> = [
   {
     id: "balanced_mock",
@@ -3619,6 +3645,90 @@ const SCHEDULER_PROFILE_OPTIONS: Array<{
     topicId: "time_work",
     label: "Time Work Production 60",
     description: "Production 60Q Time & Work V2 broad coverage.",
+  },
+  {
+    id: "tsd_basic",
+    topicId: "time_speed_distance",
+    label: "TSD Basic",
+    description: "Core Time, Speed & Distance V2 profile without direct formula drills.",
+  },
+  {
+    id: "tsd_balanced",
+    topicId: "time_speed_distance",
+    label: "TSD Balanced",
+    description: "Balanced Time, Speed & Distance V2 rotation across journeys, trains, boats, races, and circular motion.",
+  },
+  {
+    id: "tsd_hard",
+    topicId: "time_speed_distance",
+    label: "TSD Hard",
+    description: "Hard Time, Speed & Distance V2 profile with traps, hidden values, trains, races, circular tracks, and escalators.",
+  },
+  {
+    id: "tsd_pyq_plus",
+    topicId: "time_speed_distance",
+    label: "TSD PYQ+",
+    description: "Advanced PYQ+ Time, Speed & Distance V2 trap profile.",
+  },
+  {
+    id: "tsd_review_100",
+    topicId: "time_speed_distance",
+    label: "TSD Review 100",
+    description: "100Q review coverage for Time, Speed & Distance V2 motifs.",
+  },
+  {
+    id: "tsd_review_200",
+    topicId: "time_speed_distance",
+    label: "TSD Review 200",
+    description: "200Q review coverage for Time, Speed & Distance V2 Phase A/B motifs.",
+  },
+  {
+    id: "tsd_production_60",
+    topicId: "time_speed_distance",
+    label: "TSD Production 60",
+    description: "Production 60Q Time, Speed & Distance V2 broad coverage.",
+  },
+  {
+    id: "mix_basic",
+    topicId: "mixture_alligation",
+    label: "Mixture Basic",
+    description: "Core Mixture & Alligation V2 profile.",
+  },
+  {
+    id: "mix_balanced",
+    topicId: "mixture_alligation",
+    label: "Mixture Balanced",
+    description: "Balanced Mixture & Alligation V2 rotation.",
+  },
+  {
+    id: "mix_hard",
+    topicId: "mixture_alligation",
+    label: "Mixture Hard",
+    description: "Hard Mixture & Alligation V2 profile.",
+  },
+  {
+    id: "mix_pyq_plus",
+    topicId: "mixture_alligation",
+    label: "Mixture PYQ+",
+    description: "Advanced PYQ+ Mixture & Alligation V2 trap profile.",
+  },
+  {
+    id: "mix_review_100",
+    topicId: "mixture_alligation",
+    label: "Mixture Review 100",
+    description: "100Q review coverage for Mixture & Alligation V2.",
+  },
+  {
+    id: "mix_review_200",
+    topicId: "mixture_alligation",
+    label: "Mixture Review 200",
+    description: "200Q review coverage for Mixture & Alligation V2.",
+  },
+  {
+    id: "mix_production_60",
+    topicId: "mixture_alligation",
+    label: "Mixture Production 60",
+    description: "Production 60Q Mixture & Alligation V2 broad coverage.",
   },
 ];
 
@@ -7009,6 +7119,17 @@ function isTimeWorkRegistryPattern(
   return /\btime[-_\s]*(?:and\s*)?work\b|pipes?[-_\s]*(?:and\s*)?cisterns?|work[-_\s]*wages?/u.test(text);
 }
 
+function isTimeSpeedDistanceRegistryPattern(
+  pattern?: {
+    id?: string;
+    topic?: string;
+    label?: string;
+  } | null,
+) {
+  const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
+  return /\btime[-_\s,]*speed[-_\s]*(?:and\s*)?distance\b|\bspeed[-_\s]*distance\b|\btrains?\b|\bboats?\b|\braces?\b|circular[-_\s]*track|escalator|moving[-_\s]*walkway/u.test(text);
+}
+
 function quantV2TopicIdForRegistryPattern(
   pattern?: {
     id?: string;
@@ -7028,6 +7149,12 @@ function quantV2TopicIdForRegistryPattern(
   if (isTimeWorkRegistryPattern(pattern)) {
     return "time_work" as const;
   }
+  if (isTimeSpeedDistanceRegistryPattern(pattern)) {
+    return "time_speed_distance" as const;
+  }
+  if (String(pattern?.generationDomain ?? "") === "quant-v2-mixture-alligation") {
+    return "mixture_alligation" as const;
+  }
   const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
   if (/\bpercent(age|ages)?\b/u.test(text)) {
     return "percentage" as const;
@@ -7036,7 +7163,7 @@ function quantV2TopicIdForRegistryPattern(
 }
 
 function schedulerOptionsForTopic(
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work",
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation",
 ) {
   return topicId
     ? SCHEDULER_PROFILE_OPTIONS.filter(
@@ -7047,7 +7174,7 @@ function schedulerOptionsForTopic(
 }
 
 function defaultSchedulerProfileForTopic(
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work",
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation",
 ) {
   return (
     schedulerOptionsForTopic(topicId)[0]?.id ??
@@ -7069,6 +7196,12 @@ function corpusAuditTopicLabel(
   }
   if (topicId === "time_work") {
     return "Time & Work / Pipes";
+  }
+  if (topicId === "time_speed_distance") {
+    return "Time, Speed & Distance";
+  }
+  if (topicId === "mixture_alligation") {
+    return "Mixture & Alligation";
   }
   return "Percentage";
 }

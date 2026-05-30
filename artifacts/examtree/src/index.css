@@ -36,6 +36,146 @@
   border-radius: 999px;
 }
 
+.mix-explanation-page {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 46rem;
+}
+
+.mix-explanation-block {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  background: hsl(var(--card));
+  padding: 0.85rem 1rem;
+}
+
+.mix-block-title {
+  margin-bottom: 0.45rem;
+  color: hsl(var(--foreground));
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.mix-explanation-block p {
+  margin: 0.35rem 0;
+}
+
+.mix-given-list {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+}
+
+.mix-math {
+  margin: 0.45rem 0;
+}
+
+.mix-shortcut {
+  border-color: rgba(22, 163, 74, 0.35);
+  background: rgba(240, 253, 244, 0.78);
+}
+
+.dark .mix-shortcut {
+  background: rgba(20, 83, 45, 0.18);
+}
+
+.mix-answer {
+  border-color: rgba(37, 99, 235, 0.35);
+  background: rgba(239, 246, 255, 0.82);
+}
+
+.dark .mix-answer {
+  background: rgba(30, 64, 175, 0.18);
+}
+
+.mix-alligation-diagram {
+  position: relative;
+  width: min(20rem, 100%);
+  height: 11rem;
+  margin: 0.15rem auto 0.35rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+
+.mix-alligation-top-left,
+.mix-alligation-top-right,
+.mix-alligation-center,
+.mix-alligation-bottom-left,
+.mix-alligation-bottom-right {
+  position: absolute;
+  min-width: 3rem;
+  z-index: 1;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.1rem 0.25rem;
+  text-align: center;
+  box-shadow: none;
+}
+
+.mix-alligation-top-left {
+  left: 12%;
+  top: 0;
+}
+
+.mix-alligation-top-right {
+  right: 12%;
+  top: 0;
+}
+
+.mix-alligation-center {
+  left: 50%;
+  top: 43%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: hsl(var(--background));
+  padding-inline: 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.mix-alligation-bottom-left {
+  left: 16%;
+  bottom: 0.2rem;
+  color: rgb(22, 101, 52);
+}
+
+.mix-alligation-bottom-right {
+  right: 16%;
+  bottom: 0.2rem;
+  color: rgb(22, 101, 52);
+}
+
+.mix-alligation-line {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  z-index: 0;
+  height: 1px;
+  width: 5.9rem;
+  background: hsl(var(--foreground));
+  opacity: 0.7;
+  transform-origin: left center;
+}
+
+.mix-alligation-line-a {
+  transform: rotate(-145deg);
+}
+
+.mix-alligation-line-b {
+  transform: rotate(-35deg);
+}
+
+.mix-alligation-line-c {
+  transform: rotate(145deg);
+}
+
+.mix-alligation-line-d {
+  transform: rotate(35deg);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -1,0 +1,12 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-05-27-221526
+Run: run-7f01b641-dd26-4c16-b0db-fcea40a2ac84
+Seed: time-work-audit:run-7f01b641-dd26-4c16-b0db-fcea40a2ac84
+Explicit seed: no
+Preset: time_work_audit
+Profile: multilingual_review
+Count: 100
+Estimated Size: ~2.3 MB
+Multilingual explanations: yes
+

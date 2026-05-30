@@ -36,6 +36,15 @@ const ADVANCED_RATIO_PROPORTION_PATTERNS =
 const ADVANCED_TIME_WORK_PATTERNS =
   /cycle|leave|join|phase|replacement|pairwise|unknown|helper|contract|leak|overflow|resource|negative|decay|schedule|deadline|hidden/u;
 
+const ADVANCED_TIME_SPEED_DISTANCE_PATTERNS =
+  /hidden|dual|post_meeting|time_gap|circular|escalator|dead_heat|two_stage|staggered|constant_distance|train_/u;
+
+const ADVANCED_MIXTURE_ALLIGATION_PATTERNS =
+  /replacement|dealer|vessel|density|alloy|nested|constraint|target|evaporation|fresh_dry|three|compound|taxation/u;
+
+const ADVANCED_NUMBER_SYSTEM_PATTERNS =
+  /multi_cluster|hidden_number_theory|prime_remainder|remainder_factor|nested_remainder|factor_hcf_hybrid|cyclic_pattern|modular|last_three|power_tower|factorial_remainder|multi_condition|large_expression/u;
+
 const INVERSE_OR_HIDDEN =
   /reverse|inverse|hidden|target|recover|required|difference|calibration|from_difference|back_calc|mixed_baseline/u;
 
@@ -117,6 +126,24 @@ function inferDifficulty(input: PyqBenchmarkInput, steps: number): PyqDifficulty
     return steps >= 4 ? "advanced" : "hard";
   }
   if (
+    input.topic === "time-speed-distance" &&
+    ADVANCED_TIME_SPEED_DISTANCE_PATTERNS.test(text)
+  ) {
+    return steps >= 4 ? "advanced" : "hard";
+  }
+  if (
+    input.topic === "mixture-alligation" &&
+    ADVANCED_MIXTURE_ALLIGATION_PATTERNS.test(text)
+  ) {
+    return steps >= 3 ? "advanced" : "hard";
+  }
+  if (
+    input.topic === "number-system" &&
+    ADVANCED_NUMBER_SYSTEM_PATTERNS.test(text)
+  ) {
+    return steps >= 3 ? "advanced" : "hard";
+  }
+  if (
     input.topic === "percentage" &&
     ADVANCED_PERCENTAGE_FAMILIES.has(input.family)
   ) {
@@ -150,6 +177,10 @@ function semanticTrapTypes(input: PyqBenchmarkInput) {
   if (/side|area|volume|similar/iu.test(text)) inferred.push("wrong geometry scaling power");
   if (/transfer|given by A to B|after.*given/iu.test(text)) inferred.push("transfer direction error");
   if (/time[-_ ]?work|pipe|cistern|leak|tank|worker|work|wage|cycle|alternate|food|resource/iu.test(text)) inferred.push("rate-state sign or unit-work confusion");
+  if (/time[-_ ]?speed|distance|train|platform|bridge|boat|stream|race|circular|escalator|catch|meet|average speed/iu.test(text)) inferred.push("relative speed or unit conversion confusion");
+  if (/train|platform|bridge|length/iu.test(text)) inferred.push("forgetting effective crossing length");
+  if (/boat|upstream|downstream|stream/iu.test(text)) inferred.push("upstream/downstream speed confusion");
+  if (/race|beats|lead/iu.test(text)) inferred.push("race lead mapped to wrong speed ratio");
   if (/leak|empty|drain/iu.test(text)) inferred.push("adding emptying rate instead of subtracting");
   if (/alternate|cycle|rest/iu.test(text)) inferred.push("terminal cycle boundary error");
   if (/wage|helper|contract/iu.test(text)) inferred.push("wage share by time instead of contribution");

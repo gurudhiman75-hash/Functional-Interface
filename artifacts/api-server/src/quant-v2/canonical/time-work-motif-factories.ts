@@ -282,7 +282,7 @@ export const TIME_WORK_MOTIF_SPECS: Record<TimeWorkFamilyId, MotifSpec> = {
   tw_wage_partial_time: spec("tw_wage_partial_time", "partialTimeWage", "easy", "wage", "Share\\propto t", "With equal efficiency, wages follow days worked.", ["splits equally"]),
   tw_wage_efficiency_ratio: spec("tw_wage_efficiency_ratio", "efficiencyTimeWage", "medium", "wage", "W_A:W_B=E_At_A:E_Bt_B", "Multiply efficiency ratio by time ratio.", ["uses efficiency only"]),
   tw_contract_penalty_bonus: spec("tw_contract_penalty_bonus", "contractBonus", "medium", "wage", "Earning=base\\pm adjustment", "Find completion difference before applying bonus or penalty.", ["applies bonus before completion"]),
-  tw_work_quality_rejection: spec("tw_work_quality_rejection", "qualityRejection", "medium", "wage", "Accepted=Produced\\times acceptance\\ rate", "Use accepted output, not gross output.", ["uses gross output"]),
+  tw_work_quality_rejection: spec("tw_work_quality_rejection", "qualityRejection", "medium", "wage", "O_a=O_g\\times p", "Use accepted output, not gross output.", ["uses gross output"]),
   pc_basic_fill_empty: spec("pc_basic_fill_empty", "pipeNet", "medium", "pipe", "r=\\frac{1}{F}-\\frac{1}{E}", "Filler is positive; leak is negative.", ["adds leak"]),
   pc_two_fillers_one_empty: spec("pc_two_fillers_one_empty", "twoFillersLeak", "medium", "pipe", "r=\\frac{1}{A}+\\frac{1}{B}-\\frac{1}{C}", "Add filling pipes and subtract the emptying pipe.", ["subtracts filler"]),
   pc_leak_hidden_rate: spec("pc_leak_hidden_rate", "hiddenLeak", "medium", "pipe", "\\frac{1}{L}=\\frac{1}{F}-\\frac{1}{T}", "Leak rate is the difference between normal and leaked fill rates.", ["subtracts times"]),
@@ -293,7 +293,7 @@ export const TIME_WORK_MOTIF_SPECS: Record<TimeWorkFamilyId, MotifSpec> = {
   pc_tank_capacity_from_rate: spec("pc_tank_capacity_from_rate", "tankCapacity", "easy", "pipe", "C=rt", "Capacity is flow rate times time.", ["unit mismatch"]),
   pc_multiple_pipes_timing: spec("pc_multiple_pipes_timing", "pipeTimings", "hard", "pipe", "W=\\sum r_it_i", "Use a timeline table for open and closed pipes.", ["all pipes active full time"]),
   pc_two_tanks_transfer: spec("pc_two_tanks_transfer", "twoTankTransfer", "medium", "pipe", "V=rt", "Transferred water leaves one tank and enters another.", ["treats as simple filling only"]),
-  pc_overflow_waste_rate: spec("pc_overflow_waste_rate", "overflow", "medium", "pipe", "Waste=r\\times extra\\ time", "After the tank is full, extra inflow is waste.", ["counts all inflow as stored"]),
+  pc_overflow_waste_rate: spec("pc_overflow_waste_rate", "overflow", "medium", "pipe", "W_e=rt_e", "After the tank is full, extra inflow is waste.", ["counts all inflow as stored"]),
   pc_partial_tank_initially_filled: spec("pc_partial_tank_initially_filled", "partialTank", "medium", "pipe", "T=\\frac{1-f}{r}", "Fill only the remaining fraction.", ["fills full tank"]),
   pc_leak_starts_after_fill: spec("pc_leak_starts_after_fill", "delayedLeak", "hard", "pipe", "W_1=r_Ft_1,\\ T_2=\\frac{1-W_1}{r_F-r_L}", "Use filler alone first, then filler-leak net rate.", ["leak from beginning"]),
   pc_pipe_closed_before_completion: spec("pc_pipe_closed_before_completion", "pipeClosure", "medium", "pipe", "W=r_1t_1+r_2t_2", "Split before and after pipe closure.", ["pipe active throughout"]),
@@ -613,7 +613,7 @@ function naturalTimeWorkStem(
     return stemFrom(seed, [
       `A can complete a piece of work in ${a} days and B can complete the same work in ${b} days. In how many days will they complete it working together`,
       `A alone finishes a job in ${a} days, while B alone finishes it in ${b} days. How many days will the job take if both work together`,
-      `One worker can do a job in ${a} days and another can do it in ${b} days. How long will they take together`,
+      `One worker can do a job in ${a} days and another can do it in ${b} days. In how many days will they complete it together`,
       `A takes ${a} days to finish a work and B takes ${b} days for the same work. In how many days can A and B finish it together`,
       `If A can complete a work in ${a} days and B can complete it in ${b} days, how many days are needed when both work at the same time`,
       `A and B can separately complete a job in ${a} days and ${b} days. What is the time taken when they work together`,
@@ -683,7 +683,7 @@ function naturalTimeWorkStem(
     return stemFrom(seed, [
       `A completes ${fraction} of a job in ${days} days. In how many days will A complete the whole job`,
       `A worker finishes ${fraction} of a work in ${days} days. How many days are needed for the full work`,
-      `If ${fraction} of a piece of work takes ${days} days, how long will the entire work take`,
+      `If ${fraction} of a piece of work takes ${days} days, in how many days will the entire work be completed`,
       `A does ${fraction} of a job in ${days} days. What is the time required for the complete job`,
       `A can finish ${fraction} of a work in ${days} days. In how many days can A finish all of it`,
       `The fraction ${fraction} of a job is completed in ${days} days. How many days will the whole job take`,
@@ -709,7 +709,7 @@ function naturalTimeWorkStem(
       `The efficiencies of A and B are in the ratio ${a}:${b}. Together they complete a work in ${togetherTime} days. In how many days can A alone complete the work`,
       `A and B have efficiencies in the ratio ${a}:${b}. If they finish a job together in ${togetherTime} days, how many days will A alone take`,
       `The efficiency ratio of A to B is ${a}:${b}. They complete the work together in ${togetherTime} days. In how many days can A do it alone`,
-      `Two workers A and B have efficiencies ${a}:${b}. If both together finish the job in ${togetherTime} days, how long will A alone take`,
+      `Two workers A and B have efficiencies ${a}:${b}. If both together finish the job in ${togetherTime} days, in how many days can A alone finish it`,
       `A and B together complete a work in ${togetherTime} days. Their efficiencies are in the ratio ${a}:${b}. In how many days can A alone complete it`,
       `A and B finish a work together in ${togetherTime} days, and their efficiency ratio is ${a}:${b}. How many days will A alone need`,
     ], [
@@ -732,7 +732,7 @@ function naturalTimeWorkStem(
       `A and B together can complete a work in ${combinedTime} days. A alone can complete it in ${known} days. In how many days will B alone complete it`,
       `A alone finishes a job in ${known} days, while A and B together finish it in ${combinedTime} days. How many days will B alone take`,
       `A can do a work in ${known} days. With B, the same work is completed in ${combinedTime} days. In how many days can B alone complete it`,
-      `The job takes ${combinedTime} days when A and B work together. If A alone takes ${known} days, how long will B alone take`,
+      `The job takes ${combinedTime} days when A and B work together. If A alone takes ${known} days, in how many days can B alone finish it`,
       `A needs ${known} days for a work and A with B needs ${combinedTime} days. In how many days can B do the work alone`,
       `A and B together finish a job in ${combinedTime} days. A alone takes ${known} days. How many days will B alone take`,
     ], [
@@ -759,7 +759,7 @@ function naturalTimeWorkStem(
         `A and B have efficiencies in the ratio ${a}:${b}. Find the ratio of their completion times`,
         `If the efficiency ratio A:B is ${a}:${b}, what will be the time ratio A:B for the same job`,
         `For the same work, the efficiencies of A and B are ${a}:${b}. What is the ratio of their times`,
-        `A and B's efficiencies are ${a}:${b}. Find the ratio of time taken by them separately`,
+        `A and B's efficiencies are ${a}:${b}. What is the ratio of days required by A and B separately`,
         `Two workers have efficiencies ${a}:${b}. What is the ratio of days required by them separately`,
       ], [
         `A और B की कार्य क्षमता का अनुपात ${a}:${b} है। समान काम के लिए उनके समय का अनुपात क्या होगा`,
@@ -775,11 +775,11 @@ function naturalTimeWorkStem(
     }
     return stemFrom(seed, [
       `A can complete a work in ${a} days and B can complete it in ${b} days. In the same number of days, what is the ratio of the work done by A and B`,
-      `A alone takes ${a} days and B alone takes ${b} days for the same job. What is their work ratio for equal time`,
+      `A alone takes ${a} days and B alone takes ${b} days for the same job. What is the ratio of work done by A and B in the same time`,
       `A alone can complete a work in ${a} days and B alone in ${b} days. What is the ratio of work done by them in the same time`,
-      `A finishes a job in ${a} days and B in ${b} days. What is A:B work ratio over the same duration`,
+      `A finishes a job in ${a} days and B in ${b} days. What is the ratio of work done by A and B in the same time`,
       `If A's time is ${a} days and B's time is ${b} days, what ratio of work will they do in equal time`,
-      `A and B complete the same work separately in ${a} and ${b} days. What is their contribution ratio for one day`,
+      `A and B complete the same work separately in ${a} and ${b} days. What is the ratio of work done by A and B in one day`,
     ], [
       `A काम ${a} दिन में और B ${b} दिन में पूरा करता है। समान समय में उनके काम का अनुपात क्या होगा`,
       `A अकेला ${a} दिन और B अकेला ${b} दिन लेता है। बराबर समय में काम का अनुपात ज्ञात करें`,
@@ -798,11 +798,11 @@ function naturalTimeWorkStem(
     const a = values[0] ?? 300;
     const b = values[1] ?? 500;
     return stemFrom(seed, [
-      `A and B work for the same number of days and receive ₹${a} and ₹${b}. If wages are proportional to work done, what is A:B work ratio`,
+      `A and B work for the same number of days and receive ₹${a} and ₹${b}. If wages are proportional to work done, what is the ratio of work done by A and B in the same time`,
       `For equal working time, A is paid ₹${a} and B is paid ₹${b}. What is the ratio of their work`,
-      `A and B earn ₹${a} and ₹${b} for the same duration of work. Find their work ratio`,
-      `Two workers work for equal time. Their wages are ₹${a} and ₹${b}. What is their contribution ratio`,
-      `A gets ₹${a} and B gets ₹${b} for equal time on the same job. What is A:B work ratio`,
+      `A and B earn ₹${a} and ₹${b} for the same duration of work. What is the ratio of work done by A and B`,
+      `Two workers work for equal time. Their wages are ₹${a} and ₹${b}. What is the ratio of work done by A and B`,
+      `A gets ₹${a} and B gets ₹${b} for equal time on the same job. What is the ratio of work done by A and B in the same time`,
       `If wages for equal time are ₹${a} and ₹${b} for A and B, what is their work ratio`,
     ], [
       `A और B समान दिन काम करते हैं और उन्हें ₹${a} तथा ₹${b} मिलते हैं। काम के अनुपात में मजदूरी हो तो A:B काम अनुपात क्या होगा`,
@@ -829,7 +829,7 @@ function naturalTimeWorkStem(
       `${m1} ${noun} can ${job} in ${d1} days by working ${h1} hours a day. How many workers are needed to finish it in ${d2} days by working ${h2} hours a day`,
       `A job is finished by ${m1} workers in ${d1} days when each works ${h1} hours daily. How many workers are needed for ${d2} days at ${h2} hours daily`,
       `${m1} workers working ${h1} hours per day finish the job in ${d1} days. If the daily working time is ${h2} hours, how many workers are needed to finish it in ${d2} days`,
-      `${m1} workers complete the same job in ${d1} days at ${h1} hours a day. What number of workers will complete it in ${d2} days at ${h2} hours a day`,
+      `${m1} workers complete the same job in ${d1} days at ${h1} hours a day. How many workers are required to complete the same job in ${d2} days at ${h2} hours a day`,
       `A work requires ${m1} workers for ${d1} days with ${h1} working hours per day. How many workers will be needed for ${d2} days with ${h2} hours per day`,
       `${m1} workers finish a job in ${d1} days, working ${h1} hours daily. How many workers should work ${h2} hours daily to finish it in ${d2} days`,
     ], [
@@ -856,11 +856,11 @@ function naturalTimeWorkStem(
       const a = timeFrom(totalWork, doneRate);
       const b = timeFrom(totalWork, remainingRate - doneRate);
       return stemFrom(seed, [
-        `A can complete a work in ${a} days and B can complete it in ${b} days. A starts alone, and after ${doneTime} days B joins him. In how many days from the start will the whole work be completed`,
+        `A can complete a work in ${a} days and B can complete it in ${b} days. A starts alone, and after ${doneTime} days B joins him. In how many days will the whole work be completed`,
         `A alone takes ${a} days and B alone takes ${b} days. A works alone for ${doneTime} days, then B joins. How many days will the job take in all`,
-        `A begins a job alone. A can finish it in ${a} days and B can finish it in ${b} days. If B joins after ${doneTime} days, when will the job be completed from the start`,
+        `A begins a job alone. A can finish it in ${a} days and B can finish it in ${b} days. If B joins after ${doneTime} days, how many days will the job take in all`,
         `A starts a work and B joins after ${doneTime} days. A and B can finish the work alone in ${a} and ${b} days. What is the total time taken`,
-        `A works alone for ${doneTime} days on a job. A's time is ${a} days and B's time is ${b} days. How many days are needed from the start if B joins afterward`,
+        `A works alone for ${doneTime} days on a job. A's time is ${a} days and B's time is ${b} days. How many days are needed in all if B joins afterward`,
         `A can do a work in ${a} days and B in ${b} days. After A works for ${doneTime} days alone, both work together. In how many days is the work completed`,
       ], [
         `A काम ${a} दिन में और B ${b} दिन में पूरा करता है। A अकेला शुरू करता है और ${doneTime} दिन बाद B जुड़ता है। शुरू से कुल कितने दिन लगेंगे`,
@@ -880,10 +880,10 @@ function naturalTimeWorkStem(
       const a = timeFrom(totalWork, aRate);
       const b = timeFrom(totalWork, bRate);
       return stemFrom(seed, [
-        `A and B start a work together. A can complete it in ${a} days and B in ${b} days. After ${doneTime} days, A leaves. In how many days from the start will the work be completed`,
-        `A and B begin a job together. A alone needs ${a} days and B alone needs ${b} days. A leaves after ${doneTime} days. In how many days will the job be completed from the start`,
+        `A and B start a work together. A can complete it in ${a} days and B in ${b} days. After ${doneTime} days, A leaves. In how many days will the work be completed in all`,
+        `A and B begin a job together. A alone needs ${a} days and B alone needs ${b} days. A leaves after ${doneTime} days. In how many days will the job be completed in all`,
         `A can finish a work in ${a} days and B in ${b} days. They work together for ${doneTime} days, then B alone finishes it. How many days are taken altogether`,
-        `A and B work together at first. A's time is ${a} days and B's time is ${b} days. If A leaves after ${doneTime} days, when will the job be finished from the start`,
+        `A and B work together at first. A's time is ${a} days and B's time is ${b} days. If A leaves after ${doneTime} days, when will the job be finished in all`,
         `A and B start the same job. A alone takes ${a} days and B alone takes ${b} days. After ${doneTime} days only B continues. How many days are needed in all`,
         `A and B jointly work for ${doneTime} days. A then leaves, and B completes the job. If A and B alone need ${a} and ${b} days, how many days does the work take`,
       ], [
@@ -945,10 +945,10 @@ function naturalTimeWorkStem(
     }
     const action = archetype === "replacement" ? "one worker is replaced" : "more workers join";
     return stemFrom(seed, [
-      `A team completes ${doneRate} files per day for the first ${doneTime} days. After that, ${action} and the team completes ${remainingRate} files per day. If ${totalWork} files must be completed, how many days are needed in all`,
+      `A printing team completes ${doneRate} pages per day for the first ${doneTime} days. After that, ${action} and the team completes ${remainingRate} pages per day. If ${totalWork} pages must be completed, how many days are needed in all`,
       `For ${doneTime} days a team completes ${doneRate} forms per day. Then the team changes and completes ${remainingRate} forms per day. How many days will ${totalWork} forms take altogether`,
-      `A job has ${totalWork} files. The team handles ${doneRate} files daily at first for ${doneTime} days, and then ${remainingRate} files daily. How many days are needed in all`,
-      `During the first ${doneTime} days, ${doneRate} documents are finished each day. After the team changes, ${remainingRate} documents are finished each day. How many days are needed for ${totalWork} documents`,
+      `A packing job has ${totalWork} boxes. The team packs ${doneRate} boxes daily at first for ${doneTime} days, and then ${remainingRate} boxes daily. How many days are needed in all`,
+      `During the first ${doneTime} days, ${doneRate} metres of wall are painted each day. After the team changes, ${remainingRate} metres are painted each day. How many days are needed for ${totalWork} metres`,
       `A work order has ${totalWork} forms. The first team completes ${doneRate} forms per day for ${doneTime} days, then the changed team completes ${remainingRate} per day. How many days will be required to complete the order`,
       `A team completes ${doneRate} files per day for ${doneTime} days and then ${remainingRate} files per day after a team change. How many days are required for ${totalWork} files`,
     ], [
@@ -994,7 +994,7 @@ function naturalTimeWorkStem(
     return stemFrom(seed, [
       `${currentWorkers} workers have completed ${completedWork} of ${totalWork} forms. Only ${timeLeft} days are left. How many extra workers are needed to finish on time`,
       `A job has ${totalWork} forms. ${currentWorkers} workers have finished ${completedWork} forms, and ${timeLeft} days remain. How many more workers should be added`,
-      `${currentWorkers} workers have done ${completedWork} files out of ${totalWork}. To finish the rest in ${timeLeft} days, how many additional workers are needed`,
+      `${currentWorkers} workers have packed ${completedWork} boxes out of ${totalWork}. To finish the rest in ${timeLeft} days, how many additional workers are needed`,
       `After a delay, ${completedWork} of ${totalWork} records are completed by ${currentWorkers} workers. How many extra workers are needed if the remaining records must be finished in ${timeLeft} days`,
       `A team of ${currentWorkers} workers has completed ${completedWork} items from a ${totalWork}-item order. With ${timeLeft} days left, how many workers must be added`,
       `${completedWork} of ${totalWork} forms are complete. ${currentWorkers} workers are available and ${timeLeft} days remain. How many additional workers are required`,
@@ -1020,7 +1020,7 @@ function naturalTimeWorkStem(
         `A works every alternate day and rests on the next day. On each working day A lays ${rates[0] ?? 8} metres of cable. If ${totalWork} metres are to be laid, in how many days will the work be completed`,
         `A follows a one-day work and one-day rest pattern. A completes ${rates[0] ?? 8} metres of fencing on each working day. How many days are needed for ${totalWork} metres`,
         `A works on day 1, rests on day 2, and repeats this pattern. A completes ${rates[0] ?? 8} metres on a working day. In how many days will ${totalWork} metres be completed`,
-        `Only alternate days are working days for A. A finishes ${rates[0] ?? 8} metres each working day. How many calendar days are required for ${totalWork} metres`,
+        `A works only on alternate days. A finishes ${rates[0] ?? 8} metres on each working day. If the total work is ${totalWork} metres, in how many calendar days will it be completed`,
         `A completes ${rates[0] ?? 8} metres whenever he works and then rests the next day. How many days will ${totalWork} metres take`,
         `A works for one day and rests for one day repeatedly. If A completes ${rates[0] ?? 8} metres on each workday, how many days are needed for ${totalWork} metres`,
       ], [
@@ -1037,12 +1037,12 @@ function naturalTimeWorkStem(
     }
     if (archetype === "cycleGroup" || archetype === "conditionalCycle") {
       return stemFrom(seed, [
-        `A, B and C work on successive days in that order. They process ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} files respectively on their turns. If ${totalWork} files are to be processed, in how many days will the job be completed`,
-        `Three workers take turns in the order A, B, C. They finish ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} files on their turns. How many days are needed for ${totalWork} files`,
-        `A works on the first day, B on the second and C on the third, then the order repeats. They complete ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} forms on their days. How long will ${totalWork} forms take`,
+        `A, B and C work on successive days in that order. They pack ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} boxes respectively on their turns. If ${totalWork} boxes are to be packed, in how many days will the job be completed`,
+        `Three workers take turns in the order A, B, C. They print ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} pages on their turns. How many days are needed for ${totalWork} pages`,
+        `A works on the first day, B on the second and C on the third, then the order repeats. They complete ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} forms on their days. In how many days will ${totalWork} forms be completed`,
         `A, B and C handle documents one day at a time in rotation. They complete ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} documents on their turns. In how many days will ${totalWork} documents be finished`,
-        `Workers A, B and C work one after another daily. A handles ${rates[0] ?? 8} files, B ${rates[1] ?? 5} files and C ${rates[2] ?? 4} files. How many days are needed for ${totalWork} files`,
-        `The order is A, then B, then C, and it repeats. They complete ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} files on their turns. What is the time for ${totalWork} files`,
+        `Workers A, B and C work one after another daily. A repairs ${rates[0] ?? 8} metres of road, B ${rates[1] ?? 5} metres and C ${rates[2] ?? 4} metres. How many days are needed for ${totalWork} metres`,
+        `The order is A, then B, then C, and it repeats. They build ${rates[0] ?? 8}, ${rates[1] ?? 5} and ${rates[2] ?? 4} metres of wall on their turns. How many days are needed for ${totalWork} metres`,
       ], [
         `A, B और C क्रम से अलग-अलग दिन काम करते हैं। वे अपनी बारी में ${rates[0] ?? 8}, ${rates[1] ?? 5} और ${rates[2] ?? 4} फाइलें करते हैं। ${totalWork} फाइलें कितने दिन में पूरी होंगी`,
         `तीन मजदूर A, B, C के क्रम में बारी-बारी काम करते हैं। उनकी दैनिक फाइल संख्या ${rates[0] ?? 8}, ${rates[1] ?? 5} और ${rates[2] ?? 4} है। ${totalWork} फाइलों के लिए कितने दिन चाहिए`,
@@ -1056,12 +1056,12 @@ function naturalTimeWorkStem(
       ]);
     }
     return stemFrom(seed, [
-      `A and B work on alternate ${unit}, starting with A. A completes ${rates[0] ?? 8} files in ${unit === "hours" ? "an hour" : "a day"} and B completes ${rates[1] ?? 5} files in ${unit === "hours" ? "an hour" : "a day"}. If ${totalWork} files are to be completed, in how many ${unit} will the job be finished`,
+      `A and B work on alternate ${unit}, starting with A. A packs ${rates[0] ?? 8} boxes in ${unit === "hours" ? "an hour" : "a day"} and B packs ${rates[1] ?? 5} boxes in ${unit === "hours" ? "an hour" : "a day"}. If ${totalWork} boxes are to be packed, in how many ${unit} will the job be finished`,
       `A works first and B works next, then the order repeats. A completes ${rates[0] ?? 8} forms and B completes ${rates[1] ?? 5} forms on their turns. How many ${unit} are needed for ${totalWork} forms`,
-      `Two workers take turns, with A starting. A handles ${rates[0] ?? 8} files per turn and B handles ${rates[1] ?? 5} files per turn. In how many ${unit} will ${totalWork} files be finished`,
-      `A and B work by turns. A starts and completes ${rates[0] ?? 8} documents per turn; B completes ${rates[1] ?? 5}. How many ${unit} will ${totalWork} documents take`,
+      `Two workers take turns, with A starting. A prints ${rates[0] ?? 8} pages per turn and B prints ${rates[1] ?? 5} pages per turn. In how many ${unit} will ${totalWork} pages be printed`,
+      `A and B work by turns. A starts and paints ${rates[0] ?? 8} metres per turn; B paints ${rates[1] ?? 5} metres. How many ${unit} will ${totalWork} metres take`,
       `Starting with A, two workers alternate. A completes ${rates[0] ?? 8} records and B completes ${rates[1] ?? 5} records on their respective turns. How many ${unit} will be required to complete ${totalWork} records`,
-      `A handles ${rates[0] ?? 8} files on his turn and B handles ${rates[1] ?? 5} files on the next turn. They continue alternately from A. How many ${unit} are needed for ${totalWork} files`,
+      `A repairs ${rates[0] ?? 8} metres of road on his turn and B repairs ${rates[1] ?? 5} metres on the next turn. They continue alternately, starting with A. If the road length is ${totalWork} metres, in how many ${unit} will the repair be completed`,
     ], [
       `A और B बारी-बारी ${unit === "hours" ? "घंटे" : "दिन"} काम करते हैं और शुरुआत A करता है। A अपनी बारी में ${rates[0] ?? 8} फाइलें और B ${rates[1] ?? 5} फाइलें करता है। ${totalWork} फाइलें कितने ${unit === "hours" ? "घंटों" : "दिनों"} में पूरी होंगी`,
       `पहले A और फिर B काम करता है, फिर यही क्रम दोहरता है। वे अपनी बारी में ${rates[0] ?? 8} और ${rates[1] ?? 5} फॉर्म करते हैं। ${totalWork} फॉर्म के लिए कितने ${unit === "hours" ? "घंटे" : "दिन"} चाहिए`,
@@ -1085,7 +1085,7 @@ function naturalTimeWorkStem(
     return stemFrom(seed, [
       `One man packs ${unitRates[0] ?? 4} boxes in a day and one woman packs ${unitRates[1] ?? 3} boxes in a day. If ${men} men and ${women} women work together, in how many days will they pack ${totalWork} boxes`,
       `${men} men and ${women} women work together. A man packs ${unitRates[0] ?? 4} boxes per day and a woman packs ${unitRates[1] ?? 3} boxes per day. How many days are needed for ${totalWork} boxes`,
-      `In a workshop, each man finishes ${unitRates[0] ?? 4} boxes daily and each woman finishes ${unitRates[1] ?? 3} boxes daily. How long will ${men} men and ${women} women take to finish ${totalWork} boxes`,
+      `In a workshop, each man finishes ${unitRates[0] ?? 4} boxes daily and each woman finishes ${unitRates[1] ?? 3} boxes daily. In how many days will ${men} men and ${women} women finish ${totalWork} boxes`,
       `A packing job has ${totalWork} boxes. If ${men} men and ${women} women work together, with each man doing ${unitRates[0] ?? 4} boxes and each woman ${unitRates[1] ?? 3} boxes daily, how many days will it take`,
       `${men} men, ${women} women${children ? ` and ${children} children` : ""} work together on ${totalWork} boxes. Their daily capacities are ${unitRates.join(", ")} boxes respectively. How many days will they take`,
       `A team has ${men} men and ${women} women${children ? ` with ${children} children` : ""}. They finish ${unitRates.join(", ")} boxes per person per day respectively. How many days are needed for ${totalWork} boxes`,
@@ -1139,8 +1139,8 @@ function naturalTimeWorkStem(
         `The pairs A+B, B+C and C+A finish a job in ${ab}, ${bc} and ${ac} days respectively. In how many days will A alone finish it`,
         `A with B takes ${ab} days, B with C takes ${bc} days and C with A takes ${ac} days. How many days will A alone take`,
         `For the same work, AB finishes in ${ab} days, BC in ${bc} days and CA in ${ac} days. In how many days can A alone finish it`,
-        `A+B, B+C and C+A can complete a job in ${ab}, ${bc} and ${ac} days. What is the time taken by A alone`,
-        `Three pairs of workers finish the same job in ${ab}, ${bc} and ${ac} days. If the pairs are AB, BC and CA, how long will A alone take`,
+        `A+B, B+C and C+A can complete a job in ${ab}, ${bc} and ${ac} days. In how many days can A alone complete the job`,
+        `Three pairs of workers finish the same job in ${ab}, ${bc} and ${ac} days. If the pairs are AB, BC and CA, in how many days can A alone finish it`,
       ], [
         `A और B साथ काम ${ab} दिन में, B और C ${bc} दिन में तथा C और A ${ac} दिन में पूरा करते हैं। A अकेला कितने दिन लेगा`,
         `जोड़े A+B, B+C और C+A काम क्रमशः ${ab}, ${bc} और ${ac} दिन में करते हैं। A का अकेला समय क्या होगा`,
@@ -1217,7 +1217,7 @@ function naturalTimeWorkStem(
       `A, B and C can finish a job together in ${teamTime} days. A and B together need ${knownTimes[0] ?? 10} days. How many days will C alone take`,
       `The three workers A, B and C complete a work in ${teamTime} days. If A and B together complete it in ${knownTimes[0] ?? 10} days, how many days will C alone need`,
       `A+B+C finish a job in ${teamTime} days, while A+B finish the same job in ${knownTimes[0] ?? 10} days. In how many days can C finish it alone`,
-      `A, B and C together take ${teamTime} days. A and B together take ${knownTimes[0] ?? 10} days. How long will C take alone`,
+      `A, B and C together take ${teamTime} days. A and B together take ${knownTimes[0] ?? 10} days. In how many days can C alone complete it`,
       `A job is completed by A, B and C together in ${teamTime} days. A and B together can do it in ${knownTimes[0] ?? 10} days. In how many days can C alone do it`,
     ], [
       `A, B और C मिलकर काम ${teamTime} दिन में करते हैं। A और B मिलकर उसे ${knownTimes[0] ?? 10} दिन में कर सकते हैं। C अकेला कितने दिन लेगा`,
@@ -1289,8 +1289,8 @@ function naturalTimeWorkStem(
         en: question(phrase(`${seed}:en`, [
           `A and B complete a job and receive ₹${totalWage}. Their work shares are in the ratio ${ratio}. What is ${person}'s share`,
           `The total wage for a job is ₹${totalWage}. A and B contribute in the ratio ${ratio}. How much should ${person} receive`,
-          `A job earns ₹${totalWage} for A and B. If their contribution ratio is ${ratio}, what is ${person}'s wage`,
-          `A and B divide ₹${totalWage} according to their contribution ratio ${ratio}. Find ${person}'s share`,
+          `A job earns ₹${totalWage} for A and B. If their work shares are in the ratio ${ratio}, what is ${person}'s wage`,
+          `A and B divide ₹${totalWage} according to the work-share ratio ${ratio}. What will ${person} receive`,
           `Two workers receive ₹${totalWage} for a job. Their contributions are proportional to ${ratio}. How much will ${person} get`,
           `A contract payment of ₹${totalWage} is shared between A and B in the ratio ${ratio}. What amount goes to ${person}`,
         ])),
@@ -1301,8 +1301,8 @@ function naturalTimeWorkStem(
     return stemFrom(seed, [
       `A, B and C complete a job and receive ₹${totalWage}. Their work shares are in the ratio ${contributions.join(":")}. What is ${person}'s share`,
       `The total wage for a job is ₹${totalWage}. A, B and C contribute in the ratio ${contributions.join(":")}. How much should ${person} receive`,
-      `A job earns ₹${totalWage} for the workers. If A:B:C contribution ratio is ${contributions.join(":")}, what is ${person}'s wage`,
-      `A, B and C divide ₹${totalWage} according to their contribution ratio ${contributions.join(":")}. Find ${person}'s share`,
+      `A job earns ₹${totalWage} for the workers. If their work shares are in the ratio ${contributions.join(":")}, what is ${person}'s wage`,
+      `A, B and C divide ₹${totalWage} according to the work-share ratio ${contributions.join(":")}. What will ${person} receive`,
       `Three workers receive ₹${totalWage} for a job. Their contributions are proportional to ${contributions.join(":")}. How much will ${person} get`,
       `A contract payment of ₹${totalWage} is shared among A, B and C in the ratio ${contributions.join(":")}. What amount goes to ${person}`,
     ], [
@@ -1326,7 +1326,7 @@ function naturalTimeWorkStem(
         `A pipe can fill a tank in ${normalTime} hours. Due to a leak, the tank is filled in ${leakedTime} hours. In how many hours can the leak empty the full tank`,
         `A tank is filled by a pipe in ${normalTime} hours. When a leak is present, it takes ${leakedTime} hours. How many hours will the leak alone take to empty the tank`,
         `Normally a pipe fills a tank in ${normalTime} hours, but with leakage it fills in ${leakedTime} hours. What is the emptying time of the leak`,
-        `A filling pipe takes ${normalTime} hours for a tank. With a leak, the same tank fills in ${leakedTime} hours. In how many hours can the leak empty a full tank`,
+        `An inlet pipe fills a tank in ${normalTime} hours. With a leak, the same tank fills in ${leakedTime} hours. In how many hours can the leak empty a full tank`,
         `A pipe fills a tank in ${normalTime} hours. A leak slows the filling to ${leakedTime} hours. What time will the leak take to empty the tank alone`,
         `Without leakage, a tank fills in ${normalTime} hours. With leakage, it fills in ${leakedTime} hours. Find the leak's emptying time in hours`,
       ], [
@@ -1346,10 +1346,10 @@ function naturalTimeWorkStem(
       return stemFrom(seed, [
         `A tank is already one-fourth full. A pipe can fill the whole tank in ${fillTime} hours. In how many hours will the remaining part be filled`,
         `A pipe fills a tank in ${fillTime} hours. If the tank is already ${inlineMath("\\frac{1}{4}")} full, how many hours are needed to fill it completely`,
-        `One-fourth of a tank is filled. The pipe can fill a full tank in ${fillTime} hours. How long will it take to fill the rest`,
+        `One-fourth of a tank is filled. The pipe can fill a full tank in ${fillTime} hours. In how many hours will the remaining part be filled`,
         `A tank has ${inlineMath("\\frac{1}{4}")} of its capacity filled. A pipe fills the complete tank in ${fillTime} hours. What is the time needed now`,
         `If a tank is ${inlineMath("\\frac{1}{4}")} full and a pipe fills the tank in ${fillTime} hours, how many hours are required to fill it`,
-        `A pipe takes ${fillTime} hours to fill a tank from empty. The tank is already one-fourth full. Find the remaining filling time in hours`,
+        `A pipe takes ${fillTime} hours to fill a tank from empty. The tank is already one-fourth full. In how many hours will it be completely filled`,
       ], [
         `टंकी पहले से एक-चौथाई भरी है। एक पाइप पूरी टंकी ${fillTime} घंटे में भरता है। शेष भाग कितने घंटे में भरेगा`,
         `एक पाइप टंकी ${fillTime} घंटे में भरता है। यदि टंकी पहले से ${inlineMath("\\frac{1}{4}")} भरी है, तो उसे पूरा भरने में कितने घंटे लगेंगे`,
@@ -1371,15 +1371,15 @@ function naturalTimeWorkStem(
       const remainingRate = asNumber(variables.remainingRate, 5);
       const a = timeFrom(totalWork, archetype === "pipeClosure" ? doneRate - remainingRate : doneRate);
       const b = timeFrom(totalWork, archetype === "pipeClosure" ? remainingRate : remainingRate - doneRate);
-      const eventEn = archetype === "pipeClosure" ? `pipe A is closed after ${fixedTime} hours` : `pipe B is opened ${fixedTime} hours later`;
+      const eventEn = archetype === "pipeClosure" ? `Pipe A is closed after ${fixedTime} hours` : `Pipe B is opened ${fixedTime} hours later`;
       const eventHi = archetype === "pipeClosure" ? `${fixedTime} घंटे बाद पाइप A बंद कर दिया जाता है` : `${fixedTime} घंटे बाद पाइप B खोला जाता है`;
       const eventPa = archetype === "pipeClosure" ? `${fixedTime} ਘੰਟਿਆਂ ਬਾਅਦ ਪਾਈਪ A ਬੰਦ ਕਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ` : `${fixedTime} ਘੰਟਿਆਂ ਬਾਅਦ ਪਾਈਪ B ਖੋਲ੍ਹਿਆ ਜਾਂਦਾ ਹੈ`;
       return stemFrom(seed, [
-        `Pipe A can fill a tank in ${a} hours and pipe B can fill it in ${b} hours. Both pipes are used, and ${eventEn}. In how many hours from the start will the tank be filled`,
-        `A tank has two filling pipes. Pipe A fills it in ${a} hours and pipe B in ${b} hours. ${eventEn}. How many hours will be required from the start`,
-        `Pipe A takes ${a} hours and pipe B takes ${b} hours to fill the tank alone. If ${eventEn}, how many hours are needed from the start`,
+        `Pipe A can fill a tank in ${a} hours and pipe B can fill it in ${b} hours. Both pipes are used, and ${eventEn}. In how many hours will the tank be completely filled`,
+        `A tank has two filling pipes. Pipe A fills it in ${a} hours and pipe B in ${b} hours. ${eventEn}. In how many hours will the tank be completely filled`,
+        `Pipe A takes ${a} hours and pipe B takes ${b} hours to fill the tank alone. If ${eventEn}, in how many hours will the tank be completely filled`,
         `Two filling pipes A and B take ${a} and ${b} hours respectively. If ${eventEn}, how many hours are needed to fill the tank`,
-        `A tank is filled using pipes A and B. Pipe A alone takes ${a} hours and pipe B alone takes ${b} hours. If ${eventEn}, how long will the tank take to fill`,
+        `A tank is filled using pipes A and B. Pipe A alone takes ${a} hours and pipe B alone takes ${b} hours. If ${eventEn}, in how many hours will the tank be completely filled`,
         `Pipe A fills in ${a} hours and pipe B fills in ${b} hours. If ${eventEn}, in how many hours is the tank filled`,
       ], [
         `पाइप A टंकी ${a} घंटे में और पाइप B ${b} घंटे में भरता है। ${eventHi}। शुरू से टंकी कितने घंटे में भरेगी`,
@@ -1395,11 +1395,11 @@ function naturalTimeWorkStem(
     }
     if (archetype === "pipeCycle" || archetype === "pipeTerminalCycle") {
       return stemFrom(seed, [
-        `A tap fills 12 litres in one hour and a drain removes 5 litres in the next hour. This pattern repeats. If the tank capacity is 60 litres, in how many hours will it be full`,
+        `Pipe A adds 12 litres in one hour and a drain removes 5 litres in the next hour. This pattern repeats. If the tank capacity is 60 litres, in how many hours will it be full`,
         `A tank is filled for one hour at 12 litres per hour and then drained for one hour at 5 litres per hour, repeatedly. How many hours are needed to fill a 60-litre tank`,
         `A filling tap adds 12 litres in an hour, then an emptying tap removes 5 litres in the next hour. The tank holds 60 litres. When will the tank become full`,
         `Water is added at 12 litres in the first hour and removed at 5 litres in the next hour, and this continues. How many hours will a 60-litre tank take to fill`,
-        `A tap and a drain work alternately for one hour each. The tap adds 12 litres and the drain removes 5 litres. How many hours are needed for a 60-litre tank`,
+        `A filling pipe and a drain work alternately for one hour each. The pipe adds 12 litres and the drain removes 5 litres. How many hours are needed for a 60-litre tank`,
         `A 60-litre tank is filled by alternate filling and draining hours. Filling adds 12 litres and draining removes 5 litres. In how many hours is the tank full`,
       ], [
         `एक नल एक घंटे में 12 लीटर भरता है और अगले घंटे निकासी 5 लीटर निकालती है। यह क्रम दोहरता है। 60 लीटर की टंकी कितने घंटे में भरेगी`,
@@ -1419,8 +1419,8 @@ function naturalTimeWorkStem(
     if (archetype === "twoFillersLeak") {
       return stemFrom(seed, [
         `Pipe A can fill a tank in ${firstFill} hours and pipe B can fill it in ${secondFill} hours. Pipe C can empty the tank in ${firstEmpty} hours. If all three pipes are opened together, in how many hours will the tank be filled`,
-        `Two pipes fill a tank in ${firstFill} and ${secondFill} hours, while a third pipe empties it in ${firstEmpty} hours. How long will the tank take to fill if all are open`,
-        `Pipes A and B are filling pipes taking ${firstFill} and ${secondFill} hours. Pipe C empties the tank in ${firstEmpty} hours. What is the filling time when all run together`,
+        `Two pipes fill a tank in ${firstFill} and ${secondFill} hours, while a third pipe empties it in ${firstEmpty} hours. In how many hours will the tank be completely filled if all are open`,
+        `Pipes A and B can fill a tank in ${firstFill} and ${secondFill} hours. Pipe C can empty it in ${firstEmpty} hours. In how many hours will the tank be completely filled when all run together`,
         `A tank has two inlet pipes of ${firstFill} hours and ${secondFill} hours and one outlet pipe of ${firstEmpty} hours. How many hours are needed when all are opened`,
         `Pipe A fills in ${firstFill} hours, pipe B fills in ${secondFill} hours and pipe C empties in ${firstEmpty} hours. In how many hours will the tank be filled with all pipes open`,
         `Two filling pipes and one emptying pipe are opened together. Their times are ${firstFill}, ${secondFill} and ${firstEmpty} hours respectively. What is the time to fill the tank`,
@@ -1438,12 +1438,12 @@ function naturalTimeWorkStem(
     }
     if (archetype === "delayedLeak") {
       return stemFrom(seed, [
-        `A pipe can fill a tank in ${firstFill} hours. It runs alone for ${fixedTime} hours, then a leak that can empty the tank in ${firstEmpty} hours starts. In how many hours from the start will the tank be filled`,
-        `A filling pipe takes ${firstFill} hours for the tank. After it works for ${fixedTime} hours, a leak opens and can empty the tank in ${firstEmpty} hours. What is the total filling time`,
+        `A pipe can fill a tank in ${firstFill} hours. It runs alone for ${fixedTime} hours, then a leak that can empty the tank in ${firstEmpty} hours starts. In how many hours will the tank be completely filled`,
+        `An inlet pipe can fill a tank in ${firstFill} hours. After it works for ${fixedTime} hours, a leak opens and can empty the tank in ${firstEmpty} hours. In how many hours will the tank be completely filled`,
         `A tank is filled by a pipe for ${fixedTime} hours before a leak starts. The pipe fills in ${firstFill} hours and the leak empties in ${firstEmpty} hours. How many hours are needed in all`,
         `Pipe A fills a tank in ${firstFill} hours. After ${fixedTime} hours, a leak begins which empties a full tank in ${firstEmpty} hours. Find the total time to fill the tank`,
-        `A pipe starts filling a tank and works alone for ${fixedTime} hours. A leak of ${firstEmpty} hours then starts. If the pipe alone fills in ${firstFill} hours, how long will filling take`,
-        `The tank is filled for ${fixedTime} hours by a pipe taking ${firstFill} hours alone. Then a leak starts and can empty it in ${firstEmpty} hours. What is the total time`,
+        `A pipe starts filling a tank and works alone for ${fixedTime} hours. A leak that empties a full tank in ${firstEmpty} hours then starts. If the pipe alone fills in ${firstFill} hours, in how many hours will the tank be completely filled`,
+        `The tank is filled for ${fixedTime} hours by a pipe taking ${firstFill} hours alone. Then a leak starts and can empty it in ${firstEmpty} hours. In how many hours will the tank be completely filled`,
       ], [
         `एक पाइप टंकी ${firstFill} घंटे में भरता है। वह ${fixedTime} घंटे अकेला चलता है, फिर ${firstEmpty} घंटे में टंकी खाली करने वाला रिसाव शुरू होता है। शुरू से टंकी कितने घंटे में भरेगी`,
         `भरने वाला पाइप टंकी के लिए ${firstFill} घंटे लेता है। ${fixedTime} घंटे बाद रिसाव खुलता है जो टंकी ${firstEmpty} घंटे में खाली कर सकता है। कुल भरने का समय कितना होगा`,
@@ -1458,11 +1458,11 @@ function naturalTimeWorkStem(
     }
     return stemFrom(seed, [
       `Pipe A can fill a tank in ${firstFill} hours and pipe B can empty the same tank in ${firstEmpty} hours. If both pipes are opened together, in how many hours will the tank be filled`,
-      `A filling pipe fills a tank in ${firstFill} hours and a leak empties it in ${firstEmpty} hours. How long will it take to fill the tank when both work together`,
-      `Pipe A fills a tank in ${firstFill} hours. A drain pipe can empty the tank in ${firstEmpty} hours. If both are open, what is the filling time`,
+      `A filling pipe fills a tank in ${firstFill} hours and a leak empties it in ${firstEmpty} hours. In how many hours will the tank be completely filled when both work together`,
+      `Pipe A fills a tank in ${firstFill} hours. A drain pipe can empty the tank in ${firstEmpty} hours. If both are open, in how many hours will the tank be completely filled`,
       `A tank is filled by a pipe taking ${firstFill} hours and emptied by another pipe taking ${firstEmpty} hours. In how many hours will the tank be filled if both are opened`,
-      `One pipe fills a tank in ${firstFill} hours, while another empties it in ${firstEmpty} hours. What time is required to fill the tank with both open`,
-      `Pipe A is an inlet of ${firstFill} hours and pipe B is an outlet of ${firstEmpty} hours. If both are opened together, how many hours will the tank take to fill`,
+      `One pipe fills a tank in ${firstFill} hours, while another empties it in ${firstEmpty} hours. In how many hours will the tank be completely filled with both open`,
+      `Pipe A is an inlet of ${firstFill} hours and pipe B is an outlet of ${firstEmpty} hours. If both are opened together, in how many hours will the tank be completely filled`,
     ], [
       `पाइप A टंकी ${firstFill} घंटे में भरता है और पाइप B वही टंकी ${firstEmpty} घंटे में खाली करता है। दोनों साथ खोलें तो टंकी कितने घंटे में भरेगी`,
       `भरने वाला पाइप टंकी ${firstFill} घंटे में भरता है और रिसाव ${firstEmpty} घंटे में खाली करता है। दोनों साथ हों तो भरने में कितना समय लगेगा`,
@@ -1480,9 +1480,9 @@ function naturalTimeWorkStem(
     const rate = asNumber(variables.rate, 15);
     const time = asNumber(variables.time, asNumber(variables.extraTime, 20));
     return stemFrom(seed, [
-      `A pipe supplies ${rate} litres of water per minute for ${time} minutes. How many litres of water are supplied`,
+      `A filling pipe delivers ${rate} litres of water per minute for ${time} minutes. How many litres of water are delivered`,
       `Water flows into a tank at ${rate} litres per minute. In ${time} minutes, how many litres will enter the tank`,
-      `A tap gives ${rate} litres per minute. How much water will it supply in ${time} minutes`,
+      `A pump sends ${rate} litres of water per minute into a tank. How many litres will it send in ${time} minutes`,
       `A pipe transfers ${rate} litres of water every minute. How many litres are transferred in ${time} minutes`,
       `After a tank is full, water continues to flow at ${rate} litres per minute for ${time} minutes. How many litres overflow`,
       `A tank receives water for ${time} minutes at ${rate} litres per minute. What is the quantity of water received`,
@@ -1507,7 +1507,7 @@ function naturalTimeWorkStem(
       return stemFrom(seed, [
         `Food is sufficient for ${people1} people for ${days1} days. For how many days will the same food last for ${people2} people`,
         `A food stock lasts ${days1} days for ${people1} people. How many days will it last for ${people2} people`,
-        `If ${people1} people can use a food stock for ${days1} days, how long will the stock last for ${people2} people`,
+        `If ${people1} people can use a food stock for ${days1} days, for how many days will the stock last for ${people2} people`,
         `There is enough food for ${people1} people for ${days1} days. What is its duration for ${people2} people`,
         `${people1} people have food for ${days1} days. If the number of people becomes ${people2}, for how many days will the food last`,
         `A ration stock is enough for ${people1} people for ${days1} days. Find the number of days for ${people2} people`,
@@ -1531,7 +1531,7 @@ function naturalTimeWorkStem(
         `There are ${stock} ration packets in a camp. If ${weightedRate} packets are used each day, how many days will they last`,
         `A relief camp has ${stock} food packets and uses ${weightedRate} packets daily. What is the number of days the food will last`,
         `A stock of ${stock} packets is consumed at ${weightedRate} packets per day. For how many days is the stock sufficient`,
-        `${stock} ration packets are available. Daily consumption is ${weightedRate} packets. How long will the ration last`,
+        `${stock} ration packets are available. Daily consumption is ${weightedRate} packets. For how many days will the ration last`,
         `A group uses ${weightedRate} meal packets each day from a stock of ${stock}. How many days will the stock last`,
       ], [
         `एक छात्रावास में ${stock} भोजन पैकेट हैं। निवासी रोज ${weightedRate} पैकेट उपयोग करते हैं। भंडार कितने दिन चलेगा`,
@@ -1555,7 +1555,7 @@ function naturalTimeWorkStem(
       `A group of ${peopleFirst} people has food for ${originalDays} days. They consume it for ${firstDays} days, and then the group becomes ${peopleSecond}. How many days will the remaining food last`,
       `A food stock would last ${peopleFirst} people for ${originalDays} days. After ${firstDays} days, more people join and the total becomes ${peopleSecond}. Find the further duration in days`,
       `${peopleFirst} people have food for ${originalDays} days. After ${firstDays} days, there are ${peopleSecond} people. For how many additional days will the food be sufficient`,
-      `A camp has food for ${peopleFirst} people for ${originalDays} days. After ${firstDays} days, the camp has ${peopleSecond} people. What is the remaining duration`,
+      `A camp has food for ${peopleFirst} people for ${originalDays} days. After ${firstDays} days, the camp has ${peopleSecond} people. For how many more days will the remaining food last`,
       `Food for ${peopleFirst} people lasts ${originalDays} days. If after ${firstDays} days the number of people changes to ${peopleSecond}, how many more days will it last`,
     ], [
       `${peopleFirst} लोगों के लिए भोजन ${originalDays} दिन पर्याप्त है। ${firstDays} दिन बाद लोगों की संख्या ${peopleSecond} हो जाती है। भोजन और कितने दिन चलेगा`,
@@ -1579,7 +1579,7 @@ function naturalTimeWorkStem(
         `A road crew lays ${positiveRate} metres of road per day, while rain damages ${negativeRate} metres per day. If ${totalWork} metres must be completed, in how many days will the road be finished`,
         `A team repairs ${positiveRate} metres daily, but another effect damages ${negativeRate} metres daily. How many days are needed to complete ${totalWork} metres`,
         `Workers build ${positiveRate} metres of boundary each day, while ${negativeRate} metres are spoiled daily. In how many days will ${totalWork} metres be completed`,
-        `A repair team completes ${positiveRate} metres per day and daily damage removes ${negativeRate} metres. How long will ${totalWork} metres take`,
+        `A repair team completes ${positiveRate} metres per day and daily damage removes ${negativeRate} metres. In how many days will ${totalWork} metres be completed`,
         `A team adds ${positiveRate} metres to a project each day, but ${negativeRate} metres are lost each day. What is the time for ${totalWork} metres`,
         `Construction progresses by ${positiveRate} metres daily and damage reduces it by ${negativeRate} metres daily. How many days are required for ${totalWork} metres`,
       ], [
@@ -1602,7 +1602,7 @@ function naturalTimeWorkStem(
       return stemFrom(seed, [
         `A worker makes ${firstRate} toys per day for the first ${firstTime} days. After that, the worker makes ${secondRate} toys per day. How many days are needed to make ${totalWork} toys`,
         `A machine packs ${firstRate} boxes per day for ${firstTime} days and then packs ${secondRate} boxes per day. In how many days will ${totalWork} boxes be packed`,
-        `For ${firstTime} days, a worker finishes ${firstRate} items daily. Later the worker finishes ${secondRate} items daily. How long will ${totalWork} items take`,
+        `For ${firstTime} days, a worker finishes ${firstRate} items daily. Later the worker finishes ${secondRate} items daily. In how many days will ${totalWork} items be completed`,
         `A production job has ${totalWork} items. The first ${firstTime} days produce ${firstRate} items per day, and after that ${secondRate} items per day. What is the total time`,
         `A worker completes ${firstRate} forms daily for ${firstTime} days and then ${secondRate} forms daily. How many days are needed for ${totalWork} forms`,
         `A machine makes ${firstRate} parts per day initially for ${firstTime} days, then ${secondRate} parts per day. How many days are required for ${totalWork} parts`,
@@ -1649,7 +1649,7 @@ function naturalTimeWorkStem(
       `Three machines produce ${rates[0] ?? 20}, ${rates[1] ?? 25} and ${rates[2] ?? 30} parts per hour respectively. If they run for ${machineTimeText}, what is the total number of parts`,
       `Machines A, B and C operate for ${machineTimeText} and make ${rates[0] ?? 20}, ${rates[1] ?? 25} and ${rates[2] ?? 30} parts per hour. How many parts are produced`,
       `A production batch uses three machines making ${rates[0] ?? 20}, ${rates[1] ?? 25} and ${rates[2] ?? 30} parts per hour. What is the number of parts made in ${machineTimeText}`,
-      `Three machines run together. Their hourly outputs are ${rates[0] ?? 20}, ${rates[1] ?? 25} and ${rates[2] ?? 30} parts. How many parts are produced in ${machineTimeText}`,
+      `Machines A, B and C produce ${rates[0] ?? 20}, ${rates[1] ?? 25} and ${rates[2] ?? 30} parts per hour respectively. If they work for ${machineTimeText}, how many parts will be produced in total`,
     ], [
       `मशीन A, B और C प्रति घंटे ${rates[0] ?? 20}, ${rates[1] ?? 25} और ${rates[2] ?? 30} वस्तुएँ बनाती हैं। वे क्रमशः ${times.join(", ") || time} घंटे चलें तो कुल कितनी वस्तुएँ बनेंगी`,
       `एक कारखाने में तीन मशीनें हैं। उनकी प्रति घंटे संख्या ${rates[0] ?? 20}, ${rates[1] ?? 25} और ${rates[2] ?? 30} है। दिए गए ${times.join(", ") || time} घंटों में कितनी वस्तुएँ बनेंगी`,
@@ -1881,11 +1881,39 @@ function formulaStepText(spec: MotifSpec, kind: TimeWorkSolverModel["kind"]) {
       ["Divide total work by the combined efficiency.", "कुल काम को संयुक्त दक्षता से भाग दें।", "ਕੁੱਲ ਕੰਮ ਨੂੰ ਸਾਂਝੀ ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।"],
     ] as const;
   }
+  if (kind === "remaining_fraction" || kind === "full_time_from_fraction" || kind === "one_day_fraction") {
+    return [
+      ["Convert the given time into the fraction of work completed.", "दिए गए समय को पूरे काम के अंश में बदलें।", "ਦਿੱਤੇ ਸਮੇਂ ਨੂੰ ਪੂਰੇ ਕੰਮ ਦੇ ਹਿੱਸੇ ਵਿੱਚ ਬਦਲੋ।"],
+      ["Use the remaining or required fraction of work.", "शेष या आवश्यक काम का अंश लें।", "ਬਾਕੀ ਜਾਂ ਲੋੜੀਂਦੇ ਕੰਮ ਦਾ ਹਿੱਸਾ ਲਵੋ।"],
+      ["Scale the time in the same ratio as the work.", "काम के अनुपात में समय को बढ़ाएँ या घटाएँ।", "ਕੰਮ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਸਮਾਂ ਵਧਾਓ ਜਾਂ ਘਟਾਓ।"],
+    ] as const;
+  }
+  if (kind === "efficiency_alone_time" || kind === "unknown_time_from_combined" || kind === "inverse_ratio_from_times" || kind === "time_ratio_from_efficiency") {
+    return [
+      ["Convert time or efficiency data into work rates.", "समय या दक्षता के आंकड़ों को काम की दरों में बदलें।", "ਸਮਾਂ ਜਾਂ ਕੁਸ਼ਲਤਾ ਦੇ ਅੰਕੜਿਆਂ ਨੂੰ ਕੰਮ ਦੀਆਂ ਦਰਾਂ ਵਿੱਚ ਬਦਲੋ।"],
+      ["Combine or compare the rates as required.", "प्रश्न के अनुसार दरों को जोड़ें या तुलना करें।", "ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਦਰਾਂ ਨੂੰ ਜੋੜੋ ਜਾਂ ਤੁਲਨਾ ਕਰੋ।"],
+      ["Convert the final rate relation back into time or ratio.", "अंतिम दर-संबंध को समय या अनुपात में बदलें।", "ਅੰਤਿਮ ਦਰ-ਸੰਬੰਧ ਨੂੰ ਸਮੇਂ ਜਾਂ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।"],
+    ] as const;
+  }
+  if (kind === "man_days_hours" || kind === "required_workers" || kind === "delay_from_removed_workers") {
+    return [
+      ["Total work is proportional to workers x days x hours.", "कुल काम मजदूर x दिन x घंटे के समानुपाती होता है।", "ਕੁੱਲ ਕੰਮ ਮਜ਼ਦੂਰ x ਦਿਨ x ਘੰਟਿਆਂ ਦੇ ਅਨੁਪਾਤੀ ਹੁੰਦਾ ਹੈ।"],
+      ["Keep the total work same on both sides of the equation.", "समीकरण के दोनों तरफ कुल काम समान रखें।", "ਸਮੀਕਰਨ ਦੇ ਦੋਹਾਂ ਪਾਸਿਆਂ ਕੁੱਲ ਕੰਮ ਇੱਕੋ ਰੱਖੋ।"],
+      ["Solve the remaining relation for the required workforce or delay.", "बचे हुए संबंध से आवश्यक मजदूर या देरी निकालें।", "ਬਚੇ ਹੋਏ ਸੰਬੰਧ ਤੋਂ ਲੋੜੀਂਦੇ ਮਜ਼ਦੂਰ ਜਾਂ ਦੇਰੀ ਕੱਢੋ।"],
+    ] as const;
+  }
   if (kind === "linear_remaining_time" || kind === "linear_total_time" || /join|leave|phase|replacement|interrupted|workerAdded|workerRemoved|deadlineExtra/u.test(spec.archetype)) {
     return [
       ["Split the work into timeline phases.", "काम को समय-चरणों में बाँटें।", "ਕੰਮ ਨੂੰ ਸਮੇਂ ਦੇ ਚਰਨਾਂ ਵਿੱਚ ਵੰਡੋ।"],
       ["Subtract the work already completed.", "अब तक पूरा हुआ काम घटाएँ।", "ਹੁਣ ਤੱਕ ਹੋਇਆ ਕੰਮ ਘਟਾਓ।"],
       ["Use the active rate for the remaining phase.", "शेष चरण के लिए सक्रिय दर लगाएँ।", "ਬਾਕੀ ਚਰਨ ਲਈ ਸਰਗਰਮ ਦਰ ਲਗਾਓ।"],
+    ] as const;
+  }
+  if (kind === "backward_leave_time" || kind === "unknown_phase_duration" || kind === "changed_rate_time") {
+    return [
+      ["Write the total work as the sum of phase-wise work.", "कुल काम को अलग-अलग चरणों के काम के योग के रूप में लिखें।", "ਕੁੱਲ ਕੰਮ ਨੂੰ ਵੱਖ-ਵੱਖ ਚਰਣਾਂ ਦੇ ਕੰਮ ਦੇ ਜੋੜ ਵਜੋਂ ਲਿਖੋ।"],
+      ["Use each phase rate only for the time it is active.", "हर चरण की दर को केवल उसके सक्रिय समय के लिए लगाएँ।", "ਹਰ ਚਰਣ ਦੀ ਦਰ ਸਿਰਫ ਉਸਦੇ ਸਰਗਰਮ ਸਮੇਂ ਲਈ ਲਗਾਓ।"],
+      ["Solve the phase equation for the required time.", "चरण-समीकरण से आवश्यक समय निकालें।", "ਚਰਣ-ਸਮੀਕਰਨ ਤੋਂ ਲੋੜੀਂਦਾ ਸਮਾਂ ਕੱਢੋ।"],
     ] as const;
   }
   if (kind === "pipe_net_time" || kind === "unknown_pipe_time" || kind === "leak_hidden_time" || spec.group === "pipe") {
@@ -1902,11 +1930,32 @@ function formulaStepText(spec: MotifSpec, kind: TimeWorkSolverModel["kind"]) {
       ["Add only the needed part of the final turn.", "अंतिम बारी का केवल आवश्यक भाग जोड़ें।", "ਆਖਰੀ ਵਾਰੀ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਭਾਗ ਜੋੜੋ।"],
     ] as const;
   }
+  if (kind === "equivalent_team_time" || kind === "team_compare_time") {
+    return [
+      ["Convert every worker type into a common efficiency unit.", "हर प्रकार के मजदूर को एक समान दक्षता-इकाई में बदलें।", "ਹਰ ਕਿਸਮ ਦੇ ਮਜ਼ਦੂਰ ਨੂੰ ਇੱਕੋ ਕੁਸ਼ਲਤਾ-ਇਕਾਈ ਵਿੱਚ ਬਦਲੋ।"],
+      ["Add the equivalent units in the working team.", "काम करने वाली टीम की समान इकाइयाँ जोड़ें।", "ਕੰਮ ਕਰਨ ਵਾਲੀ ਟੀਮ ਦੀਆਂ ਸਮਾਨ ਇਕਾਈਆਂ ਜੋੜੋ।"],
+      ["Divide the total work by the team's equivalent rate.", "कुल काम को टीम की समान दर से भाग दें।", "ਕੁੱਲ ਕੰਮ ਨੂੰ ਟੀਮ ਦੀ ਸਮਾਨ ਦਰ ਨਾਲ ਭਾਗ ਦਿਓ।"],
+    ] as const;
+  }
+  if (kind === "pairwise_worker_time" || kind === "team_minus_known_time" || kind === "contribution_rate" || kind === "ratio_from_values" || kind === "ratio_text") {
+    return [
+      ["Work with rates, not with completion times directly.", "सीधे समय से नहीं, दरों से काम करें।", "ਸਿੱਧੇ ਸਮੇਂ ਨਾਲ ਨਹੀਂ, ਦਰਾਂ ਨਾਲ ਕੰਮ ਕਰੋ।"],
+      ["Use the given pair, team, or contribution data to isolate the required rate.", "दिए गए जोड़े, टीम या योगदान से आवश्यक दर अलग करें।", "ਦਿੱਤੇ ਜੋੜੇ, ਟੀਮ ਜਾਂ ਯੋਗਦਾਨ ਨਾਲ ਲੋੜੀਂਦੀ ਦਰ ਵੱਖ ਕਰੋ।"],
+      ["Convert the isolated rate or values into the asked result.", "अलग की गई दर या मानों को पूछे गए परिणाम में बदलें।", "ਵੱਖ ਕੀਤੀ ਦਰ ਜਾਂ ਮੁੱਲਾਂ ਨੂੰ ਪੁੱਛੇ ਗਏ ਨਤੀਜੇ ਵਿੱਚ ਬਦਲੋ।"],
+    ] as const;
+  }
   if (spec.group === "wage" || kind === "wage_share" || kind === "contract_earning") {
     return [
       ["Convert each person's work into contribution units.", "हर व्यक्ति के काम को योगदान इकाइयों में बदलें।", "ਹਰ ਵਿਅਕਤੀ ਦੇ ਕੰਮ ਨੂੰ ਯੋਗਦਾਨ ਇਕਾਈਆਂ ਵਿੱਚ ਬਦਲੋ।"],
-      ["Use contribution ratio for the share.", "हिस्से के लिए योगदान अनुपात लगाएँ।", "ਹਿੱਸੇ ਲਈ ਯੋਗਦਾਨ ਅਨੁਪਾਤ ਲਗਾਓ।"],
+      ["Use the work-share ratio for the wage.", "हिस्से के लिए कार्य-अनुपात लगाएँ।", "ਹਿੱਸੇ ਲਈ ਕੰਮ-ਅਨੁਪਾਤ ਲਗਾਓ।"],
       ["Apply the wage or contract amount.", "मजदूरी या ठेके की राशि लगाएँ।", "ਮਜ਼ਦੂਰੀ ਜਾਂ ਠੇਕੇ ਦੀ ਰਕਮ ਲਗਾਓ।"],
+    ] as const;
+  }
+  if (kind === "accepted_output") {
+    return [
+      ["First find the gross output produced.", "पहले कुल बना हुआ उत्पादन निकालें।", "ਪਹਿਲਾਂ ਕੁੱਲ ਬਣਿਆ ਉਤਪਾਦਨ ਕੱਢੋ।"],
+      ["Apply the accepted-output percentage to remove rejected work.", "अस्वीकृत काम हटाने के लिए स्वीकृत-उत्पादन प्रतिशत लगाएँ।", "ਰੱਦ ਹੋਏ ਕੰਮ ਨੂੰ ਹਟਾਉਣ ਲਈ ਮਨਜ਼ੂਰ ਉਤਪਾਦਨ ਪ੍ਰਤੀਸ਼ਤ ਲਗਾਓ।"],
+      ["Use the net accepted output for the final answer.", "अंतिम उत्तर के लिए शुद्ध स्वीकृत उत्पादन लें।", "ਅੰਤਿਮ ਉੱਤਰ ਲਈ ਸ਼ੁੱਧ ਮਨਜ਼ੂਰ ਉਤਪਾਦਨ ਲਵੋ।"],
     ] as const;
   }
   if (spec.group === "resource" || kind === "resource_days" || kind === "resource_phase_days" || kind === "weighted_resource_days") {
@@ -1924,9 +1973,9 @@ function formulaStepText(spec: MotifSpec, kind: TimeWorkSolverModel["kind"]) {
     ] as const;
   }
   return [
-    ["Set up the rate relation for this case.", "इस स्थिति के लिए दर-संबंध बनाएँ।", "ਇਸ ਸਥਿਤੀ ਲਈ ਦਰ-ਸੰਬੰਧ ਬਣਾਓ।"],
-    ["Put the given values into that relation.", "दिए गए मान उसी संबंध में रखें।", "ਦਿੱਤੇ ਮੁੱਲ ਉਸੇ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।"],
-    ["Solve for the asked value.", "पूछे गए मान के लिए हल करें।", "ਪੁੱਛੇ ਮੁੱਲ ਲਈ ਹੱਲ ਕਰੋ।"],
+    ["Choose work units so that all rates stay comparable.", "काम की इकाइयाँ ऐसी चुनें कि सभी दरों की तुलना हो सके।", "ਕੰਮ ਦੀਆਂ ਇਕਾਈਆਂ ਅਜਿਹੀਆਂ ਚੁਣੋ ਕਿ ਸਾਰੀਆਂ ਦਰਾਂ ਦੀ ਤੁਲਨਾ ਹੋ ਸਕੇ।"],
+    ["Apply the active rates for their respective times.", "सक्रिय दरों को उनके अपने समय के लिए लगाएँ।", "ਸਰਗਰਮ ਦਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਆਪਣੇ ਸਮੇਂ ਲਈ ਲਗਾਓ।"],
+    ["Use the resulting work equation to compute the asked quantity.", "बने हुए काम-समीकरण से पूछी गई मात्रा निकालें।", "ਬਣੇ ਕੰਮ-ਸਮੀਕਰਨ ਤੋਂ ਪੁੱਛੀ ਗਈ ਮਾਤਰਾ ਕੱਢੋ।"],
   ] as const;
 }
 
@@ -2142,8 +2191,8 @@ function buildEfficiencyAlone(seed: string, spec: MotifSpec): Draft {
     model,
     stem: {
       en: phrase(seed, [
-        `The efficiencies of A and B are in the ratio ${parts[0]}:${parts[1]}. Together they finish the work in ${together} days. Find the time taken by A alone.`,
-        `A:B efficiency is ${parts[0]}:${parts[1]}. If both together complete a job in ${together} days, how long will A alone take?`,
+        `The efficiencies of A and B are in the ratio ${parts[0]}:${parts[1]}. Together they finish the work in ${together} days. In how many days can A alone complete the work?`,
+        `A:B efficiency is ${parts[0]}:${parts[1]}. If both together complete a job in ${together} days, in how many days can A alone finish it?`,
         `The efficiencies of two workers are in the ratio ${parts[0]}:${parts[1]}. Together they complete the work in ${together} days. In how many days can A alone complete it?`,
       ]),
       hi: `A और B की दक्षता का अनुपात ${parts[0]}:${parts[1]} है। दोनों मिलकर काम ${together} दिन में पूरा करते हैं। A अकेला कितने दिन लेगा?`,
@@ -2171,8 +2220,8 @@ function buildUnknownCombined(seed: string, spec: MotifSpec): Draft {
     model,
     stem: {
       en: phrase(seed, [
-        `A and B together complete a work in ${safeCombined} days. A alone takes ${known} days. Find the time taken by B alone.`,
-        `The combined time of A and B is ${safeCombined} days. If A can finish alone in ${known} days, find B's time.`,
+        `A and B together complete a work in ${safeCombined} days. A alone takes ${known} days. In how many days can B alone complete it?`,
+        `A and B together finish a work in ${safeCombined} days. If A can finish alone in ${known} days, in how many days can B alone finish it?`,
         `A alone needs ${known} days, while A and B together need ${safeCombined} days. How many days will B alone need?`,
       ]),
       hi: `A और B मिलकर काम ${safeCombined} दिन में करते हैं। A अकेला ${known} दिन लेता है। B अकेला कितने दिन लेगा?`,
@@ -2358,7 +2407,7 @@ function buildLinearTimeline(seed: string, spec: MotifSpec): Draft {
       en: phrase(seed, [
         `A can finish a work in ${a} days and B in ${b} days. A works alone for ${t1} days, then B joins. Find the total time taken.`,
         `A starts a job alone and works for ${t1} days. A and B then finish it together. A alone takes ${a} days and B alone takes ${b} days. Find the total time.`,
-        `A needs ${a} days and B needs ${b} days for the same work. After A works ${t1} days alone, both work together. Find the completion time from the start.`,
+        `A needs ${a} days and B needs ${b} days for the same work. After A works ${t1} days alone, both work together. In how many days will the job be completed in all?`,
       ]),
       hi: `A काम ${a} दिन में और B ${b} दिन में करता है। A पहले ${t1} दिन अकेला काम करता है, फिर B जुड़ता है। कुल समय ज्ञात करें।`,
       pa: `A ਕੰਮ ${a} ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ B ${b} ਦਿਨਾਂ ਵਿੱਚ ਕਰਦਾ ਹੈ। A ਪਹਿਲਾਂ ${t1} ਦਿਨ ਇਕੱਲਾ ਕੰਮ ਕਰਦਾ ਹੈ, ਫਿਰ B ਜੁੜਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਪਤਾ ਕਰੋ।`,
@@ -2517,37 +2566,37 @@ function buildCycle(seed: string, spec: MotifSpec): Draft {
   const stemEn = (() => {
     if (spec.archetype === "cycleTwo") {
       return phrase(seed, [
-        `A and B work on alternate days, starting with A. Their daily work rates are ${rates[0]} and ${rates[1]} units. Total work is ${totalWork} units. Find the completion time.`,
-        `A works on the first day, B on the second day, and this pattern repeats. A and B do ${rates[0]} and ${rates[1]} units per day. Find the time for ${totalWork} units.`,
-        `Two workers take turns day by day. The first does ${rates[0]} units and the second does ${rates[1]} units in a day. How long will ${totalWork} units take?`,
+        `A and B work on alternate days, starting with A. A packs ${rates[0]} boxes in a day and B packs ${rates[1]} boxes in a day. If ${totalWork} boxes are to be packed, in how many days will the job be completed?`,
+        `A works on the first day and B on the second day, and the order repeats. A prints ${rates[0]} pages per day and B prints ${rates[1]} pages per day. In how many days will ${totalWork} pages be printed?`,
+        `Two workers take turns day by day, starting with A. A repairs ${rates[0]} metres and B repairs ${rates[1]} metres on their turns. In how many days will ${totalWork} metres be repaired?`,
       ]);
     }
     if (spec.archetype === "cycleHours") {
       return phrase(seed, [
-        `A and B work in alternate hours, starting with A. Their hourly outputs are ${rates[0]} and ${rates[1]} units. Find the time for ${totalWork} units.`,
-        `The first hour is worked by A and the next by B, then the order repeats. They produce ${rates[0]} and ${rates[1]} units per hour. Find completion time.`,
-        `A two-hour work cycle gives ${rates[0]} units in the first hour and ${rates[1]} units in the second. Find the total hours for ${totalWork} units.`,
+        `A and B work on alternate hours, starting with A. A completes ${rates[0]} units in one hour and B completes ${rates[1]} units in one hour. If the total work is ${totalWork} units, in how many hours will the work be completed?`,
+        `A works in the first hour and B in the next hour, and the order repeats. They print ${rates[0]} and ${rates[1]} pages per hour respectively. In how many hours will ${totalWork} pages be printed?`,
+        `A and B paint a wall in alternate hours, starting with A. A paints ${rates[0]} metres per hour and B paints ${rates[1]} metres per hour. In how many hours will ${totalWork} metres be painted?`,
       ]);
     }
     if (spec.archetype === "cycleGroup") {
       return phrase(seed, [
-        `A, B and C work on successive days in that order. Their daily outputs are ${rates.join(", ")} units. Find the time for ${totalWork} units.`,
-        `Three workers repeat the order A, B, C. Their one-day outputs are ${rates.join(", ")} units. How many days are needed for ${totalWork} units?`,
-        `The work cycle has three turns with outputs ${rates.join(", ")} units. The total work is ${totalWork} units. Find the completion time.`,
+        `A, B and C work on successive days in that order. They pack ${rates[0]}, ${rates[1]} and ${rates[2]} boxes respectively on their turns. In how many days will ${totalWork} boxes be packed?`,
+        `Three workers repeat the order A, B, C. They print ${rates[0]}, ${rates[1]} and ${rates[2]} pages on their turns. How many days are needed for ${totalWork} pages?`,
+        `A, B and C repair a road on successive days. They repair ${rates[0]}, ${rates[1]} and ${rates[2]} metres respectively. In how many days will ${totalWork} metres be repaired?`,
       ]);
     }
     if (spec.archetype === "terminalCycle") {
       return phrase(seed, [
-        `A and B alternate turns, and work stops as soon as ${totalWork} units are completed. Their turn outputs are ${rates[0]} and ${rates[1]} units. Find the time.`,
-        `In the final cycle the work may finish before both turns are over. A and B produce ${rates[0]} and ${rates[1]} units per turn. Total work is ${totalWork} units.`,
-        `Work is stopped immediately on completion. Alternate turns produce ${rates[0]} and ${rates[1]} units, with ${totalWork} units required. Find the total days.`,
+        `A and B work on alternate days, starting with A. A packs ${rates[0]} boxes and B packs ${rates[1]} boxes on their turns. If ${totalWork} boxes are required, in how many days will the job be completed?`,
+        `A starts and B works the next day, then the order repeats. A prints ${rates[0]} pages and B prints ${rates[1]} pages on their turns. In how many days will ${totalWork} pages be printed?`,
+        `A repairs ${rates[0]} metres of road on his turn and B repairs ${rates[1]} metres on the next turn. They continue alternately, starting with A. If the road length is ${totalWork} metres, in how many turns will the repair be completed?`,
       ]);
     }
     if (spec.archetype === "workRest") {
       return phrase(seed, [
         `A works for one day and then rests for one day. On a working day A completes ${rates[0]} units. Find the time for ${totalWork} units.`,
         `A follows a work-rest cycle: one active day, then one rest day. Each active day gives ${rates[0]} units. Find when ${totalWork} units are completed.`,
-        `Only alternate days are working days. A does ${rates[0]} units on each working day. Find the total days for ${totalWork} units.`,
+        `A works on day 1, rests on day 2, and repeats this pattern. A completes ${rates[0]} units on each working day. If the total work is ${totalWork} units, in how many days will the work be completed?`,
       ]);
     }
     if (spec.archetype === "conditionalCycle") {
@@ -2577,7 +2626,7 @@ function buildCycle(seed: string, spec: MotifSpec): Draft {
     formula: `W_{cycle}=\\sum r_i`,
     substitution: `W_{cycle}=${rates.join("+")}`,
     simplification: `T=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
-    shortcutMath: `T=cycles+final\\ turn`,
+    shortcutMath: `T=n_c+s`,
   });
 }
 
@@ -2647,8 +2696,8 @@ function buildSystem(seed: string, spec: MotifSpec): Draft {
       model,
       stem: {
         en: phrase(seed, [
-          `A+B finish in ${a} days, B+C in ${b} days and C+A in ${c} days. Find A alone's time.`,
-          `Pair times are AB=${a} days, BC=${b} days and CA=${c} days. Find the time taken by A alone.`,
+        `A+B finish in ${a} days, B+C in ${b} days and C+A in ${c} days. In how many days can A alone complete the work?`,
+          `Pair teams AB, BC and CA finish in ${a}, ${b} and ${c} days respectively. In how many days can A alone complete it?`,
           `Three pairwise teams complete the work in ${a}, ${b} and ${c} days respectively. In how many days can A alone complete it?`,
         ]),
         hi: `A+B ${a} दिन में, B+C ${b} दिन में और C+A ${c} दिन में काम पूरा करते हैं। A अकेला कितने दिन लेगा?`,
@@ -2756,7 +2805,7 @@ function buildWage(seed: string, spec: MotifSpec): Draft {
       formula: `E=base+bonus`,
       substitution: `E=${base}+${deltaDays}\\times ${bonusPerDay}`,
       simplification: `E=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
-      shortcutMath: `E=base+adjustment`,
+      shortcutMath: `E=B+\\Delta`,
     });
   }
   if (spec.archetype === "qualityRejection") {
@@ -2775,10 +2824,10 @@ function buildWage(seed: string, spec: MotifSpec): Draft {
       },
       answerKind: "output",
       answerUnit: "pages",
-      formula: `Accepted=Produced\\times \\frac{p}{100}`,
-      substitution: `Accepted=${grossRate}\\times ${time}\\times \\frac{${acceptPercent}}{100}`,
-      simplification: `Accepted=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
-      shortcutMath: `Accepted=gross\\times p/100`,
+      formula: `O_a=O_g\\times \\frac{p}{100}`,
+      substitution: `O_a=${grossRate}\\times ${time}\\times \\frac{${acceptPercent}}{100}`,
+      simplification: `O_a=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
+      shortcutMath: `O_a=O_g\\times \\frac{p}{100}`,
     });
   }
   const totalWage = pick([7200, 9000, 12000], `${seed}:wage`);
@@ -2791,9 +2840,9 @@ function buildWage(seed: string, spec: MotifSpec): Draft {
     model,
     stem: {
       en: phrase(seed, [
-        `A contract wage of ₹${totalWage} is divided in proportion to contributions ${contributions.join(":")}. Find the required share.`,
-        `Workers contribute in the ratio ${contributions.join(":")} to a ₹${totalWage} job. Find the asked share.`,
-        `The total wage is ₹${totalWage}. Actual work contributions are ${contributions.join(":")}. Find the share.`,
+        `A contract wage of ₹${totalWage} is divided in the work-share ratio ${contributions.join(":")}. What is the asked worker's share?`,
+        `Workers share ₹${totalWage} for a job in the ratio ${contributions.join(":")}. What will the selected worker receive?`,
+        `The total wage is ₹${totalWage}. Actual work shares are ${contributions.join(":")}. What is the selected share?`,
       ]),
       hi: `₹${totalWage} की मजदूरी योगदान ${contributions.join(":")} के अनुपात में बाँटी जाती है। आवश्यक हिस्सा ज्ञात करें।`,
       pa: `₹${totalWage} ਦੀ ਮਜ਼ਦੂਰੀ ਯੋਗਦਾਨ ${contributions.join(":")} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਦੀ ਹੈ। ਲੋੜੀਂਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।`,
@@ -2803,7 +2852,7 @@ function buildWage(seed: string, spec: MotifSpec): Draft {
     formula: `Share=\\frac{c_i}{\\sum c}\\times W`,
     substitution: `Share=\\frac{${contributions[index]}}{${contributions.reduce((sum, value) => sum + value, 0)}}\\times ${totalWage}`,
     simplification: `Share=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
-    shortcutMath: `Share=contribution\\ ratio\\times wage`,
+    shortcutMath: `S_i=\\frac{c_i}{\\sum c}\\times W`,
   });
 }
 
@@ -2820,7 +2869,7 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
         en: phrase(seed, [
           `A pipe fills a tank in ${normalTime} hours. With a leak, it fills in ${leakedTime} hours. Find the time in which the leak alone empties the full tank.`,
           `Normally a tank fills in ${normalTime} hours, but with leakage it takes ${leakedTime} hours. Find the leak's emptying time.`,
-          `A filling pipe takes ${normalTime} hours. Because of a leak, the tank fills in ${leakedTime} hours. Find the leak time.`,
+          `An inlet pipe fills a tank in ${normalTime} hours. Because of a leak, the tank fills in ${leakedTime} hours. Find the leak time.`,
         ]),
         hi: `एक पाइप टंकी ${normalTime} घंटे में भरता है। रिसाव होने पर ${leakedTime} घंटे लगते हैं। रिसाव अकेला भरी टंकी कितने घंटे में खाली करेगा?`,
         pa: `ਇੱਕ ਪਾਈਪ ਟੈਂਕੀ ${normalTime} ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਰਿਸਾਅ ਹੋਣ ਤੇ ${leakedTime} ਘੰਟੇ ਲੱਗਦੇ ਹਨ। ਰਿਸਾਅ ਇਕੱਲਾ ਭਰੀ ਟੈਂਕੀ ਕਿੰਨੇ ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰੇਗਾ?`,
@@ -2855,7 +2904,7 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       formula: `C=rt`,
       substitution: `C=${rate}\\times ${time}`,
       simplification: `C=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
-      shortcutMath: `C=rate\\times time`,
+      shortcutMath: `C=rt`,
     });
   }
   if (spec.archetype === "overflow") {
@@ -2873,10 +2922,10 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       },
       answerKind: "output",
       answerUnit: "litres",
-      formula: `Waste=r\\times t`,
-      substitution: `Waste=${rate}\\times ${extraTime}`,
-      simplification: `Waste=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
-      shortcutMath: `Waste=extra\\ inflow`,
+      formula: `W_e=rt_e`,
+      substitution: `W_e=${rate}\\times ${extraTime}`,
+      simplification: `W_e=${clean(Number(evaluateTimeWorkSolverModel(model)))}`,
+      shortcutMath: `W_e=rt_e`,
     });
   }
   if (spec.archetype === "unknownPipe") {
@@ -2888,7 +2937,7 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       spec,
       model,
       stem: {
-        en: `Pipe A fills a tank in ${known} hours. Pipes A and B together fill it in ${netTime} hours. Find the time taken by B alone.`,
+        en: `Pipe A fills a tank in ${known} hours. Pipes A and B together fill it in ${netTime} hours. In how many hours can Pipe B alone fill the tank?`,
         hi: `पाइप A टंकी ${known} घंटे में भरता है। A और B मिलकर ${netTime} घंटे में भरते हैं। B अकेला कितना समय लेगा?`,
         pa: `ਪਾਈਪ A ਟੈਂਕੀ ${known} ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। A ਅਤੇ B ਮਿਲ ਕੇ ${netTime} ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦੇ ਹਨ। B ਇਕੱਲਾ ਕਿੰਨਾ ਸਮਾਂ ਲਵੇਗਾ?`,
       },
@@ -2908,9 +2957,9 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       model,
       stem: {
         en: phrase(seed, [
-          `A filling pipe adds 12 units per hour and an emptying pipe removes 5 units in the next hour alternately. Tank capacity is 60 units. Find the filling time.`,
-          `A tank is filled for one hour at 12 units/hour and then drained for one hour at 5 units/hour repeatedly. Capacity is 60 units. Find completion time.`,
-          `Fill and drain happen alternately with rates 12 and 5 units per hour. For a 60-unit tank, find when it becomes full.`,
+          `A filling pipe adds 12 litres in one hour and an emptying pipe removes 5 litres in the next hour alternately. The tank capacity is 60 litres. In how many hours will the tank be completely filled?`,
+          `A tank is filled for one hour at 12 litres per hour and then drained for one hour at 5 litres per hour repeatedly. In how many hours will a 60-litre tank be completely filled?`,
+          `Water is added at 12 litres in the first hour and removed at 5 litres in the next hour, and this pattern repeats. In how many hours will a 60-litre tank be full?`,
         ]),
         hi: `भरना और खाली होना बारी-बारी होता है। भरने की दर 12 इकाई प्रति घंटा और खाली करने की दर 5 इकाई प्रति घंटा है। टंकी 60 इकाई की है। समय ज्ञात करें।`,
         pa: `ਭਰਨਾ ਅਤੇ ਖਾਲੀ ਹੋਣਾ ਵਾਰੀ-ਵਾਰੀ ਹੁੰਦਾ ਹੈ। ਭਰਨ ਦੀ ਦਰ 12 ਇਕਾਈ ਪ੍ਰਤੀ ਘੰਟਾ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੀ ਦਰ 5 ਇਕਾਈ ਪ੍ਰਤੀ ਘੰਟਾ ਹੈ। ਟੈਂਕੀ 60 ਇਕਾਈ ਦੀ ਹੈ। ਸਮਾਂ ਪਤਾ ਕਰੋ।`,
@@ -2934,8 +2983,8 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       stem: {
         en: phrase(seed, [
           `A tank is already one-fourth full. A pipe can fill the whole tank in ${fillTime} hours. Find the time needed to fill the remaining part.`,
-          `A pipe fills a full tank in ${fillTime} hours. If the tank is already ${inlineMath("\\frac{1}{4}")} full, how long will the pipe take to fill it?`,
-          `One-fourth of a tank is filled. The filling pipe alone fills the tank in ${fillTime} hours. Find the remaining filling time.`,
+          `A pipe fills a full tank in ${fillTime} hours. If the tank is already ${inlineMath("\\frac{1}{4}")} full, in how many hours will it be completely filled?`,
+          `One-fourth of a tank is filled. The filling pipe alone fills the tank in ${fillTime} hours. In how many hours will the tank be completely filled?`,
         ]),
         hi: `टंकी पहले से \\(\\frac{1}{4}\\) भरी है। एक पाइप पूरी टंकी ${fillTime} घंटे में भरता है। शेष भाग भरने का समय ज्ञात करें।`,
         pa: `ਟੈਂਕੀ ਪਹਿਲਾਂ ਹੀ \\(\\frac{1}{4}\\) ਭਰੀ ਹੈ। ਇੱਕ ਪਾਈਪ ਪੂਰੀ ਟੈਂਕੀ ${fillTime} ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। ਬਾਕੀ ਹਿੱਸਾ ਭਰਨ ਦਾ ਸਮਾਂ ਪਤਾ ਕਰੋ।`,
@@ -2961,8 +3010,8 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       stem: {
         en: phrase(seed, [
           `Pipes A and B fill a tank in ${a} hours and ${b} hours respectively. Both are opened together, but A is closed after ${firstPhase} hours. Find the total time to fill the tank.`,
-          `A tank has two filling pipes taking ${a} hours and ${b} hours alone. After both run for ${firstPhase} hours, pipe A is closed. Find the filling time from the start.`,
-          `Pipe A can fill a tank in ${a} hours and pipe B in ${b} hours. A runs only for the first ${firstPhase} hours while B continues. Find total filling time.`,
+          `A tank has two filling pipes taking ${a} hours and ${b} hours alone. After both run for ${firstPhase} hours, Pipe A is closed. In how many hours will the tank be completely filled?`,
+          `Pipe A can fill a tank in ${a} hours and pipe B in ${b} hours. A runs only for the first ${firstPhase} hours while B continues. In how many hours will the tank be completely filled?`,
         ]),
         hi: `पाइप A और B टंकी को क्रमशः ${a} और ${b} घंटे में भरते हैं। दोनों साथ खुलते हैं, लेकिन ${firstPhase} घंटे बाद A बंद हो जाता है। कुल समय ज्ञात करें।`,
         pa: `ਪਾਈਪ A ਅਤੇ B ਟੈਂਕੀ ਨੂੰ ਕ੍ਰਮਵਾਰ ${a} ਅਤੇ ${b} ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦੇ ਹਨ। ਦੋਵੇਂ ਇਕੱਠੇ ਖੁੱਲ੍ਹਦੇ ਹਨ, ਪਰ ${firstPhase} ਘੰਟਿਆਂ ਬਾਅਦ A ਬੰਦ ਹੋ ਜਾਂਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਪਤਾ ਕਰੋ।`,
@@ -2987,8 +3036,8 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
       stem: {
         en: phrase(seed, [
           `Pipe A fills a tank in ${a} hours. It is opened first, and pipe B, which fills it in ${b} hours, is opened ${firstPhase} hours later. Find the total time.`,
-          `A tank is filled by pipe A alone for ${firstPhase} hours. Then pipe B is also opened. A and B alone take ${a} and ${b} hours respectively. Find total filling time.`,
-          `Pipe A starts filling a tank. After ${firstPhase} hours, pipe B joins. Their individual filling times are ${a} hours and ${b} hours. Find the time from the start.`,
+          `A tank is filled by Pipe A alone for ${firstPhase} hours. Then Pipe B is also opened. A and B alone take ${a} and ${b} hours respectively. In how many hours will the tank be completely filled?`,
+          `Pipe A starts filling a tank. After ${firstPhase} hours, Pipe B joins. Their individual filling times are ${a} hours and ${b} hours. In how many hours will the tank be completely filled?`,
         ]),
         hi: `पाइप A टंकी ${a} घंटे में भरता है। A पहले खुलता है और ${firstPhase} घंटे बाद पाइप B भी खुलता है, जो अकेला ${b} घंटे लेता है। कुल समय ज्ञात करें।`,
         pa: `ਪਾਈਪ A ਟੈਂਕੀ ${a} ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ। A ਪਹਿਲਾਂ ਖੁੱਲ੍ਹਦਾ ਹੈ ਅਤੇ ${firstPhase} ਘੰਟਿਆਂ ਬਾਅਦ ਪਾਈਪ B ਵੀ ਖੁੱਲ੍ਹਦਾ ਹੈ, ਜੋ ਇਕੱਲਾ ${b} ਘੰਟੇ ਲੈਂਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਪਤਾ ਕਰੋ।`,
@@ -3010,19 +3059,19 @@ function buildPipe(seed: string, spec: MotifSpec): Draft {
     spec.archetype === "twoFillersLeak"
       ? phrase(seed, [
         `Pipes A and B fill a tank in ${fillTimes[0]} hours and ${fillTimes[1]} hours. A leak empties the full tank in ${emptyTimes[0]} hours. Find the time to fill the tank when all are open.`,
-        `Two filling pipes take ${fillTimes[0]} hours and ${fillTimes[1]} hours. An emptying pipe can empty the tank in ${emptyTimes[0]} hours. Find the net filling time.`,
-        `Pipes A and B are opened together, while a leak is also present. Their filling times are ${fillTimes[0]} and ${fillTimes[1]} hours, and the leak empties in ${emptyTimes[0]} hours. Find the filling time.`,
+          `Two filling pipes take ${fillTimes[0]} hours and ${fillTimes[1]} hours. An emptying pipe can empty the tank in ${emptyTimes[0]} hours. In how many hours will the tank be completely filled?`,
+          `Pipes A and B are opened together, while a leak is also present. Their filling times are ${fillTimes[0]} and ${fillTimes[1]} hours, and the leak empties in ${emptyTimes[0]} hours. In how many hours will the tank be completely filled?`,
       ])
       : spec.archetype === "delayedLeak"
         ? phrase(seed, [
           `A pipe can fill a tank in ${fillTimes[0]} hours. It runs alone for ${fixedTime} hours, then a leak that empties the tank in ${emptyTimes[0]} hours starts. Find the total time.`,
-          `A tank is filled by a pipe taking ${fillTimes[0]} hours. After ${fixedTime} hours, a leak opens and can empty the full tank in ${emptyTimes[0]} hours. Find the filling time from the start.`,
-          `A filling pipe works for ${fixedTime} hours before a leak starts. The pipe fills in ${fillTimes[0]} hours and the leak empties in ${emptyTimes[0]} hours. Find total time.`,
+          `A tank is filled by a pipe taking ${fillTimes[0]} hours. After ${fixedTime} hours, a leak opens and can empty the full tank in ${emptyTimes[0]} hours. In how many hours will the tank be completely filled?`,
+          `A filling pipe works for ${fixedTime} hours before a leak starts. The pipe fills in ${fillTimes[0]} hours and the leak empties in ${emptyTimes[0]} hours. In how many hours will the tank be completely filled?`,
         ])
         : phrase(seed, [
           `A pipe can fill a tank in ${fillTimes[0]} hours. A leak can empty the full tank in ${emptyTimes[0]} hours. Find the time to fill the tank when both are open.`,
-          `A filling pipe takes ${fillTimes[0]} hours, while a leak empties the tank in ${emptyTimes[0]} hours. Find the net filling time.`,
-          `A tank is being filled by a pipe and emptied by a leak at the same time. The pipe fills in ${fillTimes[0]} hours and the leak empties in ${emptyTimes[0]} hours. Find the filling time.`,
+          `An inlet pipe fills a tank in ${fillTimes[0]} hours, while a leak empties the tank in ${emptyTimes[0]} hours. In how many hours will the tank be completely filled?`,
+          `A tank is being filled by a pipe and emptied by a leak at the same time. The pipe fills in ${fillTimes[0]} hours and the leak empties in ${emptyTimes[0]} hours. In how many hours will the tank be completely filled?`,
         ]);
   return makeDraft({
     seed,

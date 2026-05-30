@@ -43,14 +43,6 @@ function unwrapGurmukhiTextMath(value: string) {
     );
 }
 
-function normalizeDisplayMathBlocks(value: string) {
-  return value.replace(
-    /\\\[([\s\S]*?)\\\]/g,
-    (_match, inner: string) =>
-      `\\[${inner.trim().replace(/\s*\n\s*/g, " ")}\\]`,
-  );
-}
-
 function splitTextAndStandaloneUrls(text: string): Piece[] {
   const lines = text.split("\n");
   const out: Piece[] = [];
@@ -264,18 +256,6 @@ function renderMathLine(
         }
 
         if (token.kind === "display-math") {
-          if (containsGurmukhi(token.value)) {
-            return (
-              <span
-                key={`display-text-${lineIndex}-${tokenIndex}`}
-                className="punjabi-text"
-                lang="pa"
-              >
-                {token.value}
-              </span>
-            );
-          }
-
           return (
             <MathJax
               key={`display-${lineIndex}-${tokenIndex}`}
@@ -283,18 +263,6 @@ function renderMathLine(
             >
               {`\\[${token.value}\\]`}
             </MathJax>
-          );
-        }
-
-        if (containsGurmukhi(token.value)) {
-          return (
-            <span
-              key={`inline-text-${lineIndex}-${tokenIndex}`}
-              className="punjabi-text"
-              lang="pa"
-            >
-              {token.value}
-            </span>
           );
         }
 
@@ -334,7 +302,7 @@ export function QuestionRichText({
 }) {
   const normalizedContent =
     typeof content === "string"
-      ? normalizeDisplayMathBlocks(unwrapGurmukhiTextMath(content))
+      ? unwrapGurmukhiTextMath(content)
       : content === null ||
           content === undefined
         ? ""
@@ -377,19 +345,20 @@ export function QuestionRichText({
             containsGurmukhi(p.value)
           ) {
             return (
-              <div
-                key={i}
-                className="prose prose-sm max-w-none punjabi-content text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
-                lang="pa"
-                dangerouslySetInnerHTML={{ __html: p.value }}
-              />
+              <MathJax key={i} dynamic hideUntilTypeset="first">
+                <div
+                  className="math-only prose prose-sm max-w-none punjabi-content text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
+                  lang="pa"
+                  dangerouslySetInnerHTML={{ __html: p.value }}
+                />
+              </MathJax>
             );
           }
 
           return (
             <MathJax key={i} dynamic hideUntilTypeset="first">
               <div
-                className="prose prose-sm max-w-none text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
+                className="math-only prose prose-sm max-w-none text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
                 dangerouslySetInnerHTML={{ __html: p.value }}
               />
             </MathJax>

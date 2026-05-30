@@ -10,6 +10,8 @@ import { createQuantV2ProfitLossQuestionCandidate } from "../../lib/quant-v2/pro
 import { createQuantV2InterestQuestionCandidate } from "../../lib/quant-v2/interest-admin-adapter";
 import { createQuantV2RatioProportionQuestionCandidate } from "../../lib/quant-v2/ratio-proportion-admin-adapter";
 import { createQuantV2TimeWorkQuestionCandidate } from "../../lib/quant-v2/time-work-admin-adapter";
+import { createQuantV2TimeSpeedDistanceQuestionCandidate } from "../../lib/quant-v2/time-speed-distance-admin-adapter";
+import { createQuantV2MixtureAlligationQuestionCandidate } from "../../lib/quant-v2/mixture-alligation-admin-adapter";
 import { COMMERCIAL_OBJECT_POOL } from "../editorial/commercial-object-pools";
 import { validateCorpusAuditBatch } from "../validators/corpus-audit-validator";
 import {
@@ -44,6 +46,24 @@ import type {
 const DEFAULT_BATCH_SIZE = 250;
 const MAX_AUDIT_COUNT = 20_000;
 const PREVIEW_SAMPLE_COUNT = 25;
+const TIME_WORK_SMALL_EXPORT_OPENING_CAP = 2;
+const TIME_WORK_TRIVIAL_ONE_STEP_FAMILIES = new Set<string>([
+  "tw_contract_penalty_bonus",
+  "tw_work_quality_rejection",
+  "tw_typist_pages_per_hour",
+  "tw_printer_job_queue",
+  "tw_parallel_machine_batches",
+  "tw_one_day_work_fraction",
+  "pc_capacity_leakage_rate",
+  "pc_tank_capacity_from_rate",
+  "pc_two_tanks_transfer",
+  "pc_overflow_waste_rate",
+]);
+const TIME_WORK_TRIVIAL_ONE_STEP_SOLVER_KINDS = new Set<string>([
+  "one_day_fraction",
+  "capacity_from_rate",
+  "overflow_waste",
+]);
 
 const PERCENTAGE_AUDIT_PATTERN: Pattern = {
   id: "quant-v2-corpus-audit-percentage",
@@ -110,11 +130,39 @@ const TIME_WORK_AUDIT_PATTERN: Pattern = {
   generationDomain: "quant-v2-time-work",
 };
 
+const TIME_SPEED_DISTANCE_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-time-speed-distance",
+  type: "formula",
+  section: "Quant",
+  topic: "time_speed_distance",
+  subtopic: "time_speed_distance",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit time speed distance pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-time-speed-distance",
+};
+
+const MIXTURE_ALLIGATION_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-mixture-alligation",
+  type: "formula",
+  section: "Quant",
+  topic: "mixture_alligation",
+  subtopic: "mixture_alligation",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit mixture alligation pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-mixture-alligation",
+};
+
 function auditPatternForPreset(presetId: string): Pattern {
   if (presetId === "profit_loss_audit") return PROFIT_LOSS_AUDIT_PATTERN;
   if (presetId === "interest_audit") return INTEREST_AUDIT_PATTERN;
   if (presetId === "ratio_proportion_audit") return RATIO_PROPORTION_AUDIT_PATTERN;
   if (presetId === "time_work_audit") return TIME_WORK_AUDIT_PATTERN;
+  if (presetId === "time_speed_distance_audit") return TIME_SPEED_DISTANCE_AUDIT_PATTERN;
+  if (presetId === "mixture_alligation_audit") return MIXTURE_ALLIGATION_AUDIT_PATTERN;
   return PERCENTAGE_AUDIT_PATTERN;
 }
 
@@ -131,7 +179,140 @@ function generateForPreset(presetId: string, pattern: Pattern, options: Generato
   if (presetId === "time_work_audit") {
     return createQuantV2TimeWorkQuestionCandidate(pattern, options);
   }
+  if (presetId === "time_speed_distance_audit") {
+    return createQuantV2TimeSpeedDistanceQuestionCandidate(pattern, options);
+  }
+  if (presetId === "mixture_alligation_audit") {
+    return createQuantV2MixtureAlligationQuestionCandidate(pattern, options);
+  }
   return createQuantV2PercentageQuestionCandidate(pattern, options);
+}
+
+function normalizeExportText(text: unknown) {
+  return String(text ?? "")
+    .toLowerCase()
+    .replace(/\s+/gu, " ")
+    .replace(/[^\p{L}\p{N}\s:.₹-]/gu, "")
+    .trim();
+}
+
+function exportOpeningKey(question: FormulaQuestion) {
+  return String(question.text ?? "")
+    .replace(/[^\p{L}\p{N}\s]/gu, "")
+    .split(/\s+/u)
+    .filter(Boolean)
+    .slice(0, 8)
+    .join(" ")
+    .toLowerCase();
+}
+
+function canonicalProblemOf(question: FormulaQuestion) {
+  return (question.debugMetadata?.quantV2 as any)?.canonicalProblem ??
+    (question.semanticMetadata as any)?.problem;
+}
+
+function topologyNumericAnswerFingerprint(question: FormulaQuestion) {
+  const problem = canonicalProblemOf(question);
+  const numericSignature = problem?.auditMeta?.numericSignature ??
+    Object.entries(problem?.variables ?? {})
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, value]) => `${key}:${Array.isArray(value) ? value.join(",") : String(value)}`)
+      .join("|");
+  const answer = question.options?.[question.correct ?? 0] ?? "";
+  return `${problem?.topologyId ?? problem?.family ?? ""}::${numericSignature}::${normalizeExportText(answer)}`;
+}
+
+function timeWorkUglyDecimalIssue(question: FormulaQuestion) {
+  const text = [
+    question.text,
+    question.explanation,
+    question.explanationHi,
+    question.explanationPa,
+    question.options?.join("\n"),
+  ].filter(Boolean).join("\n");
+  const decimalValues = text.match(/(?:₹|â‚¹)?\d+\.\d+/gu) ?? [];
+  const allowed = [0.2, 0.25, 0.4, 0.5, 0.6, 0.75, 0.8];
+  return decimalValues.some((raw) => {
+    const value = Number(raw.replace(/[^\d.-]/gu, ""));
+    if (!Number.isFinite(value)) return false;
+    const fraction = Math.round((Math.abs(value) - Math.floor(Math.abs(value))) * 100) / 100;
+    if (/^(?:₹|â‚¹)/u.test(raw)) return !(Math.abs(fraction) < 0.006 || Math.abs(fraction - 0.5) < 0.006);
+    return !allowed.some((allowedFraction) => Math.abs(fraction - allowedFraction) < 0.006);
+  });
+}
+
+function timeWorkTrivialOneStepIssue(question: FormulaQuestion) {
+  const problem = canonicalProblemOf(question);
+  const family = String(problem?.family ?? problem?.motifId ?? "");
+  const solverKind = String(problem?.solverModel?.kind ?? "");
+  if (TIME_WORK_TRIVIAL_ONE_STEP_FAMILIES.has(family)) return true;
+  if (TIME_WORK_TRIVIAL_ONE_STEP_SOLVER_KINDS.has(solverKind)) return true;
+  const stem = normalizeExportText(question.text);
+  const explanation = normalizeExportText(question.explanation);
+  if (/\bone day work\b|\bone day output\b|\bwork done in one day\b/u.test(stem)) return true;
+  if (
+    /\b(?:litres?|pages?|parts?|boxes?|files?)\b/u.test(stem) &&
+    /\bper\b/u.test(stem) &&
+    /\b(?:minutes?|hours?|days?)\b/u.test(stem) &&
+    /(?:how much|how many|quantity|volume|output|supplied|received)/u.test(stem) &&
+    /(?:c\s*=\s*r|waste\s*=\s*r|rate\s*times\s*time|r\\times|\\times)/u.test(explanation)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function timeWorkBrokenStemIssue(question: FormulaQuestion) {
+  const text = String(question.text ?? "").trim();
+  if (!text) return true;
+  if (!/[?]\s*$/u.test(text)) return true;
+  const withoutQuestion = text.replace(/[?\s]+$/u, "").trim().toLowerCase();
+  if (/\b(?:from|with|for|by|and|then|starting with)\s*$/u.test(withoutQuestion)) return true;
+  if (/starting with\s*\?/iu.test(text)) return true;
+  if (/continue alternately from(?:\s|[?.]|$)/iu.test(text)) return true;
+  return !/(in how many|how many|what fraction|what is|what will|find|by how many|for how many)/iu.test(text);
+}
+
+function timeWorkExportQualityIssue(
+  presetId: CorpusAuditExportOptions["presetId"],
+  question: FormulaQuestion,
+  guards: {
+    stems: Set<string>;
+    topologyNumericAnswers: Set<string>;
+    openings: Map<string, number>;
+    enforceOpeningCap: boolean;
+  },
+) {
+  if (presetId !== "time_work_audit") return undefined;
+  const stem = normalizeExportText(question.text);
+  if (guards.stems.has(stem)) return "exact duplicate EN stem";
+  if (guards.topologyNumericAnswers.has(topologyNumericAnswerFingerprint(question))) {
+    return "same topology numeric answer duplicate";
+  }
+  if (timeWorkBrokenStemIssue(question)) return "broken/incomplete stem";
+  if (timeWorkUglyDecimalIssue(question)) return "ugly decimal";
+  if (timeWorkTrivialOneStepIssue(question)) return "trivial one-step question";
+  const opening = exportOpeningKey(question);
+  if (guards.enforceOpeningCap && (guards.openings.get(opening) ?? 0) >= TIME_WORK_SMALL_EXPORT_OPENING_CAP) {
+    return "first eight words repeated";
+  }
+  return undefined;
+}
+
+function acceptTimeWorkExportQuestion(
+  presetId: CorpusAuditExportOptions["presetId"],
+  question: FormulaQuestion,
+  guards: {
+    stems: Set<string>;
+    topologyNumericAnswers: Set<string>;
+    openings: Map<string, number>;
+  },
+) {
+  if (presetId !== "time_work_audit") return;
+  guards.stems.add(normalizeExportText(question.text));
+  guards.topologyNumericAnswers.add(topologyNumericAnswerFingerprint(question));
+  const opening = exportOpeningKey(question);
+  guards.openings.set(opening, (guards.openings.get(opening) ?? 0) + 1);
 }
 
 type RunningSummary = CorpusAuditSummary & {
@@ -786,30 +967,55 @@ export async function runCorpusAuditExport(
       })
     : undefined;
   const scheduledQuestions: FormulaQuestion[] = [];
+  const timeWorkGuards = {
+    stems: new Set<string>(),
+    topologyNumericAnswers: new Set<string>(),
+    openings: new Map<string, number>(),
+  };
 
   for (let start = 0; start < count; start += batchSize) {
     const end = Math.min(count, start + batchSize);
     for (let index = start; index < end; index += 1) {
       const forcedMotifId = forcedMotifIds?.[index % forcedMotifIds.length];
-      const generatedQuestion = schedulerState
-        ? generateScheduledQuestion({
-            state: schedulerState,
-            index,
-            seedPrefix,
-            examProfile,
-            forcedMotifId,
-            generate: (generatorOptions: GeneratorOptions) =>
-              generateForPreset(preset.id, auditPattern, generatorOptions),
-          }).question
-        : generateForPreset(
-            preset.id,
-            auditPattern,
-            {
-              seed: `${seedPrefix}:${index}`,
+      let generatedQuestion: FormulaQuestion | undefined;
+      let lastRejectReason = "";
+      const maxQuestionAttempts = preset.id === "time_work_audit" ? 160 : 1;
+      for (let attempt = 0; attempt < maxQuestionAttempts; attempt += 1) {
+        const schedulerSeed = preset.id === "time_work_audit" ? `${seedPrefix}:${index}:attempt:${attempt}` : seedPrefix;
+        const directSeed = preset.id === "time_work_audit" ? `${seedPrefix}:${index}:attempt:${attempt}` : `${seedPrefix}:${index}`;
+        const candidate = schedulerState
+          ? generateScheduledQuestion({
+              state: schedulerState,
+              index,
+              seedPrefix: schedulerSeed,
               examProfile,
-              ...(forcedMotifId ? { forcedMotifId } : {}),
-            },
-          );
+              forcedMotifId,
+              generate: (generatorOptions: GeneratorOptions) =>
+                generateForPreset(preset.id, auditPattern, generatorOptions),
+            }).question
+          : generateForPreset(
+              preset.id,
+              auditPattern,
+              {
+                seed: directSeed,
+                examProfile,
+                ...(forcedMotifId ? { forcedMotifId } : {}),
+              },
+            );
+        const issue = timeWorkExportQualityIssue(preset.id, candidate, {
+          ...timeWorkGuards,
+          enforceOpeningCap: count <= 200,
+        });
+        if (issue) {
+          lastRejectReason = issue;
+          continue;
+        }
+        generatedQuestion = candidate;
+        break;
+      }
+      if (!generatedQuestion) {
+        throw new Error(`Unable to generate clean Time Work corpus question at index ${index}: ${lastRejectReason || "quality gate"}`);
+      }
       const question: FormulaQuestion = {
         ...generatedQuestion,
         debugMetadata: {
@@ -819,6 +1025,7 @@ export async function runCorpusAuditExport(
           explicitSeed,
         },
       };
+      acceptTimeWorkExportQuestion(preset.id, question, timeWorkGuards);
       if (schedulerState && count <= 200) {
         scheduledQuestions.push(question);
         continue;

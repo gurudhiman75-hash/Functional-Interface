@@ -12,6 +12,8 @@ import {
 } from "./quant-v2/migrated-quant-topics";
 import { RATIO_PROPORTION_FAMILY_IDS } from "../quant-v2/canonical/ratio-proportion-motif-factories";
 import { TIME_WORK_FAMILY_IDS } from "../quant-v2/canonical/time-work-motif-factories";
+import { TIME_SPEED_DISTANCE_FAMILY_IDS } from "../quant-v2/canonical/time-speed-distance-motif-factories";
+import { MIXTURE_ALLIGATION_FAMILY_IDS } from "../quant-v2/canonical/mixture-alligation-motif-factories";
 
 export type QuestionPatternDomain =
   | "reasoning"
@@ -3263,6 +3265,42 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       enabled: true,
     },
     {
+      id: "time-speed-distance",
+      domain: "quant",
+      topic: "time-speed-distance",
+      label: "Time, Speed & Distance V2",
+      description:
+        "Quant V2 Time, Speed & Distance chapter with solver-backed journeys, relative motion, trains, boats, races, circular tracks, escalators, and catch-up traps.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...TIME_SPEED_DISTANCE_FAMILY_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
+      id: "mixture-alligation",
+      domain: "quant",
+      topic: "mixture-alligation",
+      label: "Mixture & Alligation V2",
+      description:
+        "Quant V2 Mixture & Alligation chapter with solver-backed alligation, replacement, dilution, concentration, dealer, vessel, alloy, and PYQ+ traps.",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      compatibleMotifs: [
+        ...MIXTURE_ALLIGATION_FAMILY_IDS,
+      ],
+      examStyles: ["ssc", "banking"],
+      enabled: true,
+    },
+    {
       id: "time-work-phases",
       domain: "quant",
       topic: "time-work",
@@ -3346,7 +3384,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         ...TSD_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "speed-distance-trains",
@@ -3363,7 +3401,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         ...TSD_TRAIN_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "speed-distance-races",
@@ -3380,7 +3418,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         ...TSD_RACE_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "speed-distance-circular",
@@ -3396,7 +3434,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         ...TSD_CIRCULAR_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "speed-distance-boats",
@@ -3413,7 +3451,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         ...TSD_BOAT_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "averages",
@@ -3790,7 +3828,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       legacyDisabled: true,
     },
     {
-      id: "mixture-alligation",
+      id: "legacy-mixture-alligation",
       domain: "quant",
       topic: "mixture-alligation",
       label: "Mixture & Alligation",
@@ -3869,7 +3907,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "mixture-weighted-average",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "partnership",
@@ -3884,7 +3922,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "ratio-normalization-switch",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "ages",
@@ -3899,7 +3937,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         "age-shift-equation",
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "pipes-cisterns",
@@ -3929,7 +3967,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
         ...TSD_BOAT_MOTIF_IDS,
       ],
       examStyles: ["ssc", "banking"],
-      enabled: true,
+      enabled: false,
     },
     {
       id: "fundamentals",
@@ -4140,7 +4178,8 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       id: "number-system",
       domain: "quant",
       topic: "number-system",
-      label: "Number System",
+      label: "Number System V2",
+      generationDomain: "quant-v2-number-system",
       description:
         "SSC-style number system questions covering divisibility, remainders, unit digits, factorials, recurring decimals, divisor counting, and perfect powers.",
       supportedDifficulties: [
@@ -4172,6 +4211,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-unit-digit",
@@ -4189,6 +4229,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-factorials",
@@ -4206,6 +4247,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-recurring-decimals",
@@ -4224,6 +4266,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-perfect-powers",
@@ -4244,6 +4287,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-classification",
@@ -4262,6 +4306,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-remainders",
@@ -4279,6 +4324,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-factors",
@@ -4298,6 +4344,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "number-system-surds-indices",
@@ -4316,6 +4363,7 @@ export const QUESTION_PATTERN_REGISTRY: QuestionPattern[] =
       ],
       examStyles: ["ssc", "banking"],
       enabled: true,
+      legacyDisabled: true,
     },
     {
       id: "algebra-basics",
@@ -6762,27 +6810,35 @@ export function listQuestionPatterns(
 }
 
 export function listEnabledQuantV2AdminPatterns() {
-  const expectedDomains = new Set(
-    listQuantV2Topics()
-      .filter((topic) => topic.adminEnabled)
-      .map((topic) => topic.generationDomain),
-  );
-
-  return listQuestionPatterns(false).filter(
-    (pattern) =>
-      expectedDomains.has(
-        resolveMigratedQuantV2DomainFromAlias(
-          pattern.id,
-        ) ??
-          resolveMigratedQuantV2DomainFromAlias(
-            pattern.topic,
-          ) ??
-          resolveMigratedQuantV2DomainFromAlias(
-            pattern.label,
-          ) ??
-          "",
-      ),
-  );
+  const visiblePatterns = listQuestionPatterns(false);
+  return listQuantV2Topics()
+    .filter((topic) => topic.adminEnabled)
+    .map((topic) => {
+      const canonicalId = topic.topicId.replace(/_/gu, "-");
+      const pattern =
+        visiblePatterns.find((candidate) => candidate.id === canonicalId) ??
+        visiblePatterns.find(
+          (candidate) =>
+            resolveMigratedQuantV2DomainFromAlias(candidate.id) === topic.generationDomain ||
+            resolveMigratedQuantV2DomainFromAlias(candidate.topic) === topic.generationDomain ||
+            resolveMigratedQuantV2DomainFromAlias(candidate.label) === topic.generationDomain,
+        );
+      return {
+        ...(pattern ?? {
+          id: canonicalId,
+          domain: "quant",
+          topic: canonicalId,
+          description: topic.displayLabel,
+          supportedDifficulties: ["easy", "medium", "hard"],
+          compatibleMotifs: [],
+          examStyles: ["ssc", "banking"],
+          enabled: true,
+        }),
+        id: canonicalId,
+        label: topic.displayLabel,
+        generationDomain: topic.generationDomain,
+      } as Pattern;
+    });
 }
 
 export function getQuestionPatternRegistryConsistencyReport() {
@@ -7287,14 +7343,14 @@ function buildQuantPattern(
         id: `registry-mixture-alligation-${difficulty.toLowerCase()}`,
         reasoningCapabilities: [
           "arithmetic",
-          "direct",
           "conditional",
           "comparative",
           "multi-step",
           "inferential",
         ],
+        generationDomain: "quant-v2-mixture-alligation",
         templateVariants: [
-          "Solve the mixture and alligation question and find the required value.",
+          "Solve the Mixture & Alligation V2 question and find the required value.",
         ],
         variables: {},
         formula: "0",
@@ -7860,6 +7916,24 @@ function buildQuantPattern(
         ],
         templateVariants: [
           "Solve the time and work question and find the required value.",
+        ],
+        variables: {},
+        formula: "0",
+      };
+    case "time-speed-distance":
+      return {
+        ...base,
+        id: `registry-time-speed-distance-${difficulty.toLowerCase()}`,
+        reasoningCapabilities: [
+          "arithmetic",
+          "comparative",
+          "conditional",
+          "multi-step",
+          "inferential",
+        ],
+        generationDomain: "quant-v2-time-speed-distance",
+        templateVariants: [
+          "Solve the Time, Speed & Distance V2 question and find the required value.",
         ],
         variables: {},
         formula: "0",

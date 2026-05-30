@@ -6,6 +6,9 @@ export type PyqBenchmarkTopic =
   | "interest"
   | "ratio-proportion"
   | "time-work"
+  | "time-speed-distance"
+  | "mixture-alligation"
+  | "number-system"
   | "data_interpretation";
 
 export type PyqDifficultyBand =

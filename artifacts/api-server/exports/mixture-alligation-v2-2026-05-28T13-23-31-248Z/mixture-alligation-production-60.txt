@@ -1,0 +1,3851 @@
+Q1. At a ration store, two grades of rice cost ₹40/kg and ₹60/kg. To get a blend worth ₹48/kg, in what ratio should they be mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(60-48):(48-40)
+\]
+Simplify the alligation ratio.
+\[
+C:D=12:8=3:2
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 3:2
+Hindi:
+राशन दुकान पर, ₹40 और ₹60 प्रति किग्रा वाले rice को मिलाकर औसत मूल्य ₹48 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(60-48):(48-40)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=12:8=3:2
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 3:2
+Punjabi:
+ਰਾਸ਼ਨ ਦੀ ਦੁਕਾਨ ਤੇ, ₹40 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ rice ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(60-48):(48-40)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=12:8=3:2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 3:2
+Meta: family=mix_two_price_blend_ratio topology=mixture_alligation:mix_two_price_blend_ratio difficulty=Easy
+
+Q2. A trader prepares a blend where 10 kg, 20 kg and 30 kg of rice priced at ₹30, ₹45 and ₹60 per unit are mixed. What is the average price of the mixture?
+  A. ₹50
+  B. ₹55
+  C. ₹45
+  D. ₹60
+Answer: ₹50
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=10\times 30+20\times 45+30\times 60
+\]
+Divide total value by total quantity.
+\[
+M=\frac{10\times 30+20\times 45+30\times 60}{10+20+30}=50
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹50
+Hindi:
+एक व्यापारी मिश्रण तैयार करता है जिसमें 10, 20 और 30 kg मात्रा को ₹30, ₹45 और ₹60 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=10\times 30+20\times 45+30\times 60
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{10\times 30+20\times 45+30\times 60}{10+20+30}=50
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹50
+Punjabi:
+ਇੱਕ ਵਪਾਰੀ ਮਿਸ਼ਰਣ ਤਿਆਰ ਕਰਦਾ ਹੈ ਜਿਸ ਵਿੱਚ 10, 20 ਅਤੇ 30 kg ਮਾਤਰਾ ਨੂੰ ₹30, ₹45 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=10\times 30+20\times 45+30\times 60
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{10\times 30+20\times 45+30\times 60}{10+20+30}=50
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹50
+Meta: family=mix_two_items_find_mean_price topology=mixture_alligation:mix_two_items_find_mean_price difficulty=Easy
+
+Q3. In a retail shop, a shopkeeper mixes flour costing ₹32 per kg with flour costing ₹48 per kg to make a mixture worth ₹38 per kg. In what ratio should the two types be mixed?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=32 & & D=48 \\
+& M=38 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(48-38):(38-32)
+\]
+Simplify the alligation ratio.
+\[
+C:D=10:6=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+खुदरा दुकान में, ₹32 और ₹48 प्रति किग्रा वाले flour को मिलाकर औसत मूल्य ₹38 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=32 & & D=48 \\
+& M=38 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(48-38):(38-32)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=10:6=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਖੁਦਰਾ ਦੁਕਾਨ ਵਿੱਚ, ₹32 ਅਤੇ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ flour ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹38 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=32 & & D=48 \\
+& M=38 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(48-38):(38-32)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=10:6=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=mix_two_items_find_missing_price topology=mixture_alligation:mix_two_items_find_missing_price difficulty=Medium
+
+Q4. For a monthly stock blend, 20 kg, 20 kg and 40 kg of flour priced at ₹30, ₹50 and ₹70 per unit are mixed. What is the average price of the mixture?
+  A. ₹55
+  B. ₹60
+  C. ₹50
+  D. ₹65
+Answer: ₹55
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=20\times 30+20\times 50+40\times 70
+\]
+Divide total value by total quantity.
+\[
+M=\frac{20\times 30+20\times 50+40\times 70}{20+20+40}=55
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹55
+Hindi:
+मासिक स्टॉक मिश्रण के लिए, 20, 20 और 40 kg मात्रा को ₹30, ₹50 और ₹70 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=20\times 30+20\times 50+40\times 70
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{20\times 30+20\times 50+40\times 70}{20+20+40}=55
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹55
+Punjabi:
+ਮਹੀਨਾਵਾਰ ਸਟਾਕ ਮਿਸ਼ਰਣ ਲਈ, 20, 20 ਅਤੇ 40 kg ਮਾਤਰਾ ਨੂੰ ₹30, ₹50 ਅਤੇ ₹70 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=20\times 30+20\times 50+40\times 70
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{20\times 30+20\times 50+40\times 70}{20+20+40}=55
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹55
+Meta: family=mix_average_value_quantity_given topology=mixture_alligation:mix_average_value_quantity_given difficulty=Easy
+
+Q5. During stock preparation, 30 kg, 20 kg and 10 kg of grain priced at ₹24, ₹36 and ₹48 per unit are mixed. What is the average price of the mixture?
+  A. ₹32
+  B. ₹37
+  C. ₹27
+  D. ₹42
+Answer: ₹32
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=30\times 24+20\times 36+10\times 48
+\]
+Divide total value by total quantity.
+\[
+M=\frac{30\times 24+20\times 36+10\times 48}{30+20+10}=32
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹32
+Hindi:
+स्टॉक तैयार करते समय, 30, 20 और 10 kg मात्रा को ₹24, ₹36 और ₹48 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=30\times 24+20\times 36+10\times 48
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{30\times 24+20\times 36+10\times 48}{30+20+10}=32
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹32
+Punjabi:
+ਸਟਾਕ ਤਿਆਰ ਕਰਦੇ ਸਮੇਂ, 30, 20 ਅਤੇ 10 kg ਮਾਤਰਾ ਨੂੰ ₹24, ₹36 ਅਤੇ ₹48 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=30\times 24+20\times 36+10\times 48
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{30\times 24+20\times 36+10\times 48}{30+20+10}=32
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹32
+Meta: family=mix_average_value_missing_quantity topology=mixture_alligation:mix_average_value_missing_quantity difficulty=Medium
+
+Q6. For a monthly stock blend, fertilizer costing ₹60/kg and ₹100/kg are mixed so that the average cost becomes ₹75/kg. What is the mixing ratio?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=60 & & D=100 \\
+& M=75 & \\
+D-M=25 & & M-C=15
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(100-75):(75-60)
+\]
+Simplify the alligation ratio.
+\[
+C:D=25:15=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+मासिक स्टॉक मिश्रण के लिए, ₹60 और ₹100 प्रति किग्रा वाले fertilizer को मिलाकर औसत मूल्य ₹75 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=60 & & D=100 \\
+& M=75 & \\
+D-M=25 & & M-C=15
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(100-75):(75-60)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=25:15=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਮਹੀਨਾਵਾਰ ਸਟਾਕ ਮਿਸ਼ਰਣ ਲਈ, ₹60 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ fertilizer ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹75 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=60 & & D=100 \\
+& M=75 & \\
+D-M=25 & & M-C=15
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(100-75):(75-60)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=25:15=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=alligation_cheaper_dearer_ratio topology=mixture_alligation:alligation_cheaper_dearer_ratio difficulty=Easy
+
+Q7. At a ration store, a trader wants a pulses blend costing ₹32/kg by using grades priced at ₹25/kg and ₹45/kg. What ratio should he use?
+  A. 13:7
+  B. 7:13
+  C. 2:1
+  D. 13:8
+Answer: 13:7
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=25 & & D=45 \\
+& M=32 & \\
+D-M=13 & & M-C=7
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(45-32):(32-25)
+\]
+Simplify the alligation ratio.
+\[
+C:D=13:7=13:7
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 13:7
+Hindi:
+राशन दुकान पर, ₹25 और ₹45 प्रति किग्रा वाले pulses को मिलाकर औसत मूल्य ₹32 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=25 & & D=45 \\
+& M=32 & \\
+D-M=13 & & M-C=7
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(45-32):(32-25)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=13:7=13:7
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 13:7
+Punjabi:
+ਰਾਸ਼ਨ ਦੀ ਦੁਕਾਨ ਤੇ, ₹25 ਅਤੇ ₹45 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ pulses ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹32 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=25 & & D=45 \\
+& M=32 & \\
+D-M=13 & & M-C=7
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(45-32):(32-25)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=13:7=13:7
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 13:7
+Meta: family=alligation_find_cost_price topology=mixture_alligation:alligation_find_cost_price difficulty=Easy
+
+Q8. In a grocery shop, 12 kg, 18 kg and 30 kg of tea priced at ₹50, ₹70 and ₹80 per unit are mixed. What is the average price of the mixture?
+  A. ₹71
+  B. ₹76
+  C. ₹66
+  D. ₹81
+Answer: ₹71
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=12\times 50+18\times 70+30\times 80
+\]
+Divide total value by total quantity.
+\[
+M=\frac{12\times 50+18\times 70+30\times 80}{12+18+30}=71
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹71
+Hindi:
+एक किराना दुकान में, 12, 18 और 30 kg मात्रा को ₹50, ₹70 और ₹80 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=12\times 50+18\times 70+30\times 80
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{12\times 50+18\times 70+30\times 80}{12+18+30}=71
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹71
+Punjabi:
+ਇੱਕ ਕਰਿਆਨੇ ਦੀ ਦੁਕਾਨ ਵਿੱਚ, 12, 18 ਅਤੇ 30 kg ਮਾਤਰਾ ਨੂੰ ₹50, ₹70 ਅਤੇ ₹80 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=12\times 50+18\times 70+30\times 80
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{12\times 50+18\times 70+30\times 80}{12+18+30}=71
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹71
+Meta: family=alligation_equal_quantity_average topology=mixture_alligation:alligation_equal_quantity_average difficulty=Easy
+
+Q9. In a retail shop, two grades of flour cost ₹32/kg and ₹48/kg. To get a blend worth ₹38/kg, in what ratio should they be mixed?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=32 & & D=48 \\
+& M=38 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(48-38):(38-32)
+\]
+Simplify the alligation ratio.
+\[
+C:D=10:6=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+खुदरा दुकान में, ₹32 और ₹48 प्रति किग्रा वाले flour को मिलाकर औसत मूल्य ₹38 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=32 & & D=48 \\
+& M=38 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(48-38):(38-32)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=10:6=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਖੁਦਰਾ ਦੁਕਾਨ ਵਿੱਚ, ₹32 ਅਤੇ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ flour ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹38 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=32 & & D=48 \\
+& M=38 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(48-38):(38-32)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=10:6=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=alligation_successive_mixing topology=mixture_alligation:alligation_successive_mixing difficulty=Easy
+
+Q10. For a customer order, a vessel contains milk and water in quantities 90 litres and 30 litres. How many litres of water should be added so that the ratio becomes 3:2?
+  A. 30 litres
+  B. 35 litres
+  C. 25 litres
+  D. 40 litres
+Answer: 30 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{90}{30+x}=\frac{3}{2}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{2\times 90-3\times 30}{3}=30
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 30 litres
+Hindi:
+ग्राहक के ऑर्डर के लिए, एक बर्तन में दूध 90 लीटर और पानी 30 लीटर है। अनुपात 3:2 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{90}{30+x}=\frac{3}{2}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{2\times 90-3\times 30}{3}=30
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 30 लीटर
+Punjabi:
+ਗਾਹਕ ਦੇ ਆਰਡਰ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 90 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 30 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 3:2 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{90}{30+x}=\frac{3}{2}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{2\times 90-3\times 30}{3}=30
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 30 ਲੀਟਰ
+Meta: family=alligation_target_mean_quantity_added topology=mixture_alligation:alligation_target_mean_quantity_added difficulty=Medium
+
+Q11. For a customer order, fertilizer costing ₹60/kg and ₹100/kg are mixed so that the average cost becomes ₹75/kg. What is the mixing ratio?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=60 & & D=100 \\
+& M=75 & \\
+D-M=25 & & M-C=15
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(100-75):(75-60)
+\]
+Simplify the alligation ratio.
+\[
+C:D=25:15=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+ग्राहक के ऑर्डर के लिए, ₹60 और ₹100 प्रति किग्रा वाले fertilizer को मिलाकर औसत मूल्य ₹75 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=60 & & D=100 \\
+& M=75 & \\
+D-M=25 & & M-C=15
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(100-75):(75-60)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=25:15=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਗਾਹਕ ਦੇ ਆਰਡਰ ਲਈ, ₹60 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ fertilizer ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹75 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=60 & & D=100 \\
+& M=75 & \\
+D-M=25 & & M-C=15
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(100-75):(75-60)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=25:15=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=mix_milk_water_basic_ratio topology=mixture_alligation:mix_milk_water_basic_ratio difficulty=Easy
+
+Q12. A store manager notes that a vessel contains milk and water in quantities 50 litres and 30 litres. How many litres of water should be added so that the ratio becomes 5:5?
+  A. 20 litres
+  B. 25 litres
+  C. 15 litres
+  D. 30 litres
+Answer: 20 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{50}{30+x}=\frac{5}{5}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{5\times 50-5\times 30}{5}=20
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 20 litres
+Hindi:
+एक स्टोर प्रबंधक नोट करता है कि एक बर्तन में दूध 50 लीटर और पानी 30 लीटर है। अनुपात 5:5 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{50}{30+x}=\frac{5}{5}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{5\times 50-5\times 30}{5}=20
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 20 लीटर
+Punjabi:
+ਇੱਕ ਸਟੋਰ ਮੈਨੇਜਰ ਨੋਟ ਕਰਦਾ ਹੈ ਕਿ ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 50 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 30 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 5:5 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{50}{30+x}=\frac{5}{5}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{5\times 50-5\times 30}{5}=20
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 20 ਲੀਟਰ
+Meta: family=mix_milk_water_find_milk_added topology=mixture_alligation:mix_milk_water_find_milk_added difficulty=Easy
+
+Q13. For a monthly stock blend, a vessel contains milk and water in quantities 32 litres and 24 litres. How many litres of water should be added so that the ratio becomes 1:1?
+  A. 8 litres
+  B. 9 litres
+  C. 7 litres
+  D. 10 litres
+Answer: 8 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{32}{24+x}=\frac{1}{1}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{1\times 32-1\times 24}{1}=8
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 8 litres
+Hindi:
+मासिक स्टॉक मिश्रण के लिए, एक बर्तन में दूध 32 लीटर और पानी 24 लीटर है। अनुपात 1:1 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{32}{24+x}=\frac{1}{1}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{1\times 32-1\times 24}{1}=8
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 8 लीटर
+Punjabi:
+ਮਹੀਨਾਵਾਰ ਸਟਾਕ ਮਿਸ਼ਰਣ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 32 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 24 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 1:1 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{32}{24+x}=\frac{1}{1}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{1\times 32-1\times 24}{1}=8
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 8 ਲੀਟਰ
+Meta: family=mix_milk_water_quantity_removed topology=mixture_alligation:mix_milk_water_quantity_removed difficulty=Easy
+
+Q14. For a solution kept in a tank, a vessel contains 100 litres of milk. 20 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 64 litres
+  B. 69 litres
+  C. 59 litres
+  D. 74 litres
+Answer: 64 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{20}{100}
+\]
+Apply the repeated-replacement formula.
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 64 litres
+Hindi:
+टंकी में रखे घोल के लिए, एक बर्तन में 100 लीटर दूध है। 20 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{20}{100}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 64 लीटर
+Punjabi:
+ਟੈਂਕੀ ਵਿੱਚ ਰੱਖੇ ਘੋਲ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 100 ਲੀਟਰ ਦੁੱਧ ਹੈ। 20 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{20}{100}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 64 ਲੀਟਰ
+Meta: family=replacement_repeated_operation topology=mixture_alligation:replacement_repeated_operation difficulty=Medium
+
+Q15. At a dairy plant, a vessel contains 120 litres of milk. 30 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 67.5 litres
+  B. 72.5 litres
+  C. 62.5 litres
+  D. 77.5 litres
+Answer: 67.5 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{30}{120}
+\]
+Apply the repeated-replacement formula.
+\[
+L=120\left(1-\frac{30}{120}\right)^2=67.5
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 67.5 litres
+Hindi:
+डेयरी संयंत्र में, एक बर्तन में 120 लीटर दूध है। 30 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{30}{120}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=120\left(1-\frac{30}{120}\right)^2=67.5
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 67.5 लीटर
+Punjabi:
+ਡੇਅਰੀ ਪਲਾਂਟ ਵਿੱਚ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 120 ਲੀਟਰ ਦੁੱਧ ਹੈ। 30 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{30}{120}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=120\left(1-\frac{30}{120}\right)^2=67.5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 67.5 ਲੀਟਰ
+Meta: family=replacement_find_replaced_quantity topology=mixture_alligation:replacement_find_replaced_quantity difficulty=Medium
+
+Q16. A technician handles a solution where a vessel contains 125 litres of milk. 25 litres are taken out and replaced with water, and this operation is repeated 3 times. How much milk is left?
+  A. 64 litres
+  B. 69 litres
+  C. 59 litres
+  D. 74 litres
+Answer: 64 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{25}{125}
+\]
+Apply the repeated-replacement formula.
+\[
+L=125\left(1-\frac{25}{125}\right)^3=64
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 64 litres
+Hindi:
+एक तकनीशियन एक घोल संभालता है जहाँ एक बर्तन में 125 लीटर दूध है। 25 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 3 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{25}{125}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=125\left(1-\frac{25}{125}\right)^3=64
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 64 लीटर
+Punjabi:
+ਇੱਕ ਤਕਨੀਸ਼ੀਅਨ ਇੱਕ ਘੋਲ ਸੰਭਾਲਦਾ ਹੈ ਜਿੱਥੇ ਇੱਕ ਬਰਤਨ ਵਿੱਚ 125 ਲੀਟਰ ਦੁੱਧ ਹੈ। 25 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 3 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{25}{125}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=125\left(1-\frac{25}{125}\right)^3=64
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 64 ਲੀਟਰ
+Meta: family=replacement_asymmetric_removal_fractions topology=mixture_alligation:replacement_asymmetric_removal_fractions difficulty=Hard
+
+Q17. For a prepared liquid mix, how many litres of water should be added to 160 litres of a 50% acid solution to make it a 40% solution?
+  A. 40 litres
+  B. 45 litres
+  C. 35 litres
+  D. 50 litres
+Answer: 40 litres
+Explanation:
+The amount of acid stays fixed unless pure acid is added.
+\[
+0.5\times 160=0.4\times V
+\]
+Solve for the changed quantity.
+\[
+x=40
+\]
+Shortcut / Exam Method:
+When only water changes, the solute amount remains fixed. Equate initial solute and final solute.
+\[
+C_1V_1=C_2V_2
+\]
+Answer: 40 litres
+Hindi:
+तैयार तरल मिश्रण के लिए, घोल में 50% तेजाब है। 160 लीटर घोल को 40% करने के लिए कितनी मात्रा बदलनी होगी?
+शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।
+\[
+0.5\times 160=0.4\times V
+\]
+बदली हुई मात्रा निकालें।
+\[
+x=40
+\]
+शॉर्टकट / परीक्षा विधि:
+जब केवल पानी बदलता है, घुला पदार्थ स्थिर रहता है। प्रारंभिक और अंतिम घुले पदार्थ को बराबर रखें।
+\[
+C_1V_1=C_2V_2
+\]
+उत्तर: 40 लीटर
+Punjabi:
+ਤਿਆਰ ਤਰਲ ਮਿਸ਼ਰਣ ਲਈ, ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 160 ਲੀਟਰ ਘੋਲ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।
+\[
+0.5\times 160=0.4\times V
+\]
+ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=40
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜਦੋਂ ਸਿਰਫ਼ ਪਾਣੀ ਬਦਲਦਾ ਹੈ, ਘੁੱਲਿਆ ਪਦਾਰਥ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਘੁੱਲੇ ਪਦਾਰਥ ਨੂੰ ਬਰਾਬਰ ਰੱਖੋ।
+\[
+C_1V_1=C_2V_2
+\]
+ਉੱਤਰ: 40 ਲੀਟਰ
+Meta: family=dilution_water_added_to_solution topology=mixture_alligation:dilution_water_added_to_solution difficulty=Easy
+
+Q18. For a tank correction, a vessel contains 100 litres of milk. 20 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 64 litres
+  B. 69 litres
+  C. 59 litres
+  D. 74 litres
+Answer: 64 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{20}{100}
+\]
+Apply the repeated-replacement formula.
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 64 litres
+Hindi:
+टंकी सुधारने के लिए, एक बर्तन में 100 लीटर दूध है। 20 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{20}{100}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 64 लीटर
+Punjabi:
+ਟੈਂਕੀ ਠੀਕ ਕਰਨ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 100 ਲੀਟਰ ਦੁੱਧ ਹੈ। 20 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{20}{100}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 64 ਲੀਟਰ
+Meta: family=dilution_successive_replacement topology=mixture_alligation:dilution_successive_replacement difficulty=Medium
+
+Q19. In a storage can, how many litres of pure acid should be added to 150 litres of a 40% acid solution to make it 60% acid?
+  A. 75 litres
+  B. 80 litres
+  C. 70 litres
+  D. 85 litres
+Answer: 75 litres
+Explanation:
+The amount of acid stays fixed unless pure acid is added.
+\[
+\frac{0.4\times 150+x}{150+x}=0.6
+\]
+Solve for the changed quantity.
+\[
+x=75
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{C_1V+x}{V+x}=C_2
+\]
+Answer: 75 litres
+Hindi:
+भंडारण के कनस्तर में, घोल में 40% तेजाब है। 150 लीटर घोल को 60% करने के लिए कितनी मात्रा बदलनी होगी?
+शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।
+\[
+\frac{0.4\times 150+x}{150+x}=0.6
+\]
+बदली हुई मात्रा निकालें।
+\[
+x=75
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{C_1V+x}{V+x}=C_2
+\]
+उत्तर: 75 लीटर
+Punjabi:
+ਸਟੋਰੇਜ ਦੇ ਡੱਬੇ ਵਿੱਚ, ਘੋਲ ਵਿੱਚ 40% ਤੇਜ਼ਾਬ ਹੈ। 150 ਲੀਟਰ ਘੋਲ ਨੂੰ 60% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।
+\[
+\frac{0.4\times 150+x}{150+x}=0.6
+\]
+ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=75
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{C_1V+x}{V+x}=C_2
+\]
+ਉੱਤਰ: 75 ਲੀਟਰ
+Meta: family=concentration_target_percent_by_adding_pure_substance topology=mixture_alligation:concentration_target_percent_by_adding_pure_substance difficulty=Medium
+
+Q20. In a storage can, fresh grapes contain 80% water and dry grapes contain 50% water. How many kg of dry grapes can be obtained from 150 kg of fresh grapes?
+  A. 60 kg
+  B. 65 kg
+  C. 55 kg
+  D. 70 kg
+Answer: 60 kg
+Explanation:
+The solid part remains the same.
+\[
+150\times 20\%=D\times 50\%
+\]
+Solve for dry weight.
+\[
+D=60
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+F(1-W_f)=D(1-W_d)
+\]
+Answer: 60 kg
+Hindi:
+भंडारण के कनस्तर में, ताजे अंगूर में 80% पानी और सूखे अंगूर में 50% पानी है। 150 किग्रा ताजे अंगूर से कितने किग्रा सूखे अंगूर मिलेंगे?
+ठोस भाग समान रहता है।
+\[
+150\times 20\%=D\times 50\%
+\]
+सूखा वजन निकालें।
+\[
+D=60
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+F(1-W_f)=D(1-W_d)
+\]
+उत्तर: 60 किग्रा
+Punjabi:
+ਸਟੋਰੇਜ ਦੇ ਡੱਬੇ ਵਿੱਚ, ਤਾਜ਼ੇ ਅੰਗੂਰਾਂ ਵਿੱਚ 80% ਪਾਣੀ ਅਤੇ ਸੁੱਕੇ ਅੰਗੂਰਾਂ ਵਿੱਚ 50% ਪਾਣੀ ਹੈ। 150 ਕਿਲੋ ਤਾਜ਼ੇ ਅੰਗੂਰਾਂ ਤੋਂ ਕਿੰਨੇ ਕਿਲੋ ਸੁੱਕੇ ਅੰਗੂਰ ਮਿਲਣਗੇ?
+ਠੋਸ ਹਿੱਸਾ ਇੱਕੋ ਰਹਿੰਦਾ ਹੈ।
+\[
+150\times 20\%=D\times 50\%
+\]
+ਸੁੱਕਾ ਭਾਰ ਕੱਢੋ।
+\[
+D=60
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+F(1-W_f)=D(1-W_d)
+\]
+ਉੱਤਰ: 60 ਕਿਲੋ
+Meta: family=concentration_fresh_dry_weight_shift topology=mixture_alligation:concentration_fresh_dry_weight_shift difficulty=Easy
+
+Q21. During stock preparation, a vessel contains milk and water in quantities 64 litres and 32 litres. How many litres of water should be added so that the ratio becomes 4:3?
+  A. 16 litres
+  B. 21 litres
+  C. 11 litres
+  D. 26 litres
+Answer: 16 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{64}{32+x}=\frac{4}{3}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{3\times 64-4\times 32}{4}=16
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 16 litres
+Hindi:
+स्टॉक तैयार करते समय, एक बर्तन में दूध 64 लीटर और पानी 32 लीटर है। अनुपात 4:3 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{64}{32+x}=\frac{4}{3}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{3\times 64-4\times 32}{4}=16
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 16 लीटर
+Punjabi:
+ਸਟਾਕ ਤਿਆਰ ਕਰਦੇ ਸਮੇਂ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 64 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 32 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 4:3 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{64}{32+x}=\frac{4}{3}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{3\times 64-4\times 32}{4}=16
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 16 ਲੀਟਰ
+Meta: family=mix_price_profit_target_loss topology=mixture_alligation:mix_price_profit_target_loss difficulty=Medium
+
+Q22. For a monthly stock blend, two grades of rice cost ₹40/kg and ₹60/kg. To get a blend worth ₹48/kg, in what ratio should they be mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(60-48):(48-40)
+\]
+Simplify the alligation ratio.
+\[
+C:D=12:8=3:2
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 3:2
+Hindi:
+मासिक स्टॉक मिश्रण के लिए, ₹40 और ₹60 प्रति किग्रा वाले rice को मिलाकर औसत मूल्य ₹48 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(60-48):(48-40)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=12:8=3:2
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 3:2
+Punjabi:
+ਮਹੀਨਾਵਾਰ ਸਟਾਕ ਮਿਸ਼ਰਣ ਲਈ, ₹40 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ rice ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(60-48):(48-40)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=12:8=3:2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 3:2
+Meta: family=mix_two_grades_of_rice topology=mixture_alligation:mix_two_grades_of_rice difficulty=Easy
+
+Q23. In a retail shop, 18 kg, 30 kg and 42 kg of coffee priced at ₹50, ₹65 and ₹80 per unit are mixed. What is the average price of the mixture?
+  A. ₹69
+  B. ₹74
+  C. ₹64
+  D. ₹79
+Answer: ₹69
+Explanation:
+Use the alligation cross to compare the lower value, mean value and higher value.
+\[
+\begin{array}{ccc}
+C=50 & & D=80 \\
+& M=69 & \\
+D-M=11 & & M-C=19
+\end{array}
+\]
+Find total value by multiplying each quantity with its rate.
+\[
+V=18\times 50+30\times 65+42\times 80
+\]
+Divide total value by total quantity.
+\[
+M=\frac{18\times 50+30\times 65+42\times 80}{18+30+42}=69
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹69
+Hindi:
+खुदरा दुकान में, 18, 30 और 42 kg मात्रा को ₹50, ₹65 और ₹80 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+कम मान, औसत मान और अधिक मान की तुलना के लिए मिश्रण क्रॉस लगाएं।
+\[
+\begin{array}{ccc}
+C=50 & & D=80 \\
+& M=69 & \\
+D-M=11 & & M-C=19
+\end{array}
+\]
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=18\times 50+30\times 65+42\times 80
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{18\times 50+30\times 65+42\times 80}{18+30+42}=69
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹69
+Punjabi:
+ਖੁਦਰਾ ਦੁਕਾਨ ਵਿੱਚ, 18, 30 ਅਤੇ 42 kg ਮਾਤਰਾ ਨੂੰ ₹50, ₹65 ਅਤੇ ₹80 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਦੀ ਤੁਲਨਾ ਲਈ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਲਗਾਓ।
+\[
+\begin{array}{ccc}
+C=50 & & D=80 \\
+& M=69 & \\
+D-M=11 & & M-C=19
+\end{array}
+\]
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=18\times 50+30\times 65+42\times 80
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{18\times 50+30\times 65+42\times 80}{18+30+42}=69
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹69
+Meta: family=mix_tea_blend_average_price topology=mixture_alligation:mix_tea_blend_average_price difficulty=Easy
+
+Q24. A shopkeeper uses this practice: a milkman mixes water with milk and sells the mixture at the cost price of milk. If he gains 80%, find the ratio of milk to water in the mixture?
+  A. 5:4
+  B. 4:5
+  C. 3:2
+  D. 1:1
+Answer: 5:4
+Explanation:
+Water is unpaid, so profit percent equals water as a percent of milk.
+\[
+\frac{W}{M}\times100=80
+\]
+Convert the percent relation into milk-water ratio.
+\[
+M:W=5:4
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M:W=100:P
+\]
+Answer: 5:4
+Hindi:
+एक दुकानदार यह तरीका अपनाता है: एक दूधवाला दूध में पानी मिलाकर मिश्रण को दूध के लागत मूल्य पर बेचता है। यदि उसे 80% लाभ होता है, तो दूध और पानी का अनुपात क्या है?
+पानी मुफ्त है, इसलिए लाभ प्रतिशत दूध के मुकाबले पानी का प्रतिशत है।
+\[
+\frac{W}{M}\times100=80
+\]
+प्रतिशत संबंध को दूध-पानी अनुपात में बदलें।
+\[
+M:W=5:4
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M:W=100:P
+\]
+उत्तर: 5:4
+Punjabi:
+ਇੱਕ ਦੁਕਾਨਦਾਰ ਇਹ ਤਰੀਕਾ ਵਰਤਦਾ ਹੈ: ਇੱਕ ਦੁੱਧ ਵਾਲਾ ਦੁੱਧ ਵਿੱਚ ਪਾਣੀ ਮਿਲਾ ਕੇ ਮਿਸ਼ਰਣ ਨੂੰ ਦੁੱਧ ਦੇ ਲਾਗਤ ਮੁੱਲ ਤੇ ਵੇਚਦਾ ਹੈ। ਜੇ ਉਸ ਨੂੰ 80% ਲਾਭ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਦੁੱਧ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?
+ਪਾਣੀ ਮੁਫ਼ਤ ਹੈ, ਇਸ ਲਈ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਦੁੱਧ ਦੇ ਮੁਕਾਬਲੇ ਪਾਣੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।
+\[
+\frac{W}{M}\times100=80
+\]
+ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਨੂੰ ਦੁੱਧ-ਪਾਣੀ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
+\[
+M:W=5:4
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M:W=100:P
+\]
+ਉੱਤਰ: 5:4
+Meta: family=dealer_dishonest_milk_water topology=mixture_alligation:dealer_dishonest_milk_water difficulty=Medium
+
+Q25. During a shop sale, a milkman mixes water with milk and sells the mixture at the cost price of milk. If he gains 80%, find the ratio of milk to water in the mixture?
+  A. 5:4
+  B. 4:5
+  C. 3:2
+  D. 1:1
+Answer: 5:4
+Explanation:
+Water is unpaid, so profit percent equals water as a percent of milk.
+\[
+\frac{W}{M}\times100=80
+\]
+Convert the percent relation into milk-water ratio.
+\[
+M:W=5:4
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M:W=100:P
+\]
+Answer: 5:4
+Hindi:
+दुकान की बिक्री के दौरान, एक दूधवाला दूध में पानी मिलाकर मिश्रण को दूध के लागत मूल्य पर बेचता है। यदि उसे 80% लाभ होता है, तो दूध और पानी का अनुपात क्या है?
+पानी मुफ्त है, इसलिए लाभ प्रतिशत दूध के मुकाबले पानी का प्रतिशत है।
+\[
+\frac{W}{M}\times100=80
+\]
+प्रतिशत संबंध को दूध-पानी अनुपात में बदलें।
+\[
+M:W=5:4
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M:W=100:P
+\]
+उत्तर: 5:4
+Punjabi:
+ਦੁਕਾਨ ਦੀ ਵਿਕਰੀ ਦੌਰਾਨ, ਇੱਕ ਦੁੱਧ ਵਾਲਾ ਦੁੱਧ ਵਿੱਚ ਪਾਣੀ ਮਿਲਾ ਕੇ ਮਿਸ਼ਰਣ ਨੂੰ ਦੁੱਧ ਦੇ ਲਾਗਤ ਮੁੱਲ ਤੇ ਵੇਚਦਾ ਹੈ। ਜੇ ਉਸ ਨੂੰ 80% ਲਾਭ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਦੁੱਧ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?
+ਪਾਣੀ ਮੁਫ਼ਤ ਹੈ, ਇਸ ਲਈ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਦੁੱਧ ਦੇ ਮੁਕਾਬਲੇ ਪਾਣੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।
+\[
+\frac{W}{M}\times100=80
+\]
+ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਨੂੰ ਦੁੱਧ-ਪਾਣੀ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
+\[
+M:W=5:4
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M:W=100:P
+\]
+ਉੱਤਰ: 5:4
+Meta: family=dealer_profit_by_mixing_water topology=mixture_alligation:dealer_profit_by_mixing_water difficulty=Medium
+
+Q26. For a sale at cost price, a milkman mixes water with milk and sells the mixture at the cost price of milk. If he gains 20%, find the ratio of milk to water in the mixture?
+  A. 5:1
+  B. 1:5
+  C. 6:1
+  D. 5:2
+Answer: 5:1
+Explanation:
+Water is unpaid, so profit percent equals water as a percent of milk.
+\[
+\frac{W}{M}\times100=20
+\]
+Convert the percent relation into milk-water ratio.
+\[
+M:W=5:1
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M:W=100:P
+\]
+Answer: 5:1
+Hindi:
+लागत मूल्य पर बिक्री के लिए, एक दूधवाला दूध में पानी मिलाकर मिश्रण को दूध के लागत मूल्य पर बेचता है। यदि उसे 20% लाभ होता है, तो दूध और पानी का अनुपात क्या है?
+पानी मुफ्त है, इसलिए लाभ प्रतिशत दूध के मुकाबले पानी का प्रतिशत है।
+\[
+\frac{W}{M}\times100=20
+\]
+प्रतिशत संबंध को दूध-पानी अनुपात में बदलें।
+\[
+M:W=5:1
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M:W=100:P
+\]
+उत्तर: 5:1
+Punjabi:
+ਲਾਗਤ ਮੁੱਲ ਤੇ ਵਿਕਰੀ ਲਈ, ਇੱਕ ਦੁੱਧ ਵਾਲਾ ਦੁੱਧ ਵਿੱਚ ਪਾਣੀ ਮਿਲਾ ਕੇ ਮਿਸ਼ਰਣ ਨੂੰ ਦੁੱਧ ਦੇ ਲਾਗਤ ਮੁੱਲ ਤੇ ਵੇਚਦਾ ਹੈ। ਜੇ ਉਸ ਨੂੰ 20% ਲਾਭ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਦੁੱਧ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?
+ਪਾਣੀ ਮੁਫ਼ਤ ਹੈ, ਇਸ ਲਈ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਦੁੱਧ ਦੇ ਮੁਕਾਬਲੇ ਪਾਣੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।
+\[
+\frac{W}{M}\times100=20
+\]
+ਪ੍ਰਤੀਸ਼ਤ ਸੰਬੰਧ ਨੂੰ ਦੁੱਧ-ਪਾਣੀ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
+\[
+M:W=5:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M:W=100:P
+\]
+ਉੱਤਰ: 5:1
+Meta: family=dealer_sells_mixture_at_cost_price topology=mixture_alligation:dealer_sells_mixture_at_cost_price difficulty=Medium
+
+Q27. In a laboratory vessel, a vessel has 48 litres of milk and 32 litres of water. 20 litres of the mixture is transferred out. How many litres of milk remain in the vessel?
+  A. 36 litres
+  B. 41 litres
+  C. 31 litres
+  D. 46 litres
+Answer: 36 litres
+Explanation:
+The transferred mixture has the same milk fraction as the vessel.
+\[
+m=20\times\frac{48}{48+32}
+\]
+Subtract transferred milk from initial milk.
+\[
+M=48-20\times\frac{48}{48+32}=36
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+Answer: 36 litres
+Hindi:
+प्रयोगशाला के बर्तन में, एक बर्तन में 48 लीटर दूध और 32 लीटर पानी है। मिश्रण के 20 लीटर बाहर निकाले गए। बर्तन में कितना दूध बचेगा?
+निकाले गए मिश्रण में दूध का अंश बर्तन जैसा ही है।
+\[
+m=20\times\frac{48}{48+32}
+\]
+निकले दूध को प्रारंभिक दूध से घटाएं।
+\[
+M=48-20\times\frac{48}{48+32}=36
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+उत्तर: 36 लीटर
+Punjabi:
+ਲੈਬ ਦੇ ਬਰਤਨ ਵਿੱਚ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 48 ਲੀਟਰ ਦੁੱਧ ਅਤੇ 32 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਮਿਸ਼ਰਣ ਦੇ 20 ਲੀਟਰ ਬਾਹਰ ਕੱਢੇ ਗਏ। ਬਰਤਨ ਵਿੱਚ ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਕੱਢੇ ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਦਾ ਹਿੱਸਾ ਬਰਤਨ ਵਰਗਾ ਹੀ ਹੈ।
+\[
+m=20\times\frac{48}{48+32}
+\]
+ਕੱਢੇ ਦੁੱਧ ਨੂੰ ਸ਼ੁਰੂਆਤੀ ਦੁੱਧ ਤੋਂ ਘਟਾਓ।
+\[
+M=48-20\times\frac{48}{48+32}=36
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+ਉੱਤਰ: 36 ਲੀਟਰ
+Meta: family=vessel_two_vessels_same_ratio topology=mixture_alligation:vessel_two_vessels_same_ratio difficulty=Easy
+
+Q28. In a storage can, a vessel has 100 litres of milk and 50 litres of water. 30 litres of the mixture is transferred out. How many litres of milk remain in the vessel?
+  A. 80 litres
+  B. 85 litres
+  C. 75 litres
+  D. 90 litres
+Answer: 80 litres
+Explanation:
+The transferred mixture has the same milk fraction as the vessel.
+\[
+m=30\times\frac{100}{100+50}
+\]
+Subtract transferred milk from initial milk.
+\[
+M=100-30\times\frac{100}{100+50}=80
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+Answer: 80 litres
+Hindi:
+भंडारण के कनस्तर में, एक बर्तन में 100 लीटर दूध और 50 लीटर पानी है। मिश्रण के 30 लीटर बाहर निकाले गए। बर्तन में कितना दूध बचेगा?
+निकाले गए मिश्रण में दूध का अंश बर्तन जैसा ही है।
+\[
+m=30\times\frac{100}{100+50}
+\]
+निकले दूध को प्रारंभिक दूध से घटाएं।
+\[
+M=100-30\times\frac{100}{100+50}=80
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+उत्तर: 80 लीटर
+Punjabi:
+ਸਟੋਰੇਜ ਦੇ ਡੱਬੇ ਵਿੱਚ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 100 ਲੀਟਰ ਦੁੱਧ ਅਤੇ 50 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਮਿਸ਼ਰਣ ਦੇ 30 ਲੀਟਰ ਬਾਹਰ ਕੱਢੇ ਗਏ। ਬਰਤਨ ਵਿੱਚ ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਕੱਢੇ ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਦਾ ਹਿੱਸਾ ਬਰਤਨ ਵਰਗਾ ਹੀ ਹੈ।
+\[
+m=30\times\frac{100}{100+50}
+\]
+ਕੱਢੇ ਦੁੱਧ ਨੂੰ ਸ਼ੁਰੂਆਤੀ ਦੁੱਧ ਤੋਂ ਘਟਾਓ।
+\[
+M=100-30\times\frac{100}{100+50}=80
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+ਉੱਤਰ: 80 ਲੀਟਰ
+Meta: family=vessel_transfer_between_vessels topology=mixture_alligation:vessel_transfer_between_vessels difficulty=Medium
+
+Q29. For a prepared liquid mix, a vessel has 64 litres of milk and 48 litres of water. 28 litres of the mixture is transferred out. How many litres of milk remain in the vessel?
+  A. 48 litres
+  B. 53 litres
+  C. 43 litres
+  D. 58 litres
+Answer: 48 litres
+Explanation:
+The transferred mixture has the same milk fraction as the vessel.
+\[
+m=28\times\frac{64}{64+48}
+\]
+Subtract transferred milk from initial milk.
+\[
+M=64-28\times\frac{64}{64+48}=48
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+Answer: 48 litres
+Hindi:
+तैयार तरल मिश्रण के लिए, एक बर्तन में 64 लीटर दूध और 48 लीटर पानी है। मिश्रण के 28 लीटर बाहर निकाले गए। बर्तन में कितना दूध बचेगा?
+निकाले गए मिश्रण में दूध का अंश बर्तन जैसा ही है।
+\[
+m=28\times\frac{64}{64+48}
+\]
+निकले दूध को प्रारंभिक दूध से घटाएं।
+\[
+M=64-28\times\frac{64}{64+48}=48
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+उत्तर: 48 लीटर
+Punjabi:
+ਤਿਆਰ ਤਰਲ ਮਿਸ਼ਰਣ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 64 ਲੀਟਰ ਦੁੱਧ ਅਤੇ 48 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਮਿਸ਼ਰਣ ਦੇ 28 ਲੀਟਰ ਬਾਹਰ ਕੱਢੇ ਗਏ। ਬਰਤਨ ਵਿੱਚ ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਕੱਢੇ ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਦਾ ਹਿੱਸਾ ਬਰਤਨ ਵਰਗਾ ਹੀ ਹੈ।
+\[
+m=28\times\frac{64}{64+48}
+\]
+ਕੱਢੇ ਦੁੱਧ ਨੂੰ ਸ਼ੁਰੂਆਤੀ ਦੁੱਧ ਤੋਂ ਘਟਾਓ।
+\[
+M=64-28\times\frac{64}{64+48}=48
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+ਉੱਤਰ: 48 ਲੀਟਰ
+Meta: family=vessel_three_vessel_mixing topology=mixture_alligation:vessel_three_vessel_mixing difficulty=Hard
+
+Q30. For a solution kept in a tank, a vessel has 45 litres of milk and 30 litres of water. 15 litres of the mixture is transferred out. How many litres of milk remain in the vessel?
+  A. 36 litres
+  B. 41 litres
+  C. 31 litres
+  D. 46 litres
+Answer: 36 litres
+Explanation:
+The transferred mixture has the same milk fraction as the vessel.
+\[
+m=15\times\frac{45}{45+30}
+\]
+Subtract transferred milk from initial milk.
+\[
+M=45-15\times\frac{45}{45+30}=36
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+Answer: 36 litres
+Hindi:
+टंकी में रखे घोल के लिए, एक बर्तन में 45 लीटर दूध और 30 लीटर पानी है। मिश्रण के 15 लीटर बाहर निकाले गए। बर्तन में कितना दूध बचेगा?
+निकाले गए मिश्रण में दूध का अंश बर्तन जैसा ही है।
+\[
+m=15\times\frac{45}{45+30}
+\]
+निकले दूध को प्रारंभिक दूध से घटाएं।
+\[
+M=45-15\times\frac{45}{45+30}=36
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+उत्तर: 36 लीटर
+Punjabi:
+ਟੈਂਕੀ ਵਿੱਚ ਰੱਖੇ ਘੋਲ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 45 ਲੀਟਰ ਦੁੱਧ ਅਤੇ 30 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਮਿਸ਼ਰਣ ਦੇ 15 ਲੀਟਰ ਬਾਹਰ ਕੱਢੇ ਗਏ। ਬਰਤਨ ਵਿੱਚ ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਕੱਢੇ ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਦਾ ਹਿੱਸਾ ਬਰਤਨ ਵਰਗਾ ਹੀ ਹੈ।
+\[
+m=15\times\frac{45}{45+30}
+\]
+ਕੱਢੇ ਦੁੱਧ ਨੂੰ ਸ਼ੁਰੂਆਤੀ ਦੁੱਧ ਤੋਂ ਘਟਾਓ।
+\[
+M=45-15\times\frac{45}{45+30}=36
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M_{left}=M-x\frac{M}{M+W}
+\]
+ਉੱਤਰ: 36 ਲੀਟਰ
+Meta: family=vessel_chemical_concentration_equilibrium topology=mixture_alligation:vessel_chemical_concentration_equilibrium difficulty=Easy
+
+Q31. For a monthly stock blend, a shopkeeper mixes oil costing ₹54 per kg with oil costing ₹90 per kg to make a mixture worth ₹66 per kg. In what ratio should the two types be mixed?
+  A. 2:1
+  B. 1:2
+  C. 3:1
+  D. 1:1
+Answer: 2:1
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=54 & & D=90 \\
+& M=66 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(90-66):(66-54)
+\]
+Simplify the alligation ratio.
+\[
+C:D=24:12=2:1
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 2:1
+Hindi:
+मासिक स्टॉक मिश्रण के लिए, ₹54 और ₹90 प्रति किग्रा वाले oil को मिलाकर औसत मूल्य ₹66 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=54 & & D=90 \\
+& M=66 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(90-66):(66-54)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=24:12=2:1
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 2:1
+Punjabi:
+ਮਹੀਨਾਵਾਰ ਸਟਾਕ ਮਿਸ਼ਰਣ ਲਈ, ₹54 ਅਤੇ ₹90 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ oil ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹66 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=54 & & D=90 \\
+& M=66 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(90-66):(66-54)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=24:12=2:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 2:1
+Meta: family=mix_difference_based_quantity topology=mixture_alligation:mix_difference_based_quantity difficulty=Easy
+
+Q32. For a wholesale order, a vessel contains milk and water in quantities 45 litres and 30 litres. How many litres of water should be added so that the ratio becomes 3:4?
+  A. 30 litres
+  B. 35 litres
+  C. 25 litres
+  D. 40 litres
+Answer: 30 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{45}{30+x}=\frac{3}{4}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{4\times 45-3\times 30}{3}=30
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 30 litres
+Hindi:
+थोक ऑर्डर के लिए, एक बर्तन में दूध 45 लीटर और पानी 30 लीटर है। अनुपात 3:4 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{45}{30+x}=\frac{3}{4}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{4\times 45-3\times 30}{3}=30
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 30 लीटर
+Punjabi:
+ਥੋਕ ਆਰਡਰ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 45 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 30 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 3:4 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{45}{30+x}=\frac{3}{4}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{4\times 45-3\times 30}{3}=30
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 30 ਲੀਟਰ
+Meta: family=mix_ratio_change_after_removal topology=mixture_alligation:mix_ratio_change_after_removal difficulty=Easy
+
+Q33. For a customer order, a vessel contains milk and water in quantities 72 litres and 48 litres. How many litres of water should be added so that the ratio becomes 3:4?
+  A. 48 litres
+  B. 53 litres
+  C. 43 litres
+  D. 58 litres
+Answer: 48 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{72}{48+x}=\frac{3}{4}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{4\times 72-3\times 48}{3}=48
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 48 litres
+Hindi:
+ग्राहक के ऑर्डर के लिए, एक बर्तन में दूध 72 लीटर और पानी 48 लीटर है। अनुपात 3:4 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{72}{48+x}=\frac{3}{4}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{4\times 72-3\times 48}{3}=48
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 48 लीटर
+Punjabi:
+ਗਾਹਕ ਦੇ ਆਰਡਰ ਲਈ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 72 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 48 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 3:4 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{72}{48+x}=\frac{3}{4}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{4\times 72-3\times 48}{3}=48
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 48 ਲੀਟਰ
+Meta: family=mix_pure_component_extraction topology=mixture_alligation:mix_pure_component_extraction difficulty=Easy
+
+Q34. For a wholesale order, a store prepares a dry fruit mixture of average price ₹76/kg from two lots costing ₹64/kg and ₹100/kg. In what ratio are the lots mixed?
+  A. 2:1
+  B. 1:2
+  C. 3:1
+  D. 1:1
+Answer: 2:1
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=64 & & D=100 \\
+& M=76 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(100-76):(76-64)
+\]
+Simplify the alligation ratio.
+\[
+C:D=24:12=2:1
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 2:1
+Hindi:
+थोक ऑर्डर के लिए, ₹64 और ₹100 प्रति किग्रा वाले dry fruit को मिलाकर औसत मूल्य ₹76 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=64 & & D=100 \\
+& M=76 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(100-76):(76-64)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=24:12=2:1
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 2:1
+Punjabi:
+ਥੋਕ ਆਰਡਰ ਲਈ, ₹64 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ dry fruit ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹76 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=64 & & D=100 \\
+& M=76 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(100-76):(76-64)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=24:12=2:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 2:1
+Meta: family=mix_compound_alligation_two_steps topology=mixture_alligation:mix_compound_alligation_two_steps difficulty=Hard
+
+Q35. During stock preparation, two grades of grain cost ₹24/kg and ₹40/kg. To get a blend worth ₹30/kg, in what ratio should they be mixed?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=24 & & D=40 \\
+& M=30 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(40-30):(30-24)
+\]
+Simplify the alligation ratio.
+\[
+C:D=10:6=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+स्टॉक तैयार करते समय, ₹24 और ₹40 प्रति किग्रा वाले grain को मिलाकर औसत मूल्य ₹30 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=24 & & D=40 \\
+& M=30 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(40-30):(30-24)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=10:6=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਸਟਾਕ ਤਿਆਰ ਕਰਦੇ ਸਮੇਂ, ₹24 ਅਤੇ ₹40 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ grain ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹30 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=24 & & D=40 \\
+& M=30 & \\
+D-M=10 & & M-C=6
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(40-30):(30-24)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=10:6=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=mix_high_difficulty_constraint_system topology=mixture_alligation:mix_high_difficulty_constraint_system difficulty=Hard
+
+Q36. During a quality check, 30 kg, 20 kg and 10 kg of grain priced at ₹24, ₹36 and ₹48 per unit are mixed. What is the average price of the mixture?
+  A. ₹32
+  B. ₹37
+  C. ₹27
+  D. ₹42
+Answer: ₹32
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=30\times 24+20\times 36+10\times 48
+\]
+Divide total value by total quantity.
+\[
+M=\frac{30\times 24+20\times 36+10\times 48}{30+20+10}=32
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹32
+Hindi:
+गुणवत्ता जाँच के दौरान, 30, 20 और 10 kg मात्रा को ₹24, ₹36 और ₹48 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=30\times 24+20\times 36+10\times 48
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{30\times 24+20\times 36+10\times 48}{30+20+10}=32
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹32
+Punjabi:
+ਗੁਣਵੱਤਾ ਜਾਂਚ ਦੌਰਾਨ, 30, 20 ਅਤੇ 10 kg ਮਾਤਰਾ ਨੂੰ ₹24, ₹36 ਅਤੇ ₹48 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=30\times 24+20\times 36+10\times 48
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{30\times 24+20\times 36+10\times 48}{30+20+10}=32
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹32
+Meta: family=alloy_metal_ratio_basic topology=mixture_alligation:alloy_metal_ratio_basic difficulty=Medium
+
+Q37. A production team records that 15 kg, 25 kg and 20 kg of wheat priced at ₹36, ₹48 and ₹60 per unit are mixed. What is the average price of the mixture?
+  A. ₹49
+  B. ₹54
+  C. ₹44
+  D. ₹59
+Answer: ₹49
+Explanation:
+Use the alligation cross to compare the lower value, mean value and higher value.
+\[
+\begin{array}{ccc}
+C=36 & & D=60 \\
+& M=49 & \\
+D-M=11 & & M-C=13
+\end{array}
+\]
+Find total value by multiplying each quantity with its rate.
+\[
+V=15\times 36+25\times 48+20\times 60
+\]
+Divide total value by total quantity.
+\[
+M=\frac{15\times 36+25\times 48+20\times 60}{15+25+20}=49
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹49
+Hindi:
+उत्पादन टीम दर्ज करती है कि 15, 25 और 20 kg मात्रा को ₹36, ₹48 और ₹60 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+कम मान, औसत मान और अधिक मान की तुलना के लिए मिश्रण क्रॉस लगाएं।
+\[
+\begin{array}{ccc}
+C=36 & & D=60 \\
+& M=49 & \\
+D-M=11 & & M-C=13
+\end{array}
+\]
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=15\times 36+25\times 48+20\times 60
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{15\times 36+25\times 48+20\times 60}{15+25+20}=49
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹49
+Punjabi:
+ਉਤਪਾਦਨ ਟੀਮ ਦਰਜ ਕਰਦੀ ਹੈ ਕਿ 15, 25 ਅਤੇ 20 kg ਮਾਤਰਾ ਨੂੰ ₹36, ₹48 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਦੀ ਤੁਲਨਾ ਲਈ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਲਗਾਓ।
+\[
+\begin{array}{ccc}
+C=36 & & D=60 \\
+& M=49 & \\
+D-M=11 & & M-C=13
+\end{array}
+\]
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=15\times 36+25\times 48+20\times 60
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{15\times 36+25\times 48+20\times 60}{15+25+20}=49
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹49
+Meta: family=alloy_mean_price_blend topology=mixture_alligation:alloy_mean_price_blend difficulty=Medium
+
+Q38. During a quality check, a trader wants a tea blend costing ₹64/kg by using grades priced at ₹40/kg and ₹100/kg. What ratio should he use?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=40 & & D=100 \\
+& M=64 & \\
+D-M=36 & & M-C=24
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(100-64):(64-40)
+\]
+Simplify the alligation ratio.
+\[
+C:D=36:24=3:2
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 3:2
+Hindi:
+गुणवत्ता जाँच के दौरान, ₹40 और ₹100 प्रति किग्रा वाले tea को मिलाकर औसत मूल्य ₹64 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=40 & & D=100 \\
+& M=64 & \\
+D-M=36 & & M-C=24
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(100-64):(64-40)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=36:24=3:2
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 3:2
+Punjabi:
+ਗੁਣਵੱਤਾ ਜਾਂਚ ਦੌਰਾਨ, ₹40 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ tea ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹64 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=40 & & D=100 \\
+& M=64 & \\
+D-M=36 & & M-C=24
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(100-64):(64-40)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=36:24=3:2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 3:2
+Meta: family=mix_speed_distance_time_alligation topology=mixture_alligation:mix_speed_distance_time_alligation difficulty=Easy
+
+Q39. For an alloy mixture, cheap cashew at ₹72/kg is mixed with dearer cashew at ₹120/kg. If the blend is worth ₹90/kg, find the ratio?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=72 & & D=120 \\
+& M=90 & \\
+D-M=30 & & M-C=18
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(120-90):(90-72)
+\]
+Simplify the alligation ratio.
+\[
+C:D=30:18=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+मिश्रधातु के मिश्रण के लिए, ₹72 और ₹120 प्रति किग्रा वाले cashew को मिलाकर औसत मूल्य ₹90 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=72 & & D=120 \\
+& M=90 & \\
+D-M=30 & & M-C=18
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(120-90):(90-72)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=30:18=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਮਿਸ਼ਰ ਧਾਤ ਦੇ ਮਿਸ਼ਰਣ ਲਈ, ₹72 ਅਤੇ ₹120 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ cashew ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹90 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=72 & & D=120 \\
+& M=90 & \\
+D-M=30 & & M-C=18
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(120-90):(90-72)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=30:18=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=mix_taxation_gst_bracket_blending topology=mixture_alligation:mix_taxation_gst_bracket_blending difficulty=Hard
+
+Q40. For a testing sample, a store prepares a wheat mixture of average price ₹38/kg from two lots costing ₹30/kg and ₹50/kg. In what ratio are the lots mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=30 & & D=50 \\
+& M=38 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(50-38):(38-30)
+\]
+Simplify the alligation ratio.
+\[
+C:D=12:8=3:2
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 3:2
+Hindi:
+परीक्षण नमूने के लिए, ₹30 और ₹50 प्रति किग्रा वाले wheat को मिलाकर औसत मूल्य ₹38 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=30 & & D=50 \\
+& M=38 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(50-38):(38-30)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=12:8=3:2
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 3:2
+Punjabi:
+ਟੈਸਟਿੰਗ ਨਮੂਨੇ ਲਈ, ₹30 ਅਤੇ ₹50 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ wheat ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹38 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=30 & & D=50 \\
+& M=38 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(50-38):(38-30)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=12:8=3:2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 3:2
+Meta: family=mix_average_score_weight_distribution topology=mixture_alligation:mix_average_score_weight_distribution difficulty=Easy
+
+Q41. In a factory mixture, a shopkeeper mixes cashew costing ₹72 per kg with cashew costing ₹120 per kg to make a mixture worth ₹90 per kg. In what ratio should the two types be mixed?
+  A. 5:3
+  B. 3:5
+  C. 2:1
+  D. 5:4
+Answer: 5:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=72 & & D=120 \\
+& M=90 & \\
+D-M=30 & & M-C=18
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(120-90):(90-72)
+\]
+Simplify the alligation ratio.
+\[
+C:D=30:18=5:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 5:3
+Hindi:
+फैक्टरी के मिश्रण में, ₹72 और ₹120 प्रति किग्रा वाले cashew को मिलाकर औसत मूल्य ₹90 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=72 & & D=120 \\
+& M=90 & \\
+D-M=30 & & M-C=18
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(120-90):(90-72)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=30:18=5:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 5:3
+Punjabi:
+ਫੈਕਟਰੀ ਦੇ ਮਿਸ਼ਰਣ ਵਿੱਚ, ₹72 ਅਤੇ ₹120 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ cashew ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹90 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=72 & & D=120 \\
+& M=90 & \\
+D-M=30 & & M-C=18
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(120-90):(90-72)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=30:18=5:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 5:3
+Meta: family=mix_clonable_boundary_edge_alligation topology=mixture_alligation:mix_clonable_boundary_edge_alligation difficulty=Hard
+
+Q42. At a market stall, two grades of rice cost ₹40/kg and ₹60/kg. To get a blend worth ₹48/kg, in what ratio should they be mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(60-48):(48-40)
+\]
+Simplify the alligation ratio.
+\[
+C:D=12:8=3:2
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 3:2
+Hindi:
+बाज़ार की दुकान पर, ₹40 और ₹60 प्रति किग्रा वाले rice को मिलाकर औसत मूल्य ₹48 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(60-48):(48-40)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=12:8=3:2
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 3:2
+Punjabi:
+ਬਾਜ਼ਾਰ ਦੀ ਦੁਕਾਨ ਤੇ, ₹40 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ rice ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(60-48):(48-40)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=12:8=3:2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 3:2
+Meta: family=mix_two_items_find_ratio topology=mixture_alligation:mix_two_items_find_ratio difficulty=Easy
+
+Q43. At a ration store, dry fruit costing ₹64/kg and ₹100/kg are mixed so that the average cost becomes ₹76/kg. What is the mixing ratio?
+  A. 2:1
+  B. 1:2
+  C. 3:1
+  D. 1:1
+Answer: 2:1
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=64 & & D=100 \\
+& M=76 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(100-76):(76-64)
+\]
+Simplify the alligation ratio.
+\[
+C:D=24:12=2:1
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 2:1
+Hindi:
+राशन दुकान पर, ₹64 और ₹100 प्रति किग्रा वाले dry fruit को मिलाकर औसत मूल्य ₹76 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=64 & & D=100 \\
+& M=76 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(100-76):(76-64)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=24:12=2:1
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 2:1
+Punjabi:
+ਰਾਸ਼ਨ ਦੀ ਦੁਕਾਨ ਤੇ, ₹64 ਅਤੇ ₹100 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ dry fruit ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹76 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=64 & & D=100 \\
+& M=76 & \\
+D-M=24 & & M-C=12
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(100-76):(76-64)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=24:12=2:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 2:1
+Meta: family=mix_two_items_find_quantity topology=mixture_alligation:mix_two_items_find_quantity difficulty=Easy
+
+Q44. For a customer order, 20 kg, 30 kg and 50 kg of rice priced at ₹40, ₹60 and ₹80 per unit are mixed. What is the average price of the mixture?
+  A. ₹66
+  B. ₹71
+  C. ₹61
+  D. ₹76
+Answer: ₹66
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=20\times 40+30\times 60+50\times 80
+\]
+Divide total value by total quantity.
+\[
+M=\frac{20\times 40+30\times 60+50\times 80}{20+30+50}=66
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹66
+Hindi:
+ग्राहक के ऑर्डर के लिए, 20, 30 और 50 kg मात्रा को ₹40, ₹60 और ₹80 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=20\times 40+30\times 60+50\times 80
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{20\times 40+30\times 60+50\times 80}{20+30+50}=66
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹66
+Punjabi:
+ਗਾਹਕ ਦੇ ਆਰਡਰ ਲਈ, 20, 30 ਅਤੇ 50 kg ਮਾਤਰਾ ਨੂੰ ₹40, ₹60 ਅਤੇ ₹80 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=20\times 40+30\times 60+50\times 80
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{20\times 40+30\times 60+50\times 80}{20+30+50}=66
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹66
+Meta: family=mix_three_items_weighted_average topology=mixture_alligation:mix_three_items_weighted_average difficulty=Easy
+
+Q45. For a wholesale order, 18 kg, 30 kg and 42 kg of coffee priced at ₹50, ₹65 and ₹80 per unit are mixed. What is the average price of the mixture?
+  A. ₹69
+  B. ₹74
+  C. ₹64
+  D. ₹79
+Answer: ₹69
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=18\times 50+30\times 65+42\times 80
+\]
+Divide total value by total quantity.
+\[
+M=\frac{18\times 50+30\times 65+42\times 80}{18+30+42}=69
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹69
+Hindi:
+थोक ऑर्डर के लिए, 18, 30 और 42 kg मात्रा को ₹50, ₹65 और ₹80 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=18\times 50+30\times 65+42\times 80
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{18\times 50+30\times 65+42\times 80}{18+30+42}=69
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹69
+Punjabi:
+ਥੋਕ ਆਰਡਰ ਲਈ, 18, 30 ਅਤੇ 42 kg ਮਾਤਰਾ ਨੂੰ ₹50, ₹65 ਅਤੇ ₹80 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=18\times 50+30\times 65+42\times 80
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{18\times 50+30\times 65+42\times 80}{18+30+42}=69
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹69
+Meta: family=mix_average_value_missing_quantity topology=mixture_alligation:mix_average_value_missing_quantity difficulty=Medium
+
+Q46. At a market stall, pulses costing ₹25/kg and ₹45/kg are mixed so that the average cost becomes ₹32/kg. What is the mixing ratio?
+  A. 13:7
+  B. 7:13
+  C. 2:1
+  D. 13:8
+Answer: 13:7
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=25 & & D=45 \\
+& M=32 & \\
+D-M=13 & & M-C=7
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(45-32):(32-25)
+\]
+Simplify the alligation ratio.
+\[
+C:D=13:7=13:7
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 13:7
+Hindi:
+बाज़ार की दुकान पर, ₹25 और ₹45 प्रति किग्रा वाले pulses को मिलाकर औसत मूल्य ₹32 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=25 & & D=45 \\
+& M=32 & \\
+D-M=13 & & M-C=7
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(45-32):(32-25)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=13:7=13:7
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 13:7
+Punjabi:
+ਬਾਜ਼ਾਰ ਦੀ ਦੁਕਾਨ ਤੇ, ₹25 ਅਤੇ ₹45 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ pulses ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹32 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=25 & & D=45 \\
+& M=32 & \\
+D-M=13 & & M-C=7
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(45-32):(32-25)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=13:7=13:7
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 13:7
+Meta: family=alligation_cheaper_dearer_ratio topology=mixture_alligation:alligation_cheaper_dearer_ratio difficulty=Easy
+
+Q47. In a retail shop, lentils costing ₹30/kg and ₹72/kg are mixed so that the average cost becomes ₹48/kg. What is the mixing ratio?
+  A. 4:3
+  B. 3:4
+  C. 5:3
+  D. 1:1
+Answer: 4:3
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=30 & & D=72 \\
+& M=48 & \\
+D-M=24 & & M-C=18
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(72-48):(48-30)
+\]
+Simplify the alligation ratio.
+\[
+C:D=24:18=4:3
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 4:3
+Hindi:
+खुदरा दुकान में, ₹30 और ₹72 प्रति किग्रा वाले lentils को मिलाकर औसत मूल्य ₹48 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=30 & & D=72 \\
+& M=48 & \\
+D-M=24 & & M-C=18
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(72-48):(48-30)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=24:18=4:3
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 4:3
+Punjabi:
+ਖੁਦਰਾ ਦੁਕਾਨ ਵਿੱਚ, ₹30 ਅਤੇ ₹72 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ lentils ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=30 & & D=72 \\
+& M=48 & \\
+D-M=24 & & M-C=18
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(72-48):(48-30)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=24:18=4:3
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 4:3
+Meta: family=alligation_find_cost_price topology=mixture_alligation:alligation_find_cost_price difficulty=Easy
+
+Q48. In a retail shop, 20 litres, 30 litres and 50 litres of paint priced at ₹32, ₹48 and ₹64 per unit are mixed. What is the average price of the mixture?
+  A. ₹52.8
+  B. ₹57.8
+  C. ₹47.8
+  D. ₹62.8
+Answer: ₹52.8
+Explanation:
+Find total value by multiplying each quantity with its rate.
+\[
+V=20\times 32+30\times 48+50\times 64
+\]
+Divide total value by total quantity.
+\[
+M=\frac{20\times 32+30\times 48+50\times 64}{20+30+50}=52.8
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+Answer: ₹52.8
+Hindi:
+खुदरा दुकान में, 20, 30 और 50 litres मात्रा को ₹32, ₹48 और ₹64 प्रति इकाई पर मिलाया गया। मिश्रण का औसत मूल्य कितना है?
+हर मात्रा को उसकी दर से गुणा कर कुल मूल्य निकालें।
+\[
+V=20\times 32+30\times 48+50\times 64
+\]
+कुल मूल्य को मिश्रण की मात्रा से भाग दें।
+\[
+M=\frac{20\times 32+30\times 48+50\times 64}{20+30+50}=52.8
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+उत्तर: ₹52.8
+Punjabi:
+ਖੁਦਰਾ ਦੁਕਾਨ ਵਿੱਚ, 20, 30 ਅਤੇ 50 litres ਮਾਤਰਾ ਨੂੰ ₹32, ₹48 ਅਤੇ ₹64 ਪ੍ਰਤੀ ਇਕਾਈ ਤੇ ਮਿਲਾਇਆ ਗਿਆ। ਮਿਸ਼ਰਣ ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਹਰ ਮਾਤਰਾ ਨੂੰ ਉਸ ਦੀ ਦਰ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਕੁੱਲ ਮੁੱਲ ਕੱਢੋ।
+\[
+V=20\times 32+30\times 48+50\times 64
+\]
+ਕੁੱਲ ਮੁੱਲ ਨੂੰ ਮਿਸ਼ਰਣ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+M=\frac{20\times 32+30\times 48+50\times 64}{20+30+50}=52.8
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+M=\frac{\sum q_ir_i}{\sum q_i}
+\]
+ਉੱਤਰ: ₹52.8
+Meta: family=alligation_unequal_quantity_average topology=mixture_alligation:alligation_unequal_quantity_average difficulty=Easy
+
+Q49. For a customer order, a shopkeeper mixes rice costing ₹40 per kg with rice costing ₹60 per kg to make a mixture worth ₹48 per kg. In what ratio should the two types be mixed?
+  A. 3:2
+  B. 2:3
+  C. 2:1
+  D. 1:1
+Answer: 3:2
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(60-48):(48-40)
+\]
+Simplify the alligation ratio.
+\[
+C:D=12:8=3:2
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 3:2
+Hindi:
+ग्राहक के ऑर्डर के लिए, ₹40 और ₹60 प्रति किग्रा वाले rice को मिलाकर औसत मूल्य ₹48 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(60-48):(48-40)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=12:8=3:2
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 3:2
+Punjabi:
+ਗਾਹਕ ਦੇ ਆਰਡਰ ਲਈ, ₹40 ਅਤੇ ₹60 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ rice ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹48 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=40 & & D=60 \\
+& M=48 & \\
+D-M=12 & & M-C=8
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(60-48):(48-40)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=12:8=3:2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 3:2
+Meta: family=alligation_two_stage_mean topology=mixture_alligation:alligation_two_stage_mean difficulty=Easy
+
+Q50. During stock preparation, cheap rice at ₹25/kg is mixed with dearer rice at ₹85/kg. If the blend is worth ₹50/kg, find the ratio?
+  A. 7:5
+  B. 5:7
+  C. 8:5
+  D. 7:6
+Answer: 7:5
+Explanation:
+Place the lower value, mean value and higher value in the alligation cross.
+\[
+\begin{array}{ccc}
+C=25 & & D=85 \\
+& M=50 & \\
+D-M=35 & & M-C=25
+\end{array}
+\]
+The mean lies between the two prices, so compare each price with the mean.
+\[
+C:D=(85-50):(50-25)
+\]
+Simplify the alligation ratio.
+\[
+C:D=35:25=7:5
+\]
+Shortcut / Exam Method:
+The mean lies between the two values. The farther value must be used in the smaller quantity, so we take the opposite differences.
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+Answer: 7:5
+Hindi:
+स्टॉक तैयार करते समय, ₹25 और ₹85 प्रति किग्रा वाले rice को मिलाकर औसत मूल्य ₹50 प्रति किग्रा करना है। दोनों को किस अनुपात में मिलाना चाहिए?
+कम मान, औसत मान और अधिक मान को मिश्रण क्रॉस में रखें।
+\[
+\begin{array}{ccc}
+C=25 & & D=85 \\
+& M=50 & \\
+D-M=35 & & M-C=25
+\end{array}
+\]
+औसत दोनों मूल्यों के बीच है, इसलिए औसत से अंतर लें।
+\[
+C:D=(85-50):(50-25)
+\]
+मिश्रण अनुपात सरल करें।
+\[
+C:D=35:25=7:5
+\]
+शॉर्टकट / परीक्षा विधि:
+औसत दोनों मानों के बीच होता है। जो मान औसत से जितना दूर है, उसकी मात्रा उतनी कम रखी जाती है, इसलिए विपरीत अंतर लिए जाते हैं।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+उत्तर: 7:5
+Punjabi:
+ਸਟਾਕ ਤਿਆਰ ਕਰਦੇ ਸਮੇਂ, ₹25 ਅਤੇ ₹85 ਪ੍ਰਤੀ ਕਿਲੋ ਵਾਲੇ rice ਨੂੰ ਮਿਲਾ ਕੇ ਔਸਤ ਮੁੱਲ ₹50 ਪ੍ਰਤੀ ਕਿਲੋ ਕਰਨਾ ਹੈ। ਦੋਵੇਂ ਨੂੰ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਨੂੰ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਵਿੱਚ ਰੱਖੋ।
+\[
+\begin{array}{ccc}
+C=25 & & D=85 \\
+& M=50 & \\
+D-M=35 & & M-C=25
+\end{array}
+\]
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੈ, ਇਸ ਲਈ ਔਸਤ ਨਾਲ ਫਰਕ ਲਵੋ।
+\[
+C:D=(85-50):(50-25)
+\]
+ਮਿਸ਼ਰਣ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।
+\[
+C:D=35:25=7:5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਔਸਤ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦੇ ਵਿਚਕਾਰ ਹੁੰਦੀ ਹੈ। ਜੋ ਮੁੱਲ ਔਸਤ ਤੋਂ ਜਿੰਨਾ ਦੂਰ ਹੈ, ਉਸ ਦੀ ਮਾਤਰਾ ਉੱਨੀ ਘੱਟ ਰੱਖੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਉਲਟੇ ਫਰਕ ਲਏ ਜਾਂਦੇ ਹਨ।
+\[
+C_q:D_q=(D-M):(M-C)
+\]
+ਉੱਤਰ: 7:5
+Meta: family=alligation_remove_high_value_add_low_value topology=mixture_alligation:alligation_remove_high_value_add_low_value difficulty=Easy
+
+Q51. At a market stall, a vessel contains milk and water in quantities 60 litres and 40 litres. How many litres of water should be added so that the ratio becomes 3:4?
+  A. 40 litres
+  B. 45 litres
+  C. 35 litres
+  D. 50 litres
+Answer: 40 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{60}{40+x}=\frac{3}{4}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{4\times 60-3\times 40}{3}=40
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 40 litres
+Hindi:
+बाज़ार की दुकान पर, एक बर्तन में दूध 60 लीटर और पानी 40 लीटर है। अनुपात 3:4 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{60}{40+x}=\frac{3}{4}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{4\times 60-3\times 40}{3}=40
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 40 लीटर
+Punjabi:
+ਬਾਜ਼ਾਰ ਦੀ ਦੁਕਾਨ ਤੇ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 60 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 40 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 3:4 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{60}{40+x}=\frac{3}{4}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{4\times 60-3\times 40}{3}=40
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 40 ਲੀਟਰ
+Meta: family=mix_milk_water_find_water_added topology=mixture_alligation:mix_milk_water_find_water_added difficulty=Easy
+
+Q52. At a ration store, a vessel contains milk and water in quantities 90 litres and 30 litres. How many litres of water should be added so that the ratio becomes 3:2?
+  A. 30 litres
+  B. 35 litres
+  C. 25 litres
+  D. 40 litres
+Answer: 30 litres
+Explanation:
+Milk remains fixed and only the added component changes the other side.
+\[
+\frac{90}{30+x}=\frac{3}{2}
+\]
+Solve the target-ratio equation for the added quantity.
+\[
+x=\frac{2\times 90-3\times 30}{3}=30
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+Answer: 30 litres
+Hindi:
+राशन दुकान पर, एक बर्तन में दूध 90 लीटर और पानी 30 लीटर है। अनुपात 3:2 करने के लिए कितने लीटर water मिलाना होगा?
+दूध स्थिर रहता है और जोड़ी गई मात्रा दूसरी तरफ बदलती है।
+\[
+\frac{90}{30+x}=\frac{3}{2}
+\]
+लक्ष्य अनुपात के समीकरण से जोड़ी गई मात्रा निकालें।
+\[
+x=\frac{2\times 90-3\times 30}{3}=30
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+उत्तर: 30 लीटर
+Punjabi:
+ਰਾਸ਼ਨ ਦੀ ਦੁਕਾਨ ਤੇ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਦੁੱਧ 90 ਲੀਟਰ ਅਤੇ ਪਾਣੀ 30 ਲੀਟਰ ਹੈ। ਅਨੁਪਾਤ 3:2 ਕਰਨ ਲਈ ਕਿੰਨੇ ਲੀਟਰ water ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਦੁੱਧ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਜੋੜੀ ਮਾਤਰਾ ਦੂਜੇ ਪਾਸੇ ਨੂੰ ਬਦਲਦੀ ਹੈ।
+\[
+\frac{90}{30+x}=\frac{3}{2}
+\]
+ਟੀਚਾ ਅਨੁਪਾਤ ਦੇ ਸਮੀਕਰਨ ਤੋਂ ਜੋੜੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=\frac{2\times 90-3\times 30}{3}=30
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{A}{B+x}=\frac{m}{n}
+\]
+ਉੱਤਰ: 30 ਲੀਟਰ
+Meta: family=mix_milk_water_target_ratio topology=mixture_alligation:mix_milk_water_target_ratio difficulty=Medium
+
+Q53. A technician handles a solution where a vessel contains 72 litres of milk. 18 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 40.5 litres
+  B. 45.5 litres
+  C. 35.5 litres
+  D. 50.5 litres
+Answer: 40.5 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{18}{72}
+\]
+Apply the repeated-replacement formula.
+\[
+L=72\left(1-\frac{18}{72}\right)^2=40.5
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 40.5 litres
+Hindi:
+एक तकनीशियन एक घोल संभालता है जहाँ एक बर्तन में 72 लीटर दूध है। 18 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{18}{72}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=72\left(1-\frac{18}{72}\right)^2=40.5
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 40.5 लीटर
+Punjabi:
+ਇੱਕ ਤਕਨੀਸ਼ੀਅਨ ਇੱਕ ਘੋਲ ਸੰਭਾਲਦਾ ਹੈ ਜਿੱਥੇ ਇੱਕ ਬਰਤਨ ਵਿੱਚ 72 ਲੀਟਰ ਦੁੱਧ ਹੈ। 18 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{18}{72}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=72\left(1-\frac{18}{72}\right)^2=40.5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 40.5 ਲੀਟਰ
+Meta: family=replacement_single_operation topology=mixture_alligation:replacement_single_operation difficulty=Medium
+
+Q54. At a dairy plant, a vessel contains 100 litres of milk. 20 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 64 litres
+  B. 69 litres
+  C. 59 litres
+  D. 74 litres
+Answer: 64 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{20}{100}
+\]
+Apply the repeated-replacement formula.
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 64 litres
+Hindi:
+डेयरी संयंत्र में, एक बर्तन में 100 लीटर दूध है। 20 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{20}{100}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 64 लीटर
+Punjabi:
+ਡੇਅਰੀ ਪਲਾਂਟ ਵਿੱਚ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 100 ਲੀਟਰ ਦੁੱਧ ਹੈ। 20 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{20}{100}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=100\left(1-\frac{20}{100}\right)^2=64
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 64 ਲੀਟਰ
+Meta: family=replacement_find_original_quantity topology=mixture_alligation:replacement_find_original_quantity difficulty=Medium
+
+Q55. In a storage can, a vessel contains 160 litres of milk. 40 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 90 litres
+  B. 95 litres
+  C. 85 litres
+  D. 100 litres
+Answer: 90 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{40}{160}
+\]
+Apply the repeated-replacement formula.
+\[
+L=160\left(1-\frac{40}{160}\right)^2=90
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 90 litres
+Hindi:
+भंडारण के कनस्तर में, एक बर्तन में 160 लीटर दूध है। 40 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{40}{160}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=160\left(1-\frac{40}{160}\right)^2=90
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 90 लीटर
+Punjabi:
+ਸਟੋਰੇਜ ਦੇ ਡੱਬੇ ਵਿੱਚ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 160 ਲੀਟਰ ਦੁੱਧ ਹੈ। 40 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{40}{160}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=160\left(1-\frac{40}{160}\right)^2=90
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 90 ਲੀਟਰ
+Meta: family=replacement_final_purity topology=mixture_alligation:replacement_final_purity difficulty=Medium
+
+Q56. During mixture correction, a vessel contains 96 litres of milk. 24 litres are taken out and replaced with water, and this operation is repeated 2 times. How much milk is left?
+  A. 54 litres
+  B. 59 litres
+  C. 49 litres
+  D. 64 litres
+Answer: 54 litres
+Explanation:
+Each operation leaves the same fraction of original milk.
+\[
+1-\frac{24}{96}
+\]
+Apply the repeated-replacement formula.
+\[
+L=96\left(1-\frac{24}{96}\right)^2=54
+\]
+Shortcut / Exam Method:
+Each replacement removes the same fraction of the original liquid. Therefore the original part is multiplied by the remaining fraction each time.
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+Answer: 54 litres
+Hindi:
+मिश्रण सुधारते समय, एक बर्तन में 96 लीटर दूध है। 24 लीटर निकालकर पानी से बदला जाता है और यह क्रिया 2 बार होती है। कितना दूध बचेगा?
+हर क्रिया मूल दूध का वही अंश छोड़ती है।
+\[
+1-\frac{24}{96}
+\]
+दोहराए गए बदलने का सूत्र लगाएं।
+\[
+L=96\left(1-\frac{24}{96}\right)^2=54
+\]
+शॉर्टकट / परीक्षा विधि:
+हर बार मूल द्रव का वही अंश निकलता है। इसलिए मूल भाग हर क्रिया के बाद बचे हुए अंश से गुणा होता है।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+उत्तर: 54 लीटर
+Punjabi:
+ਮਿਸ਼ਰਣ ਠੀਕ ਕਰਦੇ ਸਮੇਂ, ਇੱਕ ਬਰਤਨ ਵਿੱਚ 96 ਲੀਟਰ ਦੁੱਧ ਹੈ। 24 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਹ ਕਿਰਿਆ 2 ਵਾਰ ਹੁੰਦੀ ਹੈ। ਕਿੰਨਾ ਦੁੱਧ ਬਚੇਗਾ?
+ਹਰ ਕਿਰਿਆ ਮੂਲ ਦੁੱਧ ਦਾ ਉਹੀ ਹਿੱਸਾ ਛੱਡਦੀ ਹੈ।
+\[
+1-\frac{24}{96}
+\]
+ਦੁਹਰਾਏ ਬਦਲਣ ਦਾ ਸੂਤਰ ਲਗਾਓ।
+\[
+L=96\left(1-\frac{24}{96}\right)^2=54
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਹਰ ਵਾਰ ਮੂਲ ਦ੍ਰਵ ਦਾ ਉਹੀ ਹਿੱਸਾ ਨਿਕਲਦਾ ਹੈ। ਇਸ ਲਈ ਮੂਲ ਹਿੱਸਾ ਹਰ ਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਬਚੇ ਹਿੱਸੇ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+\[
+L=V\left(1-\frac{x}{V}\right)^n
+\]
+ਉੱਤਰ: 54 ਲੀਟਰ
+Meta: family=replacement_double_replacement_third_liquid topology=mixture_alligation:replacement_double_replacement_third_liquid difficulty=Hard
+
+Q57. A technician handles a solution where how many litres of water should be added to 96 litres of a 50% acid solution to make it a 40% solution?
+  A. 24 litres
+  B. 29 litres
+  C. 19 litres
+  D. 34 litres
+Answer: 24 litres
+Explanation:
+The amount of acid stays fixed unless pure acid is added.
+\[
+0.5\times 96=0.4\times V
+\]
+Solve for the changed quantity.
+\[
+x=24
+\]
+Shortcut / Exam Method:
+When only water changes, the solute amount remains fixed. Equate initial solute and final solute.
+\[
+C_1V_1=C_2V_2
+\]
+Answer: 24 litres
+Hindi:
+एक तकनीशियन एक घोल संभालता है जहाँ घोल में 50% तेजाब है। 96 लीटर घोल को 40% करने के लिए कितनी मात्रा बदलनी होगी?
+शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।
+\[
+0.5\times 96=0.4\times V
+\]
+बदली हुई मात्रा निकालें।
+\[
+x=24
+\]
+शॉर्टकट / परीक्षा विधि:
+जब केवल पानी बदलता है, घुला पदार्थ स्थिर रहता है। प्रारंभिक और अंतिम घुले पदार्थ को बराबर रखें।
+\[
+C_1V_1=C_2V_2
+\]
+उत्तर: 24 लीटर
+Punjabi:
+ਇੱਕ ਤਕਨੀਸ਼ੀਅਨ ਇੱਕ ਘੋਲ ਸੰਭਾਲਦਾ ਹੈ ਜਿੱਥੇ ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 96 ਲੀਟਰ ਘੋਲ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।
+\[
+0.5\times 96=0.4\times V
+\]
+ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=24
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜਦੋਂ ਸਿਰਫ਼ ਪਾਣੀ ਬਦਲਦਾ ਹੈ, ਘੁੱਲਿਆ ਪਦਾਰਥ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਘੁੱਲੇ ਪਦਾਰਥ ਨੂੰ ਬਰਾਬਰ ਰੱਖੋ।
+\[
+C_1V_1=C_2V_2
+\]
+ਉੱਤਰ: 24 ਲੀਟਰ
+Meta: family=dilution_solution_removed_water_added topology=mixture_alligation:dilution_solution_removed_water_added difficulty=Easy
+
+Q58. During mixture correction, how many litres of water should be added to 80 litres of a 50% acid solution to make it a 40% solution?
+  A. 20 litres
+  B. 25 litres
+  C. 15 litres
+  D. 30 litres
+Answer: 20 litres
+Explanation:
+The amount of acid stays fixed unless pure acid is added.
+\[
+0.5\times 80=0.4\times V
+\]
+Solve for the changed quantity.
+\[
+x=20
+\]
+Shortcut / Exam Method:
+When only water changes, the solute amount remains fixed. Equate initial solute and final solute.
+\[
+C_1V_1=C_2V_2
+\]
+Answer: 20 litres
+Hindi:
+मिश्रण सुधारते समय, घोल में 50% तेजाब है। 80 लीटर घोल को 40% करने के लिए कितनी मात्रा बदलनी होगी?
+शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।
+\[
+0.5\times 80=0.4\times V
+\]
+बदली हुई मात्रा निकालें।
+\[
+x=20
+\]
+शॉर्टकट / परीक्षा विधि:
+जब केवल पानी बदलता है, घुला पदार्थ स्थिर रहता है। प्रारंभिक और अंतिम घुले पदार्थ को बराबर रखें।
+\[
+C_1V_1=C_2V_2
+\]
+उत्तर: 20 लीटर
+Punjabi:
+ਮਿਸ਼ਰਣ ਠੀਕ ਕਰਦੇ ਸਮੇਂ, ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 80 ਲੀਟਰ ਘੋਲ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।
+\[
+0.5\times 80=0.4\times V
+\]
+ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=20
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜਦੋਂ ਸਿਰਫ਼ ਪਾਣੀ ਬਦਲਦਾ ਹੈ, ਘੁੱਲਿਆ ਪਦਾਰਥ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਘੁੱਲੇ ਪਦਾਰਥ ਨੂੰ ਬਰਾਬਰ ਰੱਖੋ।
+\[
+C_1V_1=C_2V_2
+\]
+ਉੱਤਰ: 20 ਲੀਟਰ
+Meta: family=dilution_find_number_of_operations topology=mixture_alligation:dilution_find_number_of_operations difficulty=Easy
+
+Q59. At a dairy plant, how many litres of pure acid should be added to 72 litres of a 50% acid solution to make it 75% acid?
+  A. 72 litres
+  B. 77 litres
+  C. 67 litres
+  D. 82 litres
+Answer: 72 litres
+Explanation:
+The amount of acid stays fixed unless pure acid is added.
+\[
+\frac{0.5\times 72+x}{72+x}=0.75
+\]
+Solve for the changed quantity.
+\[
+x=72
+\]
+Shortcut / Exam Method:
+Keep the conserved quantity fixed and write the relation around it. This avoids using a simple arithmetic average blindly.
+\[
+\frac{C_1V+x}{V+x}=C_2
+\]
+Answer: 72 litres
+Hindi:
+डेयरी संयंत्र में, घोल में 50% तेजाब है। 72 लीटर घोल को 75% करने के लिए कितनी मात्रा बदलनी होगी?
+शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।
+\[
+\frac{0.5\times 72+x}{72+x}=0.75
+\]
+बदली हुई मात्रा निकालें।
+\[
+x=72
+\]
+शॉर्टकट / परीक्षा विधि:
+जो मात्रा स्थिर रहती है, उसे आधार बनाकर संबंध लिखें। इससे साधारण औसत लगाने की गलती नहीं होती।
+\[
+\frac{C_1V+x}{V+x}=C_2
+\]
+उत्तर: 72 लीटर
+Punjabi:
+ਡੇਅਰੀ ਪਲਾਂਟ ਵਿੱਚ, ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 72 ਲੀਟਰ ਘੋਲ ਨੂੰ 75% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।
+\[
+\frac{0.5\times 72+x}{72+x}=0.75
+\]
+ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=72
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜੋ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਆਧਾਰ ਬਣਾ ਕੇ ਸੰਬੰਧ ਲਿਖੋ। ਇਸ ਨਾਲ ਸਧਾਰਣ ਔਸਤ ਲਗਾਉਣ ਦੀ ਗਲਤੀ ਨਹੀਂ ਹੁੰਦੀ।
+\[
+\frac{C_1V+x}{V+x}=C_2
+\]
+ਉੱਤਰ: 72 ਲੀਟਰ
+Meta: family=concentration_target_percent_by_adding_pure_substance topology=mixture_alligation:concentration_target_percent_by_adding_pure_substance difficulty=Medium
+
+Q60. A vessel is being adjusted where how many litres of water should be added to 96 litres of a 50% acid solution to make it a 40% solution?
+  A. 24 litres
+  B. 29 litres
+  C. 19 litres
+  D. 34 litres
+Answer: 24 litres
+Explanation:
+Use the alligation cross to compare the lower value, mean value and higher value.
+\[
+\begin{array}{ccc}
+C=0 & & D=50 \\
+& M=40 & \\
+D-M=10 & & M-C=40
+\end{array}
+\]
+The amount of acid stays fixed unless pure acid is added.
+\[
+0.5\times 96=0.4\times V
+\]
+Solve for the changed quantity.
+\[
+x=24
+\]
+Shortcut / Exam Method:
+When only water changes, the solute amount remains fixed. Equate initial solute and final solute.
+\[
+C_1V_1=C_2V_2
+\]
+Answer: 24 litres
+Hindi:
+एक बर्तन में अनुपात बदला जा रहा है जहाँ घोल में 50% तेजाब है। 96 लीटर घोल को 40% करने के लिए कितनी मात्रा बदलनी होगी?
+कम मान, औसत मान और अधिक मान की तुलना के लिए मिश्रण क्रॉस लगाएं।
+\[
+\begin{array}{ccc}
+C=0 & & D=50 \\
+& M=40 & \\
+D-M=10 & & M-C=40
+\end{array}
+\]
+शुद्ध तेजाब न जोड़ने पर तेजाब की मात्रा स्थिर रहती है।
+\[
+0.5\times 96=0.4\times V
+\]
+बदली हुई मात्रा निकालें।
+\[
+x=24
+\]
+शॉर्टकट / परीक्षा विधि:
+जब केवल पानी बदलता है, घुला पदार्थ स्थिर रहता है। प्रारंभिक और अंतिम घुले पदार्थ को बराबर रखें।
+\[
+C_1V_1=C_2V_2
+\]
+उत्तर: 24 लीटर
+Punjabi:
+ਇੱਕ ਬਰਤਨ ਵਿੱਚ ਅਨੁਪਾਤ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ ਜਿੱਥੇ ਘੋਲ ਵਿੱਚ 50% ਤੇਜ਼ਾਬ ਹੈ। 96 ਲੀਟਰ ਘੋਲ ਨੂੰ 40% ਕਰਨ ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਬਦਲਣੀ ਪਵੇਗੀ?
+ਘੱਟ ਮੁੱਲ, ਔਸਤ ਮੁੱਲ ਅਤੇ ਵੱਧ ਮੁੱਲ ਦੀ ਤੁਲਨਾ ਲਈ ਐਲੀਗੇਸ਼ਨ ਕ੍ਰਾਸ ਲਗਾਓ।
+\[
+\begin{array}{ccc}
+C=0 & & D=50 \\
+& M=40 & \\
+D-M=10 & & M-C=40
+\end{array}
+\]
+ਖ਼ਾਲਿਸ ਤੇਜ਼ਾਬ ਨਾ ਜੋੜਿਆਂ ਤੇਜ਼ਾਬ ਦੀ ਮਾਤਰਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।
+\[
+0.5\times 96=0.4\times V
+\]
+ਬਦਲੀ ਮਾਤਰਾ ਕੱਢੋ।
+\[
+x=24
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+ਜਦੋਂ ਸਿਰਫ਼ ਪਾਣੀ ਬਦਲਦਾ ਹੈ, ਘੁੱਲਿਆ ਪਦਾਰਥ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਘੁੱਲੇ ਪਦਾਰਥ ਨੂੰ ਬਰਾਬਰ ਰੱਖੋ।
+\[
+C_1V_1=C_2V_2
+\]
+ਉੱਤਰ: 24 ਲੀਟਰ
+Meta: family=concentration_mixing_three_solutions topology=mixture_alligation:concentration_mixing_three_solutions difficulty=Medium

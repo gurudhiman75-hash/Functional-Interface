@@ -1,0 +1,3692 @@
+Q1. A commuter walks at 8/9 of his regular speed and reaches 8 minutes late. What is his regular journey time?
+  A. 64 minutes
+  B. 60 minutes
+  C. 48 minutes
+  D. 54 minutes
+Answer: 64 minutes
+Explanation:
+When speed is reduced by a fraction, time increases by the reciprocal fraction.
+\[
+T'=\frac{9}{8}T
+\]
+The extra time equals the late time.
+\[
+T'-T=8
+\]
+The late time is the extra time caused by reduced speed.
+\[
+T=64
+\]
+Shortcut / Exam Method:
+\[
+\Delta T=\left(\frac{b}{a}-1\right)T
+\]
+Answer: 64 minutes
+Hindi:
+अपनी सामान्य गति के 8/9 से चलने पर एक व्यक्ति कार्यालय 8 मिनट देर से पहुँचता है। कार्यालय पहुँचने का उसका सामान्य समय कितना है?
+गति भिन्न में घटे तो समय उसके उलटे अनुपात में बढ़ता है।
+\[
+T'=\frac{9}{8}T
+\]
+अतिरिक्त समय ही देरी है।
+\[
+T'-T=8
+\]
+सामान्य समय निकालें।
+\[
+T=64
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+\Delta T=\left(\frac{b}{a}-1\right)T
+\]
+उत्तर: 64 मिनट
+Punjabi:
+ਆਪਣੀ ਆਮ ਗਤੀ ਦੇ 8/9 ਨਾਲ ਤੁਰਨ ਤੇ ਇੱਕ ਵਿਅਕਤੀ ਦਫ਼ਤਰ 8 ਮਿੰਟ ਦੇਰ ਨਾਲ ਪਹੁੰਚਦਾ ਹੈ। ਦਫ਼ਤਰ ਪਹੁੰਚਣ ਦਾ ਉਸਦਾ ਆਮ ਸਮਾਂ ਕਿੰਨਾ ਹੈ?
+ਗਤੀ ਭਿੰਨ ਵਿੱਚ ਘਟੇ ਤਾਂ ਸਮਾਂ ਉਲਟੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵਧਦਾ ਹੈ।
+\[
+T'=\frac{9}{8}T
+\]
+ਵਾਧੂ ਸਮਾਂ ਹੀ ਦੇਰੀ ਹੈ।
+\[
+T'-T=8
+\]
+ਆਮ ਸਮਾਂ ਕੱਢੋ।
+\[
+T=64
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+\Delta T=\left(\frac{b}{a}-1\right)T
+\]
+ਉੱਤਰ: 64 ਮਿੰਟ
+Meta: family=tsd_fractional_speed_offset topology=time_speed_distance:tsd_fractional_speed_offset difficulty=Easy
+
+Q2. A bus and a van travel equal distances with speeds in the ratio 4:4. What will be the ratio of their times?
+  A. 16:15
+  B. 1:2
+  C. 2:3
+  D. 3:4
+Answer: 16:15
+Explanation:
+For the same distance, time ratio is the inverse of speed ratio.
+\[
+T_1:T_2=v_2:v_1
+\]
+Reverse the given speed ratio.
+\[
+T_1:T_2=4:4
+\]
+This gives the required time ratio.
+\[
+T_1:T_2=16:15
+\]
+Shortcut / Exam Method:
+\[
+T_1:T_2=v_2:v_1
+\]
+Answer: 16:15
+Hindi:
+दो व्यक्ति समान दूरी तय करते हैं। उनकी गतियों का अनुपात 4:4 है। समान दूरी के लिए उनके समय का अनुपात क्या होगा?
+समान दूरी में समय का अनुपात गति के अनुपात का उलटा होता है।
+\[
+T_1:T_2=v_2:v_1
+\]
+दिए गए गति-अनुपात को उलटें।
+\[
+T_1:T_2=4:4
+\]
+यही आवश्यक समय-अनुपात है।
+\[
+T_1:T_2=16:15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_1:T_2=v_2:v_1
+\]
+उत्तर: 16:15
+Punjabi:
+ਦੋ ਵਿਅਕਤੀ ਇੱਕੋ ਦੂਰੀ ਤੈਅ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 4:4 ਹੈ। ਇੱਕੋ ਦੂਰੀ ਲਈ ਉਨ੍ਹਾਂ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਇੱਕੋ ਦੂਰੀ ਵਿੱਚ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਗਤੀ ਦੇ ਅਨੁਪਾਤ ਦਾ ਉਲਟਾ ਹੁੰਦਾ ਹੈ।
+\[
+T_1:T_2=v_2:v_1
+\]
+ਦਿੱਤੇ ਗਤੀ-ਅਨੁਪਾਤ ਨੂੰ ਉਲਟੋ।
+\[
+T_1:T_2=4:4
+\]
+ਇਹੀ ਲੋੜੀਂਦਾ ਸਮਾਂ-ਅਨੁਪਾਤ ਹੈ।
+\[
+T_1:T_2=16:15
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_1:T_2=v_2:v_1
+\]
+ਉੱਤਰ: 16:15
+Meta: family=tsd_distance_ratio_speed_time topology=time_speed_distance:tsd_distance_ratio_speed_time difficulty=Easy
+
+Q3. A boat's downstream trip of 30 km takes 5 hours, while its upstream trip of 30 km takes 6 hours. What is the current speed?
+  A. 0.5 km/h
+  B. 1 km/h
+  C. 6.5 km/h
+  D. 9.5 km/h
+Answer: 0.5 km/h
+Explanation:
+Find downstream and upstream speeds from distance and time.
+\[
+v_d=\frac{30}{5},\quad v_u=\frac{30}{6}
+\]
+Boat and stream speeds are obtained by averaging or halving the difference.
+\[
+v_s=\frac{v_d-v_u}{2}
+\]
+Use downstream and upstream speeds to isolate the requested speed.
+\[
+v_s=\frac{6-5}{2}=0.5
+\]
+Shortcut / Exam Method:
+\[
+v_s=\frac{v_d-v_u}{2}
+\]
+Answer: 0.5 km/h
+Hindi:
+एक नाव 30 किमी धारा के अनुकूल 5 घंटे में और 30 किमी धारा के प्रतिकूल 6 घंटे में चलती है। धारा की गति कितनी है?
+दूरी और समय से अनुकूल और प्रतिकूल गतियाँ निकालें।
+\[
+v_d=\frac{30}{5},\quad v_u=\frac{30}{6}
+\]
+नाव और धारा की गति औसत या आधे अंतर से मिलती है।
+\[
+v_s=\frac{v_d-v_u}{2}
+\]
+दोनों गतियाँ रखें।
+\[
+v_s=\frac{6-5}{2}=0.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_s=\frac{v_d-v_u}{2}
+\]
+उत्तर: 0.5 किमी/घं
+Punjabi:
+ਇੱਕ ਕਿਸ਼ਤੀ 30 ਕਿਮੀ ਧਾਰਾ ਦੇ ਨਾਲ 5 ਘੰਟਿਆਂ ਵਿੱਚ ਅਤੇ 30 ਕਿਮੀ ਧਾਰਾ ਦੇ ਉਲਟ 6 ਘੰਟਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ। ਧਾਰਾ ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਦੂਰੀ ਅਤੇ ਸਮੇਂ ਤੋਂ ਨਾਲ ਅਤੇ ਉਲਟ ਗਤੀਆਂ ਕੱਢੋ।
+\[
+v_d=\frac{30}{5},\quad v_u=\frac{30}{6}
+\]
+ਕਿਸ਼ਤੀ ਅਤੇ ਧਾਰਾ ਦੀ ਗਤੀ ਔਸਤ ਜਾਂ ਅੱਧੇ ਫਰਕ ਨਾਲ ਮਿਲਦੀ ਹੈ।
+\[
+v_s=\frac{v_d-v_u}{2}
+\]
+ਦੋਵੇਂ ਗਤੀਆਂ ਰੱਖੋ।
+\[
+v_s=\frac{6-5}{2}=0.5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_s=\frac{v_d-v_u}{2}
+\]
+ਉੱਤਰ: 0.5 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=boat_speed_ratio_upstream_downstream topology=time_speed_distance:boat_speed_ratio_upstream_downstream difficulty=Medium
+
+Q4. A passenger train of length 240 m takes 30 seconds to cross a platform at 36 m/s. What is the platform length?
+  A. 840 m
+  B. 842 m
+  C. 630 m
+  D. 830 m
+Answer: 840 m
+Explanation:
+Crossing distance equals speed multiplied by time.
+\[
+D=vt=36\times 30
+\]
+Subtract the known train length from the crossing distance.
+\[
+L_p=D-L_t
+\]
+This gives the unknown length.
+\[
+L_p=1080-240=840
+\]
+Shortcut / Exam Method:
+\[
+L_x=vt-L
+\]
+Answer: 840 m
+Hindi:
+एक ट्रेन 36 मी/से की गति से 30 सेकंड में प्लेटफॉर्म पार करती है। यदि ट्रेन की लंबाई 240 मीटर है, तो प्लेटफॉर्म की लंबाई कितनी है?
+पार करने की दूरी = गति x समय।
+\[
+D=vt=36\times 30
+\]
+पार दूरी में से ट्रेन की लंबाई घटाएँ।
+\[
+L_p=D-L_t
+\]
+इससे अज्ञात लंबाई मिलती है।
+\[
+L_p=1080-240=840
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L_x=vt-L
+\]
+उत्तर: 840 मीटर
+Punjabi:
+ਇੱਕ ਰੇਲਗੱਡੀ 36 ਮੀ/ਸੇ ਦੀ ਗਤੀ ਨਾਲ 30 ਸਕਿੰਟ ਵਿੱਚ ਪਲੇਟਫਾਰਮ ਪਾਰ ਕਰਦੀ ਹੈ। ਜੇ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ 240 ਮੀਟਰ ਹੈ, ਤਾਂ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?
+ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ = ਗਤੀ x ਸਮਾਂ।
+\[
+D=vt=36\times 30
+\]
+ਪਾਰ ਦੂਰੀ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਘਟਾਓ।
+\[
+L_p=D-L_t
+\]
+ਇਸ ਨਾਲ ਅਣਜਾਣ ਲੰਬਾਈ ਮਿਲਦੀ ਹੈ।
+\[
+L_p=1080-240=840
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L_x=vt-L
+\]
+ਉੱਤਰ: 840 ਮੀਟਰ
+Meta: family=train_length_from_crossing_time topology=time_speed_distance:train_length_from_crossing_time difficulty=Medium
+
+Q5. On a river, a boat goes 120 km downstream in 3 hours and returns 120 km upstream in 6 hours. What is the boat's still-water speed?
+  A. 30 km/h
+  B. 24 km/h
+  C. 37.5 km/h
+  D. 38 km/h
+Answer: 30 km/h
+Explanation:
+Find downstream and upstream speeds from distance and time.
+\[
+v_d=\frac{120}{3},\quad v_u=\frac{120}{6}
+\]
+Boat and stream speeds are obtained by averaging or halving the difference.
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Use downstream and upstream speeds to isolate the requested speed.
+\[
+v_b=\frac{40+20}{2}=30
+\]
+Shortcut / Exam Method:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Answer: 30 km/h
+Hindi:
+एक नाव 120 किमी धारा के अनुकूल 3 घंटे में और 120 किमी धारा के प्रतिकूल 6 घंटे में चलती है। शांत जल में नाव की गति कितनी है?
+दूरी और समय से अनुकूल और प्रतिकूल गतियाँ निकालें।
+\[
+v_d=\frac{120}{3},\quad v_u=\frac{120}{6}
+\]
+नाव और धारा की गति औसत या आधे अंतर से मिलती है।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+दोनों गतियाँ रखें।
+\[
+v_b=\frac{40+20}{2}=30
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+उत्तर: 30 किमी/घं
+Punjabi:
+ਇੱਕ ਕਿਸ਼ਤੀ 120 ਕਿਮੀ ਧਾਰਾ ਦੇ ਨਾਲ 3 ਘੰਟਿਆਂ ਵਿੱਚ ਅਤੇ 120 ਕਿਮੀ ਧਾਰਾ ਦੇ ਉਲਟ 6 ਘੰਟਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਂਤ ਪਾਣੀ ਵਿੱਚ ਕਿਸ਼ਤੀ ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਦੂਰੀ ਅਤੇ ਸਮੇਂ ਤੋਂ ਨਾਲ ਅਤੇ ਉਲਟ ਗਤੀਆਂ ਕੱਢੋ।
+\[
+v_d=\frac{120}{3},\quad v_u=\frac{120}{6}
+\]
+ਕਿਸ਼ਤੀ ਅਤੇ ਧਾਰਾ ਦੀ ਗਤੀ ਔਸਤ ਜਾਂ ਅੱਧੇ ਫਰਕ ਨਾਲ ਮਿਲਦੀ ਹੈ।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਦੋਵੇਂ ਗਤੀਆਂ ਰੱਖੋ।
+\[
+v_b=\frac{40+20}{2}=30
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਉੱਤਰ: 30 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=boat_time_ratio topology=time_speed_distance:boat_time_ratio difficulty=Medium
+
+Q6. A vehicle changes speed uniformly from 6 m/s to 22 m/s. What is its average speed during this interval?
+  A. 22 m/s
+  B. 20 m/s
+  C. 17.6 m/s
+  D. 14 m/s
+Answer: 22 m/s
+Explanation:
+For uniform acceleration, average speed is the mean of initial and final speeds.
+\[
+S_a=\frac{u+v}{2}
+\]
+Use the clean given values in that relation.
+\[
+S_a=\frac{6+22}{2}=22
+\]
+Shortcut / Exam Method:
+\[
+S_a=\frac{u+v}{2}
+\]
+Answer: 22 m/s
+Hindi:
+एक वाहन 6 मी/से से चलकर 4 मी/से² के समान त्वरण से 4 सेकंड चलता है। पूछा गया मान कितना है?
+समान त्वरण का संबंध लगाएँ।
+\[
+S_a=\frac{u+v}{2}
+\]
+दिए साफ मानों को संबंध में रखें।
+\[
+S_a=\frac{6+22}{2}=22
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+S_a=\frac{u+v}{2}
+\]
+उत्तर: 22 मी/से
+Punjabi:
+ਇੱਕ ਵਾਹਨ 6 ਮੀ/ਸੇ ਤੋਂ 4 ਮੀ/ਸੇ² ਦੇ ਇਕਸਾਰ ਤਿਵਰਣ ਨਾਲ 4 ਸਕਿੰਟ ਚਲਦਾ ਹੈ। ਪੁੱਛਿਆ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?
+ਇਕਸਾਰ ਤਿਵਰਣ ਦਾ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+S_a=\frac{u+v}{2}
+\]
+ਦਿੱਤੇ ਸਾਫ਼ ਮੁੱਲ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।
+\[
+S_a=\frac{6+22}{2}=22
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+S_a=\frac{u+v}{2}
+\]
+ਉੱਤਰ: 22 ਮੀ/ਸੇ
+Meta: family=tsd_acceleration_uniform_basic topology=time_speed_distance:tsd_acceleration_uniform_basic difficulty=Medium
+
+Q7. In a 500 m race, A beats B by 50 m. If A's speed is 8 m/s, what is B's speed?
+  A. 7.2 m/s
+  B. 9.2 m/s
+  C. 5.4 m/s
+  D. 1 m/s
+Answer: 7.2 m/s
+Explanation:
+When A finishes, B has covered race distance minus lead.
+\[
+D_B=500-50
+\]
+For the same time, speed ratio equals distance ratio.
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+Use A's speed to get the required value.
+\[
+v_B=8\times \frac{450}{500}=7.2
+\]
+Shortcut / Exam Method:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+Answer: 7.2 m/s
+Hindi:
+500 मीटर की दौड़ में A, B को 50 मीटर से हराता है। यदि A की गति 8 मी/से है, तो B की गति कितनी है?
+A के समाप्त करने पर B ने दौड़ दूरी में से बढ़त घटाकर दूरी तय की।
+\[
+D_B=500-50
+\]
+समान समय में गति-अनुपात दूरी-अनुपात के बराबर है।
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+A की गति से आवश्यक मान निकालें।
+\[
+v_B=8\times \frac{450}{500}=7.2
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+उत्तर: 7.2 मी/से
+Punjabi:
+500 ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ A, B ਨੂੰ 50 ਮੀਟਰ ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ। ਜੇ A ਦੀ ਗਤੀ 8 ਮੀ/ਸੇ ਹੈ, ਤਾਂ B ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+A ਦੇ ਖਤਮ ਕਰਨ ਤੇ B ਨੇ ਦੌੜ ਦੀ ਦੂਰੀ ਵਿੱਚੋਂ ਲੀਡ ਘਟਾ ਕੇ ਦੂਰੀ ਤੈਅ ਕੀਤੀ।
+\[
+D_B=500-50
+\]
+ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਗਤੀ-ਅਨੁਪਾਤ ਦੂਰੀ-ਅਨੁਪਾਤ ਦੇ ਬਰਾਬਰ ਹੈ।
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+A ਦੀ ਗਤੀ ਨਾਲ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+\[
+v_B=8\times \frac{450}{500}=7.2
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+ਉੱਤਰ: 7.2 ਮੀ/ਸੇ
+Meta: family=race_basic_lead_distance topology=time_speed_distance:race_basic_lead_distance difficulty=Medium
+
+Q8. A train of length 90 m has to cover an effective crossing length of 100 m. If the relative speed is 20 m/s, in how many seconds will the crossing be completed?
+  A. 9.5 seconds
+  B. 5.5 seconds
+  C. 11.4 seconds
+  D. 19.5 seconds
+Answer: 9.5 seconds
+Explanation:
+The train covers the combined effective length.
+\[
+D=L_1+L_2=90+100
+\]
+Crossing time is distance divided by relative speed.
+\[
+T=\frac{D}{v_r}
+\]
+Use the effective crossing distance with the relative speed.
+\[
+T=\frac{190}{20}=9.5
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+Answer: 9.5 seconds
+Hindi:
+90 मीटर लंबी ट्रेन 100 मीटर प्रभावी लंबाई वाली वस्तु को 20 मी/से की आपसी गति से पार करती है। पार करने में कितने सेकंड लगेंगे?
+ट्रेन कुल प्रभावी लंबाई तय करती है।
+\[
+D=L_1+L_2=90+100
+\]
+पार करने का समय = दूरी / आपसी गति।
+\[
+T=\frac{D}{v_r}
+\]
+पार दूरी और आपसी गति रखें।
+\[
+T=\frac{190}{20}=9.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+उत्तर: 9.5 सेकंड
+Punjabi:
+90 ਮੀਟਰ ਲੰਬੀ ਰੇਲਗੱਡੀ 100 ਮੀਟਰ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ 20 ਮੀ/ਸੇ ਦੀ ਆਪਸੀ ਗਤੀ ਨਾਲ ਪਾਰ ਕਰਦੀ ਹੈ। ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਸਕਿੰਟ ਲੱਗਣਗੇ?
+ਰੇਲਗੱਡੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=L_1+L_2=90+100
+\]
+ਪਾਰ ਕਰਨ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{D}{v_r}
+\]
+ਪਾਰ ਦੂਰੀ ਅਤੇ ਆਪਸੀ ਗਤੀ ਰੱਖੋ।
+\[
+T=\frac{190}{20}=9.5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+ਉੱਤਰ: 9.5 ਸਕਿੰਟ
+Meta: family=train_time_gap_between_crossings topology=time_speed_distance:train_time_gap_between_crossings difficulty=Hard
+
+Q9. A car covers 180 km in 4 hours of running time and rests for 1 hour on the way. What is the average speed including the rest?
+  A. 36 km/h
+  B. 40 km/h
+  C. 45 km/h
+  D. 44 km/h
+Answer: 36 km/h
+Explanation:
+Include the rest time in total journey time.
+\[
+T=4+1
+\]
+Use total distance over running time plus rest time.
+\[
+S_{\text{avg}}=\frac{D}{T_{\text{run}}+T_{\text{rest}}}
+\]
+Use the journey distance and the combined journey time.
+\[
+S=\frac{180}{5}=36
+\]
+Shortcut / Exam Method:
+\[
+S_{\text{avg}}=\frac{D}{T_{\text{run}}+T_{\text{rest}}}
+\]
+Answer: 36 km/h
+Hindi:
+एक कार 180 किमी चलने में 4 घंटे लगाती है और रास्ते में 1 घंटा रुकती है। रुकने सहित औसत गति कितनी है?
+कुल यात्रा समय में रुकने का समय जोड़ें।
+\[
+T=4+1
+\]
+औसत गति = कुल दूरी / कुल समय।
+\[
+S_{\text{avg}}=\frac{D}{T_{\text{run}}+T_{\text{rest}}}
+\]
+दूरी और कुल समय रखें।
+\[
+S=\frac{180}{5}=36
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+S_{\text{avg}}=\frac{D}{T_{\text{run}}+T_{\text{rest}}}
+\]
+उत्तर: 36 किमी/घं
+Punjabi:
+ਇੱਕ ਕਾਰ 180 ਕਿਮੀ ਚਲਣ ਵਿੱਚ 4 ਘੰਟੇ ਲਗਾਉਂਦੀ ਹੈ ਅਤੇ ਰਸਤੇ ਵਿੱਚ 1 ਘੰਟਾ ਰੁਕਦੀ ਹੈ। ਰੁਕਣ ਸਮੇਤ ਔਸਤ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਕੁੱਲ ਯਾਤਰਾ ਸਮੇਂ ਵਿੱਚ ਰੁਕਣ ਦਾ ਸਮਾਂ ਜੋੜੋ।
+\[
+T=4+1
+\]
+ਔਸਤ ਗਤੀ = ਕੁੱਲ ਦੂਰੀ / ਕੁੱਲ ਸਮਾਂ।
+\[
+S_{\text{avg}}=\frac{D}{T_{\text{run}}+T_{\text{rest}}}
+\]
+ਦੂਰੀ ਅਤੇ ਕੁੱਲ ਸਮਾਂ ਰੱਖੋ।
+\[
+S=\frac{180}{5}=36
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+S_{\text{avg}}=\frac{D}{T_{\text{run}}+T_{\text{rest}}}
+\]
+ਉੱਤਰ: 36 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=tsd_speed_change_distance_fixed topology=time_speed_distance:tsd_speed_change_distance_fixed difficulty=Medium
+
+Q10. A cyclist and a runner move around a polygonal track of perimeter 420 m at 8 m/s and 4 m/s. In how many seconds will one relative lap be completed?
+  A. 105 seconds
+  B. 103 seconds
+  C. 84 seconds
+  D. 97 seconds
+Answer: 105 seconds
+Explanation:
+On a closed path, use perimeter divided by relative speed.
+\[
+T=\frac{P}{v_r}
+\]
+Use the path perimeter and relative speed.
+\[
+T=\frac{420}{4}=105
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{P}{v_r}
+\]
+Answer: 105 seconds
+Hindi:
+दो धावक 420 मीटर परिमाप वाले बंद पथ पर 8 मी/से और 4 मी/से से चलते हैं। आपसी एक चक्कर कितने सेकंड में पूरा होगा?
+बंद पथ पर परिमाप को आपसी गति से भाग दें।
+\[
+T=\frac{P}{v_r}
+\]
+परिमाप और आपसी गति का प्रयोग करें।
+\[
+T=\frac{420}{4}=105
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{P}{v_r}
+\]
+उत्तर: 105 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 420 ਮੀਟਰ ਘੇਰੇ ਵਾਲੇ ਬੰਦ ਰਾਹ ਤੇ 8 ਮੀ/ਸੇ ਅਤੇ 4 ਮੀ/ਸੇ ਨਾਲ ਚਲਦੇ ਹਨ। ਆਪਸੀ ਇੱਕ ਚੱਕਰ ਕਿੰਨੇ ਸਕਿੰਟ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?
+ਬੰਦ ਰਾਹ ਤੇ ਘੇਰੇ ਨੂੰ ਆਪਸੀ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{P}{v_r}
+\]
+ਘੇਰਾ ਅਤੇ ਆਪਸੀ ਗਤੀ ਵਰਤੋ।
+\[
+T=\frac{420}{4}=105
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{P}{v_r}
+\]
+ਉੱਤਰ: 105 ਸਕਿੰਟ
+Meta: family=tsd_geometric_polygon_perimeter_lap topology=time_speed_distance:tsd_geometric_polygon_perimeter_lap difficulty=Easy
+
+Q11. A delivery van reaches the market 15 minutes late at 6 km/h and 10 minutes early at 8 km/h. What is the distance to the market?
+  A. 10 km
+  B. 6 km
+  C. 7.5 km
+  D. 1 km
+Answer: 10 km
+Explanation:
+The total time gap is from late to early, so add both differences.
+\[
+\Delta T=15+10=\frac{25}{60}
+\]
+Use the early-late distance relation.
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+Put the two walking speeds and the total time gap in the relation.
+\[
+D=\frac{6\times 8}{8-6}\times \frac{25}{60}=10
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+Answer: 10 km
+Hindi:
+यदि एक छात्र 6 किमी/घं से चलता है, तो वह स्कूल 15 मिनट देर से पहुँचता है। यदि वह 8 किमी/घं से चलता है, तो 10 मिनट पहले पहुँचता है। उसके स्कूल की दूरी कितनी है?
+देर और जल्दी के समयों को जोड़कर कुल अंतर लें।
+\[
+\Delta T=15+10=\frac{25}{60}
+\]
+जल्दी-देर वाली दूरी का संबंध लगाएँ।
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+गतियाँ और समय-अंतर रखें।
+\[
+D=\frac{6\times 8}{8-6}\times \frac{25}{60}=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+उत्तर: 10 किमी
+Punjabi:
+ਜੇ ਇੱਕ ਵਿਦਿਆਰਥੀ 6 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਤੁਰਦਾ ਹੈ, ਤਾਂ ਉਹ ਸਕੂਲ 15 ਮਿੰਟ ਦੇਰ ਨਾਲ ਪਹੁੰਚਦਾ ਹੈ। ਜੇ ਉਹ 8 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਤੁਰਦਾ ਹੈ, ਤਾਂ 10 ਮਿੰਟ ਪਹਿਲਾਂ ਪਹੁੰਚਦਾ ਹੈ। ਉਸਦੇ ਸਕੂਲ ਦੀ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?
+ਦੇਰੀ ਅਤੇ ਪਹਿਲਾਂ ਪਹੁੰਚਣ ਵਾਲੇ ਸਮੇਂ ਜੋੜ ਕੇ ਕੁੱਲ ਅੰਤਰ ਲਵੋ।
+\[
+\Delta T=15+10=\frac{25}{60}
+\]
+ਜਲਦੀ-ਦੇਰੀ ਵਾਲਾ ਦੂਰੀ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+ਗਤੀਆਂ ਅਤੇ ਸਮਾਂ-ਅੰਤਰ ਰੱਖੋ।
+\[
+D=\frac{6\times 8}{8-6}\times \frac{25}{60}=10
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+ਉੱਤਰ: 10 ਕਿਮੀ
+Meta: family=tsd_scheduled_arrival_speed_required topology=time_speed_distance:tsd_scheduled_arrival_speed_required difficulty=Hard
+
+Q12. A 120 m long train crosses a platform in 10 seconds at 36 m/s. What is the length of the platform?
+  A. 240 m
+  B. 246 m
+  C. 288 m
+  D. 250 m
+Answer: 240 m
+Explanation:
+Crossing distance equals speed multiplied by time.
+\[
+D=vt=36\times 10
+\]
+Subtract the known train length from the crossing distance.
+\[
+L_p=D-L_t
+\]
+This gives the unknown length.
+\[
+L_p=360-120=240
+\]
+Shortcut / Exam Method:
+\[
+L_x=vt-L
+\]
+Answer: 240 m
+Hindi:
+एक ट्रेन 36 मी/से की गति से 10 सेकंड में प्लेटफॉर्म पार करती है। यदि ट्रेन की लंबाई 120 मीटर है, तो प्लेटफॉर्म की लंबाई कितनी है?
+पार करने की दूरी = गति x समय।
+\[
+D=vt=36\times 10
+\]
+पार दूरी में से ट्रेन की लंबाई घटाएँ।
+\[
+L_p=D-L_t
+\]
+इससे अज्ञात लंबाई मिलती है।
+\[
+L_p=360-120=240
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L_x=vt-L
+\]
+उत्तर: 240 मीटर
+Punjabi:
+ਇੱਕ ਰੇਲਗੱਡੀ 36 ਮੀ/ਸੇ ਦੀ ਗਤੀ ਨਾਲ 10 ਸਕਿੰਟ ਵਿੱਚ ਪਲੇਟਫਾਰਮ ਪਾਰ ਕਰਦੀ ਹੈ। ਜੇ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ 120 ਮੀਟਰ ਹੈ, ਤਾਂ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?
+ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ = ਗਤੀ x ਸਮਾਂ।
+\[
+D=vt=36\times 10
+\]
+ਪਾਰ ਦੂਰੀ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਘਟਾਓ।
+\[
+L_p=D-L_t
+\]
+ਇਸ ਨਾਲ ਅਣਜਾਣ ਲੰਬਾਈ ਮਿਲਦੀ ਹੈ।
+\[
+L_p=360-120=240
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L_x=vt-L
+\]
+ਉੱਤਰ: 240 ਮੀਟਰ
+Meta: family=train_platform_length_unknown topology=time_speed_distance:train_platform_length_unknown difficulty=Medium
+
+Q13. In a 600 m race, A beats B by 100 m. If A's speed is 6 m/s, what is B's speed?
+  A. 5 m/s
+  B. 1 m/s
+  C. 4 m/s
+  D. 14 m/s
+Answer: 5 m/s
+Explanation:
+When A finishes, B has covered race distance minus lead.
+\[
+D_B=600-100
+\]
+For the same time, speed ratio equals distance ratio.
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+Use A's speed to get the required value.
+\[
+v_B=6\times \frac{500}{600}=5
+\]
+Shortcut / Exam Method:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+Answer: 5 m/s
+Hindi:
+600 मीटर की दौड़ में A, B को 100 मीटर से हराता है। यदि A की गति 6 मी/से है, तो B की गति कितनी है?
+A के समाप्त करने पर B ने दौड़ दूरी में से बढ़त घटाकर दूरी तय की।
+\[
+D_B=600-100
+\]
+समान समय में गति-अनुपात दूरी-अनुपात के बराबर है।
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+A की गति से आवश्यक मान निकालें।
+\[
+v_B=6\times \frac{500}{600}=5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+उत्तर: 5 मी/से
+Punjabi:
+600 ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ A, B ਨੂੰ 100 ਮੀਟਰ ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ। ਜੇ A ਦੀ ਗਤੀ 6 ਮੀ/ਸੇ ਹੈ, ਤਾਂ B ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+A ਦੇ ਖਤਮ ਕਰਨ ਤੇ B ਨੇ ਦੌੜ ਦੀ ਦੂਰੀ ਵਿੱਚੋਂ ਲੀਡ ਘਟਾ ਕੇ ਦੂਰੀ ਤੈਅ ਕੀਤੀ।
+\[
+D_B=600-100
+\]
+ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਗਤੀ-ਅਨੁਪਾਤ ਦੂਰੀ-ਅਨੁਪਾਤ ਦੇ ਬਰਾਬਰ ਹੈ।
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+A ਦੀ ਗਤੀ ਨਾਲ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+\[
+v_B=6\times \frac{500}{600}=5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+ਉੱਤਰ: 5 ਮੀ/ਸੇ
+Meta: family=race_a_beats_b_by_distance topology=time_speed_distance:race_a_beats_b_by_distance difficulty=Medium
+
+Q14. For a crossing, a 120 m train must also cover 180 m of external length. If its relative speed is 5 m/s, in how many seconds will it cross completely?
+  A. 60 seconds
+  B. 66 seconds
+  C. 45 seconds
+  D. 50 seconds
+Answer: 60 seconds
+Explanation:
+The train covers the combined effective length.
+\[
+D=L_1+L_2=120+180
+\]
+Crossing time is distance divided by relative speed.
+\[
+T=\frac{D}{v_r}
+\]
+Use the effective crossing distance with the relative speed.
+\[
+T=\frac{300}{5}=60
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+Answer: 60 seconds
+Hindi:
+120 मीटर लंबी ट्रेन 180 मीटर प्रभावी लंबाई वाली वस्तु को 5 मी/से की आपसी गति से पार करती है। पार करने में कितने सेकंड लगेंगे?
+ट्रेन कुल प्रभावी लंबाई तय करती है।
+\[
+D=L_1+L_2=120+180
+\]
+पार करने का समय = दूरी / आपसी गति।
+\[
+T=\frac{D}{v_r}
+\]
+पार दूरी और आपसी गति रखें।
+\[
+T=\frac{300}{5}=60
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+उत्तर: 60 सेकंड
+Punjabi:
+120 ਮੀਟਰ ਲੰਬੀ ਰੇਲਗੱਡੀ 180 ਮੀਟਰ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ 5 ਮੀ/ਸੇ ਦੀ ਆਪਸੀ ਗਤੀ ਨਾਲ ਪਾਰ ਕਰਦੀ ਹੈ। ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਸਕਿੰਟ ਲੱਗਣਗੇ?
+ਰੇਲਗੱਡੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=L_1+L_2=120+180
+\]
+ਪਾਰ ਕਰਨ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{D}{v_r}
+\]
+ਪਾਰ ਦੂਰੀ ਅਤੇ ਆਪਸੀ ਗਤੀ ਰੱਖੋ।
+\[
+T=\frac{300}{5}=60
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+ਉੱਤਰ: 60 ਸਕਿੰਟ
+Meta: family=train_overtake_another_train topology=time_speed_distance:train_overtake_another_train difficulty=Easy
+
+Q15. A small wheel has radius 7 cm and a larger wheel has radius 14 cm. For equal distance covered, what will be the ratio of their revolutions?
+  A. 2:1
+  B. 1:2
+  C. 2:3
+  D. 3:4
+Answer: 2:1
+Explanation:
+One revolution covers one circumference.
+\[
+C=2\pi r
+\]
+Use pi as 22 over 7 and multiply by revolutions.
+\[
+N_1:N_2=r_2:r_1=2:1
+\]
+Shortcut / Exam Method:
+\[
+N_1:N_2=r_2:r_1
+\]
+Answer: 2:1
+Hindi:
+पहिए की परिधि से दूरी या चक्कर का अनुपात निकालें?
+एक चक्कर में एक परिधि चलती है।
+\[
+C=2\pi r
+\]
+pi को 22/7 लेकर चक्करों से गुणा करें।
+\[
+N_1:N_2=r_2:r_1=2:1
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N_1:N_2=r_2:r_1
+\]
+उत्तर: 2:1
+Punjabi:
+ਪਹੀਏ ਦੇ ਘੇਰੇ ਨਾਲ ਦੂਰੀ ਜਾਂ ਚੱਕਰਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ?
+ਇੱਕ ਚੱਕਰ ਵਿੱਚ ਇੱਕ ਘੇਰਾ ਤੈਅ ਹੁੰਦਾ ਹੈ।
+\[
+C=2\pi r
+\]
+pi ਨੂੰ 22/7 ਲੈ ਕੇ ਚੱਕਰਾਂ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+N_1:N_2=r_2:r_1=2:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N_1:N_2=r_2:r_1
+\]
+ਉੱਤਰ: 2:1
+Meta: family=tsd_two_wheels_revolution_ratio topology=time_speed_distance:tsd_two_wheels_revolution_ratio difficulty=Medium
+
+Q16. Two athletes begin together on a circular track of length 450 m. Their speeds are 5 m/s and 8 m/s. In how many seconds will they meet again?
+  A. 150 seconds
+  B. 146 seconds
+  C. 112.5 seconds
+  D. 140 seconds
+Answer: 150 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=3
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=1\times \frac{450}{3}=150
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 150 seconds
+Hindi:
+दो धावक 450 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 5 मी/से और 8 मी/से हैं। वे फिर कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=3
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=1\times \frac{450}{3}=150
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 150 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 450 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 5 ਮੀ/ਸੇ ਅਤੇ 8 ਮੀ/ਸੇ ਹਨ। ਉਹ ਫਿਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=3
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=1\times \frac{450}{3}=150
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 150 ਸਕਿੰਟ
+Meta: family=circular_track_first_meeting_same_direction topology=time_speed_distance:circular_track_first_meeting_same_direction difficulty=Medium
+
+Q17. On a 400 m circular track, two runners start together with speeds 6 m/s and 4 m/s. After how many seconds will they meet for the 2nd time?
+  A. 400 seconds
+  B. 394 seconds
+  C. 500 seconds
+  D. 408 seconds
+Answer: 400 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=2
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=2\times \frac{400}{2}=400
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 400 seconds
+Hindi:
+दो धावक 400 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 6 मी/से और 4 मी/से हैं। वे 2वीं बार कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=2
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=2\times \frac{400}{2}=400
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 400 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 400 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 6 ਮੀ/ਸੇ ਅਤੇ 4 ਮੀ/ਸੇ ਹਨ। ਉਹ 2ਵੀਂ ਵਾਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=2
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=2\times \frac{400}{2}=400
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 400 ਸਕਿੰਟ
+Meta: family=circular_track_repeated_meetings topology=time_speed_distance:circular_track_repeated_meetings difficulty=Hard
+
+Q18. A train takes 18 seconds to pass a platform while moving at 20 m/s. If its length is 240 m, what is the platform length?
+  A. 120 m
+  B. 118 m
+  C. 150 m
+  D. 128 m
+Answer: 120 m
+Explanation:
+Crossing distance equals speed multiplied by time.
+\[
+D=vt=20\times 18
+\]
+Subtract the known train length from the crossing distance.
+\[
+L_p=D-L_t
+\]
+This gives the unknown length.
+\[
+L_p=360-240=120
+\]
+Shortcut / Exam Method:
+\[
+L_x=vt-L
+\]
+Answer: 120 m
+Hindi:
+एक ट्रेन 20 मी/से की गति से 18 सेकंड में प्लेटफॉर्म पार करती है। यदि ट्रेन की लंबाई 240 मीटर है, तो प्लेटफॉर्म की लंबाई कितनी है?
+पार करने की दूरी = गति x समय।
+\[
+D=vt=20\times 18
+\]
+पार दूरी में से ट्रेन की लंबाई घटाएँ।
+\[
+L_p=D-L_t
+\]
+इससे अज्ञात लंबाई मिलती है।
+\[
+L_p=360-240=120
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L_x=vt-L
+\]
+उत्तर: 120 मीटर
+Punjabi:
+ਇੱਕ ਰੇਲਗੱਡੀ 20 ਮੀ/ਸੇ ਦੀ ਗਤੀ ਨਾਲ 18 ਸਕਿੰਟ ਵਿੱਚ ਪਲੇਟਫਾਰਮ ਪਾਰ ਕਰਦੀ ਹੈ। ਜੇ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ 240 ਮੀਟਰ ਹੈ, ਤਾਂ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?
+ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ = ਗਤੀ x ਸਮਾਂ।
+\[
+D=vt=20\times 18
+\]
+ਪਾਰ ਦੂਰੀ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਘਟਾਓ।
+\[
+L_p=D-L_t
+\]
+ਇਸ ਨਾਲ ਅਣਜਾਣ ਲੰਬਾਈ ਮਿਲਦੀ ਹੈ।
+\[
+L_p=360-240=120
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L_x=vt-L
+\]
+ਉੱਤਰ: 120 ਮੀਟਰ
+Meta: family=train_dual_platform_length topology=time_speed_distance:train_dual_platform_length difficulty=Hard
+
+Q19. A boat covers 60 km with the stream in 2 hours and the same distance against the stream in 4 hours. What is the speed of the boat in still water?
+  A. 22.5 km/h
+  B. 28.5 km/h
+  C. 27 km/h
+  D. 32.5 km/h
+Answer: 22.5 km/h
+Explanation:
+Find downstream and upstream speeds from distance and time.
+\[
+v_d=\frac{60}{2},\quad v_u=\frac{60}{4}
+\]
+Boat and stream speeds are obtained by averaging or halving the difference.
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Use downstream and upstream speeds to isolate the requested speed.
+\[
+v_b=\frac{30+15}{2}=22.5
+\]
+Shortcut / Exam Method:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Answer: 22.5 km/h
+Hindi:
+एक नाव 60 किमी धारा के अनुकूल 2 घंटे में और 60 किमी धारा के प्रतिकूल 4 घंटे में चलती है। शांत जल में नाव की गति कितनी है?
+दूरी और समय से अनुकूल और प्रतिकूल गतियाँ निकालें।
+\[
+v_d=\frac{60}{2},\quad v_u=\frac{60}{4}
+\]
+नाव और धारा की गति औसत या आधे अंतर से मिलती है।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+दोनों गतियाँ रखें।
+\[
+v_b=\frac{30+15}{2}=22.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+उत्तर: 22.5 किमी/घं
+Punjabi:
+ਇੱਕ ਕਿਸ਼ਤੀ 60 ਕਿਮੀ ਧਾਰਾ ਦੇ ਨਾਲ 2 ਘੰਟਿਆਂ ਵਿੱਚ ਅਤੇ 60 ਕਿਮੀ ਧਾਰਾ ਦੇ ਉਲਟ 4 ਘੰਟਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਂਤ ਪਾਣੀ ਵਿੱਚ ਕਿਸ਼ਤੀ ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਦੂਰੀ ਅਤੇ ਸਮੇਂ ਤੋਂ ਨਾਲ ਅਤੇ ਉਲਟ ਗਤੀਆਂ ਕੱਢੋ।
+\[
+v_d=\frac{60}{2},\quad v_u=\frac{60}{4}
+\]
+ਕਿਸ਼ਤੀ ਅਤੇ ਧਾਰਾ ਦੀ ਗਤੀ ਔਸਤ ਜਾਂ ਅੱਧੇ ਫਰਕ ਨਾਲ ਮਿਲਦੀ ਹੈ।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਦੋਵੇਂ ਗਤੀਆਂ ਰੱਖੋ।
+\[
+v_b=\frac{30+15}{2}=22.5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਉੱਤਰ: 22.5 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=boat_time_ratio topology=time_speed_distance:boat_time_ratio difficulty=Medium
+
+Q20. At what time after 7 o'clock will the hands of a clock at right angles?
+  A. \(21\frac{9}{11}\) minutes
+  B. \(22\frac{9}{11}\) minutes
+  C. \(20\frac{9}{11}\) minutes
+  D. \(21\frac{9}{22}\) minutes
+Answer: \(21\frac{9}{11}\) minutes
+Explanation:
+The minute hand gains on the hour hand at 5.5 degrees per minute.
+\[
+v_r=6-0.5=5.5
+\]
+Divide the required angular gap by the relative angular speed.
+\[
+T=\frac{120}{5.5}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{\theta}{5.5}
+\]
+Answer: \(21\frac{9}{11}\) minutes
+Hindi:
+after 7 o'clock घड़ी की दोनों सुइयाँ at right angles कब होंगी?
+मिनट की सुई घंटे की सुई पर हर मिनट 5.5 डिग्री बढ़त बनाती है।
+\[
+v_r=6-0.5=5.5
+\]
+आवश्यक कोणीय अंतर को आपसी कोणीय गति से भाग दें।
+\[
+T=\frac{120}{5.5}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{\theta}{5.5}
+\]
+उत्तर: \(21\frac{9}{11}\) minutes
+Punjabi:
+after 7 o'clock ਘੜੀ ਦੀਆਂ ਦੋਵੇਂ ਸੂਈਆਂ at right angles ਕਦੋਂ ਹੋਣਗੀਆਂ?
+ਮਿੰਟ ਵਾਲੀ ਸੂਈ ਘੰਟੇ ਵਾਲੀ ਸੂਈ ਤੇ ਹਰ ਮਿੰਟ 5.5 ਡਿਗਰੀ ਦੀ ਬੜ੍ਹਤ ਬਣਾਉਂਦੀ ਹੈ।
+\[
+v_r=6-0.5=5.5
+\]
+ਲੋੜੀਂਦੇ ਕੋਣੀ ਫਰਕ ਨੂੰ ਆਪਸੀ ਕੋਣੀ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{120}{5.5}
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{\theta}{5.5}
+\]
+ਉੱਤਰ: \(21\frac{9}{11}\) minutes
+Meta: family=tsd_clock_hands_right_angle topology=time_speed_distance:tsd_clock_hands_right_angle difficulty=Easy
+
+Q21. A boat travels 48 km downstream in 3 hours and 48 km upstream in 6 hours. What is the speed of the boat in still water?
+  A. 12 km/h
+  B. 16 km/h
+  C. 15 km/h
+  D. 20 km/h
+Answer: 12 km/h
+Explanation:
+Find downstream and upstream speeds from distance and time.
+\[
+v_d=\frac{48}{3},\quad v_u=\frac{48}{6}
+\]
+Boat and stream speeds are obtained by averaging or halving the difference.
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Use downstream and upstream speeds to isolate the requested speed.
+\[
+v_b=\frac{16+8}{2}=12
+\]
+Shortcut / Exam Method:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Answer: 12 km/h
+Hindi:
+एक नाव 48 किमी धारा के अनुकूल 3 घंटे में और 48 किमी धारा के प्रतिकूल 6 घंटे में चलती है। शांत जल में नाव की गति कितनी है?
+दूरी और समय से अनुकूल और प्रतिकूल गतियाँ निकालें।
+\[
+v_d=\frac{48}{3},\quad v_u=\frac{48}{6}
+\]
+नाव और धारा की गति औसत या आधे अंतर से मिलती है।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+दोनों गतियाँ रखें।
+\[
+v_b=\frac{16+8}{2}=12
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+उत्तर: 12 किमी/घं
+Punjabi:
+ਇੱਕ ਕਿਸ਼ਤੀ 48 ਕਿਮੀ ਧਾਰਾ ਦੇ ਨਾਲ 3 ਘੰਟਿਆਂ ਵਿੱਚ ਅਤੇ 48 ਕਿਮੀ ਧਾਰਾ ਦੇ ਉਲਟ 6 ਘੰਟਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਂਤ ਪਾਣੀ ਵਿੱਚ ਕਿਸ਼ਤੀ ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਦੂਰੀ ਅਤੇ ਸਮੇਂ ਤੋਂ ਨਾਲ ਅਤੇ ਉਲਟ ਗਤੀਆਂ ਕੱਢੋ।
+\[
+v_d=\frac{48}{3},\quad v_u=\frac{48}{6}
+\]
+ਕਿਸ਼ਤੀ ਅਤੇ ਧਾਰਾ ਦੀ ਗਤੀ ਔਸਤ ਜਾਂ ਅੱਧੇ ਫਰਕ ਨਾਲ ਮਿਲਦੀ ਹੈ।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਦੋਵੇਂ ਗਤੀਆਂ ਰੱਖੋ।
+\[
+v_b=\frac{16+8}{2}=12
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਉੱਤਰ: 12 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=boat_constant_distance_isolation topology=time_speed_distance:boat_constant_distance_isolation difficulty=Hard
+
+Q22. A man counts 70 steps while walking up a moving escalator. During the same time, the escalator carries him up by 35 steps. How many visible steps are there on the escalator?
+  A. 105 steps
+  B. 99 steps
+  C. 131.25 steps
+  D. 113 steps
+Answer: 105 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=70+35
+\]
+This gives the visible steps.
+\[
+N=105
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 105 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 70 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 35 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=70+35
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=105
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 105 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 70 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 35 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=70+35
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=105
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 105 ਪੌੜੀਆਂ
+Meta: family=escalator_steps_basic topology=time_speed_distance:escalator_steps_basic difficulty=Hard
+
+Q23. A pair of runners start together on a circular track of 300 m. Their speeds are 6 m/s and 2 m/s. After how many seconds will they meet again?
+  A. 75 seconds
+  B. 69 seconds
+  C. 60 seconds
+  D. 67 seconds
+Answer: 75 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=4
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=1\times \frac{300}{4}=75
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 75 seconds
+Hindi:
+दो धावक 300 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 6 मी/से और 2 मी/से हैं। वे फिर कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=4
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=1\times \frac{300}{4}=75
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 75 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 300 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 6 ਮੀ/ਸੇ ਅਤੇ 2 ਮੀ/ਸੇ ਹਨ। ਉਹ ਫਿਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=4
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=1\times \frac{300}{4}=75
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 75 ਸਕਿੰਟ
+Meta: family=circular_track_speed_ratio_meeting_point topology=time_speed_distance:circular_track_speed_ratio_meeting_point difficulty=Medium
+
+Q24. A man counts 35 steps while walking up a moving escalator. During the same time, the escalator carries him up by 20 steps. How many visible steps are there on the escalator?
+  A. 55 steps
+  B. 61 steps
+  C. 66 steps
+  D. 65 steps
+Answer: 55 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=35+20
+\]
+This gives the visible steps.
+\[
+N=55
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 55 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 35 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 20 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=35+20
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=55
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 55 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 35 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 20 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=35+20
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=55
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 55 ਪੌੜੀਆਂ
+Meta: family=escalator_up_down_steps topology=time_speed_distance:escalator_up_down_steps difficulty=Hard
+
+Q25. During three equal time intervals of 3 hour, a car runs at 30, 45, 60 km/h. What is the total distance covered?
+  A. 405 km
+  B. 411 km
+  C. 303.75 km
+  D. 395 km
+Answer: 405 km
+Explanation:
+Add the distances covered in the successive parts.
+\[
+D=t(v_1+v_2+v_3)
+\]
+Use the speed sequence with the common time.
+\[
+D=3(30+45+60)=405
+\]
+Shortcut / Exam Method:
+\[
+D=t\sum v_i
+\]
+Answer: 405 km
+Hindi:
+एक बस यात्रा के लगातार भागों में 30, 45, 60 किमी/घं की गति से 3 घंटे-घंटे चलती है। कुल दूरी कितनी है?
+लगातार भागों में तय दूरियाँ जोड़ें।
+\[
+D=t(v_1+v_2+v_3)
+\]
+गति-क्रम और समान समय का प्रयोग करें।
+\[
+D=3(30+45+60)=405
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=t\sum v_i
+\]
+उत्तर: 405 किमी
+Punjabi:
+ਇੱਕ ਬੱਸ ਯਾਤਰਾ ਦੇ ਲਗਾਤਾਰ ਹਿੱਸਿਆਂ ਵਿੱਚ 30, 45, 60 ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ਨਾਲ 3 ਘੰਟਾ-ਘੰਟਾ ਚਲਦੀ ਹੈ। ਕੁੱਲ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?
+ਲਗਾਤਾਰ ਹਿੱਸਿਆਂ ਵਿੱਚ ਤੈਅ ਦੂਰੀਆਂ ਜੋੜੋ।
+\[
+D=t(v_1+v_2+v_3)
+\]
+ਗਤੀ-ਕ੍ਰਮ ਅਤੇ ਇੱਕੋ ਸਮਾਂ ਵਰਤੋ।
+\[
+D=3(30+45+60)=405
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=t\sum v_i
+\]
+ਉੱਤਰ: 405 ਕਿਮੀ
+Meta: family=tsd_variable_speed_distance_remaining topology=time_speed_distance:tsd_variable_speed_distance_remaining difficulty=Medium
+
+Q26. A man counts 40 steps while walking up a moving escalator. During the same time, the escalator carries him up by 35 steps. How many visible steps are there on the escalator?
+  A. 75 steps
+  B. 69 steps
+  C. 60 steps
+  D. 67 steps
+Answer: 75 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=40+35
+\]
+This gives the visible steps.
+\[
+N=75
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 75 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 40 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 35 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=40+35
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=75
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 75 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 40 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 35 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=40+35
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=75
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 75 ਪੌੜੀਆਂ
+Meta: family=escalator_stationary_steps topology=time_speed_distance:escalator_stationary_steps difficulty=Hard
+
+Q27. A man counts 55 steps while walking up a moving escalator. During the same time, the escalator carries him up by 30 steps. How many visible steps are there on the escalator?
+  A. 85 steps
+  B. 91 steps
+  C. 102 steps
+  D. 95 steps
+Answer: 85 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=55+30
+\]
+This gives the visible steps.
+\[
+N=85
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 85 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 55 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 30 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=55+30
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=85
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 85 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 55 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 30 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=55+30
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=85
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 85 ਪੌੜੀਆਂ
+Meta: family=moving_walkway_relative_speed topology=time_speed_distance:moving_walkway_relative_speed difficulty=Easy
+
+Q28. On a circular park path of 600 m, two people start together with speeds 9 m/s and 8 m/s. In how many seconds will they meet again?
+  A. 600 seconds
+  B. 606 seconds
+  C. 720 seconds
+  D. 610 seconds
+Answer: 600 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=1
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=1\times \frac{600}{1}=600
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 600 seconds
+Hindi:
+दो धावक 600 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 9 मी/से और 8 मी/से हैं। वे फिर कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=1
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=1\times \frac{600}{1}=600
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 600 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 600 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 9 ਮੀ/ਸੇ ਅਤੇ 8 ਮੀ/ਸੇ ਹਨ। ਉਹ ਫਿਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=1
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=1\times \frac{600}{1}=600
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 600 ਸਕਿੰਟ
+Meta: family=circular_track_speed_ratio_meeting_point topology=time_speed_distance:circular_track_speed_ratio_meeting_point difficulty=Medium
+
+Q29. At 7:20, what is the smaller angle between the hour hand and the minute hand of a clock?
+  A. 100 degrees
+  B. 98 degrees
+  C. 125 degrees
+  D. 108 degrees
+Answer: 100 degrees
+Explanation:
+Use the standard clock-angle relation.
+\[
+\theta=\left|30h-\frac{11m}{2}\right|
+\]
+Take the smaller of the two possible angles.
+\[
+\theta=\left|30\times 7-\frac{11\times 20}{2}\right|=100
+\]
+Shortcut / Exam Method:
+\[
+\theta=\min\left(x,360-x\right)
+\]
+Answer: 100 degrees
+Hindi:
+7:20 बजे घड़ी की घंटे और मिनट की सुई के बीच छोटा कोण कितना है?
+घड़ी के कोण का मानक संबंध लगाएँ।
+\[
+\theta=\left|30h-\frac{11m}{2}\right|
+\]
+दो कोणों में से छोटा कोण लें।
+\[
+\theta=\left|30\times 7-\frac{11\times 20}{2}\right|=100
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+\theta=\min\left(x,360-x\right)
+\]
+उत्तर: 100 डिग्री
+Punjabi:
+7:20 ਵਜੇ ਘੜੀ ਦੀ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀ ਸੂਈ ਵਿਚਕਾਰ ਛੋਟਾ ਕੋਣ ਕਿੰਨਾ ਹੈ?
+ਘੜੀ ਦੇ ਕੋਣ ਦਾ ਮਿਆਰੀ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\theta=\left|30h-\frac{11m}{2}\right|
+\]
+ਦੋ ਕੋਣਾਂ ਵਿੱਚੋਂ ਛੋਟਾ ਕੋਣ ਲਵੋ।
+\[
+\theta=\left|30\times 7-\frac{11\times 20}{2}\right|=100
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+\theta=\min\left(x,360-x\right)
+\]
+ਉੱਤਰ: 100 ਡਿਗਰੀ
+Meta: family=tsd_clock_hands_angle topology=time_speed_distance:tsd_clock_hands_angle difficulty=Easy
+
+Q30. At what time after 5 o'clock will the hands of a clock coincide?
+  A. \(27\frac{3}{11}\) minutes
+  B. \(28\frac{3}{11}\) minutes
+  C. \(26\frac{3}{11}\) minutes
+  D. \(27\frac{3}{22}\) minutes
+Answer: \(27\frac{3}{11}\) minutes
+Explanation:
+The minute hand gains on the hour hand at 5.5 degrees per minute.
+\[
+v_r=6-0.5=5.5
+\]
+Divide the required angular gap by the relative angular speed.
+\[
+T=\frac{150}{5.5}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{\theta}{5.5}
+\]
+Answer: \(27\frac{3}{11}\) minutes
+Hindi:
+after 5 o'clock घड़ी की दोनों सुइयाँ coincide कब होंगी?
+मिनट की सुई घंटे की सुई पर हर मिनट 5.5 डिग्री बढ़त बनाती है।
+\[
+v_r=6-0.5=5.5
+\]
+आवश्यक कोणीय अंतर को आपसी कोणीय गति से भाग दें।
+\[
+T=\frac{150}{5.5}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{\theta}{5.5}
+\]
+उत्तर: \(27\frac{3}{11}\) minutes
+Punjabi:
+after 5 o'clock ਘੜੀ ਦੀਆਂ ਦੋਵੇਂ ਸੂਈਆਂ coincide ਕਦੋਂ ਹੋਣਗੀਆਂ?
+ਮਿੰਟ ਵਾਲੀ ਸੂਈ ਘੰਟੇ ਵਾਲੀ ਸੂਈ ਤੇ ਹਰ ਮਿੰਟ 5.5 ਡਿਗਰੀ ਦੀ ਬੜ੍ਹਤ ਬਣਾਉਂਦੀ ਹੈ।
+\[
+v_r=6-0.5=5.5
+\]
+ਲੋੜੀਂਦੇ ਕੋਣੀ ਫਰਕ ਨੂੰ ਆਪਸੀ ਕੋਣੀ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{150}{5.5}
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{\theta}{5.5}
+\]
+ਉੱਤਰ: \(27\frac{3}{11}\) minutes
+Meta: family=tsd_clock_hands_coincidence topology=time_speed_distance:tsd_clock_hands_coincidence difficulty=Medium
+
+Q31. At what time after 4 o'clock will the hands of a clock opposite?
+  A. \(10\frac{10}{11}\) minutes
+  B. \(11\frac{10}{11}\) minutes
+  C. \(9\frac{10}{11}\) minutes
+  D. \(10\frac{10}{22}\) minutes
+Answer: \(10\frac{10}{11}\) minutes
+Explanation:
+The minute hand gains on the hour hand at 5.5 degrees per minute.
+\[
+v_r=6-0.5=5.5
+\]
+Divide the required angular gap by the relative angular speed.
+\[
+T=\frac{60}{5.5}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{\theta}{5.5}
+\]
+Answer: \(10\frac{10}{11}\) minutes
+Hindi:
+after 4 o'clock घड़ी की दोनों सुइयाँ opposite कब होंगी?
+मिनट की सुई घंटे की सुई पर हर मिनट 5.5 डिग्री बढ़त बनाती है।
+\[
+v_r=6-0.5=5.5
+\]
+आवश्यक कोणीय अंतर को आपसी कोणीय गति से भाग दें।
+\[
+T=\frac{60}{5.5}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{\theta}{5.5}
+\]
+उत्तर: \(10\frac{10}{11}\) minutes
+Punjabi:
+after 4 o'clock ਘੜੀ ਦੀਆਂ ਦੋਵੇਂ ਸੂਈਆਂ opposite ਕਦੋਂ ਹੋਣਗੀਆਂ?
+ਮਿੰਟ ਵਾਲੀ ਸੂਈ ਘੰਟੇ ਵਾਲੀ ਸੂਈ ਤੇ ਹਰ ਮਿੰਟ 5.5 ਡਿਗਰੀ ਦੀ ਬੜ੍ਹਤ ਬਣਾਉਂਦੀ ਹੈ।
+\[
+v_r=6-0.5=5.5
+\]
+ਲੋੜੀਂਦੇ ਕੋਣੀ ਫਰਕ ਨੂੰ ਆਪਸੀ ਕੋਣੀ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{60}{5.5}
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{\theta}{5.5}
+\]
+ਉੱਤਰ: \(10\frac{10}{11}\) minutes
+Meta: family=tsd_clock_hands_opposite topology=time_speed_distance:tsd_clock_hands_opposite difficulty=Medium
+
+Q32. In a 800 m race, A beats B by 50 m. If A's speed is 8 m/s, what is B's speed?
+  A. 7.5 m/s
+  B. 9.5 m/s
+  C. 9 m/s
+  D. 17.5 m/s
+Answer: 7.5 m/s
+Explanation:
+When A finishes, B has covered race distance minus lead.
+\[
+D_B=800-50
+\]
+For the same time, speed ratio equals distance ratio.
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+Use A's speed to get the required value.
+\[
+v_B=8\times \frac{750}{800}=7.5
+\]
+Shortcut / Exam Method:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+Answer: 7.5 m/s
+Hindi:
+800 मीटर की दौड़ में A, B को 50 मीटर से हराता है। यदि A की गति 8 मी/से है, तो B की गति कितनी है?
+A के समाप्त करने पर B ने दौड़ दूरी में से बढ़त घटाकर दूरी तय की।
+\[
+D_B=800-50
+\]
+समान समय में गति-अनुपात दूरी-अनुपात के बराबर है।
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+A की गति से आवश्यक मान निकालें।
+\[
+v_B=8\times \frac{750}{800}=7.5
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+उत्तर: 7.5 मी/से
+Punjabi:
+800 ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ A, B ਨੂੰ 50 ਮੀਟਰ ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ। ਜੇ A ਦੀ ਗਤੀ 8 ਮੀ/ਸੇ ਹੈ, ਤਾਂ B ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+A ਦੇ ਖਤਮ ਕਰਨ ਤੇ B ਨੇ ਦੌੜ ਦੀ ਦੂਰੀ ਵਿੱਚੋਂ ਲੀਡ ਘਟਾ ਕੇ ਦੂਰੀ ਤੈਅ ਕੀਤੀ।
+\[
+D_B=800-50
+\]
+ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਗਤੀ-ਅਨੁਪਾਤ ਦੂਰੀ-ਅਨੁਪਾਤ ਦੇ ਬਰਾਬਰ ਹੈ।
+\[
+\frac{v_B}{v_A}=\frac{D_B}{D_A}
+\]
+A ਦੀ ਗਤੀ ਨਾਲ ਲੋੜੀਂਦਾ ਮੁੱਲ ਕੱਢੋ।
+\[
+v_B=8\times \frac{750}{800}=7.5
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_B=v_A\times \frac{D-l}{D}
+\]
+ਉੱਤਰ: 7.5 ਮੀ/ਸੇ
+Meta: family=race_dead_heat_calibration topology=time_speed_distance:race_dead_heat_calibration difficulty=Hard
+
+Q33. At what time between 2 o'clock and 3 o'clock will the hands of a clock coincide?
+  A. \(21\frac{9}{11}\) minutes
+  B. \(22\frac{9}{11}\) minutes
+  C. \(20\frac{9}{11}\) minutes
+  D. \(21\frac{9}{22}\) minutes
+Answer: \(21\frac{9}{11}\) minutes
+Explanation:
+The minute hand gains on the hour hand at 5.5 degrees per minute.
+\[
+v_r=6-0.5=5.5
+\]
+Divide the required angular gap by the relative angular speed.
+\[
+T=\frac{120}{5.5}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{\theta}{5.5}
+\]
+Answer: \(21\frac{9}{11}\) minutes
+Hindi:
+between 2 o'clock and 3 o'clock घड़ी की दोनों सुइयाँ coincide कब होंगी?
+मिनट की सुई घंटे की सुई पर हर मिनट 5.5 डिग्री बढ़त बनाती है।
+\[
+v_r=6-0.5=5.5
+\]
+आवश्यक कोणीय अंतर को आपसी कोणीय गति से भाग दें।
+\[
+T=\frac{120}{5.5}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{\theta}{5.5}
+\]
+उत्तर: \(21\frac{9}{11}\) minutes
+Punjabi:
+between 2 o'clock and 3 o'clock ਘੜੀ ਦੀਆਂ ਦੋਵੇਂ ਸੂਈਆਂ coincide ਕਦੋਂ ਹੋਣਗੀਆਂ?
+ਮਿੰਟ ਵਾਲੀ ਸੂਈ ਘੰਟੇ ਵਾਲੀ ਸੂਈ ਤੇ ਹਰ ਮਿੰਟ 5.5 ਡਿਗਰੀ ਦੀ ਬੜ੍ਹਤ ਬਣਾਉਂਦੀ ਹੈ।
+\[
+v_r=6-0.5=5.5
+\]
+ਲੋੜੀਂਦੇ ਕੋਣੀ ਫਰਕ ਨੂੰ ਆਪਸੀ ਕੋਣੀ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{120}{5.5}
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{\theta}{5.5}
+\]
+ਉੱਤਰ: \(21\frac{9}{11}\) minutes
+Meta: family=tsd_clock_hands_between_two_times topology=time_speed_distance:tsd_clock_hands_between_two_times difficulty=Hard
+
+Q34. Two cyclists cover the same distance. Their speeds are in the ratio 4:5. What is the ratio of their times?
+  A. 5:4
+  B. 1:2
+  C. 2:3
+  D. 3:4
+Answer: 5:4
+Explanation:
+For the same distance, time ratio is the inverse of speed ratio.
+\[
+T_1:T_2=v_2:v_1
+\]
+Reverse the given speed ratio.
+\[
+T_1:T_2=5:4
+\]
+This gives the required time ratio.
+\[
+T_1:T_2=5:4
+\]
+Shortcut / Exam Method:
+\[
+T_1:T_2=v_2:v_1
+\]
+Answer: 5:4
+Hindi:
+दो व्यक्ति समान दूरी तय करते हैं। उनकी गतियों का अनुपात 4:5 है। समान दूरी के लिए उनके समय का अनुपात क्या होगा?
+समान दूरी में समय का अनुपात गति के अनुपात का उलटा होता है।
+\[
+T_1:T_2=v_2:v_1
+\]
+दिए गए गति-अनुपात को उलटें।
+\[
+T_1:T_2=5:4
+\]
+यही आवश्यक समय-अनुपात है।
+\[
+T_1:T_2=5:4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_1:T_2=v_2:v_1
+\]
+उत्तर: 5:4
+Punjabi:
+ਦੋ ਵਿਅਕਤੀ ਇੱਕੋ ਦੂਰੀ ਤੈਅ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ। ਇੱਕੋ ਦੂਰੀ ਲਈ ਉਨ੍ਹਾਂ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਇੱਕੋ ਦੂਰੀ ਵਿੱਚ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਗਤੀ ਦੇ ਅਨੁਪਾਤ ਦਾ ਉਲਟਾ ਹੁੰਦਾ ਹੈ।
+\[
+T_1:T_2=v_2:v_1
+\]
+ਦਿੱਤੇ ਗਤੀ-ਅਨੁਪਾਤ ਨੂੰ ਉਲਟੋ।
+\[
+T_1:T_2=5:4
+\]
+ਇਹੀ ਲੋੜੀਂਦਾ ਸਮਾਂ-ਅਨੁਪਾਤ ਹੈ।
+\[
+T_1:T_2=5:4
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_1:T_2=v_2:v_1
+\]
+ਉੱਤਰ: 5:4
+Meta: family=tsd_speed_ratio_time_ratio topology=time_speed_distance:tsd_speed_ratio_time_ratio difficulty=Easy
+
+Q35. A man counts 65 steps while walking up a moving escalator. During the same time, the escalator carries him up by 20 steps. How many visible steps are there on the escalator?
+  A. 85 steps
+  B. 91 steps
+  C. 63.75 steps
+  D. 75 steps
+Answer: 85 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=65+20
+\]
+This gives the visible steps.
+\[
+N=85
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 85 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 65 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 20 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=65+20
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=85
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 85 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 65 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 20 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=65+20
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=85
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 85 ਪੌੜੀਆਂ
+Meta: family=moving_walkway_relative_speed topology=time_speed_distance:moving_walkway_relative_speed difficulty=Easy
+
+Q36. At what time after 5 o'clock will the hands of a clock gain the given angular gap?
+  A. 4 minutes
+Answer: 4 minutes
+Explanation:
+The minute hand gains on the hour hand at 5.5 degrees per minute.
+\[
+v_r=6-0.5=5.5
+\]
+Divide the required angular gap by the relative angular speed.
+\[
+T=\frac{22}{5.5}
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{\theta}{5.5}
+\]
+Answer: 4 minutes
+Hindi:
+after 5 o'clock घड़ी की दोनों सुइयाँ gain the given angular gap कब होंगी?
+मिनट की सुई घंटे की सुई पर हर मिनट 5.5 डिग्री बढ़त बनाती है।
+\[
+v_r=6-0.5=5.5
+\]
+आवश्यक कोणीय अंतर को आपसी कोणीय गति से भाग दें।
+\[
+T=\frac{22}{5.5}
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{\theta}{5.5}
+\]
+उत्तर: 4 minutes
+Punjabi:
+after 5 o'clock ਘੜੀ ਦੀਆਂ ਦੋਵੇਂ ਸੂਈਆਂ gain the given angular gap ਕਦੋਂ ਹੋਣਗੀਆਂ?
+ਮਿੰਟ ਵਾਲੀ ਸੂਈ ਘੰਟੇ ਵਾਲੀ ਸੂਈ ਤੇ ਹਰ ਮਿੰਟ 5.5 ਡਿਗਰੀ ਦੀ ਬੜ੍ਹਤ ਬਣਾਉਂਦੀ ਹੈ।
+\[
+v_r=6-0.5=5.5
+\]
+ਲੋੜੀਂਦੇ ਕੋਣੀ ਫਰਕ ਨੂੰ ਆਪਸੀ ਕੋਣੀ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+T=\frac{22}{5.5}
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{\theta}{5.5}
+\]
+ਉੱਤਰ: 4 minutes
+Meta: family=tsd_clock_hands_gain_loss_minutes topology=time_speed_distance:tsd_clock_hands_gain_loss_minutes difficulty=Medium
+
+Q37. Lightning flashes and the thunder reaches an observer after 10 seconds. If sound speed is 340 m/s, how far is the cloud?
+  A. 3400 m
+  B. 3394 m
+  C. 2720 m
+  D. 3392 m
+Answer: 3400 m
+Explanation:
+Sound covers distance during the delay time.
+\[
+D=vt
+\]
+Use the sound speed and time delay.
+\[
+D=340\times 10=3400
+\]
+Shortcut / Exam Method:
+\[
+D=vt
+\]
+Answer: 3400 m
+Hindi:
+बिजली चमकने के 10 सेकंड बाद गर्जन सुनाई देता है। ध्वनि की गति 340 मी/से है। बिजली कितनी दूर है?
+देरी के समय में ध्वनि दूरी तय करती है।
+\[
+D=vt
+\]
+ध्वनि की गति और समय-अंतर का प्रयोग करें।
+\[
+D=340\times 10=3400
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=vt
+\]
+उत्तर: 3400 मीटर
+Punjabi:
+ਬਿਜਲੀ ਚਮਕਣ ਤੋਂ 10 ਸਕਿੰਟ ਬਾਅਦ ਗਰਜ ਸੁਣਾਈ ਦਿੰਦੀ ਹੈ। ਧੁਨੀ ਦੀ ਗਤੀ 340 ਮੀ/ਸੇ ਹੈ। ਬਿਜਲੀ ਕਿੰਨੀ ਦੂਰ ਹੈ?
+ਦੇਰੀ ਦੇ ਸਮੇਂ ਵਿੱਚ ਧੁਨੀ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=vt
+\]
+ਧੁਨੀ ਦੀ ਗਤੀ ਅਤੇ ਸਮਾਂ-ਅੰਤਰ ਵਰਤੋ।
+\[
+D=340\times 10=3400
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=vt
+\]
+ਉੱਤਰ: 3400 ਮੀਟਰ
+Meta: family=tsd_sound_train_whistle_observer topology=time_speed_distance:tsd_sound_train_whistle_observer difficulty=Medium
+
+Q38. Lightning flashes and the thunder reaches an observer after 6 seconds. If sound speed is 340 m/s, how far is the cloud?
+  A. 2040 m
+  B. 2044 m
+  C. 1632 m
+  D. 2032 m
+Answer: 2040 m
+Explanation:
+Sound covers distance during the delay time.
+\[
+D=vt
+\]
+Use the sound speed and time delay.
+\[
+D=340\times 6=2040
+\]
+Shortcut / Exam Method:
+\[
+D=vt
+\]
+Answer: 2040 m
+Hindi:
+बिजली चमकने के 6 सेकंड बाद गर्जन सुनाई देता है। ध्वनि की गति 340 मी/से है। बिजली कितनी दूर है?
+देरी के समय में ध्वनि दूरी तय करती है।
+\[
+D=vt
+\]
+ध्वनि की गति और समय-अंतर का प्रयोग करें।
+\[
+D=340\times 6=2040
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=vt
+\]
+उत्तर: 2040 मीटर
+Punjabi:
+ਬਿਜਲੀ ਚਮਕਣ ਤੋਂ 6 ਸਕਿੰਟ ਬਾਅਦ ਗਰਜ ਸੁਣਾਈ ਦਿੰਦੀ ਹੈ। ਧੁਨੀ ਦੀ ਗਤੀ 340 ਮੀ/ਸੇ ਹੈ। ਬਿਜਲੀ ਕਿੰਨੀ ਦੂਰ ਹੈ?
+ਦੇਰੀ ਦੇ ਸਮੇਂ ਵਿੱਚ ਧੁਨੀ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=vt
+\]
+ਧੁਨੀ ਦੀ ਗਤੀ ਅਤੇ ਸਮਾਂ-ਅੰਤਰ ਵਰਤੋ।
+\[
+D=340\times 6=2040
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=vt
+\]
+ਉੱਤਰ: 2040 ਮੀਟਰ
+Meta: family=tsd_sound_two_observers topology=time_speed_distance:tsd_sound_two_observers difficulty=Medium
+
+Q39. A dog is 120 m behind a hare and gains 8 m every minute. In how many minutes will the dog catch the hare?
+  A. 15 minutes
+  B. 13 minutes
+  C. 12 minutes
+  D. 7 minutes
+Answer: 15 minutes
+Explanation:
+The dog must cover the initial gap.
+\[
+D_h=120
+\]
+Use the gain per minute as relative speed.
+\[
+v_r=8
+\]
+Catch-up time is gap divided by relative speed.
+\[
+T=\frac{120}{8}=15
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{D_h}{v_r}
+\]
+Answer: 15 minutes
+Hindi:
+एक कुत्ता खरगोश से 120 मीटर पीछे है और हर मिनट 8 मीटर की दूरी घटा देता है। कुत्ता कितने मिनट में खरगोश को पकड़ लेगा?
+कुत्ते को शुरुआती दूरी पूरी करनी है।
+\[
+D_h=120
+\]
+हर मिनट घटती दूरी को आपसी गति मानें।
+\[
+v_r=8
+\]
+पकड़ने का समय = दूरी / आपसी गति।
+\[
+T=\frac{120}{8}=15
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{D_h}{v_r}
+\]
+उत्तर: 15 मिनट
+Punjabi:
+ਇੱਕ ਕੁੱਤਾ ਖਰਗੋਸ਼ ਤੋਂ 120 ਮੀਟਰ ਪਿੱਛੇ ਹੈ ਅਤੇ ਹਰ ਮਿੰਟ 8 ਮੀਟਰ ਦੀ ਦੂਰੀ ਘਟਾ ਦਿੰਦਾ ਹੈ। ਕੁੱਤਾ ਕਿੰਨੇ ਮਿੰਟਾਂ ਵਿੱਚ ਖਰਗੋਸ਼ ਨੂੰ ਪਕੜ ਲਵੇਗਾ?
+ਕੁੱਤੇ ਨੂੰ ਪਹਿਲਾਂ ਬਣੀ ਦੂਰੀ ਪੂਰੀ ਕਰਨੀ ਹੈ।
+\[
+D_h=120
+\]
+ਹਰ ਮਿੰਟ ਘਟਦੀ ਦੂਰੀ ਨੂੰ ਆਪਸੀ ਗਤੀ ਮੰਨੋ।
+\[
+v_r=8
+\]
+ਪਕੜਣ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{120}{8}=15
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{D_h}{v_r}
+\]
+ਉੱਤਰ: 15 ਮਿੰਟ
+Meta: family=dog_chasing_hare_leaps topology=time_speed_distance:dog_chasing_hare_leaps difficulty=Easy
+
+Q40. A man counts 60 steps while walking up a moving escalator. During the same time, the escalator carries him up by 15 steps. How many visible steps are there on the escalator?
+  A. 75 steps
+  B. 79 steps
+  C. 60 steps
+  D. 67 steps
+Answer: 75 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=60+15
+\]
+This gives the visible steps.
+\[
+N=75
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 75 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 60 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 15 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=60+15
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=75
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 75 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 60 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 15 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=60+15
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=75
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 75 ਪੌੜੀਆਂ
+Meta: family=escalator_stationary_steps topology=time_speed_distance:escalator_stationary_steps difficulty=Hard
+
+Q41. A student walking to school is 10 minutes late at 5 km/h and 8 minutes early at 6 km/h. What is the distance to his school?
+  A. 9 km
+  B. 7 km
+  C. 11.25 km
+  D. 17 km
+Answer: 9 km
+Explanation:
+The total time gap is from late to early, so add both differences.
+\[
+\Delta T=10+8=\frac{18}{60}
+\]
+Use the early-late distance relation.
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+Put the two walking speeds and the total time gap in the relation.
+\[
+D=\frac{5\times 6}{6-5}\times \frac{18}{60}=9
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+Answer: 9 km
+Hindi:
+यदि एक छात्र 5 किमी/घं से चलता है, तो वह स्कूल 10 मिनट देर से पहुँचता है। यदि वह 6 किमी/घं से चलता है, तो 8 मिनट पहले पहुँचता है। उसके स्कूल की दूरी कितनी है?
+देर और जल्दी के समयों को जोड़कर कुल अंतर लें।
+\[
+\Delta T=10+8=\frac{18}{60}
+\]
+जल्दी-देर वाली दूरी का संबंध लगाएँ।
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+गतियाँ और समय-अंतर रखें।
+\[
+D=\frac{5\times 6}{6-5}\times \frac{18}{60}=9
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+उत्तर: 9 किमी
+Punjabi:
+ਜੇ ਇੱਕ ਵਿਦਿਆਰਥੀ 5 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਤੁਰਦਾ ਹੈ, ਤਾਂ ਉਹ ਸਕੂਲ 10 ਮਿੰਟ ਦੇਰ ਨਾਲ ਪਹੁੰਚਦਾ ਹੈ। ਜੇ ਉਹ 6 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਤੁਰਦਾ ਹੈ, ਤਾਂ 8 ਮਿੰਟ ਪਹਿਲਾਂ ਪਹੁੰਚਦਾ ਹੈ। ਉਸਦੇ ਸਕੂਲ ਦੀ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?
+ਦੇਰੀ ਅਤੇ ਪਹਿਲਾਂ ਪਹੁੰਚਣ ਵਾਲੇ ਸਮੇਂ ਜੋੜ ਕੇ ਕੁੱਲ ਅੰਤਰ ਲਵੋ।
+\[
+\Delta T=10+8=\frac{18}{60}
+\]
+ਜਲਦੀ-ਦੇਰੀ ਵਾਲਾ ਦੂਰੀ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+ਗਤੀਆਂ ਅਤੇ ਸਮਾਂ-ਅੰਤਰ ਰੱਖੋ।
+\[
+D=\frac{5\times 6}{6-5}\times \frac{18}{60}=9
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+ਉੱਤਰ: 9 ਕਿਮੀ
+Meta: family=tsd_hidden_speed_from_arrival_difference topology=time_speed_distance:tsd_hidden_speed_from_arrival_difference difficulty=Hard
+
+Q42. A 250 m train passes bridge whose effective length is 350 m. At a relative speed of 25 m/s, how many seconds are required?
+  A. 24 seconds
+  B. 22 seconds
+  C. 19.2 seconds
+  D. 16 seconds
+Answer: 24 seconds
+Explanation:
+The train covers the combined effective length.
+\[
+D=L_1+L_2=250+350
+\]
+Crossing time is distance divided by relative speed.
+\[
+T=\frac{D}{v_r}
+\]
+Use the effective crossing distance with the relative speed.
+\[
+T=\frac{600}{25}=24
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+Answer: 24 seconds
+Hindi:
+250 मीटर लंबी ट्रेन 350 मीटर प्रभावी लंबाई वाली वस्तु को 25 मी/से की आपसी गति से पार करती है। पार करने में कितने सेकंड लगेंगे?
+ट्रेन कुल प्रभावी लंबाई तय करती है।
+\[
+D=L_1+L_2=250+350
+\]
+पार करने का समय = दूरी / आपसी गति।
+\[
+T=\frac{D}{v_r}
+\]
+पार दूरी और आपसी गति रखें।
+\[
+T=\frac{600}{25}=24
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+उत्तर: 24 सेकंड
+Punjabi:
+250 ਮੀਟਰ ਲੰਬੀ ਰੇਲਗੱਡੀ 350 ਮੀਟਰ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ 25 ਮੀ/ਸੇ ਦੀ ਆਪਸੀ ਗਤੀ ਨਾਲ ਪਾਰ ਕਰਦੀ ਹੈ। ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਸਕਿੰਟ ਲੱਗਣਗੇ?
+ਰੇਲਗੱਡੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=L_1+L_2=250+350
+\]
+ਪਾਰ ਕਰਨ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{D}{v_r}
+\]
+ਪਾਰ ਦੂਰੀ ਅਤੇ ਆਪਸੀ ਗਤੀ ਰੱਖੋ।
+\[
+T=\frac{600}{25}=24
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+ਉੱਤਰ: 24 ਸਕਿੰਟ
+Meta: family=train_cross_bridge topology=time_speed_distance:train_cross_bridge difficulty=Medium
+
+Q43. A railway coach formation 100 m long crosses a platform in 10 seconds at 18 m/s. What is the platform length?
+  A. 80 m
+  B. 76 m
+  C. 96 m
+  D. 90 m
+Answer: 80 m
+Explanation:
+Crossing distance equals speed multiplied by time.
+\[
+D=vt=18\times 10
+\]
+Subtract the known train length from the crossing distance.
+\[
+L_p=D-L_t
+\]
+This gives the unknown length.
+\[
+L_p=180-100=80
+\]
+Shortcut / Exam Method:
+\[
+L_x=vt-L
+\]
+Answer: 80 m
+Hindi:
+एक ट्रेन 18 मी/से की गति से 10 सेकंड में प्लेटफॉर्म पार करती है। यदि ट्रेन की लंबाई 100 मीटर है, तो प्लेटफॉर्म की लंबाई कितनी है?
+पार करने की दूरी = गति x समय।
+\[
+D=vt=18\times 10
+\]
+पार दूरी में से ट्रेन की लंबाई घटाएँ।
+\[
+L_p=D-L_t
+\]
+इससे अज्ञात लंबाई मिलती है।
+\[
+L_p=180-100=80
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L_x=vt-L
+\]
+उत्तर: 80 मीटर
+Punjabi:
+ਇੱਕ ਰੇਲਗੱਡੀ 18 ਮੀ/ਸੇ ਦੀ ਗਤੀ ਨਾਲ 10 ਸਕਿੰਟ ਵਿੱਚ ਪਲੇਟਫਾਰਮ ਪਾਰ ਕਰਦੀ ਹੈ। ਜੇ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ 100 ਮੀਟਰ ਹੈ, ਤਾਂ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?
+ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ = ਗਤੀ x ਸਮਾਂ।
+\[
+D=vt=18\times 10
+\]
+ਪਾਰ ਦੂਰੀ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਘਟਾਓ।
+\[
+L_p=D-L_t
+\]
+ਇਸ ਨਾਲ ਅਣਜਾਣ ਲੰਬਾਈ ਮਿਲਦੀ ਹੈ।
+\[
+L_p=180-100=80
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L_x=vt-L
+\]
+ਉੱਤਰ: 80 ਮੀਟਰ
+Meta: family=train_length_from_crossing_time topology=time_speed_distance:train_length_from_crossing_time difficulty=Medium
+
+Q44. A train moving at 18 m/s crosses a platform in 20 seconds. Its length is 150 m. What is the platform length?
+  A. 210 m
+  B. 206 m
+  C. 252 m
+  D. 220 m
+Answer: 210 m
+Explanation:
+Crossing distance equals speed multiplied by time.
+\[
+D=vt=18\times 20
+\]
+Subtract the known train length from the crossing distance.
+\[
+L_p=D-L_t
+\]
+This gives the unknown length.
+\[
+L_p=360-150=210
+\]
+Shortcut / Exam Method:
+\[
+L_x=vt-L
+\]
+Answer: 210 m
+Hindi:
+एक ट्रेन 18 मी/से की गति से 20 सेकंड में प्लेटफॉर्म पार करती है। यदि ट्रेन की लंबाई 150 मीटर है, तो प्लेटफॉर्म की लंबाई कितनी है?
+पार करने की दूरी = गति x समय।
+\[
+D=vt=18\times 20
+\]
+पार दूरी में से ट्रेन की लंबाई घटाएँ।
+\[
+L_p=D-L_t
+\]
+इससे अज्ञात लंबाई मिलती है।
+\[
+L_p=360-150=210
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L_x=vt-L
+\]
+उत्तर: 210 मीटर
+Punjabi:
+ਇੱਕ ਰੇਲਗੱਡੀ 18 ਮੀ/ਸੇ ਦੀ ਗਤੀ ਨਾਲ 20 ਸਕਿੰਟ ਵਿੱਚ ਪਲੇਟਫਾਰਮ ਪਾਰ ਕਰਦੀ ਹੈ। ਜੇ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ 150 ਮੀਟਰ ਹੈ, ਤਾਂ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?
+ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ = ਗਤੀ x ਸਮਾਂ।
+\[
+D=vt=18\times 20
+\]
+ਪਾਰ ਦੂਰੀ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਘਟਾਓ।
+\[
+L_p=D-L_t
+\]
+ਇਸ ਨਾਲ ਅਣਜਾਣ ਲੰਬਾਈ ਮਿਲਦੀ ਹੈ।
+\[
+L_p=360-150=210
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L_x=vt-L
+\]
+ਉੱਤਰ: 210 ਮੀਟਰ
+Meta: family=train_bridge_length_unknown topology=time_speed_distance:train_bridge_length_unknown difficulty=Medium
+
+Q45. A train of 150 m length needs 24 seconds to pass a platform at 20 m/s. What is the platform length?
+  A. 330 m
+  B. 324 m
+  C. 264 m
+  D. 322 m
+Answer: 330 m
+Explanation:
+Crossing distance equals speed multiplied by time.
+\[
+D=vt=20\times 24
+\]
+Subtract the known train length from the crossing distance.
+\[
+L_p=D-L_t
+\]
+This gives the unknown length.
+\[
+L_p=480-150=330
+\]
+Shortcut / Exam Method:
+\[
+L_x=vt-L
+\]
+Answer: 330 m
+Hindi:
+एक ट्रेन 20 मी/से की गति से 24 सेकंड में प्लेटफॉर्म पार करती है। यदि ट्रेन की लंबाई 150 मीटर है, तो प्लेटफॉर्म की लंबाई कितनी है?
+पार करने की दूरी = गति x समय।
+\[
+D=vt=20\times 24
+\]
+पार दूरी में से ट्रेन की लंबाई घटाएँ।
+\[
+L_p=D-L_t
+\]
+इससे अज्ञात लंबाई मिलती है।
+\[
+L_p=480-150=330
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+L_x=vt-L
+\]
+उत्तर: 330 मीटर
+Punjabi:
+ਇੱਕ ਰੇਲਗੱਡੀ 20 ਮੀ/ਸੇ ਦੀ ਗਤੀ ਨਾਲ 24 ਸਕਿੰਟ ਵਿੱਚ ਪਲੇਟਫਾਰਮ ਪਾਰ ਕਰਦੀ ਹੈ। ਜੇ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ 150 ਮੀਟਰ ਹੈ, ਤਾਂ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?
+ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ = ਗਤੀ x ਸਮਾਂ।
+\[
+D=vt=20\times 24
+\]
+ਪਾਰ ਦੂਰੀ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਘਟਾਓ।
+\[
+L_p=D-L_t
+\]
+ਇਸ ਨਾਲ ਅਣਜਾਣ ਲੰਬਾਈ ਮਿਲਦੀ ਹੈ।
+\[
+L_p=480-150=330
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+L_x=vt-L
+\]
+ਉੱਤਰ: 330 ਮੀਟਰ
+Meta: family=train_dual_platform_length topology=time_speed_distance:train_dual_platform_length difficulty=Hard
+
+Q46. A man counts 70 steps while walking up a moving escalator. During the same time, the escalator carries him up by 15 steps. How many visible steps are there on the escalator?
+  A. 85 steps
+  B. 79 steps
+  C. 106.25 steps
+  D. 93 steps
+Answer: 85 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=70+15
+\]
+This gives the visible steps.
+\[
+N=85
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 85 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 70 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 15 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=70+15
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=85
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 85 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 70 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 15 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=70+15
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=85
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 85 ਪੌੜੀਆਂ
+Meta: family=escalator_steps_basic topology=time_speed_distance:escalator_steps_basic difficulty=Hard
+
+Q47. A man counts 35 steps while walking up a moving escalator. During the same time, the escalator carries him up by 30 steps. How many visible steps are there on the escalator?
+  A. 65 steps
+  B. 67 steps
+  C. 78 steps
+  D. 75 steps
+Answer: 65 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=35+30
+\]
+This gives the visible steps.
+\[
+N=65
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 65 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 35 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 30 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=35+30
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=65
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 65 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 35 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 30 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=35+30
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=65
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 65 ਪੌੜੀਆਂ
+Meta: family=moving_walkway_relative_speed topology=time_speed_distance:moving_walkway_relative_speed difficulty=Easy
+
+Q48. A boat travels 48 km downstream in 3 hours and 48 km upstream in 5 hours. What is the speed of the boat in still water?
+  A. 12.8 km/h
+  B. 10.8 km/h
+  C. 16 km/h
+  D. 20.8 km/h
+Answer: 12.8 km/h
+Explanation:
+Find downstream and upstream speeds from distance and time.
+\[
+v_d=\frac{48}{3},\quad v_u=\frac{48}{5}
+\]
+Boat and stream speeds are obtained by averaging or halving the difference.
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Use downstream and upstream speeds to isolate the requested speed.
+\[
+v_b=\frac{16+9.6}{2}=12.8
+\]
+Shortcut / Exam Method:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+Answer: 12.8 km/h
+Hindi:
+एक नाव 48 किमी धारा के अनुकूल 3 घंटे में और 48 किमी धारा के प्रतिकूल 5 घंटे में चलती है। शांत जल में नाव की गति कितनी है?
+दूरी और समय से अनुकूल और प्रतिकूल गतियाँ निकालें।
+\[
+v_d=\frac{48}{3},\quad v_u=\frac{48}{5}
+\]
+नाव और धारा की गति औसत या आधे अंतर से मिलती है।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+दोनों गतियाँ रखें।
+\[
+v_b=\frac{16+9.6}{2}=12.8
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+उत्तर: 12.8 किमी/घं
+Punjabi:
+ਇੱਕ ਕਿਸ਼ਤੀ 48 ਕਿਮੀ ਧਾਰਾ ਦੇ ਨਾਲ 3 ਘੰਟਿਆਂ ਵਿੱਚ ਅਤੇ 48 ਕਿਮੀ ਧਾਰਾ ਦੇ ਉਲਟ 5 ਘੰਟਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਂਤ ਪਾਣੀ ਵਿੱਚ ਕਿਸ਼ਤੀ ਦੀ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਦੂਰੀ ਅਤੇ ਸਮੇਂ ਤੋਂ ਨਾਲ ਅਤੇ ਉਲਟ ਗਤੀਆਂ ਕੱਢੋ।
+\[
+v_d=\frac{48}{3},\quad v_u=\frac{48}{5}
+\]
+ਕਿਸ਼ਤੀ ਅਤੇ ਧਾਰਾ ਦੀ ਗਤੀ ਔਸਤ ਜਾਂ ਅੱਧੇ ਫਰਕ ਨਾਲ ਮਿਲਦੀ ਹੈ।
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਦੋਵੇਂ ਗਤੀਆਂ ਰੱਖੋ।
+\[
+v_b=\frac{16+9.6}{2}=12.8
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+v_b=\frac{v_d+v_u}{2}
+\]
+ਉੱਤਰ: 12.8 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=boat_time_ratio topology=time_speed_distance:boat_time_ratio difficulty=Medium
+
+Q49. Two cyclists start together on a 600 m park track with speeds 10 m/s and 8 m/s. In how many seconds will they meet again?
+  A. 300 seconds
+  B. 306 seconds
+  C. 360 seconds
+  D. 310 seconds
+Answer: 300 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=2
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=1\times \frac{600}{2}=300
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 300 seconds
+Hindi:
+दो धावक 600 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 10 मी/से और 8 मी/से हैं। वे फिर कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=2
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=1\times \frac{600}{2}=300
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 300 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 600 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 10 ਮੀ/ਸੇ ਅਤੇ 8 ਮੀ/ਸੇ ਹਨ। ਉਹ ਫਿਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=2
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=1\times \frac{600}{2}=300
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 300 ਸਕਿੰਟ
+Meta: family=circular_track_first_meeting_same_direction topology=time_speed_distance:circular_track_first_meeting_same_direction difficulty=Medium
+
+Q50. From the same point on a 450 m track, A and B start running at 7 m/s and 8 m/s. In how many seconds will they meet for the 3nd time?
+  A. 1350 seconds
+  B. 1356 seconds
+  C. 1012.5 seconds
+  D. 1340 seconds
+Answer: 1350 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=1
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=3\times \frac{450}{1}=1350
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 1350 seconds
+Hindi:
+दो धावक 450 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 7 मी/से और 8 मी/से हैं। वे 3वीं बार कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=1
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=3\times \frac{450}{1}=1350
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 1350 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 450 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 7 ਮੀ/ਸੇ ਅਤੇ 8 ਮੀ/ਸੇ ਹਨ। ਉਹ 3ਵੀਂ ਵਾਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=1
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=3\times \frac{450}{1}=1350
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 1350 ਸਕਿੰਟ
+Meta: family=circular_track_repeated_meetings topology=time_speed_distance:circular_track_repeated_meetings difficulty=Hard
+
+Q51. A dog is 120 m behind a hare and gains 20 m every minute. In how many minutes will the dog catch the hare?
+  A. 6 minutes
+  B. 4 minutes
+  C. 4.8 minutes
+  D. 1 minutes
+Answer: 6 minutes
+Explanation:
+The dog must cover the initial gap.
+\[
+D_h=120
+\]
+Use the gain per minute as relative speed.
+\[
+v_r=20
+\]
+Catch-up time is gap divided by relative speed.
+\[
+T=\frac{120}{20}=6
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{D_h}{v_r}
+\]
+Answer: 6 minutes
+Hindi:
+एक कुत्ता खरगोश से 120 मीटर पीछे है और हर मिनट 20 मीटर की दूरी घटा देता है। कुत्ता कितने मिनट में खरगोश को पकड़ लेगा?
+कुत्ते को शुरुआती दूरी पूरी करनी है।
+\[
+D_h=120
+\]
+हर मिनट घटती दूरी को आपसी गति मानें।
+\[
+v_r=20
+\]
+पकड़ने का समय = दूरी / आपसी गति।
+\[
+T=\frac{120}{20}=6
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{D_h}{v_r}
+\]
+उत्तर: 6 मिनट
+Punjabi:
+ਇੱਕ ਕੁੱਤਾ ਖਰਗੋਸ਼ ਤੋਂ 120 ਮੀਟਰ ਪਿੱਛੇ ਹੈ ਅਤੇ ਹਰ ਮਿੰਟ 20 ਮੀਟਰ ਦੀ ਦੂਰੀ ਘਟਾ ਦਿੰਦਾ ਹੈ। ਕੁੱਤਾ ਕਿੰਨੇ ਮਿੰਟਾਂ ਵਿੱਚ ਖਰਗੋਸ਼ ਨੂੰ ਪਕੜ ਲਵੇਗਾ?
+ਕੁੱਤੇ ਨੂੰ ਪਹਿਲਾਂ ਬਣੀ ਦੂਰੀ ਪੂਰੀ ਕਰਨੀ ਹੈ।
+\[
+D_h=120
+\]
+ਹਰ ਮਿੰਟ ਘਟਦੀ ਦੂਰੀ ਨੂੰ ਆਪਸੀ ਗਤੀ ਮੰਨੋ।
+\[
+v_r=20
+\]
+ਪਕੜਣ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{120}{20}=6
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{D_h}{v_r}
+\]
+ਉੱਤਰ: 6 ਮਿੰਟ
+Meta: family=dog_chasing_hare_leaps topology=time_speed_distance:dog_chasing_hare_leaps difficulty=Easy
+
+Q52. On a 300 m stadium track, A runs at 7 m/s and B runs at 2 m/s from the same point. After how many seconds will they meet for the 2nd time?
+  A. 120 seconds
+  B. 124 seconds
+  C. 96 seconds
+  D. 112 seconds
+Answer: 120 seconds
+Explanation:
+For same direction on a circular track, use speed difference; for opposite direction, use speed sum.
+\[
+v_r=5
+\]
+One meeting gap equals one lap divided by relative speed.
+\[
+T_1=\frac{C}{v_r}
+\]
+Multiply by the required meeting count.
+\[
+T=2\times \frac{300}{5}=120
+\]
+Shortcut / Exam Method:
+\[
+T=n\times \frac{C}{v_r}
+\]
+Answer: 120 seconds
+Hindi:
+दो धावक 300 मीटर के वृत्ताकार ट्रैक पर साथ शुरू करते हैं। उनकी गतियाँ 7 मी/से और 2 मी/से हैं। वे 2वीं बार कितने सेकंड बाद मिलेंगे?
+गोल ट्रैक पर समान दिशा में गति का अंतर और विपरीत दिशा में योग लें।
+\[
+v_r=5
+\]
+एक मिलने का अंतर = एक चक्कर / आपसी गति।
+\[
+T_1=\frac{C}{v_r}
+\]
+आवश्यक मिलने की संख्या से गुणा करें।
+\[
+T=2\times \frac{300}{5}=120
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=n\times \frac{C}{v_r}
+\]
+उत्तर: 120 सेकंड
+Punjabi:
+ਦੋ ਦੌੜਾਕ 300 ਮੀਟਰ ਦੇ ਗੋਲ ਟਰੈਕ ਤੇ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ 7 ਮੀ/ਸੇ ਅਤੇ 2 ਮੀ/ਸੇ ਹਨ। ਉਹ 2ਵੀਂ ਵਾਰ ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਬਾਅਦ ਮਿਲਣਗੇ?
+ਗੋਲ ਟਰੈਕ ਤੇ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਗਤੀ ਦਾ ਫਰਕ ਅਤੇ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜ ਲਵੋ।
+\[
+v_r=5
+\]
+ਇੱਕ ਮਿਲਣ ਦਾ ਅੰਤਰ = ਇੱਕ ਚੱਕਰ / ਆਪਸੀ ਗਤੀ।
+\[
+T_1=\frac{C}{v_r}
+\]
+ਲੋੜੀਂਦੀ ਮਿਲਣ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।
+\[
+T=2\times \frac{300}{5}=120
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=n\times \frac{C}{v_r}
+\]
+ਉੱਤਰ: 120 ਸਕਿੰਟ
+Meta: family=circular_track_three_runners_lcm_meeting topology=time_speed_distance:circular_track_three_runners_lcm_meeting difficulty=Hard
+
+Q53. A man counts 45 steps while walking up a moving escalator. During the same time, the escalator carries him up by 30 steps. How many visible steps are there on the escalator?
+  A. 75 steps
+  B. 81 steps
+  C. 56.25 steps
+  D. 65 steps
+Answer: 75 steps
+Explanation:
+Visible steps are made up of counted steps plus escalator movement.
+\[
+N=N_p+N_e
+\]
+Add the steps counted by the person and the steps moved by the escalator.
+\[
+N=45+30
+\]
+This gives the visible steps.
+\[
+N=75
+\]
+Shortcut / Exam Method:
+\[
+N=N_p+N_e
+\]
+Answer: 75 steps
+Hindi:
+एक व्यक्ति चलती एस्केलेटर पर चढ़ते समय 45 सीढ़ियाँ गिनता है। उसी समय एस्केलेटर उसे 30 सीढ़ियाँ ऊपर ले जाती है। एस्केलेटर पर कुल कितनी दिखाई देने वाली सीढ़ियाँ हैं?
+दिखाई देने वाली सीढ़ियाँ = गिनी सीढ़ियाँ + एस्केलेटर से मिली सीढ़ियाँ।
+\[
+N=N_p+N_e
+\]
+दोनों सीढ़ी संख्याएँ रखें।
+\[
+N=45+30
+\]
+इससे दिखाई देने वाली सीढ़ियाँ मिलती हैं।
+\[
+N=75
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+N=N_p+N_e
+\]
+उत्तर: 75 सीढ़ियाँ
+Punjabi:
+ਇੱਕ ਵਿਅਕਤੀ ਚੱਲਦੇ ਐਸਕੇਲੇਟਰ ਤੇ ਚੜ੍ਹਦੇ ਹੋਏ 45 ਪੌੜੀਆਂ ਗਿਣਦਾ ਹੈ। ਉਸੇ ਸਮੇਂ ਐਸਕੇਲੇਟਰ ਉਸਨੂੰ 30 ਪੌੜੀਆਂ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਐਸਕੇਲੇਟਰ ਤੇ ਕੁੱਲ ਕਿੰਨੀਆਂ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਹਨ?
+ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ = ਗਿਣੀਆਂ ਪੌੜੀਆਂ + ਐਸਕੇਲੇਟਰ ਨਾਲ ਮਿਲੀਆਂ ਪੌੜੀਆਂ।
+\[
+N=N_p+N_e
+\]
+ਦੋਵੇਂ ਪੌੜੀ ਗਿਣਤੀਆਂ ਰੱਖੋ।
+\[
+N=45+30
+\]
+ਇਸ ਨਾਲ ਦਿਖਣ ਵਾਲੀਆਂ ਪੌੜੀਆਂ ਮਿਲਦੀਆਂ ਹਨ।
+\[
+N=75
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+N=N_p+N_e
+\]
+ਉੱਤਰ: 75 ਪੌੜੀਆਂ
+Meta: family=escalator_stationary_steps topology=time_speed_distance:escalator_stationary_steps difficulty=Hard
+
+Q54. A bus covers 72 km at 36 km/h and then 180 km at 60 km/h. What is its average speed for the whole journey?
+  A. 50.4 km/h
+  B. 54.4 km/h
+  C. 63 km/h
+  D. 58.4 km/h
+Answer: 50.4 km/h
+Explanation:
+For unequal distances, use total distance divided by total time.
+\[
+S=\frac{D_1+D_2}{\frac{D_1}{u}+\frac{D_2}{v}}
+\]
+Find the two travel times and combine them.
+\[
+S=\frac{72+180}{\frac{72}{36}+\frac{180}{60}}
+\]
+Divide the total distance by the combined travel time.
+\[
+S=50.4
+\]
+Shortcut / Exam Method:
+\[
+S_{\text{avg}}=\frac{D_1+D_2}{\frac{D_1}{u}+\frac{D_2}{v}}
+\]
+Answer: 50.4 km/h
+Hindi:
+एक बस 72 किमी 36 किमी/घं से और फिर 180 किमी 60 किमी/घं से चलती है। पूरी यात्रा की औसत गति कितनी है?
+असमान दूरी में कुल दूरी को कुल समय से भाग दें।
+\[
+S=\frac{D_1+D_2}{\frac{D_1}{u}+\frac{D_2}{v}}
+\]
+दोनों यात्रा समय निकालकर जोड़ें।
+\[
+S=\frac{72+180}{\frac{72}{36}+\frac{180}{60}}
+\]
+इससे औसत गति मिलती है।
+\[
+S=50.4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+S_{\text{avg}}=\frac{D_1+D_2}{\frac{D_1}{u}+\frac{D_2}{v}}
+\]
+उत्तर: 50.4 किमी/घं
+Punjabi:
+ਇੱਕ ਬੱਸ 72 ਕਿਮੀ 36 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਅਤੇ ਫਿਰ 180 ਕਿਮੀ 60 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਜਾਂਦੀ ਹੈ। ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ਕਿੰਨੀ ਹੈ?
+ਅਸਮਾਨ ਦੂਰੀ ਵਿੱਚ ਕੁੱਲ ਦੂਰੀ ਨੂੰ ਕੁੱਲ ਸਮੇਂ ਨਾਲ ਭਾਗ ਦਿਓ।
+\[
+S=\frac{D_1+D_2}{\frac{D_1}{u}+\frac{D_2}{v}}
+\]
+ਦੋਵੇਂ ਯਾਤਰਾ ਸਮੇਂ ਕੱਢ ਕੇ ਜੋੜੋ।
+\[
+S=\frac{72+180}{\frac{72}{36}+\frac{180}{60}}
+\]
+ਇਸ ਨਾਲ ਔਸਤ ਗਤੀ ਮਿਲਦੀ ਹੈ।
+\[
+S=50.4
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+S_{\text{avg}}=\frac{D_1+D_2}{\frac{D_1}{u}+\frac{D_2}{v}}
+\]
+ਉੱਤਰ: 50.4 ਕਿਮੀ/ਘੰਟਾ
+Meta: family=tsd_average_speed_equal_time topology=time_speed_distance:tsd_average_speed_equal_time difficulty=Easy
+
+Q55. A runner and a cyclist cover the same distance with speeds in the ratio 2:4. What is the ratio of the time taken?
+  A. 2:1
+  B. 1:2
+  C. 2:3
+  D. 3:4
+Answer: 2:1
+Explanation:
+For the same distance, time ratio is the inverse of speed ratio.
+\[
+T_1:T_2=v_2:v_1
+\]
+Reverse the given speed ratio.
+\[
+T_1:T_2=4:2
+\]
+This gives the required time ratio.
+\[
+T_1:T_2=2:1
+\]
+Shortcut / Exam Method:
+\[
+T_1:T_2=v_2:v_1
+\]
+Answer: 2:1
+Hindi:
+दो व्यक्ति समान दूरी तय करते हैं। उनकी गतियों का अनुपात 2:4 है। समान दूरी के लिए उनके समय का अनुपात क्या होगा?
+समान दूरी में समय का अनुपात गति के अनुपात का उलटा होता है।
+\[
+T_1:T_2=v_2:v_1
+\]
+दिए गए गति-अनुपात को उलटें।
+\[
+T_1:T_2=4:2
+\]
+यही आवश्यक समय-अनुपात है।
+\[
+T_1:T_2=2:1
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_1:T_2=v_2:v_1
+\]
+उत्तर: 2:1
+Punjabi:
+ਦੋ ਵਿਅਕਤੀ ਇੱਕੋ ਦੂਰੀ ਤੈਅ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਇੱਕੋ ਦੂਰੀ ਲਈ ਉਨ੍ਹਾਂ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਇੱਕੋ ਦੂਰੀ ਵਿੱਚ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਗਤੀ ਦੇ ਅਨੁਪਾਤ ਦਾ ਉਲਟਾ ਹੁੰਦਾ ਹੈ।
+\[
+T_1:T_2=v_2:v_1
+\]
+ਦਿੱਤੇ ਗਤੀ-ਅਨੁਪਾਤ ਨੂੰ ਉਲਟੋ।
+\[
+T_1:T_2=4:2
+\]
+ਇਹੀ ਲੋੜੀਂਦਾ ਸਮਾਂ-ਅਨੁਪਾਤ ਹੈ।
+\[
+T_1:T_2=2:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_1:T_2=v_2:v_1
+\]
+ਉੱਤਰ: 2:1
+Meta: family=tsd_speed_ratio_time_ratio topology=time_speed_distance:tsd_speed_ratio_time_ratio difficulty=Easy
+
+Q56. Two delivery riders travel the same route with speeds in the ratio 2:3. What is the ratio of their travel times?
+  A. 1:1
+  B. 1:2
+  C. 2:3
+  D. 3:4
+Answer: 1:1
+Explanation:
+For the same distance, time ratio is the inverse of speed ratio.
+\[
+T_1:T_2=v_2:v_1
+\]
+Reverse the given speed ratio.
+\[
+T_1:T_2=3:2
+\]
+This gives the required time ratio.
+\[
+T_1:T_2=1:1
+\]
+Shortcut / Exam Method:
+\[
+T_1:T_2=v_2:v_1
+\]
+Answer: 1:1
+Hindi:
+दो व्यक्ति समान दूरी तय करते हैं। उनकी गतियों का अनुपात 2:3 है। समान दूरी के लिए उनके समय का अनुपात क्या होगा?
+समान दूरी में समय का अनुपात गति के अनुपात का उलटा होता है।
+\[
+T_1:T_2=v_2:v_1
+\]
+दिए गए गति-अनुपात को उलटें।
+\[
+T_1:T_2=3:2
+\]
+यही आवश्यक समय-अनुपात है।
+\[
+T_1:T_2=1:1
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T_1:T_2=v_2:v_1
+\]
+उत्तर: 1:1
+Punjabi:
+ਦੋ ਵਿਅਕਤੀ ਇੱਕੋ ਦੂਰੀ ਤੈਅ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਇੱਕੋ ਦੂਰੀ ਲਈ ਉਨ੍ਹਾਂ ਦੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਇੱਕੋ ਦੂਰੀ ਵਿੱਚ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਗਤੀ ਦੇ ਅਨੁਪਾਤ ਦਾ ਉਲਟਾ ਹੁੰਦਾ ਹੈ।
+\[
+T_1:T_2=v_2:v_1
+\]
+ਦਿੱਤੇ ਗਤੀ-ਅਨੁਪਾਤ ਨੂੰ ਉਲਟੋ।
+\[
+T_1:T_2=3:2
+\]
+ਇਹੀ ਲੋੜੀਂਦਾ ਸਮਾਂ-ਅਨੁਪਾਤ ਹੈ।
+\[
+T_1:T_2=1:1
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T_1:T_2=v_2:v_1
+\]
+ਉੱਤਰ: 1:1
+Meta: family=tsd_variable_distance_ratio topology=time_speed_distance:tsd_variable_distance_ratio difficulty=Easy
+
+Q57. At 5 km/h, a person reaches his office 12 minutes late. At 6 km/h, he reaches 8 minutes early. What is the office distance?
+  A. 10 km
+  B. 14 km
+  C. 8 km
+  D. 2 km
+Answer: 10 km
+Explanation:
+The total time gap is from late to early, so add both differences.
+\[
+\Delta T=12+8=\frac{20}{60}
+\]
+Use the early-late distance relation.
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+Put the two walking speeds and the total time gap in the relation.
+\[
+D=\frac{5\times 6}{6-5}\times \frac{20}{60}=10
+\]
+Shortcut / Exam Method:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+Answer: 10 km
+Hindi:
+यदि एक छात्र 5 किमी/घं से चलता है, तो वह स्कूल 12 मिनट देर से पहुँचता है। यदि वह 6 किमी/घं से चलता है, तो 8 मिनट पहले पहुँचता है। उसके स्कूल की दूरी कितनी है?
+देर और जल्दी के समयों को जोड़कर कुल अंतर लें।
+\[
+\Delta T=12+8=\frac{20}{60}
+\]
+जल्दी-देर वाली दूरी का संबंध लगाएँ।
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+गतियाँ और समय-अंतर रखें।
+\[
+D=\frac{5\times 6}{6-5}\times \frac{20}{60}=10
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+उत्तर: 10 किमी
+Punjabi:
+ਜੇ ਇੱਕ ਵਿਦਿਆਰਥੀ 5 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਤੁਰਦਾ ਹੈ, ਤਾਂ ਉਹ ਸਕੂਲ 12 ਮਿੰਟ ਦੇਰ ਨਾਲ ਪਹੁੰਚਦਾ ਹੈ। ਜੇ ਉਹ 6 ਕਿਮੀ/ਘੰਟਾ ਨਾਲ ਤੁਰਦਾ ਹੈ, ਤਾਂ 8 ਮਿੰਟ ਪਹਿਲਾਂ ਪਹੁੰਚਦਾ ਹੈ। ਉਸਦੇ ਸਕੂਲ ਦੀ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?
+ਦੇਰੀ ਅਤੇ ਪਹਿਲਾਂ ਪਹੁੰਚਣ ਵਾਲੇ ਸਮੇਂ ਜੋੜ ਕੇ ਕੁੱਲ ਅੰਤਰ ਲਵੋ।
+\[
+\Delta T=12+8=\frac{20}{60}
+\]
+ਜਲਦੀ-ਦੇਰੀ ਵਾਲਾ ਦੂਰੀ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+ਗਤੀਆਂ ਅਤੇ ਸਮਾਂ-ਅੰਤਰ ਰੱਖੋ।
+\[
+D=\frac{5\times 6}{6-5}\times \frac{20}{60}=10
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+D=\frac{uv}{v-u}\times \Delta T
+\]
+ਉੱਤਰ: 10 ਕਿਮੀ
+Meta: family=tsd_hidden_distance_from_time_gap topology=time_speed_distance:tsd_hidden_distance_from_time_gap difficulty=Hard
+
+Q58. A train of length 90 m has to cover an effective crossing length of 300 m. If the relative speed is 15 m/s, in how many seconds will the crossing be completed?
+  A. 26 seconds
+  B. 22 seconds
+  C. 31.2 seconds
+  D. 36 seconds
+Answer: 26 seconds
+Explanation:
+The train covers the combined effective length.
+\[
+D=L_1+L_2=90+300
+\]
+Crossing time is distance divided by relative speed.
+\[
+T=\frac{D}{v_r}
+\]
+Use the effective crossing distance with the relative speed.
+\[
+T=\frac{390}{15}=26
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+Answer: 26 seconds
+Hindi:
+90 मीटर लंबी ट्रेन 300 मीटर प्रभावी लंबाई वाली वस्तु को 15 मी/से की आपसी गति से पार करती है। पार करने में कितने सेकंड लगेंगे?
+ट्रेन कुल प्रभावी लंबाई तय करती है।
+\[
+D=L_1+L_2=90+300
+\]
+पार करने का समय = दूरी / आपसी गति।
+\[
+T=\frac{D}{v_r}
+\]
+पार दूरी और आपसी गति रखें।
+\[
+T=\frac{390}{15}=26
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+उत्तर: 26 सेकंड
+Punjabi:
+90 ਮੀਟਰ ਲੰਬੀ ਰੇਲਗੱਡੀ 300 ਮੀਟਰ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ 15 ਮੀ/ਸੇ ਦੀ ਆਪਸੀ ਗਤੀ ਨਾਲ ਪਾਰ ਕਰਦੀ ਹੈ। ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਸਕਿੰਟ ਲੱਗਣਗੇ?
+ਰੇਲਗੱਡੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=L_1+L_2=90+300
+\]
+ਪਾਰ ਕਰਨ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{D}{v_r}
+\]
+ਪਾਰ ਦੂਰੀ ਅਤੇ ਆਪਸੀ ਗਤੀ ਰੱਖੋ।
+\[
+T=\frac{390}{15}=26
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+ਉੱਤਰ: 26 ਸਕਿੰਟ
+Meta: family=train_cross_bridge topology=time_speed_distance:train_cross_bridge difficulty=Medium
+
+Q59. A train of length 120 m has to cover an effective crossing length of 300 m. If the relative speed is 30 m/s, in how many seconds will the crossing be completed?
+  A. 4 seconds
+  B. 10 seconds
+  C. 4.8 seconds
+  D. 14 seconds
+Answer: 4 seconds
+Explanation:
+The train covers the combined effective length.
+\[
+D=L_1+L_2=120+300
+\]
+Crossing time is distance divided by relative speed.
+\[
+T=\frac{D}{v_r}
+\]
+Use the effective crossing distance with the relative speed.
+\[
+T=\frac{120}{30}=4
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+Answer: 4 seconds
+Hindi:
+120 मीटर लंबी ट्रेन 300 मीटर प्रभावी लंबाई वाली वस्तु को 30 मी/से की आपसी गति से पार करती है। पार करने में कितने सेकंड लगेंगे?
+ट्रेन कुल प्रभावी लंबाई तय करती है।
+\[
+D=L_1+L_2=120+300
+\]
+पार करने का समय = दूरी / आपसी गति।
+\[
+T=\frac{D}{v_r}
+\]
+पार दूरी और आपसी गति रखें।
+\[
+T=\frac{120}{30}=4
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+उत्तर: 4 सेकंड
+Punjabi:
+120 ਮੀਟਰ ਲੰਬੀ ਰੇਲਗੱਡੀ 300 ਮੀਟਰ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ 30 ਮੀ/ਸੇ ਦੀ ਆਪਸੀ ਗਤੀ ਨਾਲ ਪਾਰ ਕਰਦੀ ਹੈ। ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਸਕਿੰਟ ਲੱਗਣਗੇ?
+ਰੇਲਗੱਡੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=L_1+L_2=120+300
+\]
+ਪਾਰ ਕਰਨ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{D}{v_r}
+\]
+ਪਾਰ ਦੂਰੀ ਅਤੇ ਆਪਸੀ ਗਤੀ ਰੱਖੋ।
+\[
+T=\frac{120}{30}=4
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+ਉੱਤਰ: 4 ਸਕਿੰਟ
+Meta: family=train_cross_person_opposite_direction topology=time_speed_distance:train_cross_person_opposite_direction difficulty=Easy
+
+Q60. A train of length 150 m has to cover an effective crossing length of 150 m. If the relative speed is 10 m/s, in how many seconds will the crossing be completed?
+  A. 30 seconds
+  B. 32 seconds
+  C. 36 seconds
+  D. 40 seconds
+Answer: 30 seconds
+Explanation:
+The train covers the combined effective length.
+\[
+D=L_1+L_2=150+150
+\]
+Crossing time is distance divided by relative speed.
+\[
+T=\frac{D}{v_r}
+\]
+Use the effective crossing distance with the relative speed.
+\[
+T=\frac{300}{10}=30
+\]
+Shortcut / Exam Method:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+Answer: 30 seconds
+Hindi:
+150 मीटर लंबी ट्रेन 150 मीटर प्रभावी लंबाई वाली वस्तु को 10 मी/से की आपसी गति से पार करती है। पार करने में कितने सेकंड लगेंगे?
+ट्रेन कुल प्रभावी लंबाई तय करती है।
+\[
+D=L_1+L_2=150+150
+\]
+पार करने का समय = दूरी / आपसी गति।
+\[
+T=\frac{D}{v_r}
+\]
+पार दूरी और आपसी गति रखें।
+\[
+T=\frac{300}{10}=30
+\]
+शॉर्टकट / परीक्षा विधि:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+उत्तर: 30 सेकंड
+Punjabi:
+150 ਮੀਟਰ ਲੰਬੀ ਰੇਲਗੱਡੀ 150 ਮੀਟਰ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ 10 ਮੀ/ਸੇ ਦੀ ਆਪਸੀ ਗਤੀ ਨਾਲ ਪਾਰ ਕਰਦੀ ਹੈ। ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨੇ ਸਕਿੰਟ ਲੱਗਣਗੇ?
+ਰੇਲਗੱਡੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲੰਬਾਈ ਤੈਅ ਕਰਦੀ ਹੈ।
+\[
+D=L_1+L_2=150+150
+\]
+ਪਾਰ ਕਰਨ ਦਾ ਸਮਾਂ = ਦੂਰੀ / ਆਪਸੀ ਗਤੀ।
+\[
+T=\frac{D}{v_r}
+\]
+ਪਾਰ ਦੂਰੀ ਅਤੇ ਆਪਸੀ ਗਤੀ ਰੱਖੋ।
+\[
+T=\frac{300}{10}=30
+\]
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ:
+\[
+T=\frac{L_1+L_2}{v_r}
+\]
+ਉੱਤਰ: 30 ਸਕਿੰਟ
+Meta: family=train_two_trains_cross_same_direction topology=time_speed_distance:train_two_trains_cross_same_direction difficulty=Medium

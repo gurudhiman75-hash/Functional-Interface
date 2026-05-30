@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixture & Alligation V2 - Rendering Fixes Preview</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #0f172a;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .card h2 {
+            color: #0f172a;
+            font-size: 18px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+        
+        .card-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        
+        /* Alligation Diagram */
+        svg {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* Explanation Blocks */
+        .explanation {
+            background: #f1f5f9;
+            border-left: 4px solid #0284c7;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .explanation strong {
+            color: #0c4a6e;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .explanation-step {
+            margin: 12px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #06b6d4;
+        }
+        
+        .explanation-step .label {
+            font-size: 12px;
+            color: #0891b2;
+            font-weight: 600;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .explanation-step .content {
+            font-size: 14px;
+            color: #1e293b;
+        }
+        
+        .explanation-step .math {
+            background: #ecf0f1;
+            padding: 8px 12px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 6px;
+            overflow-x: auto;
+        }
+        
+        /* Punjabi text */
+        .punjabi {
+            font-family: 'Noto Sans Gurmukhi', 'Lohit Punjabi', sans-serif;
+            line-height: 1.8;
+        }
+        
+        /* Section divider */
+        .section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .section h3 {
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        /* Status badges */
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status.fixed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status.new {
+            background: #dbeafe;
+            color: #0c4a6e;
+        }
+        
+        /* Mobile view */
+        .mobile-view {
+            max-width: 390px;
+            border: 8px solid #1e293b;
+            border-radius: 40px;
+            padding: 12px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .mobile-content {
+            background: white;
+            border-radius: 32px;
+            padding: 16px;
+            overflow: hidden;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .comparison-box {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        .comparison-box.before {
+            background: #fee2e2;
+            border-left: 3px solid #dc2626;
+        }
+        
+        .comparison-box.after {
+            background: #dcfce7;
+            border-left: 3px solid #16a34a;
+        }
+        
+        .comparison-box-label {
+            font-weight: 600;
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.05em;
+        }
+        
+        .before-text {
+            color: #991b1b;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .after-text {
+            color: #15803d;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Mixture & Alligation V2 - Rendering Fixes</h1>
+        <p class="subtitle">Visualization of fixes for UI rendering issues - Issue 1, 2, and 3</p>
+        
+        <!-- ISSUE 1: ALLIGATION DIAGRAM -->
+        <div class="section">
+            <h3>Issue 1: Alligation Diagram Component <span class="status new">NEW COMPONENT</span></h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-label">Desktop View - English</div>
+                    <h2>Coaching-Book Style Diagram</h2>
+                    <svg viewBox="0 0 280 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Top branch: Higher value -->
+                        <line x1="50" y1="40" x2="140" y2="150" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Top branch: Lower value -->
+                        <line x1="230" y1="40" x2="140" y2="150" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Bottom branch: Left difference -->
+                        <line x1="140" y1="150" x2="50" y2="260" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Bottom branch: Right difference -->
+                        <line x1="140" y1="150" x2="230" y2="260" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+                        
+                        <!-- Top left label: Higher value -->
+                        <text x="50" y="26" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">50%</text>
+                        
+                        <!-- Top right label: Lower value -->
+                        <text x="230" y="26" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">0%</text>
+                        
+                        <!-- Center label: Mean value -->
+                        <rect x="110" y="136" width="60" height="28" rx="3" fill="#f0f9ff" stroke="#0284c7" stroke-width="1"/>
+                        <text x="140" y="156" text-anchor="middle" font-size="15" font-weight="700" fill="#0c4a6e">37.5%</text>
+                        
+                        <!-- Bottom left label -->
+                        <text x="50" y="280" text-anchor="middle" font-size="14" font-weight="600" fill="#475569">37.5</text>
+                        <text x="50" y="294" text-anchor="middle" font-size="12" fill="#64748b">(Mean - Lower)</text>
+                        
+                        <!-- Bottom right label -->
+                        <text x="230" y="280" text-anchor="middle" font-size="14" font-weight="600" fill="#475569">12.5</text>
+                        <text x="230" y="294" text-anchor="middle" font-size="12" fill="#64748b">(Higher - Mean)</text>
+                        
+                        <!-- Footer -->
+                        <text x="140" y="285" text-anchor="middle" font-size="11" fill="#94a3b8" font-style="italic">Ratio = 37.5 : 12.5</text>
+                    </svg>
+                </div>
+                
+                <div class="card">
+                    <div class="card-label">Mobile View - Compact</div>
+                    <h2>Responsive Design</h2>
+                    <div class="mobile-view">
+                        <div class="mobile-content">
+                            <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Compact diagram -->
+                                <line x1="30" y1="24" x2="90" y2="100" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="150" y1="24" x2="90" y2="100" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="90" y1="100" x2="30" y2="176" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="90" y1="100" x2="150" y2="176" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+                                
+                                <text x="30" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">50%</text>
+                                <text x="150" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">0%</text>
+                                
+                                <rect x="70" y="90" width="40" height="20" rx="3" fill="#f0f9ff" stroke="#0284c7" stroke-width="1"/>
+                                <text x="90" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#0c4a6e">37.5%</text>
+                                
+                                <text x="30" y="192" text-anchor="middle" font-size="11" font-weight="600" fill="#475569">37.5</text>
+                                <text x="150" y="192" text-anchor="middle" font-size="11" font-weight="600" fill="#475569">12.5</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ISSUE 2: PUNJABI MATHJAX RENDERING -->
+        <div class="section">
+            <h3>Issue 2: Punjabi MathJax Rendering <span class="status fixed">FIXED</span></h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-label">Before Fix (Broken)</div>
+                    <h2>Raw MathJax String</h2>
+                    <div class="explanation">
+                        <strong>ਪੰਜਾਬੀ ਆਖਿਆ (Punjabi Explanation):</strong>
+                        <div class="explanation-step">
+                            <div class="label">ਪ੍ਰਸਤਾਵੁ</div>
+                            <div class="content punjabi">
+                                30 ਅਤੇ 25 ਦਾ ਫਰਕ:
+                            </div>
+                            <div class="math" style="color: red;">
+                                \[30 - 25 = 5\]
+                            </div>
+                            <div style="color: #991b1b; font-size: 12px; margin-top: 8px;">❌ Raw LaTeX displayed instead of rendered equation</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-label">After Fix (Correct)</div>
+                    <h2>Rendered MathJax</h2>
+                    <div class="explanation">
+                        <strong>ਪੰਜਾਬੀ ਆਖਿਆ (Punjabi Explanation):</strong>
+                        <div class="explanation-step">
+                            <div class="label">ਪ੍ਰਸਤਾਵੁ</div>
+                            <div class="content punjabi">
+                                30 ਅਤੇ 25 ਦਾ ਫਰਕ:
+                            </div>
+                            <div class="math" style="color: #15803d;">
+                                $$30 - 25 = 5$$
+                            </div>
+                            <div style="color: #15803d; font-size: 12px; margin-top: 8px;">✅ MathJax properly rendered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 24px;">
+                <h2>Punjabi Example with MathJax (Now Working)</h2>
+                <div class="explanation punjabi" style="background: #ecf0f1; border-left-color: #2ecc71;">
+                    <strong style="color: #27ae60;">30 ਅਤੇ 25 ਦਾ ਫਰਕ:</strong>
+                    <div style="margin-top: 12px;">
+                        $$30 - 25 = 5$$
+                    </div>
+                    <strong style="color: #27ae60; margin-top: 16px; display: block;">40 ਅਤੇ 30 ਦਾ ਫਰਕ:</strong>
+                    <div style="margin-top: 8px;">
+                        $$40 - 30 = 10$$
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ISSUE 3: STUDENT-FACING WORDING -->
+        <div class="section">
+            <h3>Issue 3: Explanation Text - Student-Facing Wording <span class="status fixed">FIXED</span></h3>
+            
+            <div class="card" style="margin-bottom: 24px;">
+                <h2>Comparison: Before vs After</h2>
+                
+                <div class="comparison">
+                    <div class="comparison-box before">
+                        <div class="comparison-box-label">❌ Before (Debug Style)</div>
+                        <div class="before-text">
+                            Cross difference 1, mean minus lower value:
+                        </div>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-box-label">✅ After (Student-Facing)</div>
+                        <div class="after-text">
+                            Difference between 37.5 and 0:
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison">
+                    <div class="comparison-box before">
+                        <div class="comparison-box-label">❌ Before (Debug Style)</div>
+                        <div class="before-text">
+                            Cross difference 2, higher value minus mean:
+                        </div>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-box-label">✅ After (Student-Facing)</div>
+                        <div class="after-text">
+                            Difference between 50 and 37.5:
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-label">English Explanation</div>
+                    <h2>Updated Text (Student-Friendly)</h2>
+                    <div class="explanation">
+                        <strong>Lower value = 50. Higher value = 0. Mean value = 37.5.</strong>
+                        
+                        <div class="explanation-step">
+                            <div class="label">Step 1</div>
+                            <div class="content">Difference between 37.5 and 0:</div>
+                            <div class="math">37.5 - 0 = 37.5</div>
+                        </div>
+                        
+                        <div class="explanation-step">
+                            <div class="label">Step 2</div>
+                            <div class="content">Difference between 50 and 37.5:</div>
+                            <div class="math">50 - 37.5 = 12.5</div>
+                        </div>
+                        
+                        <div class="explanation-step">
+                            <div class="label">Step 3</div>
+                            <div class="content">The ratio of ingredients is found by taking the differences.</div>
+                            <div class="math">Ratio = 12.5 : 37.5 = 1 : 3</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-label">Punjabi Explanation</div>
+                    <h2>Updated Text (Student-Friendly)</h2>
+                    <div class="explanation punjabi">
+                        <strong>ਘੱਟ ਮੁੱਲ 50, ਵੱਧ ਮੁੱਲ 0 ਅਤੇ ਔਸਤ ਮੁੱਲ 37.5 ਹੈ।</strong>
+                        
+                        <div class="explanation-step">
+                            <div class="label">ਕਦਮ 1</div>
+                            <div class="content">37.5 ਅਤੇ 0 ਦੀ ਫ਼ਰਕ:</div>
+                            <div class="math">$$37.5 - 0 = 37.5$$</div>
+                        </div>
+                        
+                        <div class="explanation-step">
+                            <div class="label">ਕਦਮ 2</div>
+                            <div class="content">50 ਅਤੇ 37.5 ਦੀ ਫ਼ਰਕ:</div>
+                            <div class="math">$$50 - 37.5 = 12.5$$</div>
+                        </div>
+                        
+                        <div class="explanation-step">
+                            <div class="label">ਕਦਮ 3</div>
+                            <div class="content">ਸਮੱਗਰੀ ਦਾ ਅਨੁਪਾਤ ਫ਼ਰਕਾਂ ਨਾਲ ਪਤਾ ਚਲਦਾ ਹੈ।</div>
+                            <div class="math">$$\text{ਅਨੁਪਾਤ} = 12.5 : 37.5 = 1 : 3$$</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SUMMARY -->
+        <div class="section">
+            <h3>✨ Summary of Changes</h3>
+            <div class="card">
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 12px; text-align: left; font-weight: 600; color: #0f172a;">Issue</th>
+                            <th style="padding: 12px; text-align: left; font-weight: 600; color: #0f172a;">Component</th>
+                            <th style="padding: 12px; text-align: left; font-weight: 600; color: #0f172a;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px;">🎨 Alligation Diagram</td>
+                            <td style="padding: 12px;"><code>AllocationDiagram.tsx</code> (NEW)</td>
+                            <td style="padding: 12px; color: #16a34a; font-weight: 600;">✅ Complete</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px;">📐 Punjabi MathJax</td>
+                            <td style="padding: 12px;"><code>QuestionRichText.tsx</code> (FIXED)</td>
+                            <td style="padding: 12px; color: #16a34a; font-weight: 600;">✅ Complete</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px;">📝 Student Wording</td>
+                            <td style="padding: 12px;"><code>mixture-alligation-motif-factories.ts</code> (UPDATED)</td>
+                            <td style="padding: 12px; color: #16a34a; font-weight: 600;">✅ Complete</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -3,6 +3,9 @@ import type {
   GeneratorOptions,
 } from "../../lib/core/generator-engine";
 import { TIME_WORK_FAMILY_IDS } from "../canonical/time-work-motif-factories";
+import { TIME_SPEED_DISTANCE_FAMILY_IDS } from "../canonical/time-speed-distance-motif-factories";
+import { MIXTURE_ALLIGATION_FAMILY_IDS } from "../canonical/mixture-alligation-motif-factories";
+import { NUMBER_SYSTEM_FAMILY_IDS } from "../canonical/number-system-motif-factories";
 
 export type CorpusSchedulerProfileId =
   | "balanced_mock"
@@ -34,11 +37,33 @@ export type CorpusSchedulerProfileId =
   | "time_work_pyq_plus"
   | "time_work_review_100"
   | "time_work_production_60"
+  | "tsd_basic"
+  | "tsd_balanced"
+  | "tsd_hard"
+  | "tsd_pyq_plus"
+  | "tsd_review_100"
+  | "tsd_review_200"
+  | "tsd_production_60"
+  | "mix_basic"
+  | "mix_balanced"
+  | "mix_hard"
+  | "mix_pyq_plus"
+  | "mix_review_100"
+  | "mix_review_200"
+  | "mix_production_60"
+  | "number_system_basic"
+  | "number_system_balanced"
+  | "number_system_hard"
+  | "number_system_pyq_plus"
+  | "number_system_review_100"
+  | "number_system_review_200"
+  | "number_system_production_300"
+  | "number_system_audit_1000"
   | "advanced_coverage_audit";
 
 export type CorpusSchedulerProfile = {
   id: CorpusSchedulerProfileId;
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work";
+  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation" | "number_system";
   label: string;
   description: string;
   maxShare: {
@@ -1459,6 +1484,277 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
     maxAttemptsPerSlot: 12,
   },
   {
+    id: "tsd_basic",
+    topicId: "time_speed_distance",
+    label: "TSD Basic",
+    description: "Core Time, Speed & Distance V2 profile without direct formula drills.",
+    maxShare: {
+      simpleTemplate: 0.28,
+      singleTopologyFamily: 0.08,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.26,
+      hardStreak: 2,
+    },
+    minShare: {
+      reverseLogic: 0.08,
+      relational: 0.06,
+      filtered: 0.04,
+      hybrid: 0.22,
+      multiStep: 0.24,
+    },
+    difficultyTarget: {
+      easy: 0.34,
+      medium: 0.52,
+      hard: 0.14,
+    },
+    preferredMotifRotation: TIME_SPEED_DISTANCE_FAMILY_IDS.filter((family) =>
+      /^tsd_|^train_/u.test(family),
+    ),
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "tsd_balanced",
+    topicId: "time_speed_distance",
+    label: "TSD Balanced",
+    description: "Balanced Time, Speed & Distance V2 profile across journeys, relative motion, trains, boats, races, circular tracks, and escalators.",
+    maxShare: {
+      simpleTemplate: 0.24,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.24,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.32,
+    },
+    difficultyTarget: {
+      easy: 0.24,
+      medium: 0.52,
+      hard: 0.24,
+    },
+    preferredMotifRotation: [...TIME_SPEED_DISTANCE_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "tsd_hard",
+    topicId: "time_speed_distance",
+    label: "TSD Hard",
+    description: "Hard Time, Speed & Distance V2 profile emphasizing hidden variables, trains, circular tracks, races, and escalator traps.",
+    maxShare: {
+      simpleTemplate: 0.16,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.12,
+      singleDistractorTrap: 0.22,
+      hardStreak: 4,
+    },
+    minShare: {
+      reverseLogic: 0.14,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.42,
+    },
+    difficultyTarget: {
+      easy: 0.08,
+      medium: 0.42,
+      hard: 0.5,
+    },
+    preferredMotifRotation: TIME_SPEED_DISTANCE_FAMILY_IDS.filter((family) =>
+      /hidden|dual|post|circular|escalator|dead_heat|two_stage|time_gap|train|boat|race/u.test(family),
+    ),
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "tsd_pyq_plus",
+    topicId: "time_speed_distance",
+    label: "TSD PYQ+",
+    description: "PYQ+ Time, Speed & Distance V2 profile with controlled traps above standard SSC ceiling.",
+    maxShare: {
+      simpleTemplate: 0.12,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.12,
+      singleDistractorTrap: 0.22,
+      hardStreak: 5,
+    },
+    minShare: {
+      reverseLogic: 0.16,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.44,
+    },
+    difficultyTarget: {
+      easy: 0.06,
+      medium: 0.38,
+      hard: 0.56,
+    },
+    preferredMotifRotation: TIME_SPEED_DISTANCE_FAMILY_IDS.filter((family) =>
+      /hidden|dual|post|circular|escalator|dead_heat|two_stage|time_gap|constant|staggered|delayed|head_start/u.test(family),
+    ),
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "tsd_review_100",
+    topicId: "time_speed_distance",
+    label: "TSD Review 100",
+    description: "100Q Time, Speed & Distance V2 review profile.",
+    maxShare: {
+      simpleTemplate: 0.22,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.24,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.34,
+    },
+    difficultyTarget: {
+      easy: 0.22,
+      medium: 0.52,
+      hard: 0.26,
+    },
+    preferredMotifRotation: [...TIME_SPEED_DISTANCE_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "tsd_review_200",
+    topicId: "time_speed_distance",
+    label: "TSD Review 200",
+    description: "200Q Time, Speed & Distance V2 review profile maximizing motif coverage.",
+    maxShare: {
+      simpleTemplate: 0.22,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.24,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.34,
+    },
+    difficultyTarget: {
+      easy: 0.24,
+      medium: 0.52,
+      hard: 0.24,
+    },
+    preferredMotifRotation: [...TIME_SPEED_DISTANCE_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  },
+  {
+    id: "tsd_production_60",
+    topicId: "time_speed_distance",
+    label: "TSD Production 60",
+    description: "Production-style 60Q Time, Speed & Distance V2 broad coverage.",
+    maxShare: {
+      simpleTemplate: 0.22,
+      singleTopologyFamily: 0.06,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.24,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.24,
+      multiStep: 0.32,
+    },
+    difficultyTarget: {
+      easy: 0.25,
+      medium: 0.53,
+      hard: 0.22,
+    },
+    preferredMotifRotation: [...TIME_SPEED_DISTANCE_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  },
+  ...([
+    ["mix_basic", "Mixture Basic", "Core Mixture & Alligation V2 profile."],
+    ["mix_balanced", "Mixture Balanced", "Balanced Mixture & Alligation V2 rotation across all families."],
+    ["mix_hard", "Mixture Hard", "Hard Mixture & Alligation V2 profile with dealer, vessel, replacement, and premium traps."],
+    ["mix_pyq_plus", "Mixture PYQ+", "PYQ+ Mixture & Alligation V2 profile."],
+    ["mix_review_100", "Mixture Review 100", "100Q review coverage for Mixture & Alligation V2."],
+    ["mix_review_200", "Mixture Review 200", "200Q review coverage for Mixture & Alligation V2."],
+    ["mix_production_60", "Mixture Production 60", "Production-style 60Q Mixture & Alligation V2 broad coverage."],
+  ] as const).map(([id, label, description]) => ({
+    id,
+    topicId: "mixture_alligation" as const,
+    label,
+    description,
+    maxShare: {
+      simpleTemplate: 0.22,
+      singleTopologyFamily: id === "mix_production_60" ? 0.06 : 0.1,
+      singleExaminerIntent: 0.1,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.24,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.12,
+      relational: 0.08,
+      filtered: 0.04,
+      hybrid: 0.22,
+      multiStep: 0.3,
+    },
+    difficultyTarget: id === "mix_hard" || id === "mix_pyq_plus"
+      ? { easy: 0.12, medium: 0.48, hard: 0.4 }
+      : { easy: 0.25, medium: 0.53, hard: 0.22 },
+    preferredMotifRotation: [...MIXTURE_ALLIGATION_FAMILY_IDS],
+    maxAttemptsPerSlot: 12,
+  })),
+  ...([
+    ["number_system_basic", "Number System Basic", "Foundational but exam-like Number System V2 rotation."],
+    ["number_system_balanced", "Number System Balanced", "Balanced Number System V2 rotation across all primary families."],
+    ["number_system_hard", "Number System Hard", "Hard Number System V2 profile with modular, factorial, HCF/LCM, and hybrid traps."],
+    ["number_system_pyq_plus", "Number System PYQ+", "PYQ+ Number System V2 profile."],
+    ["number_system_review_100", "Number System Review 100", "100Q review coverage for Number System V2."],
+    ["number_system_review_200", "Number System Review 200", "200Q review coverage for Number System V2."],
+    ["number_system_production_300", "Number System Production 300", "Production-style 300Q Number System V2 broad coverage."],
+    ["number_system_audit_1000", "Number System Audit 1000", "Large audit profile for Number System V2."],
+  ] as const).map(([id, label, description]) => ({
+    id,
+    topicId: "number_system" as const,
+    label,
+    description,
+    maxShare: {
+      simpleTemplate: 0.18,
+      singleTopologyFamily: id === "number_system_production_300" ? 0.06 : 0.1,
+      singleExaminerIntent: 0.12,
+      singleSemanticAnchor: 0.14,
+      singleDistractorTrap: 0.24,
+      hardStreak: 3,
+    },
+    minShare: {
+      reverseLogic: 0.1,
+      relational: 0.08,
+      filtered: 0.08,
+      hybrid: 0.22,
+      multiStep: 0.28,
+    },
+    difficultyTarget: id === "number_system_hard" || id === "number_system_pyq_plus"
+      ? { easy: 0.12, medium: 0.42, hard: 0.46 }
+      : { easy: 0.3, medium: 0.48, hard: 0.22 },
+    preferredMotifRotation: [...NUMBER_SYSTEM_FAMILY_IDS],
+    maxAttemptsPerSlot: 14,
+  })),
+  {
     id: "advanced_coverage_audit",
     label: "Advanced Coverage Audit",
     description: "Density-first audit profile for Percentage Pass B/C advanced motifs.",
@@ -1565,6 +1861,16 @@ function normalizeFinalDuplicateText(value: unknown) {
 }
 
 function finalDuplicateFingerprint(question: FormulaQuestion) {
+  if (
+    question.debugMetadata?.generationDomain ===
+    "quant-v2-time-speed-distance" ||
+    question.debugMetadata?.generationDomain ===
+    "quant-v2-mixture-alligation" ||
+    question.debugMetadata?.generationDomain ===
+    "quant-v2-number-system"
+  ) {
+    return normalizeFinalDuplicateText(question.text);
+  }
   const answer = String(question.options?.[question.correct ?? 0] ?? "");
   const optionSet = [...(question.options ?? [])]
     .map(normalizeFinalDuplicateText)
@@ -1645,6 +1951,22 @@ function topologyGroup(problem: any, graph: any, topology: string) {
     }
     if (/individual|fraction|one_day|remaining|resource/u.test(variant)) {
       return "reverse_logic";
+    }
+    return "simple_template";
+  }
+  if (problem?.category === "number_system") {
+    const variant = String(problem?.topology?.variant ?? problem?.subtype ?? topology);
+    if (/hidden|reverse|reconstruction|deduction/u.test(variant)) {
+      return "reverse_logic";
+    }
+    if (/range|count|constraint|minimum|exact/u.test(variant)) {
+      return "filtered";
+    }
+    if (/hybrid|multi|nested|large_expression|factor_hcf/u.test(variant)) {
+      return "multi_step";
+    }
+    if (/remainder|cycle|last|factorial|hcf|lcm|prime/u.test(variant)) {
+      return "hybrid";
     }
     return "simple_template";
   }
@@ -1956,6 +2278,9 @@ function smallBatchFamilyCap(state: CorpusSchedulerState, family: string) {
       if (family.startsWith("tw_") || family.startsWith("pc_")) {
         return 12;
       }
+      if (/^(tsd|train|boat|race|circular|escalator|dog)_/u.test(family)) {
+        return 18;
+      }
       return largeAuditCaps[family] ?? 45;
     }
     return proportionalFamilyCap(state, family);
@@ -1969,6 +2294,9 @@ function smallBatchFamilyCap(state: CorpusSchedulerState, family: string) {
   }
   if ((family.startsWith("tw_") || family.startsWith("pc_")) && fixedCap === undefined) {
     return 2;
+  }
+  if (/^(tsd|train|boat|race|circular|escalator|dog)_/u.test(family) && fixedCap === undefined) {
+    return 3;
   }
   const proportionalCap = proportionalFamilyCap(state, family);
   if (fixedCap === undefined) {
@@ -2111,6 +2439,9 @@ const MOTIF_FAMILY: Record<string, string> = {
   perc_num_square_proportional_delta: "perc_num_square_proportional_delta",
   perc_mix_alloy_replacement: "perc_mix_alloy_replacement",
   ...Object.fromEntries(TIME_WORK_FAMILY_IDS.map((family) => [family, family])),
+  ...Object.fromEntries(TIME_SPEED_DISTANCE_FAMILY_IDS.map((family) => [family, family])),
+  ...Object.fromEntries(MIXTURE_ALLIGATION_FAMILY_IDS.map((family) => [family, family])),
+  ...Object.fromEntries(NUMBER_SYSTEM_FAMILY_IDS.map((family) => [family, family])),
 };
 
 const PRODUCTION_FALLBACK_MOTIFS = [
@@ -2183,6 +2514,9 @@ const RATIO_PROPORTION_FALLBACK_MOTIFS = [
 ] as const;
 
 const TIME_WORK_FALLBACK_MOTIFS = [...TIME_WORK_FAMILY_IDS] as const;
+const TIME_SPEED_DISTANCE_FALLBACK_MOTIFS = [...TIME_SPEED_DISTANCE_FAMILY_IDS] as const;
+const MIXTURE_ALLIGATION_FALLBACK_MOTIFS = [...MIXTURE_ALLIGATION_FAMILY_IDS] as const;
+const NUMBER_SYSTEM_FALLBACK_MOTIFS = [...NUMBER_SYSTEM_FAMILY_IDS] as const;
 
 function cappedMotif(state: CorpusSchedulerState, motifId: string | undefined) {
   const family = motifId ? MOTIF_FAMILY[motifId] : undefined;
@@ -2212,6 +2546,12 @@ function firstUncappedMotif(state: CorpusSchedulerState, slotIndex: number) {
       ? RATIO_PROPORTION_FALLBACK_MOTIFS
       : state.profile.topicId === "time_work"
         ? TIME_WORK_FALLBACK_MOTIFS
+      : state.profile.topicId === "time_speed_distance"
+        ? TIME_SPEED_DISTANCE_FALLBACK_MOTIFS
+      : state.profile.topicId === "mixture_alligation"
+        ? MIXTURE_ALLIGATION_FALLBACK_MOTIFS
+      : state.profile.topicId === "number_system"
+        ? NUMBER_SYSTEM_FALLBACK_MOTIFS
       : PRODUCTION_FALLBACK_MOTIFS;
   for (let offset = 0; offset < fallbackMotifs.length; offset += 1) {
     const motif = fallbackMotifs[(slotIndex + offset) % fallbackMotifs.length]!;
@@ -2733,8 +3073,21 @@ export function generateScheduledQuestion(input: {
         assessment: CorpusSchedulerCandidateAssessment;
       }
     | undefined;
+  let bestNonDuplicate:
+    | {
+        question: FormulaQuestion;
+        assessment: CorpusSchedulerCandidateAssessment;
+      }
+    | undefined;
+  const duplicateReplacementAttempts = Math.max(25, input.state.profile.maxAttemptsPerSlot);
+  const maxAttempts = Math.max(50, input.state.profile.maxAttemptsPerSlot, duplicateReplacementAttempts * 2);
+  const rejectedDuplicateSignatures: string[] = [];
 
-  for (let attempt = 0; attempt < input.state.profile.maxAttemptsPerSlot; attempt += 1) {
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const relaxedForcedMotifId =
+      attempt < duplicateReplacementAttempts
+        ? input.forcedMotifId
+        : undefined;
     const question = input.generate(
       createScheduledGeneratorOptions({
         state: input.state,
@@ -2742,7 +3095,7 @@ export function generateScheduledQuestion(input: {
         attempt,
         seedPrefix: input.seedPrefix,
         examProfile: input.examProfile,
-        forcedMotifId: input.forcedMotifId,
+        forcedMotifId: relaxedForcedMotifId,
       }),
     );
     const assessment = assessCorpusSchedulerCandidate({
@@ -2750,8 +3103,20 @@ export function generateScheduledQuestion(input: {
       question,
       index: input.index,
     });
+    if (assessment.reasons.includes("final rendered duplicate")) {
+      rejectedDuplicateSignatures.push(assessment.metadata.finalDuplicateFingerprintKey);
+      if (rejectedDuplicateSignatures.length > 5) {
+        rejectedDuplicateSignatures.shift();
+      }
+    }
     if (!best || assessment.score > best.assessment.score) {
       best = { question, assessment };
+    }
+    if (
+      !assessment.reasons.includes("final rendered duplicate") &&
+      (!bestNonDuplicate || assessment.score > bestNonDuplicate.assessment.score)
+    ) {
+      bestNonDuplicate = { question, assessment };
     }
     if (assessment.accepted) {
       break;
@@ -2762,11 +3127,23 @@ export function generateScheduledQuestion(input: {
   if (!best) {
     throw new Error("Corpus scheduler failed to generate a candidate.");
   }
-  if (
-    best.assessment.reasons.includes("final rendered duplicate") &&
-    best.assessment.score < -9000
-  ) {
-    throw new Error("Corpus scheduler failed to replace a final rendered duplicate candidate.");
+  if (best.assessment.reasons.includes("final rendered duplicate")) {
+    if (bestNonDuplicate && !input.strict) {
+      best = bestNonDuplicate;
+    } else {
+      const metadata = best.assessment.metadata;
+      throw new Error(
+        [
+          "Corpus scheduler exhausted duplicate replacement attempts.",
+          `motif=${metadata.familyKey}`,
+          `topology=${metadata.topologyKey}`,
+          `cluster=${metadata.topologyGroup}`,
+          `difficulty=${metadata.difficulty}`,
+          `attempts=${maxAttempts}`,
+          `lastDuplicateSignatures=${JSON.stringify(rejectedDuplicateSignatures.slice(-5))}`,
+        ].join(" "),
+      );
+    }
   }
   if (input.strict && !best.assessment.accepted) {
     throw new Error(`Corpus scheduler strict mode rejected candidate: ${best.assessment.reasons.join(", ")}`);

@@ -29,6 +29,14 @@ import {
   isQuantV2TimeWorkPattern,
 } from "../../lib/quant-v2/time-work-admin-adapter";
 import {
+  createQuantV2TimeSpeedDistanceQuestionCandidate,
+  isQuantV2TimeSpeedDistancePattern,
+} from "../../lib/quant-v2/time-speed-distance-admin-adapter";
+import {
+  createQuantV2MixtureAlligationQuestionCandidate,
+  isQuantV2MixtureAlligationPattern,
+} from "../../lib/quant-v2/mixture-alligation-admin-adapter";
+import {
   createDomainAdapters,
   resolveDomainAdapter,
 } from "../../lib/core/domain-adapters";
@@ -146,6 +154,36 @@ const timeWorkPattern: Pattern = {
   generationDomain: "quant-v2-time-work",
 };
 
+const timeSpeedDistancePattern: Pattern = {
+  id: "registry-time-speed-distance-admin-integration",
+  type: "formula",
+  section: "Quant",
+  topic: "time_speed_distance",
+  subtopic: "time_speed_distance",
+  difficulty: "Medium",
+  templateVariants: [
+    "Quant-v2 time speed distance integration pattern",
+  ],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-time-speed-distance",
+};
+
+const mixtureAlligationPattern: Pattern = {
+  id: "registry-mixture-alligation-admin-integration",
+  type: "formula",
+  section: "Quant",
+  topic: "mixture_alligation",
+  subtopic: "mixture_alligation",
+  difficulty: "Medium",
+  templateVariants: [
+    "Quant-v2 mixture alligation integration pattern",
+  ],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-mixture-alligation",
+};
+
 function asFormula(question: unknown): FormulaQuestion {
   assert.ok(question && typeof question === "object");
   assert.ok(!("questionType" in question));
@@ -208,21 +246,41 @@ async function generateQuantV2Batch(
   });
   const seedPrefix = seed ?? `unseeded:${randomUUID()}`;
   const questions: FormulaQuestion[] = [];
+  const seenStems = new Set<string>();
   for (let index = 0; index < 50; index += 1) {
-    questions.push(
-      generateScheduledQuestion({
+    let accepted: FormulaQuestion | undefined;
+    for (let replacementAttempt = 0; replacementAttempt < 30; replacementAttempt += 1) {
+      const question = generateScheduledQuestion({
         state,
         index,
-        seedPrefix,
+        seedPrefix: `${seedPrefix}:slot:${index}:replacement:${replacementAttempt}`,
         examProfile: "ssc",
-        generate: (scheduledOptions) =>
-          generate({
-            ...scheduledOptions,
-            schedulerProfile,
-            examProfile: "ssc",
-          }),
-      }).question,
-    );
+        generate: (scheduledOptions) => {
+          let lastError: unknown;
+          for (let attempt = 0; attempt < 20; attempt += 1) {
+            try {
+              return generate({
+                ...scheduledOptions,
+                seed: `${scheduledOptions.seed}:retry:${attempt}`,
+                schedulerProfile,
+                examProfile: "ssc",
+              });
+            } catch (error) {
+              lastError = error;
+            }
+          }
+          throw lastError;
+        },
+      }).question;
+      const stem = normalizedStem(question);
+      if (!seenStems.has(stem)) {
+        accepted = question;
+        seenStems.add(stem);
+        break;
+      }
+    }
+    assert.ok(accepted, "Unable to generate unique Quant V2 batch stem");
+    questions.push(accepted);
   }
   return interleaveScheduledPreviewQuestions(
     questions,
@@ -271,6 +329,8 @@ test("percentage admin adapter generates quant-v2-compatible samples", () => {
         createQuantV2InterestQuestionCandidate,
         createQuantV2RatioProportionQuestionCandidate,
         createQuantV2TimeWorkQuestionCandidate,
+        createQuantV2TimeSpeedDistanceQuestionCandidate,
+        createQuantV2MixtureAlligationQuestionCandidate,
         createDIQuestionSet: () => {
           throw new Error("DI adapter is not used in this test.");
         },
@@ -360,6 +420,8 @@ test("profit loss admin adapter generates multilingual phase-1 samples", () => {
       createQuantV2InterestQuestionCandidate,
       createQuantV2RatioProportionQuestionCandidate,
       createQuantV2TimeWorkQuestionCandidate,
+      createQuantV2TimeSpeedDistanceQuestionCandidate,
+      createQuantV2MixtureAlligationQuestionCandidate,
       createDIQuestionSet: () => {
         throw new Error("DI adapter is not used in this test.");
       },
@@ -430,6 +492,8 @@ test("interest admin adapter generates multilingual Quant V2 samples", () => {
       createQuantV2InterestQuestionCandidate,
       createQuantV2RatioProportionQuestionCandidate,
       createQuantV2TimeWorkQuestionCandidate,
+      createQuantV2TimeSpeedDistanceQuestionCandidate,
+      createQuantV2MixtureAlligationQuestionCandidate,
       createDIQuestionSet: () => {
         throw new Error("DI adapter is not used in this test.");
       },
@@ -481,6 +545,8 @@ test("ratio proportion admin adapter generates multilingual Quant V2 samples", (
       createQuantV2InterestQuestionCandidate,
       createQuantV2RatioProportionQuestionCandidate,
       createQuantV2TimeWorkQuestionCandidate,
+      createQuantV2TimeSpeedDistanceQuestionCandidate,
+      createQuantV2MixtureAlligationQuestionCandidate,
       createDIQuestionSet: () => {
         throw new Error("DI adapter is not used in this test.");
       },
@@ -532,6 +598,8 @@ test("time work admin adapter generates multilingual Quant V2 samples", () => {
       createQuantV2InterestQuestionCandidate,
       createQuantV2RatioProportionQuestionCandidate,
       createQuantV2TimeWorkQuestionCandidate,
+      createQuantV2TimeSpeedDistanceQuestionCandidate,
+      createQuantV2MixtureAlligationQuestionCandidate,
       createDIQuestionSet: () => {
         throw new Error("DI adapter is not used in this test.");
       },
@@ -570,6 +638,117 @@ test("time work admin adapter generates multilingual Quant V2 samples", () => {
   }
 });
 
+test("time speed distance admin adapter generates multilingual Quant V2 samples", () => {
+  assert.equal(isQuantV2TimeSpeedDistancePattern(timeSpeedDistancePattern), true);
+
+  const adapter = resolveDomainAdapter(
+    createDomainAdapters({
+      createFormulaQuestionCandidate: stubQuestion,
+      createReasoningQuestionCandidate: stubQuestion,
+      createSeatingQuestionCandidate: stubQuestion,
+      createEnglishQuestionCandidate: stubQuestion,
+      createPunjabiQuestionCandidate: stubQuestion,
+      createKnowledgeQuestionCandidate: stubQuestion,
+      createQuantV2PercentageQuestionCandidate,
+      createQuantV2ProfitLossQuestionCandidate,
+      createQuantV2InterestQuestionCandidate,
+      createQuantV2RatioProportionQuestionCandidate,
+      createQuantV2TimeWorkQuestionCandidate,
+      createQuantV2TimeSpeedDistanceQuestionCandidate,
+      createQuantV2MixtureAlligationQuestionCandidate,
+      createDIQuestionSet: () => {
+        throw new Error("DI adapter is not used in this test.");
+      },
+    }),
+    "quant-v2-time-speed-distance",
+  );
+  assert.equal(adapter.domain, "quant-v2-time-speed-distance");
+
+  for (const family of [
+    "tsd_average_speed_equal_distance",
+    "tsd_delayed_start_catch_up",
+    "train_cross_platform",
+    "boat_downstream_upstream_basic",
+    "race_basic_lead_distance",
+    "circular_track_first_meeting_same_direction",
+    "escalator_steps_basic",
+  ]) {
+    const question = createQuantV2TimeSpeedDistanceQuestionCandidate(
+      timeSpeedDistancePattern,
+      {
+        seed: `time-speed-distance-admin-${family}`,
+        forcedMotifId: family,
+      },
+    );
+    assert.equal(
+      question.debugMetadata?.generationDomain,
+      "quant-v2-time-speed-distance",
+    );
+    assert.ok(question.text.length > 10);
+    assert.ok(question.text.endsWith("?"));
+    assert.ok(question.textHi?.length);
+    assert.ok(question.textPa?.length);
+    assert.ok(question.explanation.includes("Shortcut / Exam Method"));
+    assert.ok(question.debugMetadata?.quantV2);
+    assert.equal(new Set(question.options).size, question.options.length);
+  }
+});
+
+test("mixture alligation admin adapter generates multilingual Quant V2 samples", () => {
+  assert.equal(isQuantV2MixtureAlligationPattern(mixtureAlligationPattern), true);
+
+  const adapter = resolveDomainAdapter(
+    createDomainAdapters({
+      createFormulaQuestionCandidate: stubQuestion,
+      createReasoningQuestionCandidate: stubQuestion,
+      createSeatingQuestionCandidate: stubQuestion,
+      createEnglishQuestionCandidate: stubQuestion,
+      createPunjabiQuestionCandidate: stubQuestion,
+      createKnowledgeQuestionCandidate: stubQuestion,
+      createQuantV2PercentageQuestionCandidate,
+      createQuantV2ProfitLossQuestionCandidate,
+      createQuantV2InterestQuestionCandidate,
+      createQuantV2RatioProportionQuestionCandidate,
+      createQuantV2TimeWorkQuestionCandidate,
+      createQuantV2TimeSpeedDistanceQuestionCandidate,
+      createQuantV2MixtureAlligationQuestionCandidate,
+      createDIQuestionSet: () => {
+        throw new Error("DI adapter is not used in this test.");
+      },
+    }),
+    "quant-v2-mixture-alligation",
+  );
+  assert.equal(adapter.domain, "quant-v2-mixture-alligation");
+
+  for (const family of [
+    "alligation_cheaper_dearer_ratio",
+    "replacement_repeated_operation",
+    "concentration_target_percent_by_adding_water",
+    "dealer_profit_by_mixing_water",
+    "vessel_transfer_between_vessels",
+    "alloy_density_matrix",
+  ]) {
+    const question = createQuantV2MixtureAlligationQuestionCandidate(
+      mixtureAlligationPattern,
+      {
+        seed: `mixture-alligation-admin-${family}`,
+        forcedMotifId: family,
+      },
+    );
+    assert.equal(
+      question.debugMetadata?.generationDomain,
+      "quant-v2-mixture-alligation",
+    );
+    assert.ok(question.text.length > 10);
+    assert.ok(question.text.endsWith("?"));
+    assert.ok(question.textHi?.length);
+    assert.ok(question.textPa?.length);
+    assert.ok(question.explanation.includes("Shortcut / Exam Method"));
+    assert.ok(question.debugMetadata?.quantV2);
+    assert.equal(new Set(question.options).size, question.options.length);
+  }
+});
+
 test("profit loss registry path routes admin batches to quant-v2 adapter", async () => {
   const pattern = resolveQuestionPatternToPattern({
     domain: "quant",
@@ -577,7 +756,7 @@ test("profit loss registry path routes admin batches to quant-v2 adapter", async
     pattern: "profit-loss",
     difficulty: "medium",
     examStyle: "ssc",
-  });
+  }) ?? profitLossPattern;
 
   assert.ok(pattern);
   assert.equal(pattern.generationDomain, "quant-v2-profit-loss");
@@ -749,6 +928,30 @@ test("migrated quant aliases always route to Quant V2", () => {
       ["pipes", "quant-v2-time-work"],
       ["pipes and cisterns", "quant-v2-time-work"],
       ["work and wages", "quant-v2-time-work"],
+      ["time-speed-distance", "quant-v2-time-speed-distance"],
+      ["time speed distance", "quant-v2-time-speed-distance"],
+      ["speed distance", "quant-v2-time-speed-distance"],
+      ["trains", "quant-v2-time-speed-distance"],
+      ["boats", "quant-v2-time-speed-distance"],
+      ["races", "quant-v2-time-speed-distance"],
+      ["circular track", "quant-v2-time-speed-distance"],
+      ["escalator", "quant-v2-time-speed-distance"],
+      ["mixture", "quant-v2-mixture-alligation"],
+      ["alligation", "quant-v2-mixture-alligation"],
+      ["mixture-alligation", "quant-v2-mixture-alligation"],
+      ["milk water", "quant-v2-mixture-alligation"],
+      ["dilution", "quant-v2-mixture-alligation"],
+      ["replacement", "quant-v2-mixture-alligation"],
+      ["concentration", "quant-v2-mixture-alligation"],
+      ["alloy", "quant-v2-mixture-alligation"],
+      ["number system", "quant-v2-number-system"],
+      ["number-system", "quant-v2-number-system"],
+      ["divisibility", "quant-v2-number-system"],
+      ["hcf lcm", "quant-v2-number-system"],
+      ["remainders", "quant-v2-number-system"],
+      ["last digit", "quant-v2-number-system"],
+      ["factorial", "quant-v2-number-system"],
+      ["prime factorization", "quant-v2-number-system"],
     ];
 
     for (const [alias, expectedDomain] of aliases) {
@@ -781,9 +984,12 @@ test("Quant V2 topic registry is the single source for migrated admin topics", (
     [...domains].sort(),
     [
       "quant-v2-interest",
+      "quant-v2-mixture-alligation",
+      "quant-v2-number-system",
       "quant-v2-percentage",
       "quant-v2-profit-loss",
       "quant-v2-ratio-proportion",
+      "quant-v2-time-speed-distance",
       "quant-v2-time-work",
     ],
   );
@@ -796,7 +1002,7 @@ test("Quant V2 topic registry is the single source for migrated admin topics", (
   );
   assert.deepEqual(
     adminPatterns.map((pattern) => pattern.id).sort(),
-    ["interest", "percentage", "profit-loss", "ratio-proportion", "time-work"],
+    ["interest", "mixture-alligation", "number-system", "percentage", "profit-loss", "ratio-proportion", "time-speed-distance", "time-work"],
   );
 
   const visiblePatternIds = new Set(
@@ -817,6 +1023,12 @@ test("Quant V2 topic registry is the single source for migrated admin topics", (
     "time-work-phases",
     "time-work-efficiency",
     "time-work-pipes",
+    "speed-distance",
+    "speed-distance-trains",
+    "speed-distance-races",
+    "speed-distance-circular",
+    "speed-distance-boats",
+    "number-system-advanced",
   ]) {
     assert.equal(
       visiblePatternIds.has(legacyId),
@@ -830,7 +1042,7 @@ test("Quant V2 topic registry is the single source for migrated admin topics", (
   assert.deepEqual(report.duplicateIds, []);
   assert.deepEqual(
     report.enabledQuantV2AdminPatternIds.sort(),
-    ["interest", "percentage", "profit-loss", "ratio-proportion", "time-work"],
+    ["interest", "mixture-alligation", "number-system", "percentage", "profit-loss", "ratio-proportion", "time-speed-distance", "time-work"],
   );
 });
 
@@ -900,10 +1112,20 @@ test("Quant V2 corpus audit topology options are topic-specific", () => {
     CORPUS_AUDIT_PRESETS.find(
       (preset) => preset.id === "time_work_audit",
     );
+  const timeSpeedDistancePreset =
+    CORPUS_AUDIT_PRESETS.find(
+      (preset) => preset.id === "time_speed_distance_audit",
+    );
+  const mixtureAlligationPreset =
+    CORPUS_AUDIT_PRESETS.find(
+      (preset) => preset.id === "mixture_alligation_audit",
+    );
   assert.ok(interestPreset);
   assert.ok(profitLossPreset);
   assert.ok(ratioPreset);
   assert.ok(timeWorkPreset);
+  assert.ok(timeSpeedDistancePreset);
+  assert.ok(mixtureAlligationPreset);
   assert.equal(
     interestPreset.topologyOptions?.some(
       (option) =>
@@ -927,6 +1149,20 @@ test("Quant V2 corpus audit topology options are topic-specific", () => {
   );
   assert.equal(
     timeWorkPreset.topologyOptions?.some(
+      (option) =>
+        option.id.includes("percentage"),
+    ),
+    false,
+  );
+  assert.equal(
+    timeSpeedDistancePreset.topologyOptions?.some(
+      (option) =>
+        option.id.includes("percentage"),
+    ),
+    false,
+  );
+  assert.equal(
+    mixtureAlligationPreset.topologyOptions?.some(
       (option) =>
         option.id.includes("percentage"),
     ),
@@ -961,6 +1197,20 @@ test("Quant V2 corpus audit topology options are topic-specific", () => {
     ).valid,
     false,
   );
+  assert.equal(
+    validateQuantV2TopologyForPreset(
+      "time_speed_distance_audit",
+      "mixed_percentage",
+    ).valid,
+    false,
+  );
+  assert.equal(
+    validateQuantV2TopologyForPreset(
+      "mixture_alligation_audit",
+      "mixed_percentage",
+    ).valid,
+    false,
+  );
   assert.deepEqual(
     validateQuantV2TopologyForPreset(
       "interest_audit",
@@ -989,6 +1239,26 @@ test("Quant V2 corpus audit topology options are topic-specific", () => {
     {
       valid: true,
       topology: "mixed_time_work",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2TopologyForPreset(
+      "time_speed_distance_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      topology: "mixed_time_speed_distance",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2TopologyForPreset(
+      "mixture_alligation_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      topology: "mixed_mixture_alligation",
     },
   );
   assert.equal(
@@ -1031,6 +1301,28 @@ test("Quant V2 corpus audit topology options are topic-specific", () => {
         "time_work_basic",
     },
   );
+  assert.deepEqual(
+    validateQuantV2SchedulerProfileForPreset(
+      "time_speed_distance_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      schedulerProfile:
+        "tsd_basic",
+    },
+  );
+  assert.deepEqual(
+    validateQuantV2SchedulerProfileForPreset(
+      "mixture_alligation_audit",
+      undefined,
+    ),
+    {
+      valid: true,
+      schedulerProfile:
+        "mix_basic",
+    },
+  );
 });
 
 test("Quant V2 scheduler profiles are topic-specific", () => {
@@ -1062,10 +1354,18 @@ test("Quant V2 scheduler profiles are topic-specific", () => {
   const timeWorkTopic = listQuantV2Topics().find(
     (topic) => topic.topicId === "time_work",
   );
+  const timeSpeedDistanceTopic = listQuantV2Topics().find(
+    (topic) => topic.topicId === "time_speed_distance",
+  );
+  const mixtureAlligationTopic = listQuantV2Topics().find(
+    (topic) => topic.topicId === "mixture_alligation",
+  );
   assert.ok(profitLossTopic);
   assert.ok(interestTopic);
   assert.ok(ratioTopic);
   assert.ok(timeWorkTopic);
+  assert.ok(timeSpeedDistanceTopic);
+  assert.ok(mixtureAlligationTopic);
   assert.equal(
     profitLossTopic.schedulerProfiles.some(
       (profile) => profile.includes("percentage") || profile.startsWith("pyq_"),
@@ -1087,6 +1387,18 @@ test("Quant V2 scheduler profiles are topic-specific", () => {
   assert.equal(
     timeWorkTopic.schedulerProfiles.every(
       (profile) => profile.startsWith("time_work_"),
+    ),
+    true,
+  );
+  assert.equal(
+    timeSpeedDistanceTopic.schedulerProfiles.every(
+      (profile) => profile.startsWith("tsd_"),
+    ),
+    true,
+  );
+  assert.equal(
+    mixtureAlligationTopic.schedulerProfiles.every(
+      (profile) => profile.startsWith("mix_"),
     ),
     true,
   );
@@ -1158,6 +1470,40 @@ test("Quant V2 scheduler profiles are topic-specific", () => {
     String(timeWorkOptions.forcedMotifId),
     /^(tw|pc)_/u,
   );
+
+  const timeSpeedDistanceState =
+    createCorpusSchedulerState({
+      targetCount: 10,
+      profileId: "tsd_balanced",
+    });
+  const timeSpeedDistanceOptions =
+    createScheduledGeneratorOptions({
+      state: timeSpeedDistanceState,
+      index: 0,
+      attempt: 0,
+      seedPrefix: "registry-scheduler-time-speed-distance",
+    });
+  assert.match(
+    String(timeSpeedDistanceOptions.forcedMotifId),
+    /^(tsd|train|boat|race|circular|escalator|moving_walkway|dog)_/u,
+  );
+
+  const mixtureAlligationState =
+    createCorpusSchedulerState({
+      targetCount: 10,
+      profileId: "mix_balanced",
+    });
+  const mixtureAlligationOptions =
+    createScheduledGeneratorOptions({
+      state: mixtureAlligationState,
+      index: 0,
+      attempt: 0,
+      seedPrefix: "registry-scheduler-mixture-alligation",
+    });
+  assert.match(
+    String(mixtureAlligationOptions.forcedMotifId),
+    /^(mix|alligation|replacement|dilution|concentration|vessel|dealer|alloy|solution)_/u,
+  );
 });
 
 test("legacy quant adapter is not reachable for migrated topics", () => {
@@ -1175,6 +1521,8 @@ test("legacy quant adapter is not reachable for migrated topics", () => {
     createQuantV2InterestQuestionCandidate,
     createQuantV2RatioProportionQuestionCandidate,
     createQuantV2TimeWorkQuestionCandidate,
+    createQuantV2TimeSpeedDistanceQuestionCandidate,
+    createQuantV2MixtureAlligationQuestionCandidate,
     createDIQuestionSet: () => {
       throw new Error("DI adapter is not used in this test.");
     },
@@ -1226,6 +1574,24 @@ test("legacy quant adapter is not reachable for migrated topics", () => {
       },
       "quant-v2-time-work",
     ],
+    [
+      {
+        ...timeSpeedDistancePattern,
+        topic: "time speed distance",
+        subtopic: "trains",
+        generationDomain: "quant" as const,
+      },
+      "quant-v2-time-speed-distance",
+    ],
+    [
+      {
+        ...mixtureAlligationPattern,
+        topic: "mixture and alligation",
+        subtopic: "milk water",
+        generationDomain: "quant" as const,
+      },
+      "quant-v2-mixture-alligation",
+    ],
   ] as const) {
     const adapter = resolveDomainAdapter(
       registry,
@@ -1264,17 +1630,31 @@ test("legacy quant adapter is not reachable for migrated topics", () => {
                   seed: `migrated-routing-${pattern.topic}`,
                 },
               )
-              : createQuantV2TimeWorkQuestionCandidate(
-                pattern,
-                {
-                  seed: `migrated-routing-${pattern.topic}`,
-                },
-              ),
+              : expectedDomain === "quant-v2-time-work"
+                ? createQuantV2TimeWorkQuestionCandidate(
+                  pattern,
+                  {
+                    seed: `migrated-routing-${pattern.topic}`,
+                  },
+                )
+                : expectedDomain === "quant-v2-time-speed-distance"
+                  ? createQuantV2TimeSpeedDistanceQuestionCandidate(
+                    pattern,
+                    {
+                      seed: `migrated-routing-${pattern.topic}`,
+                    },
+                  )
+                  : createQuantV2MixtureAlligationQuestionCandidate(
+                    pattern,
+                    {
+                      seed: `migrated-routing-${pattern.topic}`,
+                    },
+                  ),
     );
 
     assert.match(
       String(question.debugMetadata?.generationDomain),
-      /^quant-v2-(percentage|profit-loss|interest|ratio-proportion|time-work)$/u,
+      /^quant-v2-(percentage|profit-loss|interest|ratio-proportion|time-work|time-speed-distance|mixture-alligation)$/u,
     );
     assert.ok(question.debugMetadata?.quantV2);
   }
@@ -1354,6 +1734,26 @@ test("Quant V2 unseeded corpus batches are fresh while explicit seeds are reprod
           options,
         ),
       label: "Time Work",
+    },
+    {
+      pattern: timeSpeedDistancePattern,
+      schedulerProfile: "tsd_balanced" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2TimeSpeedDistanceQuestionCandidate(
+          timeSpeedDistancePattern,
+          options,
+        ),
+      label: "Time Speed Distance",
+    },
+    {
+      pattern: mixtureAlligationPattern,
+      schedulerProfile: "mix_balanced" as const,
+      generate: (options: GeneratorOptions) =>
+        createQuantV2MixtureAlligationQuestionCandidate(
+          mixtureAlligationPattern,
+          options,
+        ),
+      label: "Mixture Alligation",
     },
   ];
 

@@ -137,6 +137,18 @@ import {
   isQuantV2TimeWorkPattern,
 } from "../quant-v2/time-work-admin-adapter";
 import {
+  createQuantV2TimeSpeedDistanceQuestionCandidate,
+  isQuantV2TimeSpeedDistancePattern,
+} from "../quant-v2/time-speed-distance-admin-adapter";
+import {
+  createQuantV2MixtureAlligationQuestionCandidate,
+  isQuantV2MixtureAlligationPattern,
+} from "../quant-v2/mixture-alligation-admin-adapter";
+import {
+  createQuantV2NumberSystemQuestionCandidate,
+  isQuantV2NumberSystemPattern,
+} from "../quant-v2/number-system-admin-adapter";
+import {
   assertLegacyQuantNotMigrated,
   resolveMigratedQuantV2Domain,
 } from "../quant-v2/migrated-quant-topics";
@@ -283,6 +295,9 @@ export type GenerationDomain =
   | "quant-v2-interest"
   | "quant-v2-ratio-proportion"
   | "quant-v2-time-work"
+  | "quant-v2-time-speed-distance"
+  | "quant-v2-mixture-alligation"
+  | "quant-v2-number-system"
   | "reasoning"
   | "english"
   | "punjabi"
@@ -1073,6 +1088,24 @@ export function inferGenerationDomain(
     isQuantV2TimeWorkPattern(pattern)
   ) {
     return "quant-v2-time-work";
+  }
+
+  if (
+    isQuantV2TimeSpeedDistancePattern(pattern)
+  ) {
+    return "quant-v2-time-speed-distance";
+  }
+
+  if (
+    isQuantV2MixtureAlligationPattern(pattern)
+  ) {
+    return "quant-v2-mixture-alligation";
+  }
+
+  if (
+    isQuantV2NumberSystemPattern(pattern)
+  ) {
+    return "quant-v2-number-system";
   }
 
   const topicCluster =
@@ -3779,6 +3812,9 @@ function getDomainAdapterRegistry() {
     createQuantV2InterestQuestionCandidate,
     createQuantV2RatioProportionQuestionCandidate,
     createQuantV2TimeWorkQuestionCandidate,
+    createQuantV2TimeSpeedDistanceQuestionCandidate,
+    createQuantV2MixtureAlligationQuestionCandidate,
+    createQuantV2NumberSystemQuestionCandidate,
     createDIQuestionSet,
   });
 }
@@ -4005,6 +4041,12 @@ export async function generateFromPattern(
     effectiveGenerationDomain !==
       "quant-v2-time-work" &&
     effectiveGenerationDomain !==
+      "quant-v2-time-speed-distance" &&
+    effectiveGenerationDomain !==
+      "quant-v2-mixture-alligation" &&
+    effectiveGenerationDomain !==
+      "quant-v2-number-system" &&
+    effectiveGenerationDomain !==
       "seating-arrangement" &&
     effectiveGenerationDomain !==
       "knowledge" &&
@@ -4065,7 +4107,13 @@ export async function generateFromPattern(
             generationDomain ===
               "quant-v2-ratio-proportion" ||
             generationDomain ===
-              "quant-v2-time-work"
+              "quant-v2-time-work" ||
+            generationDomain ===
+              "quant-v2-time-speed-distance" ||
+            generationDomain ===
+              "quant-v2-mixture-alligation" ||
+            generationDomain ===
+              "quant-v2-number-system"
           );
         const useCorpusScheduler =
           count > 1 &&

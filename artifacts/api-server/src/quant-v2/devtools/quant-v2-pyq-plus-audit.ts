@@ -1,17 +1,27 @@
 import type { FormulaQuestion, Pattern } from "../../lib/core/generator-engine";
+import { randomUUID } from "node:crypto";
 import { createQuantV2PercentageQuestionCandidate } from "../../lib/quant-v2/percentage-admin-adapter";
 import { createQuantV2ProfitLossQuestionCandidate } from "../../lib/quant-v2/profit-loss-admin-adapter";
 import { createQuantV2InterestQuestionCandidate } from "../../lib/quant-v2/interest-admin-adapter";
 import { createQuantV2RatioProportionQuestionCandidate } from "../../lib/quant-v2/ratio-proportion-admin-adapter";
 import { createQuantV2TimeWorkQuestionCandidate } from "../../lib/quant-v2/time-work-admin-adapter";
+import { createQuantV2TimeSpeedDistanceQuestionCandidate } from "../../lib/quant-v2/time-speed-distance-admin-adapter";
+import { createQuantV2MixtureAlligationQuestionCandidate } from "../../lib/quant-v2/mixture-alligation-admin-adapter";
+import { createQuantV2NumberSystemQuestionCandidate } from "../../lib/quant-v2/number-system-admin-adapter";
 import { PROFIT_LOSS_FAMILY_IDS } from "../canonical/profit-loss-motif-factories";
 import { INTEREST_FAMILY_IDS } from "../canonical/interest-motif-factories";
 import { RATIO_PROPORTION_FAMILY_IDS } from "../canonical/ratio-proportion-motif-factories";
 import { TIME_WORK_FAMILY_IDS } from "../canonical/time-work-motif-factories";
+import { TIME_SPEED_DISTANCE_FAMILY_IDS } from "../canonical/time-speed-distance-motif-factories";
+import { MIXTURE_ALLIGATION_FAMILY_IDS } from "../canonical/mixture-alligation-motif-factories";
+import { NUMBER_SYSTEM_FAMILY_IDS } from "../canonical/number-system-motif-factories";
 import type { ProfitLossFamilyId } from "../canonical/profit-loss-types";
 import type { InterestFamilyId } from "../canonical/interest-types";
 import type { RatioProportionFamilyId } from "../canonical/ratio-proportion-types";
 import type { TimeWorkFamilyId } from "../canonical/time-work-types";
+import type { TimeSpeedDistanceFamilyId } from "../canonical/time-speed-distance-types";
+import type { MixtureAlligationFamilyId } from "../canonical/mixture-alligation-types";
+import type { NumberSystemFamilyId } from "../canonical/number-system-types";
 import {
   createCorpusSchedulerState,
   extractCorpusSchedulerMetadata,
@@ -38,6 +48,18 @@ import {
   timeWorkDegenerateReasons,
   validateTimeWorkIndependentSolver,
 } from "../validators/time-work-independent-solver";
+import {
+  timeSpeedDistanceDegenerateReasons,
+  validateTimeSpeedDistanceIndependentSolver,
+} from "../validators/time-speed-distance-independent-solver";
+import {
+  mixtureAlligationDegenerateReasons,
+  validateMixtureAlligationIndependentSolver,
+} from "../validators/mixture-alligation-independent-solver";
+import {
+  numberSystemDegenerateReasons,
+  validateNumberSystemIndependentSolver,
+} from "../validators/number-system-independent-solver";
 
 type SupportedTopic = Exclude<PyqBenchmarkTopic, "data_interpretation">;
 
@@ -117,6 +139,45 @@ const timeWorkPattern: Pattern = {
   generationDomain: "quant-v2-time-work",
 };
 
+const timeSpeedDistancePattern: Pattern = {
+  id: "pyq-plus-time-speed-distance",
+  type: "formula",
+  section: "Quant",
+  topic: "time_speed_distance",
+  subtopic: "time_speed_distance",
+  difficulty: "Medium",
+  templateVariants: ["Time, Speed & Distance V2 PYQ+ benchmark pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-time-speed-distance",
+};
+
+const mixtureAlligationPattern: Pattern = {
+  id: "pyq-plus-mixture-alligation",
+  type: "formula",
+  section: "Quant",
+  topic: "mixture_alligation",
+  subtopic: "mixture_alligation",
+  difficulty: "Medium",
+  templateVariants: ["Mixture & Alligation V2 PYQ+ benchmark pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-mixture-alligation",
+};
+
+const numberSystemPattern: Pattern = {
+  id: "pyq-plus-number-system",
+  type: "formula",
+  section: "Quant",
+  topic: "number_system",
+  subtopic: "number_system",
+  difficulty: "Medium",
+  templateVariants: ["Number System V2 PYQ+ benchmark pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-number-system",
+};
+
 function argValue(name: string) {
   const eqPrefix = `--${name}=`;
   const eqMatch = process.argv.find((arg) => arg.startsWith(eqPrefix));
@@ -146,6 +207,15 @@ function parseTopic(): SupportedTopic {
   }
   if (["time-work", "time-and-work", "time-work-pipes", "pipes", "pipes-cisterns", "pipes-and-cisterns", "work-wages"].includes(raw)) {
     return "time-work";
+  }
+  if (["time-speed-distance", "time-speed-and-distance", "speed-distance", "speed-time-distance", "trains", "boats", "races"].includes(raw)) {
+    return "time-speed-distance";
+  }
+  if (["mixture-alligation", "mixture", "alligation", "mixture-and-alligation", "milk-water", "dilution", "concentration"].includes(raw)) {
+    return "mixture-alligation";
+  }
+  if (["number-system", "number", "numbers", "divisibility", "hcf-lcm", "remainder", "remainders", "factorial", "last-digit"].includes(raw)) {
+    return "number-system";
   }
   return "percentage";
 }
@@ -255,6 +325,15 @@ function configuredFamilyCap(topic: SupportedTopic, family: string, count: numbe
     if (topic === "time-work") {
       return 12;
     }
+  if (topic === "time-speed-distance") {
+    return 18;
+  }
+    if (topic === "mixture-alligation") {
+      return 18;
+    }
+    if (topic === "number-system") {
+      return count >= 1000 ? 40 : 24;
+    }
     const caps: Record<string, number> = {
       two_step_relation_chain: 45,
       multi_step_relation_chain: 35,
@@ -278,6 +357,15 @@ function configuredFamilyCap(topic: SupportedTopic, family: string, count: numbe
   }
   if (topic === "time-work") {
     return 2;
+  }
+  if (topic === "time-speed-distance") {
+    return 3;
+  }
+  if (topic === "mixture-alligation") {
+    return 3;
+  }
+  if (topic === "number-system") {
+    return 4;
   }
   if (/election|vote/u.test(family)) return Math.ceil((count * 5) / 60);
   if (/relation/u.test(family)) return Math.ceil((count * 5) / 60);
@@ -349,6 +437,54 @@ function forcedTimeWorkFamily(
   return TIME_WORK_FAMILY_IDS[(slot + attempt) % TIME_WORK_FAMILY_IDS.length]!;
 }
 
+function forcedTimeSpeedDistanceFamily(
+  slot: number,
+  attempt: number,
+  count: number,
+  keptFamilyCounts: Map<string, number>,
+): TimeSpeedDistanceFamilyId {
+  for (let offset = 0; offset < TIME_SPEED_DISTANCE_FAMILY_IDS.length; offset += 1) {
+    const family =
+      TIME_SPEED_DISTANCE_FAMILY_IDS[(slot + attempt + offset) % TIME_SPEED_DISTANCE_FAMILY_IDS.length]!;
+    if ((keptFamilyCounts.get(family) ?? 0) < configuredFamilyCap("time-speed-distance", family, count)) {
+      return family;
+    }
+  }
+  return TIME_SPEED_DISTANCE_FAMILY_IDS[(slot + attempt) % TIME_SPEED_DISTANCE_FAMILY_IDS.length]!;
+}
+
+function forcedMixtureAlligationFamily(
+  slot: number,
+  attempt: number,
+  count: number,
+  keptFamilyCounts: Map<string, number>,
+): MixtureAlligationFamilyId {
+  for (let offset = 0; offset < MIXTURE_ALLIGATION_FAMILY_IDS.length; offset += 1) {
+    const family =
+      MIXTURE_ALLIGATION_FAMILY_IDS[(slot + attempt + offset) % MIXTURE_ALLIGATION_FAMILY_IDS.length]!;
+    if ((keptFamilyCounts.get(family) ?? 0) < configuredFamilyCap("mixture-alligation", family, count)) {
+      return family;
+    }
+  }
+  return MIXTURE_ALLIGATION_FAMILY_IDS[(slot + attempt) % MIXTURE_ALLIGATION_FAMILY_IDS.length]!;
+}
+
+function forcedNumberSystemFamily(
+  slot: number,
+  attempt: number,
+  count: number,
+  keptFamilyCounts: Map<string, number>,
+): NumberSystemFamilyId {
+  for (let offset = 0; offset < NUMBER_SYSTEM_FAMILY_IDS.length; offset += 1) {
+    const family =
+      NUMBER_SYSTEM_FAMILY_IDS[(slot + attempt + offset) % NUMBER_SYSTEM_FAMILY_IDS.length]!;
+    if ((keptFamilyCounts.get(family) ?? 0) < configuredFamilyCap("number-system", family, count)) {
+      return family;
+    }
+  }
+  return NUMBER_SYSTEM_FAMILY_IDS[(slot + attempt) % NUMBER_SYSTEM_FAMILY_IDS.length]!;
+}
+
 function validateQuestion(topic: SupportedTopic, question: FormulaQuestion) {
   const problem = problemOf(question);
   if (topic === "percentage") {
@@ -395,6 +531,42 @@ function validateQuestion(topic: SupportedTopic, question: FormulaQuestion) {
       ...timeWorkDegenerateReasons(problem),
     ];
   }
+  if (topic === "time-speed-distance") {
+    const solver = validateTimeSpeedDistanceIndependentSolver({
+      problem,
+      explanation: question.explanation,
+      options: question.options,
+      correct: question.correct,
+    });
+    return [
+      ...solver.issues,
+      ...timeSpeedDistanceDegenerateReasons(problem),
+    ];
+  }
+  if (topic === "mixture-alligation") {
+    const solver = validateMixtureAlligationIndependentSolver({
+      problem,
+      explanation: question.explanation,
+      options: question.options,
+      correct: question.correct,
+    });
+    return [
+      ...solver.issues,
+      ...mixtureAlligationDegenerateReasons(problem),
+    ];
+  }
+  if (topic === "number-system") {
+    const solver = validateNumberSystemIndependentSolver({
+      problem,
+      explanation: question.explanation,
+      options: question.options,
+      correct: question.correct,
+    });
+    return [
+      ...solver.issues,
+      ...numberSystemDegenerateReasons(problem),
+    ];
+  }
   const solver = validateProfitLossIndependentSolver({
     problem,
     explanation: question.explanation,
@@ -414,8 +586,14 @@ function generateQuestions(topic: SupportedTopic, count: number, seed: string, p
       ? "interest_pyq"
       : topic === "ratio-proportion"
         ? "ratio_pyq_plus"
-        : topic === "time-work"
-          ? "time_work_pyq_plus"
+          : topic === "time-work"
+            ? "time_work_pyq_plus"
+          : topic === "time-speed-distance"
+            ? "tsd_pyq_plus"
+          : topic === "mixture-alligation"
+            ? "mix_pyq_plus"
+          : topic === "number-system"
+            ? "number_system_pyq_plus"
           : profileId,
   });
   const questions: FormulaQuestion[] = [];
@@ -431,7 +609,9 @@ function generateQuestions(topic: SupportedTopic, count: number, seed: string, p
     generationStats.localRejectReasons[reason] =
       (generationStats.localRejectReasons[reason] ?? 0) + 1;
   };
-  const maxAttempts = Math.max(count * 22, count + 1200);
+  const maxAttempts = topic === "number-system"
+    ? Math.max(count * 80, count + 5000)
+    : Math.max(count * 22, count + 1200);
 
   for (let attempt = 0; questions.length < count && attempt < maxAttempts; attempt += 1) {
     generationStats.totalAttempts += 1;
@@ -444,6 +624,12 @@ function generateQuestions(topic: SupportedTopic, count: number, seed: string, p
             ? forcedRatioProportionFamily(questions.length, attempt, count, keptFamilyCounts)
             : topic === "time-work"
               ? forcedTimeWorkFamily(questions.length, attempt, count, keptFamilyCounts)
+              : topic === "time-speed-distance"
+                ? forcedTimeSpeedDistanceFamily(questions.length, attempt, count, keptFamilyCounts)
+              : topic === "mixture-alligation"
+                ? forcedMixtureAlligationFamily(questions.length, attempt, count, keptFamilyCounts)
+              : topic === "number-system"
+                ? forcedNumberSystemFamily(questions.length, attempt, count, keptFamilyCounts)
         : undefined;
       const result = generateScheduledQuestion({
         state,
@@ -460,6 +646,12 @@ function generateQuestions(topic: SupportedTopic, count: number, seed: string, p
                 ? createQuantV2RatioProportionQuestionCandidate(ratioProportionPattern, options)
                 : topic === "time-work"
                   ? createQuantV2TimeWorkQuestionCandidate(timeWorkPattern, options)
+                  : topic === "time-speed-distance"
+                    ? createQuantV2TimeSpeedDistanceQuestionCandidate(timeSpeedDistancePattern, options)
+                  : topic === "mixture-alligation"
+                    ? createQuantV2MixtureAlligationQuestionCandidate(mixtureAlligationPattern, options)
+                  : topic === "number-system"
+                    ? createQuantV2NumberSystemQuestionCandidate(numberSystemPattern, options)
               : createQuantV2ProfitLossQuestionCandidate(profitLossPattern, options),
       });
       const question = result.question;
@@ -544,7 +736,12 @@ async function main() {
   const topic = parseTopic();
   const count = parseCount();
   const profileId = argValue("profile") ?? "pyq_balanced";
-  const seed = argValue("seed") ?? `quant-v2-pyq-plus:${topic}:${count}`;
+  const explicitSeed = argValue("seed");
+  const runId = randomUUID();
+  const seed = explicitSeed ??
+    (topic === "time-work"
+      ? `quant-v2-pyq-plus:${topic}:${count}:${runId}`
+      : `quant-v2-pyq-plus:${topic}:${count}`);
   const { questions, generationStats } = generateQuestions(topic, count, seed, profileId);
   const ordered = interleaveScheduledPreviewQuestions(questions, seed, familyOf);
 
@@ -678,6 +875,9 @@ async function main() {
 
   const report: PyqBenchmarkAuditSummary & {
     profileId: string;
+    seed: string;
+    runId: string;
+    explicitSeed: boolean;
     generationStats: typeof generationStats;
     acceptance: typeof acceptance;
     firstWindowReports: ReturnType<typeof previewReports>;
@@ -687,6 +887,9 @@ async function main() {
     totalGenerated: total,
     status,
     profileId,
+    seed,
+    runId,
+    explicitSeed: Boolean(explicitSeed),
     averageRealism,
     averagePyqLevelScore,
     averagePyqPlusScore,
