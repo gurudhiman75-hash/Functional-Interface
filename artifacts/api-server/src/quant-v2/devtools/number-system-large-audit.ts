@@ -69,6 +69,17 @@ function malformedMathJax(question: FormulaQuestion) {
   return (text.match(/\\\[/gu) ?? []).length !== (text.match(/\\\]/gu) ?? []).length ||
     (text.match(/\\\(/gu) ?? []).length !== (text.match(/\\\)/gu) ?? []).length;
 }
+function rawEnglishInsideDisplayMath(question: FormulaQuestion) {
+  const blocks = explanationText(question).match(/\\\[[\s\S]*?\\\]/gu) ?? [];
+  return blocks.some((block) => {
+    if (/\\(?:text|mathrm)\s*\{/u.test(block)) return true;
+    const withoutCommands = block
+      .replace(/\\[A-Za-z]+/gu, "")
+      .replace(/\b(?:LCM|HCF)\b/gu, "")
+      .replace(/\b[a-zA-Z]\b/gu, "");
+    return /[A-Za-z]{2,}/u.test(withoutCommands);
+  });
+}
 function rawLatexVisible(question: FormulaQuestion) {
   return /\\\[[^\n][\s\S]*?[^\n]\\\]/u.test(explanationText(question));
 }
@@ -127,6 +138,7 @@ function countsFor(questions: FormulaQuestion[]) {
     missingQuestionMarkCount: questions.filter(missingQuestionMark).length,
     brokenStemCount: questions.filter(brokenStem).length,
     malformedMathJaxCount: questions.filter(malformedMathJax).length,
+    rawEnglishInsideMathJaxCount: questions.filter(rawEnglishInsideDisplayMath).length,
     rawLatexVisibleCount: questions.filter(rawLatexVisible).length,
     genericExplanationCount: questions.filter(genericExplanation).length,
     routingLeakageCount: questions.filter(routingLeakage).length,

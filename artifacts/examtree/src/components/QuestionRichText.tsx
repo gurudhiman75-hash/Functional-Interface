@@ -209,75 +209,118 @@ function renderTextWithLogicIcons(
   return parts.length ? parts : value;
 }
 
-function renderMathLine(
-  line: string,
-  lineIndex: number,
+/**
+ * Tokenize math on the full string first so display blocks may span lines:
+ *   \[
+ *   N=10\times 3+5
+ *   \]
+ * Splitting on "\n" before tokenizing breaks those blocks (Quant V2 explanations).
+ */
+function renderMathContent(
+  content: string,
+  blockIndex: number,
   lang?: string,
 ) {
-  const tokens = tokenizeMath(line);
-
+  const tokens = tokenizeMath(content);
   if (tokens.length === 0) {
-    return (
+    return [
       <div
-        key={`line-${lineIndex}`}
+        key={`${blockIndex}-line-0`}
         className="min-h-[1.25rem]"
-      />
-    );
+      />,
+    ];
   }
 
-  return (
-    <div
-      key={`line-${lineIndex}`}
-      className={cn(
-        "whitespace-pre-wrap",
-        (lang === "pa" ||
-          containsGurmukhi(line)) &&
-          "punjabi-content",
-      )}
-      lang={
-        lang === "pa" ||
-        containsGurmukhi(line)
-          ? "pa"
-          : undefined
+  const rows: ReactNode[] = [];
+  let lineParts: ReactNode[] = [];
+  let lineIndex = 0;
+  let lineText = "";
+
+  const lineUsesPunjabi = () =>
+    lang === "pa" || containsGurmukhi(lineText);
+
+  const flushLine = () => {
+    const key = `${blockIndex}-line-${lineIndex}`;
+    if (lineParts.length === 0) {
+      rows.push(
+        <div key={key} className="min-h-[1.25rem]" />,
+      );
+    } else {
+      rows.push(
+        <div
+          key={key}
+          className={cn(
+            "whitespace-pre-wrap",
+            lineUsesPunjabi() && "punjabi-content",
+          )}
+          lang={lineUsesPunjabi() ? "pa" : undefined}
+        >
+          {lineParts}
+        </div>,
+      );
+    }
+    lineParts = [];
+    lineText = "";
+    lineIndex += 1;
+  };
+
+  const appendText = (text: string, keyPrefix: string) => {
+    const segments = text.split("\n");
+    for (let segmentIndex = 0; segmentIndex < segments.length; segmentIndex += 1) {
+      if (segmentIndex > 0) {
+        flushLine();
       }
-    >
-      {tokens.map((token, tokenIndex) => {
-        if (token.kind === "text") {
-          return (
-            <Fragment
-              key={`text-${lineIndex}-${tokenIndex}`}
-            >
-              {renderTextWithLogicIcons(
-                token.value,
-                `text-${lineIndex}-${tokenIndex}`,
-              )}
-            </Fragment>
-          );
-        }
+      const segment = segments[segmentIndex] ?? "";
+      if (!segment) {
+        continue;
+      }
+      lineText += segment;
+      lineParts.push(
+        <Fragment key={`${keyPrefix}-${segmentIndex}`}>
+          {renderTextWithLogicIcons(segment, keyPrefix)}
+        </Fragment>,
+      );
+    }
+  };
 
-        if (token.kind === "display-math") {
-          return (
-            <MathJax
-              key={`display-${lineIndex}-${tokenIndex}`}
-              dynamic
-            >
-              {`\\[${token.value}\\]`}
-            </MathJax>
-          );
-        }
+  let tokenIndex = 0;
+  for (const token of tokens) {
+    if (token.kind === "text") {
+      appendText(token.value, `text-${blockIndex}-${tokenIndex}`);
+      tokenIndex += 1;
+      continue;
+    }
 
-        return (
-          <MathJax
-            key={`inline-${lineIndex}-${tokenIndex}`}
-            inline
-            dynamic
-          >
-            {`\\(${token.value}\\)`}
-          </MathJax>
-        );
-      })}
-    </div>
-  );
+    if (token.kind === "display-math") {
+      flushLine();
+      rows.push(
+        <MathJax
+          key={`${blockIndex}-display-${tokenIndex}`}
+          className="my-2 block overflow-x-auto"
+          dynamic
+        >
+          {`\\[${token.value}\\]`}
+        </MathJax>,
+      );
+      tokenIndex += 1;
+      continue;
+    }
+
+    lineText += token.value;
+    lineParts.push(
+      <MathJax
+        key={`${blockIndex}-inline-${tokenIndex}`}
+        inline
+        dynamic
+      >
+        {`\\(${token.value}\\)`}
+      </MathJax>,
+    );
+    tokenIndex += 1;
+  }
+
+  flushLine();
+  return rows;
 }
 
 /**
@@ -376,15 +419,7 @@ export function QuestionRichText({
               inline && "text-sm sm:text-base",
             )}
           >
-            {p.value
-              .split("\n")
-              .map((line, lineIndex) =>
-                renderMathLine(
-                  line,
-                  lineIndex,
-                  lang,
-                ),
-              )}
+            {renderMathContent(p.value, i, lang)}
           </div>
         );
       })}

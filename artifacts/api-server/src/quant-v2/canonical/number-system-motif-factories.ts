@@ -10,6 +10,7 @@ import type {
   NumberSystemSolverKind,
   NumberSystemSolverModel,
 } from "./number-system-types";
+import { displayMathBlock, inlineMath } from "../utils/quant-math-delimiters";
 
 export const NUMBER_SYSTEM_FAMILY_IDS = [
   "ns_missing_digit_single_rule",
@@ -231,11 +232,8 @@ export function resolveNumberSystemFamily(value?: string): NumberSystemFamilyId 
 function displayFactors(factors: Record<number, number>) {
   return Object.entries(factors).map(([p, e]) => e === 1 ? p : `${p}^{${e}}`).join("\\times ");
 }
-function optionText(value: number | string, unit: NumberSystemAnswerUnit) {
-  if (unit === "digit") return `\\(${value}\\)`;
-  if (unit === "count") return `\\(${value}\\)`;
-  if (unit === "remainder") return `\\(${value}\\)`;
-  return `\\(${value}\\)`;
+function optionText(value: number | string, _unit: NumberSystemAnswerUnit) {
+  return inlineMath(String(value));
 }
 function localizedOptions(options: string[]) {
   return { en: options, hi: options, pa: options };
@@ -243,7 +241,40 @@ function localizedOptions(options: string[]) {
 function buildOptions(answer: number, unit: NumberSystemAnswerUnit, seed: string) {
   if (!Number.isFinite(answer)) answer = 42;
   const values = new Set<number>([answer]);
-  for (const delta of [1, -1, 2, -2, 3, -3, 5, -5]) {
+  
+  let deltas: number[] = [];
+  if (unit === "digit") {
+    deltas = [1, -1, 2, -2, 3, -3, 4, -4];
+  } else if (answer > 100000) {
+    deltas = [
+      Math.round(answer * 0.1),
+      Math.round(answer * 0.25),
+      Math.round(answer * 0.5),
+      -Math.round(answer * 0.1),
+      -Math.round(answer * 0.2),
+    ];
+  } else if (answer > 1000) {
+    deltas = [
+      Math.round(answer * 0.1),
+      Math.round(answer * 0.2),
+      -Math.round(answer * 0.1),
+      -Math.round(answer * 0.2),
+      10, -10, 20, -20
+    ];
+  } else if (answer > 100) {
+    deltas = [
+      Math.round(answer * 0.05),
+      Math.round(answer * 0.1),
+      -Math.round(answer * 0.05),
+      -Math.round(answer * 0.1),
+      6, -6, 12, -12
+    ];
+  } else {
+    deltas = [1, -1, 2, -2, 3, -3, 5, -5];
+  }
+
+  for (const delta of deltas) {
+    if (delta === 0) continue;
     const next = answer + delta;
     if (unit === "digit") {
       if (next >= 0 && next <= 9) values.add(next);
@@ -253,7 +284,18 @@ function buildOptions(answer: number, unit: NumberSystemAnswerUnit, seed: string
     if (values.size >= 4) break;
   }
   let fallback = 0;
-  while (values.size < 4) values.add(unit === "digit" ? fallback++ : answer + 7 + fallback++);
+  while (values.size < 4) {
+    const nextFallback = unit === "digit" 
+      ? fallback++ 
+      : answer > 100 
+        ? answer + Math.round(answer * 0.15) + fallback++
+        : answer + 7 + fallback++;
+    if (unit === "digit") {
+      if (nextFallback >= 0 && nextFallback <= 9) values.add(nextFallback);
+    } else if (nextFallback >= 0) {
+      values.add(nextFallback);
+    }
+  }
   const list = [...values].slice(0, 4);
   const correctValue = list[0]!;
   const shift = hashText(seed) % 4;
@@ -263,11 +305,28 @@ function buildOptions(answer: number, unit: NumberSystemAnswerUnit, seed: string
 }
 
 function withMath(value: string) {
-  return `\\[\n${value}\n\\]`;
+  return displayMathBlock(value);
 }
 
 function stemVariant(seed: string, variants: readonly NumberSystemLocalizedText[]) {
   return pick(variants, `${seed}:stem-variant`);
+}
+
+function remainderCycle(base: number, mod: number) {
+  const seen = new Set<number>();
+  const cycle: number[] = [];
+  let value = 1 % mod;
+  for (let step = 1; step <= 24; step += 1) {
+    value = (value * (((base % mod) + mod) % mod)) % mod;
+    if (seen.has(value)) break;
+    seen.add(value);
+    cycle.push(value);
+  }
+  return cycle.length ? cycle : [0];
+}
+
+function compactFactors(factors: Record<number, number>) {
+  return displayFactors(factors) || "1";
 }
 
 export function evaluateNumberSystemSolverModel(model: NumberSystemSolverModel): number | string {
@@ -381,9 +440,9 @@ function divisibilityDraft(spec: Spec, seed: string): Draft {
   const end = start + int(`${seed}:span`, 80, 180);
   return {
     stem: t(
-      `Between \\(${start}\\) and \\(${end}\\), how many integers are divisible by \\(${divisor}\\) but not chosen by inspection?`,
-      `\\(${start}\\) और \\(${end}\\) के बीच कितनी पूर्ण संख्याएँ \\(${divisor}\\) से विभाज्य हैं?`,
-      `\\(${start}\\) ਅਤੇ \\(${end}\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੀਆਂ ਪੂਰਨ ਸੰਖਿਆਵਾਂ \\(${divisor}\\) ਨਾਲ ਭਾਗ ਜਾਂਦੀਆਂ ਹਨ?`,
+      `Between \\(${start}\\) and \\(${end}\\), how many integers are divisible by \\(${divisor}\\)?`,
+      `\\(${start}\\) और \\(${end}\\) के बीच कितने पूर्णांक \\(${divisor}\\) से विभाज्य हैं?`,
+      `\\(${start}\\) ਅਤੇ \\(${end}\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(${divisor}\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?`,
     ),
     model: { kind: "divisibility_count", inputs: { start, end, divisor } },
     variables: { start, end, divisor },
@@ -411,8 +470,8 @@ function factorDraft(spec: Spec, seed: string): Draft {
     stem: stemVariant(seed, [
       t(`After prime factorising \\(${n}\\), what is the ${ask === "sum" ? "sum of all positive divisors" : ask === "product" ? "product of all positive divisors" : ask === "odd" ? "number of odd divisors" : "number of positive divisors"}?`, `\\(${n}\\) का अभाज्य गुणनखंड करने के बाद ${ask === "sum" ? "सभी धनात्मक भाजकों का योग" : ask === "product" ? "सभी धनात्मक भाजकों का गुणनफल" : ask === "odd" ? "विषम भाजकों की संख्या" : "धनात्मक भाजकों की संख्या"} क्या है?`, `\\(${n}\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ${ask === "sum" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ" : ask === "product" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ"} ਕੀ ਹੈ?`),
       t(`For the number \\(${n}\\), find the ${ask === "sum" ? "sum of its positive divisors" : ask === "product" ? "product of its positive divisors" : ask === "odd" ? "count of odd divisors" : "count of positive divisors"}?`, `संख्या \\(${n}\\) के लिए ${ask === "sum" ? "धनात्मक भाजकों का योग" : ask === "product" ? "धनात्मक भाजकों का गुणनफल" : ask === "odd" ? "विषम भाजकों की संख्या" : "धनात्मक भाजकों की संख्या"} ज्ञात करें?`, `ਸੰਖਿਆ \\(${n}\\) ਲਈ ${ask === "sum" ? "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ" : ask === "product" ? "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ"} ਪਤਾ ਕਰੋ?`),
-      t(`Using prime powers of \\(${n}\\), what is the required divisor result?`, `\\(${n}\\) की अभाज्य घातों का उपयोग करके आवश्यक भाजक परिणाम क्या है?`, `\\(${n}\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ਲੋੜੀਂਦਾ ਭਾਜਕ ਨਤੀਜਾ ਕੀ ਹੈ?`),
-      t(`A number is \\(${n}\\). Based on its prime factorisation, what divisor value is asked?`, `एक संख्या \\(${n}\\) है। उसके अभाज्य गुणनखंड के आधार पर पूछा गया भाजक-मान क्या है?`, `ਇੱਕ ਸੰਖਿਆ \\(${n}\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ਪੁੱਛਿਆ ਭਾਜਕ ਮੁੱਲ ਕੀ ਹੈ?`),
+      t(`Using prime powers of \\(${n}\\), find the ${ask === "sum" ? "sum of all its positive divisors" : ask === "product" ? "product of all its positive divisors" : ask === "odd" ? "count of odd divisors" : "count of positive divisors"}.`, `\\(${n}\\) की अभाज्य घातों का उपयोग करके ${ask === "sum" ? "सभी धनात्मक भाजकों का योग ज्ञात करें" : ask === "product" ? "सभी धनात्मक भाजकों का गुणनफल ज्ञात करें" : ask === "odd" ? "विषम भाजकों की संख्या ज्ञात करें" : "धनात्मक भाजकों की कुल संख्या ज्ञात करें"}।`, `\\(${n}\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ${ask === "sum" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਪਤਾ ਕਰੋ" : ask === "product" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ"}।`),
+      t(`A number is \\(${n}\\). Based on its prime factorisation, determine the ${ask === "sum" ? "sum of all its positive divisors" : ask === "product" ? "product of all its positive divisors" : ask === "odd" ? "total number of odd divisors" : "total number of positive divisors"}.`, `एक संख्या \\(${n}\\) है। उसके अभाज्य गुणनखंड के आधार पर ${ask === "sum" ? "सभी धनात्मक भाजकों का योग निर्धारित करें" : ask === "product" ? "सभी धनात्मक भाजकों का गुणनफल निर्धारित करें" : ask === "odd" ? "विषम भाजकों की कुल संख्या निर्धारित करें" : "धनात्मक भाजकों की कुल संख्या निर्धारित करें"}।`, `ਇੱਕ ਸੰਖਿਆ \\(${n}\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ${ask === "sum" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਨਿਰਧਾਰਿਤ ਕਰੋ" : ask === "product" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਨਿਰਧਾਰਿਤ ਕਰੋ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ"}।`),
     ]),
     model: { kind: "factor_count", inputs: { n, ask } },
     variables: { n, ask, factors },
@@ -508,8 +567,8 @@ function lastDigitDraft(spec: Spec, seed: string): Draft {
     stem: stemVariant(seed, [
       t(`What are the last ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
       t(`Find the ending ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) के अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें?`, `\\(${base}^{${exp}}\\) ਦੇ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ?`),
-      t(`Using the power cycle, what ending does \\(${base}^{${exp}}\\) have?`, `घात-चक्र से \\(${base}^{${exp}}\\) का अंतिम रूप क्या होगा?`, `ਘਾਤ-ਚੱਕਰ ਨਾਲ \\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ਰੂਪ ਕੀ ਹੋਵੇਗਾ?`),
-      t(`A power \\(${base}^{${exp}}\\) is too large to expand. Which ending digits does it have?`, `घात \\(${base}^{${exp}}\\) फैलाने के लिए बहुत बड़ी है। इसके अंतिम अंक क्या होंगे?`, `ਘਾਤ \\(${base}^{${exp}}\\) ਫੈਲਾਉਣ ਲਈ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਇਸ ਦੇ ਆਖਰੀ ਅੰਕ ਕੀ ਹੋਣਗੇ?`),
+      t(`Evaluate the last ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} of the expression \\(${base}^{${exp}}\\).`, `अभिव्यक्ति \\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें।`, `ਅਭਿਵਿਅਕਤੀ \\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ।`),
+      t(`What are the last ${mod === 10 ? "digit (units digit)" : mod === 100 ? "two digits" : "three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक (इकाई अंक)" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ (ਇਕਾਈ ਅੰਕ)" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
     ]),
     model: { kind: "last_digit", inputs: { base, exp, mod } },
     variables: { base, exp, mod },
@@ -520,7 +579,7 @@ function lastDigitDraft(spec: Spec, seed: string): Draft {
     formula: `a^n\\bmod ${mod}`,
     steps: [
       { key: "cycle", text: t("Identify the power cycle for the required ending digits.", "चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।", "ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।") },
-      { key: "position", text: t("Use the exponent position in that cycle.", "उस चक्र में घात की स्थिति लें।", "ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।"), math: `${exp}\\text{ in cycle}` },
+      { key: "position", text: t("Use the exponent position in that cycle.", "उस चक्र में घात की स्थिति लें।", "ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।"), math: `(${exp}-1)\\bmod 4+1` },
     ],
     shortcut: t("Only the cycle position matters, not the full power.", "पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।", "ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।"),
     traps: ["wrong unit digit cycle", "used exponent directly", "ignored last two digit modulus"],
@@ -533,7 +592,14 @@ function digitDraft(spec: Spec, seed: string): Draft {
   const n = 10 * tens + ones;
   const ask = spec.family.includes("number_of_digits") ? "digits" : spec.family.includes("interchange") ? "reversal" : "number";
   return {
-    stem: stemVariant(seed, ask === "reversal"
+    stem: stemVariant(seed, ask === "digits"
+      ? [
+          t(`How many digits are there in the number \\(${n}\\)?`, `संख्या \\(${n}\\) में कितने अंक हैं?`, `ਸੰਖਿਆ \\(${n}\\) ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
+          t(`Count the digits in \\(${n}\\). What is the digit count?`, `\\(${n}\\) में अंकों की गिनती करें। अंक-गिनती क्या है?`, `\\(${n}\\) ਵਿੱਚ ਅੰਕਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ। ਅੰਕ-ਗਿਣਤੀ ਕੀ ਹੈ?`),
+          t(`The number \\(${n}\\) is written in decimal form. How many digits does it contain?`, `संख्या \\(${n}\\) दशमलव रूप में लिखी है। इसमें कितने अंक हैं?`, `ਸੰਖਿਆ \\(${n}\\) ਦਸ਼ਮਲਵ ਰੂਪ ਵਿੱਚ ਲਿਖੀ ਹੈ। ਇਸ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
+          t(`For \\(${n}\\), what is the total number of digits?`, `\\(${n}\\) के लिए कुल कितने अंक हैं?`, `\\(${n}\\) ਲਈ ਕੁੱਲ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
+        ]
+      : ask === "reversal"
       ? [
           t(`Digits \\(${tens}\\) and \\(${ones}\\) form a two-digit number. What is the difference between it and its reversed number?`, `अंक \\(${tens}\\) और \\(${ones}\\) एक दो-अंकीय संख्या बनाते हैं। उसका और उलटी संख्या का अंतर क्या है?`, `ਅੰਕ \\(${tens}\\) ਅਤੇ \\(${ones}\\) ਇੱਕ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਬਣਾਉਂਦੇ ਹਨ। ਉਸ ਦਾ ਅਤੇ ਉਲਟੀ ਸੰਖਿਆ ਦਾ ਫਰਕ ਕੀ ਹੈ?`),
           t(`Tens digit \\(${tens}\\) and ones digit \\(${ones}\\) are used in a number. How much does it change when reversed?`, `दहाई अंक \\(${tens}\\) और इकाई अंक \\(${ones}\\) एक संख्या में हैं। उलटने पर वह कितनी बदलेगी?`, `ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਅਤੇ ਇਕਾਈ ਅੰਕ \\(${ones}\\) ਇੱਕ ਸੰਖਿਆ ਵਿੱਚ ਹਨ। ਉਲਟਣ ਤੇ ਇਹ ਕਿੰਨੀ ਬਦਲੇਗੀ?`),
@@ -564,9 +630,9 @@ function digitDraft(spec: Spec, seed: string): Draft {
 }
 
 function factorialDraft(spec: Spec, seed: string): Draft {
-  const n = pick([25, 30, 40, 50, 60, 75], `${seed}:n`);
-  const p = pick([2, 3, 5], `${seed}:p`);
   const ask = spec.family.includes("zero") ? "zeros" : spec.family.includes("remainder") ? "remainder" : "power";
+  const n = pick([25, 30, 40, 50, 60, 75], `${seed}:n`);
+  const p = ask === "zeros" ? 5 : pick([2, 3, 5], `${seed}:p`);
   return {
     stem: stemVariant(seed, [
       t(
@@ -580,9 +646,39 @@ function factorialDraft(spec: Spec, seed: string): Draft {
         ? `\\(${n}!\\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਹੋਣਗੇ?`
         : `\\(${n}!\\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \\(${p}\\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?`,
       ),
-      t(`In \\(${n}!\\), find the required factorial exponent count?`, `\\(${n}!\\) में आवश्यक फैक्टोरियल घात-गिनती ज्ञात करें?`, `\\(${n}!\\) ਵਿੱਚ ਲੋੜੀਂਦੀ ਫੈਕਟੋਰੀਅਲ ਘਾਤ-ਗਿਣਤੀ ਪਤਾ ਕਰੋ?`),
-      t(`For the factorial \\(${n}!\\), what count is obtained by tracking prime factors?`, `फैक्टोरियल \\(${n}!\\) में अभाज्य गुणनखंड गिनकर क्या मान मिलेगा?`, `ਫੈਕਟੋਰੀਅਲ \\(${n}!\\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?`),
-      t(`A factorial expression \\(${n}!\\) is given. What is the asked exponent-based result?`, `फैक्टोरियल अभिव्यक्ति \\(${n}!\\) दी है। पूछा गया घात-आधारित परिणाम क्या है?`, `ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(${n}!\\) ਦਿੱਤੀ ਹੈ। ਪੁੱਛਿਆ ਘਾਤ-ਆਧਾਰਿਤ ਨਤੀਜਾ ਕੀ ਹੈ?`),
+      t(
+        ask === "zeros"
+          ? `In \\(${n}!\\), what is the total count of trailing zeroes?`
+          : `In \\(${n}!\\), find the exponent of \\(${p}\\) in its prime factorisation?`,
+        ask === "zeros"
+          ? `\\(${n}!\\) में अंत में कितने शून्य प्राप्त होते हैं?`
+          : `\\(${n}!\\) में अभाज्य गुणनखंड \\(${p}\\) की घात ज्ञात करें?`,
+        ask === "zeros"
+          ? `\\(${n}!\\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਪ੍ਰਾਪਤ ਹੁੰਦੇ ਹਨ?`
+          : `\\(${n}!\\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \\(${p}\\) ਦੀ ਘਾਤ ਪਤਾ ਕਰੋ?`
+      ),
+      t(
+        ask === "zeros"
+          ? `For the factorial \\(${n}!\\), find the total count of trailing zeroes.`
+          : `For the factorial \\(${n}!\\), what count is obtained by tracking prime factor \\(${p}\\)?`,
+        ask === "zeros"
+          ? `फैक्टोरियल \\(${n}!\\) के लिए, अंत में शून्यों की कुल संख्या ज्ञात करें।`
+          : `फैक्टोरियल \\(${n}!\\) में अभाज्य गुणनखंड \\(${p}\\) गिनकर क्या मान मिलेगा?`,
+        ask === "zeros"
+          ? `ਫੈਕਟੋਰੀਅਲ \\(${n}!\\) ਲਈ, ਅੰਤ ਵਿੱਚ ਸਿਫ਼ਰਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`
+          : `ਫੈਕਟੋਰੀਅਲ \\(${n}!\\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \\(${p}\\) ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?`
+      ),
+      t(
+        ask === "zeros"
+          ? `A factorial expression \\(${n}!\\) is given. What is the count of trailing zeroes?`
+          : `A factorial expression \\(${n}!\\) is given. What is the exponent of prime factor \\(${p}\\)?`,
+        ask === "zeros"
+          ? `फैक्टोरियल अभिव्यक्ति \\(${n}!\\) दी है। शून्यों की संख्या क्या है?`
+          : `फैक्टोरियल अभिव्यक्ति \\(${n}!\\) दी है। अभाज्य गुणनखंड \\(${p}\\) की घात क्या है?`,
+        ask === "zeros"
+          ? `ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(${n}!\\) ਦਿੱਤੀ ਹੈ। ਸਿਫ਼ਰਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?`
+          : `ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(${n}!\\) ਦਿੱਤੀ ਹੈ। ਅਭਾਜ ਗੁਣਨਖੰਡ \\(${p}\\) ਦੀ ਘਾਤ ਕੀ ਹੈ?`
+      ),
     ]),
     model: { kind: "factorial", inputs: { n, p, ask } },
     variables: { n, p, ask },
@@ -642,6 +738,183 @@ function createDraft(spec: Spec, seed: string): Draft {
   return divisibilityDraft(spec, seed);
 }
 
+function teachingStepsEn(draft: Draft) {
+  const i = draft.model.inputs as Record<string, any>;
+  const lines: Array<{ text: string; math?: string }> = [];
+  switch (draft.model.kind) {
+    case "missing_digit": {
+      const pattern = String(i.pattern);
+      const divisor = Number(i.divisor);
+      const answer = Number(evaluateNumberSystemSolverModel(draft.model));
+      const completed = pattern.replace("x", String(answer));
+      lines.push(
+        { text: `Use the divisibility rule for ${divisor}; the chosen digit must make the completed number divisible by ${divisor}.` },
+        { text: "Test the valid digit in the blank.", math: `${pattern}\\Rightarrow ${completed}` },
+        { text: "Now verify divisibility.", math: `${completed}\\div ${divisor}=${Math.floor(Number(completed) / divisor)}` },
+      );
+      break;
+    }
+    case "divisibility_count": {
+      const start = Number(i.start);
+      const end = Number(i.end);
+      const divisor = Number(i.divisor);
+      const first = Math.ceil(start / divisor) * divisor;
+      const last = Math.floor(end / divisor) * divisor;
+      const count = Math.floor(end / divisor) - Math.floor((start - 1) / divisor);
+      lines.push(
+        { text: "Find the first multiple inside the range and the last multiple inside the range.", math: `${first},\\ ${last}` },
+        { text: "Count the terms in this arithmetic sequence of multiples.", math: `\\frac{${last}-${first}}{${divisor}}+1=${count}` },
+        { text: "This avoids listing every integer in the interval." },
+      );
+      break;
+    }
+    case "factor_count": {
+      const n = Number(i.n);
+      const factors = primeFactors(n);
+      const factorText = compactFactors(factors);
+      lines.push({ text: "First write the number as prime powers.", math: `${n}=${factorText}` });
+      if (i.ask === "sum") {
+        const terms = Object.entries(factors).map(([p, e]) => `\\frac{${p}^{${e + 1}}-1}{${p}-1}`).join("\\times ");
+        lines.push({ text: "For sum of divisors, multiply the geometric-sum terms for each prime.", math: terms });
+      } else if (i.ask === "product") {
+        const count = factorCountFromFactors(factors);
+        lines.push(
+          { text: "First count divisors from the exponents.", math: `d(n)=${Object.values(factors).map((e) => `(${e}+1)`).join("\\times ")}=${count}` },
+          { text: "The product of divisors is the number raised to half the divisor count.", math: `${n}^{${count}/2}` },
+        );
+      } else if (i.ask === "odd") {
+        const oddTerms = Object.entries(factors).filter(([p]) => Number(p) !== 2).map(([, e]) => `(${e}+1)`).join("\\times ") || "1";
+        lines.push({ text: "Odd divisors ignore the power of 2 and use only odd prime exponents.", math: oddTerms });
+      } else {
+        lines.push({ text: "Each exponent contributes one more choice than its value.", math: `d(n)=${Object.values(factors).map((e) => `(${e}+1)`).join("\\times ")}=${factorCountFromFactors(factors)}` });
+      }
+      break;
+    }
+    case "hcf_lcm": {
+      const a = Number(i.a);
+      const b = Number(i.b);
+      const ask = String(i.ask);
+      if (ask === "three_lcm") {
+        const c = Number(i.c);
+        lines.push(
+          { text: "Write the prime powers so the largest powers of each prime can be selected.", math: `${a}=${compactFactors(primeFactors(a))},\\ ${b}=${compactFactors(primeFactors(b))},\\ ${c}=${compactFactors(primeFactors(c))}` },
+          { text: "When three events must repeat together, take the LCM of all three intervals.", math: `\\operatorname{LCM}(${a},${b},${c})=${lcm(lcm(a, b), c)}` },
+          { text: "The LCM is the first time all cycles land together again." },
+        );
+      } else if (ask === "other") {
+        lines.push(
+          { text: "For two numbers, product of numbers equals product of HCF and LCM.", math: `a\\times b=\\operatorname{HCF}\\times\\operatorname{LCM}` },
+          { text: "Substitute the known number, HCF and LCM to recover the missing number.", math: `b=\\frac{${i.hcf}\\times ${i.lcm}}{${i.known}}` },
+        );
+      } else {
+        lines.push(
+          { text: ask === "hcf" ? "For common division, use HCF." : "For first common repetition, use LCM." },
+          { text: "Compare the prime-factor forms of the two numbers.", math: `${a}=${compactFactors(primeFactors(a))},\\ ${b}=${compactFactors(primeFactors(b))}` },
+          { text: "Choose common lowest powers for HCF and highest powers for LCM.", math: ask === "hcf" ? `\\operatorname{HCF}(${a},${b})=${gcd(a, b)}` : `\\operatorname{LCM}(${a},${b})=${lcm(a, b)}` },
+        );
+      }
+      break;
+    }
+    case "remainder":
+    case "last_digit":
+    case "modular_hybrid": {
+      const base = Number(i.base);
+      const exp = Number(i.exp);
+      const mod = Number(i.mod ?? 10);
+      const reduced = ((base % mod) + mod) % mod;
+      const cycle = remainderCycle(reduced, mod);
+      const position = ((exp - 1) % cycle.length) + 1;
+      lines.push(
+        { text: "Reduce the base first so the numbers stay small.", math: `${base}\\equiv ${reduced}\\pmod{${mod}}` },
+        { text: "Write the repeating remainder cycle.", math: cycle.join(",\\ ") },
+        { text: "Locate the exponent inside the cycle.", math: `(${exp}-1)\\bmod ${cycle.length}+1=${position}` },
+        { text: "Take the remainder at that cycle position.", math: `${cycle[position - 1]}` },
+      );
+      break;
+    }
+    case "digit_logic": {
+      const tens = Number(i.tens);
+      const ones = Number(i.ones);
+      if (i.ask === "reversal") {
+        lines.push(
+          { text: "Write the original number and the reversed number using place value.", math: `${10 * tens + ones},\\ ${10 * ones + tens}` },
+          { text: "Their difference is nine times the difference of the two digits.", math: `9\\times |${tens}-${ones}|=${9 * Math.abs(tens - ones)}` },
+        );
+      } else if (i.ask === "digits") {
+        const digitCount = String(Math.abs(Number(i.n))).length;
+        lines.push(
+          { text: "Count place values rather than doing arithmetic on the number.", math: `10^{${digitCount - 1}}\\le ${i.n}<10^{${digitCount}}` },
+          { text: "So the number has this many decimal places.", math: `d=${digitCount}` },
+        );
+      } else {
+        lines.push(
+          { text: "Use the digit sum to find the ones digit.", math: `${tens}+u=${tens + ones}\\Rightarrow u=${ones}` },
+          { text: "Now write the two-digit number by place value.", math: `N=10\\times ${tens}+${ones}=${10 * tens + ones}` },
+        );
+      }
+      break;
+    }
+    case "factorial": {
+      const n = Number(i.n);
+      const p = i.ask === "zeros" ? 5 : Number(i.p);
+      const terms: number[] = [];
+      for (let div = p; div <= n; div *= p) terms.push(Math.floor(n / div));
+      lines.push(
+        { text: i.ask === "zeros" ? "Trailing zeroes come from pairs of 2 and 5; fives are fewer, so count fives." : `Count how many times prime ${p} appears inside the factorial.` },
+        { text: "Use Legendre's quotient sum for the prime and its powers.", math: `\\left\\lfloor\\frac{${n}}{${p}}\\right\\rfloor+\\left\\lfloor\\frac{${n}}{${p * p}}\\right\\rfloor+\\cdots` },
+        { text: "Add the quotients for the prime and its higher powers.", math: terms.join("+") + `=${terms.reduce((a, b) => a + b, 0)}` },
+      );
+      break;
+    }
+    default:
+      for (const step of draft.steps) lines.push({ text: step.text.en, math: step.math });
+  }
+  return lines;
+}
+
+function shortcutEn(draft: Draft, answerText: string, optionLabel: string) {
+  const i = draft.model.inputs as Record<string, any>;
+  let lines: string[] = [];
+  switch (draft.model.kind) {
+    case "missing_digit": {
+      const answer = Number(evaluateNumberSystemSolverModel(draft.model));
+      lines = [`Direct check: replace \\(x\\) by \\(${answer}\\) in \\(${i.pattern}\\).`, withMath(`${String(i.pattern).replace("x", String(answer))}\\equiv 0\\pmod{${i.divisor}}`)];
+      break;
+    }
+    case "divisibility_count": {
+      const first = Math.ceil(Number(i.start) / Number(i.divisor)) * Number(i.divisor);
+      const last = Math.floor(Number(i.end) / Number(i.divisor)) * Number(i.divisor);
+      lines = ["Fast count with quotient floors.", withMath(`\\left\\lfloor\\frac{${i.end}}{${i.divisor}}\\right\\rfloor-\\left\\lfloor\\frac{${Number(i.start) - 1}}{${i.divisor}}\\right\\rfloor=${answerText.replace(/[\\()]/g, "")}`)];
+      break;
+    }
+    case "factor_count": {
+      const factors = primeFactors(Number(i.n));
+      lines = ["Exponent-choice shortcut.", withMath(Object.values(factors).map((e) => `(${e}+1)`).join("\\times ") || "1")];
+      break;
+    }
+    case "hcf_lcm":
+      lines = ["Exam cue: common division means HCF; repeat together means LCM."];
+      break;
+    case "remainder":
+    case "last_digit":
+    case "modular_hybrid": {
+      const cycle = remainderCycle(Number(i.base), Number(i.mod ?? 10));
+      lines = ["Index the repeating list; do not expand the power.", withMath(`${i.exp}\\mapsto ${((Number(i.exp) - 1) % cycle.length) + 1}`)];
+      break;
+    }
+    case "digit_logic":
+      lines = [i.ask === "reversal" ? "Reversal difference shortcut is \\(9\\) times the digit difference." : "Find the missing digit from the digit sum, then place it."];
+      break;
+    case "factorial":
+      lines = [i.ask === "zeros" ? "Zero shortcut: count fives only." : "Prime-power shortcut: quotient floors only."];
+      break;
+    default:
+      lines = [draft.shortcut.en];
+  }
+  lines.push(`Answer: ${answerText}, Option ${optionLabel}.`);
+  return lines.join("\n");
+}
+
 function renderExplanation(input: {
   draft: Draft;
   answerText: string;
@@ -658,9 +931,16 @@ function renderExplanation(input: {
       "",
       locale === "en" ? "Working" : locale === "hi" ? "हल" : "ਹੱਲ",
     ];
-    for (const step of draft.steps) {
-      lines.push(step.text[locale]);
-      if (step.math) lines.push(withMath(step.math));
+    if (locale === "en") {
+      for (const step of teachingStepsEn(draft)) {
+        lines.push(step.text);
+        if (step.math) lines.push(withMath(step.math));
+      }
+    } else {
+      for (const step of draft.steps) {
+        lines.push(step.text[locale]);
+        if (step.math) lines.push(withMath(step.math));
+      }
     }
     lines.push(
       locale === "en" ? `Therefore, the required answer is ${answerText}.` :
@@ -671,8 +951,8 @@ function renderExplanation(input: {
       `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${optionLabel} ਹੈ।`,
       "",
       locale === "en" ? "Shortcut / Exam Method" : locale === "hi" ? "शॉर्टकट / परीक्षा विधि" : "ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ",
-      draft.shortcut[locale],
-      locale === "en" ? `Answer: ${answerText}, Option ${optionLabel}.` :
+      locale === "en" ? shortcutEn(draft, answerText, optionLabel) : draft.shortcut[locale],
+      locale === "en" ? "" :
       locale === "hi" ? `उत्तर: ${answerText}, विकल्प ${optionLabel}.` :
       `ਉੱਤਰ: ${answerText}, ਵਿਕਲਪ ${optionLabel}.`,
     );
