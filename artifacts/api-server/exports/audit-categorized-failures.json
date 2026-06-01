@@ -1,0 +1,879 @@
+{
+  "realism": [
+    {
+      "index": 3,
+      "text": "Between \\(138\\) and \\(226\\), how many integers are divisible by \\(9\\) but not chosen by inspection?",
+      "options": [
+        "\\(10\\)",
+        "\\(11\\)",
+        "\\(9\\)",
+        "\\(12\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(10\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(138\\) and \\(226\\), how many integers are divisible by \\(9\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{226}{9}\\right\\rfloor-\\left\\lfloor\\frac{137}{9}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(10\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(10\\), Option (A).",
+      "family": "ns_divisibility_range_count",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 5,
+      "text": "A number is \\(360\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(24\\)",
+        "\\(25\\)",
+        "\\(23\\)",
+        "\\(26\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(24\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(360\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n360=2^{3}\\times 3^{2}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(24\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(24\\), Option (A).",
+      "family": "ns_prime_factorization",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 6,
+      "text": "Using prime powers of \\(432\\), what is the required divisor result?",
+      "options": [
+        "\\(22\\)",
+        "\\(20\\)",
+        "\\(21\\)",
+        "\\(19\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(20\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(432\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n432=2^{4}\\times 3^{3}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(20\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(20\\), Option (B).",
+      "family": "ns_prime_composite_deduction",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 8,
+      "text": "Using prime powers of \\(48\\), what is the required divisor result?",
+      "options": [
+        "\\(4\\)",
+        "\\(2\\)",
+        "\\(3\\)",
+        "\\(1\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(2\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(48\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n48=2^{4}\\times 3\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(2\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(2\\), Option (B).",
+      "family": "ns_odd_even_divisor_count",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 9,
+      "text": "A number is \\(30\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(810000\\)",
+        "\\(810001\\)",
+        "\\(809999\\)",
+        "\\(810002\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(810000\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(30\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n30=2\\times 3\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(810000\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(810000\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 16,
+      "text": "Using the power cycle, what ending does \\(7^{123}\\) have?",
+      "options": [
+        "\\(5\\)",
+        "\\(3\\)",
+        "\\(4\\)",
+        "\\(2\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(3\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(7^{123}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n123\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(3\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(3\\), Option (B).",
+      "family": "ns_unit_digit_cycle",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 17,
+      "text": "A power \\(12^{98}\\) is too large to expand. Which ending digits does it have?",
+      "options": [
+        "\\(704\\)",
+        "\\(705\\)",
+        "\\(703\\)",
+        "\\(706\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(704\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nA power \\(12^{98}\\) is too large to expand. Which ending digits does it have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n98\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(704\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(704\\), Option (A).",
+      "family": "ns_last_three_digits",
+      "reason": "Vague stem: asks 'which ending digits does it have' without specifying whether it wants unit, last 2, or last 3 digits."
+    },
+    {
+      "index": 26,
+      "text": "Between \\(203\\) and \\(313\\), how many integers are divisible by \\(15\\) but not chosen by inspection?",
+      "options": [
+        "\\(7\\)",
+        "\\(8\\)",
+        "\\(6\\)",
+        "\\(9\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(7\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(203\\) and \\(313\\), how many integers are divisible by \\(15\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{313}{15}\\right\\rfloor-\\left\\lfloor\\frac{202}{15}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(7\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(7\\), Option (A).",
+      "family": "ns_cyclic_pattern",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 30,
+      "text": "Between \\(175\\) and \\(325\\), how many integers are divisible by \\(15\\) but not chosen by inspection?",
+      "options": [
+        "\\(10\\)",
+        "\\(11\\)",
+        "\\(9\\)",
+        "\\(12\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(10\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(175\\) and \\(325\\), how many integers are divisible by \\(15\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{325}{15}\\right\\rfloor-\\left\\lfloor\\frac{174}{15}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(10\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(10\\), Option (A).",
+      "family": "ns_divisibility_range_count",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 32,
+      "text": "A number is \\(120\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(16\\)",
+        "\\(17\\)",
+        "\\(15\\)",
+        "\\(18\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(16\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(120\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(16\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(16\\), Option (A).",
+      "family": "ns_prime_factorization",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 36,
+      "text": "A number is \\(20\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(8000\\)",
+        "\\(8001\\)",
+        "\\(7999\\)",
+        "\\(8002\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(8000\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(20\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n20=2^{2}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(8000\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(8000\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 44,
+      "text": "Using the power cycle, what ending does \\(3^{98}\\) have?",
+      "options": [
+        "\\(891\\)",
+        "\\(889\\)",
+        "\\(890\\)",
+        "\\(888\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(889\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(3^{98}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n98\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(889\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(889\\), Option (B).",
+      "family": "ns_last_three_digits",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 51,
+      "text": "A number is \\(1080\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(32\\)",
+        "\\(33\\)",
+        "\\(31\\)",
+        "\\(34\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(32\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(1080\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(32\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(32\\), Option (A).",
+      "family": "ns_factorial_factor_count",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 52,
+      "text": "Between \\(237\\) and \\(351\\), how many integers are divisible by \\(6\\) but not chosen by inspection?",
+      "options": [
+        "\\(19\\)",
+        "\\(20\\)",
+        "\\(18\\)",
+        "\\(21\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(19\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(237\\) and \\(351\\), how many integers are divisible by \\(6\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{351}{6}\\right\\rfloor-\\left\\lfloor\\frac{236}{6}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(19\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(19\\), Option (A).",
+      "family": "ns_cyclic_pattern",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 56,
+      "text": "Between \\(128\\) and \\(208\\), how many integers are divisible by \\(18\\) but not chosen by inspection?",
+      "options": [
+        "\\(6\\)",
+        "\\(4\\)",
+        "\\(5\\)",
+        "\\(3\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(4\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(128\\) and \\(208\\), how many integers are divisible by \\(18\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{208}{18}\\right\\rfloor-\\left\\lfloor\\frac{127}{18}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(4\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(4\\), Option (B).",
+      "family": "ns_divisibility_range_count",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 58,
+      "text": "Using prime powers of \\(144\\), what is the required divisor result?",
+      "options": [
+        "\\(17\\)",
+        "\\(15\\)",
+        "\\(16\\)",
+        "\\(14\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(15\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(144\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n144=2^{4}\\times 3^{2}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(15\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(15\\), Option (B).",
+      "family": "ns_prime_factorization",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 67,
+      "text": "Using the power cycle, what ending does \\(7^{101}\\) have?",
+      "options": [
+        "\\(9\\)",
+        "\\(7\\)",
+        "\\(8\\)",
+        "\\(6\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(7\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(7^{101}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n101\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(7\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(7\\), Option (B).",
+      "family": "ns_unit_digit_cycle",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 69,
+      "text": "Using the power cycle, what ending does \\(3^{92}\\) have?",
+      "options": [
+        "\\(3\\)",
+        "\\(1\\)",
+        "\\(2\\)",
+        "\\(0\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(1\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(3^{92}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n92\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(1\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(1\\), Option (B).",
+      "family": "ns_power_tower_digit",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 75,
+      "text": "Between \\(169\\) and \\(311\\), how many integers are divisible by \\(9\\) but not chosen by inspection?",
+      "options": [
+        "\\(16\\)",
+        "\\(17\\)",
+        "\\(15\\)",
+        "\\(18\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(16\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(169\\) and \\(311\\), how many integers are divisible by \\(9\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{311}{9}\\right\\rfloor-\\left\\lfloor\\frac{168}{9}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(16\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(16\\), Option (A).",
+      "family": "ns_cyclic_pattern",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 79,
+      "text": "Between \\(146\\) and \\(296\\), how many integers are divisible by \\(18\\) but not chosen by inspection?",
+      "options": [
+        "\\(9\\)",
+        "\\(7\\)",
+        "\\(10\\)",
+        "\\(8\\)"
+      ],
+      "correct": "D",
+      "correctValue": "\\(8\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(146\\) and \\(296\\), how many integers are divisible by \\(18\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{296}{18}\\right\\rfloor-\\left\\lfloor\\frac{145}{18}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(8\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(8\\), Option (D).",
+      "family": "ns_divisibility_range_count",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 82,
+      "text": "A number is \\(12\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(1728\\)",
+        "\\(1729\\)",
+        "\\(1727\\)",
+        "\\(1730\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(1728\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(12\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n12=2^{2}\\times 3\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(1728\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(1728\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 89,
+      "text": "Using the power cycle, what ending does \\(23^{56}\\) have?",
+      "options": [
+        "\\(3\\)",
+        "\\(1\\)",
+        "\\(2\\)",
+        "\\(0\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(1\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(23^{56}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n56\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(1\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(1\\), Option (B).",
+      "family": "ns_unit_digit_cycle",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 90,
+      "text": "Using the power cycle, what ending does \\(8^{101}\\) have?",
+      "options": [
+        "\\(10\\)",
+        "\\(8\\)",
+        "\\(9\\)",
+        "\\(7\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(8\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(8^{101}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n101\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(8\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(8\\), Option (B).",
+      "family": "ns_last_three_digits",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 3,
+      "text": "Between \\(121\\) and \\(274\\), how many integers are divisible by \\(18\\) but not chosen by inspection?",
+      "options": [
+        "\\(11\\)",
+        "\\(9\\)",
+        "\\(10\\)",
+        "\\(8\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(9\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(121\\) and \\(274\\), how many integers are divisible by \\(18\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{274}{18}\\right\\rfloor-\\left\\lfloor\\frac{120}{18}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(9\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(9\\), Option (B).",
+      "family": "ns_divisibility_range_count",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    },
+    {
+      "index": 5,
+      "text": "Using prime powers of \\(144\\), what is the required divisor result?",
+      "options": [
+        "\\(17\\)",
+        "\\(15\\)",
+        "\\(16\\)",
+        "\\(14\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(15\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(144\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n144=2^{4}\\times 3^{2}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(15\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(15\\), Option (B).",
+      "family": "ns_prime_factorization",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 6,
+      "text": "A number is \\(120\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(16\\)",
+        "\\(17\\)",
+        "\\(15\\)",
+        "\\(18\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(16\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(120\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(16\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(16\\), Option (A).",
+      "family": "ns_prime_composite_deduction",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 8,
+      "text": "A number is \\(1080\\). Based on its prime factorisation, what divisor value is asked?",
+      "options": [
+        "\\(8\\)",
+        "\\(9\\)",
+        "\\(7\\)",
+        "\\(10\\)"
+      ],
+      "correct": "A",
+      "correctValue": "\\(8\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(1080\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(8\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(8\\), Option (A).",
+      "family": "ns_odd_even_divisor_count",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 9,
+      "text": "Using prime powers of \\(36\\), what is the required divisor result?",
+      "options": [
+        "\\(10077698\\)",
+        "\\(10077696\\)",
+        "\\(10077697\\)",
+        "\\(10077695\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(10077696\\)",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(36\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n36=2^{2}\\times 3^{2}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(10077696\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(10077696\\), Option (B).",
+      "family": "ns_product_of_divisors",
+      "reason": "Extremely vague phrasing ('what divisor value is asked?') that fails to specify what is actually being calculated."
+    },
+    {
+      "index": 18,
+      "text": "Using the power cycle, what ending does \\(2^{109}\\) have?",
+      "options": [
+        "\\(4\\)",
+        "\\(2\\)",
+        "\\(3\\)",
+        "\\(1\\)"
+      ],
+      "correct": "B",
+      "correctValue": "\\(2\\)",
+      "explanation": "Concept\nLast-digit questions depend on the cyclicity of powers.\n\nGiven\nUsing the power cycle, what ending does \\(2^{109}\\) have?\n\nWorking\nIdentify the power cycle for the required ending digits.\nUse the exponent position in that cycle.\n\\[\n109\\text{ in cycle}\n\\]\nTherefore, the required answer is \\(2\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnly the cycle position matters, not the full power.\nAnswer: \\(2\\), Option (B).",
+      "family": "ns_power_tower_digit",
+      "reason": "Stem contains instructional/solving hints ('Using the power cycle...') which standard competitive exams never provide."
+    },
+    {
+      "index": 25,
+      "text": "Between \\(200\\) and \\(300\\), how many integers are divisible by \\(6\\) but not chosen by inspection?",
+      "options": [
+        "\\(16\\)",
+        "\\(19\\)",
+        "\\(17\\)",
+        "\\(18\\)"
+      ],
+      "correct": "C",
+      "correctValue": "\\(17\\)",
+      "explanation": "Concept\nCount multiples using the first valid multiple and the last valid multiple.\n\nGiven\nBetween \\(200\\) and \\(300\\), how many integers are divisible by \\(6\\) but not chosen by inspection?\n\nWorking\nMultiples up to the upper limit minus multiples before the lower limit gives the count.\nSubstitute the range limits.\n\\[\n\\left\\lfloor\\frac{300}{6}\\right\\rfloor-\\left\\lfloor\\frac{199}{6}\\right\\rfloor\n\\]\nTherefore, the required answer is \\(17\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nUse quotient difference instead of listing all numbers.\nAnswer: \\(17\\), Option (C).",
+      "family": "ns_cyclic_pattern",
+      "reason": "Uses the robotic/meaningless phrase 'but not chosen by inspection' which never appears in real exams."
+    }
+  ],
+  "explanation": [
+    {
+      "index": 1,
+      "text": "The value \\(7\\) is the sum of a two-digit number's digits. Its tens digit is \\(3\\). Find the number?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nThe value \\(7\\) is the sum of a two-digit number's digits. Its tens digit is \\(3\\). Find the number?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 3+4\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(34\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(34\\), Option (C).",
+      "family": "ns_missing_digit_single_rule",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 4,
+      "text": "Two buses leave a stand every \\(88\\) and \\(136\\) minutes. When will they next leave together?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nTwo buses leave a stand every \\(88\\) and \\(136\\) minutes. When will they next leave together?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(88,136)=1496\n\\]\nTherefore, the required answer is \\(1496\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(1496\\), Option (B).",
+      "family": "ns_divisibility_lcm_bridge",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 5,
+      "text": "A number is \\(360\\). Based on its prime factorisation, what divisor value is asked?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(360\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n360=2^{3}\\times 3^{2}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(24\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(24\\), Option (A).",
+      "family": "ns_prime_factorization",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 6,
+      "text": "Using prime powers of \\(432\\), what is the required divisor result?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(432\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n432=2^{4}\\times 3^{3}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(20\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(20\\), Option (B).",
+      "family": "ns_prime_composite_deduction",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 7,
+      "text": "For the number \\(1440\\), find the count of positive divisors?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nFor the number \\(1440\\), find the count of positive divisors?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(36\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(36\\), Option (C).",
+      "family": "ns_factor_count_constraint",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 8,
+      "text": "Using prime powers of \\(48\\), what is the required divisor result?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nUsing prime powers of \\(48\\), what is the required divisor result?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n48=2^{4}\\times 3\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(2\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(2\\), Option (B).",
+      "family": "ns_odd_even_divisor_count",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 9,
+      "text": "A number is \\(30\\). Based on its prime factorisation, what divisor value is asked?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(30\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n30=2\\times 3\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(810000\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(810000\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 10,
+      "text": "Two cyclic events repeat every \\(234\\) and \\(126\\) minutes. After how many minutes will they occur together again?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nTwo cyclic events repeat every \\(234\\) and \\(126\\) minutes. After how many minutes will they occur together again?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(234,126)=1638\n\\]\nTherefore, the required answer is \\(1638\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(1638\\), Option (D).",
+      "family": "ns_three_number_hcf_lcm",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 11,
+      "text": "Two buses leave a stand every \\(84\\) and \\(156\\) minutes. When will they next leave together?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nTwo buses leave a stand every \\(84\\) and \\(156\\) minutes. When will they next leave together?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(84,156)=1092\n\\]\nTherefore, the required answer is \\(1092\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(1092\\), Option (B).",
+      "family": "ns_hidden_lcm",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 12,
+      "text": "For two numbers \\(42\\) and \\(36\\), which common multiple is first reached?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nFor two numbers \\(42\\) and \\(36\\), which common multiple is first reached?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(42,36)=252\n\\]\nTherefore, the required answer is \\(252\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(252\\), Option (A).",
+      "family": "ns_hcf_lcm_word_problem",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 19,
+      "text": "Tens digit \\(4\\), digit sum \\(12\\): which two-digit number satisfies both facts?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nTens digit \\(4\\), digit sum \\(12\\): which two-digit number satisfies both facts?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 4+8\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(48\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(48\\), Option (B).",
+      "family": "ns_sum_of_digits",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 20,
+      "text": "Tens digit \\(7\\) and ones digit \\(3\\) are used in a number. How much does it change when reversed?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nTens digit \\(7\\) and ones digit \\(3\\) are used in a number. How much does it change when reversed?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 7+3\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(36\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(36\\), Option (C).",
+      "family": "ns_digit_interchange",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 21,
+      "text": "Digit sum \\(9\\) is given for a two-digit number. If the tens digit is \\(8\\), what is the number?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nDigit sum \\(9\\) is given for a two-digit number. If the tens digit is \\(8\\), what is the number?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 8+1\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(81\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(81\\), Option (D).",
+      "family": "ns_digit_constraints",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 22,
+      "text": "With digit sum \\(7\\), a two-digit number has \\(5\\) in the tens place. Which number is it?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nWith digit sum \\(7\\), a two-digit number has \\(5\\) in the tens place. Which number is it?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 5+2\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(52\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(52\\), Option (A).",
+      "family": "ns_digit_sum_reconstruction",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 23,
+      "text": "How many trailing zeroes are there in \\(50!\\)?",
+      "explanation": "Concept\nFactorial exponent questions count prime factors inside the factorial.\n\nGiven\nHow many trailing zeroes are there in \\(50!\\)?\n\nWorking\nCount multiples of the prime, then its higher powers.\nAdd all quotient terms.\n\\[\n\\left\\lfloor\\frac{50}{3}\\right\\rfloor+\\left\\lfloor\\frac{50}{9}\\right\\rfloor+\\cdots\n\\]\nTherefore, the required answer is \\(12\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nFor trailing zeroes, count factors of 5 in the factorial.\nAnswer: \\(12\\), Option (D).",
+      "family": "ns_trailing_zeroes",
+      "reason": "Critical mathematical bug: Divides by 3 and 9 in LaTeX steps instead of 5 and 25 to count trailing zeroes of 50!."
+    },
+    {
+      "index": 25,
+      "text": "After prime factorising \\(12\\), what is the number of positive divisors?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nAfter prime factorising \\(12\\), what is the number of positive divisors?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n12=2^{2}\\times 3\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(6\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(6\\), Option (D).",
+      "family": "ns_factorial_factor_count",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 27,
+      "text": "Two buses leave a stand every \\(40\\) and \\(80\\) minutes. When will they next leave together?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nTwo buses leave a stand every \\(40\\) and \\(80\\) minutes. When will they next leave together?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(40,80)=80\n\\]\nTherefore, the required answer is \\(80\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(80\\), Option (B).",
+      "family": "ns_factor_hcf_hybrid",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 28,
+      "text": "Digit sum \\(9\\) and tens digit \\(7\\) are known for a two-digit number. What is the number?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nDigit sum \\(9\\) and tens digit \\(7\\) are known for a two-digit number. What is the number?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 7+2\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(72\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(72\\), Option (C).",
+      "family": "ns_missing_digit_single_rule",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 31,
+      "text": "Two cyclic events repeat every \\(72\\) and \\(180\\) minutes. After how many minutes will they occur together again?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nTwo cyclic events repeat every \\(72\\) and \\(180\\) minutes. After how many minutes will they occur together again?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(72,180)=360\n\\]\nTherefore, the required answer is \\(360\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(360\\), Option (D).",
+      "family": "ns_divisibility_lcm_bridge",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 32,
+      "text": "A number is \\(120\\). Based on its prime factorisation, what divisor value is asked?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(120\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(16\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(16\\), Option (A).",
+      "family": "ns_prime_factorization",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 33,
+      "text": "After prime factorising \\(36\\), what is the number of positive divisors?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nAfter prime factorising \\(36\\), what is the number of positive divisors?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n36=2^{2}\\times 3^{2}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(9\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(9\\), Option (D).",
+      "family": "ns_prime_composite_deduction",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 34,
+      "text": "For the number \\(4320\\), find the count of positive divisors?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nFor the number \\(4320\\), find the count of positive divisors?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n4320=2^{5}\\times 3^{3}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(48\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(48\\), Option (C).",
+      "family": "ns_factor_count_constraint",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 35,
+      "text": "After prime factorising \\(36\\), what is the number of odd divisors?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nAfter prime factorising \\(36\\), what is the number of odd divisors?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n36=2^{2}\\times 3^{2}\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(3\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(3\\), Option (D).",
+      "family": "ns_odd_even_divisor_count",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 36,
+      "text": "A number is \\(20\\). Based on its prime factorisation, what divisor value is asked?",
+      "explanation": "Concept\nFactor questions become simple after writing prime powers.\n\nGiven\nA number is \\(20\\). Based on its prime factorisation, what divisor value is asked?\n\nWorking\nWrite the number as a product of prime powers.\n\\[\n20=2^{2}\\times 5\n\\]\nUse the exponent rule required by the question.\nTherefore, the required answer is \\(8000\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nOnce prime powers are known, use the exponent pattern directly.\nAnswer: \\(8000\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 37,
+      "text": "Bells ring at intervals of \\(63\\) and \\(63\\) minutes. After how many minutes will both ring together again?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nBells ring at intervals of \\(63\\) and \\(63\\) minutes. After how many minutes will both ring together again?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(63,63)=63\n\\]\nTherefore, the required answer is \\(63\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(63\\), Option (C).",
+      "family": "ns_three_number_hcf_lcm",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 38,
+      "text": "For two numbers \\(66\\) and \\(42\\), which common multiple is first reached?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nFor two numbers \\(66\\) and \\(42\\), which common multiple is first reached?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(66,42)=462\n\\]\nTherefore, the required answer is \\(462\\).\nHence, the correct answer is Option (A).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(462\\), Option (A).",
+      "family": "ns_fraction_hcf_lcm",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 39,
+      "text": "Two buses leave a stand every \\(48\\) and \\(84\\) minutes. When will they next leave together?",
+      "explanation": "Concept\nHCF-LCM questions use common factor or common multiple structure.\n\nGiven\nTwo buses leave a stand every \\(48\\) and \\(84\\) minutes. When will they next leave together?\n\nWorking\nChoose HCF for common division and LCM for common repetition.\nApply the relation with the given values.\n\\[\n\\operatorname{LCM}(48,84)=336\n\\]\nTherefore, the required answer is \\(336\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nFor repeat-together questions, take LCM directly.\nAnswer: \\(336\\), Option (B).",
+      "family": "ns_schedule_alignment",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 46,
+      "text": "With digit sum \\(9\\), a two-digit number has \\(6\\) in the tens place. Which number is it?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nWith digit sum \\(9\\), a two-digit number has \\(6\\) in the tens place. Which number is it?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 6+3\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(63\\).\nHence, the correct answer is Option (D).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(63\\), Option (D).",
+      "family": "ns_sum_of_digits",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 47,
+      "text": "Tens digit \\(3\\) and ones digit \\(8\\) are used in a number. How much does it change when reversed?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nTens digit \\(3\\) and ones digit \\(8\\) are used in a number. How much does it change when reversed?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 3+8\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(45\\).\nHence, the correct answer is Option (C).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(45\\), Option (C).",
+      "family": "ns_digit_interchange",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    },
+    {
+      "index": 48,
+      "text": "Digit sum \\(13\\) is given for a two-digit number. If the tens digit is \\(8\\), what is the number?",
+      "explanation": "Concept\nDigit questions convert place values into equations.\n\nGiven\nDigit sum \\(13\\) is given for a two-digit number. If the tens digit is \\(8\\), what is the number?\n\nWorking\nWrite the number using tens and ones places.\n\\[\nN=10\\times 8+5\n\\]\nUse the given digit condition to get the asked value.\nTherefore, the required answer is \\(85\\).\nHence, the correct answer is Option (B).\n\nShortcut / Exam Method\nFor two digits, use place value directly.\nAnswer: \\(85\\), Option (B).",
+      "family": "ns_digit_constraints",
+      "reason": "Generic filler steps that tell the student to 'use the rule' or 'apply the relation' without showing the actual formula or substitution."
+    }
+  ],
+  "distractor": [],
+  "shortcut": [
+    {
+      "index": 1,
+      "text": "The value \\(7\\) is the sum of a two-digit number's digits. Its tens digit is \\(3\\). Find the number?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(34\\), Option (C).",
+      "family": "ns_missing_digit_single_rule",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 2,
+      "text": "The number \\(12x05\\) is divisible by \\(11\\). What is the value of \\(x\\)?",
+      "shortcut": "Try the divisibility rule directly on \\(12x05\\); the valid digit is \\(7\\).\nAnswer: \\(7\\), Option (D).",
+      "family": "ns_reverse_divisibility",
+      "reason": "Trivial shortcut: Suggests trying the divisibility rule directly (which is the standard method itself, not a shortcut)."
+    },
+    {
+      "index": 4,
+      "text": "Two buses leave a stand every \\(88\\) and \\(136\\) minutes. When will they next leave together?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(1496\\), Option (B).",
+      "family": "ns_divisibility_lcm_bridge",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 5,
+      "text": "A number is \\(360\\). Based on its prime factorisation, what divisor value is asked?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(24\\), Option (A).",
+      "family": "ns_prime_factorization",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 6,
+      "text": "Using prime powers of \\(432\\), what is the required divisor result?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(20\\), Option (B).",
+      "family": "ns_prime_composite_deduction",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 7,
+      "text": "For the number \\(1440\\), find the count of positive divisors?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(36\\), Option (C).",
+      "family": "ns_factor_count_constraint",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 8,
+      "text": "Using prime powers of \\(48\\), what is the required divisor result?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(2\\), Option (B).",
+      "family": "ns_odd_even_divisor_count",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 9,
+      "text": "A number is \\(30\\). Based on its prime factorisation, what divisor value is asked?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(810000\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 10,
+      "text": "Two cyclic events repeat every \\(234\\) and \\(126\\) minutes. After how many minutes will they occur together again?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(1638\\), Option (D).",
+      "family": "ns_three_number_hcf_lcm",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 11,
+      "text": "Two buses leave a stand every \\(84\\) and \\(156\\) minutes. When will they next leave together?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(1092\\), Option (B).",
+      "family": "ns_hidden_lcm",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 12,
+      "text": "For two numbers \\(42\\) and \\(36\\), which common multiple is first reached?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(252\\), Option (A).",
+      "family": "ns_hcf_lcm_word_problem",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 19,
+      "text": "Tens digit \\(4\\), digit sum \\(12\\): which two-digit number satisfies both facts?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(48\\), Option (B).",
+      "family": "ns_sum_of_digits",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 20,
+      "text": "Tens digit \\(7\\) and ones digit \\(3\\) are used in a number. How much does it change when reversed?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(36\\), Option (C).",
+      "family": "ns_digit_interchange",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 21,
+      "text": "Digit sum \\(9\\) is given for a two-digit number. If the tens digit is \\(8\\), what is the number?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(81\\), Option (D).",
+      "family": "ns_digit_constraints",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 22,
+      "text": "With digit sum \\(7\\), a two-digit number has \\(5\\) in the tens place. Which number is it?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(52\\), Option (A).",
+      "family": "ns_digit_sum_reconstruction",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 25,
+      "text": "After prime factorising \\(12\\), what is the number of positive divisors?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(6\\), Option (D).",
+      "family": "ns_factorial_factor_count",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 27,
+      "text": "Two buses leave a stand every \\(40\\) and \\(80\\) minutes. When will they next leave together?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(80\\), Option (B).",
+      "family": "ns_factor_hcf_hybrid",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 28,
+      "text": "Digit sum \\(9\\) and tens digit \\(7\\) are known for a two-digit number. What is the number?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(72\\), Option (C).",
+      "family": "ns_missing_digit_single_rule",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 29,
+      "text": "The number \\(4x872\\) is divisible by \\(18\\). What is the value of \\(x\\)?",
+      "shortcut": "Try the divisibility rule directly on \\(4x872\\); the valid digit is \\(6\\).\nAnswer: \\(6\\), Option (B).",
+      "family": "ns_reverse_divisibility",
+      "reason": "Trivial shortcut: Suggests trying the divisibility rule directly (which is the standard method itself, not a shortcut)."
+    },
+    {
+      "index": 31,
+      "text": "Two cyclic events repeat every \\(72\\) and \\(180\\) minutes. After how many minutes will they occur together again?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(360\\), Option (D).",
+      "family": "ns_divisibility_lcm_bridge",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 32,
+      "text": "A number is \\(120\\). Based on its prime factorisation, what divisor value is asked?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(16\\), Option (A).",
+      "family": "ns_prime_factorization",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 33,
+      "text": "After prime factorising \\(36\\), what is the number of positive divisors?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(9\\), Option (D).",
+      "family": "ns_prime_composite_deduction",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 34,
+      "text": "For the number \\(4320\\), find the count of positive divisors?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(48\\), Option (C).",
+      "family": "ns_factor_count_constraint",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 35,
+      "text": "After prime factorising \\(36\\), what is the number of odd divisors?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(3\\), Option (D).",
+      "family": "ns_odd_even_divisor_count",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 36,
+      "text": "A number is \\(20\\). Based on its prime factorisation, what divisor value is asked?",
+      "shortcut": "Once prime powers are known, use the exponent pattern directly.\nAnswer: \\(8000\\), Option (A).",
+      "family": "ns_product_of_divisors",
+      "reason": "Lazy shortcut: Tells the student to use the pattern directly once prime powers are known (standard method is identical)."
+    },
+    {
+      "index": 37,
+      "text": "Bells ring at intervals of \\(63\\) and \\(63\\) minutes. After how many minutes will both ring together again?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(63\\), Option (C).",
+      "family": "ns_three_number_hcf_lcm",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 38,
+      "text": "For two numbers \\(66\\) and \\(42\\), which common multiple is first reached?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(462\\), Option (A).",
+      "family": "ns_fraction_hcf_lcm",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 39,
+      "text": "Two buses leave a stand every \\(48\\) and \\(84\\) minutes. When will they next leave together?",
+      "shortcut": "For repeat-together questions, take LCM directly.\nAnswer: \\(336\\), Option (B).",
+      "family": "ns_schedule_alignment",
+      "reason": "Redundant shortcut: Taking LCM is the standard method, not a shortcut."
+    },
+    {
+      "index": 46,
+      "text": "With digit sum \\(9\\), a two-digit number has \\(6\\) in the tens place. Which number is it?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(63\\), Option (D).",
+      "family": "ns_sum_of_digits",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    },
+    {
+      "index": 47,
+      "text": "Tens digit \\(3\\) and ones digit \\(8\\) are used in a number. How much does it change when reversed?",
+      "shortcut": "For two digits, use place value directly.\nAnswer: \\(45\\), Option (C).",
+      "family": "ns_digit_interchange",
+      "reason": "Robotic, non-time-saving shortcut: Tells the student to use place value directly, which is identical to the standard solution."
+    }
+  ]
+}
