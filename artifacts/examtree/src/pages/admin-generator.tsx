@@ -1019,6 +1019,18 @@ type SchedulerProfileId =
   | "mix_review_100"
   | "mix_review_200"
   | "mix_production_60"
+  | "number_system_basic"
+  | "number_system_balanced"
+  | "number_system_hard"
+  | "number_system_pyq_plus"
+  | "number_system_review_100"
+  | "number_system_review_200"
+  | "number_system_production_300"
+  | "number_system_audit_1000"
+  | "number_system_production_1000"
+  | "number_system_review_1000"
+  | "number_system_pyq_plus_1000"
+  | "number_system_elite_500"
   | "advanced_coverage_audit";
 
 type CorpusAuditTopicId =
@@ -1028,7 +1040,8 @@ type CorpusAuditTopicId =
   | "ratio_proportion"
   | "time_work"
   | "time_speed_distance"
-  | "mixture_alligation";
+  | "mixture_alligation"
+  | "number_system";
 
 type SchedulerSummary = {
   profileId: SchedulerProfileId;
@@ -3458,13 +3471,17 @@ const QUANT_V2_CORPUS_AUDIT_TOPICS: Array<{
     id: "mixture_alligation",
     label: "Mixture & Alligation",
   },
+  {
+    id: "number_system",
+    label: "Number System",
+  },
 ];
 
 const SCHEDULER_PROFILE_OPTIONS: Array<{
   id: SchedulerProfileId;
   label: string;
   description: string;
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation";
+  topicId?: CorpusAuditTopicId;
 }> = [
   {
     id: "balanced_mock",
@@ -3729,6 +3746,78 @@ const SCHEDULER_PROFILE_OPTIONS: Array<{
     topicId: "mixture_alligation",
     label: "Mixture Production 60",
     description: "Production 60Q Mixture & Alligation V2 broad coverage.",
+  },
+  {
+    id: "number_system_basic",
+    topicId: "number_system",
+    label: "Number System Basic",
+    description: "Core Number System V2 divisibility, factors, remainders, and digit logic profile.",
+  },
+  {
+    id: "number_system_balanced",
+    topicId: "number_system",
+    label: "Number System Balanced",
+    description: "Balanced Number System V2 rotation across divisibility, factors, HCF/LCM, remainders, digits, and factorials.",
+  },
+  {
+    id: "number_system_hard",
+    topicId: "number_system",
+    label: "Number System Hard",
+    description: "Hard Number System V2 profile with modular, hidden-variable, factorial, and hybrid reasoning traps.",
+  },
+  {
+    id: "number_system_pyq_plus",
+    topicId: "number_system",
+    label: "Number System PYQ+",
+    description: "Advanced PYQ+ Number System V2 trap profile.",
+  },
+  {
+    id: "number_system_review_100",
+    topicId: "number_system",
+    label: "Number System Review 100",
+    description: "100Q review coverage for Number System V2 families.",
+  },
+  {
+    id: "number_system_review_200",
+    topicId: "number_system",
+    label: "Number System Review 200",
+    description: "200Q review coverage for Number System V2 families.",
+  },
+  {
+    id: "number_system_production_300",
+    topicId: "number_system",
+    label: "Number System Production 300",
+    description: "Production 300Q Number System V2 broad coverage.",
+  },
+  {
+    id: "number_system_audit_1000",
+    topicId: "number_system",
+    label: "Number System Audit 1000",
+    description: "1000Q Number System V2 audit profile with broad family coverage.",
+  },
+  {
+    id: "number_system_production_1000",
+    topicId: "number_system",
+    label: "Number System Production 1000",
+    description: "Freeze-scale production Number System V2 coverage.",
+  },
+  {
+    id: "number_system_review_1000",
+    topicId: "number_system",
+    label: "Number System Review 1000",
+    description: "Freeze-scale review Number System V2 coverage.",
+  },
+  {
+    id: "number_system_pyq_plus_1000",
+    topicId: "number_system",
+    label: "Number System PYQ+ 1000",
+    description: "PYQ+ scale Number System V2 coverage.",
+  },
+  {
+    id: "number_system_elite_500",
+    topicId: "number_system",
+    label: "Number System Elite 500",
+    description: "Elite topology-chain Number System V2 coverage.",
   },
 ];
 
@@ -7155,6 +7244,9 @@ function quantV2TopicIdForRegistryPattern(
   if (String(pattern?.generationDomain ?? "") === "quant-v2-mixture-alligation") {
     return "mixture_alligation" as const;
   }
+  if (String(pattern?.generationDomain ?? "") === "quant-v2-number-system") {
+    return "number_system" as const;
+  }
   const text = `${pattern?.id ?? ""} ${pattern?.topic ?? ""} ${pattern?.label ?? ""}`.toLowerCase();
   if (/\bpercent(age|ages)?\b/u.test(text)) {
     return "percentage" as const;
@@ -7163,7 +7255,7 @@ function quantV2TopicIdForRegistryPattern(
 }
 
 function schedulerOptionsForTopic(
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation",
+  topicId?: CorpusAuditTopicId,
 ) {
   return topicId
     ? SCHEDULER_PROFILE_OPTIONS.filter(
@@ -7174,7 +7266,7 @@ function schedulerOptionsForTopic(
 }
 
 function defaultSchedulerProfileForTopic(
-  topicId?: "percentage" | "profit_loss" | "interest" | "ratio_proportion" | "time_work" | "time_speed_distance" | "mixture_alligation",
+  topicId?: CorpusAuditTopicId,
 ) {
   return (
     schedulerOptionsForTopic(topicId)[0]?.id ??
@@ -7202,6 +7294,9 @@ function corpusAuditTopicLabel(
   }
   if (topicId === "mixture_alligation") {
     return "Mixture & Alligation";
+  }
+  if (topicId === "number_system") {
+    return "Number System";
   }
   return "Percentage";
 }

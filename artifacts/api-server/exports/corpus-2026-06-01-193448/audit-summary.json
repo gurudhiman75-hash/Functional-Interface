@@ -1,0 +1,122 @@
+{
+  "generatedCount": 1,
+  "topologyDistribution": {
+    "number_system:ns_missing_digit_single_rule": 1
+  },
+  "subtypeDistribution": {
+    "ns_missing_digit_single_rule": 1
+  },
+  "difficultyDistribution": {
+    "Medium": 1
+  },
+  "compactnessDistribution": {
+    "unknown": 1
+  },
+  "domainDistribution": {
+    "number_system": 1
+  },
+  "objectFrequency": {},
+  "realismScores": {
+    "min": 90,
+    "max": 90,
+    "average": 90
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 1,
+    "punjabiExplanationCoverage": 1,
+    "localizationCompleteness": 1,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 22,
+    "hindiAverageLines": 22,
+    "punjabiAverageLines": 22
+  },
+  "exportProfile": "multilingual_review",
+  "includeMultilingualExplanations": true,
+  "estimatedSizeMb": 0,
+  "exportWarnings": [],
+  "runId": "run-b2a34ee3-0e6c-41cd-80aa-05d4667f39c8",
+  "seed": "number-system-audit:run-b2a34ee3-0e6c-41cd-80aa-05d4667f39c8",
+  "explicitSeed": false,
+  "scheduler": {
+    "profileId": "number_system_review_100",
+    "targetCount": 1,
+    "acceptedCount": 1,
+    "topologyDistribution": {
+      "number_system:ns_missing_digit_single_rule": 1
+    },
+    "topologyGroupDistribution": {
+      "simple_template": 1
+    },
+    "examinerIntentDistribution": {
+      "ns_missing_digit_single_rule": 1
+    },
+    "semanticAnchorDistribution": {
+      "number_system:ns_missing_digit_single_rule": 1
+    },
+    "familyDistribution": {
+      "ns_missing_digit_single_rule": 1
+    },
+    "distractorTrapDistribution": {
+      "reversed digits": 1,
+      "used digit sum as number": 1,
+      "place value error": 1
+    },
+    "difficultyDistribution": {
+      "medium": 1
+    },
+    "duplicateRisk": {
+      "repeatedFingerprintCount": 0,
+      "repeatedFingerprintShare": 0,
+      "uniqueFingerprintCount": 1,
+      "repeatedTopologyVectorCount": 0,
+      "repeatedOperationCount": 0
+    },
+    "pacingReport": {
+      "hardStreakLimit": 3,
+      "events": []
+    },
+    "rejectionReasons": {},
+    "repeatedOpeningWarnings": [],
+    "balanceWarnings": [
+      "simple-template share remains above profile target",
+      "relational share remains below profile target",
+      "reverse-logic share remains below profile target",
+      "filtered reasoning share remains below profile target",
+      "hybrid reasoning share remains below profile target"
+    ]
+  },
+  "corpusQuality": {
+    "score": 48,
+    "tier": "C",
+    "dimensions": {
+      "topologyBalance": 45,
+      "semanticDiversity": 45,
+      "trapDiversity": 100,
+      "duplicateResistance": 100,
+      "difficultyPacing": 74,
+      "examinerIntentCoverage": 45
+    },
+    "strengths": [
+      "distractor traps cover multiple mistake modes",
+      "fingerprint collision risk is controlled"
+    ],
+    "risks": [
+      "topology mix still has clustering risk",
+      "semantic anchors repeat too often",
+      "difficulty pacing needs smoother sequencing",
+      "simple-template share remains above profile target",
+      "relational share remains below profile target",
+      "reverse-logic share remains below profile target",
+      "filtered reasoning share remains below profile target",
+      "hybrid reasoning share remains below profile target"
+    ]
+  }
+}

@@ -1,0 +1,1527 @@
+[
+  {
+    "index": 0,
+    "question": "A number is \\(120\\). Based on its prime factorisation, determine the total number of positive divisors.",
+    "options": [
+      "\\(16\\)",
+      "\\(17\\)",
+      "\\(15\\)",
+      "\\(18\\)"
+    ],
+    "answer": "\\(16\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factor_count_constraint"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factor_count_constraint"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number is \\(120\\). Based on its prime factorisation, determine the total number of positive divisors.",
+        "options": [
+          "\\(16\\)",
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(120)=(3+1)\\times (1+1)\\times (1+1)=16\n\\]\n\nAnswer Verification\nThe number of positive divisors is 16.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(16\\).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(3+1)\\times (1+1)\\times (1+1)\n\\]\n\nFast result: \\(16\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "एक संख्या \\(120\\) है। उसके अभाज्य गुणनखंड के आधार पर धनात्मक भाजकों की कुल संख्या निर्धारित करें।",
+        "options": [
+          "\\(16\\)",
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(120)=(3+1)\\times (1+1)\\times (1+1)=16\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 16 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(16\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(3+1)\\times (1+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(16\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ \\(120\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ।",
+        "options": [
+          "\\(16\\)",
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(120)=(3+1)\\times (1+1)\\times (1+1)=16\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 16 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(16\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(3+1)\\times (1+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(16\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 1,
+    "question": "For the number \\(1440\\), find the count of positive divisors?",
+    "options": [
+      "\\(35\\)",
+      "\\(38\\)",
+      "\\(36\\)",
+      "\\(37\\)"
+    ],
+    "answer": "\\(36\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factorial_factor_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factorial_factor_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For the number \\(1440\\), find the count of positive divisors?",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(1440)=(5+1)\\times (2+1)\\times (1+1)=36\n\\]\n\nAnswer Verification\nThe number of positive divisors is 36.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(36\\).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(5+1)\\times (2+1)\\times (1+1)\n\\]\n\nFast result: \\(36\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "संख्या \\(1440\\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(1440)=(5+1)\\times (2+1)\\times (1+1)=36\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 36 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(36\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(5+1)\\times (2+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(36\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(1440\\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(1440)=(5+1)\\times (2+1)\\times (1+1)=36\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 36 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(36\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(5+1)\\times (2+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(36\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 2,
+    "question": "Two buses leave a stand every \\(132\\) and \\(204\\) minutes. When will they next leave together?",
+    "options": [
+      "\\(2020\\)",
+      "\\(2244\\)",
+      "\\(2468\\)",
+      "\\(2693\\)"
+    ],
+    "answer": "\\(2244\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factor_hcf_hybrid"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factor_hcf_hybrid"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two buses leave a stand every \\(132\\) and \\(204\\) minutes. When will they next leave together?",
+        "options": [
+          "\\(2020\\)",
+          "\\(2244\\)",
+          "\\(2468\\)",
+          "\\(2693\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n132=2^{2}\\times 3\\times 11\n\\]\n\n\\[\n204=2^{2}\\times 3\\times 17\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(132,204)=2244\n\\]\n\nAnswer Verification\nThe LCM is 2244.\n\nFinal Answer\nTherefore, the correct answer is Option (B). Computed value: \\(2244\\).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(132,204)=\\frac{132\\times 204}{\\operatorname{HCF}(132,204)}=2244\n\\]\n\nFast result: \\(2244\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "दो बसें \\(132\\) और \\(204\\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?",
+        "options": [
+          "\\(2020\\)",
+          "\\(2244\\)",
+          "\\(2468\\)",
+          "\\(2693\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n132=2^{2}\\times 3\\times 11\n\\]\n\n\\[\n204=2^{2}\\times 3\\times 17\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(132,204)=2244\n\\]\n\nउत्तर सत्यापन\nLCM 2244 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(2244\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(132,204)=\\frac{132\\times 204}{\\operatorname{HCF}(132,204)}=2244\n\\]\n\nशीघ्र परिणाम: \\(2244\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਬੱਸਾਂ \\(132\\) ਅਤੇ \\(204\\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?",
+        "options": [
+          "\\(2020\\)",
+          "\\(2244\\)",
+          "\\(2468\\)",
+          "\\(2693\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n132=2^{2}\\times 3\\times 11\n\\]\n\n\\[\n204=2^{2}\\times 3\\times 17\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(132,204)=2244\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 2244 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2244\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(132,204)=\\frac{132\\times 204}{\\operatorname{HCF}(132,204)}=2244\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2244\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 3,
+    "question": "Digit sum \\(11\\) with tens digit \\(5\\) identifies which two-digit number?",
+    "options": [
+      "\\(56\\)",
+      "\\(57\\)",
+      "\\(55\\)",
+      "\\(58\\)"
+    ],
+    "answer": "\\(56\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_single_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_single_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Digit sum \\(11\\) with tens digit \\(5\\) identifies which two-digit number?",
+        "options": [
+          "\\(56\\)",
+          "\\(57\\)",
+          "\\(55\\)",
+          "\\(58\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n5+u=11\\Rightarrow u=6\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 56.\n\n\\[\nN=10\\times 5+6=56\n\\]\n\nAnswer Verification\nDigit sum of 56 is 11.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(56\\).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=6\n\\]\n\n\\[\nN=56\n\\]\n\nFast result: \\(56\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो-अंकीय संख्या का अंक-योग \\(11\\) और दहाई अंक \\(5\\) ज्ञात हैं। संख्या क्या है?",
+        "options": [
+          "\\(56\\)",
+          "\\(57\\)",
+          "\\(55\\)",
+          "\\(58\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n5+u=11\\Rightarrow u=6\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 56 है।\n\n\\[\nN=10\\times 5+6=56\n\\]\n\nउत्तर सत्यापन\n56 का अंक-योग 11 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(56\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=6\n\\]\n\n\\[\nN=56\n\\]\n\nशीघ्र परिणाम: \\(56\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \\(11\\) ਅਤੇ ਦਹਾਈ ਅੰਕ \\(5\\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?",
+        "options": [
+          "\\(56\\)",
+          "\\(57\\)",
+          "\\(55\\)",
+          "\\(58\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n5+u=11\\Rightarrow u=6\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 56 ਹੈ।\n\n\\[\nN=10\\times 5+6=56\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n56 ਦਾ ਅੰਕ-ਜੋੜ 11 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(56\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=6\n\\]\n\n\\[\nN=56\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(56\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 4,
+    "question": "Using cyclic remainders, evaluate the remainder of \\(3^{91}\\) modulo \\(7\\).",
+    "options": [
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(4\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(3\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factorial_remainder"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factorial_remainder"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Using cyclic remainders, evaluate the remainder of \\(3^{91}\\) modulo \\(7\\).",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n3\\equiv 3\\pmod{7}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 6.\n\n\\[\n3\\rightarrow 2\\rightarrow 6\\rightarrow 4\\rightarrow 5\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(91-1)\\bmod 6+1=1\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 3.\n\n\\[\n3^{91}\\equiv 3\\pmod{7}\n\\]\n\nAnswer Verification\nThe 1st term of the cycle is 3.\n\nFinal Answer\nTherefore, the correct answer is Option (B). Computed value: \\(3\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(91-1)\\bmod 6+1=1\n\\]\n\n\\[\n3^{91}\\equiv 3\\pmod{7}\n\\]\n\nFast result: \\(3\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "चक्रीय शेषफल से \\(3^{91}\\) modulo \\(7\\) का शेषफल निकालें।",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n3\\equiv 3\\pmod{7}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 6।\n\n\\[\n3\\rightarrow 2\\rightarrow 6\\rightarrow 4\\rightarrow 5\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(91-1)\\bmod 6+1=1\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 3।\n\n\\[\n3^{91}\\equiv 3\\pmod{7}\n\\]\n\nउत्तर सत्यापन\nचक्र का 1वाँ पद 3 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(3\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(91-1)\\bmod 6+1=1\n\\]\n\n\\[\n3^{91}\\equiv 3\\pmod{7}\n\\]\n\nशीघ्र परिणाम: \\(3\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਚੱਕਰੀ ਬਾਕੀਆਂ ਨਾਲ \\(3^{91}\\) modulo \\(7\\) ਦਾ ਬਾਕੀ ਕੱਢੋ।",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n3\\equiv 3\\pmod{7}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 6।\n\n\\[\n3\\rightarrow 2\\rightarrow 6\\rightarrow 4\\rightarrow 5\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(91-1)\\bmod 6+1=1\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 3।\n\n\\[\n3^{91}\\equiv 3\\pmod{7}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 3 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(3\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(91-1)\\bmod 6+1=1\n\\]\n\n\\[\n3^{91}\\equiv 3\\pmod{7}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(3\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 5,
+    "question": "A factorial expression \\(40!\\) is given. What is the exponent of prime factor \\(3\\)?",
+    "options": [
+      "\\(18\\)",
+      "\\(19\\)",
+      "\\(17\\)",
+      "\\(20\\)"
+    ],
+    "answer": "\\(18\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factorial_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factorial_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A factorial expression \\(40!\\) is given. What is the exponent of prime factor \\(3\\)?",
+        "options": [
+          "\\(18\\)",
+          "\\(19\\)",
+          "\\(17\\)",
+          "\\(20\\)"
+        ],
+        "explanation": "Step 1: Count powers of 3 in n!\n\n\\[\n\\left\\lfloor\\frac{40}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{40}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{40}{27}\\right\\rfloor\n\\]\n\nStep 2: Add the quotient terms\n\n\\[\n13+4+1=18\n\\]\n\nAnswer Verification\nHighest power of 3 dividing 40! is 18.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(18\\).\n\nShortcut\n\nLegendre sum of floor quotients only.\n\n\\[\n\\left\\lfloor\\frac{40}{3}\\right\\rfloor+\\left\\lfloor\\frac{40}{9}\\right\\rfloor+\\left\\lfloor\\frac{40}{27}\\right\\rfloor\n\\]\n\nFast result: \\(18\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "फैक्टोरियल अभिव्यक्ति \\(40!\\) दी है। अभाज्य गुणनखंड \\(3\\) की घात क्या है?",
+        "options": [
+          "\\(18\\)",
+          "\\(19\\)",
+          "\\(17\\)",
+          "\\(20\\)"
+        ],
+        "explanation": "चरण 1: n! में 3 की घातें गिनें\n\n\\[\n\\left\\lfloor\\frac{40}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{40}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{40}{27}\\right\\rfloor\n\\]\n\nचरण 2: भागफल पद जोड़ें\n\n\\[\n13+4+1=18\n\\]\n\nउत्तर सत्यापन\n40! में 3 की सबसे बड़ी घात 18 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(18\\) है।\n\nशॉर्टकट\n\nकेवल भागफल-मूल्यों का लेजेंड्र योग।\n\n\\[\n\\left\\lfloor\\frac{40}{3}\\right\\rfloor+\\left\\lfloor\\frac{40}{9}\\right\\rfloor+\\left\\lfloor\\frac{40}{27}\\right\\rfloor\n\\]\n\nशीघ्र परिणाम: \\(18\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(40!\\) ਦਿੱਤੀ ਹੈ। ਅਭਾਜ ਗੁਣਨਖੰਡ \\(3\\) ਦੀ ਘਾਤ ਕੀ ਹੈ?",
+        "options": [
+          "\\(18\\)",
+          "\\(19\\)",
+          "\\(17\\)",
+          "\\(20\\)"
+        ],
+        "explanation": "ਕਦਮ 1: n! ਵਿੱਚ 3 ਦੀਆਂ ਘਾਤਾਂ ਗਿਣੋ\n\n\\[\n\\left\\lfloor\\frac{40}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{40}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{40}{27}\\right\\rfloor\n\\]\n\nਕਦਮ 2: ਭਾਗਪਲ ਪਦ ਜੋੜੋ\n\n\\[\n13+4+1=18\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n40! ਨੂੰ 3 ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ 18 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(18\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਭਾਗਫਲ-ਮੂਲਾਂ ਦਾ ਲੇਜੈਂਡਰ ਜੋੜ।\n\n\\[\n\\left\\lfloor\\frac{40}{3}\\right\\rfloor+\\left\\lfloor\\frac{40}{9}\\right\\rfloor+\\left\\lfloor\\frac{40}{27}\\right\\rfloor\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(18\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 6,
+    "question": "Between \\(215\\) and \\(393\\), how many integers are divisible by \\(9\\)?",
+    "options": [
+      "\\(20\\)",
+      "\\(21\\)",
+      "\\(19\\)",
+      "\\(22\\)"
+    ],
+    "answer": "\\(20\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_cyclic_pattern"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_cyclic_pattern"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(215\\) and \\(393\\), how many integers are divisible by \\(9\\)?",
+        "options": [
+          "\\(20\\)",
+          "\\(21\\)",
+          "\\(19\\)",
+          "\\(22\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 9 greater than 215 is 216.\n\n\\[\n9\\times 24=216\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 387 is the greatest multiple of 9 not exceeding 393.\n\n\\[\n393=9\\times 43+6\n\\]\n\n\\[\n393-6=387\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 9.\n\n\\[\n\\frac{387-216}{9}+1=19+1=20\n\\]\n\nAnswer Verification\nThe total number of multiples is 20.\nHence, there are 20 multiples of 9 in the given range.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(20\\).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{393}{9}\\right\\rfloor-\\left\\lfloor\\frac{214}{9}\\right\\rfloor\n\\]\n\n\\[\n43-23=20\n\\]\n\nFast result: \\(20\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(215\\) और \\(393\\) के बीच कितने पूर्णांक \\(9\\) से विभाज्य हैं?",
+        "options": [
+          "\\(20\\)",
+          "\\(21\\)",
+          "\\(19\\)",
+          "\\(22\\)"
+        ],
+        "explanation": "चरण 1: पहला मान्य गुणज ज्ञात करें\n\nअतः 215 से बड़ा 9 का पहला गुणज 216 है।\n\n\\[\n9\\times 24=216\n\\]\n\nचरण 2: अंतिम मान्य गुणज ज्ञात करें\n\nअतः 387, 393 से अधिक न होने वाला 9 का सबसे बड़ा गुणज है।\n\n\\[\n393=9\\times 43+6\n\\]\n\n\\[\n393-6=387\n\\]\n\nचरण 3: मान्य गुणजों की गिनती करें\n\nगुणज 9 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{387-216}{9}+1=19+1=20\n\\]\n\nउत्तर सत्यापन\nगुणजों की कुल संख्या 20 है।\nअतः दी गई सीमा में 9 के 20 गुणज हैं।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(20\\) है।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{393}{9}\\right\\rfloor-\\left\\lfloor\\frac{214}{9}\\right\\rfloor\n\\]\n\n\\[\n43-23=20\n\\]\n\nशीघ्र परिणाम: \\(20\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(215\\) ਅਤੇ \\(393\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(9\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(20\\)",
+          "\\(21\\)",
+          "\\(19\\)",
+          "\\(22\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 215 ਤੋਂ ਵੱਡਾ 9 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 216 ਹੈ।\n\n\\[\n9\\times 24=216\n\\]\n\nਕਦਮ 2: ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 387, 393 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 9 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n393=9\\times 43+6\n\\]\n\n\\[\n393-6=387\n\\]\n\nਕਦਮ 3: ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 9 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{387-216}{9}+1=19+1=20\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 20 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 9 ਦੇ 20 ਗੁਣਜ ਹਨ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(20\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{393}{9}\\right\\rfloor-\\left\\lfloor\\frac{214}{9}\\right\\rfloor\n\\]\n\n\\[\n43-23=20\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(20\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 7,
+    "question": "Two cyclic events repeat every \\(88\\) and \\(48\\) minutes. After how many minutes will they occur together again?",
+    "options": [
+      "\\(554\\)",
+      "\\(581\\)",
+      "\\(502\\)",
+      "\\(528\\)"
+    ],
+    "answer": "\\(528\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_common_multiple"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_common_multiple"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two cyclic events repeat every \\(88\\) and \\(48\\) minutes. After how many minutes will they occur together again?",
+        "options": [
+          "\\(554\\)",
+          "\\(581\\)",
+          "\\(502\\)",
+          "\\(528\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n88=2^{3}\\times 11\n\\]\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(88,48)=528\n\\]\n\nAnswer Verification\nThe LCM is 528.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(528\\).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(88,48)=\\frac{88\\times 48}{\\operatorname{HCF}(88,48)}=528\n\\]\n\nFast result: \\(528\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "दो घटनाएँ हर \\(88\\) और \\(48\\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?",
+        "options": [
+          "\\(554\\)",
+          "\\(581\\)",
+          "\\(502\\)",
+          "\\(528\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n88=2^{3}\\times 11\n\\]\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(88,48)=528\n\\]\n\nउत्तर सत्यापन\nLCM 528 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(528\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(88,48)=\\frac{88\\times 48}{\\operatorname{HCF}(88,48)}=528\n\\]\n\nशीघ्र परिणाम: \\(528\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਘਟਨਾਵਾਂ ਹਰ \\(88\\) ਅਤੇ \\(48\\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "\\(554\\)",
+          "\\(581\\)",
+          "\\(502\\)",
+          "\\(528\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n88=2^{3}\\times 11\n\\]\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(88,48)=528\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 528 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(528\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(88,48)=\\frac{88\\times 48}{\\operatorname{HCF}(88,48)}=528\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(528\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 8,
+    "question": "The number \\(4x872\\) is divisible by \\(18\\). What is the value of \\(x\\)?",
+    "options": [
+      "\\(8\\)",
+      "\\(6\\)",
+      "\\(7\\)",
+      "\\(5\\)"
+    ],
+    "answer": "\\(6\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_reverse_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_reverse_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The number \\(4x872\\) is divisible by \\(18\\). What is the value of \\(x\\)?",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "Step 1: Split the rule for 18\n\nA number divisible by 18 must be even and must also be divisible by 9.\n\n\\[\nN\\equiv 0\\pmod{2}\n\\]\n\n\\[\nN\\equiv 0\\pmod{9}\n\\]\n\nStep 2: Check the even condition\n\nThe last digit is 2, so the even condition is satisfied.\n\n\\[\n2\\equiv 0\\pmod{2}\n\\]\n\nStep 3: Use the digit-sum rule for 9\n\nThe known digit sum is 21; make the full sum a multiple of 9.\n\n\\[\n21+x=27\n\\]\n\n\\[\nx=6\n\\]\n\nAnswer Verification\nWith \\(x=6\\), both tests for 18 are satisfied.\n\\[\n21+6=27\n\\]\n\\[\n27\\equiv 0\\pmod{9}\n\\]\n\\[\n2\\equiv 0\\pmod{2}\n\\]\n\nFinal Answer\nTherefore, the correct answer is Option (B). Computed value: \\(6\\).\n\nShortcut\n\nEvenness is fixed by the last digit; complete the digit sum to a multiple of 9.\n\n\\[\nx\\equiv 6\\pmod{9}\n\\]\n\n\\[\nx=6\n\\]\n\nFast result: \\(6\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "संख्या \\(4x872\\), \\(18\\) से विभाज्य है। \\(x\\) का मान क्या है?",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "चरण 1: 18 के नियम को दो भागों में बांटें\n\n18 से विभाज्य संख्या सम होनी चाहिए और 9 से भी विभाज्य होनी चाहिए।\n\n\\[\nN\\equiv 0\\pmod{2}\n\\]\n\n\\[\nN\\equiv 0\\pmod{9}\n\\]\n\nचरण 2: सम होने की शर्त जांचें\n\nअंतिम अंक 2 है, इसलिए सम होने की शर्त पूरी है।\n\n\\[\n2\\equiv 0\\pmod{2}\n\\]\n\nचरण 3: 9 के लिए अंक-योग नियम लगाएं\n\nज्ञात अंकों का योग 21 है; पूरे योग को 9 का गुणज बनाएं।\n\n\\[\n21+x=27\n\\]\n\n\\[\nx=6\n\\]\n\nउत्तर सत्यापन\n\\(x=6\\) रखने पर 18 की दोनों जांचें पूरी होती हैं।\n\\[\n21+6=27\n\\]\n\\[\n27\\equiv 0\\pmod{9}\n\\]\n\\[\n2\\equiv 0\\pmod{2}\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(6\\) है।\n\nशॉर्टकट\n\nसमता अंतिम अंक से तय है; अंक-योग को 9 के गुणज तक पूरा करें।\n\n\\[\nx\\equiv 6\\pmod{9}\n\\]\n\n\\[\nx=6\n\\]\n\nशीघ्र परिणाम: \\(6\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(4x872\\), \\(18\\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \\(x\\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "ਕਦਮ 1: 18 ਦੇ ਨਿਯਮ ਨੂੰ ਦੋ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡੋ\n\n18 ਨਾਲ ਭਾਗਯੋਗ ਸੰਖਿਆ ਸਮ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ 9 ਨਾਲ ਵੀ ਭਾਗਯੋਗ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\nN\\equiv 0\\pmod{2}\n\\]\n\n\\[\nN\\equiv 0\\pmod{9}\n\\]\n\nਕਦਮ 2: ਸਮ ਹੋਣ ਦੀ ਸ਼ਰਤ ਜਾਂਚੋ\n\nਆਖਰੀ ਅੰਕ 2 ਹੈ, ਇਸ ਲਈ ਸਮ ਹੋਣ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਹੈ।\n\n\\[\n2\\equiv 0\\pmod{2}\n\\]\n\nਕਦਮ 3: 9 ਲਈ ਅੰਕ-ਜੋੜ ਨਿਯਮ ਲਗਾਓ\n\nਪਤਾ ਅੰਕਾਂ ਦਾ ਜੋੜ 21 ਹੈ; ਪੂਰੇ ਜੋੜ ਨੂੰ 9 ਦਾ ਗੁਣਜ ਬਣਾਓ।\n\n\\[\n21+x=27\n\\]\n\n\\[\nx=6\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n\\(x=6\\) ਰੱਖਣ ਤੇ 18 ਦੀਆਂ ਦੋਵੇਂ ਜਾਂਚਾਂ ਪੂਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\n\\[\n21+6=27\n\\]\n\\[\n27\\equiv 0\\pmod{9}\n\\]\n\\[\n2\\equiv 0\\pmod{2}\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(6\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਮਤਾ ਆਖਰੀ ਅੰਕ ਨਾਲ ਤੈਅ ਹੈ; ਅੰਕ-ਜੋੜ ਨੂੰ 9 ਦੇ ਗੁਣਜ ਤੱਕ ਪੂਰਾ ਕਰੋ।\n\n\\[\nx\\equiv 6\\pmod{9}\n\\]\n\n\\[\nx=6\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(6\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 9,
+    "question": "For \\(7^{73}\\), find the remainder on division by \\(5\\) without expansion.",
+    "options": [
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(4\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_modular_arithmetic"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_modular_arithmetic"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For \\(7^{73}\\), find the remainder on division by \\(5\\) without expansion.",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n7\\equiv 2\\pmod{5}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n2\\rightarrow 4\\rightarrow 3\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(73-1)\\bmod 4+1=1\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 2.\n\n\\[\n7^{73}\\equiv 2\\pmod{5}\n\\]\n\nAnswer Verification\nThe 1st term of the cycle is 2.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(2\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(73-1)\\bmod 4+1=1\n\\]\n\n\\[\n2^{73}\\equiv 2\\pmod{5}\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "घात को फैलाए बिना \\(7^{73}\\) को \\(5\\) से भाग देने पर शेषफल ज्ञात करें।",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n7\\equiv 2\\pmod{5}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 3\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(73-1)\\bmod 4+1=1\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 2।\n\n\\[\n7^{73}\\equiv 2\\pmod{5}\n\\]\n\nउत्तर सत्यापन\nचक्र का 1वाँ पद 2 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(2\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(73-1)\\bmod 4+1=1\n\\]\n\n\\[\n2^{73}\\equiv 2\\pmod{5}\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਘਾਤ ਨੂੰ ਫੈਲਾਏ ਬਿਨਾਂ \\(7^{73}\\) ਨੂੰ \\(5\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕਿੰਨਾ ਆਵੇਗਾ?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n7\\equiv 2\\pmod{5}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 3\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(73-1)\\bmod 4+1=1\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 2।\n\n\\[\n7^{73}\\equiv 2\\pmod{5}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 2 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(73-1)\\bmod 4+1=1\n\\]\n\n\\[\n2^{73}\\equiv 2\\pmod{5}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 10,
+    "question": "When \\(3^{86}\\) is divided by \\(11\\), what remainder is left?",
+    "options": [
+      "\\(2\\)",
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(4\\)"
+    ],
+    "answer": "\\(3\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_reconstruction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_reconstruction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When \\(3^{86}\\) is divided by \\(11\\), what remainder is left?",
+        "options": [
+          "\\(2\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n3\\equiv 3\\pmod{11}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 5.\n\n\\[\n3\\rightarrow 9\\rightarrow 5\\rightarrow 4\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(86-1)\\bmod 5+1=1\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 3.\n\n\\[\n3^{86}\\equiv 3\\pmod{11}\n\\]\n\nAnswer Verification\nThe 1st term of the cycle is 3.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(3\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(86-1)\\bmod 5+1=1\n\\]\n\n\\[\n3^{86}\\equiv 3\\pmod{11}\n\\]\n\nFast result: \\(3\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(3^{86}\\) को \\(11\\) से भाग देने पर क्या शेषफल आएगा?",
+        "options": [
+          "\\(2\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n3\\equiv 3\\pmod{11}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 5।\n\n\\[\n3\\rightarrow 9\\rightarrow 5\\rightarrow 4\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(86-1)\\bmod 5+1=1\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 3।\n\n\\[\n3^{86}\\equiv 3\\pmod{11}\n\\]\n\nउत्तर सत्यापन\nचक्र का 1वाँ पद 3 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(3\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(86-1)\\bmod 5+1=1\n\\]\n\n\\[\n3^{86}\\equiv 3\\pmod{11}\n\\]\n\nशीघ्र परिणाम: \\(3\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(3^{86}\\) ਨੂੰ \\(11\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?",
+        "options": [
+          "\\(2\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n3\\equiv 3\\pmod{11}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 5।\n\n\\[\n3\\rightarrow 9\\rightarrow 5\\rightarrow 4\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(86-1)\\bmod 5+1=1\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 3।\n\n\\[\n3^{86}\\equiv 3\\pmod{11}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 3 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(3\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(86-1)\\bmod 5+1=1\n\\]\n\n\\[\n3^{86}\\equiv 3\\pmod{11}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(3\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 11,
+    "question": "Between \\(140\\) and \\(241\\), how many integers are divisible by \\(15\\)?",
+    "options": [
+      "\\(7\\)",
+      "\\(8\\)",
+      "\\(6\\)",
+      "\\(9\\)"
+    ],
+    "answer": "\\(7\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_multi_condition"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_multi_condition"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(140\\) and \\(241\\), how many integers are divisible by \\(15\\)?",
+        "options": [
+          "\\(7\\)",
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 15 greater than 140 is 150.\n\n\\[\n15\\times 10=150\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 240 is the greatest multiple of 15 not exceeding 241.\n\n\\[\n241=15\\times 16+1\n\\]\n\n\\[\n241-1=240\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 15.\n\n\\[\n\\frac{240-150}{15}+1=6+1=7\n\\]\n\nAnswer Verification\nThe total number of multiples is 7.\nHence, there are 7 multiples of 15 in the given range.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(7\\).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{241}{15}\\right\\rfloor-\\left\\lfloor\\frac{139}{15}\\right\\rfloor\n\\]\n\n\\[\n16-9=7\n\\]\n\nFast result: \\(7\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(140\\) और \\(241\\) के बीच कितने पूर्णांक \\(15\\) से विभाज्य हैं?",
+        "options": [
+          "\\(7\\)",
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "चरण 1: पहला मान्य गुणज ज्ञात करें\n\nअतः 140 से बड़ा 15 का पहला गुणज 150 है।\n\n\\[\n15\\times 10=150\n\\]\n\nचरण 2: अंतिम मान्य गुणज ज्ञात करें\n\nअतः 240, 241 से अधिक न होने वाला 15 का सबसे बड़ा गुणज है।\n\n\\[\n241=15\\times 16+1\n\\]\n\n\\[\n241-1=240\n\\]\n\nचरण 3: मान्य गुणजों की गिनती करें\n\nगुणज 15 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{240-150}{15}+1=6+1=7\n\\]\n\nउत्तर सत्यापन\nगुणजों की कुल संख्या 7 है।\nअतः दी गई सीमा में 15 के 7 गुणज हैं।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(7\\) है।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{241}{15}\\right\\rfloor-\\left\\lfloor\\frac{139}{15}\\right\\rfloor\n\\]\n\n\\[\n16-9=7\n\\]\n\nशीघ्र परिणाम: \\(7\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(140\\) ਅਤੇ \\(241\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(15\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(7\\)",
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 140 ਤੋਂ ਵੱਡਾ 15 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 150 ਹੈ।\n\n\\[\n15\\times 10=150\n\\]\n\nਕਦਮ 2: ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 240, 241 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 15 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n241=15\\times 16+1\n\\]\n\n\\[\n241-1=240\n\\]\n\nਕਦਮ 3: ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 15 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{240-150}{15}+1=6+1=7\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 7 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 15 ਦੇ 7 ਗੁਣਜ ਹਨ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(7\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{241}{15}\\right\\rfloor-\\left\\lfloor\\frac{139}{15}\\right\\rfloor\n\\]\n\n\\[\n16-9=7\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(7\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 12,
+    "question": "For two numbers \\(195\\) and \\(150\\), which common multiple is first reached?",
+    "options": [
+      "\\(1950\\)",
+      "\\(2145\\)",
+      "\\(2340\\)",
+      "\\(1755\\)"
+    ],
+    "answer": "\\(1950\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_fraction_hcf_lcm"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_fraction_hcf_lcm"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For two numbers \\(195\\) and \\(150\\), which common multiple is first reached?",
+        "options": [
+          "\\(1950\\)",
+          "\\(2145\\)",
+          "\\(2340\\)",
+          "\\(1755\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n195=3\\times 5\\times 13\n\\]\n\n\\[\n150=2\\times 3\\times 5^{2}\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(195,150)=1950\n\\]\n\nAnswer Verification\nThe LCM is 1950.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(1950\\).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(195,150)=\\frac{195\\times 150}{\\operatorname{HCF}(195,150)}=1950\n\\]\n\nFast result: \\(1950\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो संख्याओं \\(195\\) और \\(150\\) के लिए पहला साझा गुणज क्या होगा?",
+        "options": [
+          "\\(1950\\)",
+          "\\(2145\\)",
+          "\\(2340\\)",
+          "\\(1755\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n195=3\\times 5\\times 13\n\\]\n\n\\[\n150=2\\times 3\\times 5^{2}\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(195,150)=1950\n\\]\n\nउत्तर सत्यापन\nLCM 1950 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(1950\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(195,150)=\\frac{195\\times 150}{\\operatorname{HCF}(195,150)}=1950\n\\]\n\nशीघ्र परिणाम: \\(1950\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਸੰਖਿਆਵਾਂ \\(195\\) ਅਤੇ \\(150\\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "\\(1950\\)",
+          "\\(2145\\)",
+          "\\(2340\\)",
+          "\\(1755\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n195=3\\times 5\\times 13\n\\]\n\n\\[\n150=2\\times 3\\times 5^{2}\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(195,150)=1950\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1950 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1950\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(195,150)=\\frac{195\\times 150}{\\operatorname{HCF}(195,150)}=1950\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1950\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 13,
+    "question": "Power \\(2^{78}\\) is tested modulo \\(9\\). Which remainder is obtained?",
+    "options": [
+      "\\(1\\)",
+      "\\(2\\)",
+      "\\(0\\)",
+      "\\(3\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_after_division"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_after_division"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Power \\(2^{78}\\) is tested modulo \\(9\\). Which remainder is obtained?",
+        "options": [
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n2\\equiv 2\\pmod{9}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 6.\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 7\\rightarrow 5\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(78-1)\\bmod 6+1=6\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 1.\n\n\\[\n2^{78}\\equiv 1\\pmod{9}\n\\]\n\nAnswer Verification\nThe 6th term of the cycle is 1.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(1\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(78-1)\\bmod 6+1=6\n\\]\n\n\\[\n2^{78}\\equiv 1\\pmod{9}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "बड़ी घात \\(2^{78}\\) को \\(9\\) से भाग दिया गया। शेषफल क्या है?",
+        "options": [
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n2\\equiv 2\\pmod{9}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 6।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 7\\rightarrow 5\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(78-1)\\bmod 6+1=6\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n2^{78}\\equiv 1\\pmod{9}\n\\]\n\nउत्तर सत्यापन\nचक्र का 6वाँ पद 1 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(1\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(78-1)\\bmod 6+1=6\n\\]\n\n\\[\n2^{78}\\equiv 1\\pmod{9}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਵੱਡੀ ਘਾਤ \\(2^{78}\\) ਨੂੰ \\(9\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n2\\equiv 2\\pmod{9}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 6।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 7\\rightarrow 5\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(78-1)\\bmod 6+1=6\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n2^{78}\\equiv 1\\pmod{9}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 6ਵਾਂ ਪਦ 1 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(78-1)\\bmod 6+1=6\n\\]\n\n\\[\n2^{78}\\equiv 1\\pmod{9}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 14,
+    "question": "For exponent \\(84\\), what ending digit does \\(7^{84}\\) have?",
+    "options": [
+      "\\(2\\)",
+      "\\(0\\)",
+      "\\(3\\)",
+      "\\(1\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_power_tower_digit"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_power_tower_digit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For exponent \\(84\\), what ending digit does \\(7^{84}\\) have?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n7\\equiv 7\\pmod{10}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n7\\rightarrow 9\\rightarrow 3\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(84-1)\\bmod 4+1=4\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 1.\n\n\\[\n7^{84}\\equiv 1\\pmod{10}\n\\]\n\nAnswer Verification\nThe 4th term of the cycle is 1.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(1\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(84-1)\\bmod 4+1=4\n\\]\n\n\\[\n7^{84}\\equiv 1\\pmod{10}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(7^{84}\\) का अंतिम अंक क्या है?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n7\\equiv 7\\pmod{10}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n7\\rightarrow 9\\rightarrow 3\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(84-1)\\bmod 4+1=4\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n7^{84}\\equiv 1\\pmod{10}\n\\]\n\nउत्तर सत्यापन\nचक्र का 4वाँ पद 1 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(1\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(84-1)\\bmod 4+1=4\n\\]\n\n\\[\n7^{84}\\equiv 1\\pmod{10}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(7^{84}\\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n7\\equiv 7\\pmod{10}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n7\\rightarrow 9\\rightarrow 3\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(84-1)\\bmod 4+1=4\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n7^{84}\\equiv 1\\pmod{10}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 4ਵਾਂ ਪਦ 1 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(84-1)\\bmod 4+1=4\n\\]\n\n\\[\n7^{84}\\equiv 1\\pmod{10}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 15,
+    "question": "Bells ring at intervals of \\(60\\) and \\(255\\) minutes. After how many minutes will both ring together again?",
+    "options": [
+      "\\(1224\\)",
+      "\\(918\\)",
+      "\\(1020\\)",
+      "\\(1122\\)"
+    ],
+    "answer": "\\(1020\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_three_number_hcf_lcm"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_three_number_hcf_lcm"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Bells ring at intervals of \\(60\\) and \\(255\\) minutes. After how many minutes will both ring together again?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nAnswer Verification\nThe LCM is 1020.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(1020\\).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nFast result: \\(1020\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "घंटियाँ \\(60\\) और \\(255\\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nउत्तर सत्यापन\nLCM 1020 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(1020\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nशीघ्र परिणाम: \\(1020\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਘੰਟੀਆਂ \\(60\\) ਅਤੇ \\(255\\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1020 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1020\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1020\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 16,
+    "question": "The power \\(17^{51}\\) is very large. What are its final digit?",
+    "options": [
+      "\\(2\\)",
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(4\\)"
+    ],
+    "answer": "\\(3\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_cycle_length_detection"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_cycle_length_detection"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The power \\(17^{51}\\) is very large. What are its final digit?",
+        "options": [
+          "\\(2\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n17\\equiv 7\\pmod{10}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n7\\rightarrow 9\\rightarrow 3\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(51-1)\\bmod 4+1=3\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 3.\n\n\\[\n17^{51}\\equiv 3\\pmod{10}\n\\]\n\nAnswer Verification\nThe 3rd term of the cycle is 3.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(3\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(51-1)\\bmod 4+1=3\n\\]\n\n\\[\n7^{51}\\equiv 3\\pmod{10}\n\\]\n\nFast result: \\(3\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(17^{51}\\) के अंतिम अंक ज्ञात करें?",
+        "options": [
+          "\\(2\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n17\\equiv 7\\pmod{10}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n7\\rightarrow 9\\rightarrow 3\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(51-1)\\bmod 4+1=3\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 3।\n\n\\[\n17^{51}\\equiv 3\\pmod{10}\n\\]\n\nउत्तर सत्यापन\nचक्र का 3वाँ पद 3 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(3\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(51-1)\\bmod 4+1=3\n\\]\n\n\\[\n7^{51}\\equiv 3\\pmod{10}\n\\]\n\nशीघ्र परिणाम: \\(3\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(17^{51}\\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?",
+        "options": [
+          "\\(2\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n17\\equiv 7\\pmod{10}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n7\\rightarrow 9\\rightarrow 3\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(51-1)\\bmod 4+1=3\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 3।\n\n\\[\n17^{51}\\equiv 3\\pmod{10}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 3 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(3\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(51-1)\\bmod 4+1=3\n\\]\n\n\\[\n7^{51}\\equiv 3\\pmod{10}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(3\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 17,
+    "question": "When \\(13^{93}\\) is divided by \\(9\\), what remainder is left?",
+    "options": [
+      "\\(0\\)",
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_after_power"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_after_power"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When \\(13^{93}\\) is divided by \\(9\\), what remainder is left?",
+        "options": [
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n13\\equiv 4\\pmod{9}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 3.\n\n\\[\n4\\rightarrow 7\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(93-1)\\bmod 3+1=3\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 1.\n\n\\[\n13^{93}\\equiv 1\\pmod{9}\n\\]\n\nAnswer Verification\nThe 3rd term of the cycle is 1.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(1\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(93-1)\\bmod 3+1=3\n\\]\n\n\\[\n4^{93}\\equiv 1\\pmod{9}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(13^{93}\\) को \\(9\\) से भाग देने पर क्या शेषफल आएगा?",
+        "options": [
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n13\\equiv 4\\pmod{9}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 3।\n\n\\[\n4\\rightarrow 7\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(93-1)\\bmod 3+1=3\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n13^{93}\\equiv 1\\pmod{9}\n\\]\n\nउत्तर सत्यापन\nचक्र का 3वाँ पद 1 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(1\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(93-1)\\bmod 3+1=3\n\\]\n\n\\[\n4^{93}\\equiv 1\\pmod{9}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(13^{93}\\) ਨੂੰ \\(9\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?",
+        "options": [
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n13\\equiv 4\\pmod{9}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 3।\n\n\\[\n4\\rightarrow 7\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(93-1)\\bmod 3+1=3\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n13^{93}\\equiv 1\\pmod{9}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 1 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(93-1)\\bmod 3+1=3\n\\]\n\n\\[\n4^{93}\\equiv 1\\pmod{9}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 18,
+    "question": "When \\(3^{87}\\) is divided by \\(5\\), what remainder is left?",
+    "options": [
+      "\\(1\\)",
+      "\\(4\\)",
+      "\\(2\\)",
+      "\\(3\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_pattern"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_pattern"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When \\(3^{87}\\) is divided by \\(5\\), what remainder is left?",
+        "options": [
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n3\\equiv 3\\pmod{5}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n3\\rightarrow 4\\rightarrow 2\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(87-1)\\bmod 4+1=3\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 2.\n\n\\[\n3^{87}\\equiv 2\\pmod{5}\n\\]\n\nAnswer Verification\nThe 3rd term of the cycle is 2.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(2\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(87-1)\\bmod 4+1=3\n\\]\n\n\\[\n3^{87}\\equiv 2\\pmod{5}\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(3^{87}\\) को \\(5\\) से भाग देने पर क्या शेषफल आएगा?",
+        "options": [
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n3\\equiv 3\\pmod{5}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n3\\rightarrow 4\\rightarrow 2\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(87-1)\\bmod 4+1=3\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 2।\n\n\\[\n3^{87}\\equiv 2\\pmod{5}\n\\]\n\nउत्तर सत्यापन\nचक्र का 3वाँ पद 2 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(2\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(87-1)\\bmod 4+1=3\n\\]\n\n\\[\n3^{87}\\equiv 2\\pmod{5}\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(3^{87}\\) ਨੂੰ \\(5\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?",
+        "options": [
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n3\\equiv 3\\pmod{5}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n3\\rightarrow 4\\rightarrow 2\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(87-1)\\bmod 4+1=3\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 2।\n\n\\[\n3^{87}\\equiv 2\\pmod{5}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 2 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(87-1)\\bmod 4+1=3\n\\]\n\n\\[\n3^{87}\\equiv 2\\pmod{5}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 19,
+    "question": "For two numbers \\(60\\) and \\(195\\), which common multiple is first reached?",
+    "options": [
+      "\\(780\\)",
+      "\\(819\\)",
+      "\\(858\\)",
+      "\\(741\\)"
+    ],
+    "answer": "\\(780\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_lcm_bridge"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_lcm_bridge"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For two numbers \\(60\\) and \\(195\\), which common multiple is first reached?",
+        "options": [
+          "\\(780\\)",
+          "\\(819\\)",
+          "\\(858\\)",
+          "\\(741\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n195=3\\times 5\\times 13\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(60,195)=780\n\\]\n\nAnswer Verification\nThe LCM is 780.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(780\\).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(60,195)=\\frac{60\\times 195}{\\operatorname{HCF}(60,195)}=780\n\\]\n\nFast result: \\(780\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो संख्याओं \\(60\\) और \\(195\\) के लिए पहला साझा गुणज क्या होगा?",
+        "options": [
+          "\\(780\\)",
+          "\\(819\\)",
+          "\\(858\\)",
+          "\\(741\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n195=3\\times 5\\times 13\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(60,195)=780\n\\]\n\nउत्तर सत्यापन\nLCM 780 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(780\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(60,195)=\\frac{60\\times 195}{\\operatorname{HCF}(60,195)}=780\n\\]\n\nशीघ्र परिणाम: \\(780\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਸੰਖਿਆਵਾਂ \\(60\\) ਅਤੇ \\(195\\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "\\(780\\)",
+          "\\(819\\)",
+          "\\(858\\)",
+          "\\(741\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n195=3\\times 5\\times 13\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(60,195)=780\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 780 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(780\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(60,195)=\\frac{60\\times 195}{\\operatorname{HCF}(60,195)}=780\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(780\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 20,
+    "question": "Two cyclic events repeat every \\(48\\) and \\(120\\) minutes. After how many minutes will they occur together again?",
+    "options": [
+      "\\(252\\)",
+      "\\(264\\)",
+      "\\(228\\)",
+      "\\(240\\)"
+    ],
+    "answer": "\\(240\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hcf_lcm_word_problem"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hcf_lcm_word_problem"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two cyclic events repeat every \\(48\\) and \\(120\\) minutes. After how many minutes will they occur together again?",
+        "options": [
+          "\\(252\\)",
+          "\\(264\\)",
+          "\\(228\\)",
+          "\\(240\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n48=2^{4}\\times 3\n\\]\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(48,120)=240\n\\]\n\nAnswer Verification\nThe LCM is 240.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(240\\).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(48,120)=\\frac{48\\times 120}{\\operatorname{HCF}(48,120)}=240\n\\]\n\nFast result: \\(240\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "दो घटनाएँ हर \\(48\\) और \\(120\\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?",
+        "options": [
+          "\\(252\\)",
+          "\\(264\\)",
+          "\\(228\\)",
+          "\\(240\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n48=2^{4}\\times 3\n\\]\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(48,120)=240\n\\]\n\nउत्तर सत्यापन\nLCM 240 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(240\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(48,120)=\\frac{48\\times 120}{\\operatorname{HCF}(48,120)}=240\n\\]\n\nशीघ्र परिणाम: \\(240\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਘਟਨਾਵਾਂ ਹਰ \\(48\\) ਅਤੇ \\(120\\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "\\(252\\)",
+          "\\(264\\)",
+          "\\(228\\)",
+          "\\(240\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n48=2^{4}\\times 3\n\\]\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(48,120)=240\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 240 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(240\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(48,120)=\\frac{48\\times 120}{\\operatorname{HCF}(48,120)}=240\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(240\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 21,
+    "question": "The power \\(8^{98}\\) is very large. What are its final digit?",
+    "options": [
+      "\\(3\\)",
+      "\\(6\\)",
+      "\\(4\\)",
+      "\\(5\\)"
+    ],
+    "answer": "\\(4\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_unit_digit_cycle"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_unit_digit_cycle"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The power \\(8^{98}\\) is very large. What are its final digit?",
+        "options": [
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n8\\equiv 8\\pmod{10}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n8\\rightarrow 4\\rightarrow 2\\rightarrow 6\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(98-1)\\bmod 4+1=2\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 4.\n\n\\[\n8^{98}\\equiv 4\\pmod{10}\n\\]\n\nAnswer Verification\nThe 2nd term of the cycle is 4.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(4\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(98-1)\\bmod 4+1=2\n\\]\n\n\\[\n8^{98}\\equiv 4\\pmod{10}\n\\]\n\nFast result: \\(4\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(8^{98}\\) के अंतिम अंक ज्ञात करें?",
+        "options": [
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n8\\equiv 8\\pmod{10}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n8\\rightarrow 4\\rightarrow 2\\rightarrow 6\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(98-1)\\bmod 4+1=2\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 4।\n\n\\[\n8^{98}\\equiv 4\\pmod{10}\n\\]\n\nउत्तर सत्यापन\nचक्र का 2वाँ पद 4 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(4\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(98-1)\\bmod 4+1=2\n\\]\n\n\\[\n8^{98}\\equiv 4\\pmod{10}\n\\]\n\nशीघ्र परिणाम: \\(4\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(8^{98}\\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?",
+        "options": [
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n8\\equiv 8\\pmod{10}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n8\\rightarrow 4\\rightarrow 2\\rightarrow 6\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(98-1)\\bmod 4+1=2\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 4।\n\n\\[\n8^{98}\\equiv 4\\pmod{10}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 2ਵਾਂ ਪਦ 4 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(4\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(98-1)\\bmod 4+1=2\n\\]\n\n\\[\n8^{98}\\equiv 4\\pmod{10}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(4\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 22,
+    "question": "In \\(12^{32}\\), determine the final digit without expanding the power.",
+    "options": [
+      "\\(6\\)",
+      "\\(7\\)",
+      "\\(5\\)",
+      "\\(8\\)"
+    ],
+    "answer": "\\(6\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_expression_last_digit"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_expression_last_digit"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In \\(12^{32}\\), determine the final digit without expanding the power.",
+        "options": [
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n12\\equiv 2\\pmod{10}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 6\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(32-1)\\bmod 4+1=4\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 6.\n\n\\[\n12^{32}\\equiv 6\\pmod{10}\n\\]\n\nAnswer Verification\nThe 4th term of the cycle is 6.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(6\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(32-1)\\bmod 4+1=4\n\\]\n\n\\[\n2^{32}\\equiv 6\\pmod{10}\n\\]\n\nFast result: \\(6\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(12^{32}\\) का अंतिम अंक (इकाई अंक) क्या है?",
+        "options": [
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n12\\equiv 2\\pmod{10}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 6\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(32-1)\\bmod 4+1=4\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 6।\n\n\\[\n12^{32}\\equiv 6\\pmod{10}\n\\]\n\nउत्तर सत्यापन\nचक्र का 4वाँ पद 6 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(6\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(32-1)\\bmod 4+1=4\n\\]\n\n\\[\n2^{32}\\equiv 6\\pmod{10}\n\\]\n\nशीघ्र परिणाम: \\(6\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(12^{32}\\) ਦਾ ਆਖਰੀ ਅੰਕ (ਇਕਾਈ ਅੰਕ) ਕੀ ਹੈ?",
+        "options": [
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n12\\equiv 2\\pmod{10}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 6\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(32-1)\\bmod 4+1=4\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 6।\n\n\\[\n12^{32}\\equiv 6\\pmod{10}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 4ਵਾਂ ਪਦ 6 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(6\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(32-1)\\bmod 4+1=4\n\\]\n\n\\[\n2^{32}\\equiv 6\\pmod{10}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(6\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 23,
+    "question": "Tens digit \\(5\\), digit sum \\(14\\): which two-digit number satisfies both facts?",
+    "options": [
+      "\\(58\\)",
+      "\\(61\\)",
+      "\\(59\\)",
+      "\\(60\\)"
+    ],
+    "answer": "\\(59\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_multi_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_multi_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(5\\), digit sum \\(14\\): which two-digit number satisfies both facts?",
+        "options": [
+          "\\(58\\)",
+          "\\(61\\)",
+          "\\(59\\)",
+          "\\(60\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n5+u=14\\Rightarrow u=9\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 59.\n\n\\[\nN=10\\times 5+9=59\n\\]\n\nAnswer Verification\nDigit sum of 59 is 14.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(59\\).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=9\n\\]\n\n\\[\nN=59\n\\]\n\nFast result: \\(59\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "दहाई अंक \\(5\\), अंक-योग \\(14\\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?",
+        "options": [
+          "\\(58\\)",
+          "\\(61\\)",
+          "\\(59\\)",
+          "\\(60\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n5+u=14\\Rightarrow u=9\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 59 है।\n\n\\[\nN=10\\times 5+9=59\n\\]\n\nउत्तर सत्यापन\n59 का अंक-योग 14 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(59\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=9\n\\]\n\n\\[\nN=59\n\\]\n\nशीघ्र परिणाम: \\(59\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਦਹਾਈ ਅੰਕ \\(5\\), ਅੰਕ-ਜੋੜ \\(14\\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "\\(58\\)",
+          "\\(61\\)",
+          "\\(59\\)",
+          "\\(60\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n5+u=14\\Rightarrow u=9\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 59 ਹੈ।\n\n\\[\nN=10\\times 5+9=59\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n59 ਦਾ ਅੰਕ-ਜੋੜ 14 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(59\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=9\n\\]\n\n\\[\nN=59\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(59\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 24,
+    "question": "For \\(2^{56}\\), find the remainder on division by \\(5\\) without expansion.",
+    "options": [
+      "\\(2\\)",
+      "\\(0\\)",
+      "\\(3\\)",
+      "\\(1\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_range_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_range_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For \\(2^{56}\\), find the remainder on division by \\(5\\) without expansion.",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n2\\equiv 2\\pmod{5}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n2\\rightarrow 4\\rightarrow 3\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(56-1)\\bmod 4+1=4\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 1.\n\n\\[\n2^{56}\\equiv 1\\pmod{5}\n\\]\n\nAnswer Verification\nThe 4th term of the cycle is 1.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(1\\).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(56-1)\\bmod 4+1=4\n\\]\n\n\\[\n2^{56}\\equiv 1\\pmod{5}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "घात को फैलाए बिना \\(2^{56}\\) को \\(5\\) से भाग देने पर शेषफल ज्ञात करें।",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n2\\equiv 2\\pmod{5}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 3\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(56-1)\\bmod 4+1=4\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n2^{56}\\equiv 1\\pmod{5}\n\\]\n\nउत्तर सत्यापन\nचक्र का 4वाँ पद 1 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(1\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(56-1)\\bmod 4+1=4\n\\]\n\n\\[\n2^{56}\\equiv 1\\pmod{5}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਘਾਤ ਨੂੰ ਫੈਲਾਏ ਬਿਨਾਂ \\(2^{56}\\) ਨੂੰ \\(5\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕਿੰਨਾ ਆਵੇਗਾ?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n2\\equiv 2\\pmod{5}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 3\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(56-1)\\bmod 4+1=4\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n2^{56}\\equiv 1\\pmod{5}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 4ਵਾਂ ਪਦ 1 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(56-1)\\bmod 4+1=4\n\\]\n\n\\[\n2^{56}\\equiv 1\\pmod{5}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  }
+]

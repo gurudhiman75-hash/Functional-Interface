@@ -1,0 +1,133 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-06-01-193448
+Run: run-b2a34ee3-0e6c-41cd-80aa-05d4667f39c8
+Seed: number-system-audit:run-b2a34ee3-0e6c-41cd-80aa-05d4667f39c8
+Explicit seed: no
+Preset: number_system_audit
+Profile: multilingual_review
+Count: 1
+Estimated Size: ~0 MB
+Multilingual explanations: yes
+
+[Q1]
+EN:
+Tens digit \(6\) and digit sum \(13\) are fixed. What is the number?
+
+HI:
+मान \(13\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \(6\) है। संख्या ज्ञात करें?
+
+PA:
+ਮੁੱਲ \(13\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \(6\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?
+
+Options: \(68\) | \(66\) | \(69\) | \(67\)
+Answer: \(67\)
+Difficulty: Medium
+Topology: number_system:ns_missing_digit_single_rule
+Realism: 90
+
+Explanation EN:
+Step 1: Form the digit-sum equation
+
+\[
+6+u=13\Rightarrow u=7
+\]
+
+Step 2: Write the two-digit number
+
+Hence, the number is 67.
+
+\[
+N=10\times 6+7=67
+\]
+
+Answer Verification
+Digit sum of 67 is 13.
+
+Final Answer
+Therefore, the correct answer is Option (D). Computed value: \(67\).
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=7
+\]
+
+\[
+N=67
+\]
+
+Fast result: \(67\). Therefore, the correct answer is Option (D).
+
+Explanation HI:
+चरण 1: अंक-योग समीकरण बनाएं
+
+\[
+6+u=13\Rightarrow u=7
+\]
+
+चरण 2: दो-अंकीय संख्या लिखें
+
+अतः संख्या 67 है।
+
+\[
+N=10\times 6+7=67
+\]
+
+उत्तर सत्यापन
+67 का अंक-योग 13 है।
+
+अंतिम उत्तर
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(67\) है।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=7
+\]
+
+\[
+N=67
+\]
+
+शीघ्र परिणाम: \(67\)। अतः सही उत्तर विकल्प (D) है।
+
+Explanation PA:
+ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+6+u=13\Rightarrow u=7
+\]
+
+ਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 67 ਹੈ।
+
+\[
+N=10\times 6+7=67
+\]
+
+ਉੱਤਰ ਪੁਸ਼ਟੀ
+67 ਦਾ ਅੰਕ-ਜੋੜ 13 ਹੈ।
+
+ਅੰਤਿਮ ਉੱਤਰ
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(67\) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=7
+\]
+
+\[
+N=67
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(67\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+

@@ -1,0 +1,8121 @@
+Q1. Digit sum \(13\) and tens digit \(7\) are known for a two-digit number. What is the number?
+A. \(75\)
+B. \(78\)
+C. \(76\)
+D. \(77\)
+Answer: C
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(13\) and tens digit \(7\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+7+u=13\Rightarrow u=6
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 7+6=76
+\]
+Therefore, the required answer is \(76\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(76\), Option (C).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(13\) और दहाई अंक \(7\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(13\) और दहाई अंक \(7\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 7+6
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(76\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(76\), विकल्प (C).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(13\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(7\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(13\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(7\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 7+6
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(76\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(76\), ਵਿਕਲਪ (C).
+
+Family: ns_missing_digit_single_rule
+
+---
+Q2. The number \(8x872\) is divisible by \(11\). What is the value of \(x\)?
+A. \(1\)
+B. \(2\)
+C. \(3\)
+D. \(0\)
+Answer: D
+
+Explanation:
+Concept
+Use the divisibility rule that fits the given divisor.
+
+Given
+The number \(8x872\) is divisible by \(11\). What is the value of \(x\)?
+
+Working
+Use the divisibility rule for 11; the chosen digit must make the completed number divisible by 11.
+Test the valid digit in the blank.
+\[
+8x872\Rightarrow 80872
+\]
+Now verify divisibility.
+\[
+80872\div 11=7352
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Direct check: replace \(x\) by \(0\) in \(8x872\).
+\[
+80872\equiv 0\pmod{11}
+\]
+Answer: \(0\), Option (D).
+
+
+Hindi:
+संख्या \(8x872\), \(11\) से विभाज्य है। \(x\) का मान क्या है?
+विचार
+दिए गए भाजक के अनुसार विभाज्यता नियम लगाएं।
+
+दिया गया
+संख्या \(8x872\), \(11\) से विभाज्य है। \(x\) का मान क्या है?
+
+हल
+लुप्त अंक ऐसा होना चाहिए कि पूरी संख्या दिए गए भाजक से विभाज्य हो।
+अंक-योग जांच के लिए पहले ज्ञात अंकों को जोड़ें।
+\[
+25+x
+\]
+जो अंक विभाज्यता जांच को पूरा करता है, वही उत्तर है।
+\[
+x=0
+\]
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+\(8x872\) पर सीधे विभाज्यता नियम लगाएं; सही अंक \(0\) है।
+उत्तर: \(0\), विकल्प (D).
+
+Punjabi:
+ਸੰਖਿਆ \(8x872\), \(11\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \(x\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਦਿੱਤੇ ਭਾਜਕ ਮੁਤਾਬਕ ਭਾਗਯੋਗਤਾ ਦਾ ਨਿਯਮ ਲਗਾਓ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(8x872\), \(11\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \(x\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਗੁੰਮ ਅੰਕ ਐਸਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ ਕਿ ਪੂਰੀ ਸੰਖਿਆ ਦਿੱਤੇ ਭਾਜਕ ਨਾਲ ਭਾਗ ਜਾਵੇ।
+ਅੰਕ-ਜੋੜ ਜਾਂਚ ਲਈ ਪਹਿਲਾਂ ਪਤਾ ਅੰਕ ਜੋੜੋ।
+\[
+25+x
+\]
+ਜੋ ਅੰਕ ਭਾਗਯੋਗਤਾ ਜਾਂਚ ਪੂਰੀ ਕਰਦਾ ਹੈ, ਉਹੀ ਉੱਤਰ ਹੈ।
+\[
+x=0
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+\(8x872\) ਉੱਤੇ ਸਿੱਧਾ ਭਾਗਯੋਗਤਾ ਨਿਯਮ ਲਗਾਓ; ਸਹੀ ਅੰਕ \(0\) ਹੈ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (D).
+
+Family: ns_reverse_divisibility
+
+---
+Q3. Between \(198\) and \(337\), how many integers are divisible by \(9\)?
+A. \(16\)
+B. \(17\)
+C. \(15\)
+D. \(18\)
+Answer: A
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(198\) and \(337\), how many integers are divisible by \(9\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+198,\;333
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{333-198}{9}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{135}{9}+1=15+1=16
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(16\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{337}{9}\right\rfloor=37,\quad \left\lfloor\frac{197}{9}\right\rfloor=21
+\]
+\[
+37-21=16
+\]
+Answer: \(16\), Option (A).
+
+
+Hindi:
+\(198\) और \(337\) के बीच कितने पूर्णांक \(9\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(198\) और \(337\) के बीच कितने पूर्णांक \(9\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{337}{9}\right\rfloor-\left\lfloor\frac{197}{9}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(16\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(16\), विकल्प (A).
+
+Punjabi:
+\(198\) ਅਤੇ \(337\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(9\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(198\) ਅਤੇ \(337\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(9\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{337}{9}\right\rfloor-\left\lfloor\frac{197}{9}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(16\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(16\), ਵਿਕਲਪ (A).
+
+Family: ns_divisibility_range_count
+
+---
+Q4. Two buses leave a stand every \(104\) and \(48\) minutes. When will they next leave together?
+A. \(593\)
+B. \(624\)
+C. \(655\)
+D. \(686\)
+Answer: B
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two buses leave a stand every \(104\) and \(48\) minutes. When will they next leave together?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+104=2^{3}\times 13,\ 48=2^{4}\times 3
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(104,48)=624
+\]
+Therefore, the required answer is \(624\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(624\), Option (B).
+
+
+Hindi:
+दो बसें \(104\) और \(48\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो बसें \(104\) और \(48\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(104,48)=624
+\]
+इसलिए आवश्यक उत्तर \(624\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(624\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(104\) ਅਤੇ \(48\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਬੱਸਾਂ \(104\) ਅਤੇ \(48\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(104,48)=624
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(624\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(624\), ਵਿਕਲਪ (B).
+
+Family: ns_divisibility_lcm_bridge
+
+---
+Q5. After prime factorising \(12\), what is the number of positive divisors?
+A. \(7\)
+B. \(5\)
+C. \(8\)
+D. \(6\)
+Answer: D
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+After prime factorising \(12\), what is the number of positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+12=2^{2}\times 3
+\]
+Each exponent contributes one more choice than its value.
+\[
+d(n)=(2+1)\times (1+1)=6
+\]
+Therefore, the required answer is \(6\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(2+1)\times (1+1)
+\]
+Answer: \(6\), Option (D).
+
+
+Hindi:
+\(12\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+\(12\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+12=2^{2}\times 3
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(6\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(6\), विकल्प (D).
+
+Punjabi:
+\(12\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(12\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+12=2^{2}\times 3
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(6\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(6\), ਵਿਕਲਪ (D).
+
+Family: ns_hidden_prime_exponent
+
+---
+Q6. After prime factorising \(108\), what is the number of positive divisors?
+A. \(13\)
+B. \(11\)
+C. \(14\)
+D. \(12\)
+Answer: D
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+After prime factorising \(108\), what is the number of positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+108=2^{2}\times 3^{3}
+\]
+Each exponent contributes one more choice than its value.
+\[
+d(n)=(2+1)\times (3+1)=12
+\]
+Therefore, the required answer is \(12\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(2+1)\times (3+1)
+\]
+Answer: \(12\), Option (D).
+
+
+Hindi:
+\(108\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+\(108\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+108=2^{2}\times 3^{3}
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(12\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(12\), विकल्प (D).
+
+Punjabi:
+\(108\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(108\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+108=2^{2}\times 3^{3}
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(12\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(12\), ਵਿਕਲਪ (D).
+
+Family: ns_factor_count_constraint
+
+---
+Q7. For the number \(480\), find the count of odd divisors?
+A. \(3\)
+B. \(6\)
+C. \(4\)
+D. \(5\)
+Answer: C
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+For the number \(480\), find the count of odd divisors?
+
+Working
+First write the number as prime powers.
+\[
+480=2^{5}\times 3\times 5
+\]
+Odd divisors ignore the power of 2 and use only odd prime exponents.
+\[
+(1+1)\times (1+1)
+\]
+Therefore, the required answer is \(4\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(5+1)\times (1+1)\times (1+1)
+\]
+Answer: \(4\), Option (C).
+
+
+Hindi:
+संख्या \(480\) के लिए विषम भाजकों की संख्या ज्ञात करें?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+संख्या \(480\) के लिए विषम भाजकों की संख्या ज्ञात करें?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+480=2^{5}\times 3\times 5
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(4\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(4\), विकल्प (C).
+
+Punjabi:
+ਸੰਖਿਆ \(480\) ਲਈ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(480\) ਲਈ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+480=2^{5}\times 3\times 5
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(4\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(4\), ਵਿਕਲਪ (C).
+
+Family: ns_odd_even_divisor_count
+
+---
+Q8. Two buses leave a stand every \(126\) and \(234\) minutes. When will they next leave together?
+A. \(1474\)
+B. \(1638\)
+C. \(1802\)
+D. \(1966\)
+Answer: B
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two buses leave a stand every \(126\) and \(234\) minutes. When will they next leave together?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+126=2\times 3^{2}\times 7,\ 234=2\times 3^{2}\times 13
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(126,234)=1638
+\]
+Therefore, the required answer is \(1638\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(1638\), Option (B).
+
+
+Hindi:
+दो बसें \(126\) और \(234\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो बसें \(126\) और \(234\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(126,234)=1638
+\]
+इसलिए आवश्यक उत्तर \(1638\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(1638\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(126\) ਅਤੇ \(234\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਬੱਸਾਂ \(126\) ਅਤੇ \(234\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(126,234)=1638
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1638\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(1638\), ਵਿਕਲਪ (B).
+
+Family: ns_hcf_lcm_relation
+
+---
+Q9. For two numbers \(105\) and \(90\), which common multiple is first reached?
+A. \(630\)
+B. \(662\)
+C. \(693\)
+D. \(598\)
+Answer: A
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+For two numbers \(105\) and \(90\), which common multiple is first reached?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+105=3\times 5\times 7,\ 90=2\times 3^{2}\times 5
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(105,90)=630
+\]
+Therefore, the required answer is \(630\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(630\), Option (A).
+
+
+Hindi:
+दो संख्याओं \(105\) और \(90\) के लिए पहला साझा गुणज क्या होगा?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो संख्याओं \(105\) और \(90\) के लिए पहला साझा गुणज क्या होगा?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(105,90)=630
+\]
+इसलिए आवश्यक उत्तर \(630\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(630\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(105\) ਅਤੇ \(90\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਸੰਖਿਆਵਾਂ \(105\) ਅਤੇ \(90\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(105,90)=630
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(630\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(630\), ਵਿਕਲਪ (A).
+
+Family: ns_hidden_hcf
+
+---
+Q10. Two cyclic events repeat every \(198\) and \(108\) minutes. After how many minutes will they occur together again?
+A. \(1307\)
+B. \(1426\)
+C. \(1069\)
+D. \(1188\)
+Answer: D
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two cyclic events repeat every \(198\) and \(108\) minutes. After how many minutes will they occur together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+198=2\times 3^{2}\times 11,\ 108=2^{2}\times 3^{3}
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(198,108)=1188
+\]
+Therefore, the required answer is \(1188\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(1188\), Option (D).
+
+
+Hindi:
+दो घटनाएँ हर \(198\) और \(108\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो घटनाएँ हर \(198\) और \(108\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(198,108)=1188
+\]
+इसलिए आवश्यक उत्तर \(1188\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(1188\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(198\) ਅਤੇ \(108\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(198\) ਅਤੇ \(108\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(198,108)=1188
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1188\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(1188\), ਵਿਕਲਪ (D).
+
+Family: ns_fraction_hcf_lcm
+
+---
+Q11. Bells ring at intervals of \(66\) and \(60\) minutes. After how many minutes will both ring together again?
+A. \(726\)
+B. \(627\)
+C. \(660\)
+D. \(693\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(66\) and \(60\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+66=2\times 3\times 11,\ 60=2^{2}\times 3\times 5
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(66,60)=660
+\]
+Therefore, the required answer is \(660\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(660\), Option (C).
+
+
+Hindi:
+घंटियाँ \(66\) और \(60\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(66\) और \(60\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(66,60)=660
+\]
+इसलिए आवश्यक उत्तर \(660\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(660\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(66\) ਅਤੇ \(60\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(66\) ਅਤੇ \(60\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(66,60)=660
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(660\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(660\), ਵਿਕਲਪ (C).
+
+Family: ns_schedule_alignment
+
+---
+Q12. A large power \(7^{66}\) is divided by \(7\). What is the remainder?
+A. \(0\)
+B. \(1\)
+C. \(2\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+A large power \(7^{66}\) is divided by \(7\). What is the remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 0\pmod{7}
+\]
+Write the repeating remainder cycle.
+\[
+0
+\]
+Locate the exponent inside the cycle.
+\[
+(66-1)\bmod 1+1=1
+\]
+Take the remainder at that cycle position.
+\[
+0
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+66\mapsto 1
+\]
+Answer: \(0\), Option (A).
+
+
+Hindi:
+बड़ी घात \(7^{66}\) को \(7\) से भाग दिया गया। शेषफल क्या है?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+बड़ी घात \(7^{66}\) को \(7\) से भाग दिया गया। शेषफल क्या है?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+7\equiv 0\pmod{7}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(0\), विकल्प (A).
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(7^{66}\) ਨੂੰ \(7\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਵੱਡੀ ਘਾਤ \(7^{66}\) ਨੂੰ \(7\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+7\equiv 0\pmod{7}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (A).
+
+Family: ns_remainder_after_power
+
+---
+Q13. What remainder will \(13^{66}\) leave on division by \(11\)?
+A. \(8\)
+B. \(11\)
+C. \(9\)
+D. \(10\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(13^{66}\) leave on division by \(11\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+13\equiv 2\pmod{11}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 8,\ 5,\ 10,\ 9,\ 7,\ 3,\ 6,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(66-1)\bmod 10+1=6
+\]
+Take the remainder at that cycle position.
+\[
+9
+\]
+Therefore, the required answer is \(9\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+66\mapsto 6
+\]
+Answer: \(9\), Option (C).
+
+
+Hindi:
+\(13^{66}\) को \(11\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(13^{66}\) को \(11\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+13\equiv 2\pmod{11}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(9\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(9\), विकल्प (C).
+
+Punjabi:
+\(13^{66}\) ਨੂੰ \(11\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(13^{66}\) ਨੂੰ \(11\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+13\equiv 2\pmod{11}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(9\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(9\), ਵਿਕਲਪ (C).
+
+Family: ns_remainder_pattern
+
+---
+Q14. What remainder will \(2^{48}\) leave on division by \(7\)?
+A. \(0\)
+B. \(3\)
+C. \(1\)
+D. \(2\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(2^{48}\) leave on division by \(7\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+2\equiv 2\pmod{7}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(48-1)\bmod 3+1=3
+\]
+Take the remainder at that cycle position.
+\[
+1
+\]
+Therefore, the required answer is \(1\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+48\mapsto 3
+\]
+Answer: \(1\), Option (C).
+
+
+Hindi:
+\(2^{48}\) को \(7\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(2^{48}\) को \(7\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+2\equiv 2\pmod{7}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(1\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(1\), विकल्प (C).
+
+Punjabi:
+\(2^{48}\) ਨੂੰ \(7\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(2^{48}\) ਨੂੰ \(7\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+2\equiv 2\pmod{7}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(1\), ਵਿਕਲਪ (C).
+
+Family: ns_remainder_range_count
+
+---
+Q15. What are the last two digits of \(23^{31}\)?
+A. \(27\)
+B. \(28\)
+C. \(26\)
+D. \(29\)
+Answer: A
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last two digits of \(23^{31}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+23\equiv 23\pmod{100}
+\]
+Write the repeating remainder cycle.
+\[
+23,\ 29,\ 67,\ 41,\ 43,\ 89,\ 47,\ 81,\ 63,\ 49,\ 27,\ 21,\ 83,\ 9,\ 7,\ 61,\ 3,\ 69,\ 87,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(31-1)\bmod 20+1=11
+\]
+Take the remainder at that cycle position.
+\[
+27
+\]
+Therefore, the required answer is \(27\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+31\mapsto 11
+\]
+Answer: \(27\), Option (A).
+
+
+Hindi:
+\(23^{31}\) का अंतिम दो अंक क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(23^{31}\) का अंतिम दो अंक क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(31-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(27\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(27\), विकल्प (A).
+
+Punjabi:
+\(23^{31}\) ਦਾ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(23^{31}\) ਦਾ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(31-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(27\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(27\), ਵਿਕਲਪ (A).
+
+Family: ns_last_two_digits
+
+---
+Q16. What are the last digit of \(7^{73}\)?
+A. \(8\)
+B. \(6\)
+C. \(9\)
+D. \(7\)
+Answer: D
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last digit of \(7^{73}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 9,\ 3,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(73-1)\bmod 4+1=1
+\]
+Take the remainder at that cycle position.
+\[
+7
+\]
+Therefore, the required answer is \(7\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+73\mapsto 1
+\]
+Answer: \(7\), Option (D).
+
+
+Hindi:
+\(7^{73}\) का अंतिम अंक क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(7^{73}\) का अंतिम अंक क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(73-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(7\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(7\), विकल्प (D).
+
+Punjabi:
+\(7^{73}\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{73}\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(73-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(7\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(7\), ਵਿਕਲਪ (D).
+
+Family: ns_expression_last_digit
+
+---
+Q17. Find the ending digit of \(3^{59}\)?
+A. \(6\)
+B. \(9\)
+C. \(7\)
+D. \(8\)
+Answer: C
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+Find the ending digit of \(3^{59}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+3\equiv 3\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+3,\ 9,\ 7,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(59-1)\bmod 4+1=3
+\]
+Take the remainder at that cycle position.
+\[
+7
+\]
+Therefore, the required answer is \(7\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+59\mapsto 3
+\]
+Answer: \(7\), Option (C).
+
+
+Hindi:
+\(3^{59}\) के अंतिम अंक ज्ञात करें?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(3^{59}\) के अंतिम अंक ज्ञात करें?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(59-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(7\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(7\), विकल्प (C).
+
+Punjabi:
+\(3^{59}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(3^{59}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(59-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(7\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(7\), ਵਿਕਲਪ (C).
+
+Family: ns_cycle_length_detection
+
+---
+Q18. How many digits are there in the number \(45\)?
+A. \(3\)
+B. \(1\)
+C. \(4\)
+D. \(2\)
+Answer: D
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+How many digits are there in the number \(45\)?
+
+Working
+Count place values rather than doing arithmetic on the number.
+\[
+10^{1}\le 45<10^{2}
+\]
+So the number has this many decimal places.
+\[
+d=2
+\]
+Therefore, the required answer is \(2\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(2\), Option (D).
+
+
+Hindi:
+संख्या \(45\) में कितने अंक हैं?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+संख्या \(45\) में कितने अंक हैं?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 4+5
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(2\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(2\), विकल्प (D).
+
+Punjabi:
+ਸੰਖਿਆ \(45\) ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(45\) ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 4+5
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(2\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(2\), ਵਿਕਲਪ (D).
+
+Family: ns_number_of_digits
+
+---
+Q19. The value \(8\) is the sum of a two-digit number's digits. Its tens digit is \(5\). Find the number?
+A. \(52\)
+B. \(55\)
+C. \(53\)
+D. \(54\)
+Answer: C
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+The value \(8\) is the sum of a two-digit number's digits. Its tens digit is \(5\). Find the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+5+u=8\Rightarrow u=3
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 5+3=53
+\]
+Therefore, the required answer is \(53\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(53\), Option (C).
+
+
+Hindi:
+मान \(8\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \(5\) है। संख्या ज्ञात करें?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+मान \(8\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \(5\) है। संख्या ज्ञात करें?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 5+3
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(53\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(53\), विकल्प (C).
+
+Punjabi:
+ਮੁੱਲ \(8\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \(5\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਮੁੱਲ \(8\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \(5\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 5+3
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(53\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(53\), ਵਿਕਲਪ (C).
+
+Family: ns_digit_formation
+
+---
+Q20. Tens digit \(4\), digit sum \(12\): which two-digit number satisfies both facts?
+A. \(50\)
+B. \(48\)
+C. \(49\)
+D. \(47\)
+Answer: B
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Tens digit \(4\), digit sum \(12\): which two-digit number satisfies both facts?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+4+u=12\Rightarrow u=8
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 4+8=48
+\]
+Therefore, the required answer is \(48\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(48\), Option (B).
+
+
+Hindi:
+दहाई अंक \(4\), अंक-योग \(12\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दहाई अंक \(4\), अंक-योग \(12\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 4+8
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(48\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(48\), विकल्प (B).
+
+Punjabi:
+ਦਹਾਈ ਅੰਕ \(4\), ਅੰਕ-ਜੋੜ \(12\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦਹਾਈ ਅੰਕ \(4\), ਅੰਕ-ਜੋੜ \(12\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 4+8
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(48\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(48\), ਵਿਕਲਪ (B).
+
+Family: ns_unknown_digit_equation
+
+---
+Q21. Digit sum \(10\) and tens digit \(3\) are known for a two-digit number. What is the number?
+A. \(36\)
+B. \(39\)
+C. \(37\)
+D. \(38\)
+Answer: C
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(10\) and tens digit \(3\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+3+u=10\Rightarrow u=7
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 3+7=37
+\]
+Therefore, the required answer is \(37\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(37\), Option (C).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(10\) और दहाई अंक \(3\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(10\) और दहाई अंक \(3\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 3+7
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(37\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(37\), विकल्प (C).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(10\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(3\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(10\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(3\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 3+7
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(37\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(37\), ਵਿਕਲਪ (C).
+
+Family: ns_consecutive_digit_number
+
+---
+Q22. What is the highest power of \(3\) that divides \(30!\)?
+A. \(15\)
+B. \(13\)
+C. \(16\)
+D. \(14\)
+Answer: D
+
+Explanation:
+Concept
+Factorial exponent questions count prime factors inside the factorial.
+
+Given
+What is the highest power of \(3\) that divides \(30!\)?
+
+Working
+Count how many times prime 3 appears inside the factorial.
+Use Legendre's quotient sum for the prime and its powers.
+\[
+\left\lfloor\frac{30}{3}\right\rfloor+\left\lfloor\frac{30}{9}\right\rfloor+\cdots
+\]
+Add the quotients for the prime and its higher powers.
+\[
+10+3+1=14
+\]
+Therefore, the required answer is \(14\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Prime-power shortcut: quotient floors only.
+Answer: \(14\), Option (D).
+
+
+Hindi:
+\(30!\) को विभाजित करने वाली \(3\) की सबसे बड़ी घात क्या है?
+विचार
+फैक्टोरियल घात प्रश्नों में फैक्टोरियल के अंदर अभाज्य गुणनखंड गिने जाते हैं।
+
+दिया गया
+\(30!\) को विभाजित करने वाली \(3\) की सबसे बड़ी घात क्या है?
+
+हल
+पहले अभाज्य के गुणज, फिर उसकी ऊँची घातों के गुणज गिनें।
+सभी भागफल पद जोड़ें।
+\[
+\left\lfloor\frac{30}{3}\right\rfloor+\left\lfloor\frac{30}{9}\right\rfloor+\cdots
+\]
+इसलिए आवश्यक उत्तर \(14\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+अंतिम शून्यों के लिए फैक्टोरियल में 5 के गुणनखंड गिनें।
+उत्तर: \(14\), विकल्प (D).
+
+Punjabi:
+\(30!\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \(3\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਫੈਕਟੋਰੀਅਲ ਘਾਤ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਫੈਕਟੋਰੀਅਲ ਦੇ ਅੰਦਰਲੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(30!\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \(3\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਅਭਾਜ ਦੇ ਗੁਣਜ, ਫਿਰ ਉਸ ਦੀਆਂ ਵੱਡੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਜ ਗਿਣੋ।
+ਸਾਰੇ ਭਾਗਫਲ ਪਦ ਜੋੜੋ।
+\[
+\left\lfloor\frac{30}{3}\right\rfloor+\left\lfloor\frac{30}{9}\right\rfloor+\cdots
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(14\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅੰਤਲੇ ਸਿਫ਼ਰਾਂ ਲਈ ਫੈਕਟੋਰੀਅਲ ਵਿੱਚ 5 ਦੇ ਗੁਣਨਖੰਡ ਗਿਣੋ।
+ਉੱਤਰ: \(14\), ਵਿਕਲਪ (D).
+
+Family: ns_highest_power_dividing
+
+---
+Q23. What remainder will \(7^{52}\) leave on division by \(13\)?
+A. \(8\)
+B. \(11\)
+C. \(9\)
+D. \(10\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(7^{52}\) leave on division by \(13\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{13}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 10,\ 5,\ 9,\ 11,\ 12,\ 6,\ 3,\ 8,\ 4,\ 2,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(52-1)\bmod 12+1=4
+\]
+Take the remainder at that cycle position.
+\[
+9
+\]
+Therefore, the required answer is \(9\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+52\mapsto 4
+\]
+Answer: \(9\), Option (C).
+
+
+Hindi:
+\(7^{52}\) को \(13\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(7^{52}\) को \(13\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+7\equiv 7\pmod{13}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(9\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(9\), विकल्प (C).
+
+Punjabi:
+\(7^{52}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{52}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+7\equiv 7\pmod{13}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(9\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(9\), ਵਿਕਲਪ (C).
+
+Family: ns_factorial_remainder
+
+---
+Q24. Between \(192\) and \(323\), how many integers are divisible by \(18\)?
+A. \(8\)
+B. \(6\)
+C. \(9\)
+D. \(7\)
+Answer: D
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(192\) and \(323\), how many integers are divisible by \(18\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+198,\;306
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{306-198}{18}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{108}{18}+1=6+1=7
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(7\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{323}{18}\right\rfloor=17,\quad \left\lfloor\frac{191}{18}\right\rfloor=10
+\]
+\[
+17-10=7
+\]
+Answer: \(7\), Option (D).
+
+
+Hindi:
+\(192\) और \(323\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(192\) और \(323\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{323}{18}\right\rfloor-\left\lfloor\frac{191}{18}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(7\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(7\), विकल्प (D).
+
+Punjabi:
+\(192\) ਅਤੇ \(323\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(192\) ਅਤੇ \(323\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{323}{18}\right\rfloor-\left\lfloor\frac{191}{18}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(7\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(7\), ਵਿਕਲਪ (D).
+
+Family: ns_cyclic_pattern
+
+---
+Q25. Bells ring at intervals of \(45\) and \(54\) minutes. After how many minutes will both ring together again?
+A. \(297\)
+B. \(256\)
+C. \(270\)
+D. \(284\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(45\) and \(54\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+45=3^{2}\times 5,\ 54=2\times 3^{3}
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(45,54)=270
+\]
+Therefore, the required answer is \(270\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(270\), Option (C).
+
+
+Hindi:
+घंटियाँ \(45\) और \(54\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(45\) और \(54\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(45,54)=270
+\]
+इसलिए आवश्यक उत्तर \(270\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(270\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(45\) ਅਤੇ \(54\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(45\) ਅਤੇ \(54\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(45,54)=270
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(270\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(270\), ਵਿਕਲਪ (C).
+
+Family: ns_factor_hcf_hybrid
+
+---
+Q26. Reduce the power \(7^{55}\) by its remainder pattern. What is the remainder on division by \(19\)?
+A. \(8\)
+B. \(6\)
+C. \(9\)
+D. \(7\)
+Answer: D
+
+Explanation:
+Concept
+Hybrid number-theory questions reduce the expression before calculating.
+
+Given
+Reduce the power \(7^{55}\) by its remainder pattern. What is the remainder on division by \(19\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{19}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 11,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(55-1)\bmod 3+1=1
+\]
+Take the remainder at that cycle position.
+\[
+7
+\]
+Therefore, the required answer is \(7\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+55\mapsto 1
+\]
+Answer: \(7\), Option (D).
+
+
+Hindi:
+\(7^{55}\) को उसके शेषफल पैटर्न से घटाएं। \(19\) से भाग देने पर शेषफल क्या होगा?
+विचार
+हाइब्रिड संख्या-पद्धति प्रश्नों में गणना से पहले अभिव्यक्ति घटाई जाती है।
+
+दिया गया
+\(7^{55}\) को उसके शेषफल पैटर्न से घटाएं। \(19\) से भाग देने पर शेषफल क्या होगा?
+
+हल
+आधार घटाकर शेषफलों का चक्र लगाएं।
+\[
+7\equiv 7\pmod{19}
+\]
+अंतिम शेषफल के लिए घात की स्थिति पहचानें।
+इसलिए आवश्यक उत्तर \(7\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+घात कभी न फैलाएं; घटाएं और चक्र लगाएं।
+उत्तर: \(7\), विकल्प (D).
+
+Punjabi:
+\(7^{55}\) ਨੂੰ ਉਸ ਦੇ ਬਾਕੀ ਪੈਟਰਨ ਨਾਲ ਘਟਾਓ। \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+ਹਾਈਬ੍ਰਿਡ ਨੰਬਰ ਸਿਸਟਮ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਹਿਸਾਬ ਤੋਂ ਪਹਿਲਾਂ ਅਭਿਵਿਅਕਤੀ ਘਟਾਈ ਜਾਂਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{55}\) ਨੂੰ ਉਸ ਦੇ ਬਾਕੀ ਪੈਟਰਨ ਨਾਲ ਘਟਾਓ। \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਆਧਾਰ ਘਟਾ ਕੇ ਬਾਕੀਆਂ ਦਾ ਚੱਕਰ ਲਗਾਓ।
+\[
+7\equiv 7\pmod{19}
+\]
+ਅੰਤਿਮ ਬਾਕੀ ਲਈ ਘਾਤ ਦੀ ਸਥਿਤੀ ਪਛਾਣੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(7\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਘਾਤ ਕਦੇ ਨਾ ਫੈਲਾਓ; ਘਟਾਓ ਅਤੇ ਚੱਕਰ ਲਗਾਓ।
+ਉੱਤਰ: \(7\), ਵਿਕਲਪ (D).
+
+Family: ns_multi_cluster_reasoning
+
+---
+Q27. Tens digit \(7\), digit sum \(11\): which two-digit number satisfies both facts?
+A. \(74\)
+B. \(75\)
+C. \(73\)
+D. \(76\)
+Answer: A
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Tens digit \(7\), digit sum \(11\): which two-digit number satisfies both facts?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+7+u=11\Rightarrow u=4
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 7+4=74
+\]
+Therefore, the required answer is \(74\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(74\), Option (A).
+
+
+Hindi:
+दहाई अंक \(7\), अंक-योग \(11\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दहाई अंक \(7\), अंक-योग \(11\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 7+4
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(74\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(74\), विकल्प (A).
+
+Punjabi:
+ਦਹਾਈ ਅੰਕ \(7\), ਅੰਕ-ਜੋੜ \(11\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦਹਾਈ ਅੰਕ \(7\), ਅੰਕ-ਜੋੜ \(11\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 7+4
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(74\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(74\), ਵਿਕਲਪ (A).
+
+Family: ns_missing_digit_multi_rule
+
+---
+Q28. Between \(138\) and \(235\), how many integers are divisible by \(18\)?
+A. \(7\)
+B. \(5\)
+C. \(8\)
+D. \(6\)
+Answer: D
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(138\) and \(235\), how many integers are divisible by \(18\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+144,\;234
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{234-144}{18}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{90}{18}+1=5+1=6
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(6\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{235}{18}\right\rfloor=13,\quad \left\lfloor\frac{137}{18}\right\rfloor=7
+\]
+\[
+13-7=6
+\]
+Answer: \(6\), Option (D).
+
+
+Hindi:
+\(138\) और \(235\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(138\) और \(235\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{235}{18}\right\rfloor-\left\lfloor\frac{137}{18}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(6\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(6\), विकल्प (D).
+
+Punjabi:
+\(138\) ਅਤੇ \(235\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(138\) ਅਤੇ \(235\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{235}{18}\right\rfloor-\left\lfloor\frac{137}{18}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(6\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(6\), ਵਿਕਲਪ (D).
+
+Family: ns_divisibility_multi_condition
+
+---
+Q29. Between \(137\) and \(265\), how many integers are divisible by \(15\)?
+A. \(7\)
+B. \(10\)
+C. \(8\)
+D. \(9\)
+Answer: C
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(137\) and \(265\), how many integers are divisible by \(15\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+150,\;255
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{255-150}{15}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{105}{15}+1=7+1=8
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(8\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{265}{15}\right\rfloor=17,\quad \left\lfloor\frac{136}{15}\right\rfloor=9
+\]
+\[
+17-9=8
+\]
+Answer: \(8\), Option (C).
+
+
+Hindi:
+\(137\) और \(265\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(137\) और \(265\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{265}{15}\right\rfloor-\left\lfloor\frac{136}{15}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(8\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(8\), विकल्प (C).
+
+Punjabi:
+\(137\) ਅਤੇ \(265\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(137\) ਅਤੇ \(265\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{265}{15}\right\rfloor-\left\lfloor\frac{136}{15}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(8\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(8\), ਵਿਕਲਪ (C).
+
+Family: ns_large_expression_divisibility
+
+---
+Q30. For the number \(1440\), find the count of positive divisors?
+A. \(35\)
+B. \(38\)
+C. \(36\)
+D. \(37\)
+Answer: C
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+For the number \(1440\), find the count of positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+Each exponent contributes one more choice than its value.
+\[
+d(n)=(5+1)\times (2+1)\times (1+1)=36
+\]
+Therefore, the required answer is \(36\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(5+1)\times (2+1)\times (1+1)
+\]
+Answer: \(36\), Option (C).
+
+
+Hindi:
+संख्या \(1440\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+संख्या \(1440\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(36\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(36\), विकल्प (C).
+
+Punjabi:
+ਸੰਖਿਆ \(1440\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(1440\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(36\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(36\), ਵਿਕਲਪ (C).
+
+Family: ns_prime_factorization
+
+---
+Q31. After prime factorising \(36\), what is the number of positive divisors?
+A. \(10\)
+B. \(8\)
+C. \(11\)
+D. \(9\)
+Answer: D
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+After prime factorising \(36\), what is the number of positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+36=2^{2}\times 3^{2}
+\]
+Each exponent contributes one more choice than its value.
+\[
+d(n)=(2+1)\times (2+1)=9
+\]
+Therefore, the required answer is \(9\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(2+1)\times (2+1)
+\]
+Answer: \(9\), Option (D).
+
+
+Hindi:
+\(36\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+\(36\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+36=2^{2}\times 3^{2}
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(9\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(9\), विकल्प (D).
+
+Punjabi:
+\(36\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(36\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+36=2^{2}\times 3^{2}
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(9\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(9\), ਵਿਕਲਪ (D).
+
+Family: ns_exact_divisor_count
+
+---
+Q32. For the number \(1440\), find the sum of its positive divisors?
+A. \(5897\)
+B. \(4423\)
+C. \(4914\)
+D. \(5405\)
+Answer: C
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+For the number \(1440\), find the sum of its positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+For sum of divisors, multiply the geometric-sum terms for each prime.
+\[
+\frac{2^{6}-1}{2-1}\times \frac{3^{3}-1}{3-1}\times \frac{5^{2}-1}{5-1}
+\]
+Therefore, the required answer is \(4914\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(5+1)\times (2+1)\times (1+1)
+\]
+Answer: \(4914\), Option (C).
+
+
+Hindi:
+संख्या \(1440\) के लिए धनात्मक भाजकों का योग ज्ञात करें?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+संख्या \(1440\) के लिए धनात्मक भाजकों का योग ज्ञात करें?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(4914\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(4914\), विकल्प (C).
+
+Punjabi:
+ਸੰਖਿਆ \(1440\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(1440\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(4914\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(4914\), ਵਿਕਲਪ (C).
+
+Family: ns_sum_of_divisors
+
+---
+Q33. Two buses leave a stand every \(60\) and \(120\) minutes. When will they next leave together?
+A. \(114\)
+B. \(120\)
+C. \(126\)
+D. \(132\)
+Answer: B
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two buses leave a stand every \(60\) and \(120\) minutes. When will they next leave together?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+60=2^{2}\times 3\times 5,\ 120=2^{3}\times 3\times 5
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(60,120)=120
+\]
+Therefore, the required answer is \(120\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(120\), Option (B).
+
+
+Hindi:
+दो बसें \(60\) और \(120\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो बसें \(60\) और \(120\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(60,120)=120
+\]
+इसलिए आवश्यक उत्तर \(120\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(120\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(60\) ਅਤੇ \(120\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਬੱਸਾਂ \(60\) ਅਤੇ \(120\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(60,120)=120
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(120\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(120\), ਵਿਕਲਪ (B).
+
+Family: ns_hcf_lcm_relation
+
+---
+Q34. Bells ring at intervals of \(117\) and \(117\) minutes. After how many minutes will both ring together again?
+A. \(129\)
+B. \(111\)
+C. \(117\)
+D. \(123\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(117\) and \(117\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+117=3^{2}\times 13,\ 117=3^{2}\times 13
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(117,117)=117
+\]
+Therefore, the required answer is \(117\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(117\), Option (C).
+
+
+Hindi:
+घंटियाँ \(117\) और \(117\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(117\) और \(117\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(117,117)=117
+\]
+इसलिए आवश्यक उत्तर \(117\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(117\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(117\) ਅਤੇ \(117\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(117\) ਅਤੇ \(117\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(117,117)=117
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(117\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(117\), ਵਿਕਲਪ (C).
+
+Family: ns_hidden_hcf
+
+---
+Q35. Two cyclic events repeat every \(60\) and \(156\) minutes. After how many minutes will they occur together again?
+A. \(819\)
+B. \(858\)
+C. \(741\)
+D. \(780\)
+Answer: D
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two cyclic events repeat every \(60\) and \(156\) minutes. After how many minutes will they occur together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+60=2^{2}\times 3\times 5,\ 156=2^{2}\times 3\times 13
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(60,156)=780
+\]
+Therefore, the required answer is \(780\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(780\), Option (D).
+
+
+Hindi:
+दो घटनाएँ हर \(60\) और \(156\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो घटनाएँ हर \(60\) और \(156\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(60,156)=780
+\]
+इसलिए आवश्यक उत्तर \(780\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(780\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(60\) ਅਤੇ \(156\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(60\) ਅਤੇ \(156\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(60,156)=780
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(780\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(780\), ਵਿਕਲਪ (D).
+
+Family: ns_fraction_hcf_lcm
+
+---
+Q36. For two numbers \(36\) and \(117\), which common multiple is first reached?
+A. \(468\)
+B. \(491\)
+C. \(515\)
+D. \(445\)
+Answer: A
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+For two numbers \(36\) and \(117\), which common multiple is first reached?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+36=2^{2}\times 3^{2},\ 117=3^{2}\times 13
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(36,117)=468
+\]
+Therefore, the required answer is \(468\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(468\), Option (A).
+
+
+Hindi:
+दो संख्याओं \(36\) और \(117\) के लिए पहला साझा गुणज क्या होगा?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो संख्याओं \(36\) और \(117\) के लिए पहला साझा गुणज क्या होगा?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(36,117)=468
+\]
+इसलिए आवश्यक उत्तर \(468\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(468\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(36\) ਅਤੇ \(117\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਸੰਖਿਆਵਾਂ \(36\) ਅਤੇ \(117\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(36,117)=468
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(468\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(468\), ਵਿਕਲਪ (A).
+
+Family: ns_schedule_alignment
+
+---
+Q37. What remainder will \(13^{27}\) leave on division by \(13\)?
+A. \(2\)
+B. \(3\)
+C. \(0\)
+D. \(1\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(13^{27}\) leave on division by \(13\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+13\equiv 0\pmod{13}
+\]
+Write the repeating remainder cycle.
+\[
+0
+\]
+Locate the exponent inside the cycle.
+\[
+(27-1)\bmod 1+1=1
+\]
+Take the remainder at that cycle position.
+\[
+0
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+27\mapsto 1
+\]
+Answer: \(0\), Option (C).
+
+
+Hindi:
+\(13^{27}\) को \(13\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(13^{27}\) को \(13\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+13\equiv 0\pmod{13}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(0\), विकल्प (C).
+
+Punjabi:
+\(13^{27}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(13^{27}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+13\equiv 0\pmod{13}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (C).
+
+Family: ns_remainder_after_power
+
+---
+Q38. A large power \(7^{93}\) is divided by \(7\). What is the remainder?
+A. \(0\)
+B. \(1\)
+C. \(2\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+A large power \(7^{93}\) is divided by \(7\). What is the remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 0\pmod{7}
+\]
+Write the repeating remainder cycle.
+\[
+0
+\]
+Locate the exponent inside the cycle.
+\[
+(93-1)\bmod 1+1=1
+\]
+Take the remainder at that cycle position.
+\[
+0
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+93\mapsto 1
+\]
+Answer: \(0\), Option (A).
+
+
+Hindi:
+बड़ी घात \(7^{93}\) को \(7\) से भाग दिया गया। शेषफल क्या है?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+बड़ी घात \(7^{93}\) को \(7\) से भाग दिया गया। शेषफल क्या है?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+7\equiv 0\pmod{7}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(0\), विकल्प (A).
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(7^{93}\) ਨੂੰ \(7\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਵੱਡੀ ਘਾਤ \(7^{93}\) ਨੂੰ \(7\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+7\equiv 0\pmod{7}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (A).
+
+Family: ns_remainder_reconstruction
+
+---
+Q39. Find the ending digit of \(7^{62}\)?
+A. \(8\)
+B. \(11\)
+C. \(9\)
+D. \(10\)
+Answer: C
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+Find the ending digit of \(7^{62}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 9,\ 3,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(62-1)\bmod 4+1=2
+\]
+Take the remainder at that cycle position.
+\[
+9
+\]
+Therefore, the required answer is \(9\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+62\mapsto 2
+\]
+Answer: \(9\), Option (C).
+
+
+Hindi:
+\(7^{62}\) के अंतिम अंक ज्ञात करें?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(7^{62}\) के अंतिम अंक ज्ञात करें?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(62-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(9\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(9\), विकल्प (C).
+
+Punjabi:
+\(7^{62}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{62}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(62-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(9\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(9\), ਵਿਕਲਪ (C).
+
+Family: ns_unit_digit_cycle
+
+---
+Q40. Find the ending digit of \(2^{101}\)?
+A. \(1\)
+B. \(4\)
+C. \(2\)
+D. \(3\)
+Answer: C
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+Find the ending digit of \(2^{101}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+2\equiv 2\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 8,\ 6
+\]
+Locate the exponent inside the cycle.
+\[
+(101-1)\bmod 4+1=1
+\]
+Take the remainder at that cycle position.
+\[
+2
+\]
+Therefore, the required answer is \(2\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+101\mapsto 1
+\]
+Answer: \(2\), Option (C).
+
+
+Hindi:
+\(2^{101}\) के अंतिम अंक ज्ञात करें?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(2^{101}\) के अंतिम अंक ज्ञात करें?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(101-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(2\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(2\), विकल्प (C).
+
+Punjabi:
+\(2^{101}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(2^{101}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(101-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(2\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(2\), ਵਿਕਲਪ (C).
+
+Family: ns_expression_last_digit
+
+---
+Q41. What are the last digit of \(17^{55}\)?
+A. \(4\)
+B. \(2\)
+C. \(5\)
+D. \(3\)
+Answer: D
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last digit of \(17^{55}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+17\equiv 7\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 9,\ 3,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(55-1)\bmod 4+1=3
+\]
+Take the remainder at that cycle position.
+\[
+3
+\]
+Therefore, the required answer is \(3\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+55\mapsto 3
+\]
+Answer: \(3\), Option (D).
+
+
+Hindi:
+\(17^{55}\) का अंतिम अंक क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(17^{55}\) का अंतिम अंक क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(55-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(3\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(3\), विकल्प (D).
+
+Punjabi:
+\(17^{55}\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(17^{55}\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(55-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(3\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(3\), ਵਿਕਲਪ (D).
+
+Family: ns_cycle_length_detection
+
+---
+Q42. Count the digits in \(34\). What is the digit count?
+A. \(1\)
+B. \(4\)
+C. \(2\)
+D. \(3\)
+Answer: C
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Count the digits in \(34\). What is the digit count?
+
+Working
+Count place values rather than doing arithmetic on the number.
+\[
+10^{1}\le 34<10^{2}
+\]
+So the number has this many decimal places.
+\[
+d=2
+\]
+Therefore, the required answer is \(2\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(2\), Option (C).
+
+
+Hindi:
+\(34\) में अंकों की गिनती करें। अंक-गिनती क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+\(34\) में अंकों की गिनती करें। अंक-गिनती क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 3+4
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(2\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(2\), विकल्प (C).
+
+Punjabi:
+\(34\) ਵਿੱਚ ਅੰਕਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ। ਅੰਕ-ਗਿਣਤੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(34\) ਵਿੱਚ ਅੰਕਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ। ਅੰਕ-ਗਿਣਤੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 3+4
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(2\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(2\), ਵਿਕਲਪ (C).
+
+Family: ns_number_of_digits
+
+---
+Q43. Digit sum \(7\) and tens digit \(6\) are known for a two-digit number. What is the number?
+A. \(62\)
+B. \(60\)
+C. \(63\)
+D. \(61\)
+Answer: D
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(7\) and tens digit \(6\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+6+u=7\Rightarrow u=1
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 6+1=61
+\]
+Therefore, the required answer is \(61\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(61\), Option (D).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(7\) और दहाई अंक \(6\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(7\) और दहाई अंक \(6\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 6+1
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(61\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(61\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(7\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(6\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(7\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(6\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 6+1
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(61\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(61\), ਵਿਕਲਪ (D).
+
+Family: ns_digit_formation
+
+---
+Q44. Tens digit \(5\), digit sum \(8\): which two-digit number satisfies both facts?
+A. \(53\)
+B. \(54\)
+C. \(52\)
+D. \(55\)
+Answer: A
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Tens digit \(5\), digit sum \(8\): which two-digit number satisfies both facts?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+5+u=8\Rightarrow u=3
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 5+3=53
+\]
+Therefore, the required answer is \(53\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(53\), Option (A).
+
+
+Hindi:
+दहाई अंक \(5\), अंक-योग \(8\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दहाई अंक \(5\), अंक-योग \(8\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 5+3
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(53\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(53\), विकल्प (A).
+
+Punjabi:
+ਦਹਾਈ ਅੰਕ \(5\), ਅੰਕ-ਜੋੜ \(8\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦਹਾਈ ਅੰਕ \(5\), ਅੰਕ-ਜੋੜ \(8\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 5+3
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(53\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(53\), ਵਿਕਲਪ (A).
+
+Family: ns_unknown_digit_equation
+
+---
+Q45. With digit sum \(9\), a two-digit number has \(7\) in the tens place. Which number is it?
+A. \(72\)
+B. \(73\)
+C. \(71\)
+D. \(74\)
+Answer: A
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+With digit sum \(9\), a two-digit number has \(7\) in the tens place. Which number is it?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+7+u=9\Rightarrow u=2
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 7+2=72
+\]
+Therefore, the required answer is \(72\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(72\), Option (A).
+
+
+Hindi:
+अंक-योग \(9\) वाली दो-अंकीय संख्या के दहाई स्थान पर \(7\) है। वह संख्या कौन-सी है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+अंक-योग \(9\) वाली दो-अंकीय संख्या के दहाई स्थान पर \(7\) है। वह संख्या कौन-सी है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 7+2
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(72\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(72\), विकल्प (A).
+
+Punjabi:
+ਅੰਕ-ਜੋੜ \(9\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \(7\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਅੰਕ-ਜੋੜ \(9\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \(7\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 7+2
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(72\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(72\), ਵਿਕਲਪ (A).
+
+Family: ns_consecutive_digit_number
+
+---
+Q46. For the factorial \(50!\), what count is obtained by tracking prime factor \(3\)?
+A. \(24\)
+B. \(22\)
+C. \(23\)
+D. \(21\)
+Answer: B
+
+Explanation:
+Concept
+Factorial exponent questions count prime factors inside the factorial.
+
+Given
+For the factorial \(50!\), what count is obtained by tracking prime factor \(3\)?
+
+Working
+Count how many times prime 3 appears inside the factorial.
+Use Legendre's quotient sum for the prime and its powers.
+\[
+\left\lfloor\frac{50}{3}\right\rfloor+\left\lfloor\frac{50}{9}\right\rfloor+\cdots
+\]
+Add the quotients for the prime and its higher powers.
+\[
+16+5+1=22
+\]
+Therefore, the required answer is \(22\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Prime-power shortcut: quotient floors only.
+Answer: \(22\), Option (B).
+
+
+Hindi:
+फैक्टोरियल \(50!\) में अभाज्य गुणनखंड \(3\) गिनकर क्या मान मिलेगा?
+विचार
+फैक्टोरियल घात प्रश्नों में फैक्टोरियल के अंदर अभाज्य गुणनखंड गिने जाते हैं।
+
+दिया गया
+फैक्टोरियल \(50!\) में अभाज्य गुणनखंड \(3\) गिनकर क्या मान मिलेगा?
+
+हल
+पहले अभाज्य के गुणज, फिर उसकी ऊँची घातों के गुणज गिनें।
+सभी भागफल पद जोड़ें।
+\[
+\left\lfloor\frac{50}{3}\right\rfloor+\left\lfloor\frac{50}{9}\right\rfloor+\cdots
+\]
+इसलिए आवश्यक उत्तर \(22\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+अंतिम शून्यों के लिए फैक्टोरियल में 5 के गुणनखंड गिनें।
+उत्तर: \(22\), विकल्प (B).
+
+Punjabi:
+ਫੈਕਟੋਰੀਅਲ \(50!\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \(3\) ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?
+ਵਿਚਾਰ
+ਫੈਕਟੋਰੀਅਲ ਘਾਤ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਫੈਕਟੋਰੀਅਲ ਦੇ ਅੰਦਰਲੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਫੈਕਟੋਰੀਅਲ \(50!\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \(3\) ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਅਭਾਜ ਦੇ ਗੁਣਜ, ਫਿਰ ਉਸ ਦੀਆਂ ਵੱਡੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਜ ਗਿਣੋ।
+ਸਾਰੇ ਭਾਗਫਲ ਪਦ ਜੋੜੋ।
+\[
+\left\lfloor\frac{50}{3}\right\rfloor+\left\lfloor\frac{50}{9}\right\rfloor+\cdots
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(22\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅੰਤਲੇ ਸਿਫ਼ਰਾਂ ਲਈ ਫੈਕਟੋਰੀਅਲ ਵਿੱਚ 5 ਦੇ ਗੁਣਨਖੰਡ ਗਿਣੋ।
+ਉੱਤਰ: \(22\), ਵਿਕਲਪ (B).
+
+Family: ns_highest_power_dividing
+
+---
+Q47. A large power \(3^{88}\) is divided by \(9\). What is the remainder?
+A. \(0\)
+B. \(1\)
+C. \(2\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+A large power \(3^{88}\) is divided by \(9\). What is the remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+3\equiv 3\pmod{9}
+\]
+Write the repeating remainder cycle.
+\[
+3,\ 0
+\]
+Locate the exponent inside the cycle.
+\[
+(88-1)\bmod 2+1=2
+\]
+Take the remainder at that cycle position.
+\[
+0
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+88\mapsto 2
+\]
+Answer: \(0\), Option (A).
+
+
+Hindi:
+बड़ी घात \(3^{88}\) को \(9\) से भाग दिया गया। शेषफल क्या है?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+बड़ी घात \(3^{88}\) को \(9\) से भाग दिया गया। शेषफल क्या है?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+3\equiv 3\pmod{9}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(0\), विकल्प (A).
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(3^{88}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਵੱਡੀ ਘਾਤ \(3^{88}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+3\equiv 3\pmod{9}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (A).
+
+Family: ns_factorial_remainder
+
+---
+Q48. Between \(140\) and \(305\), how many integers are divisible by \(9\)?
+A. \(18\)
+B. \(19\)
+C. \(17\)
+D. \(20\)
+Answer: A
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(140\) and \(305\), how many integers are divisible by \(9\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+144,\;297
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{297-144}{9}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{153}{9}+1=17+1=18
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(18\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{305}{9}\right\rfloor=33,\quad \left\lfloor\frac{139}{9}\right\rfloor=15
+\]
+\[
+33-15=18
+\]
+Answer: \(18\), Option (A).
+
+
+Hindi:
+\(140\) और \(305\) के बीच कितने पूर्णांक \(9\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(140\) और \(305\) के बीच कितने पूर्णांक \(9\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{305}{9}\right\rfloor-\left\lfloor\frac{139}{9}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(18\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(18\), विकल्प (A).
+
+Punjabi:
+\(140\) ਅਤੇ \(305\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(9\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(140\) ਅਤੇ \(305\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(9\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{305}{9}\right\rfloor-\left\lfloor\frac{139}{9}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(18\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(18\), ਵਿਕਲਪ (A).
+
+Family: ns_cyclic_pattern
+
+---
+Q49. Two buses leave a stand every \(32\) and \(56\) minutes. When will they next leave together?
+A. \(213\)
+B. \(224\)
+C. \(235\)
+D. \(246\)
+Answer: B
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two buses leave a stand every \(32\) and \(56\) minutes. When will they next leave together?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+32=2^{5},\ 56=2^{3}\times 7
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(32,56)=224
+\]
+Therefore, the required answer is \(224\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(224\), Option (B).
+
+
+Hindi:
+दो बसें \(32\) और \(56\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो बसें \(32\) और \(56\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(32,56)=224
+\]
+इसलिए आवश्यक उत्तर \(224\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(224\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(32\) ਅਤੇ \(56\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਬੱਸਾਂ \(32\) ਅਤੇ \(56\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(32,56)=224
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(224\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(224\), ਵਿਕਲਪ (B).
+
+Family: ns_factor_hcf_hybrid
+
+---
+Q50. Cycle position \(90\) is needed for powers of \(19\) modulo \(17\). What is the remainder?
+A. \(4\)
+B. \(5\)
+C. \(3\)
+D. \(6\)
+Answer: A
+
+Explanation:
+Concept
+Hybrid number-theory questions reduce the expression before calculating.
+
+Given
+Cycle position \(90\) is needed for powers of \(19\) modulo \(17\). What is the remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+19\equiv 2\pmod{17}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 8,\ 16,\ 15,\ 13,\ 9,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(90-1)\bmod 8+1=2
+\]
+Take the remainder at that cycle position.
+\[
+4
+\]
+Therefore, the required answer is \(4\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+90\mapsto 2
+\]
+Answer: \(4\), Option (A).
+
+
+Hindi:
+\(19\) की घातों को modulo \(17\) में देखने पर cycle position \(90\) चाहिए। शेषफल क्या है?
+विचार
+हाइब्रिड संख्या-पद्धति प्रश्नों में गणना से पहले अभिव्यक्ति घटाई जाती है।
+
+दिया गया
+\(19\) की घातों को modulo \(17\) में देखने पर cycle position \(90\) चाहिए। शेषफल क्या है?
+
+हल
+आधार घटाकर शेषफलों का चक्र लगाएं।
+\[
+19\equiv 2\pmod{17}
+\]
+अंतिम शेषफल के लिए घात की स्थिति पहचानें।
+इसलिए आवश्यक उत्तर \(4\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+घात कभी न फैलाएं; घटाएं और चक्र लगाएं।
+उत्तर: \(4\), विकल्प (A).
+
+Punjabi:
+\(19\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ modulo \(17\) ਵਿੱਚ ਵੇਖਣ ਤੇ cycle position \(90\) ਚਾਹੀਦੀ ਹੈ। ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਹਾਈਬ੍ਰਿਡ ਨੰਬਰ ਸਿਸਟਮ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਹਿਸਾਬ ਤੋਂ ਪਹਿਲਾਂ ਅਭਿਵਿਅਕਤੀ ਘਟਾਈ ਜਾਂਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(19\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ modulo \(17\) ਵਿੱਚ ਵੇਖਣ ਤੇ cycle position \(90\) ਚਾਹੀਦੀ ਹੈ। ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਆਧਾਰ ਘਟਾ ਕੇ ਬਾਕੀਆਂ ਦਾ ਚੱਕਰ ਲਗਾਓ।
+\[
+19\equiv 2\pmod{17}
+\]
+ਅੰਤਿਮ ਬਾਕੀ ਲਈ ਘਾਤ ਦੀ ਸਥਿਤੀ ਪਛਾਣੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(4\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਘਾਤ ਕਦੇ ਨਾ ਫੈਲਾਓ; ਘਟਾਓ ਅਤੇ ਚੱਕਰ ਲਗਾਓ।
+ਉੱਤਰ: \(4\), ਵਿਕਲਪ (A).
+
+Family: ns_multi_cluster_reasoning
+
+---
+Q51. Digit sum \(10\) and tens digit \(4\) are known for a two-digit number. What is the number?
+A. \(47\)
+B. \(45\)
+C. \(48\)
+D. \(46\)
+Answer: D
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(10\) and tens digit \(4\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+4+u=10\Rightarrow u=6
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 4+6=46
+\]
+Therefore, the required answer is \(46\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(46\), Option (D).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(10\) और दहाई अंक \(4\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(10\) और दहाई अंक \(4\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 4+6
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(46\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(46\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(10\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(4\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(10\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(4\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 4+6
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(46\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(46\), ਵਿਕਲਪ (D).
+
+Family: ns_missing_digit_multi_rule
+
+---
+Q52. Between \(219\) and \(395\), how many integers are divisible by \(15\)?
+A. \(12\)
+B. \(13\)
+C. \(11\)
+D. \(14\)
+Answer: A
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(219\) and \(395\), how many integers are divisible by \(15\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+225,\;390
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{390-225}{15}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{165}{15}+1=11+1=12
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(12\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{395}{15}\right\rfloor=26,\quad \left\lfloor\frac{218}{15}\right\rfloor=14
+\]
+\[
+26-14=12
+\]
+Answer: \(12\), Option (A).
+
+
+Hindi:
+\(219\) और \(395\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(219\) और \(395\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{395}{15}\right\rfloor-\left\lfloor\frac{218}{15}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(12\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(12\), विकल्प (A).
+
+Punjabi:
+\(219\) ਅਤੇ \(395\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(219\) ਅਤੇ \(395\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{395}{15}\right\rfloor-\left\lfloor\frac{218}{15}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(12\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(12\), ਵਿਕਲਪ (A).
+
+Family: ns_divisibility_multi_condition
+
+---
+Q53. Between \(133\) and \(221\), how many integers are divisible by \(8\)?
+A. \(13\)
+B. \(11\)
+C. \(12\)
+D. \(10\)
+Answer: B
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(133\) and \(221\), how many integers are divisible by \(8\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+136,\;216
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{216-136}{8}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{80}{8}+1=10+1=11
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(11\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{221}{8}\right\rfloor=27,\quad \left\lfloor\frac{132}{8}\right\rfloor=16
+\]
+\[
+27-16=11
+\]
+Answer: \(11\), Option (B).
+
+
+Hindi:
+\(133\) और \(221\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(133\) और \(221\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{221}{8}\right\rfloor-\left\lfloor\frac{132}{8}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(11\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(11\), विकल्प (B).
+
+Punjabi:
+\(133\) ਅਤੇ \(221\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(133\) ਅਤੇ \(221\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{221}{8}\right\rfloor-\left\lfloor\frac{132}{8}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(11\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(11\), ਵਿਕਲਪ (B).
+
+Family: ns_large_expression_divisibility
+
+---
+Q54. Bells ring at intervals of \(30\) and \(36\) minutes. After how many minutes will both ring together again?
+A. \(198\)
+B. \(171\)
+C. \(180\)
+D. \(189\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(30\) and \(36\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+30=2\times 3\times 5,\ 36=2^{2}\times 3^{2}
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(30,36)=180
+\]
+Therefore, the required answer is \(180\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(180\), Option (C).
+
+
+Hindi:
+घंटियाँ \(30\) और \(36\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(30\) और \(36\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(30,36)=180
+\]
+इसलिए आवश्यक उत्तर \(180\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(180\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(30\) ਅਤੇ \(36\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(30\) ਅਤੇ \(36\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(30,36)=180
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(180\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(180\), ਵਿਕਲਪ (C).
+
+Family: ns_hcf_lcm_relation
+
+---
+Q55. Two cyclic events repeat every \(40\) and \(104\) minutes. After how many minutes will they occur together again?
+A. \(546\)
+B. \(572\)
+C. \(494\)
+D. \(520\)
+Answer: D
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two cyclic events repeat every \(40\) and \(104\) minutes. After how many minutes will they occur together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+40=2^{3}\times 5,\ 104=2^{3}\times 13
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(40,104)=520
+\]
+Therefore, the required answer is \(520\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(520\), Option (D).
+
+
+Hindi:
+दो घटनाएँ हर \(40\) और \(104\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो घटनाएँ हर \(40\) और \(104\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(40,104)=520
+\]
+इसलिए आवश्यक उत्तर \(520\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(520\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(40\) ਅਤੇ \(104\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(40\) ਅਤੇ \(104\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(40,104)=520
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(520\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(520\), ਵਿਕਲਪ (D).
+
+Family: ns_hidden_hcf
+
+---
+Q56. For two numbers \(165\) and \(105\), which common multiple is first reached?
+A. \(1155\)
+B. \(1271\)
+C. \(1386\)
+D. \(1039\)
+Answer: A
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+For two numbers \(165\) and \(105\), which common multiple is first reached?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+165=3\times 5\times 11,\ 105=3\times 5\times 7
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(165,105)=1155
+\]
+Therefore, the required answer is \(1155\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(1155\), Option (A).
+
+
+Hindi:
+दो संख्याओं \(165\) और \(105\) के लिए पहला साझा गुणज क्या होगा?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो संख्याओं \(165\) और \(105\) के लिए पहला साझा गुणज क्या होगा?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(165,105)=1155
+\]
+इसलिए आवश्यक उत्तर \(1155\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(1155\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(165\) ਅਤੇ \(105\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਸੰਖਿਆਵਾਂ \(165\) ਅਤੇ \(105\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(165,105)=1155
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1155\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(1155\), ਵਿਕਲਪ (A).
+
+Family: ns_fraction_hcf_lcm
+
+---
+Q57. For two numbers \(60\) and \(195\), which common multiple is first reached?
+A. \(780\)
+B. \(819\)
+C. \(858\)
+D. \(741\)
+Answer: A
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+For two numbers \(60\) and \(195\), which common multiple is first reached?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+60=2^{2}\times 3\times 5,\ 195=3\times 5\times 13
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(60,195)=780
+\]
+Therefore, the required answer is \(780\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(780\), Option (A).
+
+
+Hindi:
+दो संख्याओं \(60\) और \(195\) के लिए पहला साझा गुणज क्या होगा?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो संख्याओं \(60\) और \(195\) के लिए पहला साझा गुणज क्या होगा?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(60,195)=780
+\]
+इसलिए आवश्यक उत्तर \(780\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(780\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(60\) ਅਤੇ \(195\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਸੰਖਿਆਵਾਂ \(60\) ਅਤੇ \(195\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(60,195)=780
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(780\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(780\), ਵਿਕਲਪ (A).
+
+Family: ns_minimum_common_multiple
+
+---
+Q58. What remainder will \(7^{75}\) leave on division by \(9\)?
+A. \(0\)
+B. \(3\)
+C. \(1\)
+D. \(2\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(7^{75}\) leave on division by \(9\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{9}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 4,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(75-1)\bmod 3+1=3
+\]
+Take the remainder at that cycle position.
+\[
+1
+\]
+Therefore, the required answer is \(1\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+75\mapsto 3
+\]
+Answer: \(1\), Option (C).
+
+
+Hindi:
+\(7^{75}\) को \(9\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(7^{75}\) को \(9\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+7\equiv 7\pmod{9}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(1\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(1\), विकल्प (C).
+
+Punjabi:
+\(7^{75}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{75}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+7\equiv 7\pmod{9}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(1\), ਵਿਕਲਪ (C).
+
+Family: ns_modular_cycle
+
+---
+Q59. What remainder will \(11^{43}\) leave on division by \(13\)?
+A. \(1\)
+B. \(4\)
+C. \(2\)
+D. \(3\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(11^{43}\) leave on division by \(13\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+11\equiv 11\pmod{13}
+\]
+Write the repeating remainder cycle.
+\[
+11,\ 4,\ 5,\ 3,\ 7,\ 12,\ 2,\ 9,\ 8,\ 10,\ 6,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(43-1)\bmod 12+1=7
+\]
+Take the remainder at that cycle position.
+\[
+2
+\]
+Therefore, the required answer is \(2\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+43\mapsto 7
+\]
+Answer: \(2\), Option (C).
+
+
+Hindi:
+\(11^{43}\) को \(13\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(11^{43}\) को \(13\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+11\equiv 11\pmod{13}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(2\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(2\), विकल्प (C).
+
+Punjabi:
+\(11^{43}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(11^{43}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+11\equiv 11\pmod{13}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(2\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(2\), ਵਿਕਲਪ (C).
+
+Family: ns_remainder_reconstruction
+
+---
+Q60. What are the last two digits of \(23^{45}\)?
+A. \(43\)
+B. \(44\)
+C. \(42\)
+D. \(45\)
+Answer: A
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last two digits of \(23^{45}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+23\equiv 23\pmod{100}
+\]
+Write the repeating remainder cycle.
+\[
+23,\ 29,\ 67,\ 41,\ 43,\ 89,\ 47,\ 81,\ 63,\ 49,\ 27,\ 21,\ 83,\ 9,\ 7,\ 61,\ 3,\ 69,\ 87,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(45-1)\bmod 20+1=5
+\]
+Take the remainder at that cycle position.
+\[
+43
+\]
+Therefore, the required answer is \(43\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+45\mapsto 5
+\]
+Answer: \(43\), Option (A).
+
+
+Hindi:
+\(23^{45}\) का अंतिम दो अंक क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(23^{45}\) का अंतिम दो अंक क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(45-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(43\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(43\), विकल्प (A).
+
+Punjabi:
+\(23^{45}\) ਦਾ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(23^{45}\) ਦਾ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(45-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(43\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(43\), ਵਿਕਲਪ (A).
+
+Family: ns_last_two_digits
+
+---
+Q61. What are the last digit (units digit) of \(3^{49}\)?
+A. \(3\)
+B. \(4\)
+C. \(2\)
+D. \(5\)
+Answer: A
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last digit (units digit) of \(3^{49}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+3\equiv 3\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+3,\ 9,\ 7,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(49-1)\bmod 4+1=1
+\]
+Take the remainder at that cycle position.
+\[
+3
+\]
+Therefore, the required answer is \(3\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+49\mapsto 1
+\]
+Answer: \(3\), Option (A).
+
+
+Hindi:
+\(3^{49}\) का अंतिम अंक (इकाई अंक) क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(3^{49}\) का अंतिम अंक (इकाई अंक) क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(49-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(3\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(3\), विकल्प (A).
+
+Punjabi:
+\(3^{49}\) ਦਾ ਆਖਰੀ ਅੰਕ (ਇਕਾਈ ਅੰਕ) ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(3^{49}\) ਦਾ ਆਖਰੀ ਅੰਕ (ਇਕਾਈ ਅੰਕ) ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(49-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(3\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(3\), ਵਿਕਲਪ (A).
+
+Family: ns_power_tower_digit
+
+---
+Q62. Digit sum \(10\) and tens digit \(8\) are known for a two-digit number. What is the number?
+A. \(84\)
+B. \(82\)
+C. \(83\)
+D. \(81\)
+Answer: B
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(10\) and tens digit \(8\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+8+u=10\Rightarrow u=2
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 8+2=82
+\]
+Therefore, the required answer is \(82\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(82\), Option (B).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(10\) और दहाई अंक \(8\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(10\) और दहाई अंक \(8\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 8+2
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(82\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(82\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(10\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(8\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(10\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(8\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 8+2
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(82\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(82\), ਵਿਕਲਪ (B).
+
+Family: ns_sum_of_digits
+
+---
+Q63. With tens \(5\) and ones \(5\), a two-digit number is written. What difference appears after reversing?
+A. \(0\)
+B. \(1\)
+C. \(2\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+With tens \(5\) and ones \(5\), a two-digit number is written. What difference appears after reversing?
+
+Working
+Write the original number and the reversed number using place value.
+\[
+55,\ 55
+\]
+Their difference is nine times the difference of the two digits.
+\[
+9\times |5-5|=0
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Reversal difference shortcut is \(9\) times the digit difference.
+Answer: \(0\), Option (A).
+
+
+Hindi:
+दहाई \(5\) और इकाई \(5\) से दो-अंकीय संख्या लिखी गई। उलटने पर कितना अंतर आएगा?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दहाई \(5\) और इकाई \(5\) से दो-अंकीय संख्या लिखी गई। उलटने पर कितना अंतर आएगा?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 5+5
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(0\), विकल्प (A).
+
+Punjabi:
+ਦਹਾਈ \(5\) ਅਤੇ ਇਕਾਈ \(5\) ਨਾਲ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਿਖੀ ਗਈ। ਉਲਟਣ ਤੇ ਕਿੰਨਾ ਫਰਕ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦਹਾਈ \(5\) ਅਤੇ ਇਕਾਈ \(5\) ਨਾਲ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਿਖੀ ਗਈ। ਉਲਟਣ ਤੇ ਕਿੰਨਾ ਫਰਕ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 5+5
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (A).
+
+Family: ns_digit_interchange
+
+---
+Q64. With digit sum \(14\), a two-digit number has \(6\) in the tens place. Which number is it?
+A. \(69\)
+B. \(67\)
+C. \(70\)
+D. \(68\)
+Answer: D
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+With digit sum \(14\), a two-digit number has \(6\) in the tens place. Which number is it?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+6+u=14\Rightarrow u=8
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 6+8=68
+\]
+Therefore, the required answer is \(68\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(68\), Option (D).
+
+
+Hindi:
+अंक-योग \(14\) वाली दो-अंकीय संख्या के दहाई स्थान पर \(6\) है। वह संख्या कौन-सी है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+अंक-योग \(14\) वाली दो-अंकीय संख्या के दहाई स्थान पर \(6\) है। वह संख्या कौन-सी है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 6+8
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(68\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(68\), विकल्प (D).
+
+Punjabi:
+ਅੰਕ-ਜੋੜ \(14\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \(6\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਅੰਕ-ਜੋੜ \(14\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \(6\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 6+8
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(68\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(68\), ਵਿਕਲਪ (D).
+
+Family: ns_digit_constraints
+
+---
+Q65. Digit sum \(6\) is given for a two-digit number. If the tens digit is \(3\), what is the number?
+A. \(32\)
+B. \(35\)
+C. \(33\)
+D. \(34\)
+Answer: C
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(6\) is given for a two-digit number. If the tens digit is \(3\), what is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+3+u=6\Rightarrow u=3
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 3+3=33
+\]
+Therefore, the required answer is \(33\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(33\), Option (C).
+
+
+Hindi:
+दो-अंकीय संख्या के लिए अंक-योग \(6\) दिया है। यदि दहाई अंक \(3\) है, तो संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या के लिए अंक-योग \(6\) दिया है। यदि दहाई अंक \(3\) है, तो संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 3+3
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(33\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(33\), विकल्प (C).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(6\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(3\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(6\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(3\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 3+3
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(33\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(33\), ਵਿਕਲਪ (C).
+
+Family: ns_digit_sum_reconstruction
+
+---
+Q66. How many trailing zeroes are there in \(75!\)?
+A. \(19\)
+B. \(17\)
+C. \(20\)
+D. \(18\)
+Answer: D
+
+Explanation:
+Concept
+Factorial exponent questions count prime factors inside the factorial.
+
+Given
+How many trailing zeroes are there in \(75!\)?
+
+Working
+Trailing zeroes come from pairs of 2 and 5; fives are fewer, so count fives.
+Use Legendre's quotient sum for the prime and its powers.
+\[
+\left\lfloor\frac{75}{5}\right\rfloor+\left\lfloor\frac{75}{25}\right\rfloor+\cdots
+\]
+Add the quotients for the prime and its higher powers.
+\[
+15+3=18
+\]
+Therefore, the required answer is \(18\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Zero shortcut: count fives only.
+Answer: \(18\), Option (D).
+
+
+Hindi:
+\(75!\) में अंत में कितने शून्य होंगे?
+विचार
+फैक्टोरियल घात प्रश्नों में फैक्टोरियल के अंदर अभाज्य गुणनखंड गिने जाते हैं।
+
+दिया गया
+\(75!\) में अंत में कितने शून्य होंगे?
+
+हल
+पहले अभाज्य के गुणज, फिर उसकी ऊँची घातों के गुणज गिनें।
+सभी भागफल पद जोड़ें।
+\[
+\left\lfloor\frac{75}{5}\right\rfloor+\left\lfloor\frac{75}{25}\right\rfloor+\cdots
+\]
+इसलिए आवश्यक उत्तर \(18\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+अंतिम शून्यों के लिए फैक्टोरियल में 5 के गुणनखंड गिनें।
+उत्तर: \(18\), विकल्प (D).
+
+Punjabi:
+\(75!\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਹੋਣਗੇ?
+ਵਿਚਾਰ
+ਫੈਕਟੋਰੀਅਲ ਘਾਤ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਫੈਕਟੋਰੀਅਲ ਦੇ ਅੰਦਰਲੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(75!\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਹੋਣਗੇ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਅਭਾਜ ਦੇ ਗੁਣਜ, ਫਿਰ ਉਸ ਦੀਆਂ ਵੱਡੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਜ ਗਿਣੋ।
+ਸਾਰੇ ਭਾਗਫਲ ਪਦ ਜੋੜੋ।
+\[
+\left\lfloor\frac{75}{5}\right\rfloor+\left\lfloor\frac{75}{25}\right\rfloor+\cdots
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(18\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅੰਤਲੇ ਸਿਫ਼ਰਾਂ ਲਈ ਫੈਕਟੋਰੀਅਲ ਵਿੱਚ 5 ਦੇ ਗੁਣਨਖੰਡ ਗਿਣੋ।
+ਉੱਤਰ: \(18\), ਵਿਕਲਪ (D).
+
+Family: ns_trailing_zeroes
+
+---
+Q67. A factorial expression \(25!\) is given. What is the exponent of prime factor \(2\)?
+A. \(22\)
+B. \(23\)
+C. \(21\)
+D. \(24\)
+Answer: A
+
+Explanation:
+Concept
+Factorial exponent questions count prime factors inside the factorial.
+
+Given
+A factorial expression \(25!\) is given. What is the exponent of prime factor \(2\)?
+
+Working
+Count how many times prime 2 appears inside the factorial.
+Use Legendre's quotient sum for the prime and its powers.
+\[
+\left\lfloor\frac{25}{2}\right\rfloor+\left\lfloor\frac{25}{4}\right\rfloor+\cdots
+\]
+Add the quotients for the prime and its higher powers.
+\[
+12+6+3+1=22
+\]
+Therefore, the required answer is \(22\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Prime-power shortcut: quotient floors only.
+Answer: \(22\), Option (A).
+
+
+Hindi:
+फैक्टोरियल अभिव्यक्ति \(25!\) दी है। अभाज्य गुणनखंड \(2\) की घात क्या है?
+विचार
+फैक्टोरियल घात प्रश्नों में फैक्टोरियल के अंदर अभाज्य गुणनखंड गिने जाते हैं।
+
+दिया गया
+फैक्टोरियल अभिव्यक्ति \(25!\) दी है। अभाज्य गुणनखंड \(2\) की घात क्या है?
+
+हल
+पहले अभाज्य के गुणज, फिर उसकी ऊँची घातों के गुणज गिनें।
+सभी भागफल पद जोड़ें।
+\[
+\left\lfloor\frac{25}{2}\right\rfloor+\left\lfloor\frac{25}{4}\right\rfloor+\cdots
+\]
+इसलिए आवश्यक उत्तर \(22\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+अंतिम शून्यों के लिए फैक्टोरियल में 5 के गुणनखंड गिनें।
+उत्तर: \(22\), विकल्प (A).
+
+Punjabi:
+ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \(25!\) ਦਿੱਤੀ ਹੈ। ਅਭਾਜ ਗੁਣਨਖੰਡ \(2\) ਦੀ ਘਾਤ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਫੈਕਟੋਰੀਅਲ ਘਾਤ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਫੈਕਟੋਰੀਅਲ ਦੇ ਅੰਦਰਲੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \(25!\) ਦਿੱਤੀ ਹੈ। ਅਭਾਜ ਗੁਣਨਖੰਡ \(2\) ਦੀ ਘਾਤ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਅਭਾਜ ਦੇ ਗੁਣਜ, ਫਿਰ ਉਸ ਦੀਆਂ ਵੱਡੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਜ ਗਿਣੋ।
+ਸਾਰੇ ਭਾਗਫਲ ਪਦ ਜੋੜੋ।
+\[
+\left\lfloor\frac{25}{2}\right\rfloor+\left\lfloor\frac{25}{4}\right\rfloor+\cdots
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(22\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅੰਤਲੇ ਸਿਫ਼ਰਾਂ ਲਈ ਫੈਕਟੋਰੀਅਲ ਵਿੱਚ 5 ਦੇ ਗੁਣਨਖੰਡ ਗਿਣੋ।
+ਉੱਤਰ: \(22\), ਵਿਕਲਪ (A).
+
+Family: ns_factorial_divisibility
+
+---
+Q68. What remainder will \(11^{66}\) leave on division by \(5\)?
+A. \(0\)
+B. \(3\)
+C. \(1\)
+D. \(2\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(11^{66}\) leave on division by \(5\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+11\equiv 1\pmod{5}
+\]
+Write the repeating remainder cycle.
+\[
+1
+\]
+Locate the exponent inside the cycle.
+\[
+(66-1)\bmod 1+1=1
+\]
+Take the remainder at that cycle position.
+\[
+1
+\]
+Therefore, the required answer is \(1\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+66\mapsto 1
+\]
+Answer: \(1\), Option (C).
+
+
+Hindi:
+\(11^{66}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(11^{66}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+11\equiv 1\pmod{5}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(1\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(1\), विकल्प (C).
+
+Punjabi:
+\(11^{66}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(11^{66}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+11\equiv 1\pmod{5}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(1\), ਵਿਕਲਪ (C).
+
+Family: ns_modular_arithmetic
+
+---
+Q69. Reduce the power \(7^{59}\) by its remainder pattern. What is the remainder on division by \(19\)?
+A. \(12\)
+B. \(10\)
+C. \(13\)
+D. \(11\)
+Answer: D
+
+Explanation:
+Concept
+Hybrid number-theory questions reduce the expression before calculating.
+
+Given
+Reduce the power \(7^{59}\) by its remainder pattern. What is the remainder on division by \(19\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{19}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 11,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(59-1)\bmod 3+1=2
+\]
+Take the remainder at that cycle position.
+\[
+11
+\]
+Therefore, the required answer is \(11\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+59\mapsto 2
+\]
+Answer: \(11\), Option (D).
+
+
+Hindi:
+\(7^{59}\) को उसके शेषफल पैटर्न से घटाएं। \(19\) से भाग देने पर शेषफल क्या होगा?
+विचार
+हाइब्रिड संख्या-पद्धति प्रश्नों में गणना से पहले अभिव्यक्ति घटाई जाती है।
+
+दिया गया
+\(7^{59}\) को उसके शेषफल पैटर्न से घटाएं। \(19\) से भाग देने पर शेषफल क्या होगा?
+
+हल
+आधार घटाकर शेषफलों का चक्र लगाएं।
+\[
+7\equiv 7\pmod{19}
+\]
+अंतिम शेषफल के लिए घात की स्थिति पहचानें।
+इसलिए आवश्यक उत्तर \(11\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+घात कभी न फैलाएं; घटाएं और चक्र लगाएं।
+उत्तर: \(11\), विकल्प (D).
+
+Punjabi:
+\(7^{59}\) ਨੂੰ ਉਸ ਦੇ ਬਾਕੀ ਪੈਟਰਨ ਨਾਲ ਘਟਾਓ। \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+ਹਾਈਬ੍ਰਿਡ ਨੰਬਰ ਸਿਸਟਮ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਹਿਸਾਬ ਤੋਂ ਪਹਿਲਾਂ ਅਭਿਵਿਅਕਤੀ ਘਟਾਈ ਜਾਂਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{59}\) ਨੂੰ ਉਸ ਦੇ ਬਾਕੀ ਪੈਟਰਨ ਨਾਲ ਘਟਾਓ। \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਆਧਾਰ ਘਟਾ ਕੇ ਬਾਕੀਆਂ ਦਾ ਚੱਕਰ ਲਗਾਓ।
+\[
+7\equiv 7\pmod{19}
+\]
+ਅੰਤਿਮ ਬਾਕੀ ਲਈ ਘਾਤ ਦੀ ਸਥਿਤੀ ਪਛਾਣੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(11\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਘਾਤ ਕਦੇ ਨਾ ਫੈਲਾਓ; ਘਟਾਓ ਅਤੇ ਚੱਕਰ ਲਗਾਓ।
+ਉੱਤਰ: \(11\), ਵਿਕਲਪ (D).
+
+Family: ns_hidden_number_theory
+
+---
+Q70. Digit sum \(9\) is given for a two-digit number. If the tens digit is \(4\), what is the number?
+A. \(47\)
+B. \(45\)
+C. \(46\)
+D. \(44\)
+Answer: B
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(9\) is given for a two-digit number. If the tens digit is \(4\), what is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+4+u=9\Rightarrow u=5
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 4+5=45
+\]
+Therefore, the required answer is \(45\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(45\), Option (B).
+
+
+Hindi:
+दो-अंकीय संख्या के लिए अंक-योग \(9\) दिया है। यदि दहाई अंक \(4\) है, तो संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या के लिए अंक-योग \(9\) दिया है। यदि दहाई अंक \(4\) है, तो संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 4+5
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(45\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(45\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(9\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(4\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(9\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(4\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 4+5
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(45\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(45\), ਵਿਕਲਪ (B).
+
+Family: ns_missing_digit_multi_rule
+
+---
+Q71. Between \(234\) and \(337\), how many integers are divisible by \(6\)?
+A. \(18\)
+B. \(19\)
+C. \(17\)
+D. \(20\)
+Answer: A
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(234\) and \(337\), how many integers are divisible by \(6\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+234,\;336
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{336-234}{6}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{102}{6}+1=17+1=18
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(18\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{337}{6}\right\rfloor=56,\quad \left\lfloor\frac{233}{6}\right\rfloor=38
+\]
+\[
+56-38=18
+\]
+Answer: \(18\), Option (A).
+
+
+Hindi:
+\(234\) और \(337\) के बीच कितने पूर्णांक \(6\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(234\) और \(337\) के बीच कितने पूर्णांक \(6\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{337}{6}\right\rfloor-\left\lfloor\frac{233}{6}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(18\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(18\), विकल्प (A).
+
+Punjabi:
+\(234\) ਅਤੇ \(337\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(6\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(234\) ਅਤੇ \(337\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(6\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{337}{6}\right\rfloor-\left\lfloor\frac{233}{6}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(18\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(18\), ਵਿਕਲਪ (A).
+
+Family: ns_divisibility_multi_condition
+
+---
+Q72. Between \(202\) and \(361\), how many integers are divisible by \(18\)?
+A. \(10\)
+B. \(8\)
+C. \(11\)
+D. \(9\)
+Answer: D
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(202\) and \(361\), how many integers are divisible by \(18\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+216,\;360
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{360-216}{18}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{144}{18}+1=8+1=9
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(9\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{361}{18}\right\rfloor=20,\quad \left\lfloor\frac{201}{18}\right\rfloor=11
+\]
+\[
+20-11=9
+\]
+Answer: \(9\), Option (D).
+
+
+Hindi:
+\(202\) और \(361\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(202\) और \(361\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{361}{18}\right\rfloor-\left\lfloor\frac{201}{18}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(9\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(9\), विकल्प (D).
+
+Punjabi:
+\(202\) ਅਤੇ \(361\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(202\) ਅਤੇ \(361\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{361}{18}\right\rfloor-\left\lfloor\frac{201}{18}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(9\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(9\), ਵਿਕਲਪ (D).
+
+Family: ns_large_expression_divisibility
+
+---
+Q73. For the number \(480\), find the count of positive divisors?
+A. \(23\)
+B. \(26\)
+C. \(24\)
+D. \(25\)
+Answer: C
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+For the number \(480\), find the count of positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+480=2^{5}\times 3\times 5
+\]
+Each exponent contributes one more choice than its value.
+\[
+d(n)=(5+1)\times (1+1)\times (1+1)=24
+\]
+Therefore, the required answer is \(24\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(5+1)\times (1+1)\times (1+1)
+\]
+Answer: \(24\), Option (C).
+
+
+Hindi:
+संख्या \(480\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+संख्या \(480\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+480=2^{5}\times 3\times 5
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(24\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(24\), विकल्प (C).
+
+Punjabi:
+ਸੰਖਿਆ \(480\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(480\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+480=2^{5}\times 3\times 5
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(24\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(24\), ਵਿਕਲਪ (C).
+
+Family: ns_hidden_divisor_deduction
+
+---
+Q74. For two numbers \(99\) and \(63\), which common multiple is first reached?
+A. \(693\)
+B. \(728\)
+C. \(762\)
+D. \(658\)
+Answer: A
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+For two numbers \(99\) and \(63\), which common multiple is first reached?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+99=3^{2}\times 11,\ 63=3^{2}\times 7
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(99,63)=693
+\]
+Therefore, the required answer is \(693\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(693\), Option (A).
+
+
+Hindi:
+दो संख्याओं \(99\) और \(63\) के लिए पहला साझा गुणज क्या होगा?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो संख्याओं \(99\) और \(63\) के लिए पहला साझा गुणज क्या होगा?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(99,63)=693
+\]
+इसलिए आवश्यक उत्तर \(693\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(693\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(99\) ਅਤੇ \(63\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਸੰਖਿਆਵਾਂ \(99\) ਅਤੇ \(63\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(99,63)=693
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(693\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(693\), ਵਿਕਲਪ (A).
+
+Family: ns_hcf_lcm_relation
+
+---
+Q75. Two buses leave a stand every \(72\) and \(126\) minutes. When will they next leave together?
+A. \(479\)
+B. \(504\)
+C. \(529\)
+D. \(554\)
+Answer: B
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two buses leave a stand every \(72\) and \(126\) minutes. When will they next leave together?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+72=2^{3}\times 3^{2},\ 126=2\times 3^{2}\times 7
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(72,126)=504
+\]
+Therefore, the required answer is \(504\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(504\), Option (B).
+
+
+Hindi:
+दो बसें \(72\) और \(126\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो बसें \(72\) और \(126\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(72,126)=504
+\]
+इसलिए आवश्यक उत्तर \(504\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(504\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(72\) ਅਤੇ \(126\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਬੱਸਾਂ \(72\) ਅਤੇ \(126\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(72,126)=504
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(504\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(504\), ਵਿਕਲਪ (B).
+
+Family: ns_hidden_hcf
+
+---
+Q76. For two numbers \(63\) and \(54\), which common multiple is first reached?
+A. \(378\)
+B. \(397\)
+C. \(416\)
+D. \(359\)
+Answer: A
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+For two numbers \(63\) and \(54\), which common multiple is first reached?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+63=3^{2}\times 7,\ 54=2\times 3^{3}
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(63,54)=378
+\]
+Therefore, the required answer is \(378\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(378\), Option (A).
+
+
+Hindi:
+दो संख्याओं \(63\) और \(54\) के लिए पहला साझा गुणज क्या होगा?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो संख्याओं \(63\) और \(54\) के लिए पहला साझा गुणज क्या होगा?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(63,54)=378
+\]
+इसलिए आवश्यक उत्तर \(378\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(378\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(63\) ਅਤੇ \(54\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਸੰਖਿਆਵਾਂ \(63\) ਅਤੇ \(54\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(63,54)=378
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(378\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(378\), ਵਿਕਲਪ (A).
+
+Family: ns_hcf_lcm_word_problem
+
+---
+Q77. What remainder will \(7^{49}\) leave on division by \(5\)?
+A. \(1\)
+B. \(4\)
+C. \(2\)
+D. \(3\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(7^{49}\) leave on division by \(5\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 2\pmod{5}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 3,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(49-1)\bmod 4+1=1
+\]
+Take the remainder at that cycle position.
+\[
+2
+\]
+Therefore, the required answer is \(2\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+49\mapsto 1
+\]
+Answer: \(2\), Option (C).
+
+
+Hindi:
+\(7^{49}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(7^{49}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+7\equiv 2\pmod{5}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(2\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(2\), विकल्प (C).
+
+Punjabi:
+\(7^{49}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(7^{49}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+7\equiv 2\pmod{5}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(2\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(2\), ਵਿਕਲਪ (C).
+
+Family: ns_remainder_after_division
+
+---
+Q78. A large power \(2^{59}\) is divided by \(5\). What is the remainder?
+A. \(3\)
+B. \(4\)
+C. \(2\)
+D. \(5\)
+Answer: A
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+A large power \(2^{59}\) is divided by \(5\). What is the remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+2\equiv 2\pmod{5}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 3,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(59-1)\bmod 4+1=3
+\]
+Take the remainder at that cycle position.
+\[
+3
+\]
+Therefore, the required answer is \(3\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+59\mapsto 3
+\]
+Answer: \(3\), Option (A).
+
+
+Hindi:
+बड़ी घात \(2^{59}\) को \(5\) से भाग दिया गया। शेषफल क्या है?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+बड़ी घात \(2^{59}\) को \(5\) से भाग दिया गया। शेषफल क्या है?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+2\equiv 2\pmod{5}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(3\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(3\), विकल्प (A).
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(2^{59}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਵੱਡੀ ਘਾਤ \(2^{59}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+2\equiv 2\pmod{5}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(3\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(3\), ਵਿਕਲਪ (A).
+
+Family: ns_nested_remainder
+
+---
+Q79. What remainder will \(2^{56}\) leave on division by \(5\)?
+A. \(0\)
+B. \(3\)
+C. \(1\)
+D. \(2\)
+Answer: C
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+What remainder will \(2^{56}\) leave on division by \(5\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+2\equiv 2\pmod{5}
+\]
+Write the repeating remainder cycle.
+\[
+2,\ 4,\ 3,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(56-1)\bmod 4+1=4
+\]
+Take the remainder at that cycle position.
+\[
+1
+\]
+Therefore, the required answer is \(1\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+56\mapsto 4
+\]
+Answer: \(1\), Option (C).
+
+
+Hindi:
+\(2^{56}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+\(2^{56}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+2\equiv 2\pmod{5}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(1\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(1\), विकल्प (C).
+
+Punjabi:
+\(2^{56}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(2^{56}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+2\equiv 2\pmod{5}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(1\), ਵਿਕਲਪ (C).
+
+Family: ns_remainder_factor_hybrid
+
+---
+Q80. What are the last two digits of \(23^{49}\)?
+A. \(63\)
+B. \(64\)
+C. \(62\)
+D. \(65\)
+Answer: A
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last two digits of \(23^{49}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+23\equiv 23\pmod{100}
+\]
+Write the repeating remainder cycle.
+\[
+23,\ 29,\ 67,\ 41,\ 43,\ 89,\ 47,\ 81,\ 63,\ 49,\ 27,\ 21,\ 83,\ 9,\ 7,\ 61,\ 3,\ 69,\ 87,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(49-1)\bmod 20+1=9
+\]
+Take the remainder at that cycle position.
+\[
+63
+\]
+Therefore, the required answer is \(63\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+49\mapsto 9
+\]
+Answer: \(63\), Option (A).
+
+
+Hindi:
+\(23^{49}\) का अंतिम दो अंक क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(23^{49}\) का अंतिम दो अंक क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(49-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(63\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(63\), विकल्प (A).
+
+Punjabi:
+\(23^{49}\) ਦਾ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(23^{49}\) ਦਾ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(49-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(63\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(63\), ਵਿਕਲਪ (A).
+
+Family: ns_last_two_digits
+
+---
+Q81. What are the last digit (units digit) of \(23^{104}\)?
+A. \(1\)
+B. \(2\)
+C. \(0\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last digit (units digit) of \(23^{104}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+23\equiv 3\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+3,\ 9,\ 7,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(104-1)\bmod 4+1=4
+\]
+Take the remainder at that cycle position.
+\[
+1
+\]
+Therefore, the required answer is \(1\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+104\mapsto 4
+\]
+Answer: \(1\), Option (A).
+
+
+Hindi:
+\(23^{104}\) का अंतिम अंक (इकाई अंक) क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(23^{104}\) का अंतिम अंक (इकाई अंक) क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(104-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(1\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(1\), विकल्प (A).
+
+Punjabi:
+\(23^{104}\) ਦਾ ਆਖਰੀ ਅੰਕ (ਇਕਾਈ ਅੰਕ) ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(23^{104}\) ਦਾ ਆਖਰੀ ਅੰਕ (ਇਕਾਈ ਅੰਕ) ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(104-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(1\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(1\), ਵਿਕਲਪ (A).
+
+Family: ns_expression_last_digit
+
+---
+Q82. What are the last digit of \(8^{74}\)?
+A. \(5\)
+B. \(3\)
+C. \(6\)
+D. \(4\)
+Answer: D
+
+Explanation:
+Concept
+Last-digit questions depend on the cyclicity of powers.
+
+Given
+What are the last digit of \(8^{74}\)?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+8\equiv 8\pmod{10}
+\]
+Write the repeating remainder cycle.
+\[
+8,\ 4,\ 2,\ 6
+\]
+Locate the exponent inside the cycle.
+\[
+(74-1)\bmod 4+1=2
+\]
+Take the remainder at that cycle position.
+\[
+4
+\]
+Therefore, the required answer is \(4\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+74\mapsto 2
+\]
+Answer: \(4\), Option (D).
+
+
+Hindi:
+\(8^{74}\) का अंतिम अंक क्या है?
+विचार
+अंतिम अंक वाले प्रश्न घातों की चक्रीयता पर निर्भर करते हैं।
+
+दिया गया
+\(8^{74}\) का अंतिम अंक क्या है?
+
+हल
+चाहे गए अंतिम अंकों के लिए घात चक्र पहचानें।
+उस चक्र में घात की स्थिति लें।
+\[
+(74-1)\bmod 4+1
+\]
+इसलिए आवश्यक उत्तर \(4\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+पूरी घात नहीं, केवल चक्र की स्थिति मायने रखती है।
+उत्तर: \(4\), विकल्प (D).
+
+Punjabi:
+\(8^{74}\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਆਖਰੀ ਅੰਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਘਾਤਾਂ ਦੇ ਚੱਕਰ ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(8^{74}\) ਦਾ ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਲੋੜੀਂਦੇ ਆਖਰੀ ਅੰਕਾਂ ਲਈ ਘਾਤ ਚੱਕਰ ਪਛਾਣੋ।
+ਉਸ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+\[
+(74-1)\bmod 4+1
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(4\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪੂਰੀ ਘਾਤ ਨਹੀਂ, ਸਿਰਫ਼ ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਮਾਇਨੇ ਰੱਖਦੀ ਹੈ।
+ਉੱਤਰ: \(4\), ਵਿਕਲਪ (D).
+
+Family: ns_cycle_length_detection
+
+---
+Q83. Number \(64\) is reversed by interchanging its digits. What absolute difference is obtained?
+A. \(20\)
+B. \(18\)
+C. \(19\)
+D. \(17\)
+Answer: B
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Number \(64\) is reversed by interchanging its digits. What absolute difference is obtained?
+
+Working
+Write the original number and the reversed number using place value.
+\[
+64,\ 46
+\]
+Their difference is nine times the difference of the two digits.
+\[
+9\times |6-4|=18
+\]
+Therefore, the required answer is \(18\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Reversal difference shortcut is \(9\) times the digit difference.
+Answer: \(18\), Option (B).
+
+
+Hindi:
+संख्या \(64\) के अंक आपस में बदल दिए जाते हैं। पूर्ण अंतर क्या मिलेगा?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+संख्या \(64\) के अंक आपस में बदल दिए जाते हैं। पूर्ण अंतर क्या मिलेगा?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 6+4
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(18\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(18\), विकल्प (B).
+
+Punjabi:
+ਸੰਖਿਆ \(64\) ਦੇ ਅੰਕ ਆਪਸ ਵਿੱਚ ਬਦਲੇ ਜਾਂਦੇ ਹਨ। ਪੂਰਾ ਫਰਕ ਕੀ ਮਿਲੇਗਾ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(64\) ਦੇ ਅੰਕ ਆਪਸ ਵਿੱਚ ਬਦਲੇ ਜਾਂਦੇ ਹਨ। ਪੂਰਾ ਫਰਕ ਕੀ ਮਿਲੇਗਾ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 6+4
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(18\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(18\), ਵਿਕਲਪ (B).
+
+Family: ns_digit_interchange
+
+---
+Q84. Digit sum \(11\) and tens digit \(3\) are known for a two-digit number. What is the number?
+A. \(37\)
+B. \(40\)
+C. \(38\)
+D. \(39\)
+Answer: C
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(11\) and tens digit \(3\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+3+u=11\Rightarrow u=8
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 3+8=38
+\]
+Therefore, the required answer is \(38\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(38\), Option (C).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(11\) और दहाई अंक \(3\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(11\) और दहाई अंक \(3\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 3+8
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(38\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(38\), विकल्प (C).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(11\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(3\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(11\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(3\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 3+8
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(38\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(38\), ਵਿਕਲਪ (C).
+
+Family: ns_digit_constraints
+
+---
+Q85. Digit sum \(7\) is given for a two-digit number. If the tens digit is \(4\), what is the number?
+A. \(44\)
+B. \(42\)
+C. \(45\)
+D. \(43\)
+Answer: D
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(7\) is given for a two-digit number. If the tens digit is \(4\), what is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+4+u=7\Rightarrow u=3
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 4+3=43
+\]
+Therefore, the required answer is \(43\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(43\), Option (D).
+
+
+Hindi:
+दो-अंकीय संख्या के लिए अंक-योग \(7\) दिया है। यदि दहाई अंक \(4\) है, तो संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या के लिए अंक-योग \(7\) दिया है। यदि दहाई अंक \(4\) है, तो संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 4+3
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(43\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(43\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(7\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(4\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(7\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(4\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 4+3
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(43\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(43\), ਵਿਕਲਪ (D).
+
+Family: ns_digit_sum_reconstruction
+
+---
+Q86. In \(25!\), what is the total count of trailing zeroes?
+A. \(5\)
+B. \(8\)
+C. \(6\)
+D. \(7\)
+Answer: C
+
+Explanation:
+Concept
+Factorial exponent questions count prime factors inside the factorial.
+
+Given
+In \(25!\), what is the total count of trailing zeroes?
+
+Working
+Trailing zeroes come from pairs of 2 and 5; fives are fewer, so count fives.
+Use Legendre's quotient sum for the prime and its powers.
+\[
+\left\lfloor\frac{25}{5}\right\rfloor+\left\lfloor\frac{25}{25}\right\rfloor+\cdots
+\]
+Add the quotients for the prime and its higher powers.
+\[
+5+1=6
+\]
+Therefore, the required answer is \(6\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Zero shortcut: count fives only.
+Answer: \(6\), Option (C).
+
+
+Hindi:
+\(25!\) में अंत में कितने शून्य प्राप्त होते हैं?
+विचार
+फैक्टोरियल घात प्रश्नों में फैक्टोरियल के अंदर अभाज्य गुणनखंड गिने जाते हैं।
+
+दिया गया
+\(25!\) में अंत में कितने शून्य प्राप्त होते हैं?
+
+हल
+पहले अभाज्य के गुणज, फिर उसकी ऊँची घातों के गुणज गिनें।
+सभी भागफल पद जोड़ें।
+\[
+\left\lfloor\frac{25}{5}\right\rfloor+\left\lfloor\frac{25}{25}\right\rfloor+\cdots
+\]
+इसलिए आवश्यक उत्तर \(6\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+अंतिम शून्यों के लिए फैक्टोरियल में 5 के गुणनखंड गिनें।
+उत्तर: \(6\), विकल्प (C).
+
+Punjabi:
+\(25!\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਪ੍ਰਾਪਤ ਹੁੰਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਫੈਕਟੋਰੀਅਲ ਘਾਤ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਫੈਕਟੋਰੀਅਲ ਦੇ ਅੰਦਰਲੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(25!\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਪ੍ਰਾਪਤ ਹੁੰਦੇ ਹਨ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਅਭਾਜ ਦੇ ਗੁਣਜ, ਫਿਰ ਉਸ ਦੀਆਂ ਵੱਡੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਜ ਗਿਣੋ।
+ਸਾਰੇ ਭਾਗਫਲ ਪਦ ਜੋੜੋ।
+\[
+\left\lfloor\frac{25}{5}\right\rfloor+\left\lfloor\frac{25}{25}\right\rfloor+\cdots
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(6\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅੰਤਲੇ ਸਿਫ਼ਰਾਂ ਲਈ ਫੈਕਟੋਰੀਅਲ ਵਿੱਚ 5 ਦੇ ਗੁਣਨਖੰਡ ਗਿਣੋ।
+ਉੱਤਰ: \(6\), ਵਿਕਲਪ (C).
+
+Family: ns_trailing_zeroes
+
+---
+Q87. For the factorial \(75!\), what count is obtained by tracking prime factor \(5\)?
+A. \(20\)
+B. \(18\)
+C. \(19\)
+D. \(17\)
+Answer: B
+
+Explanation:
+Concept
+Factorial exponent questions count prime factors inside the factorial.
+
+Given
+For the factorial \(75!\), what count is obtained by tracking prime factor \(5\)?
+
+Working
+Count how many times prime 5 appears inside the factorial.
+Use Legendre's quotient sum for the prime and its powers.
+\[
+\left\lfloor\frac{75}{5}\right\rfloor+\left\lfloor\frac{75}{25}\right\rfloor+\cdots
+\]
+Add the quotients for the prime and its higher powers.
+\[
+15+3=18
+\]
+Therefore, the required answer is \(18\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Prime-power shortcut: quotient floors only.
+Answer: \(18\), Option (B).
+
+
+Hindi:
+फैक्टोरियल \(75!\) में अभाज्य गुणनखंड \(5\) गिनकर क्या मान मिलेगा?
+विचार
+फैक्टोरियल घात प्रश्नों में फैक्टोरियल के अंदर अभाज्य गुणनखंड गिने जाते हैं।
+
+दिया गया
+फैक्टोरियल \(75!\) में अभाज्य गुणनखंड \(5\) गिनकर क्या मान मिलेगा?
+
+हल
+पहले अभाज्य के गुणज, फिर उसकी ऊँची घातों के गुणज गिनें।
+सभी भागफल पद जोड़ें।
+\[
+\left\lfloor\frac{75}{5}\right\rfloor+\left\lfloor\frac{75}{25}\right\rfloor+\cdots
+\]
+इसलिए आवश्यक उत्तर \(18\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+अंतिम शून्यों के लिए फैक्टोरियल में 5 के गुणनखंड गिनें।
+उत्तर: \(18\), विकल्प (B).
+
+Punjabi:
+ਫੈਕਟੋਰੀਅਲ \(75!\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \(5\) ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?
+ਵਿਚਾਰ
+ਫੈਕਟੋਰੀਅਲ ਘਾਤ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਫੈਕਟੋਰੀਅਲ ਦੇ ਅੰਦਰਲੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਫੈਕਟੋਰੀਅਲ \(75!\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \(5\) ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਅਭਾਜ ਦੇ ਗੁਣਜ, ਫਿਰ ਉਸ ਦੀਆਂ ਵੱਡੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਜ ਗਿਣੋ।
+ਸਾਰੇ ਭਾਗਫਲ ਪਦ ਜੋੜੋ।
+\[
+\left\lfloor\frac{75}{5}\right\rfloor+\left\lfloor\frac{75}{25}\right\rfloor+\cdots
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(18\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅੰਤਲੇ ਸਿਫ਼ਰਾਂ ਲਈ ਫੈਕਟੋਰੀਅਲ ਵਿੱਚ 5 ਦੇ ਗੁਣਨਖੰਡ ਗਿਣੋ।
+ਉੱਤਰ: \(18\), ਵਿਕਲਪ (B).
+
+Family: ns_factorial_divisibility
+
+---
+Q88. Between \(225\) and \(361\), how many integers are divisible by \(8\)?
+A. \(18\)
+B. \(16\)
+C. \(19\)
+D. \(17\)
+Answer: D
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(225\) and \(361\), how many integers are divisible by \(8\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+232,\;360
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{360-232}{8}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{128}{8}+1=16+1=17
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(17\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{361}{8}\right\rfloor=45,\quad \left\lfloor\frac{224}{8}\right\rfloor=28
+\]
+\[
+45-28=17
+\]
+Answer: \(17\), Option (D).
+
+
+Hindi:
+\(225\) और \(361\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(225\) और \(361\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{361}{8}\right\rfloor-\left\lfloor\frac{224}{8}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(17\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(17\), विकल्प (D).
+
+Punjabi:
+\(225\) ਅਤੇ \(361\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(225\) ਅਤੇ \(361\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{361}{8}\right\rfloor-\left\lfloor\frac{224}{8}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(17\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(17\), ਵਿਕਲਪ (D).
+
+Family: ns_cyclic_pattern
+
+---
+Q89. Bells ring at intervals of \(99\) and \(90\) minutes. After how many minutes will both ring together again?
+A. \(1089\)
+B. \(940\)
+C. \(990\)
+D. \(1040\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(99\) and \(90\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+99=3^{2}\times 11,\ 90=2\times 3^{2}\times 5
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(99,90)=990
+\]
+Therefore, the required answer is \(990\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(990\), Option (C).
+
+
+Hindi:
+घंटियाँ \(99\) और \(90\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(99\) और \(90\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(99,90)=990
+\]
+इसलिए आवश्यक उत्तर \(990\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(990\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(99\) ਅਤੇ \(90\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(99\) ਅਤੇ \(90\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(99,90)=990
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(990\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(990\), ਵਿਕਲਪ (C).
+
+Family: ns_factor_hcf_hybrid
+
+---
+Q90. A number leaves the same remainder as \(7^{109}\) when divided by \(19\). What is that remainder?
+A. \(8\)
+B. \(6\)
+C. \(9\)
+D. \(7\)
+Answer: D
+
+Explanation:
+Concept
+Hybrid number-theory questions reduce the expression before calculating.
+
+Given
+A number leaves the same remainder as \(7^{109}\) when divided by \(19\). What is that remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+7\equiv 7\pmod{19}
+\]
+Write the repeating remainder cycle.
+\[
+7,\ 11,\ 1
+\]
+Locate the exponent inside the cycle.
+\[
+(109-1)\bmod 3+1=1
+\]
+Take the remainder at that cycle position.
+\[
+7
+\]
+Therefore, the required answer is \(7\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+109\mapsto 1
+\]
+Answer: \(7\), Option (D).
+
+
+Hindi:
+एक संख्या \(19\) से भाग देने पर \(7^{109}\) जैसा ही शेषफल देती है। वह शेषफल क्या है?
+विचार
+हाइब्रिड संख्या-पद्धति प्रश्नों में गणना से पहले अभिव्यक्ति घटाई जाती है।
+
+दिया गया
+एक संख्या \(19\) से भाग देने पर \(7^{109}\) जैसा ही शेषफल देती है। वह शेषफल क्या है?
+
+हल
+आधार घटाकर शेषफलों का चक्र लगाएं।
+\[
+7\equiv 7\pmod{19}
+\]
+अंतिम शेषफल के लिए घात की स्थिति पहचानें।
+इसलिए आवश्यक उत्तर \(7\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+घात कभी न फैलाएं; घटाएं और चक्र लगाएं।
+उत्तर: \(7\), विकल्प (D).
+
+Punjabi:
+ਇੱਕ ਸੰਖਿਆ \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ \(7^{109}\) ਵਰਗਾ ਹੀ ਬਾਕੀ ਦਿੰਦੀ ਹੈ। ਉਹ ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਹਾਈਬ੍ਰਿਡ ਨੰਬਰ ਸਿਸਟਮ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਹਿਸਾਬ ਤੋਂ ਪਹਿਲਾਂ ਅਭਿਵਿਅਕਤੀ ਘਟਾਈ ਜਾਂਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਇੱਕ ਸੰਖਿਆ \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ \(7^{109}\) ਵਰਗਾ ਹੀ ਬਾਕੀ ਦਿੰਦੀ ਹੈ। ਉਹ ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਆਧਾਰ ਘਟਾ ਕੇ ਬਾਕੀਆਂ ਦਾ ਚੱਕਰ ਲਗਾਓ।
+\[
+7\equiv 7\pmod{19}
+\]
+ਅੰਤਿਮ ਬਾਕੀ ਲਈ ਘਾਤ ਦੀ ਸਥਿਤੀ ਪਛਾਣੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(7\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਘਾਤ ਕਦੇ ਨਾ ਫੈਲਾਓ; ਘਟਾਓ ਅਤੇ ਚੱਕਰ ਲਗਾਓ।
+ਉੱਤਰ: \(7\), ਵਿਕਲਪ (D).
+
+Family: ns_multi_cluster_reasoning
+
+---
+Q91. Digit sum \(9\) and tens digit \(7\) are known for a two-digit number. What is the number?
+A. \(72\)
+B. \(73\)
+C. \(71\)
+D. \(74\)
+Answer: A
+
+Explanation:
+Concept
+Digit questions convert place values into equations.
+
+Given
+Digit sum \(9\) and tens digit \(7\) are known for a two-digit number. What is the number?
+
+Working
+Use the digit sum to find the ones digit.
+\[
+7+u=9\Rightarrow u=2
+\]
+Now write the two-digit number by place value.
+\[
+N=10\times 7+2=72
+\]
+Therefore, the required answer is \(72\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Find the missing digit from the digit sum, then place it.
+Answer: \(72\), Option (A).
+
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(9\) और दहाई अंक \(7\) ज्ञात हैं। संख्या क्या है?
+विचार
+अंक वाले प्रश्न स्थान-मूल्य को समीकरण में बदलते हैं।
+
+दिया गया
+दो-अंकीय संख्या का अंक-योग \(9\) और दहाई अंक \(7\) ज्ञात हैं। संख्या क्या है?
+
+हल
+संख्या को दहाई और इकाई स्थान से लिखें।
+\[
+N=10\times 7+2
+\]
+दिए गए अंक संबंध से पूछा गया मान निकालें।
+इसलिए आवश्यक उत्तर \(72\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+दो अंकों के लिए स्थान-मूल्य सीधे लगाएं।
+उत्तर: \(72\), विकल्प (A).
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(9\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(7\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅੰਕਾਂ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸਥਾਨ-ਮੁੱਲ ਨੂੰ ਸਮੀਕਰਨ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(9\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(7\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਦਹਾਈ ਅਤੇ ਇਕਾਈ ਸਥਾਨ ਨਾਲ ਲਿਖੋ।
+\[
+N=10\times 7+2
+\]
+ਦਿੱਤੇ ਅੰਕ ਸੰਬੰਧ ਨਾਲ ਪੁੱਛਿਆ ਮੁੱਲ ਕੱਢੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(72\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਦੋ ਅੰਕਾਂ ਲਈ ਸਥਾਨ-ਮੁੱਲ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(72\), ਵਿਕਲਪ (A).
+
+Family: ns_missing_digit_multi_rule
+
+---
+Q92. Between \(217\) and \(360\), how many integers are divisible by \(8\)?
+A. \(19\)
+B. \(17\)
+C. \(20\)
+D. \(18\)
+Answer: D
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(217\) and \(360\), how many integers are divisible by \(8\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+224,\;360
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{360-224}{8}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{136}{8}+1=17+1=18
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(18\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{360}{8}\right\rfloor=45,\quad \left\lfloor\frac{216}{8}\right\rfloor=27
+\]
+\[
+45-27=18
+\]
+Answer: \(18\), Option (D).
+
+
+Hindi:
+\(217\) और \(360\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(217\) और \(360\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{360}{8}\right\rfloor-\left\lfloor\frac{216}{8}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(18\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(18\), विकल्प (D).
+
+Punjabi:
+\(217\) ਅਤੇ \(360\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(217\) ਅਤੇ \(360\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{360}{8}\right\rfloor-\left\lfloor\frac{216}{8}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(18\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(18\), ਵਿਕਲਪ (D).
+
+Family: ns_divisibility_multi_condition
+
+---
+Q93. Between \(101\) and \(273\), how many integers are divisible by \(15\)?
+A. \(11\)
+B. \(14\)
+C. \(12\)
+D. \(13\)
+Answer: C
+
+Explanation:
+Concept
+Count multiples using the first valid multiple and the last valid multiple.
+
+Given
+Between \(101\) and \(273\), how many integers are divisible by \(15\)?
+
+Working
+Find the first multiple inside the range and the last multiple inside the range.
+\[
+105,\;270
+\]
+Count the terms in this arithmetic sequence of multiples.
+\[
+\frac{270-105}{15}+1
+\]
+Now simplify the gap and add the first term.
+\[
+\frac{165}{15}+1=11+1=12
+\]
+This avoids listing every integer in the interval.
+Therefore, the required answer is \(12\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Fast count with quotient floors.
+\[
+\left\lfloor\frac{273}{15}\right\rfloor=18,\quad \left\lfloor\frac{100}{15}\right\rfloor=6
+\]
+\[
+18-6=12
+\]
+Answer: \(12\), Option (C).
+
+
+Hindi:
+\(101\) और \(273\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+विचार
+पहले सही गुणज और आखिरी सही गुणज से गिनती करें।
+
+दिया गया
+\(101\) और \(273\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+
+हल
+ऊपरी सीमा तक के गुणजों में से निचली सीमा से पहले के गुणज घटाएं।
+सीमाएँ रखें।
+\[
+\left\lfloor\frac{273}{15}\right\rfloor-\left\lfloor\frac{100}{15}\right\rfloor
+\]
+इसलिए आवश्यक उत्तर \(12\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+सभी संख्याएँ लिखने के बजाय भागफल का अंतर लें।
+उत्तर: \(12\), विकल्प (C).
+
+Punjabi:
+\(101\) ਅਤੇ \(273\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਵਿਚਾਰ
+ਪਹਿਲੇ ਠੀਕ ਗੁਣਜ ਅਤੇ ਆਖਰੀ ਠੀਕ ਗੁਣਜ ਨਾਲ ਗਿਣਤੀ ਕਰੋ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(101\) ਅਤੇ \(273\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+ਹੱਲ
+ਉੱਪਰੀ ਹੱਦ ਤੱਕ ਦੇ ਗੁਣਜਾਂ ਵਿਚੋਂ ਹੇਠਲੀ ਹੱਦ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਗੁਣਜ ਘਟਾਓ।
+ਹੱਦਾਂ ਰੱਖੋ।
+\[
+\left\lfloor\frac{273}{15}\right\rfloor-\left\lfloor\frac{100}{15}\right\rfloor
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(12\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਸਾਰੀਆਂ ਸੰਖਿਆਵਾਂ ਲਿਖਣ ਦੀ ਥਾਂ ਭਾਗਫਲਾਂ ਦਾ ਫਰਕ ਲਵੋ।
+ਉੱਤਰ: \(12\), ਵਿਕਲਪ (C).
+
+Family: ns_large_expression_divisibility
+
+---
+Q94. After prime factorising \(12\), what is the number of odd divisors?
+A. \(3\)
+B. \(1\)
+C. \(4\)
+D. \(2\)
+Answer: D
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+After prime factorising \(12\), what is the number of odd divisors?
+
+Working
+First write the number as prime powers.
+\[
+12=2^{2}\times 3
+\]
+Odd divisors ignore the power of 2 and use only odd prime exponents.
+\[
+(1+1)
+\]
+Therefore, the required answer is \(2\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(2+1)\times (1+1)
+\]
+Answer: \(2\), Option (D).
+
+
+Hindi:
+\(12\) का अभाज्य गुणनखंड करने के बाद विषम भाजकों की संख्या क्या है?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+\(12\) का अभाज्य गुणनखंड करने के बाद विषम भाजकों की संख्या क्या है?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+12=2^{2}\times 3
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(2\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(2\), विकल्प (D).
+
+Punjabi:
+\(12\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+\(12\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+12=2^{2}\times 3
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(2\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(2\), ਵਿਕਲਪ (D).
+
+Family: ns_odd_even_divisor_count
+
+---
+Q95. For the number \(20\), find the product of its positive divisors?
+A. \(9600\)
+B. \(7200\)
+C. \(8000\)
+D. \(8800\)
+Answer: C
+
+Explanation:
+Concept
+Factor questions become simple after writing prime powers.
+
+Given
+For the number \(20\), find the product of its positive divisors?
+
+Working
+First write the number as prime powers.
+\[
+20=2^{2}\times 5
+\]
+First count divisors from the exponents.
+\[
+d(n)=(2+1)\times (1+1)=6
+\]
+The product of divisors is the number raised to half the divisor count.
+\[
+20^{6/2}
+\]
+Therefore, the required answer is \(8000\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exponent-choice shortcut.
+\[
+(2+1)\times (1+1)
+\]
+Answer: \(8000\), Option (C).
+
+
+Hindi:
+संख्या \(20\) के लिए धनात्मक भाजकों का गुणनफल ज्ञात करें?
+विचार
+अभाज्य घातों में लिखने के बाद भाजक प्रश्न सरल हो जाते हैं।
+
+दिया गया
+संख्या \(20\) के लिए धनात्मक भाजकों का गुणनफल ज्ञात करें?
+
+हल
+संख्या को अभाज्य घातों के गुणनफल के रूप में लिखें।
+\[
+20=2^{2}\times 5
+\]
+प्रश्न के अनुसार घात वाला नियम लगाएं।
+इसलिए आवश्यक उत्तर \(8000\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+अभाज्य घातें मिलते ही घातों का पैटर्न सीधे लगाएं।
+उत्तर: \(8000\), विकल्प (C).
+
+Punjabi:
+ਸੰਖਿਆ \(20\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ?
+ਵਿਚਾਰ
+ਅਭਾਜ ਘਾਤਾਂ ਵਿੱਚ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਭਾਜਕ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਸੌਖੇ ਹੋ ਜਾਂਦੇ ਹਨ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਸੰਖਿਆ \(20\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ?
+
+ਹੱਲ
+ਸੰਖਿਆ ਨੂੰ ਅਭਾਜ ਘਾਤਾਂ ਦੇ ਗੁਣਨਫਲ ਵਜੋਂ ਲਿਖੋ।
+\[
+20=2^{2}\times 5
+\]
+ਪ੍ਰਸ਼ਨ ਮੁਤਾਬਕ ਘਾਤਾਂ ਵਾਲਾ ਨਿਯਮ ਲਗਾਓ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(8000\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਅਭਾਜ ਘਾਤਾਂ ਮਿਲਦੇ ਹੀ ਘਾਤਾਂ ਦਾ ਪੈਟਰਨ ਸਿੱਧਾ ਲਗਾਓ।
+ਉੱਤਰ: \(8000\), ਵਿਕਲਪ (C).
+
+Family: ns_product_of_divisors
+
+---
+Q96. Two buses leave a stand every \(40\) and \(80\) minutes. When will they next leave together?
+A. \(82\)
+B. \(80\)
+C. \(81\)
+D. \(79\)
+Answer: B
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two buses leave a stand every \(40\) and \(80\) minutes. When will they next leave together?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+40=2^{3}\times 5,\ 80=2^{4}\times 5
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(40,80)=80
+\]
+Therefore, the required answer is \(80\).
+Hence, the correct answer is Option (B).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(80\), Option (B).
+
+
+Hindi:
+दो बसें \(40\) और \(80\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो बसें \(40\) और \(80\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(40,80)=80
+\]
+इसलिए आवश्यक उत्तर \(80\) है।
+इसलिए सही उत्तर विकल्प (B) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(80\), विकल्प (B).
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(40\) ਅਤੇ \(80\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਬੱਸਾਂ \(40\) ਅਤੇ \(80\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(40,80)=80
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(80\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(80\), ਵਿਕਲਪ (B).
+
+Family: ns_three_number_hcf_lcm
+
+---
+Q97. Bells ring at intervals of \(36\) and \(153\) minutes. After how many minutes will both ring together again?
+A. \(673\)
+B. \(581\)
+C. \(612\)
+D. \(643\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(36\) and \(153\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+36=2^{2}\times 3^{2},\ 153=3^{2}\times 17
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(36,153)=612
+\]
+Therefore, the required answer is \(612\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(612\), Option (C).
+
+
+Hindi:
+घंटियाँ \(36\) और \(153\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(36\) और \(153\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(36,153)=612
+\]
+इसलिए आवश्यक उत्तर \(612\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(612\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(36\) ਅਤੇ \(153\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(36\) ਅਤੇ \(153\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(36,153)=612
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(612\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(612\), ਵਿਕਲਪ (C).
+
+Family: ns_hidden_lcm
+
+---
+Q98. Two cyclic events repeat every \(72\) and \(180\) minutes. After how many minutes will they occur together again?
+A. \(378\)
+B. \(396\)
+C. \(342\)
+D. \(360\)
+Answer: D
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Two cyclic events repeat every \(72\) and \(180\) minutes. After how many minutes will they occur together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+72=2^{3}\times 3^{2},\ 180=2^{2}\times 3^{2}\times 5
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(72,180)=360
+\]
+Therefore, the required answer is \(360\).
+Hence, the correct answer is Option (D).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(360\), Option (D).
+
+
+Hindi:
+दो घटनाएँ हर \(72\) और \(180\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+दो घटनाएँ हर \(72\) और \(180\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(72,180)=360
+\]
+इसलिए आवश्यक उत्तर \(360\) है।
+इसलिए सही उत्तर विकल्प (D) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(360\), विकल्प (D).
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(72\) ਅਤੇ \(180\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(72\) ਅਤੇ \(180\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(72,180)=360
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(360\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(360\), ਵਿਕਲਪ (D).
+
+Family: ns_hcf_lcm_word_problem
+
+---
+Q99. Bells ring at intervals of \(42\) and \(42\) minutes. After how many minutes will both ring together again?
+A. \(41\)
+B. \(44\)
+C. \(42\)
+D. \(43\)
+Answer: C
+
+Explanation:
+Concept
+HCF-LCM questions use common factor or common multiple structure.
+
+Given
+Bells ring at intervals of \(42\) and \(42\) minutes. After how many minutes will both ring together again?
+
+Working
+For first common repetition, use LCM.
+Compare the prime-factor forms of the two numbers.
+\[
+42=2\times 3\times 7,\ 42=2\times 3\times 7
+\]
+Choose common lowest powers for HCF and highest powers for LCM.
+\[
+\operatorname{LCM}(42,42)=42
+\]
+Therefore, the required answer is \(42\).
+Hence, the correct answer is Option (C).
+
+Shortcut / Exam Method
+Exam cue: common division means HCF; repeat together means LCM.
+Answer: \(42\), Option (C).
+
+
+Hindi:
+घंटियाँ \(42\) और \(42\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+विचार
+HCF-LCM प्रश्नों में साझा गुणनखंड या साझा गुणज की संरचना होती है।
+
+दिया गया
+घंटियाँ \(42\) और \(42\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+
+हल
+साझा विभाजन के लिए HCF और साझा दोहराव के लिए LCM लें।
+दिए गए मानों से संबंध लगाएं।
+\[
+\operatorname{LCM}(42,42)=42
+\]
+इसलिए आवश्यक उत्तर \(42\) है।
+इसलिए सही उत्तर विकल्प (C) है।
+
+शॉर्टकट / परीक्षा विधि
+साथ दोहराने वाले प्रश्नों में सीधे LCM लें।
+उत्तर: \(42\), विकल्प (C).
+
+Punjabi:
+ਘੰਟੀਆਂ \(42\) ਅਤੇ \(42\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਵਿਚਾਰ
+HCF-LCM ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਜਾਂ ਸਾਂਝੇ ਗੁਣਜ ਦੀ ਬਣਤਰ ਹੁੰਦੀ ਹੈ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਘੰਟੀਆਂ \(42\) ਅਤੇ \(42\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+
+ਹੱਲ
+ਸਾਂਝੀ ਵੰਡ ਲਈ HCF ਅਤੇ ਸਾਂਝੇ ਦੁਹਰਾਅ ਲਈ LCM ਲਵੋ।
+ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਸੰਬੰਧ ਲਗਾਓ।
+\[
+\operatorname{LCM}(42,42)=42
+\]
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(42\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਇਕੱਠੇ ਦੁਹਰਾਉਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਸਿੱਧਾ LCM ਲਵੋ।
+ਉੱਤਰ: \(42\), ਵਿਕਲਪ (C).
+
+Family: ns_minimum_common_multiple
+
+---
+Q100. A large power \(3^{59}\) is divided by \(9\). What is the remainder?
+A. \(0\)
+B. \(1\)
+C. \(2\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Concept
+Large powers are handled by modular cycles.
+
+Given
+A large power \(3^{59}\) is divided by \(9\). What is the remainder?
+
+Working
+Reduce the base first so the numbers stay small.
+\[
+3\equiv 3\pmod{9}
+\]
+Write the repeating remainder cycle.
+\[
+3,\ 0
+\]
+Locate the exponent inside the cycle.
+\[
+(59-1)\bmod 2+1=1
+\]
+Take the remainder at that cycle position.
+\[
+3
+\]
+Therefore, the required answer is \(0\).
+Hence, the correct answer is Option (A).
+
+Shortcut / Exam Method
+Index the repeating list; do not expand the power.
+\[
+59\mapsto 1
+\]
+Answer: \(0\), Option (A).
+
+
+Hindi:
+बड़ी घात \(3^{59}\) को \(9\) से भाग दिया गया। शेषफल क्या है?
+विचार
+बड़ी घातों को मॉड्यूलर चक्र से संभालते हैं।
+
+दिया गया
+बड़ी घात \(3^{59}\) को \(9\) से भाग दिया गया। शेषफल क्या है?
+
+हल
+पहले आधार को भाजक के अनुसार घटाएं।
+\[
+3\equiv 3\pmod{9}
+\]
+घात फैलाने के बजाय दोहराते शेषफल चक्र का प्रयोग करें।
+इसलिए आवश्यक उत्तर \(0\) है।
+इसलिए सही उत्तर विकल्प (A) है।
+
+शॉर्टकट / परीक्षा विधि
+पहले आधार घटाएं, फिर घात-चक्र की स्थिति लें।
+उत्तर: \(0\), विकल्प (A).
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(3^{59}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਵਿਚਾਰ
+ਵੱਡੀਆਂ ਘਾਤਾਂ ਨੂੰ ਮਾਡਿਊਲਰ ਚੱਕਰ ਨਾਲ ਹੱਲ ਕਰਦੇ ਹਾਂ।
+
+ਦਿੱਤਾ ਗਿਆ
+ਵੱਡੀ ਘਾਤ \(3^{59}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+
+ਹੱਲ
+ਪਹਿਲਾਂ ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ।
+\[
+3\equiv 3\pmod{9}
+\]
+ਘਾਤ ਫੈਲਾਉਣ ਦੀ ਥਾਂ ਦੁਹਰਾਉਂਦਾ ਬਾਕੀ ਚੱਕਰ ਵਰਤੋ।
+ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ \(0\) ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ
+ਪਹਿਲਾਂ ਆਧਾਰ ਘਟਾਓ, ਫਿਰ ਘਾਤ-ਚੱਕਰ ਦੀ ਸਥਿਤੀ ਲਵੋ।
+ਉੱਤਰ: \(0\), ਵਿਕਲਪ (A).
+
+Family: ns_nested_remainder

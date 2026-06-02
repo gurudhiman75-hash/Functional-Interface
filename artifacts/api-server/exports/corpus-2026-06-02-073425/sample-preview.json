@@ -1,0 +1,1527 @@
+[
+  {
+    "index": 0,
+    "question": "If the digit sum is \\(13\\) and the tens digit is \\(4\\), what number is formed?",
+    "options": [
+      "\\(51\\)",
+      "\\(49\\)",
+      "\\(50\\)",
+      "\\(48\\)"
+    ],
+    "answer": "\\(49\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_single_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_single_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "If the digit sum is \\(13\\) and the tens digit is \\(4\\), what number is formed?",
+        "options": [
+          "\\(51\\)",
+          "\\(49\\)",
+          "\\(50\\)",
+          "\\(48\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n4+u=13\\Rightarrow u=9\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 49.\n\n\\[\nN=10\\times 4+9=49\n\\]\n\nAnswer Verification\nDigit sum of 49 is 13.\n\nFinal Answer\nTherefore, the required answer is \\(49\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=9\n\\]\n\n\\[\n\\boxed{49}\n\\]\n\nFast result: \\(49\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "दो-अंकीय संख्या के लिए अंक-योग \\(13\\) दिया है। यदि दहाई अंक \\(4\\) है, तो संख्या क्या है?",
+        "options": [
+          "\\(51\\)",
+          "\\(49\\)",
+          "\\(50\\)",
+          "\\(48\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n4+u=13\\Rightarrow u=9\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 49 है।\n\n\\[\nN=10\\times 4+9=49\n\\]\n\nउत्तर सत्यापन\n49 का अंक-योग 13 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(49\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=9\n\\]\n\n\\[\n\\boxed{49}\n\\]\n\nशीघ्र परिणाम: \\(49\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \\(13\\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \\(4\\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?",
+        "options": [
+          "\\(51\\)",
+          "\\(49\\)",
+          "\\(50\\)",
+          "\\(48\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n4+u=13\\Rightarrow u=9\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 49 ਹੈ।\n\n\\[\nN=10\\times 4+9=49\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n49 ਦਾ ਅੰਕ-ਜੋੜ 13 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(49\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=9\n\\]\n\n\\[\n\\boxed{49}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(49\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 1,
+    "question": "Tens digit \\(8\\), digit sum \\(15\\): which two-digit number satisfies both facts?",
+    "options": [
+      "\\(89\\)",
+      "\\(87\\)",
+      "\\(88\\)",
+      "\\(86\\)"
+    ],
+    "answer": "\\(87\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_multi_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_multi_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(8\\), digit sum \\(15\\): which two-digit number satisfies both facts?",
+        "options": [
+          "\\(89\\)",
+          "\\(87\\)",
+          "\\(88\\)",
+          "\\(86\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n8+u=15\\Rightarrow u=7\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 87.\n\n\\[\nN=10\\times 8+7=87\n\\]\n\nAnswer Verification\nDigit sum of 87 is 15.\n\nFinal Answer\nTherefore, the required answer is \\(87\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=7\n\\]\n\n\\[\n\\boxed{87}\n\\]\n\nFast result: \\(87\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "दहाई अंक \\(8\\), अंक-योग \\(15\\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?",
+        "options": [
+          "\\(89\\)",
+          "\\(87\\)",
+          "\\(88\\)",
+          "\\(86\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n8+u=15\\Rightarrow u=7\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 87 है।\n\n\\[\nN=10\\times 8+7=87\n\\]\n\nउत्तर सत्यापन\n87 का अंक-योग 15 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(87\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=7\n\\]\n\n\\[\n\\boxed{87}\n\\]\n\nशीघ्र परिणाम: \\(87\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਦਹਾਈ ਅੰਕ \\(8\\), ਅੰਕ-ਜੋੜ \\(15\\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "\\(89\\)",
+          "\\(87\\)",
+          "\\(88\\)",
+          "\\(86\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n8+u=15\\Rightarrow u=7\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 87 ਹੈ।\n\n\\[\nN=10\\times 8+7=87\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n87 ਦਾ ਅੰਕ-ਜੋੜ 15 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(87\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=7\n\\]\n\n\\[\n\\boxed{87}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(87\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 2,
+    "question": "The number \\(14x29\\) is divisible by \\(11\\). What is the value of \\(x\\)?",
+    "options": [
+      "\\(8\\)",
+      "\\(6\\)",
+      "\\(9\\)",
+      "\\(7\\)"
+    ],
+    "answer": "\\(7\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_reverse_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_reverse_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The number \\(14x29\\) is divisible by \\(11\\). What is the value of \\(x\\)?",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)"
+        ],
+        "explanation": "Step 1: Use the alternating-sum rule for 11\n\nFor divisibility by 11, the difference of alternate digit sums must be a multiple of 11.\n\n\\[\n\\boxed{4}\n\\]\n\n\\[\n4+x\\equiv 0\\pmod{11}\n\\]\n\nStep 2: Solve the alternating-sum equation\n\nThe valid multiple of 11 for this pattern is 11.\n\n\\[\n4+x=11\n\\]\n\n\\[\n\\boxed{7}\n\\]\n\nAnswer Verification\nWith \\(x=7\\), the alternate digit-sum difference is a multiple of 11.\n\\[\n4+7=11\n\\]\n\\[\n11\\equiv 0\\pmod{11}\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(7\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nWrite the alternate-sum expression and make it a multiple of 11.\n\n\\[\nx\\equiv 7\\pmod{11}\n\\]\n\n\\[\n\\boxed{7}\n\\]\n\nFast result: \\(7\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "संख्या \\(14x29\\), \\(11\\) से विभाज्य है। \\(x\\) का मान क्या है?",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)"
+        ],
+        "explanation": "चरण 1: 11 के लिए वैकल्पिक-योग नियम लगाएं\n\n11 से विभाज्यता के लिए वैकल्पिक अंकों के योगों का अंतर 11 का गुणज होना चाहिए।\n\n\\[\n\\boxed{4}\n\\]\n\n\\[\n4+x\\equiv 0\\pmod{11}\n\\]\n\nचरण 2: वैकल्पिक-योग समीकरण हल करें\n\nइस पैटर्न के लिए 11 का मान्य गुणज 11 है।\n\n\\[\n4+x=11\n\\]\n\n\\[\n\\boxed{7}\n\\]\n\nउत्तर सत्यापन\n\\(x=7\\) रखने पर वैकल्पिक अंक-योगों का अंतर 11 का गुणज है।\n\\[\n4+7=11\n\\]\n\\[\n11\\equiv 0\\pmod{11}\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(7\\) है।\n\nशॉर्टकट\n\nवैकल्पिक-योग व्यंजक लिखें और उसे 11 का गुणज बनाएं।\n\n\\[\nx\\equiv 7\\pmod{11}\n\\]\n\n\\[\n\\boxed{7}\n\\]\n\nशीघ्र परिणाम: \\(7\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(14x29\\), \\(11\\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \\(x\\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)"
+        ],
+        "explanation": "ਕਦਮ 1: 11 ਲਈ ਬਦਲਵੇਂ-ਜੋੜ ਦਾ ਨਿਯਮ ਲਗਾਓ\n\n11 ਨਾਲ ਭਾਗਯੋਗਤਾ ਲਈ ਬਦਲਵੇਂ ਅੰਕਾਂ ਦੇ ਜੋੜਾਂ ਦਾ ਫਰਕ 11 ਦਾ ਗੁਣਜ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\n\\boxed{4}\n\\]\n\n\\[\n4+x\\equiv 0\\pmod{11}\n\\]\n\nਕਦਮ 2: ਬਦਲਵੇਂ-ਜੋੜ ਦਾ ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ\n\nਇਸ ਪੈਟਰਨ ਲਈ 11 ਦਾ ਠੀਕ ਗੁਣਜ 11 ਹੈ।\n\n\\[\n4+x=11\n\\]\n\n\\[\n\\boxed{7}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n\\(x=7\\) ਰੱਖਣ ਤੇ ਬਦਲਵੇਂ ਅੰਕ-ਜੋੜਾਂ ਦਾ ਫਰਕ 11 ਦਾ ਗੁਣਜ ਹੈ।\n\\[\n4+7=11\n\\]\n\\[\n11\\equiv 0\\pmod{11}\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(7\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਬਦਲਵੇਂ-ਜੋੜ ਦਾ ਰੂਪ ਲਿਖੋ ਅਤੇ ਇਸ ਨੂੰ 11 ਦਾ ਗੁਣਜ ਬਣਾਓ।\n\n\\[\nx\\equiv 7\\pmod{11}\n\\]\n\n\\[\n\\boxed{7}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(7\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 3,
+    "question": "Between \\(118\\) and \\(256\\), how many integers are divisible by \\(18\\)?",
+    "options": [
+      "\\(9\\)",
+      "\\(7\\)",
+      "\\(10\\)",
+      "\\(8\\)"
+    ],
+    "answer": "\\(8\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_multi_condition"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_multi_condition"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(118\\) and \\(256\\), how many integers are divisible by \\(18\\)?",
+        "options": [
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 18 greater than 118 is 126.\n\n\\[\n18\\times 7=126\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 252 is the greatest multiple of 18 not exceeding 256.\n\n\\[\n256=18\\times 14+4\n\\]\n\n\\[\n256-4=252\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 18.\n\n\\[\n\\frac{252-126}{18}+1=7+1=8\n\\]\n\nAnswer Verification\nThe total number of multiples is 8.\nHence, there are 8 multiples of 18 in the given range.\n\nFinal Answer\nTherefore, the required answer is \\(8\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{256}{18}\\right\\rfloor-\\left\\lfloor\\frac{117}{18}\\right\\rfloor\n\\]\n\n\\[\n14-6=8\n\\]\n\nFast result: \\(8\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(118\\) और \\(256\\) के बीच कितने पूर्णांक \\(18\\) से विभाज्य हैं?",
+        "options": [
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "चरण 1: पहला मान्य गुणज ज्ञात करें\n\nअतः 118 से बड़ा 18 का पहला गुणज 126 है।\n\n\\[\n18\\times 7=126\n\\]\n\nचरण 2: आखिरी वैध गुणज ज्ञात करें\n\nअतः 252, 256 से अधिक न होने वाला 18 का सबसे बड़ा गुणज है।\n\n\\[\n256=18\\times 14+4\n\\]\n\n\\[\n256-4=252\n\\]\n\nचरण 3: मान्य गुणजों की गिनती करें\n\nगुणज 18 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{252-126}{18}+1=7+1=8\n\\]\n\nउत्तर सत्यापन\nगुणजों की कुल संख्या 8 है।\nअतः दी गई सीमा में 18 के 8 गुणज हैं।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(8\\) है।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{256}{18}\\right\\rfloor-\\left\\lfloor\\frac{117}{18}\\right\\rfloor\n\\]\n\n\\[\n14-6=8\n\\]\n\nशीघ्र परिणाम: \\(8\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(118\\) ਅਤੇ \\(256\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(18\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 118 ਤੋਂ ਵੱਡਾ 18 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 126 ਹੈ।\n\n\\[\n18\\times 7=126\n\\]\n\nਕਦਮ 2: ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 252, 256 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 18 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n256=18\\times 14+4\n\\]\n\n\\[\n256-4=252\n\\]\n\nਕਦਮ 3: ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 18 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{252-126}{18}+1=7+1=8\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 8 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 18 ਦੇ 8 ਗੁਣਜ ਹਨ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(8\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{256}{18}\\right\\rfloor-\\left\\lfloor\\frac{117}{18}\\right\\rfloor\n\\]\n\n\\[\n14-6=8\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(8\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 4,
+    "question": "Between \\(163\\) and \\(257\\), how many integers are divisible by \\(15\\)?",
+    "options": [
+      "\\(6\\)",
+      "\\(9\\)",
+      "\\(7\\)",
+      "\\(8\\)"
+    ],
+    "answer": "\\(7\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_range_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_range_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(163\\) and \\(257\\), how many integers are divisible by \\(15\\)?",
+        "options": [
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 15 greater than 163 is 165.\n\n\\[\n15\\times 11=165\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 255 is the greatest multiple of 15 not exceeding 257.\n\n\\[\n257=15\\times 17+2\n\\]\n\n\\[\n257-2=255\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 15.\n\n\\[\n\\frac{255-165}{15}+1=6+1=7\n\\]\n\nAnswer Verification\nThe total number of multiples is 7.\nHence, there are 7 multiples of 15 in the given range.\n\nFinal Answer\nTherefore, the required answer is \\(7\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{257}{15}\\right\\rfloor-\\left\\lfloor\\frac{162}{15}\\right\\rfloor\n\\]\n\n\\[\n17-10=7\n\\]\n\nFast result: \\(7\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(163\\) और \\(257\\) के बीच कितने पूर्णांक \\(15\\) से विभाज्य हैं?",
+        "options": [
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "चरण 1: पहला मान्य गुणज ज्ञात करें\n\nअतः 163 से बड़ा 15 का पहला गुणज 165 है।\n\n\\[\n15\\times 11=165\n\\]\n\nचरण 2: आखिरी वैध गुणज ज्ञात करें\n\nअतः 255, 257 से अधिक न होने वाला 15 का सबसे बड़ा गुणज है।\n\n\\[\n257=15\\times 17+2\n\\]\n\n\\[\n257-2=255\n\\]\n\nचरण 3: मान्य गुणजों की गिनती करें\n\nगुणज 15 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{255-165}{15}+1=6+1=7\n\\]\n\nउत्तर सत्यापन\nगुणजों की कुल संख्या 7 है।\nअतः दी गई सीमा में 15 के 7 गुणज हैं।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(7\\) है।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{257}{15}\\right\\rfloor-\\left\\lfloor\\frac{162}{15}\\right\\rfloor\n\\]\n\n\\[\n17-10=7\n\\]\n\nशीघ्र परिणाम: \\(7\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(163\\) ਅਤੇ \\(257\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(15\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 163 ਤੋਂ ਵੱਡਾ 15 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 165 ਹੈ।\n\n\\[\n15\\times 11=165\n\\]\n\nਕਦਮ 2: ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 255, 257 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 15 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n257=15\\times 17+2\n\\]\n\n\\[\n257-2=255\n\\]\n\nਕਦਮ 3: ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 15 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{255-165}{15}+1=6+1=7\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 7 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 15 ਦੇ 7 ਗੁਣਜ ਹਨ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(7\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{257}{15}\\right\\rfloor-\\left\\lfloor\\frac{162}{15}\\right\\rfloor\n\\]\n\n\\[\n17-10=7\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(7\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 5,
+    "question": "Between \\(159\\) and \\(274\\), how many integers are divisible by \\(15\\)?",
+    "options": [
+      "\\(8\\)",
+      "\\(9\\)",
+      "\\(7\\)",
+      "\\(10\\)"
+    ],
+    "answer": "\\(8\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_large_expression_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_large_expression_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(159\\) and \\(274\\), how many integers are divisible by \\(15\\)?",
+        "options": [
+          "\\(8\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 15 greater than 159 is 165.\n\n\\[\n15\\times 11=165\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 270 is the greatest multiple of 15 not exceeding 274.\n\n\\[\n274=15\\times 18+4\n\\]\n\n\\[\n274-4=270\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 15.\n\n\\[\n\\frac{270-165}{15}+1=7+1=8\n\\]\n\nAnswer Verification\nThe total number of multiples is 8.\nHence, there are 8 multiples of 15 in the given range.\n\nFinal Answer\nTherefore, the required answer is \\(8\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{274}{15}\\right\\rfloor-\\left\\lfloor\\frac{158}{15}\\right\\rfloor\n\\]\n\n\\[\n18-10=8\n\\]\n\nFast result: \\(8\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(159\\) और \\(274\\) के बीच कितने पूर्णांक \\(15\\) से विभाज्य हैं?",
+        "options": [
+          "\\(8\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "चरण 1: पहला मान्य गुणज ज्ञात करें\n\nअतः 159 से बड़ा 15 का पहला गुणज 165 है।\n\n\\[\n15\\times 11=165\n\\]\n\nचरण 2: आखिरी वैध गुणज ज्ञात करें\n\nअतः 270, 274 से अधिक न होने वाला 15 का सबसे बड़ा गुणज है।\n\n\\[\n274=15\\times 18+4\n\\]\n\n\\[\n274-4=270\n\\]\n\nचरण 3: मान्य गुणजों की गिनती करें\n\nगुणज 15 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{270-165}{15}+1=7+1=8\n\\]\n\nउत्तर सत्यापन\nगुणजों की कुल संख्या 8 है।\nअतः दी गई सीमा में 15 के 8 गुणज हैं।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(8\\) है।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{274}{15}\\right\\rfloor-\\left\\lfloor\\frac{158}{15}\\right\\rfloor\n\\]\n\n\\[\n18-10=8\n\\]\n\nशीघ्र परिणाम: \\(8\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(159\\) ਅਤੇ \\(274\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(15\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(8\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 159 ਤੋਂ ਵੱਡਾ 15 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 165 ਹੈ।\n\n\\[\n15\\times 11=165\n\\]\n\nਕਦਮ 2: ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 270, 274 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 15 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n274=15\\times 18+4\n\\]\n\n\\[\n274-4=270\n\\]\n\nਕਦਮ 3: ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 15 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{270-165}{15}+1=7+1=8\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 8 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 15 ਦੇ 8 ਗੁਣਜ ਹਨ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(8\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{274}{15}\\right\\rfloor-\\left\\lfloor\\frac{158}{15}\\right\\rfloor\n\\]\n\n\\[\n18-10=8\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(8\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 6,
+    "question": "Two buses leave a stand every \\(40\\) and \\(80\\) minutes. When will they next leave together?",
+    "options": [
+      "\\(82\\)",
+      "\\(80\\)",
+      "\\(81\\)",
+      "\\(79\\)"
+    ],
+    "answer": "\\(80\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_lcm_bridge"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_lcm_bridge"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two buses leave a stand every \\(40\\) and \\(80\\) minutes. When will they next leave together?",
+        "options": [
+          "\\(82\\)",
+          "\\(80\\)",
+          "\\(81\\)",
+          "\\(79\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n40=2^{3}\\times 5\n\\]\n\n\\[\n80=2^{4}\\times 5\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(40,80)=80\n\\]\n\nAnswer Verification\nThe LCM is 80.\n\nFinal Answer\nTherefore, the required answer is \\(80\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(40,80)=\\frac{40\\times 80}{\\operatorname{HCF}(40,80)}=80\n\\]\n\nFast result: \\(80\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "दो बसें \\(40\\) और \\(80\\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?",
+        "options": [
+          "\\(82\\)",
+          "\\(80\\)",
+          "\\(81\\)",
+          "\\(79\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n40=2^{3}\\times 5\n\\]\n\n\\[\n80=2^{4}\\times 5\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(40,80)=80\n\\]\n\nउत्तर सत्यापन\nLCM 80 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(80\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(40,80)=\\frac{40\\times 80}{\\operatorname{HCF}(40,80)}=80\n\\]\n\nशीघ्र परिणाम: \\(80\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਬੱਸਾਂ \\(40\\) ਅਤੇ \\(80\\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?",
+        "options": [
+          "\\(82\\)",
+          "\\(80\\)",
+          "\\(81\\)",
+          "\\(79\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n40=2^{3}\\times 5\n\\]\n\n\\[\n80=2^{4}\\times 5\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(40,80)=80\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 80 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(80\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(40,80)=\\frac{40\\times 80}{\\operatorname{HCF}(40,80)}=80\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(80\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 7,
+    "question": "Using prime powers of \\(48\\), find the count of positive divisors.",
+    "options": [
+      "\\(12\\)",
+      "\\(10\\)",
+      "\\(11\\)",
+      "\\(9\\)"
+    ],
+    "answer": "\\(10\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_divisor_deduction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_divisor_deduction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Using prime powers of \\(48\\), find the count of positive divisors.",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(48)=(4+1)\\times (1+1)=10\n\\]\n\nAnswer Verification\nThe number of positive divisors is 10.\n\nFinal Answer\nTherefore, the required answer is \\(10\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(4+1)\\times (1+1)\n\\]\n\nFast result: \\(10\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(48\\) की अभाज्य घातों का उपयोग करके धनात्मक भाजकों की कुल संख्या ज्ञात करें।",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(48)=(4+1)\\times (1+1)=10\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 10 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(10\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(4+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(10\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(48\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(48)=(4+1)\\times (1+1)=10\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 10 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(10\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(4+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(10\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 8,
+    "question": "A number is \\(1080\\). Based on its prime factorisation, determine the total number of positive divisors.",
+    "options": [
+      "\\(32\\)",
+      "\\(33\\)",
+      "\\(31\\)",
+      "\\(34\\)"
+    ],
+    "answer": "\\(32\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_prime_factorization"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_prime_factorization"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number is \\(1080\\). Based on its prime factorisation, determine the total number of positive divisors.",
+        "options": [
+          "\\(32\\)",
+          "\\(33\\)",
+          "\\(31\\)",
+          "\\(34\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(1080)=(3+1)\\times (3+1)\\times (1+1)=32\n\\]\n\nAnswer Verification\nThe number of positive divisors is 32.\n\nFinal Answer\nTherefore, the required answer is \\(32\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(3+1)\\times (3+1)\\times (1+1)\n\\]\n\nFast result: \\(32\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "एक संख्या \\(1080\\) है। उसके अभाज्य गुणनखंड के आधार पर धनात्मक भाजकों की कुल संख्या निर्धारित करें।",
+        "options": [
+          "\\(32\\)",
+          "\\(33\\)",
+          "\\(31\\)",
+          "\\(34\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(1080)=(3+1)\\times (3+1)\\times (1+1)=32\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 32 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(32\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(3+1)\\times (3+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(32\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ \\(1080\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ।",
+        "options": [
+          "\\(32\\)",
+          "\\(33\\)",
+          "\\(31\\)",
+          "\\(34\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(1080)=(3+1)\\times (3+1)\\times (1+1)=32\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 32 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(32\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(3+1)\\times (3+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(32\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 9,
+    "question": "For the number \\(4320\\), find the count of positive divisors?",
+    "options": [
+      "\\(47\\)",
+      "\\(50\\)",
+      "\\(48\\)",
+      "\\(49\\)"
+    ],
+    "answer": "\\(48\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_prime_exponent"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_prime_exponent"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For the number \\(4320\\), find the count of positive divisors?",
+        "options": [
+          "\\(47\\)",
+          "\\(50\\)",
+          "\\(48\\)",
+          "\\(49\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n4320=2^{5}\\times 3^{3}\\times 5\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(4320)=(5+1)\\times (3+1)\\times (1+1)=48\n\\]\n\nAnswer Verification\nThe number of positive divisors is 48.\n\nFinal Answer\nTherefore, the required answer is \\(48\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(5+1)\\times (3+1)\\times (1+1)\n\\]\n\nFast result: \\(48\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "संख्या \\(4320\\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?",
+        "options": [
+          "\\(47\\)",
+          "\\(50\\)",
+          "\\(48\\)",
+          "\\(49\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n4320=2^{5}\\times 3^{3}\\times 5\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(4320)=(5+1)\\times (3+1)\\times (1+1)=48\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 48 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(48\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(5+1)\\times (3+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(48\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(4320\\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?",
+        "options": [
+          "\\(47\\)",
+          "\\(50\\)",
+          "\\(48\\)",
+          "\\(49\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n4320=2^{5}\\times 3^{3}\\times 5\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(4320)=(5+1)\\times (3+1)\\times (1+1)=48\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 48 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(48\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(5+1)\\times (3+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(48\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 10,
+    "question": "Using prime powers of \\(144\\), find the count of positive divisors.",
+    "options": [
+      "\\(17\\)",
+      "\\(15\\)",
+      "\\(16\\)",
+      "\\(14\\)"
+    ],
+    "answer": "\\(15\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_prime_composite_deduction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_prime_composite_deduction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Using prime powers of \\(144\\), find the count of positive divisors.",
+        "options": [
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(16\\)",
+          "\\(14\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n144=2^{4}\\times 3^{2}\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(144)=(4+1)\\times (2+1)=15\n\\]\n\nAnswer Verification\nThe number of positive divisors is 15.\n\nFinal Answer\nTherefore, the required answer is \\(15\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(4+1)\\times (2+1)\n\\]\n\nFast result: \\(15\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(144\\) की अभाज्य घातों का उपयोग करके धनात्मक भाजकों की कुल संख्या ज्ञात करें।",
+        "options": [
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(16\\)",
+          "\\(14\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n144=2^{4}\\times 3^{2}\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(144)=(4+1)\\times (2+1)=15\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 15 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(15\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(4+1)\\times (2+1)\n\\]\n\nशीघ्र परिणाम: \\(15\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(144\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(16\\)",
+          "\\(14\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n144=2^{4}\\times 3^{2}\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(144)=(4+1)\\times (2+1)=15\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 15 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(15\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(4+1)\\times (2+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(15\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 11,
+    "question": "After prime factorising \\(36\\), what is the number of positive divisors?",
+    "options": [
+      "\\(10\\)",
+      "\\(8\\)",
+      "\\(11\\)",
+      "\\(9\\)"
+    ],
+    "answer": "\\(9\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factor_count_basic"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factor_count_basic"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "After prime factorising \\(36\\), what is the number of positive divisors?",
+        "options": [
+          "\\(10\\)",
+          "\\(8\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n36=2^{2}\\times 3^{2}\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(36)=(2+1)\\times (2+1)=9\n\\]\n\nAnswer Verification\nThe number of positive divisors is 9.\n\nFinal Answer\nTherefore, the required answer is \\(9\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(2+1)\\times (2+1)\n\\]\n\nFast result: \\(9\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(36\\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?",
+        "options": [
+          "\\(10\\)",
+          "\\(8\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n36=2^{2}\\times 3^{2}\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(36)=(2+1)\\times (2+1)=9\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 9 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(9\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(2+1)\\times (2+1)\n\\]\n\nशीघ्र परिणाम: \\(9\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(36\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(10\\)",
+          "\\(8\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n36=2^{2}\\times 3^{2}\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(36)=(2+1)\\times (2+1)=9\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 9 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(9\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(2+1)\\times (2+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(9\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 12,
+    "question": "After prime factorising \\(12\\), what is the number of positive divisors?",
+    "options": [
+      "\\(7\\)",
+      "\\(5\\)",
+      "\\(8\\)",
+      "\\(6\\)"
+    ],
+    "answer": "\\(6\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factor_count_constraint"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factor_count_constraint"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "After prime factorising \\(12\\), what is the number of positive divisors?",
+        "options": [
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n12=2^{2}\\times 3\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(12)=(2+1)\\times (1+1)=6\n\\]\n\nAnswer Verification\nThe number of positive divisors is 6.\n\nFinal Answer\nTherefore, the required answer is \\(6\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(2+1)\\times (1+1)\n\\]\n\nFast result: \\(6\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(12\\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?",
+        "options": [
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n12=2^{2}\\times 3\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(12)=(2+1)\\times (1+1)=6\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 6 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(6\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(2+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(6\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(12\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n12=2^{2}\\times 3\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(12)=(2+1)\\times (1+1)=6\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 6 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(6\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(2+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(6\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 13,
+    "question": "After prime factorising \\(108\\), what is the number of positive divisors?",
+    "options": [
+      "\\(13\\)",
+      "\\(11\\)",
+      "\\(14\\)",
+      "\\(12\\)"
+    ],
+    "answer": "\\(12\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_exact_divisor_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_exact_divisor_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "After prime factorising \\(108\\), what is the number of positive divisors?",
+        "options": [
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(14\\)",
+          "\\(12\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(108)=(2+1)\\times (3+1)=12\n\\]\n\nAnswer Verification\nThe number of positive divisors is 12.\n\nFinal Answer\nTherefore, the required answer is \\(12\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(2+1)\\times (3+1)\n\\]\n\nFast result: \\(12\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(108\\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?",
+        "options": [
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(14\\)",
+          "\\(12\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(108)=(2+1)\\times (3+1)=12\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 12 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(12\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(2+1)\\times (3+1)\n\\]\n\nशीघ्र परिणाम: \\(12\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(108\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(14\\)",
+          "\\(12\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(108)=(2+1)\\times (3+1)=12\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 12 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(12\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(2+1)\\times (3+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(12\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 14,
+    "question": "Using prime powers of \\(144\\), find the count of odd divisors.",
+    "options": [
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(4\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(3\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_odd_even_divisor_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_odd_even_divisor_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Using prime powers of \\(144\\), find the count of odd divisors.",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n144=2^{4}\\times 3^{2}\n\\]\n\nStep 2: Count odd divisors only\n\nIgnore the power of 2; odd divisors come from odd primes only.\n\n\\[\n(2+1)\n\\]\n\n\\[\nO=3\n\\]\n\nAnswer Verification\nThe number of odd divisors is 3.\n\nFinal Answer\nTherefore, the required answer is \\(3\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nDrop the factor 2 and multiply (e+1) for remaining primes.\n\n\\[\nO(n)=(2+1)=3\n\\]\n\nFast result: \\(3\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(144\\) की अभाज्य घातों का उपयोग करके विषम भाजकों की संख्या ज्ञात करें।",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n144=2^{4}\\times 3^{2}\n\\]\n\nचरण 2: केवल विषम भाजकों की गिनती\n\n2 की घात निकालें; विषम भाजक केवल विषम अभाज्यों से आते हैं।\n\n\\[\n(2+1)\n\\]\n\n\\[\nO=3\n\\]\n\nउत्तर सत्यापन\nविषम भाजकों की संख्या 3 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(3\\) है।\n\nशॉर्टकट\n\n2 का गुणनखंड हटाकर शेष अभाज्यों के (e+1) गुणा करें।\n\n\\[\nO(n)=(2+1)=3\n\\]\n\nशीघ्र परिणाम: \\(3\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(144\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n144=2^{4}\\times 3^{2}\n\\]\n\nਕਦਮ 2: ਸਿਰਫ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ\n\n2 ਦੀ ਘਾਤ ਛੱਡੋ; ਟਾਂਕ ਭਾਜਕ ਸਿਰਫ ਟਾਂਕ ਅਭਾਜਾਂ ਤੋਂ ਆਉਂਦੇ ਹਨ।\n\n\\[\n(2+1)\n\\]\n\n\\[\nO=3\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 3 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(3\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\n2 ਦਾ ਗੁਣਨਖੰਡ ਹਟਾ ਕੇ ਬਾਕੀ ਅਭਾਜਾਂ ਦੇ (e+1) ਗੁਣਾ ਕਰੋ।\n\n\\[\nO(n)=(2+1)=3\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(3\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 15,
+    "question": "A number is \\(1080\\). Based on its prime factorisation, determine the sum of all its positive divisors.",
+    "options": [
+      "\\(3600\\)",
+      "\\(3960\\)",
+      "\\(4320\\)",
+      "\\(3240\\)"
+    ],
+    "answer": "\\(3600\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_sum_of_divisors"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_sum_of_divisors"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number is \\(1080\\). Based on its prime factorisation, determine the sum of all its positive divisors.",
+        "options": [
+          "\\(3600\\)",
+          "\\(3960\\)",
+          "\\(4320\\)",
+          "\\(3240\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\n\nStep 2: Apply the sum-of-divisors rule\n\nMultiply the geometric-sum factor for each prime power.\n\n\\[\n\\sigma(1080)=3600\n\\]\n\nAnswer Verification\nThe sum of all positive divisors is 3600.\n\nFinal Answer\nTherefore, the required answer is \\(3600\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nWrite prime powers once, then multiply the σ-factors.\n\n\\[\n\\frac{2^{4}-1}{2-1}\\times \\frac{3^{4}-1}{3-1}\\times \\frac{5^{2}-1}{5-1}\n\\]\n\nFast result: \\(3600\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "एक संख्या \\(1080\\) है। उसके अभाज्य गुणनखंड के आधार पर सभी धनात्मक भाजकों का योग निर्धारित करें।",
+        "options": [
+          "\\(3600\\)",
+          "\\(3960\\)",
+          "\\(4320\\)",
+          "\\(3240\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\n\nचरण 2: भाजकों के योग का नियम लगाएं\n\nप्रत्येक अभाज्य घात के लिए गुणोत्तर-श्रेणी योग गुणनखंड गुणा करें।\n\n\\[\n\\sigma(1080)=3600\n\\]\n\nउत्तर सत्यापन\nसभी धनात्मक भाजकों का योग 3600 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(3600\\) है।\n\nशॉर्टकट\n\nअभाज्य घातें एक बार लिखकर σ-गुणनखंड गुणा करें।\n\n\\[\n\\frac{2^{4}-1}{2-1}\\times \\frac{3^{4}-1}{3-1}\\times \\frac{5^{2}-1}{5-1}\n\\]\n\nशीघ्र परिणाम: \\(3600\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ \\(1080\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਨਿਰਧਾਰਿਤ ਕਰੋ।",
+        "options": [
+          "\\(3600\\)",
+          "\\(3960\\)",
+          "\\(4320\\)",
+          "\\(3240\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n1080=2^{3}\\times 3^{3}\\times 5\n\\]\n\nਕਦਮ 2: ਭਾਜਕਾਂ ਦੇ ਜੋੜ ਦਾ ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਅਭਾਜ ਘਾਤ ਲਈ ਗੁਣੋਤਰ ਸ਼੍ਰੇਣੀ ਦੇ ਜੋੜ ਦੇ ਗੁਣਨਖੰਡ ਗੁਣਾ ਕਰੋ।\n\n\\[\n\\sigma(1080)=3600\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ 3600 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(3600\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅਭਾਜ ਘਾਤਾਂ ਇੱਕ ਵਾਰ ਲਿਖ ਕੇ σ-ਗੁਣਨਖੰਡ ਗੁਣਾ ਕਰੋ।\n\n\\[\n\\frac{2^{4}-1}{2-1}\\times \\frac{3^{4}-1}{3-1}\\times \\frac{5^{2}-1}{5-1}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(3600\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 16,
+    "question": "Using prime powers of \\(24\\), find the product of all its positive divisors.",
+    "options": [
+      "\\(497664\\)",
+      "\\(331776\\)",
+      "\\(364954\\)",
+      "\\(414720\\)"
+    ],
+    "answer": "\\(331776\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_product_of_divisors"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_product_of_divisors"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Using prime powers of \\(24\\), find the product of all its positive divisors.",
+        "options": [
+          "\\(497664\\)",
+          "\\(331776\\)",
+          "\\(364954\\)",
+          "\\(414720\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n24=2^{3}\\times 3\n\\]\n\nStep 2: Count the divisors\n\n\\[\nd(24)=(3+1)\\times (1+1)=8\n\\]\n\nStep 3: Use the product-of-divisors identity\n\n\\[\n\\prod d\\mid 24 d=24^{d(24)/2}=24^{8/2}=331776\n\\]\n\nAnswer Verification\nThe product of all positive divisors is 331776.\n\nFinal Answer\nTherefore, the required answer is \\(331776\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nAfter counting divisors, raise n to half the divisor count.\n\n\\[\n24^{8/2}=331776\n\\]\n\nFast result: \\(331776\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(24\\) की अभाज्य घातों का उपयोग करके सभी धनात्मक भाजकों का गुणनफल ज्ञात करें।",
+        "options": [
+          "\\(497664\\)",
+          "\\(331776\\)",
+          "\\(364954\\)",
+          "\\(414720\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n24=2^{3}\\times 3\n\\]\n\nचरण 2: भाजकों की संख्या ज्ञात करें\n\n\\[\nd(24)=(3+1)\\times (1+1)=8\n\\]\n\nचरण 3: भाजकों के गुणनफल की पहचान लगाएं\n\n\\[\n\\prod d\\mid 24 d=24^{d(24)/2}=24^{8/2}=331776\n\\]\n\nउत्तर सत्यापन\nसभी धनात्मक भाजकों का गुणनफल 331776 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(331776\\) है।\n\nशॉर्टकट\n\nभाजक गिनती के बाद n को आधी गिनती की घात दें।\n\n\\[\n24^{8/2}=331776\n\\]\n\nशीघ्र परिणाम: \\(331776\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(24\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "\\(497664\\)",
+          "\\(331776\\)",
+          "\\(364954\\)",
+          "\\(414720\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n24=2^{3}\\times 3\n\\]\n\nਕਦਮ 2: ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ\n\n\\[\nd(24)=(3+1)\\times (1+1)=8\n\\]\n\nਕਦਮ 3: ਭਾਜਕਾਂ ਦੇ ਗੁਣਨਫਲ ਦੀ ਪਛਾਣ ਲਗਾਓ\n\n\\[\n\\prod d\\mid 24 d=24^{d(24)/2}=24^{8/2}=331776\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ 331776 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(331776\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਭਾਜਕ ਗਿਣਤੀ ਤੋਂ ਬਾਅਦ n ਨੂੰ ਅੱਧੀ ਗਿਣਤੀ ਦੀ ਘਾਤ ਦਿਓ।\n\n\\[\n24^{8/2}=331776\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(331776\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 17,
+    "question": "Bells ring at intervals of \\(60\\) and \\(255\\) minutes. After how many minutes will both ring together again?",
+    "options": [
+      "\\(1224\\)",
+      "\\(918\\)",
+      "\\(1020\\)",
+      "\\(1122\\)"
+    ],
+    "answer": "\\(1020\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hcf_lcm_relation"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hcf_lcm_relation"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Bells ring at intervals of \\(60\\) and \\(255\\) minutes. After how many minutes will both ring together again?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nAnswer Verification\nThe LCM is 1020.\n\nFinal Answer\nTherefore, the required answer is \\(1020\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nFast result: \\(1020\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "घंटियाँ \\(60\\) और \\(255\\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nउत्तर सत्यापन\nLCM 1020 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(1020\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nशीघ्र परिणाम: \\(1020\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਘੰਟੀਆਂ \\(60\\) ਅਤੇ \\(255\\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1020 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1020\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1020\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 18,
+    "question": "Two cyclic events repeat every \\(32\\) and \\(80\\) minutes. After how many minutes will they occur together again?",
+    "options": [
+      "\\(168\\)",
+      "\\(176\\)",
+      "\\(152\\)",
+      "\\(160\\)"
+    ],
+    "answer": "\\(160\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_three_number_hcf_lcm"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_three_number_hcf_lcm"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two cyclic events repeat every \\(32\\) and \\(80\\) minutes. After how many minutes will they occur together again?",
+        "options": [
+          "\\(168\\)",
+          "\\(176\\)",
+          "\\(152\\)",
+          "\\(160\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n32=2^{5}\n\\]\n\n\\[\n80=2^{4}\\times 5\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(32,80)=160\n\\]\n\nAnswer Verification\nThe LCM is 160.\n\nFinal Answer\nTherefore, the required answer is \\(160\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(32,80)=\\frac{32\\times 80}{\\operatorname{HCF}(32,80)}=160\n\\]\n\nFast result: \\(160\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "दो घटनाएँ हर \\(32\\) और \\(80\\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?",
+        "options": [
+          "\\(168\\)",
+          "\\(176\\)",
+          "\\(152\\)",
+          "\\(160\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n32=2^{5}\n\\]\n\n\\[\n80=2^{4}\\times 5\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(32,80)=160\n\\]\n\nउत्तर सत्यापन\nLCM 160 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(160\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(32,80)=\\frac{32\\times 80}{\\operatorname{HCF}(32,80)}=160\n\\]\n\nशीघ्र परिणाम: \\(160\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਘਟਨਾਵਾਂ ਹਰ \\(32\\) ਅਤੇ \\(80\\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "\\(168\\)",
+          "\\(176\\)",
+          "\\(152\\)",
+          "\\(160\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n32=2^{5}\n\\]\n\n\\[\n80=2^{4}\\times 5\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(32,80)=160\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 160 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(160\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(32,80)=\\frac{32\\times 80}{\\operatorname{HCF}(32,80)}=160\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(160\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 19,
+    "question": "Two cyclic events repeat every \\(198\\) and \\(108\\) minutes. After how many minutes will they occur together again?",
+    "options": [
+      "\\(1307\\)",
+      "\\(1426\\)",
+      "\\(1069\\)",
+      "\\(1188\\)"
+    ],
+    "answer": "\\(1188\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_hcf"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_hcf"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two cyclic events repeat every \\(198\\) and \\(108\\) minutes. After how many minutes will they occur together again?",
+        "options": [
+          "\\(1307\\)",
+          "\\(1426\\)",
+          "\\(1069\\)",
+          "\\(1188\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n198=2\\times 3^{2}\\times 11\n\\]\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(198,108)=1188\n\\]\n\nAnswer Verification\nThe LCM is 1188.\n\nFinal Answer\nTherefore, the required answer is \\(1188\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(198,108)=\\frac{198\\times 108}{\\operatorname{HCF}(198,108)}=1188\n\\]\n\nFast result: \\(1188\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "दो घटनाएँ हर \\(198\\) और \\(108\\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?",
+        "options": [
+          "\\(1307\\)",
+          "\\(1426\\)",
+          "\\(1069\\)",
+          "\\(1188\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n198=2\\times 3^{2}\\times 11\n\\]\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(198,108)=1188\n\\]\n\nउत्तर सत्यापन\nLCM 1188 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(1188\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(198,108)=\\frac{198\\times 108}{\\operatorname{HCF}(198,108)}=1188\n\\]\n\nशीघ्र परिणाम: \\(1188\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਘਟਨਾਵਾਂ ਹਰ \\(198\\) ਅਤੇ \\(108\\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "\\(1307\\)",
+          "\\(1426\\)",
+          "\\(1069\\)",
+          "\\(1188\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n198=2\\times 3^{2}\\times 11\n\\]\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(198,108)=1188\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1188 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1188\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(198,108)=\\frac{198\\times 108}{\\operatorname{HCF}(198,108)}=1188\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1188\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 20,
+    "question": "For two numbers \\(99\\) and \\(63\\), which common multiple is first reached?",
+    "options": [
+      "\\(693\\)",
+      "\\(728\\)",
+      "\\(762\\)",
+      "\\(658\\)"
+    ],
+    "answer": "\\(693\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_lcm"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_lcm"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For two numbers \\(99\\) and \\(63\\), which common multiple is first reached?",
+        "options": [
+          "\\(693\\)",
+          "\\(728\\)",
+          "\\(762\\)",
+          "\\(658\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n99=3^{2}\\times 11\n\\]\n\n\\[\n63=3^{2}\\times 7\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(99,63)=693\n\\]\n\nAnswer Verification\nThe LCM is 693.\n\nFinal Answer\nTherefore, the required answer is \\(693\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(99,63)=\\frac{99\\times 63}{\\operatorname{HCF}(99,63)}=693\n\\]\n\nFast result: \\(693\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो संख्याओं \\(99\\) और \\(63\\) के लिए पहला साझा गुणज क्या होगा?",
+        "options": [
+          "\\(693\\)",
+          "\\(728\\)",
+          "\\(762\\)",
+          "\\(658\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n99=3^{2}\\times 11\n\\]\n\n\\[\n63=3^{2}\\times 7\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(99,63)=693\n\\]\n\nउत्तर सत्यापन\nLCM 693 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(693\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(99,63)=\\frac{99\\times 63}{\\operatorname{HCF}(99,63)}=693\n\\]\n\nशीघ्र परिणाम: \\(693\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਸੰਖਿਆਵਾਂ \\(99\\) ਅਤੇ \\(63\\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "\\(693\\)",
+          "\\(728\\)",
+          "\\(762\\)",
+          "\\(658\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n99=3^{2}\\times 11\n\\]\n\n\\[\n63=3^{2}\\times 7\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(99,63)=693\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 693 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(693\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(99,63)=\\frac{99\\times 63}{\\operatorname{HCF}(99,63)}=693\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(693\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 21,
+    "question": "Two buses leave a stand every \\(198\\) and \\(306\\) minutes. When will they next leave together?",
+    "options": [
+      "\\(3029\\)",
+      "\\(3366\\)",
+      "\\(3703\\)",
+      "\\(4039\\)"
+    ],
+    "answer": "\\(3366\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_fraction_hcf_lcm"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_fraction_hcf_lcm"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two buses leave a stand every \\(198\\) and \\(306\\) minutes. When will they next leave together?",
+        "options": [
+          "\\(3029\\)",
+          "\\(3366\\)",
+          "\\(3703\\)",
+          "\\(4039\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n198=2\\times 3^{2}\\times 11\n\\]\n\n\\[\n306=2\\times 3^{2}\\times 17\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(198,306)=3366\n\\]\n\nAnswer Verification\nThe LCM is 3366.\n\nFinal Answer\nTherefore, the required answer is \\(3366\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(198,306)=\\frac{198\\times 306}{\\operatorname{HCF}(198,306)}=3366\n\\]\n\nFast result: \\(3366\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "दो बसें \\(198\\) और \\(306\\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?",
+        "options": [
+          "\\(3029\\)",
+          "\\(3366\\)",
+          "\\(3703\\)",
+          "\\(4039\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n198=2\\times 3^{2}\\times 11\n\\]\n\n\\[\n306=2\\times 3^{2}\\times 17\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(198,306)=3366\n\\]\n\nउत्तर सत्यापन\nLCM 3366 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(3366\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(198,306)=\\frac{198\\times 306}{\\operatorname{HCF}(198,306)}=3366\n\\]\n\nशीघ्र परिणाम: \\(3366\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਬੱਸਾਂ \\(198\\) ਅਤੇ \\(306\\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?",
+        "options": [
+          "\\(3029\\)",
+          "\\(3366\\)",
+          "\\(3703\\)",
+          "\\(4039\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n198=2\\times 3^{2}\\times 11\n\\]\n\n\\[\n306=2\\times 3^{2}\\times 17\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(198,306)=3366\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 3366 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(3366\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(198,306)=\\frac{198\\times 306}{\\operatorname{HCF}(198,306)}=3366\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(3366\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 22,
+    "question": "Bells ring at intervals of \\(60\\) and \\(255\\) minutes. After how many minutes will both ring together again?",
+    "options": [
+      "\\(1224\\)",
+      "\\(918\\)",
+      "\\(1020\\)",
+      "\\(1122\\)"
+    ],
+    "answer": "\\(1020\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hcf_lcm_word_problem"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hcf_lcm_word_problem"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Bells ring at intervals of \\(60\\) and \\(255\\) minutes. After how many minutes will both ring together again?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nAnswer Verification\nThe LCM is 1020.\n\nFinal Answer\nTherefore, the required answer is \\(1020\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nFast result: \\(1020\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "घंटियाँ \\(60\\) और \\(255\\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nउत्तर सत्यापन\nLCM 1020 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(1020\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nशीघ्र परिणाम: \\(1020\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਘੰਟੀਆਂ \\(60\\) ਅਤੇ \\(255\\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?",
+        "options": [
+          "\\(1224\\)",
+          "\\(918\\)",
+          "\\(1020\\)",
+          "\\(1122\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n255=3\\times 5\\times 17\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(60,255)=1020\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1020 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1020\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(60,255)=\\frac{60\\times 255}{\\operatorname{HCF}(60,255)}=1020\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1020\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 23,
+    "question": "Two cyclic events repeat every \\(156\\) and \\(84\\) minutes. After how many minutes will they occur together again?",
+    "options": [
+      "\\(1201\\)",
+      "\\(1310\\)",
+      "\\(983\\)",
+      "\\(1092\\)"
+    ],
+    "answer": "\\(1092\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_schedule_alignment"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_schedule_alignment"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two cyclic events repeat every \\(156\\) and \\(84\\) minutes. After how many minutes will they occur together again?",
+        "options": [
+          "\\(1201\\)",
+          "\\(1310\\)",
+          "\\(983\\)",
+          "\\(1092\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n156=2^{2}\\times 3\\times 13\n\\]\n\n\\[\n84=2^{2}\\times 3\\times 7\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(156,84)=1092\n\\]\n\nAnswer Verification\nThe LCM is 1092.\n\nFinal Answer\nTherefore, the required answer is \\(1092\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(156,84)=\\frac{156\\times 84}{\\operatorname{HCF}(156,84)}=1092\n\\]\n\nFast result: \\(1092\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "दो घटनाएँ हर \\(156\\) और \\(84\\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?",
+        "options": [
+          "\\(1201\\)",
+          "\\(1310\\)",
+          "\\(983\\)",
+          "\\(1092\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n156=2^{2}\\times 3\\times 13\n\\]\n\n\\[\n84=2^{2}\\times 3\\times 7\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(156,84)=1092\n\\]\n\nउत्तर सत्यापन\nLCM 1092 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(1092\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(156,84)=\\frac{156\\times 84}{\\operatorname{HCF}(156,84)}=1092\n\\]\n\nशीघ्र परिणाम: \\(1092\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਘਟਨਾਵਾਂ ਹਰ \\(156\\) ਅਤੇ \\(84\\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "\\(1201\\)",
+          "\\(1310\\)",
+          "\\(983\\)",
+          "\\(1092\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n156=2^{2}\\times 3\\times 13\n\\]\n\n\\[\n84=2^{2}\\times 3\\times 7\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(156,84)=1092\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1092 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1092\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(156,84)=\\frac{156\\times 84}{\\operatorname{HCF}(156,84)}=1092\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1092\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 24,
+    "question": "For two numbers \\(165\\) and \\(105\\), which common multiple is first reached?",
+    "options": [
+      "\\(1155\\)",
+      "\\(1271\\)",
+      "\\(1386\\)",
+      "\\(1039\\)"
+    ],
+    "answer": "\\(1155\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_common_multiple"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_common_multiple"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For two numbers \\(165\\) and \\(105\\), which common multiple is first reached?",
+        "options": [
+          "\\(1155\\)",
+          "\\(1271\\)",
+          "\\(1386\\)",
+          "\\(1039\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n165=3\\times 5\\times 11\n\\]\n\n\\[\n105=3\\times 5\\times 7\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(165,105)=1155\n\\]\n\nAnswer Verification\nThe LCM is 1155.\n\nFinal Answer\nTherefore, the required answer is \\(1155\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(165,105)=\\frac{165\\times 105}{\\operatorname{HCF}(165,105)}=1155\n\\]\n\nFast result: \\(1155\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो संख्याओं \\(165\\) और \\(105\\) के लिए पहला साझा गुणज क्या होगा?",
+        "options": [
+          "\\(1155\\)",
+          "\\(1271\\)",
+          "\\(1386\\)",
+          "\\(1039\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n165=3\\times 5\\times 11\n\\]\n\n\\[\n105=3\\times 5\\times 7\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(165,105)=1155\n\\]\n\nउत्तर सत्यापन\nLCM 1155 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(1155\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(165,105)=\\frac{165\\times 105}{\\operatorname{HCF}(165,105)}=1155\n\\]\n\nशीघ्र परिणाम: \\(1155\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਸੰਖਿਆਵਾਂ \\(165\\) ਅਤੇ \\(105\\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "\\(1155\\)",
+          "\\(1271\\)",
+          "\\(1386\\)",
+          "\\(1039\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n165=3\\times 5\\times 11\n\\]\n\n\\[\n105=3\\times 5\\times 7\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(165,105)=1155\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 1155 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1155\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(165,105)=\\frac{165\\times 105}{\\operatorname{HCF}(165,105)}=1155\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1155\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  }
+]

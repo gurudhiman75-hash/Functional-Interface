@@ -1,0 +1,8923 @@
+Q1. If the digit sum is \(15\) and the tens digit is \(7\), what number is formed?
+A. \(77\)
+B. \(80\)
+C. \(78\)
+D. \(79\)
+Answer: C
+
+Explanation:
+Observation
+A missing digit is decided by the divisibility test in the question.
+
+Explanation
+We are doing this because the right digit must make the whole number pass the divisibility test.
+
+Form the digit-sum equation
+
+\[
+7+u=15\Rightarrow u=8
+\]
+
+Write the two-digit number
+
+Hence, the number is 78.
+
+\[
+N=10\times 7+8=78
+\]
+
+Answer
+Digit sum of 78 is 15.
+Therefore, the required answer is \(78\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Many students test only the missing digit. Always put the digit back into the whole number and check the full divisibility condition.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=8
+\]
+
+\[
+\boxed{78}
+\]
+
+Fast result: \(78\). Therefore, the correct answer is Option (C).
+
+Hindi:
+दो-अंकीय संख्या के लिए अंक-योग \(15\) दिया है। यदि दहाई अंक \(7\) है, तो संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+7+u=15\Rightarrow u=8
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 78 है।
+
+\[
+N=10\times 7+8=78
+\]
+
+उत्तर
+78 का अंक-योग 15 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(78\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=8
+\]
+
+\[
+\boxed{78}
+\]
+
+शीघ्र परिणाम: \(78\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(15\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(7\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+7+u=15\Rightarrow u=8
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 78 ਹੈ।
+
+\[
+N=10\times 7+8=78
+\]
+
+ਉੱਤਰ
+78 ਦਾ ਅੰਕ-ਜੋੜ 15 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(78\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=8
+\]
+
+\[
+\boxed{78}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(78\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_missing_digit_single_rule
+
+---
+Q2. The number \(741x9\) is divisible by \(11\). What is the value of \(x\)?
+A. \(3\)
+B. \(1\)
+C. \(4\)
+D. \(2\)
+Answer: D
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+Use the alternating-sum rule for 11
+
+For divisibility by 11, the difference of alternate digit sums must be a multiple of 11.
+
+\[
+\boxed{13}
+\]
+
+\[
+13-x\equiv 0\pmod{11}
+\]
+
+Solve the alternating-sum equation
+
+The valid multiple of 11 for this pattern is 11.
+
+\[
+13-x=11
+\]
+
+\[
+\boxed{2}
+\]
+
+Answer
+With \(x=2\), the alternate digit-sum difference is a multiple of 11.
+\[
+13-2=11
+\]
+\[
+11\equiv 0\pmod{11}
+\]
+Therefore, the required answer is \(2\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+Write the alternate-sum expression and make it a multiple of 11.
+
+\[
+x\equiv 2\pmod{11}
+\]
+
+\[
+\boxed{2}
+\]
+
+Fast result: \(2\). Therefore, the correct answer is Option (D).
+
+Hindi:
+संख्या \(741x9\), \(11\) से विभाज्य है। \(x\) का मान क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+11 के लिए वैकल्पिक-योग नियम लगाएं
+
+11 से विभाज्यता के लिए वैकल्पिक अंकों के योगों का अंतर 11 का गुणज होना चाहिए।
+
+\[
+\boxed{13}
+\]
+
+\[
+13-x\equiv 0\pmod{11}
+\]
+
+वैकल्पिक-योग समीकरण हल करें
+
+इस पैटर्न के लिए 11 का मान्य गुणज 11 है।
+
+\[
+13-x=11
+\]
+
+\[
+\boxed{2}
+\]
+
+उत्तर
+\(x=2\) रखने पर वैकल्पिक अंक-योगों का अंतर 11 का गुणज है।
+\[
+13-2=11
+\]
+\[
+11\equiv 0\pmod{11}
+\]
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(2\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+वैकल्पिक-योग व्यंजक लिखें और उसे 11 का गुणज बनाएं।
+
+\[
+x\equiv 2\pmod{11}
+\]
+
+\[
+\boxed{2}
+\]
+
+शीघ्र परिणाम: \(2\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਸੰਖਿਆ \(741x9\), \(11\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \(x\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+11 ਲਈ ਬਦਲਵੇਂ-ਜੋੜ ਦਾ ਨਿਯਮ ਲਗਾਓ
+
+11 ਨਾਲ ਭਾਗਯੋਗਤਾ ਲਈ ਬਦਲਵੇਂ ਅੰਕਾਂ ਦੇ ਜੋੜਾਂ ਦਾ ਫਰਕ 11 ਦਾ ਗੁਣਜ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।
+
+\[
+\boxed{13}
+\]
+
+\[
+13-x\equiv 0\pmod{11}
+\]
+
+ਬਦਲਵੇਂ-ਜੋੜ ਦਾ ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ
+
+ਇਸ ਪੈਟਰਨ ਲਈ 11 ਦਾ ਠੀਕ ਗੁਣਜ 11 ਹੈ।
+
+\[
+13-x=11
+\]
+
+\[
+\boxed{2}
+\]
+
+ਉੱਤਰ
+\(x=2\) ਰੱਖਣ ਤੇ ਬਦਲਵੇਂ ਅੰਕ-ਜੋੜਾਂ ਦਾ ਫਰਕ 11 ਦਾ ਗੁਣਜ ਹੈ।
+\[
+13-2=11
+\]
+\[
+11\equiv 0\pmod{11}
+\]
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(2\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਬਦਲਵੇਂ-ਜੋੜ ਦਾ ਰੂਪ ਲਿਖੋ ਅਤੇ ਇਸ ਨੂੰ 11 ਦਾ ਗੁਣਜ ਬਣਾਓ।
+
+\[
+x\equiv 2\pmod{11}
+\]
+
+\[
+\boxed{2}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(2\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_reverse_divisibility
+
+---
+Q3. Between \(145\) and \(301\), how many integers are divisible by \(15\)?
+A. \(11\)
+B. \(12\)
+C. \(10\)
+D. \(13\)
+Answer: A
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+Find the first valid multiple
+
+Therefore, the first multiple of 15 greater than 145 is 150.
+
+\[
+15\times 10=150
+\]
+
+Find the last valid multiple
+
+Therefore, 300 is the greatest multiple of 15 not exceeding 301.
+
+\[
+301=15\times 20+1
+\]
+
+\[
+301-1=300
+\]
+
+Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 15.
+
+\[
+\frac{300-150}{15}+1=10+1=11
+\]
+
+Answer
+The total number of multiples is 11.
+Hence, there are 11 multiples of 15 in the given range.
+Therefore, the required answer is \(11\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{301}{15}\right\rfloor-\left\lfloor\frac{144}{15}\right\rfloor
+\]
+
+\[
+20-9=11
+\]
+
+Fast result: \(11\). Therefore, the correct answer is Option (A).
+
+Hindi:
+\(145\) और \(301\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहला मान्य गुणज ज्ञात करें
+
+अतः 145 से बड़ा 15 का पहला गुणज 150 है।
+
+\[
+15\times 10=150
+\]
+
+आखिरी वैध गुणज ज्ञात करें
+
+अतः 300, 301 से अधिक न होने वाला 15 का सबसे बड़ा गुणज है।
+
+\[
+301=15\times 20+1
+\]
+
+\[
+301-1=300
+\]
+
+मान्य गुणजों की गिनती करें
+
+गुणज 15 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।
+
+\[
+\frac{300-150}{15}+1=10+1=11
+\]
+
+उत्तर
+गुणजों की कुल संख्या 11 है।
+अतः दी गई सीमा में 15 के 11 गुणज हैं।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(11\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।
+
+\[
+\left\lfloor\frac{301}{15}\right\rfloor-\left\lfloor\frac{144}{15}\right\rfloor
+\]
+
+\[
+20-9=11
+\]
+
+शीघ्र परिणाम: \(11\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+\(145\) ਅਤੇ \(301\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 145 ਤੋਂ ਵੱਡਾ 15 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 150 ਹੈ।
+
+\[
+15\times 10=150
+\]
+
+ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 300, 301 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 15 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।
+
+\[
+301=15\times 20+1
+\]
+
+\[
+301-1=300
+\]
+
+ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ
+
+ਗੁਣਜ 15 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।
+
+\[
+\frac{300-150}{15}+1=10+1=11
+\]
+
+ਉੱਤਰ
+ਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 11 ਹੈ।
+ਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 15 ਦੇ 11 ਗੁਣਜ ਹਨ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(11\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।
+
+\[
+\left\lfloor\frac{301}{15}\right\rfloor-\left\lfloor\frac{144}{15}\right\rfloor
+\]
+
+\[
+20-9=11
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(11\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_divisibility_range_count
+
+---
+Q4. Two buses leave a stand every \(72\) and \(126\) minutes. When will they next leave together?
+A. \(479\)
+B. \(504\)
+C. \(529\)
+D. \(554\)
+Answer: B
+
+Explanation:
+Observation
+LCM must be a multiple of every given number.
+
+Explanation
+We are doing this because the LCM must have enough factors to cover every given number.
+
+Write prime factorizations
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+\[
+126=2\times 3^{2}\times 7
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(72,126)=504
+\]
+
+Answer
+The LCM is 504.
+Therefore, the required answer is \(504\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not take only common primes for LCM. LCM must include every prime needed by any of the numbers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(72,126)=\frac{72\times 126}{\operatorname{HCF}(72,126)}=504
+\]
+
+Fast result: \(504\). Therefore, the correct answer is Option (B).
+
+Hindi:
+दो बसें \(72\) और \(126\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+\[
+126=2\times 3^{2}\times 7
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(72,126)=504
+\]
+
+उत्तर
+LCM 504 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(504\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(72,126)=\frac{72\times 126}{\operatorname{HCF}(72,126)}=504
+\]
+
+शीघ्र परिणाम: \(504\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(72\) ਅਤੇ \(126\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+\[
+126=2\times 3^{2}\times 7
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(72,126)=504
+\]
+
+ਉੱਤਰ
+LCM 504 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(504\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(72,126)=\frac{72\times 126}{\operatorname{HCF}(72,126)}=504
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(504\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_divisibility_lcm_bridge
+
+---
+Q5. After prime factorising \(36\), what is the number of positive divisors?
+A. \(10\)
+B. \(8\)
+C. \(11\)
+D. \(9\)
+Answer: D
+
+Explanation:
+Observation
+Prime factors show the building blocks of the number.
+
+Explanation
+We are doing this because prime powers make hidden divisibility facts visible.
+
+Write prime factorization
+
+\[
+36=2^{2}\times 3^{2}
+\]
+
+For each prime power, count all choices from zero up to that exponent
+
+Each exponent contributes one more choice than its value.
+
+\[
+d(36)=(2+1)\times (2+1)=9
+\]
+
+Answer
+The number of positive divisors is 9.
+Therefore, the required answer is \(9\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not skip factorization when the question is about factors, HCF, LCM, squares, or cubes. The prime powers carry the answer.
+
+Shortcut
+
+Multiply (exponent + 1) across all prime powers.
+
+\[
+(2+1)\times (2+1)
+\]
+
+Fast result: \(9\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(36\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+36=2^{2}\times 3^{2}
+\]
+
+घातों पर (+1) नियम लगाएं
+
+प्रत्येक घात अपने मान से एक अधिक विकल्प देती है।
+
+\[
+d(36)=(2+1)\times (2+1)=9
+\]
+
+उत्तर
+धनात्मक भाजकों की संख्या 9 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(9\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सभी अभाज्य घातों पर (घात + 1) का गुणन करें।
+
+\[
+(2+1)\times (2+1)
+\]
+
+शीघ्र परिणाम: \(9\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(36\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+36=2^{2}\times 3^{2}
+\]
+
+ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ
+
+ਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।
+
+\[
+d(36)=(2+1)\times (2+1)=9
+\]
+
+ਉੱਤਰ
+ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 9 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(9\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।
+
+\[
+(2+1)\times (2+1)
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(9\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_hidden_prime_exponent
+
+---
+Q6. After prime factorising \(108\), what is the number of positive divisors?
+A. \(13\)
+B. \(11\)
+C. \(14\)
+D. \(12\)
+Answer: D
+
+Explanation:
+Observation
+Every divisor is made by choosing some power of each prime.
+
+Explanation
+We are doing this because each prime power gives several choices for building a divisor.
+
+Write prime factorization
+
+\[
+108=2^{2}\times 3^{3}
+\]
+
+For each prime power, count all choices from zero up to that exponent
+
+Each exponent contributes one more choice than its value.
+
+\[
+d(108)=(2+1)\times (3+1)=12
+\]
+
+Answer
+The number of positive divisors is 12.
+Therefore, the required answer is \(12\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not multiply the exponents directly. Each exponent gives one extra choice because choosing power zero is also allowed.
+
+Shortcut
+
+Multiply (exponent + 1) across all prime powers.
+
+\[
+(2+1)\times (3+1)
+\]
+
+Fast result: \(12\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(108\) का अभाज्य गुणनखंड करने के बाद धनात्मक भाजकों की संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+108=2^{2}\times 3^{3}
+\]
+
+घातों पर (+1) नियम लगाएं
+
+प्रत्येक घात अपने मान से एक अधिक विकल्प देती है।
+
+\[
+d(108)=(2+1)\times (3+1)=12
+\]
+
+उत्तर
+धनात्मक भाजकों की संख्या 12 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(12\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सभी अभाज्य घातों पर (घात + 1) का गुणन करें।
+
+\[
+(2+1)\times (3+1)
+\]
+
+शीघ्र परिणाम: \(12\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(108\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+108=2^{2}\times 3^{3}
+\]
+
+ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ
+
+ਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।
+
+\[
+d(108)=(2+1)\times (3+1)=12
+\]
+
+ਉੱਤਰ
+ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 12 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(12\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।
+
+\[
+(2+1)\times (3+1)
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(12\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_factor_count_constraint
+
+---
+Q7. For the number \(480\), find the count of odd divisors?
+A. \(3\)
+B. \(6\)
+C. \(4\)
+D. \(5\)
+Answer: C
+
+Explanation:
+Observation
+Every divisor is made by choosing some power of each prime.
+
+Explanation
+We are doing this because each prime power gives several choices for building a divisor.
+
+Write prime factorization
+
+\[
+480=2^{5}\times 3\times 5
+\]
+
+Count odd divisors only
+
+Ignore the power of 2; odd divisors come from odd primes only.
+
+\[
+(1+1)\times (1+1)
+\]
+
+\[
+O=4
+\]
+
+Answer
+The number of odd divisors is 4.
+Therefore, the required answer is \(4\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not multiply the exponents directly. Each exponent gives one extra choice because choosing power zero is also allowed.
+
+Shortcut
+
+Drop the factor 2 and multiply (e+1) for remaining primes.
+
+\[
+O(n)=(1+1)\times (1+1)=4
+\]
+
+Fast result: \(4\). Therefore, the correct answer is Option (C).
+
+Hindi:
+संख्या \(480\) के लिए विषम भाजकों की संख्या ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+480=2^{5}\times 3\times 5
+\]
+
+केवल विषम भाजकों की गिनती
+
+2 की घात निकालें; विषम भाजक केवल विषम अभाज्यों से आते हैं।
+
+\[
+(1+1)\times (1+1)
+\]
+
+\[
+O=4
+\]
+
+उत्तर
+विषम भाजकों की संख्या 4 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(4\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+2 का गुणनखंड हटाकर शेष अभाज्यों के (e+1) गुणा करें।
+
+\[
+O(n)=(1+1)\times (1+1)=4
+\]
+
+शीघ्र परिणाम: \(4\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਸੰਖਿਆ \(480\) ਲਈ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+480=2^{5}\times 3\times 5
+\]
+
+ਸਿਰਫ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ
+
+2 ਦੀ ਘਾਤ ਛੱਡੋ; ਟਾਂਕ ਭਾਜਕ ਸਿਰਫ ਟਾਂਕ ਅਭਾਜਾਂ ਤੋਂ ਆਉਂਦੇ ਹਨ।
+
+\[
+(1+1)\times (1+1)
+\]
+
+\[
+O=4
+\]
+
+ਉੱਤਰ
+ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 4 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(4\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+2 ਦਾ ਗੁਣਨਖੰਡ ਹਟਾ ਕੇ ਬਾਕੀ ਅਭਾਜਾਂ ਦੇ (e+1) ਗੁਣਾ ਕਰੋ।
+
+\[
+O(n)=(1+1)\times (1+1)=4
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(4\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_odd_even_divisor_count
+
+---
+Q8. Two buses leave a stand every \(32\) and \(56\) minutes. When will they next leave together?
+A. \(213\)
+B. \(224\)
+C. \(235\)
+D. \(246\)
+Answer: B
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+32=2^{5}
+\]
+
+\[
+56=2^{3}\times 7
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(32,56)=224
+\]
+
+Answer
+The LCM is 224.
+Therefore, the required answer is \(224\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(32,56)=\frac{32\times 56}{\operatorname{HCF}(32,56)}=224
+\]
+
+Fast result: \(224\). Therefore, the correct answer is Option (B).
+
+Hindi:
+दो बसें \(32\) और \(56\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+32=2^{5}
+\]
+
+\[
+56=2^{3}\times 7
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(32,56)=224
+\]
+
+उत्तर
+LCM 224 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(224\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(32,56)=\frac{32\times 56}{\operatorname{HCF}(32,56)}=224
+\]
+
+शीघ्र परिणाम: \(224\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+ਦੋ ਬੱਸਾਂ \(32\) ਅਤੇ \(56\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+32=2^{5}
+\]
+
+\[
+56=2^{3}\times 7
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(32,56)=224
+\]
+
+ਉੱਤਰ
+LCM 224 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(224\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(32,56)=\frac{32\times 56}{\operatorname{HCF}(32,56)}=224
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(224\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_hcf_lcm_relation
+
+---
+Q9. For two numbers \(24\) and \(78\), which common multiple is first reached?
+A. \(312\)
+B. \(328\)
+C. \(343\)
+D. \(296\)
+Answer: A
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+24=2^{3}\times 3
+\]
+
+\[
+78=2\times 3\times 13
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(24,78)=312
+\]
+
+Answer
+The LCM is 312.
+Therefore, the required answer is \(312\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(24,78)=\frac{24\times 78}{\operatorname{HCF}(24,78)}=312
+\]
+
+Fast result: \(312\). Therefore, the correct answer is Option (A).
+
+Hindi:
+दो संख्याओं \(24\) और \(78\) के लिए पहला साझा गुणज क्या होगा?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+24=2^{3}\times 3
+\]
+
+\[
+78=2\times 3\times 13
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(24,78)=312
+\]
+
+उत्तर
+LCM 312 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(312\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(24,78)=\frac{24\times 78}{\operatorname{HCF}(24,78)}=312
+\]
+
+शीघ्र परिणाम: \(312\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(24\) ਅਤੇ \(78\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+24=2^{3}\times 3
+\]
+
+\[
+78=2\times 3\times 13
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(24,78)=312
+\]
+
+ਉੱਤਰ
+LCM 312 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(312\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(24,78)=\frac{24\times 78}{\operatorname{HCF}(24,78)}=312
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(312\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_hidden_hcf
+
+---
+Q10. Two cyclic events repeat every \(198\) and \(108\) minutes. After how many minutes will they occur together again?
+A. \(1307\)
+B. \(1426\)
+C. \(1069\)
+D. \(1188\)
+Answer: D
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+198=2\times 3^{2}\times 11
+\]
+
+\[
+108=2^{2}\times 3^{3}
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(198,108)=1188
+\]
+
+Answer
+The LCM is 1188.
+Therefore, the required answer is \(1188\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(198,108)=\frac{198\times 108}{\operatorname{HCF}(198,108)}=1188
+\]
+
+Fast result: \(1188\). Therefore, the correct answer is Option (D).
+
+Hindi:
+दो घटनाएँ हर \(198\) और \(108\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+198=2\times 3^{2}\times 11
+\]
+
+\[
+108=2^{2}\times 3^{3}
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(198,108)=1188
+\]
+
+उत्तर
+LCM 1188 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(1188\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(198,108)=\frac{198\times 108}{\operatorname{HCF}(198,108)}=1188
+\]
+
+शीघ्र परिणाम: \(1188\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(198\) ਅਤੇ \(108\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+198=2\times 3^{2}\times 11
+\]
+
+\[
+108=2^{2}\times 3^{3}
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(198,108)=1188
+\]
+
+ਉੱਤਰ
+LCM 1188 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(1188\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(198,108)=\frac{198\times 108}{\operatorname{HCF}(198,108)}=1188
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(1188\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_fraction_hcf_lcm
+
+---
+Q11. Bells ring at intervals of \(165\) and \(150\) minutes. After how many minutes will both ring together again?
+A. \(1980\)
+B. \(1485\)
+C. \(1650\)
+D. \(1815\)
+Answer: C
+
+Explanation:
+Observation
+LCM must be a multiple of every given number.
+
+Explanation
+We are doing this because the LCM must have enough factors to cover every given number.
+
+Write prime factorizations
+
+\[
+165=3\times 5\times 11
+\]
+
+\[
+150=2\times 3\times 5^{2}
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(165,150)=1650
+\]
+
+Answer
+The LCM is 1650.
+Therefore, the required answer is \(1650\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not take only common primes for LCM. LCM must include every prime needed by any of the numbers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(165,150)=\frac{165\times 150}{\operatorname{HCF}(165,150)}=1650
+\]
+
+Fast result: \(1650\). Therefore, the correct answer is Option (C).
+
+Hindi:
+घंटियाँ \(165\) और \(150\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+165=3\times 5\times 11
+\]
+
+\[
+150=2\times 3\times 5^{2}
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(165,150)=1650
+\]
+
+उत्तर
+LCM 1650 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(1650\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(165,150)=\frac{165\times 150}{\operatorname{HCF}(165,150)}=1650
+\]
+
+शीघ्र परिणाम: \(1650\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਘੰਟੀਆਂ \(165\) ਅਤੇ \(150\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+165=3\times 5\times 11
+\]
+
+\[
+150=2\times 3\times 5^{2}
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(165,150)=1650
+\]
+
+ਉੱਤਰ
+LCM 1650 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(1650\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(165,150)=\frac{165\times 150}{\operatorname{HCF}(165,150)}=1650
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(1650\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_schedule_alignment
+
+---
+Q12. Power \(13^{24}\) is tested modulo \(5\). Which remainder is obtained?
+A. \(1\)
+B. \(2\)
+C. \(0\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Replace the big base by its smaller remainder
+
+\[
+13\equiv 3\pmod{5}
+\]
+
+Write the remainder cycle
+
+Cycle length = 4.
+
+\[
+3\rightarrow 4\rightarrow 2\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(24-1)\bmod 4+1=4
+\]
+
+Read the required remainder
+
+Hence, remainder = 1.
+
+\[
+13^{24}\equiv 1\pmod{5}
+\]
+
+Answer
+The 4th term of the cycle is 1.
+Therefore, the required answer is \(1\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(24-1)\bmod 4+1=4
+\]
+
+\[
+3^{24}\equiv 1\pmod{5}
+\]
+
+Fast result: \(1\). Therefore, the correct answer is Option (A).
+
+Hindi:
+बड़ी घात \(13^{24}\) को \(5\) से भाग दिया गया। शेषफल क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+13\equiv 3\pmod{5}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 4।
+
+\[
+3\rightarrow 4\rightarrow 2\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(24-1)\bmod 4+1=4
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 1।
+
+\[
+13^{24}\equiv 1\pmod{5}
+\]
+
+उत्तर
+चक्र का 4वाँ पद 1 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(1\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(24-1)\bmod 4+1=4
+\]
+
+\[
+3^{24}\equiv 1\pmod{5}
+\]
+
+शीघ्र परिणाम: \(1\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(13^{24}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+13\equiv 3\pmod{5}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।
+
+\[
+3\rightarrow 4\rightarrow 2\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(24-1)\bmod 4+1=4
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 1।
+
+\[
+13^{24}\equiv 1\pmod{5}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 4ਵਾਂ ਪਦ 1 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(1\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(24-1)\bmod 4+1=4
+\]
+
+\[
+3^{24}\equiv 1\pmod{5}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(1\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_remainder_after_power
+
+---
+Q13. When \(11^{63}\) is divided by \(9\), what remainder is left?
+A. \(7\)
+B. \(10\)
+C. \(8\)
+D. \(9\)
+Answer: C
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Replace the big base by its smaller remainder
+
+\[
+11\equiv 2\pmod{9}
+\]
+
+Write the remainder cycle
+
+Cycle length = 6.
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 7\rightarrow 5\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(63-1)\bmod 6+1=3
+\]
+
+Read the required remainder
+
+Hence, remainder = 8.
+
+\[
+11^{63}\equiv 8\pmod{9}
+\]
+
+Answer
+The 3rd term of the cycle is 8.
+Therefore, the required answer is \(8\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(63-1)\bmod 6+1=3
+\]
+
+\[
+2^{63}\equiv 8\pmod{9}
+\]
+
+Fast result: \(8\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(11^{63}\) को \(9\) से भाग देने पर क्या शेषफल आएगा?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+11\equiv 2\pmod{9}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 6।
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 7\rightarrow 5\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(63-1)\bmod 6+1=3
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 8।
+
+\[
+11^{63}\equiv 8\pmod{9}
+\]
+
+उत्तर
+चक्र का 3वाँ पद 8 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(8\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(63-1)\bmod 6+1=3
+\]
+
+\[
+2^{63}\equiv 8\pmod{9}
+\]
+
+शीघ्र परिणाम: \(8\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(11^{63}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+11\equiv 2\pmod{9}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 6।
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 7\rightarrow 5\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(63-1)\bmod 6+1=3
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 8।
+
+\[
+11^{63}\equiv 8\pmod{9}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 8 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(8\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(63-1)\bmod 6+1=3
+\]
+
+\[
+2^{63}\equiv 8\pmod{9}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(8\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_remainder_pattern
+
+---
+Q14. When \(3^{79}\) is divided by \(5\), what remainder is left?
+A. \(1\)
+B. \(4\)
+C. \(2\)
+D. \(3\)
+Answer: C
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Replace the big base by its smaller remainder
+
+\[
+3\equiv 3\pmod{5}
+\]
+
+Write the remainder cycle
+
+Cycle length = 4.
+
+\[
+3\rightarrow 4\rightarrow 2\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(79-1)\bmod 4+1=3
+\]
+
+Read the required remainder
+
+Hence, remainder = 2.
+
+\[
+3^{79}\equiv 2\pmod{5}
+\]
+
+Answer
+The 3rd term of the cycle is 2.
+Therefore, the required answer is \(2\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(79-1)\bmod 4+1=3
+\]
+
+\[
+3^{79}\equiv 2\pmod{5}
+\]
+
+Fast result: \(2\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(3^{79}\) को \(5\) से भाग देने पर क्या शेषफल आएगा?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+3\equiv 3\pmod{5}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 4।
+
+\[
+3\rightarrow 4\rightarrow 2\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(79-1)\bmod 4+1=3
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 2।
+
+\[
+3^{79}\equiv 2\pmod{5}
+\]
+
+उत्तर
+चक्र का 3वाँ पद 2 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(2\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(79-1)\bmod 4+1=3
+\]
+
+\[
+3^{79}\equiv 2\pmod{5}
+\]
+
+शीघ्र परिणाम: \(2\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(3^{79}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+3\equiv 3\pmod{5}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।
+
+\[
+3\rightarrow 4\rightarrow 2\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(79-1)\bmod 4+1=3
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 2।
+
+\[
+3^{79}\equiv 2\pmod{5}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 2 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(2\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(79-1)\bmod 4+1=3
+\]
+
+\[
+3^{79}\equiv 2\pmod{5}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(2\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_remainder_range_count
+
+---
+Q15. Tens digit \(8\), digit sum \(10\): which two-digit number satisfies both facts?
+A. \(84\)
+B. \(82\)
+C. \(83\)
+D. \(81\)
+Answer: B
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Form the digit-sum equation
+
+\[
+8+u=10\Rightarrow u=2
+\]
+
+Write the two-digit number
+
+Hence, the number is 82.
+
+\[
+N=10\times 8+2=82
+\]
+
+Answer
+Digit sum of 82 is 10.
+Therefore, the required answer is \(82\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=2
+\]
+
+\[
+\boxed{82}
+\]
+
+Fast result: \(82\). Therefore, the correct answer is Option (B).
+
+Hindi:
+दहाई अंक \(8\), अंक-योग \(10\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+8+u=10\Rightarrow u=2
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 82 है।
+
+\[
+N=10\times 8+2=82
+\]
+
+उत्तर
+82 का अंक-योग 10 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(82\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=2
+\]
+
+\[
+\boxed{82}
+\]
+
+शीघ्र परिणाम: \(82\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+ਦਹਾਈ ਅੰਕ \(8\), ਅੰਕ-ਜੋੜ \(10\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+8+u=10\Rightarrow u=2
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 82 ਹੈ।
+
+\[
+N=10\times 8+2=82
+\]
+
+ਉੱਤਰ
+82 ਦਾ ਅੰਕ-ਜੋੜ 10 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(82\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=2
+\]
+
+\[
+\boxed{82}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(82\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_sum_of_digits
+
+---
+Q16. Tens digit \(3\) and ones digit \(9\) are used in a number. How much does it change when reversed?
+A. \(53\)
+B. \(56\)
+C. \(54\)
+D. \(55\)
+Answer: C
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Write both numbers by place value
+
+\[
+N_1=10\times 3+9=39
+\]
+
+\[
+N_2=10\times 9+3=93
+\]
+
+Subtract using the digit-difference rule
+
+\[
+|N_1-N_2|=9\times |3-9|=9\times 6=54
+\]
+
+Answer
+The required difference is 54.
+Therefore, the required answer is \(54\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Reversal difference equals nine times the digit difference.
+
+\[
+9\times |3-9|=54
+\]
+
+Fast result: \(54\). Therefore, the correct answer is Option (C).
+
+Hindi:
+दहाई अंक \(3\) और इकाई अंक \(9\) एक संख्या में हैं। उलटने पर वह कितनी बदलेगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+दोनों संख्याएँ स्थान-मूल्य से लिखें
+
+\[
+N_1=10\times 3+9=39
+\]
+
+\[
+N_2=10\times 9+3=93
+\]
+
+अंक-अंतर नियम से घटाव
+
+\[
+|N_1-N_2|=9\times |3-9|=9\times 6=54
+\]
+
+उत्तर
+आवश्यक अंतर 54 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(54\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+उलटी संख्या का अंतर अंकों के अंतर का नौ गुना होता है।
+
+\[
+9\times |3-9|=54
+\]
+
+शीघ्र परिणाम: \(54\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਦਹਾਈ ਅੰਕ \(3\) ਅਤੇ ਇਕਾਈ ਅੰਕ \(9\) ਇੱਕ ਸੰਖਿਆ ਵਿੱਚ ਹਨ। ਉਲਟਣ ਤੇ ਇਹ ਕਿੰਨੀ ਬਦਲੇਗੀ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਦੋਵੇਂ ਸੰਖਿਆਵਾਂ ਸਥਾਨ-ਮੁੱਲ ਨਾਲ ਲਿਖੋ
+
+\[
+N_1=10\times 3+9=39
+\]
+
+\[
+N_2=10\times 9+3=93
+\]
+
+ਅੰਕ-ਫਰਕ ਨਿਯਮ ਨਾਲ ਘਟਾਓ
+
+\[
+|N_1-N_2|=9\times |3-9|=9\times 6=54
+\]
+
+ਉੱਤਰ
+ਲੋੜੀਂਦਾ ਫਰਕ 54 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(54\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਉਲਟੀ ਸੰਖਿਆ ਦਾ ਫਰਕ ਅੰਕਾਂ ਦੇ ਫਰਕ ਦਾ ਨੌ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।
+
+\[
+9\times |3-9|=54
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(54\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_digit_interchange
+
+---
+Q17. If the digit sum is \(11\) and the tens digit is \(6\), what number is formed?
+A. \(66\)
+B. \(64\)
+C. \(67\)
+D. \(65\)
+Answer: D
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Form the digit-sum equation
+
+\[
+6+u=11\Rightarrow u=5
+\]
+
+Write the two-digit number
+
+Hence, the number is 65.
+
+\[
+N=10\times 6+5=65
+\]
+
+Answer
+Digit sum of 65 is 11.
+Therefore, the required answer is \(65\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=5
+\]
+
+\[
+\boxed{65}
+\]
+
+Fast result: \(65\). Therefore, the correct answer is Option (D).
+
+Hindi:
+दो-अंकीय संख्या के लिए अंक-योग \(11\) दिया है। यदि दहाई अंक \(6\) है, तो संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+6+u=11\Rightarrow u=5
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 65 है।
+
+\[
+N=10\times 6+5=65
+\]
+
+उत्तर
+65 का अंक-योग 11 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(65\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=5
+\]
+
+\[
+\boxed{65}
+\]
+
+शीघ्र परिणाम: \(65\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(11\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(6\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+6+u=11\Rightarrow u=5
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 65 ਹੈ।
+
+\[
+N=10\times 6+5=65
+\]
+
+ਉੱਤਰ
+65 ਦਾ ਅੰਕ-ਜੋੜ 11 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(65\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=5
+\]
+
+\[
+\boxed{65}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(65\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_digit_constraints
+
+---
+Q18. Tens digit \(8\) and digit sum \(9\) are fixed. What is the number?
+A. \(83\)
+B. \(81\)
+C. \(82\)
+D. \(80\)
+Answer: B
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Form the digit-sum equation
+
+\[
+8+u=9\Rightarrow u=1
+\]
+
+Write the two-digit number
+
+Hence, the number is 81.
+
+\[
+N=10\times 8+1=81
+\]
+
+Answer
+Digit sum of 81 is 9.
+Therefore, the required answer is \(81\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=1
+\]
+
+\[
+\boxed{81}
+\]
+
+Fast result: \(81\). Therefore, the correct answer is Option (B).
+
+Hindi:
+मान \(9\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \(8\) है। संख्या ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+8+u=9\Rightarrow u=1
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 81 है।
+
+\[
+N=10\times 8+1=81
+\]
+
+उत्तर
+81 का अंक-योग 9 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(81\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=1
+\]
+
+\[
+\boxed{81}
+\]
+
+शीघ्र परिणाम: \(81\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+ਮੁੱਲ \(9\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \(8\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+8+u=9\Rightarrow u=1
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 81 ਹੈ।
+
+\[
+N=10\times 8+1=81
+\]
+
+ਉੱਤਰ
+81 ਦਾ ਅੰਕ-ਜੋੜ 9 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(81\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=1
+\]
+
+\[
+\boxed{81}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(81\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_consecutive_digit_number
+
+---
+Q19. What is the highest power of \(3\) that divides \(30!\)?
+A. \(15\)
+B. \(13\)
+C. \(16\)
+D. \(14\)
+Answer: D
+
+Explanation:
+Observation
+A composite power depends on all its prime parts.
+
+Explanation
+We are doing this because the prime factor that runs out first controls the final power.
+
+Count powers of 3 in n!
+
+\[
+\left\lfloor\frac{30}{3}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{30}{9}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{30}{27}\right\rfloor
+\]
+
+Add the quotient terms
+
+\[
+10+3+1=14
+\]
+
+Answer
+Highest power of 3 dividing 30! is 14.
+Therefore, the required answer is \(14\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not use only one prime when the base is composite. Count all required primes and take the limiting one.
+
+Shortcut
+
+Legendre sum of floor quotients only.
+
+\[
+\left\lfloor\frac{30}{3}\right\rfloor+\left\lfloor\frac{30}{9}\right\rfloor+\left\lfloor\frac{30}{27}\right\rfloor
+\]
+
+Fast result: \(14\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(30!\) को विभाजित करने वाली \(3\) की सबसे बड़ी घात क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+n! में 3 की घातें गिनें
+
+\[
+\left\lfloor\frac{30}{3}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{30}{9}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{30}{27}\right\rfloor
+\]
+
+भागफल पद जोड़ें
+
+\[
+10+3+1=14
+\]
+
+उत्तर
+30! में 3 की सबसे बड़ी घात 14 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(14\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+केवल भागफल-मूल्यों का लेजेंड्र योग।
+
+\[
+\left\lfloor\frac{30}{3}\right\rfloor+\left\lfloor\frac{30}{9}\right\rfloor+\left\lfloor\frac{30}{27}\right\rfloor
+\]
+
+शीघ्र परिणाम: \(14\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(30!\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \(3\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+n! ਵਿੱਚ 3 ਦੀਆਂ ਘਾਤਾਂ ਗਿਣੋ
+
+\[
+\left\lfloor\frac{30}{3}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{30}{9}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{30}{27}\right\rfloor
+\]
+
+ਭਾਗਪਲ ਪਦ ਜੋੜੋ
+
+\[
+10+3+1=14
+\]
+
+ਉੱਤਰ
+30! ਨੂੰ 3 ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ 14 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(14\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਿਰਫ ਭਾਗਫਲ-ਮੂਲਾਂ ਦਾ ਲੇਜੈਂਡਰ ਜੋੜ।
+
+\[
+\left\lfloor\frac{30}{3}\right\rfloor+\left\lfloor\frac{30}{9}\right\rfloor+\left\lfloor\frac{30}{27}\right\rfloor
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(14\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_highest_power_dividing
+
+---
+Q20. Power \(2^{55}\) is tested modulo \(5\). Which remainder is obtained?
+A. \(3\)
+B. \(4\)
+C. \(2\)
+D. \(5\)
+Answer: A
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Replace the big base by its smaller remainder
+
+\[
+2\equiv 2\pmod{5}
+\]
+
+Write the remainder cycle
+
+Cycle length = 4.
+
+\[
+2\rightarrow 4\rightarrow 3\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(55-1)\bmod 4+1=3
+\]
+
+Read the required remainder
+
+Hence, remainder = 3.
+
+\[
+2^{55}\equiv 3\pmod{5}
+\]
+
+Answer
+The 3rd term of the cycle is 3.
+Therefore, the required answer is \(3\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(55-1)\bmod 4+1=3
+\]
+
+\[
+2^{55}\equiv 3\pmod{5}
+\]
+
+Fast result: \(3\). Therefore, the correct answer is Option (A).
+
+Hindi:
+बड़ी घात \(2^{55}\) को \(5\) से भाग दिया गया। शेषफल क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+2\equiv 2\pmod{5}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 4।
+
+\[
+2\rightarrow 4\rightarrow 3\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(55-1)\bmod 4+1=3
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 3।
+
+\[
+2^{55}\equiv 3\pmod{5}
+\]
+
+उत्तर
+चक्र का 3वाँ पद 3 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(3\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(55-1)\bmod 4+1=3
+\]
+
+\[
+2^{55}\equiv 3\pmod{5}
+\]
+
+शीघ्र परिणाम: \(3\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(2^{55}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+2\equiv 2\pmod{5}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।
+
+\[
+2\rightarrow 4\rightarrow 3\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(55-1)\bmod 4+1=3
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 3।
+
+\[
+2^{55}\equiv 3\pmod{5}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 3 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(3\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(55-1)\bmod 4+1=3
+\]
+
+\[
+2^{55}\equiv 3\pmod{5}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(3\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_factorial_remainder
+
+---
+Q21. Between \(225\) and \(318\), how many integers are divisible by \(15\)?
+A. \(7\)
+B. \(8\)
+C. \(6\)
+D. \(9\)
+Answer: A
+
+Explanation:
+Observation
+Large powers usually repeat their remainders.
+
+Explanation
+We are doing this because the repeating pattern lets us avoid a huge power calculation.
+
+Find the first valid multiple
+
+Therefore, the first multiple of 15 greater than 225 is 225.
+
+\[
+15\times 15=225
+\]
+
+Find the last valid multiple
+
+Therefore, 315 is the greatest multiple of 15 not exceeding 318.
+
+\[
+318=15\times 21+3
+\]
+
+\[
+318-3=315
+\]
+
+Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 15.
+
+\[
+\frac{315-225}{15}+1=6+1=7
+\]
+
+Answer
+The total number of multiples is 7.
+Hence, there are 7 multiples of 15 in the given range.
+Therefore, the required answer is \(7\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not divide the exponent by the divisor. The exponent is matched with the length of the repeating pattern.
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{318}{15}\right\rfloor-\left\lfloor\frac{224}{15}\right\rfloor
+\]
+
+\[
+21-14=7
+\]
+
+Fast result: \(7\). Therefore, the correct answer is Option (A).
+
+Hindi:
+\(225\) और \(318\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहला मान्य गुणज ज्ञात करें
+
+अतः 225 से बड़ा 15 का पहला गुणज 225 है।
+
+\[
+15\times 15=225
+\]
+
+आखिरी वैध गुणज ज्ञात करें
+
+अतः 315, 318 से अधिक न होने वाला 15 का सबसे बड़ा गुणज है।
+
+\[
+318=15\times 21+3
+\]
+
+\[
+318-3=315
+\]
+
+मान्य गुणजों की गिनती करें
+
+गुणज 15 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।
+
+\[
+\frac{315-225}{15}+1=6+1=7
+\]
+
+उत्तर
+गुणजों की कुल संख्या 7 है।
+अतः दी गई सीमा में 15 के 7 गुणज हैं।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(7\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।
+
+\[
+\left\lfloor\frac{318}{15}\right\rfloor-\left\lfloor\frac{224}{15}\right\rfloor
+\]
+
+\[
+21-14=7
+\]
+
+शीघ्र परिणाम: \(7\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+\(225\) ਅਤੇ \(318\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 225 ਤੋਂ ਵੱਡਾ 15 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 225 ਹੈ।
+
+\[
+15\times 15=225
+\]
+
+ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 315, 318 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 15 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।
+
+\[
+318=15\times 21+3
+\]
+
+\[
+318-3=315
+\]
+
+ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ
+
+ਗੁਣਜ 15 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।
+
+\[
+\frac{315-225}{15}+1=6+1=7
+\]
+
+ਉੱਤਰ
+ਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 7 ਹੈ।
+ਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 15 ਦੇ 7 ਗੁਣਜ ਹਨ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(7\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।
+
+\[
+\left\lfloor\frac{318}{15}\right\rfloor-\left\lfloor\frac{224}{15}\right\rfloor
+\]
+
+\[
+21-14=7
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(7\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_cyclic_pattern
+
+---
+Q22. Two cyclic events repeat every \(72\) and \(180\) minutes. After how many minutes will they occur together again?
+A. \(378\)
+B. \(396\)
+C. \(342\)
+D. \(360\)
+Answer: D
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+\[
+180=2^{2}\times 3^{2}\times 5
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(72,180)=360
+\]
+
+Answer
+The LCM is 360.
+Therefore, the required answer is \(360\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(72,180)=\frac{72\times 180}{\operatorname{HCF}(72,180)}=360
+\]
+
+Fast result: \(360\). Therefore, the correct answer is Option (D).
+
+Hindi:
+दो घटनाएँ हर \(72\) और \(180\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+\[
+180=2^{2}\times 3^{2}\times 5
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(72,180)=360
+\]
+
+उत्तर
+LCM 360 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(360\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(72,180)=\frac{72\times 180}{\operatorname{HCF}(72,180)}=360
+\]
+
+शीघ्र परिणाम: \(360\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(72\) ਅਤੇ \(180\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+\[
+180=2^{2}\times 3^{2}\times 5
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(72,180)=360
+\]
+
+ਉੱਤਰ
+LCM 360 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(360\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(72,180)=\frac{72\times 180}{\operatorname{HCF}(72,180)}=360
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(360\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_factor_hcf_hybrid
+
+---
+Q23. Cycle position \(44\) is needed for powers of \(19\) modulo \(17\). What is the remainder?
+A. \(16\)
+B. \(17\)
+C. \(15\)
+D. \(18\)
+Answer: A
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+Replace the big base by its smaller remainder
+
+\[
+19\equiv 2\pmod{17}
+\]
+
+Write the remainder cycle
+
+Cycle length = 8.
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 16\rightarrow 15\rightarrow 13\rightarrow 9\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(44-1)\bmod 8+1=4
+\]
+
+Read the required remainder
+
+Hence, remainder = 16.
+
+\[
+19^{44}\equiv 16\pmod{17}
+\]
+
+Answer
+The 4th term of the cycle is 16.
+Therefore, the required answer is \(16\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(44-1)\bmod 8+1=4
+\]
+
+\[
+2^{44}\equiv 16\pmod{17}
+\]
+
+Fast result: \(16\). Therefore, the correct answer is Option (A).
+
+Hindi:
+\(19\) की घातों को modulo \(17\) में देखने पर cycle position \(44\) चाहिए। शेषफल क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+19\equiv 2\pmod{17}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 8।
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 16\rightarrow 15\rightarrow 13\rightarrow 9\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(44-1)\bmod 8+1=4
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 16।
+
+\[
+19^{44}\equiv 16\pmod{17}
+\]
+
+उत्तर
+चक्र का 4वाँ पद 16 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(16\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(44-1)\bmod 8+1=4
+\]
+
+\[
+2^{44}\equiv 16\pmod{17}
+\]
+
+शीघ्र परिणाम: \(16\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+\(19\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ modulo \(17\) ਵਿੱਚ ਵੇਖਣ ਤੇ cycle position \(44\) ਚਾਹੀਦੀ ਹੈ। ਬਾਕੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+19\equiv 2\pmod{17}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 8।
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 16\rightarrow 15\rightarrow 13\rightarrow 9\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(44-1)\bmod 8+1=4
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 16।
+
+\[
+19^{44}\equiv 16\pmod{17}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 4ਵਾਂ ਪਦ 16 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(16\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(44-1)\bmod 8+1=4
+\]
+
+\[
+2^{44}\equiv 16\pmod{17}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(16\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_multi_cluster_reasoning
+
+---
+Q24. What is the greatest number less than \(1020\) that is divisible by both \(9\) and \(30\)?
+A. \(940\)
+B. \(990\)
+C. \(1040\)
+D. \(1089\)
+Answer: B
+
+Explanation:
+Observation
+The greatest number is the last allowed number before the limit.
+
+Explanation
+We are doing this because the answer must stay below the limit and still follow the rule.
+
+Put the given conditions together first
+
+First combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.
+
+\[
+m=90
+\]
+
+Now choose the number that stays within the given limit
+
+Now use the nearby multiples and choose the first or last one according to the question.
+
+\[
+q=\left\lfloor\frac{1019}{90}\right\rfloor
+\]
+
+\[
+90\times q=990
+\]
+
+Answer
+The selected number is 990, and it satisfies the required divisibility condition.
+Therefore, the required answer is \(990\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not cross the given limit. Move downward from the limit until the condition is satisfied.
+
+Shortcut
+
+Take the LCM once, then jump directly to the nearest multiple asked in the question.
+
+\[
+90\times q=990
+\]
+
+Fast result: \(990\). Therefore, the correct answer is Option (B).
+
+Hindi:
+\(1020\) से छोटी सबसे बड़ी संख्या कौन-सी है जो \(9\) और \(30\) दोनों से विभाज्य हो?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहले स�‚ख्या शर्ते�‚ मिलाए�‚
+
+अनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।
+
+\[
+m=90
+\]
+
+नि�•टतम मान्य सीमा ले�‚
+
+सीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।
+
+\[
+q=\left\lfloor\frac{1019}{90}\right\rfloor
+\]
+
+\[
+90\times q=990
+\]
+
+उत्तर
+अनु�•�‚लित मान्य मान 990 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(990\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।
+
+\[
+90\times q=990
+\]
+
+शीघ्र परिणाम: \(990\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+\(1020\) ਤੋਂ ਛੋਟੀ ਸਭ ਤੋਂ ਵੱਡੀ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ ਜੋ \(9\) ਅਤੇ \(30\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ
+
+ਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।
+
+\[
+m=90
+\]
+
+ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ
+
+ਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।
+
+\[
+q=\left\lfloor\frac{1019}{90}\right\rfloor
+\]
+
+\[
+90\times q=990
+\]
+
+ਉੱਤਰ
+ਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 990 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(990\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।
+
+\[
+90\times q=990
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(990\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_greatest_number_constraint
+
+---
+Q25. The number \(425\) has to be reduced to a multiple of \(12\). What is the minimum subtraction?
+A. \(4\)
+B. \(7\)
+C. \(5\)
+D. \(6\)
+Answer: C
+
+Explanation:
+Observation
+A small addition or subtraction is decided by the current remainder.
+
+Explanation
+We are doing this because the remainder tells us exactly how far the number is from a multiple.
+
+Put the given conditions together first
+
+First combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.
+
+Now choose the number that stays within the given limit
+
+Now use the nearby multiples and choose the first or last one according to the question.
+
+\[
+425=12\times 35+5
+\]
+
+\[
+425-5\equiv 0\pmod{12}
+\]
+
+Answer
+The selected number is 5, and it satisfies the required divisibility condition.
+Therefore, the required answer is \(5\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Many students subtract the wrong way. For addition, use the gap from the current remainder to the next multiple.
+
+Shortcut
+
+Take the LCM once, then jump directly to the nearest multiple asked in the question.
+
+\[
+425-5\equiv 0\pmod{12}
+\]
+
+Fast result: \(5\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(425\) को \(12\) के गुणज तक घटाना है। न्यूनतम घटाव कितना है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहले स�‚ख्या शर्ते�‚ मिलाए�‚
+
+अनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।
+
+नि�•टतम मान्य सीमा ले�‚
+
+सीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।
+
+\[
+425=12\times 35+5
+\]
+
+\[
+425-5\equiv 0\pmod{12}
+\]
+
+उत्तर
+अनु�•�‚लित मान्य मान 5 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(5\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।
+
+\[
+425-5\equiv 0\pmod{12}
+\]
+
+शीघ्र परिणाम: \(5\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(425\) ਨੂੰ \(12\) ਦੇ ਗੁਣਜ ਤੱਕ ਘਟਾਉਣਾ ਹੈ। ਘੱਟੋ-ਘੱਟ ਘਟਾਓ ਕਿੰਨਾ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ
+
+ਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।
+
+ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ
+
+ਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।
+
+\[
+425=12\times 35+5
+\]
+
+\[
+425-5\equiv 0\pmod{12}
+\]
+
+ਉੱਤਰ
+ਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 5 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(5\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।
+
+\[
+425-5\equiv 0\pmod{12}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(5\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_minimum_subtraction
+
+---
+Q26. The number \(1050\) is divided by the least possible divisor so that the quotient is still a multiple of \(30\). What is that divisor?
+A. \(7\)
+B. \(5\)
+C. \(6\)
+D. \(4\)
+Answer: B
+
+Explanation:
+Observation
+Every divisor is made by choosing some power of each prime.
+
+Explanation
+We are doing this because each prime power gives several choices for building a divisor.
+
+Put the given conditions together first
+
+First combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.
+
+Now choose the number that stays within the given limit
+
+Now use the nearby multiples and choose the first or last one according to the question.
+
+\[
+1050=d\times q
+\]
+
+\[
+d=5
+\]
+
+Answer
+The selected number is 5, and it satisfies the required divisibility condition.
+Therefore, the required answer is \(5\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not multiply the exponents directly. Each exponent gives one extra choice because choosing power zero is also allowed.
+
+Shortcut
+
+Take the LCM once, then jump directly to the nearest multiple asked in the question.
+
+\[
+d=5
+\]
+
+Fast result: \(5\). Therefore, the correct answer is Option (B).
+
+Hindi:
+\(1050\) को सबसे छोटे संभव भाजक से भाग देना है ताकि भागफल अभी भी \(30\) का गुणज रहे। वह भाजक क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहले स�‚ख्या शर्ते�‚ मिलाए�‚
+
+अनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।
+
+नि�•टतम मान्य सीमा ले�‚
+
+सीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।
+
+\[
+1050=d\times q
+\]
+
+\[
+d=5
+\]
+
+उत्तर
+अनु�•�‚लित मान्य मान 5 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(5\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।
+
+\[
+d=5
+\]
+
+शीघ्र परिणाम: \(5\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+\(1050\) ਨੂੰ ਸਭ ਤੋਂ ਛੋਟੇ ਸੰਭਵ ਭਾਜਕ ਨਾਲ ਭਾਗਣਾ ਹੈ ਤਾਂ ਜੋ ਭਾਗਫਲ ਹਾਲੇ ਵੀ \(30\) ਦਾ ਗੁਣਜ ਰਹੇ। ਉਹ ਭਾਜਕ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ
+
+ਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।
+
+ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ
+
+ਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।
+
+\[
+1050=d\times q
+\]
+
+\[
+d=5
+\]
+
+ਉੱਤਰ
+ਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 5 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(5\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।
+
+\[
+d=5
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(5\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_minimum_divisor
+
+---
+Q27. How many integers between \(119\) and \(290\) leave remainder \(11\) when divided by \(18\)?
+A. \(9\)
+B. \(12\)
+C. \(10\)
+D. \(11\)
+Answer: C
+
+Explanation:
+Observation
+The question asks for the best number that still follows the given rule.
+
+Explanation
+We are doing this because testing numbers one by one is slow; the pattern tells us where to look.
+
+Put the given conditions together first
+
+First combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.
+
+Now choose the number that stays within the given limit
+
+Now use the nearby multiples and choose the first or last one according to the question.
+
+\[
+N\equiv 11\pmod{18}
+\]
+
+\[
+c=10
+\]
+
+Answer
+The selected number is 10, and it satisfies the required divisibility condition.
+Therefore, the required answer is \(10\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not start testing random numbers. First find the repeating number pattern, then move to the nearest allowed value.
+
+Shortcut
+
+Take the LCM once, then jump directly to the nearest multiple asked in the question.
+
+\[
+c=10
+\]
+
+Fast result: \(10\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(119\) और \(290\) के बीच कितने पूर्णांक \(18\) से भाग देने पर शेष \(11\) छोड़ते हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहले स�‚ख्या शर्ते�‚ मिलाए�‚
+
+अनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।
+
+नि�•टतम मान्य सीमा ले�‚
+
+सीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।
+
+\[
+N\equiv 11\pmod{18}
+\]
+
+\[
+c=10
+\]
+
+उत्तर
+अनु�•�‚लित मान्य मान 10 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(10\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।
+
+\[
+c=10
+\]
+
+शीघ्र परिणाम: \(10\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(119\) ਅਤੇ \(290\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ \(11\) ਛੱਡਦੇ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ
+
+ਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।
+
+ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ
+
+ਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।
+
+\[
+N\equiv 11\pmod{18}
+\]
+
+\[
+c=10
+\]
+
+ਉੱਤਰ
+ਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 10 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(10\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।
+
+\[
+c=10
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(10\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_range_optimization
+
+---
+Q28. By what least number should \(72\) be multiplied to make it a perfect square?
+A. \(3\)
+B. \(1\)
+C. \(4\)
+D. \(2\)
+Answer: D
+
+Explanation:
+Observation
+A square is made from pairs of prime factors.
+
+Explanation
+We are doing this because every factor in a square comes in a pair.
+
+Factorize the given number
+
+Perfect powers are controlled by prime exponents.
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+Add only the missing prime powers
+
+For a square, every exponent must be even.
+
+\[
+2^{3}\to 2^{4}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+Multiply the missing part
+
+\[
+72\times 2=144
+\]
+
+Answer
+The perfect-power condition is now satisfied.
+Therefore, the required answer is \(2\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not multiply by the whole number again. For a square, add only the prime factors whose powers are unpaired.
+
+Shortcut
+
+Fill only the missing prime powers; do not search through squares or cubes.
+
+\[
+72\times 2=144
+\]
+
+Fast result: \(2\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(72\) को पूर्ण वर्ग बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚
+
+प�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+घातो�‚ �•ो प�‚रा �•रे�‚
+
+वर्ग �•े लिए हर घात सम होनी चाहिए।
+
+\[
+2^{3}\to 2^{4}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+आवश्य�• मान पढ़े�‚
+
+\[
+72\times 2=144
+\]
+
+उत्तर
+प�‚र्ण-घात शर्त अब प�‚री है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(2\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।
+
+\[
+72\times 2=144
+\]
+
+शीघ्र परिणाम: \(2\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(72\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ
+
+ਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।
+
+\[
+72=2^{3}\times 3^{2}
+\]
+
+ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ
+
+ਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।
+
+\[
+2^{3}\to 2^{4}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ
+
+\[
+72\times 2=144
+\]
+
+ਉੱਤਰ
+ਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(2\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।
+
+\[
+72\times 2=144
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(2\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_perfect_square_completion
+
+---
+Q29. What is the least perfect square that is divisible by \(200\)?
+A. \(400\)
+B. \(420\)
+C. \(440\)
+D. \(380\)
+Answer: A
+
+Explanation:
+Observation
+A square is made from pairs of prime factors.
+
+Explanation
+We are doing this because every factor in a square comes in a pair.
+
+Factorize the given number
+
+Perfect powers are controlled by prime exponents.
+
+\[
+200=2^{3}\times 5^{2}
+\]
+
+Add only the missing prime powers
+
+For a square, every exponent must be even.
+
+\[
+2^{3}\to 2^{4}
+\]
+
+\[
+5^{2}\to 5^{2}
+\]
+
+Multiply the missing part
+
+\[
+200\times 2=400
+\]
+
+Answer
+The perfect-power condition is now satisfied.
+Therefore, the required answer is \(400\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not multiply by the whole number again. For a square, add only the prime factors whose powers are unpaired.
+
+Shortcut
+
+Fill only the missing prime powers; do not search through squares or cubes.
+
+\[
+200\times 2=400
+\]
+
+Fast result: \(400\). Therefore, the correct answer is Option (A).
+
+Hindi:
+\(200\) से विभाज्य सबसे छोटा पूर्ण वर्ग कौन-सा है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚
+
+प�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।
+
+\[
+200=2^{3}\times 5^{2}
+\]
+
+घातो�‚ �•ो प�‚रा �•रे�‚
+
+वर्ग �•े लिए हर घात सम होनी चाहिए।
+
+\[
+2^{3}\to 2^{4}
+\]
+
+\[
+5^{2}\to 5^{2}
+\]
+
+आवश्य�• मान पढ़े�‚
+
+\[
+200\times 2=400
+\]
+
+उत्तर
+प�‚र्ण-घात शर्त अब प�‚री है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(400\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।
+
+\[
+200\times 2=400
+\]
+
+शीघ्र परिणाम: \(400\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+\(200\) ਨਾਲ ਭਾਗ ਜਾਣ ਵਾਲਾ ਸਭ ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਵਰਗ ਕਿਹੜਾ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ
+
+ਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।
+
+\[
+200=2^{3}\times 5^{2}
+\]
+
+ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ
+
+ਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।
+
+\[
+2^{3}\to 2^{4}
+\]
+
+\[
+5^{2}\to 5^{2}
+\]
+
+ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ
+
+\[
+200\times 2=400
+\]
+
+ਉੱਤਰ
+ਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(400\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।
+
+\[
+200\times 2=400
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(400\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_least_square_multiple
+
+---
+Q30. By what least number should \(180\) be multiplied to make it a perfect square?
+A. \(7\)
+B. \(5\)
+C. \(6\)
+D. \(4\)
+Answer: B
+
+Explanation:
+Observation
+A square is made from pairs of prime factors.
+
+Explanation
+We are doing this because every factor in a square comes in a pair.
+
+Factorize the given number
+
+Perfect powers are controlled by prime exponents.
+
+\[
+180=2^{2}\times 3^{2}\times 5
+\]
+
+Add only the missing prime powers
+
+For a square, every exponent must be even.
+
+\[
+2^{2}\to 2^{2}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+\[
+5^{1}\to 5^{2}
+\]
+
+Multiply the missing part
+
+\[
+180\times 5=900
+\]
+
+Answer
+The perfect-power condition is now satisfied.
+Therefore, the required answer is \(5\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not multiply by the whole number again. For a square, add only the prime factors whose powers are unpaired.
+
+Shortcut
+
+Fill only the missing prime powers; do not search through squares or cubes.
+
+\[
+180\times 5=900
+\]
+
+Fast result: \(5\). Therefore, the correct answer is Option (B).
+
+Hindi:
+\(180\) को पूर्ण वर्ग बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚
+
+प�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।
+
+\[
+180=2^{2}\times 3^{2}\times 5
+\]
+
+घातो�‚ �•ो प�‚रा �•रे�‚
+
+वर्ग �•े लिए हर घात सम होनी चाहिए।
+
+\[
+2^{2}\to 2^{2}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+\[
+5^{1}\to 5^{2}
+\]
+
+आवश्य�• मान पढ़े�‚
+
+\[
+180\times 5=900
+\]
+
+उत्तर
+प�‚र्ण-घात शर्त अब प�‚री है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(5\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।
+
+\[
+180\times 5=900
+\]
+
+शीघ्र परिणाम: \(5\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+\(180\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ
+
+ਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।
+
+\[
+180=2^{2}\times 3^{2}\times 5
+\]
+
+ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ
+
+ਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।
+
+\[
+2^{2}\to 2^{2}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+\[
+5^{1}\to 5^{2}
+\]
+
+ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ
+
+\[
+180\times 5=900
+\]
+
+ਉੱਤਰ
+ਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(5\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।
+
+\[
+180\times 5=900
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(5\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_square_factor_constraint
+
+---
+Q31. By what least number should \(252\) be multiplied to make it a perfect square?
+A. \(8\)
+B. \(6\)
+C. \(9\)
+D. \(7\)
+Answer: D
+
+Explanation:
+Observation
+A square is made from pairs of prime factors.
+
+Explanation
+We are doing this because every factor in a square comes in a pair.
+
+Factorize the given number
+
+Perfect powers are controlled by prime exponents.
+
+\[
+252=2^{2}\times 3^{2}\times 7
+\]
+
+Add only the missing prime powers
+
+For a square, every exponent must be even.
+
+\[
+2^{2}\to 2^{2}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+\[
+7^{1}\to 7^{2}
+\]
+
+Multiply the missing part
+
+\[
+252\times 7=1764
+\]
+
+Answer
+The perfect-power condition is now satisfied.
+Therefore, the required answer is \(7\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not multiply by the whole number again. For a square, add only the prime factors whose powers are unpaired.
+
+Shortcut
+
+Fill only the missing prime powers; do not search through squares or cubes.
+
+\[
+252\times 7=1764
+\]
+
+Fast result: \(7\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(252\) को पूर्ण वर्ग बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚
+
+प�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।
+
+\[
+252=2^{2}\times 3^{2}\times 7
+\]
+
+घातो�‚ �•ो प�‚रा �•रे�‚
+
+वर्ग �•े लिए हर घात सम होनी चाहिए।
+
+\[
+2^{2}\to 2^{2}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+\[
+7^{1}\to 7^{2}
+\]
+
+आवश्य�• मान पढ़े�‚
+
+\[
+252\times 7=1764
+\]
+
+उत्तर
+प�‚र्ण-घात शर्त अब प�‚री है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(7\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।
+
+\[
+252\times 7=1764
+\]
+
+शीघ्र परिणाम: \(7\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(252\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ
+
+ਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।
+
+\[
+252=2^{2}\times 3^{2}\times 7
+\]
+
+ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ
+
+ਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।
+
+\[
+2^{2}\to 2^{2}
+\]
+
+\[
+3^{2}\to 3^{2}
+\]
+
+\[
+7^{1}\to 7^{2}
+\]
+
+ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ
+
+\[
+252\times 7=1764
+\]
+
+ਉੱਤਰ
+ਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(7\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।
+
+\[
+252\times 7=1764
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(7\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_square_divisibility_hybrid
+
+---
+Q32. For powers of \(3\) modulo \(7\), the remainder is \(3\). Which exponent between \(22\) and \(28\) gives this remainder?
+A. \(24\)
+B. \(27\)
+C. \(25\)
+D. \(26\)
+Answer: C
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+This question mixes more than one number-system idea.
+
+The rule in this question controls which numbers are allowed, so use it before choosing the answer.
+
+\[
+3^{e}\equiv 3\pmod{7}
+\]
+
+Use this smaller set for the next calculation
+
+This step keeps the same number tied to the remaining arithmetic condition.
+
+\[
+e=25
+\]
+
+Answer
+The calculated value 25 satisfies the arithmetic condition used above.
+Therefore, the required answer is \(25\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+Start with the clue that gives the smallest search, then test the remaining condition.
+
+\[
+e=25
+\]
+
+Fast result: \(25\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(3\) की घातों को \(7\) से भाग देने पर शेष \(3\) मिलता है। \(22\) और \(28\) के बीच कौन-सा घातांक यह शेष देता है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚
+
+पुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।
+
+\[
+3^{e}\equiv 3\pmod{7}
+\]
+
+परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚
+
+इससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।
+
+\[
+e=25
+\]
+
+उत्तर
+पुनर्निर्मित मान 25 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(25\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।
+
+\[
+e=25
+\]
+
+शीघ्र परिणाम: \(25\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(3\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ \(7\) ਨਾਲ ਭਾਗਣ ਤੇ ਬਾਕੀ \(3\) ਮਿਲਦਾ ਹੈ। \(22\) ਅਤੇ \(28\) ਵਿਚਕਾਰ ਕਿਹੜਾ ਘਾਤਾਂਕ ਇਹ ਬਾਕੀ ਦਿੰਦਾ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ
+
+ਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।
+
+\[
+3^{e}\equiv 3\pmod{7}
+\]
+
+ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ
+
+ਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।
+
+\[
+e=25
+\]
+
+ਉੱਤਰ
+ਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 25 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(25\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।
+
+\[
+e=25
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(25\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_hidden_exponent_reconstruction
+
+---
+Q33. A number leaves remainder \(11\) when divided by both \(6\) and \(16\). If it is the \(10\)-th such number after zero, what is the number?
+A. \(466\)
+B. \(491\)
+C. \(516\)
+D. \(540\)
+Answer: B
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+This question mixes more than one number-system idea.
+
+The rule in this question controls which numbers are allowed, so use it before choosing the answer.
+
+\[
+N=48\times 10+11
+\]
+
+Use this smaller set for the next calculation
+
+This step keeps the same number tied to the remaining arithmetic condition.
+
+\[
+491
+\]
+
+Answer
+The calculated value 491 satisfies the arithmetic condition used above.
+Therefore, the required answer is \(491\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+Start with the clue that gives the smallest search, then test the remaining condition.
+
+\[
+491
+\]
+
+Fast result: \(491\). Therefore, the correct answer is Option (B).
+
+Hindi:
+एक संख्या \(6\) और \(16\) दोनों से भाग देने पर शेष \(11\) छोड़ती है। शून्य के बाद ऐसी \(10\)-वीं संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚
+
+पुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।
+
+\[
+N=48\times 10+11
+\]
+
+परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚
+
+इससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।
+
+\[
+491
+\]
+
+उत्तर
+पुनर्निर्मित मान 491 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(491\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।
+
+\[
+491
+\]
+
+शीघ्र परिणाम: \(491\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+ਇੱਕ ਸੰਖਿਆ \(6\) ਅਤੇ \(16\) ਦੋਵਾਂ ਨਾਲ ਭਾਗਣ ਤੇ ਬਾਕੀ \(11\) ਛੱਡਦੀ ਹੈ। ਸਿਫ਼ਰ ਤੋਂ ਬਾਅਦ ਐਸੀ \(10\)-ਵੀਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ
+
+ਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।
+
+\[
+N=48\times 10+11
+\]
+
+ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ
+
+ਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।
+
+\[
+491
+\]
+
+ਉੱਤਰ
+ਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 491 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(491\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।
+
+\[
+491
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(491\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_multi_condition_reconstruction
+
+---
+Q34. Prime factors of \(18\) and \(30\) are used to form their common cycle. What is the least common-cycle number greater than \(901\)?
+A. \(990\)
+B. \(1040\)
+C. \(1089\)
+D. \(940\)
+Answer: A
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+HCF means the greatest part common to all numbers.
+
+The rule in this question controls which numbers are allowed, so use it before choosing the answer.
+
+\[
+m=\operatorname{LCM}(18,30)
+\]
+
+Use this smaller set for the next calculation
+
+This step keeps the same number tied to the remaining arithmetic condition.
+
+\[
+990
+\]
+
+Answer
+The calculated value 990 satisfies the arithmetic condition used above.
+Therefore, the required answer is \(990\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Start with the clue that gives the smallest search, then test the remaining condition.
+
+\[
+990
+\]
+
+Fast result: \(990\). Therefore, the correct answer is Option (A).
+
+Hindi:
+\(18\) और \(30\) के अभाज्य गुणनखंडों से सामान्य चक्र बनता है। \(901\) से बड़ा सबसे छोटा सामान्य-चक्र मान क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚
+
+पुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।
+
+\[
+m=\operatorname{LCM}(18,30)
+\]
+
+परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚
+
+इससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।
+
+\[
+990
+\]
+
+उत्तर
+पुनर्निर्मित मान 990 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(990\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।
+
+\[
+990
+\]
+
+शीघ्र परिणाम: \(990\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+\(18\) ਅਤੇ \(30\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡਾਂ ਨਾਲ ਸਾਂਝਾ ਚੱਕਰ ਬਣਦਾ ਹੈ। \(901\) ਤੋਂ ਵੱਡਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਾਂਝਾ-ਚੱਕਰ ਮੁੱਲ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ
+
+ਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।
+
+\[
+m=\operatorname{LCM}(18,30)
+\]
+
+ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ
+
+ਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।
+
+\[
+990
+\]
+
+ਉੱਤਰ
+ਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 990 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(990\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।
+
+\[
+990
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(990\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_prime_hcf_lcm_optimization
+
+---
+Q35. What is the least number greater than \(804\) that is divisible by both \(9\) and \(24\)?
+A. \(821\)
+B. \(864\)
+C. \(907\)
+D. \(950\)
+Answer: B
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Put the given conditions together first
+
+First combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.
+
+\[
+m=72
+\]
+
+Now choose the number that stays within the given limit
+
+Now use the nearby multiples and choose the first or last one according to the question.
+
+\[
+q=\left\lceil\frac{805}{72}\right\rceil
+\]
+
+\[
+72\times q=864
+\]
+
+Answer
+The selected number is 864, and it satisfies the required divisibility condition.
+Therefore, the required answer is \(864\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+Take the LCM once, then jump directly to the nearest multiple asked in the question.
+
+\[
+72\times q=864
+\]
+
+Fast result: \(864\). Therefore, the correct answer is Option (B).
+
+Hindi:
+\(804\) से बड़ी सबसे छोटी संख्या कौन-सी है जो \(9\) और \(24\) दोनों से विभाज्य हो?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहले स�‚ख्या शर्ते�‚ मिलाए�‚
+
+अनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।
+
+\[
+m=72
+\]
+
+नि�•टतम मान्य सीमा ले�‚
+
+सीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।
+
+\[
+q=\left\lceil\frac{805}{72}\right\rceil
+\]
+
+\[
+72\times q=864
+\]
+
+उत्तर
+अनु�•�‚लित मान्य मान 864 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(864\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।
+
+\[
+72\times q=864
+\]
+
+शीघ्र परिणाम: \(864\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+\(804\) ਤੋਂ ਵੱਡੀ ਸਭ ਤੋਂ ਛੋਟੀ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ ਜੋ \(9\) ਅਤੇ \(24\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ
+
+ਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।
+
+\[
+m=72
+\]
+
+ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ
+
+ਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।
+
+\[
+q=\left\lceil\frac{805}{72}\right\rceil
+\]
+
+\[
+72\times q=864
+\]
+
+ਉੱਤਰ
+ਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 864 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(864\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।
+
+\[
+72\times q=864
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(864\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_remainder_constraint_optimization
+
+---
+Q36. A number is rebuilt from exact prime-power choices and the smallest valid value is \(108\). What is that value?
+A. \(119\)
+B. \(103\)
+C. \(108\)
+D. \(113\)
+Answer: C
+
+Explanation:
+Observation
+The number of divisors depends on exponent choices.
+
+Explanation
+We are doing this because the target count must be created from exponent choices.
+
+The number of divisors depends on exponent choices.
+
+The rule in this question controls which numbers are allowed, so use it before choosing the answer.
+
+\[
+108=2^{a}\times3^{b}\times5^{c}
+\]
+
+Use this smaller set for the next calculation
+
+This step keeps the same number tied to the remaining arithmetic condition.
+
+\[
+108\mid 108
+\]
+
+Answer
+The calculated value 108 satisfies the arithmetic condition used above.
+Therefore, the required answer is \(108\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not guess the number first. Match the required divisor count with exponent-choice counts.
+
+Shortcut
+
+Start with the clue that gives the smallest search, then test the remaining condition.
+
+\[
+108\mid 108
+\]
+
+Fast result: \(108\). Therefore, the correct answer is Option (C).
+
+Hindi:
+अभाज्य-घात विकल्पों से संख्या बनती है और सबसे छोटा मान \(108\) है। वह मान क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚
+
+पुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।
+
+\[
+108=2^{a}\times3^{b}\times5^{c}
+\]
+
+परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚
+
+इससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।
+
+\[
+108\mid 108
+\]
+
+उत्तर
+पुनर्निर्मित मान 108 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(108\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।
+
+\[
+108\mid 108
+\]
+
+शीघ्र परिणाम: \(108\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਅਭਾਜ-ਘਾਤ ਚੋਣਾਂ ਤੋਂ ਸੰਖਿਆ ਬਣਦੀ ਹੈ ਅਤੇ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ \(108\) ਹੈ। ਉਹ ਮੁੱਲ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ
+
+ਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।
+
+\[
+108=2^{a}\times3^{b}\times5^{c}
+\]
+
+ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ
+
+ਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।
+
+\[
+108\mid 108
+\]
+
+ਉੱਤਰ
+ਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 108 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(108\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।
+
+\[
+108\mid 108
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(108\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_prime_exact_divisor_optimization
+
+---
+Q37. In the number \(46x2\), the missing digit is chosen so that the completed number satisfies the digit rule and divisibility check. What completed number is obtained?
+A. \(5128\)
+B. \(5594\)
+C. \(4196\)
+D. \(4662\)
+Answer: D
+
+Explanation:
+Observation
+A missing digit is decided by the divisibility test in the question.
+
+Explanation
+We are doing this because the right digit must make the whole number pass the divisibility test.
+
+A missing digit is decided by the divisibility test in the question.
+
+The rule in this question controls which numbers are allowed, so use it before choosing the answer.
+
+\[
+4662\equiv 0\pmod{9}
+\]
+
+Use this smaller set for the next calculation
+
+This step keeps the same number tied to the remaining arithmetic condition.
+
+\[
+4662
+\]
+
+Answer
+The calculated value 4662 satisfies the arithmetic condition used above.
+Therefore, the required answer is \(4662\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Many students test only the missing digit. Always put the digit back into the whole number and check the full divisibility condition.
+
+Shortcut
+
+Start with the clue that gives the smallest search, then test the remaining condition.
+
+\[
+4662
+\]
+
+Fast result: \(4662\). Therefore, the correct answer is Option (D).
+
+Hindi:
+संख्या \(46x2\) में लुप्त अंक ऐसा चुना जाता है कि पूरी संख्या अंक-नियम और विभाज्यता जाँच पूरी करे। पूरी संख्या क्या बनेगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚
+
+पुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।
+
+\[
+4662\equiv 0\pmod{9}
+\]
+
+परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚
+
+इससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।
+
+\[
+4662
+\]
+
+उत्तर
+पुनर्निर्मित मान 4662 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(4662\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।
+
+\[
+4662
+\]
+
+शीघ्र परिणाम: \(4662\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਸੰਖਿਆ \(46x2\) ਵਿੱਚ ਗੁੰਮ ਅੰਕ ਐਸਾ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਪੂਰੀ ਸੰਖਿਆ ਅੰਕ-ਨਿਯਮ ਅਤੇ ਭਾਗਯੋਗਤਾ ਜਾਂਚ ਪੂਰੀ ਕਰੇ। ਪੂਰੀ ਸੰਖਿਆ ਕੀ ਬਣੇਗੀ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ
+
+ਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।
+
+\[
+4662\equiv 0\pmod{9}
+\]
+
+ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ
+
+ਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।
+
+\[
+4662
+\]
+
+ਉੱਤਰ
+ਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 4662 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(4662\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।
+
+\[
+4662
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(4662\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_digit_divisibility_hcf_verification
+
+---
+Q38. Digit sum \(9\) with tens digit \(5\) identifies which two-digit number?
+A. \(54\)
+B. \(55\)
+C. \(53\)
+D. \(56\)
+Answer: A
+
+Explanation:
+Observation
+A missing digit is decided by the divisibility test in the question.
+
+Explanation
+We are doing this because the right digit must make the whole number pass the divisibility test.
+
+Form the digit-sum equation
+
+\[
+5+u=9\Rightarrow u=4
+\]
+
+Write the two-digit number
+
+Hence, the number is 54.
+
+\[
+N=10\times 5+4=54
+\]
+
+Answer
+Digit sum of 54 is 9.
+Therefore, the required answer is \(54\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Many students test only the missing digit. Always put the digit back into the whole number and check the full divisibility condition.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=4
+\]
+
+\[
+\boxed{54}
+\]
+
+Fast result: \(54\). Therefore, the correct answer is Option (A).
+
+Hindi:
+दो-अंकीय संख्या का अंक-योग \(9\) और दहाई अंक \(5\) ज्ञात हैं। संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+5+u=9\Rightarrow u=4
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 54 है।
+
+\[
+N=10\times 5+4=54
+\]
+
+उत्तर
+54 का अंक-योग 9 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(54\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=4
+\]
+
+\[
+\boxed{54}
+\]
+
+शीघ्र परिणाम: \(54\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \(9\) ਅਤੇ ਦਹਾਈ ਅੰਕ \(5\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+5+u=9\Rightarrow u=4
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 54 ਹੈ।
+
+\[
+N=10\times 5+4=54
+\]
+
+ਉੱਤਰ
+54 ਦਾ ਅੰਕ-ਜੋੜ 9 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(54\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=4
+\]
+
+\[
+\boxed{54}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(54\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_missing_digit_multi_rule
+
+---
+Q39. Between \(137\) and \(218\), how many integers are divisible by \(18\)?
+A. \(6\)
+B. \(4\)
+C. \(7\)
+D. \(5\)
+Answer: D
+
+Explanation:
+Observation
+A missing digit is decided by the divisibility test in the question.
+
+Explanation
+We are doing this because the right digit must make the whole number pass the divisibility test.
+
+Find the first valid multiple
+
+Therefore, the first multiple of 18 greater than 137 is 144.
+
+\[
+18\times 8=144
+\]
+
+Find the last valid multiple
+
+Therefore, 216 is the greatest multiple of 18 not exceeding 218.
+
+\[
+218=18\times 12+2
+\]
+
+\[
+218-2=216
+\]
+
+Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 18.
+
+\[
+\frac{216-144}{18}+1=4+1=5
+\]
+
+Answer
+The total number of multiples is 5.
+Hence, there are 5 multiples of 18 in the given range.
+Therefore, the required answer is \(5\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Many students test only the missing digit. Always put the digit back into the whole number and check the full divisibility condition.
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{218}{18}\right\rfloor-\left\lfloor\frac{136}{18}\right\rfloor
+\]
+
+\[
+12-7=5
+\]
+
+Fast result: \(5\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(137\) और \(218\) के बीच कितने पूर्णांक \(18\) से विभाज्य हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहला मान्य गुणज ज्ञात करें
+
+अतः 137 से बड़ा 18 का पहला गुणज 144 है।
+
+\[
+18\times 8=144
+\]
+
+आखिरी वैध गुणज ज्ञात करें
+
+अतः 216, 218 से अधिक न होने वाला 18 का सबसे बड़ा गुणज है।
+
+\[
+218=18\times 12+2
+\]
+
+\[
+218-2=216
+\]
+
+मान्य गुणजों की गिनती करें
+
+गुणज 18 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।
+
+\[
+\frac{216-144}{18}+1=4+1=5
+\]
+
+उत्तर
+गुणजों की कुल संख्या 5 है।
+अतः दी गई सीमा में 18 के 5 गुणज हैं।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(5\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।
+
+\[
+\left\lfloor\frac{218}{18}\right\rfloor-\left\lfloor\frac{136}{18}\right\rfloor
+\]
+
+\[
+12-7=5
+\]
+
+शीघ्र परिणाम: \(5\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(137\) ਅਤੇ \(218\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(18\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 137 ਤੋਂ ਵੱਡਾ 18 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 144 ਹੈ।
+
+\[
+18\times 8=144
+\]
+
+ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 216, 218 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 18 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।
+
+\[
+218=18\times 12+2
+\]
+
+\[
+218-2=216
+\]
+
+ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ
+
+ਗੁਣਜ 18 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।
+
+\[
+\frac{216-144}{18}+1=4+1=5
+\]
+
+ਉੱਤਰ
+ਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 5 ਹੈ।
+ਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 18 ਦੇ 5 ਗੁਣਜ ਹਨ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(5\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।
+
+\[
+\left\lfloor\frac{218}{18}\right\rfloor-\left\lfloor\frac{136}{18}\right\rfloor
+\]
+
+\[
+12-7=5
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(5\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_divisibility_multi_condition
+
+---
+Q40. Between \(145\) and \(317\), how many integers are divisible by \(9\)?
+A. \(18\)
+B. \(21\)
+C. \(19\)
+D. \(20\)
+Answer: C
+
+Explanation:
+Observation
+A missing digit is decided by the divisibility test in the question.
+
+Explanation
+We are doing this because the right digit must make the whole number pass the divisibility test.
+
+Find the first valid multiple
+
+Therefore, the first multiple of 9 greater than 145 is 153.
+
+\[
+9\times 17=153
+\]
+
+Find the last valid multiple
+
+Therefore, 315 is the greatest multiple of 9 not exceeding 317.
+
+\[
+317=9\times 35+2
+\]
+
+\[
+317-2=315
+\]
+
+Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 9.
+
+\[
+\frac{315-153}{9}+1=18+1=19
+\]
+
+Answer
+The total number of multiples is 19.
+Hence, there are 19 multiples of 9 in the given range.
+Therefore, the required answer is \(19\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Many students test only the missing digit. Always put the digit back into the whole number and check the full divisibility condition.
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{317}{9}\right\rfloor-\left\lfloor\frac{144}{9}\right\rfloor
+\]
+
+\[
+35-16=19
+\]
+
+Fast result: \(19\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(145\) और \(317\) के बीच कितने पूर्णांक \(9\) से विभाज्य हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहला मान्य गुणज ज्ञात करें
+
+अतः 145 से बड़ा 9 का पहला गुणज 153 है।
+
+\[
+9\times 17=153
+\]
+
+आखिरी वैध गुणज ज्ञात करें
+
+अतः 315, 317 से अधिक न होने वाला 9 का सबसे बड़ा गुणज है।
+
+\[
+317=9\times 35+2
+\]
+
+\[
+317-2=315
+\]
+
+मान्य गुणजों की गिनती करें
+
+गुणज 9 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।
+
+\[
+\frac{315-153}{9}+1=18+1=19
+\]
+
+उत्तर
+गुणजों की कुल संख्या 19 है।
+अतः दी गई सीमा में 9 के 19 गुणज हैं।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(19\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।
+
+\[
+\left\lfloor\frac{317}{9}\right\rfloor-\left\lfloor\frac{144}{9}\right\rfloor
+\]
+
+\[
+35-16=19
+\]
+
+शीघ्र परिणाम: \(19\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(145\) ਅਤੇ \(317\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(9\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 145 ਤੋਂ ਵੱਡਾ 9 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 153 ਹੈ।
+
+\[
+9\times 17=153
+\]
+
+ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 315, 317 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 9 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।
+
+\[
+317=9\times 35+2
+\]
+
+\[
+317-2=315
+\]
+
+ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ
+
+ਗੁਣਜ 9 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।
+
+\[
+\frac{315-153}{9}+1=18+1=19
+\]
+
+ਉੱਤਰ
+ਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 19 ਹੈ।
+ਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 9 ਦੇ 19 ਗੁਣਜ ਹਨ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(19\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।
+
+\[
+\left\lfloor\frac{317}{9}\right\rfloor-\left\lfloor\frac{144}{9}\right\rfloor
+\]
+
+\[
+35-16=19
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(19\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_large_expression_divisibility
+
+---
+Q41. For the number \(4320\), find the count of positive divisors?
+A. \(47\)
+B. \(50\)
+C. \(48\)
+D. \(49\)
+Answer: C
+
+Explanation:
+Observation
+Prime factors show the building blocks of the number.
+
+Explanation
+We are doing this because prime powers make hidden divisibility facts visible.
+
+Write prime factorization
+
+\[
+4320=2^{5}\times 3^{3}\times 5
+\]
+
+For each prime power, count all choices from zero up to that exponent
+
+Each exponent contributes one more choice than its value.
+
+\[
+d(4320)=(5+1)\times (3+1)\times (1+1)=48
+\]
+
+Answer
+The number of positive divisors is 48.
+Therefore, the required answer is \(48\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not skip factorization when the question is about factors, HCF, LCM, squares, or cubes. The prime powers carry the answer.
+
+Shortcut
+
+Multiply (exponent + 1) across all prime powers.
+
+\[
+(5+1)\times (3+1)\times (1+1)
+\]
+
+Fast result: \(48\). Therefore, the correct answer is Option (C).
+
+Hindi:
+संख्या \(4320\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+4320=2^{5}\times 3^{3}\times 5
+\]
+
+घातों पर (+1) नियम लगाएं
+
+प्रत्येक घात अपने मान से एक अधिक विकल्प देती है।
+
+\[
+d(4320)=(5+1)\times (3+1)\times (1+1)=48
+\]
+
+उत्तर
+धनात्मक भाजकों की संख्या 48 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(48\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सभी अभाज्य घातों पर (घात + 1) का गुणन करें।
+
+\[
+(5+1)\times (3+1)\times (1+1)
+\]
+
+शीघ्र परिणाम: \(48\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਸੰਖਿਆ \(4320\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+4320=2^{5}\times 3^{3}\times 5
+\]
+
+ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ
+
+ਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।
+
+\[
+d(4320)=(5+1)\times (3+1)\times (1+1)=48
+\]
+
+ਉੱਤਰ
+ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 48 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(48\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।
+
+\[
+(5+1)\times (3+1)\times (1+1)
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(48\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_prime_factorization
+
+---
+Q42. For the number \(480\), find the count of positive divisors?
+A. \(23\)
+B. \(26\)
+C. \(24\)
+D. \(25\)
+Answer: C
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+Write prime factorization
+
+\[
+480=2^{5}\times 3\times 5
+\]
+
+For each prime power, count all choices from zero up to that exponent
+
+Each exponent contributes one more choice than its value.
+
+\[
+d(480)=(5+1)\times (1+1)\times (1+1)=24
+\]
+
+Answer
+The number of positive divisors is 24.
+Therefore, the required answer is \(24\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+Multiply (exponent + 1) across all prime powers.
+
+\[
+(5+1)\times (1+1)\times (1+1)
+\]
+
+Fast result: \(24\). Therefore, the correct answer is Option (C).
+
+Hindi:
+संख्या \(480\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+480=2^{5}\times 3\times 5
+\]
+
+घातों पर (+1) नियम लगाएं
+
+प्रत्येक घात अपने मान से एक अधिक विकल्प देती है।
+
+\[
+d(480)=(5+1)\times (1+1)\times (1+1)=24
+\]
+
+उत्तर
+धनात्मक भाजकों की संख्या 24 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(24\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सभी अभाज्य घातों पर (घात + 1) का गुणन करें।
+
+\[
+(5+1)\times (1+1)\times (1+1)
+\]
+
+शीघ्र परिणाम: \(24\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਸੰਖਿਆ \(480\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+480=2^{5}\times 3\times 5
+\]
+
+ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ
+
+ਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।
+
+\[
+d(480)=(5+1)\times (1+1)\times (1+1)=24
+\]
+
+ਉੱਤਰ
+ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 24 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(24\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।
+
+\[
+(5+1)\times (1+1)\times (1+1)
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(24\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_prime_composite_deduction
+
+---
+Q43. For the number \(1440\), find the count of positive divisors?
+A. \(35\)
+B. \(38\)
+C. \(36\)
+D. \(37\)
+Answer: C
+
+Explanation:
+Observation
+The number of divisors depends on exponent choices.
+
+Explanation
+We are doing this because the target count must be created from exponent choices.
+
+Write prime factorization
+
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+
+For each prime power, count all choices from zero up to that exponent
+
+Each exponent contributes one more choice than its value.
+
+\[
+d(1440)=(5+1)\times (2+1)\times (1+1)=36
+\]
+
+Answer
+The number of positive divisors is 36.
+Therefore, the required answer is \(36\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not guess the number first. Match the required divisor count with exponent-choice counts.
+
+Shortcut
+
+Multiply (exponent + 1) across all prime powers.
+
+\[
+(5+1)\times (2+1)\times (1+1)
+\]
+
+Fast result: \(36\). Therefore, the correct answer is Option (C).
+
+Hindi:
+संख्या \(1440\) के लिए धनात्मक भाजकों की संख्या ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+
+घातों पर (+1) नियम लगाएं
+
+प्रत्येक घात अपने मान से एक अधिक विकल्प देती है।
+
+\[
+d(1440)=(5+1)\times (2+1)\times (1+1)=36
+\]
+
+उत्तर
+धनात्मक भाजकों की संख्या 36 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(36\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सभी अभाज्य घातों पर (घात + 1) का गुणन करें।
+
+\[
+(5+1)\times (2+1)\times (1+1)
+\]
+
+शीघ्र परिणाम: \(36\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਸੰਖਿਆ \(1440\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+1440=2^{5}\times 3^{2}\times 5
+\]
+
+ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ
+
+ਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।
+
+\[
+d(1440)=(5+1)\times (2+1)\times (1+1)=36
+\]
+
+ਉੱਤਰ
+ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 36 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(36\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।
+
+\[
+(5+1)\times (2+1)\times (1+1)
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(36\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_exact_divisor_count
+
+---
+Q44. For the number \(20\), find the product of its positive divisors?
+A. \(9600\)
+B. \(7200\)
+C. \(8000\)
+D. \(8800\)
+Answer: C
+
+Explanation:
+Observation
+Every divisor is made by choosing some power of each prime.
+
+Explanation
+We are doing this because each prime power gives several choices for building a divisor.
+
+Write prime factorization
+
+\[
+20=2^{2}\times 5
+\]
+
+Count the divisors
+
+\[
+d(20)=(2+1)\times (1+1)=6
+\]
+
+Use the product-of-divisors identity
+
+\[
+\prod d\mid 20 d=20^{d(20)/2}=20^{6/2}=8000
+\]
+
+Answer
+The product of all positive divisors is 8000.
+Therefore, the required answer is \(8000\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not multiply the exponents directly. Each exponent gives one extra choice because choosing power zero is also allowed.
+
+Shortcut
+
+After counting divisors, raise n to half the divisor count.
+
+\[
+20^{6/2}=8000
+\]
+
+Fast result: \(8000\). Therefore, the correct answer is Option (C).
+
+Hindi:
+संख्या \(20\) के लिए धनात्मक भाजकों का गुणनफल ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+20=2^{2}\times 5
+\]
+
+भाजकों की संख्या ज्ञात करें
+
+\[
+d(20)=(2+1)\times (1+1)=6
+\]
+
+भाजकों के गुणनफल की पहचान लगाएं
+
+\[
+\prod d\mid 20 d=20^{d(20)/2}=20^{6/2}=8000
+\]
+
+उत्तर
+सभी धनात्मक भाजकों का गुणनफल 8000 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(8000\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+भाजक गिनती के बाद n को आधी गिनती की घात दें।
+
+\[
+20^{6/2}=8000
+\]
+
+शीघ्र परिणाम: \(8000\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਸੰਖਿਆ \(20\) ਲਈ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+20=2^{2}\times 5
+\]
+
+ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ
+
+\[
+d(20)=(2+1)\times (1+1)=6
+\]
+
+ਭਾਜਕਾਂ ਦੇ ਗੁਣਨਫਲ ਦੀ ਪਛਾਣ ਲਗਾਓ
+
+\[
+\prod d\mid 20 d=20^{d(20)/2}=20^{6/2}=8000
+\]
+
+ਉੱਤਰ
+ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ 8000 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(8000\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਭਾਜਕ ਗਿਣਤੀ ਤੋਂ ਬਾਅਦ n ਨੂੰ ਅੱਧੀ ਗਿਣਤੀ ਦੀ ਘਾਤ ਦਿਓ।
+
+\[
+20^{6/2}=8000
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(8000\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_product_of_divisors
+
+---
+Q45. Bells ring at intervals of \(105\) and \(105\) minutes. After how many minutes will both ring together again?
+A. \(116\)
+B. \(100\)
+C. \(105\)
+D. \(110\)
+Answer: C
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+105=3\times 5\times 7
+\]
+
+\[
+105=3\times 5\times 7
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(105,105)=105
+\]
+
+Answer
+The LCM is 105.
+Therefore, the required answer is \(105\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(105,105)=\frac{105\times 105}{\operatorname{HCF}(105,105)}=105
+\]
+
+Fast result: \(105\). Therefore, the correct answer is Option (C).
+
+Hindi:
+घंटियाँ \(105\) और \(105\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+105=3\times 5\times 7
+\]
+
+\[
+105=3\times 5\times 7
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(105,105)=105
+\]
+
+उत्तर
+LCM 105 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(105\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(105,105)=\frac{105\times 105}{\operatorname{HCF}(105,105)}=105
+\]
+
+शीघ्र परिणाम: \(105\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਘੰਟੀਆਂ \(105\) ਅਤੇ \(105\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+105=3\times 5\times 7
+\]
+
+\[
+105=3\times 5\times 7
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(105,105)=105
+\]
+
+ਉੱਤਰ
+LCM 105 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(105\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(105,105)=\frac{105\times 105}{\operatorname{HCF}(105,105)}=105
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(105\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_hidden_hcf
+
+---
+Q46. Two cyclic events repeat every \(56\) and \(136\) minutes. After how many minutes will they occur together again?
+A. \(1000\)
+B. \(1047\)
+C. \(904\)
+D. \(952\)
+Answer: D
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+56=2^{3}\times 7
+\]
+
+\[
+136=2^{3}\times 17
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(56,136)=952
+\]
+
+Answer
+The LCM is 952.
+Therefore, the required answer is \(952\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(56,136)=\frac{56\times 136}{\operatorname{HCF}(56,136)}=952
+\]
+
+Fast result: \(952\). Therefore, the correct answer is Option (D).
+
+Hindi:
+दो घटनाएँ हर \(56\) और \(136\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+56=2^{3}\times 7
+\]
+
+\[
+136=2^{3}\times 17
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(56,136)=952
+\]
+
+उत्तर
+LCM 952 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(952\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(56,136)=\frac{56\times 136}{\operatorname{HCF}(56,136)}=952
+\]
+
+शीघ्र परिणाम: \(952\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(56\) ਅਤੇ \(136\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+56=2^{3}\times 7
+\]
+
+\[
+136=2^{3}\times 17
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(56,136)=952
+\]
+
+ਉੱਤਰ
+LCM 952 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(952\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(56,136)=\frac{56\times 136}{\operatorname{HCF}(56,136)}=952
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(952\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_fraction_hcf_lcm
+
+---
+Q47. For two numbers \(60\) and \(195\), which common multiple is first reached?
+A. \(780\)
+B. \(819\)
+C. \(858\)
+D. \(741\)
+Answer: A
+
+Explanation:
+Observation
+LCM must be a multiple of every given number.
+
+Explanation
+We are doing this because the LCM must have enough factors to cover every given number.
+
+Write prime factorizations
+
+\[
+60=2^{2}\times 3\times 5
+\]
+
+\[
+195=3\times 5\times 13
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(60,195)=780
+\]
+
+Answer
+The LCM is 780.
+Therefore, the required answer is \(780\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not take only common primes for LCM. LCM must include every prime needed by any of the numbers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(60,195)=\frac{60\times 195}{\operatorname{HCF}(60,195)}=780
+\]
+
+Fast result: \(780\). Therefore, the correct answer is Option (A).
+
+Hindi:
+दो संख्याओं \(60\) और \(195\) के लिए पहला साझा गुणज क्या होगा?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+60=2^{2}\times 3\times 5
+\]
+
+\[
+195=3\times 5\times 13
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(60,195)=780
+\]
+
+उत्तर
+LCM 780 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(780\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(60,195)=\frac{60\times 195}{\operatorname{HCF}(60,195)}=780
+\]
+
+शीघ्र परिणाम: \(780\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਦੋ ਸੰਖਿਆਵਾਂ \(60\) ਅਤੇ \(195\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+60=2^{2}\times 3\times 5
+\]
+
+\[
+195=3\times 5\times 13
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(60,195)=780
+\]
+
+ਉੱਤਰ
+LCM 780 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(780\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(60,195)=\frac{60\times 195}{\operatorname{HCF}(60,195)}=780
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(780\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_schedule_alignment
+
+---
+Q48. Power \(11^{36}\) is tested modulo \(5\). Which remainder is obtained?
+A. \(1\)
+B. \(2\)
+C. \(0\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Observation
+Large powers usually repeat their remainders.
+
+Explanation
+We are doing this because the repeating pattern lets us avoid a huge power calculation.
+
+Replace the big base by its smaller remainder
+
+\[
+11\equiv 1\pmod{5}
+\]
+
+Write the remainder cycle
+
+Cycle length = 1.
+
+\[
+1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(36-1)\bmod 1+1=1
+\]
+
+Read the required remainder
+
+Hence, remainder = 1.
+
+\[
+11^{36}\equiv 1\pmod{5}
+\]
+
+Answer
+The 1st term of the cycle is 1.
+Therefore, the required answer is \(1\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not divide the exponent by the divisor. The exponent is matched with the length of the repeating pattern.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(36-1)\bmod 1+1=1
+\]
+
+\[
+1^{36}\equiv 1\pmod{5}
+\]
+
+Fast result: \(1\). Therefore, the correct answer is Option (A).
+
+Hindi:
+बड़ी घात \(11^{36}\) को \(5\) से भाग दिया गया। शेषफल क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+11\equiv 1\pmod{5}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 1।
+
+\[
+1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(36-1)\bmod 1+1=1
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 1।
+
+\[
+11^{36}\equiv 1\pmod{5}
+\]
+
+उत्तर
+चक्र का 1वाँ पद 1 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(1\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(36-1)\bmod 1+1=1
+\]
+
+\[
+1^{36}\equiv 1\pmod{5}
+\]
+
+शीघ्र परिणाम: \(1\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(11^{36}\) ਨੂੰ \(5\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+11\equiv 1\pmod{5}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 1।
+
+\[
+1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(36-1)\bmod 1+1=1
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 1।
+
+\[
+11^{36}\equiv 1\pmod{5}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 1 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(1\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(36-1)\bmod 1+1=1
+\]
+
+\[
+1^{36}\equiv 1\pmod{5}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(1\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_modular_cycle
+
+---
+Q49. Power \(13^{47}\) is tested modulo \(13\). Which remainder is obtained?
+A. \(0\)
+B. \(1\)
+C. \(2\)
+D. \(3\)
+Answer: A
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Replace the big base by its smaller remainder
+
+\[
+13\equiv 0\pmod{13}
+\]
+
+Write the remainder cycle
+
+Cycle length = 1.
+
+\[
+0
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(47-1)\bmod 1+1=1
+\]
+
+Read the required remainder
+
+Hence, remainder = 0.
+
+\[
+13^{47}\equiv 0\pmod{13}
+\]
+
+Answer
+The 1st term of the cycle is 0.
+Therefore, the required answer is \(0\). Hence, the correct answer is Option (A).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(47-1)\bmod 1+1=1
+\]
+
+\[
+0^{47}\equiv 0\pmod{13}
+\]
+
+Fast result: \(0\). Therefore, the correct answer is Option (A).
+
+Hindi:
+बड़ी घात \(13^{47}\) को \(13\) से भाग दिया गया। शेषफल क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+13\equiv 0\pmod{13}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 1।
+
+\[
+0
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(47-1)\bmod 1+1=1
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 0।
+
+\[
+13^{47}\equiv 0\pmod{13}
+\]
+
+उत्तर
+चक्र का 1वाँ पद 0 है।
+अतः सही उत्तर विकल्प (A) है। आवश्यक मान \(0\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(47-1)\bmod 1+1=1
+\]
+
+\[
+0^{47}\equiv 0\pmod{13}
+\]
+
+शीघ्र परिणाम: \(0\)। अतः सही उत्तर विकल्प (A) है।
+
+Punjabi:
+ਵੱਡੀ ਘਾਤ \(13^{47}\) ਨੂੰ \(13\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+13\equiv 0\pmod{13}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 1।
+
+\[
+0
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(47-1)\bmod 1+1=1
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 0।
+
+\[
+13^{47}\equiv 0\pmod{13}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 0 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(0\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(47-1)\bmod 1+1=1
+\]
+
+\[
+0^{47}\equiv 0\pmod{13}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(0\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।
+
+Family: ns_remainder_range_count
+
+---
+Q50. The power \(8^{81}\) is very large. What are its final digit?
+A. \(7\)
+B. \(10\)
+C. \(8\)
+D. \(9\)
+Answer: C
+
+Explanation:
+Observation
+For the last digit, only the ending digit matters.
+
+Explanation
+We are doing this because the last digit repeats even when the full number becomes very large.
+
+Replace the big base by its smaller remainder
+
+\[
+8\equiv 8\pmod{10}
+\]
+
+Write the remainder cycle
+
+Cycle length = 4.
+
+\[
+8\rightarrow 4\rightarrow 2\rightarrow 6
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(81-1)\bmod 4+1=1
+\]
+
+Read the required remainder
+
+Hence, remainder = 8.
+
+\[
+8^{81}\equiv 8\pmod{10}
+\]
+
+Answer
+The 1st term of the cycle is 8.
+Therefore, the required answer is \(8\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not use the whole base. For the last digit, only the ending digit of the base matters.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(81-1)\bmod 4+1=1
+\]
+
+\[
+8^{81}\equiv 8\pmod{10}
+\]
+
+Fast result: \(8\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(8^{81}\) के अंतिम अंक ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+8\equiv 8\pmod{10}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 4।
+
+\[
+8\rightarrow 4\rightarrow 2\rightarrow 6
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(81-1)\bmod 4+1=1
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 8।
+
+\[
+8^{81}\equiv 8\pmod{10}
+\]
+
+उत्तर
+चक्र का 1वाँ पद 8 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(8\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(81-1)\bmod 4+1=1
+\]
+
+\[
+8^{81}\equiv 8\pmod{10}
+\]
+
+शीघ्र परिणाम: \(8\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(8^{81}\) ਦੇ ਆਖਰੀ ਅੰਕ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+8\equiv 8\pmod{10}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।
+
+\[
+8\rightarrow 4\rightarrow 2\rightarrow 6
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(81-1)\bmod 4+1=1
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 8।
+
+\[
+8^{81}\equiv 8\pmod{10}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 8 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(8\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(81-1)\bmod 4+1=1
+\]
+
+\[
+8^{81}\equiv 8\pmod{10}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(8\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_cycle_length_detection
+
+---
+Q51. For \(82\), how many digits are written in its decimal form?
+A. \(3\)
+B. \(1\)
+C. \(4\)
+D. \(2\)
+Answer: D
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Bound the number by powers of 10
+
+\[
+10^{1}\le 82<10^{2}
+\]
+
+Read the digit count
+
+Hence, the number has 2 digits.
+
+\[
+d=2
+\]
+
+Answer
+Digit count = 2.
+Therefore, the required answer is \(2\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Count digits from the place-value bounds.
+
+\[
+10^{1}\le n<10^{2}
+\]
+
+Fast result: \(2\). Therefore, the correct answer is Option (D).
+
+Hindi:
+संख्या \(82\) में कितने अंक हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+10 की घातों से संख्या को सीमित करें
+
+\[
+10^{1}\le 82<10^{2}
+\]
+
+अंकों की संख्या पढ़ें
+
+अतः संख्या में 2 अंक हैं।
+
+\[
+d=2
+\]
+
+उत्तर
+अंक-गिनती = 2।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(2\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स्थान-मूल्य सीमा से अंक गिनें।
+
+\[
+10^{1}\le n<10^{2}
+\]
+
+शीघ्र परिणाम: \(2\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਸੰਖਿਆ \(82\) ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+10 ਦੀਆਂ ਘਾਤਾਂ ਨਾਲ ਸੰਖਿਆ ਸੀਮਿਤ ਕਰੋ
+
+\[
+10^{1}\le 82<10^{2}
+\]
+
+ਅੰਕਾਂ ਦੀ ਗਿਣਤੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ ਵਿੱਚ 2 ਅੰਕ ਹਨ।
+
+\[
+d=2
+\]
+
+ਉੱਤਰ
+ਅੰਕ-ਗਿਣਤੀ = 2।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(2\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਥਾਨ-ਮੁੱਲ ਸੀਮਾ ਤੋਂ ਅੰਕ ਗਿਣੋ।
+
+\[
+10^{1}\le n<10^{2}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(2\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_number_of_digits
+
+---
+Q52. If the digit sum is \(16\) and the tens digit is \(7\), what number is formed?
+A. \(78\)
+B. \(81\)
+C. \(79\)
+D. \(80\)
+Answer: C
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Form the digit-sum equation
+
+\[
+7+u=16\Rightarrow u=9
+\]
+
+Write the two-digit number
+
+Hence, the number is 79.
+
+\[
+N=10\times 7+9=79
+\]
+
+Answer
+Digit sum of 79 is 16.
+Therefore, the required answer is \(79\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=9
+\]
+
+\[
+\boxed{79}
+\]
+
+Fast result: \(79\). Therefore, the correct answer is Option (C).
+
+Hindi:
+दो-अंकीय संख्या के लिए अंक-योग \(16\) दिया है। यदि दहाई अंक \(7\) है, तो संख्या क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+7+u=16\Rightarrow u=9
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 79 है।
+
+\[
+N=10\times 7+9=79
+\]
+
+उत्तर
+79 का अंक-योग 16 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(79\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=9
+\]
+
+\[
+\boxed{79}
+\]
+
+शीघ्र परिणाम: \(79\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(16\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(7\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+7+u=16\Rightarrow u=9
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 79 ਹੈ।
+
+\[
+N=10\times 7+9=79
+\]
+
+ਉੱਤਰ
+79 ਦਾ ਅੰਕ-ਜੋੜ 16 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(79\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=9
+\]
+
+\[
+\boxed{79}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(79\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_digit_formation
+
+---
+Q53. The tens place has \(6\), and all digits add to \(14\). Which number is it?
+A. \(70\)
+B. \(68\)
+C. \(69\)
+D. \(67\)
+Answer: B
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Form the digit-sum equation
+
+\[
+6+u=14\Rightarrow u=8
+\]
+
+Write the two-digit number
+
+Hence, the number is 68.
+
+\[
+N=10\times 6+8=68
+\]
+
+Answer
+Digit sum of 68 is 14.
+Therefore, the required answer is \(68\). Hence, the correct answer is Option (B).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=8
+\]
+
+\[
+\boxed{68}
+\]
+
+Fast result: \(68\). Therefore, the correct answer is Option (B).
+
+Hindi:
+अंक-योग \(14\) वाली दो-अंकीय संख्या के दहाई स्थान पर \(6\) है। वह संख्या कौन-सी है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+6+u=14\Rightarrow u=8
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 68 है।
+
+\[
+N=10\times 6+8=68
+\]
+
+उत्तर
+68 का अंक-योग 14 है।
+अतः सही उत्तर विकल्प (B) है। आवश्यक मान \(68\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=8
+\]
+
+\[
+\boxed{68}
+\]
+
+शीघ्र परिणाम: \(68\)। अतः सही उत्तर विकल्प (B) है।
+
+Punjabi:
+ਅੰਕ-ਜੋੜ \(14\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \(6\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+6+u=14\Rightarrow u=8
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 68 ਹੈ।
+
+\[
+N=10\times 6+8=68
+\]
+
+ਉੱਤਰ
+68 ਦਾ ਅੰਕ-ਜੋੜ 14 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(68\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=8
+\]
+
+\[
+\boxed{68}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(68\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।
+
+Family: ns_unknown_digit_equation
+
+---
+Q54. Tens digit \(5\) and digit sum \(13\) are fixed. What is the number?
+A. \(57\)
+B. \(60\)
+C. \(58\)
+D. \(59\)
+Answer: C
+
+Explanation:
+Observation
+The clues are about digits, so place value is the main idea.
+
+Explanation
+We are doing this because digit clues become useful only after we attach them to their places.
+
+Form the digit-sum equation
+
+\[
+5+u=13\Rightarrow u=8
+\]
+
+Write the two-digit number
+
+Hence, the number is 58.
+
+\[
+N=10\times 5+8=58
+\]
+
+Answer
+Digit sum of 58 is 13.
+Therefore, the required answer is \(58\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=8
+\]
+
+\[
+\boxed{58}
+\]
+
+Fast result: \(58\). Therefore, the correct answer is Option (C).
+
+Hindi:
+मान \(13\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \(5\) है। संख्या ज्ञात करें?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अंक-योग समीकरण बनाएं
+
+\[
+5+u=13\Rightarrow u=8
+\]
+
+दो-अंकीय संख्या लिखें
+
+अतः संख्या 58 है।
+
+\[
+N=10\times 5+8=58
+\]
+
+उत्तर
+58 का अंक-योग 13 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(58\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+अंक-योग से इकाई अंक निकालकर रखें।
+
+\[
+u=8
+\]
+
+\[
+\boxed{58}
+\]
+
+शीघ्र परिणाम: \(58\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+ਮੁੱਲ \(13\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \(5\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ
+
+\[
+5+u=13\Rightarrow u=8
+\]
+
+ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ
+
+ਇਸ ਲਈ ਸੰਖਿਆ 58 ਹੈ।
+
+\[
+N=10\times 5+8=58
+\]
+
+ਉੱਤਰ
+58 ਦਾ ਅੰਕ-ਜੋੜ 13 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(58\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।
+
+\[
+u=8
+\]
+
+\[
+\boxed{58}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(58\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_consecutive_digit_number
+
+---
+Q55. What is the highest power of \(3\) that divides \(75!\)?
+A. \(36\)
+B. \(34\)
+C. \(37\)
+D. \(35\)
+Answer: D
+
+Explanation:
+Observation
+A composite power depends on all its prime parts.
+
+Explanation
+We are doing this because the prime factor that runs out first controls the final power.
+
+Count powers of 3 in n!
+
+\[
+\left\lfloor\frac{75}{3}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{75}{9}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{75}{27}\right\rfloor
+\]
+
+Add the quotient terms
+
+\[
+25+8+2=35
+\]
+
+Answer
+Highest power of 3 dividing 75! is 35.
+Therefore, the required answer is \(35\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not use only one prime when the base is composite. Count all required primes and take the limiting one.
+
+Shortcut
+
+Legendre sum of floor quotients only.
+
+\[
+\left\lfloor\frac{75}{3}\right\rfloor+\left\lfloor\frac{75}{9}\right\rfloor+\left\lfloor\frac{75}{27}\right\rfloor
+\]
+
+Fast result: \(35\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(75!\) को विभाजित करने वाली \(3\) की सबसे बड़ी घात क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+n! में 3 की घातें गिनें
+
+\[
+\left\lfloor\frac{75}{3}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{75}{9}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{75}{27}\right\rfloor
+\]
+
+भागफल पद जोड़ें
+
+\[
+25+8+2=35
+\]
+
+उत्तर
+75! में 3 की सबसे बड़ी घात 35 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(35\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+केवल भागफल-मूल्यों का लेजेंड्र योग।
+
+\[
+\left\lfloor\frac{75}{3}\right\rfloor+\left\lfloor\frac{75}{9}\right\rfloor+\left\lfloor\frac{75}{27}\right\rfloor
+\]
+
+शीघ्र परिणाम: \(35\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(75!\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \(3\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+n! ਵਿੱਚ 3 ਦੀਆਂ ਘਾਤਾਂ ਗਿਣੋ
+
+\[
+\left\lfloor\frac{75}{3}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{75}{9}\right\rfloor
+\]
+
+\[
+\left\lfloor\frac{75}{27}\right\rfloor
+\]
+
+ਭਾਗਪਲ ਪਦ ਜੋੜੋ
+
+\[
+25+8+2=35
+\]
+
+ਉੱਤਰ
+75! ਨੂੰ 3 ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ 35 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(35\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਿਰਫ ਭਾਗਫਲ-ਮੂਲਾਂ ਦਾ ਲੇਜੈਂਡਰ ਜੋੜ।
+
+\[
+\left\lfloor\frac{75}{3}\right\rfloor+\left\lfloor\frac{75}{9}\right\rfloor+\left\lfloor\frac{75}{27}\right\rfloor
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(35\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_highest_power_dividing
+
+---
+Q56. When \(11^{36}\) is divided by \(9\), what remainder is left?
+A. \(0\)
+B. \(3\)
+C. \(1\)
+D. \(2\)
+Answer: C
+
+Explanation:
+Observation
+The question is about what is left after division.
+
+Explanation
+We are doing this because numbers with the same remainder move in equal jumps.
+
+Replace the big base by its smaller remainder
+
+\[
+11\equiv 2\pmod{9}
+\]
+
+Write the remainder cycle
+
+Cycle length = 6.
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 7\rightarrow 5\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(36-1)\bmod 6+1=6
+\]
+
+Read the required remainder
+
+Hence, remainder = 1.
+
+\[
+11^{36}\equiv 1\pmod{9}
+\]
+
+Answer
+The 6th term of the cycle is 1.
+Therefore, the required answer is \(1\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not count from zero blindly. Check whether the lower and upper limits are included in the given range.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(36-1)\bmod 6+1=6
+\]
+
+\[
+2^{36}\equiv 1\pmod{9}
+\]
+
+Fast result: \(1\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(11^{36}\) को \(9\) से भाग देने पर क्या शेषफल आएगा?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+11\equiv 2\pmod{9}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 6।
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 7\rightarrow 5\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(36-1)\bmod 6+1=6
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 1।
+
+\[
+11^{36}\equiv 1\pmod{9}
+\]
+
+उत्तर
+चक्र का 6वाँ पद 1 है।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(1\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(36-1)\bmod 6+1=6
+\]
+
+\[
+2^{36}\equiv 1\pmod{9}
+\]
+
+शीघ्र परिणाम: \(1\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(11^{36}\) ਨੂੰ \(9\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+11\equiv 2\pmod{9}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 6।
+
+\[
+2\rightarrow 4\rightarrow 8\rightarrow 7\rightarrow 5\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(36-1)\bmod 6+1=6
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 1।
+
+\[
+11^{36}\equiv 1\pmod{9}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 6ਵਾਂ ਪਦ 1 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(1\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(36-1)\bmod 6+1=6
+\]
+
+\[
+2^{36}\equiv 1\pmod{9}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(1\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_factorial_remainder
+
+---
+Q57. Between \(100\) and \(209\), how many integers are divisible by \(15\)?
+A. \(6\)
+B. \(9\)
+C. \(7\)
+D. \(8\)
+Answer: C
+
+Explanation:
+Observation
+Large powers usually repeat their remainders.
+
+Explanation
+We are doing this because the repeating pattern lets us avoid a huge power calculation.
+
+Find the first valid multiple
+
+Therefore, the first multiple of 15 greater than 100 is 105.
+
+\[
+15\times 7=105
+\]
+
+Find the last valid multiple
+
+Therefore, 195 is the greatest multiple of 15 not exceeding 209.
+
+\[
+209=15\times 13+14
+\]
+
+\[
+209-14=195
+\]
+
+Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 15.
+
+\[
+\frac{195-105}{15}+1=6+1=7
+\]
+
+Answer
+The total number of multiples is 7.
+Hence, there are 7 multiples of 15 in the given range.
+Therefore, the required answer is \(7\). Hence, the correct answer is Option (C).
+
+Common Mistake
+Do not divide the exponent by the divisor. The exponent is matched with the length of the repeating pattern.
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{209}{15}\right\rfloor-\left\lfloor\frac{99}{15}\right\rfloor
+\]
+
+\[
+13-6=7
+\]
+
+Fast result: \(7\). Therefore, the correct answer is Option (C).
+
+Hindi:
+\(100\) और \(209\) के बीच कितने पूर्णांक \(15\) से विभाज्य हैं?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहला मान्य गुणज ज्ञात करें
+
+अतः 100 से बड़ा 15 का पहला गुणज 105 है।
+
+\[
+15\times 7=105
+\]
+
+आखिरी वैध गुणज ज्ञात करें
+
+अतः 195, 209 से अधिक न होने वाला 15 का सबसे बड़ा गुणज है।
+
+\[
+209=15\times 13+14
+\]
+
+\[
+209-14=195
+\]
+
+मान्य गुणजों की गिनती करें
+
+गुणज 15 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।
+
+\[
+\frac{195-105}{15}+1=6+1=7
+\]
+
+उत्तर
+गुणजों की कुल संख्या 7 है।
+अतः दी गई सीमा में 15 के 7 गुणज हैं।
+अतः सही उत्तर विकल्प (C) है। आवश्यक मान \(7\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+सीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।
+
+\[
+\left\lfloor\frac{209}{15}\right\rfloor-\left\lfloor\frac{99}{15}\right\rfloor
+\]
+
+\[
+13-6=7
+\]
+
+शीघ्र परिणाम: \(7\)। अतः सही उत्तर विकल्प (C) है।
+
+Punjabi:
+\(100\) ਅਤੇ \(209\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(15\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 100 ਤੋਂ ਵੱਡਾ 15 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 105 ਹੈ।
+
+\[
+15\times 7=105
+\]
+
+ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ
+
+ਇਸ ਲਈ 195, 209 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 15 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।
+
+\[
+209=15\times 13+14
+\]
+
+\[
+209-14=195
+\]
+
+ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ
+
+ਗੁਣਜ 15 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।
+
+\[
+\frac{195-105}{15}+1=6+1=7
+\]
+
+ਉੱਤਰ
+ਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 7 ਹੈ।
+ਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 15 ਦੇ 7 ਗੁਣਜ ਹਨ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(7\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।
+
+\[
+\left\lfloor\frac{209}{15}\right\rfloor-\left\lfloor\frac{99}{15}\right\rfloor
+\]
+
+\[
+13-6=7
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(7\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।
+
+Family: ns_cyclic_pattern
+
+---
+Q58. Two cyclic events repeat every \(40\) and \(104\) minutes. After how many minutes will they occur together again?
+A. \(546\)
+B. \(572\)
+C. \(494\)
+D. \(520\)
+Answer: D
+
+Explanation:
+Observation
+HCF means the greatest part common to all numbers.
+
+Explanation
+We are doing this because only the part common to all numbers can remain in the HCF.
+
+Write prime factorizations
+
+\[
+40=2^{3}\times 5
+\]
+
+\[
+104=2^{3}\times 13
+\]
+
+Take highest powers for LCM
+
+\[
+\operatorname{LCM}(40,104)=520
+\]
+
+Answer
+The LCM is 520.
+Therefore, the required answer is \(520\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not take the highest powers for HCF. HCF takes only the common primes with the smaller powers.
+
+Shortcut
+
+Use the product identity with the HCF.
+
+\[
+\operatorname{LCM}(40,104)=\frac{40\times 104}{\operatorname{HCF}(40,104)}=520
+\]
+
+Fast result: \(520\). Therefore, the correct answer is Option (D).
+
+Hindi:
+दो घटनाएँ हर \(40\) और \(104\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+अभाज्य गुणनखंड लिखें
+
+\[
+40=2^{3}\times 5
+\]
+
+\[
+104=2^{3}\times 13
+\]
+
+LCM के लिए अधिकतम घातें लें
+
+\[
+\operatorname{LCM}(40,104)=520
+\]
+
+उत्तर
+LCM 520 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(520\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+HCF के साथ गुणन पहचान लगाएं।
+
+\[
+\operatorname{LCM}(40,104)=\frac{40\times 104}{\operatorname{HCF}(40,104)}=520
+\]
+
+शीघ्र परिणाम: \(520\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਦੋ ਘਟਨਾਵਾਂ ਹਰ \(40\) ਅਤੇ \(104\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ
+
+\[
+40=2^{3}\times 5
+\]
+
+\[
+104=2^{3}\times 13
+\]
+
+LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ
+
+\[
+\operatorname{LCM}(40,104)=520
+\]
+
+ਉੱਤਰ
+LCM 520 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(520\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+HCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।
+
+\[
+\operatorname{LCM}(40,104)=\frac{40\times 104}{\operatorname{HCF}(40,104)}=520
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(520\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_factor_hcf_hybrid
+
+---
+Q59. A number leaves the same remainder as \(7^{59}\) when divided by \(19\). What is that remainder?
+A. \(12\)
+B. \(10\)
+C. \(13\)
+D. \(11\)
+Answer: D
+
+Explanation:
+Observation
+This question mixes more than one number-system idea.
+
+Explanation
+We are doing this because each clue reduces the choices for the next clue.
+
+Replace the big base by its smaller remainder
+
+\[
+7\equiv 7\pmod{19}
+\]
+
+Write the remainder cycle
+
+Cycle length = 3.
+
+\[
+7\rightarrow 11\rightarrow 1
+\]
+
+Find where the exponent falls in the repeating pattern
+
+\[
+(59-1)\bmod 3+1=2
+\]
+
+Read the required remainder
+
+Hence, remainder = 11.
+
+\[
+7^{59}\equiv 11\pmod{19}
+\]
+
+Answer
+The 2nd term of the cycle is 11.
+Therefore, the required answer is \(11\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Do not solve only the first clue. The final answer must satisfy every condition in the question.
+
+Shortcut
+
+First make the base small, then use the power pattern.
+
+\[
+p=(59-1)\bmod 3+1=2
+\]
+
+\[
+7^{59}\equiv 11\pmod{19}
+\]
+
+Fast result: \(11\). Therefore, the correct answer is Option (D).
+
+Hindi:
+एक संख्या \(19\) से भाग देने पर \(7^{59}\) जैसा ही शेषफल देती है। वह शेषफल क्या है?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+आधार को भाजक के अनुसार घटाएं
+
+\[
+7\equiv 7\pmod{19}
+\]
+
+शेषफल चक्र लिखें
+
+चक्र की लंबाई = 3।
+
+\[
+7\rightarrow 11\rightarrow 1
+\]
+
+चक्र में घात की स्थिति ज्ञात करें
+
+\[
+(59-1)\bmod 3+1=2
+\]
+
+आवश्यक शेषफल पढ़ें
+
+अतः शेषफल = 11।
+
+\[
+7^{59}\equiv 11\pmod{19}
+\]
+
+उत्तर
+चक्र का 2वाँ पद 11 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(11\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+आधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।
+
+\[
+p=(59-1)\bmod 3+1=2
+\]
+
+\[
+7^{59}\equiv 11\pmod{19}
+\]
+
+शीघ्र परिणाम: \(11\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+ਇੱਕ ਸੰਖਿਆ \(19\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ \(7^{59}\) ਵਰਗਾ ਹੀ ਬਾਕੀ ਦਿੰਦੀ ਹੈ। ਉਹ ਬਾਕੀ ਕੀ ਹੈ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ
+
+\[
+7\equiv 7\pmod{19}
+\]
+
+ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ
+
+ਚੱਕਰ ਦੀ ਲੰਬਾਈ = 3।
+
+\[
+7\rightarrow 11\rightarrow 1
+\]
+
+ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ
+
+\[
+(59-1)\bmod 3+1=2
+\]
+
+ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ
+
+ਇਸ ਲਈ ਬਾਕੀ = 11।
+
+\[
+7^{59}\equiv 11\pmod{19}
+\]
+
+ਉੱਤਰ
+ਚੱਕਰ ਦਾ 2ਵਾਂ ਪਦ 11 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(11\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।
+
+\[
+p=(59-1)\bmod 3+1=2
+\]
+
+\[
+7^{59}\equiv 11\pmod{19}
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(11\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_multi_cluster_reasoning
+
+---
+Q60. What least number should be added to \(849\) so that the result is divisible by \(36\)?
+A. \(16\)
+B. \(14\)
+C. \(17\)
+D. \(15\)
+Answer: D
+
+Explanation:
+Observation
+A small addition or subtraction is decided by the current remainder.
+
+Explanation
+We are doing this because the remainder tells us exactly how far the number is from a multiple.
+
+Put the given conditions together first
+
+First combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.
+
+Now choose the number that stays within the given limit
+
+Now use the nearby multiples and choose the first or last one according to the question.
+
+\[
+849=36\times 23+21
+\]
+
+\[
+36-21=15
+\]
+
+Answer
+The selected number is 15, and it satisfies the required divisibility condition.
+Therefore, the required answer is \(15\). Hence, the correct answer is Option (D).
+
+Common Mistake
+Many students subtract the wrong way. For addition, use the gap from the current remainder to the next multiple.
+
+Shortcut
+
+Take the LCM once, then jump directly to the nearest multiple asked in the question.
+
+\[
+36-21=15
+\]
+
+Fast result: \(15\). Therefore, the correct answer is Option (D).
+
+Hindi:
+\(849\) में कौन-सी न्यूनतम संख्या जोड़ी जाए ताकि परिणाम \(36\) से विभाज्य हो?
+अवलोकन
+पहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।
+
+व्याख्या
+यह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।
+
+पहले स�‚ख्या शर्ते�‚ मिलाए�‚
+
+अनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।
+
+नि�•टतम मान्य सीमा ले�‚
+
+सीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।
+
+\[
+849=36\times 23+21
+\]
+
+\[
+36-21=15
+\]
+
+उत्तर
+अनु�•�‚लित मान्य मान 15 है।
+अतः सही उत्तर विकल्प (D) है। आवश्यक मान \(15\) है।
+
+सामान्य गलती
+अक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।
+
+शॉर्टकट
+
+स�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।
+
+\[
+36-21=15
+\]
+
+शीघ्र परिणाम: \(15\)। अतः सही उत्तर विकल्प (D) है।
+
+Punjabi:
+\(849\) ਵਿੱਚ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਜੋੜੀ ਜਾਵੇ ਤਾਂ ਜੋ ਨਤੀਜਾ \(36\) ਨਾਲ ਭਾਗ ਜਾਵੇ?
+ਧਿਆਨ ਕਰੋ
+ਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।
+
+ਸਮਝਾਉਣ
+ਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।
+
+ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ
+
+ਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।
+
+ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ
+
+ਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।
+
+\[
+849=36\times 23+21
+\]
+
+\[
+36-21=15
+\]
+
+ਉੱਤਰ
+ਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 15 ਹੈ।
+ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \(15\) ਹੈ।
+
+ਆਮ ਗਲਤੀ
+ਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।
+
+ਛੋਟਾ ਤਰੀਕਾ
+
+ਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।
+
+\[
+36-21=15
+\]
+
+ਛੇਤੀ ਨਤੀਜਾ: \(15\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।
+
+Family: ns_minimum_addition

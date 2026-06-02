@@ -59,6 +59,10 @@ export type CorpusSchedulerProfileId =
   | "number_system_review_200"
   | "number_system_production_300"
   | "number_system_audit_1000"
+  | "number_system_production_1000"
+  | "number_system_review_1000"
+  | "number_system_pyq_plus_1000"
+  | "number_system_elite_500"
   | "advanced_coverage_audit";
 
 export type CorpusSchedulerProfile = {
@@ -1728,6 +1732,10 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
     ["number_system_review_200", "Number System Review 200", "200Q review coverage for Number System V2."],
     ["number_system_production_300", "Number System Production 300", "Production-style 300Q Number System V2 broad coverage."],
     ["number_system_audit_1000", "Number System Audit 1000", "Large audit profile for Number System V2."],
+    ["number_system_production_1000", "Number System Production 1000", "Freeze-scale production Number System V2 coverage."],
+    ["number_system_review_1000", "Number System Review 1000", "Freeze-scale review Number System V2 coverage."],
+    ["number_system_pyq_plus_1000", "Number System PYQ+ 1000", "PYQ+ scale Number System V2 coverage."],
+    ["number_system_elite_500", "Number System Elite 500", "Elite topology-chain Number System V2 coverage."],
   ] as const).map(([id, label, description]) => ({
     id,
     topicId: "number_system" as const,
@@ -1735,7 +1743,7 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
     description,
     maxShare: {
       simpleTemplate: 0.18,
-      singleTopologyFamily: id === "number_system_production_300" ? 0.06 : 0.1,
+      singleTopologyFamily: id === "number_system_production_300" || id === "number_system_production_1000" ? 0.06 : 0.1,
       singleExaminerIntent: 0.12,
       singleSemanticAnchor: 0.14,
       singleDistractorTrap: 0.24,
@@ -1748,7 +1756,7 @@ export const CORPUS_SCHEDULER_PROFILES: readonly CorpusSchedulerProfile[] = [
       hybrid: 0.22,
       multiStep: 0.28,
     },
-    difficultyTarget: id === "number_system_hard" || id === "number_system_pyq_plus"
+    difficultyTarget: id === "number_system_hard" || id === "number_system_pyq_plus" || id === "number_system_pyq_plus_1000" || id === "number_system_elite_500"
       ? { easy: 0.12, medium: 0.42, hard: 0.46 }
       : { easy: 0.3, medium: 0.48, hard: 0.22 },
     preferredMotifRotation: [...NUMBER_SYSTEM_FAMILY_IDS],

@@ -593,6 +593,26 @@ export const QUANT_V2_TOPIC_REGISTRY: readonly QuantV2TopicRegistryEntry[] = [
         "Advanced Number Theory",
         "Modular arithmetic, cyclic patterns, prime-remainder hybrids, factor-HCF hybrids, and multi-cluster reasoning.",
       ),
+      topology(
+        "optimization_number_system",
+        "Optimization",
+        "Least/greatest number constraints, additions, subtractions, multipliers, divisors, and range optimization.",
+      ),
+      topology(
+        "perfect_power_number_system",
+        "Perfect Powers",
+        "Perfect square/cube completion, least square/cube multiples, and factor constraints.",
+      ),
+      topology(
+        "reconstruction_number_system",
+        "Reconstruction",
+        "Hidden number, divisor, exponent, factorization, and reverse number-theory reconstruction.",
+      ),
+      topology(
+        "elite_hybrid_number_system",
+        "Elite Hybrids",
+        "Prime, HCF/LCM, digit, remainder, factor-count, square, and modular chains.",
+      ),
     ],
     schedulerProfiles: [
       "number_system_basic",
@@ -603,6 +623,10 @@ export const QUANT_V2_TOPIC_REGISTRY: readonly QuantV2TopicRegistryEntry[] = [
       "number_system_review_200",
       "number_system_production_300",
       "number_system_audit_1000",
+      "number_system_production_1000",
+      "number_system_review_1000",
+      "number_system_pyq_plus_1000",
+      "number_system_elite_500",
     ],
     auditPresets: ["number_system_audit"],
     supportedLanguages: ["en", "hi", "pa"],

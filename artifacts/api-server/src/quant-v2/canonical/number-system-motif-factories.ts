@@ -10,7 +10,11 @@ import type {
   NumberSystemSolverKind,
   NumberSystemSolverModel,
 } from "./number-system-types";
-import { displayMathBlock, inlineMath } from "../utils/quant-math-delimiters";
+import { inlineMath } from "../utils/quant-math-delimiters";
+import {
+  auditNumberSystemExplanationStyle,
+  buildNumberSystemExplanation,
+} from "./number-system-explanation-builder";
 
 export const NUMBER_SYSTEM_FAMILY_IDS = [
   "ns_missing_digit_single_rule",
@@ -71,6 +75,39 @@ export const NUMBER_SYSTEM_FAMILY_IDS = [
   "ns_factor_hcf_hybrid",
   "ns_hidden_number_theory",
   "ns_multi_cluster_reasoning",
+  "ns_least_number_constraint",
+  "ns_greatest_number_constraint",
+  "ns_minimum_addition",
+  "ns_minimum_subtraction",
+  "ns_minimum_multiplier",
+  "ns_minimum_divisor",
+  "ns_smallest_divisible_number",
+  "ns_largest_valid_number",
+  "ns_range_optimization",
+  "ns_multi_condition_optimization",
+  "ns_perfect_square_completion",
+  "ns_perfect_cube_completion",
+  "ns_least_square_multiple",
+  "ns_least_cube_multiple",
+  "ns_square_factor_constraint",
+  "ns_cube_factor_constraint",
+  "ns_square_remainder_hybrid",
+  "ns_square_divisibility_hybrid",
+  "ns_square_factor_count_hybrid",
+  "ns_hidden_number_reconstruction",
+  "ns_hidden_divisor_reconstruction",
+  "ns_hidden_exponent_reconstruction",
+  "ns_hidden_factorization_reconstruction",
+  "ns_hidden_square_reconstruction",
+  "ns_multi_condition_reconstruction",
+  "ns_reverse_number_theory",
+  "ns_prime_hcf_lcm_optimization",
+  "ns_digit_divisibility_reconstruction",
+  "ns_remainder_constraint_optimization",
+  "ns_factor_count_square_hidden",
+  "ns_prime_exact_divisor_optimization",
+  "ns_modular_cycle_reconstruction",
+  "ns_digit_divisibility_hcf_verification",
 ] as const satisfies readonly NumberSystemFamilyId[];
 
 export const NUMBER_SYSTEM_TODO_FAMILY_IDS = {
@@ -95,10 +132,36 @@ export const NUMBER_SYSTEM_STEM_TEMPLATE_COVERAGE: Record<string, number> = {
   digit_logic: 8,
   factorial: 7,
   advanced: 7,
+  optimization: 10,
+  perfect_power: 9,
+  reconstruction: 9,
+  elite_hybrid: 10,
 };
 
 type Locale = "en" | "hi" | "pa";
-type Cluster = "divisibility" | "prime" | "hcf_lcm" | "remainder" | "last_digit" | "digit_logic" | "factorial" | "advanced";
+type Cluster =
+  | "divisibility"
+  | "prime"
+  | "hcf_lcm"
+  | "remainder"
+  | "last_digit"
+  | "digit_logic"
+  | "factorial"
+  | "advanced"
+  | "optimization"
+  | "perfect_power"
+  | "reconstruction"
+  | "elite_hybrid";
+type NumberSystemExamMode = "ssc" | "banking" | "punjab_state" | "pyq_plus" | "elite";
+type NumberSystemSituation = {
+  id: string;
+  label: string;
+  stemArchetype: string;
+  shortcutPatternId: string;
+  topologyDepth: number;
+  examModes: NumberSystemExamMode[];
+  distractorFamily: string;
+};
 type Spec = {
   family: NumberSystemFamilyId;
   cluster: Cluster;
@@ -121,6 +184,164 @@ type Draft = {
   shortcut: NumberSystemLocalizedText;
   traps: string[];
   answerLabel?: string;
+  situation?: NumberSystemSituation;
+};
+
+function situationTuple(tuple: readonly unknown[]): NumberSystemSituation {
+  return {
+    id: String(tuple[0]),
+    label: String(tuple[1]),
+    stemArchetype: String(tuple[2]),
+    shortcutPatternId: String(tuple[3]),
+    topologyDepth: Number(tuple[4]),
+    examModes: (tuple[5] as NumberSystemExamMode[] | undefined) ?? ["ssc"],
+    distractorFamily: String(tuple[6]),
+  };
+}
+
+const BASE_SITUATIONS: Record<Cluster, readonly NumberSystemSituation[]> = {
+  divisibility: [
+    ["missing-digit-rule", "Missing digit via divisibility rule", "constraint", "digit-rule-completion", 2, ["ssc", "banking", "punjab_state"], "wrong digit rule"],
+    ["simultaneous-divisibility", "Simultaneous divisibility checks", "multi-condition", "paired-rule-filter", 3, ["ssc", "punjab_state"], "missed second condition"],
+    ["range-multiple-count", "Counting multiples in a range", "range counting", "quotient-floor-difference", 3, ["ssc", "banking"], "endpoint inclusion error"],
+    ["remainder-constrained-digit", "Digit from remainder condition", "reverse remainder", "target-residue", 4, ["ssc", "pyq_plus"], "wrong target residue"],
+    ["lcm-divisibility-bridge", "Divisibility through LCM bridge", "hybrid", "lcm-rule-combine", 4, ["ssc", "elite"], "used one divisor only"],
+    ["hidden-divisor-deduction", "Hidden divisor deduction", "deduction", "common-difference-divisor", 4, ["ssc", "elite"], "used sum instead of divisor"],
+    ["largest-valid-digit", "Largest valid digit", "optimization", "scan-valid-residue", 3, ["ssc", "punjab_state"], "picked smallest valid digit"],
+    ["smallest-valid-digit", "Smallest valid digit", "optimization", "least-residue-digit", 3, ["banking", "punjab_state"], "picked largest valid digit"],
+    ["checksum-number", "Checksum-like digit validation", "applied code", "checksum-residue", 3, ["banking", "ssc"], "checksum direction error"],
+    ["elite-divisibility-chain", "Divisibility chain with hidden constraint", "elite hybrid", "chain-residue-filter", 5, ["elite"], "missed hidden constraint"],
+  ].map(situationTuple),
+  prime: [
+    ["factor-count-plus-one", "Factor count by exponent choices", "rule application", "exponent-plus-one", 2, ["banking", "ssc"], "forgot plus one"],
+    ["odd-divisor-filter", "Odd divisor count by removing twos", "filtered count", "drop-power-two", 3, ["ssc", "punjab_state"], "included even divisors"],
+    ["sum-divisor-geometric", "Sum of divisors through prime powers", "structured calculation", "sigma-factor-product", 4, ["ssc", "elite"], "missed prime power term"],
+    ["product-divisor-pairing", "Product of divisors by pairing", "identity", "n-power-half-count", 4, ["ssc", "elite"], "used count instead of half count"],
+    ["hidden-prime-exponent", "Recover hidden prime exponent", "reverse exponent", "factor-count-inversion", 4, ["ssc", "pyq_plus"], "wrong exponent inversion"],
+    ["exact-divisor-target", "Exact divisor-count target", "target count", "target-factorization", 4, ["ssc", "elite"], "target split error"],
+    ["square-divisor-count", "Perfect-square divisor reasoning", "property check", "odd-factor-count-test", 3, ["ssc", "banking"], "square parity error"],
+    ["factor-constraint", "Factor count under a condition", "constraint", "filtered-exponent-choice", 4, ["ssc"], "ignored condition"],
+    ["hidden-factor-reconstruction", "Number reconstruction from factors", "reconstruction", "exponent-rebuild", 5, ["elite"], "reconstructed wrong base"],
+    ["elite-factor-hybrid", "Factor-HCF hybrid", "elite hybrid", "factor-hcf-bridge", 5, ["elite"], "missed HCF bridge"],
+  ].map(situationTuple),
+  hcf_lcm: [
+    ["bells-synchronization", "Bells or events synchronize", "schedule", "take-lcm", 2, ["banking", "punjab_state"], "used HCF"],
+    ["bus-cycle", "Transport cycle alignment", "schedule", "cycle-lcm", 3, ["ssc", "banking"], "added intervals"],
+    ["tile-largest-square", "Largest equal tile", "measurement", "dimension-hcf", 3, ["ssc"], "used LCM for tile size"],
+    ["rope-cutting", "Rope or plank cutting", "partition", "common-length-hcf", 3, ["punjab_state", "ssc"], "forgot equal pieces"],
+    ["machine-maintenance", "Maintenance schedule alignment", "industrial", "maintenance-lcm", 3, ["ssc", "banking"], "first interval only"],
+    ["hcf-lcm-product-recovery", "Recover number using HCF-LCM product", "reverse", "product-relation", 4, ["ssc", "pyq_plus"], "inverted product relation"],
+    ["three-number-alignment", "Three-number LCM alignment", "multi-condition", "stagewise-lcm", 4, ["ssc"], "stopped after two numbers"],
+    ["minimum-common-multiple", "Minimum common multiple above a bound", "optimization", "ceil-lcm-bound", 4, ["ssc", "elite"], "below-bound multiple"],
+    ["constraint-number-recovery", "Recover number from HCF/LCM constraints", "reconstruction", "constraint-product", 5, ["elite"], "non-coprime multiplier error"],
+    ["elite-hcf-lcm-chain", "HCF-LCM with remainder bridge", "elite hybrid", "hcf-lcm-remainder-bridge", 5, ["elite"], "missed remainder bridge"],
+  ].map(situationTuple),
+  remainder: [
+    ["power-remainder-cycle", "Power remainder cycle", "cycle", "cycle-position", 3, ["ssc", "banking"], "wrong cycle index"],
+    ["large-expression-remainder", "Large expression remainder", "expression", "reduce-terms", 4, ["ssc"], "expanded expression"],
+    ["nested-remainder", "Nested remainder reduction", "nested", "reduce-inside-out", 4, ["ssc", "elite"], "wrong nesting order"],
+    ["serial-remainder", "Serial number remainder", "applied code", "serial-mod", 3, ["banking"], "serial digit omission"],
+    ["counter-cycle", "Counter or clock cycle remainder", "cycle application", "counter-mod", 3, ["punjab_state", "banking"], "cycle endpoint error"],
+    ["reverse-remainder", "Recover value from remainder", "reverse", "target-residue", 4, ["ssc", "pyq_plus"], "wrong residue class"],
+    ["range-remainder-count", "Count values with a remainder", "range count", "residue-floor-count", 4, ["ssc"], "counted multiples only"],
+    ["prime-remainder-hybrid", "Prime and remainder hybrid", "hybrid", "prime-mod-bridge", 5, ["elite"], "ignored prime reduction"],
+    ["modular-reconstruction", "Number reconstructed from residues", "reconstruction", "residue-rebuild", 5, ["elite"], "nonmatching residue"],
+    ["elite-remainder-chain", "Remainder chain with hidden modulus", "elite hybrid", "chain-mod-filter", 5, ["elite"], "wrong hidden modulus"],
+  ].map(situationTuple),
+  last_digit: [
+    ["unit-digit-cycle", "Unit digit cycle", "cycle", "unit-cycle-position", 3, ["banking", "ssc"], "wrong unit cycle"],
+    ["last-two-digit-cycle", "Last two digits", "mod 100", "mod100-cycle", 4, ["ssc", "elite"], "used unit digit only"],
+    ["last-three-digit-cycle", "Last three digits", "mod 1000", "mod1000-reduction", 4, ["elite"], "wrong modulus"],
+    ["power-product-ending", "Product of powers ending digits", "product cycle", "multiply-cycle-results", 4, ["ssc"], "added endings"],
+    ["power-tower-ending", "Power tower ending digit", "nested exponent", "tower-exponent-reduction", 5, ["elite"], "used top exponent directly"],
+    ["factorial-hybrid-ending", "Factorial hybrid ending", "factorial hybrid", "factorial-zero-check", 5, ["elite"], "ignored trailing zero"],
+    ["cycle-reconstruction", "Reconstruct cycle from observed endings", "reconstruction", "cycle-backtrack", 5, ["elite"], "wrong cycle length"],
+    ["reverse-ending", "Reverse-engineer exponent from ending", "reverse", "ending-residue-class", 4, ["ssc", "pyq_plus"], "wrong exponent class"],
+    ["expression-last-digit", "Expression last digit", "expression", "termwise-ending", 4, ["ssc"], "forgot subtraction mod 10"],
+    ["elite-ending-hybrid", "Last digit with remainder bridge", "elite hybrid", "ending-remainder-bridge", 5, ["elite"], "missed bridge residue"],
+  ].map(situationTuple),
+  digit_logic: [
+    ["digit-sum-reconstruction", "Digit sum reconstruction", "digit equation", "digit-sum-equation", 3, ["banking", "punjab_state"], "digit placement error"],
+    ["digit-interchange", "Digit interchange difference", "reversal", "nine-times-difference", 3, ["ssc"], "reversed wrong digit"],
+    ["number-of-digits", "Number of digits by bounds", "place value", "power-of-ten-bound", 2, ["banking"], "bound inclusion error"],
+    ["digit-formation", "Number formation under constraints", "formation", "place-value-build", 3, ["ssc", "punjab_state"], "place-value swap"],
+    ["unknown-digit-equation", "Unknown digit equation", "equation", "linear-digit-equation", 4, ["ssc"], "wrong coefficient"],
+    ["consecutive-digit-number", "Consecutive digit condition", "constraint", "consecutive-digit-param", 4, ["ssc"], "started sequence wrong"],
+    ["digit-divisibility-hybrid", "Digit logic with divisibility", "hybrid", "digit-divisibility-link", 5, ["elite"], "missed divisibility link"],
+    ["largest-digit-number", "Largest number from constraints", "optimization", "maximize-place-values", 4, ["ssc"], "maximized wrong place"],
+    ["code-number-reconstruction", "Code number reconstruction", "applied code", "code-place-rebuild", 4, ["banking"], "code offset error"],
+    ["elite-digit-chain", "Digit constraints with factor count", "elite hybrid", "digit-factor-chain", 5, ["elite"], "missed factor count link"],
+  ].map(situationTuple),
+  factorial: [
+    ["trailing-zero-count", "Trailing zeroes in factorial", "factorial", "floor-fives", 3, ["banking", "ssc"], "missed 25 contribution"],
+    ["highest-power-factorial", "Highest power dividing factorial", "legendre", "floor-prime-powers", 3, ["ssc", "punjab_state"], "missed higher prime power"],
+    ["factorial-divisibility", "Factorial divisibility test", "divisibility", "compare-prime-exponents", 4, ["ssc"], "checked only one prime"],
+    ["factorial-remainder", "Factorial remainder", "factorial modulo", "factorial-mod-bound", 4, ["ssc", "elite"], "ignored modulus threshold"],
+    ["factorial-factor-count", "Factor count of factorial divisor", "factor count", "legendre-plus-one", 5, ["elite"], "forgot plus one after Legendre"],
+    ["zeroes-after-product", "Zeroes after multiplying factorials", "product factorial", "sum-floor-fives", 4, ["ssc"], "used max not sum"],
+    ["minimum-n-for-zeroes", "Minimum n for zeroes", "reverse", "reverse-floor-search", 5, ["elite"], "nonexistent zero count trap"],
+    ["highest-power-composite", "Highest composite power in factorial", "composite exponent", "min-prime-exponent-ratio", 5, ["elite"], "used largest exponent"],
+    ["factorial-ratio", "Factorial ratio divisibility", "ratio", "subtract-legendre", 5, ["elite"], "added instead of subtracted"],
+    ["elite-factorial-chain", "Factorial exponent and remainder chain", "elite hybrid", "legendre-mod-bridge", 5, ["elite"], "missed modular bridge"],
+  ].map(situationTuple),
+  advanced: [
+    ["modular-cycle-hybrid", "Modular cycle hybrid", "hybrid", "reduce-cycle-chain", 5, ["elite"], "wrong reduction order"],
+    ["prime-remainder-hybrid", "Prime remainder hybrid", "hybrid", "prime-mod-shortcut", 5, ["elite"], "ignored prime property"],
+    ["factor-hcf-hybrid", "Factor-HCF hybrid", "hybrid", "factor-hcf-chain", 5, ["elite"], "factor/HCF swap"],
+    ["hidden-number-theory", "Hidden number theory reconstruction", "reconstruction", "constraint-chain-filter", 5, ["elite"], "early candidate trap"],
+    ["multi-cluster-reasoning", "Multi-cluster chain", "elite hybrid", "cluster-chain-shortcut", 6, ["elite"], "missed cluster link"],
+    ["divisibility-to-remainder", "Divisibility to remainder bridge", "bridge", "divisibility-mod-bridge", 5, ["pyq_plus", "elite"], "wrong bridge direction"],
+    ["factor-to-last-digit", "Factor count to last digit", "bridge", "factor-ending-bridge", 5, ["elite"], "used factor count as digit"],
+    ["hcf-to-remainder", "HCF to remainder recovery", "bridge", "hcf-residue-bridge", 5, ["elite"], "used LCM instead"],
+    ["digit-to-factor-count", "Digit constraint to factor count", "bridge", "digit-factor-filter", 5, ["elite"], "digit-only answer"],
+    ["factorial-to-remainder", "Factorial to remainder", "bridge", "legendre-remainder", 5, ["elite"], "missed factorial power"],
+  ].map(situationTuple),
+  optimization: [
+    ["least-bound-multiple", "Least valid number above a bound", "optimization", "ceil-lcm-bound", 4, ["ssc", "punjab_state"], "picked below-bound multiple"],
+    ["greatest-bound-multiple", "Greatest valid number below a bound", "optimization", "floor-lcm-bound", 4, ["ssc", "banking"], "picked above-bound multiple"],
+    ["minimum-adjustment", "Minimum addition or subtraction", "remainder adjustment", "nearest-residue", 4, ["ssc", "banking"], "used raw remainder"],
+    ["minimum-multiplier", "Smallest multiplier to satisfy a factor condition", "prime-exponent repair", "missing-prime-power", 5, ["ssc", "elite"], "missed one prime exponent"],
+    ["minimum-divisor", "Smallest divisor to remove excess factors", "prime-exponent trim", "excess-prime-power", 5, ["ssc"], "divided by the target instead"],
+    ["range-constraint", "Range optimization with divisor conditions", "range filter", "lcm-floor-ceil", 5, ["ssc", "elite"], "ignored range endpoint"],
+    ["multi-condition-bound", "Multiple conditions with one boundary", "multi-condition", "combined-lcm-bound", 5, ["elite"], "used one condition only"],
+    ["ssc-number-optimization", "SSC-style least/greatest number", "exam optimization", "residue-to-bound", 5, ["ssc", "pyq_plus"], "wrong residual correction"],
+    ["banking-fast-optimization", "Fast clean optimization", "fast arithmetic", "quotient-correction", 4, ["banking"], "off-by-one quotient"],
+    ["punjab-traditional-constraint", "Traditional divisor constraint", "traditional", "hcf-lcm-constraint", 4, ["punjab_state"], "HCF/LCM swap"],
+  ].map(situationTuple),
+  perfect_power: [
+    ["square-completion", "Complete a number to a perfect square", "perfect square", "even-exponent-repair", 4, ["ssc", "punjab_state"], "forgot exponent parity"],
+    ["cube-completion", "Complete a number to a perfect cube", "perfect cube", "triple-exponent-repair", 4, ["ssc"], "forgot exponent multiple of three"],
+    ["least-square-multiple", "Least square multiple", "square multiplier", "square-exponent-fill", 5, ["ssc", "elite"], "used next square only"],
+    ["least-cube-multiple", "Least cube multiple", "cube multiplier", "cube-exponent-fill", 5, ["ssc", "elite"], "used next cube only"],
+    ["square-factor-condition", "Square factor condition", "factor-square hybrid", "factor-parity-filter", 5, ["elite"], "counted all factors"],
+    ["cube-factor-condition", "Cube factor condition", "factor-cube hybrid", "factor-mod-three-filter", 5, ["elite"], "used square rule"],
+    ["square-remainder-bridge", "Perfect square with remainder", "remainder hybrid", "square-residue-chain", 5, ["elite"], "missed remainder correction"],
+    ["square-divisibility-bridge", "Square divisibility hybrid", "divisibility hybrid", "square-lcm-chain", 5, ["ssc", "elite"], "checked divisibility only"],
+    ["square-factor-count-bridge", "Square and factor-count hybrid", "factor count hybrid", "odd-count-square-test", 6, ["elite"], "forgot odd divisor count property"],
+  ].map(situationTuple),
+  reconstruction: [
+    ["hidden-number-bound", "Hidden number from divisor conditions", "reconstruction", "constraint-filter", 5, ["ssc", "elite"], "stopped at first candidate"],
+    ["hidden-divisor", "Hidden divisor reconstruction", "reverse divisor", "quotient-remainder-backtrack", 5, ["ssc"], "used quotient as divisor"],
+    ["hidden-exponent", "Hidden exponent reconstruction", "reverse exponent", "cycle-position-backtrack", 5, ["banking", "elite"], "wrong cycle class"],
+    ["hidden-factorization", "Hidden factorization rebuild", "prime reconstruction", "exponent-rebuild", 5, ["ssc", "elite"], "missed prime base"],
+    ["hidden-square", "Hidden square reconstruction", "square reconstruction", "sqrt-bound-check", 5, ["ssc"], "used non-square candidate"],
+    ["multi-condition-rebuild", "Multi-condition reconstruction", "multi-condition", "lcm-residue-filter", 6, ["elite"], "ignored one condition"],
+    ["reverse-number-theory", "Reverse number-theory chain", "reverse chain", "answer-backtrack", 6, ["elite", "pyq_plus"], "inverted the chain"],
+    ["pyq-reconstruction", "PYQ-style reconstruction", "pyq reconstruction", "constraint-verification", 5, ["pyq_plus", "ssc"], "failed verification"],
+    ["punjab-reconstruction", "Traditional reconstruction", "traditional reconstruction", "divisor-bound-rebuild", 5, ["punjab_state"], "wrong divisibility condition"],
+  ].map(situationTuple),
+  elite_hybrid: [
+    ["prime-hcf-lcm-optimization", "Prime factors to HCF/LCM optimization", "elite chain", "prime-hcf-lcm-bound", 6, ["elite", "ssc"], "missed HCF/LCM bridge"],
+    ["digit-divisibility-reconstruction", "Digit divisibility reconstruction", "elite digit chain", "digit-rule-rebuild", 6, ["elite", "ssc"], "picked invalid digit"],
+    ["remainder-constraint-optimization", "Remainder constraint optimization", "elite remainder chain", "residue-lcm-bound", 6, ["elite"], "used wrong residue"],
+    ["factor-count-square-hidden", "Factor count to hidden square", "elite factor chain", "factor-count-square", 6, ["elite"], "forgot square divisor property"],
+    ["prime-exact-divisor-optimization", "Exact divisor optimization", "elite divisor chain", "exact-divisor-bound", 6, ["elite", "ssc"], "wrong exponent split"],
+    ["modular-cycle-reconstruction", "Cycle reconstruction", "elite cycle chain", "cycle-backtrack-verify", 6, ["elite", "banking"], "wrong cycle position"],
+    ["digit-hcf-verification", "Digit divisibility with HCF verification", "elite verification", "digit-hcf-check", 6, ["elite", "punjab_state"], "skipped final HCF check"],
+    ["multi-cluster-ssc-chain", "SSC multi-cluster chain", "elite SSC chain", "cluster-chain", 6, ["elite", "ssc"], "solved only first cluster"],
+    ["banking-pattern-chain", "Banking pattern chain", "elite banking chain", "fast-cycle-chain", 5, ["elite", "banking"], "cycle shortcut error"],
+    ["punjab-traditional-chain", "Punjab traditional chain", "elite traditional chain", "traditional-divisor-chain", 5, ["elite", "punjab_state"], "divisor relation error"],
+  ].map(situationTuple),
 };
 
 const t = (en: string, hi: string, pa: string): NumberSystemLocalizedText => ({ en, hi, pa });
@@ -183,9 +404,40 @@ function factorialPrimePower(n: number, p: number) {
   for (let div = p; div <= n; div *= p) count += Math.floor(n / div);
   return count;
 }
+function ceilToMultiple(value: number, divisor: number) {
+  return Math.ceil(value / divisor) * divisor;
+}
+function floorToMultiple(value: number, divisor: number) {
+  return Math.floor(value / divisor) * divisor;
+}
+function factorCompletionMultiplier(n: number, power: 2 | 3) {
+  const factors = primeFactors(n);
+  return Object.entries(factors).reduce((acc, [primeRaw, exp]) => {
+    const missing = (power - (exp % power)) % power;
+    return acc * Number(primeRaw) ** missing;
+  }, 1);
+}
+function smallestResidueAtLeast(lower: number, modulus: number, residue: number) {
+  const normalized = ((residue % modulus) + modulus) % modulus;
+  const first = lower + (((normalized - (lower % modulus)) + modulus) % modulus);
+  return first;
+}
+function rangeResidueCount(start: number, end: number, modulus: number, residue: number) {
+  const first = smallestResidueAtLeast(start, modulus, residue);
+  if (first > end) return 0;
+  return Math.floor((end - first) / modulus) + 1;
+}
+function squareRootIfSquare(n: number) {
+  const root = Math.round(Math.sqrt(n));
+  return root * root === n ? root : -1;
+}
 
 const SPECS: readonly Spec[] = NUMBER_SYSTEM_FAMILY_IDS.map((family) => {
   const cluster: Cluster =
+    family.includes("prime_hcf_lcm") || family.includes("digit_divisibility") || family.includes("factor_count_square") || family.includes("prime_exact") || family.includes("modular_cycle_reconstruction") ? "elite_hybrid" :
+    family.includes("least_number") || family.includes("greatest_number") || family.includes("minimum_addition") || family.includes("minimum_subtraction") || family.includes("minimum_multiplier") || family.includes("minimum_divisor") || family.includes("smallest_divisible") || family.includes("largest_valid") || family.includes("range_optimization") || family.includes("multi_condition_optimization") || family.includes("constraint_optimization") ? "optimization" :
+    family.includes("perfect_square") || family.includes("perfect_cube") || family.includes("least_square") || family.includes("least_cube") || family.includes("square_") || family.includes("cube_") ? "perfect_power" :
+    family.includes("_reconstruction") || family.includes("reverse_number_theory") || family.includes("hidden_number_reconstruction") || family.includes("hidden_divisor_reconstruction") || family.includes("hidden_exponent_reconstruction") || family.includes("hidden_factorization_reconstruction") || family.includes("hidden_square_reconstruction") ? "reconstruction" :
     family.includes("prime") || family.includes("factor_count") || family.includes("divisor") ? "prime" :
     family.includes("hcf") || family.includes("lcm") || family.includes("schedule") || family.includes("common") ? "hcf_lcm" :
     family.includes("remainder") || family.includes("modular") ? "remainder" :
@@ -194,6 +446,10 @@ const SPECS: readonly Spec[] = NUMBER_SYSTEM_FAMILY_IDS.map((family) => {
     family.includes("factorial") || family.includes("zero") || family.includes("highest_power") ? "factorial" :
     family.includes("hidden") || family.includes("hybrid") || family.includes("multi_cluster") ? "advanced" : "divisibility";
   const kind: NumberSystemSolverKind =
+    cluster === "optimization" ? "optimization_constraint" :
+    cluster === "perfect_power" ? "perfect_power_completion" :
+    cluster === "reconstruction" ? "reconstruction" :
+    cluster === "elite_hybrid" ? "elite_hybrid_chain" :
     cluster === "prime" ? "factor_count" :
     cluster === "hcf_lcm" ? "hcf_lcm" :
     cluster === "remainder" ? "remainder" :
@@ -203,6 +459,10 @@ const SPECS: readonly Spec[] = NUMBER_SYSTEM_FAMILY_IDS.map((family) => {
     cluster === "advanced" ? "modular_hybrid" :
     family.includes("missing") || family.includes("reverse") ? "missing_digit" : "divisibility_count";
   const method: NumberSystemPreferredSolutionMethod =
+    kind === "optimization_constraint" ? "OPTIMIZATION_CONSTRAINT_METHOD" :
+    kind === "perfect_power_completion" ? "PERFECT_POWER_COMPLETION_METHOD" :
+    kind === "reconstruction" ? "RECONSTRUCTION_METHOD" :
+    kind === "elite_hybrid_chain" ? "ELITE_HYBRID_CHAIN_METHOD" :
     kind === "missing_digit" || kind === "divisibility_count" ? "DIVISIBILITY_RULE_METHOD" :
     kind === "factor_count" ? (family.includes("hidden_prime") ? "EXPONENT_TRACKING_METHOD" : "FACTOR_COUNT_METHOD") :
     kind === "hcf_lcm" ? "HCF_LCM_RELATION_METHOD" :
@@ -214,14 +474,89 @@ const SPECS: readonly Spec[] = NUMBER_SYSTEM_FAMILY_IDS.map((family) => {
     cluster,
     kind,
     method,
-    archetype: family.includes("hidden") || family.includes("reverse") ? "hidden_variable" : family.includes("range") || family.includes("minimum") ? "optimization" : family.includes("hybrid") || family.includes("multi") ? "hybrid" : "deduction",
-    difficulty: cluster === "advanced" || family.includes("three") || family.includes("nested") ? "hard" : cluster === "divisibility" || cluster === "prime" ? "easy" : "medium",
+    archetype:
+      cluster === "elite_hybrid" ? "hybrid" :
+      cluster === "reconstruction" ? "reconstruction" :
+      cluster === "optimization" || cluster === "perfect_power" ? "optimization" :
+      family.includes("hidden") || family.includes("reverse") ? "hidden_variable" :
+      family.includes("range") || family.includes("minimum") ? "optimization" :
+      family.includes("hybrid") || family.includes("multi") ? "hybrid" : "deduction",
+    difficulty: cluster === "elite_hybrid" || cluster === "reconstruction" || cluster === "perfect_power" || cluster === "advanced" || family.includes("three") || family.includes("nested") ? "hard" : cluster === "optimization" ? "medium" : cluster === "divisibility" || cluster === "prime" ? "easy" : "medium",
     unit: kind === "missing_digit" ? "digit" : kind === "remainder" || kind === "last_digit" ? "remainder" : kind === "factor_count" ? "count" : "number",
   };
 });
 
 function specFor(family: NumberSystemFamilyId) {
   return SPECS.find((spec) => spec.family === family) ?? SPECS[0]!;
+}
+
+function situationForSpec(spec: Spec, family: NumberSystemFamilyId, seed: string) {
+  const situations = BASE_SITUATIONS[spec.cluster];
+  const familyHints = [
+    ["missing", "missing"],
+    ["range", "range"],
+    ["reverse", "reverse"],
+    ["hidden", "hidden"],
+    ["hybrid", "hybrid"],
+    ["three", "three"],
+    ["schedule", "schedule"],
+    ["minimum", "minimum"],
+    ["last_two", "last-two"],
+    ["last_three", "last-three"],
+    ["power_tower", "tower"],
+    ["trailing", "trailing"],
+    ["highest", "highest"],
+    ["least", "least"],
+    ["greatest", "greatest"],
+    ["minimum", "minimum"],
+    ["square", "square"],
+    ["cube", "cube"],
+    ["reconstruction", "reconstruction"],
+    ["optimization", "optimization"],
+  ] as const;
+  const hinted = familyHints.find(([needle]) => family.includes(needle))?.[1];
+  const filtered = hinted ? situations.filter((situation) => situation.id.includes(hinted) || situation.label.toLowerCase().includes(hinted)) : [];
+  return pick(filtered.length > 0 ? filtered : situations, seed);
+}
+
+function examModeForSituation(situation: NumberSystemSituation, seed: string) {
+  return pick(situation.examModes.length > 0 ? situation.examModes : ["ssc"], seed);
+}
+
+function authenticityScores(situation: NumberSystemSituation, difficulty: "easy" | "medium" | "hard") {
+  const base = difficulty === "hard" ? 86 : difficulty === "medium" ? 84 : 81;
+  const depthBoost = Math.min(8, situation.topologyDepth);
+  const scoreFor = (mode: NumberSystemExamMode) => Math.min(98, base + depthBoost + (situation.examModes.includes(mode) ? 6 : -2));
+  return {
+    ssc: scoreFor("ssc"),
+    banking: scoreFor("banking"),
+    punjab: scoreFor("punjab_state"),
+  };
+}
+
+function isEliteSituation(spec: Spec, family: NumberSystemFamilyId, situation: NumberSystemSituation, difficulty: "easy" | "medium" | "hard") {
+  return situation.topologyDepth >= 5 || spec.cluster === "advanced" || difficulty === "hard" || family.includes("hybrid") || family.includes("multi_cluster");
+}
+
+function methodTrap(method: NumberSystemPreferredSolutionMethod) {
+  switch (method) {
+    case "DIVISIBILITY_RULE_METHOD": return "used memorized rule without verification";
+    case "PRIME_FACTORIZATION_METHOD": return "missed a prime factor";
+    case "EXPONENT_TRACKING_METHOD": return "tracked exponent of only one prime";
+    case "FACTOR_COUNT_METHOD": return "forgot exponent plus one";
+    case "HCF_LCM_RELATION_METHOD": return "interchanged HCF and LCM";
+    case "MODULAR_CYCLE_METHOD": return "picked wrong cycle position";
+    case "LAST_DIGIT_CYCLE_METHOD": return "used exponent directly instead of cycle";
+    case "DIGITAL_ROOT_METHOD": return "used digit sum without checking condition";
+    case "TRAILING_ZERO_METHOD": return "missed higher powers of five";
+    case "HIGHEST_POWER_METHOD": return "missed higher prime powers";
+    case "DIGIT_EQUATION_METHOD": return "swapped place-value coefficients";
+    case "OPTIMIZATION_CONSTRAINT_METHOD": return "optimized before combining constraints";
+    case "PERFECT_POWER_COMPLETION_METHOD": return "missed exponent completion";
+    case "RECONSTRUCTION_METHOD": return "accepted candidate without verification";
+    case "ELITE_HYBRID_CHAIN_METHOD": return "solved only one stage of the chain";
+    default: return "selected arithmetic-neighbor distractor";
+  }
 }
 
 export function resolveNumberSystemFamily(value?: string): NumberSystemFamilyId | undefined {
@@ -304,10 +639,6 @@ function buildOptions(answer: number, unit: NumberSystemAnswerUnit, seed: string
   return { options: rotated.map((value) => optionText(value, unit)), correct };
 }
 
-function withMath(value: string) {
-  return displayMathBlock(value);
-}
-
 function stemVariant(seed: string, variants: readonly NumberSystemLocalizedText[]) {
   return pick(variants, `${seed}:stem-variant`);
 }
@@ -386,6 +717,63 @@ export function evaluateNumberSystemSolverModel(model: NumberSystemSolverModel):
       return factorCountFromFactors(Object.fromEntries(Object.entries(primeFactors(Number(i.base))).map(([p, e]) => [p, factorialPrimePower(Number(i.n), Number(p)) * e])));
     case "modular_hybrid":
       return modPow(Number(i.base), Number(i.exp), Number(i.mod));
+    case "optimization_constraint": {
+      const mode = String(i.mode);
+      if (mode === "least_multiple_above") return ceilToMultiple(Number(i.lower) + 1, Number(i.lcm));
+      if (mode === "greatest_multiple_below") return floorToMultiple(Number(i.upper) - 1, Number(i.lcm));
+      if (mode === "minimum_addition") return (Number(i.divisor) - (Number(i.n) % Number(i.divisor))) % Number(i.divisor);
+      if (mode === "minimum_subtraction") return Number(i.n) % Number(i.divisor);
+      if (mode === "minimum_multiplier") return Number(i.target) / gcd(Number(i.n), Number(i.target));
+      if (mode === "minimum_divisor") return Number(i.extraDivisor);
+      if (mode === "range_count") return rangeResidueCount(Number(i.start), Number(i.end), Number(i.modulus), Number(i.residue));
+      if (mode === "multi_condition") return ceilToMultiple(Number(i.lower) + 1, Number(i.lcm));
+      return Number(i.answer);
+    }
+    case "perfect_power_completion": {
+      const mode = String(i.mode);
+      const n = Number(i.n);
+      const power = Number(i.power) as 2 | 3;
+      const multiplier = factorCompletionMultiplier(n, power);
+      if (mode === "least_multiple") return n * multiplier;
+      if (mode === "factor_count_square") return factorCountFromFactors(primeFactors(n * multiplier));
+      if (mode === "remainder_to_square") {
+        const modulus = Number(i.modulus);
+        const residue = Number(i.residue);
+        const lower = Number(i.lower);
+        let candidate = smallestResidueAtLeast(lower, modulus, residue);
+        while (squareRootIfSquare(candidate) < 0) candidate += modulus;
+        return candidate;
+      }
+      return multiplier;
+    }
+    case "reconstruction": {
+      const mode = String(i.mode);
+      if (mode === "number_from_lcm_remainder") return Number(i.lcm) * Number(i.quotient) + Number(i.remainder);
+      if (mode === "hidden_divisor") return (Number(i.dividend) - Number(i.remainder)) / Number(i.quotient);
+      if (mode === "hidden_exponent") {
+        const base = Number(i.base);
+        const mod = Number(i.mod);
+        const target = Number(i.targetRemainder);
+        for (let exp = Number(i.minExp); exp <= Number(i.maxExp); exp += 1) {
+          if (modPow(base, exp, mod) === target) return exp;
+        }
+        return -1;
+      }
+      if (mode === "hidden_factorization") return Number(i.value);
+      if (mode === "hidden_square") return Number(i.root) * Number(i.root);
+      return Number(i.answer);
+    }
+    case "elite_hybrid_chain": {
+      const mode = String(i.mode);
+      if (mode === "prime_hcf_lcm_optimization") return ceilToMultiple(Number(i.lower) + 1, lcm(Number(i.a), Number(i.b)));
+      if (mode === "digit_divisibility_reconstruction") return Number(String(i.pattern).replace("x", String(i.digit)));
+      if (mode === "remainder_constraint_optimization") return smallestResidueAtLeast(Number(i.lower), Number(i.modulus), Number(i.residue));
+      if (mode === "factor_count_square_hidden") return factorCompletionMultiplier(Number(i.n), 2);
+      if (mode === "prime_exact_divisor_optimization") return Number(i.value);
+      if (mode === "modular_cycle_reconstruction") return modPow(Number(i.base), Number(i.exp), Number(i.mod));
+      if (mode === "digit_divisibility_hcf_verification") return gcd(Number(String(i.pattern).replace("x", String(i.digit))), Number(i.other));
+      return Number(i.answer);
+    }
   }
 }
 
@@ -538,10 +926,10 @@ function remainderDraft(spec: Spec, seed: string): Draft {
   const mod = pick([5, 7, 9, 11, 13], `${seed}:mod`);
   return {
     stem: stemVariant(seed, [
-      t(`Without expanding the power, find the remainder when \\(${base}^{${exp}}\\) is divided by \\(${mod}\\).`, `घात को फैलाए बिना \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल ज्ञात करें।`, `ਘਾਤ ਨੂੰ ਫੈਲਾਏ ਬਿਨਾਂ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕਿੰਨਾ ਆਵੇਗਾ?`),
-      t(`What remainder will \\(${base}^{${exp}}\\) leave on division by \\(${mod}\\)?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर क्या शेषफल आएगा?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?`),
+      t(`For \\(${base}^{${exp}}\\), find the remainder on division by \\(${mod}\\) without expansion.`, `घात को फैलाए बिना \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल ज्ञात करें।`, `ਘਾਤ ਨੂੰ ਫੈਲਾਏ ਬਿਨਾਂ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕਿੰਨਾ ਆਵੇਗਾ?`),
+      t(`When \\(${base}^{${exp}}\\) is divided by \\(${mod}\\), what remainder is left?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर क्या शेषफल आएगा?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?`),
       t(`Using cyclic remainders, evaluate the remainder of \\(${base}^{${exp}}\\) modulo \\(${mod}\\).`, `चक्रीय शेषफल से \\(${base}^{${exp}}\\) modulo \\(${mod}\\) का शेषफल निकालें।`, `ਚੱਕਰੀ ਬਾਕੀਆਂ ਨਾਲ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਦਾ ਬਾਕੀ ਕੱਢੋ।`),
-      t(`A large power \\(${base}^{${exp}}\\) is divided by \\(${mod}\\). What is the remainder?`, `बड़ी घात \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। शेषफल क्या है?`, `ਵੱਡੀ ਘਾਤ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?`),
+      t(`Power \\(${base}^{${exp}}\\) is tested modulo \\(${mod}\\). Which remainder is obtained?`, `बड़ी घात \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। शेषफल क्या है?`, `ਵੱਡੀ ਘਾਤ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?`),
     ]),
     model: { kind: "remainder", inputs: { base, exp, mod } },
     variables: { base, exp, mod },
@@ -565,10 +953,10 @@ function lastDigitDraft(spec: Spec, seed: string): Draft {
   const mod = spec.family.includes("two") ? 100 : spec.family.includes("three") ? 1000 : 10;
   return {
     stem: stemVariant(seed, [
-      t(`What are the last ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
-      t(`Find the ending ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) के अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें?`, `\\(${base}^{${exp}}\\) ਦੇ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ?`),
-      t(`Evaluate the last ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} of the expression \\(${base}^{${exp}}\\).`, `अभिव्यक्ति \\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें।`, `ਅਭਿਵਿਅਕਤੀ \\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ।`),
-      t(`What are the last ${mod === 10 ? "digit (units digit)" : mod === 100 ? "two digits" : "three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक (इकाई अंक)" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ (ਇਕਾਈ ਅੰਕ)" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
+      t(`For exponent \\(${exp}\\), what ending ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} does \\(${base}^{${exp}}\\) have?`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
+      t(`The power \\(${base}^{${exp}}\\) is very large. What are its final ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"}?`, `\\(${base}^{${exp}}\\) के अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें?`, `\\(${base}^{${exp}}\\) ਦੇ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ?`),
+      t(`When \\(${base}\\) is raised to \\(${exp}\\), what ${mod === 10 ? "digit appears at the end" : mod === 100 ? "two digits appear at the end" : "three digits appear at the end"}?`, `अभिव्यक्ति \\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें।`, `ਅਭਿਵਿਅਕਤੀ \\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ।`),
+      t(`In \\(${base}^{${exp}}\\), determine the final ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} without expanding the power.`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक (इकाई अंक)" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ (ਇਕਾਈ ਅੰਕ)" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
     ]),
     model: { kind: "last_digit", inputs: { base, exp, mod } },
     variables: { base, exp, mod },
@@ -594,7 +982,7 @@ function digitDraft(spec: Spec, seed: string): Draft {
   return {
     stem: stemVariant(seed, ask === "digits"
       ? [
-          t(`How many digits are there in the number \\(${n}\\)?`, `संख्या \\(${n}\\) में कितने अंक हैं?`, `ਸੰਖਿਆ \\(${n}\\) ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
+          t(`For \\(${n}\\), how many digits are written in its decimal form?`, `संख्या \\(${n}\\) में कितने अंक हैं?`, `ਸੰਖਿਆ \\(${n}\\) ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
           t(`Count the digits in \\(${n}\\). What is the digit count?`, `\\(${n}\\) में अंकों की गिनती करें। अंक-गिनती क्या है?`, `\\(${n}\\) ਵਿੱਚ ਅੰਕਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ। ਅੰਕ-ਗਿਣਤੀ ਕੀ ਹੈ?`),
           t(`The number \\(${n}\\) is written in decimal form. How many digits does it contain?`, `संख्या \\(${n}\\) दशमलव रूप में लिखी है। इसमें कितने अंक हैं?`, `ਸੰਖਿਆ \\(${n}\\) ਦਸ਼ਮਲਵ ਰੂਪ ਵਿੱਚ ਲਿਖੀ ਹੈ। ਇਸ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
           t(`For \\(${n}\\), what is the total number of digits?`, `\\(${n}\\) के लिए कुल कितने अंक हैं?`, `\\(${n}\\) ਲਈ ਕੁੱਲ ਕਿੰਨੇ ਅੰਕ ਹਨ?`),
@@ -607,10 +995,10 @@ function digitDraft(spec: Spec, seed: string): Draft {
           t(`With tens \\(${tens}\\) and ones \\(${ones}\\), a two-digit number is written. What difference appears after reversing?`, `दहाई \\(${tens}\\) और इकाई \\(${ones}\\) से दो-अंकीय संख्या लिखी गई। उलटने पर कितना अंतर आएगा?`, `ਦਹਾਈ \\(${tens}\\) ਅਤੇ ਇਕਾਈ \\(${ones}\\) ਨਾਲ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਿਖੀ ਗਈ। ਉਲਟਣ ਤੇ ਕਿੰਨਾ ਫਰਕ ਆਵੇਗਾ?`),
         ]
       : [
-          t(`Digit sum \\(${tens + ones}\\) and tens digit \\(${tens}\\) are known for a two-digit number. What is the number?`, `दो-अंकीय संख्या का अंक-योग \\(${tens + ones}\\) और दहाई अंक \\(${tens}\\) ज्ञात हैं। संख्या क्या है?`, `ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \\(${tens + ones}\\) ਅਤੇ ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?`),
-          t(`Digit sum \\(${tens + ones}\\) is given for a two-digit number. If the tens digit is \\(${tens}\\), what is the number?`, `दो-अंकीय संख्या के लिए अंक-योग \\(${tens + ones}\\) दिया है। यदि दहाई अंक \\(${tens}\\) है, तो संख्या क्या है?`, `ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \\(${tens + ones}\\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?`),
-          t(`The value \\(${tens + ones}\\) is the sum of a two-digit number's digits. Its tens digit is \\(${tens}\\). Find the number?`, `मान \\(${tens + ones}\\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \\(${tens}\\) है। संख्या ज्ञात करें?`, `ਮੁੱਲ \\(${tens + ones}\\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?`),
-          t(`With digit sum \\(${tens + ones}\\), a two-digit number has \\(${tens}\\) in the tens place. Which number is it?`, `अंक-योग \\(${tens + ones}\\) वाली दो-अंकीय संख्या के दहाई स्थान पर \\(${tens}\\) है। वह संख्या कौन-सी है?`, `ਅੰਕ-ਜੋੜ \\(${tens + ones}\\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \\(${tens}\\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?`),
+          t(`Digit sum \\(${tens + ones}\\) with tens digit \\(${tens}\\) identifies which two-digit number?`, `दो-अंकीय संख्या का अंक-योग \\(${tens + ones}\\) और दहाई अंक \\(${tens}\\) ज्ञात हैं। संख्या क्या है?`, `ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \\(${tens + ones}\\) ਅਤੇ ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?`),
+          t(`If the digit sum is \\(${tens + ones}\\) and the tens digit is \\(${tens}\\), what number is formed?`, `दो-अंकीय संख्या के लिए अंक-योग \\(${tens + ones}\\) दिया है। यदि दहाई अंक \\(${tens}\\) है, तो संख्या क्या है?`, `ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \\(${tens + ones}\\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?`),
+          t(`Tens digit \\(${tens}\\) and digit sum \\(${tens + ones}\\) are fixed. What is the number?`, `मान \\(${tens + ones}\\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \\(${tens}\\) है। संख्या ज्ञात करें?`, `ਮੁੱਲ \\(${tens + ones}\\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \\(${tens}\\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?`),
+          t(`The tens place has \\(${tens}\\), and all digits add to \\(${tens + ones}\\). Which number is it?`, `अंक-योग \\(${tens + ones}\\) वाली दो-अंकीय संख्या के दहाई स्थान पर \\(${tens}\\) है। वह संख्या कौन-सी है?`, `ਅੰਕ-ਜੋੜ \\(${tens + ones}\\) ਵਾਲੀ ਦੋ ਅੰਕਾਂ ਦੀ ਸੰਖਿਆ ਦੇ ਦਹਾਈ ਥਾਂ ਤੇ \\(${tens}\\) ਹੈ। ਉਹ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ?`),
           t(`Tens digit \\(${tens}\\), digit sum \\(${tens + ones}\\): which two-digit number satisfies both facts?`, `दहाई अंक \\(${tens}\\), अंक-योग \\(${tens + ones}\\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?`, `ਦਹਾਈ ਅੰਕ \\(${tens}\\), ਅੰਕ-ਜੋੜ \\(${tens + ones}\\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?`),
         ]),
     model: { kind: "digit_logic", inputs: { tens, ones, n, ask, answer: ask === "number" ? n : Math.abs(n - (10 * ones + tens)) } },
@@ -705,7 +1093,7 @@ function modularDraft(spec: Spec, seed: string): Draft {
       t(`A number leaves the same remainder as \\(${base}^{${exp}}\\) when divided by \\(${mod}\\). What is that remainder?`, `एक संख्या \\(${mod}\\) से भाग देने पर \\(${base}^{${exp}}\\) जैसा ही शेषफल देती है। वह शेषफल क्या है?`, `ਇੱਕ ਸੰਖਿਆ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ \\(${base}^{${exp}}\\) ਵਰਗਾ ਹੀ ਬਾਕੀ ਦਿੰਦੀ ਹੈ। ਉਹ ਬਾਕੀ ਕੀ ਹੈ?`),
       t(`The expression \\(${base}^{${exp}}\\) is reduced modulo \\(${mod}\\). What remainder is obtained?`, `अभिव्यक्ति \\(${base}^{${exp}}\\) को modulo \\(${mod}\\) में घटाया गया। क्या शेषफल मिलेगा?`, `ਅਭਿਵਿਅਕਤੀ \\(${base}^{${exp}}\\) ਨੂੰ modulo \\(${mod}\\) ਵਿੱਚ ਘਟਾਇਆ ਗਿਆ। ਕਿਹੜਾ ਬਾਕੀ ਮਿਲੇਗਾ?`),
       t(`Using modular arithmetic, find the remainder of \\(${base}^{${exp}}\\) on division by \\(${mod}\\).`, `मॉड्यूलर अंकगणित से \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल निकालें।`, `ਮਾਡਿਊਲਰ ਗਣਿਤ ਨਾਲ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੱਢੋ।`),
-      t(`Without calculating the full power, what remainder does \\(${base}^{${exp}}\\) leave modulo \\(${mod}\\)?`, `पूरी घात निकाले बिना \\(${base}^{${exp}}\\) modulo \\(${mod}\\) में क्या शेषफल छोड़ेगा?`, `ਪੂਰੀ ਘਾਤ ਕੱਢੇ ਬਿਨਾਂ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਵਿੱਚ ਕਿੰਨਾ ਬਾਕੀ ਛੱਡੇਗਾ?`),
+      t(`For \\(${base}^{${exp}}\\), use the cycle modulo \\(${mod}\\). What remainder is left?`, `पूरी घात निकाले बिना \\(${base}^{${exp}}\\) modulo \\(${mod}\\) में क्या शेषफल छोड़ेगा?`, `ਪੂਰੀ ਘਾਤ ਕੱਢੇ ਬਿਨਾਂ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਵਿੱਚ ਕਿੰਨਾ ਬਾਕੀ ਛੱਡੇਗਾ?`),
       t(`Reduce the power \\(${base}^{${exp}}\\) by its remainder pattern. What is the remainder on division by \\(${mod}\\)?`, `\\(${base}^{${exp}}\\) को उसके शेषफल पैटर्न से घटाएं। \\(${mod}\\) से भाग देने पर शेषफल क्या होगा?`, `\\(${base}^{${exp}}\\) ਨੂੰ ਉਸ ਦੇ ਬਾਕੀ ਪੈਟਰਨ ਨਾਲ ਘਟਾਓ। \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੋਵੇਗਾ?`),
       t(`A large power \\(${base}^{${exp}}\\) is divided by \\(${mod}\\). What remainder should be written?`, `बड़ी घात \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। कौन-सा शेषफल लिखा जाएगा?`, `ਵੱਡੀ ਘਾਤ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਕਿਹੜਾ ਬਾਕੀ ਲਿਖਿਆ ਜਾਵੇਗਾ?`),
       t(`For exponent \\(${exp}\\), the powers of \\(${base}\\) repeat in remainders modulo \\(${mod}\\). What remainder appears?`, `exponent \\(${exp}\\) के लिए \\(${base}\\) की घातों के शेषफल modulo \\(${mod}\\) में दोहराते हैं। कौन-सा शेषफल आएगा?`, `exponent \\(${exp}\\) ਲਈ \\(${base}\\) ਦੀਆਂ ਘਾਤਾਂ ਦੇ ਬਾਕੀ modulo \\(${mod}\\) ਵਿੱਚ ਦੁਹਰਾਂਦੇ ਹਨ। ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?`),
@@ -727,7 +1115,296 @@ function modularDraft(spec: Spec, seed: string): Draft {
   };
 }
 
+function optimizationDraft(spec: Spec, seed: string): Draft {
+  const divisors = [6, 8, 9, 12, 15, 18, 20, 24, 30, 36];
+  const a = pick(divisors, `${seed}:a`);
+  const b = pick(divisors.filter((value) => value !== a), `${seed}:b`);
+  const combined = lcm(a, b);
+  const family = spec.family;
+  let model: NumberSystemSolverModel;
+  let stem: NumberSystemLocalizedText;
+  let variables: Record<string, unknown>;
+  let hiddenVariables: Record<string, unknown>;
+  let formula = "N\\equiv r\\pmod m";
+  if (family.includes("greatest") || family.includes("largest_valid")) {
+    const upper = combined * int(`${seed}:q`, 9, 19) + int(`${seed}:gap`, 7, combined - 1);
+    model = { kind: "optimization_constraint", inputs: { mode: "greatest_multiple_below", upper, lcm: combined } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = stemVariant(seed, [
+      t(`What is the greatest number less than \\(${upper}\\) that is divisible by both \\(${a}\\) and \\(${b}\\)?`, `\\(${upper}\\) से छोटी सबसे बड़ी संख्या कौन-सी है जो \\(${a}\\) और \\(${b}\\) दोनों से विभाज्य हो?`, `\\(${upper}\\) ਤੋਂ ਛੋਟੀ ਸਭ ਤੋਂ ਵੱਡੀ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ ਜੋ \\(${a}\\) ਅਤੇ \\(${b}\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ?`),
+      t(`Find the largest integer below \\(${upper}\\) which satisfies divisibility by \\(${a}\\) and \\(${b}\\).`, `\\(${upper}\\) से कम वह सबसे बड़ा पूर्णांक ज्ञात करें जो \\(${a}\\) और \\(${b}\\) दोनों से विभाज्य है।`, `\\(${upper}\\) ਤੋਂ ਘੱਟ ਉਹ ਸਭ ਤੋਂ ਵੱਡਾ ਪੂਰਨ ਅੰਕ ਕੱਢੋ ਜੋ \\(${a}\\) ਅਤੇ \\(${b}\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਂਦਾ ਹੈ।`),
+    ]);
+    variables = { upper, a, b, lcm: combined, answer };
+    hiddenVariables = { boundary: upper, commonDivisor: combined };
+  } else if (family.includes("minimum_addition")) {
+    const divisor = pick([9, 11, 12, 18, 24, 36], `${seed}:d`);
+    const n = divisor * int(`${seed}:q`, 17, 41) + int(`${seed}:r`, 2, divisor - 2);
+    model = { kind: "optimization_constraint", inputs: { mode: "minimum_addition", n, divisor } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = stemVariant(seed, [
+      t(`What least number should be added to \\(${n}\\) so that the result is divisible by \\(${divisor}\\)?`, `\\(${n}\\) में कौन-सी न्यूनतम संख्या जोड़ी जाए ताकि परिणाम \\(${divisor}\\) से विभाज्य हो?`, `\\(${n}\\) ਵਿੱਚ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਜੋੜੀ ਜਾਵੇ ਤਾਂ ਜੋ ਨਤੀਜਾ \\(${divisor}\\) ਨਾਲ ਭਾਗ ਜਾਵੇ?`),
+      t(`A number \\(${n}\\) is to be made divisible by \\(${divisor}\\). What is the minimum addition required?`, `संख्या \\(${n}\\) को \\(${divisor}\\) से विभाज्य बनाना है। न्यूनतम जोड़ कितना होगा?`, `ਸੰਖਿਆ \\(${n}\\) ਨੂੰ \\(${divisor}\\) ਨਾਲ ਭਾਗਯੋਗ ਬਣਾਉਣਾ ਹੈ। ਘੱਟੋ-ਘੱਟ ਜੋੜ ਕਿੰਨਾ ਹੋਵੇਗਾ?`),
+    ]);
+    variables = { n, divisor, answer };
+    hiddenVariables = { remainder: n % divisor };
+  } else if (family.includes("minimum_subtraction")) {
+    const divisor = pick([9, 11, 12, 18, 24, 36], `${seed}:d`);
+    const n = divisor * int(`${seed}:q`, 19, 43) + int(`${seed}:r`, 2, divisor - 2);
+    model = { kind: "optimization_constraint", inputs: { mode: "minimum_subtraction", n, divisor } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = stemVariant(seed, [
+      t(`What least number should be subtracted from \\(${n}\\) so that the result is divisible by \\(${divisor}\\)?`, `\\(${n}\\) में से कौन-सी न्यूनतम संख्या घटाई जाए ताकि परिणाम \\(${divisor}\\) से विभाज्य हो?`, `\\(${n}\\) ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਘਟਾਈ ਜਾਵੇ ਤਾਂ ਜੋ ਨਤੀਜਾ \\(${divisor}\\) ਨਾਲ ਭਾਗ ਜਾਵੇ?`),
+      t(`The number \\(${n}\\) has to be reduced to a multiple of \\(${divisor}\\). What is the minimum subtraction?`, `\\(${n}\\) को \\(${divisor}\\) के गुणज तक घटाना है। न्यूनतम घटाव कितना है?`, `\\(${n}\\) ਨੂੰ \\(${divisor}\\) ਦੇ ਗੁਣਜ ਤੱਕ ਘਟਾਉਣਾ ਹੈ। ਘੱਟੋ-ਘੱਟ ਘਟਾਓ ਕਿੰਨਾ ਹੈ?`),
+    ]);
+    variables = { n, divisor, answer };
+    hiddenVariables = { remainder: n % divisor };
+  } else if (family.includes("minimum_multiplier")) {
+    const target = pick([72, 90, 120, 144, 180, 240], `${seed}:target`);
+    const n = target / pick([2, 3, 4, 5, 6], `${seed}:miss`);
+    model = { kind: "optimization_constraint", inputs: { mode: "minimum_multiplier", n, target } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = t(`By what least number should \\(${n}\\) be multiplied so that the product is divisible by \\(${target}\\)?`, `\\(${n}\\) को किस न्यूनतम संख्या से गुणा किया जाए ताकि गुणनफल \\(${target}\\) से विभाज्य हो?`, `\\(${n}\\) ਨੂੰ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਜਾਵੇ ਤਾਂ ਜੋ ਗੁਣਨਫਲ \\(${target}\\) ਨਾਲ ਭਾਗ ਜਾਵੇ?`);
+    variables = { n, target, answer };
+    hiddenVariables = { missingPrimePowers: primeFactors(Number(answer)) };
+  } else if (family.includes("minimum_divisor")) {
+    const target = pick([12, 18, 24, 30, 36], `${seed}:target`);
+    const extraDivisor = pick([2, 3, 4, 5, 6], `${seed}:extra`);
+    const quotient = target * int(`${seed}:q`, 5, 12);
+    const n = quotient * extraDivisor;
+    model = { kind: "optimization_constraint", inputs: { mode: "minimum_divisor", n, target, extraDivisor } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = t(`The number \\(${n}\\) is divided by the least possible divisor so that the quotient is still a multiple of \\(${target}\\). What is that divisor?`, `\\(${n}\\) को सबसे छोटे संभव भाजक से भाग देना है ताकि भागफल अभी भी \\(${target}\\) का गुणज रहे। वह भाजक क्या है?`, `\\(${n}\\) ਨੂੰ ਸਭ ਤੋਂ ਛੋਟੇ ਸੰਭਵ ਭਾਜਕ ਨਾਲ ਭਾਗਣਾ ਹੈ ਤਾਂ ਜੋ ਭਾਗਫਲ ਹਾਲੇ ਵੀ \\(${target}\\) ਦਾ ਗੁਣਜ ਰਹੇ। ਉਹ ਭਾਜਕ ਕੀ ਹੈ?`);
+    variables = { n, target, answer };
+    hiddenVariables = { quotientAfterDivision: quotient };
+  } else if (family.includes("range_optimization")) {
+    const modulus = combined;
+    const residue = pick([1, 5, 7, 11, 13], `${seed}:res`) % modulus;
+    const start = modulus * int(`${seed}:s`, 5, 8) + residue;
+    const end = start + modulus * int(`${seed}:span`, 5, 10) + Math.floor(modulus / 2);
+    model = { kind: "optimization_constraint", inputs: { mode: "range_count", start, end, modulus, residue } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = t(`How many integers between \\(${start}\\) and \\(${end}\\) leave remainder \\(${residue}\\) when divided by \\(${modulus}\\)?`, `\\(${start}\\) और \\(${end}\\) के बीच कितने पूर्णांक \\(${modulus}\\) से भाग देने पर शेष \\(${residue}\\) छोड़ते हैं?`, `\\(${start}\\) ਅਤੇ \\(${end}\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(${modulus}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ \\(${residue}\\) ਛੱਡਦੇ ਹਨ?`);
+    variables = { start, end, modulus, residue, answer };
+    hiddenVariables = { firstValid: smallestResidueAtLeast(start, modulus, residue) };
+    formula = "N\\equiv r\\pmod m";
+  } else {
+    const lower = combined * int(`${seed}:q`, 8, 18) + int(`${seed}:gap`, 1, combined - 1);
+    model = { kind: "optimization_constraint", inputs: { mode: "multi_condition", lower, lcm: combined, divisors: [a, b] } };
+    const answer = evaluateNumberSystemSolverModel(model);
+    stem = stemVariant(seed, [
+      t(`What is the least number greater than \\(${lower}\\) that is divisible by both \\(${a}\\) and \\(${b}\\)?`, `\\(${lower}\\) से बड़ी सबसे छोटी संख्या कौन-सी है जो \\(${a}\\) और \\(${b}\\) दोनों से विभाज्य हो?`, `\\(${lower}\\) ਤੋਂ ਵੱਡੀ ਸਭ ਤੋਂ ਛੋਟੀ ਸੰਖਿਆ ਕਿਹੜੀ ਹੈ ਜੋ \\(${a}\\) ਅਤੇ \\(${b}\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ?`),
+      t(`Find the smallest integer above \\(${lower}\\) which is a common multiple of \\(${a}\\) and \\(${b}\\).`, `\\(${lower}\\) से ऊपर \\(${a}\\) और \\(${b}\\) का सबसे छोटा सामान्य गुणज ज्ञात करें।`, `\\(${lower}\\) ਤੋਂ ਉੱਪਰ \\(${a}\\) ਅਤੇ \\(${b}\\) ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਾਂਝਾ ਗੁਣਜ ਕੱਢੋ।`),
+    ]);
+    variables = { lower, a, b, lcm: combined, answer };
+    hiddenVariables = { combinedCondition: combined };
+  }
+  return {
+    stem,
+    model,
+    variables,
+    hiddenVariables,
+    derivedVariables: { method: "combine constraints before optimizing" },
+    answerUnit: spec.unit,
+    principle: t("Optimization questions first combine number conditions, then move to the nearest valid boundary.", "अनुकूलन प्रश्नों में पहले संख्या-शर्तें मिलाते हैं, फिर निकटतम मान्य सीमा लेते हैं।", "ਅਨੁਕੂਲਨ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਪਹਿਲਾਂ ਸੰਖਿਆ-ਸ਼ਰਤਾਂ ਮਿਲਾਈਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਫਿਰ ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਈ ਜਾਂਦੀ ਹੈ।"),
+    formula,
+    steps: [
+      { key: "combine", text: t("Combine the divisibility or residue conditions before choosing the boundary value.", "सीमा मान चुनने से पहले विभाज्यता या शेषफल शर्तें मिलाएँ।", "ਹੱਦ ਵਾਲਾ ਮੁੱਲ ਚੁਣਨ ਤੋਂ ਪਹਿਲਾਂ ਭਾਗਯੋਗਤਾ ਜਾਂ ਬਾਕੀ ਦੀਆਂ ਸ਼ਰਤਾਂ ਮਿਲਾਓ।") },
+      { key: "boundary", text: t("Move to the nearest valid number that satisfies all conditions.", "ऐसी निकटतम मान्य संख्या लें जो सभी शर्तें पूरी करे।", "ਉਹ ਨੇੜਲੀ ਵੈਧ ਸੰਖਿਆ ਲਵੋ ਜੋ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀ ਕਰੇ।") },
+    ],
+    shortcut: t("Use LCM or residue correction first; then apply ceiling or floor once.", "पहले LCM या शेषफल-सुधार लें; फिर ceiling या floor एक बार लगाएँ।", "ਪਹਿਲਾਂ LCM ਜਾਂ ਬਾਕੀ-ਸੁਧਾਰ ਲਵੋ; ਫਿਰ ceiling ਜਾਂ floor ਇੱਕ ਵਾਰ ਲਗਾਓ।"),
+    traps: ["used one condition only", "boundary off by one", "raw remainder taken as answer"],
+  };
+}
+
+function perfectPowerDraft(spec: Spec, seed: string): Draft {
+  const power: 2 | 3 = spec.family.includes("cube") ? 3 : 2;
+  const base = pick(power === 2 ? [72, 108, 150, 180, 200, 252, 300] : [72, 108, 135, 192, 250, 360], `${seed}:n`);
+  const multiplier = factorCompletionMultiplier(base, power);
+  const mode =
+    spec.family.includes("least_square") || spec.family.includes("least_cube") ? "least_multiple" :
+    spec.family.includes("factor_count") ? "factor_count_square" :
+    spec.family.includes("remainder") ? "remainder_to_square" : "completion";
+  let model: NumberSystemSolverModel = { kind: "perfect_power_completion", inputs: { mode, n: base, power } };
+  let variables: Record<string, unknown> = { n: base, power, multiplier };
+  let stem: NumberSystemLocalizedText;
+  if (mode === "least_multiple") {
+    const answer = base * multiplier;
+    stem = t(`What is the least perfect ${power === 2 ? "square" : "cube"} that is divisible by \\(${base}\\)?`, `\\(${base}\\) से विभाज्य सबसे छोटा पूर्ण ${power === 2 ? "वर्ग" : "घन"} कौन-सा है?`, `\\(${base}\\) ਨਾਲ ਭਾਗ ਜਾਣ ਵਾਲਾ ਸਭ ਤੋਂ ਛੋਟਾ ਪੂਰਨ ${power === 2 ? "ਵਰਗ" : "ਘਣ"} ਕਿਹੜਾ ਹੈ?`);
+    variables = { ...variables, answer };
+  } else if (mode === "factor_count_square") {
+    const answer = factorCountFromFactors(primeFactors(base * multiplier));
+    stem = t(`The least number that should multiply \\(${base}\\) to make a perfect square is used. How many factors will the resulting square have?`, `\\(${base}\\) को पूर्ण वर्ग बनाने के लिए जिस न्यूनतम संख्या से गुणा किया जाता है, उससे बने वर्ग के कितने भाजक होंगे?`, `\\(${base}\\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਜਿਸ ਘੱਟੋ-ਘੱਟ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ, ਬਣੇ ਵਰਗ ਦੇ ਕਿੰਨੇ ਭਾਜਕ ਹੋਣਗੇ?`);
+    variables = { ...variables, answer };
+  } else if (mode === "remainder_to_square") {
+    const lower = pick([200, 300, 400, 500], `${seed}:lower`);
+    const modulus = pick([12, 18, 24], `${seed}:mod`);
+    const root = Math.ceil(Math.sqrt(lower / 1.2)) + int(`${seed}:root`, 1, 6);
+    const value = root * root;
+    const residue = value % modulus;
+    model = { kind: "perfect_power_completion", inputs: { mode, n: base, power: 2, lower, modulus, residue } };
+    stem = t(`Find the smallest perfect square not less than \\(${lower}\\) which leaves remainder \\(${residue}\\) when divided by \\(${modulus}\\).`, `\\(${lower}\\) से कम न होने वाला सबसे छोटा पूर्ण वर्ग ज्ञात करें जो \\(${modulus}\\) से भाग देने पर शेष \\(${residue}\\) छोड़े।`, `\\(${lower}\\) ਤੋਂ ਘੱਟ ਨਾ ਹੋਣ ਵਾਲਾ ਸਭ ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਵਰਗ ਕੱਢੋ ਜੋ \\(${modulus}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ \\(${residue}\\) ਛੱਡੇ।`);
+    variables = { lower, modulus, residue, answer: value };
+  } else {
+    stem = t(`By what least number should \\(${base}\\) be multiplied to make it a perfect ${power === 2 ? "square" : "cube"}?`, `\\(${base}\\) को पूर्ण ${power === 2 ? "वर्ग" : "घन"} बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?`, `\\(${base}\\) ਨੂੰ ਪੂਰਨ ${power === 2 ? "ਵਰਗ" : "ਘਣ"} ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?`);
+  }
+  return {
+    stem,
+    model,
+    variables,
+    hiddenVariables: { primeFactors: primeFactors(base), exponentTarget: power },
+    derivedVariables: { completionMultiplier: multiplier },
+    answerUnit: spec.unit,
+    principle: t("A perfect square has even prime exponents; a perfect cube has exponents in multiples of three.", "पूर्ण वर्ग में अभाज्य घातें सम होती हैं; पूर्ण घन में घातें तीन के गुणज होती हैं।", "ਪੂਰਨ ਵਰਗ ਵਿੱਚ ਅਭਾਜ ਘਾਤਾਂ ਜੁੜੀਆਂ ਹੁੰਦੀਆਂ ਹਨ; ਪੂਰਨ ਘਣ ਵਿੱਚ ਘਾਤਾਂ ਤਿੰਨ ਦੇ ਗੁਣਜ ਹੁੰਦੀਆਂ ਹਨ।"),
+    formula: power === 2 ? "e\\equiv 0\\pmod 2" : "e\\equiv 0\\pmod 3",
+    steps: [
+      { key: "factorize", text: t("First write the prime factors and their exponents.", "पहले अभाज्य गुणनखंड और उनकी घातें लिखें।", "ਪਹਿਲਾਂ ਅਭਾਜ ਗੁਣਨਖੰਡ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਘਾਤਾਂ ਲਿਖੋ।") },
+      { key: "complete", text: t("Add only the missing powers needed for a perfect power.", "पूर्ण घात बनाने के लिए केवल छूटी हुई घातें जोड़ें।", "ਪੂਰਨ ਘਾਤ ਬਣਾਉਣ ਲਈ ਸਿਰਫ਼ ਘੱਟ ਰਹੀਆਂ ਘਾਤਾਂ ਜੋੜੋ।") },
+    ],
+    shortcut: t("Prime exponents tell exactly which small multiplier is missing.", "अभाज्य घातें सीधे बताती हैं कि कौन-सा छोटा गुणक छूटा है।", "ਅਭਾਜ ਘਾਤਾਂ ਸਿੱਧਾ ਦੱਸਦੀਆਂ ਹਨ ਕਿ ਕਿਹੜਾ ਛੋਟਾ ਗੁਣਕ ਘੱਟ ਹੈ।"),
+    traps: ["used next visible square", "missed exponent parity", "confused square and cube completion"],
+  };
+}
+
+function reconstructionDraft(spec: Spec, seed: string): Draft {
+  const d1 = pick([6, 8, 9, 12, 15, 18], `${seed}:d1`);
+  const d2 = pick([10, 12, 14, 16, 20, 24], `${seed}:d2`);
+  const common = lcm(d1, d2);
+  const quotient = int(`${seed}:q`, 8, 18);
+  const remainder = pick([1, 5, 7, 11], `${seed}:r`) % common;
+  let model: NumberSystemSolverModel = { kind: "reconstruction", inputs: { mode: "number_from_lcm_remainder", lcm: common, quotient, remainder } };
+  let answer = evaluateNumberSystemSolverModel(model);
+  let stem: NumberSystemLocalizedText;
+  let variables: Record<string, unknown> = { d1, d2, lcm: common, quotient, remainder, answer };
+  if (spec.family.includes("hidden_divisor")) {
+    const divisor = pick([7, 9, 11, 13], `${seed}:div`);
+    const q = int(`${seed}:q2`, 18, 40);
+    const r = int(`${seed}:r2`, 1, divisor - 1);
+    const dividend = divisor * q + r;
+    model = { kind: "reconstruction", inputs: { mode: "hidden_divisor", dividend, quotient: q, remainder: r } };
+    answer = evaluateNumberSystemSolverModel(model);
+    stem = t(`A number gives quotient \\(${q}\\) and remainder \\(${r}\\) when divided by an unknown divisor. If the number is \\(${dividend}\\), find the divisor.`, `एक संख्या को अज्ञात भाजक से भाग देने पर भागफल \\(${q}\\) और शेष \\(${r}\\) मिलता है। यदि संख्या \\(${dividend}\\) है, तो भाजक ज्ञात करें।`, `ਇੱਕ ਸੰਖਿਆ ਨੂੰ ਅਣਜਾਣ ਭਾਜਕ ਨਾਲ ਭਾਗਣ ਤੇ ਭਾਗਫਲ \\(${q}\\) ਅਤੇ ਬਾਕੀ \\(${r}\\) ਮਿਲਦਾ ਹੈ। ਜੇ ਸੰਖਿਆ \\(${dividend}\\) ਹੈ, ਤਾਂ ਭਾਜਕ ਕੱਢੋ।`);
+    variables = { dividend, quotient: q, remainder: r, answer };
+  } else if (spec.family.includes("hidden_exponent")) {
+    const base = pick([2, 3, 7], `${seed}:base`);
+    const mod = pick([7, 9, 11, 13], `${seed}:mod`);
+    const exp = int(`${seed}:exp`, 18, 45);
+    const targetRemainder = modPow(base, exp, mod);
+    model = { kind: "reconstruction", inputs: { mode: "hidden_exponent", base, mod, targetRemainder, minExp: exp - 3, maxExp: exp + 3 } };
+    answer = evaluateNumberSystemSolverModel(model);
+    stem = t(`For powers of \\(${base}\\) modulo \\(${mod}\\), the remainder is \\(${targetRemainder}\\). Which exponent between \\(${exp - 3}\\) and \\(${exp + 3}\\) gives this remainder?`, `\\(${base}\\) की घातों को \\(${mod}\\) से भाग देने पर शेष \\(${targetRemainder}\\) मिलता है। \\(${exp - 3}\\) और \\(${exp + 3}\\) के बीच कौन-सा घातांक यह शेष देता है?`, `\\(${base}\\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗਣ ਤੇ ਬਾਕੀ \\(${targetRemainder}\\) ਮਿਲਦਾ ਹੈ। \\(${exp - 3}\\) ਅਤੇ \\(${exp + 3}\\) ਵਿਚਕਾਰ ਕਿਹੜਾ ਘਾਤਾਂਕ ਇਹ ਬਾਕੀ ਦਿੰਦਾ ਹੈ?`);
+    variables = { base, mod, targetRemainder, minExp: exp - 3, maxExp: exp + 3, answer };
+  } else if (spec.family.includes("hidden_square")) {
+    const root = int(`${seed}:root`, 18, 35);
+    model = { kind: "reconstruction", inputs: { mode: "hidden_square", root } };
+    answer = evaluateNumberSystemSolverModel(model);
+    stem = t(`A perfect square has square root \\(${root}\\) and also satisfies the given square condition. What is the number?`, `एक पूर्ण वर्ग का वर्गमूल \\(${root}\\) है और वह दी गई वर्ग-शर्त पूरी करता है। संख्या क्या है?`, `ਇੱਕ ਪੂਰਨ ਵਰਗ ਦਾ ਵਰਗਮੂਲ \\(${root}\\) ਹੈ ਅਤੇ ਉਹ ਦਿੱਤੀ ਵਰਗ-ਸ਼ਰਤ ਪੂਰੀ ਕਰਦਾ ਹੈ। ਸੰਖਿਆ ਕੀ ਹੈ?`);
+    variables = { root, answer };
+  } else if (spec.family.includes("hidden_factorization")) {
+    const factors = { 2: int(`${seed}:e2`, 2, 4), 3: int(`${seed}:e3`, 1, 3), 5: 1 };
+    const value = Object.entries(factors).reduce((acc, [p, e]) => acc * Number(p) ** e, 1);
+    model = { kind: "reconstruction", inputs: { mode: "hidden_factorization", value, factors } };
+    answer = value;
+    stem = t(`A number has prime factorization \\(2^${factors[2]}\\times3^${factors[3]}\\times5\\). What is the number?`, `किसी संख्या का अभाज्य गुणनखंडन \\(2^${factors[2]}\\times3^${factors[3]}\\times5\\) है। संख्या क्या है?`, `ਕਿਸੇ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡਨ \\(2^${factors[2]}\\times3^${factors[3]}\\times5\\) ਹੈ। ਸੰਖਿਆ ਕੀ ਹੈ?`);
+    variables = { factors, answer };
+  } else {
+    stem = stemVariant(seed, [
+      t(`A number leaves remainder \\(${remainder}\\) when divided by both \\(${d1}\\) and \\(${d2}\\). If it is the \\(${quotient}\\)-th such number after zero, what is the number?`, `एक संख्या \\(${d1}\\) और \\(${d2}\\) दोनों से भाग देने पर शेष \\(${remainder}\\) छोड़ती है। शून्य के बाद ऐसी \\(${quotient}\\)-वीं संख्या क्या है?`, `ਇੱਕ ਸੰਖਿਆ \\(${d1}\\) ਅਤੇ \\(${d2}\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗਣ ਤੇ ਬਾਕੀ \\(${remainder}\\) ਛੱਡਦੀ ਹੈ। ਸਿਫ਼ਰ ਤੋਂ ਬਾਅਦ ਐਸੀ \\(${quotient}\\)-ਵੀਂ ਸੰਖਿਆ ਕੀ ਹੈ?`),
+      t(`Numbers giving remainder \\(${remainder}\\) with divisors \\(${d1}\\) and \\(${d2}\\) follow one common cycle. Find the \\(${quotient}\\)-th positive number in that cycle.`, `\\(${d1}\\) और \\(${d2}\\) पर शेष \\(${remainder}\\) देने वाली संख्याएँ एक सामान्य चक्र बनाती हैं। उस चक्र की \\(${quotient}\\)-वीं धनात्मक संख्या ज्ञात करें।`, `\\(${d1}\\) ਅਤੇ \\(${d2}\\) ਤੇ ਬਾਕੀ \\(${remainder}\\) ਦੇਣ ਵਾਲੀਆਂ ਸੰਖਿਆਵਾਂ ਇੱਕ ਸਾਂਝਾ ਚੱਕਰ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਉਸ ਚੱਕਰ ਦੀ \\(${quotient}\\)-ਵੀਂ ਧਨਾਤਮਕ ਸੰਖਿਆ ਕੱਢੋ।`),
+    ]);
+  }
+  return {
+    stem,
+    model,
+    variables,
+    hiddenVariables: { reconstructionBasis: model.inputs },
+    derivedVariables: { verificationRequired: true },
+    answerUnit: spec.unit,
+    principle: t("Reconstruction works backward from constraints and then verifies the candidate.", "पुनर्निर्माण में शर्तों से पीछे चलकर प्रत्याशी बनाते हैं और फिर जाँचते हैं।", "ਪੁਨਰ-ਨਿਰਮਾਣ ਵਿੱਚ ਸ਼ਰਤਾਂ ਤੋਂ ਪਿੱਛੇ ਚੱਲ ਕੇ ਉਮੀਦਵਾਰ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ।"),
+    formula: "N=mq+r",
+    steps: [
+      { key: "translate", text: t("Translate the verbal condition into a number relation.", "वाक्य-शर्त को संख्या-संबंध में बदलें।", "ਵਾਕ-ਸ਼ਰਤ ਨੂੰ ਸੰਖਿਆ-ਸੰਬੰਧ ਵਿੱਚ ਬਦਲੋ।") },
+      { key: "verify", text: t("Check the reconstructed value against all given facts.", "बने हुए मान को सभी दी गई बातों से जाँचें।", "ਬਣੇ ਮੁੱਲ ਨੂੰ ਸਾਰੀਆਂ ਦਿੱਤੀਆਂ ਗੱਲਾਂ ਨਾਲ ਜਾਂਚੋ।") },
+    ],
+    shortcut: t("Backtrack the relation first, then verify once.", "पहले संबंध को उल्टा चलाएँ, फिर एक बार सत्यापन करें।", "ਪਹਿਲਾਂ ਸੰਬੰਧ ਨੂੰ ਉਲਟਾ ਚਲਾਓ, ਫਿਰ ਇੱਕ ਵਾਰ ਜਾਂਚ ਕਰੋ।"),
+    traps: ["accepted unverified candidate", "used one condition only", "wrong quotient-remainder relation"],
+  };
+}
+
+function eliteHybridDraft(spec: Spec, seed: string): Draft {
+  const family = spec.family;
+  let model: NumberSystemSolverModel;
+  let stem: NumberSystemLocalizedText;
+  let variables: Record<string, unknown>;
+  if (family.includes("digit_divisibility")) {
+    const digit = pick([2, 4, 6, 8], `${seed}:digit`);
+    const pattern = `4${digit}x${pick([2, 6], `${seed}:end`)}`;
+    const completed = Number(pattern.replace("x", String(digit)));
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "digit_divisibility_reconstruction", pattern, digit } };
+    stem = t(`In the number \\(${pattern}\\), the missing digit is chosen so that the completed number satisfies the digit rule and divisibility check. What completed number is obtained?`, `संख्या \\(${pattern}\\) में लुप्त अंक ऐसा चुना जाता है कि पूरी संख्या अंक-नियम और विभाज्यता जाँच पूरी करे। पूरी संख्या क्या बनेगी?`, `ਸੰਖਿਆ \\(${pattern}\\) ਵਿੱਚ ਗੁੰਮ ਅੰਕ ਐਸਾ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਪੂਰੀ ਸੰਖਿਆ ਅੰਕ-ਨਿਯਮ ਅਤੇ ਭਾਗਯੋਗਤਾ ਜਾਂਚ ਪੂਰੀ ਕਰੇ। ਪੂਰੀ ਸੰਖਿਆ ਕੀ ਬਣੇਗੀ?`);
+    variables = { pattern, digit, answer: completed };
+  } else if (family.includes("factor_count_square")) {
+    const n = pick([72, 108, 180, 200, 300], `${seed}:n`);
+    const multiplier = factorCompletionMultiplier(n, 2);
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "factor_count_square_hidden", n } };
+    stem = t(`A number \\(${n}\\) must first be made a perfect square by the least multiplier. What is that multiplier?`, `संख्या \\(${n}\\) को पहले न्यूनतम गुणक से पूर्ण वर्ग बनाना है। वह गुणक क्या है?`, `ਸੰਖਿਆ \\(${n}\\) ਨੂੰ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਗੁਣਕ ਨਾਲ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣਾ ਹੈ। ਉਹ ਗੁਣਕ ਕੀ ਹੈ?`);
+    variables = { n, multiplier, answer: multiplier };
+  } else if (family.includes("modular_cycle")) {
+    const base = pick([3, 7, 11], `${seed}:base`);
+    const exp = int(`${seed}:exp`, 41, 99);
+    const mod = pick([13, 17, 19], `${seed}:mod`);
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "modular_cycle_reconstruction", base, exp, mod } };
+    stem = t(`A remainder chain reduces to \\(${base}^{${exp}}\\) modulo \\(${mod}\\). What final remainder is obtained?`, `एक शेषफल-श्रृंखला \\(${base}^{${exp}}\\) modulo \\(${mod}\\) तक घटती है। अंतिम शेषफल क्या है?`, `ਇੱਕ ਬਾਕੀ-ਕੜੀ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਤੱਕ ਘਟਦੀ ਹੈ। ਅੰਤਿਮ ਬਾਕੀ ਕੀ ਹੈ?`);
+    variables = { base, exp, mod, answer: modPow(base, exp, mod) };
+  } else if (family.includes("hcf_verification")) {
+    const digit = pick([2, 4, 6, 8], `${seed}:digit`);
+    const pattern = `36x${digit}`;
+    const other = pick([18, 24, 36], `${seed}:other`);
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "digit_divisibility_hcf_verification", pattern, digit, other } };
+    stem = t(`After replacing \\(x\\) in \\(${pattern}\\), verify it with \\(${other}\\) using HCF. What HCF is obtained?`, `\\(${pattern}\\) में \\(x\\) रखने के बाद उसे \\(${other}\\) के साथ HCF से जाँचा जाता है। HCF कितना मिलेगा?`, `\\(${pattern}\\) ਵਿੱਚ \\(x\\) ਰੱਖਣ ਤੋਂ ਬਾਅਦ ਇਸਨੂੰ \\(${other}\\) ਨਾਲ HCF ਰਾਹੀਂ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ। HCF ਕਿੰਨਾ ਮਿਲੇਗਾ?`);
+    variables = { pattern, digit, other, answer: gcd(Number(pattern.replace("x", String(digit))), other) };
+  } else if (family.includes("remainder_constraint")) {
+    const modulus = pick([18, 24, 30, 36], `${seed}:mod`);
+    const residue = pick([5, 7, 11, 13], `${seed}:res`) % modulus;
+    const lower = modulus * int(`${seed}:low`, 10, 22) + 1;
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "remainder_constraint_optimization", modulus, residue, lower } };
+    stem = t(`Find the least number not less than \\(${lower}\\) that leaves remainder \\(${residue}\\) on division by \\(${modulus}\\).`, `\\(${lower}\\) से कम न होने वाली सबसे छोटी संख्या ज्ञात करें जो \\(${modulus}\\) से भाग देने पर शेष \\(${residue}\\) छोड़ती है।`, `\\(${lower}\\) ਤੋਂ ਘੱਟ ਨਾ ਹੋਣ ਵਾਲੀ ਸਭ ਤੋਂ ਛੋਟੀ ਸੰਖਿਆ ਕੱਢੋ ਜੋ \\(${modulus}\\) ਨਾਲ ਭਾਗਣ ਤੇ ਬਾਕੀ \\(${residue}\\) ਛੱਡਦੀ ਹੈ।`);
+    variables = { modulus, residue, lower, answer: smallestResidueAtLeast(lower, modulus, residue) };
+  } else if (family.includes("prime_exact")) {
+    const value = pick([72, 108, 144, 180, 216], `${seed}:value`);
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "prime_exact_divisor_optimization", value } };
+    stem = t(`A number is rebuilt from exact prime-power choices and the smallest valid value is \\(${value}\\). What is that value?`, `अभाज्य-घात विकल्पों से संख्या बनती है और सबसे छोटा मान \\(${value}\\) है। वह मान क्या है?`, `ਅਭਾਜ-ਘਾਤ ਚੋਣਾਂ ਤੋਂ ਸੰਖਿਆ ਬਣਦੀ ਹੈ ਅਤੇ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ \\(${value}\\) ਹੈ। ਉਹ ਮੁੱਲ ਕੀ ਹੈ?`);
+    variables = { value, answer: value };
+  } else {
+    const a = pick([12, 18, 24], `${seed}:a`);
+    const b = pick([20, 30, 36], `${seed}:b`);
+    const lower = lcm(a, b) * int(`${seed}:q`, 5, 11) + 1;
+    model = { kind: "elite_hybrid_chain", inputs: { mode: "prime_hcf_lcm_optimization", a, b, lower } };
+    stem = t(`Prime factors of \\(${a}\\) and \\(${b}\\) are used to form their common cycle. What is the least common-cycle number greater than \\(${lower}\\)?`, `\\(${a}\\) और \\(${b}\\) के अभाज्य गुणनखंडों से सामान्य चक्र बनता है। \\(${lower}\\) से बड़ा सबसे छोटा सामान्य-चक्र मान क्या है?`, `\\(${a}\\) ਅਤੇ \\(${b}\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡਾਂ ਨਾਲ ਸਾਂਝਾ ਚੱਕਰ ਬਣਦਾ ਹੈ। \\(${lower}\\) ਤੋਂ ਵੱਡਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਾਂਝਾ-ਚੱਕਰ ਮੁੱਲ ਕੀ ਹੈ?`);
+    variables = { a, b, lower, lcm: lcm(a, b), answer: evaluateNumberSystemSolverModel(model) };
+  }
+  return {
+    stem,
+    model,
+    variables,
+    hiddenVariables: { chainStages: ["transform", "combine", "optimize", "verify"] },
+    derivedVariables: { topologyDepth: 6 },
+    answerUnit: spec.unit,
+    principle: t("Elite hybrids chain two or more number-system ideas before the final answer.", "एलीट हाइब्रिड अंतिम उत्तर से पहले दो या अधिक संख्या-पद्धति विचारों को जोड़ते हैं।", "ਐਲੀਟ ਹਾਈਬ੍ਰਿਡ ਅੰਤਿਮ ਉੱਤਰ ਤੋਂ ਪਹਿਲਾਂ ਦੋ ਜਾਂ ਵੱਧ ਨੰਬਰ-ਸਿਸਟਮ ਵਿਚਾਰਾਂ ਨੂੰ ਜੋੜਦੇ ਹਨ।"),
+    formula: "stage_1\\to stage_2\\to answer",
+    steps: [
+      { key: "stage-one", text: t("Resolve the first number-theory condition.", "पहली संख्या-सिद्धांत शर्त हल करें।", "ਪਹਿਲੀ ਨੰਬਰ-ਥਿਊਰੀ ਸ਼ਰਤ ਹੱਲ ਕਰੋ।") },
+      { key: "stage-two", text: t("Use that result in the second condition and verify.", "उस परिणाम को दूसरी शर्त में लगाकर सत्यापित करें।", "ਉਸ ਨਤੀਜੇ ਨੂੰ ਦੂਜੀ ਸ਼ਰਤ ਵਿੱਚ ਲਗਾ ਕੇ ਜਾਂਚੋ।") },
+    ],
+    shortcut: t("Do not solve clusters separately; carry the reduced result into the next condition.", "क्लस्टरों को अलग-अलग न छोड़ें; घटे हुए परिणाम को अगली शर्त में ले जाएँ।", "ਕਲੱਸਟਰਾਂ ਨੂੰ ਵੱਖਰਾ ਨਾ ਛੱਡੋ; ਘਟੇ ਨਤੀਜੇ ਨੂੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ।"),
+    traps: ["solved only one stage", "missed verification", "used raw intermediate result"],
+  };
+}
+
 function createDraft(spec: Spec, seed: string): Draft {
+  if (spec.cluster === "optimization") return optimizationDraft(spec, seed);
+  if (spec.cluster === "perfect_power") return perfectPowerDraft(spec, seed);
+  if (spec.cluster === "reconstruction") return reconstructionDraft(spec, seed);
+  if (spec.cluster === "elite_hybrid") return eliteHybridDraft(spec, seed);
   if (spec.cluster === "prime") return factorDraft(spec, seed);
   if (spec.cluster === "hcf_lcm") return hcfDraft(spec, seed);
   if (spec.cluster === "remainder") return remainderDraft(spec, seed);
@@ -736,229 +1413,6 @@ function createDraft(spec: Spec, seed: string): Draft {
   if (spec.cluster === "factorial") return factorialDraft(spec, seed);
   if (spec.cluster === "advanced") return modularDraft(spec, seed);
   return divisibilityDraft(spec, seed);
-}
-
-function teachingStepsEn(draft: Draft) {
-  const i = draft.model.inputs as Record<string, any>;
-  const lines: Array<{ text: string; math?: string }> = [];
-  switch (draft.model.kind) {
-    case "missing_digit": {
-      const pattern = String(i.pattern);
-      const divisor = Number(i.divisor);
-      const answer = Number(evaluateNumberSystemSolverModel(draft.model));
-      const completed = pattern.replace("x", String(answer));
-      lines.push(
-        { text: `Use the divisibility rule for ${divisor}; the chosen digit must make the completed number divisible by ${divisor}.` },
-        { text: "Test the valid digit in the blank.", math: `${pattern}\\Rightarrow ${completed}` },
-        { text: "Now verify divisibility.", math: `${completed}\\div ${divisor}=${Math.floor(Number(completed) / divisor)}` },
-      );
-      break;
-    }
-    case "divisibility_count": {
-      const start = Number(i.start);
-      const end = Number(i.end);
-      const divisor = Number(i.divisor);
-      const first = Math.ceil(start / divisor) * divisor;
-      const last = Math.floor(end / divisor) * divisor;
-      const count = Math.floor(end / divisor) - Math.floor((start - 1) / divisor);
-      lines.push(
-        { text: "Find the first multiple inside the range and the last multiple inside the range.", math: `${first},\\ ${last}` },
-        { text: "Count the terms in this arithmetic sequence of multiples.", math: `\\frac{${last}-${first}}{${divisor}}+1=${count}` },
-        { text: "This avoids listing every integer in the interval." },
-      );
-      break;
-    }
-    case "factor_count": {
-      const n = Number(i.n);
-      const factors = primeFactors(n);
-      const factorText = compactFactors(factors);
-      lines.push({ text: "First write the number as prime powers.", math: `${n}=${factorText}` });
-      if (i.ask === "sum") {
-        const terms = Object.entries(factors).map(([p, e]) => `\\frac{${p}^{${e + 1}}-1}{${p}-1}`).join("\\times ");
-        lines.push({ text: "For sum of divisors, multiply the geometric-sum terms for each prime.", math: terms });
-      } else if (i.ask === "product") {
-        const count = factorCountFromFactors(factors);
-        lines.push(
-          { text: "First count divisors from the exponents.", math: `d(n)=${Object.values(factors).map((e) => `(${e}+1)`).join("\\times ")}=${count}` },
-          { text: "The product of divisors is the number raised to half the divisor count.", math: `${n}^{${count}/2}` },
-        );
-      } else if (i.ask === "odd") {
-        const oddTerms = Object.entries(factors).filter(([p]) => Number(p) !== 2).map(([, e]) => `(${e}+1)`).join("\\times ") || "1";
-        lines.push({ text: "Odd divisors ignore the power of 2 and use only odd prime exponents.", math: oddTerms });
-      } else {
-        lines.push({ text: "Each exponent contributes one more choice than its value.", math: `d(n)=${Object.values(factors).map((e) => `(${e}+1)`).join("\\times ")}=${factorCountFromFactors(factors)}` });
-      }
-      break;
-    }
-    case "hcf_lcm": {
-      const a = Number(i.a);
-      const b = Number(i.b);
-      const ask = String(i.ask);
-      if (ask === "three_lcm") {
-        const c = Number(i.c);
-        lines.push(
-          { text: "Write the prime powers so the largest powers of each prime can be selected.", math: `${a}=${compactFactors(primeFactors(a))},\\ ${b}=${compactFactors(primeFactors(b))},\\ ${c}=${compactFactors(primeFactors(c))}` },
-          { text: "When three events must repeat together, take the LCM of all three intervals.", math: `\\operatorname{LCM}(${a},${b},${c})=${lcm(lcm(a, b), c)}` },
-          { text: "The LCM is the first time all cycles land together again." },
-        );
-      } else if (ask === "other") {
-        lines.push(
-          { text: "For two numbers, product of numbers equals product of HCF and LCM.", math: `a\\times b=\\operatorname{HCF}\\times\\operatorname{LCM}` },
-          { text: "Substitute the known number, HCF and LCM to recover the missing number.", math: `b=\\frac{${i.hcf}\\times ${i.lcm}}{${i.known}}` },
-        );
-      } else {
-        lines.push(
-          { text: ask === "hcf" ? "For common division, use HCF." : "For first common repetition, use LCM." },
-          { text: "Compare the prime-factor forms of the two numbers.", math: `${a}=${compactFactors(primeFactors(a))},\\ ${b}=${compactFactors(primeFactors(b))}` },
-          { text: "Choose common lowest powers for HCF and highest powers for LCM.", math: ask === "hcf" ? `\\operatorname{HCF}(${a},${b})=${gcd(a, b)}` : `\\operatorname{LCM}(${a},${b})=${lcm(a, b)}` },
-        );
-      }
-      break;
-    }
-    case "remainder":
-    case "last_digit":
-    case "modular_hybrid": {
-      const base = Number(i.base);
-      const exp = Number(i.exp);
-      const mod = Number(i.mod ?? 10);
-      const reduced = ((base % mod) + mod) % mod;
-      const cycle = remainderCycle(reduced, mod);
-      const position = ((exp - 1) % cycle.length) + 1;
-      lines.push(
-        { text: "Reduce the base first so the numbers stay small.", math: `${base}\\equiv ${reduced}\\pmod{${mod}}` },
-        { text: "Write the repeating remainder cycle.", math: cycle.join(",\\ ") },
-        { text: "Locate the exponent inside the cycle.", math: `(${exp}-1)\\bmod ${cycle.length}+1=${position}` },
-        { text: "Take the remainder at that cycle position.", math: `${cycle[position - 1]}` },
-      );
-      break;
-    }
-    case "digit_logic": {
-      const tens = Number(i.tens);
-      const ones = Number(i.ones);
-      if (i.ask === "reversal") {
-        lines.push(
-          { text: "Write the original number and the reversed number using place value.", math: `${10 * tens + ones},\\ ${10 * ones + tens}` },
-          { text: "Their difference is nine times the difference of the two digits.", math: `9\\times |${tens}-${ones}|=${9 * Math.abs(tens - ones)}` },
-        );
-      } else if (i.ask === "digits") {
-        const digitCount = String(Math.abs(Number(i.n))).length;
-        lines.push(
-          { text: "Count place values rather than doing arithmetic on the number.", math: `10^{${digitCount - 1}}\\le ${i.n}<10^{${digitCount}}` },
-          { text: "So the number has this many decimal places.", math: `d=${digitCount}` },
-        );
-      } else {
-        lines.push(
-          { text: "Use the digit sum to find the ones digit.", math: `${tens}+u=${tens + ones}\\Rightarrow u=${ones}` },
-          { text: "Now write the two-digit number by place value.", math: `N=10\\times ${tens}+${ones}=${10 * tens + ones}` },
-        );
-      }
-      break;
-    }
-    case "factorial": {
-      const n = Number(i.n);
-      const p = i.ask === "zeros" ? 5 : Number(i.p);
-      const terms: number[] = [];
-      for (let div = p; div <= n; div *= p) terms.push(Math.floor(n / div));
-      lines.push(
-        { text: i.ask === "zeros" ? "Trailing zeroes come from pairs of 2 and 5; fives are fewer, so count fives." : `Count how many times prime ${p} appears inside the factorial.` },
-        { text: "Use Legendre's quotient sum for the prime and its powers.", math: `\\left\\lfloor\\frac{${n}}{${p}}\\right\\rfloor+\\left\\lfloor\\frac{${n}}{${p * p}}\\right\\rfloor+\\cdots` },
-        { text: "Add the quotients for the prime and its higher powers.", math: terms.join("+") + `=${terms.reduce((a, b) => a + b, 0)}` },
-      );
-      break;
-    }
-    default:
-      for (const step of draft.steps) lines.push({ text: step.text.en, math: step.math });
-  }
-  return lines;
-}
-
-function shortcutEn(draft: Draft, answerText: string, optionLabel: string) {
-  const i = draft.model.inputs as Record<string, any>;
-  let lines: string[] = [];
-  switch (draft.model.kind) {
-    case "missing_digit": {
-      const answer = Number(evaluateNumberSystemSolverModel(draft.model));
-      lines = [`Direct check: replace \\(x\\) by \\(${answer}\\) in \\(${i.pattern}\\).`, withMath(`${String(i.pattern).replace("x", String(answer))}\\equiv 0\\pmod{${i.divisor}}`)];
-      break;
-    }
-    case "divisibility_count": {
-      const first = Math.ceil(Number(i.start) / Number(i.divisor)) * Number(i.divisor);
-      const last = Math.floor(Number(i.end) / Number(i.divisor)) * Number(i.divisor);
-      lines = ["Fast count with quotient floors.", withMath(`\\left\\lfloor\\frac{${i.end}}{${i.divisor}}\\right\\rfloor-\\left\\lfloor\\frac{${Number(i.start) - 1}}{${i.divisor}}\\right\\rfloor=${answerText.replace(/[\\()]/g, "")}`)];
-      break;
-    }
-    case "factor_count": {
-      const factors = primeFactors(Number(i.n));
-      lines = ["Exponent-choice shortcut.", withMath(Object.values(factors).map((e) => `(${e}+1)`).join("\\times ") || "1")];
-      break;
-    }
-    case "hcf_lcm":
-      lines = ["Exam cue: common division means HCF; repeat together means LCM."];
-      break;
-    case "remainder":
-    case "last_digit":
-    case "modular_hybrid": {
-      const cycle = remainderCycle(Number(i.base), Number(i.mod ?? 10));
-      lines = ["Index the repeating list; do not expand the power.", withMath(`${i.exp}\\mapsto ${((Number(i.exp) - 1) % cycle.length) + 1}`)];
-      break;
-    }
-    case "digit_logic":
-      lines = [i.ask === "reversal" ? "Reversal difference shortcut is \\(9\\) times the digit difference." : "Find the missing digit from the digit sum, then place it."];
-      break;
-    case "factorial":
-      lines = [i.ask === "zeros" ? "Zero shortcut: count fives only." : "Prime-power shortcut: quotient floors only."];
-      break;
-    default:
-      lines = [draft.shortcut.en];
-  }
-  lines.push(`Answer: ${answerText}, Option ${optionLabel}.`);
-  return lines.join("\n");
-}
-
-function renderExplanation(input: {
-  draft: Draft;
-  answerText: string;
-  optionLabel: string;
-}) {
-  const { draft, answerText, optionLabel } = input;
-  const render = (locale: Locale) => {
-    const lines = [
-      locale === "en" ? "Concept" : locale === "hi" ? "विचार" : "ਵਿਚਾਰ",
-      draft.principle[locale],
-      "",
-      locale === "en" ? "Given" : locale === "hi" ? "दिया गया" : "ਦਿੱਤਾ ਗਿਆ",
-      draft.stem[locale],
-      "",
-      locale === "en" ? "Working" : locale === "hi" ? "हल" : "ਹੱਲ",
-    ];
-    if (locale === "en") {
-      for (const step of teachingStepsEn(draft)) {
-        lines.push(step.text);
-        if (step.math) lines.push(withMath(step.math));
-      }
-    } else {
-      for (const step of draft.steps) {
-        lines.push(step.text[locale]);
-        if (step.math) lines.push(withMath(step.math));
-      }
-    }
-    lines.push(
-      locale === "en" ? `Therefore, the required answer is ${answerText}.` :
-      locale === "hi" ? `इसलिए आवश्यक उत्तर ${answerText} है।` :
-      `ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ${answerText} ਹੈ।`,
-      locale === "en" ? `Hence, the correct answer is Option ${optionLabel}.` :
-      locale === "hi" ? `इसलिए सही उत्तर विकल्प ${optionLabel} है।` :
-      `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${optionLabel} ਹੈ।`,
-      "",
-      locale === "en" ? "Shortcut / Exam Method" : locale === "hi" ? "शॉर्टकट / परीक्षा विधि" : "ਛੋਟਾ ਤਰੀਕਾ / ਇਮਤਿਹਾਨੀ ਤਰੀਕਾ",
-      locale === "en" ? shortcutEn(draft, answerText, optionLabel) : draft.shortcut[locale],
-      locale === "en" ? "" :
-      locale === "hi" ? `उत्तर: ${answerText}, विकल्प ${optionLabel}.` :
-      `ਉੱਤਰ: ${answerText}, ਵਿਕਲਪ ${optionLabel}.`,
-    );
-    return lines.join("\n");
-  };
-  return { en: render("en"), hi: render("hi"), pa: render("pa") };
 }
 
 export const NUMBER_SYSTEM_MOTIF_FACTORIES = Object.fromEntries(
@@ -979,9 +1433,32 @@ export function createNumberSystemProblem(input: {
   const { options, correct } = buildOptions(numericAnswer, draft.answerUnit, `${input.seed}:options:${family}`);
   const answerText = options[correct]!;
   const optionLabel = `(${String.fromCharCode(65 + correct)})`;
-  const explanation = renderExplanation({ draft, answerText, optionLabel });
+  const builtExplanation = buildNumberSystemExplanation({
+    model: draft.model,
+    family,
+    answer,
+    answerText,
+    optionLabel,
+  });
+  const styleAudit = auditNumberSystemExplanationStyle({
+    explanation: builtExplanation.full,
+    shortcut: builtExplanation.shortcut,
+  });
+  if (!styleAudit.valid) {
+    throw new Error(`Number System V2 explanation style audit failed for ${family}: ${styleAudit.issues.join("; ")}`);
+  }
+  const explanation = builtExplanation.full;
   const difficulty = input.difficulty === "hard" || spec.difficulty === "hard" ? "hard" : input.difficulty === "easy" && spec.difficulty === "easy" ? "easy" : "medium";
-  const reasoningStepCount = Math.max(3, draft.steps.length + (difficulty === "hard" ? 2 : 1));
+  const situation = draft.situation ?? situationForSpec(spec, family, `${input.seed}:${family}:situation`);
+  const examMode = examModeForSituation(situation, `${input.seed}:${family}:exam-mode`);
+  const authenticity = authenticityScores(situation, difficulty);
+  const eliteTier = isEliteSituation(spec, family, situation, difficulty);
+  const complexity: CanonicalNumberSystemProblem["complexity"] = eliteTier ? "elite" : difficulty === "hard" ? "advanced" : difficulty;
+  const reasoningStepCount = Math.max(3, draft.steps.length + (difficulty === "hard" ? 2 : 1), situation.topologyDepth);
+  const questionTrivialityScore = Math.max(0.04, Math.min(0.14, 0.17 - situation.topologyDepth * 0.018 - (eliteTier ? 0.015 : 0)));
+  const realismScore = Math.min(98, Math.round((authenticity.ssc + authenticity.banking + authenticity.punjab) / 3 + (examMode === "elite" ? 2 : 0)));
+  const familyDiversityBucket = `${spec.cluster}:${spec.method}`;
+  const situationDiversityBucket = `${spec.cluster}:${situation.id}`;
   const numericSignature = Object.entries(draft.variables).map(([key, value]) => `${key}:${Array.isArray(value) ? value.join(",") : typeof value === "object" ? JSON.stringify(value) : String(value)}`).join("|");
   const problem: CanonicalNumberSystemProblem = {
     id: `number-system:${family}:${hashText(`${input.seed}:${family}`)}`,
@@ -1002,11 +1479,32 @@ export function createNumberSystemProblem(input: {
     derivedVariables: draft.derivedVariables,
     target: "answer",
     reasoningDepth: reasoningStepCount,
-    questionTrivialityScore: 0.08,
-    realismScore: difficulty === "hard" ? 90 : difficulty === "medium" ? 88 : 85,
-    qualityMetadata: { cluster: spec.cluster, templateCoverage: NUMBER_SYSTEM_STEM_TEMPLATE_COVERAGE[spec.cluster] },
+    questionTrivialityScore,
+    realismScore,
+    qualityMetadata: {
+      cluster: spec.cluster,
+      templateCoverage: NUMBER_SYSTEM_STEM_TEMPLATE_COVERAGE[spec.cluster],
+      situationId: situation.id,
+      situationLabel: situation.label,
+      stemArchetype: situation.stemArchetype,
+      shortcutPatternId: situation.shortcutPatternId,
+      topologyDepth: situation.topologyDepth,
+      examMode,
+      examModes: situation.examModes,
+      eliteTier,
+      familyDiversityBucket,
+      situationDiversityBucket,
+      authenticity,
+      distractorFamily: situation.distractorFamily,
+    },
     variables: draft.variables,
-    stemData: { stemSkeleton: family, preferredSolutionMethod: spec.method },
+    stemData: {
+      stemSkeleton: family,
+      preferredSolutionMethod: spec.method,
+      examSituation: situation.label,
+      stemArchetype: situation.stemArchetype,
+      shortcutPatternId: situation.shortcutPatternId,
+    },
     solverModel: draft.model,
     answer,
     answerText,
@@ -1014,18 +1512,14 @@ export function createNumberSystemProblem(input: {
     options,
     correct,
     difficulty,
-    complexity: difficulty,
+    complexity,
     topology: { family: "number_system", variant: family },
-    traps: draft.traps,
+    traps: [...new Set([...draft.traps, situation.distractorFamily, methodTrap(spec.method)])],
     distractors: options.filter((_, index) => index !== correct),
-    explanationSteps: draft.steps,
-    conceptExplanation: draft.principle,
-    stepwiseExplanation: explanation,
-    shortcutExplanation: t(
-      `${draft.shortcut.en}\nAnswer: ${answerText}, Option ${optionLabel}.`,
-      `${draft.shortcut.hi}\nउत्तर: ${answerText}, विकल्प ${optionLabel}.`,
-      `${draft.shortcut.pa}\nਉੱਤਰ: ${answerText}, ਵਿਕਲਪ ${optionLabel}.`,
-    ),
+    explanationSteps: builtExplanation.steps,
+    conceptExplanation: t("", "", ""),
+    stepwiseExplanation: builtExplanation.stepwise,
+    shortcutExplanation: builtExplanation.shortcut,
     localizationData: {
       stem: draft.stem,
       explanation,
@@ -1036,15 +1530,25 @@ export function createNumberSystemProblem(input: {
       runId: input.runId,
       familyId: family,
       topologyId: family,
+      situationId: situation.id,
+      stemArchetype: situation.stemArchetype,
+      shortcutPatternId: situation.shortcutPatternId,
+      topologyDepth: situation.topologyDepth,
+      eliteTier,
+      familyDiversityBucket,
+      situationDiversityBucket,
+      sscAuthenticityScore: authenticity.ssc,
+      bankingAuthenticityScore: authenticity.banking,
+      punjabAuthenticityScore: authenticity.punjab,
       stemSkeleton: family,
       numericSignature,
       solverAnswer: String(answer),
       explanationFinalAnswer: String(answer),
       difficultyReason: `${spec.cluster} ${spec.method}`,
-      realismScore: difficulty === "hard" ? 90 : difficulty === "medium" ? 88 : 85,
-      trapTypes: draft.traps,
+      realismScore,
+      trapTypes: [...new Set([...draft.traps, situation.distractorFamily, methodTrap(spec.method)])],
       preferredSolutionMethod: spec.method,
-      questionTrivialityScore: 0.08,
+      questionTrivialityScore,
       reasoningStepCount,
     },
   };

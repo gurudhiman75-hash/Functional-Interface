@@ -58,7 +58,40 @@ export type NumberSystemFamilyId =
   | "ns_prime_remainder_hybrid"
   | "ns_factor_hcf_hybrid"
   | "ns_hidden_number_theory"
-  | "ns_multi_cluster_reasoning";
+  | "ns_multi_cluster_reasoning"
+  | "ns_least_number_constraint"
+  | "ns_greatest_number_constraint"
+  | "ns_minimum_addition"
+  | "ns_minimum_subtraction"
+  | "ns_minimum_multiplier"
+  | "ns_minimum_divisor"
+  | "ns_smallest_divisible_number"
+  | "ns_largest_valid_number"
+  | "ns_range_optimization"
+  | "ns_multi_condition_optimization"
+  | "ns_perfect_square_completion"
+  | "ns_perfect_cube_completion"
+  | "ns_least_square_multiple"
+  | "ns_least_cube_multiple"
+  | "ns_square_factor_constraint"
+  | "ns_cube_factor_constraint"
+  | "ns_square_remainder_hybrid"
+  | "ns_square_divisibility_hybrid"
+  | "ns_square_factor_count_hybrid"
+  | "ns_hidden_number_reconstruction"
+  | "ns_hidden_divisor_reconstruction"
+  | "ns_hidden_exponent_reconstruction"
+  | "ns_hidden_factorization_reconstruction"
+  | "ns_hidden_square_reconstruction"
+  | "ns_multi_condition_reconstruction"
+  | "ns_reverse_number_theory"
+  | "ns_prime_hcf_lcm_optimization"
+  | "ns_digit_divisibility_reconstruction"
+  | "ns_remainder_constraint_optimization"
+  | "ns_factor_count_square_hidden"
+  | "ns_prime_exact_divisor_optimization"
+  | "ns_modular_cycle_reconstruction"
+  | "ns_digit_divisibility_hcf_verification";
 
 export type NumberSystemAliasFamilyId =
   | "ns_missing_digit_divisibility"
@@ -91,7 +124,11 @@ export type NumberSystemPreferredSolutionMethod =
   | "DIGITAL_ROOT_METHOD"
   | "TRAILING_ZERO_METHOD"
   | "HIGHEST_POWER_METHOD"
-  | "DIGIT_EQUATION_METHOD";
+  | "DIGIT_EQUATION_METHOD"
+  | "OPTIMIZATION_CONSTRAINT_METHOD"
+  | "PERFECT_POWER_COMPLETION_METHOD"
+  | "RECONSTRUCTION_METHOD"
+  | "ELITE_HYBRID_CHAIN_METHOD";
 
 export type NumberSystemAnswerUnit = "number" | "digit" | "count" | "remainder" | "factor" | "none";
 export type NumberSystemLocalizedText = { en: string; hi: string; pa: string };
@@ -113,7 +150,11 @@ export type NumberSystemSolverKind =
   | "last_digit"
   | "digit_logic"
   | "factorial"
-  | "modular_hybrid";
+  | "modular_hybrid"
+  | "optimization_constraint"
+  | "perfect_power_completion"
+  | "reconstruction"
+  | "elite_hybrid_chain";
 
 export type NumberSystemSolverModel = {
   kind: NumberSystemSolverKind;
@@ -125,6 +166,16 @@ export type NumberSystemAuditMeta = {
   runId: string;
   familyId: NumberSystemFamilyId;
   topologyId: NumberSystemFamilyId;
+  situationId?: string;
+  stemArchetype?: string;
+  shortcutPatternId?: string;
+  topologyDepth?: number;
+  eliteTier?: boolean;
+  familyDiversityBucket?: string;
+  situationDiversityBucket?: string;
+  sscAuthenticityScore?: number;
+  bankingAuthenticityScore?: number;
+  punjabAuthenticityScore?: number;
   stemSkeleton: string;
   numericSignature: string;
   solverAnswer: string;
@@ -168,7 +219,7 @@ export type CanonicalNumberSystemProblem = {
   options: string[];
   correct: number;
   difficulty: Lowercase<DifficultyLabel>;
-  complexity: "easy" | "medium" | "hard" | "advanced";
+  complexity: "easy" | "medium" | "hard" | "advanced" | "elite";
   topology: { family: "number_system"; variant: NumberSystemFamilyId };
   traps: string[];
   distractors: string[];

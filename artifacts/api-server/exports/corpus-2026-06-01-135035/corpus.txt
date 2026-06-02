@@ -1,0 +1,340 @@
+# Quant V2 Corpus Audit Export
+
+Export: corpus-2026-06-01-135035
+Run: run-697305e4-ddb4-4fd8-985d-1835418e67c2
+Seed: number-system-audit:run-697305e4-ddb4-4fd8-985d-1835418e67c2
+Explicit seed: no
+Preset: number_system_audit
+Profile: audit_light
+Count: 5
+Estimated Size: ~0 MB
+Multilingual explanations: no
+
+[Q1]
+EN:
+Tens digit \(5\), digit sum \(8\): which two-digit number satisfies both facts?
+
+HI:
+दहाई अंक \(5\), अंक-योग \(8\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?
+
+PA:
+ਦਹਾਈ ਅੰਕ \(5\), ਅੰਕ-ਜੋੜ \(8\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?
+
+Options: \(52\) | \(55\) | \(53\) | \(54\)
+Answer: \(53\)
+Difficulty: Medium
+Topology: number_system:ns_missing_digit_single_rule
+Realism: 88
+
+Explanation EN:
+Step 1: Form the digit-sum equation
+
+\[
+5+u=8\Rightarrow u=3
+\]
+
+Step 2: Write the two-digit number
+
+Hence, the number is 53.
+
+\[
+N=10\times 5+3=53
+\]
+
+Answer Verification
+Digit sum of 53 is 8.
+
+Final Answer
+Therefore, the correct answer is Option (C). Computed value: \(53\).
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=3
+\]
+
+\[
+N=53
+\]
+
+Fast result: \(53\). Therefore, the correct answer is Option (C).
+
+[Q2]
+EN:
+Digit sum \(6\) is given for a two-digit number. If the tens digit is \(3\), what is the number?
+
+HI:
+दो-अंकीय संख्या के लिए अंक-योग \(6\) दिया है। यदि दहाई अंक \(3\) है, तो संख्या क्या है?
+
+PA:
+ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \(6\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \(3\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?
+
+Options: \(33\) | \(34\) | \(32\) | \(35\)
+Answer: \(33\)
+Difficulty: Medium
+Topology: number_system:ns_missing_digit_multi_rule
+Realism: 88
+
+Explanation EN:
+Step 1: Form the digit-sum equation
+
+\[
+3+u=6\Rightarrow u=3
+\]
+
+Step 2: Write the two-digit number
+
+Hence, the number is 33.
+
+\[
+N=10\times 3+3=33
+\]
+
+Answer Verification
+Digit sum of 33 is 6.
+
+Final Answer
+Therefore, the correct answer is Option (A). Computed value: \(33\).
+
+Shortcut
+
+Find the ones digit from the digit sum, then place it.
+
+\[
+u=3
+\]
+
+\[
+N=33
+\]
+
+Fast result: \(33\). Therefore, the correct answer is Option (A).
+
+[Q3]
+EN:
+The number \(758x0\) is divisible by \(12\). What is the value of \(x\)?
+
+HI:
+संख्या \(758x0\), \(12\) से विभाज्य है। \(x\) का मान क्या है?
+
+PA:
+ਸੰਖਿਆ \(758x0\), \(12\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \(x\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?
+
+Options: \(3\) | \(6\) | \(4\) | \(5\)
+Answer: \(4\)
+Difficulty: Medium
+Topology: number_system:ns_reverse_divisibility
+Realism: 88
+
+Explanation EN:
+Step 1: Split the rule for 12
+
+A number divisible by 12 must be divisible by both 3 and 4.
+
+\[
+N\equiv 0\pmod{3}
+\]
+
+\[
+N\equiv 0\pmod{4}
+\]
+
+Step 2: Use the digit sum for divisibility by 3
+
+The known digit sum is 20.
+
+\[
+20+x\equiv 0\pmod{3}
+\]
+
+Step 3: Use the last-two-digits rule for 4
+
+The last two digits must form a number divisible by 4.
+
+\[
+10x+0=40
+\]
+
+\[
+40\equiv 0\pmod{4}
+\]
+
+Step 4: Combine both conditions
+
+The digit satisfying both tests is 4.
+
+\[
+20+x=24
+\]
+
+\[
+x=4
+\]
+
+Answer Verification
+With \(x=4\), the tests for 3 and 4 are both satisfied.
+\[
+20+4=24
+\]
+\[
+24\equiv 0\pmod{3}
+\]
+\[
+40\equiv 0\pmod{4}
+\]
+
+Final Answer
+Therefore, the correct answer is Option (C). Computed value: \(4\).
+
+Shortcut
+
+Check 3 from the digit sum and 4 from the last two digits.
+
+\[
+x\equiv 4\pmod{3}
+\]
+
+\[
+10x+0\equiv 0\pmod{4}
+\]
+
+\[
+x=4
+\]
+
+Fast result: \(4\). Therefore, the correct answer is Option (C).
+
+[Q4]
+EN:
+Between \(137\) and \(289\), how many integers are divisible by \(9\)?
+
+HI:
+\(137\) और \(289\) के बीच कितने पूर्णांक \(9\) से विभाज्य हैं?
+
+PA:
+\(137\) ਅਤੇ \(289\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(9\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+Options: \(16\) | \(19\) | \(17\) | \(18\)
+Answer: \(17\)
+Difficulty: Medium
+Topology: number_system:ns_divisibility_multi_condition
+Realism: 88
+
+Explanation EN:
+Step 1: Find the first valid multiple
+
+Therefore, the first multiple of 9 greater than 137 is 144.
+
+\[
+9\times 16=144
+\]
+
+Step 2: Find the last valid multiple
+
+Therefore, 288 is the greatest multiple of 9 not exceeding 289.
+
+\[
+289=9\times 32+1
+\]
+
+\[
+289-1=288
+\]
+
+Step 3: Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 9.
+
+\[
+\frac{288-144}{9}+1=16+1=17
+\]
+
+Answer Verification
+The total number of multiples is 17.
+Hence, there are 17 multiples of 9 in the given range.
+
+Final Answer
+Therefore, the correct answer is Option (C). Computed value: \(17\).
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{289}{9}\right\rfloor-\left\lfloor\frac{136}{9}\right\rfloor
+\]
+
+\[
+32-15=17
+\]
+
+Fast result: \(17\). Therefore, the correct answer is Option (C).
+
+[Q5]
+EN:
+Between \(152\) and \(232\), how many integers are divisible by \(8\)?
+
+HI:
+\(152\) और \(232\) के बीच कितने पूर्णांक \(8\) से विभाज्य हैं?
+
+PA:
+\(152\) ਅਤੇ \(232\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \(8\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?
+
+Options: \(12\) | \(10\) | \(13\) | \(11\)
+Answer: \(11\)
+Difficulty: Medium
+Topology: number_system:ns_divisibility_range_count
+Realism: 88
+
+Explanation EN:
+Step 1: Find the first valid multiple
+
+Therefore, the first multiple of 8 greater than 152 is 152.
+
+\[
+8\times 19=152
+\]
+
+Step 2: Find the last valid multiple
+
+Therefore, 232 is the greatest multiple of 8 not exceeding 232.
+
+\[
+232=8\times 29+0
+\]
+
+\[
+232-0=232
+\]
+
+Step 3: Count the valid multiples
+
+The multiples form an arithmetic progression with common difference 8.
+
+\[
+\frac{232-152}{8}+1=10+1=11
+\]
+
+Answer Verification
+The total number of multiples is 11.
+Hence, there are 11 multiples of 8 in the given range.
+
+Final Answer
+Therefore, the correct answer is Option (D). Computed value: \(11\).
+
+Shortcut
+
+Count multiples using quotient floors on the range limits.
+
+\[
+\left\lfloor\frac{232}{8}\right\rfloor-\left\lfloor\frac{151}{8}\right\rfloor
+\]
+
+\[
+29-18=11
+\]
+
+Fast result: \(11\). Therefore, the correct answer is Option (D).
+

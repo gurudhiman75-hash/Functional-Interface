@@ -12,6 +12,7 @@ import { createQuantV2RatioProportionQuestionCandidate } from "../../lib/quant-v
 import { createQuantV2TimeWorkQuestionCandidate } from "../../lib/quant-v2/time-work-admin-adapter";
 import { createQuantV2TimeSpeedDistanceQuestionCandidate } from "../../lib/quant-v2/time-speed-distance-admin-adapter";
 import { createQuantV2MixtureAlligationQuestionCandidate } from "../../lib/quant-v2/mixture-alligation-admin-adapter";
+import { createQuantV2NumberSystemQuestionCandidate } from "../../lib/quant-v2/number-system-admin-adapter";
 import { COMMERCIAL_OBJECT_POOL } from "../editorial/commercial-object-pools";
 import { validateCorpusAuditBatch } from "../validators/corpus-audit-validator";
 import {
@@ -156,6 +157,19 @@ const MIXTURE_ALLIGATION_AUDIT_PATTERN: Pattern = {
   generationDomain: "quant-v2-mixture-alligation",
 };
 
+const NUMBER_SYSTEM_AUDIT_PATTERN: Pattern = {
+  id: "quant-v2-corpus-audit-number-system",
+  type: "formula",
+  section: "Quant",
+  topic: "number_system",
+  subtopic: "number_system",
+  difficulty: "Medium",
+  templateVariants: ["Quant-v2 corpus audit number system pattern"],
+  variables: {},
+  formula: "quant-v2",
+  generationDomain: "quant-v2-number-system",
+};
+
 function auditPatternForPreset(presetId: string): Pattern {
   if (presetId === "profit_loss_audit") return PROFIT_LOSS_AUDIT_PATTERN;
   if (presetId === "interest_audit") return INTEREST_AUDIT_PATTERN;
@@ -163,6 +177,7 @@ function auditPatternForPreset(presetId: string): Pattern {
   if (presetId === "time_work_audit") return TIME_WORK_AUDIT_PATTERN;
   if (presetId === "time_speed_distance_audit") return TIME_SPEED_DISTANCE_AUDIT_PATTERN;
   if (presetId === "mixture_alligation_audit") return MIXTURE_ALLIGATION_AUDIT_PATTERN;
+  if (presetId === "number_system_audit") return NUMBER_SYSTEM_AUDIT_PATTERN;
   return PERCENTAGE_AUDIT_PATTERN;
 }
 
@@ -184,6 +199,9 @@ function generateForPreset(presetId: string, pattern: Pattern, options: Generato
   }
   if (presetId === "mixture_alligation_audit") {
     return createQuantV2MixtureAlligationQuestionCandidate(pattern, options);
+  }
+  if (presetId === "number_system_audit") {
+    return createQuantV2NumberSystemQuestionCandidate(pattern, options);
   }
   return createQuantV2PercentageQuestionCandidate(pattern, options);
 }

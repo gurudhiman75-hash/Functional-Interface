@@ -1,0 +1,272 @@
+[
+  {
+    "index": 0,
+    "question": "Tens digit \\(5\\), digit sum \\(8\\): which two-digit number satisfies both facts?",
+    "options": [
+      "\\(52\\)",
+      "\\(55\\)",
+      "\\(53\\)",
+      "\\(54\\)"
+    ],
+    "answer": "\\(53\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_single_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_single_rule"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(5\\), digit sum \\(8\\): which two-digit number satisfies both facts?",
+        "options": [
+          "\\(52\\)",
+          "\\(55\\)",
+          "\\(53\\)",
+          "\\(54\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n5+u=8\\Rightarrow u=3\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 53.\n\n\\[\nN=10\\times 5+3=53\n\\]\n\nAnswer Verification\nDigit sum of 53 is 8.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(53\\).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=3\n\\]\n\n\\[\nN=53\n\\]\n\nFast result: \\(53\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "दहाई अंक \\(5\\), अंक-योग \\(8\\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?",
+        "options": [
+          "\\(52\\)",
+          "\\(55\\)",
+          "\\(53\\)",
+          "\\(54\\)"
+        ]
+      },
+      "pa": {
+        "question": "ਦਹਾਈ ਅੰਕ \\(5\\), ਅੰਕ-ਜੋੜ \\(8\\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "\\(52\\)",
+          "\\(55\\)",
+          "\\(53\\)",
+          "\\(54\\)"
+        ]
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 1,
+    "question": "Digit sum \\(6\\) is given for a two-digit number. If the tens digit is \\(3\\), what is the number?",
+    "options": [
+      "\\(33\\)",
+      "\\(34\\)",
+      "\\(32\\)",
+      "\\(35\\)"
+    ],
+    "answer": "\\(33\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_multi_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_multi_rule"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Digit sum \\(6\\) is given for a two-digit number. If the tens digit is \\(3\\), what is the number?",
+        "options": [
+          "\\(33\\)",
+          "\\(34\\)",
+          "\\(32\\)",
+          "\\(35\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n3+u=6\\Rightarrow u=3\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 33.\n\n\\[\nN=10\\times 3+3=33\n\\]\n\nAnswer Verification\nDigit sum of 33 is 6.\n\nFinal Answer\nTherefore, the correct answer is Option (A). Computed value: \\(33\\).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=3\n\\]\n\n\\[\nN=33\n\\]\n\nFast result: \\(33\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो-अंकीय संख्या के लिए अंक-योग \\(6\\) दिया है। यदि दहाई अंक \\(3\\) है, तो संख्या क्या है?",
+        "options": [
+          "\\(33\\)",
+          "\\(34\\)",
+          "\\(32\\)",
+          "\\(35\\)"
+        ]
+      },
+      "pa": {
+        "question": "ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਲਈ ਅੰਕ-ਜੋੜ \\(6\\) ਦਿੱਤਾ ਹੈ। ਜੇ ਦਹਾਈ ਅੰਕ \\(3\\) ਹੈ, ਤਾਂ ਸੰਖਿਆ ਕੀ ਹੈ?",
+        "options": [
+          "\\(33\\)",
+          "\\(34\\)",
+          "\\(32\\)",
+          "\\(35\\)"
+        ]
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 2,
+    "question": "The number \\(758x0\\) is divisible by \\(12\\). What is the value of \\(x\\)?",
+    "options": [
+      "\\(3\\)",
+      "\\(6\\)",
+      "\\(4\\)",
+      "\\(5\\)"
+    ],
+    "answer": "\\(4\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_reverse_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_reverse_divisibility"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "The number \\(758x0\\) is divisible by \\(12\\). What is the value of \\(x\\)?",
+        "options": [
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)"
+        ],
+        "explanation": "Step 1: Split the rule for 12\n\nA number divisible by 12 must be divisible by both 3 and 4.\n\n\\[\nN\\equiv 0\\pmod{3}\n\\]\n\n\\[\nN\\equiv 0\\pmod{4}\n\\]\n\nStep 2: Use the digit sum for divisibility by 3\n\nThe known digit sum is 20.\n\n\\[\n20+x\\equiv 0\\pmod{3}\n\\]\n\nStep 3: Use the last-two-digits rule for 4\n\nThe last two digits must form a number divisible by 4.\n\n\\[\n10x+0=40\n\\]\n\n\\[\n40\\equiv 0\\pmod{4}\n\\]\n\nStep 4: Combine both conditions\n\nThe digit satisfying both tests is 4.\n\n\\[\n20+x=24\n\\]\n\n\\[\nx=4\n\\]\n\nAnswer Verification\nWith \\(x=4\\), the tests for 3 and 4 are both satisfied.\n\\[\n20+4=24\n\\]\n\\[\n24\\equiv 0\\pmod{3}\n\\]\n\\[\n40\\equiv 0\\pmod{4}\n\\]\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(4\\).\n\nShortcut\n\nCheck 3 from the digit sum and 4 from the last two digits.\n\n\\[\nx\\equiv 4\\pmod{3}\n\\]\n\n\\[\n10x+0\\equiv 0\\pmod{4}\n\\]\n\n\\[\nx=4\n\\]\n\nFast result: \\(4\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "संख्या \\(758x0\\), \\(12\\) से विभाज्य है। \\(x\\) का मान क्या है?",
+        "options": [
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)"
+        ]
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(758x0\\), \\(12\\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \\(x\\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?",
+        "options": [
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)"
+        ]
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 3,
+    "question": "Between \\(137\\) and \\(289\\), how many integers are divisible by \\(9\\)?",
+    "options": [
+      "\\(16\\)",
+      "\\(19\\)",
+      "\\(17\\)",
+      "\\(18\\)"
+    ],
+    "answer": "\\(17\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_multi_condition"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_multi_condition"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(137\\) and \\(289\\), how many integers are divisible by \\(9\\)?",
+        "options": [
+          "\\(16\\)",
+          "\\(19\\)",
+          "\\(17\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 9 greater than 137 is 144.\n\n\\[\n9\\times 16=144\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 288 is the greatest multiple of 9 not exceeding 289.\n\n\\[\n289=9\\times 32+1\n\\]\n\n\\[\n289-1=288\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 9.\n\n\\[\n\\frac{288-144}{9}+1=16+1=17\n\\]\n\nAnswer Verification\nThe total number of multiples is 17.\nHence, there are 17 multiples of 9 in the given range.\n\nFinal Answer\nTherefore, the correct answer is Option (C). Computed value: \\(17\\).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{289}{9}\\right\\rfloor-\\left\\lfloor\\frac{136}{9}\\right\\rfloor\n\\]\n\n\\[\n32-15=17\n\\]\n\nFast result: \\(17\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(137\\) और \\(289\\) के बीच कितने पूर्णांक \\(9\\) से विभाज्य हैं?",
+        "options": [
+          "\\(16\\)",
+          "\\(19\\)",
+          "\\(17\\)",
+          "\\(18\\)"
+        ]
+      },
+      "pa": {
+        "question": "\\(137\\) ਅਤੇ \\(289\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(9\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(16\\)",
+          "\\(19\\)",
+          "\\(17\\)",
+          "\\(18\\)"
+        ]
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 4,
+    "question": "Between \\(152\\) and \\(232\\), how many integers are divisible by \\(8\\)?",
+    "options": [
+      "\\(12\\)",
+      "\\(10\\)",
+      "\\(13\\)",
+      "\\(11\\)"
+    ],
+    "answer": "\\(11\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_range_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_range_count"
+      },
+      "semanticConsistency": null
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(152\\) and \\(232\\), how many integers are divisible by \\(8\\)?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 8 greater than 152 is 152.\n\n\\[\n8\\times 19=152\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 232 is the greatest multiple of 8 not exceeding 232.\n\n\\[\n232=8\\times 29+0\n\\]\n\n\\[\n232-0=232\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 8.\n\n\\[\n\\frac{232-152}{8}+1=10+1=11\n\\]\n\nAnswer Verification\nThe total number of multiples is 11.\nHence, there are 11 multiples of 8 in the given range.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(11\\).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{232}{8}\\right\\rfloor-\\left\\lfloor\\frac{151}{8}\\right\\rfloor\n\\]\n\n\\[\n29-18=11\n\\]\n\nFast result: \\(11\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(152\\) और \\(232\\) के बीच कितने पूर्णांक \\(8\\) से विभाज्य हैं?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ]
+      },
+      "pa": {
+        "question": "\\(152\\) ਅਤੇ \\(232\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(8\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ]
+      }
+    },
+    "realismScore": 88
+  }
+]

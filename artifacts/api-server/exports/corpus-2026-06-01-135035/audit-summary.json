@@ -1,0 +1,56 @@
+{
+  "generatedCount": 5,
+  "topologyDistribution": {
+    "number_system:ns_missing_digit_single_rule": 1,
+    "number_system:ns_missing_digit_multi_rule": 1,
+    "number_system:ns_reverse_divisibility": 1,
+    "number_system:ns_divisibility_multi_condition": 1,
+    "number_system:ns_divisibility_range_count": 1
+  },
+  "subtypeDistribution": {
+    "ns_missing_digit_single_rule": 1,
+    "ns_missing_digit_multi_rule": 1,
+    "ns_reverse_divisibility": 1,
+    "ns_divisibility_multi_condition": 1,
+    "ns_divisibility_range_count": 1
+  },
+  "difficultyDistribution": {
+    "Medium": 5
+  },
+  "compactnessDistribution": {
+    "unknown": 5
+  },
+  "domainDistribution": {
+    "number_system": 5
+  },
+  "objectFrequency": {},
+  "realismScores": {
+    "min": 88,
+    "max": 88,
+    "average": 88
+  },
+  "validatorFailureCounts": {},
+  "repeatedStructureWarnings": [],
+  "multilingualConsistency": {
+    "hindiCoverage": 1,
+    "punjabiCoverage": 1,
+    "hindiScriptConsistency": 1,
+    "punjabiScriptConsistency": 1,
+    "hindiExplanationCoverage": 0,
+    "punjabiExplanationCoverage": 0,
+    "localizationCompleteness": 0.5,
+    "fallbackCount": 0
+  },
+  "explanationCompactness": {
+    "englishAverageLines": 32.4,
+    "hindiAverageLines": 0,
+    "punjabiAverageLines": 0
+  },
+  "exportProfile": "audit_light",
+  "includeMultilingualExplanations": false,
+  "estimatedSizeMb": 0,
+  "exportWarnings": [],
+  "runId": "run-697305e4-ddb4-4fd8-985d-1835418e67c2",
+  "seed": "number-system-audit:run-697305e4-ddb4-4fd8-985d-1835418e67c2",
+  "explicitSeed": false
+}

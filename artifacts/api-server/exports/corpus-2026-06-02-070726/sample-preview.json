@@ -1,0 +1,1527 @@
+[
+  {
+    "index": 0,
+    "question": "A number \\(72\\) must first be made a perfect square by the least multiplier. What is that multiplier?",
+    "options": [
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(4\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factor_count_square_hidden"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factor_count_square_hidden"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number \\(72\\) must first be made a perfect square by the least multiplier. What is that multiplier?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Translate every clue into a number condition\n\nReconstruction questions should not be guessed; each clue must become a checkable relation.\n\n\\[\nx=2\n\\]\n\nStep 2: Carry the result through the next condition\n\nCheck the number against the next fact also, so it is not chosen from only the first clue.\n\n\\[\nA=2\n\\]\n\nAnswer Verification\nThe reconstructed value is 2.\n\\[\nN=2\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(2\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\nZ=2\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "संख्या \\(72\\) को पहले न्यूनतम गुणक से पूर्ण वर्ग बनाना है। वह गुणक क्या है?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\nx=2\n\\]\n\nचरण 2: परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\nA=2\n\\]\n\nउत्तर सत्यापन\nपुनर्निर्मित मान 2 है।\n\\[\nN=2\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(2\\) है।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\nZ=2\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(72\\) ਨੂੰ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਗੁਣਕ ਨਾਲ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣਾ ਹੈ। ਉਹ ਗੁਣਕ ਕੀ ਹੈ?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\nx=2\n\\]\n\nਕਦਮ 2: ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\nA=2\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 2 ਹੈ।\n\\[\nN=2\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\nZ=2\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 1,
+    "question": "Tens digit \\(7\\), digit sum \\(14\\): which two-digit number satisfies both facts?",
+    "options": [
+      "\\(76\\)",
+      "\\(79\\)",
+      "\\(77\\)",
+      "\\(78\\)"
+    ],
+    "answer": "\\(77\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_digit_formation"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_digit_formation"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(7\\), digit sum \\(14\\): which two-digit number satisfies both facts?",
+        "options": [
+          "\\(76\\)",
+          "\\(79\\)",
+          "\\(77\\)",
+          "\\(78\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n7+u=14\\Rightarrow u=7\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 77.\n\n\\[\nN=10\\times 7+7=77\n\\]\n\nAnswer Verification\nDigit sum of 77 is 14.\n\nFinal Answer\nTherefore, the required answer is \\(77\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=7\n\\]\n\n\\[\nN=77\n\\]\n\nFast result: \\(77\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "दहाई अंक \\(7\\), अंक-योग \\(14\\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?",
+        "options": [
+          "\\(76\\)",
+          "\\(79\\)",
+          "\\(77\\)",
+          "\\(78\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n7+u=14\\Rightarrow u=7\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 77 है।\n\n\\[\nN=10\\times 7+7=77\n\\]\n\nउत्तर सत्यापन\n77 का अंक-योग 14 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(77\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=7\n\\]\n\n\\[\nN=77\n\\]\n\nशीघ्र परिणाम: \\(77\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਦਹਾਈ ਅੰਕ \\(7\\), ਅੰਕ-ਜੋੜ \\(14\\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "\\(76\\)",
+          "\\(79\\)",
+          "\\(77\\)",
+          "\\(78\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n7+u=14\\Rightarrow u=7\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 77 ਹੈ।\n\n\\[\nN=10\\times 7+7=77\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n77 ਦਾ ਅੰਕ-ਜੋੜ 14 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(77\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=7\n\\]\n\n\\[\nN=77\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(77\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 2,
+    "question": "Find the smallest perfect square not less than \\(300\\) which leaves remainder \\(1\\) when divided by \\(18\\).",
+    "options": [
+      "\\(397\\)",
+      "\\(343\\)",
+      "\\(361\\)",
+      "\\(379\\)"
+    ],
+    "answer": "\\(361\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_square_remainder_hybrid"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_square_remainder_hybrid"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Find the smallest perfect square not less than \\(300\\) which leaves remainder \\(1\\) when divided by \\(18\\).",
+        "options": [
+          "\\(397\\)",
+          "\\(343\\)",
+          "\\(361\\)",
+          "\\(379\\)"
+        ],
+        "explanation": "Step 1: Factorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n200=2^{3}\\times 5^{2}\n\\]\n\nStep 2: Complete the exponents\n\nFor a square, every exponent must be even.\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n5^{2}\\to 5^{2}\n\\]\n\nStep 3: Finish the perfect-power calculation\n\n\\[\nx=2\n\\]\n\nAnswer Verification\nThe perfect-power condition is now satisfied.\n\\[\nN=361\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(361\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\nM=2\n\\]\n\nFast result: \\(361\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(300\\) से कम न होने वाला सबसे छोटा पूर्ण वर्ग ज्ञात करें जो \\(18\\) से भाग देने पर शेष \\(1\\) छोड़े।",
+        "options": [
+          "\\(397\\)",
+          "\\(343\\)",
+          "\\(361\\)",
+          "\\(379\\)"
+        ],
+        "explanation": "चरण 1: दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n200=2^{3}\\times 5^{2}\n\\]\n\nचरण 2: घातो�‚ �•ो प�‚रा �•रे�‚\n\nवर्ग �•े लिए हर घात सम होनी चाहिए।\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n5^{2}\\to 5^{2}\n\\]\n\nचरण 3: आवश्य�• मान पढ़े�‚\n\n\\[\nx=2\n\\]\n\nउत्तर सत्यापन\nप�‚र्ण-घात शर्त अब प�‚री है।\n\\[\nN=361\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(361\\) है।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\nM=2\n\\]\n\nशीघ्र परिणाम: \\(361\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(300\\) ਤੋਂ ਘੱਟ ਨਾ ਹੋਣ ਵਾਲਾ ਸਭ ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਵਰਗ ਕੱਢੋ ਜੋ \\(18\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ \\(1\\) ਛੱਡੇ।",
+        "options": [
+          "\\(397\\)",
+          "\\(343\\)",
+          "\\(361\\)",
+          "\\(379\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n200=2^{3}\\times 5^{2}\n\\]\n\nਕਦਮ 2: ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n5^{2}\\to 5^{2}\n\\]\n\nਕਦਮ 3: ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\nx=2\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\n\\[\nN=361\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(361\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\nM=2\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(361\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 94
+  },
+  {
+    "index": 3,
+    "question": "By what least number should \\(250\\) be multiplied to make it a perfect cube?",
+    "options": [
+      "\\(4\\)",
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(6\\)"
+    ],
+    "answer": "\\(4\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_cube_factor_constraint"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_cube_factor_constraint"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "By what least number should \\(250\\) be multiplied to make it a perfect cube?",
+        "options": [
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "Step 1: Factorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n250=2\\times 5^{3}\n\\]\n\nStep 2: Complete the exponents\n\nFor a cube, every exponent must be a multiple of 3.\n\n\\[\n2^{1}\\to 2^{3}\n\\]\n\n\\[\n5^{3}\\to 5^{3}\n\\]\n\nStep 3: Finish the perfect-power calculation\n\n\\[\nx=4\n\\]\n\nAnswer Verification\nThe perfect-power condition is now satisfied.\n\\[\nN=4\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(4\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\nM=4\n\\]\n\nFast result: \\(4\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(250\\) को पूर्ण घन बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?",
+        "options": [
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "चरण 1: दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n250=2\\times 5^{3}\n\\]\n\nचरण 2: घातो�‚ �•ो प�‚रा �•रे�‚\n\nघन �•े लिए हर घात 3 �•े गुणज मे�‚ होनी चाहिए।\n\n\\[\n2^{1}\\to 2^{3}\n\\]\n\n\\[\n5^{3}\\to 5^{3}\n\\]\n\nचरण 3: आवश्य�• मान पढ़े�‚\n\n\\[\nx=4\n\\]\n\nउत्तर सत्यापन\nप�‚र्ण-घात शर्त अब प�‚री है।\n\\[\nN=4\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(4\\) है।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\nM=4\n\\]\n\nशीघ्र परिणाम: \\(4\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(250\\) ਨੂੰ ਪੂਰਨ ਘਣ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+        "options": [
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n250=2\\times 5^{3}\n\\]\n\nਕਦਮ 2: ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਘਣ ਲਈ ਹਰ ਘਾਤ 3 ਦੇ ਗੁਣਜ ਵਿੱਚ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{1}\\to 2^{3}\n\\]\n\n\\[\n5^{3}\\to 5^{3}\n\\]\n\nਕਦਮ 3: ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\nx=4\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\n\\[\nN=4\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(4\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\nM=4\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(4\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 4,
+    "question": "In the number \\(48x6\\), the missing digit is chosen so that the completed number satisfies the digit rule and divisibility check. What completed number is obtained?",
+    "options": [
+      "\\(4886\\)",
+      "\\(5375\\)",
+      "\\(5863\\)",
+      "\\(4397\\)"
+    ],
+    "answer": "\\(4886\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_digit_divisibility_hcf_verification"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_digit_divisibility_hcf_verification"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In the number \\(48x6\\), the missing digit is chosen so that the completed number satisfies the digit rule and divisibility check. What completed number is obtained?",
+        "options": [
+          "\\(4886\\)",
+          "\\(5375\\)",
+          "\\(5863\\)",
+          "\\(4397\\)"
+        ],
+        "explanation": "Step 1: Translate every clue into a number condition\n\nReconstruction questions should not be guessed; each clue must become a checkable relation.\n\n\\[\nN=4886\n\\]\n\nStep 2: Carry the result through the next condition\n\nCheck the number against the next fact also, so it is not chosen from only the first clue.\n\n\\[\nA=4886\n\\]\n\nAnswer Verification\nThe reconstructed value is 4886.\n\\[\nN=4886\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(4886\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\nZ=4886\n\\]\n\nFast result: \\(4886\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "संख्या \\(48x6\\) में लुप्त अंक ऐसा चुना जाता है कि पूरी संख्या अंक-नियम और विभाज्यता जाँच पूरी करे। पूरी संख्या क्या बनेगी?",
+        "options": [
+          "\\(4886\\)",
+          "\\(5375\\)",
+          "\\(5863\\)",
+          "\\(4397\\)"
+        ],
+        "explanation": "चरण 1: हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\nN=4886\n\\]\n\nचरण 2: परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\nA=4886\n\\]\n\nउत्तर सत्यापन\nपुनर्निर्मित मान 4886 है।\n\\[\nN=4886\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(4886\\) है।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\nZ=4886\n\\]\n\nशीघ्र परिणाम: \\(4886\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(48x6\\) ਵਿੱਚ ਗੁੰਮ ਅੰਕ ਐਸਾ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਪੂਰੀ ਸੰਖਿਆ ਅੰਕ-ਨਿਯਮ ਅਤੇ ਭਾਗਯੋਗਤਾ ਜਾਂਚ ਪੂਰੀ ਕਰੇ। ਪੂਰੀ ਸੰਖਿਆ ਕੀ ਬਣੇਗੀ?",
+        "options": [
+          "\\(4886\\)",
+          "\\(5375\\)",
+          "\\(5863\\)",
+          "\\(4397\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\nN=4886\n\\]\n\nਕਦਮ 2: ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\nA=4886\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 4886 ਹੈ।\n\\[\nN=4886\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(4886\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\nZ=4886\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(4886\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 93
+  },
+  {
+    "index": 5,
+    "question": "By what least number should \\(200\\) be multiplied to make it a perfect square?",
+    "options": [
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(4\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_square_factor_constraint"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_square_factor_constraint"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "By what least number should \\(200\\) be multiplied to make it a perfect square?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Factorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n200=2^{3}\\times 5^{2}\n\\]\n\nStep 2: Complete the exponents\n\nFor a square, every exponent must be even.\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n5^{2}\\to 5^{2}\n\\]\n\nStep 3: Finish the perfect-power calculation\n\n\\[\nx=2\n\\]\n\nAnswer Verification\nThe perfect-power condition is now satisfied.\n\\[\nN=2\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(2\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\nM=2\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(200\\) को पूर्ण वर्ग बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: दी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n200=2^{3}\\times 5^{2}\n\\]\n\nचरण 2: घातो�‚ �•ो प�‚रा �•रे�‚\n\nवर्ग �•े लिए हर घात सम होनी चाहिए।\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n5^{2}\\to 5^{2}\n\\]\n\nचरण 3: आवश्य�• मान पढ़े�‚\n\n\\[\nx=2\n\\]\n\nउत्तर सत्यापन\nप�‚र्ण-घात शर्त अब प�‚री है।\n\\[\nN=2\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(2\\) है।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\nM=2\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(200\\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n200=2^{3}\\times 5^{2}\n\\]\n\nਕਦਮ 2: ਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n5^{2}\\to 5^{2}\n\\]\n\nਕਦਮ 3: ਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\nx=2\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\n\\[\nN=2\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\nM=2\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 6,
+    "question": "When \\(7^{90}\\) is divided by \\(11\\), what remainder is left?",
+    "options": [
+      "\\(0\\)",
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_factor_hybrid"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_factor_hybrid"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When \\(7^{90}\\) is divided by \\(11\\), what remainder is left?",
+        "options": [
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n7\\equiv 7\\pmod{11}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 10.\n\n\\[\n7\\rightarrow 5\\rightarrow 2\\rightarrow 3\\rightarrow 10\\rightarrow 4\\rightarrow 6\\rightarrow 9\\rightarrow 8\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(90-1)\\bmod 10+1=10\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 1.\n\n\\[\n7^{90}\\equiv 1\\pmod{11}\n\\]\n\nAnswer Verification\nThe 10th term of the cycle is 1.\n\nFinal Answer\nTherefore, the required answer is \\(1\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(90-1)\\bmod 10+1=10\n\\]\n\n\\[\n7^{90}\\equiv 1\\pmod{11}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(7^{90}\\) को \\(11\\) से भाग देने पर क्या शेषफल आएगा?",
+        "options": [
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n7\\equiv 7\\pmod{11}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 10।\n\n\\[\n7\\rightarrow 5\\rightarrow 2\\rightarrow 3\\rightarrow 10\\rightarrow 4\\rightarrow 6\\rightarrow 9\\rightarrow 8\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(90-1)\\bmod 10+1=10\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n7^{90}\\equiv 1\\pmod{11}\n\\]\n\nउत्तर सत्यापन\nचक्र का 10वाँ पद 1 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(1\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(90-1)\\bmod 10+1=10\n\\]\n\n\\[\n7^{90}\\equiv 1\\pmod{11}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(7^{90}\\) ਨੂੰ \\(11\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?",
+        "options": [
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n7\\equiv 7\\pmod{11}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 10।\n\n\\[\n7\\rightarrow 5\\rightarrow 2\\rightarrow 3\\rightarrow 10\\rightarrow 4\\rightarrow 6\\rightarrow 9\\rightarrow 8\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(90-1)\\bmod 10+1=10\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n7^{90}\\equiv 1\\pmod{11}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 10ਵਾਂ ਪਦ 1 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(90-1)\\bmod 10+1=10\n\\]\n\n\\[\n7^{90}\\equiv 1\\pmod{11}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 7,
+    "question": "Using modular arithmetic, find the remainder of \\(17^{39}\\) on division by \\(13\\).",
+    "options": [
+      "\\(14\\)",
+      "\\(12\\)",
+      "\\(13\\)",
+      "\\(11\\)"
+    ],
+    "answer": "\\(12\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_multi_cluster_reasoning"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_multi_cluster_reasoning"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Using modular arithmetic, find the remainder of \\(17^{39}\\) on division by \\(13\\).",
+        "options": [
+          "\\(14\\)",
+          "\\(12\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n17\\equiv 4\\pmod{13}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 6.\n\n\\[\n4\\rightarrow 3\\rightarrow 12\\rightarrow 9\\rightarrow 10\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(39-1)\\bmod 6+1=3\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 12.\n\n\\[\n17^{39}\\equiv 12\\pmod{13}\n\\]\n\nAnswer Verification\nThe 3rd term of the cycle is 12.\n\nFinal Answer\nTherefore, the required answer is \\(12\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(39-1)\\bmod 6+1=3\n\\]\n\n\\[\n4^{39}\\equiv 12\\pmod{13}\n\\]\n\nFast result: \\(12\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "मॉड्यूलर अंकगणित से \\(17^{39}\\) को \\(13\\) से भाग देने पर शेषफल निकालें।",
+        "options": [
+          "\\(14\\)",
+          "\\(12\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n17\\equiv 4\\pmod{13}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 6।\n\n\\[\n4\\rightarrow 3\\rightarrow 12\\rightarrow 9\\rightarrow 10\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(39-1)\\bmod 6+1=3\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 12।\n\n\\[\n17^{39}\\equiv 12\\pmod{13}\n\\]\n\nउत्तर सत्यापन\nचक्र का 3वाँ पद 12 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(12\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(39-1)\\bmod 6+1=3\n\\]\n\n\\[\n4^{39}\\equiv 12\\pmod{13}\n\\]\n\nशीघ्र परिणाम: \\(12\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਮਾਡਿਊਲਰ ਗਣਿਤ ਨਾਲ \\(17^{39}\\) ਨੂੰ \\(13\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੱਢੋ।",
+        "options": [
+          "\\(14\\)",
+          "\\(12\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n17\\equiv 4\\pmod{13}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 6।\n\n\\[\n4\\rightarrow 3\\rightarrow 12\\rightarrow 9\\rightarrow 10\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(39-1)\\bmod 6+1=3\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 12।\n\n\\[\n17^{39}\\equiv 12\\pmod{13}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 12 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(12\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(39-1)\\bmod 6+1=3\n\\]\n\n\\[\n4^{39}\\equiv 12\\pmod{13}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(12\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 8,
+    "question": "Between \\(160\\) and \\(333\\), how many integers are divisible by \\(18\\)?",
+    "options": [
+      "\\(12\\)",
+      "\\(10\\)",
+      "\\(11\\)",
+      "\\(9\\)"
+    ],
+    "answer": "\\(10\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_range_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_range_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Between \\(160\\) and \\(333\\), how many integers are divisible by \\(18\\)?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "Step 1: Find the first valid multiple\n\nTherefore, the first multiple of 18 greater than 160 is 162.\n\n\\[\n18\\times 9=162\n\\]\n\nStep 2: Find the last valid multiple\n\nTherefore, 324 is the greatest multiple of 18 not exceeding 333.\n\n\\[\n333=18\\times 18+9\n\\]\n\n\\[\n333-9=324\n\\]\n\nStep 3: Count the valid multiples\n\nThe multiples form an arithmetic progression with common difference 18.\n\n\\[\n\\frac{324-162}{18}+1=9+1=10\n\\]\n\nAnswer Verification\nThe total number of multiples is 10.\nHence, there are 10 multiples of 18 in the given range.\n\nFinal Answer\nTherefore, the required answer is \\(10\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{333}{18}\\right\\rfloor-\\left\\lfloor\\frac{159}{18}\\right\\rfloor\n\\]\n\n\\[\n18-8=10\n\\]\n\nFast result: \\(10\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(160\\) और \\(333\\) के बीच कितने पूर्णांक \\(18\\) से विभाज्य हैं?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "चरण 1: पहला मान्य गुणज ज्ञात करें\n\nअतः 160 से बड़ा 18 का पहला गुणज 162 है।\n\n\\[\n18\\times 9=162\n\\]\n\nचरण 2: आखिरी वैध गुणज ज्ञात करें\n\nअतः 324, 333 से अधिक न होने वाला 18 का सबसे बड़ा गुणज है।\n\n\\[\n333=18\\times 18+9\n\\]\n\n\\[\n333-9=324\n\\]\n\nचरण 3: मान्य गुणजों की गिनती करें\n\nगुणज 18 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{324-162}{18}+1=9+1=10\n\\]\n\nउत्तर सत्यापन\nगुणजों की कुल संख्या 10 है।\nअतः दी गई सीमा में 18 के 10 गुणज हैं।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(10\\) है।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{333}{18}\\right\\rfloor-\\left\\lfloor\\frac{159}{18}\\right\\rfloor\n\\]\n\n\\[\n18-8=10\n\\]\n\nशीघ्र परिणाम: \\(10\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(160\\) ਅਤੇ \\(333\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(18\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 160 ਤੋਂ ਵੱਡਾ 18 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 162 ਹੈ।\n\n\\[\n18\\times 9=162\n\\]\n\nਕਦਮ 2: ਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 324, 333 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 18 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n333=18\\times 18+9\n\\]\n\n\\[\n333-9=324\n\\]\n\nਕਦਮ 3: ਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 18 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{324-162}{18}+1=9+1=10\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 10 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 18 ਦੇ 10 ਗੁਣਜ ਹਨ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(10\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{333}{18}\\right\\rfloor-\\left\\lfloor\\frac{159}{18}\\right\\rfloor\n\\]\n\n\\[\n18-8=10\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(10\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 9,
+    "question": "Tens digit \\(7\\) and digit sum \\(9\\) are fixed. What is the number?",
+    "options": [
+      "\\(71\\)",
+      "\\(74\\)",
+      "\\(72\\)",
+      "\\(73\\)"
+    ],
+    "answer": "\\(72\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_digit_constraints"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_digit_constraints"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(7\\) and digit sum \\(9\\) are fixed. What is the number?",
+        "options": [
+          "\\(71\\)",
+          "\\(74\\)",
+          "\\(72\\)",
+          "\\(73\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n7+u=9\\Rightarrow u=2\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 72.\n\n\\[\nN=10\\times 7+2=72\n\\]\n\nAnswer Verification\nDigit sum of 72 is 9.\n\nFinal Answer\nTherefore, the required answer is \\(72\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=2\n\\]\n\n\\[\nN=72\n\\]\n\nFast result: \\(72\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "मान \\(9\\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \\(7\\) है। संख्या ज्ञात करें?",
+        "options": [
+          "\\(71\\)",
+          "\\(74\\)",
+          "\\(72\\)",
+          "\\(73\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n7+u=9\\Rightarrow u=2\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 72 है।\n\n\\[\nN=10\\times 7+2=72\n\\]\n\nउत्तर सत्यापन\n72 का अंक-योग 9 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(72\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=2\n\\]\n\n\\[\nN=72\n\\]\n\nशीघ्र परिणाम: \\(72\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਮੁੱਲ \\(9\\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \\(7\\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?",
+        "options": [
+          "\\(71\\)",
+          "\\(74\\)",
+          "\\(72\\)",
+          "\\(73\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n7+u=9\\Rightarrow u=2\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 72 ਹੈ।\n\n\\[\nN=10\\times 7+2=72\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n72 ਦਾ ਅੰਕ-ਜੋੜ 9 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(72\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=2\n\\]\n\n\\[\nN=72\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(72\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 10,
+    "question": "A number is rebuilt from exact prime-power choices and the smallest valid value is \\(216\\). What is that value?",
+    "options": [
+      "\\(238\\)",
+      "\\(205\\)",
+      "\\(216\\)",
+      "\\(227\\)"
+    ],
+    "answer": "\\(216\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_prime_exact_divisor_optimization"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_prime_exact_divisor_optimization"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number is rebuilt from exact prime-power choices and the smallest valid value is \\(216\\). What is that value?",
+        "options": [
+          "\\(238\\)",
+          "\\(205\\)",
+          "\\(216\\)",
+          "\\(227\\)"
+        ],
+        "explanation": "Step 1: Translate every clue into a number condition\n\nReconstruction questions should not be guessed; each clue must become a checkable relation.\n\n\\[\nN=216\n\\]\n\nStep 2: Carry the result through the next condition\n\nCheck the number against the next fact also, so it is not chosen from only the first clue.\n\n\\[\nA=216\n\\]\n\nAnswer Verification\nThe reconstructed value is 216.\n\\[\nN=216\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(216\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\nZ=216\n\\]\n\nFast result: \\(216\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "अभाज्य-घात विकल्पों से संख्या बनती है और सबसे छोटा मान \\(216\\) है। वह मान क्या है?",
+        "options": [
+          "\\(238\\)",
+          "\\(205\\)",
+          "\\(216\\)",
+          "\\(227\\)"
+        ],
+        "explanation": "चरण 1: हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\nN=216\n\\]\n\nचरण 2: परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\nA=216\n\\]\n\nउत्तर सत्यापन\nपुनर्निर्मित मान 216 है।\n\\[\nN=216\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(216\\) है।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\nZ=216\n\\]\n\nशीघ्र परिणाम: \\(216\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਅਭਾਜ-ਘਾਤ ਚੋਣਾਂ ਤੋਂ ਸੰਖਿਆ ਬਣਦੀ ਹੈ ਅਤੇ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ \\(216\\) ਹੈ। ਉਹ ਮੁੱਲ ਕੀ ਹੈ?",
+        "options": [
+          "\\(238\\)",
+          "\\(205\\)",
+          "\\(216\\)",
+          "\\(227\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\nN=216\n\\]\n\nਕਦਮ 2: ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\nA=216\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 216 ਹੈ।\n\\[\nN=216\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(216\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\nZ=216\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(216\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 93
+  },
+  {
+    "index": 11,
+    "question": "Find the smallest integer above \\(1592\\) which is a common multiple of \\(8\\) and \\(30\\).",
+    "options": [
+      "\\(1680\\)",
+      "\\(1848\\)",
+      "\\(2016\\)",
+      "\\(1512\\)"
+    ],
+    "answer": "\\(1680\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_constraint_optimization"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_constraint_optimization"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Find the smallest integer above \\(1592\\) which is a common multiple of \\(8\\) and \\(30\\).",
+        "options": [
+          "\\(1680\\)",
+          "\\(1848\\)",
+          "\\(2016\\)",
+          "\\(1512\\)"
+        ],
+        "explanation": "Step 1: Combine the number conditions first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\n\\[\nm=120\n\\]\n\nStep 2: Choose the number that fits the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\nq=\\left\\lceil\\frac{1593}{120}\\right\\rceil\n\\]\n\n\\[\nN=120\\times q=1680\n\\]\n\nAnswer Verification\nThe selected number is 1680, and it satisfies the required divisibility condition.\n\\[\nN=1680\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(1680\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\nZ=1680\n\\]\n\nFast result: \\(1680\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(1592\\) से ऊपर \\(8\\) और \\(30\\) का सबसे छोटा सामान्य गुणज ज्ञात करें।",
+        "options": [
+          "\\(1680\\)",
+          "\\(1848\\)",
+          "\\(2016\\)",
+          "\\(1512\\)"
+        ],
+        "explanation": "चरण 1: पहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\n\\[\nm=120\n\\]\n\nचरण 2: नि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\nq=\\left\\lceil\\frac{1593}{120}\\right\\rceil\n\\]\n\n\\[\nN=120\\times q=1680\n\\]\n\nउत्तर सत्यापन\nअनु�•�‚लित मान्य मान 1680 है।\n\\[\nN=1680\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(1680\\) है।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\nZ=1680\n\\]\n\nशीघ्र परिणाम: \\(1680\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(1592\\) ਤੋਂ ਉੱਪਰ \\(8\\) ਅਤੇ \\(30\\) ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਾਂਝਾ ਗੁਣਜ ਕੱਢੋ।",
+        "options": [
+          "\\(1680\\)",
+          "\\(1848\\)",
+          "\\(2016\\)",
+          "\\(1512\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\n\\[\nm=120\n\\]\n\nਕਦਮ 2: ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\nq=\\left\\lceil\\frac{1593}{120}\\right\\rceil\n\\]\n\n\\[\nN=120\\times q=1680\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 1680 ਹੈ।\n\\[\nN=1680\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1680\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\nZ=1680\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1680\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 12,
+    "question": "Tens digit \\(5\\) and ones digit \\(1\\) are used in a number. How much does it change when reversed?",
+    "options": [
+      "\\(35\\)",
+      "\\(38\\)",
+      "\\(36\\)",
+      "\\(37\\)"
+    ],
+    "answer": "\\(36\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_digit_interchange"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_digit_interchange"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(5\\) and ones digit \\(1\\) are used in a number. How much does it change when reversed?",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "Step 1: Write both numbers by place value\n\n\\[\nN_1=10\\times 5+1=51\n\\]\n\n\\[\nN_2=10\\times 1+5=15\n\\]\n\nStep 2: Subtract using the digit-difference rule\n\n\\[\n|N_1-N_2|=9\\times |5-1|=9\\times 4=36\n\\]\n\nAnswer Verification\nThe required difference is 36.\n\nFinal Answer\nTherefore, the required answer is \\(36\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nReversal difference equals nine times the digit difference.\n\n\\[\n9\\times |5-1|=36\n\\]\n\nFast result: \\(36\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "दहाई अंक \\(5\\) और इकाई अंक \\(1\\) एक संख्या में हैं। उलटने पर वह कितनी बदलेगी?",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "चरण 1: दोनों संख्याएँ स्थान-मूल्य से लिखें\n\n\\[\nN_1=10\\times 5+1=51\n\\]\n\n\\[\nN_2=10\\times 1+5=15\n\\]\n\nचरण 2: अंक-अंतर नियम से घटाव\n\n\\[\n|N_1-N_2|=9\\times |5-1|=9\\times 4=36\n\\]\n\nउत्तर सत्यापन\nआवश्यक अंतर 36 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(36\\) है।\n\nशॉर्टकट\n\nउलटी संख्या का अंतर अंकों के अंतर का नौ गुना होता है।\n\n\\[\n9\\times |5-1|=36\n\\]\n\nशीघ्र परिणाम: \\(36\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਦਹਾਈ ਅੰਕ \\(5\\) ਅਤੇ ਇਕਾਈ ਅੰਕ \\(1\\) ਇੱਕ ਸੰਖਿਆ ਵਿੱਚ ਹਨ। ਉਲਟਣ ਤੇ ਇਹ ਕਿੰਨੀ ਬਦਲੇਗੀ?",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਦੋਵੇਂ ਸੰਖਿਆਵਾਂ ਸਥਾਨ-ਮੁੱਲ ਨਾਲ ਲਿਖੋ\n\n\\[\nN_1=10\\times 5+1=51\n\\]\n\n\\[\nN_2=10\\times 1+5=15\n\\]\n\nਕਦਮ 2: ਅੰਕ-ਫਰਕ ਨਿਯਮ ਨਾਲ ਘਟਾਓ\n\n\\[\n|N_1-N_2|=9\\times |5-1|=9\\times 4=36\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਲੋੜੀਂਦਾ ਫਰਕ 36 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(36\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਉਲਟੀ ਸੰਖਿਆ ਦਾ ਫਰਕ ਅੰਕਾਂ ਦੇ ਫਰਕ ਦਾ ਨੌ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।\n\n\\[\n9\\times |5-1|=36\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(36\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 13,
+    "question": "By what least number should \\(120\\) be multiplied so that the product is divisible by \\(240\\)?",
+    "options": [
+      "\\(1\\)",
+      "\\(4\\)",
+      "\\(2\\)",
+      "\\(3\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_multiplier"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_multiplier"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "By what least number should \\(120\\) be multiplied so that the product is divisible by \\(240\\)?",
+        "options": [
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "Step 1: Combine the number conditions first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\nStep 2: Choose the number that fits the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\ng=\\gcd(120,240)=120\n\\]\n\n\\[\nx=\\frac{240}{g}=2\n\\]\n\nAnswer Verification\nThe selected number is 2, and it satisfies the required divisibility condition.\n\\[\nN=2\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(2\\). Hence, the correct answer is Option (C).\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\nZ=2\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(120\\) को किस न्यूनतम संख्या से गुणा किया जाए ताकि गुणनफल \\(240\\) से विभाज्य हो?",
+        "options": [
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "चरण 1: पहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\nचरण 2: नि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\ng=\\gcd(120,240)=120\n\\]\n\n\\[\nx=\\frac{240}{g}=2\n\\]\n\nउत्तर सत्यापन\nअनु�•�‚लित मान्य मान 2 है।\n\\[\nN=2\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(2\\) है।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\nZ=2\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(120\\) ਨੂੰ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਜਾਵੇ ਤਾਂ ਜੋ ਗੁਣਨਫਲ \\(240\\) ਨਾਲ ਭਾਗ ਜਾਵੇ?",
+        "options": [
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\nਕਦਮ 2: ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\ng=\\gcd(120,240)=120\n\\]\n\n\\[\nx=\\frac{240}{g}=2\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 2 ਹੈ।\n\\[\nN=2\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\nZ=2\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 14,
+    "question": "How many integers between \\(613\\) and \\(1873\\) leave remainder \\(13\\) when divided by \\(120\\)?",
+    "options": [
+      "\\(13\\)",
+      "\\(11\\)",
+      "\\(12\\)",
+      "\\(10\\)"
+    ],
+    "answer": "\\(11\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_range_optimization"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_range_optimization"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "How many integers between \\(613\\) and \\(1873\\) leave remainder \\(13\\) when divided by \\(120\\)?",
+        "options": [
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(12\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "Step 1: Combine the number conditions first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\nStep 2: Choose the number that fits the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\nN\\equiv 13\\pmod{120}\n\\]\n\n\\[\nc=11\n\\]\n\nAnswer Verification\nThe selected number is 11, and it satisfies the required divisibility condition.\n\\[\nN=11\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(11\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\nZ=11\n\\]\n\nFast result: \\(11\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(613\\) और \\(1873\\) के बीच कितने पूर्णांक \\(120\\) से भाग देने पर शेष \\(13\\) छोड़ते हैं?",
+        "options": [
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(12\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "चरण 1: पहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\nचरण 2: नि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\nN\\equiv 13\\pmod{120}\n\\]\n\n\\[\nc=11\n\\]\n\nउत्तर सत्यापन\nअनु�•�‚लित मान्य मान 11 है।\n\\[\nN=11\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(11\\) है।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\nZ=11\n\\]\n\nशीघ्र परिणाम: \\(11\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(613\\) ਅਤੇ \\(1873\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(120\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ \\(13\\) ਛੱਡਦੇ ਹਨ?",
+        "options": [
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(12\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\nਕਦਮ 2: ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\nN\\equiv 13\\pmod{120}\n\\]\n\n\\[\nc=11\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 11 ਹੈ।\n\\[\nN=11\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(11\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\nZ=11\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(11\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 15,
+    "question": "A number is \\(120\\). Based on its prime factorisation, determine the total number of positive divisors.",
+    "options": [
+      "\\(16\\)",
+      "\\(17\\)",
+      "\\(15\\)",
+      "\\(18\\)"
+    ],
+    "answer": "\\(16\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_divisor_deduction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_divisor_deduction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number is \\(120\\). Based on its prime factorisation, determine the total number of positive divisors.",
+        "options": [
+          "\\(16\\)",
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nStep 2: Apply the (+1) rule on exponents\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(120)=(3+1)\\times (1+1)\\times (1+1)=16\n\\]\n\nAnswer Verification\nThe number of positive divisors is 16.\n\nFinal Answer\nTherefore, the required answer is \\(16\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(3+1)\\times (1+1)\\times (1+1)\n\\]\n\nFast result: \\(16\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "एक संख्या \\(120\\) है। उसके अभाज्य गुणनखंड के आधार पर धनात्मक भाजकों की कुल संख्या निर्धारित करें।",
+        "options": [
+          "\\(16\\)",
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nचरण 2: घातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(120)=(3+1)\\times (1+1)\\times (1+1)=16\n\\]\n\nउत्तर सत्यापन\nधनात्मक भाजकों की संख्या 16 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(16\\) है।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(3+1)\\times (1+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(16\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ \\(120\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ।",
+        "options": [
+          "\\(16\\)",
+          "\\(17\\)",
+          "\\(15\\)",
+          "\\(18\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nਕਦਮ 2: ਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(120)=(3+1)\\times (1+1)\\times (1+1)=16\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 16 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(16\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(3+1)\\times (1+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(16\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 16,
+    "question": "A factorial expression \\(60!\\) is given. What is the exponent of prime factor \\(3\\)?",
+    "options": [
+      "\\(28\\)",
+      "\\(29\\)",
+      "\\(27\\)",
+      "\\(30\\)"
+    ],
+    "answer": "\\(28\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factorial_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factorial_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A factorial expression \\(60!\\) is given. What is the exponent of prime factor \\(3\\)?",
+        "options": [
+          "\\(28\\)",
+          "\\(29\\)",
+          "\\(27\\)",
+          "\\(30\\)"
+        ],
+        "explanation": "Step 1: Count powers of 3 in n!\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nStep 2: Add the quotient terms\n\n\\[\n20+6+2=28\n\\]\n\nAnswer Verification\nHighest power of 3 dividing 60! is 28.\n\nFinal Answer\nTherefore, the required answer is \\(28\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nLegendre sum of floor quotients only.\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor+\\left\\lfloor\\frac{60}{9}\\right\\rfloor+\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nFast result: \\(28\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "फैक्टोरियल अभिव्यक्ति \\(60!\\) दी है। अभाज्य गुणनखंड \\(3\\) की घात क्या है?",
+        "options": [
+          "\\(28\\)",
+          "\\(29\\)",
+          "\\(27\\)",
+          "\\(30\\)"
+        ],
+        "explanation": "चरण 1: n! में 3 की घातें गिनें\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nचरण 2: भागफल पद जोड़ें\n\n\\[\n20+6+2=28\n\\]\n\nउत्तर सत्यापन\n60! में 3 की सबसे बड़ी घात 28 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(28\\) है।\n\nशॉर्टकट\n\nकेवल भागफल-मूल्यों का लेजेंड्र योग।\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor+\\left\\lfloor\\frac{60}{9}\\right\\rfloor+\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nशीघ्र परिणाम: \\(28\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(60!\\) ਦਿੱਤੀ ਹੈ। ਅਭਾਜ ਗੁਣਨਖੰਡ \\(3\\) ਦੀ ਘਾਤ ਕੀ ਹੈ?",
+        "options": [
+          "\\(28\\)",
+          "\\(29\\)",
+          "\\(27\\)",
+          "\\(30\\)"
+        ],
+        "explanation": "ਕਦਮ 1: n! ਵਿੱਚ 3 ਦੀਆਂ ਘਾਤਾਂ ਗਿਣੋ\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nਕਦਮ 2: ਭਾਗਪਲ ਪਦ ਜੋੜੋ\n\n\\[\n20+6+2=28\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n60! ਨੂੰ 3 ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ 28 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(28\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਭਾਗਫਲ-ਮੂਲਾਂ ਦਾ ਲੇਜੈਂਡਰ ਜੋੜ।\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor+\\left\\lfloor\\frac{60}{9}\\right\\rfloor+\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(28\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 17,
+    "question": "In \\(2^{51}\\), determine the final digit without expanding the power.",
+    "options": [
+      "\\(8\\)",
+      "\\(9\\)",
+      "\\(7\\)",
+      "\\(10\\)"
+    ],
+    "answer": "\\(8\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_unit_digit_cycle"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_unit_digit_cycle"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In \\(2^{51}\\), determine the final digit without expanding the power.",
+        "options": [
+          "\\(8\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n2\\equiv 2\\pmod{10}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 4.\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 6\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(51-1)\\bmod 4+1=3\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 8.\n\n\\[\n2^{51}\\equiv 8\\pmod{10}\n\\]\n\nAnswer Verification\nThe 3rd term of the cycle is 8.\n\nFinal Answer\nTherefore, the required answer is \\(8\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(51-1)\\bmod 4+1=3\n\\]\n\n\\[\n2^{51}\\equiv 8\\pmod{10}\n\\]\n\nFast result: \\(8\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(2^{51}\\) का अंतिम अंक (इकाई अंक) क्या है?",
+        "options": [
+          "\\(8\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n2\\equiv 2\\pmod{10}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 6\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(51-1)\\bmod 4+1=3\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 8।\n\n\\[\n2^{51}\\equiv 8\\pmod{10}\n\\]\n\nउत्तर सत्यापन\nचक्र का 3वाँ पद 8 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(8\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(51-1)\\bmod 4+1=3\n\\]\n\n\\[\n2^{51}\\equiv 8\\pmod{10}\n\\]\n\nशीघ्र परिणाम: \\(8\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(2^{51}\\) ਦਾ ਆਖਰੀ ਅੰਕ (ਇਕਾਈ ਅੰਕ) ਕੀ ਹੈ?",
+        "options": [
+          "\\(8\\)",
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n2\\equiv 2\\pmod{10}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 6\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(51-1)\\bmod 4+1=3\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 8।\n\n\\[\n2^{51}\\equiv 8\\pmod{10}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 8 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(8\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(51-1)\\bmod 4+1=3\n\\]\n\n\\[\n2^{51}\\equiv 8\\pmod{10}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(8\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 18,
+    "question": "What least number should be added to \\(262\\) so that the result is divisible by \\(11\\)?",
+    "options": [
+      "\\(4\\)",
+      "\\(2\\)",
+      "\\(3\\)",
+      "\\(1\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_addition"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_addition"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What least number should be added to \\(262\\) so that the result is divisible by \\(11\\)?",
+        "options": [
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "Step 1: Combine the number conditions first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\nStep 2: Choose the number that fits the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\n262=11\\times 23+9\n\\]\n\n\\[\n11-9=2\n\\]\n\nAnswer Verification\nThe selected number is 2, and it satisfies the required divisibility condition.\n\\[\nN=2\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(2\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\nZ=2\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(262\\) में कौन-सी न्यूनतम संख्या जोड़ी जाए ताकि परिणाम \\(11\\) से विभाज्य हो?",
+        "options": [
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "चरण 1: पहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\nचरण 2: नि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\n262=11\\times 23+9\n\\]\n\n\\[\n11-9=2\n\\]\n\nउत्तर सत्यापन\nअनु�•�‚लित मान्य मान 2 है।\n\\[\nN=2\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(2\\) है।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\nZ=2\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(262\\) ਵਿੱਚ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਜੋੜੀ ਜਾਵੇ ਤਾਂ ਜੋ ਨਤੀਜਾ \\(11\\) ਨਾਲ ਭਾਗ ਜਾਵੇ?",
+        "options": [
+          "\\(4\\)",
+          "\\(2\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\nਕਦਮ 2: ਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\n262=11\\times 23+9\n\\]\n\n\\[\n11-9=2\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 2 ਹੈ।\n\\[\nN=2\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\nZ=2\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 19,
+    "question": "Digit sum \\(10\\) with tens digit \\(5\\) identifies which two-digit number?",
+    "options": [
+      "\\(55\\)",
+      "\\(56\\)",
+      "\\(54\\)",
+      "\\(57\\)"
+    ],
+    "answer": "\\(55\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_multi_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_multi_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Digit sum \\(10\\) with tens digit \\(5\\) identifies which two-digit number?",
+        "options": [
+          "\\(55\\)",
+          "\\(56\\)",
+          "\\(54\\)",
+          "\\(57\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n5+u=10\\Rightarrow u=5\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 55.\n\n\\[\nN=10\\times 5+5=55\n\\]\n\nAnswer Verification\nDigit sum of 55 is 10.\n\nFinal Answer\nTherefore, the required answer is \\(55\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=5\n\\]\n\n\\[\nN=55\n\\]\n\nFast result: \\(55\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दो-अंकीय संख्या का अंक-योग \\(10\\) और दहाई अंक \\(5\\) ज्ञात हैं। संख्या क्या है?",
+        "options": [
+          "\\(55\\)",
+          "\\(56\\)",
+          "\\(54\\)",
+          "\\(57\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n5+u=10\\Rightarrow u=5\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 55 है।\n\n\\[\nN=10\\times 5+5=55\n\\]\n\nउत्तर सत्यापन\n55 का अंक-योग 10 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(55\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=5\n\\]\n\n\\[\nN=55\n\\]\n\nशीघ्र परिणाम: \\(55\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦਾ ਅੰਕ-ਜੋੜ \\(10\\) ਅਤੇ ਦਹਾਈ ਅੰਕ \\(5\\) ਪਤਾ ਹਨ। ਸੰਖਿਆ ਕੀ ਹੈ?",
+        "options": [
+          "\\(55\\)",
+          "\\(56\\)",
+          "\\(54\\)",
+          "\\(57\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n5+u=10\\Rightarrow u=5\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 55 ਹੈ।\n\n\\[\nN=10\\times 5+5=55\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n55 ਦਾ ਅੰਕ-ਜੋੜ 10 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(55\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=5\n\\]\n\n\\[\nN=55\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(55\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 87
+  },
+  {
+    "index": 20,
+    "question": "A number is \\(30\\). Based on its prime factorisation, determine the product of all its positive divisors.",
+    "options": [
+      "\\(810000\\)",
+      "\\(891000\\)",
+      "\\(1012500\\)",
+      "\\(1215000\\)"
+    ],
+    "answer": "\\(810000\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_product_of_divisors"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_product_of_divisors"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number is \\(30\\). Based on its prime factorisation, determine the product of all its positive divisors.",
+        "options": [
+          "\\(810000\\)",
+          "\\(891000\\)",
+          "\\(1012500\\)",
+          "\\(1215000\\)"
+        ],
+        "explanation": "Step 1: Write prime factorization\n\n\\[\n30=2\\times 3\\times 5\n\\]\n\nStep 2: Count the divisors\n\n\\[\nd(30)=(1+1)\\times (1+1)\\times (1+1)=8\n\\]\n\nStep 3: Use the product-of-divisors identity\n\n\\[\n\\prod d\\mid 30 d=30^{d(30)/2}=30^{8/2}=810000\n\\]\n\nAnswer Verification\nThe product of all positive divisors is 810000.\n\nFinal Answer\nTherefore, the required answer is \\(810000\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nAfter counting divisors, raise n to half the divisor count.\n\n\\[\n30^{8/2}=810000\n\\]\n\nFast result: \\(810000\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "एक संख्या \\(30\\) है। उसके अभाज्य गुणनखंड के आधार पर सभी धनात्मक भाजकों का गुणनफल निर्धारित करें।",
+        "options": [
+          "\\(810000\\)",
+          "\\(891000\\)",
+          "\\(1012500\\)",
+          "\\(1215000\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n30=2\\times 3\\times 5\n\\]\n\nचरण 2: भाजकों की संख्या ज्ञात करें\n\n\\[\nd(30)=(1+1)\\times (1+1)\\times (1+1)=8\n\\]\n\nचरण 3: भाजकों के गुणनफल की पहचान लगाएं\n\n\\[\n\\prod d\\mid 30 d=30^{d(30)/2}=30^{8/2}=810000\n\\]\n\nउत्तर सत्यापन\nसभी धनात्मक भाजकों का गुणनफल 810000 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(810000\\) है।\n\nशॉर्टकट\n\nभाजक गिनती के बाद n को आधी गिनती की घात दें।\n\n\\[\n30^{8/2}=810000\n\\]\n\nशीघ्र परिणाम: \\(810000\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ \\(30\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਨਿਰਧਾਰਿਤ ਕਰੋ।",
+        "options": [
+          "\\(810000\\)",
+          "\\(891000\\)",
+          "\\(1012500\\)",
+          "\\(1215000\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n30=2\\times 3\\times 5\n\\]\n\nਕਦਮ 2: ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ\n\n\\[\nd(30)=(1+1)\\times (1+1)\\times (1+1)=8\n\\]\n\nਕਦਮ 3: ਭਾਜਕਾਂ ਦੇ ਗੁਣਨਫਲ ਦੀ ਪਛਾਣ ਲਗਾਓ\n\n\\[\n\\prod d\\mid 30 d=30^{d(30)/2}=30^{8/2}=810000\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ 810000 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(810000\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਭਾਜਕ ਗਿਣਤੀ ਤੋਂ ਬਾਅਦ n ਨੂੰ ਅੱਧੀ ਗਿਣਤੀ ਦੀ ਘਾਤ ਦਿਓ।\n\n\\[\n30^{8/2}=810000\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(810000\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 21,
+    "question": "The number \\(8x870\\) is divisible by \\(9\\). What is the value of \\(x\\)?",
+    "options": [
+      "\\(4\\)",
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(6\\)"
+    ],
+    "answer": "\\(4\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_reverse_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_reverse_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "The number \\(8x870\\) is divisible by \\(9\\). What is the value of \\(x\\)?",
+        "options": [
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "Step 1: Use the divisibility rule for 9\n\nA number is divisible by 9 when the sum of its digits is a multiple of 9.\n\n\\[\nS=23\n\\]\n\n\\[\nS+x=23+x\n\\]\n\nStep 2: Form and solve the digit-sum equation\n\nThe completed digit sum must be 27, a multiple of 9.\n\n\\[\n23+x=27\n\\]\n\n\\[\nx=4\n\\]\n\nAnswer Verification\nWith \\(x=4\\), the digit-sum rule is satisfied.\n\\[\n23+4=27\n\\]\n\\[\n27\\equiv 0\\pmod{9}\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(4\\). Hence, the correct answer is Option (A).\n\nShortcut\n\nComplete the known digit sum to the next multiple of 9.\n\n\\[\nx\\equiv 4\\pmod{9}\n\\]\n\n\\[\nx=4\n\\]\n\nFast result: \\(4\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "संख्या \\(8x870\\), \\(9\\) से विभाज्य है। \\(x\\) का मान क्या है?",
+        "options": [
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "चरण 1: 9 की विभाज्यता का नियम लगाएं\n\nकोई संख्या 9 से तभी विभाज्य होती है जब उसके अंकों का योग 9 का गुणज हो।\n\n\\[\nS=23\n\\]\n\n\\[\nS+x=23+x\n\\]\n\nचरण 2: अंक-योग समीकरण बनाकर हल करें\n\nपूरा अंक-योग 27 होना चाहिए, जो 9 का गुणज है।\n\n\\[\n23+x=27\n\\]\n\n\\[\nx=4\n\\]\n\nउत्तर सत्यापन\n\\(x=4\\) रखने पर अंक-योग नियम पूरा होता है।\n\\[\n23+4=27\n\\]\n\\[\n27\\equiv 0\\pmod{9}\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(4\\) है।\n\nशॉर्टकट\n\nज्ञात अंक-योग को 9 के अगले गुणज तक पूरा करें।\n\n\\[\nx\\equiv 4\\pmod{9}\n\\]\n\n\\[\nx=4\n\\]\n\nशीघ्र परिणाम: \\(4\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਸੰਖਿਆ \\(8x870\\), \\(9\\) ਨਾਲ ਭਾਗ ਜਾਂਦੀ ਹੈ। \\(x\\) ਦਾ ਮੁੱਲ ਕੀ ਹੈ?",
+        "options": [
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "ਕਦਮ 1: 9 ਦੀ ਭਾਗਯੋਗਤਾ ਦਾ ਨਿਯਮ ਲਗਾਓ\n\nਕੋਈ ਸੰਖਿਆ 9 ਨਾਲ ਤਦੋਂ ਭਾਗ ਜਾਂਦੀ ਹੈ ਜਦੋਂ ਉਸ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ 9 ਦਾ ਗੁਣਜ ਹੋਵੇ।\n\n\\[\nS=23\n\\]\n\n\\[\nS+x=23+x\n\\]\n\nਕਦਮ 2: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾ ਕੇ ਹੱਲ ਕਰੋ\n\nਪੂਰਾ ਅੰਕ-ਜੋੜ 27 ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਜੋ 9 ਦਾ ਗੁਣਜ ਹੈ।\n\n\\[\n23+x=27\n\\]\n\n\\[\nx=4\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n\\(x=4\\) ਰੱਖਣ ਤੇ ਅੰਕ-ਜੋੜ ਨਿਯਮ ਪੂਰਾ ਹੁੰਦਾ ਹੈ।\n\\[\n23+4=27\n\\]\n\\[\n27\\equiv 0\\pmod{9}\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(4\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਪਤਾ ਅੰਕ-ਜੋੜ ਨੂੰ 9 ਦੇ ਅਗਲੇ ਗੁਣਜ ਤੱਕ ਪੂਰਾ ਕਰੋ।\n\n\\[\nx\\equiv 4\\pmod{9}\n\\]\n\n\\[\nx=4\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(4\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 22,
+    "question": "Two buses leave a stand every \\(60\\) and \\(120\\) minutes. When will they next leave together?",
+    "options": [
+      "\\(114\\)",
+      "\\(120\\)",
+      "\\(126\\)",
+      "\\(132\\)"
+    ],
+    "answer": "\\(120\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_common_multiple"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_common_multiple"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two buses leave a stand every \\(60\\) and \\(120\\) minutes. When will they next leave together?",
+        "options": [
+          "\\(114\\)",
+          "\\(120\\)",
+          "\\(126\\)",
+          "\\(132\\)"
+        ],
+        "explanation": "Step 1: Write prime factorizations\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nStep 2: Take highest powers for LCM\n\n\\[\n\\operatorname{LCM}(60,120)=120\n\\]\n\nAnswer Verification\nThe LCM is 120.\n\nFinal Answer\nTherefore, the required answer is \\(120\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(60,120)=\\frac{60\\times 120}{\\operatorname{HCF}(60,120)}=120\n\\]\n\nFast result: \\(120\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "दो बसें \\(60\\) और \\(120\\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?",
+        "options": [
+          "\\(114\\)",
+          "\\(120\\)",
+          "\\(126\\)",
+          "\\(132\\)"
+        ],
+        "explanation": "चरण 1: अभाज्य गुणनखंड लिखें\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nचरण 2: LCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(60,120)=120\n\\]\n\nउत्तर सत्यापन\nLCM 120 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(120\\) है।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(60,120)=\\frac{60\\times 120}{\\operatorname{HCF}(60,120)}=120\n\\]\n\nशीघ्र परिणाम: \\(120\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਬੱਸਾਂ \\(60\\) ਅਤੇ \\(120\\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?",
+        "options": [
+          "\\(114\\)",
+          "\\(120\\)",
+          "\\(126\\)",
+          "\\(132\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n60=2^{2}\\times 3\\times 5\n\\]\n\n\\[\n120=2^{3}\\times 3\\times 5\n\\]\n\nਕਦਮ 2: LCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(60,120)=120\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nLCM 120 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(120\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(60,120)=\\frac{60\\times 120}{\\operatorname{HCF}(60,120)}=120\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(120\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 23,
+    "question": "A number leaves the same remainder as \\(7^{111}\\) when divided by \\(19\\). What is that remainder?",
+    "options": [
+      "\\(2\\)",
+      "\\(0\\)",
+      "\\(3\\)",
+      "\\(1\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_number_theory"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_number_theory"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number leaves the same remainder as \\(7^{111}\\) when divided by \\(19\\). What is that remainder?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "Step 1: Reduce the base modulo the divisor\n\n\\[\n7\\equiv 7\\pmod{19}\n\\]\n\nStep 2: Write the remainder cycle\n\nCycle length = 3.\n\n\\[\n7\\rightarrow 11\\rightarrow 1\n\\]\n\nStep 3: Locate the exponent position in the cycle\n\n\\[\n(111-1)\\bmod 3+1=3\n\\]\n\nStep 4: Read the required remainder\n\nHence, remainder = 1.\n\n\\[\n7^{111}\\equiv 1\\pmod{19}\n\\]\n\nAnswer Verification\nThe 3rd term of the cycle is 1.\n\nFinal Answer\nTherefore, the required answer is \\(1\\). Hence, the correct answer is Option (D).\n\nShortcut\n\nReduce the base once, then jump to the exponent position in the cycle.\n\n\\[\np=(111-1)\\bmod 3+1=3\n\\]\n\n\\[\n7^{111}\\equiv 1\\pmod{19}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "एक संख्या \\(19\\) से भाग देने पर \\(7^{111}\\) जैसा ही शेषफल देती है। वह शेषफल क्या है?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "चरण 1: आधार को भाजक के अनुसार घटाएं\n\n\\[\n7\\equiv 7\\pmod{19}\n\\]\n\nचरण 2: शेषफल चक्र लिखें\n\nचक्र की लंबाई = 3।\n\n\\[\n7\\rightarrow 11\\rightarrow 1\n\\]\n\nचरण 3: चक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(111-1)\\bmod 3+1=3\n\\]\n\nचरण 4: आवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n7^{111}\\equiv 1\\pmod{19}\n\\]\n\nउत्तर सत्यापन\nचक्र का 3वाँ पद 1 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(1\\) है।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(111-1)\\bmod 3+1=3\n\\]\n\n\\[\n7^{111}\\equiv 1\\pmod{19}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ \\(19\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ \\(7^{111}\\) ਵਰਗਾ ਹੀ ਬਾਕੀ ਦਿੰਦੀ ਹੈ। ਉਹ ਬਾਕੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)",
+          "\\(1\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n7\\equiv 7\\pmod{19}\n\\]\n\nਕਦਮ 2: ਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 3।\n\n\\[\n7\\rightarrow 11\\rightarrow 1\n\\]\n\nਕਦਮ 3: ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(111-1)\\bmod 3+1=3\n\\]\n\nਕਦਮ 4: ਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n7^{111}\\equiv 1\\pmod{19}\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਚੱਕਰ ਦਾ 3ਵਾਂ ਪਦ 1 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(111-1)\\bmod 3+1=3\n\\]\n\n\\[\n7^{111}\\equiv 1\\pmod{19}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 24,
+    "question": "A number has prime factorization \\(2^2\\times3^3\\times5\\). What is the number?",
+    "options": [
+      "\\(513\\)",
+      "\\(540\\)",
+      "\\(567\\)",
+      "\\(594\\)"
+    ],
+    "answer": "\\(540\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_factorization_reconstruction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_factorization_reconstruction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number has prime factorization \\(2^2\\times3^3\\times5\\). What is the number?",
+        "options": [
+          "\\(513\\)",
+          "\\(540\\)",
+          "\\(567\\)",
+          "\\(594\\)"
+        ],
+        "explanation": "Step 1: Translate every clue into a number condition\n\nReconstruction questions should not be guessed; each clue must become a checkable relation.\n\n\\[\nN=540\n\\]\n\nStep 2: Carry the result through the next condition\n\nCheck the number against the next fact also, so it is not chosen from only the first clue.\n\n\\[\nA=540\n\\]\n\nAnswer Verification\nThe reconstructed value is 540.\n\\[\nN=540\n\\]\n\nFinal Answer\nTherefore, the required answer is \\(540\\). Hence, the correct answer is Option (B).\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\nZ=540\n\\]\n\nFast result: \\(540\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "किसी संख्या का अभाज्य गुणनखंडन \\(2^2\\times3^3\\times5\\) है। संख्या क्या है?",
+        "options": [
+          "\\(513\\)",
+          "\\(540\\)",
+          "\\(567\\)",
+          "\\(594\\)"
+        ],
+        "explanation": "चरण 1: हर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\nN=540\n\\]\n\nचरण 2: परिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\nA=540\n\\]\n\nउत्तर सत्यापन\nपुनर्निर्मित मान 540 है।\n\\[\nN=540\n\\]\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(540\\) है।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\nZ=540\n\\]\n\nशीघ्र परिणाम: \\(540\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "ਕਿਸੇ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡਨ \\(2^2\\times3^3\\times5\\) ਹੈ। ਸੰਖਿਆ ਕੀ ਹੈ?",
+        "options": [
+          "\\(513\\)",
+          "\\(540\\)",
+          "\\(567\\)",
+          "\\(594\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\nN=540\n\\]\n\nਕਦਮ 2: ਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\nA=540\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 540 ਹੈ।\n\\[\nN=540\n\\]\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(540\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\nZ=540\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(540\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  }
+]

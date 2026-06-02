@@ -1,0 +1,63 @@
+[
+  {
+    "index": 0,
+    "question": "Tens digit \\(6\\) and digit sum \\(13\\) are fixed. What is the number?",
+    "options": [
+      "\\(68\\)",
+      "\\(66\\)",
+      "\\(69\\)",
+      "\\(67\\)"
+    ],
+    "answer": "\\(67\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_single_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_single_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(6\\) and digit sum \\(13\\) are fixed. What is the number?",
+        "options": [
+          "\\(68\\)",
+          "\\(66\\)",
+          "\\(69\\)",
+          "\\(67\\)"
+        ],
+        "explanation": "Step 1: Form the digit-sum equation\n\n\\[\n6+u=13\\Rightarrow u=7\n\\]\n\nStep 2: Write the two-digit number\n\nHence, the number is 67.\n\n\\[\nN=10\\times 6+7=67\n\\]\n\nAnswer Verification\nDigit sum of 67 is 13.\n\nFinal Answer\nTherefore, the correct answer is Option (D). Computed value: \\(67\\).\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=7\n\\]\n\n\\[\nN=67\n\\]\n\nFast result: \\(67\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "मान \\(13\\) किसी दो-अंकीय संख्या के अंकों का योग है। उसका दहाई अंक \\(6\\) है। संख्या ज्ञात करें?",
+        "options": [
+          "\\(68\\)",
+          "\\(66\\)",
+          "\\(69\\)",
+          "\\(67\\)"
+        ],
+        "explanation": "चरण 1: अंक-योग समीकरण बनाएं\n\n\\[\n6+u=13\\Rightarrow u=7\n\\]\n\nचरण 2: दो-अंकीय संख्या लिखें\n\nअतः संख्या 67 है।\n\n\\[\nN=10\\times 6+7=67\n\\]\n\nउत्तर सत्यापन\n67 का अंक-योग 13 है।\n\nअंतिम उत्तर\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(67\\) है।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=7\n\\]\n\n\\[\nN=67\n\\]\n\nशीघ्र परिणाम: \\(67\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਮੁੱਲ \\(13\\) ਕਿਸੇ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਹੈ। ਉਸ ਦਾ ਦਹਾਈ ਅੰਕ \\(6\\) ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ?",
+        "options": [
+          "\\(68\\)",
+          "\\(66\\)",
+          "\\(69\\)",
+          "\\(67\\)"
+        ],
+        "explanation": "ਕਦਮ 1: ਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n6+u=13\\Rightarrow u=7\n\\]\n\nਕਦਮ 2: ਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 67 ਹੈ।\n\n\\[\nN=10\\times 6+7=67\n\\]\n\nਉੱਤਰ ਪੁਸ਼ਟੀ\n67 ਦਾ ਅੰਕ-ਜੋੜ 13 ਹੈ।\n\nਅੰਤਿਮ ਉੱਤਰ\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(67\\) ਹੈ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=7\n\\]\n\n\\[\nN=67\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(67\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  }
+]
