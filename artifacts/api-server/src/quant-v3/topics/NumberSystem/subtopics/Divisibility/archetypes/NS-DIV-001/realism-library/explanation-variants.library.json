@@ -1,0 +1,26 @@
+{
+  "styleId": "EA-001",
+  "styleName": "Tutor Style",
+  "variants": [
+    {
+      "id": "Variant A",
+      "sections": ["Rule", "Apply Rule", "Compute", "Conclude"]
+    },
+    {
+      "id": "Variant B",
+      "sections": ["Recall Rule", "Observe Digits", "Apply Condition", "Answer"]
+    },
+    {
+      "id": "Variant C",
+      "sections": ["Check Divisibility Condition", "Form Expression", "Solve", "Final Result"]
+    },
+    {
+      "id": "Variant D",
+      "sections": ["Required Rule", "Known Information", "Calculation", "Conclusion"]
+    },
+    {
+      "id": "Variant E",
+      "sections": ["Divisibility Test", "Digit Sum", "Condition Satisfaction", "Answer"]
+    }
+  ]
+}

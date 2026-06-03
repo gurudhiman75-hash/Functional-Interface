@@ -1,0 +1,35 @@
+{
+  "strategies": [
+    {
+      "id": "DS-001",
+      "name": "Answer Distribution",
+      "target": "Digits 0-9 should be approximately balanced.",
+      "tolerance": "±5%"
+    },
+    {
+      "id": "DS-002",
+      "name": "Divisor Distribution",
+      "target": [2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 15, 18, 24, 36, 72, 99],
+      "targetNote": "should appear approximately evenly.",
+      "tolerance": "±5%"
+    },
+    {
+      "id": "DS-003",
+      "name": "Missing Position Distribution",
+      "target": "First, Middle, Last balanced exposure.",
+      "tolerance": "±10%"
+    },
+    {
+      "id": "DS-004",
+      "name": "Stem Family Distribution",
+      "target": "Rotate across approved stem families. No family should dominate.",
+      "tolerance": "20%"
+    },
+    {
+      "id": "DS-005",
+      "name": "Explanation Variant Distribution",
+      "target": "Rotate across approved explanation variants.",
+      "tolerance": "20%"
+    }
+  ]
+}

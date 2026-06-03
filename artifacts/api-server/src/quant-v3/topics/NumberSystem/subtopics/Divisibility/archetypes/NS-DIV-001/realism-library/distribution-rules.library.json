@@ -1,0 +1,27 @@
+{
+  "answerDistribution": {
+    "rule": "No digit may exceed 15% frequency in a 100-question batch.",
+    "maxFrequencyPercent": 15,
+    "batchSize": 100
+  },
+  "divisorDistribution": {
+    "rule": "No divisor may exceed 20% frequency in a 100-question batch.",
+    "maxFrequencyPercent": 20,
+    "batchSize": 100
+  },
+  "positionDistribution": {
+    "rule": "No missing position may exceed 30% frequency in a 100-question batch.",
+    "maxFrequencyPercent": 30,
+    "batchSize": 100
+  },
+  "stemFamilyDistribution": {
+    "rule": "No stem family may exceed 20% frequency in a 100-question batch.",
+    "maxFrequencyPercent": 20,
+    "batchSize": 100
+  },
+  "explanationVariantDistribution": {
+    "rule": "No explanation variant may exceed 30% frequency in a 100-question batch.",
+    "maxFrequencyPercent": 30,
+    "batchSize": 100
+  }
+}

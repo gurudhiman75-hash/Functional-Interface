@@ -1,0 +1,13 @@
+{
+  "requiredFields": [
+    "Question Count",
+    "Stem Family Distribution",
+    "Explanation Variant Distribution",
+    "Answer Distribution",
+    "Divisor Distribution",
+    "Missing Position Distribution",
+    "Validation Failure Count",
+    "Language Failure Count",
+    "Realism Failure Count"
+  ]
+}

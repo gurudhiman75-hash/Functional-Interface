@@ -1,0 +1,189 @@
+{
+  "divisors": [
+    {
+      "id": "DIV-002",
+      "divisor": 2,
+      "reasoningPattern": {
+        "id": "RP-003",
+        "name": "Last Digit Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedMissingPositions": ["Last Digit", "Middle Digit", "First Digit"],
+      "difficulty": "Easy",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-003",
+      "divisor": 3,
+      "reasoningPattern": {
+        "id": "RP-001",
+        "name": "Digit Sum Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+      "difficulty": "Easy",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-004",
+      "divisor": 4,
+      "reasoningPattern": {
+        "id": "RP-004",
+        "name": "Last Two Digits Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Easy-Medium",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-005",
+      "divisor": 5,
+      "reasoningPattern": {
+        "id": "RP-003",
+        "name": "Last Digit Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Easy",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-006",
+      "divisor": 6,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [2, 3],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Medium",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-008",
+      "divisor": 8,
+      "reasoningPattern": {
+        "id": "RP-005",
+        "name": "Last Three Digits Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Medium",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-009",
+      "divisor": 9,
+      "reasoningPattern": {
+        "id": "RP-001",
+        "name": "Digit Sum Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+      "difficulty": "Easy",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-010",
+      "divisor": 10,
+      "reasoningPattern": {
+        "id": "RP-003",
+        "name": "Last Digit Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Easy",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-011",
+      "divisor": 11,
+      "reasoningPattern": {
+        "id": "RP-002",
+        "name": "Alternating Sum Rule"
+      },
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+      "difficulty": "Medium",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-012",
+      "divisor": 12,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [3, 4],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Medium",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-015",
+      "divisor": 15,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [3, 5],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Medium",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-018",
+      "divisor": 18,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [2, 9],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Medium-Hard",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-024",
+      "divisor": 24,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [3, 8],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Hard",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-036",
+      "divisor": 36,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [4, 9],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Hard",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-072",
+      "divisor": 72,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [8, 9],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "difficulty": "Hard",
+      "status": "Approved"
+    },
+    {
+      "id": "DIV-099",
+      "divisor": 99,
+      "reasoningPattern": {
+        "id": "RP-006",
+        "name": "Combined Divisibility Rule"
+      },
+      "components": [9, 11],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+      "difficulty": "Hard",
+      "status": "Approved"
+    }
+  ]
+}

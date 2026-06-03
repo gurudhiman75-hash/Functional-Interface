@@ -1,0 +1,21 @@
+{
+  "allowedNumberLengths": ["3 digits", "4 digits", "5 digits", "6 digits"],
+  "allowedMissingPositions": ["Position 1", "Position 2", "Position 3", "Position 4", "Position 5", "Position 6"],
+  "allowedStructures": [
+    "x24",
+    "2x4",
+    "24x",
+    "7x24",
+    "72x4",
+    "724x",
+    "5x728",
+    "57x28",
+    "572x8",
+    "5728x",
+    "x7384",
+    "8x396",
+    "83x96",
+    "839x6",
+    "8396x"
+  ]
+}

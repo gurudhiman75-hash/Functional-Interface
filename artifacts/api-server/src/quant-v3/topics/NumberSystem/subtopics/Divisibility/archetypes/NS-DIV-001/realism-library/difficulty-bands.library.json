@@ -1,0 +1,29 @@
+{
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "characteristics": ["Single divisibility rule.", "Direct resolution."]
+    },
+    {
+      "id": "DB-002",
+      "name": "Easy-Medium",
+      "characteristics": ["Two-step reasoning."]
+    },
+    {
+      "id": "DB-003",
+      "name": "Medium",
+      "characteristics": ["Combined divisibility condition."]
+    },
+    {
+      "id": "DB-004",
+      "name": "Medium-Hard",
+      "characteristics": ["Multiple constraints."]
+    },
+    {
+      "id": "DB-005",
+      "name": "Hard",
+      "characteristics": ["Complex divisibility combinations."]
+    }
+  ]
+}

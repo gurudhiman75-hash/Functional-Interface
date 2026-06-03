@@ -827,11 +827,12 @@ function divisibilityDraft(spec: Spec, seed: string): Draft {
   const start = int(`${seed}:start`, 100, 240);
   const end = start + int(`${seed}:span`, 80, 180);
   return {
-    stem: t(
-      `Between \\(${start}\\) and \\(${end}\\), how many integers are divisible by \\(${divisor}\\)?`,
-      `\\(${start}\\) और \\(${end}\\) के बीच कितने पूर्णांक \\(${divisor}\\) से विभाज्य हैं?`,
-      `\\(${start}\\) ਅਤੇ \\(${end}\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(${divisor}\\) ਨਾਲ ਭਾਗ ਜਾਂਦੇ ਹਨ?`,
-    ),
+    stem: stemVariant(seed, [
+      t(`How many multiples of \\(${divisor}\\) lie between \\(${start}\\) and \\(${end}\\)?`, `\\(${start}\\) और \\(${end}\\) के बीच \\(${divisor}\\) के कितने गुणज हैं?`, `\\(${start}\\) ਅਤੇ \\(${end}\\) ਦੇ ਵਿਚਕਾਰ \\(${divisor}\\) ਦੇ ਕਿੰਨੇ ਗੁਣਜ ਹਨ?`),
+      t(`Count the numbers between \\(${start}\\) and \\(${end}\\) that are exactly divisible by \\(${divisor}\\).`, `\\(${start}\\) से \\(${end}\\) तक कितनी संख्याएँ \\(${divisor}\\) से पूरी तरह विभाज्य हैं?`, `\\(${start}\\) ਤੋਂ \\(${end}\\) ਤੱਕ ਕਿੰਨੀਆਂ ਸੰਖਿਆਵਾਂ \\(${divisor}\\) ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਾਗ ਜਾਂਦੀਆਂ ਹਨ?`),
+      t(`From \\(${start}\\) to \\(${end}\\), how many numbers divide evenly by \\(${divisor}\\)?`, `\\(${start}\\) से \\(${end}\\) में \\(${divisor}\\) से कितने पूर्णांक विभाज्य हैं?`, `\\(${start}\\) ਤੋਂ \\(${end}\\) ਵਿੱਚ \\(${divisor}\\) ਨਾਲ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ ਭਾਗ ਜਾਂਦੇ ਹਨ?`),
+      t(`In the range \\(${start}\\) to \\(${end}\\), how many integers are divisible by \\(${divisor}\\)?`, `\\(${start}\\) से \\(${end}\\) की सीमा में \\(${divisor}\\) से विभाज्य कितने पूर्णांक हैं?`, `\\(${start}\\) ਤੋਂ \\(${end}\\) ਦੀ ਸੀਮਾ ਵਿੱਚ \\(${divisor}\\) ਨਾਲ ਭਾਗ ਜਾਣ ਵਾਲੇ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ ਹਨ?`),
+    ]),
     model: { kind: "divisibility_count", inputs: { start, end, divisor } },
     variables: { start, end, divisor },
     hiddenVariables: { firstMultiple: Math.ceil(start / divisor) * divisor, lastMultiple: Math.floor(end / divisor) * divisor },
@@ -856,10 +857,10 @@ function factorDraft(spec: Spec, seed: string): Draft {
   const factors = primeFactors(n);
   return {
     stem: stemVariant(seed, [
-      t(`After prime factorising \\(${n}\\), what is the ${ask === "sum" ? "sum of all positive divisors" : ask === "product" ? "product of all positive divisors" : ask === "odd" ? "number of odd divisors" : "number of positive divisors"}?`, `\\(${n}\\) का अभाज्य गुणनखंड करने के बाद ${ask === "sum" ? "सभी धनात्मक भाजकों का योग" : ask === "product" ? "सभी धनात्मक भाजकों का गुणनफल" : ask === "odd" ? "विषम भाजकों की संख्या" : "धनात्मक भाजकों की संख्या"} क्या है?`, `\\(${n}\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕਰਨ ਤੋਂ ਬਾਅਦ ${ask === "sum" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ" : ask === "product" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ"} ਕੀ ਹੈ?`),
-      t(`For the number \\(${n}\\), find the ${ask === "sum" ? "sum of its positive divisors" : ask === "product" ? "product of its positive divisors" : ask === "odd" ? "count of odd divisors" : "count of positive divisors"}?`, `संख्या \\(${n}\\) के लिए ${ask === "sum" ? "धनात्मक भाजकों का योग" : ask === "product" ? "धनात्मक भाजकों का गुणनफल" : ask === "odd" ? "विषम भाजकों की संख्या" : "धनात्मक भाजकों की संख्या"} ज्ञात करें?`, `ਸੰਖਿਆ \\(${n}\\) ਲਈ ${ask === "sum" ? "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ" : ask === "product" ? "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ"} ਪਤਾ ਕਰੋ?`),
-      t(`Using prime powers of \\(${n}\\), find the ${ask === "sum" ? "sum of all its positive divisors" : ask === "product" ? "product of all its positive divisors" : ask === "odd" ? "count of odd divisors" : "count of positive divisors"}.`, `\\(${n}\\) की अभाज्य घातों का उपयोग करके ${ask === "sum" ? "सभी धनात्मक भाजकों का योग ज्ञात करें" : ask === "product" ? "सभी धनात्मक भाजकों का गुणनफल ज्ञात करें" : ask === "odd" ? "विषम भाजकों की संख्या ज्ञात करें" : "धनात्मक भाजकों की कुल संख्या ज्ञात करें"}।`, `\\(${n}\\) ਦੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਵਰਤ ਕੇ ${ask === "sum" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਪਤਾ ਕਰੋ" : ask === "product" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ"}।`),
-      t(`A number is \\(${n}\\). Based on its prime factorisation, determine the ${ask === "sum" ? "sum of all its positive divisors" : ask === "product" ? "product of all its positive divisors" : ask === "odd" ? "total number of odd divisors" : "total number of positive divisors"}.`, `एक संख्या \\(${n}\\) है। उसके अभाज्य गुणनखंड के आधार पर ${ask === "sum" ? "सभी धनात्मक भाजकों का योग निर्धारित करें" : ask === "product" ? "सभी धनात्मक भाजकों का गुणनफल निर्धारित करें" : ask === "odd" ? "विषम भाजकों की कुल संख्या निर्धारित करें" : "धनात्मक भाजकों की कुल संख्या निर्धारित करें"}।`, `ਇੱਕ ਸੰਖਿਆ \\(${n}\\) ਹੈ। ਇਸ ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡ ਦੇ ਆਧਾਰ ਤੇ ${ask === "sum" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਨਿਰਧਾਰਿਤ ਕਰੋ" : ask === "product" ? "ਸਾਰੇ ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਨਿਰਧਾਰਿਤ ਕਰੋ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ" : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਨਿਰਧਾਰਿਤ ਕਰੋ"}।`),
+      t(`${ask === "sum" ? `What do all the factors of \\(${n}\\) add up to?` : ask === "product" ? `What is the product of every factor of \\(${n}\\)?` : ask === "odd" ? `How many odd factors does \\(${n}\\) have?` : `How many factors does \\(${n}\\) have?`}`, `\\(${n}\\) के ${ask === "sum" ? "सभी भाजकों का योग क्या है" : ask === "product" ? "सभी भाजकों का गुणनफल क्या है" : ask === "odd" ? "कितने विषम भाजक हैं" : "कुल कितने भाजक हैं"}?`, `\\(${n}\\) ਦੇ ${ask === "sum" ? "ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਕੀ ਹੈ" : ask === "product" ? "ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਕੀ ਹੈ" : ask === "odd" ? "ਕਿੰਨੇ ਟਾਂਕ ਭਾਜਕ ਹਨ" : "ਕੁੱਲ ਕਿੰਨੇ ਭਾਜਕ ਹਨ"}?`),
+      t(`Find the ${ask === "sum" ? "sum of all factors" : ask === "product" ? "product of all factors" : ask === "odd" ? "number of odd factors" : "total number of factors"} of \\(${n}\\).`, `\\(${n}\\) के ${ask === "sum" ? "सभी भाजकों का योग" : ask === "product" ? "सभी भाजकों का गुणनफल" : ask === "odd" ? "विषम भाजकों की संख्या" : "भाजकों की कुल संख्या"} ज्ञात करें।`, `\\(${n}\\) ਦੇ ${ask === "sum" ? "ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਜੋੜ" : ask === "product" ? "ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ" : ask === "odd" ? "ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ" : "ਭਾਜਕਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ"} ਪਤਾ ਕਰੋ।`),
+      t(`What is the ${ask === "sum" ? "sum of all divisors" : ask === "product" ? "product of all divisors" : ask === "odd" ? "count of odd divisors" : "count of divisors"} of \\(${n}\\)?`, `\\(${n}\\) ${ask === "sum" ? "के सभी भाजकों का योग" : ask === "product" ? "के सभी भाजकों का गुणनफल" : ask === "odd" ? "के विषम भाजकों की गिनती" : "के भाजकों की गिनती"} क्या है?`, `\\(${n}\\) ${ask === "sum" ? "ਦੇ ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਜੋੜ" : ask === "product" ? "ਦੇ ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ" : ask === "odd" ? "ਦੇ ਟਾਂਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ" : "ਦੇ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ"} ਕੀ ਹੈ?`),
+      t(`${ask === "sum" ? `If you add up every divisor of \\(${n}\\), what total do you get?` : ask === "product" ? `Multiply all the divisors of \\(${n}\\) together. What is the result?` : ask === "odd" ? `Among the factors of \\(${n}\\), how many are odd?` : `\\(${n}\\) has how many factors in total?`}`, `संख्या \\(${n}\\) के ${ask === "sum" ? "सभी भाजकों का योग कितना है" : ask === "product" ? "सभी भाजकों का गुणनफल कितना है" : ask === "odd" ? "कुल कितने विषम भाजक हैं" : "कुल कितने भाजक हैं"}?`, `ਸੰਖਿਆ \\(${n}\\) ਦੇ ${ask === "sum" ? "ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ" : ask === "product" ? "ਸਾਰੇ ਭਾਜਕਾਂ ਦਾ ਗੁਣਨਫਲ ਕਿੰਨਾ ਹੈ" : ask === "odd" ? "ਕੁੱਲ ਕਿੰਨੇ ਟਾਂਕ ਭਾਜਕ ਹਨ" : "ਕੁੱਲ ਕਿੰਨੇ ਭਾਜਕ ਹਨ"}?`),
     ]),
     model: { kind: "factor_count", inputs: { n, ask } },
     variables: { n, ask, factors },
@@ -902,7 +903,7 @@ function hcfDraft(spec: Spec, seed: string): Draft {
       ),
       t(`Bells ring at intervals of \\(${a}\\) and \\(${b}\\) minutes. After how many minutes will both ring together again?`, `घंटियाँ \\(${a}\\) और \\(${b}\\) मिनट के अंतराल पर बजती हैं। दोनों फिर साथ कितने मिनट बाद बजेंगी?`, `ਘੰਟੀਆਂ \\(${a}\\) ਅਤੇ \\(${b}\\) ਮਿੰਟ ਦੇ ਅੰਤਰ ਤੇ ਵੱਜਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਵੱਜਣਗੀਆਂ?`),
       t(`Two buses leave a stand every \\(${a}\\) and \\(${b}\\) minutes. When will they next leave together?`, `दो बसें \\(${a}\\) और \\(${b}\\) मिनट बाद-बाद स्टैंड से चलती हैं। वे अगली बार साथ कब चलेंगी?`, `ਦੋ ਬੱਸਾਂ \\(${a}\\) ਅਤੇ \\(${b}\\) ਮਿੰਟ ਬਾਅਦ ਸਟੈਂਡ ਤੋਂ ਚਲਦੀਆਂ ਹਨ। ਉਹ ਅਗਲੀ ਵਾਰ ਇਕੱਠੀਆਂ ਕਦੋਂ ਚਲਣਗੀਆਂ?`),
-      t(`For two numbers \\(${a}\\) and \\(${b}\\), which common multiple is first reached?`, `दो संख्याओं \\(${a}\\) और \\(${b}\\) के लिए पहला साझा गुणज क्या होगा?`, `ਦੋ ਸੰਖਿਆਵਾਂ \\(${a}\\) ਅਤੇ \\(${b}\\) ਲਈ ਪਹਿਲਾ ਸਾਂਝਾ ਗੁਣਜ ਕੀ ਹੋਵੇਗਾ?`),
+      t(`What is the smallest number that is divisible by both \\(${a}\\) and \\(${b}\\)?`, `वह सबसे छोटी संख्या क्या है जो \\(${a}\\) और \\(${b}\\) दोनों से विभाज्य हो?`, `ਉਹ ਸਭ ਤੋਂ ਛੋਟੀ ਸੰਖਿਆ ਕੀ ਹੈ ਜੋ \\(${a}\\) ਅਤੇ \\(${b}\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਵੇ?`),
     ]),
     model: { kind: "hcf_lcm", inputs: ask === "other" ? { ask, hcf: h, lcm: l, known } : { ask: "lcm", a, b } },
     variables: { a, b, hcf: h, lcm: l, ask },
@@ -926,10 +927,10 @@ function remainderDraft(spec: Spec, seed: string): Draft {
   const mod = pick([5, 7, 9, 11, 13], `${seed}:mod`);
   return {
     stem: stemVariant(seed, [
-      t(`For \\(${base}^{${exp}}\\), find the remainder on division by \\(${mod}\\) without expansion.`, `घात को फैलाए बिना \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल ज्ञात करें।`, `ਘਾਤ ਨੂੰ ਫੈਲਾਏ ਬਿਨਾਂ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕਿੰਨਾ ਆਵੇਗਾ?`),
-      t(`When \\(${base}^{${exp}}\\) is divided by \\(${mod}\\), what remainder is left?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर क्या शेषफल आएगा?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?`),
-      t(`Using cyclic remainders, evaluate the remainder of \\(${base}^{${exp}}\\) modulo \\(${mod}\\).`, `चक्रीय शेषफल से \\(${base}^{${exp}}\\) modulo \\(${mod}\\) का शेषफल निकालें।`, `ਚੱਕਰੀ ਬਾਕੀਆਂ ਨਾਲ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਦਾ ਬਾਕੀ ਕੱਢੋ।`),
-      t(`Power \\(${base}^{${exp}}\\) is tested modulo \\(${mod}\\). Which remainder is obtained?`, `बड़ी घात \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। शेषफल क्या है?`, `ਵੱਡੀ ਘਾਤ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?`),
+      t(`What is the remainder when \\(${base}^{${exp}}\\) is divided by \\(${mod}\\)?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल क्या है?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੈ?`),
+      t(`Find the remainder: \\(${base}^{${exp}} \\div ${mod}\\).`, `ਸ਼ੇਸ਼ਫਲ ਪਤਾ ਕਰੋ: \\(${base}^{${exp}} \\div ${mod}\\)।`, `ਬਾਕੀ ਪਤਾ ਕਰੋ: \\(${base}^{${exp}} \\div ${mod}\\)।`),
+      t(`When you divide \\(${base}^{${exp}}\\) by \\(${mod}\\), what remainder do you get?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर क्या शेषफल आएगा?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?`),
+      t(`\\(${base}^{${exp}}\\) is divided by \\(${mod}\\). What is the remainder?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। शेषफल क्या है?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?`),
     ]),
     model: { kind: "remainder", inputs: { base, exp, mod } },
     variables: { base, exp, mod },
@@ -953,10 +954,10 @@ function lastDigitDraft(spec: Spec, seed: string): Draft {
   const mod = spec.family.includes("two") ? 100 : spec.family.includes("three") ? 1000 : 10;
   return {
     stem: stemVariant(seed, [
-      t(`For exponent \\(${exp}\\), what ending ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} does \\(${base}^{${exp}}\\) have?`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
-      t(`The power \\(${base}^{${exp}}\\) is very large. What are its final ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"}?`, `\\(${base}^{${exp}}\\) के अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें?`, `\\(${base}^{${exp}}\\) ਦੇ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ?`),
-      t(`When \\(${base}\\) is raised to \\(${exp}\\), what ${mod === 10 ? "digit appears at the end" : mod === 100 ? "two digits appear at the end" : "three digits appear at the end"}?`, `अभिव्यक्ति \\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक" : mod === 100 ? "दो अंक" : "तीन अंक"} ज्ञात करें।`, `ਅਭਿਵਿਅਕਤੀ \\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ।`),
-      t(`In \\(${base}^{${exp}}\\), determine the final ${mod === 10 ? "digit" : mod === 100 ? "two digits" : "three digits"} without expanding the power.`, `\\(${base}^{${exp}}\\) का अंतिम ${mod === 10 ? "अंक (इकाई अंक)" : mod === 100 ? "दो अंक" : "तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ਆਖਰੀ ${mod === 10 ? "ਅੰਕ (ਇਕਾਈ ਅੰਕ)" : mod === 100 ? "ਦੋ ਅੰਕ" : "ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
+      t(`What is the ${mod === 10 ? "unit digit" : mod === 100 ? "last two digits" : "last three digits"} of \\(${base}^{${exp}}\\)?`, `\\(${base}^{${exp}}\\) का ${mod === 10 ? "इकाई अंक" : mod === 100 ? "अंतिम दो अंक" : "अंतिम तीन अंक"} क्या है?`, `\\(${base}^{${exp}}\\) ਦਾ ${mod === 10 ? "ਇਕਾਈ ਅੰਕ" : mod === 100 ? "ਆਖਰੀ ਦੋ ਅੰਕ" : "ਆਖਰੀ ਤਿੰਨ ਅੰਕ"} ਕੀ ਹੈ?`),
+      t(`Find the ${mod === 10 ? "last digit" : mod === 100 ? "last two digits" : "last three digits"} of \\(${base}^{${exp}}\\).`, `\\(${base}^{${exp}}\\) ${mod === 10 ? "का अंतिम अंक" : mod === 100 ? "के अंतिम दो अंक" : "के अंतिम तीन अंक"} ज्ञात करें।`, `\\(${base}^{${exp}}\\) ${mod === 10 ? "ਦਾ ਆਖਰੀ ਅੰਕ" : mod === 100 ? "ਦੇ ਆਖਰੀ ਦੋ ਅੰਕ" : "ਦੇ ਆਖਰੀ ਤਿੰਨ ਅੰਕ"} ਪਤਾ ਕਰੋ।`),
+      t(`What ${mod === 10 ? "digit does" : mod === 100 ? "two digits does" : "three digits does"} \\(${base}^{${exp}}\\) end with?`, `\\(${base}^{${exp}}\\) ${mod === 10 ? "किस अंक" : mod === 100 ? "किन दो अंकों" : "किन तीन अंकों"} पर समाप्त होता है?`, `\\(${base}^{${exp}}\\) ${mod === 10 ? "ਕਿਹੜੇ ਅੰਕ" : mod === 100 ? "ਕਿਹੜੇ ਦੋ ਅੰਕਾਂ" : "ਕਿਹੜੇ ਤਿੰਨ ਅੰਕਾਂ"} ਤੇ ਖਤਮ ਹੁੰਦਾ ਹੈ?`),
+      t(`\\(${base}^{${exp}}\\) — what ${mod === 10 ? "is its unit digit" : mod === 100 ? "are its last two digits" : "are its last three digits"}?`, `\\(${base}^{${exp}}\\) — ${mod === 10 ? "इसका इकाई अंक क्या है" : mod === 100 ? "इसके अंतिम दो अंक क्या हैं" : "इसके अंतिम तीन अंक क्या हैं"}?`, `\\(${base}^{${exp}}\\) — ${mod === 10 ? "ਇਸ ਦਾ ਇਕਾਈ ਅੰਕ ਕੀ ਹੈ" : mod === 100 ? "ਇਸ ਦੇ ਆਖਰੀ ਦੋ ਅੰਕ ਕੀ ਹਨ" : "ਇਸ ਦੇ ਆਖਰੀ ਤਿੰਨ ਅੰਕ ਕੀ ਹਨ"}?`),
     ]),
     model: { kind: "last_digit", inputs: { base, exp, mod } },
     variables: { base, exp, mod },
@@ -1036,36 +1037,25 @@ function factorialDraft(spec: Spec, seed: string): Draft {
       ),
       t(
         ask === "zeros"
-          ? `In \\(${n}!\\), what is the total count of trailing zeroes?`
-          : `In \\(${n}!\\), find the exponent of \\(${p}\\) in its prime factorisation?`,
+          ? `How many zeroes does \\(${n}!\\) end with?`
+          : `What is the highest power of \\(${p}\\) that divides \\(${n}!\\)?`,
+        ask === "zeros"
+          ? `\\(${n}!\\) के अंत में कितने शून्य हैं?`
+          : `\\(${n}!\\) को विभाजित करने वाली \\(${p}\\) की सबसे बड़ी घात क्या है?`,
+        ask === "zeros"
+          ? `\\(${n}!\\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਹਨ?`
+          : `\\(${n}!\\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \\(${p}\\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?`,
+      ),
+      t(
+        ask === "zeros"
+          ? `\\(${n}!\\) has how many trailing zeroes?`
+          : `\\(${p}\\) divides \\(${n}!\\). What is the highest power of \\(${p}\\) that does so?`,
         ask === "zeros"
           ? `\\(${n}!\\) में अंत में कितने शून्य प्राप्त होते हैं?`
-          : `\\(${n}!\\) में अभाज्य गुणनखंड \\(${p}\\) की घात ज्ञात करें?`,
+          : `\\(${p}\\) से \\(${n}!\\) विभाज्य है। \\(${p}\\) की कितनी घात तक यह संभव है?`,
         ask === "zeros"
-          ? `\\(${n}!\\) ਦੇ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਪ੍ਰਾਪਤ ਹੁੰਦੇ ਹਨ?`
-          : `\\(${n}!\\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \\(${p}\\) ਦੀ ਘਾਤ ਪਤਾ ਕਰੋ?`
-      ),
-      t(
-        ask === "zeros"
-          ? `For the factorial \\(${n}!\\), find the total count of trailing zeroes.`
-          : `For the factorial \\(${n}!\\), what count is obtained by tracking prime factor \\(${p}\\)?`,
-        ask === "zeros"
-          ? `फैक्टोरियल \\(${n}!\\) के लिए, अंत में शून्यों की कुल संख्या ज्ञात करें।`
-          : `फैक्टोरियल \\(${n}!\\) में अभाज्य गुणनखंड \\(${p}\\) गिनकर क्या मान मिलेगा?`,
-        ask === "zeros"
-          ? `ਫੈਕਟੋਰੀਅਲ \\(${n}!\\) ਲਈ, ਅੰਤ ਵਿੱਚ ਸਿਫ਼ਰਾਂ ਦੀ ਕੁਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`
-          : `ਫੈਕਟੋਰੀਅਲ \\(${n}!\\) ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ \\(${p}\\) ਗਿਣ ਕੇ ਕਿਹੜਾ ਮੁੱਲ ਮਿਲੇਗਾ?`
-      ),
-      t(
-        ask === "zeros"
-          ? `A factorial expression \\(${n}!\\) is given. What is the count of trailing zeroes?`
-          : `A factorial expression \\(${n}!\\) is given. What is the exponent of prime factor \\(${p}\\)?`,
-        ask === "zeros"
-          ? `फैक्टोरियल अभिव्यक्ति \\(${n}!\\) दी है। शून्यों की संख्या क्या है?`
-          : `फैक्टोरियल अभिव्यक्ति \\(${n}!\\) दी है। अभाज्य गुणनखंड \\(${p}\\) की घात क्या है?`,
-        ask === "zeros"
-          ? `ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(${n}!\\) ਦਿੱਤੀ ਹੈ। ਸਿਫ਼ਰਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?`
-          : `ਫੈਕਟੋਰੀਅਲ ਅਭਿਵਿਅਕਤੀ \\(${n}!\\) ਦਿੱਤੀ ਹੈ। ਅਭਾਜ ਗੁਣਨਖੰਡ \\(${p}\\) ਦੀ ਘਾਤ ਕੀ ਹੈ?`
+          ? `\\(${n}!\\) ਵਿੱਚ ਅੰਤ ਵਿੱਚ ਕਿੰਨੇ ਸਿਫ਼ਰ ਪ੍ਰਾਪਤ ਹੁੰਦੇ ਹਨ?`
+          : `\\(${p}\\) ਨਾਲ \\(${n}!\\) ਭਾਗ ਜਾਂਦਾ ਹੈ। \\(${p}\\) ਦੀ ਕਿੰਨੀ ਘਾਤ ਤੱਕ ਇਹ ਸੰਭਵ ਹੈ?`
       ),
     ]),
     model: { kind: "factorial", inputs: { n, p, ask } },
@@ -1090,14 +1080,10 @@ function modularDraft(spec: Spec, seed: string): Draft {
   const mod = pick([9, 13, 17, 19], `${seed}:mod`);
   return {
     stem: stemVariant(seed, [
-      t(`A number leaves the same remainder as \\(${base}^{${exp}}\\) when divided by \\(${mod}\\). What is that remainder?`, `एक संख्या \\(${mod}\\) से भाग देने पर \\(${base}^{${exp}}\\) जैसा ही शेषफल देती है। वह शेषफल क्या है?`, `ਇੱਕ ਸੰਖਿਆ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ \\(${base}^{${exp}}\\) ਵਰਗਾ ਹੀ ਬਾਕੀ ਦਿੰਦੀ ਹੈ। ਉਹ ਬਾਕੀ ਕੀ ਹੈ?`),
-      t(`The expression \\(${base}^{${exp}}\\) is reduced modulo \\(${mod}\\). What remainder is obtained?`, `अभिव्यक्ति \\(${base}^{${exp}}\\) को modulo \\(${mod}\\) में घटाया गया। क्या शेषफल मिलेगा?`, `ਅਭਿਵਿਅਕਤੀ \\(${base}^{${exp}}\\) ਨੂੰ modulo \\(${mod}\\) ਵਿੱਚ ਘਟਾਇਆ ਗਿਆ। ਕਿਹੜਾ ਬਾਕੀ ਮਿਲੇਗਾ?`),
-      t(`Using modular arithmetic, find the remainder of \\(${base}^{${exp}}\\) on division by \\(${mod}\\).`, `मॉड्यूलर अंकगणित से \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल निकालें।`, `ਮਾਡਿਊਲਰ ਗਣਿਤ ਨਾਲ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੱਢੋ।`),
-      t(`For \\(${base}^{${exp}}\\), use the cycle modulo \\(${mod}\\). What remainder is left?`, `पूरी घात निकाले बिना \\(${base}^{${exp}}\\) modulo \\(${mod}\\) में क्या शेषफल छोड़ेगा?`, `ਪੂਰੀ ਘਾਤ ਕੱਢੇ ਬਿਨਾਂ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਵਿੱਚ ਕਿੰਨਾ ਬਾਕੀ ਛੱਡੇਗਾ?`),
-      t(`Reduce the power \\(${base}^{${exp}}\\) by its remainder pattern. What is the remainder on division by \\(${mod}\\)?`, `\\(${base}^{${exp}}\\) को उसके शेषफल पैटर्न से घटाएं। \\(${mod}\\) से भाग देने पर शेषफल क्या होगा?`, `\\(${base}^{${exp}}\\) ਨੂੰ ਉਸ ਦੇ ਬਾਕੀ ਪੈਟਰਨ ਨਾਲ ਘਟਾਓ। \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੋਵੇਗਾ?`),
-      t(`A large power \\(${base}^{${exp}}\\) is divided by \\(${mod}\\). What remainder should be written?`, `बड़ी घात \\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। कौन-सा शेषफल लिखा जाएगा?`, `ਵੱਡੀ ਘਾਤ \\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਕਿਹੜਾ ਬਾਕੀ ਲਿਖਿਆ ਜਾਵੇਗਾ?`),
-      t(`For exponent \\(${exp}\\), the powers of \\(${base}\\) repeat in remainders modulo \\(${mod}\\). What remainder appears?`, `exponent \\(${exp}\\) के लिए \\(${base}\\) की घातों के शेषफल modulo \\(${mod}\\) में दोहराते हैं। कौन-सा शेषफल आएगा?`, `exponent \\(${exp}\\) ਲਈ \\(${base}\\) ਦੀਆਂ ਘਾਤਾਂ ਦੇ ਬਾਕੀ modulo \\(${mod}\\) ਵਿੱਚ ਦੁਹਰਾਂਦੇ ਹਨ। ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?`),
-      t(`Cycle position \\(${exp}\\) is needed for powers of \\(${base}\\) modulo \\(${mod}\\). What is the remainder?`, `\\(${base}\\) की घातों को modulo \\(${mod}\\) में देखने पर cycle position \\(${exp}\\) चाहिए। शेषफल क्या है?`, `\\(${base}\\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ modulo \\(${mod}\\) ਵਿੱਚ ਵੇਖਣ ਤੇ cycle position \\(${exp}\\) ਚਾਹੀਦੀ ਹੈ। ਬਾਕੀ ਕੀ ਹੈ?`),
+      t(`What is the remainder when \\(${base}^{${exp}}\\) is divided by \\(${mod}\\)?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल क्या है?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੈ?`),
+      t(`Find the remainder: \\(${base}^{${exp}} \\div ${mod}\\).`, `शेषफल ज्ञात करें: \\(${base}^{${exp}} \\div ${mod}\\)।`, `ਬਾਕੀ ਪਤਾ ਕਰੋ: \\(${base}^{${exp}} \\div ${mod}\\)।`),
+      t(`\\(${base}^{${exp}}\\) is divided by \\(${mod}\\). What is the remainder?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग दिया गया। शेषफल क्या है?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਕੀ ਹੈ?`),
+      t(`When \\(${base}\\) is raised to the power \\(${exp}\\) and the result is divided by \\(${mod}\\), what remainder is left?`, `जब \\(${base}\\) की \\(${exp}\\) घात को \\(${mod}\\) से भाग दें, तो शेषफल क्या बचेगा?`, `जदों \\(${base}\\) दी \\(${exp}\\) घात नूं \\(${mod}\\) नाल भाग दिओ, तां बाकी की बचेगा?`),
     ]),
     model: { kind: "modular_hybrid", inputs: { base, exp, mod } },
     variables: { base, exp, mod },
@@ -1297,7 +1283,7 @@ function reconstructionDraft(spec: Spec, seed: string): Draft {
     const root = int(`${seed}:root`, 18, 35);
     model = { kind: "reconstruction", inputs: { mode: "hidden_square", root } };
     answer = evaluateNumberSystemSolverModel(model);
-    stem = t(`A perfect square has square root \\(${root}\\) and also satisfies the given square condition. What is the number?`, `एक पूर्ण वर्ग का वर्गमूल \\(${root}\\) है और वह दी गई वर्ग-शर्त पूरी करता है। संख्या क्या है?`, `ਇੱਕ ਪੂਰਨ ਵਰਗ ਦਾ ਵਰਗਮੂਲ \\(${root}\\) ਹੈ ਅਤੇ ਉਹ ਦਿੱਤੀ ਵਰਗ-ਸ਼ਰਤ ਪੂਰੀ ਕਰਦਾ ਹੈ। ਸੰਖਿਆ ਕੀ ਹੈ?`);
+    stem = t(`What is the perfect square whose square root is \\(${root}\\)?`, `उस पूर्ण वर्ग क्या है जिसका वर्गमूल \\(${root}\\) है?`, `ਉਹ ਪੂਰਨ ਵਰਗ ਕੀ ਹੈ ਜਿਸ ਦਾ ਵਰਗਮੂਲ \\(${root}\\) ਹੈ?`);
     variables = { root, answer };
   } else if (spec.family.includes("hidden_factorization")) {
     const factors = { 2: int(`${seed}:e2`, 2, 4), 3: int(`${seed}:e3`, 1, 3), 5: 1 };
@@ -1340,27 +1326,27 @@ function eliteHybridDraft(spec: Spec, seed: string): Draft {
     const pattern = `4${digit}x${pick([2, 6], `${seed}:end`)}`;
     const completed = Number(pattern.replace("x", String(digit)));
     model = { kind: "elite_hybrid_chain", inputs: { mode: "digit_divisibility_reconstruction", pattern, digit } };
-    stem = t(`In the number \\(${pattern}\\), the missing digit is chosen so that the completed number satisfies the digit rule and divisibility check. What completed number is obtained?`, `संख्या \\(${pattern}\\) में लुप्त अंक ऐसा चुना जाता है कि पूरी संख्या अंक-नियम और विभाज्यता जाँच पूरी करे। पूरी संख्या क्या बनेगी?`, `ਸੰਖਿਆ \\(${pattern}\\) ਵਿੱਚ ਗੁੰਮ ਅੰਕ ਐਸਾ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਪੂਰੀ ਸੰਖਿਆ ਅੰਕ-ਨਿਯਮ ਅਤੇ ਭਾਗਯੋਗਤਾ ਜਾਂਚ ਪੂਰੀ ਕਰੇ। ਪੂਰੀ ਸੰਖਿਆ ਕੀ ਬਣੇਗੀ?`);
+    stem = t(`In the number \\(${pattern}\\), the digit \\(x\\) is chosen so that the number is divisible by a specific rule. What is the completed number?`, `संख्या \\(${pattern}\\) में अंक \\(x\\) ऐसा चुना जाता है कि पूरी संख्या एक नियम से विभाज्य हो। पूरी संख्या क्या बनेगी?`, `ਸੰਖਿਆ \\(${pattern}\\) ਵਿੱਚ ਅੰਕ \\(x\\) ਐਸਾ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਪੂਰੀ ਸੰਖਿਆ ਇੱਕ ਨਿਯਮ ਨਾਲ ਭਾਗ ਜਾਵੇ। ਪੂਰੀ ਸੰਖਿਆ ਕੀ ਬਣੇਗੀ?`);
     variables = { pattern, digit, answer: completed };
   } else if (family.includes("factor_count_square")) {
     const n = pick([72, 108, 180, 200, 300], `${seed}:n`);
     const multiplier = factorCompletionMultiplier(n, 2);
     model = { kind: "elite_hybrid_chain", inputs: { mode: "factor_count_square_hidden", n } };
-    stem = t(`A number \\(${n}\\) must first be made a perfect square by the least multiplier. What is that multiplier?`, `संख्या \\(${n}\\) को पहले न्यूनतम गुणक से पूर्ण वर्ग बनाना है। वह गुणक क्या है?`, `ਸੰਖਿਆ \\(${n}\\) ਨੂੰ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਗੁਣਕ ਨਾਲ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣਾ ਹੈ। ਉਹ ਗੁਣਕ ਕੀ ਹੈ?`);
+    stem = t(`What is the smallest number by which \\(${n}\\) should be multiplied to make it a perfect square?`, `\\(${n}\\) को पूर्ण वर्ग बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?`, `\\(${n}\\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?`);
     variables = { n, multiplier, answer: multiplier };
   } else if (family.includes("modular_cycle")) {
     const base = pick([3, 7, 11], `${seed}:base`);
     const exp = int(`${seed}:exp`, 41, 99);
     const mod = pick([13, 17, 19], `${seed}:mod`);
     model = { kind: "elite_hybrid_chain", inputs: { mode: "modular_cycle_reconstruction", base, exp, mod } };
-    stem = t(`A remainder chain reduces to \\(${base}^{${exp}}\\) modulo \\(${mod}\\). What final remainder is obtained?`, `एक शेषफल-श्रृंखला \\(${base}^{${exp}}\\) modulo \\(${mod}\\) तक घटती है। अंतिम शेषफल क्या है?`, `ਇੱਕ ਬਾਕੀ-ਕੜੀ \\(${base}^{${exp}}\\) modulo \\(${mod}\\) ਤੱਕ ਘਟਦੀ ਹੈ। ਅੰਤਿਮ ਬਾਕੀ ਕੀ ਹੈ?`);
+    stem = t(`What is the remainder when \\(${base}^{${exp}}\\) is divided by \\(${mod}\\)?`, `\\(${base}^{${exp}}\\) को \\(${mod}\\) से भाग देने पर शेषफल क्या है?`, `\\(${base}^{${exp}}\\) ਨੂੰ \\(${mod}\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੈ?`);
     variables = { base, exp, mod, answer: modPow(base, exp, mod) };
   } else if (family.includes("hcf_verification")) {
     const digit = pick([2, 4, 6, 8], `${seed}:digit`);
     const pattern = `36x${digit}`;
     const other = pick([18, 24, 36], `${seed}:other`);
     model = { kind: "elite_hybrid_chain", inputs: { mode: "digit_divisibility_hcf_verification", pattern, digit, other } };
-    stem = t(`After replacing \\(x\\) in \\(${pattern}\\), verify it with \\(${other}\\) using HCF. What HCF is obtained?`, `\\(${pattern}\\) में \\(x\\) रखने के बाद उसे \\(${other}\\) के साथ HCF से जाँचा जाता है। HCF कितना मिलेगा?`, `\\(${pattern}\\) ਵਿੱਚ \\(x\\) ਰੱਖਣ ਤੋਂ ਬਾਅਦ ਇਸਨੂੰ \\(${other}\\) ਨਾਲ HCF ਰਾਹੀਂ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ। HCF ਕਿੰਨਾ ਮਿਲੇਗਾ?`);
+    stem = t(`If \\(x = ${digit}\\) in \\(${pattern}\\), what is the HCF of the resulting number and \\(${other}\\)?`, `यदि \\(${pattern}\\) में \\(x = ${digit}\\) रखें, तो बनी संख्या और \\(${other}\\) का HCF क्या होगा?`, `ਜੇ \\(${pattern}\\) ਵਿੱਚ \\(x = ${digit}\\) ਰੱਖੀਏ, ਤਾਂ ਬਣੀ ਸੰਖਿਆ ਅਤੇ \\(${other}\\) ਦਾ HCF ਕੀ ਹੋਵੇਗਾ?`);
     variables = { pattern, digit, other, answer: gcd(Number(pattern.replace("x", String(digit))), other) };
   } else if (family.includes("remainder_constraint")) {
     const modulus = pick([18, 24, 30, 36], `${seed}:mod`);
@@ -1372,14 +1358,14 @@ function eliteHybridDraft(spec: Spec, seed: string): Draft {
   } else if (family.includes("prime_exact")) {
     const value = pick([72, 108, 144, 180, 216], `${seed}:value`);
     model = { kind: "elite_hybrid_chain", inputs: { mode: "prime_exact_divisor_optimization", value } };
-    stem = t(`A number is rebuilt from exact prime-power choices and the smallest valid value is \\(${value}\\). What is that value?`, `अभाज्य-घात विकल्पों से संख्या बनती है और सबसे छोटा मान \\(${value}\\) है। वह मान क्या है?`, `ਅਭਾਜ-ਘਾਤ ਚੋਣਾਂ ਤੋਂ ਸੰਖਿਆ ਬਣਦੀ ਹੈ ਅਤੇ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ \\(${value}\\) ਹੈ। ਉਹ ਮੁੱਲ ਕੀ ਹੈ?`);
+    stem = t(`A number has the smallest value built from specific prime powers, and that value is \\(${value}\\). What is it?`, `किसी संख्या का सबसे छोटा मान निश्चित अभाज्य घातों से बनता है, और वह मान \\(${value}\\) है। वह क्या है?`, `ਕਿਸੇ ਸੰਖਿਆ ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ ਨਿਸ਼ਚਿਤ ਅਭਾਜ ਘਾਤਾਂ ਤੋਂ ਬਣਦਾ ਹੈ, ਅਤੇ ਉਹ ਮੁੱਲ \\(${value}\\) ਹੈ। ਉਹ ਕੀ ਹੈ?`);
     variables = { value, answer: value };
   } else {
     const a = pick([12, 18, 24], `${seed}:a`);
     const b = pick([20, 30, 36], `${seed}:b`);
     const lower = lcm(a, b) * int(`${seed}:q`, 5, 11) + 1;
     model = { kind: "elite_hybrid_chain", inputs: { mode: "prime_hcf_lcm_optimization", a, b, lower } };
-    stem = t(`Prime factors of \\(${a}\\) and \\(${b}\\) are used to form their common cycle. What is the least common-cycle number greater than \\(${lower}\\)?`, `\\(${a}\\) और \\(${b}\\) के अभाज्य गुणनखंडों से सामान्य चक्र बनता है। \\(${lower}\\) से बड़ा सबसे छोटा सामान्य-चक्र मान क्या है?`, `\\(${a}\\) ਅਤੇ \\(${b}\\) ਦੇ ਅਭਾਜ ਗੁਣਨਖੰਡਾਂ ਨਾਲ ਸਾਂਝਾ ਚੱਕਰ ਬਣਦਾ ਹੈ। \\(${lower}\\) ਤੋਂ ਵੱਡਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਾਂਝਾ-ਚੱਕਰ ਮੁੱਲ ਕੀ ਹੈ?`);
+    stem = t(`What is the smallest number greater than \\(${lower}\\) that is divisible by both \\(${a}\\) and \\(${b}\\)?`, `\\(${lower}\\) से बड़ी वह सबसे छोटी संख्या क्या है जो \\(${a}\\) और \\(${b}\\) दोनों से विभाज्य हो?`, `\\(${lower}\\) ਤੋਂ ਵੱਡੀ ਉਹ ਸਭ ਤੋਂ ਛੋਟੀ ਸੰਖਿਆ ਕੀ ਹੈ ਜੋ \\(${a}\\) ਅਤੇ \\(${b}\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਵੇ?`);
     variables = { a, b, lower, lcm: lcm(a, b), answer: evaluateNumberSystemSolverModel(model) };
   }
   return {

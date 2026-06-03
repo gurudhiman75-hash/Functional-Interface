@@ -287,7 +287,7 @@ function cleanRenderedEnglish(text: string) {
   return text
     .replace(/Reconstruction questions should not be guessed; each clue must become a checkable relation\./gu, "The rule in this question controls which numbers are allowed, so use it before choosing the answer.")
     .replace(/The reconstructed value is ([^.]+)\./gu, "The calculated value $1 satisfies the arithmetic condition used above.")
-    .replace(/Translate every clue into a number condition/gu, "Use the number rule for this family")
+    .replace(/Translate every clue into a number condition/gu, "Use the number rule in this question")
     .replace(/Carry the result through the next condition/gu, "Use this result in the next check")
     .replace(/Check the number against the next fact also, so it is not chosen from only the first clue\./gu, "This step makes sure the same number satisfies the other condition too.")
     .replace(/\bStep\s+\d+\s*:\s*/gu, "")

@@ -66,7 +66,19 @@ function topologyNumericAnswerFingerprint(question: FormulaQuestion) {
 function explanationText(question: FormulaQuestion) {
   return `${question.explanation ?? ""}\n${question.explanationHi ?? ""}\n${question.explanationPa ?? ""}`;
 }
-const META_LANGUAGE_RE = /\b(?:Optimization is done only after|Move to the nearest valid boundary|Boundary correction|Boundary value|Valid boundary|Optimization value|Constraint value|Required cycle|Valid cycle|Cycle engine|Generator logic|Reasoning engine|Constraint engine|Combined cycle|Computed value|Optimization step|Internal condition|Topology path|Reasoning path|Derived constraint|Constraint resolution|Read the required value|Apply optimization logic|Use generated cycle|Generated value|Valid candidate set|Candidate filtering|Candidate elimination engine|Cycle selection|Cycle position engine)\b/iu;
+function studentFacingText(question: FormulaQuestion) {
+  return [
+    question.text,
+    question.textHi,
+    question.textPa,
+    ...(question.options ?? []),
+    question.explanation,
+    question.explanationHi,
+    question.explanationPa,
+  ].map((value) => String(value ?? "")).join("\n");
+}
+const STUDENT_LANGUAGE_FIREWALL_RE = /\b(?:combine\s+(?:conditions|constraints)|constraint\s+chain|optimization|candidate\s+number|valid\s+candidate|feasible\s+value|boundary\s+value|boundary\s+correction|search\s+space|narrowed\s+result|filtered\s+result|tracking\s+(?:factors|exponents)|reconstruction|condition\s+satisfaction|generator\s+logic|reasoning\s+graph|topology|family|canonical\s+problem|solver\s+output|hidden\s+(?:divisor|hcf|lcm)|perfect-power\s+calculation|complete\s+the\s+exponents|apply\s+the\s+cycle\s+method|apply\s+the\s+formula|use\s+the\s+formula|apply\s+the\s+rule|optimization\s+value|required\s+correction|candidate\s+selection|valid\s+selection|constraint\s+filtering|candidate\s+filtering|candidate\s+elimination\s+engine|cycle\s+position\s+engine)\b/iu;
+const META_LANGUAGE_RE = STUDENT_LANGUAGE_FIREWALL_RE;
 const GENERIC_EXPLANATION_LEAK_RE = /\b(?:Translate every clue|Carry result through next condition|Carry the result through the next condition|Check next fact|Check the number against the next fact|Reconstructed value|Candidate value|Constraint value)\b/iu;
 const STANDALONE_PLACEHOLDER_RE = /\\\[\s*(?:x|N|A|Z|M)\s*=\s*-?\d+\s*\\\]/u;
 const MOJIBAKE_RE = /[ÃÂ]|à[¤¥¨©]|â(?:Œ|€|†|€¦|„)/u;
@@ -93,7 +105,7 @@ function genericExplanation(question: FormulaQuestion) {
   return /Use the formula|Substitute the values|Solve for the answer|Required value is|Apply the formula|Concept\n|Let's solve|Let's look|Now let's find|We know that|Observe that|Using the formula/iu.test(explanationText(question));
 }
 function metaLanguageIssue(question: FormulaQuestion) {
-  return META_LANGUAGE_RE.test(explanationText(question));
+  return META_LANGUAGE_RE.test(studentFacingText(question));
 }
 function genericExplanationLeakIssue(question: FormulaQuestion) {
   return GENERIC_EXPLANATION_LEAK_RE.test(explanationText(question));
@@ -349,8 +361,6 @@ function renderQuestion(question: FormulaQuestion, index: number) {
     "Punjabi:",
     question.textPa,
     question.explanationPa,
-    "",
-    `Family: ${familyOf(question)}`,
     "",
   ].join("\n");
 }

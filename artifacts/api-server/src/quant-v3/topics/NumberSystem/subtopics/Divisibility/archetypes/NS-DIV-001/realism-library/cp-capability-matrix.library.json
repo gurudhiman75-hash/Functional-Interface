@@ -1,0 +1,54 @@
+{
+  "canonicalProblems": [
+    {
+      "id": "CP-001",
+      "name": "Find Missing Digit",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "id": "CP-002",
+      "name": "Find Largest Valid Digit",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-003",
+      "name": "Find Smallest Valid Digit",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-004",
+      "name": "Count Valid Digits",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-005",
+      "name": "Sum Of Valid Digits",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-006",
+      "name": "Product Of Valid Digits",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-007",
+      "name": "Expression Value Using Missing Digit",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-008",
+      "name": "Sum Of All Possible Numbers",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-009",
+      "name": "Difference Of Largest And Smallest Valid Number",
+      "status": "APPROVED"
+    },
+    {
+      "id": "CP-010",
+      "name": "Count Valid Numbers Formed",
+      "status": "APPROVED"
+    }
+  ]
+}

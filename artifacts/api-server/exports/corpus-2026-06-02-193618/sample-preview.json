@@ -1,0 +1,1527 @@
+[
+  {
+    "index": 0,
+    "question": "By what least number should \\(252\\) be multiplied to make it a perfect square?",
+    "options": [
+      "\\(9\\)",
+      "\\(7\\)",
+      "\\(8\\)",
+      "\\(6\\)"
+    ],
+    "answer": "\\(7\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_square_factor_constraint"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_square_factor_constraint"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "By what least number should \\(252\\) be multiplied to make it a perfect square?",
+        "options": [
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(8\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "Observation\nA square is made from pairs of prime factors.\n\nExplanation\nWe are doing this because every factor in a square comes in a pair.\n\nFactorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n252=2^{2}\\times 3^{2}\\times 7\n\\]\n\nAdd only the missing prime powers\n\nFor a square, every exponent must be even.\n\n\\[\n2^{2}\\to 2^{2}\n\\]\n\n\\[\n3^{2}\\to 3^{2}\n\\]\n\n\\[\n7^{1}\\to 7^{2}\n\\]\n\nMultiply the missing part\n\n\\[\n252\\times 7=1764\n\\]\n\nAnswer\nThe perfect-power condition is now satisfied.\nTherefore, the required answer is \\(7\\). Hence, the correct answer is Option (B).\n\nCommon Mistake\nDo not multiply by the whole number again. For a square, add only the prime factors whose powers are unpaired.\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\n252\\times 7=1764\n\\]\n\nFast result: \\(7\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(252\\) को पूर्ण वर्ग बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?",
+        "options": [
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(8\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nदी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n252=2^{2}\\times 3^{2}\\times 7\n\\]\n\nघातो�‚ �•ो प�‚रा �•रे�‚\n\nवर्ग �•े लिए हर घात सम होनी चाहिए।\n\n\\[\n2^{2}\\to 2^{2}\n\\]\n\n\\[\n3^{2}\\to 3^{2}\n\\]\n\n\\[\n7^{1}\\to 7^{2}\n\\]\n\nआवश्य�• मान पढ़े�‚\n\n\\[\n252\\times 7=1764\n\\]\n\nउत्तर\nप�‚र्ण-घात शर्त अब प�‚री है।\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(7\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\n252\\times 7=1764\n\\]\n\nशीघ्र परिणाम: \\(7\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(252\\) ਨੂੰ ਪੂਰਨ ਵਰਗ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+        "options": [
+          "\\(9\\)",
+          "\\(7\\)",
+          "\\(8\\)",
+          "\\(6\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n252=2^{2}\\times 3^{2}\\times 7\n\\]\n\nਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{2}\\to 2^{2}\n\\]\n\n\\[\n3^{2}\\to 3^{2}\n\\]\n\n\\[\n7^{1}\\to 7^{2}\n\\]\n\nਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\n252\\times 7=1764\n\\]\n\nਉੱਤਰ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(7\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\n252\\times 7=1764\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(7\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 1,
+    "question": "What two digits does \\(7^{72}\\) end with?",
+    "options": [
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(2\\)",
+      "\\(0\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_last_two_digits"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_last_two_digits"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What two digits does \\(7^{72}\\) end with?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)"
+        ],
+        "explanation": "Observation\nThe clues are about digits, so place value is the main idea.\n\nExplanation\nWe are doing this because digit clues become useful only after we attach them to their places.\n\nReplace the big base by its smaller remainder\n\n\\[\n7\\equiv 7\\pmod{100}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 4.\n\n\\[\n7\\rightarrow 49\\rightarrow 43\\rightarrow 1\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(72-1)\\bmod 4+1=4\n\\]\n\nRead the required remainder\n\nHence, remainder = 1.\n\n\\[\n7^{72}\\equiv 1\\pmod{100}\n\\]\n\nAnswer\nThe 4th term of the cycle is 1.\nTherefore, the required answer is \\(1\\). Hence, the correct answer is Option (B).\n\nCommon Mistake\nDo not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(72-1)\\bmod 4+1=4\n\\]\n\n\\[\n7^{72}\\equiv 1\\pmod{100}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(7^{72}\\) किन दो अंकों पर समाप्त होता है?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n7\\equiv 7\\pmod{100}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 4।\n\n\\[\n7\\rightarrow 49\\rightarrow 43\\rightarrow 1\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(72-1)\\bmod 4+1=4\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n7^{72}\\equiv 1\\pmod{100}\n\\]\n\nउत्तर\nचक्र का 4वाँ पद 1 है।\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(1\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(72-1)\\bmod 4+1=4\n\\]\n\n\\[\n7^{72}\\equiv 1\\pmod{100}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(7^{72}\\) ਕਿਹੜੇ ਦੋ ਅੰਕਾਂ ਤੇ ਖਤਮ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n7\\equiv 7\\pmod{100}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 4।\n\n\\[\n7\\rightarrow 49\\rightarrow 43\\rightarrow 1\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(72-1)\\bmod 4+1=4\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n7^{72}\\equiv 1\\pmod{100}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 4ਵਾਂ ਪਦ 1 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(72-1)\\bmod 4+1=4\n\\]\n\n\\[\n7^{72}\\equiv 1\\pmod{100}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 2,
+    "question": "By what least number should \\(40\\) be multiplied so that the product is divisible by \\(240\\)?",
+    "options": [
+      "\\(6\\)",
+      "\\(7\\)",
+      "\\(5\\)",
+      "\\(8\\)"
+    ],
+    "answer": "\\(6\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_multiplier"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_multiplier"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "By what least number should \\(40\\) be multiplied so that the product is divisible by \\(240\\)?",
+        "options": [
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "Observation\nThe multiplier only needs to supply the missing factors.\n\nExplanation\nWe are doing this because repeated factors should be cancelled before adding new ones.\n\nPut the given conditions together first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\nNow choose the number that stays within the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\ng=\\gcd(40,240)=40\n\\]\n\n\\[\nx=\\frac{240}{g}=6\n\\]\n\nAnswer\nThe selected number is 6, and it satisfies the required divisibility condition.\nTherefore, the required answer is \\(6\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not multiply by factors the number already has. Only the missing factor is needed.\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\nx=\\frac{240}{g}=6\n\\]\n\nFast result: \\(6\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(40\\) को किस न्यूनतम संख्या से गुणा किया जाए ताकि गुणनफल \\(240\\) से विभाज्य हो?",
+        "options": [
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nपहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\nनि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\ng=\\gcd(40,240)=40\n\\]\n\n\\[\nx=\\frac{240}{g}=6\n\\]\n\nउत्तर\nअनु�•�‚लित मान्य मान 6 है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(6\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\nx=\\frac{240}{g}=6\n\\]\n\nशीघ्र परिणाम: \\(6\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(40\\) ਨੂੰ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਜਾਵੇ ਤਾਂ ਜੋ ਗੁਣਨਫਲ \\(240\\) ਨਾਲ ਭਾਗ ਜਾਵੇ?",
+        "options": [
+          "\\(6\\)",
+          "\\(7\\)",
+          "\\(5\\)",
+          "\\(8\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\nਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\ng=\\gcd(40,240)=40\n\\]\n\n\\[\nx=\\frac{240}{g}=6\n\\]\n\nਉੱਤਰ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 6 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(6\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\nx=\\frac{240}{g}=6\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(6\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 3,
+    "question": "What is the remainder when \\(11^{74}\\) is divided by \\(9\\)?",
+    "options": [
+      "\\(5\\)",
+      "\\(3\\)",
+      "\\(6\\)",
+      "\\(4\\)"
+    ],
+    "answer": "\\(4\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_range_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_range_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What is the remainder when \\(11^{74}\\) is divided by \\(9\\)?",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "Observation\nThe question is about what is left after division.\n\nExplanation\nWe are doing this because numbers with the same remainder move in equal jumps.\n\nReplace the big base by its smaller remainder\n\n\\[\n11\\equiv 2\\pmod{9}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 6.\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 7\\rightarrow 5\\rightarrow 1\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(74-1)\\bmod 6+1=2\n\\]\n\nRead the required remainder\n\nHence, remainder = 4.\n\n\\[\n11^{74}\\equiv 4\\pmod{9}\n\\]\n\nAnswer\nThe 2nd term of the cycle is 4.\nTherefore, the required answer is \\(4\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not count from zero blindly. Check whether the lower and upper limits are included in the given range.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(74-1)\\bmod 6+1=2\n\\]\n\n\\[\n2^{74}\\equiv 4\\pmod{9}\n\\]\n\nFast result: \\(4\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(11^{74}\\) को \\(9\\) से भाग देने पर शेषफल क्या है?",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n11\\equiv 2\\pmod{9}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 6।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 7\\rightarrow 5\\rightarrow 1\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(74-1)\\bmod 6+1=2\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 4।\n\n\\[\n11^{74}\\equiv 4\\pmod{9}\n\\]\n\nउत्तर\nचक्र का 2वाँ पद 4 है।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(4\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(74-1)\\bmod 6+1=2\n\\]\n\n\\[\n2^{74}\\equiv 4\\pmod{9}\n\\]\n\nशीघ्र परिणाम: \\(4\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(11^{74}\\) ਨੂੰ \\(9\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(5\\)",
+          "\\(3\\)",
+          "\\(6\\)",
+          "\\(4\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n11\\equiv 2\\pmod{9}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 6।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 7\\rightarrow 5\\rightarrow 1\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(74-1)\\bmod 6+1=2\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 4।\n\n\\[\n11^{74}\\equiv 4\\pmod{9}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 2ਵਾਂ ਪਦ 4 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(4\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(74-1)\\bmod 6+1=2\n\\]\n\n\\[\n2^{74}\\equiv 4\\pmod{9}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(4\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 4,
+    "question": "What is the least perfect cube that is divisible by \\(72\\)?",
+    "options": [
+      "\\(216\\)",
+      "\\(227\\)",
+      "\\(238\\)",
+      "\\(205\\)"
+    ],
+    "answer": "\\(216\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_least_cube_multiple"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_least_cube_multiple"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What is the least perfect cube that is divisible by \\(72\\)?",
+        "options": [
+          "\\(216\\)",
+          "\\(227\\)",
+          "\\(238\\)",
+          "\\(205\\)"
+        ],
+        "explanation": "Observation\nA cube is made from groups of three equal prime factors.\n\nExplanation\nWe are doing this because every factor in a cube comes in a group of three.\n\nFactorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n72=2^{3}\\times 3^{2}\n\\]\n\nAdd only the missing prime powers\n\nFor a cube, every exponent must be a multiple of 3.\n\n\\[\n2^{3}\\to 2^{3}\n\\]\n\n\\[\n3^{2}\\to 3^{3}\n\\]\n\nMultiply the missing part\n\n\\[\n72\\times 3=216\n\\]\n\nAnswer\nThe perfect-power condition is now satisfied.\nTherefore, the required answer is \\(216\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not stop after making exponents even. For a cube, every prime power must be grouped in threes.\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\n72\\times 3=216\n\\]\n\nFast result: \\(216\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(72\\) से विभाज्य सबसे छोटा पूर्ण घन कौन-सा है?",
+        "options": [
+          "\\(216\\)",
+          "\\(227\\)",
+          "\\(238\\)",
+          "\\(205\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nदी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n72=2^{3}\\times 3^{2}\n\\]\n\nघातो�‚ �•ो प�‚रा �•रे�‚\n\nघन �•े लिए हर घात 3 �•े गुणज मे�‚ होनी चाहिए।\n\n\\[\n2^{3}\\to 2^{3}\n\\]\n\n\\[\n3^{2}\\to 3^{3}\n\\]\n\nआवश्य�• मान पढ़े�‚\n\n\\[\n72\\times 3=216\n\\]\n\nउत्तर\nप�‚र्ण-घात शर्त अब प�‚री है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(216\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\n72\\times 3=216\n\\]\n\nशीघ्र परिणाम: \\(216\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(72\\) ਨਾਲ ਭਾਗ ਜਾਣ ਵਾਲਾ ਸਭ ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਘਣ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "\\(216\\)",
+          "\\(227\\)",
+          "\\(238\\)",
+          "\\(205\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n72=2^{3}\\times 3^{2}\n\\]\n\nਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਘਣ ਲਈ ਹਰ ਘਾਤ 3 ਦੇ ਗੁਣਜ ਵਿੱਚ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{3}\\to 2^{3}\n\\]\n\n\\[\n3^{2}\\to 3^{3}\n\\]\n\nਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\n72\\times 3=216\n\\]\n\nਉੱਤਰ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(216\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\n72\\times 3=216\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(216\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 94
+  },
+  {
+    "index": 5,
+    "question": "How many integers between \\(433\\) and \\(1063\\) leave remainder \\(13\\) when divided by \\(60\\)?",
+    "options": [
+      "\\(12\\)",
+      "\\(10\\)",
+      "\\(13\\)",
+      "\\(11\\)"
+    ],
+    "answer": "\\(11\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_range_optimization"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_range_optimization"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "How many integers between \\(433\\) and \\(1063\\) leave remainder \\(13\\) when divided by \\(60\\)?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "Observation\nThe question asks for the best number that still follows the given rule.\n\nExplanation\nWe are doing this because testing numbers one by one is slow; the pattern tells us where to look.\n\nPut the given conditions together first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\nNow choose the number that stays within the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\nN\\equiv 13\\pmod{60}\n\\]\n\n\\[\nc=11\n\\]\n\nAnswer\nThe selected number is 11, and it satisfies the required divisibility condition.\nTherefore, the required answer is \\(11\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not start testing random numbers. First find the repeating number pattern, then move to the nearest allowed value.\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\nc=11\n\\]\n\nFast result: \\(11\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(433\\) और \\(1063\\) के बीच कितने पूर्णांक \\(60\\) से भाग देने पर शेष \\(13\\) छोड़ते हैं?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nपहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\nनि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\nN\\equiv 13\\pmod{60}\n\\]\n\n\\[\nc=11\n\\]\n\nउत्तर\nअनु�•�‚लित मान्य मान 11 है।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(11\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\nc=11\n\\]\n\nशीघ्र परिणाम: \\(11\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(433\\) ਅਤੇ \\(1063\\) ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ \\(60\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਬਾਕੀ \\(13\\) ਛੱਡਦੇ ਹਨ?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\nਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\nN\\equiv 13\\pmod{60}\n\\]\n\n\\[\nc=11\n\\]\n\nਉੱਤਰ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 11 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(11\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\nc=11\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(11\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 6,
+    "question": "What is the highest power of \\(3\\) that divides \\(60!\\)?",
+    "options": [
+      "\\(27\\)",
+      "\\(30\\)",
+      "\\(28\\)",
+      "\\(29\\)"
+    ],
+    "answer": "\\(28\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factorial_divisibility"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factorial_divisibility"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What is the highest power of \\(3\\) that divides \\(60!\\)?",
+        "options": [
+          "\\(27\\)",
+          "\\(30\\)",
+          "\\(28\\)",
+          "\\(29\\)"
+        ],
+        "explanation": "Observation\nA composite power depends on all its prime parts.\n\nExplanation\nWe are doing this because the prime factor that runs out first controls the final power.\n\nCount powers of 3 in n!\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nAdd the quotient terms\n\n\\[\n20+6+2=28\n\\]\n\nAnswer\nHighest power of 3 dividing 60! is 28.\nTherefore, the required answer is \\(28\\). Hence, the correct answer is Option (C).\n\nCommon Mistake\nDo not use only one prime when the base is composite. Count all required primes and take the limiting one.\n\nShortcut\n\nLegendre sum of floor quotients only.\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor+\\left\\lfloor\\frac{60}{9}\\right\\rfloor+\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nFast result: \\(28\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(60!\\) को विभाजित करने वाली \\(3\\) की सबसे बड़ी घात क्या है?",
+        "options": [
+          "\\(27\\)",
+          "\\(30\\)",
+          "\\(28\\)",
+          "\\(29\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nn! में 3 की घातें गिनें\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nभागफल पद जोड़ें\n\n\\[\n20+6+2=28\n\\]\n\nउत्तर\n60! में 3 की सबसे बड़ी घात 28 है।\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(28\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nकेवल भागफल-मूल्यों का लेजेंड्र योग।\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor+\\left\\lfloor\\frac{60}{9}\\right\\rfloor+\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nशीघ्र परिणाम: \\(28\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(60!\\) ਨੂੰ ਭਾਗ ਕਰਨ ਵਾਲੀ \\(3\\) ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ ਕੀ ਹੈ?",
+        "options": [
+          "\\(27\\)",
+          "\\(30\\)",
+          "\\(28\\)",
+          "\\(29\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nn! ਵਿੱਚ 3 ਦੀਆਂ ਘਾਤਾਂ ਗਿਣੋ\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{9}\\right\\rfloor\n\\]\n\n\\[\n\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nਭਾਗਪਲ ਪਦ ਜੋੜੋ\n\n\\[\n20+6+2=28\n\\]\n\nਉੱਤਰ\n60! ਨੂੰ 3 ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਤ 28 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(28\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਭਾਗਫਲ-ਮੂਲਾਂ ਦਾ ਲੇਜੈਂਡਰ ਜੋੜ।\n\n\\[\n\\left\\lfloor\\frac{60}{3}\\right\\rfloor+\\left\\lfloor\\frac{60}{9}\\right\\rfloor+\\left\\lfloor\\frac{60}{27}\\right\\rfloor\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(28\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 7,
+    "question": "A number gives quotient \\(18\\) and remainder \\(2\\) when divided by an unknown divisor. If the number is \\(128\\), find the divisor.",
+    "options": [
+      "\\(8\\)",
+      "\\(6\\)",
+      "\\(9\\)",
+      "\\(7\\)"
+    ],
+    "answer": "\\(7\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_divisor_reconstruction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_divisor_reconstruction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "A number gives quotient \\(18\\) and remainder \\(2\\) when divided by an unknown divisor. If the number is \\(128\\), find the divisor.",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)"
+        ],
+        "explanation": "Observation\nEvery divisor is made by choosing some power of each prime.\n\nExplanation\nWe are doing this because each prime power gives several choices for building a divisor.\n\nEvery divisor is made by choosing some power of each prime.\n\nThe rule in this question controls which numbers are allowed, so use it before choosing the answer.\n\n\\[\n128=d\\times 18+2\n\\]\n\nUse this smaller set for the next calculation\n\nThis step keeps the same number tied to the remaining arithmetic condition.\n\n\\[\nd=7\n\\]\n\nAnswer\nThe calculated value 7 satisfies the arithmetic condition used above.\nTherefore, the required answer is \\(7\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not multiply the exponents directly. Each exponent gives one extra choice because choosing power zero is also allowed.\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\nd=7\n\\]\n\nFast result: \\(7\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "एक संख्या को अज्ञात भाजक से भाग देने पर भागफल \\(18\\) और शेष \\(2\\) मिलता है। यदि संख्या \\(128\\) है, तो भाजक ज्ञात करें।",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nहर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\n128=d\\times 18+2\n\\]\n\nपरिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\nd=7\n\\]\n\nउत्तर\nपुनर्निर्मित मान 7 है।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(7\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\nd=7\n\\]\n\nशीघ्र परिणाम: \\(7\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਇੱਕ ਸੰਖਿਆ ਨੂੰ ਅਣਜਾਣ ਭਾਜਕ ਨਾਲ ਭਾਗਣ ਤੇ ਭਾਗਫਲ \\(18\\) ਅਤੇ ਬਾਕੀ \\(2\\) ਮਿਲਦਾ ਹੈ। ਜੇ ਸੰਖਿਆ \\(128\\) ਹੈ, ਤਾਂ ਭਾਜਕ ਕੱਢੋ।",
+        "options": [
+          "\\(8\\)",
+          "\\(6\\)",
+          "\\(9\\)",
+          "\\(7\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\n128=d\\times 18+2\n\\]\n\nਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\nd=7\n\\]\n\nਉੱਤਰ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 7 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(7\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\nd=7\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(7\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 8,
+    "question": "When you divide \\(3^{88}\\) by \\(9\\), what remainder do you get?",
+    "options": [
+      "\\(3\\)",
+      "\\(0\\)",
+      "\\(1\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(0\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_nested_remainder"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_nested_remainder"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When you divide \\(3^{88}\\) by \\(9\\), what remainder do you get?",
+        "options": [
+          "\\(3\\)",
+          "\\(0\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Observation\nThe question is about what is left after division.\n\nExplanation\nWe are doing this because numbers with the same remainder move in equal jumps.\n\nReplace the big base by its smaller remainder\n\n\\[\n3\\equiv 3\\pmod{9}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 2.\n\n\\[\n3\\rightarrow 0\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(88-1)\\bmod 2+1=2\n\\]\n\nRead the required remainder\n\nHence, remainder = 0.\n\n\\[\n3^{88}\\equiv 0\\pmod{9}\n\\]\n\nAnswer\nThe 2nd term of the cycle is 0.\nTherefore, the required answer is \\(0\\). Hence, the correct answer is Option (B).\n\nCommon Mistake\nDo not count from zero blindly. Check whether the lower and upper limits are included in the given range.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(88-1)\\bmod 2+1=2\n\\]\n\n\\[\n3^{88}\\equiv 0\\pmod{9}\n\\]\n\nFast result: \\(0\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(3^{88}\\) को \\(9\\) से भाग देने पर क्या शेषफल आएगा?",
+        "options": [
+          "\\(3\\)",
+          "\\(0\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n3\\equiv 3\\pmod{9}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 2।\n\n\\[\n3\\rightarrow 0\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(88-1)\\bmod 2+1=2\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 0।\n\n\\[\n3^{88}\\equiv 0\\pmod{9}\n\\]\n\nउत्तर\nचक्र का 2वाँ पद 0 है।\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(0\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(88-1)\\bmod 2+1=2\n\\]\n\n\\[\n3^{88}\\equiv 0\\pmod{9}\n\\]\n\nशीघ्र परिणाम: \\(0\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(3^{88}\\) ਨੂੰ \\(9\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?",
+        "options": [
+          "\\(3\\)",
+          "\\(0\\)",
+          "\\(1\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n3\\equiv 3\\pmod{9}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 2।\n\n\\[\n3\\rightarrow 0\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(88-1)\\bmod 2+1=2\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 0।\n\n\\[\n3^{88}\\equiv 0\\pmod{9}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 2ਵਾਂ ਪਦ 0 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(0\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(88-1)\\bmod 2+1=2\n\\]\n\n\\[\n3^{88}\\equiv 0\\pmod{9}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(0\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 9,
+    "question": "What is the smallest number that is divisible by both \\(45\\) and \\(153\\)?",
+    "options": [
+      "\\(765\\)",
+      "\\(803\\)",
+      "\\(842\\)",
+      "\\(727\\)"
+    ],
+    "answer": "\\(765\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_lcm_bridge"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_lcm_bridge"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What is the smallest number that is divisible by both \\(45\\) and \\(153\\)?",
+        "options": [
+          "\\(765\\)",
+          "\\(803\\)",
+          "\\(842\\)",
+          "\\(727\\)"
+        ],
+        "explanation": "Observation\nLCM must be a multiple of every given number.\n\nExplanation\nWe are doing this because the LCM must have enough factors to cover every given number.\n\nWrite prime factorizations\n\n\\[\n45=3^{2}\\times 5\n\\]\n\n\\[\n153=3^{2}\\times 17\n\\]\n\nTake highest powers for LCM\n\n\\[\n\\operatorname{LCM}(45,153)=765\n\\]\n\nAnswer\nThe LCM is 765.\nTherefore, the required answer is \\(765\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not take only common primes for LCM. LCM must include every prime needed by any of the numbers.\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(45,153)=\\frac{45\\times 153}{\\operatorname{HCF}(45,153)}=765\n\\]\n\nFast result: \\(765\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "वह सबसे छोटी संख्या क्या है जो \\(45\\) और \\(153\\) दोनों से विभाज्य हो?",
+        "options": [
+          "\\(765\\)",
+          "\\(803\\)",
+          "\\(842\\)",
+          "\\(727\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nअभाज्य गुणनखंड लिखें\n\n\\[\n45=3^{2}\\times 5\n\\]\n\n\\[\n153=3^{2}\\times 17\n\\]\n\nLCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(45,153)=765\n\\]\n\nउत्तर\nLCM 765 है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(765\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(45,153)=\\frac{45\\times 153}{\\operatorname{HCF}(45,153)}=765\n\\]\n\nशीघ्र परिणाम: \\(765\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਉਹ ਸਭ ਤੋਂ ਛੋਟੀ ਸੰਖਿਆ ਕੀ ਹੈ ਜੋ \\(45\\) ਅਤੇ \\(153\\) ਦੋਵਾਂ ਨਾਲ ਭਾਗ ਜਾਵੇ?",
+        "options": [
+          "\\(765\\)",
+          "\\(803\\)",
+          "\\(842\\)",
+          "\\(727\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n45=3^{2}\\times 5\n\\]\n\n\\[\n153=3^{2}\\times 17\n\\]\n\nLCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(45,153)=765\n\\]\n\nਉੱਤਰ\nLCM 765 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(765\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(45,153)=\\frac{45\\times 153}{\\operatorname{HCF}(45,153)}=765\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(765\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 10,
+    "question": "Tens digit \\(7\\), digit sum \\(16\\): which two-digit number satisfies both facts?",
+    "options": [
+      "\\(79\\)",
+      "\\(80\\)",
+      "\\(78\\)",
+      "\\(81\\)"
+    ],
+    "answer": "\\(79\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_missing_digit_single_rule"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_missing_digit_single_rule"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Tens digit \\(7\\), digit sum \\(16\\): which two-digit number satisfies both facts?",
+        "options": [
+          "\\(79\\)",
+          "\\(80\\)",
+          "\\(78\\)",
+          "\\(81\\)"
+        ],
+        "explanation": "Observation\nA missing digit is decided by the number rule given in the question.\n\nExplanation\nWe are doing this because the right digit must make the whole number satisfy the given rule.\n\nForm the digit-sum equation\n\n\\[\n7+u=16\\Rightarrow u=9\n\\]\n\nWrite the two-digit number\n\nHence, the number is 79.\n\n\\[\nN=10\\times 7+9=79\n\\]\n\nAnswer\nDigit sum of 79 is 16.\nTherefore, the required answer is \\(79\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nMany students stop as soon as they find a digit. Always put the digit back into the whole number and check the rule again.\n\nShortcut\n\nFind the ones digit from the digit sum, then place it.\n\n\\[\nu=9\n\\]\n\n\\[\n\\boxed{79}\n\\]\n\nFast result: \\(79\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "दहाई अंक \\(7\\), अंक-योग \\(16\\): कौन-सी दो-अंकीय संख्या दोनों बातें पूरी करती है?",
+        "options": [
+          "\\(79\\)",
+          "\\(80\\)",
+          "\\(78\\)",
+          "\\(81\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nअंक-योग समीकरण बनाएं\n\n\\[\n7+u=16\\Rightarrow u=9\n\\]\n\nदो-अंकीय संख्या लिखें\n\nअतः संख्या 79 है।\n\n\\[\nN=10\\times 7+9=79\n\\]\n\nउत्तर\n79 का अंक-योग 16 है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(79\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nअंक-योग से इकाई अंक निकालकर रखें।\n\n\\[\nu=9\n\\]\n\n\\[\n\\boxed{79}\n\\]\n\nशीघ्र परिणाम: \\(79\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "ਦਹਾਈ ਅੰਕ \\(7\\), ਅੰਕ-ਜੋੜ \\(16\\): ਕਿਹੜੀ ਦੋ ਅੰਕਾਂ ਵਾਲੀ ਸੰਖਿਆ ਦੋਵੇਂ ਗੱਲਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "\\(79\\)",
+          "\\(80\\)",
+          "\\(78\\)",
+          "\\(81\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਅੰਕ-ਜੋੜ ਸਮੀਕਰਨ ਬਣਾਓ\n\n\\[\n7+u=16\\Rightarrow u=9\n\\]\n\nਦੋ-ਅੰਕੀ ਸੰਖਿਆ ਲਿਖੋ\n\nਇਸ ਲਈ ਸੰਖਿਆ 79 ਹੈ।\n\n\\[\nN=10\\times 7+9=79\n\\]\n\nਉੱਤਰ\n79 ਦਾ ਅੰਕ-ਜੋੜ 16 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(79\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਅੰਕ-ਜੋੜ ਤੋਂ ਇਕਾਈ ਅੰਕ ਕੱਢ ਕੇ ਰੱਖੋ।\n\n\\[\nu=9\n\\]\n\n\\[\n\\boxed{79}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(79\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 11,
+    "question": "When \\(19\\) is raised to the power \\(120\\) and the result is divided by \\(17\\), what remainder is left?",
+    "options": [
+      "\\(1\\)",
+      "\\(2\\)",
+      "\\(0\\)",
+      "\\(3\\)"
+    ],
+    "answer": "\\(1\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_multi_cluster_reasoning"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_multi_cluster_reasoning"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When \\(19\\) is raised to the power \\(120\\) and the result is divided by \\(17\\), what remainder is left?",
+        "options": [
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "Observation\nThis question mixes more than one number-system idea.\n\nExplanation\nWe are doing this because each clue reduces the choices for the next clue.\n\nReplace the big base by its smaller remainder\n\n\\[\n19\\equiv 2\\pmod{17}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 8.\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 16\\rightarrow 15\\rightarrow 13\\rightarrow 9\\rightarrow 1\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(120-1)\\bmod 8+1=8\n\\]\n\nRead the required remainder\n\nHence, remainder = 1.\n\n\\[\n19^{120}\\equiv 1\\pmod{17}\n\\]\n\nAnswer\nThe 8th term of the cycle is 1.\nTherefore, the required answer is \\(1\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not solve only the first clue. The final answer must satisfy every condition in the question.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(120-1)\\bmod 8+1=8\n\\]\n\n\\[\n2^{120}\\equiv 1\\pmod{17}\n\\]\n\nFast result: \\(1\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "जब \\(19\\) की \\(120\\) घात को \\(17\\) से भाग दें, तो शेषफल क्या बचेगा?",
+        "options": [
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n19\\equiv 2\\pmod{17}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 8।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 16\\rightarrow 15\\rightarrow 13\\rightarrow 9\\rightarrow 1\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(120-1)\\bmod 8+1=8\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 1।\n\n\\[\n19^{120}\\equiv 1\\pmod{17}\n\\]\n\nउत्तर\nचक्र का 8वाँ पद 1 है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(1\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(120-1)\\bmod 8+1=8\n\\]\n\n\\[\n2^{120}\\equiv 1\\pmod{17}\n\\]\n\nशीघ्र परिणाम: \\(1\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "जदों \\(19\\) दी \\(120\\) घात नूं \\(17\\) नाल भाग दिओ, तां बाकी की बचेगा?",
+        "options": [
+          "\\(1\\)",
+          "\\(2\\)",
+          "\\(0\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n19\\equiv 2\\pmod{17}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 8।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 16\\rightarrow 15\\rightarrow 13\\rightarrow 9\\rightarrow 1\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(120-1)\\bmod 8+1=8\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 1।\n\n\\[\n19^{120}\\equiv 1\\pmod{17}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 8ਵਾਂ ਪਦ 1 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(120-1)\\bmod 8+1=8\n\\]\n\n\\[\n2^{120}\\equiv 1\\pmod{17}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 12,
+    "question": "How many multiples of \\(8\\) lie between \\(227\\) and \\(311\\)?",
+    "options": [
+      "\\(11\\)",
+      "\\(9\\)",
+      "\\(12\\)",
+      "\\(10\\)"
+    ],
+    "answer": "\\(10\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_range_count"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_range_count"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "How many multiples of \\(8\\) lie between \\(227\\) and \\(311\\)?",
+        "options": [
+          "\\(11\\)",
+          "\\(9\\)",
+          "\\(12\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "Observation\nThis question mixes more than one number-system idea.\n\nExplanation\nWe are doing this because each clue reduces the choices for the next clue.\n\nFind the first valid multiple\n\nTherefore, the first multiple of 8 greater than 227 is 232.\n\n\\[\n8\\times 29=232\n\\]\n\nFind the last valid multiple\n\nTherefore, 304 is the greatest multiple of 8 not exceeding 311.\n\n\\[\n311=8\\times 38+7\n\\]\n\n\\[\n311-7=304\n\\]\n\nCount the valid multiples\n\nThe multiples form an arithmetic progression with common difference 8.\n\n\\[\n\\frac{304-232}{8}+1=9+1=10\n\\]\n\nAnswer\nThe total number of multiples is 10.\nHence, there are 10 multiples of 8 in the given range.\nTherefore, the required answer is \\(10\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not solve only the first clue. The final answer must satisfy every condition in the question.\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{311}{8}\\right\\rfloor-\\left\\lfloor\\frac{226}{8}\\right\\rfloor\n\\]\n\n\\[\n38-28=10\n\\]\n\nFast result: \\(10\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(227\\) और \\(311\\) के बीच \\(8\\) के कितने गुणज हैं?",
+        "options": [
+          "\\(11\\)",
+          "\\(9\\)",
+          "\\(12\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nपहला मान्य गुणज ज्ञात करें\n\nअतः 227 से बड़ा 8 का पहला गुणज 232 है।\n\n\\[\n8\\times 29=232\n\\]\n\nआखिरी वैध गुणज ज्ञात करें\n\nअतः 304, 311 से अधिक न होने वाला 8 का सबसे बड़ा गुणज है।\n\n\\[\n311=8\\times 38+7\n\\]\n\n\\[\n311-7=304\n\\]\n\nमान्य गुणजों की गिनती करें\n\nगुणज 8 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{304-232}{8}+1=9+1=10\n\\]\n\nउत्तर\nगुणजों की कुल संख्या 10 है।\nअतः दी गई सीमा में 8 के 10 गुणज हैं।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(10\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{311}{8}\\right\\rfloor-\\left\\lfloor\\frac{226}{8}\\right\\rfloor\n\\]\n\n\\[\n38-28=10\n\\]\n\nशीघ्र परिणाम: \\(10\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(227\\) ਅਤੇ \\(311\\) ਦੇ ਵਿਚਕਾਰ \\(8\\) ਦੇ ਕਿੰਨੇ ਗੁਣਜ ਹਨ?",
+        "options": [
+          "\\(11\\)",
+          "\\(9\\)",
+          "\\(12\\)",
+          "\\(10\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 227 ਤੋਂ ਵੱਡਾ 8 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 232 ਹੈ।\n\n\\[\n8\\times 29=232\n\\]\n\nਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 304, 311 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 8 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n311=8\\times 38+7\n\\]\n\n\\[\n311-7=304\n\\]\n\nਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 8 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{304-232}{8}+1=9+1=10\n\\]\n\nਉੱਤਰ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 10 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 8 ਦੇ 10 ਗੁਣਜ ਹਨ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(10\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{311}{8}\\right\\rfloor-\\left\\lfloor\\frac{226}{8}\\right\\rfloor\n\\]\n\n\\[\n38-28=10\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(10\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 13,
+    "question": "What is the count of divisors of \\(48\\)?",
+    "options": [
+      "\\(12\\)",
+      "\\(10\\)",
+      "\\(11\\)",
+      "\\(9\\)"
+    ],
+    "answer": "\\(10\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_prime_remainder_hybrid"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_prime_remainder_hybrid"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What is the count of divisors of \\(48\\)?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "Observation\nThe question is about what is left after division.\n\nExplanation\nWe are doing this because numbers with the same remainder move in equal jumps.\n\nWrite prime factorization\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nFor each prime power, count all choices from zero up to that exponent\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(48)=(4+1)\\times (1+1)=10\n\\]\n\nAnswer\nThe number of positive divisors is 10.\nTherefore, the required answer is \\(10\\). Hence, the correct answer is Option (B).\n\nCommon Mistake\nDo not count from zero blindly. Check whether the lower and upper limits are included in the given range.\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(4+1)\\times (1+1)\n\\]\n\nFast result: \\(10\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(48\\) के भाजकों की गिनती क्या है?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nअभाज्य गुणनखंड लिखें\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nघातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(48)=(4+1)\\times (1+1)=10\n\\]\n\nउत्तर\nधनात्मक भाजकों की संख्या 10 है।\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(10\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(4+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(10\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(48\\) ਦੇ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ?",
+        "options": [
+          "\\(12\\)",
+          "\\(10\\)",
+          "\\(11\\)",
+          "\\(9\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n48=2^{4}\\times 3\n\\]\n\nਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(48)=(4+1)\\times (1+1)=10\n\\]\n\nਉੱਤਰ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 10 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(10\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(4+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(10\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 14,
+    "question": "For powers of \\(7\\) modulo \\(13\\), the remainder is \\(10\\). Which exponent between \\(23\\) and \\(29\\) gives this remainder?",
+    "options": [
+      "\\(27\\)",
+      "\\(25\\)",
+      "\\(28\\)",
+      "\\(26\\)"
+    ],
+    "answer": "\\(26\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_exponent_reconstruction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_exponent_reconstruction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "For powers of \\(7\\) modulo \\(13\\), the remainder is \\(10\\). Which exponent between \\(23\\) and \\(29\\) gives this remainder?",
+        "options": [
+          "\\(27\\)",
+          "\\(25\\)",
+          "\\(28\\)",
+          "\\(26\\)"
+        ],
+        "explanation": "Observation\nThis question mixes more than one number-system idea.\n\nExplanation\nWe are doing this because each clue reduces the choices for the next clue.\n\nThis question mixes more than one number-system idea.\n\nThe rule in this question controls which numbers are allowed, so use it before choosing the answer.\n\n\\[\n7^{e}\\equiv 10\\pmod{13}\n\\]\n\nUse this smaller set for the next calculation\n\nThis step keeps the same number tied to the remaining arithmetic condition.\n\n\\[\ne=26\n\\]\n\nAnswer\nThe calculated value 26 satisfies the arithmetic condition used above.\nTherefore, the required answer is \\(26\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not solve only the first clue. The final answer must satisfy every condition in the question.\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\ne=26\n\\]\n\nFast result: \\(26\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(7\\) की घातों को \\(13\\) से भाग देने पर शेष \\(10\\) मिलता है। \\(23\\) और \\(29\\) के बीच कौन-सा घातांक यह शेष देता है?",
+        "options": [
+          "\\(27\\)",
+          "\\(25\\)",
+          "\\(28\\)",
+          "\\(26\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nहर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\n7^{e}\\equiv 10\\pmod{13}\n\\]\n\nपरिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\ne=26\n\\]\n\nउत्तर\nपुनर्निर्मित मान 26 है।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(26\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\ne=26\n\\]\n\nशीघ्र परिणाम: \\(26\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(7\\) ਦੀਆਂ ਘਾਤਾਂ ਨੂੰ \\(13\\) ਨਾਲ ਭਾਗਣ ਤੇ ਬਾਕੀ \\(10\\) ਮਿਲਦਾ ਹੈ। \\(23\\) ਅਤੇ \\(29\\) ਵਿਚਕਾਰ ਕਿਹੜਾ ਘਾਤਾਂਕ ਇਹ ਬਾਕੀ ਦਿੰਦਾ ਹੈ?",
+        "options": [
+          "\\(27\\)",
+          "\\(25\\)",
+          "\\(28\\)",
+          "\\(26\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\n7^{e}\\equiv 10\\pmod{13}\n\\]\n\nਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\ne=26\n\\]\n\nਉੱਤਰ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 26 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(26\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\ne=26\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(26\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 15,
+    "question": "Find the total number of factors of \\(1440\\).",
+    "options": [
+      "\\(35\\)",
+      "\\(38\\)",
+      "\\(36\\)",
+      "\\(37\\)"
+    ],
+    "answer": "\\(36\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_hidden_divisor_deduction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_hidden_divisor_deduction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Find the total number of factors of \\(1440\\).",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "Observation\nEvery divisor is made by choosing some power of each prime.\n\nExplanation\nWe are doing this because each prime power gives several choices for building a divisor.\n\nWrite prime factorization\n\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\n\nFor each prime power, count all choices from zero up to that exponent\n\nEach exponent contributes one more choice than its value.\n\n\\[\nd(1440)=(5+1)\\times (2+1)\\times (1+1)=36\n\\]\n\nAnswer\nThe number of positive divisors is 36.\nTherefore, the required answer is \\(36\\). Hence, the correct answer is Option (C).\n\nCommon Mistake\nDo not multiply the exponents directly. Each exponent gives one extra choice because choosing power zero is also allowed.\n\nShortcut\n\nMultiply (exponent + 1) across all prime powers.\n\n\\[\n(5+1)\\times (2+1)\\times (1+1)\n\\]\n\nFast result: \\(36\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(1440\\) के भाजकों की कुल संख्या ज्ञात करें।",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nअभाज्य गुणनखंड लिखें\n\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\n\nघातों पर (+1) नियम लगाएं\n\nप्रत्येक घात अपने मान से एक अधिक विकल्प देती है।\n\n\\[\nd(1440)=(5+1)\\times (2+1)\\times (1+1)=36\n\\]\n\nउत्तर\nधनात्मक भाजकों की संख्या 36 है।\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(36\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसभी अभाज्य घातों पर (घात + 1) का गुणन करें।\n\n\\[\n(5+1)\\times (2+1)\\times (1+1)\n\\]\n\nशीघ्र परिणाम: \\(36\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(1440\\) ਦੇ ਭਾਜਕਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "\\(35\\)",
+          "\\(38\\)",
+          "\\(36\\)",
+          "\\(37\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n1440=2^{5}\\times 3^{2}\\times 5\n\\]\n\nਘਾਤਾਂ ਤੇ (+1) ਨਿਯਮ ਲਗਾਓ\n\nਹਰ ਘਾਤ ਆਪਣੇ ਮੁੱਲ ਤੋਂ ਇੱਕ ਵੱਧ ਵਿਕਲਪ ਦਿੰਦੀ ਹੈ।\n\n\\[\nd(1440)=(5+1)\\times (2+1)\\times (1+1)=36\n\\]\n\nਉੱਤਰ\nਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ 36 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(36\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾਰੀਆਂ ਅਭਾਜ ਘਾਤਾਂ ਤੇ (ਘਾਤ + 1) ਦਾ ਗੁਣਨ ਕਰੋ।\n\n\\[\n(5+1)\\times (2+1)\\times (1+1)\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(36\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 16,
+    "question": "What is the least perfect square that is divisible by \\(72\\)?",
+    "options": [
+      "\\(144\\)",
+      "\\(151\\)",
+      "\\(158\\)",
+      "\\(137\\)"
+    ],
+    "answer": "\\(144\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_least_square_multiple"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_least_square_multiple"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "What is the least perfect square that is divisible by \\(72\\)?",
+        "options": [
+          "\\(144\\)",
+          "\\(151\\)",
+          "\\(158\\)",
+          "\\(137\\)"
+        ],
+        "explanation": "Observation\nA square is made from pairs of prime factors.\n\nExplanation\nWe are doing this because every factor in a square comes in a pair.\n\nFactorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n72=2^{3}\\times 3^{2}\n\\]\n\nAdd only the missing prime powers\n\nFor a square, every exponent must be even.\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n3^{2}\\to 3^{2}\n\\]\n\nMultiply the missing part\n\n\\[\n72\\times 2=144\n\\]\n\nAnswer\nThe perfect-power condition is now satisfied.\nTherefore, the required answer is \\(144\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not multiply by the whole number again. For a square, add only the prime factors whose powers are unpaired.\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\n72\\times 2=144\n\\]\n\nFast result: \\(144\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(72\\) से विभाज्य सबसे छोटा पूर्ण वर्ग कौन-सा है?",
+        "options": [
+          "\\(144\\)",
+          "\\(151\\)",
+          "\\(158\\)",
+          "\\(137\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nदी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n72=2^{3}\\times 3^{2}\n\\]\n\nघातो�‚ �•ो प�‚रा �•रे�‚\n\nवर्ग �•े लिए हर घात सम होनी चाहिए।\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n3^{2}\\to 3^{2}\n\\]\n\nआवश्य�• मान पढ़े�‚\n\n\\[\n72\\times 2=144\n\\]\n\nउत्तर\nप�‚र्ण-घात शर्त अब प�‚री है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(144\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\n72\\times 2=144\n\\]\n\nशीघ्र परिणाम: \\(144\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(72\\) ਨਾਲ ਭਾਗ ਜਾਣ ਵਾਲਾ ਸਭ ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਵਰਗ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "\\(144\\)",
+          "\\(151\\)",
+          "\\(158\\)",
+          "\\(137\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n72=2^{3}\\times 3^{2}\n\\]\n\nਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਵਰਗ ਲਈ ਹਰ ਘਾਤ ਜੁੜੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{3}\\to 2^{4}\n\\]\n\n\\[\n3^{2}\\to 3^{2}\n\\]\n\nਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\n72\\times 2=144\n\\]\n\nਉੱਤਰ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(144\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\n72\\times 2=144\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(144\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 94
+  },
+  {
+    "index": 17,
+    "question": "Find the smallest integer above \\(1344\\) which is a common multiple of \\(8\\) and \\(9\\).",
+    "options": [
+      "\\(1642\\)",
+      "\\(1231\\)",
+      "\\(1368\\)",
+      "\\(1505\\)"
+    ],
+    "answer": "\\(1368\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_least_number_constraint"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_least_number_constraint"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Find the smallest integer above \\(1344\\) which is a common multiple of \\(8\\) and \\(9\\).",
+        "options": [
+          "\\(1642\\)",
+          "\\(1231\\)",
+          "\\(1368\\)",
+          "\\(1505\\)"
+        ],
+        "explanation": "Observation\nThe least number is the first number that passes every check.\n\nExplanation\nWe are doing this because the first valid number appears after the pattern is formed.\n\nPut the given conditions together first\n\nFirst combine the divisibility facts. A number divisible by each given divisor must be a multiple of their LCM.\n\n\\[\nm=72\n\\]\n\nNow choose the number that stays within the given limit\n\nNow use the nearby multiples and choose the first or last one according to the question.\n\n\\[\nq=\\left\\lceil\\frac{1345}{72}\\right\\rceil\n\\]\n\n\\[\n72\\times q=1368\n\\]\n\nAnswer\nThe selected number is 1368, and it satisfies the required divisibility condition.\nTherefore, the required answer is \\(1368\\). Hence, the correct answer is Option (C).\n\nCommon Mistake\nDo not pick the first small-looking number. It must satisfy every condition in the question.\n\nShortcut\n\nTake the LCM once, then jump directly to the nearest multiple asked in the question.\n\n\\[\n72\\times q=1368\n\\]\n\nFast result: \\(1368\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "\\(1344\\) से ऊपर \\(8\\) और \\(9\\) का सबसे छोटा सामान्य गुणज ज्ञात करें।",
+        "options": [
+          "\\(1642\\)",
+          "\\(1231\\)",
+          "\\(1368\\)",
+          "\\(1505\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nपहले स�‚ख्या शर्ते�‚ मिलाए�‚\n\nअनु�•�‚लन तभी �•रे�‚ जब विभाज्यता या शेषफल शर्त ए�• उपयोगी च�•्र मे�‚ बदल जाए।\n\n\\[\nm=72\n\\]\n\nनि�•टतम मान्य सीमा ले�‚\n\nसीमा चरण सुनिश्चित �•रता है �•ि स�‚ख्या सिर्फ अ�‚�•गणित नही�‚, दी गई सीमा भी प�‚री �•रे।\n\n\\[\nq=\\left\\lceil\\frac{1345}{72}\\right\\rceil\n\\]\n\n\\[\n72\\times q=1368\n\\]\n\nउत्तर\nअनु�•�‚लित मान्य मान 1368 है।\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(1368\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nस�‚यु�•्त च�•्र ले�•र �•ेवल आवश्य�• सीमा-सुधार �•रे�‚।\n\n\\[\n72\\times q=1368\n\\]\n\nशीघ्र परिणाम: \\(1368\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "\\(1344\\) ਤੋਂ ਉੱਪਰ \\(8\\) ਅਤੇ \\(9\\) ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਾਂਝਾ ਗੁਣਜ ਕੱਢੋ।",
+        "options": [
+          "\\(1642\\)",
+          "\\(1231\\)",
+          "\\(1368\\)",
+          "\\(1505\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਪਹਿਲਾ�‚ ਸੰਖਿਆ ਦੀਆ�‚ ਸ਼ਰਤਾ�‚ ਮਿਲਾਓ\n\nਅਨੁ�•�‚ਲਨ ਤਦੋ�‚ �•ਰੋ ਜਦੋ�‚ ਭਾਗਯੋਗਤਾ ਜਾ�‚ ਬਾ�•ੀ ਦੀ ਸ਼ਰਤ ਇੱ�• ਵਰਤਣਯੋਗ ਚੱ�•ਰ ਵਿੱਚ ਬਦਲ ਜਾਵੇ।\n\n\\[\nm=72\n\\]\n\nਨੇੜਲੀ ਵੈਧ ਹੱਦ ਲਓ\n\nਹੱਦ ਵਾਲਾ �•ਦਮ ਯ�•ੀਨੀ ਬਣਾਉ�‚ਦਾ ਹੈ �•ਿ ਸੰਖਿਆ ਸਿਰਫ ਹਿਸਾਬ ਨਹੀ�‚, ਦਿੱਤੀ ਹੱਦ ਵੀ ਪ�‚ਰੀ �•ਰੇ।\n\n\\[\nq=\\left\\lceil\\frac{1345}{72}\\right\\rceil\n\\]\n\n\\[\n72\\times q=1368\n\\]\n\nਉੱਤਰ\nਅਨੁ�•�‚ਲਿਤ ਵੈਧ ਮੁੱਲ 1368 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(1368\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਾ�‚ਝਾ ਚੱ�•ਰ ਲੈ �•ੇ ਸਿਰਫ ਲੋੜੀ�‚ਦਾ ਹੱਦ-ਸੁਧਾਰ �•ਰੋ।\n\n\\[\n72\\times q=1368\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(1368\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  },
+  {
+    "index": 18,
+    "question": "\\(17^{74}\\) — what are its last three digits?",
+    "options": [
+      "\\(129\\)",
+      "\\(135\\)",
+      "\\(142\\)",
+      "\\(123\\)"
+    ],
+    "answer": "\\(129\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_last_three_digits"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_last_three_digits"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "\\(17^{74}\\) — what are its last three digits?",
+        "options": [
+          "\\(129\\)",
+          "\\(135\\)",
+          "\\(142\\)",
+          "\\(123\\)"
+        ],
+        "explanation": "Observation\nThe clues are about digits, so place value is the main idea.\n\nExplanation\nWe are doing this because digit clues become useful only after we attach them to their places.\n\nReplace the big base by its smaller remainder\n\n\\[\n17\\equiv 17\\pmod{1000}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 24.\n\n\\[\n17\\rightarrow 289\\rightarrow 913\\rightarrow 521\\rightarrow 857\\rightarrow 569\\rightarrow 673\\rightarrow 441\\rightarrow 497\\rightarrow 449\\rightarrow 633\\rightarrow 761\\rightarrow 937\\rightarrow 929\\rightarrow 793\\rightarrow 481\\rightarrow 177\\rightarrow 9\\rightarrow 153\\rightarrow 601\\rightarrow 217\\rightarrow 689\\rightarrow 713\\rightarrow 121\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(74-1)\\bmod 24+1=2\n\\]\n\nRead the required remainder\n\nHence, remainder = 289.\n\n\\[\n17^{74}\\equiv 289\\pmod{1000}\n\\]\n\nAnswer\nThe 2nd term of the cycle is 289.\nTherefore, the required answer is \\(129\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not treat every digit as having the same value. A digit in the tens place and a digit in the units place are not equal in value.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(74-1)\\bmod 24+1=2\n\\]\n\n\\[\n17^{74}\\equiv 289\\pmod{1000}\n\\]\n\nFast result: \\(129\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(17^{74}\\) — इसके अंतिम तीन अंक क्या हैं?",
+        "options": [
+          "\\(129\\)",
+          "\\(135\\)",
+          "\\(142\\)",
+          "\\(123\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n17\\equiv 17\\pmod{1000}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 24।\n\n\\[\n17\\rightarrow 289\\rightarrow 913\\rightarrow 521\\rightarrow 857\\rightarrow 569\\rightarrow 673\\rightarrow 441\\rightarrow 497\\rightarrow 449\\rightarrow 633\\rightarrow 761\\rightarrow 937\\rightarrow 929\\rightarrow 793\\rightarrow 481\\rightarrow 177\\rightarrow 9\\rightarrow 153\\rightarrow 601\\rightarrow 217\\rightarrow 689\\rightarrow 713\\rightarrow 121\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(74-1)\\bmod 24+1=2\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 289।\n\n\\[\n17^{74}\\equiv 289\\pmod{1000}\n\\]\n\nउत्तर\nचक्र का 2वाँ पद 289 है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(129\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(74-1)\\bmod 24+1=2\n\\]\n\n\\[\n17^{74}\\equiv 289\\pmod{1000}\n\\]\n\nशीघ्र परिणाम: \\(129\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(17^{74}\\) — ਇਸ ਦੇ ਆਖਰੀ ਤਿੰਨ ਅੰਕ ਕੀ ਹਨ?",
+        "options": [
+          "\\(129\\)",
+          "\\(135\\)",
+          "\\(142\\)",
+          "\\(123\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n17\\equiv 17\\pmod{1000}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 24।\n\n\\[\n17\\rightarrow 289\\rightarrow 913\\rightarrow 521\\rightarrow 857\\rightarrow 569\\rightarrow 673\\rightarrow 441\\rightarrow 497\\rightarrow 449\\rightarrow 633\\rightarrow 761\\rightarrow 937\\rightarrow 929\\rightarrow 793\\rightarrow 481\\rightarrow 177\\rightarrow 9\\rightarrow 153\\rightarrow 601\\rightarrow 217\\rightarrow 689\\rightarrow 713\\rightarrow 121\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(74-1)\\bmod 24+1=2\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 289।\n\n\\[\n17^{74}\\equiv 289\\pmod{1000}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 2ਵਾਂ ਪਦ 289 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(129\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(74-1)\\bmod 24+1=2\n\\]\n\n\\[\n17^{74}\\equiv 289\\pmod{1000}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(129\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 90
+  },
+  {
+    "index": 19,
+    "question": "Two cyclic events repeat every \\(40\\) and \\(104\\) minutes. After how many minutes will they occur together again?",
+    "options": [
+      "\\(546\\)",
+      "\\(572\\)",
+      "\\(494\\)",
+      "\\(520\\)"
+    ],
+    "answer": "\\(520\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_minimum_common_multiple"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_minimum_common_multiple"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Two cyclic events repeat every \\(40\\) and \\(104\\) minutes. After how many minutes will they occur together again?",
+        "options": [
+          "\\(546\\)",
+          "\\(572\\)",
+          "\\(494\\)",
+          "\\(520\\)"
+        ],
+        "explanation": "Observation\nLCM must be a multiple of every given number.\n\nExplanation\nWe are doing this because the LCM must have enough factors to cover every given number.\n\nWrite prime factorizations\n\n\\[\n40=2^{3}\\times 5\n\\]\n\n\\[\n104=2^{3}\\times 13\n\\]\n\nTake highest powers for LCM\n\n\\[\n\\operatorname{LCM}(40,104)=520\n\\]\n\nAnswer\nThe LCM is 520.\nTherefore, the required answer is \\(520\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not take only common primes for LCM. LCM must include every prime needed by any of the numbers.\n\nShortcut\n\nUse the product identity with the HCF.\n\n\\[\n\\operatorname{LCM}(40,104)=\\frac{40\\times 104}{\\operatorname{HCF}(40,104)}=520\n\\]\n\nFast result: \\(520\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "दो घटनाएँ हर \\(40\\) और \\(104\\) मिनट में दोहराती हैं। वे फिर साथ कितने मिनट बाद होंगी?",
+        "options": [
+          "\\(546\\)",
+          "\\(572\\)",
+          "\\(494\\)",
+          "\\(520\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nअभाज्य गुणनखंड लिखें\n\n\\[\n40=2^{3}\\times 5\n\\]\n\n\\[\n104=2^{3}\\times 13\n\\]\n\nLCM के लिए अधिकतम घातें लें\n\n\\[\n\\operatorname{LCM}(40,104)=520\n\\]\n\nउत्तर\nLCM 520 है।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(520\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nHCF के साथ गुणन पहचान लगाएं।\n\n\\[\n\\operatorname{LCM}(40,104)=\\frac{40\\times 104}{\\operatorname{HCF}(40,104)}=520\n\\]\n\nशीघ्र परिणाम: \\(520\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "ਦੋ ਘਟਨਾਵਾਂ ਹਰ \\(40\\) ਅਤੇ \\(104\\) ਮਿੰਟ ਬਾਅਦ ਦੁਹਰਾਉਂਦੀਆਂ ਹਨ। ਉਹ ਮੁੜ ਇਕੱਠੀਆਂ ਕਿੰਨੇ ਮਿੰਟ ਬਾਅਦ ਹੋਣਗੀਆਂ?",
+        "options": [
+          "\\(546\\)",
+          "\\(572\\)",
+          "\\(494\\)",
+          "\\(520\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਅਭਾਜ ਗੁਣਨਖੰਡ ਲਿਖੋ\n\n\\[\n40=2^{3}\\times 5\n\\]\n\n\\[\n104=2^{3}\\times 13\n\\]\n\nLCM ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਘਾਤਾਂ ਲਓ\n\n\\[\n\\operatorname{LCM}(40,104)=520\n\\]\n\nਉੱਤਰ\nLCM 520 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(520\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nHCF ਨਾਲ ਗੁਣਨ ਪਛਾਣ ਲਗਾਓ।\n\n\\[\n\\operatorname{LCM}(40,104)=\\frac{40\\times 104}{\\operatorname{HCF}(40,104)}=520\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(520\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 20,
+    "question": "When you divide \\(11^{34}\\) by \\(7\\), what remainder do you get?",
+    "options": [
+      "\\(6\\)",
+      "\\(4\\)",
+      "\\(5\\)",
+      "\\(3\\)"
+    ],
+    "answer": "\\(4\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_factorial_remainder"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_factorial_remainder"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "When you divide \\(11^{34}\\) by \\(7\\), what remainder do you get?",
+        "options": [
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "Observation\nThe question is about what is left after division.\n\nExplanation\nWe are doing this because numbers with the same remainder move in equal jumps.\n\nReplace the big base by its smaller remainder\n\n\\[\n11\\equiv 4\\pmod{7}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 3.\n\n\\[\n4\\rightarrow 2\\rightarrow 1\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(34-1)\\bmod 3+1=1\n\\]\n\nRead the required remainder\n\nHence, remainder = 4.\n\n\\[\n11^{34}\\equiv 4\\pmod{7}\n\\]\n\nAnswer\nThe 1st term of the cycle is 4.\nTherefore, the required answer is \\(4\\). Hence, the correct answer is Option (B).\n\nCommon Mistake\nDo not count from zero blindly. Check whether the lower and upper limits are included in the given range.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(34-1)\\bmod 3+1=1\n\\]\n\n\\[\n4^{34}\\equiv 4\\pmod{7}\n\\]\n\nFast result: \\(4\\). Therefore, the correct answer is Option (B)."
+      },
+      "hi": {
+        "question": "\\(11^{34}\\) को \\(7\\) से भाग देने पर क्या शेषफल आएगा?",
+        "options": [
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n11\\equiv 4\\pmod{7}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 3।\n\n\\[\n4\\rightarrow 2\\rightarrow 1\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(34-1)\\bmod 3+1=1\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 4।\n\n\\[\n11^{34}\\equiv 4\\pmod{7}\n\\]\n\nउत्तर\nचक्र का 1वाँ पद 4 है।\nअतः सही उत्तर विकल्प (B) है। आवश्यक मान \\(4\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(34-1)\\bmod 3+1=1\n\\]\n\n\\[\n4^{34}\\equiv 4\\pmod{7}\n\\]\n\nशीघ्र परिणाम: \\(4\\)। अतः सही उत्तर विकल्प (B) है।"
+      },
+      "pa": {
+        "question": "\\(11^{34}\\) ਨੂੰ \\(7\\) ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕਿਹੜਾ ਬਾਕੀ ਆਵੇਗਾ?",
+        "options": [
+          "\\(6\\)",
+          "\\(4\\)",
+          "\\(5\\)",
+          "\\(3\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n11\\equiv 4\\pmod{7}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 3।\n\n\\[\n4\\rightarrow 2\\rightarrow 1\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(34-1)\\bmod 3+1=1\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 4।\n\n\\[\n11^{34}\\equiv 4\\pmod{7}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 1ਵਾਂ ਪਦ 4 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(4\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(34-1)\\bmod 3+1=1\n\\]\n\n\\[\n4^{34}\\equiv 4\\pmod{7}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(4\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (B) ਹੈ।"
+      }
+    },
+    "realismScore": 88
+  },
+  {
+    "index": 21,
+    "question": "By what least number should \\(108\\) be multiplied to make it a perfect cube?",
+    "options": [
+      "\\(3\\)",
+      "\\(1\\)",
+      "\\(4\\)",
+      "\\(2\\)"
+    ],
+    "answer": "\\(2\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_perfect_cube_completion"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_perfect_cube_completion"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "By what least number should \\(108\\) be multiplied to make it a perfect cube?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "Observation\nA cube is made from groups of three equal prime factors.\n\nExplanation\nWe are doing this because every factor in a cube comes in a group of three.\n\nFactorize the given number\n\nPerfect powers are controlled by prime exponents.\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nAdd only the missing prime powers\n\nFor a cube, every exponent must be a multiple of 3.\n\n\\[\n2^{2}\\to 2^{3}\n\\]\n\n\\[\n3^{3}\\to 3^{3}\n\\]\n\nMultiply the missing part\n\n\\[\n108\\times 2=216\n\\]\n\nAnswer\nThe perfect-power condition is now satisfied.\nTherefore, the required answer is \\(2\\). Hence, the correct answer is Option (D).\n\nCommon Mistake\nDo not stop after making exponents even. For a cube, every prime power must be grouped in threes.\n\nShortcut\n\nFill only the missing prime powers; do not search through squares or cubes.\n\n\\[\n108\\times 2=216\n\\]\n\nFast result: \\(2\\). Therefore, the correct answer is Option (D)."
+      },
+      "hi": {
+        "question": "\\(108\\) को पूर्ण घन बनाने के लिए किस न्यूनतम संख्या से गुणा करना चाहिए?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nदी गई स�‚ख्या �•ा अभाज्य गुणनख�‚ड �•रे�‚\n\nप�‚र्ण घाते�‚ अभाज्य घातो�‚ से निय�‚त्रित होती है�‚।\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nघातो�‚ �•ो प�‚रा �•रे�‚\n\nघन �•े लिए हर घात 3 �•े गुणज मे�‚ होनी चाहिए।\n\n\\[\n2^{2}\\to 2^{3}\n\\]\n\n\\[\n3^{3}\\to 3^{3}\n\\]\n\nआवश्य�• मान पढ़े�‚\n\n\\[\n108\\times 2=216\n\\]\n\nउत्तर\nप�‚र्ण-घात शर्त अब प�‚री है।\nअतः सही उत्तर विकल्प (D) है। आवश्यक मान \\(2\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\n�•ेवल छ�‚टी अभाज्य घाते�‚ प�‚री �•रे�‚; वर्ग/घन खोजने न लगे�‚।\n\n\\[\n108\\times 2=216\n\\]\n\nशीघ्र परिणाम: \\(2\\)। अतः सही उत्तर विकल्प (D) है।"
+      },
+      "pa": {
+        "question": "\\(108\\) ਨੂੰ ਪੂਰਨ ਘਣ ਬਣਾਉਣ ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਕਿਹੜੀ ਸੰਖਿਆ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+        "options": [
+          "\\(3\\)",
+          "\\(1\\)",
+          "\\(4\\)",
+          "\\(2\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਦਿੱਤੀ ਸੰਖਿਆ ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ �•ਰੋ\n\nਪ�‚ਰਣ ਘਾਤਾ�‚ ਅਭਾਜ ਘਾਤਾ�‚ ਨਾਲ ਤੈਅ ਹੁੰਦੀਆ�‚ ਹਨ।\n\n\\[\n108=2^{2}\\times 3^{3}\n\\]\n\nਘਾਤਾ�‚ ਨ�‚ੰ ਪ�‚ਰਾ �•ਰੋ\n\nਘਣ ਲਈ ਹਰ ਘਾਤ 3 ਦੇ ਗੁਣਜ ਵਿੱਚ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।\n\n\\[\n2^{2}\\to 2^{3}\n\\]\n\n\\[\n3^{3}\\to 3^{3}\n\\]\n\nਲੋੜੀ�‚ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ\n\n\\[\n108\\times 2=216\n\\]\n\nਉੱਤਰ\nਪ�‚ਰਣ-ਘਾਤ ਦੀ ਸ਼ਰਤ ਹੁਣ ਪ�‚ਰੀ ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(2\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਿਰਫ ਘੱਟ ਅਭਾਜ ਘਾਤਾ�‚ ਪ�‚ਰੀਆ�‚ �•ਰੋ; ਵਰਗ/ਘਣ ਖੋਜਣ ਨਾ ਲਗੋ।\n\n\\[\n108\\times 2=216\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(2\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (D) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 22,
+    "question": "Numbers giving remainder \\(1\\) with divisors \\(12\\) and \\(10\\) follow one common cycle. Find the \\(14\\)-th positive number in that cycle.",
+    "options": [
+      "\\(841\\)",
+      "\\(883\\)",
+      "\\(925\\)",
+      "\\(799\\)"
+    ],
+    "answer": "\\(841\\)",
+    "difficulty": "Hard",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_multi_condition_reconstruction"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_multi_condition_reconstruction"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Numbers giving remainder \\(1\\) with divisors \\(12\\) and \\(10\\) follow one common cycle. Find the \\(14\\)-th positive number in that cycle.",
+        "options": [
+          "\\(841\\)",
+          "\\(883\\)",
+          "\\(925\\)",
+          "\\(799\\)"
+        ],
+        "explanation": "Observation\nThis question mixes more than one number-system idea.\n\nExplanation\nWe are doing this because each clue reduces the choices for the next clue.\n\nThis question mixes more than one number-system idea.\n\nThe rule in this question controls which numbers are allowed, so use it before choosing the answer.\n\n\\[\nN=60\\times 14+1\n\\]\n\nUse this smaller set for the next calculation\n\nThis step keeps the same number tied to the remaining arithmetic condition.\n\n\\[\n841\n\\]\n\nAnswer\nThe calculated value 841 satisfies the arithmetic condition used above.\nTherefore, the required answer is \\(841\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nDo not solve only the first clue. The final answer must satisfy every condition in the question.\n\nShortcut\n\nStart with the clue that gives the smallest search, then test the remaining condition.\n\n\\[\n841\n\\]\n\nFast result: \\(841\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(12\\) और \\(10\\) पर शेष \\(1\\) देने वाली संख्याएँ एक सामान्य चक्र बनाती हैं। उस चक्र की \\(14\\)-वीं धनात्मक संख्या ज्ञात करें।",
+        "options": [
+          "\\(841\\)",
+          "\\(883\\)",
+          "\\(925\\)",
+          "\\(799\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nहर स�‚�•ेत �•ो स�‚ख्या शर्त मे�‚ बदले�‚\n\nपुनर्निर्माण प्रश्न अनुमान से नही�‚; हर स�‚�•ेत जाँचने योग्य स�‚ब�‚ध बनना चाहिए।\n\n\\[\nN=60\\times 14+1\n\\]\n\nपरिणाम �•ो अगली शर्त मे�‚ ले जाए�‚\n\nइससे अ�‚तिम प्रत्याशी प�‚री श्रृ�‚खला प�‚री �•रता है, सिर्फ पहला स�‚�•ेत नही�‚।\n\n\\[\n841\n\\]\n\nउत्तर\nपुनर्निर्मित मान 841 है।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(841\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसबसे मजब�‚त स�‚�•ेत पहले ले�‚, फिर प्रत्याशी �•ो शेष शर्त से जाँचे�‚।\n\n\\[\n841\n\\]\n\nशीघ्र परिणाम: \\(841\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(12\\) ਅਤੇ \\(10\\) ਤੇ ਬਾਕੀ \\(1\\) ਦੇਣ ਵਾਲੀਆਂ ਸੰਖਿਆਵਾਂ ਇੱਕ ਸਾਂਝਾ ਚੱਕਰ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਉਸ ਚੱਕਰ ਦੀ \\(14\\)-ਵੀਂ ਧਨਾਤਮਕ ਸੰਖਿਆ ਕੱਢੋ।",
+        "options": [
+          "\\(841\\)",
+          "\\(883\\)",
+          "\\(925\\)",
+          "\\(799\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਹਰ ਇਸ਼ਾਰੇ ਨ�‚ੰ ਸੰਖਿਆ ਸ਼ਰਤ ਵਿੱਚ ਬਦਲੋ\n\nਪੁਨਰ-ਨਿਰਮਾਣ ਪ੍ਰਸ਼ਨ ਅਨੁਮਾਨ ਨਾਲ ਨਹੀ�‚; ਹਰ ਇਸ਼ਾਰਾ ਜਾ�‚ਚਣਯੋਗ ਸੰਬੰਧ ਬਣਣਾ ਚਾਹੀਦਾ ਹੈ।\n\n\\[\nN=60\\times 14+1\n\\]\n\nਨਤੀਜੇ ਨ�‚ੰ ਅਗਲੀ ਸ਼ਰਤ ਵਿੱਚ ਲੈ ਜਾਓ\n\nਇਸ ਨਾਲ ਅੰਤਿਮ ਉਮੀਦਵਾਰ ਪ�‚ਰੀ �•ੜੀ ਪ�‚ਰੀ �•ਰਦਾ ਹੈ, ਸਿਰਫ ਪਹਿਲਾ ਇਸ਼ਾਰਾ ਨਹੀ�‚।\n\n\\[\n841\n\\]\n\nਉੱਤਰ\nਪੁਨਰ-ਨਿਰਮਿਤ ਮੁੱਲ 841 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(841\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸਭ ਤੋ�‚ ਮਜਬ�‚ਤ ਇਸ਼ਾਰਾ ਪਹਿਲਾ�‚ ਲਓ, ਫਿਰ ਉਮੀਦਵਾਰ ਨ�‚ੰ ਬਾ�•ੀ ਸ਼ਰਤ ਨਾਲ ਜਾ�‚ਚੋ।\n\n\\[\n841\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(841\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 92
+  },
+  {
+    "index": 23,
+    "question": "Find the remainder: \\(2^{67} \\div 13\\).",
+    "options": [
+      "\\(10\\)",
+      "\\(13\\)",
+      "\\(11\\)",
+      "\\(12\\)"
+    ],
+    "answer": "\\(11\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_remainder_after_power"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_remainder_after_power"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "Find the remainder: \\(2^{67} \\div 13\\).",
+        "options": [
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(12\\)"
+        ],
+        "explanation": "Observation\nThe question is about what is left after division.\n\nExplanation\nWe are doing this because numbers with the same remainder move in equal jumps.\n\nReplace the big base by its smaller remainder\n\n\\[\n2\\equiv 2\\pmod{13}\n\\]\n\nWrite the remainder cycle\n\nCycle length = 12.\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 3\\rightarrow 6\\rightarrow 12\\rightarrow 11\\rightarrow 9\\rightarrow 5\\rightarrow 10\\rightarrow 7\\rightarrow 1\n\\]\n\nFind where the exponent falls in the repeating pattern\n\n\\[\n(67-1)\\bmod 12+1=7\n\\]\n\nRead the required remainder\n\nHence, remainder = 11.\n\n\\[\n2^{67}\\equiv 11\\pmod{13}\n\\]\n\nAnswer\nThe 7th term of the cycle is 11.\nTherefore, the required answer is \\(11\\). Hence, the correct answer is Option (C).\n\nCommon Mistake\nDo not count from zero blindly. Check whether the lower and upper limits are included in the given range.\n\nShortcut\n\nFirst make the base small, then use the power pattern.\n\n\\[\np=(67-1)\\bmod 12+1=7\n\\]\n\n\\[\n2^{67}\\equiv 11\\pmod{13}\n\\]\n\nFast result: \\(11\\). Therefore, the correct answer is Option (C)."
+      },
+      "hi": {
+        "question": "ਸ਼ੇਸ਼ਫਲ ਪਤਾ ਕਰੋ: \\(2^{67} \\div 13\\)।",
+        "options": [
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(12\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nआधार को भाजक के अनुसार घटाएं\n\n\\[\n2\\equiv 2\\pmod{13}\n\\]\n\nशेषफल चक्र लिखें\n\nचक्र की लंबाई = 12।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 3\\rightarrow 6\\rightarrow 12\\rightarrow 11\\rightarrow 9\\rightarrow 5\\rightarrow 10\\rightarrow 7\\rightarrow 1\n\\]\n\nचक्र में घात की स्थिति ज्ञात करें\n\n\\[\n(67-1)\\bmod 12+1=7\n\\]\n\nआवश्यक शेषफल पढ़ें\n\nअतः शेषफल = 11।\n\n\\[\n2^{67}\\equiv 11\\pmod{13}\n\\]\n\nउत्तर\nचक्र का 7वाँ पद 11 है।\nअतः सही उत्तर विकल्प (C) है। आवश्यक मान \\(11\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nआधार एक बार घटाकर चक्र में घात की स्थिति पर जाएं।\n\n\\[\np=(67-1)\\bmod 12+1=7\n\\]\n\n\\[\n2^{67}\\equiv 11\\pmod{13}\n\\]\n\nशीघ्र परिणाम: \\(11\\)। अतः सही उत्तर विकल्प (C) है।"
+      },
+      "pa": {
+        "question": "ਬਾਕੀ ਪਤਾ ਕਰੋ: \\(2^{67} \\div 13\\)।",
+        "options": [
+          "\\(10\\)",
+          "\\(13\\)",
+          "\\(11\\)",
+          "\\(12\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਆਧਾਰ ਨੂੰ ਭਾਜਕ ਮੁਤਾਬਕ ਘਟਾਓ\n\n\\[\n2\\equiv 2\\pmod{13}\n\\]\n\nਬਾਕੀ ਚੱਕਰ ਲਿਖੋ\n\nਚੱਕਰ ਦੀ ਲੰਬਾਈ = 12।\n\n\\[\n2\\rightarrow 4\\rightarrow 8\\rightarrow 3\\rightarrow 6\\rightarrow 12\\rightarrow 11\\rightarrow 9\\rightarrow 5\\rightarrow 10\\rightarrow 7\\rightarrow 1\n\\]\n\nਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਕੱਢੋ\n\n\\[\n(67-1)\\bmod 12+1=7\n\\]\n\nਲੋੜੀਂਦਾ ਬਾਕੀ ਪੜ੍ਹੋ\n\nਇਸ ਲਈ ਬਾਕੀ = 11।\n\n\\[\n2^{67}\\equiv 11\\pmod{13}\n\\]\n\nਉੱਤਰ\nਚੱਕਰ ਦਾ 7ਵਾਂ ਪਦ 11 ਹੈ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(11\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਆਧਾਰ ਇੱਕ ਵਾਰ ਘਟਾ ਕੇ ਚੱਕਰ ਵਿੱਚ ਘਾਤ ਦੀ ਸਥਿਤੀ ਤੇ ਜਾਓ।\n\n\\[\np=(67-1)\\bmod 12+1=7\n\\]\n\n\\[\n2^{67}\\equiv 11\\pmod{13}\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(11\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (C) ਹੈ।"
+      }
+    },
+    "realismScore": 89
+  },
+  {
+    "index": 24,
+    "question": "In the range \\(203\\) to \\(325\\), how many integers are divisible by \\(9\\)?",
+    "options": [
+      "\\(14\\)",
+      "\\(15\\)",
+      "\\(13\\)",
+      "\\(16\\)"
+    ],
+    "answer": "\\(14\\)",
+    "difficulty": "Medium",
+    "topology": {
+      "family": "number_system",
+      "variant": "ns_divisibility_multi_condition"
+    },
+    "semanticAnchors": {
+      "canonicalScenario": {
+        "domain": "number_system",
+        "object": "ns_divisibility_multi_condition"
+      },
+      "semanticConsistency": null,
+      "localizationCoverage": {
+        "en": 1,
+        "hi": 1,
+        "pa": 1
+      }
+    },
+    "multilingual": {
+      "en": {
+        "question": "In the range \\(203\\) to \\(325\\), how many integers are divisible by \\(9\\)?",
+        "options": [
+          "\\(14\\)",
+          "\\(15\\)",
+          "\\(13\\)",
+          "\\(16\\)"
+        ],
+        "explanation": "Observation\nA missing digit is decided by the number rule given in the question.\n\nExplanation\nWe are doing this because the right digit must make the whole number satisfy the given rule.\n\nFind the first valid multiple\n\nTherefore, the first multiple of 9 greater than 203 is 207.\n\n\\[\n9\\times 23=207\n\\]\n\nFind the last valid multiple\n\nTherefore, 324 is the greatest multiple of 9 not exceeding 325.\n\n\\[\n325=9\\times 36+1\n\\]\n\n\\[\n325-1=324\n\\]\n\nCount the valid multiples\n\nThe multiples form an arithmetic progression with common difference 9.\n\n\\[\n\\frac{324-207}{9}+1=13+1=14\n\\]\n\nAnswer\nThe total number of multiples is 14.\nHence, there are 14 multiples of 9 in the given range.\nTherefore, the required answer is \\(14\\). Hence, the correct answer is Option (A).\n\nCommon Mistake\nMany students stop as soon as they find a digit. Always put the digit back into the whole number and check the rule again.\n\nShortcut\n\nCount multiples using quotient floors on the range limits.\n\n\\[\n\\left\\lfloor\\frac{325}{9}\\right\\rfloor-\\left\\lfloor\\frac{202}{9}\\right\\rfloor\n\\]\n\n\\[\n36-22=14\n\\]\n\nFast result: \\(14\\). Therefore, the correct answer is Option (A)."
+      },
+      "hi": {
+        "question": "\\(203\\) से \\(325\\) की सीमा में \\(9\\) से विभाज्य कितने पूर्णांक हैं?",
+        "options": [
+          "\\(14\\)",
+          "\\(15\\)",
+          "\\(13\\)",
+          "\\(16\\)"
+        ],
+        "explanation": "अवलोकन\nपहले यह समझें कि प्रश्न किस संख्या-नियम की तरफ इशारा कर रहा है।\n\nव्याख्या\nयह कदम इसलिए जरूरी है क्योंकि इसी से पता चलता है कि आगे कौन-सी गणना करनी है।\n\nपहला मान्य गुणज ज्ञात करें\n\nअतः 203 से बड़ा 9 का पहला गुणज 207 है।\n\n\\[\n9\\times 23=207\n\\]\n\nआखिरी वैध गुणज ज्ञात करें\n\nअतः 324, 325 से अधिक न होने वाला 9 का सबसे बड़ा गुणज है।\n\n\\[\n325=9\\times 36+1\n\\]\n\n\\[\n325-1=324\n\\]\n\nमान्य गुणजों की गिनती करें\n\nगुणज 9 के सामान्य अंतर वाली समांतर श्रेणी बनाते हैं।\n\n\\[\n\\frac{324-207}{9}+1=13+1=14\n\\]\n\nउत्तर\nगुणजों की कुल संख्या 14 है।\nअतः दी गई सीमा में 9 के 14 गुणज हैं।\nअतः सही उत्तर विकल्प (A) है। आवश्यक मान \\(14\\) है।\n\nसामान्य गलती\nअक्सर गलती यह होती है कि विद्यार्थी केवल एक शर्त देखकर उत्तर चुन लेते हैं। अंतिम उत्तर को सभी शर्तों से मिलाकर जरूर देखें।\n\nशॉर्टकट\n\nसीमा की सीमाओं पर भागफल-मूल्य से गुणज गिनें।\n\n\\[\n\\left\\lfloor\\frac{325}{9}\\right\\rfloor-\\left\\lfloor\\frac{202}{9}\\right\\rfloor\n\\]\n\n\\[\n36-22=14\n\\]\n\nशीघ्र परिणाम: \\(14\\)। अतः सही उत्तर विकल्प (A) है।"
+      },
+      "pa": {
+        "question": "\\(203\\) ਤੋਂ \\(325\\) ਦੀ ਸੀਮਾ ਵਿੱਚ \\(9\\) ਨਾਲ ਭਾਗ ਜਾਣ ਵਾਲੇ ਕਿੰਨੇ ਪੂਰਨ ਅੰਕ ਹਨ?",
+        "options": [
+          "\\(14\\)",
+          "\\(15\\)",
+          "\\(13\\)",
+          "\\(16\\)"
+        ],
+        "explanation": "ਧਿਆਨ ਕਰੋ\nਪਹਿਲਾਂ ਇਹ ਸਮਝੋ ਕਿ ਪ੍ਰਸ਼ਨ ਕਿਸ ਸੰਖਿਆ-ਨਿਯਮ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰ ਰਿਹਾ ਹੈ।\n\nਸਮਝਾਉਣ\nਇਹ ਕਦਮ ਇਸ ਲਈ ਜ਼ਰੂਰੀ ਹੈ ਕਿਉਂਕਿ ਇਸ ਨਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਅੱਗੇ ਕਿਹੜੀ ਗਿਣਤੀ ਕਰਨੀ ਹੈ।\n\nਪਹਿਲਾ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 203 ਤੋਂ ਵੱਡਾ 9 ਦਾ ਪਹਿਲਾ ਗੁਣਜ 207 ਹੈ।\n\n\\[\n9\\times 23=207\n\\]\n\nਆਖਰੀ ਵੈਧ ਗੁਣਜ ਕੱਢੋ\n\nਇਸ ਲਈ 324, 325 ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ 9 ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗੁਣਜ ਹੈ।\n\n\\[\n325=9\\times 36+1\n\\]\n\n\\[\n325-1=324\n\\]\n\nਵੈਧ ਗੁਣਜਾਂ ਦੀ ਗਿਣਤੀ ਕਰੋ\n\nਗੁਣਜ 9 ਦੇ ਸਾਂਝੇ ਅੰਤਰ ਵਾਲੀ ਸਮਾਂਤਰ ਸ਼੍ਰੇਣੀ ਬਣਾਉਂਦੇ ਹਨ।\n\n\\[\n\\frac{324-207}{9}+1=13+1=14\n\\]\n\nਉੱਤਰ\nਗੁਣਜਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ 14 ਹੈ।\nਇਸ ਲਈ ਦਿੱਤੀ ਸੀਮਾ ਵਿੱਚ 9 ਦੇ 14 ਗੁਣਜ ਹਨ।\nਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ। ਲੋੜੀਂਦਾ ਮੁੱਲ \\(14\\) ਹੈ।\n\nਆਮ ਗਲਤੀ\nਅਕਸਰ ਗਲਤੀ ਇਹ ਹੁੰਦੀ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਰਤ ਦੇਖ ਕੇ ਉੱਤਰ ਚੁਣ ਲੈਂਦੇ ਹਨ। ਅੰਤਿਮ ਉੱਤਰ ਨੂੰ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਜ਼ਰੂਰ ਮਿਲਾਓ।\n\nਛੋਟਾ ਤਰੀਕਾ\n\nਸੀਮਾ ਦੀਆਂ ਹੱਦਾਂ ਤੇ ਭਾਗਫਲ-ਮੂਲਾਂ ਨਾਲ ਗੁਣਜ ਗਿਣੋ।\n\n\\[\n\\left\\lfloor\\frac{325}{9}\\right\\rfloor-\\left\\lfloor\\frac{202}{9}\\right\\rfloor\n\\]\n\n\\[\n36-22=14\n\\]\n\nਛੇਤੀ ਨਤੀਜਾ: \\(14\\)। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ (A) ਹੈ।"
+      }
+    },
+    "realismScore": 91
+  }
+]
