@@ -228,6 +228,40 @@ export const attempts = pgTable(
   }),
 );
 
+export const attemptDrafts = pgTable(
+  "attempt_drafts",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    testId: text("test_id")
+      .notNull()
+      .references(() => tests.id, { onDelete: "cascade" }),
+    testName: text("test_name").notNull(),
+    category: text("category").notNull(),
+    attemptType: text("attempt_type").$type<"REAL" | "PRACTICE">().notNull(),
+    originalAttemptId: text("original_attempt_id"),
+    state: jsonb("state").notNull(),
+    version: integer("version").notNull().default(1),
+    status: text("status").$type<"in_progress" | "paused">().notNull().default("in_progress"),
+    lastDevice: text("last_device"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+    expiresAt: timestamp("expires_at"),
+  },
+  (t) => ({
+    uniqueDraft: unique("attempt_drafts_user_test_type_original_unique").on(
+      t.userId,
+      t.testId,
+      t.attemptType,
+      t.originalAttemptId,
+    ),
+    userUpdatedIdx: index("attempt_drafts_user_updated_idx").on(t.userId, t.updatedAt),
+    userTestIdx: index("attempt_drafts_user_test_idx").on(t.userId, t.testId),
+  }),
+);
+
 // Package system tables
 export const packages = pgTable("packages", {
   id: text("id").primaryKey(),
