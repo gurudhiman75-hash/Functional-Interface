@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express";
 import { eq, and, inArray, sql } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { db } from "../lib/db";
-import { attempts, questions, responses, tests } from "@workspace/db";
+import { attemptDrafts, attempts, questions, responses, tests } from "@workspace/db";
 import { TestAttempt } from "@workspace/api-zod";
 import { authenticate } from "../middlewares/auth";
 import { refreshLeaderboard } from "../lib/refresh-leaderboard";
@@ -65,6 +65,7 @@ router.post("/", authenticate, async (req, res) => {
     responses: responseItems,
     flags = {},
     sectionTimeSpent,
+    draftId,
   } = req.body as {
     testId: string;
     testName: string;
@@ -75,6 +76,8 @@ router.post("/", authenticate, async (req, res) => {
     flags?: Record<number, boolean>;
     sectionTimeSpent?: { name: string; minutesSpent: number }[];
     originalAttemptId?: string;
+    draftId?: string;
+    expectedDraftVersion?: number;
   };
 
   if (!testId || typeof testId !== "string") {
@@ -303,6 +306,12 @@ router.post("/", authenticate, async (req, res) => {
       if (responseRows.length > 0) {
         await tx.insert(responses).values(responseRows);
       }
+    }
+
+    if (draftId && typeof draftId === "string") {
+      await tx
+        .delete(attemptDrafts)
+        .where(and(eq(attemptDrafts.id, draftId), eq(attemptDrafts.userId, userId)));
     }
 
     return savedAttempt;
