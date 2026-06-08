@@ -1,0 +1,142 @@
+{
+  "libraryId": "NS-PF-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-PF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all variables required to solve the CP. No question may rely on hidden parameters.",
+    "requiredVariables": {
+      "CP-001": ["number"],
+      "CP-002": ["number"],
+      "CP-003": ["number"],
+      "CP-004": ["number"],
+      "CP-005": ["number"],
+      "CP-006": ["prime", "number"],
+      "CP-007": ["prime", "number"]
+    }
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Prime Factorization",
+      "topology": "Full Prime Factorization",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Find the prime factorization of {number}."
+        },
+        {
+          "id": "QL-002",
+          "text": "Express {number} as a product of prime factors."
+        },
+        {
+          "id": "QL-003",
+          "text": "Write the prime factorization of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Prime Factors",
+      "topology": "Total Multiplicity Count",
+      "entries": [
+        {
+          "id": "QL-004",
+          "text": "How many prime factors does {number} have, counting repetition?"
+        },
+        {
+          "id": "QL-005",
+          "text": "Count the prime factors of {number}, including repeated factors."
+        },
+        {
+          "id": "QL-006",
+          "text": "Find the total number of prime factors of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Count Distinct Prime Factors",
+      "topology": "Distinct Support Count",
+      "entries": [
+        {
+          "id": "QL-007",
+          "text": "How many distinct prime factors does {number} have?"
+        },
+        {
+          "id": "QL-008",
+          "text": "Count the distinct prime factors of {number}."
+        },
+        {
+          "id": "QL-009",
+          "text": "Find the number of different prime factors of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Largest Prime Factor",
+      "topology": "Prime Base Maximum",
+      "entries": [
+        {
+          "id": "QL-010",
+          "text": "Find the largest prime factor of {number}."
+        },
+        {
+          "id": "QL-011",
+          "text": "Determine the greatest prime factor of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Smallest Prime Factor",
+      "topology": "Prime Base Minimum",
+      "entries": [
+        {
+          "id": "QL-012",
+          "text": "Find the smallest prime factor of {number}."
+        },
+        {
+          "id": "QL-013",
+          "text": "Determine the least prime factor of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Highest Power Of A Prime",
+      "topology": "Selected Prime Power Lookup",
+      "entries": [
+        {
+          "id": "QL-014",
+          "text": "What is the highest power of {prime} that divides {number}?"
+        },
+        {
+          "id": "QL-015",
+          "text": "Find the highest power of {prime} that divides {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Prime Exponent Lookup",
+      "topology": "Selected Exponent Lookup",
+      "entries": [
+        {
+          "id": "QL-016",
+          "text": "What is the exponent of {prime} in the prime factorization of {number}?"
+        },
+        {
+          "id": "QL-017",
+          "text": "Find the exponent of {prime} in the prime factorization of {number}."
+        },
+        {
+          "id": "QL-018",
+          "text": "Determine the exponent of {prime} in the prime factorization of {number}."
+        }
+      ]
+    }
+  ]
+}

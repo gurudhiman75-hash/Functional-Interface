@@ -1,0 +1,69 @@
+{
+  "libraryId": "NS-COP-001-VARIABLE-RANGES",
+  "archetypeId": "NS-COP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+  "variables": {
+    "a": {
+      "type": "positiveInteger",
+      "easy": { "min": 2, "max": 50 },
+      "medium": { "min": 20, "max": 200 },
+      "hard": { "min": 50, "max": 1000 }
+    },
+    "b": {
+      "type": "positiveInteger",
+      "easy": { "min": 2, "max": 50 },
+      "medium": { "min": 20, "max": 200 },
+      "hard": { "min": 50, "max": 1000 }
+    },
+    "number": {
+      "type": "positiveInteger",
+      "rule": "Base number for candidate co-prime selection and consecutive-number prompts."
+    },
+    "nextNumber": {
+      "type": "positiveInteger",
+      "rule": "Must equal number + 1 for CP-005."
+    },
+    "numberList": {
+      "type": "positiveIntegerList",
+      "buckets": ["shortList", "mediumList", "longList"]
+    },
+    "targetNumber": {
+      "type": "positiveInteger",
+      "rule": "Target number used for list filtering."
+    },
+    "numberSet": {
+      "type": "positiveIntegerSet",
+      "buckets": ["smallSet", "mediumSet", "largeSet"]
+    },
+    "hcf": {
+      "type": "positiveInteger",
+      "rule": "Explanation value used when HCF evidence is rendered."
+    },
+    "decisionText": {
+      "type": "approvedText",
+      "values": ["are co-prime", "are not co-prime"]
+    },
+    "answer": {
+      "type": "stringOrNumber",
+      "rule": "Final rendered answer."
+    }
+  },
+  "canonicalProblemVariables": {
+    "CP-001": ["a", "b"],
+    "CP-002": ["numberList", "targetNumber"],
+    "CP-003": ["number"],
+    "CP-004": ["numberSet"],
+    "CP-005": ["number", "nextNumber"],
+    "CP-006": ["a", "b"]
+  },
+  "coverageBuckets": {
+    "CP-001": ["coprime", "notCoprime", "primeAndPrime", "primeAndComposite", "compositeAndComposite"],
+    "CP-002": ["shortList", "mediumList", "longList"],
+    "CP-003": ["singleValidCandidate", "multipleDistractors"],
+    "CP-004": ["smallSet", "mediumSet", "largeSet"],
+    "CP-005": ["directConsecutiveRule", "hcfVerification"],
+    "CP-006": ["alreadyReduced", "reducibleOnce", "reducibleMultipleFactors"]
+  }
+}

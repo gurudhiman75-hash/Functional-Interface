@@ -1,0 +1,179 @@
+{
+  "stemFamilies": [
+    {
+      "id": "SF-001",
+      "name": "Direct Missing Digit",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "The digit x in {number} is such that the number is divisible by {divisor}. Find x."
+        },
+        {
+          "id": "QL-002",
+          "text": "In the number {number}, x is a digit. If the number is divisible by {divisor}, find x."
+        },
+        {
+          "id": "QL-003",
+          "text": "The number {number} is divisible by {divisor}. Determine the value of x."
+        },
+        {
+          "id": "QL-004",
+          "text": "Find the value of x if {number} is divisible by {divisor}."
+        },
+        {
+          "id": "QL-005",
+          "text": "What should be the value of x so that {number} is divisible by {divisor}?"
+        }
+      ]
+    },
+    {
+      "id": "SF-002",
+      "name": "Which Digit",
+      "entries": [
+        {
+          "id": "QL-006",
+          "text": "Which digit should replace x so that {number} is divisible by {divisor}?"
+        },
+        {
+          "id": "QL-007",
+          "text": "The number {number} is divisible by {divisor}. Which digit can replace x?"
+        },
+        {
+          "id": "QL-008",
+          "text": "Choose the digit that makes {number} divisible by {divisor}."
+        },
+        {
+          "id": "QL-009",
+          "text": "Which of the following digits can replace x so that {number} is divisible by {divisor}?"
+        },
+        {
+          "id": "QL-010",
+          "text": "Find the digit that should replace x in {number} to make it divisible by {divisor}."
+        }
+      ]
+    },
+    {
+      "id": "SF-003",
+      "name": "Value Of x",
+      "entries": [
+        {
+          "id": "QL-011",
+          "text": "If {number} is divisible by {divisor}, the value of x is:"
+        },
+        {
+          "id": "QL-012",
+          "text": "The value of x for which {number} becomes divisible by {divisor} is:"
+        },
+        {
+          "id": "QL-013",
+          "text": "For divisibility by {divisor}, x must be:"
+        },
+        {
+          "id": "QL-014",
+          "text": "If {number} is exactly divisible by {divisor}, then x equals:"
+        },
+        {
+          "id": "QL-015",
+          "text": "What is the value of x when {number} is divisible by {divisor}?"
+        }
+      ]
+    },
+    {
+      "id": "SF-004",
+      "name": "Number Becomes Divisible",
+      "entries": [
+        {
+          "id": "QL-016",
+          "text": "{number} becomes divisible by {divisor} when x is:"
+        },
+        {
+          "id": "QL-017",
+          "text": "For what value of x does {number} become divisible by {divisor}?"
+        },
+        {
+          "id": "QL-018",
+          "text": "Find x so that {number} is divisible by {divisor}."
+        },
+        {
+          "id": "QL-019",
+          "text": "Determine x such that divisibility by {divisor} is satisfied."
+        },
+        {
+          "id": "QL-020",
+          "text": "The number {number} is divisible by {divisor} only when x is:"
+        }
+      ]
+    },
+    {
+      "id": "SF-006",
+      "name": "Statement Style",
+      "entries": [
+        {
+          "id": "QL-021",
+          "text": "A digit x is inserted in {number} to make the number divisible by {divisor}. Find x."
+        },
+        {
+          "id": "QL-022",
+          "text": "The blank in {number} is represented by x. Find x if the number is divisible by {divisor}."
+        },
+        {
+          "id": "QL-023",
+          "text": "A missing digit x appears in {number}. Find x so that the number is divisible by {divisor}."
+        },
+        {
+          "id": "QL-024",
+          "text": "The digit x replaces a blank in {number}. If the resulting number is divisible by {divisor}, find x."
+        },
+        {
+          "id": "QL-025",
+          "text": "A digit has been replaced by x in {number}. Find x if divisibility by {divisor} holds."
+        }
+      ]
+    },
+    {
+      "id": "SF-007",
+      "name": "Fill Blank Style",
+      "entries": [
+        {
+          "id": "QL-026",
+          "text": "{number} is divisible by {divisor}. The missing digit is:"
+        },
+        {
+          "id": "QL-027",
+          "text": "Fill in the missing digit so that {number} becomes divisible by {divisor}."
+        },
+        {
+          "id": "QL-028",
+          "text": "The blank in {number} should be filled with which digit to make it divisible by {divisor}?"
+        },
+        {
+          "id": "QL-029",
+          "text": "Choose the missing digit that makes {number} divisible by {divisor}."
+        },
+        {
+          "id": "QL-030",
+          "text": "Find the digit required in {number} for divisibility by {divisor}."
+        }
+      ]
+    }
+  ],
+  "forbiddenQuestionLanguage": [
+    "For the number",
+    "What value is obtained",
+    "By tracking",
+    "Candidate value",
+    "Constraint satisfaction",
+    "Valid assignment",
+    "Resolve the unknown digit",
+    "Evaluate the digit",
+    "Internal identifier",
+    "Reasoning graph",
+    "Pipeline",
+    "Contract",
+    "Node",
+    "Source trace",
+    "Ownership metadata",
+    "System output",
+    "Implementation detail"
+  ]
+}

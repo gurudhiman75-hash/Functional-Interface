@@ -1,0 +1,175 @@
+{
+  "libraryId": "NS-LCM-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-LCM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all variables required to solve the CP. Runtime may only substitute approved placeholders.",
+    "requiredVariables": {
+      "CP-001": ["numbers"],
+      "CP-002": ["cycleLengths"],
+      "CP-003": ["knownNumbers", "targetLcm"],
+      "CP-004": ["numbers", "lowerBound", "upperBound"],
+      "CP-005": ["numbers", "threshold"]
+    }
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Direct LCM Computation",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Find the LCM of {numbers}."
+        },
+        {
+          "id": "QL-002",
+          "text": "Find the least common multiple of {numbers}."
+        },
+        {
+          "id": "QL-003",
+          "text": "What is the least number that is exactly divisible by {numbers}?"
+        },
+        {
+          "id": "QL-004",
+          "text": "Determine the smallest positive number divisible by {numbers}."
+        },
+        {
+          "id": "QL-005",
+          "text": "Calculate the LCM of {numbers}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Common Cycle Synchronization",
+      "entries": [
+        {
+          "id": "QL-006",
+          "contextFamily": "bells",
+          "text": "Three bells ring at intervals of {cycleLengths}. If they ring together now, after how many minutes will they ring together again?"
+        },
+        {
+          "id": "QL-007",
+          "contextFamily": "lights",
+          "text": "Three lights blink after every {cycleLengths}. If they blink together now, after how much time will they blink together again?"
+        },
+        {
+          "id": "QL-008",
+          "contextFamily": "alarms",
+          "text": "Three alarms ring after every {cycleLengths}. If they ring together now, after how much time will they ring together again?"
+        },
+        {
+          "id": "QL-009",
+          "contextFamily": "runners",
+          "text": "Three runners complete one round in {cycleLengths}. If they start together, after how much time will they be together at the starting point again?"
+        },
+        {
+          "id": "QL-010",
+          "contextFamily": "machines",
+          "text": "Three machines complete one cycle in {cycleLengths}. If they start together, after how much time will they complete a cycle together again?"
+        },
+        {
+          "id": "QL-024",
+          "contextFamily": "buses",
+          "text": "Three buses leave a station at intervals of {cycleLengths}. If they leave together now, after how much time will they leave together again?"
+        },
+        {
+          "id": "QL-025",
+          "contextFamily": "trains",
+          "text": "Three trains arrive at a platform at intervals of {cycleLengths}. If they arrive together now, after how much time will they arrive together again?"
+        },
+        {
+          "id": "QL-026",
+          "contextFamily": "traffic_signals",
+          "text": "Three traffic signals change at intervals of {cycleLengths}. If they change together now, after how much time will they change together again?"
+        },
+        {
+          "id": "QL-027",
+          "contextFamily": "sprinklers",
+          "text": "Three sprinklers operate at intervals of {cycleLengths}. If they start together now, after how much time will they operate together again?"
+        },
+        {
+          "id": "QL-028",
+          "contextFamily": "cleaning_schedules",
+          "text": "Three maintenance schedules repeat at intervals of {cycleLengths}. If they occur together now, after how much time will they occur together again?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Missing Number Using LCM",
+      "entries": [
+        {
+          "id": "QL-011",
+          "cp003Family": "candidate_list",
+          "text": "The LCM of {knownNumbers} and a number x is {targetLcm}. If x belongs to {candidateSet}, find x."
+        },
+        {
+          "id": "QL-012",
+          "cp003Family": "bounded_range",
+          "text": "The LCM of {knownNumbers} and x is {targetLcm}. If x lies between {lowerBound} and {upperBound}, find x."
+        },
+        {
+          "id": "QL-013",
+          "cp003Family": "divisibility_condition",
+          "text": "The LCM of {knownNumbers} and x is {targetLcm}. If x is divisible by {divisor}, find x."
+        },
+        {
+          "id": "QL-014",
+          "cp003Family": "arithmetic_condition",
+          "text": "The LCM of {knownNumbers} and x is {targetLcm}. If x is an even number less than {upperBound}, find x."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Count Common Multiples In A Range",
+      "entries": [
+        {
+          "id": "QL-016",
+          "text": "How many common multiples of {numbers} lie between {lowerBound} and {upperBound}?"
+        },
+        {
+          "id": "QL-017",
+          "text": "Count the numbers between {lowerBound} and {upperBound} that are divisible by all of {numbers}."
+        },
+        {
+          "id": "QL-018",
+          "text": "Find the number of common multiples of {numbers} in the interval [{lowerBound}, {upperBound}]."
+        },
+        {
+          "id": "QL-019",
+          "text": "How many integers between {lowerBound} and {upperBound} are divisible by each of {numbers}?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Smallest Common Multiple Greater Than A Threshold",
+      "entries": [
+        {
+          "id": "QL-020",
+          "text": "Find the smallest common multiple of {numbers} greater than {threshold}."
+        },
+        {
+          "id": "QL-021",
+          "text": "What is the least number greater than {threshold} that is divisible by {numbers}?"
+        },
+        {
+          "id": "QL-022",
+          "text": "Determine the first common multiple of {numbers} that exceeds {threshold}."
+        },
+        {
+          "id": "QL-023",
+          "text": "Find the smallest positive integer greater than {threshold} that is exactly divisible by {numbers}."
+        },
+        {
+          "id": "QL-029",
+          "text": "A number is divisible by all of {numbers}. Find the smallest such number greater than {threshold}."
+        }
+      ]
+    }
+  ]
+}

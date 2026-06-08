@@ -1,0 +1,86 @@
+{
+  "libraryId": "NS-PF-001-EXPLANATION",
+  "archetypeId": "NS-PF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "style": "simple government-exam style",
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Prime Factorization",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Break the number into prime factors.\n\nThe prime factorization of {number} is:\n\n{factorization}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Count Prime Factors",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Write the prime factorization of {number}.\n\n{factorization}\n\nCount all prime factors, including repetition.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Count Distinct Prime Factors",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Write the prime factorization of {number}.\n\n{factorization}\n\nCount only different prime factors.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Largest Prime Factor",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "Write the prime factorization of {number}.\n\n{factorization}\n\nThe largest prime factor is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Smallest Prime Factor",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Write the prime factorization of {number}.\n\n{factorization}\n\nThe smallest prime factor is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Highest Power Of A Prime",
+      "appliesTo": ["CP-006"],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "Write the prime factorization of {number}.\n\n{factorization}\n\nThe exponent of {prime} is {exponent}.\n\nTherefore:\n\n{prime}^{exponent} = {answer}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-007",
+      "name": "Prime Exponent Lookup",
+      "appliesTo": ["CP-007"],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "Write the prime factorization of {number}.\n\nIn the factorization:\n\n{factorization}\n\nThe exponent of {prime} is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    }
+  ]
+}

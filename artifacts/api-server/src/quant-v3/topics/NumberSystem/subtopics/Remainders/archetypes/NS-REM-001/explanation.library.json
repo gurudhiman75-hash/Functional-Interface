@@ -1,0 +1,29 @@
+{
+  "libraryId": "NS-REM-001-EXPLANATION",
+  "archetypeId": "NS-REM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "APPROVED",
+  "wordingPolicy": "Use exact approved wording only. Missing explanation entries fail validation.",
+  "entries": [
+    {
+      "id": "ES-001",
+      "text": "Check all possible values of x.\n\nValid values:\n\n{validSet}\n\nAnswer:\n\n{answer}"
+    },
+    {
+      "id": "ES-002",
+      "text": "The required remainder is {remainder}.\n\nValid values of x:\n\n{validSet}\n\nAnswer:\n\n{answer}"
+    },
+    {
+      "id": "ES-003",
+      "text": "Substitute possible values of x and check the remainder.\n\nValid values:\n\n{validSet}\n\nAnswer:\n\n{answer}"
+    },
+    {
+      "id": "ES-004",
+      "text": "Valid values of x:\n\n{validSet}\n\nRequired answer:\n\n{answer}"
+    },
+    {
+      "id": "ES-005",
+      "text": "Checking all possible values gives:\n\n{validSet}\n\nHence the answer is:\n\n{answer}"
+    }
+  ]
+}

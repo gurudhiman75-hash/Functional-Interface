@@ -1,0 +1,98 @@
+{
+  "libraryId": "NS-HL-001-VARIABLE-RANGES",
+  "archetypeId": "NS-HL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "PHASE_B_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+  "globalVariables": {
+    "hcf": {
+      "type": "positiveInteger",
+      "easy": { "min": 1, "max": 20 },
+      "medium": { "min": 2, "max": 60 },
+      "hard": { "min": 3, "max": 150 }
+    },
+    "lcm": {
+      "type": "positiveInteger",
+      "rule": "For valid prompts, lcm must be a positive multiple of hcf.",
+      "easy": { "min": 2, "max": 200 },
+      "medium": { "min": 12, "max": 2000 },
+      "hard": { "min": 60, "max": 20000 }
+    },
+    "product": {
+      "type": "positiveInteger",
+      "rule": "Used for product relation stems. Must equal hcf times lcm when the relation is valid."
+    },
+    "a": {
+      "type": "positiveInteger",
+      "rule": "First supplied number for validity checks."
+    },
+    "b": {
+      "type": "positiveInteger",
+      "rule": "Second supplied number for validity checks."
+    },
+    "knownNumber": {
+      "type": "positiveInteger",
+      "rule": "Must divide hcf times lcm in valid CP-003 prompts."
+    },
+    "sum": {
+      "type": "positiveInteger",
+      "rule": "Must select a unique reconstructed pair in CP-004 sum-condition prompts."
+    },
+    "difference": {
+      "type": "nonNegativeInteger",
+      "rule": "Must select a unique reconstructed pair in CP-004 difference-condition prompts."
+    },
+    "lowerBound": {
+      "type": "positiveInteger",
+      "rule": "Lower endpoint for CP-004 range-condition prompts."
+    },
+    "upperBound": {
+      "type": "positiveInteger",
+      "rule": "Upper endpoint for CP-004 range-condition prompts and must be greater than lowerBound."
+    },
+    "ratio": {
+      "type": "ratioString",
+      "examples": ["2:3", "3:4", "4:5", "6:9"],
+      "rule": "May be already reduced or reducible according to coverage needs."
+    }
+  },
+  "canonicalProblemVariables": {
+    "CP-001": {
+      "requiredPlaceholders": ["hcf", "lcm"],
+      "optionalPlaceholders": ["product"],
+      "difficultyDrivers": ["product size", "missing relation value"]
+    },
+    "CP-002": {
+      "requiredPlaceholders": ["hcf", "lcm"],
+      "optionalPlaceholders": ["a", "b"],
+      "difficultyDrivers": ["validity case", "invalid bucket", "number consistency"]
+    },
+    "CP-003": {
+      "requiredPlaceholders": ["hcf", "lcm", "knownNumber"],
+      "difficultyDrivers": ["product size", "division complexity", "missing number size"]
+    },
+    "CP-004": {
+      "requiredPlaceholders": ["hcf", "lcm"],
+      "conditionalPlaceholders": ["sum", "difference", "lowerBound", "upperBound"],
+      "difficultyDrivers": ["co-prime factor pairs", "condition family", "uniqueness"]
+    },
+    "CP-005": {
+      "requiredPlaceholders": ["hcf", "lcm"],
+      "difficultyDrivers": ["ordered policy", "unordered policy", "co-prime pair count"]
+    },
+    "CP-006": {
+      "requiredPlaceholders": ["ratio"],
+      "conditionalPlaceholders": ["hcf", "lcm"],
+      "difficultyDrivers": ["ratio reduction", "HCF source", "LCM source", "consistency"]
+    }
+  },
+  "approvedBuckets": {
+    "validityCase": ["valid", "invalid"],
+    "invalidBucket": ["hcfDoesNotDivideLcm", "productRelationFailure", "numberConsistencyFailure"],
+    "cp004ConditionFamily": ["sumCondition", "differenceCondition", "rangeCondition", "directPairCondition"],
+    "cp005PairPolicy": ["orderedPairs", "unorderedPairs"],
+    "cp005PairCountCase": ["singlePairCase", "multiplePairCase"],
+    "cp006RatioFamily": ["ratioPlusHcf", "ratioPlusLcm", "ratioPlusHcfPlusLcm"],
+    "ratioReductionCase": ["alreadyReducedRatio", "reducibleRatio"]
+  }
+}

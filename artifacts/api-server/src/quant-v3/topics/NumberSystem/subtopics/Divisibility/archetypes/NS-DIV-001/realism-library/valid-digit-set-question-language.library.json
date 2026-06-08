@@ -1,0 +1,94 @@
+{
+  "canonicalProblems": [
+    {
+      "id": "CP-003",
+      "name": "Smallest Valid Digit",
+      "stemFamilies": [
+        {
+          "id": "SF-001",
+          "text": "Find the smallest digit that can replace x so that the number {numberExpression} is divisible by {divisor}."
+        },
+        {
+          "id": "SF-002",
+          "text": "What is the least value of x for which {numberExpression} becomes divisible by {divisor}?"
+        },
+        {
+          "id": "SF-003",
+          "text": "Determine the minimum digit that can replace x in {numberExpression} so that the resulting number is divisible by {divisor}."
+        }
+      ]
+    },
+    {
+      "id": "CP-004",
+      "name": "Count Valid Digits",
+      "stemFamilies": [
+        {
+          "id": "SF-001",
+          "text": "How many digits can replace x so that the number {numberExpression} is divisible by {divisor}?"
+        },
+        {
+          "id": "SF-002",
+          "text": "How many possible values of x make {numberExpression} divisible by {divisor}?"
+        },
+        {
+          "id": "SF-003",
+          "text": "Find the number of digits that satisfy the divisibility condition."
+        }
+      ]
+    },
+    {
+      "id": "CP-005",
+      "name": "Sum of Valid Digits",
+      "stemFamilies": [
+        {
+          "id": "SF-001",
+          "text": "Find the sum of all digits that can replace x so that the number {numberExpression} is divisible by {divisor}."
+        },
+        {
+          "id": "SF-002",
+          "text": "The digit x is replaced so that {numberExpression} becomes divisible by {divisor}. Find the sum of all possible values of x."
+        },
+        {
+          "id": "SF-003",
+          "text": "Determine the sum of all valid digits."
+        }
+      ]
+    },
+    {
+      "id": "CP-006",
+      "name": "Greatest Valid Number",
+      "stemFamilies": [
+        {
+          "id": "SF-001",
+          "text": "Replace x with a suitable digit so that the resulting number is divisible by {divisor}. Find the greatest such number."
+        },
+        {
+          "id": "SF-002",
+          "text": "What is the greatest number that can be formed from {numberExpression} while remaining divisible by {divisor}?"
+        },
+        {
+          "id": "SF-003",
+          "text": "Find the largest divisible number obtainable by replacing x."
+        }
+      ]
+    },
+    {
+      "id": "CP-007",
+      "name": "Smallest Valid Number",
+      "stemFamilies": [
+        {
+          "id": "SF-001",
+          "text": "Replace x with a suitable digit so that the resulting number is divisible by {divisor}. Find the smallest such number."
+        },
+        {
+          "id": "SF-002",
+          "text": "What is the smallest number that can be formed from {numberExpression} while remaining divisible by {divisor}?"
+        },
+        {
+          "id": "SF-003",
+          "text": "Find the least divisible number obtainable by replacing x."
+        }
+      ]
+    }
+  ]
+}

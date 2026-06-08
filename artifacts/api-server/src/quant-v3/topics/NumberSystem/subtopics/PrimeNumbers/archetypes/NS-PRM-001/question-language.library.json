@@ -1,0 +1,141 @@
+{
+  "libraryId": "NS-PRM-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-PRM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all variables required to solve the CP. No question may rely on hidden parameters.",
+    "ambiguousRangeLanguagePolicy": "Question language entries containing phrases such as given range, following range, or specified range are not runtime eligible unless lowerBound and upperBound are visibly rendered."
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Prime Check",
+      "topology": "Prime Classification",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Is {number} a prime number?"
+        },
+        {
+          "id": "QL-002",
+          "text": "Determine whether {number} is prime or composite."
+        },
+        {
+          "id": "QL-003",
+          "text": "Check if {number} is a prime number."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Primes In Range",
+      "topology": "Range Counting",
+      "entries": [
+        {
+          "id": "QL-004",
+          "text": "How many prime numbers are there between {lowerBound} and {upperBound}?"
+        },
+        {
+          "id": "QL-005",
+          "text": "Count the prime numbers from {lowerBound} to {upperBound}."
+        },
+        {
+          "id": "QL-006",
+          "text": "Find the number of primes between {lowerBound} and {upperBound}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Smallest Prime In Range",
+      "topology": "Range Search Minimum",
+      "entries": [
+        {
+          "id": "QL-007",
+          "text": "Find the smallest prime number between {lowerBound} and {upperBound}."
+        },
+        {
+          "id": "QL-008",
+          "text": "Determine the least prime number between {lowerBound} and {upperBound}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Greatest Prime In Range",
+      "topology": "Range Search Maximum",
+      "entries": [
+        {
+          "id": "QL-009",
+          "text": "Find the greatest prime number between {lowerBound} and {upperBound}."
+        },
+        {
+          "id": "QL-010",
+          "text": "Determine the largest prime number between {lowerBound} and {upperBound}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Sum Of Primes In Range",
+      "topology": "Range Summation",
+      "entries": [
+        {
+          "id": "QL-011",
+          "text": "Find the sum of all prime numbers between {lowerBound} and {upperBound}."
+        },
+        {
+          "id": "QL-012",
+          "text": "Add all prime numbers between {lowerBound} and {upperBound}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Next Prime",
+      "topology": "Forward Prime Search",
+      "entries": [
+        {
+          "id": "QL-013",
+          "text": "Find the next prime number after {number}."
+        },
+        {
+          "id": "QL-014",
+          "text": "Determine the first prime number greater than {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Previous Prime",
+      "topology": "Backward Prime Search",
+      "entries": [
+        {
+          "id": "QL-015",
+          "text": "Find the greatest prime number smaller than {number}."
+        },
+        {
+          "id": "QL-016",
+          "text": "Determine the previous prime number before {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-008",
+      "name": "Prime Position",
+      "topology": "Prime Enumeration / Position Lookup",
+      "entries": [
+        {
+          "id": "QL-017",
+          "text": "Find the prime number at position {position}."
+        },
+        {
+          "id": "QL-018",
+          "text": "Determine the prime number at position {position}."
+        }
+      ]
+    }
+  ]
+}

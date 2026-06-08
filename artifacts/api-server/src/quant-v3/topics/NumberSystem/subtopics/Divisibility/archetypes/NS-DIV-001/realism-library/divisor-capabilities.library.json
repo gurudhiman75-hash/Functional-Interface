@@ -7,7 +7,7 @@
         "id": "RP-003",
         "name": "Last Digit Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "allowedMissingPositions": ["Last Digit", "Middle Digit", "First Digit"],
       "difficulty": "Easy",
       "status": "Approved"
@@ -19,7 +19,7 @@
         "id": "RP-001",
         "name": "Digit Sum Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Easy",
       "status": "Approved"
     },
@@ -30,7 +30,7 @@
         "id": "RP-004",
         "name": "Last Two Digits Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Easy-Medium",
       "status": "Approved"
     },
@@ -41,7 +41,7 @@
         "id": "RP-003",
         "name": "Last Digit Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Easy",
       "status": "Approved"
     },
@@ -53,7 +53,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [2, 3],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Medium",
       "status": "Approved"
     },
@@ -64,7 +64,7 @@
         "id": "RP-005",
         "name": "Last Three Digits Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Medium",
       "status": "Approved"
     },
@@ -75,7 +75,7 @@
         "id": "RP-001",
         "name": "Digit Sum Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Easy",
       "status": "Approved"
     },
@@ -86,7 +86,7 @@
         "id": "RP-003",
         "name": "Last Digit Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Easy",
       "status": "Approved"
     },
@@ -97,7 +97,7 @@
         "id": "RP-002",
         "name": "Alternating Sum Rule"
       },
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Medium",
       "status": "Approved"
     },
@@ -109,7 +109,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [3, 4],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Medium",
       "status": "Approved"
     },
@@ -121,7 +121,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [3, 5],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Medium",
       "status": "Approved"
     },
@@ -133,7 +133,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [2, 9],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Medium-Hard",
       "status": "Approved"
     },
@@ -145,7 +145,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [3, 8],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Hard",
       "status": "Approved"
     },
@@ -157,7 +157,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [4, 9],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Hard",
       "status": "Approved"
     },
@@ -169,7 +169,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [8, 9],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Hard",
       "status": "Approved"
     },
@@ -181,7 +181,7 @@
         "name": "Combined Divisibility Rule"
       },
       "components": [9, 11],
-      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+      "allowedCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007"],
       "difficulty": "Hard",
       "status": "Approved"
     }

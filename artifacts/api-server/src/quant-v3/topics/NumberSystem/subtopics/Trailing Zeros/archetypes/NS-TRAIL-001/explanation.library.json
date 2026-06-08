@@ -1,0 +1,74 @@
+{
+  "libraryId": "NS-TRAIL-001-EXPLANATION",
+  "archetypeId": "NS-TRAIL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "style": "SSC, Banking, Railway, CDS, CAPF and State PCS",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "factorFiveCountLatex",
+      "factorialExpressionLatex",
+      "searchProcessLatex",
+      "powerFactorizationLatex",
+      "productFactorizationLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Count Trailing Zeros In n!",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Trailing zeros are formed by factors of 10.\n\nSince 10 = 2 x 5 and factors of 2 are available in excess in n!, we only count factors of 5.\n\n{factorFiveCountLatex}\n\nTherefore, the number of trailing zeros in {n}! is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Count Trailing Zeros In Factorial Expressions",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Evaluate the contribution of factors of 5 from each factorial term.\n\n{factorialExpressionLatex}\n\nThe total number of available factors of 5 gives the trailing-zero count.\n\nHence the answer is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Smallest Number Whose Factorial Has Given Trailing Zeros",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Use the trailing-zero formula repeatedly.\n\n{searchProcessLatex}\n\nThe smallest value whose factorial contains exactly {zeroCount} trailing zeros is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Count Trailing Zeros In Powers",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "A trailing zero requires one factor 2 and one factor 5.\n\nPrime-factorize the base.\n\n{powerFactorizationLatex}\n\nCount complete pairs of 2 and 5.\n\nHence the number of trailing zeros is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Determine Change In Trailing Zeros After Multiplication",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Prime-factorize the numbers.\n\n{productFactorizationLatex}\n\nCount the total factors of 2 and 5.\n\nThe smaller count determines the number of trailing zeros.\n\nHence the answer is {answer}."
+        }
+      ]
+    }
+  ]
+}

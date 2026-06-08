@@ -1,0 +1,202 @@
+{
+  "libraryId": "NS-HCF-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-HCF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficultyCoverage": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20,
+      "rule": "No difficulty band may be unused in a production audit batch."
+    },
+    "canonicalProblemCoverage": {
+      "requiredCpIds": ["CP-001", "CP-002", "CP-003", "CP-004"],
+      "rule": "Only CP-001 through CP-004 are active for NS-HCF-001."
+    },
+    "questionLanguageCoverage": {
+      "rule": "No runtime-eligible question language ID may be unused in a production audit batch."
+    },
+    "stemFamilyCoverage": {
+      "required": true,
+      "families": [
+        "direct",
+        "alternative_terminology",
+        "statement_style",
+        "applied_numeric_style",
+        "exam_style",
+        "constraint_reconstruction",
+        "contextual_application"
+      ],
+      "rule": "Every approved stem family applicable to a CP must appear in audit reporting. Future audits must flag repetitive wording caused by unused stem families."
+    },
+    "explanationFamilyCoverage": {
+      "required": true,
+      "families": [
+        "step_by_step",
+        "compact",
+        "formula_first",
+        "concept_first"
+      ],
+      "rule": "No approved explanation family may be unused for its applicable CP."
+    },
+    "operandCountCoverage": {
+      "twoNumber": {
+        "required": true,
+        "operandCount": 2
+      },
+      "threeNumber": {
+        "required": true,
+        "operandCount": 3
+      },
+      "rule": "Two-number and three-number inputs must both be visible in audit reporting."
+    },
+    "hcfValueCoverage": {
+      "hcfEqualsOne": {
+        "required": true
+      },
+      "hcfGreaterThanOne": {
+        "required": true
+      }
+    },
+    "hcfSizeCoverage": {
+      "buckets": ["one", "small", "medium", "large"],
+      "one": {
+        "value": 1
+      },
+      "small": {
+        "min": 2,
+        "max": 10
+      },
+      "medium": {
+        "min": 11,
+        "max": 50
+      },
+      "large": {
+        "min": 51
+      }
+    },
+    "hcfStructureCoverage": {
+      "primePowerHcf": {
+        "required": true
+      },
+      "mixedPrimeHcf": {
+        "required": true
+      }
+    },
+    "cp003ConstraintCoverage": {
+      "appliesTo": ["CP-003"],
+      "candidateSetConstraint": {
+        "required": true
+      },
+      "rangeConstraint": {
+        "required": true
+      },
+      "multiplierConstraint": {
+        "required": true
+      },
+      "divisibilityConstraint": {
+        "required": true
+      },
+      "arithmeticConstraint": {
+        "required": true
+      },
+      "uniquenessRule": "Every CP-003 generated item must have exactly one valid missing number."
+    },
+    "cp004ContextFamilyCoverage": {
+      "appliesTo": ["CP-004"],
+      "families": [
+        "fruits",
+        "students",
+        "books",
+        "notebooks",
+        "pencils",
+        "packets",
+        "boxes",
+        "bundles",
+        "rows",
+        "chairs",
+        "teams",
+        "classrooms",
+        "distribution",
+        "packing",
+        "grouping"
+      ],
+      "rule": "Each context family must be visible in audit reporting."
+    },
+    "mathJaxObjectCoverage": {
+      "required": true,
+      "objects": [
+        "operandFactorizationLatex",
+        "commonPrimeIntersectionLatex",
+        "minimumExponentSelectionLatex",
+        "hcfLatex",
+        "hcfFactorCountFormulaLatex",
+        "candidateEvaluationLatex",
+        "groupingInterpretationLatex"
+      ]
+    }
+  },
+  "canonicalProblemCoverage": [
+    {
+      "cpId": "CP-001",
+      "requiredCoverage": [
+        "difficultyCoverage",
+        "operandCountCoverage",
+        "hcfValueCoverage",
+        "hcfSizeCoverage",
+        "hcfStructureCoverage",
+        "questionLanguageCoverage",
+        "stemFamilyCoverage",
+        "explanationFamilyCoverage",
+        "mathJaxObjectCoverage"
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "requiredCoverage": [
+        "difficultyCoverage",
+        "operandCountCoverage",
+        "hcfValueCoverage",
+        "hcfSizeCoverage",
+        "hcfStructureCoverage",
+        "questionLanguageCoverage",
+        "stemFamilyCoverage",
+        "explanationFamilyCoverage",
+        "mathJaxObjectCoverage"
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "requiredCoverage": [
+        "difficultyCoverage",
+        "hcfValueCoverage",
+        "hcfSizeCoverage",
+        "cp003ConstraintCoverage",
+        "questionLanguageCoverage",
+        "stemFamilyCoverage",
+        "explanationFamilyCoverage",
+        "mathJaxObjectCoverage"
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "requiredCoverage": [
+        "difficultyCoverage",
+        "operandCountCoverage",
+        "hcfValueCoverage",
+        "hcfSizeCoverage",
+        "cp004ContextFamilyCoverage",
+        "questionLanguageCoverage",
+        "stemFamilyCoverage",
+        "explanationFamilyCoverage",
+        "mathJaxObjectCoverage"
+      ]
+    }
+  ],
+  "deadZonePolicy": {
+    "noEducationalDeadZones": true,
+    "noUnusedMandatoryCategories": true,
+    "runtimeMustReportUnusedMandatoryCategories": true
+  }
+}

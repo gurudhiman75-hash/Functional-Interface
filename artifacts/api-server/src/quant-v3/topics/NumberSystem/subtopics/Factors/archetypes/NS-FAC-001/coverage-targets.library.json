@@ -1,0 +1,163 @@
+{
+  "libraryId": "NS-FAC-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-FAC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficultyCoverage": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20,
+      "rule": "No difficulty band may be unused in a production audit batch."
+    },
+    "primeInputCoverage": {
+      "required": true
+    },
+    "compositeInputCoverage": {
+      "required": true
+    },
+    "primePowerCoverage": {
+      "required": true
+    },
+    "mixedPrimeCoverage": {
+      "required": true
+    },
+    "perfectSquareCoverage": {
+      "required": true
+    },
+    "nonPerfectSquareCoverage": {
+      "required": true
+    },
+    "highlyCompositeNumberCoverage": {
+      "required": true,
+      "examples": [60, 120, 180, 240, 360, 720, 840],
+      "rule": "Highly composite numbers must be visible in audit reporting for factor count, factor sum, factor product, and ordered-factor questions."
+    },
+    "factorCountCoverage": {
+      "buckets": ["small", "medium", "large"],
+      "small": {
+        "min": 2,
+        "max": 12
+      },
+      "medium": {
+        "min": 13,
+        "max": 48
+      },
+      "large": {
+        "min": 49,
+        "max": 120
+      }
+    },
+    "productDigitCountCoverage": {
+      "appliesTo": ["CP-003"],
+      "buckets": ["small", "medium", "large", "very_large"],
+      "small": {
+        "min": 1,
+        "max": 15
+      },
+      "medium": {
+        "min": 16,
+        "max": 60
+      },
+      "large": {
+        "min": 61,
+        "max": 150
+      },
+      "very_large": {
+        "min": 151,
+        "max": 1000
+      },
+      "rule": "CP-003 must audit productDigitCount because factorProduct is serialized as an exact decimal string."
+    },
+    "kCoverage": {
+      "appliesTo": ["CP-006", "CP-007"],
+      "buckets": ["small", "medium", "large"],
+      "small": {
+        "min": 1,
+        "max": 20
+      },
+      "medium": {
+        "min": 21,
+        "max": 200
+      },
+      "large": {
+        "min": 201,
+        "max": 5000
+      }
+    },
+    "positionCoverage": {
+      "appliesTo": ["CP-008", "CP-009"],
+      "buckets": ["small", "medium", "large"],
+      "small": {
+        "min": 1,
+        "max": 6
+      },
+      "medium": {
+        "min": 7,
+        "max": 24
+      },
+      "large": {
+        "min": 25,
+        "max": 120
+      }
+    },
+    "edgePositionCoverage": {
+      "appliesTo": ["CP-008", "CP-009"],
+      "buckets": ["first", "second", "middle", "penultimate", "last", "general"],
+      "rule": "Ordered-factor questions must explicitly report edge-position and middle-position coverage."
+    },
+    "ordinalRenderingCoverage": {
+      "appliesTo": ["CP-008", "CP-009"],
+      "rule": "Future runtime must audit ordinalDisplay rendering and reject malformed ordinals such as 1th, 2th, and 3th."
+    },
+    "questionLanguageCoverage": {
+      "rule": "No runtime-eligible question language ID may be unused in a production audit batch."
+    },
+    "explanationCoverage": {
+      "rule": "No runtime-eligible explanation ID may be unused in a production audit batch."
+    }
+  },
+  "deadZonePolicy": {
+    "noEducationalDeadZones": true,
+    "noUnusedMandatoryCategories": true,
+    "runtimeMustReportUnusedMandatoryCategories": true
+  },
+  "canonicalProblemCoverage": [
+    {
+      "cpId": "CP-001",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primePowerCoverage", "mixedPrimeCoverage", "highlyCompositeNumberCoverage", "factorCountCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-002",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primePowerCoverage", "mixedPrimeCoverage", "highlyCompositeNumberCoverage", "factorCountCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-003",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primePowerCoverage", "mixedPrimeCoverage", "highlyCompositeNumberCoverage", "factorCountCoverage", "productDigitCountCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-004",
+      "requiredCoverage": ["difficultyCoverage", "perfectSquareCoverage", "nonPerfectSquareCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-005",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-006",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "factorCountCoverage", "kCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-007",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "factorCountCoverage", "kCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-008",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "highlyCompositeNumberCoverage", "factorCountCoverage", "positionCoverage", "edgePositionCoverage", "ordinalRenderingCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-009",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "highlyCompositeNumberCoverage", "factorCountCoverage", "positionCoverage", "edgePositionCoverage", "ordinalRenderingCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    }
+  ]
+}

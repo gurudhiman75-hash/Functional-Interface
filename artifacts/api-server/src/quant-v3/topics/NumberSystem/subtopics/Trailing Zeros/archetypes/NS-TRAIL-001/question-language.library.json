@@ -1,0 +1,81 @@
+{
+  "libraryId": "NS-TRAIL-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-TRAIL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "runtimePolicy": {
+    "may": ["load", "validate", "select", "substitute", "render"],
+    "mayNot": ["invent question wording", "generate educational language", "create additional stems"]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Count Trailing Zeros In n!",
+      "entries": [
+        { "id": "QL-001", "text": "Find the number of trailing zeros in {n}!." },
+        { "id": "QL-002", "text": "How many zeros occur at the end of {n}! ?" },
+        { "id": "QL-003", "text": "Determine the number of trailing zeros in {n}!." },
+        { "id": "QL-004", "text": "Find the count of terminal zeros in {n}!." },
+        { "id": "QL-005", "text": "How many trailing zeros does {n}! contain?" },
+        { "id": "QL-006", "text": "Calculate the number of zeros at the end of {n}!." },
+        { "id": "QL-027", "text": "The value of {n}! ends with how many zeros?" },
+        { "id": "QL-028", "text": "How many zeros appear consecutively at the end of {n}! ?" },
+        { "id": "QL-029", "text": "Find the number of terminal zeros in the decimal representation of {n}!." },
+        { "id": "QL-030", "text": "The factorial of {n} is written in decimal form. How many trailing zeros does it contain?" }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Trailing Zeros In Factorial Expressions",
+      "entries": [
+        { "id": "QL-007", "text": "Find the number of trailing zeros in {expression}." },
+        { "id": "QL-008", "text": "How many trailing zeros are present in {expression}?" },
+        { "id": "QL-009", "text": "Determine the trailing-zero count of {expression}." },
+        { "id": "QL-010", "text": "Find the number of terminal zeros in {expression}." },
+        { "id": "QL-011", "text": "Calculate the trailing zeros in {expression}." },
+        { "id": "QL-031", "text": "Evaluate the number of trailing zeros in the expression {expression}." },
+        { "id": "QL-032", "text": "When simplified, how many zeros will appear at the end of {expression}?" },
+        { "id": "QL-033", "text": "Find the terminal-zero count of {expression}." }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Smallest Number Whose Factorial Has Given Trailing Zeros",
+      "entries": [
+        { "id": "QL-012", "text": "Find the smallest number whose factorial contains exactly {zeroCount} trailing zeros." },
+        { "id": "QL-013", "text": "What is the least value of n for which n! has exactly {zeroCount} trailing zeros?" },
+        { "id": "QL-014", "text": "Determine the smallest integer whose factorial ends with {zeroCount} zeros." },
+        { "id": "QL-015", "text": "Find the least n such that n! contains {zeroCount} trailing zeros." },
+        { "id": "QL-016", "text": "Identify the smallest number whose factorial has a trailing-zero count of {zeroCount}." }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Count Trailing Zeros In Powers",
+      "entries": [
+        { "id": "QL-017", "text": "Find the number of trailing zeros in {base}^{exponent}." },
+        { "id": "QL-018", "text": "How many trailing zeros occur in {base}^{exponent}?" },
+        { "id": "QL-019", "text": "Determine the trailing-zero count of {base}^{exponent}." },
+        { "id": "QL-020", "text": "Calculate the number of zeros at the end of {base}^{exponent}." },
+        { "id": "QL-021", "text": "Find the terminal-zero count in {base}^{exponent}." },
+        { "id": "QL-034", "text": "The number {base}^{exponent} is written in decimal form. How many trailing zeros does it contain?" },
+        { "id": "QL-035", "text": "Find the number of zeros at the end of the value of {base}^{exponent}." },
+        { "id": "QL-036", "text": "Determine the terminal-zero count of the power {base}^{exponent}." }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Determine Change In Trailing Zeros After Multiplication",
+      "entries": [
+        { "id": "QL-022", "text": "If {numberA} is multiplied by {numberB}, how many trailing zeros will the product contain?" },
+        { "id": "QL-023", "text": "Find the number of trailing zeros in the product {numberA} x {numberB}." },
+        { "id": "QL-024", "text": "Determine the trailing-zero count after multiplying {numberA} and {numberB}." },
+        { "id": "QL-025", "text": "How many zeros appear at the end of {numberA} x {numberB}?" },
+        { "id": "QL-026", "text": "Calculate the trailing zeros in the product of {numberA} and {numberB}." },
+        { "id": "QL-037", "text": "After multiplying {numberA} and {numberB}, how many zeros will appear at the end of the result?" },
+        { "id": "QL-038", "text": "Find the number of terminal zeros in the product of {numberA} and {numberB}." },
+        { "id": "QL-039", "text": "The product {numberA} x {numberB} ends with how many zeros?" }
+      ]
+    }
+  ]
+}

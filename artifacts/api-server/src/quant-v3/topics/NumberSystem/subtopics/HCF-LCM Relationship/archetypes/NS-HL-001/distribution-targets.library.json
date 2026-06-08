@@ -1,0 +1,81 @@
+{
+  "libraryId": "NS-HL-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-HL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "PHASE_B_READY_FOR_REVIEW",
+  "difficulty": {
+    "Easy": 0.4,
+    "Medium": 0.4,
+    "Hard": 0.2
+  },
+  "questionLanguage": {
+    "policy": "uniform within each canonical problem",
+    "activeIds": [
+      "QL-001",
+      "QL-002",
+      "QL-003",
+      "QL-004",
+      "QL-005",
+      "QL-006",
+      "QL-007",
+      "QL-008",
+      "QL-009",
+      "QL-010",
+      "QL-011",
+      "QL-012",
+      "QL-013",
+      "QL-014",
+      "QL-015",
+      "QL-016",
+      "QL-017",
+      "QL-018",
+      "QL-019",
+      "QL-020",
+      "QL-021",
+      "QL-022",
+      "QL-023",
+      "QL-024",
+      "QL-025",
+      "QL-026",
+      "QL-027",
+      "QL-028",
+      "QL-029",
+      "QL-030",
+      "QL-031",
+      "QL-032",
+      "QL-033"
+    ]
+  },
+  "explanationStyles": {
+    "policy": "uniform among entries approved for the CP",
+    "activeIds": ["ES-001", "ES-002", "ES-003", "ES-004", "ES-005", "ES-006", "ES-007"]
+  },
+  "cp002ValidityDistribution": {
+    "valid": 0.5,
+    "invalid": 0.5
+  },
+  "cp002InvalidBuckets": {
+    "policy": "uniform when invalid",
+    "buckets": ["hcfDoesNotDivideLcm", "productRelationFailure", "numberConsistencyFailure"]
+  },
+  "cp004ConditionFamilies": {
+    "policy": "uniform",
+    "buckets": ["sumCondition", "differenceCondition", "rangeCondition", "directPairCondition"]
+  },
+  "cp005PairPolicy": {
+    "policy": "balanced",
+    "buckets": ["orderedPairs", "unorderedPairs"]
+  },
+  "cp005PairCountCases": {
+    "policy": "balanced",
+    "buckets": ["singlePairCase", "multiplePairCase"]
+  },
+  "cp006RatioFamilies": {
+    "policy": "uniform",
+    "buckets": ["ratioPlusHcf", "ratioPlusLcm", "ratioPlusHcfPlusLcm"]
+  },
+  "cp006RatioReductionCases": {
+    "policy": "balanced",
+    "buckets": ["alreadyReducedRatio", "reducibleRatio"]
+  }
+}

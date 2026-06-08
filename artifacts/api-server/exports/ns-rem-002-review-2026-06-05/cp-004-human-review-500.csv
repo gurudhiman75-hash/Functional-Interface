@@ -1,0 +1,3501 @@
+"Question ID","Canonical Problem","Difficulty","Topology","Question Language ID","Explanation Style ID","Question","Answer","Explanation","Divisor","Remainder","Quotient","Dividend","Lower Bound","Upper Bound"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:0","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 69 and 447 that leave remainder 16 when divided by 20.","19","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+19","20","16","","","69","447"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:1","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 646 and 6823 that leave remainder 23 when divided by 32.","193","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+193","32","23","","","646","6823"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:2","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 202 and 8596 that leave remainder 0 when divided by 50.","167","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+167","50","0","","","202","8596"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:3","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1920 and 6442 leave remainder 33 when divided by 49?","92","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+92","49","33","","","1920","6442"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:4","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 34 and 201 leave remainder 4 when divided by 12?","14","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+14","12","4","","","34","201"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:5","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 190 and 6845 leave remainder 7 when divided by 42?","158","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+158","42","7","","","190","6845"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:6","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1373 and 5382 that leave remainder 6 when divided by 16.","251","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+251","16","6","","","1373","5382"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:7","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 38 and 126 leave remainder 11 when divided by 14?","7","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+7","14","11","","","38","126"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:8","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 106 and 184 leave remainder 1 when divided by 5?","16","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+16","5","1","","","106","184"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:9","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 12 and 189 leave remainder 7 when divided by 8?","22","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+22","8","7","","","12","189"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:10","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 187 and 494 leave remainder 4 when divided by 15?","20","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+20","15","4","","","187","494"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:11","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 2782 to 42024 that give remainder 4 on division by 8.","4905","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+4905","8","4","","","2782","42024"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:12","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1576 to 9916 that give remainder 7 on division by 25.","334","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+334","25","7","","","1576","9916"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:13","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 6089 and 43614 leave remainder 6 when divided by 41?","915","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+915","41","6","","","6089","43614"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:14","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1271 and 8734 that leave remainder 15 when divided by 42.","178","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+178","42","15","","","1271","8734"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:15","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 86 and 465 leave remainder 0 when divided by 16?","24","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+24","16","0","","","86","465"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:16","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 161 and 170 leave remainder 4 when divided by 9?","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","9","4","","","161","170"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:17","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1633 to 2219 that give remainder 2 on division by 13.","45","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+45","13","2","","","1633","2219"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:18","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 179 and 280 leave remainder 0 when divided by 15?","7","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+7","15","0","","","179","280"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:19","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 129 and 179 that leave remainder 4 when divided by 16.","3","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+3","16","4","","","129","179"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:20","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 6993 and 26218 that leave remainder 52 when divided by 93.","207","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+207","93","52","","","6993","26218"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:21","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 6506 to 27392 that give remainder 10 on division by 43.","485","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+485","43","10","","","6506","27392"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:22","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1922 to 9687 that give remainder 12 on division by 37.","210","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+210","37","12","","","1922","9687"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:23","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 159 to 316 that give remainder 1 on division by 3.","53","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+53","3","1","","","159","316"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:24","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1727 and 2186 that leave remainder 4 when divided by 14.","32","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+32","14","4","","","1727","2186"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:25","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1979 and 4749 that leave remainder 10 when divided by 33.","84","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+84","33","10","","","1979","4749"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:26","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 40 and 141 leave remainder 14 when divided by 17?","6","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6","17","14","","","40","141"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:27","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 166 and 174 leave remainder 5 when divided by 8?","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","8","5","","","166","174"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:28","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 690 and 3249 that leave remainder 16 when divided by 49.","52","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+52","49","16","","","690","3249"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:29","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 1988 and 12004 leave remainder 35 when divided by 38?","263","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+263","38","35","","","1988","12004"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:30","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 154 and 174 leave remainder 5 when divided by 6?","4","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+4","6","5","","","154","174"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:31","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 4457 and 27699 leave remainder 38 when divided by 49?","474","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+474","49","38","","","4457","27699"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:32","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 143 and 241 leave remainder 5 when divided by 6?","17","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+17","6","5","","","143","241"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:33","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1892 and 6699 that leave remainder 8 when divided by 30.","161","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+161","30","8","","","1892","6699"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:34","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 22 to 178 that give remainder 6 on division by 15.","10","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+10","15","6","","","22","178"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:35","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 8127 to 35308 that give remainder 18 on division by 34.","799","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+799","34","18","","","8127","35308"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:36","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 981 and 6487 leave remainder 19 when divided by 50?","110","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+110","50","19","","","981","6487"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:37","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 8782 to 27167 that give remainder 31 on division by 63.","292","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+292","63","31","","","8782","27167"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:38","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 15 and 321 that leave remainder 13 when divided by 19.","16","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+16","19","13","","","15","321"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:39","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 99 and 468 leave remainder 9 when divided by 17?","22","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+22","17","9","","","99","468"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:40","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 96 and 445 that leave remainder 2 when divided by 4.","87","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+87","4","2","","","96","445"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:41","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1678 and 5375 that leave remainder 13 when divided by 24.","154","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+154","24","13","","","1678","5375"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:42","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 966 to 3949 that give remainder 17 on division by 31.","96","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+96","31","17","","","966","3949"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:43","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 33 to 120 that give remainder 3 on division by 4.","22","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+22","4","3","","","33","120"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:44","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 899 to 2100 that give remainder 12 on division by 19.","63","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+63","19","12","","","899","2100"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:45","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 7790 and 42016 that leave remainder 5 when divided by 34.","1007","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1007","34","5","","","7790","42016"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:46","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 146 to 416 that give remainder 9 on division by 17.","15","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+15","17","9","","","146","416"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:47","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 52 and 421 leave remainder 19 when divided by 20?","19","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+19","20","19","","","52","421"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:48","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 968 and 7487 leave remainder 12 when divided by 30?","218","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+218","30","12","","","968","7487"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:49","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 78 to 358 that give remainder 5 on division by 7.","40","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+40","7","5","","","78","358"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:50","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 38 to 277 that give remainder 3 on division by 4.","60","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+60","4","3","","","38","277"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:51","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 1775 and 49040 that leave remainder 8 when divided by 14.","3376","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+3376","14","8","","","1775","49040"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:52","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1458 and 1572 that leave remainder 13 when divided by 44.","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","44","13","","","1458","1572"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:53","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 9449 and 32403 that leave remainder 4 when divided by 46.","499","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+499","46","4","","","9449","32403"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:54","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 44 to 78 that give remainder 1 on division by 6.","5","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+5","6","1","","","44","78"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:55","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 30 and 470 that leave remainder 0 when divided by 4.","110","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+110","4","0","","","30","470"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:56","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 8563 to 45305 that give remainder 29 on division by 86.","427","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+427","86","29","","","8563","45305"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:57","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 147 and 1675 leave remainder 10 when divided by 44?","34","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+34","44","10","","","147","1675"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:58","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 89 and 496 that leave remainder 14 when divided by 17.","24","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+24","17","14","","","89","496"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:59","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 2065 and 21994 leave remainder 23 when divided by 61?","327","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+327","61","23","","","2065","21994"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:60","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 167 to 4070 that give remainder 18 on division by 38.","103","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+103","38","18","","","167","4070"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:61","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 31 and 167 leave remainder 3 when divided by 15?","9","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+9","15","3","","","31","167"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:62","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 58 and 479 leave remainder 0 when divided by 2?","211","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+211","2","0","","","58","479"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:63","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1912 to 1937 that give remainder 23 on division by 25.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","25","23","","","1912","1937"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:64","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 86 and 412 leave remainder 0 when divided by 4?","82","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+82","4","0","","","86","412"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:65","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1933 to 8105 that give remainder 10 on division by 35.","177","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+177","35","10","","","1933","8105"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:66","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 1256 and 46516 leave remainder 42 when divided by 68?","666","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+666","68","42","","","1256","46516"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:67","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1393 and 1529 that leave remainder 33 when divided by 40.","4","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+4","40","33","","","1393","1529"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:68","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1382 and 7462 leave remainder 21 when divided by 43?","142","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+142","43","21","","","1382","7462"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:69","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1262 and 8545 leave remainder 23 when divided by 33?","221","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+221","33","23","","","1262","8545"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:70","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 152 and 212 that leave remainder 1 when divided by 2.","30","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+30","2","1","","","152","212"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:71","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 81 and 315 that leave remainder 6 when divided by 16.","15","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+15","16","6","","","81","315"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:72","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 37 and 62 that leave remainder 3 when divided by 8.","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","8","3","","","37","62"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:73","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 141 to 484 that give remainder 5 on division by 13.","26","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+26","13","5","","","141","484"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:74","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1638 to 2203 that give remainder 9 on division by 12.","47","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+47","12","9","","","1638","2203"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:75","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 37 and 348 that leave remainder 3 when divided by 11.","28","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+28","11","3","","","37","348"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:76","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 129 and 134 that leave remainder 3 when divided by 5.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","5","3","","","129","134"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:77","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 93 and 479 leave remainder 0 when divided by 4?","96","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+96","4","0","","","93","479"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:78","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 161 and 4375 that leave remainder 15 when divided by 50.","85","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+85","50","15","","","161","4375"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:79","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1180 and 8453 that leave remainder 18 when divided by 31.","235","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+235","31","18","","","1180","8453"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:80","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 76 to 486 that give remainder 10 on division by 20.","20","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+20","20","10","","","76","486"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:81","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 156 and 389 that leave remainder 1 when divided by 5.","47","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+47","5","1","","","156","389"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:82","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 4430 and 41334 leave remainder 9 when divided by 47?","785","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+785","47","9","","","4430","41334"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:83","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 526 and 2060 that leave remainder 3 when divided by 4.","384","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+384","4","3","","","526","2060"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:84","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1403 and 4158 leave remainder 30 when divided by 32?","87","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+87","32","30","","","1403","4158"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:85","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 120 and 354 leave remainder 0 when divided by 3?","79","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+79","3","0","","","120","354"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:86","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 664 to 796 that give remainder 14 on division by 30.","5","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+5","30","14","","","664","796"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:87","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 544 and 1879 leave remainder 15 when divided by 20?","67","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+67","20","15","","","544","1879"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:88","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 582 and 2229 leave remainder 0 when divided by 2?","824","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+824","2","0","","","582","2229"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:89","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 675 and 6606 leave remainder 13 when divided by 27?","220","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+220","27","13","","","675","6606"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:90","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1639 to 9967 that give remainder 7 on division by 26.","321","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+321","26","7","","","1639","9967"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:91","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 216 and 1907 that leave remainder 10 when divided by 13.","130","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+130","13","10","","","216","1907"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:92","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1344 and 9452 leave remainder 21 when divided by 37?","219","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+219","37","21","","","1344","9452"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:93","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 462 and 4029 leave remainder 4 when divided by 18?","198","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+198","18","4","","","462","4029"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:94","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 961 and 8144 that leave remainder 15 when divided by 27.","266","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+266","27","15","","","961","8144"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:95","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 29 and 61 that leave remainder 3 when divided by 5.","6","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6","5","3","","","29","61"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:96","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 394 and 4770 that leave remainder 17 when divided by 25.","175","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+175","25","17","","","394","4770"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:97","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 167 to 182 that give remainder 0 on division by 15.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","15","0","","","167","182"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:98","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 105 to 341 that give remainder 0 on division by 5.","48","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+48","5","0","","","105","341"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:99","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 165 and 312 leave remainder 0 when divided by 4?","37","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+37","4","0","","","165","312"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:100","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 4455 to 40134 that give remainder 40 on division by 99.","360","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+360","99","40","","","4455","40134"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:101","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 12 and 446 leave remainder 3 when divided by 13?","34","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+34","13","3","","","12","446"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:102","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 103 to 382 that give remainder 1 on division by 3.","94","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+94","3","1","","","103","382"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:103","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 188 and 446 that leave remainder 8 when divided by 11.","23","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+23","11","8","","","188","446"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:104","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 180 and 210 leave remainder 3 when divided by 8?","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","8","3","","","180","210"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:105","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1860 and 4175 leave remainder 2 when divided by 6?","386","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+386","6","2","","","1860","4175"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:106","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 3250 and 35564 that leave remainder 5 when divided by 54.","598","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+598","54","5","","","3250","35564"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:107","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 162 and 751 leave remainder 1 when divided by 5?","118","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+118","5","1","","","162","751"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:108","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 53 and 108 leave remainder 15 when divided by 16?","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","16","15","","","53","108"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:109","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1497 and 1547 leave remainder 20 when divided by 50?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","50","20","","","1497","1547"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:110","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 654 to 4559 that give remainder 22 on division by 36.","109","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+109","36","22","","","654","4559"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:111","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 693 and 5222 leave remainder 11 when divided by 22?","206","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+206","22","11","","","693","5222"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:112","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 213 to 3685 that give remainder 20 on division by 42.","83","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+83","42","20","","","213","3685"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:113","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 125 and 353 leave remainder 11 when divided by 16?","14","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+14","16","11","","","125","353"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:114","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 50 and 81 that leave remainder 11 when divided by 13.","3","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+3","13","11","","","50","81"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:115","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1650 and 1997 leave remainder 8 when divided by 9?","39","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+39","9","8","","","1650","1997"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:116","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 181 to 399 that give remainder 8 on division by 10.","22","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+22","10","8","","","181","399"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:117","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 982 and 7463 that leave remainder 7 when divided by 11.","589","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+589","11","7","","","982","7463"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:118","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 56 and 60 leave remainder 2 when divided by 4?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","4","2","","","56","60"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:119","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 85 to 100 that give remainder 3 on division by 15.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","15","3","","","85","100"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:120","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 72 and 316 that leave remainder 5 when divided by 8.","30","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+30","8","5","","","72","316"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:121","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 134 and 461 leave remainder 8 when divided by 10?","33","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+33","10","8","","","134","461"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:122","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 103 to 120 that give remainder 3 on division by 17.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","17","3","","","103","120"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:123","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 855 to 4502 that give remainder 14 on division by 15.","243","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+243","15","14","","","855","4502"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:124","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1695 and 1725 leave remainder 15 when divided by 30?","2","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+2","30","15","","","1695","1725"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:125","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 664 to 7854 that give remainder 7 on division by 23.","313","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+313","23","7","","","664","7854"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:126","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 6182 and 45918 leave remainder 7 when divided by 74?","537","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+537","74","7","","","6182","45918"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:127","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 9273 and 36325 leave remainder 3 when divided by 21?","1288","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1288","21","3","","","9273","36325"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:128","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 4236 and 40630 that leave remainder 16 when divided by 85.","428","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+428","85","16","","","4236","40630"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:129","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1818 to 3583 that give remainder 12 on division by 21.","85","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+85","21","12","","","1818","3583"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:130","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 8997 and 13023 that leave remainder 5 when divided by 87.","46","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+46","87","5","","","8997","13023"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:131","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 6237 and 38023 leave remainder 3 when divided by 20?","1590","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1590","20","3","","","6237","38023"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:132","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 37 to 228 that give remainder 6 on division by 20.","10","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+10","20","6","","","37","228"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:133","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 983 and 2826 leave remainder 13 when divided by 21?","87","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+87","21","13","","","983","2826"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:134","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 69 to 425 that give remainder 6 on division by 13.","28","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+28","13","6","","","69","425"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:135","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1057 and 1813 that leave remainder 1 when divided by 13.","58","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+58","13","1","","","1057","1813"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:136","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1975 and 2000 that leave remainder 14 when divided by 25.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","25","14","","","1975","2000"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:137","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 13 to 289 that give remainder 1 on division by 18.","16","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+16","18","1","","","13","289"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:138","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 25 to 401 that give remainder 10 on division by 15.","26","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+26","15","10","","","25","401"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:139","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 184 and 188 that leave remainder 3 when divided by 4.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","4","3","","","184","188"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:140","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 58 and 63 that leave remainder 1 when divided by 5.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","5","1","","","58","63"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:141","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1660 and 5646 that leave remainder 3 when divided by 39.","102","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+102","39","3","","","1660","5646"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:142","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 6462 to 32652 that give remainder 49 on division by 58.","452","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+452","58","49","","","6462","32652"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:143","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 197 and 266 that leave remainder 0 when divided by 10.","7","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+7","10","0","","","197","266"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:144","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 148 and 242 that leave remainder 7 when divided by 8.","12","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+12","8","7","","","148","242"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:145","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 616 and 5005 leave remainder 36 when divided by 43?","102","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+102","43","36","","","616","5005"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:146","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 181 and 200 that leave remainder 2 when divided by 19.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","19","2","","","181","200"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:147","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 136 and 370 that leave remainder 8 when divided by 11.","21","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+21","11","8","","","136","370"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:148","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1282 and 5178 leave remainder 1 when divided by 14?","278","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+278","14","1","","","1282","5178"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:149","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 69 and 213 leave remainder 4 when divided by 20?","7","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+7","20","4","","","69","213"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:150","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 317 and 3400 leave remainder 14 when divided by 46?","67","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+67","46","14","","","317","3400"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:151","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1324 to 8935 that give remainder 1 on division by 4.","1903","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1903","4","1","","","1324","8935"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:152","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 701 to 1952 that give remainder 6 on division by 7.","179","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+179","7","6","","","701","1952"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:153","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 9441 and 9499 leave remainder 41 when divided by 58?","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","58","41","","","9441","9499"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:154","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 146 and 161 leave remainder 6 when divided by 15?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","15","6","","","146","161"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:155","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 84 to 437 that give remainder 3 on division by 13.","27","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+27","13","3","","","84","437"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:156","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 484 and 2290 leave remainder 24 when divided by 38?","47","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+47","38","24","","","484","2290"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:157","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 1090 and 14651 that leave remainder 6 when divided by 25.","542","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+542","25","6","","","1090","14651"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:158","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1425 to 1736 that give remainder 6 on division by 19.","17","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+17","19","6","","","1425","1736"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:159","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 9903 and 46559 leave remainder 30 when divided by 41?","894","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+894","41","30","","","9903","46559"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:160","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 169 and 176 that leave remainder 5 when divided by 7.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","7","5","","","169","176"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:161","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 101 and 123 that leave remainder 8 when divided by 11.","2","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+2","11","8","","","101","123"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:162","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 187 to 277 that give remainder 7 on division by 8.","11","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+11","8","7","","","187","277"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:163","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 351 and 3165 leave remainder 10 when divided by 18?","157","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+157","18","10","","","351","3165"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:164","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 808 and 8515 that leave remainder 3 when divided by 46.","168","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+168","46","3","","","808","8515"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:165","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 4851 and 24950 leave remainder 34 when divided by 92?","218","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+218","92","34","","","4851","24950"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:166","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 1323 and 8370 leave remainder 1 when divided by 15?","469","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+469","15","1","","","1323","8370"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:167","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 31 to 217 that give remainder 2 on division by 19.","10","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+10","19","2","","","31","217"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:168","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 384 to 6343 that give remainder 1 on division by 8.","745","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+745","8","1","","","384","6343"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:169","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 39 to 128 that give remainder 7 on division by 17.","6","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6","17","7","","","39","128"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:170","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 84 to 168 that give remainder 8 on division by 9.","9","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+9","9","8","","","84","168"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:171","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1915 to 3365 that give remainder 1 on division by 3.","484","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+484","3","1","","","1915","3365"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:172","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 535 and 4648 that leave remainder 2 when divided by 4.","1028","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1028","4","2","","","535","4648"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:173","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1779 to 9935 that give remainder 10 on division by 47.","174","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+174","47","10","","","1779","9935"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:174","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 128 to 2101 that give remainder 1 on division by 39.","50","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+50","39","1","","","128","2101"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:175","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1909 to 3184 that give remainder 28 on division by 29.","44","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+44","29","28","","","1909","3184"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:176","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 199 and 218 leave remainder 14 when divided by 19?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","19","14","","","199","218"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:177","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1635 and 1967 leave remainder 13 when divided by 16?","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","16","13","","","1635","1967"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:178","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1358 to 4642 that give remainder 0 on division by 16.","206","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+206","16","0","","","1358","4642"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:179","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 679 and 2744 that leave remainder 10 when divided by 21.","99","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+99","21","10","","","679","2744"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:180","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 174 and 202 that leave remainder 13 when divided by 14.","2","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+2","14","13","","","174","202"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:181","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 193 to 195 that give remainder 0 on division by 2.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","2","0","","","193","195"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:182","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1279 to 9286 that give remainder 17 on division by 32.","250","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+250","32","17","","","1279","9286"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:183","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 62 and 202 leave remainder 0 when divided by 5?","28","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+28","5","0","","","62","202"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:184","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 137 and 139 that leave remainder 1 when divided by 2.","2","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+2","2","1","","","137","139"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:185","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 131 and 410 that leave remainder 1 when divided by 3.","93","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+93","3","1","","","131","410"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:186","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 149 to 248 that give remainder 1 on division by 2.","50","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+50","2","1","","","149","248"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:187","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 283 and 9606 that leave remainder 0 when divided by 10.","932","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+932","10","0","","","283","9606"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:188","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 9352 and 49709 leave remainder 1 when divided by 6?","6726","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6726","6","1","","","9352","49709"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:189","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 88 and 245 that leave remainder 1 when divided by 3.","53","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+53","3","1","","","88","245"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:190","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 968 to 1139 that give remainder 27 on division by 29.","6","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6","29","27","","","968","1139"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:191","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 38 and 474 that leave remainder 3 when divided by 6.","73","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+73","6","3","","","38","474"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:192","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 3825 and 18837 that leave remainder 23 when divided by 29.","517","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+517","29","23","","","3825","18837"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:193","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1448 and 6191 leave remainder 12 when divided by 33?","144","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+144","33","12","","","1448","6191"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:194","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 200 and 207 leave remainder 2 when divided by 7?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","7","2","","","200","207"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:195","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 127 and 224 leave remainder 1 when divided by 2?","49","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+49","2","1","","","127","224"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:196","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 965 to 9998 that give remainder 5 on division by 33.","273","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+273","33","5","","","965","9998"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:197","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 2510 to 7624 that give remainder 87 on division by 96.","53","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+53","96","87","","","2510","7624"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:198","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 190 and 303 leave remainder 0 when divided by 9?","12","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+12","9","0","","","190","303"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:199","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 4510 and 20984 that leave remainder 13 when divided by 16.","1029","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1029","16","13","","","4510","20984"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:200","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 686 and 7455 that leave remainder 14 when divided by 21.","323","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+323","21","14","","","686","7455"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:201","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 6090 and 30521 leave remainder 0 when divided by 67?","365","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+365","67","0","","","6090","30521"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:202","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 54 and 442 that leave remainder 2 when divided by 14.","28","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+28","14","2","","","54","442"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:203","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 151 and 410 leave remainder 16 when divided by 17?","16","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+16","17","16","","","151","410"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:204","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 151 to 471 that give remainder 4 on division by 14.","23","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+23","14","4","","","151","471"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:205","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1441 and 3471 leave remainder 5 when divided by 36?","57","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+57","36","5","","","1441","3471"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:206","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 753 to 2045 that give remainder 25 on division by 43.","30","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+30","43","25","","","753","2045"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:207","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 132 to 152 that give remainder 7 on division by 20.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","20","7","","","132","152"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:208","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1485 and 6555 leave remainder 2 when divided by 17?","298","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+298","17","2","","","1485","6555"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:209","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1278 and 4401 that leave remainder 9 when divided by 16.","195","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+195","16","9","","","1278","4401"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:210","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 5880 and 13036 that leave remainder 16 when divided by 27.","265","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+265","27","16","","","5880","13036"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:211","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 4253 and 11256 that leave remainder 0 when divided by 2.","3502","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3502","2","0","","","4253","11256"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:212","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 58 to 128 that give remainder 7 on division by 15.","5","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+5","15","7","","","58","128"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:213","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 121 to 141 that give remainder 14 on division by 20.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","20","14","","","121","141"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:214","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 188 to 196 that give remainder 7 on division by 8.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","8","7","","","188","196"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:215","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 5496 to 10499 that give remainder 86 on division by 90.","55","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+55","90","86","","","5496","10499"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:216","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1776 to 8654 that give remainder 5 on division by 18.","382","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+382","18","5","","","1776","8654"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:217","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 64 and 254 leave remainder 0 when divided by 6?","32","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+32","6","0","","","64","254"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:218","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 99 and 115 leave remainder 3 when divided by 16?","2","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+2","16","3","","","99","115"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:219","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 85 and 496 that leave remainder 0 when divided by 20.","20","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+20","20","0","","","85","496"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:220","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 185 and 438 leave remainder 16 when divided by 20?","13","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+13","20","16","","","185","438"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:221","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 68 to 238 that give remainder 4 on division by 5.","34","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+34","5","4","","","68","238"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:222","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1087 and 4749 that leave remainder 4 when divided by 17.","216","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+216","17","4","","","1087","4749"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:223","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1180 and 9126 leave remainder 9 when divided by 42?","190","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+190","42","9","","","1180","9126"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:224","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1831 and 2166 that leave remainder 36 when divided by 40.","9","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+9","40","36","","","1831","2166"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:225","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 130 and 193 that leave remainder 11 when divided by 12.","6","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+6","12","11","","","130","193"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:226","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 8695 and 13958 that leave remainder 64 when divided by 99.","53","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+53","99","64","","","8695","13958"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:227","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1699 and 8977 leave remainder 17 when divided by 27?","269","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+269","27","17","","","1699","8977"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:228","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 137 to 377 that give remainder 12 on division by 13.","19","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+19","13","12","","","137","377"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:229","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1031 and 4580 that leave remainder 10 when divided by 19.","187","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+187","19","10","","","1031","4580"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:230","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1401 to 7558 that give remainder 1 on division by 24.","256","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+256","24","1","","","1401","7558"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:231","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 7036 and 14586 that leave remainder 58 when divided by 62.","122","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+122","62","58","","","7036","14586"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:232","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 184 and 186 that leave remainder 1 when divided by 2.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","2","1","","","184","186"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:233","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 192 and 212 leave remainder 4 when divided by 20?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","20","4","","","192","212"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:234","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 16 and 201 leave remainder 5 when divided by 12?","16","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+16","12","5","","","16","201"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:235","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 136 to 341 that give remainder 9 on division by 13.","16","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+16","13","9","","","136","341"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:236","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 92 to 97 that give remainder 3 on division by 5.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","5","3","","","92","97"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:237","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 196 and 200 that leave remainder 0 when divided by 4.","2","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+2","4","0","","","196","200"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:238","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 1607 and 30361 that leave remainder 40 when divided by 43.","669","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+669","43","40","","","1607","30361"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:239","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 198 and 332 leave remainder 8 when divided by 15?","9","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+9","15","8","","","198","332"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:240","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 1130 to 24705 that give remainder 10 on division by 90.","262","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+262","90","10","","","1130","24705"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:241","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1710 to 1724 that give remainder 13 on division by 14.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","14","13","","","1710","1724"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:242","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 6824 to 23115 that give remainder 8 on division by 53.","307","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+307","53","8","","","6824","23115"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:243","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 39 and 362 that leave remainder 19 when divided by 20.","17","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+17","20","19","","","39","362"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:244","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1767 and 2527 leave remainder 0 when divided by 2?","380","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+380","2","0","","","1767","2527"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:245","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 13 to 429 that give remainder 9 on division by 20.","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","20","9","","","13","429"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:246","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 173 and 333 that leave remainder 0 when divided by 8.","20","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+20","8","0","","","173","333"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:247","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1405 to 9042 that give remainder 4 on division by 21.","364","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+364","21","4","","","1405","9042"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:248","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1671 and 5774 leave remainder 1 when divided by 3?","1368","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1368","3","1","","","1671","5774"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:249","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 190 and 336 that leave remainder 13 when divided by 20.","8","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+8","20","13","","","190","336"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:250","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 1547 to 8483 that give remainder 7 on division by 88.","79","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+79","88","7","","","1547","8483"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:251","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 2034 to 7309 that give remainder 33 on division by 43.","123","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+123","43","33","","","2034","7309"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:252","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 11 and 184 that leave remainder 1 when divided by 8.","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","8","1","","","11","184"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:253","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 155 and 9995 leave remainder 6 when divided by 26?","379","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+379","26","6","","","155","9995"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:254","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 212 and 5057 leave remainder 17 when divided by 22?","221","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+221","22","17","","","212","5057"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:255","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1861 and 2494 leave remainder 14 when divided by 42?","16","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+16","42","14","","","1861","2494"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:256","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 18 and 413 that leave remainder 18 when divided by 19.","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","19","18","","","18","413"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:257","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 509 and 9709 leave remainder 7 when divided by 17?","541","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+541","17","7","","","509","9709"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:258","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 115 and 245 that leave remainder 3 when divided by 6.","22","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+22","6","3","","","115","245"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:259","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 824 and 3557 leave remainder 24 when divided by 38?","71","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+71","38","24","","","824","3557"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:260","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 3823 and 8258 leave remainder 8 when divided by 9?","493","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+493","9","8","","","3823","8258"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:261","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1115 to 6795 that give remainder 36 on division by 39.","146","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+146","39","36","","","1115","6795"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:262","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 3168 and 16399 that leave remainder 72 when divided by 83.","159","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+159","83","72","","","3168","16399"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:263","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 65 to 497 that give remainder 17 on division by 20.","22","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+22","20","17","","","65","497"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:264","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 125 and 7007 that leave remainder 2 when divided by 19.","362","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+362","19","2","","","125","7007"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:265","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 186 and 203 that leave remainder 12 when divided by 17.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","17","12","","","186","203"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:266","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 8499 to 8790 that give remainder 0 on division by 94.","3","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+3","94","0","","","8499","8790"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:267","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 197 to 493 that give remainder 4 on division by 11.","27","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+27","11","4","","","197","493"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:268","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 38 and 359 leave remainder 0 when divided by 10?","32","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+32","10","0","","","38","359"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:269","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1337 and 5214 leave remainder 13 when divided by 26?","150","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+150","26","13","","","1337","5214"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:270","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1812 and 5683 that leave remainder 8 when divided by 13.","298","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+298","13","8","","","1812","5683"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:271","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 139 and 313 leave remainder 0 when divided by 9?","19","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+19","9","0","","","139","313"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:272","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 76 and 439 leave remainder 14 when divided by 15?","24","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+24","15","14","","","76","439"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:273","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1100 to 4257 that give remainder 16 on division by 20.","158","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+158","20","16","","","1100","4257"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:274","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 2831 and 23107 that leave remainder 42 when divided by 83.","244","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+244","83","42","","","2831","23107"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:275","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1033 to 2408 that give remainder 15 on division by 47.","29","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+29","47","15","","","1033","2408"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:276","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 95 and 289 leave remainder 7 when divided by 12?","16","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+16","12","7","","","95","289"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:277","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 189 and 284 that leave remainder 7 when divided by 9.","10","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+10","9","7","","","189","284"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:278","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 121 to 226 that give remainder 9 on division by 12.","9","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+9","12","9","","","121","226"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:279","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1102 to 7795 that give remainder 2 on division by 9.","743","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+743","9","2","","","1102","7795"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:280","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 4490 and 13494 leave remainder 7 when divided by 91?","99","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+99","91","7","","","4490","13494"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:281","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1592 and 1880 that leave remainder 13 when divided by 33.","9","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+9","33","13","","","1592","1880"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:282","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 54 and 266 that leave remainder 0 when divided by 2.","107","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+107","2","0","","","54","266"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:283","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 81 and 145 leave remainder 1 when divided by 9?","8","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+8","9","1","","","81","145"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:284","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 281 and 1983 that leave remainder 6 when divided by 33.","51","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+51","33","6","","","281","1983"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:285","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 3604 and 26396 leave remainder 5 when divided by 32?","712","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+712","32","5","","","3604","26396"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:286","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 73 to 338 that give remainder 1 on division by 9.","30","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+30","9","1","","","73","338"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:287","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 87 to 397 that give remainder 2 on division by 11.","28","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+28","11","2","","","87","397"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:288","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 199 and 219 leave remainder 6 when divided by 20?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","20","6","","","199","219"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:289","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 246 to 1365 that give remainder 9 on division by 44.","25","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+25","44","9","","","246","1365"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:290","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 74 and 486 leave remainder 0 when divided by 7?","59","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+59","7","0","","","74","486"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:291","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 301 and 4378 leave remainder 0 when divided by 27?","151","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+151","27","0","","","301","4378"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:292","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 145 and 1688 that leave remainder 1 when divided by 4.","386","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+386","4","1","","","145","1688"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:293","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 101 and 347 leave remainder 4 when divided by 13?","19","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+19","13","4","","","101","347"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:294","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 166 and 8413 that leave remainder 3 when divided by 14.","589","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+589","14","3","","","166","8413"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:295","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 129 to 280 that give remainder 13 on division by 15.","10","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+10","15","13","","","129","280"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:296","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1527 to 1837 that give remainder 6 on division by 19.","16","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+16","19","6","","","1527","1837"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:297","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 5298 and 27607 leave remainder 16 when divided by 18?","1239","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1239","18","16","","","5298","27607"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:298","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1396 to 8853 that give remainder 7 on division by 12.","622","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+622","12","7","","","1396","8853"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:299","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1516 and 7770 that leave remainder 6 when divided by 22.","284","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+284","22","6","","","1516","7770"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:300","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 134 and 364 that leave remainder 3 when divided by 18.","13","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+13","18","3","","","134","364"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:301","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 45 and 132 leave remainder 8 when divided by 10?","9","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+9","10","8","","","45","132"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:302","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 101 and 455 that leave remainder 10 when divided by 13.","28","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+28","13","10","","","101","455"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:303","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 400 and 7873 leave remainder 8 when divided by 44?","170","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+170","44","8","","","400","7873"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:304","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 8251 and 44675 that leave remainder 39 when divided by 98.","372","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+372","98","39","","","8251","44675"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:305","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 150 to 442 that give remainder 7 on division by 9.","33","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+33","9","7","","","150","442"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:306","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 11 to 238 that give remainder 1 on division by 10.","23","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+23","10","1","","","11","238"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:307","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1420 and 1450 leave remainder 2 when divided by 30?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","30","2","","","1420","1450"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:308","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 694 and 5817 leave remainder 2 when divided by 17?","302","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+302","17","2","","","694","5817"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:309","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 135 and 144 that leave remainder 8 when divided by 9.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","9","8","","","135","144"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:310","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 5320 and 37616 leave remainder 40 when divided by 45?","718","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+718","45","40","","","5320","37616"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:311","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 2229 and 47209 leave remainder 2 when divided by 3?","14993","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+14993","3","2","","","2229","47209"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:312","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1978 and 8510 that leave remainder 27 when divided by 47.","139","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+139","47","27","","","1978","8510"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:313","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1108 to 4544 that give remainder 3 on division by 5.","688","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+688","5","3","","","1108","4544"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:314","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 268 and 7400 leave remainder 6 when divided by 39?","183","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+183","39","6","","","268","7400"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:315","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 68 to 395 that give remainder 3 on division by 8.","41","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+41","8","3","","","68","395"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:316","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 99 and 344 that leave remainder 4 when divided by 14.","18","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+18","14","4","","","99","344"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:317","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 37 to 199 that give remainder 5 on division by 12.","14","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+14","12","5","","","37","199"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:318","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 114 and 129 leave remainder 6 when divided by 15?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","15","6","","","114","129"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:319","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 9009 to 20362 that give remainder 9 on division by 31.","366","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+366","31","9","","","9009","20362"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:320","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 149 and 439 that leave remainder 3 when divided by 14.","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","14","3","","","149","439"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:321","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 181 and 284 that leave remainder 2 when divided by 6.","18","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+18","6","2","","","181","284"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:322","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 5209 to 32289 that give remainder 39 on division by 79.","343","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+343","79","39","","","5209","32289"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:323","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 77 to 183 that give remainder 3 on division by 13.","8","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+8","13","3","","","77","183"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:324","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1347 and 8992 that leave remainder 12 when divided by 43.","177","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+177","43","12","","","1347","8992"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:325","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1267 to 7173 that give remainder 4 on division by 5.","1181","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1181","5","4","","","1267","7173"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:326","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1000 and 6080 leave remainder 11 when divided by 42?","121","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+121","42","11","","","1000","6080"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:327","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 168 and 187 that leave remainder 6 when divided by 19.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","19","6","","","168","187"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:328","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 2284 and 39314 that leave remainder 35 when divided by 48.","772","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+772","48","35","","","2284","39314"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:329","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 5044 and 14314 leave remainder 0 when divided by 12?","772","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+772","12","0","","","5044","14314"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:330","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1388 and 1421 that leave remainder 2 when divided by 33.","2","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+2","33","2","","","1388","1421"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:331","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 4145 and 20909 leave remainder 27 when divided by 97?","173","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+173","97","27","","","4145","20909"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:332","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 910 and 1967 that leave remainder 23 when divided by 25.","42","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+42","25","23","","","910","1967"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:333","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 18 and 442 that leave remainder 15 when divided by 20.","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","20","15","","","18","442"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:334","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 178 and 417 that leave remainder 2 when divided by 5.","48","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+48","5","2","","","178","417"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:335","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 534 and 5808 leave remainder 5 when divided by 19?","278","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+278","19","5","","","534","5808"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:336","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 193 to 213 that give remainder 0 on division by 2.","10","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+10","2","0","","","193","213"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:337","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 199 and 306 leave remainder 3 when divided by 14?","8","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+8","14","3","","","199","306"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:338","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 153 to 329 that give remainder 6 on division by 15.","12","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+12","15","6","","","153","329"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:339","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 6216 and 18958 leave remainder 9 when divided by 28?","455","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+455","28","9","","","6216","18958"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:340","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 905 and 950 leave remainder 13 when divided by 45?","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","45","13","","","905","950"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:341","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 122 and 259 that leave remainder 9 when divided by 19.","8","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+8","19","9","","","122","259"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:342","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 187 and 196 that leave remainder 1 when divided by 9.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","9","1","","","187","196"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:343","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 181 and 197 leave remainder 4 when divided by 16?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","16","4","","","181","197"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:344","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 109 and 137 leave remainder 1 when divided by 5?","6","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+6","5","1","","","109","137"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:345","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 2173 and 12485 that leave remainder 31 when divided by 43.","240","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+240","43","31","","","2173","12485"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:346","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 421 to 6198 that give remainder 1 on division by 13.","444","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+444","13","1","","","421","6198"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:347","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1257 and 4179 that leave remainder 0 when divided by 2.","1461","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1461","2","0","","","1257","4179"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:348","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 8909 and 29441 that leave remainder 89 when divided by 94.","219","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+219","94","89","","","8909","29441"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:349","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1847 and 3619 leave remainder 2 when divided by 6?","295","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+295","6","2","","","1847","3619"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:350","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1898 and 8795 leave remainder 17 when divided by 43?","161","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+161","43","17","","","1898","8795"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:351","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 662 and 6516 leave remainder 27 when divided by 32?","183","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+183","32","27","","","662","6516"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:352","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 1748 and 46199 that leave remainder 38 when divided by 40.","1112","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1112","40","38","","","1748","46199"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:353","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 453 to 831 that give remainder 10 on division by 13.","29","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+29","13","10","","","453","831"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:354","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 134 and 161 that leave remainder 13 when divided by 15.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","15","13","","","134","161"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:355","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 766 and 830 that leave remainder 3 when divided by 12.","5","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+5","12","3","","","766","830"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:356","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 150 and 257 leave remainder 4 when divided by 18?","6","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6","18","4","","","150","257"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:357","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1410 and 7107 that leave remainder 7 when divided by 10.","570","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+570","10","7","","","1410","7107"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:358","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 115 and 323 that leave remainder 12 when divided by 15.","14","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+14","15","12","","","115","323"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:359","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1310 to 4299 that give remainder 19 on division by 37.","81","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+81","37","19","","","1310","4299"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:360","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 140 and 490 that leave remainder 8 when divided by 13.","27","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+27","13","8","","","140","490"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:361","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 135 to 6033 that give remainder 7 on division by 19.","311","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+311","19","7","","","135","6033"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:362","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 122 and 342 that leave remainder 3 when divided by 6.","37","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+37","6","3","","","122","342"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:363","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1392 and 5223 leave remainder 4 when divided by 10?","383","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+383","10","4","","","1392","5223"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:364","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 3112 to 20393 that give remainder 1 on division by 59.","293","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+293","59","1","","","3112","20393"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:365","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 131 and 393 leave remainder 3 when divided by 5?","53","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+53","5","3","","","131","393"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:366","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 568 and 4124 leave remainder 10 when divided by 37?","96","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+96","37","10","","","568","4124"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:367","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 1509 to 18827 that give remainder 22 on division by 33.","524","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+524","33","22","","","1509","18827"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:368","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 236 to 2188 that give remainder 13 on division by 15.","131","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+131","15","13","","","236","2188"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:369","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 48 and 472 leave remainder 0 when divided by 15?","28","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+28","15","0","","","48","472"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:370","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 169 and 349 that leave remainder 2 when divided by 5.","36","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+36","5","2","","","169","349"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:371","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 279 to 6676 that give remainder 5 on division by 6.","1066","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1066","6","5","","","279","6676"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:372","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 7699 and 22259 that leave remainder 2 when divided by 46.","316","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+316","46","2","","","7699","22259"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:373","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 7041 and 17940 that leave remainder 22 when divided by 31.","352","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+352","31","22","","","7041","17940"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:374","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1738 to 4580 that give remainder 18 on division by 36.","79","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+79","36","18","","","1738","4580"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:375","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 155 and 217 leave remainder 1 when divided by 14?","5","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+5","14","1","","","155","217"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:376","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 510 and 7782 that leave remainder 15 when divided by 19.","382","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+382","19","15","","","510","7782"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:377","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 4384 and 24237 leave remainder 33 when divided by 99?","201","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+201","99","33","","","4384","24237"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:378","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 8464 and 27340 leave remainder 78 when divided by 80?","236","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+236","80","78","","","8464","27340"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:379","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 6605 to 8823 that give remainder 41 on division by 50.","44","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+44","50","41","","","6605","8823"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:380","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1910 and 7756 leave remainder 22 when divided by 25?","234","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+234","25","22","","","1910","7756"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:381","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 1651 and 18302 that leave remainder 0 when divided by 2.","8326","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+8326","2","0","","","1651","18302"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:382","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 3725 and 27860 that leave remainder 21 when divided by 65.","372","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+372","65","21","","","3725","27860"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:383","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 172 and 223 that leave remainder 1 when divided by 3.","18","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+18","3","1","","","172","223"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:384","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1790 and 9289 that leave remainder 33 when divided by 43.","175","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+175","43","33","","","1790","9289"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:385","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 96 and 151 that leave remainder 6 when divided by 13.","5","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+5","13","6","","","96","151"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:386","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 6438 and 48916 leave remainder 0 when divided by 37?","1149","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1149","37","0","","","6438","48916"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:387","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 3006 and 27012 that leave remainder 30 when divided by 47.","511","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+511","47","30","","","3006","27012"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:388","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 7816 and 38502 that leave remainder 4 when divided by 9.","3410","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+3410","9","4","","","7816","38502"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:389","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 150 and 437 leave remainder 9 when divided by 11?","26","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+26","11","9","","","150","437"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:390","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 78 and 379 that leave remainder 0 when divided by 12.","25","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+25","12","0","","","78","379"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:391","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 179 and 331 leave remainder 5 when divided by 17?","9","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+9","17","5","","","179","331"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:392","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1287 to 7744 that give remainder 40 on division by 42.","154","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+154","42","40","","","1287","7744"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:393","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 890 to 3018 that give remainder 14 on division by 29.","73","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+73","29","14","","","890","3018"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:394","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 72 and 498 leave remainder 0 when divided by 5?","85","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+85","5","0","","","72","498"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:395","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 44 and 386 that leave remainder 7 when divided by 13.","27","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+27","13","7","","","44","386"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:396","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1186 and 2173 that leave remainder 2 when divided by 5.","198","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+198","5","2","","","1186","2173"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:397","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1081 to 3660 that give remainder 5 on division by 21.","123","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+123","21","5","","","1081","3660"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:398","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 101 to 233 that give remainder 0 on division by 16.","8","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+8","16","0","","","101","233"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:399","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1015 to 6313 that give remainder 23 on division by 24.","221","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+221","24","23","","","1015","6313"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:400","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 193 and 279 that leave remainder 1 when divided by 3.","29","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+29","3","1","","","193","279"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:401","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 121 to 167 that give remainder 2 on division by 11.","5","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+5","11","2","","","121","167"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:402","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 896 and 5045 leave remainder 14 when divided by 32?","130","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+130","32","14","","","896","5045"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:403","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 791 to 6532 that give remainder 13 on division by 48.","119","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+119","48","13","","","791","6532"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:404","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 155 and 165 leave remainder 6 when divided by 10?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","10","6","","","155","165"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:405","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 109 and 149 leave remainder 7 when divided by 15?","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","15","7","","","109","149"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:406","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 997 and 1115 leave remainder 14 when divided by 20?","6","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+6","20","14","","","997","1115"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:407","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 576 to 5890 that give remainder 2 on division by 7.","760","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+760","7","2","","","576","5890"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:408","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 214 and 826 that leave remainder 36 when divided by 47.","13","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+13","47","36","","","214","826"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:409","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 109 and 6079 that leave remainder 23 when divided by 46.","130","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+130","46","23","","","109","6079"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:410","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1476 to 2660 that give remainder 20 on division by 21.","56","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+56","21","20","","","1476","2660"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:411","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 26 to 383 that give remainder 10 on division by 11.","32","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+32","11","10","","","26","383"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:412","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 2373 and 15785 leave remainder 64 when divided by 65?","206","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+206","65","64","","","2373","15785"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:413","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 4072 to 20736 that give remainder 67 on division by 75.","222","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+222","75","67","","","4072","20736"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:414","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1596 and 8386 that leave remainder 17 when divided by 42.","162","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+162","42","17","","","1596","8386"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:415","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 352 and 5341 leave remainder 18 when divided by 48?","104","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+104","48","18","","","352","5341"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:416","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1732 and 1816 leave remainder 7 when divided by 8?","11","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+11","8","7","","","1732","1816"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:417","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 58 and 455 leave remainder 8 when divided by 20?","20","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+20","20","8","","","58","455"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:418","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 8249 and 46490 that leave remainder 35 when divided by 66.","579","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+579","66","35","","","8249","46490"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:419","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 78 and 132 that leave remainder 4 when divided by 6.","9","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+9","6","4","","","78","132"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:420","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 67 and 222 that leave remainder 10 when divided by 17.","9","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+9","17","10","","","67","222"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:421","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 453 and 8566 leave remainder 14 when divided by 39?","208","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+208","39","14","","","453","8566"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:422","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 6721 and 18770 leave remainder 44 when divided by 52?","232","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+232","52","44","","","6721","18770"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:423","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 3961 and 43770 leave remainder 23 when divided by 84?","474","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+474","84","23","","","3961","43770"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:424","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1445 to 6515 that give remainder 24 on division by 43.","117","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+117","43","24","","","1445","6515"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:425","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 190 to 283 that give remainder 14 on division by 15.","6","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+6","15","14","","","190","283"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:426","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 99 to 419 that give remainder 6 on division by 10.","32","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+32","10","6","","","99","419"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:427","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 527 and 7553 leave remainder 37 when divided by 41?","172","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+172","41","37","","","527","7553"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:428","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 142 to 294 that give remainder 0 on division by 6.","26","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+26","6","0","","","142","294"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:429","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 6886 and 36745 that leave remainder 17 when divided by 20.","1493","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1493","20","17","","","6886","36745"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:430","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 72 to 488 that give remainder 3 on division by 5.","84","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+84","5","3","","","72","488"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:431","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 122 to 124 that give remainder 0 on division by 2.","2","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+2","2","0","","","122","124"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:432","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 139 and 206 leave remainder 17 when divided by 19?","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","19","17","","","139","206"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:433","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1387 and 4691 leave remainder 2 when divided by 10?","330","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+330","10","2","","","1387","4691"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:434","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 53 and 224 leave remainder 3 when divided by 8?","21","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+21","8","3","","","53","224"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:435","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 5968 and 39237 leave remainder 13 when divided by 17?","1957","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1957","17","13","","","5968","39237"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:436","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 241 and 707 leave remainder 23 when divided by 25?","19","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+19","25","23","","","241","707"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:437","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1719 to 8397 that give remainder 18 on division by 42.","159","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+159","42","18","","","1719","8397"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:438","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 8449 and 22568 that leave remainder 21 when divided by 63.","224","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+224","63","21","","","8449","22568"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:439","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 85 and 332 leave remainder 0 when divided by 11?","23","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+23","11","0","","","85","332"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:440","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 106 and 126 leave remainder 8 when divided by 20?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","20","8","","","106","126"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:441","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 3817 and 48042 leave remainder 19 when divided by 86?","514","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+514","86","19","","","3817","48042"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:442","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 8499 and 47434 leave remainder 36 when divided by 73?","534","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+534","73","36","","","8499","47434"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:443","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 137 to 177 that give remainder 1 on division by 13.","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","13","1","","","137","177"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:444","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 192 to 205 that give remainder 7 on division by 13.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","13","7","","","192","205"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:445","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 996 to 7171 that give remainder 2 on division by 15.","411","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+411","15","2","","","996","7171"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:446","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 86 and 93 leave remainder 6 when divided by 7?","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","7","6","","","86","93"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:447","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 71 to 83 that give remainder 1 on division by 12.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","12","1","","","71","83"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:448","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 20 to 393 that give remainder 3 on division by 13.","29","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+29","13","3","","","20","393"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:449","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 452 to 3702 that give remainder 13 on division by 29.","112","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+112","29","13","","","452","3702"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:450","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 7893 to 23414 that give remainder 49 on division by 68.","228","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+228","68","49","","","7893","23414"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:451","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 27 and 440 leave remainder 2 when divided by 8?","51","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+51","8","2","","","27","440"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:452","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 868 and 7021 that leave remainder 19 when divided by 20.","308","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+308","20","19","","","868","7021"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:453","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 42 to 477 that give remainder 0 on division by 16.","27","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+27","16","0","","","42","477"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:454","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 9975 and 23165 leave remainder 1 when divided by 19?","695","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+695","19","1","","","9975","23165"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:455","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1533 to 6491 that give remainder 28 on division by 33.","150","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+150","33","28","","","1533","6491"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:456","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 19 and 204 leave remainder 2 when divided by 5?","37","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+37","5","2","","","19","204"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:457","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1306 and 9915 that leave remainder 32 when divided by 34.","253","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+253","34","32","","","1306","9915"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:458","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 5822 to 25365 that give remainder 7 on division by 38.","514","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+514","38","7","","","5822","25365"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:459","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1445 and 6489 that leave remainder 24 when divided by 37.","136","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+136","37","24","","","1445","6489"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:460","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1882 to 1904 that give remainder 8 on division by 22.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","22","8","","","1882","1904"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:461","CP-004","Medium","Range Counting","QL-012","ES-007","How many numbers between 1225 and 6174 leave remainder 1 when divided by 16?","309","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+309","16","1","","","1225","6174"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:462","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 114 to 162 that give remainder 2 on division by 6.","8","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+8","6","2","","","114","162"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:463","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 1361 and 9105 that leave remainder 29 when divided by 31.","250","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+250","31","29","","","1361","9105"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:464","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 38 and 90 that leave remainder 14 when divided by 16.","3","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+3","16","14","","","38","90"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:465","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1105 to 9949 that give remainder 1 on division by 44.","201","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+201","44","1","","","1105","9949"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:466","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1499 to 1507 that give remainder 4 on division by 8.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","8","4","","","1499","1507"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:467","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 1379 to 8924 that give remainder 26 on division by 47.","161","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+161","47","26","","","1379","8924"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:468","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 48 and 413 leave remainder 4 when divided by 14?","26","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+26","14","4","","","48","413"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:469","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 3140 and 21494 that leave remainder 2 when divided by 17.","1080","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1080","17","2","","","3140","21494"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:470","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 4178 to 14117 that give remainder 68 on division by 83.","120","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+120","83","68","","","4178","14117"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:471","CP-004","Hard","Range Counting","QL-013","ES-007","Count the numbers from 4011 to 45410 that give remainder 12 on division by 92.","450","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+450","92","12","","","4011","45410"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:472","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 278 and 6996 that leave remainder 2 when divided by 15.","448","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+448","15","2","","","278","6996"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:473","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 2575 and 12551 that leave remainder 3 when divided by 57.","175","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+175","57","3","","","2575","12551"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:474","CP-004","Easy","Range Counting","QL-012","ES-007","How many numbers between 26 and 271 leave remainder 1 when divided by 11?","22","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+22","11","1","","","26","271"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:475","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1722 to 8905 that give remainder 6 on division by 46.","156","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+156","46","6","","","1722","8905"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:476","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 199 and 203 leave remainder 1 when divided by 4?","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","4","1","","","199","203"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:477","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 131 to 139 that give remainder 2 on division by 8.","1","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+1","8","2","","","131","139"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:478","CP-004","Easy","Range Counting","QL-014","ES-007","Find the number of integers between 69 and 324 that leave remainder 3 when divided by 17.","15","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+15","17","3","","","69","324"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:479","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 887 and 7378 that leave remainder 1 when divided by 15.","432","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+432","15","1","","","887","7378"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:480","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 7273 and 26855 leave remainder 34 when divided by 81?","242","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+242","81","34","","","7273","26855"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:481","CP-004","Easy","Range Counting","QL-012","ES-008","How many numbers between 186 and 200 leave remainder 3 when divided by 14?","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","14","3","","","186","200"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:482","CP-004","Easy","Range Counting","QL-014","ES-008","Find the number of integers between 22 and 425 that leave remainder 18 when divided by 20.","20","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+20","20","18","","","22","425"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:483","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 4990 and 12221 that leave remainder 59 when divided by 78.","92","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+92","78","59","","","4990","12221"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:484","CP-004","Medium","Range Counting","QL-013","ES-008","Count the numbers from 1546 to 7547 that give remainder 30 on division by 47.","127","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+127","47","30","","","1546","7547"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:485","CP-004","Medium","Range Counting","QL-014","ES-008","Find the number of integers between 867 and 5649 that leave remainder 2 when divided by 3.","1594","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1594","3","2","","","867","5649"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:486","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 24 to 97 that give remainder 4 on division by 17.","4","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+4","17","4","","","24","97"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:487","CP-004","Hard","Range Counting","QL-013","ES-008","Count the numbers from 9493 to 42958 that give remainder 26 on division by 49.","683","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+683","49","26","","","9493","42958"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:488","CP-004","Hard","Range Counting","QL-014","ES-007","Find the number of integers between 4683 and 31468 that leave remainder 80 when divided by 87.","308","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+308","87","80","","","4683","31468"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:489","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 8115 and 8371 that leave remainder 13 when divided by 77.","3","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+3","77","13","","","8115","8371"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:490","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 664 and 1549 leave remainder 9 when divided by 10?","89","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+89","10","9","","","664","1549"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:491","CP-004","Medium","Range Counting","QL-014","ES-007","Find the number of integers between 1055 and 4514 that leave remainder 1 when divided by 7.","494","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+494","7","1","","","1055","4514"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:492","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 816 to 1847 that give remainder 3 on division by 19.","55","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+55","19","3","","","816","1847"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:493","CP-004","Medium","Range Counting","QL-012","ES-008","How many numbers between 1605 and 4543 leave remainder 14 when divided by 18?","163","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+163","18","14","","","1605","4543"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:494","CP-004","Hard","Range Counting","QL-012","ES-007","How many numbers between 6188 and 31580 leave remainder 41 when divided by 48?","529","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+529","48","41","","","6188","31580"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:495","CP-004","Easy","Range Counting","QL-013","ES-008","Count the numbers from 192 to 294 that give remainder 2 on division by 4.","26","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+26","4","2","","","192","294"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:496","CP-004","Medium","Range Counting","QL-013","ES-007","Count the numbers from 664 to 9484 that give remainder 24 on division by 45.","196","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+196","45","24","","","664","9484"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:497","CP-004","Easy","Range Counting","QL-013","ES-007","Count the numbers from 57 to 425 that give remainder 0 on division by 16.","23","Find the first and last numbers in the range that satisfy the remainder condition.
+
+Count them.
+
+Answer:
+
+23","16","0","","","57","425"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:498","CP-004","Hard","Range Counting","QL-014","ES-008","Find the number of integers between 9373 and 9402 that leave remainder 3 when divided by 29.","1","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+1","29","3","","","9373","9402"
+"NS-REM-002:CP-004:NS-REM-002-HUMAN-REVIEW-500:CP-004:499","CP-004","Hard","Range Counting","QL-012","ES-008","How many numbers between 8928 and 34015 leave remainder 28 when divided by 89?","282","The valid numbers form an arithmetic sequence.
+
+Count the terms.
+
+Answer:
+
+282","89","28","","","8928","34015"

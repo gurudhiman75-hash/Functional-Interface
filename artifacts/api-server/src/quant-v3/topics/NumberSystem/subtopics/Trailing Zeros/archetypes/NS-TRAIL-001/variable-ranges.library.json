@@ -1,0 +1,58 @@
+{
+  "libraryId": "NS-TRAIL-001-VARIABLE-RANGES",
+  "archetypeId": "NS-TRAIL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+  "variables": {
+    "n": {
+      "type": "positiveInteger",
+      "easy": { "min": 5, "max": 50 },
+      "medium": { "min": 50, "max": 500 },
+      "hard": { "min": 500, "max": 5000 }
+    },
+    "expression": {
+      "type": "approvedFactorialExpression",
+      "buckets": ["numeratorOnly", "numeratorDenominator", "cancellationCase"]
+    },
+    "zeroCount": {
+      "type": "nonNegativeInteger",
+      "rule": "Target trailing-zero count for reverse factorial search. Future runtime must generate only attainable trailing-zero counts.",
+      "buckets": ["smallZeroCount", "mediumZeroCount", "largeZeroCount"]
+    },
+    "base": {
+      "type": "positiveInteger",
+      "rule": "Base for power trailing-zero questions."
+    },
+    "exponent": {
+      "type": "positiveInteger",
+      "rule": "Exponent for power trailing-zero questions."
+    },
+    "numberA": {
+      "type": "positiveInteger",
+      "rule": "First factor in product trailing-zero questions."
+    },
+    "numberB": {
+      "type": "positiveInteger",
+      "rule": "Second factor in product trailing-zero questions."
+    },
+    "answer": {
+      "type": "nonNegativeInteger",
+      "rule": "Final trailing-zero count or smallest factorial input."
+    }
+  },
+  "canonicalProblemVariables": {
+    "CP-001": ["n"],
+    "CP-002": ["expression"],
+    "CP-003": ["zeroCount"],
+    "CP-004": ["base", "exponent"],
+    "CP-005": ["numberA", "numberB"]
+  },
+  "coverageBuckets": {
+    "CP-001": ["smallFactorial", "mediumFactorial", "largeFactorial", "multipleFivePowers", "crosses25", "crosses125", "crosses625"],
+    "CP-002": ["numeratorOnly", "numeratorDenominator", "cancellationCase"],
+    "CP-003": ["solutionExists", "smallZeroCount", "mediumZeroCount", "largeZeroCount"],
+    "CP-004": ["balancedTwoFive", "excessTwos", "excessFives", "noTrailingZero"],
+    "CP-005": ["productCreatesZeros", "productAddsZeros", "productNoZeroChange"]
+  }
+}

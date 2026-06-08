@@ -1,0 +1,126 @@
+{
+  "libraryId": "NS-FAC-001-EXPLANATION",
+  "archetypeId": "NS-FAC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "style": "simple government-exam style",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "primeFactorizationLatex",
+      "factorCountFormulaLatex",
+      "factorSumFormulaLatex",
+      "factorProductFormulaLatex",
+      "factorListLatex",
+      "factorsIncreasingLatex",
+      "factorsDecreasingLatex",
+      "kPrimeFactorizationLatex",
+      "divisibleFactorConstraintLatex",
+      "complementFormulaLatex",
+      "selectedPositionFormulaLatex",
+      "greatestProperFactorFormulaLatex",
+      "perfectSquareRuleLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Total Number Of Factors",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Write the prime factorization.\n\n{primeFactorizationLatex}\n\nUse the factor count formula.\n\n{factorCountFormulaLatex}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Sum Of Factors",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Write the prime factorization.\n\n{primeFactorizationLatex}\n\nUse the sum of factors formula.\n\n{factorSumFormulaLatex}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Product Of Factors",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Find the number of factors.\n\n{factorCountFormulaLatex}\n\nUse:\n\n{factorProductFormulaLatex}\n\nProduct is stored exactly as a decimal string.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Odd Or Even Number Of Factors",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "A number has an odd number of factors only if it is a perfect square.\n\n{perfectSquareRuleLatex}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Greatest Proper Factor",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "List the factors.\n\n{factorListLatex}\n\nThe greatest proper factor is the largest factor excluding the number itself.\n\n{greatestProperFactorFormulaLatex}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Count Factors Divisible By K",
+      "appliesTo": ["CP-006"],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "Write the factors that are divisible by {k}.\n\n{divisibleFactorConstraintLatex}\n\nThe required count is:\n\n{answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-007",
+      "name": "Count Factors Not Divisible By K",
+      "appliesTo": ["CP-007"],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "Find the total number of factors and subtract the factors divisible by {k}.\n\n{complementFormulaLatex}\n\nTherefore the number of factors not divisible by {k} is:\n\n{answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-008",
+      "name": "kth Smallest Factor",
+      "appliesTo": ["CP-008"],
+      "entries": [
+        {
+          "id": "ES-008",
+          "text": "Arrange factors in increasing order.\n\n{factorsIncreasingLatex}\n\nSelect position {ordinalDisplay}.\n\n{selectedPositionFormulaLatex}\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-009",
+      "name": "kth Largest Factor",
+      "appliesTo": ["CP-009"],
+      "entries": [
+        {
+          "id": "ES-009",
+          "text": "Arrange factors in decreasing order.\n\n{factorsDecreasingLatex}\n\nSelect position {ordinalDisplay}.\n\n{selectedPositionFormulaLatex}\n\nAnswer: {answer}"
+        }
+      ]
+    }
+  ]
+}

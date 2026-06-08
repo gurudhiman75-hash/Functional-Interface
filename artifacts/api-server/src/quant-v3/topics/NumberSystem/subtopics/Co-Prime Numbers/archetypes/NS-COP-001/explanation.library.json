@@ -1,0 +1,86 @@
+{
+  "libraryId": "NS-COP-001-EXPLANATION",
+  "archetypeId": "NS-COP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "style": "SSC, Banking, Railway, CDS, CAPF and State PCS",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "hcfLatex",
+      "coprimeCheckLatex",
+      "candidateEvaluationLatex",
+      "pairEvaluationLatex",
+      "consecutivePropertyLatex",
+      "ratioReductionLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Co-Prime Check",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Find the HCF of {a} and {b}.\n\n{hcfLatex}\n\nThe HCF is {hcf}.\n\nSince the HCF equals 1, the numbers have no common factor other than 1.\n\nHence they form a co-prime pair.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Count Co-Primes From A List",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Check each number in the list with {targetNumber}.\n\n{coprimeCheckLatex}\n\nCount the numbers whose HCF with {targetNumber} is 1.\n\nTherefore, the answer is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Missing Number For Co-Prime Condition",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Check each candidate.\n\n{candidateEvaluationLatex}\n\nOnly one candidate has HCF 1 with {number}.\n\nHence the required number is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Count Co-Prime Pairs",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "Form all possible pairs.\n\n{pairEvaluationLatex}\n\nKeep only the pairs whose HCF is 1.\n\nTherefore, the number of co-prime pairs is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Consecutive Number Co-Prime Property",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "The numbers {number} and {nextNumber} are consecutive integers.\n\nFor any consecutive integers:\n\n{consecutivePropertyLatex}\n\nTherefore their HCF is 1.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Ratio Reduction To Lowest Form",
+      "appliesTo": ["CP-006"],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "Find the HCF of {a} and {b}.\n\n{hcfLatex}\n\nDivide both terms by the HCF.\n\n{ratioReductionLatex}\n\nHence the ratio in lowest form is {answer}."
+        }
+      ]
+    }
+  ]
+}

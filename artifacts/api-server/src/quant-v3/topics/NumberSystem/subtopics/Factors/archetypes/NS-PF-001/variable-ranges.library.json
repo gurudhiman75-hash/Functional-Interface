@@ -1,0 +1,269 @@
+{
+  "libraryId": "NS-PF-001-VARIABLE-RANGES",
+  "archetypeId": "NS-PF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "globalRules": {
+    "numberPolicy": {
+      "minimum": 2,
+      "rule": "Generated number must be greater than 1.",
+      "defaultCompositeOnly": false,
+      "primeInputsApproved": true,
+      "compositeInputsApproved": true,
+      "note": "Prime input numbers and composite input numbers are both valid for NS-PF-001."
+    },
+    "primeInputPolicy": {
+      "validInputs": [2, 3, 5, 13, 97],
+      "rule": "For a prime input p, the prime factorization is p.",
+      "expectedBehaviorFor13": {
+        "CP-001": "13",
+        "CP-002": 1,
+        "CP-003": 1,
+        "CP-004": 13,
+        "CP-005": 13,
+        "CP-006": {
+          "prime": 13,
+          "answer": 13
+        },
+        "CP-007": {
+          "prime": 13,
+          "answer": 1
+        }
+      }
+    },
+    "factorizationOrder": "Prime bases must be written in increasing order.",
+    "selectedPrimePolicy": {
+      "appliesTo": ["CP-006", "CP-007"],
+      "rule": "The selected prime must be a prime factor of the generated number.",
+      "minimumExponent": 1
+    },
+    "numberShapeCoverage": [
+      "prime_input",
+      "composite_input",
+      "small_composite",
+      "medium_composite",
+      "large_composite",
+      "prime_heavy",
+      "repeated_prime",
+      "mixed_prime"
+    ]
+  },
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "numberRange": {
+        "min": 2,
+        "max": 200
+      },
+      "primeBaseRange": {
+        "min": 2,
+        "max": 13
+      },
+      "selectedPrimeRange": {
+        "min": 2,
+        "max": 13
+      },
+      "totalPrimeFactorCount": {
+        "min": 1,
+        "max": 5
+      },
+      "distinctPrimeFactorCount": {
+        "min": 1,
+        "max": 3
+      },
+      "maxExponent": {
+        "min": 1,
+        "max": 4
+      },
+      "numberShapes": ["prime_input", "composite_input", "small_composite", "repeated_prime", "mixed_prime"]
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "numberRange": {
+        "min": 201,
+        "max": 5000
+      },
+      "primeBaseRange": {
+        "min": 2,
+        "max": 47
+      },
+      "selectedPrimeRange": {
+        "min": 2,
+        "max": 47
+      },
+      "totalPrimeFactorCount": {
+        "min": 1,
+        "max": 8
+      },
+      "distinctPrimeFactorCount": {
+        "min": 1,
+        "max": 4
+      },
+      "maxExponent": {
+        "min": 1,
+        "max": 6
+      },
+      "numberShapes": ["prime_input", "composite_input", "medium_composite", "prime_heavy", "repeated_prime", "mixed_prime"]
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "numberRange": {
+        "min": 5001,
+        "max": 100000
+      },
+      "primeBaseRange": {
+        "min": 2,
+        "max": 199
+      },
+      "selectedPrimeRange": {
+        "min": 2,
+        "max": 199
+      },
+      "totalPrimeFactorCount": {
+        "min": 1,
+        "max": 12
+      },
+      "distinctPrimeFactorCount": {
+        "min": 1,
+        "max": 5
+      },
+      "maxExponent": {
+        "min": 1,
+        "max": 10
+      },
+      "numberShapes": ["prime_input", "composite_input", "large_composite", "prime_heavy", "repeated_prime", "mixed_prime"]
+    }
+  ],
+  "numberShapeDefinitions": [
+    {
+      "id": "prime_input",
+      "description": "Prime number input greater than 1. The factorization is the number itself."
+    },
+    {
+      "id": "composite_input",
+      "description": "Composite number input greater than 1."
+    },
+    {
+      "id": "small_composite",
+      "description": "Composite number in the Easy number range with small prime bases."
+    },
+    {
+      "id": "medium_composite",
+      "description": "Composite number in the Medium number range with moderate factorization length."
+    },
+    {
+      "id": "large_composite",
+      "description": "Composite number in the Hard number range with larger value or larger prime factor."
+    },
+    {
+      "id": "prime_heavy",
+      "description": "Number with at least one larger prime factor relative to its difficulty band."
+    },
+    {
+      "id": "repeated_prime",
+      "description": "Number with at least one exponent greater than 1."
+    },
+    {
+      "id": "mixed_prime",
+      "description": "Number with at least two distinct prime factors."
+    }
+  ],
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Prime Factorization",
+      "topology": "Full Prime Factorization",
+      "educationalObjective": "Output the complete prime factorization of a number.",
+      "inputs": ["number"],
+      "outputs": ["factorization"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["number size", "largest prime factor size", "total prime factor count", "maximum exponent", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "prime power coverage", "distinct factor count coverage", "repeated factor coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Prime Factors",
+      "topology": "Total Multiplicity Count",
+      "educationalObjective": "Count prime factors including repetition.",
+      "inputs": ["number"],
+      "outputs": ["totalPrimeFactorCount"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["total prime factor count", "maximum exponent", "number size", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "prime power coverage", "repeated factor coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Count Distinct Prime Factors",
+      "topology": "Distinct Support Count",
+      "educationalObjective": "Count different prime factors.",
+      "inputs": ["number"],
+      "outputs": ["distinctPrimeFactorCount"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["distinct prime factor count", "number size", "largest prime factor size", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "distinct factor count coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Largest Prime Factor",
+      "topology": "Prime Base Maximum",
+      "educationalObjective": "Find the largest prime factor of a number.",
+      "inputs": ["number"],
+      "outputs": ["largestPrimeFactor"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["largest prime factor size", "number size", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "largest prime factor coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Smallest Prime Factor",
+      "topology": "Prime Base Minimum",
+      "educationalObjective": "Find the smallest prime factor of a number.",
+      "inputs": ["number"],
+      "outputs": ["smallestPrimeFactor"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["smallest prime factor visibility", "number parity", "number size", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "smallest prime factor coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Highest Power Of A Prime",
+      "topology": "Selected Prime Power Lookup",
+      "educationalObjective": "Find the highest power of a selected prime that divides the number.",
+      "inputs": ["number", "prime"],
+      "outputs": ["highestPrimePower"],
+      "variableUniverse": {
+        "number": "difficulty band number range",
+        "prime": "selected prime must be a prime factor of number"
+      },
+      "difficultyDrivers": ["selected prime size", "selected exponent", "number size", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "selected prime coverage", "selected exponent coverage", "prime power coverage", "repeated factor coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Prime Exponent Lookup",
+      "topology": "Selected Exponent Lookup",
+      "educationalObjective": "Find the exponent of a selected prime in the prime factorization of the number.",
+      "inputs": ["number", "prime"],
+      "outputs": ["exponent"],
+      "variableUniverse": {
+        "number": "difficulty band number range",
+        "prime": "selected prime must be a prime factor of number"
+      },
+      "difficultyDrivers": ["selected prime size", "selected exponent", "number size", "number shape"],
+      "coverageRequirements": ["difficulty coverage", "prime input coverage", "composite input coverage", "prime base coverage", "selected prime coverage", "selected exponent coverage", "prime power coverage", "repeated factor coverage", "question language coverage", "explanation coverage"]
+    }
+  ]
+}

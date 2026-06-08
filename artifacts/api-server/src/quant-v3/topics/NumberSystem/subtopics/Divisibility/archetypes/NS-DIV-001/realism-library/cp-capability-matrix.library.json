@@ -8,32 +8,32 @@
     {
       "id": "CP-002",
       "name": "Find Largest Valid Digit",
-      "status": "APPROVED"
+      "status": "IMPLEMENTED"
     },
     {
       "id": "CP-003",
       "name": "Find Smallest Valid Digit",
-      "status": "APPROVED"
+      "status": "IMPLEMENTED"
     },
     {
       "id": "CP-004",
       "name": "Count Valid Digits",
-      "status": "APPROVED"
+      "status": "IMPLEMENTED"
     },
     {
       "id": "CP-005",
       "name": "Sum Of Valid Digits",
-      "status": "APPROVED"
+      "status": "IMPLEMENTED"
     },
     {
       "id": "CP-006",
-      "name": "Product Of Valid Digits",
-      "status": "APPROVED"
+      "name": "Form Greatest Valid Number",
+      "status": "IMPLEMENTED"
     },
     {
       "id": "CP-007",
-      "name": "Expression Value Using Missing Digit",
-      "status": "APPROVED"
+      "name": "Form Smallest Valid Number",
+      "status": "IMPLEMENTED"
     },
     {
       "id": "CP-008",

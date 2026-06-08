@@ -1,0 +1,3987 @@
+"Question ID","Canonical Problem","Difficulty","Topology","Question Language ID","Explanation Style ID","Question","Answer","Explanation","Divisor","Remainder","Quotient","Dividend","Lower Bound","Upper Bound"
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:0","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 18389
+
+Divisor = 9
+
+Remainder = 2","2043","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2043","9","2","2043","18389","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:1","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 238, divisor = 6, and remainder = 4.","39","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+39","6","4","39","238","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:2","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 811
+
+Divisor = 19
+
+Remainder = 13","42","Rearrange the division formula and simplify.
+
+Answer:
+
+42","19","13","42","811","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:3","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 5698, divisor = 33, and remainder = 22.","172","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+172","33","22","172","5698","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:4","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 223038 is divided by 75 and leaves remainder 63. Determine the quotient.","2973","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2973","75","63","2973","223038","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:5","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 77670, divisor = 76, and remainder = 74.","1021","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1021","76","74","1021","77670","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:6","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 3915 is divided by 20 and leaves remainder 15. Determine the quotient.","195","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+195","20","15","195","3915","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:7","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 2437 is divided by 15 and leaves remainder 7. Determine the quotient.","162","Rearrange the division formula and simplify.
+
+Answer:
+
+162","15","7","162","2437","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:8","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 635, divisor = 15, and remainder = 5.","42","Rearrange the division formula and simplify.
+
+Answer:
+
+42","15","5","42","635","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:9","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 541
+
+Divisor = 11
+
+Remainder = 2","49","Rearrange the division formula and simplify.
+
+Answer:
+
+49","11","2","49","541","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:10","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 209377 is divided by 59 and leaves remainder 45. Determine the quotient.","3548","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3548","59","45","3548","209377","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:11","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 9
+
+Divisor = 2
+
+Remainder = 1","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","2","1","4","9","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:12","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 7110 is divided by 32 and leaves remainder 6. Determine the quotient.","222","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+222","32","6","222","7110","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:13","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 5185 is divided by 34 and leaves remainder 17. Determine the quotient.","152","Rearrange the division formula and simplify.
+
+Answer:
+
+152","34","17","152","5185","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:14","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 280621 is divided by 93 and leaves remainder 40. Determine the quotient.","3017","Rearrange the division formula and simplify.
+
+Answer:
+
+3017","93","40","3017","280621","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:15","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 17867 is divided by 41 and leaves remainder 32. Determine the quotient.","435","Rearrange the division formula and simplify.
+
+Answer:
+
+435","41","32","435","17867","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:16","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 830
+
+Divisor = 22
+
+Remainder = 16","37","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+37","22","16","37","830","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:17","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 144395 is divided by 62 and leaves remainder 59. Determine the quotient.","2328","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2328","62","59","2328","144395","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:18","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 83 is divided by 3 and leaves remainder 2. Determine the quotient.","27","Rearrange the division formula and simplify.
+
+Answer:
+
+27","3","2","27","83","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:19","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 21019, divisor = 18, and remainder = 13.","1167","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1167","18","13","1167","21019","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:20","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 32
+
+Divisor = 3
+
+Remainder = 2","10","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+10","3","2","10","32","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:21","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 17420
+
+Divisor = 6
+
+Remainder = 2","2903","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2903","6","2","2903","17420","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:22","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 89 is divided by 4 and leaves remainder 1. Determine the quotient.","22","Rearrange the division formula and simplify.
+
+Answer:
+
+22","4","1","22","89","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:23","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 201690 is divided by 68 and leaves remainder 2. Determine the quotient.","2966","Rearrange the division formula and simplify.
+
+Answer:
+
+2966","68","2","2966","201690","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:24","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 25, divisor = 6, and remainder = 1.","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","6","1","4","25","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:25","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 35 is divided by 5 and leaves remainder 0. Determine the quotient.","7","Rearrange the division formula and simplify.
+
+Answer:
+
+7","5","0","7","35","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:26","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 159
+
+Divisor = 13
+
+Remainder = 3","12","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+12","13","3","12","159","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:27","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 354, divisor = 14, and remainder = 4.","25","Rearrange the division formula and simplify.
+
+Answer:
+
+25","14","4","25","354","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:28","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 389, divisor = 13, and remainder = 12.","29","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+29","13","12","29","389","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:29","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 178, divisor = 6, and remainder = 4.","29","Rearrange the division formula and simplify.
+
+Answer:
+
+29","6","4","29","178","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:30","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 4592 is divided by 18 and leaves remainder 2. Determine the quotient.","255","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+255","18","2","255","4592","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:31","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 161
+
+Divisor = 4
+
+Remainder = 1","40","Rearrange the division formula and simplify.
+
+Answer:
+
+40","4","1","40","161","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:32","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 172 is divided by 8 and leaves remainder 4. Determine the quotient.","21","Rearrange the division formula and simplify.
+
+Answer:
+
+21","8","4","21","172","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:33","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 307, divisor = 17, and remainder = 1.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","17","1","18","307","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:34","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 2 is divided by 2 and leaves remainder 0. Determine the quotient.","1","Rearrange the division formula and simplify.
+
+Answer:
+
+1","2","0","1","2","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:35","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 173 is divided by 6 and leaves remainder 5. Determine the quotient.","28","Rearrange the division formula and simplify.
+
+Answer:
+
+28","6","5","28","173","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:36","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 28964, divisor = 15, and remainder = 14.","1930","Rearrange the division formula and simplify.
+
+Answer:
+
+1930","15","14","1930","28964","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:37","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 85
+
+Divisor = 7
+
+Remainder = 1","12","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+12","7","1","12","85","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:38","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 2706
+
+Divisor = 6
+
+Remainder = 0","451","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+451","6","0","451","2706","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:39","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 21002 is divided by 47 and leaves remainder 40. Determine the quotient.","446","Rearrange the division formula and simplify.
+
+Answer:
+
+446","47","40","446","21002","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:40","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 389
+
+Divisor = 12
+
+Remainder = 5","32","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+32","12","5","32","389","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:41","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 186914, divisor = 48, and remainder = 2.","3894","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3894","48","2","3894","186914","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:42","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 53797 is divided by 73 and leaves remainder 69. Determine the quotient.","736","Rearrange the division formula and simplify.
+
+Answer:
+
+736","73","69","736","53797","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:43","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 2288 is divided by 40 and leaves remainder 8. Determine the quotient.","57","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+57","40","8","57","2288","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:44","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 205, divisor = 16, and remainder = 13.","12","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+12","16","13","12","205","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:45","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 22
+
+Divisor = 2
+
+Remainder = 0","11","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+11","2","0","11","22","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:46","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 50357
+
+Divisor = 29
+
+Remainder = 13","1736","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1736","29","13","1736","50357","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:47","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 360, divisor = 29, and remainder = 12.","12","Rearrange the division formula and simplify.
+
+Answer:
+
+12","29","12","12","360","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:48","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 489, divisor = 16, and remainder = 9.","30","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+30","16","9","30","489","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:49","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 1830 is divided by 28 and leaves remainder 10. Determine the quotient.","65","Rearrange the division formula and simplify.
+
+Answer:
+
+65","28","10","65","1830","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:50","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 6645
+
+Divisor = 39
+
+Remainder = 15","170","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+170","39","15","170","6645","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:51","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 52861 is divided by 78 and leaves remainder 55. Determine the quotient.","677","Rearrange the division formula and simplify.
+
+Answer:
+
+677","78","55","677","52861","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:52","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 37 is divided by 11 and leaves remainder 4. Determine the quotient.","3","Rearrange the division formula and simplify.
+
+Answer:
+
+3","11","4","3","37","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:53","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 1559
+
+Divisor = 9
+
+Remainder = 2","173","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+173","9","2","173","1559","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:54","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 1910, divisor = 14, and remainder = 6.","136","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+136","14","6","136","1910","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:55","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 99395, divisor = 27, and remainder = 8.","3681","Rearrange the division formula and simplify.
+
+Answer:
+
+3681","27","8","3681","99395","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:56","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 539
+
+Divisor = 15
+
+Remainder = 14","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","15","14","35","539","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:57","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 704, divisor = 15, and remainder = 14.","46","Rearrange the division formula and simplify.
+
+Answer:
+
+46","15","14","46","704","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:58","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 297888, divisor = 96, and remainder = 0.","3103","Rearrange the division formula and simplify.
+
+Answer:
+
+3103","96","0","3103","297888","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:59","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 8927
+
+Divisor = 19
+
+Remainder = 16","469","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+469","19","16","469","8927","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:60","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 2317
+
+Divisor = 18
+
+Remainder = 13","128","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+128","18","13","128","2317","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:61","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 9070
+
+Divisor = 38
+
+Remainder = 26","238","Rearrange the division formula and simplify.
+
+Answer:
+
+238","38","26","238","9070","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:62","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 281
+
+Divisor = 10
+
+Remainder = 1","28","Rearrange the division formula and simplify.
+
+Answer:
+
+28","10","1","28","281","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:63","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 2138 is divided by 22 and leaves remainder 4. Determine the quotient.","97","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+97","22","4","97","2138","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:64","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 295 is divided by 16 and leaves remainder 7. Determine the quotient.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","16","7","18","295","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:65","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 214279 is divided by 91 and leaves remainder 65. Determine the quotient.","2354","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2354","91","65","2354","214279","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:66","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 1865
+
+Divisor = 40
+
+Remainder = 25","46","Rearrange the division formula and simplify.
+
+Answer:
+
+46","40","25","46","1865","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:67","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 58
+
+Divisor = 6
+
+Remainder = 4","9","Rearrange the division formula and simplify.
+
+Answer:
+
+9","6","4","9","58","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:68","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 21211 is divided by 16 and leaves remainder 11. Determine the quotient.","1325","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1325","16","11","1325","21211","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:69","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 26464, divisor = 45, and remainder = 4.","588","Rearrange the division formula and simplify.
+
+Answer:
+
+588","45","4","588","26464","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:70","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 69926
+
+Divisor = 18
+
+Remainder = 14","3884","Rearrange the division formula and simplify.
+
+Answer:
+
+3884","18","14","3884","69926","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:71","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 10116 is divided by 41 and leaves remainder 30. Determine the quotient.","246","Rearrange the division formula and simplify.
+
+Answer:
+
+246","41","30","246","10116","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:72","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 102244
+
+Divisor = 89
+
+Remainder = 72","1148","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1148","89","72","1148","102244","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:73","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 140, divisor = 5, and remainder = 0.","28","Rearrange the division formula and simplify.
+
+Answer:
+
+28","5","0","28","140","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:74","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 22
+
+Divisor = 16
+
+Remainder = 6","1","Rearrange the division formula and simplify.
+
+Answer:
+
+1","16","6","1","22","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:75","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 2973 is divided by 8 and leaves remainder 5. Determine the quotient.","371","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+371","8","5","371","2973","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:76","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 88 is divided by 5 and leaves remainder 3. Determine the quotient.","17","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+17","5","3","17","88","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:77","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 6007
+
+Divisor = 28
+
+Remainder = 15","214","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+214","28","15","214","6007","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:78","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 78
+
+Divisor = 2
+
+Remainder = 0","39","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+39","2","0","39","78","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:79","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 123
+
+Divisor = 11
+
+Remainder = 2","11","Rearrange the division formula and simplify.
+
+Answer:
+
+11","11","2","11","123","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:80","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 8833, divisor = 10, and remainder = 3.","883","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+883","10","3","883","8833","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:81","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 607
+
+Divisor = 17
+
+Remainder = 12","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","17","12","35","607","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:82","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 5725
+
+Divisor = 2
+
+Remainder = 1","2862","Rearrange the division formula and simplify.
+
+Answer:
+
+2862","2","1","2862","5725","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:83","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 92445 is divided by 97 and leaves remainder 4. Determine the quotient.","953","Rearrange the division formula and simplify.
+
+Answer:
+
+953","97","4","953","92445","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:84","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 7 is divided by 3 and leaves remainder 1. Determine the quotient.","2","Rearrange the division formula and simplify.
+
+Answer:
+
+2","3","1","2","7","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:85","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 1731, divisor = 15, and remainder = 6.","115","Rearrange the division formula and simplify.
+
+Answer:
+
+115","15","6","115","1731","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:86","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 69265 is divided by 17 and leaves remainder 7. Determine the quotient.","4074","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4074","17","7","4074","69265","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:87","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 1861 is divided by 47 and leaves remainder 28. Determine the quotient.","39","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+39","47","28","39","1861","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:88","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 3293, divisor = 8, and remainder = 5.","411","Rearrange the division formula and simplify.
+
+Answer:
+
+411","8","5","411","3293","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:89","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 12129 is divided by 45 and leaves remainder 24. Determine the quotient.","269","Rearrange the division formula and simplify.
+
+Answer:
+
+269","45","24","269","12129","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:90","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 732
+
+Divisor = 12
+
+Remainder = 0","61","Rearrange the division formula and simplify.
+
+Answer:
+
+61","12","0","61","732","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:91","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 97
+
+Divisor = 2
+
+Remainder = 1","48","Rearrange the division formula and simplify.
+
+Answer:
+
+48","2","1","48","97","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:92","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 2270
+
+Divisor = 27
+
+Remainder = 2","84","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+84","27","2","84","2270","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:93","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 453 is divided by 20 and leaves remainder 13. Determine the quotient.","22","Rearrange the division formula and simplify.
+
+Answer:
+
+22","20","13","22","453","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:94","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 59, divisor = 11, and remainder = 4.","5","Rearrange the division formula and simplify.
+
+Answer:
+
+5","11","4","5","59","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:95","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 10403
+
+Divisor = 36
+
+Remainder = 35","288","Rearrange the division formula and simplify.
+
+Answer:
+
+288","36","35","288","10403","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:96","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 10647 is divided by 5 and leaves remainder 2. Determine the quotient.","2129","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2129","5","2","2129","10647","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:97","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 11109
+
+Divisor = 34
+
+Remainder = 25","326","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+326","34","25","326","11109","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:98","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 170428, divisor = 60, and remainder = 28.","2840","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2840","60","28","2840","170428","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:99","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 20013
+
+Divisor = 6
+
+Remainder = 3","3335","Rearrange the division formula and simplify.
+
+Answer:
+
+3335","6","3","3335","20013","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:100","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 702, divisor = 17, and remainder = 5.","41","Rearrange the division formula and simplify.
+
+Answer:
+
+41","17","5","41","702","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:101","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 241, divisor = 21, and remainder = 10.","11","Rearrange the division formula and simplify.
+
+Answer:
+
+11","21","10","11","241","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:102","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 902 is divided by 2 and leaves remainder 0. Determine the quotient.","451","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+451","2","0","451","902","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:103","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 11899, divisor = 40, and remainder = 19.","297","Rearrange the division formula and simplify.
+
+Answer:
+
+297","40","19","297","11899","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:104","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 70 is divided by 10 and leaves remainder 0. Determine the quotient.","7","Rearrange the division formula and simplify.
+
+Answer:
+
+7","10","0","7","70","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:105","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 53865 is divided by 20 and leaves remainder 5. Determine the quotient.","2693","Rearrange the division formula and simplify.
+
+Answer:
+
+2693","20","5","2693","53865","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:106","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 7228
+
+Divisor = 46
+
+Remainder = 6","157","Rearrange the division formula and simplify.
+
+Answer:
+
+157","46","6","157","7228","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:107","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 1401
+
+Divisor = 10
+
+Remainder = 1","140","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+140","10","1","140","1401","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:108","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 17046 is divided by 44 and leaves remainder 18. Determine the quotient.","387","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+387","44","18","387","17046","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:109","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 123 is divided by 6 and leaves remainder 3. Determine the quotient.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","6","3","20","123","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:110","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 170, divisor = 5, and remainder = 0.","34","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+34","5","0","34","170","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:111","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 19214
+
+Divisor = 43
+
+Remainder = 36","446","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+446","43","36","446","19214","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:112","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 608
+
+Divisor = 19
+
+Remainder = 0","32","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+32","19","0","32","608","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:113","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 958, divisor = 2, and remainder = 0.","479","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+479","2","0","479","958","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:114","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 339
+
+Divisor = 18
+
+Remainder = 15","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","18","15","18","339","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:115","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 63938 is divided by 13 and leaves remainder 4. Determine the quotient.","4918","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4918","13","4","4918","63938","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:116","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 526 is divided by 13 and leaves remainder 6. Determine the quotient.","40","Rearrange the division formula and simplify.
+
+Answer:
+
+40","13","6","40","526","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:117","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 10226, divisor = 67, and remainder = 42.","152","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+152","67","42","152","10226","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:118","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 1601 is divided by 21 and leaves remainder 5. Determine the quotient.","76","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+76","21","5","76","1601","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:119","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 75623 is divided by 85 and leaves remainder 58. Determine the quotient.","889","Rearrange the division formula and simplify.
+
+Answer:
+
+889","85","58","889","75623","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:120","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 160, divisor = 14, and remainder = 6.","11","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+11","14","6","11","160","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:121","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 551, divisor = 15, and remainder = 11.","36","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+36","15","11","36","551","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:122","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 106 is divided by 11 and leaves remainder 7. Determine the quotient.","9","Rearrange the division formula and simplify.
+
+Answer:
+
+9","11","7","9","106","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:123","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 256585
+
+Divisor = 90
+
+Remainder = 85","2850","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2850","90","85","2850","256585","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:124","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 4252
+
+Divisor = 25
+
+Remainder = 2","170","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+170","25","2","170","4252","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:125","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 114705
+
+Divisor = 86
+
+Remainder = 67","1333","Rearrange the division formula and simplify.
+
+Answer:
+
+1333","86","67","1333","114705","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:126","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 58124
+
+Divisor = 13
+
+Remainder = 1","4471","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4471","13","1","4471","58124","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:127","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 205, divisor = 9, and remainder = 7.","22","Rearrange the division formula and simplify.
+
+Answer:
+
+22","9","7","22","205","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:128","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 9823, divisor = 29, and remainder = 21.","338","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+338","29","21","338","9823","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:129","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 694 is divided by 9 and leaves remainder 1. Determine the quotient.","77","Rearrange the division formula and simplify.
+
+Answer:
+
+77","9","1","77","694","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:130","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 1538, divisor = 17, and remainder = 8.","90","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+90","17","8","90","1538","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:131","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 2930
+
+Divisor = 14
+
+Remainder = 4","209","Rearrange the division formula and simplify.
+
+Answer:
+
+209","14","4","209","2930","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:132","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 145 is divided by 14 and leaves remainder 5. Determine the quotient.","10","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+10","14","5","10","145","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:133","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 388
+
+Divisor = 20
+
+Remainder = 8","19","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+19","20","8","19","388","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:134","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 61
+
+Divisor = 2
+
+Remainder = 1","30","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+30","2","1","30","61","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:135","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 171, divisor = 13, and remainder = 2.","13","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+13","13","2","13","171","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:136","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 700, divisor = 15, and remainder = 10.","46","Rearrange the division formula and simplify.
+
+Answer:
+
+46","15","10","46","700","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:137","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 228 is divided by 12 and leaves remainder 0. Determine the quotient.","19","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+19","12","0","19","228","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:138","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 30
+
+Divisor = 11
+
+Remainder = 8","2","Rearrange the division formula and simplify.
+
+Answer:
+
+2","11","8","2","30","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:139","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 2790 is divided by 20 and leaves remainder 10. Determine the quotient.","139","Rearrange the division formula and simplify.
+
+Answer:
+
+139","20","10","139","2790","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:140","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 91008
+
+Divisor = 22
+
+Remainder = 16","4136","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4136","22","16","4136","91008","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:141","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 20
+
+Divisor = 7
+
+Remainder = 6","2","Rearrange the division formula and simplify.
+
+Answer:
+
+2","7","6","2","20","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:142","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 772 is divided by 17 and leaves remainder 7. Determine the quotient.","45","Rearrange the division formula and simplify.
+
+Answer:
+
+45","17","7","45","772","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:143","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 363, divisor = 20, and remainder = 3.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","20","3","18","363","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:144","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 12639 is divided by 27 and leaves remainder 3. Determine the quotient.","468","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+468","27","3","468","12639","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:145","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 129, divisor = 4, and remainder = 1.","32","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+32","4","1","32","129","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:146","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 34754
+
+Divisor = 13
+
+Remainder = 5","2673","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2673","13","5","2673","34754","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:147","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 692 is divided by 19 and leaves remainder 8. Determine the quotient.","36","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+36","19","8","36","692","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:148","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 916, divisor = 18, and remainder = 16.","50","Rearrange the division formula and simplify.
+
+Answer:
+
+50","18","16","50","916","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:149","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 310, divisor = 7, and remainder = 2.","44","Rearrange the division formula and simplify.
+
+Answer:
+
+44","7","2","44","310","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:150","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 18549
+
+Divisor = 45
+
+Remainder = 9","412","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+412","45","9","412","18549","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:151","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 69354 is divided by 66 and leaves remainder 54. Determine the quotient.","1050","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1050","66","54","1050","69354","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:152","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 175
+
+Divisor = 14
+
+Remainder = 7","12","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+12","14","7","12","175","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:153","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 3022
+
+Divisor = 19
+
+Remainder = 1","159","Rearrange the division formula and simplify.
+
+Answer:
+
+159","19","1","159","3022","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:154","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 1707
+
+Divisor = 35
+
+Remainder = 27","48","Rearrange the division formula and simplify.
+
+Answer:
+
+48","35","27","48","1707","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:155","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 404085, divisor = 97, and remainder = 80.","4165","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4165","97","80","4165","404085","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:156","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 176
+
+Divisor = 3
+
+Remainder = 2","58","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+58","3","2","58","176","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:157","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 1338
+
+Divisor = 4
+
+Remainder = 2","334","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+334","4","2","334","1338","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:158","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 113851, divisor = 24, and remainder = 19.","4743","Rearrange the division formula and simplify.
+
+Answer:
+
+4743","24","19","4743","113851","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:159","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 6202, divisor = 30, and remainder = 22.","206","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+206","30","22","206","6202","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:160","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 364, divisor = 28, and remainder = 0.","13","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+13","28","0","13","364","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:161","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 799
+
+Divisor = 18
+
+Remainder = 7","44","Rearrange the division formula and simplify.
+
+Answer:
+
+44","18","7","44","799","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:162","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 16922 is divided by 40 and leaves remainder 2. Determine the quotient.","423","Rearrange the division formula and simplify.
+
+Answer:
+
+423","40","2","423","16922","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:163","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 222518 is divided by 69 and leaves remainder 62. Determine the quotient.","3224","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3224","69","62","3224","222518","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:164","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 644 is divided by 13 and leaves remainder 7. Determine the quotient.","49","Rearrange the division formula and simplify.
+
+Answer:
+
+49","13","7","49","644","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:165","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 150, divisor = 3, and remainder = 0.","50","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+50","3","0","50","150","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:166","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 136 is divided by 10 and leaves remainder 6. Determine the quotient.","13","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+13","10","6","13","136","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:167","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 288335
+
+Divisor = 62
+
+Remainder = 35","4650","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4650","62","35","4650","288335","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:168","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 11170, divisor = 25, and remainder = 20.","446","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+446","25","20","446","11170","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:169","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 144833 is divided by 43 and leaves remainder 9. Determine the quotient.","3368","Rearrange the division formula and simplify.
+
+Answer:
+
+3368","43","9","3368","144833","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:170","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 409
+
+Divisor = 17
+
+Remainder = 1","24","Rearrange the division formula and simplify.
+
+Answer:
+
+24","17","1","24","409","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:171","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 1034 is divided by 18 and leaves remainder 8. Determine the quotient.","57","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+57","18","8","57","1034","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:172","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 233, divisor = 5, and remainder = 3.","46","Rearrange the division formula and simplify.
+
+Answer:
+
+46","5","3","46","233","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:173","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 23537, divisor = 7, and remainder = 3.","3362","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3362","7","3","3362","23537","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:174","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 657 is divided by 20 and leaves remainder 17. Determine the quotient.","32","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+32","20","17","32","657","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:175","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 542, divisor = 20, and remainder = 2.","27","Rearrange the division formula and simplify.
+
+Answer:
+
+27","20","2","27","542","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:176","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 9, divisor = 2, and remainder = 1.","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","2","1","4","9","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:177","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 404, divisor = 16, and remainder = 4.","25","Rearrange the division formula and simplify.
+
+Answer:
+
+25","16","4","25","404","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:178","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 11191 is divided by 42 and leaves remainder 19. Determine the quotient.","266","Rearrange the division formula and simplify.
+
+Answer:
+
+266","42","19","266","11191","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:179","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 12161 is divided by 43 and leaves remainder 35. Determine the quotient.","282","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+282","43","35","282","12161","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:180","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 15498
+
+Divisor = 38
+
+Remainder = 32","407","Rearrange the division formula and simplify.
+
+Answer:
+
+407","38","32","407","15498","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:181","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 10544 is divided by 37 and leaves remainder 36. Determine the quotient.","284","Rearrange the division formula and simplify.
+
+Answer:
+
+284","37","36","284","10544","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:182","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 668
+
+Divisor = 19
+
+Remainder = 3","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","19","3","35","668","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:183","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 20181 is divided by 6 and leaves remainder 3. Determine the quotient.","3363","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3363","6","3","3363","20181","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:184","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 10478
+
+Divisor = 27
+
+Remainder = 2","388","Rearrange the division formula and simplify.
+
+Answer:
+
+388","27","2","388","10478","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:185","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 436, divisor = 3, and remainder = 1.","145","Rearrange the division formula and simplify.
+
+Answer:
+
+145","3","1","145","436","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:186","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 16, divisor = 16, and remainder = 0.","1","Rearrange the division formula and simplify.
+
+Answer:
+
+1","16","0","1","16","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:187","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 739, divisor = 20, and remainder = 19.","36","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+36","20","19","36","739","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:188","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 4398 is divided by 47 and leaves remainder 27. Determine the quotient.","93","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+93","47","27","93","4398","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:189","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 204
+
+Divisor = 5
+
+Remainder = 4","40","Rearrange the division formula and simplify.
+
+Answer:
+
+40","5","4","40","204","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:190","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 13196 is divided by 33 and leaves remainder 29. Determine the quotient.","399","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+399","33","29","399","13196","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:191","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 180 is divided by 12 and leaves remainder 0. Determine the quotient.","15","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+15","12","0","15","180","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:192","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 15749 is divided by 4 and leaves remainder 1. Determine the quotient.","3937","Rearrange the division formula and simplify.
+
+Answer:
+
+3937","4","1","3937","15749","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:193","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 438, divisor = 15, and remainder = 3.","29","Rearrange the division formula and simplify.
+
+Answer:
+
+29","15","3","29","438","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:194","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 913
+
+Divisor = 14
+
+Remainder = 3","65","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+65","14","3","65","913","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:195","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 3295 is divided by 15 and leaves remainder 10. Determine the quotient.","219","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+219","15","10","219","3295","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:196","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 11913, divisor = 44, and remainder = 33.","270","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+270","44","33","270","11913","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:197","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 200232
+
+Divisor = 78
+
+Remainder = 6","2567","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2567","78","6","2567","200232","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:198","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 304, divisor = 15, and remainder = 4.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","15","4","20","304","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:199","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 379 is divided by 3 and leaves remainder 1. Determine the quotient.","126","Rearrange the division formula and simplify.
+
+Answer:
+
+126","3","1","126","379","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:200","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 42, divisor = 3, and remainder = 0.","14","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+14","3","0","14","42","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:201","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 172 is divided by 8 and leaves remainder 4. Determine the quotient.","21","Rearrange the division formula and simplify.
+
+Answer:
+
+21","8","4","21","172","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:202","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 269
+
+Divisor = 10
+
+Remainder = 9","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","10","9","26","269","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:203","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 395 is divided by 11 and leaves remainder 10. Determine the quotient.","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","11","10","35","395","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:204","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 392
+
+Divisor = 19
+
+Remainder = 12","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","19","12","20","392","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:205","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 206534
+
+Divisor = 62
+
+Remainder = 12","3331","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3331","62","12","3331","206534","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:206","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 737 is divided by 20 and leaves remainder 17. Determine the quotient.","36","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+36","20","17","36","737","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:207","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 73578 is divided by 25 and leaves remainder 3. Determine the quotient.","2943","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2943","25","3","2943","73578","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:208","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 10171, divisor = 24, and remainder = 19.","423","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+423","24","19","423","10171","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:209","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 2330, divisor = 50, and remainder = 30.","46","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+46","50","30","46","2330","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:210","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 4489
+
+Divisor = 49
+
+Remainder = 30","91","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+91","49","30","91","4489","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:211","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 1505, divisor = 25, and remainder = 5.","60","Rearrange the division formula and simplify.
+
+Answer:
+
+60","25","5","60","1505","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:212","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 210, divisor = 18, and remainder = 12.","11","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+11","18","12","11","210","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:213","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 151 is divided by 3 and leaves remainder 1. Determine the quotient.","50","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+50","3","1","50","151","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:214","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 54542
+
+Divisor = 62
+
+Remainder = 44","879","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+879","62","44","879","54542","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:215","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 1995 is divided by 10 and leaves remainder 5. Determine the quotient.","199","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+199","10","5","199","1995","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:216","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 90, divisor = 2, and remainder = 0.","45","Rearrange the division formula and simplify.
+
+Answer:
+
+45","2","0","45","90","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:217","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 83761
+
+Divisor = 81
+
+Remainder = 7","1034","Rearrange the division formula and simplify.
+
+Answer:
+
+1034","81","7","1034","83761","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:218","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 284 is divided by 18 and leaves remainder 14. Determine the quotient.","15","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+15","18","14","15","284","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:219","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 127 is divided by 3 and leaves remainder 1. Determine the quotient.","42","Rearrange the division formula and simplify.
+
+Answer:
+
+42","3","1","42","127","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:220","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 289 is divided by 6 and leaves remainder 1. Determine the quotient.","48","Rearrange the division formula and simplify.
+
+Answer:
+
+48","6","1","48","289","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:221","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 22754 is divided by 48 and leaves remainder 2. Determine the quotient.","474","Rearrange the division formula and simplify.
+
+Answer:
+
+474","48","2","474","22754","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:222","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 48759 is divided by 51 and leaves remainder 3. Determine the quotient.","956","Rearrange the division formula and simplify.
+
+Answer:
+
+956","51","3","956","48759","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:223","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 24446
+
+Divisor = 6
+
+Remainder = 2","4074","Rearrange the division formula and simplify.
+
+Answer:
+
+4074","6","2","4074","24446","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:224","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 413, divisor = 17, and remainder = 5.","24","Rearrange the division formula and simplify.
+
+Answer:
+
+24","17","5","24","413","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:225","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 153 is divided by 7 and leaves remainder 6. Determine the quotient.","21","Rearrange the division formula and simplify.
+
+Answer:
+
+21","7","6","21","153","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:226","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 196
+
+Divisor = 5
+
+Remainder = 1","39","Rearrange the division formula and simplify.
+
+Answer:
+
+39","5","1","39","196","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:227","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 7504 is divided by 25 and leaves remainder 4. Determine the quotient.","300","Rearrange the division formula and simplify.
+
+Answer:
+
+300","25","4","300","7504","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:228","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 137, divisor = 16, and remainder = 9.","8","Rearrange the division formula and simplify.
+
+Answer:
+
+8","16","9","8","137","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:229","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 276314
+
+Divisor = 72
+
+Remainder = 50","3837","Rearrange the division formula and simplify.
+
+Answer:
+
+3837","72","50","3837","276314","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:230","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 11509 is divided by 45 and leaves remainder 34. Determine the quotient.","255","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+255","45","34","255","11509","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:231","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 657 is divided by 17 and leaves remainder 11. Determine the quotient.","38","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+38","17","11","38","657","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:232","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 530
+
+Divisor = 15
+
+Remainder = 5","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","15","5","35","530","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:233","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 81, divisor = 4, and remainder = 1.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","4","1","20","81","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:234","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 6235, divisor = 13, and remainder = 8.","479","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+479","13","8","479","6235","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:235","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 4240, divisor = 35, and remainder = 5.","121","Rearrange the division formula and simplify.
+
+Answer:
+
+121","35","5","121","4240","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:236","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 6414
+
+Divisor = 28
+
+Remainder = 2","229","Rearrange the division formula and simplify.
+
+Answer:
+
+229","28","2","229","6414","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:237","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 7813 is divided by 52 and leaves remainder 13. Determine the quotient.","150","Rearrange the division formula and simplify.
+
+Answer:
+
+150","52","13","150","7813","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:238","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 15928
+
+Divisor = 39
+
+Remainder = 16","408","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+408","39","16","408","15928","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:239","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 247, divisor = 12, and remainder = 7.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","12","7","20","247","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:240","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 1943, divisor = 8, and remainder = 7.","242","Rearrange the division formula and simplify.
+
+Answer:
+
+242","8","7","242","1943","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:241","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 464 is divided by 16 and leaves remainder 0. Determine the quotient.","29","Rearrange the division formula and simplify.
+
+Answer:
+
+29","16","0","29","464","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:242","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 16257
+
+Divisor = 35
+
+Remainder = 17","464","Rearrange the division formula and simplify.
+
+Answer:
+
+464","35","17","464","16257","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:243","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 976, divisor = 26, and remainder = 14.","37","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+37","26","14","37","976","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:244","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 5899
+
+Divisor = 18
+
+Remainder = 13","327","Rearrange the division formula and simplify.
+
+Answer:
+
+327","18","13","327","5899","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:245","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 171106
+
+Divisor = 42
+
+Remainder = 40","4073","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4073","42","40","4073","171106","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:246","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 269
+
+Divisor = 10
+
+Remainder = 9","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","10","9","26","269","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:247","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 3040, divisor = 41, and remainder = 6.","74","Rearrange the division formula and simplify.
+
+Answer:
+
+74","41","6","74","3040","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:248","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 403 is divided by 10 and leaves remainder 3. Determine the quotient.","40","Rearrange the division formula and simplify.
+
+Answer:
+
+40","10","3","40","403","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:249","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 24
+
+Divisor = 7
+
+Remainder = 3","3","Rearrange the division formula and simplify.
+
+Answer:
+
+3","7","3","3","24","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:250","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 5022 is divided by 16 and leaves remainder 14. Determine the quotient.","313","Rearrange the division formula and simplify.
+
+Answer:
+
+313","16","14","313","5022","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:251","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 763
+
+Divisor = 18
+
+Remainder = 7","42","Rearrange the division formula and simplify.
+
+Answer:
+
+42","18","7","42","763","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:252","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 35129
+
+Divisor = 71
+
+Remainder = 55","494","Rearrange the division formula and simplify.
+
+Answer:
+
+494","71","55","494","35129","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:253","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 9895, divisor = 22, and remainder = 17.","449","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+449","22","17","449","9895","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:254","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 196625, divisor = 57, and remainder = 32.","3449","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3449","57","32","3449","196625","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:255","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 72 is divided by 9 and leaves remainder 0. Determine the quotient.","8","Rearrange the division formula and simplify.
+
+Answer:
+
+8","9","0","8","72","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:256","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 714 is divided by 2 and leaves remainder 0. Determine the quotient.","357","Rearrange the division formula and simplify.
+
+Answer:
+
+357","2","0","357","714","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:257","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 369
+
+Divisor = 15
+
+Remainder = 9","24","Rearrange the division formula and simplify.
+
+Answer:
+
+24","15","9","24","369","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:258","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 3832
+
+Divisor = 10
+
+Remainder = 2","383","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+383","10","2","383","3832","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:259","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 3439, divisor = 13, and remainder = 7.","264","Rearrange the division formula and simplify.
+
+Answer:
+
+264","13","7","264","3439","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:260","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 15529
+
+Divisor = 36
+
+Remainder = 13","431","Rearrange the division formula and simplify.
+
+Answer:
+
+431","36","13","431","15529","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:261","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 318684, divisor = 78, and remainder = 54.","4085","Rearrange the division formula and simplify.
+
+Answer:
+
+4085","78","54","4085","318684","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:262","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 455105
+
+Divisor = 97
+
+Remainder = 78","4691","Rearrange the division formula and simplify.
+
+Answer:
+
+4691","97","78","4691","455105","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:263","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 2766, divisor = 10, and remainder = 6.","276","Rearrange the division formula and simplify.
+
+Answer:
+
+276","10","6","276","2766","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:264","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 585 is divided by 2 and leaves remainder 1. Determine the quotient.","292","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+292","2","1","292","585","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:265","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 1158, divisor = 26, and remainder = 14.","44","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+44","26","14","44","1158","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:266","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 415 is divided by 17 and leaves remainder 7. Determine the quotient.","24","Rearrange the division formula and simplify.
+
+Answer:
+
+24","17","7","24","415","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:267","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 507 is divided by 13 and leaves remainder 0. Determine the quotient.","39","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+39","13","0","39","507","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:268","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 424, divisor = 15, and remainder = 4.","28","Rearrange the division formula and simplify.
+
+Answer:
+
+28","15","4","28","424","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:269","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 1680
+
+Divisor = 7
+
+Remainder = 0","240","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+240","7","0","240","1680","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:270","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 190
+
+Divisor = 7
+
+Remainder = 1","27","Rearrange the division formula and simplify.
+
+Answer:
+
+27","7","1","27","190","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:271","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 38
+
+Divisor = 9
+
+Remainder = 2","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","9","2","4","38","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:272","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 4726 is divided by 16 and leaves remainder 6. Determine the quotient.","295","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+295","16","6","295","4726","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:273","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 5909 is divided by 36 and leaves remainder 5. Determine the quotient.","164","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+164","36","5","164","5909","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:274","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 62442 is divided by 22 and leaves remainder 6. Determine the quotient.","2838","Rearrange the division formula and simplify.
+
+Answer:
+
+2838","22","6","2838","62442","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:275","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 186 is divided by 7 and leaves remainder 4. Determine the quotient.","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","7","4","26","186","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:276","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 866 is divided by 17 and leaves remainder 16. Determine the quotient.","50","Rearrange the division formula and simplify.
+
+Answer:
+
+50","17","16","50","866","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:277","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 145, divisor = 8, and remainder = 1.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","8","1","18","145","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:278","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 8790, divisor = 18, and remainder = 6.","488","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+488","18","6","488","8790","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:279","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 939
+
+Divisor = 2
+
+Remainder = 1","469","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+469","2","1","469","939","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:280","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 92
+
+Divisor = 19
+
+Remainder = 16","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","19","16","4","92","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:281","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 78 is divided by 10 and leaves remainder 8. Determine the quotient.","7","Rearrange the division formula and simplify.
+
+Answer:
+
+7","10","8","7","78","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:282","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 313
+
+Divisor = 12
+
+Remainder = 1","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","12","1","26","313","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:283","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 11490 is divided by 43 and leaves remainder 9. Determine the quotient.","267","Rearrange the division formula and simplify.
+
+Answer:
+
+267","43","9","267","11490","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:284","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 729
+
+Divisor = 15
+
+Remainder = 9","48","Rearrange the division formula and simplify.
+
+Answer:
+
+48","15","9","48","729","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:285","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 185919, divisor = 59, and remainder = 10.","3151","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3151","59","10","3151","185919","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:286","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 113 is divided by 8 and leaves remainder 1. Determine the quotient.","14","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+14","8","1","14","113","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:287","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 166 is divided by 4 and leaves remainder 2. Determine the quotient.","41","Rearrange the division formula and simplify.
+
+Answer:
+
+41","4","2","41","166","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:288","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 188331 is divided by 69 and leaves remainder 30. Determine the quotient.","2729","Rearrange the division formula and simplify.
+
+Answer:
+
+2729","69","30","2729","188331","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:289","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 149
+
+Divisor = 7
+
+Remainder = 2","21","Rearrange the division formula and simplify.
+
+Answer:
+
+21","7","2","21","149","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:290","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 18882, divisor = 88, and remainder = 50.","214","Rearrange the division formula and simplify.
+
+Answer:
+
+214","88","50","214","18882","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:291","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 365 is divided by 20 and leaves remainder 5. Determine the quotient.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","20","5","18","365","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:292","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 1112 is divided by 16 and leaves remainder 8. Determine the quotient.","69","Rearrange the division formula and simplify.
+
+Answer:
+
+69","16","8","69","1112","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:293","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 43361 is divided by 18 and leaves remainder 17. Determine the quotient.","2408","Rearrange the division formula and simplify.
+
+Answer:
+
+2408","18","17","2408","43361","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:294","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 190
+
+Divisor = 4
+
+Remainder = 2","47","Rearrange the division formula and simplify.
+
+Answer:
+
+47","4","2","47","190","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:295","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 242, divisor = 5, and remainder = 2.","48","Rearrange the division formula and simplify.
+
+Answer:
+
+48","5","2","48","242","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:296","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 1517
+
+Divisor = 5
+
+Remainder = 2","303","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+303","5","2","303","1517","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:297","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 248812 is divided by 73 and leaves remainder 28. Determine the quotient.","3408","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3408","73","28","3408","248812","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:298","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 1426, divisor = 4, and remainder = 2.","356","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+356","4","2","356","1426","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:299","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 84
+
+Divisor = 5
+
+Remainder = 4","16","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+16","5","4","16","84","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:300","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 81, divisor = 9, and remainder = 0.","9","Rearrange the division formula and simplify.
+
+Answer:
+
+9","9","0","9","81","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:301","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 22133, divisor = 77, and remainder = 34.","287","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+287","77","34","287","22133","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:302","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 197266, divisor = 55, and remainder = 36.","3586","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3586","55","36","3586","197266","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:303","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 3233 is divided by 7 and leaves remainder 6. Determine the quotient.","461","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+461","7","6","461","3233","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:304","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 5488, divisor = 28, and remainder = 0.","196","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+196","28","0","196","5488","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:305","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 518, divisor = 17, and remainder = 8.","30","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+30","17","8","30","518","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:306","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 692
+
+Divisor = 14
+
+Remainder = 6","49","Rearrange the division formula and simplify.
+
+Answer:
+
+49","14","6","49","692","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:307","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 129
+
+Divisor = 16
+
+Remainder = 1","8","Rearrange the division formula and simplify.
+
+Answer:
+
+8","16","1","8","129","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:308","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 9966 is divided by 46 and leaves remainder 30. Determine the quotient.","216","Rearrange the division formula and simplify.
+
+Answer:
+
+216","46","30","216","9966","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:309","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 19675, divisor = 47, and remainder = 29.","418","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+418","47","29","418","19675","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:310","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 14733, divisor = 32, and remainder = 13.","460","Rearrange the division formula and simplify.
+
+Answer:
+
+460","32","13","460","14733","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:311","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 22332, divisor = 46, and remainder = 22.","485","Rearrange the division formula and simplify.
+
+Answer:
+
+485","46","22","485","22332","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:312","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 116, divisor = 19, and remainder = 2.","6","Rearrange the division formula and simplify.
+
+Answer:
+
+6","19","2","6","116","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:313","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 1228 is divided by 3 and leaves remainder 1. Determine the quotient.","409","Rearrange the division formula and simplify.
+
+Answer:
+
+409","3","1","409","1228","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:314","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 9018
+
+Divisor = 19
+
+Remainder = 12","474","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+474","19","12","474","9018","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:315","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 123 is divided by 3 and leaves remainder 0. Determine the quotient.","41","Rearrange the division formula and simplify.
+
+Answer:
+
+41","3","0","41","123","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:316","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 2069
+
+Divisor = 21
+
+Remainder = 11","98","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+98","21","11","98","2069","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:317","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 523
+
+Divisor = 19
+
+Remainder = 10","27","Rearrange the division formula and simplify.
+
+Answer:
+
+27","19","10","27","523","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:318","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 21 is divided by 5 and leaves remainder 1. Determine the quotient.","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","5","1","4","21","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:319","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 13 is divided by 13 and leaves remainder 0. Determine the quotient.","1","Rearrange the division formula and simplify.
+
+Answer:
+
+1","13","0","1","13","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:320","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 380, divisor = 13, and remainder = 3.","29","Rearrange the division formula and simplify.
+
+Answer:
+
+29","13","3","29","380","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:321","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 4879
+
+Divisor = 21
+
+Remainder = 7","232","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+232","21","7","232","4879","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:322","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 11525
+
+Divisor = 49
+
+Remainder = 10","235","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+235","49","10","235","11525","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:323","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 171
+
+Divisor = 14
+
+Remainder = 3","12","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+12","14","3","12","171","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:324","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 530
+
+Divisor = 14
+
+Remainder = 12","37","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+37","14","12","37","530","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:325","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 344
+
+Divisor = 9
+
+Remainder = 2","38","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+38","9","2","38","344","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:326","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 916, divisor = 4, and remainder = 0.","229","Rearrange the division formula and simplify.
+
+Answer:
+
+229","4","0","229","916","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:327","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 71
+
+Divisor = 17
+
+Remainder = 3","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","17","3","4","71","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:328","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 34590
+
+Divisor = 40
+
+Remainder = 30","864","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+864","40","30","864","34590","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:329","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 33 is divided by 4 and leaves remainder 1. Determine the quotient.","8","Rearrange the division formula and simplify.
+
+Answer:
+
+8","4","1","8","33","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:330","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 2950
+
+Divisor = 13
+
+Remainder = 12","226","Rearrange the division formula and simplify.
+
+Answer:
+
+226","13","12","226","2950","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:331","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 236, divisor = 18, and remainder = 2.","13","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+13","18","2","13","236","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:332","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 2617 is divided by 8 and leaves remainder 1. Determine the quotient.","327","Rearrange the division formula and simplify.
+
+Answer:
+
+327","8","1","327","2617","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:333","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 1306 is divided by 14 and leaves remainder 4. Determine the quotient.","93","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+93","14","4","93","1306","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:334","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 4356, divisor = 39, and remainder = 27.","111","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+111","39","27","111","4356","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:335","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 3498
+
+Divisor = 49
+
+Remainder = 19","71","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+71","49","19","71","3498","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:336","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 7397
+
+Divisor = 26
+
+Remainder = 13","284","Rearrange the division formula and simplify.
+
+Answer:
+
+284","26","13","284","7397","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:337","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 425 is divided by 9 and leaves remainder 2. Determine the quotient.","47","Rearrange the division formula and simplify.
+
+Answer:
+
+47","9","2","47","425","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:338","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 17947 is divided by 41 and leaves remainder 30. Determine the quotient.","437","Rearrange the division formula and simplify.
+
+Answer:
+
+437","41","30","437","17947","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:339","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 10512 is divided by 26 and leaves remainder 8. Determine the quotient.","404","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+404","26","8","404","10512","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:340","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 280
+
+Divisor = 8
+
+Remainder = 0","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","8","0","35","280","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:341","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 16457 is divided by 46 and leaves remainder 35. Determine the quotient.","357","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+357","46","35","357","16457","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:342","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 21370
+
+Divisor = 48
+
+Remainder = 10","445","Rearrange the division formula and simplify.
+
+Answer:
+
+445","48","10","445","21370","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:343","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 77995
+
+Divisor = 83
+
+Remainder = 58","939","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+939","83","58","939","77995","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:344","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 64734, divisor = 34, and remainder = 32.","1903","Rearrange the division formula and simplify.
+
+Answer:
+
+1903","34","32","1903","64734","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:345","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 147529, divisor = 66, and remainder = 19.","2235","Rearrange the division formula and simplify.
+
+Answer:
+
+2235","66","19","2235","147529","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:346","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 297 is divided by 15 and leaves remainder 12. Determine the quotient.","19","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+19","15","12","19","297","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:347","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 1608
+
+Divisor = 5
+
+Remainder = 3","321","Rearrange the division formula and simplify.
+
+Answer:
+
+321","5","3","321","1608","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:348","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 9184
+
+Divisor = 24
+
+Remainder = 16","382","Rearrange the division formula and simplify.
+
+Answer:
+
+382","24","16","382","9184","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:349","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 514 is divided by 3 and leaves remainder 1. Determine the quotient.","171","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+171","3","1","171","514","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:350","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 6999
+
+Divisor = 14
+
+Remainder = 13","499","Rearrange the division formula and simplify.
+
+Answer:
+
+499","14","13","499","6999","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:351","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 320, divisor = 7, and remainder = 5.","45","Rearrange the division formula and simplify.
+
+Answer:
+
+45","7","5","45","320","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:352","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 99418, divisor = 21, and remainder = 4.","4734","Rearrange the division formula and simplify.
+
+Answer:
+
+4734","21","4","4734","99418","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:353","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 3607 is divided by 17 and leaves remainder 3. Determine the quotient.","212","Rearrange the division formula and simplify.
+
+Answer:
+
+212","17","3","212","3607","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:354","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 48, divisor = 3, and remainder = 0.","16","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+16","3","0","16","48","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:355","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 29
+
+Divisor = 5
+
+Remainder = 4","5","Rearrange the division formula and simplify.
+
+Answer:
+
+5","5","4","5","29","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:356","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 31455 is divided by 83 and leaves remainder 81. Determine the quotient.","378","Rearrange the division formula and simplify.
+
+Answer:
+
+378","83","81","378","31455","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:357","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 4028
+
+Divisor = 48
+
+Remainder = 44","83","Rearrange the division formula and simplify.
+
+Answer:
+
+83","48","44","83","4028","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:358","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 11337 is divided by 4 and leaves remainder 1. Determine the quotient.","2834","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2834","4","1","2834","11337","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:359","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 8324, divisor = 29, and remainder = 1.","287","Rearrange the division formula and simplify.
+
+Answer:
+
+287","29","1","287","8324","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:360","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 106 is divided by 8 and leaves remainder 2. Determine the quotient.","13","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+13","8","2","13","106","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:361","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 10183 is divided by 42 and leaves remainder 19. Determine the quotient.","242","Rearrange the division formula and simplify.
+
+Answer:
+
+242","42","19","242","10183","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:362","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 543
+
+Divisor = 11
+
+Remainder = 4","49","Rearrange the division formula and simplify.
+
+Answer:
+
+49","11","4","49","543","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:363","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 147 is divided by 4 and leaves remainder 3. Determine the quotient.","36","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+36","4","3","36","147","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:364","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 5078
+
+Divisor = 20
+
+Remainder = 18","253","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+253","20","18","253","5078","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:365","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 194, divisor = 5, and remainder = 4.","38","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+38","5","4","38","194","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:366","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 184 is divided by 12 and leaves remainder 4. Determine the quotient.","15","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+15","12","4","15","184","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:367","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 357, divisor = 11, and remainder = 5.","32","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+32","11","5","32","357","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:368","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 259865
+
+Divisor = 55
+
+Remainder = 45","4724","Rearrange the division formula and simplify.
+
+Answer:
+
+4724","55","45","4724","259865","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:369","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 208 is divided by 11 and leaves remainder 10. Determine the quotient.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","11","10","18","208","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:370","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 141, divisor = 5, and remainder = 1.","28","Rearrange the division formula and simplify.
+
+Answer:
+
+28","5","1","28","141","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:371","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 256, divisor = 12, and remainder = 4.","21","Rearrange the division formula and simplify.
+
+Answer:
+
+21","12","4","21","256","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:372","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 5805, divisor = 28, and remainder = 9.","207","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+207","28","9","207","5805","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:373","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 84
+
+Divisor = 15
+
+Remainder = 9","5","Rearrange the division formula and simplify.
+
+Answer:
+
+5","15","9","5","84","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:374","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 29 is divided by 11 and leaves remainder 7. Determine the quotient.","2","Rearrange the division formula and simplify.
+
+Answer:
+
+2","11","7","2","29","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:375","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 3066, divisor = 34, and remainder = 6.","90","Rearrange the division formula and simplify.
+
+Answer:
+
+90","34","6","90","3066","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:376","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 71041, divisor = 16, and remainder = 1.","4440","Rearrange the division formula and simplify.
+
+Answer:
+
+4440","16","1","4440","71041","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:377","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 17464
+
+Divisor = 42
+
+Remainder = 34","415","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+415","42","34","415","17464","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:378","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 74
+
+Divisor = 3
+
+Remainder = 2","24","Rearrange the division formula and simplify.
+
+Answer:
+
+24","3","2","24","74","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:379","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 11549 is divided by 39 and leaves remainder 5. Determine the quotient.","296","Rearrange the division formula and simplify.
+
+Answer:
+
+296","39","5","296","11549","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:380","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 358
+
+Divisor = 14
+
+Remainder = 8","25","Rearrange the division formula and simplify.
+
+Answer:
+
+25","14","8","25","358","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:381","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 6056, divisor = 33, and remainder = 17.","183","Rearrange the division formula and simplify.
+
+Answer:
+
+183","33","17","183","6056","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:382","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 206
+
+Divisor = 8
+
+Remainder = 6","25","Rearrange the division formula and simplify.
+
+Answer:
+
+25","8","6","25","206","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:383","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 374 is divided by 13 and leaves remainder 10. Determine the quotient.","28","Rearrange the division formula and simplify.
+
+Answer:
+
+28","13","10","28","374","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:384","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 4574
+
+Divisor = 17
+
+Remainder = 1","269","Rearrange the division formula and simplify.
+
+Answer:
+
+269","17","1","269","4574","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:385","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 227191 is divided by 96 and leaves remainder 55. Determine the quotient.","2366","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2366","96","55","2366","227191","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:386","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 149, divisor = 5, and remainder = 4.","29","Rearrange the division formula and simplify.
+
+Answer:
+
+29","5","4","29","149","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:387","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 289
+
+Divisor = 14
+
+Remainder = 9","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","14","9","20","289","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:388","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 4356
+
+Divisor = 29
+
+Remainder = 6","150","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+150","29","6","150","4356","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:389","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 13643, divisor = 28, and remainder = 7.","487","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+487","28","7","487","13643","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:390","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 40640
+
+Divisor = 29
+
+Remainder = 11","1401","Rearrange the division formula and simplify.
+
+Answer:
+
+1401","29","11","1401","40640","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:391","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 4022, divisor = 41, and remainder = 4.","98","Rearrange the division formula and simplify.
+
+Answer:
+
+98","41","4","98","4022","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:392","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 161, divisor = 6, and remainder = 5.","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","6","5","26","161","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:393","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 11312
+
+Divisor = 42
+
+Remainder = 14","269","Rearrange the division formula and simplify.
+
+Answer:
+
+269","42","14","269","11312","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:394","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 282
+
+Divisor = 7
+
+Remainder = 2","40","Rearrange the division formula and simplify.
+
+Answer:
+
+40","7","2","40","282","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:395","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 6962, divisor = 39, and remainder = 20.","178","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+178","39","20","178","6962","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:396","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 195439 is divided by 78 and leaves remainder 49. Determine the quotient.","2505","Rearrange the division formula and simplify.
+
+Answer:
+
+2505","78","49","2505","195439","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:397","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 54, divisor = 17, and remainder = 3.","3","Rearrange the division formula and simplify.
+
+Answer:
+
+3","17","3","3","54","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:398","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 16099 is divided by 41 and leaves remainder 27. Determine the quotient.","392","Rearrange the division formula and simplify.
+
+Answer:
+
+392","41","27","392","16099","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:399","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 136, divisor = 18, and remainder = 10.","7","Rearrange the division formula and simplify.
+
+Answer:
+
+7","18","10","7","136","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:400","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 853 is divided by 2 and leaves remainder 1. Determine the quotient.","426","Rearrange the division formula and simplify.
+
+Answer:
+
+426","2","1","426","853","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:401","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 4648, divisor = 26, and remainder = 20.","178","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+178","26","20","178","4648","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:402","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 696
+
+Divisor = 15
+
+Remainder = 6","46","Rearrange the division formula and simplify.
+
+Answer:
+
+46","15","6","46","696","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:403","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 129 is divided by 11 and leaves remainder 8. Determine the quotient.","11","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+11","11","8","11","129","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:404","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 3419
+
+Divisor = 46
+
+Remainder = 15","74","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+74","46","15","74","3419","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:405","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 24630 is divided by 22 and leaves remainder 12. Determine the quotient.","1119","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1119","22","12","1119","24630","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:406","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 70726, divisor = 41, and remainder = 1.","1725","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1725","41","1","1725","70726","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:407","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 364 is divided by 8 and leaves remainder 4. Determine the quotient.","45","Rearrange the division formula and simplify.
+
+Answer:
+
+45","8","4","45","364","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:408","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 349
+
+Divisor = 9
+
+Remainder = 7","38","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+38","9","7","38","349","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:409","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 10681
+
+Divisor = 29
+
+Remainder = 9","368","Rearrange the division formula and simplify.
+
+Answer:
+
+368","29","9","368","10681","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:410","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 310255 is divided by 65 and leaves remainder 10. Determine the quotient.","4773","Rearrange the division formula and simplify.
+
+Answer:
+
+4773","65","10","4773","310255","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:411","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 241
+
+Divisor = 5
+
+Remainder = 1","48","Rearrange the division formula and simplify.
+
+Answer:
+
+48","5","1","48","241","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:412","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 3129
+
+Divisor = 17
+
+Remainder = 1","184","Rearrange the division formula and simplify.
+
+Answer:
+
+184","17","1","184","3129","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:413","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 245 is divided by 6 and leaves remainder 5. Determine the quotient.","40","Rearrange the division formula and simplify.
+
+Answer:
+
+40","6","5","40","245","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:414","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 247, divisor = 5, and remainder = 2.","49","Rearrange the division formula and simplify.
+
+Answer:
+
+49","5","2","49","247","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:415","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 188
+
+Divisor = 7
+
+Remainder = 6","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","7","6","26","188","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:416","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 6870
+
+Divisor = 16
+
+Remainder = 6","429","Rearrange the division formula and simplify.
+
+Answer:
+
+429","16","6","429","6870","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:417","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 10741 is divided by 36 and leaves remainder 13. Determine the quotient.","298","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+298","36","13","298","10741","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:418","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 39563, divisor = 13, and remainder = 4.","3043","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3043","13","4","3043","39563","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:419","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 124981
+
+Divisor = 89
+
+Remainder = 25","1404","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1404","89","25","1404","124981","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:420","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 187042 is divided by 43 and leaves remainder 35. Determine the quotient.","4349","Rearrange the division formula and simplify.
+
+Answer:
+
+4349","43","35","4349","187042","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:421","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 766 is divided by 3 and leaves remainder 1. Determine the quotient.","255","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+255","3","1","255","766","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:422","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 30 is divided by 5 and leaves remainder 0. Determine the quotient.","6","Rearrange the division formula and simplify.
+
+Answer:
+
+6","5","0","6","30","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:423","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 225, divisor = 5, and remainder = 0.","45","Rearrange the division formula and simplify.
+
+Answer:
+
+45","5","0","45","225","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:424","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 103
+
+Divisor = 8
+
+Remainder = 7","12","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+12","8","7","12","103","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:425","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 127, divisor = 5, and remainder = 2.","25","Rearrange the division formula and simplify.
+
+Answer:
+
+25","5","2","25","127","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:426","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 282206 is divided by 85 and leaves remainder 6. Determine the quotient.","3320","Rearrange the division formula and simplify.
+
+Answer:
+
+3320","85","6","3320","282206","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:427","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 182
+
+Divisor = 14
+
+Remainder = 0","13","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+13","14","0","13","182","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:428","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 8301, divisor = 18, and remainder = 3.","461","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+461","18","3","461","8301","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:429","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 94109, divisor = 85, and remainder = 14.","1107","Rearrange the division formula and simplify.
+
+Answer:
+
+1107","85","14","1107","94109","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:430","CP-007","Hard","Missing Component","QL-022","ES-004","A dividend 48394 is divided by 100 and leaves remainder 94. Determine the quotient.","483","Rearrange the division formula and simplify.
+
+Answer:
+
+483","100","94","483","48394","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:431","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 213 is divided by 7 and leaves remainder 3. Determine the quotient.","30","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+30","7","3","30","213","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:432","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 982 is divided by 2 and leaves remainder 0. Determine the quotient.","491","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+491","2","0","491","982","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:433","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 326, divisor = 7, and remainder = 4.","46","Rearrange the division formula and simplify.
+
+Answer:
+
+46","7","4","46","326","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:434","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 7166 is divided by 16 and leaves remainder 14. Determine the quotient.","447","Rearrange the division formula and simplify.
+
+Answer:
+
+447","16","14","447","7166","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:435","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 237, divisor = 16, and remainder = 13.","14","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+14","16","13","14","237","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:436","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 36448
+
+Divisor = 15
+
+Remainder = 13","2429","Rearrange the division formula and simplify.
+
+Answer:
+
+2429","15","13","2429","36448","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:437","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 2037, divisor = 22, and remainder = 13.","92","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+92","22","13","92","2037","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:438","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 450 is divided by 18 and leaves remainder 0. Determine the quotient.","25","Rearrange the division formula and simplify.
+
+Answer:
+
+25","18","0","25","450","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:439","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 761, divisor = 20, and remainder = 1.","38","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+38","20","1","38","761","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:440","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 423, divisor = 11, and remainder = 5.","38","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+38","11","5","38","423","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:441","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 7896
+
+Divisor = 42
+
+Remainder = 0","188","Rearrange the division formula and simplify.
+
+Answer:
+
+188","42","0","188","7896","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:442","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 15563 is divided by 48 and leaves remainder 11. Determine the quotient.","324","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+324","48","11","324","15563","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:443","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 22774, divisor = 31, and remainder = 20.","734","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+734","31","20","734","22774","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:444","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 9
+
+Divisor = 2
+
+Remainder = 1","4","Rearrange the division formula and simplify.
+
+Answer:
+
+4","2","1","4","9","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:445","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 62724 is divided by 17 and leaves remainder 11. Determine the quotient.","3689","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3689","17","11","3689","62724","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:446","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 49, divisor = 2, and remainder = 1.","24","Rearrange the division formula and simplify.
+
+Answer:
+
+24","2","1","24","49","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:447","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 12444
+
+Divisor = 28
+
+Remainder = 12","444","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+444","28","12","444","12444","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:448","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 5425
+
+Divisor = 39
+
+Remainder = 4","139","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+139","39","4","139","5425","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:449","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 9310, divisor = 36, and remainder = 22.","258","Rearrange the division formula and simplify.
+
+Answer:
+
+258","36","22","258","9310","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:450","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 774
+
+Divisor = 2
+
+Remainder = 0","387","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+387","2","0","387","774","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:451","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 12570, divisor = 31, and remainder = 15.","405","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+405","31","15","405","12570","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:452","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 339
+
+Divisor = 19
+
+Remainder = 16","17","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+17","19","16","17","339","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:453","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 203 is divided by 10 and leaves remainder 3. Determine the quotient.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","10","3","20","203","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:454","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 290665, divisor = 61, and remainder = 0.","4765","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+4765","61","0","4765","290665","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:455","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 13159
+
+Divisor = 11
+
+Remainder = 3","1196","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+1196","11","3","1196","13159","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:456","CP-007","Medium","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 12238
+
+Divisor = 35
+
+Remainder = 23","349","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+349","35","23","349","12238","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:457","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 805
+
+Divisor = 18
+
+Remainder = 13","44","Rearrange the division formula and simplify.
+
+Answer:
+
+44","18","13","44","805","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:458","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 602 is divided by 14 and leaves remainder 0. Determine the quotient.","43","Rearrange the division formula and simplify.
+
+Answer:
+
+43","14","0","43","602","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:459","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 206 is divided by 9 and leaves remainder 8. Determine the quotient.","22","Rearrange the division formula and simplify.
+
+Answer:
+
+22","9","8","22","206","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:460","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 17381
+
+Divisor = 43
+
+Remainder = 9","404","Rearrange the division formula and simplify.
+
+Answer:
+
+404","43","9","404","17381","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:461","CP-007","Hard","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 4733
+
+Divisor = 5
+
+Remainder = 3","946","Rearrange the division formula and simplify.
+
+Answer:
+
+946","5","3","946","4733","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:462","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 209 is divided by 10 and leaves remainder 9. Determine the quotient.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","10","9","20","209","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:463","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 62, divisor = 2, and remainder = 0.","31","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+31","2","0","31","62","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:464","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 2499 is divided by 12 and leaves remainder 3. Determine the quotient.","208","Rearrange the division formula and simplify.
+
+Answer:
+
+208","12","3","208","2499","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:465","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 2956 is divided by 39 and leaves remainder 31. Determine the quotient.","75","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+75","39","31","75","2956","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:466","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 213
+
+Divisor = 8
+
+Remainder = 5","26","Rearrange the division formula and simplify.
+
+Answer:
+
+26","8","5","26","213","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:467","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 522 is divided by 5 and leaves remainder 2. Determine the quotient.","104","Rearrange the division formula and simplify.
+
+Answer:
+
+104","5","2","104","522","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:468","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 373 is divided by 18 and leaves remainder 13. Determine the quotient.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","18","13","20","373","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:469","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 4528, divisor = 16, and remainder = 0.","283","Rearrange the division formula and simplify.
+
+Answer:
+
+283","16","0","283","4528","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:470","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 142
+
+Divisor = 4
+
+Remainder = 2","35","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+35","4","2","35","142","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:471","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 66, divisor = 3, and remainder = 0.","22","Rearrange the division formula and simplify.
+
+Answer:
+
+22","3","0","22","66","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:472","CP-007","Easy","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 242
+
+Divisor = 14
+
+Remainder = 4","17","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+17","14","4","17","242","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:473","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 216 is divided by 15 and leaves remainder 6. Determine the quotient.","14","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+14","15","6","14","216","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:474","CP-007","Hard","Missing Component","QL-023","ES-003","Quotient = ?
+
+Dividend = 305326
+
+Divisor = 84
+
+Remainder = 70","3634","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3634","84","70","3634","305326","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:475","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 7458
+
+Divisor = 33
+
+Remainder = 0","226","Rearrange the division formula and simplify.
+
+Answer:
+
+226","33","0","226","7458","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:476","CP-007","Hard","Missing Component","QL-021","ES-003","Find the quotient if dividend = 64282, divisor = 18, and remainder = 4.","3571","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+3571","18","4","3571","64282","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:477","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 247, divisor = 12, and remainder = 7.","20","Rearrange the division formula and simplify.
+
+Answer:
+
+20","12","7","20","247","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:478","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 18310 is divided by 42 and leaves remainder 40. Determine the quotient.","435","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+435","42","40","435","18310","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:479","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 10075
+
+Divisor = 22
+
+Remainder = 21","457","Rearrange the division formula and simplify.
+
+Answer:
+
+457","22","21","457","10075","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:480","CP-007","Easy","Missing Component","QL-021","ES-003","Find the quotient if dividend = 321, divisor = 17, and remainder = 15.","18","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+18","17","15","18","321","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:481","CP-007","Medium","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 547
+
+Divisor = 23
+
+Remainder = 18","23","Rearrange the division formula and simplify.
+
+Answer:
+
+23","23","18","23","547","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:482","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 114639, divisor = 100, and remainder = 39.","1146","Rearrange the division formula and simplify.
+
+Answer:
+
+1146","100","39","1146","114639","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:483","CP-007","Medium","Missing Component","QL-021","ES-004","Find the quotient if dividend = 2632, divisor = 6, and remainder = 4.","438","Rearrange the division formula and simplify.
+
+Answer:
+
+438","6","4","438","2632","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:484","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 265627 is divided by 93 and leaves remainder 19. Determine the quotient.","2856","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2856","93","19","2856","265627","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:485","CP-007","Easy","Missing Component","QL-022","ES-004","A dividend 10 is divided by 6 and leaves remainder 4. Determine the quotient.","1","Rearrange the division formula and simplify.
+
+Answer:
+
+1","6","4","1","10","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:486","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 3400 is divided by 39 and leaves remainder 7. Determine the quotient.","87","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+87","39","7","87","3400","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:487","CP-007","Hard","Missing Component","QL-021","ES-004","Find the quotient if dividend = 248710, divisor = 85, and remainder = 0.","2926","Rearrange the division formula and simplify.
+
+Answer:
+
+2926","85","0","2926","248710","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:488","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 7741, divisor = 19, and remainder = 8.","407","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+407","19","8","407","7741","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:489","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 374 is divided by 12 and leaves remainder 2. Determine the quotient.","31","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+31","12","2","31","374","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:490","CP-007","Easy","Missing Component","QL-023","ES-004","Quotient = ?
+
+Dividend = 130
+
+Divisor = 6
+
+Remainder = 4","21","Rearrange the division formula and simplify.
+
+Answer:
+
+21","6","4","21","130","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:491","CP-007","Medium","Missing Component","QL-022","ES-004","A dividend 8667 is divided by 44 and leaves remainder 43. Determine the quotient.","196","Rearrange the division formula and simplify.
+
+Answer:
+
+196","44","43","196","8667","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:492","CP-007","Medium","Missing Component","QL-021","ES-003","Find the quotient if dividend = 1014, divisor = 17, and remainder = 11.","59","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+59","17","11","59","1014","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:493","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 7489 is divided by 32 and leaves remainder 1. Determine the quotient.","234","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+234","32","1","234","7489","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:494","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 9208 is divided by 20 and leaves remainder 8. Determine the quotient.","460","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+460","20","8","460","9208","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:495","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 147 is divided by 10 and leaves remainder 7. Determine the quotient.","14","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+14","10","7","14","147","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:496","CP-007","Easy","Missing Component","QL-022","ES-003","A dividend 564 is divided by 15 and leaves remainder 9. Determine the quotient.","37","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+37","15","9","37","564","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:497","CP-007","Easy","Missing Component","QL-021","ES-004","Find the quotient if dividend = 386, divisor = 9, and remainder = 8.","42","Rearrange the division formula and simplify.
+
+Answer:
+
+42","9","8","42","386","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:498","CP-007","Medium","Missing Component","QL-022","ES-003","A dividend 1914 is divided by 21 and leaves remainder 3. Determine the quotient.","91","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+91","21","3","91","1914","",""
+"NS-REM-002:CP-007:NS-REM-002-HUMAN-REVIEW-500:CP-007:499","CP-007","Hard","Missing Component","QL-022","ES-003","A dividend 22463 is divided by 8 and leaves remainder 7. Determine the quotient.","2807","Use Dividend = Divisor * Quotient + Remainder.
+
+Substitute the known values.
+
+Answer:
+
+2807","8","7","2807","22463","",""

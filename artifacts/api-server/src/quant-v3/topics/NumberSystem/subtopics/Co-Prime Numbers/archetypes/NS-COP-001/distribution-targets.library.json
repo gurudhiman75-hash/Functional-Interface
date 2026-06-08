@@ -1,0 +1,70 @@
+{
+  "libraryId": "NS-COP-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-COP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "difficulty": {
+    "Easy": 0.4,
+    "Medium": 0.4,
+    "Hard": 0.2
+  },
+  "questionLanguage": {
+    "policy": "uniform within each canonical problem",
+    "activeIds": [
+      "QL-001",
+      "QL-002",
+      "QL-003",
+      "QL-004",
+      "QL-005",
+      "QL-006",
+      "QL-007",
+      "QL-008",
+      "QL-009",
+      "QL-010",
+      "QL-011",
+      "QL-012",
+      "QL-013",
+      "QL-014",
+      "QL-015",
+      "QL-016",
+      "QL-017",
+      "QL-018",
+      "QL-019",
+      "QL-020",
+      "QL-021",
+      "QL-022",
+      "QL-023",
+      "QL-024",
+      "QL-025",
+      "QL-026",
+      "QL-027",
+      "QL-028",
+      "QL-029",
+      "QL-030",
+      "QL-031",
+      "QL-032",
+      "QL-033",
+      "QL-034",
+      "QL-035",
+      "QL-036",
+      "QL-037",
+      "QL-038",
+      "QL-039",
+      "QL-040",
+      "QL-041"
+    ]
+  },
+  "explanationStyles": {
+    "policy": "one approved explanation family per CP",
+    "activeIds": ["ES-001", "ES-002", "ES-003", "ES-004", "ES-005", "ES-006"]
+  },
+  "coverageDistributions": {
+    "cp001CoPrimeStatus": "balanced",
+    "cp001NumberType": "uniform",
+    "cp002ListLength": "uniform",
+    "cp003CandidateCoverage": "balanced",
+    "cp004SetSize": "uniform",
+    "cp005PropertyCoverage": "balanced",
+    "cp006RatioReduction": "uniform"
+  }
+}

@@ -1,0 +1,4039 @@
+"Question ID","Canonical Problem","Difficulty","Topology","Question Language ID","Explanation Style ID","Question","Answer","Explanation","Divisor","Remainder","Quotient","Dividend","Lower Bound","Upper Bound"
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:0","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 43
+
+Quotient = 327
+
+Remainder = 32","14093","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14093","43","32","327","14093","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:1","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 5
+
+Quotient = 31
+
+Remainder = 2","157","Apply the division formula.
+
+Answer:
+
+157","5","2","31","157","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:2","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 66, quotient = 3130, and remainder = 27.","206607","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+206607","66","27","3130","206607","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:3","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 9
+
+Quotient = 223
+
+Remainder = 3","2010","Apply the division formula.
+
+Answer:
+
+2010","9","3","223","2010","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:4","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 4
+
+Quotient = 10
+
+Remainder = 3","43","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+43","4","3","10","43","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:5","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 43, quotient = 344, and remainder = 6.","14798","Apply the division formula.
+
+Answer:
+
+14798","43","6","344","14798","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:6","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 2, quotient = 474, and remainder = 1.","949","Apply the division formula.
+
+Answer:
+
+949","2","1","474","949","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:7","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 8, quotient = 49, and remainder = 6.","398","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+398","8","6","49","398","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:8","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 87, quotient = 129, and remainder = 17.","11240","Apply the division formula.
+
+Answer:
+
+11240","87","17","129","11240","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:9","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 46, quotient = 148, and remainder = 0.","6808","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+6808","46","0","148","6808","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:10","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 43
+
+Quotient = 132
+
+Remainder = 18","5694","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5694","43","18","132","5694","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:11","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 45
+
+Quotient = 342
+
+Remainder = 1","15391","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+15391","45","1","342","15391","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:12","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 17, quotient = 41, and remainder = 2.","699","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+699","17","2","41","699","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:13","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 11
+
+Quotient = 36
+
+Remainder = 6","402","Apply the division formula.
+
+Answer:
+
+402","11","6","36","402","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:14","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 38, quotient = 1401, and remainder = 20.","53258","Apply the division formula.
+
+Answer:
+
+53258","38","20","1401","53258","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:15","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 30, and remainder = 5.","365","Apply the division formula.
+
+Answer:
+
+365","12","5","30","365","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:16","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 50, quotient = 4713, and remainder = 44.","235694","Apply the division formula.
+
+Answer:
+
+235694","50","44","4713","235694","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:17","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 84, quotient = 3825, and remainder = 47.","321347","Apply the division formula.
+
+Answer:
+
+321347","84","47","3825","321347","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:18","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 6, quotient = 41, and remainder = 4.","250","Apply the division formula.
+
+Answer:
+
+250","6","4","41","250","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:19","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 16, quotient = 86, and remainder = 9.","1385","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1385","16","9","86","1385","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:20","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 58
+
+Quotient = 4876
+
+Remainder = 43","282851","Apply the division formula.
+
+Answer:
+
+282851","58","43","4876","282851","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:21","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 63, quotient = 2608, and remainder = 56.","164360","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+164360","63","56","2608","164360","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:22","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 81
+
+Quotient = 1690
+
+Remainder = 48","136938","Apply the division formula.
+
+Answer:
+
+136938","81","48","1690","136938","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:23","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 5, quotient = 225, and remainder = 1.","1126","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1126","5","1","225","1126","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:24","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 32, quotient = 408, and remainder = 21.","13077","Apply the division formula.
+
+Answer:
+
+13077","32","21","408","13077","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:25","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 17, quotient = 4813, and remainder = 16.","81837","Apply the division formula.
+
+Answer:
+
+81837","17","16","4813","81837","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:26","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 56, quotient = 4319, and remainder = 19.","241883","Apply the division formula.
+
+Answer:
+
+241883","56","19","4319","241883","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:27","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 5, quotient = 5, and remainder = 4.","29","Apply the division formula.
+
+Answer:
+
+29","5","4","5","29","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:28","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 15, quotient = 28, and remainder = 6.","426","Apply the division formula.
+
+Answer:
+
+426","15","6","28","426","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:29","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 166
+
+Remainder = 14","3334","Apply the division formula.
+
+Answer:
+
+3334","20","14","166","3334","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:30","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 18, quotient = 420, and remainder = 8.","7568","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7568","18","8","420","7568","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:31","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 35, quotient = 88, and remainder = 27.","3107","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3107","35","27","88","3107","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:32","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 8, quotient = 253, and remainder = 2.","2026","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2026","8","2","253","2026","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:33","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 15, quotient = 216, and remainder = 5.","3245","Apply the division formula.
+
+Answer:
+
+3245","15","5","216","3245","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:34","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 49, quotient = 79, and remainder = 22.","3893","Apply the division formula.
+
+Answer:
+
+3893","49","22","79","3893","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:35","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 48, quotient = 373, and remainder = 3.","17907","Apply the division formula.
+
+Answer:
+
+17907","48","3","373","17907","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:36","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 87
+
+Quotient = 2106
+
+Remainder = 71","183293","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+183293","87","71","2106","183293","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:37","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 41, quotient = 893, and remainder = 23.","36636","Apply the division formula.
+
+Answer:
+
+36636","41","23","893","36636","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:38","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 6, quotient = 29, and remainder = 4.","178","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+178","6","4","29","178","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:39","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 15
+
+Quotient = 108
+
+Remainder = 10","1630","Apply the division formula.
+
+Answer:
+
+1630","15","10","108","1630","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:40","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 61, quotient = 2068, and remainder = 38.","126186","Apply the division formula.
+
+Answer:
+
+126186","61","38","2068","126186","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:41","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 10, quotient = 25, and remainder = 8.","258","Apply the division formula.
+
+Answer:
+
+258","10","8","25","258","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:42","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 37
+
+Quotient = 3271
+
+Remainder = 2","121029","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+121029","37","2","3271","121029","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:43","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 14
+
+Quotient = 33
+
+Remainder = 12","474","Apply the division formula.
+
+Answer:
+
+474","14","12","33","474","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:44","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 46, quotient = 231, and remainder = 39.","10665","Apply the division formula.
+
+Answer:
+
+10665","46","39","231","10665","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:45","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 23, quotient = 345, and remainder = 10.","7945","Apply the division formula.
+
+Answer:
+
+7945","23","10","345","7945","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:46","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 8, quotient = 178, and remainder = 5.","1429","Apply the division formula.
+
+Answer:
+
+1429","8","5","178","1429","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:47","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 28, quotient = 156, and remainder = 6.","4374","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4374","28","6","156","4374","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:48","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 7, quotient = 6, and remainder = 3.","45","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+45","7","3","6","45","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:49","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 89, quotient = 591, and remainder = 35.","52634","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+52634","89","35","591","52634","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:50","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 7
+
+Quotient = 3247
+
+Remainder = 6","22735","Apply the division formula.
+
+Answer:
+
+22735","7","6","3247","22735","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:51","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 14
+
+Quotient = 26
+
+Remainder = 13","377","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+377","14","13","26","377","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:52","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 47, quotient = 273, and remainder = 41.","12872","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+12872","47","41","273","12872","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:53","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 46
+
+Quotient = 306
+
+Remainder = 27","14103","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14103","46","27","306","14103","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:54","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 18, quotient = 47, and remainder = 4.","850","Apply the division formula.
+
+Answer:
+
+850","18","4","47","850","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:55","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 45, quotient = 33, and remainder = 40.","1525","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1525","45","40","33","1525","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:56","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 16, quotient = 37, and remainder = 0.","592","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+592","16","0","37","592","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:57","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 2
+
+Quotient = 461
+
+Remainder = 1","923","Apply the division formula.
+
+Answer:
+
+923","2","1","461","923","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:58","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 42, quotient = 221, and remainder = 24.","9306","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9306","42","24","221","9306","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:59","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 48, quotient = 328, and remainder = 13.","15757","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+15757","48","13","328","15757","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:60","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 6, quotient = 368, and remainder = 3.","2211","Apply the division formula.
+
+Answer:
+
+2211","6","3","368","2211","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:61","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 13
+
+Remainder = 6","136","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+136","10","6","13","136","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:62","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 100, quotient = 2130, and remainder = 63.","213063","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+213063","100","63","2130","213063","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:63","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 66, quotient = 3018, and remainder = 10.","199198","Apply the division formula.
+
+Answer:
+
+199198","66","10","3018","199198","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:64","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 22, quotient = 295, and remainder = 21.","6511","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+6511","22","21","295","6511","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:65","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 20
+
+Quotient = 364
+
+Remainder = 14","7294","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7294","20","14","364","7294","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:66","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 19, quotient = 10, and remainder = 1.","191","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+191","19","1","10","191","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:67","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 12
+
+Quotient = 15
+
+Remainder = 8","188","Apply the division formula.
+
+Answer:
+
+188","12","8","15","188","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:68","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 9
+
+Quotient = 164
+
+Remainder = 4","1480","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1480","9","4","164","1480","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:69","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 9, quotient = 25, and remainder = 0.","225","Apply the division formula.
+
+Answer:
+
+225","9","0","25","225","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:70","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 27, and remainder = 6.","195","Apply the division formula.
+
+Answer:
+
+195","7","6","27","195","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:71","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 6, quotient = 40, and remainder = 3.","243","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+243","6","3","40","243","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:72","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 47, quotient = 202, and remainder = 32.","9526","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9526","47","32","202","9526","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:73","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 19
+
+Quotient = 50
+
+Remainder = 1","951","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+951","19","1","50","951","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:74","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 7
+
+Quotient = 256
+
+Remainder = 3","1795","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1795","7","3","256","1795","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:75","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 18, quotient = 44, and remainder = 11.","803","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+803","18","11","44","803","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:76","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 21
+
+Quotient = 361
+
+Remainder = 20","7601","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7601","21","20","361","7601","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:77","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 20, quotient = 191, and remainder = 9.","3829","Apply the division formula.
+
+Answer:
+
+3829","20","9","191","3829","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:78","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 47, quotient = 785, and remainder = 2.","36897","Apply the division formula.
+
+Answer:
+
+36897","47","2","785","36897","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:79","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 6
+
+Quotient = 50
+
+Remainder = 1","301","Apply the division formula.
+
+Answer:
+
+301","6","1","50","301","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:80","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 25, quotient = 326, and remainder = 11.","8161","Apply the division formula.
+
+Answer:
+
+8161","25","11","326","8161","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:81","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 26, quotient = 32, and remainder = 12.","844","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+844","26","12","32","844","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:82","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 53
+
+Quotient = 4099
+
+Remainder = 2","217249","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+217249","53","2","4099","217249","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:83","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 19
+
+Quotient = 13
+
+Remainder = 17","264","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+264","19","17","13","264","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:84","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 12, quotient = 320, and remainder = 3.","3843","Apply the division formula.
+
+Answer:
+
+3843","12","3","320","3843","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:85","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 44, quotient = 161, and remainder = 8.","7092","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7092","44","8","161","7092","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:86","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 41, quotient = 448, and remainder = 40.","18408","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+18408","41","40","448","18408","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:87","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 44, quotient = 485, and remainder = 6.","21346","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+21346","44","6","485","21346","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:88","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 19
+
+Quotient = 36
+
+Remainder = 9","693","Apply the division formula.
+
+Answer:
+
+693","19","9","36","693","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:89","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 7, quotient = 43, and remainder = 4.","305","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+305","7","4","43","305","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:90","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 18, quotient = 29, and remainder = 10.","532","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+532","18","10","29","532","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:91","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 41, quotient = 118, and remainder = 4.","4842","Apply the division formula.
+
+Answer:
+
+4842","41","4","118","4842","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:92","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 95
+
+Quotient = 3248
+
+Remainder = 11","308571","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+308571","95","11","3248","308571","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:93","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 9, quotient = 42, and remainder = 4.","382","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+382","9","4","42","382","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:94","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 77
+
+Quotient = 3725
+
+Remainder = 23","286848","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+286848","77","23","3725","286848","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:95","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 32, quotient = 270, and remainder = 21.","8661","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8661","32","21","270","8661","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:96","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 39
+
+Quotient = 310
+
+Remainder = 35","12125","Apply the division formula.
+
+Answer:
+
+12125","39","35","310","12125","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:97","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 29, quotient = 412, and remainder = 22.","11970","Apply the division formula.
+
+Answer:
+
+11970","29","22","412","11970","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:98","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 5, quotient = 43, and remainder = 2.","217","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+217","5","2","43","217","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:99","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 39
+
+Quotient = 468
+
+Remainder = 33","18285","Apply the division formula.
+
+Answer:
+
+18285","39","33","468","18285","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:100","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 21
+
+Quotient = 142
+
+Remainder = 17","2999","Apply the division formula.
+
+Answer:
+
+2999","21","17","142","2999","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:101","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 4, quotient = 4, and remainder = 3.","19","Apply the division formula.
+
+Answer:
+
+19","4","3","4","19","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:102","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 10, quotient = 4264, and remainder = 0.","42640","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+42640","10","0","4264","42640","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:103","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 18
+
+Quotient = 60
+
+Remainder = 9","1089","Apply the division formula.
+
+Answer:
+
+1089","18","9","60","1089","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:104","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 10
+
+Quotient = 47
+
+Remainder = 6","476","Apply the division formula.
+
+Answer:
+
+476","10","6","47","476","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:105","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 44, quotient = 28, and remainder = 39.","1271","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1271","44","39","28","1271","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:106","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 15, quotient = 31, and remainder = 2.","467","Apply the division formula.
+
+Answer:
+
+467","15","2","31","467","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:107","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 18
+
+Quotient = 14
+
+Remainder = 13","265","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+265","18","13","14","265","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:108","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 18, quotient = 21, and remainder = 8.","386","Apply the division formula.
+
+Answer:
+
+386","18","8","21","386","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:109","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 38, quotient = 1362, and remainder = 23.","51779","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+51779","38","23","1362","51779","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:110","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 7, quotient = 351, and remainder = 0.","2457","Apply the division formula.
+
+Answer:
+
+2457","7","0","351","2457","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:111","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 5
+
+Quotient = 35
+
+Remainder = 1","176","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+176","5","1","35","176","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:112","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 15, quotient = 48, and remainder = 10.","730","Apply the division formula.
+
+Answer:
+
+730","15","10","48","730","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:113","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 42, quotient = 78, and remainder = 38.","3314","Apply the division formula.
+
+Answer:
+
+3314","42","38","78","3314","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:114","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 9, quotient = 4, and remainder = 6.","42","Apply the division formula.
+
+Answer:
+
+42","9","6","4","42","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:115","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 38, quotient = 123, and remainder = 2.","4676","Apply the division formula.
+
+Answer:
+
+4676","38","2","123","4676","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:116","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 44
+
+Quotient = 433
+
+Remainder = 19","19071","Apply the division formula.
+
+Answer:
+
+19071","44","19","433","19071","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:117","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 5, quotient = 52, and remainder = 4.","264","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+264","5","4","52","264","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:118","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 17
+
+Quotient = 32
+
+Remainder = 6","550","Apply the division formula.
+
+Answer:
+
+550","17","6","32","550","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:119","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 82, quotient = 149, and remainder = 50.","12268","Apply the division formula.
+
+Answer:
+
+12268","82","50","149","12268","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:120","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 92, quotient = 2058, and remainder = 2.","189338","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+189338","92","2","2058","189338","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:121","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 50, quotient = 140, and remainder = 37.","7037","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7037","50","37","140","7037","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:122","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 16, quotient = 31, and remainder = 8.","504","Apply the division formula.
+
+Answer:
+
+504","16","8","31","504","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:123","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 13, quotient = 102, and remainder = 10.","1336","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1336","13","10","102","1336","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:124","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 6, quotient = 47, and remainder = 4.","286","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+286","6","4","47","286","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:125","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 19, quotient = 2, and remainder = 8.","46","Apply the division formula.
+
+Answer:
+
+46","19","8","2","46","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:126","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 38, quotient = 87, and remainder = 16.","3322","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3322","38","16","87","3322","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:127","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 20, quotient = 24, and remainder = 3.","483","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+483","20","3","24","483","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:128","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 21, quotient = 469, and remainder = 4.","9853","Apply the division formula.
+
+Answer:
+
+9853","21","4","469","9853","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:129","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 14
+
+Quotient = 24
+
+Remainder = 7","343","Apply the division formula.
+
+Answer:
+
+343","14","7","24","343","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:130","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 93, quotient = 3242, and remainder = 84.","301590","Apply the division formula.
+
+Answer:
+
+301590","93","84","3242","301590","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:131","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 89
+
+Quotient = 1333
+
+Remainder = 43","118680","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+118680","89","43","1333","118680","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:132","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 97
+
+Quotient = 1263
+
+Remainder = 90","122601","Apply the division formula.
+
+Answer:
+
+122601","97","90","1263","122601","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:133","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 16, quotient = 11, and remainder = 14.","190","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+190","16","14","11","190","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:134","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 5, quotient = 4454, and remainder = 0.","22270","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+22270","5","0","4454","22270","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:135","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 24
+
+Quotient = 344
+
+Remainder = 8","8264","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8264","24","8","344","8264","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:136","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 8
+
+Quotient = 32
+
+Remainder = 1","257","Apply the division formula.
+
+Answer:
+
+257","8","1","32","257","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:137","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 41, quotient = 420, and remainder = 12.","17232","Apply the division formula.
+
+Answer:
+
+17232","41","12","420","17232","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:138","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 6, and remainder = 7.","79","Apply the division formula.
+
+Answer:
+
+79","12","7","6","79","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:139","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 37, quotient = 45, and remainder = 15.","1680","Apply the division formula.
+
+Answer:
+
+1680","37","15","45","1680","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:140","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 47, and remainder = 4.","333","Apply the division formula.
+
+Answer:
+
+333","7","4","47","333","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:141","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 16, quotient = 44, and remainder = 11.","715","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+715","16","11","44","715","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:142","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 34, quotient = 281, and remainder = 2.","9556","Apply the division formula.
+
+Answer:
+
+9556","34","2","281","9556","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:143","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 9, quotient = 20, and remainder = 4.","184","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+184","9","4","20","184","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:144","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 7, quotient = 1859, and remainder = 6.","13019","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13019","7","6","1859","13019","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:145","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 12, quotient = 38, and remainder = 3.","459","Apply the division formula.
+
+Answer:
+
+459","12","3","38","459","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:146","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 31
+
+Remainder = 18","638","Apply the division formula.
+
+Answer:
+
+638","20","18","31","638","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:147","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 5
+
+Quotient = 8
+
+Remainder = 4","44","Apply the division formula.
+
+Answer:
+
+44","5","4","8","44","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:148","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 4
+
+Quotient = 11
+
+Remainder = 0","44","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+44","4","0","11","44","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:149","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 13, quotient = 1437, and remainder = 3.","18684","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+18684","13","3","1437","18684","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:150","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 14, quotient = 26, and remainder = 1.","365","Apply the division formula.
+
+Answer:
+
+365","14","1","26","365","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:151","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 30, quotient = 342, and remainder = 8.","10268","Apply the division formula.
+
+Answer:
+
+10268","30","8","342","10268","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:152","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 15, quotient = 2, and remainder = 0.","30","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+30","15","0","2","30","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:153","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 15
+
+Quotient = 319
+
+Remainder = 2","4787","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4787","15","2","319","4787","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:154","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 37, quotient = 93, and remainder = 5.","3446","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3446","37","5","93","3446","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:155","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 9
+
+Quotient = 814
+
+Remainder = 4","7330","Apply the division formula.
+
+Answer:
+
+7330","9","4","814","7330","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:156","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 39, quotient = 55, and remainder = 1.","2146","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2146","39","1","55","2146","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:157","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 5, quotient = 9, and remainder = 0.","45","Apply the division formula.
+
+Answer:
+
+45","5","0","9","45","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:158","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 18
+
+Quotient = 42
+
+Remainder = 13","769","Apply the division formula.
+
+Answer:
+
+769","18","13","42","769","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:159","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 13
+
+Quotient = 1
+
+Remainder = 8","21","Apply the division formula.
+
+Answer:
+
+21","13","8","1","21","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:160","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 31, quotient = 117, and remainder = 17.","3644","Apply the division formula.
+
+Answer:
+
+3644","31","17","117","3644","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:161","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 44, quotient = 489, and remainder = 33.","21549","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+21549","44","33","489","21549","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:162","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 6, quotient = 43, and remainder = 4.","262","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+262","6","4","43","262","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:163","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 40
+
+Quotient = 347
+
+Remainder = 35","13915","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13915","40","35","347","13915","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:164","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 12
+
+Quotient = 37
+
+Remainder = 2","446","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+446","12","2","37","446","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:165","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 20
+
+Quotient = 50
+
+Remainder = 17","1017","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1017","20","17","50","1017","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:166","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 11, quotient = 39, and remainder = 6.","435","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+435","11","6","39","435","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:167","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 27, quotient = 62, and remainder = 9.","1683","Apply the division formula.
+
+Answer:
+
+1683","27","9","62","1683","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:168","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 22
+
+Quotient = 3146
+
+Remainder = 6","69218","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+69218","22","6","3146","69218","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:169","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 16, quotient = 26, and remainder = 13.","429","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+429","16","13","26","429","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:170","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 65, quotient = 665, and remainder = 56.","43281","Apply the division formula.
+
+Answer:
+
+43281","65","56","665","43281","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:171","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 7
+
+Quotient = 83
+
+Remainder = 4","585","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+585","7","4","83","585","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:172","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 11, quotient = 8, and remainder = 1.","89","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+89","11","1","8","89","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:173","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 36
+
+Quotient = 3823
+
+Remainder = 22","137650","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+137650","36","22","3823","137650","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:174","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 35
+
+Quotient = 425
+
+Remainder = 13","14888","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14888","35","13","425","14888","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:175","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 45, quotient = 38, and remainder = 26.","1736","Apply the division formula.
+
+Answer:
+
+1736","45","26","38","1736","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:176","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 2
+
+Quotient = 38
+
+Remainder = 1","77","Apply the division formula.
+
+Answer:
+
+77","2","1","38","77","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:177","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 20, quotient = 41, and remainder = 18.","838","Apply the division formula.
+
+Answer:
+
+838","20","18","41","838","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:178","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 20, quotient = 14, and remainder = 3.","283","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+283","20","3","14","283","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:179","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 27
+
+Quotient = 403
+
+Remainder = 3","10884","Apply the division formula.
+
+Answer:
+
+10884","27","3","403","10884","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:180","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 16, quotient = 139, and remainder = 8.","2232","Apply the division formula.
+
+Answer:
+
+2232","16","8","139","2232","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:181","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 17, quotient = 40, and remainder = 16.","696","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+696","17","16","40","696","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:182","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 5, quotient = 26, and remainder = 4.","134","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+134","5","4","26","134","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:183","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 11, quotient = 24, and remainder = 10.","274","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+274","11","10","24","274","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:184","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 39, quotient = 147, and remainder = 22.","5755","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5755","39","22","147","5755","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:185","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 36
+
+Quotient = 231
+
+Remainder = 23","8339","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8339","36","23","231","8339","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:186","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 30, quotient = 374, and remainder = 12.","11232","Apply the division formula.
+
+Answer:
+
+11232","30","12","374","11232","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:187","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 71
+
+Quotient = 4850
+
+Remainder = 14","344364","Apply the division formula.
+
+Answer:
+
+344364","71","14","4850","344364","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:188","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 2, quotient = 21, and remainder = 0.","42","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+42","2","0","21","42","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:189","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 5
+
+Quotient = 48
+
+Remainder = 2","242","Apply the division formula.
+
+Answer:
+
+242","5","2","48","242","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:190","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 431, and remainder = 1.","5173","Apply the division formula.
+
+Answer:
+
+5173","12","1","431","5173","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:191","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 5, quotient = 3, and remainder = 4.","19","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+19","5","4","3","19","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:192","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 82, quotient = 4714, and remainder = 79.","386627","Apply the division formula.
+
+Answer:
+
+386627","82","79","4714","386627","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:193","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 43, quotient = 3756, and remainder = 35.","161543","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+161543","43","35","3756","161543","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:194","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 9, quotient = 50, and remainder = 1.","451","Apply the division formula.
+
+Answer:
+
+451","9","1","50","451","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:195","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 9
+
+Quotient = 39
+
+Remainder = 7","358","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+358","9","7","39","358","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:196","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 31, quotient = 2366, and remainder = 15.","73361","Apply the division formula.
+
+Answer:
+
+73361","31","15","2366","73361","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:197","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 17, quotient = 394, and remainder = 10.","6708","Apply the division formula.
+
+Answer:
+
+6708","17","10","394","6708","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:198","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 20, quotient = 34, and remainder = 9.","689","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+689","20","9","34","689","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:199","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 40
+
+Quotient = 310
+
+Remainder = 10","12410","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+12410","40","10","310","12410","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:200","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 8
+
+Quotient = 4731
+
+Remainder = 1","37849","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+37849","8","1","4731","37849","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:201","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 6
+
+Quotient = 236
+
+Remainder = 4","1420","Apply the division formula.
+
+Answer:
+
+1420","6","4","236","1420","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:202","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 53, quotient = 1266, and remainder = 9.","67107","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+67107","53","9","1266","67107","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:203","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 7, quotient = 349, and remainder = 1.","2444","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2444","7","1","349","2444","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:204","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 36, quotient = 2038, and remainder = 33.","73401","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+73401","36","33","2038","73401","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:205","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 21, quotient = 93, and remainder = 3.","1956","Apply the division formula.
+
+Answer:
+
+1956","21","3","93","1956","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:206","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 27
+
+Quotient = 441
+
+Remainder = 17","11924","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11924","27","17","441","11924","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:207","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 40, quotient = 357, and remainder = 20.","14300","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14300","40","20","357","14300","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:208","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 24, quotient = 2206, and remainder = 9.","52953","Apply the division formula.
+
+Answer:
+
+52953","24","9","2206","52953","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:209","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 97, quotient = 3848, and remainder = 29.","373285","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+373285","97","29","3848","373285","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:210","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 40, quotient = 331, and remainder = 24.","13264","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13264","40","24","331","13264","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:211","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 29
+
+Quotient = 120
+
+Remainder = 23","3503","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3503","29","23","120","3503","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:212","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 7, quotient = 21, and remainder = 5.","152","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+152","7","5","21","152","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:213","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 28
+
+Quotient = 256
+
+Remainder = 25","7193","Apply the division formula.
+
+Answer:
+
+7193","28","25","256","7193","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:214","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 13, quotient = 37, and remainder = 8.","489","Apply the division formula.
+
+Answer:
+
+489","13","8","37","489","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:215","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 10, quotient = 31, and remainder = 1.","311","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+311","10","1","31","311","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:216","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 20, quotient = 27, and remainder = 6.","546","Apply the division formula.
+
+Answer:
+
+546","20","6","27","546","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:217","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 6
+
+Quotient = 1363
+
+Remainder = 1","8179","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8179","6","1","1363","8179","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:218","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 5
+
+Quotient = 17
+
+Remainder = 2","87","Apply the division formula.
+
+Answer:
+
+87","5","2","17","87","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:219","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 23, quotient = 94, and remainder = 5.","2167","Apply the division formula.
+
+Answer:
+
+2167","23","5","94","2167","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:220","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 12, quotient = 24, and remainder = 7.","295","Apply the division formula.
+
+Answer:
+
+295","12","7","24","295","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:221","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 15
+
+Quotient = 208
+
+Remainder = 4","3124","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3124","15","4","208","3124","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:222","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 2
+
+Quotient = 388
+
+Remainder = 1","777","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+777","2","1","388","777","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:223","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 49, quotient = 246, and remainder = 44.","12098","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+12098","49","44","246","12098","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:224","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 15
+
+Quotient = 32
+
+Remainder = 0","480","Apply the division formula.
+
+Answer:
+
+480","15","0","32","480","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:225","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 24, quotient = 429, and remainder = 0.","10296","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10296","24","0","429","10296","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:226","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 5, quotient = 264, and remainder = 1.","1321","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1321","5","1","264","1321","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:227","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 3
+
+Quotient = 9
+
+Remainder = 1","28","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+28","3","1","9","28","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:228","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 35, quotient = 156, and remainder = 8.","5468","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5468","35","8","156","5468","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:229","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 70
+
+Quotient = 1276
+
+Remainder = 36","89356","Apply the division formula.
+
+Answer:
+
+89356","70","36","1276","89356","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:230","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 38, quotient = 420, and remainder = 18.","15978","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+15978","38","18","420","15978","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:231","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 14
+
+Quotient = 38
+
+Remainder = 3","535","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+535","14","3","38","535","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:232","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 160, and remainder = 3.","1123","Apply the division formula.
+
+Answer:
+
+1123","7","3","160","1123","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:233","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 92, quotient = 1608, and remainder = 19.","147955","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+147955","92","19","1608","147955","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:234","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 31, quotient = 1866, and remainder = 12.","57858","Apply the division formula.
+
+Answer:
+
+57858","31","12","1866","57858","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:235","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 61, quotient = 4010, and remainder = 48.","244658","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+244658","61","48","4010","244658","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:236","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 29
+
+Quotient = 3163
+
+Remainder = 2","91729","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+91729","29","2","3163","91729","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:237","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 78, quotient = 3658, and remainder = 63.","285387","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+285387","78","63","3658","285387","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:238","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 13, quotient = 407, and remainder = 1.","5292","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5292","13","1","407","5292","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:239","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 28, quotient = 303, and remainder = 25.","8509","Apply the division formula.
+
+Answer:
+
+8509","28","25","303","8509","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:240","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 77
+
+Quotient = 2315
+
+Remainder = 31","178286","Apply the division formula.
+
+Answer:
+
+178286","77","31","2315","178286","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:241","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 19
+
+Quotient = 15
+
+Remainder = 4","289","Apply the division formula.
+
+Answer:
+
+289","19","4","15","289","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:242","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 94
+
+Quotient = 1963
+
+Remainder = 87","184609","Apply the division formula.
+
+Answer:
+
+184609","94","87","1963","184609","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:243","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 45, quotient = 1919, and remainder = 3.","86358","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+86358","45","3","1919","86358","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:244","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 9, quotient = 16, and remainder = 6.","150","Apply the division formula.
+
+Answer:
+
+150","9","6","16","150","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:245","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 15, quotient = 373, and remainder = 4.","5599","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5599","15","4","373","5599","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:246","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 8
+
+Quotient = 4
+
+Remainder = 7","39","Apply the division formula.
+
+Answer:
+
+39","8","7","4","39","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:247","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 43
+
+Quotient = 392
+
+Remainder = 23","16879","Apply the division formula.
+
+Answer:
+
+16879","43","23","392","16879","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:248","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 20, quotient = 44, and remainder = 13.","893","Apply the division formula.
+
+Answer:
+
+893","20","13","44","893","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:249","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 20, quotient = 39, and remainder = 18.","798","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+798","20","18","39","798","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:250","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 4
+
+Quotient = 29
+
+Remainder = 0","116","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+116","4","0","29","116","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:251","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 46, quotient = 184, and remainder = 39.","8503","Apply the division formula.
+
+Answer:
+
+8503","46","39","184","8503","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:252","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 42
+
+Quotient = 334
+
+Remainder = 6","14034","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14034","42","6","334","14034","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:253","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 7, quotient = 2, and remainder = 1.","15","Apply the division formula.
+
+Answer:
+
+15","7","1","2","15","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:254","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 66
+
+Quotient = 2650
+
+Remainder = 32","174932","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+174932","66","32","2650","174932","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:255","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 11, quotient = 30, and remainder = 0.","330","Apply the division formula.
+
+Answer:
+
+330","11","0","30","330","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:256","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 31, quotient = 315, and remainder = 4.","9769","Apply the division formula.
+
+Answer:
+
+9769","31","4","315","9769","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:257","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 3, quotient = 16, and remainder = 1.","49","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+49","3","1","16","49","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:258","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 7
+
+Quotient = 11
+
+Remainder = 3","80","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+80","7","3","11","80","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:259","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 16
+
+Quotient = 12
+
+Remainder = 11","203","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+203","16","11","12","203","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:260","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 28
+
+Remainder = 3","563","Apply the division formula.
+
+Answer:
+
+563","20","3","28","563","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:261","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 5, quotient = 354, and remainder = 2.","1772","Apply the division formula.
+
+Answer:
+
+1772","5","2","354","1772","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:262","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 2, quotient = 20, and remainder = 1.","41","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+41","2","1","20","41","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:263","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 22, quotient = 42, and remainder = 4.","928","Apply the division formula.
+
+Answer:
+
+928","22","4","42","928","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:264","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 57, quotient = 2926, and remainder = 31.","166813","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+166813","57","31","2926","166813","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:265","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 72
+
+Quotient = 1191
+
+Remainder = 20","85772","Apply the division formula.
+
+Answer:
+
+85772","72","20","1191","85772","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:266","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 41
+
+Quotient = 435
+
+Remainder = 10","17845","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+17845","41","10","435","17845","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:267","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 12
+
+Quotient = 3
+
+Remainder = 2","38","Apply the division formula.
+
+Answer:
+
+38","12","2","3","38","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:268","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 22, quotient = 434, and remainder = 11.","9559","Apply the division formula.
+
+Answer:
+
+9559","22","11","434","9559","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:269","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 34, quotient = 34, and remainder = 2.","1158","Apply the division formula.
+
+Answer:
+
+1158","34","2","34","1158","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:270","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 29
+
+Remainder = 2","582","Apply the division formula.
+
+Answer:
+
+582","20","2","29","582","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:271","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 20, quotient = 40, and remainder = 17.","817","Apply the division formula.
+
+Answer:
+
+817","20","17","40","817","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:272","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 31, and remainder = 6.","223","Apply the division formula.
+
+Answer:
+
+223","7","6","31","223","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:273","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 40
+
+Quotient = 121
+
+Remainder = 27","4867","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4867","40","27","121","4867","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:274","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 10, quotient = 43, and remainder = 2.","432","Apply the division formula.
+
+Answer:
+
+432","10","2","43","432","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:275","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 13, quotient = 150, and remainder = 11.","1961","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1961","13","11","150","1961","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:276","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 12
+
+Quotient = 493
+
+Remainder = 8","5924","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5924","12","8","493","5924","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:277","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 25, quotient = 293, and remainder = 22.","7347","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7347","25","22","293","7347","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:278","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 16, quotient = 11, and remainder = 6.","182","Apply the division formula.
+
+Answer:
+
+182","16","6","11","182","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:279","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 25
+
+Quotient = 2129
+
+Remainder = 4","53229","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+53229","25","4","2129","53229","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:280","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 42
+
+Remainder = 3","423","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+423","10","3","42","423","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:281","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 20, quotient = 385, and remainder = 18.","7718","Apply the division formula.
+
+Answer:
+
+7718","20","18","385","7718","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:282","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 15, quotient = 44, and remainder = 11.","671","Apply the division formula.
+
+Answer:
+
+671","15","11","44","671","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:283","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 12, quotient = 352, and remainder = 8.","4232","Apply the division formula.
+
+Answer:
+
+4232","12","8","352","4232","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:284","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 4
+
+Quotient = 4
+
+Remainder = 1","17","Apply the division formula.
+
+Answer:
+
+17","4","1","4","17","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:285","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 71, quotient = 3009, and remainder = 26.","213665","Apply the division formula.
+
+Answer:
+
+213665","71","26","3009","213665","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:286","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 45
+
+Quotient = 238
+
+Remainder = 34","10744","Apply the division formula.
+
+Answer:
+
+10744","45","34","238","10744","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:287","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 17, quotient = 3325, and remainder = 6.","56531","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+56531","17","6","3325","56531","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:288","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 7, quotient = 44, and remainder = 4.","312","Apply the division formula.
+
+Answer:
+
+312","7","4","44","312","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:289","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 12, quotient = 9, and remainder = 6.","114","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+114","12","6","9","114","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:290","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 47
+
+Quotient = 476
+
+Remainder = 7","22379","Apply the division formula.
+
+Answer:
+
+22379","47","7","476","22379","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:291","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 20, quotient = 8, and remainder = 3.","163","Apply the division formula.
+
+Answer:
+
+163","20","3","8","163","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:292","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 8, quotient = 31, and remainder = 2.","250","Apply the division formula.
+
+Answer:
+
+250","8","2","31","250","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:293","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 28, quotient = 32, and remainder = 17.","913","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+913","28","17","32","913","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:294","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 38
+
+Quotient = 255
+
+Remainder = 16","9706","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9706","38","16","255","9706","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:295","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 61, quotient = 2322, and remainder = 46.","141688","Apply the division formula.
+
+Answer:
+
+141688","61","46","2322","141688","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:296","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 13, quotient = 293, and remainder = 3.","3812","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3812","13","3","293","3812","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:297","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 16
+
+Quotient = 30
+
+Remainder = 5","485","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+485","16","5","30","485","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:298","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 15
+
+Quotient = 63
+
+Remainder = 8","953","Apply the division formula.
+
+Answer:
+
+953","15","8","63","953","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:299","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 28, quotient = 46, and remainder = 19.","1307","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1307","28","19","46","1307","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:300","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 18, quotient = 39, and remainder = 4.","706","Apply the division formula.
+
+Answer:
+
+706","18","4","39","706","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:301","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 30, quotient = 476, and remainder = 19.","14299","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14299","30","19","476","14299","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:302","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 16
+
+Quotient = 482
+
+Remainder = 0","7712","Apply the division formula.
+
+Answer:
+
+7712","16","0","482","7712","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:303","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 9, quotient = 48, and remainder = 7.","439","Apply the division formula.
+
+Answer:
+
+439","9","7","48","439","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:304","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 36, and remainder = 6.","438","Apply the division formula.
+
+Answer:
+
+438","12","6","36","438","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:305","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 3, quotient = 4, and remainder = 1.","13","Apply the division formula.
+
+Answer:
+
+13","3","1","4","13","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:306","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 28, quotient = 456, and remainder = 24.","12792","Apply the division formula.
+
+Answer:
+
+12792","28","24","456","12792","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:307","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 2
+
+Quotient = 10
+
+Remainder = 1","21","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+21","2","1","10","21","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:308","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 4, quotient = 333, and remainder = 2.","1334","Apply the division formula.
+
+Answer:
+
+1334","4","2","333","1334","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:309","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 11, quotient = 32, and remainder = 7.","359","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+359","11","7","32","359","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:310","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 4
+
+Quotient = 472
+
+Remainder = 3","1891","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1891","4","3","472","1891","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:311","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 13
+
+Quotient = 43
+
+Remainder = 2","561","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+561","13","2","43","561","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:312","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 8, quotient = 402, and remainder = 5.","3221","Apply the division formula.
+
+Answer:
+
+3221","8","5","402","3221","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:313","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 5, quotient = 30, and remainder = 1.","151","Apply the division formula.
+
+Answer:
+
+151","5","1","30","151","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:314","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 8, quotient = 20, and remainder = 7.","167","Apply the division formula.
+
+Answer:
+
+167","8","7","20","167","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:315","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 18, quotient = 43, and remainder = 14.","788","Apply the division formula.
+
+Answer:
+
+788","18","14","43","788","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:316","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 8, quotient = 50, and remainder = 1.","401","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+401","8","1","50","401","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:317","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 6
+
+Quotient = 37
+
+Remainder = 0","222","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+222","6","0","37","222","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:318","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 17
+
+Quotient = 96
+
+Remainder = 15","1647","Apply the division formula.
+
+Answer:
+
+1647","17","15","96","1647","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:319","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 20, quotient = 49, and remainder = 4.","984","Apply the division formula.
+
+Answer:
+
+984","20","4","49","984","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:320","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 30, quotient = 487, and remainder = 16.","14626","Apply the division formula.
+
+Answer:
+
+14626","30","16","487","14626","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:321","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 18, quotient = 396, and remainder = 9.","7137","Apply the division formula.
+
+Answer:
+
+7137","18","9","396","7137","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:322","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 80, quotient = 3583, and remainder = 34.","286674","Apply the division formula.
+
+Answer:
+
+286674","80","34","3583","286674","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:323","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 5, quotient = 12, and remainder = 4.","64","Apply the division formula.
+
+Answer:
+
+64","5","4","12","64","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:324","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 19, quotient = 442, and remainder = 15.","8413","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8413","19","15","442","8413","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:325","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 9, quotient = 59, and remainder = 3.","534","Apply the division formula.
+
+Answer:
+
+534","9","3","59","534","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:326","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 66
+
+Quotient = 537
+
+Remainder = 50","35492","Apply the division formula.
+
+Answer:
+
+35492","66","50","537","35492","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:327","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 9, quotient = 42, and remainder = 0.","378","Apply the division formula.
+
+Answer:
+
+378","9","0","42","378","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:328","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 50
+
+Quotient = 37
+
+Remainder = 48","1898","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1898","50","48","37","1898","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:329","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 8, quotient = 18, and remainder = 7.","151","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+151","8","7","18","151","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:330","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 18
+
+Quotient = 8
+
+Remainder = 13","157","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+157","18","13","8","157","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:331","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 14, quotient = 31, and remainder = 0.","434","Apply the division formula.
+
+Answer:
+
+434","14","0","31","434","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:332","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 19, quotient = 42, and remainder = 14.","812","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+812","19","14","42","812","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:333","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 45, quotient = 66, and remainder = 8.","2978","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2978","45","8","66","2978","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:334","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 16
+
+Quotient = 20
+
+Remainder = 13","333","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+333","16","13","20","333","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:335","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 8, quotient = 194, and remainder = 6.","1558","Apply the division formula.
+
+Answer:
+
+1558","8","6","194","1558","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:336","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 10, quotient = 48, and remainder = 9.","489","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+489","10","9","48","489","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:337","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 20, quotient = 1, and remainder = 12.","32","Apply the division formula.
+
+Answer:
+
+32","20","12","1","32","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:338","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 2
+
+Remainder = 7","27","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+27","10","7","2","27","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:339","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 27, quotient = 489, and remainder = 9.","13212","Apply the division formula.
+
+Answer:
+
+13212","27","9","489","13212","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:340","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 8, quotient = 25, and remainder = 6.","206","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+206","8","6","25","206","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:341","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 8
+
+Quotient = 30
+
+Remainder = 5","245","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+245","8","5","30","245","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:342","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 38, quotient = 444, and remainder = 6.","16878","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+16878","38","6","444","16878","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:343","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 9, quotient = 2, and remainder = 7.","25","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+25","9","7","2","25","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:344","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 53
+
+Quotient = 123
+
+Remainder = 20","6539","Apply the division formula.
+
+Answer:
+
+6539","53","20","123","6539","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:345","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 50, quotient = 497, and remainder = 15.","24865","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+24865","50","15","497","24865","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:346","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 18, quotient = 9, and remainder = 10.","172","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+172","18","10","9","172","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:347","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 13, quotient = 459, and remainder = 8.","5975","Apply the division formula.
+
+Answer:
+
+5975","13","8","459","5975","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:348","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 7, quotient = 5, and remainder = 3.","38","Apply the division formula.
+
+Answer:
+
+38","7","3","5","38","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:349","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 37, quotient = 1681, and remainder = 20.","62217","Apply the division formula.
+
+Answer:
+
+62217","37","20","1681","62217","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:350","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 17, quotient = 46, and remainder = 6.","788","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+788","17","6","46","788","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:351","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 22, quotient = 2706, and remainder = 0.","59532","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+59532","22","0","2706","59532","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:352","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 94, quotient = 2017, and remainder = 13.","189611","Apply the division formula.
+
+Answer:
+
+189611","94","13","2017","189611","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:353","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 467, and remainder = 2.","5606","Apply the division formula.
+
+Answer:
+
+5606","12","2","467","5606","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:354","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 14, quotient = 34, and remainder = 5.","481","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+481","14","5","34","481","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:355","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 37, quotient = 402, and remainder = 33.","14907","Apply the division formula.
+
+Answer:
+
+14907","37","33","402","14907","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:356","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 24, quotient = 91, and remainder = 21.","2205","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2205","24","21","91","2205","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:357","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 22, quotient = 440, and remainder = 14.","9694","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9694","22","14","440","9694","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:358","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 61
+
+Quotient = 2519
+
+Remainder = 11","153670","Apply the division formula.
+
+Answer:
+
+153670","61","11","2519","153670","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:359","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 14, quotient = 210, and remainder = 8.","2948","Apply the division formula.
+
+Answer:
+
+2948","14","8","210","2948","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:360","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 25, and remainder = 8.","308","Apply the division formula.
+
+Answer:
+
+308","12","8","25","308","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:361","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 44, quotient = 385, and remainder = 43.","16983","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+16983","44","43","385","16983","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:362","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 17, quotient = 9, and remainder = 11.","164","Apply the division formula.
+
+Answer:
+
+164","17","11","9","164","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:363","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 20, quotient = 42, and remainder = 5.","845","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+845","20","5","42","845","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:364","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 11, quotient = 499, and remainder = 10.","5499","Apply the division formula.
+
+Answer:
+
+5499","11","10","499","5499","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:365","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 6, quotient = 32, and remainder = 3.","195","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+195","6","3","32","195","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:366","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 66
+
+Quotient = 2329
+
+Remainder = 44","153758","Apply the division formula.
+
+Answer:
+
+153758","66","44","2329","153758","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:367","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 8
+
+Quotient = 417
+
+Remainder = 1","3337","Apply the division formula.
+
+Answer:
+
+3337","8","1","417","3337","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:368","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 34, quotient = 79, and remainder = 14.","2700","Apply the division formula.
+
+Answer:
+
+2700","34","14","79","2700","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:369","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 7
+
+Quotient = 212
+
+Remainder = 3","1487","Apply the division formula.
+
+Answer:
+
+1487","7","3","212","1487","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:370","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 11
+
+Quotient = 32
+
+Remainder = 8","360","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+360","11","8","32","360","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:371","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 38, quotient = 480, and remainder = 30.","18270","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+18270","38","30","480","18270","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:372","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 44, quotient = 299, and remainder = 23.","13179","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13179","44","23","299","13179","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:373","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 5, quotient = 409, and remainder = 2.","2047","Apply the division formula.
+
+Answer:
+
+2047","5","2","409","2047","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:374","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 217, and remainder = 5.","1524","Apply the division formula.
+
+Answer:
+
+1524","7","5","217","1524","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:375","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 13, quotient = 13, and remainder = 11.","180","Apply the division formula.
+
+Answer:
+
+180","13","11","13","180","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:376","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 4, quotient = 26, and remainder = 3.","107","Apply the division formula.
+
+Answer:
+
+107","4","3","26","107","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:377","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 42
+
+Quotient = 435
+
+Remainder = 36","18306","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+18306","42","36","435","18306","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:378","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 32
+
+Quotient = 71
+
+Remainder = 13","2285","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2285","32","13","71","2285","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:379","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 21, quotient = 314, and remainder = 11.","6605","Apply the division formula.
+
+Answer:
+
+6605","21","11","314","6605","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:380","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 6, quotient = 45, and remainder = 4.","274","Apply the division formula.
+
+Answer:
+
+274","6","4","45","274","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:381","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 14, quotient = 34, and remainder = 13.","489","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+489","14","13","34","489","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:382","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 49, quotient = 3563, and remainder = 34.","174621","Apply the division formula.
+
+Answer:
+
+174621","49","34","3563","174621","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:383","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 35, quotient = 435, and remainder = 12.","15237","Apply the division formula.
+
+Answer:
+
+15237","35","12","435","15237","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:384","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 46
+
+Quotient = 135
+
+Remainder = 24","6234","Apply the division formula.
+
+Answer:
+
+6234","46","24","135","6234","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:385","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 6
+
+Quotient = 36
+
+Remainder = 5","221","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+221","6","5","36","221","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:386","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 31, quotient = 385, and remainder = 6.","11941","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11941","31","6","385","11941","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:387","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 4, quotient = 239, and remainder = 3.","959","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+959","4","3","239","959","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:388","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 16
+
+Quotient = 347
+
+Remainder = 10","5562","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5562","16","10","347","5562","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:389","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 17
+
+Quotient = 28
+
+Remainder = 1","477","Apply the division formula.
+
+Answer:
+
+477","17","1","28","477","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:390","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 23, quotient = 436, and remainder = 0.","10028","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10028","23","0","436","10028","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:391","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 43, quotient = 206, and remainder = 10.","8868","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8868","43","10","206","8868","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:392","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 8, quotient = 34, and remainder = 5.","277","Apply the division formula.
+
+Answer:
+
+277","8","5","34","277","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:393","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 17, quotient = 31, and remainder = 2.","529","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+529","17","2","31","529","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:394","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 55
+
+Quotient = 4264
+
+Remainder = 29","234549","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+234549","55","29","4264","234549","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:395","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 10, quotient = 2481, and remainder = 6.","24816","Apply the division formula.
+
+Answer:
+
+24816","10","6","2481","24816","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:396","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 16
+
+Quotient = 8
+
+Remainder = 1","129","Apply the division formula.
+
+Answer:
+
+129","16","1","8","129","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:397","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 27, quotient = 380, and remainder = 16.","10276","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10276","27","16","380","10276","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:398","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 13, quotient = 36, and remainder = 9.","477","Apply the division formula.
+
+Answer:
+
+477","13","9","36","477","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:399","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 12
+
+Quotient = 7
+
+Remainder = 4","88","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+88","12","4","7","88","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:400","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 7
+
+Quotient = 30
+
+Remainder = 0","210","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+210","7","0","30","210","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:401","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 17
+
+Quotient = 29
+
+Remainder = 15","508","Apply the division formula.
+
+Answer:
+
+508","17","15","29","508","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:402","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 13, quotient = 2, and remainder = 10.","36","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+36","13","10","2","36","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:403","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 36, quotient = 430, and remainder = 26.","15506","Apply the division formula.
+
+Answer:
+
+15506","36","26","430","15506","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:404","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 3
+
+Quotient = 24
+
+Remainder = 0","72","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+72","3","0","24","72","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:405","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 24
+
+Quotient = 302
+
+Remainder = 8","7256","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7256","24","8","302","7256","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:406","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 15
+
+Quotient = 40
+
+Remainder = 2","602","Apply the division formula.
+
+Answer:
+
+602","15","2","40","602","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:407","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 11, quotient = 13, and remainder = 0.","143","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+143","11","0","13","143","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:408","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 21, quotient = 382, and remainder = 4.","8026","Apply the division formula.
+
+Answer:
+
+8026","21","4","382","8026","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:409","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 14
+
+Quotient = 47
+
+Remainder = 2","660","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+660","14","2","47","660","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:410","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 45, quotient = 1954, and remainder = 11.","87941","Apply the division formula.
+
+Answer:
+
+87941","45","11","1954","87941","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:411","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 2, quotient = 44, and remainder = 1.","89","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+89","2","1","44","89","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:412","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 48, quotient = 232, and remainder = 8.","11144","Apply the division formula.
+
+Answer:
+
+11144","48","8","232","11144","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:413","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 36, quotient = 141, and remainder = 27.","5103","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5103","36","27","141","5103","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:414","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 31, quotient = 3809, and remainder = 25.","118104","Apply the division formula.
+
+Answer:
+
+118104","31","25","3809","118104","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:415","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 6
+
+Quotient = 20
+
+Remainder = 3","123","Apply the division formula.
+
+Answer:
+
+123","6","3","20","123","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:416","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 47
+
+Quotient = 187
+
+Remainder = 7","8796","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8796","47","7","187","8796","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:417","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 27
+
+Quotient = 295
+
+Remainder = 12","7977","Apply the division formula.
+
+Answer:
+
+7977","27","12","295","7977","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:418","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 46, quotient = 240, and remainder = 12.","11052","Apply the division formula.
+
+Answer:
+
+11052","46","12","240","11052","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:419","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 6
+
+Quotient = 42
+
+Remainder = 3","255","Apply the division formula.
+
+Answer:
+
+255","6","3","42","255","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:420","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 6, quotient = 415, and remainder = 5.","2495","Apply the division formula.
+
+Answer:
+
+2495","6","5","415","2495","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:421","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 40, quotient = 212, and remainder = 26.","8506","Apply the division formula.
+
+Answer:
+
+8506","40","26","212","8506","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:422","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 14
+
+Quotient = 28
+
+Remainder = 5","397","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+397","14","5","28","397","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:423","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 90
+
+Quotient = 1077
+
+Remainder = 28","96958","Apply the division formula.
+
+Answer:
+
+96958","90","28","1077","96958","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:424","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 3
+
+Quotient = 327
+
+Remainder = 0","981","Apply the division formula.
+
+Answer:
+
+981","3","0","327","981","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:425","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 40
+
+Quotient = 185
+
+Remainder = 22","7422","Apply the division formula.
+
+Answer:
+
+7422","40","22","185","7422","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:426","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 11, quotient = 16, and remainder = 9.","185","Apply the division formula.
+
+Answer:
+
+185","11","9","16","185","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:427","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 16, quotient = 147, and remainder = 12.","2364","Apply the division formula.
+
+Answer:
+
+2364","16","12","147","2364","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:428","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 42, and remainder = 1.","295","Apply the division formula.
+
+Answer:
+
+295","7","1","42","295","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:429","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 31
+
+Remainder = 4","314","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+314","10","4","31","314","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:430","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 8
+
+Quotient = 99
+
+Remainder = 0","792","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+792","8","0","99","792","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:431","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 12, quotient = 22, and remainder = 11.","275","Apply the division formula.
+
+Answer:
+
+275","12","11","22","275","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:432","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 39, quotient = 80, and remainder = 20.","3140","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3140","39","20","80","3140","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:433","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 13, quotient = 34, and remainder = 12.","454","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+454","13","12","34","454","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:434","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 73
+
+Quotient = 4557
+
+Remainder = 43","332704","Apply the division formula.
+
+Answer:
+
+332704","73","43","4557","332704","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:435","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 19
+
+Quotient = 4601
+
+Remainder = 5","87424","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+87424","19","5","4601","87424","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:436","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 4, quotient = 37, and remainder = 2.","150","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+150","4","2","37","150","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:437","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 2, quotient = 4953, and remainder = 1.","9907","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9907","2","1","4953","9907","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:438","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 15
+
+Quotient = 41
+
+Remainder = 13","628","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+628","15","13","41","628","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:439","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 31, quotient = 204, and remainder = 2.","6326","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+6326","31","2","204","6326","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:440","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 97, quotient = 2660, and remainder = 49.","258069","Apply the division formula.
+
+Answer:
+
+258069","97","49","2660","258069","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:441","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 8, quotient = 500, and remainder = 0.","4000","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4000","8","0","500","4000","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:442","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 2, quotient = 6, and remainder = 1.","13","Apply the division formula.
+
+Answer:
+
+13","2","1","6","13","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:443","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 7, quotient = 387, and remainder = 4.","2713","Apply the division formula.
+
+Answer:
+
+2713","7","4","387","2713","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:444","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 28
+
+Quotient = 380
+
+Remainder = 11","10651","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10651","28","11","380","10651","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:445","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 41
+
+Quotient = 17
+
+Remainder = 25","722","Apply the division formula.
+
+Answer:
+
+722","41","25","17","722","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:446","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 76
+
+Quotient = 2981
+
+Remainder = 61","226617","Apply the division formula.
+
+Answer:
+
+226617","76","61","2981","226617","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:447","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 22, quotient = 244, and remainder = 16.","5384","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5384","22","16","244","5384","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:448","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 15, quotient = 30, and remainder = 5.","455","Apply the division formula.
+
+Answer:
+
+455","15","5","30","455","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:449","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 16
+
+Quotient = 1677
+
+Remainder = 0","26832","Apply the division formula.
+
+Answer:
+
+26832","16","0","1677","26832","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:450","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 20, quotient = 41, and remainder = 18.","838","Apply the division formula.
+
+Answer:
+
+838","20","18","41","838","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:451","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 17
+
+Quotient = 20
+
+Remainder = 9","349","Apply the division formula.
+
+Answer:
+
+349","17","9","20","349","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:452","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 9, quotient = 3, and remainder = 5.","32","Apply the division formula.
+
+Answer:
+
+32","9","5","3","32","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:453","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 23
+
+Quotient = 130
+
+Remainder = 14","3004","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3004","23","14","130","3004","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:454","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 31
+
+Quotient = 700
+
+Remainder = 23","21723","Apply the division formula.
+
+Answer:
+
+21723","31","23","700","21723","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:455","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 36
+
+Quotient = 162
+
+Remainder = 1","5833","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5833","36","1","162","5833","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:456","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 39
+
+Quotient = 244
+
+Remainder = 15","9531","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9531","39","15","244","9531","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:457","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 9, quotient = 14, and remainder = 4.","130","Apply the division formula.
+
+Answer:
+
+130","9","4","14","130","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:458","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 28
+
+Quotient = 65
+
+Remainder = 6","1826","Apply the division formula.
+
+Answer:
+
+1826","28","6","65","1826","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:459","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 12
+
+Quotient = 20
+
+Remainder = 9","249","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+249","12","9","20","249","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:460","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 20, quotient = 48, and remainder = 17.","977","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+977","20","17","48","977","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:461","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 6, quotient = 1, and remainder = 0.","6","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+6","6","0","1","6","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:462","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 14, quotient = 36, and remainder = 7.","511","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+511","14","7","36","511","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:463","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 24, quotient = 419, and remainder = 4.","10060","Apply the division formula.
+
+Answer:
+
+10060","24","4","419","10060","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:464","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 16, quotient = 18, and remainder = 1.","289","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+289","16","1","18","289","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:465","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 61, quotient = 259, and remainder = 10.","15809","Apply the division formula.
+
+Answer:
+
+15809","61","10","259","15809","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:466","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 86
+
+Quotient = 2002
+
+Remainder = 73","172245","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+172245","86","73","2002","172245","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:467","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 35, quotient = 185, and remainder = 1.","6476","Apply the division formula.
+
+Answer:
+
+6476","35","1","185","6476","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:468","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 42, quotient = 95, and remainder = 23.","4013","Apply the division formula.
+
+Answer:
+
+4013","42","23","95","4013","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:469","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 11
+
+Quotient = 49
+
+Remainder = 7","546","Apply the division formula.
+
+Answer:
+
+546","11","7","49","546","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:470","CP-009","Medium","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 9
+
+Quotient = 52
+
+Remainder = 5","473","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+473","9","5","52","473","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:471","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 40, quotient = 497, and remainder = 27.","19907","Apply the division formula.
+
+Answer:
+
+19907","40","27","497","19907","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:472","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 19
+
+Quotient = 21
+
+Remainder = 18","417","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+417","19","18","21","417","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:473","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 19
+
+Quotient = 36
+
+Remainder = 4","688","Apply the division formula.
+
+Answer:
+
+688","19","4","36","688","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:474","CP-009","Hard","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 52
+
+Quotient = 1887
+
+Remainder = 16","98140","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+98140","52","16","1887","98140","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:475","CP-009","Hard","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 91, quotient = 2394, and remainder = 86.","217940","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+217940","91","86","2394","217940","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:476","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 15, quotient = 39, and remainder = 2.","587","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+587","15","2","39","587","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:477","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 4, quotient = 89, and remainder = 1.","357","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+357","4","1","89","357","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:478","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 17, quotient = 335, and remainder = 14.","5709","Apply the division formula.
+
+Answer:
+
+5709","17","14","335","5709","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:479","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 16
+
+Quotient = 40
+
+Remainder = 3","643","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+643","16","3","40","643","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:480","CP-009","Hard","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 35, quotient = 3357, and remainder = 3.","117498","Apply the division formula.
+
+Answer:
+
+117498","35","3","3357","117498","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:481","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 85, quotient = 2862, and remainder = 68.","243338","Apply the division formula.
+
+Answer:
+
+243338","85","68","2862","243338","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:482","CP-009","Hard","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 18
+
+Quotient = 3709
+
+Remainder = 5","66767","Apply the division formula.
+
+Answer:
+
+66767","18","5","3709","66767","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:483","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 18, quotient = 11, and remainder = 6.","204","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+204","18","6","11","204","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:484","CP-009","Easy","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 7, quotient = 46, and remainder = 0.","322","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+322","7","0","46","322","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:485","CP-009","Medium","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 34
+
+Quotient = 52
+
+Remainder = 30","1798","Apply the division formula.
+
+Answer:
+
+1798","34","30","52","1798","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:486","CP-009","Easy","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 8, quotient = 8, and remainder = 1.","65","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+65","8","1","8","65","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:487","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 16, quotient = 312, and remainder = 10.","5002","Apply the division formula.
+
+Answer:
+
+5002","16","10","312","5002","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:488","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 12
+
+Remainder = 11","251","Apply the division formula.
+
+Answer:
+
+251","20","11","12","251","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:489","CP-009","Medium","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 33, quotient = 421, and remainder = 15.","13908","Apply the division formula.
+
+Answer:
+
+13908","33","15","421","13908","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:490","CP-009","Medium","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 32, quotient = 466, and remainder = 26.","14938","Apply the division formula.
+
+Answer:
+
+14938","32","26","466","14938","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:491","CP-009","Easy","Direct Reconstruction","QL-028","ES-002","Determine the missing dividend when divisor = 2, quotient = 8, and remainder = 1.","17","Apply the division formula.
+
+Answer:
+
+17","2","1","8","17","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:492","CP-009","Hard","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 7, quotient = 3593, and remainder = 0.","25151","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+25151","7","0","3593","25151","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:493","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 26
+
+Remainder = 9","269","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+269","10","9","26","269","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:494","CP-009","Medium","Direct Reconstruction","QL-028","ES-001","Determine the missing dividend when divisor = 43, quotient = 485, and remainder = 2.","20857","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+20857","43","2","485","20857","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:495","CP-009","Medium","Direct Reconstruction","QL-027","ES-001","Find the dividend if divisor = 42, quotient = 83, and remainder = 41.","3527","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3527","42","41","83","3527","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:496","CP-009","Easy","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 3, quotient = 21, and remainder = 0.","63","Apply the division formula.
+
+Answer:
+
+63","3","0","21","63","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:497","CP-009","Hard","Direct Reconstruction","QL-027","ES-002","Find the dividend if divisor = 38, quotient = 2774, and remainder = 25.","105437","Apply the division formula.
+
+Answer:
+
+105437","38","25","2774","105437","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:498","CP-009","Easy","Direct Reconstruction","QL-029","ES-001","Dividend = ?
+
+Divisor = 6
+
+Quotient = 41
+
+Remainder = 0","246","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+246","6","0","41","246","",""
+"NS-REM-002:CP-009:NS-REM-002-HUMAN-REVIEW-500:CP-009:499","CP-009","Easy","Direct Reconstruction","QL-029","ES-002","Dividend = ?
+
+Divisor = 10
+
+Quotient = 18
+
+Remainder = 9","189","Apply the division formula.
+
+Answer:
+
+189","10","9","18","189","",""

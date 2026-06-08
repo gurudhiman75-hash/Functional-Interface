@@ -1,0 +1,102 @@
+{
+  "libraryId": "NS-REM-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-REM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "APPROVED",
+  "wordingPolicy": "Use exact approved wording only. Missing language entries fail validation.",
+  "entries": [
+    {
+      "id": "QL-001",
+      "text": "Find the value of x if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-002",
+      "text": "Determine x if {number} leaves remainder {remainder} on division by {divisor}."
+    },
+    {
+      "id": "QL-003",
+      "text": "The number {number} leaves remainder {remainder} when divided by {divisor}. Find x."
+    },
+    {
+      "id": "QL-004",
+      "text": "What should be the value of x so that {number} leaves remainder {remainder} when divided by {divisor}?"
+    },
+    {
+      "id": "QL-005",
+      "text": "Find x.\n\nGiven:\n\n{number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-006",
+      "text": "Find the smallest value of x if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-007",
+      "text": "Determine the least possible value of x for which {number} leaves remainder {remainder} on division by {divisor}."
+    },
+    {
+      "id": "QL-008",
+      "text": "Among all valid values of x, find the smallest one if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-009",
+      "text": "Find the greatest value of x if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-010",
+      "text": "Determine the maximum possible value of x for which {number} leaves remainder {remainder} on division by {divisor}."
+    },
+    {
+      "id": "QL-011",
+      "text": "Among all valid values of x, find the greatest one if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-012",
+      "text": "How many values of x satisfy the condition that {number} leaves remainder {remainder} when divided by {divisor}?"
+    },
+    {
+      "id": "QL-013",
+      "text": "Find the number of possible values of x if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-014",
+      "text": "Count the valid values of x for which {number} leaves remainder {remainder} on division by {divisor}."
+    },
+    {
+      "id": "QL-015",
+      "text": "Find the sum of all values of x if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-016",
+      "text": "Find the total of all possible values of x satisfying the given remainder condition for {number}, remainder {remainder}, and divisor {divisor}."
+    },
+    {
+      "id": "QL-017",
+      "text": "Add all valid values of x for which {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-018",
+      "text": "Form the smallest number if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-019",
+      "text": "Find the least number that can be formed when {number} leaves remainder {remainder} on division by {divisor}."
+    },
+    {
+      "id": "QL-020",
+      "text": "Form the greatest number if {number} leaves remainder {remainder} when divided by {divisor}."
+    },
+    {
+      "id": "QL-021",
+      "text": "Find the largest number that can be formed when {number} leaves remainder {remainder} on division by {divisor}."
+    }
+  ],
+  "cpToLanguageMapping": {
+    "CP-001": ["QL-001", "QL-002", "QL-003", "QL-004", "QL-005"],
+    "CP-002": ["QL-006", "QL-007", "QL-008"],
+    "CP-003": ["QL-009", "QL-010", "QL-011"],
+    "CP-004": ["QL-012", "QL-013", "QL-014"],
+    "CP-005": ["QL-015", "QL-016", "QL-017"],
+    "CP-006": ["QL-018", "QL-019"],
+    "CP-007": ["QL-020", "QL-021"]
+  }
+}

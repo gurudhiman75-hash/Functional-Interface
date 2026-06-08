@@ -1,0 +1,97 @@
+{
+  "libraryId": "NS-HCF-001-EXPLANATION",
+  "archetypeId": "NS-HCF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "style": "SSC, Banking, Railway, CDS, NDA, CAPF, and State PCS solution style",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "operandFactorizationLatex",
+      "commonPrimeIntersectionLatex",
+      "minimumExponentSelectionLatex",
+      "hcfLatex",
+      "hcfFactorCountFormulaLatex",
+      "candidateEvaluationLatex",
+      "groupingInterpretationLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Direct HCF",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Prime factorization of the numbers is:\n\n{operandFactorizationLatex}\n\nTake only the common prime factors with the smallest exponent.\n\n{commonPrimeIntersectionLatex}\n\n{minimumExponentSelectionLatex}\n\nTherefore,\n\n{hcfLatex}\n\nHence the HCF is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Count Common Divisors",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "First find the HCF of the given numbers.\n\n{hcfLatex}\n\nEvery common divisor of the numbers is a factor of the HCF.\n\nNow count the factors of the HCF.\n\n{hcfFactorCountFormulaLatex}\n\nTherefore, the number of common divisors is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Missing Number Using HCF",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "style": "range_or_list_check",
+          "text": "Use the HCF condition.\n\nGenerate all values that satisfy the required HCF.\n\n{candidateEvaluationLatex}\n\nApply the additional condition given in the question.\n\nEliminate all invalid values.\n\nOnly one value remains.\n\nHence the required number is {answer}."
+        },
+        {
+          "id": "ES-004",
+          "style": "divisibility_check",
+          "text": "First apply the divisibility condition.\n\nNow check which value gives the required HCF.\n\n{candidateEvaluationLatex}\n\nOnly one value satisfies both conditions.\n\nTherefore, the required number is {answer}."
+        },
+        {
+          "id": "ES-005",
+          "style": "arithmetic_check",
+          "text": "Use the arithmetic condition to determine the possible value.\n\nNow verify the HCF condition.\n\n{candidateEvaluationLatex}\n\nThe value satisfies both requirements.\n\nHence the answer is {answer}."
+        },
+        {
+          "id": "ES-006",
+          "style": "compact_exam_solution",
+          "text": "Check the possible values using the given HCF.\n\n{candidateEvaluationLatex}\n\nExactly one value is valid.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Equal Grouping Applications",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-007",
+          "style": "step_by_step",
+          "text": "In this type of question, the greatest possible number of equal groups must divide every given quantity exactly.\n\nSo we find the HCF of the quantities.\n\n{groupingInterpretationLatex}\n\n{hcfLatex}\n\nHence the greatest possible number of groups is {answer}."
+        },
+        {
+          "id": "ES-008",
+          "style": "packing_context",
+          "text": "Since all items are to be packed identically and nothing is left over, the number of packets must be a common divisor of all quantities.\n\nThe greatest such number is the HCF.\n\n{groupingInterpretationLatex}\n\n{hcfLatex}\n\nTherefore, the greatest possible number is {answer}."
+        },
+        {
+          "id": "ES-009",
+          "style": "arrangement_context",
+          "text": "For equal rows, teams, sets, or groups, each quantity must be divided exactly by the same number.\n\nThus the required number is the HCF of the given quantities.\n\n{groupingInterpretationLatex}\n\n{hcfLatex}\n\nAnswer: {answer}"
+        },
+        {
+          "id": "ES-010",
+          "style": "compact_exam_solution",
+          "text": "The question asks for the greatest equal division with no remainder.\n\nTherefore, take the HCF of the given quantities.\n\n{groupingInterpretationLatex}\n\n{hcfLatex}\n\nHence the answer is {answer}."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "libraryId": "NS-HL-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-HL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "PHASE_B_READY_FOR_REVIEW",
+  "runtimePolicy": {
+    "may": ["load", "validate", "select", "substitute", "render", "audit"],
+    "mayNot": ["generate educational wording", "invent question language", "rewrite approved stems"]
+  },
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all variables required to solve the CP. Runtime may only substitute approved placeholders.",
+    "requiredVariables": {
+      "CP-001": ["hcf", "lcm"],
+      "CP-002": ["hcf", "lcm"],
+      "CP-003": ["hcf", "lcm", "knownNumber"],
+      "CP-004": ["hcf", "lcm"],
+      "CP-005": ["hcf", "lcm"],
+      "CP-006": ["ratio"]
+    }
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Product Relation Applications",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "The HCF and LCM of two numbers are {hcf} and {lcm}. Find the product of the two numbers."
+        },
+        {
+          "id": "QL-002",
+          "text": "If the HCF of two numbers is {hcf} and their LCM is {lcm}, what is the product of the numbers?"
+        },
+        {
+          "id": "QL-003",
+          "text": "Find the product of two numbers whose HCF is {hcf} and LCM is {lcm}."
+        },
+        {
+          "id": "QL-004",
+          "text": "The product of two numbers is {product}. If their HCF is {hcf}, find their LCM."
+        },
+        {
+          "id": "QL-005",
+          "text": "The product of two numbers is {product}. If their LCM is {lcm}, find their HCF."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "HCF-LCM Validity Check",
+      "entries": [
+        {
+          "id": "QL-006",
+          "text": "Can two numbers have HCF {hcf} and LCM {lcm}?"
+        },
+        {
+          "id": "QL-007",
+          "text": "Determine whether HCF = {hcf} and LCM = {lcm} is possible."
+        },
+        {
+          "id": "QL-008",
+          "text": "Is it possible for two numbers to have HCF {hcf} and LCM {lcm}? Give a valid/invalid decision."
+        },
+        {
+          "id": "QL-009",
+          "text": "Two numbers are claimed to have HCF {hcf} and LCM {lcm}. Check whether the claim is valid."
+        },
+        {
+          "id": "QL-010",
+          "text": "The numbers {a} and {b} are said to have HCF {hcf} and LCM {lcm}. Verify the statement."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Missing Number From HCF, LCM And One Number",
+      "entries": [
+        {
+          "id": "QL-011",
+          "text": "The HCF and LCM of two numbers are {hcf} and {lcm}. One number is {knownNumber}. Find the other number."
+        },
+        {
+          "id": "QL-012",
+          "text": "If the HCF of two numbers is {hcf}, their LCM is {lcm}, and one number is {knownNumber}, find the second number."
+        },
+        {
+          "id": "QL-013",
+          "text": "One of two numbers is {knownNumber}. Their HCF and LCM are {hcf} and {lcm}. Determine the other number."
+        },
+        {
+          "id": "QL-014",
+          "text": "The product relation between two numbers is known. If HCF = {hcf}, LCM = {lcm}, and one number is {knownNumber}, find the missing number."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Number Pair Reconstruction",
+      "entries": [
+        {
+          "id": "QL-015",
+          "conditionFamily": "sumCondition",
+          "text": "Two numbers have HCF {hcf} and LCM {lcm}. If their sum is {sum}, find the numbers."
+        },
+        {
+          "id": "QL-016",
+          "conditionFamily": "sumCondition",
+          "text": "The HCF and LCM of two numbers are {hcf} and {lcm}. Their sum is {sum}. Find the pair."
+        },
+        {
+          "id": "QL-017",
+          "conditionFamily": "differenceCondition",
+          "text": "Two numbers have HCF {hcf} and LCM {lcm}. Their difference is {difference}. Find the numbers."
+        },
+        {
+          "id": "QL-018",
+          "conditionFamily": "differenceCondition",
+          "text": "The HCF and LCM of two numbers are {hcf} and {lcm}. Their difference is {difference}. Determine the numbers."
+        },
+        {
+          "id": "QL-019",
+          "conditionFamily": "directPairCondition",
+          "text": "Find the pair of numbers whose HCF is {hcf} and LCM is {lcm}."
+        },
+        {
+          "id": "QL-020",
+          "conditionFamily": "directPairCondition",
+          "text": "Which pair of numbers has HCF {hcf} and LCM {lcm}?"
+        },
+        {
+          "id": "QL-021",
+          "conditionFamily": "rangeCondition",
+          "text": "Two numbers have HCF {hcf} and LCM {lcm}. One number lies between {lowerBound} and {upperBound}. Find the pair."
+        },
+        {
+          "id": "QL-022",
+          "conditionFamily": "rangeCondition",
+          "text": "The HCF and LCM of two numbers are {hcf} and {lcm}. One number lies in the interval [{lowerBound}, {upperBound}]. Determine the numbers."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Count Possible Number Pairs",
+      "entries": [
+        {
+          "id": "QL-023",
+          "pairPolicy": "unspecified",
+          "text": "How many pairs of numbers have HCF {hcf} and LCM {lcm}?"
+        },
+        {
+          "id": "QL-024",
+          "pairPolicy": "unspecified",
+          "text": "Count the number of pairs of numbers whose HCF is {hcf} and LCM is {lcm}."
+        },
+        {
+          "id": "QL-025",
+          "pairPolicy": "unspecified",
+          "text": "Find the number of possible pairs having HCF {hcf} and LCM {lcm}."
+        },
+        {
+          "id": "QL-026",
+          "pairPolicy": "orderedPairs",
+          "text": "How many ordered pairs of numbers have HCF {hcf} and LCM {lcm}?"
+        },
+        {
+          "id": "QL-027",
+          "pairPolicy": "unorderedPairs",
+          "text": "How many unordered pairs of numbers have HCF {hcf} and LCM {lcm}?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Ratio-Based Number Reconstruction",
+      "entries": [
+        {
+          "id": "QL-028",
+          "ratioFamily": "ratioPlusHcf",
+          "text": "Two numbers are in the ratio {ratio}. Their HCF is {hcf}. Find the numbers."
+        },
+        {
+          "id": "QL-029",
+          "ratioFamily": "ratioPlusHcf",
+          "text": "The ratio of two numbers is {ratio}. If their HCF is {hcf}, determine the numbers."
+        },
+        {
+          "id": "QL-030",
+          "ratioFamily": "ratioPlusLcm",
+          "text": "Two numbers are in the ratio {ratio}. Their LCM is {lcm}. Find the numbers."
+        },
+        {
+          "id": "QL-031",
+          "ratioFamily": "ratioPlusLcm",
+          "text": "The ratio of two numbers is {ratio}. If their LCM is {lcm}, determine the numbers."
+        },
+        {
+          "id": "QL-032",
+          "ratioFamily": "ratioPlusHcfPlusLcm",
+          "text": "Two numbers are in the ratio {ratio}. Their HCF and LCM are {hcf} and {lcm}. Find the numbers."
+        },
+        {
+          "id": "QL-033",
+          "ratioFamily": "ratioPlusHcfPlusLcm",
+          "text": "The ratio of two numbers is {ratio}. Their HCF is {hcf} and their LCM is {lcm}. Determine the numbers."
+        }
+      ]
+    }
+  ]
+}

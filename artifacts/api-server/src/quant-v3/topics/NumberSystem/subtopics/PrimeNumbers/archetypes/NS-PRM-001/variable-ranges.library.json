@@ -1,0 +1,225 @@
+{
+  "libraryId": "NS-PRM-001-VARIABLE-RANGES",
+  "archetypeId": "NS-PRM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "globalRules": {
+    "rangePolicy": {
+      "inclusiveBounds": true,
+      "notation": "[lowerBound, upperBound]"
+    },
+    "primeDefinition": "A natural number greater than 1 having exactly two factors: 1 and itself.",
+    "compositeDefinition": "A natural number greater than 1 having more than two factors.",
+    "numberOnePolicy": {
+      "classification": "1 is neither Prime nor Composite.",
+      "invalidGeneratedValueFor": ["CP-001", "CP-006", "CP-007"],
+      "validationRule": "Future runtime validation must reject 1 for CP-001, CP-006, and CP-007."
+    },
+    "previousPrimePolicy": {
+      "minimumNumber": 3,
+      "rule": "number >= 3",
+      "reason": "A previous prime must exist."
+    },
+    "rangePrimeExistencePolicy": {
+      "CP-003": "Generated ranges must contain at least one prime.",
+      "CP-004": "Generated ranges must contain at least one prime.",
+      "CP-002": "Zero-prime ranges may produce answer 0 and must be auditable.",
+      "CP-005": "Zero-prime ranges may produce answer 0 and must be auditable."
+    }
+  },
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "numberRange": {
+        "min": 2,
+        "max": 100
+      },
+      "lowerBoundRange": {
+        "min": 2,
+        "max": 100
+      },
+      "upperBoundRange": {
+        "min": 10,
+        "max": 200
+      },
+      "rangeWidth": {
+        "min": 5,
+        "max": 50
+      },
+      "positionRange": {
+        "min": 1,
+        "max": 25
+      }
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "numberRange": {
+        "min": 101,
+        "max": 1000
+      },
+      "lowerBoundRange": {
+        "min": 50,
+        "max": 1000
+      },
+      "upperBoundRange": {
+        "min": 100,
+        "max": 2000
+      },
+      "rangeWidth": {
+        "min": 25,
+        "max": 250
+      },
+      "positionRange": {
+        "min": 26,
+        "max": 100
+      }
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "numberRange": {
+        "min": 1001,
+        "max": 5000
+      },
+      "lowerBoundRange": {
+        "min": 500,
+        "max": 5000
+      },
+      "upperBoundRange": {
+        "min": 1000,
+        "max": 6000
+      },
+      "rangeWidth": {
+        "min": 100,
+        "max": 1000
+      },
+      "positionRange": {
+        "min": 101,
+        "max": 500
+      }
+    }
+  ],
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Prime Check",
+      "topology": "Prime Classification",
+      "educationalObjective": "Determine whether a number is prime or composite.",
+      "inputs": ["number"],
+      "outputs": ["Prime", "Composite"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["number size", "factor-check complexity", "prime/composite answer exposure"],
+      "coverageRequirements": ["difficulty coverage", "prime coverage", "composite coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Primes In Range",
+      "topology": "Range Counting",
+      "educationalObjective": "Count prime numbers inside an inclusive range.",
+      "inputs": ["lowerBound", "upperBound"],
+      "outputs": ["count"],
+      "variableUniverse": {
+        "lowerBound": "difficulty band lower bound range",
+        "upperBound": "difficulty band upper bound range",
+        "rangeWidth": "difficulty band range width"
+      },
+      "difficultyDrivers": ["range width", "bound size", "number of primes in range"],
+      "coverageRequirements": ["difficulty coverage", "range coverage", "zero-prime range audit signal", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Smallest Prime In Range",
+      "topology": "Range Search Minimum",
+      "educationalObjective": "Find the least prime inside an inclusive range.",
+      "inputs": ["lowerBound", "upperBound"],
+      "outputs": ["smallestPrime"],
+      "variableUniverse": {
+        "lowerBound": "difficulty band lower bound range",
+        "upperBound": "difficulty band upper bound range",
+        "rangeWidth": "difficulty band range width"
+      },
+      "difficultyDrivers": ["range width", "distance from lower bound to first prime", "bound size"],
+      "coverageRequirements": ["difficulty coverage", "range coverage", "prime-containing range", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Greatest Prime In Range",
+      "topology": "Range Search Maximum",
+      "educationalObjective": "Find the greatest prime inside an inclusive range.",
+      "inputs": ["lowerBound", "upperBound"],
+      "outputs": ["greatestPrime"],
+      "variableUniverse": {
+        "lowerBound": "difficulty band lower bound range",
+        "upperBound": "difficulty band upper bound range",
+        "rangeWidth": "difficulty band range width"
+      },
+      "difficultyDrivers": ["range width", "distance from upper bound to last prime", "bound size"],
+      "coverageRequirements": ["difficulty coverage", "range coverage", "prime-containing range", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Sum Of Primes In Range",
+      "topology": "Range Summation",
+      "educationalObjective": "Add all prime numbers inside an inclusive range.",
+      "inputs": ["lowerBound", "upperBound"],
+      "outputs": ["sum"],
+      "variableUniverse": {
+        "lowerBound": "difficulty band lower bound range",
+        "upperBound": "difficulty band upper bound range",
+        "rangeWidth": "difficulty band range width"
+      },
+      "difficultyDrivers": ["range width", "bound size", "number of primes", "sum size"],
+      "coverageRequirements": ["difficulty coverage", "range coverage", "zero-prime range audit signal", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Next Prime",
+      "topology": "Forward Prime Search",
+      "educationalObjective": "Find the first prime greater than the given number.",
+      "inputs": ["number"],
+      "outputs": ["nextPrime"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      },
+      "difficultyDrivers": ["number size", "distance to next prime"],
+      "coverageRequirements": ["difficulty coverage", "number range coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Previous Prime",
+      "topology": "Backward Prime Search",
+      "educationalObjective": "Find the greatest prime smaller than the given number.",
+      "inputs": ["number"],
+      "outputs": ["previousPrime"],
+      "variableUniverse": {
+        "number": "difficulty band number range with minimum 3"
+      },
+      "minimumInputRule": {
+        "number": {
+          "min": 3,
+          "rule": "number >= 3",
+          "reason": "A previous prime must exist."
+        }
+      },
+      "difficultyDrivers": ["number size", "distance to previous prime"],
+      "coverageRequirements": ["difficulty coverage", "number range coverage", "question language coverage", "explanation coverage"]
+    },
+    {
+      "cpId": "CP-008",
+      "name": "Prime Position",
+      "topology": "Prime Enumeration / Position Lookup",
+      "educationalObjective": "Find the nth prime number.",
+      "inputs": ["position"],
+      "outputs": ["primeAtPosition"],
+      "variableUniverse": {
+        "position": "difficulty band position range"
+      },
+      "difficultyDrivers": ["position size", "enumeration length"],
+      "coverageRequirements": ["difficulty coverage", "position coverage", "question language coverage", "explanation coverage"]
+    }
+  ]
+}

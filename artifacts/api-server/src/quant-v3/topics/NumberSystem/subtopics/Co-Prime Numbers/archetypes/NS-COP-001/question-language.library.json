@@ -1,0 +1,97 @@
+{
+  "libraryId": "NS-COP-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-COP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "runtimePolicy": {
+    "may": ["load", "validate", "select", "substitute", "render"],
+    "mayNot": ["invent question wording", "generate educational language", "create additional stems"]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Co-Prime Check",
+      "entries": [
+        {
+          "id": "QL-001",
+          "answerChoiceFamilies": ["Co-prime", "Not co-prime", "HCF confusion distractor", "Factor overlap distractor"],
+          "text": "Which of the following statements is correct regarding {a} and {b}?"
+        },
+        { "id": "QL-002", "text": "The HCF of {a} and {b} is:" },
+        { "id": "QL-003", "text": "How many common factors do {a} and {b} have?" },
+        { "id": "QL-004", "text": "Which of the following is true for {a} and {b}?" },
+        {
+          "id": "QL-005",
+          "answerChoices": ["Co-prime pair", "Prime pair", "Composite pair", "Equal-factor pair"],
+          "text": "The pair ({a}, {b}) belongs to which category?"
+        },
+        { "id": "QL-006", "text": "Find the relationship between {a} and {b} based on their common factors." },
+        { "id": "QL-029", "text": "Find the HCF of {a} and {b}." },
+        { "id": "QL-030", "text": "How many common factors do {a} and {b} have?" },
+        { "id": "QL-031", "text": "Which of the following best describes the pair ({a}, {b})?" },
+        { "id": "QL-032", "text": "The pair ({a}, {b}) is an example of:" }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Co-Primes From A List",
+      "entries": [
+        { "id": "QL-007", "text": "How many numbers in the list {numberList} are co-prime with {targetNumber}?" },
+        { "id": "QL-008", "text": "Count the numbers that are relatively prime to {targetNumber} in the list {numberList}." },
+        { "id": "QL-009", "text": "How many elements of {numberList} have HCF 1 with {targetNumber}?" },
+        { "id": "QL-010", "text": "Find the number of values in {numberList} that are co-prime with {targetNumber}." },
+        { "id": "QL-033", "text": "How many numbers in {numberList} have HCF 1 with {targetNumber}?" },
+        { "id": "QL-034", "text": "Count the values that share no common factor other than 1 with {targetNumber}." },
+        { "id": "QL-035", "text": "Find the number of elements relatively prime to {targetNumber}." }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Missing Number For Co-Prime Condition",
+      "entries": [
+        { "id": "QL-011", "text": "Which number is co-prime with {number}?" },
+        { "id": "QL-012", "text": "Find the value that is relatively prime to {number}." },
+        { "id": "QL-013", "text": "Select the number whose HCF with {number} is 1." },
+        { "id": "QL-014", "text": "Which of the following forms a co-prime pair with {number}?" },
+        { "id": "QL-015", "text": "Find the missing number so that it is co-prime with {number}." }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Count Co-Prime Pairs",
+      "entries": [
+        { "id": "QL-016", "text": "How many co-prime pairs can be formed from the set {numberSet}?" },
+        { "id": "QL-017", "text": "Count the pairs whose HCF is 1 in the set {numberSet}." },
+        { "id": "QL-018", "text": "Find the number of relatively prime pairs in {numberSet}." },
+        { "id": "QL-019", "text": "How many pairs of numbers from {numberSet} are co-prime?" },
+        { "id": "QL-036", "text": "How many co-prime pairs can be selected from {numberSet}?" },
+        { "id": "QL-037", "text": "Count the pairs having HCF 1." },
+        { "id": "QL-038", "text": "Find the number of relatively prime pairs in the set." }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Consecutive Number Co-Prime Property",
+      "entries": [
+        { "id": "QL-020", "text": "Find the HCF of two consecutive numbers {number} and {nextNumber}." },
+        { "id": "QL-021", "text": "The common factors of {number} and {nextNumber} are:" },
+        { "id": "QL-022", "text": "How many common factors do the consecutive integers {number} and {nextNumber} have?" },
+        { "id": "QL-023", "text": "The HCF of two consecutive integers is:" }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Ratio Reduction To Lowest Form",
+      "entries": [
+        { "id": "QL-024", "text": "Express the ratio {a}:{b} in its lowest form." },
+        { "id": "QL-025", "text": "Reduce the ratio {a}:{b} to the simplest form." },
+        { "id": "QL-026", "text": "Write {a}:{b} in the lowest terms." },
+        { "id": "QL-027", "text": "Find the co-prime form of the ratio {a}:{b}." },
+        { "id": "QL-028", "text": "Reduce the ratio by dividing both terms by their HCF." },
+        { "id": "QL-039", "text": "Find the simplest ratio equivalent to {a}:{b}." },
+        { "id": "QL-040", "text": "Express {a}:{b} as a ratio of co-prime integers." },
+        { "id": "QL-041", "text": "Write {a}:{b} after cancelling all common factors." }
+      ]
+    }
+  ]
+}

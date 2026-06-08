@@ -1,0 +1,352 @@
+{
+  "libraryId": "NS-HCF-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-HCF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all information required to solve the problem.",
+    "requiredVariables": {
+      "CP-001": ["numbers"],
+      "CP-002": ["numbers"],
+      "CP-003": ["knownOperands", "targetHcf", "family-specific numeric values"],
+      "CP-004": ["contextual quantities visible in the stem"]
+    }
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Direct HCF",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Find the HCF of {numbers}."
+        },
+        {
+          "id": "QL-002",
+          "text": "Find the highest common factor of {numbers}."
+        },
+        {
+          "id": "QL-003",
+          "text": "What is the HCF of {numbers}?"
+        },
+        {
+          "id": "QL-004",
+          "text": "Find the greatest common divisor (GCD) of {numbers}."
+        },
+        {
+          "id": "QL-005",
+          "text": "Find the greatest number that divides each of {numbers} exactly."
+        },
+        {
+          "id": "QL-006",
+          "text": "Which is the largest number that divides all of {numbers} without leaving a remainder?"
+        },
+        {
+          "id": "QL-007",
+          "text": "Find the greatest positive integer by which each of {numbers} is divisible."
+        },
+        {
+          "id": "QL-008",
+          "text": "What is the largest common factor of {numbers}?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Common Divisors",
+      "entries": [
+        {
+          "id": "QL-009",
+          "text": "How many common factors do {numbers} have?"
+        },
+        {
+          "id": "QL-010",
+          "text": "Count the common divisors of {numbers}."
+        },
+        {
+          "id": "QL-011",
+          "text": "Find the number of common factors of {numbers}."
+        },
+        {
+          "id": "QL-012",
+          "text": "How many positive integers divide all of {numbers}?"
+        },
+        {
+          "id": "QL-013",
+          "text": "Find the total number of common divisors of {numbers}."
+        },
+        {
+          "id": "QL-014",
+          "text": "How many divisors are common to all the numbers {numbers}?"
+        },
+        {
+          "id": "QL-015",
+          "text": "Count the positive divisors common to {numbers}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Missing Number Using HCF",
+      "entries": [
+        {
+          "id": "QL-016",
+          "family": "range_based",
+          "text": "The HCF of {knownOperands} and a number is {targetHcf}. The number lies between {rangeStart} and {rangeEnd}. Find the number."
+        },
+        {
+          "id": "QL-017",
+          "family": "range_based",
+          "text": "A number between {rangeStart} and {rangeEnd} has HCF {targetHcf} with {knownOperands}. Find the number."
+        },
+        {
+          "id": "QL-018",
+          "family": "range_based",
+          "text": "The HCF of a number and {knownOperands} is {targetHcf}. The number is greater than {rangeStart} and less than {rangeEnd}. Find the number."
+        },
+        {
+          "id": "QL-019",
+          "family": "range_based",
+          "text": "Find the number lying between {rangeStart} and {rangeEnd} whose HCF with {knownOperands} is {targetHcf}."
+        },
+        {
+          "id": "QL-020",
+          "family": "range_based",
+          "text": "The HCF of {knownOperands} and an unknown number is {targetHcf}. The unknown number is from {rangeStart} to {rangeEnd}. Find it."
+        },
+        {
+          "id": "QL-021",
+          "family": "candidate_list",
+          "text": "One of the numbers {numberList} has HCF {targetHcf} with {knownOperands}. Find that number."
+        },
+        {
+          "id": "QL-022",
+          "family": "candidate_list",
+          "text": "Among {numberList}, which number has HCF {targetHcf} with {knownOperands}?"
+        },
+        {
+          "id": "QL-023",
+          "family": "candidate_list",
+          "text": "A number chosen from {numberList} has HCF {targetHcf} with {knownOperands}. Find the number."
+        },
+        {
+          "id": "QL-024",
+          "family": "candidate_list",
+          "text": "From {numberList}, find the number whose HCF with {knownOperands} is {targetHcf}."
+        },
+        {
+          "id": "QL-025",
+          "family": "candidate_list",
+          "text": "Which number in the list {numberList} gives HCF {targetHcf} with {knownOperands}?"
+        },
+        {
+          "id": "QL-026",
+          "family": "divisibility_restriction",
+          "text": "A number is divisible by {divisibleBy} but not by {notDivisibleBy}. If its HCF with {knownOperands} is {targetHcf}, find the number."
+        },
+        {
+          "id": "QL-027",
+          "family": "divisibility_restriction",
+          "text": "A number is divisible by {divisibleBy} but not by {notDivisibleBy}. Its HCF with {knownOperands} is {targetHcf}. Find the number."
+        },
+        {
+          "id": "QL-028",
+          "family": "divisibility_restriction",
+          "text": "Find the number which is divisible by {divisibleBy}, not divisible by {notDivisibleBy}, and has HCF {targetHcf} with {knownOperands}."
+        },
+        {
+          "id": "QL-029",
+          "family": "divisibility_restriction",
+          "text": "The required number is divisible by {divisibleBy} but not by {notDivisibleBy}. If its HCF with {knownOperands} is {targetHcf}, find the number."
+        },
+        {
+          "id": "QL-030",
+          "family": "divisibility_restriction",
+          "text": "A number has HCF {targetHcf} with {knownOperands}. It is divisible by {divisibleBy} and not divisible by {notDivisibleBy}. Find the number."
+        },
+        {
+          "id": "QL-031",
+          "family": "arithmetic_restriction",
+          "text": "A number exceeds {baseNumber} by {increase}. Its HCF with {knownOperands} is {targetHcf}. Find the number."
+        },
+        {
+          "id": "QL-032",
+          "family": "arithmetic_restriction",
+          "text": "A number is {decrease} less than {baseNumber}. If its HCF with {knownOperands} is {targetHcf}, find the number."
+        },
+        {
+          "id": "QL-033",
+          "family": "arithmetic_restriction",
+          "text": "A number is obtained by adding {increase} to {baseNumber}. Its HCF with {knownOperands} is {targetHcf}. Find the number."
+        },
+        {
+          "id": "QL-034",
+          "family": "arithmetic_restriction",
+          "text": "A number is obtained by subtracting {decrease} from {baseNumber}. If its HCF with {knownOperands} is {targetHcf}, find the number."
+        },
+        {
+          "id": "QL-035",
+          "family": "arithmetic_restriction",
+          "text": "The value of a number is {baseNumber} plus {increase}. Its HCF with {knownOperands} is {targetHcf}. Find the number."
+        },
+        {
+          "id": "QL-036",
+          "family": "mixed_exam_style",
+          "text": "A number satisfies the given conditions. Its HCF with {knownOperands} is {targetHcf} and it lies between {rangeStart} and {rangeEnd}. Find the number."
+        },
+        {
+          "id": "QL-037",
+          "family": "mixed_exam_style",
+          "text": "A number selected from the list {numberList} has HCF {targetHcf} with {knownOperands}. Find the number."
+        },
+        {
+          "id": "QL-038",
+          "family": "mixed_exam_style",
+          "text": "A number is divisible by {divisibleBy} but not by {notDivisibleBy}. Its HCF with {knownOperands} is {targetHcf}. Find the number."
+        },
+        {
+          "id": "QL-039",
+          "family": "mixed_exam_style",
+          "text": "A number is greater than {rangeStart} and less than {rangeEnd}. Its HCF with {knownOperands} is {targetHcf}. Find the number."
+        },
+        {
+          "id": "QL-040",
+          "family": "mixed_exam_style",
+          "text": "A number has HCF {targetHcf} with {knownOperands}. It is chosen from {numberList}. Find the number."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Equal Grouping Applications",
+      "entries": [
+        {
+          "id": "QL-041",
+          "family": "fruits",
+          "text": "84 apples and 126 oranges are to be packed into identical boxes so that no fruit is left over. Find the greatest possible number of boxes."
+        },
+        {
+          "id": "QL-042",
+          "family": "fruits",
+          "text": "96 mangoes, 144 bananas and 192 guavas are to be divided equally among the maximum number of baskets. Find the number of baskets."
+        },
+        {
+          "id": "QL-043",
+          "family": "students",
+          "text": "72 boys and 108 girls are to be arranged in identical groups with no student left out. Find the greatest possible number of groups."
+        },
+        {
+          "id": "QL-044",
+          "family": "students",
+          "text": "120 students of one class and 180 students of another class are to be divided into equal groups for an activity. Find the maximum number of groups."
+        },
+        {
+          "id": "QL-045",
+          "family": "books",
+          "text": "135 English books and 180 Hindi books are to be placed in identical sets. If no book is left over, find the greatest possible number of sets."
+        },
+        {
+          "id": "QL-046",
+          "family": "notebooks",
+          "text": "90 ruled notebooks and 150 plain notebooks are to be distributed equally among students. What is the greatest number of students who can receive them?"
+        },
+        {
+          "id": "QL-047",
+          "family": "pencils",
+          "text": "168 red pencils and 210 blue pencils are to be packed in identical packets. Find the greatest possible number of packets."
+        },
+        {
+          "id": "QL-048",
+          "family": "packets",
+          "text": "240 biscuits and 360 chocolates are to be packed into identical packets with nothing left over. Find the maximum number of packets."
+        },
+        {
+          "id": "QL-049",
+          "family": "boxes",
+          "text": "156 pens and 234 erasers are to be kept in identical boxes. Find the greatest number of boxes if every item is used."
+        },
+        {
+          "id": "QL-050",
+          "family": "bundles",
+          "text": "216 newspapers and 324 magazines are to be tied into identical bundles. Find the greatest possible number of bundles."
+        },
+        {
+          "id": "QL-051",
+          "family": "rows",
+          "text": "144 chairs and 216 desks are to be arranged in equal rows. If every chair and desk is used, find the greatest possible number of rows."
+        },
+        {
+          "id": "QL-052",
+          "family": "rows",
+          "text": "180 cadets and 240 trainees are to stand in equal rows for a parade. Find the greatest number of rows possible."
+        },
+        {
+          "id": "QL-053",
+          "family": "chairs",
+          "text": "132 chairs and 198 tables are to be arranged into identical sections in a hall. Find the greatest possible number of sections."
+        },
+        {
+          "id": "QL-054",
+          "family": "teams",
+          "text": "96 boys and 120 girls are to be divided into identical teams with no one left out. Find the greatest possible number of teams."
+        },
+        {
+          "id": "QL-055",
+          "family": "teams",
+          "text": "105 players from one school and 140 players from another school are to form equal teams. Find the maximum number of teams."
+        },
+        {
+          "id": "QL-056",
+          "family": "classrooms",
+          "text": "180 students and 225 notebooks are to be distributed equally among classrooms. Find the greatest number of classrooms possible."
+        },
+        {
+          "id": "QL-057",
+          "family": "classrooms",
+          "text": "150 boys, 225 girls and 300 notebooks are to be divided equally among classrooms. What is the greatest possible number of classrooms?"
+        },
+        {
+          "id": "QL-058",
+          "family": "distribution",
+          "text": "252 blankets and 336 bedsheets are to be distributed equally among families. Find the greatest number of families that can receive them."
+        },
+        {
+          "id": "QL-059",
+          "family": "distribution",
+          "text": "108 kg rice and 162 kg wheat are to be distributed equally among the maximum number of families. Find the number of families."
+        },
+        {
+          "id": "QL-060",
+          "family": "packing",
+          "text": "288 soap bars and 432 toothpaste tubes are to be packed into identical relief kits. Find the greatest possible number of kits."
+        },
+        {
+          "id": "QL-061",
+          "family": "packing",
+          "text": "132 cups and 198 plates are to be packed into identical cartons. If no item is left over, find the greatest possible number of cartons."
+        },
+        {
+          "id": "QL-062",
+          "family": "grouping",
+          "text": "210 marbles and 315 beads are to be split into equal groups. Find the largest number of groups that can be made."
+        },
+        {
+          "id": "QL-063",
+          "family": "grouping",
+          "text": "75 black balls, 125 white balls and 200 red balls are to be grouped equally. What is the greatest possible number of groups?"
+        },
+        {
+          "id": "QL-064",
+          "family": "sets",
+          "text": "160 science kits and 240 mathematics kits are to be arranged into identical sets. Find the greatest possible number of sets."
+        },
+        {
+          "id": "QL-065",
+          "family": "public_exam",
+          "text": "A shopkeeper has 198 pencils and 264 pens. He wants to make identical packets using all the items. Find the greatest number of packets he can make."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "libraryId": "NS-REM-002-COVERAGE-TARGETS",
+  "archetypeId": "NS-REM-002",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficultyCoverage": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20,
+      "rule": "No difficulty band may be unused in a production audit batch."
+    },
+    "divisorCoverage": [
+      {
+        "bucket": "2-10",
+        "targetPercent": 30
+      },
+      {
+        "bucket": "11-30",
+        "targetPercent": 30
+      },
+      {
+        "bucket": "31-60",
+        "targetPercent": 25
+      },
+      {
+        "bucket": "61-100",
+        "targetPercent": 15
+      }
+    ],
+    "remainderCoverage": {
+      "rule": "Each active divisor must expose multiple target remainders over audit batches.",
+      "minimumDistinctRemaindersPerUsedDivisor": 2,
+      "zeroRemainderMayNotDominate": true
+    },
+    "lowerBoundCoverage": {
+      "buckets": ["low", "middle", "high"],
+      "rule": "CP-002, CP-004, and CP-005 must expose all lower-bound buckets over audit batches."
+    },
+    "upperBoundCoverage": {
+      "buckets": ["low", "middle", "high"],
+      "rule": "CP-003, CP-004, and CP-005 must expose all upper-bound buckets over audit batches."
+    },
+    "questionLanguageCoverage": {
+      "rule": "No runtime-eligible question language ID may be unused in a production audit batch."
+    },
+    "explanationCoverage": {
+      "rule": "No runtime-eligible explanation style ID may be unused in a production audit batch."
+    }
+  },
+  "deadZonePolicy": {
+    "noEducationalDeadZones": true,
+    "noUnusedMandatoryCategories": true,
+    "runtimeMustReportUnusedMandatoryCategories": true
+  },
+  "canonicalProblemCoverage": [
+    {
+      "cpId": "CP-001",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-002",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "lowerBoundCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-003",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "upperBoundCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-004",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "lowerBoundCoverage", "upperBoundCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-005",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "lowerBoundCoverage", "upperBoundCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-006",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-007",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-008",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-009",
+      "requiredCoverage": ["difficultyCoverage", "divisorCoverage", "remainderCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    }
+  ]
+}

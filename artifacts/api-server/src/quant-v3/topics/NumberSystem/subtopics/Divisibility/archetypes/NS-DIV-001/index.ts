@@ -1,31 +1,134 @@
-export { renderCp001ExplanationFromGraph } from "./explanation-renderer";
+export {
+  renderCp001ExplanationFromGraph,
+  renderCp002ExplanationFromGraph,
+  renderCp003ExplanationFromGraph,
+  renderCp004ExplanationFromGraph,
+  renderCp005ExplanationFromGraph,
+  renderCp006ExplanationFromGraph,
+  renderCp007ExplanationFromGraph,
+} from "./explanation-renderer";
 export {
   APPROVED_CP001_STEM_FAMILIES,
   FORBIDDEN_EXPLANATION_LANGUAGE,
   FORBIDDEN_STEM_LANGUAGE,
   containsForbiddenLanguage,
   renderApprovedCp001Stem,
+  renderApprovedCp002Stem,
+  renderApprovedCp003Stem,
+  renderApprovedCp004Stem,
+  renderApprovedCp005Stem,
+  renderApprovedCp006Stem,
+  renderApprovedCp007Stem,
 } from "./language-contract";
-export { generateCp001Parameters } from "./parameter-generator";
-export { runNsDiv001Cp001Pipeline } from "./pipeline";
+export {
+  generateCp001Parameters,
+  generateCp002Parameters,
+  generateCp003Parameters,
+  generateCp004Parameters,
+  generateCp005Parameters,
+  generateCp006Parameters,
+  generateCp007Parameters,
+} from "./parameter-generator";
+export { createNsDiv001FixtureInstance, generateNsDiv001StructuralInstance } from "./instance-generator";
+export {
+  runNsDiv001Cp001Pipeline,
+  runNsDiv001Cp002Pipeline,
+  runNsDiv001Cp003Pipeline,
+  runNsDiv001Cp004Pipeline,
+  runNsDiv001Cp005Pipeline,
+  runNsDiv001Cp006Pipeline,
+  runNsDiv001Cp007Pipeline,
+} from "./pipeline";
 export {
   NS_DIV_001_REALISM_LIBRARY_REGISTRY,
   assertNsDiv001BatchRealism,
   assertNsDiv001DivisorCapabilityAllowed,
   assertNsDiv001NumberPatternAllowed,
   auditNsDiv001BatchRealism,
+  auditNsDiv001Cp002Batch,
+  auditNsDiv001Cp003Batch,
+  auditNsDiv001PatternSystemV2Batch,
+  auditNsDiv001ValidDigitSetBatch,
+  assertNsDiv001ExplanationStyleAllowed,
+  assertNsDiv001ValidDigitSetExplanationStyleAllowed,
   getNsDiv001ActiveCp001ExplanationVariants,
   getNsDiv001ActiveCp001StemFamilies,
   getNsDiv001AllowedStructures,
   getNsDiv001ApprovedDivisorCapabilities,
   getNsDiv001DivisorCapability,
+  getNsDiv001ExplanationStyles,
+  getNsDiv001ForbiddenQuestionLanguage,
+  getNsDiv001ValidDigitSetQuestionLanguageFamilies,
+  getNsDiv001ValidDigitSetConclusion,
   getNsDiv001MissingPosition,
+  getNsDiv001QuestionLanguageFamilies,
+  isNsDiv001RenderedQuestionLanguage,
+  isNsDiv001RenderedValidDigitSetQuestionLanguage,
+  renderNsDiv001QuestionLanguage,
+  renderNsDiv001ValidDigitSetQuestionLanguage,
+  selectNsDiv001ExplanationStyle,
+  selectNsDiv001ValidDigitSetExplanationStyle,
+  selectNsDiv001ValidDigitSetStemFamily,
   validateNsDiv001RealismLibraries,
 } from "./realism-library";
-export { buildCp001ReasoningGraph } from "./reasoning-graph";
-export { solveCp001 } from "./solver";
-export { validateCp001AnswerContract, validateCp001QuestionPackage } from "./validator";
+export {
+  NS_DIV_001_STRUCTURAL_PATTERN_REGISTRY,
+  assertNsDiv001StructuralPatternAllowed,
+  auditNsDiv001InstanceSignals,
+  getNsDiv001DigitPool,
+  getNsDiv001StructuralPattern,
+  getNsDiv001StructuralPatterns,
+  validateNsDiv001StructuralInstance,
+  validateNsDiv001StructuralPatternLibrary,
+} from "./structural-pattern-registry";
+export {
+  buildCp001ReasoningGraph,
+  buildCp002ReasoningGraph,
+  buildCp003ReasoningGraph,
+  buildCp004ReasoningGraph,
+  buildCp005ReasoningGraph,
+  buildCp006ReasoningGraph,
+  buildCp007ReasoningGraph,
+} from "./reasoning-graph";
+export { solveCp001, solveCp002, solveCp003, solveCp004, solveCp005, solveCp006, solveCp007 } from "./solver";
+export {
+  validateCp001AnswerContract,
+  validateCp001QuestionPackage,
+  validateCp002AnswerContract,
+  validateCp002QuestionPackage,
+  validateCp003AnswerContract,
+  validateCp003QuestionPackage,
+  validateCp004AnswerContract,
+  validateCp004QuestionPackage,
+  validateCp005AnswerContract,
+  validateCp005QuestionPackage,
+  validateCp006AnswerContract,
+  validateCp006QuestionPackage,
+  validateCp007AnswerContract,
+  validateCp007QuestionPackage,
+} from "./validator";
 export type {
+  NsDiv001GeneratedInstance,
+} from "./instance-generator";
+export type {
+  NsDiv001StructuralPattern,
+} from "./structural-pattern-registry";
+export type {
+  Cp002CandidateEvaluation,
+  Cp002Parameters,
+  Cp002QuestionPackage,
+  Cp002SolverResult,
+  Cp003Parameters,
+  Cp003QuestionPackage,
+  Cp003SolverResult,
+  Cp004Parameters,
+  Cp004QuestionPackage,
+  Cp005Parameters,
+  Cp005QuestionPackage,
+  Cp006Parameters,
+  Cp006QuestionPackage,
+  Cp007Parameters,
+  Cp007QuestionPackage,
   Cp001Explanation,
   Cp001Parameters,
   Cp001QuestionPackage,
@@ -33,4 +136,6 @@ export type {
   Cp001ReasoningNode,
   Cp001SolverResult,
   Cp001ValidationResult,
+  ValidDigitSetParameters,
+  ValidDigitSetQuestionPackage,
 } from "./types";

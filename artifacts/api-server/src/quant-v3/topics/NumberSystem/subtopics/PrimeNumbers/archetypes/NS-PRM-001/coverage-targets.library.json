@@ -1,0 +1,109 @@
+{
+  "libraryId": "NS-PRM-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-PRM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficultyCoverage": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20,
+      "rule": "No difficulty band may be unused in a production audit batch."
+    },
+    "primeCoverage": {
+      "rule": "Prime-number answers and prime input cases must be represented where applicable."
+    },
+    "compositeCoverage": {
+      "rule": "Composite input cases must be represented for CP-001."
+    },
+    "cp001AnswerDistribution": {
+      "answers": [
+        {
+          "answer": "Prime",
+          "targetPercent": 50
+        },
+        {
+          "answer": "Composite",
+          "targetPercent": 50
+        }
+      ],
+      "target": "50% Prime, 50% Composite",
+      "rule": "Prime and Composite answers must both be visible in audit reporting. This is a coverage target, not a generation guarantee."
+    },
+    "rangeCoverage": {
+      "buckets": [
+        {
+          "bucket": "small",
+          "rangeWidth": {
+            "min": 5,
+            "max": 50
+          }
+        },
+        {
+          "bucket": "medium",
+          "rangeWidth": {
+            "min": 51,
+            "max": 250
+          }
+        },
+        {
+          "bucket": "large",
+          "rangeWidth": {
+            "min": 251,
+            "max": 1000
+          }
+        }
+      ],
+      "rule": "CP-002, CP-003, CP-004, and CP-005 must expose all range buckets over audit batches."
+    },
+    "positionCoverage": {
+      "buckets": ["1-25", "26-50", "51-100", "101-250", "251-500"],
+      "rule": "CP-008 must expose every approved position bucket over audit batches."
+    },
+    "questionLanguageCoverage": {
+      "rule": "No runtime-eligible question language ID may be unused in a production audit batch."
+    },
+    "explanationCoverage": {
+      "rule": "No runtime-eligible explanation style ID may be unused in a production audit batch."
+    }
+  },
+  "deadZonePolicy": {
+    "noEducationalDeadZones": true,
+    "noUnusedMandatoryCategories": true,
+    "runtimeMustReportUnusedMandatoryCategories": true
+  },
+  "canonicalProblemCoverage": [
+    {
+      "cpId": "CP-001",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "compositeCoverage", "cp001AnswerDistribution", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-002",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "rangeCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-003",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "rangeCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-004",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "rangeCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-005",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "rangeCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-006",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-007",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-008",
+      "requiredCoverage": ["difficultyCoverage", "primeCoverage", "positionCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    }
+  ]
+}

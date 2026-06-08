@@ -1,0 +1,110 @@
+{
+  "libraryId": "NS-PRM-001-EXPLANATION",
+  "archetypeId": "NS-PRM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "style": "simple government-exam style",
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Prime Classification - Prime",
+      "appliesTo": ["CP-001"],
+      "answerClass": "Prime",
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Check the factors of the given number.\n\nSince {number} has only two factors, 1 and itself, it is a prime number.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Prime Classification - Composite",
+      "appliesTo": ["CP-001"],
+      "answerClass": "Composite",
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Check the factors of the given number.\n\nSince {number} has more than two factors, it is a composite number.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Range Counting",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "List all prime numbers in the given range.\n\nCount them.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Range Search Minimum",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "List all prime numbers in the given range.\n\nThe smallest prime among them is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Range Search Maximum",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "List all prime numbers in the given range.\n\nThe greatest prime among them is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Range Summation",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "List all prime numbers in the given range.\n\nAdd them.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-007",
+      "name": "Forward Prime Search",
+      "appliesTo": ["CP-006"],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "Check numbers greater than {number} one by one.\n\nThe first prime number obtained is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-008",
+      "name": "Backward Prime Search",
+      "appliesTo": ["CP-007"],
+      "entries": [
+        {
+          "id": "ES-008",
+          "text": "Check numbers smaller than {number} one by one.\n\nThe first prime number obtained is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-009",
+      "name": "Prime Position",
+      "appliesTo": ["CP-008"],
+      "entries": [
+        {
+          "id": "ES-009",
+          "text": "List prime numbers in order.\n\nThe {position}th prime number is {answer}.\n\nAnswer: {answer}"
+        }
+      ]
+    }
+  ]
+}

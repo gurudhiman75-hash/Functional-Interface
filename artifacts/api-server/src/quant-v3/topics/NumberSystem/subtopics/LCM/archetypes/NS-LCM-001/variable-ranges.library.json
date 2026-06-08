@@ -1,0 +1,156 @@
+{
+  "libraryId": "NS-LCM-001-VARIABLE-RANGES",
+  "archetypeId": "NS-LCM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "globalRules": {
+    "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+    "mathJaxObjects": [
+      "operandFactorizationLatex",
+      "primeUnionLatex",
+      "maximumExponentSelectionLatex",
+      "lcmLatex",
+      "synchronizationInterpretationLatex",
+      "candidateEvaluationLatex",
+      "rangeCountFormulaLatex",
+      "thresholdSelectionFormulaLatex"
+    ],
+    "cp003Families": ["candidate_list", "bounded_range", "divisibility_condition", "arithmetic_condition"],
+    "cp002Contexts": ["bells", "lights", "alarms", "runners", "machines", "buses", "trains", "traffic_signals", "sprinklers", "cleaning_schedules"],
+    "exactLcmMatch": {
+      "appliesTo": ["CP-003"],
+      "required": true,
+      "definition": "Tracks whether a candidate exactly produces the required target LCM."
+    }
+  },
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "numbers": {
+        "min": 2,
+        "max": 50
+      },
+      "operandCount": {
+        "min": 2,
+        "max": 3
+      },
+      "cycleLengths": {
+        "min": 2,
+        "max": 30
+      },
+      "targetLcm": {
+        "min": 12,
+        "max": 300
+      },
+      "lowerBound": {
+        "min": 1,
+        "max": 200
+      },
+      "upperBound": {
+        "min": 50,
+        "max": 500
+      },
+      "threshold": {
+        "min": 10,
+        "max": 300
+      }
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "numbers": {
+        "min": 20,
+        "max": 200
+      },
+      "operandCount": {
+        "min": 2,
+        "max": 4
+      },
+      "cycleLengths": {
+        "min": 10,
+        "max": 100
+      },
+      "targetLcm": {
+        "min": 100,
+        "max": 2000
+      },
+      "lowerBound": {
+        "min": 50,
+        "max": 2000
+      },
+      "upperBound": {
+        "min": 200,
+        "max": 5000
+      },
+      "threshold": {
+        "min": 100,
+        "max": 2000
+      }
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "numbers": {
+        "min": 100,
+        "max": 1000
+      },
+      "operandCount": {
+        "min": 3,
+        "max": 5
+      },
+      "cycleLengths": {
+        "min": 50,
+        "max": 300
+      },
+      "targetLcm": {
+        "min": 1000,
+        "max": 50000
+      },
+      "lowerBound": {
+        "min": 100,
+        "max": 10000
+      },
+      "upperBound": {
+        "min": 1000,
+        "max": 50000
+      },
+      "threshold": {
+        "min": 1000,
+        "max": 50000
+      }
+    }
+  ],
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Direct LCM Computation",
+      "inputs": ["numbers"],
+      "outputs": ["lcm"]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Common Cycle Synchronization",
+      "inputs": ["cycleLengths"],
+      "outputs": ["firstCommonTime"]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Missing Number Using LCM",
+      "inputs": ["knownNumbers", "targetLcm", "familySpecificValues"],
+      "outputs": ["missingNumber"]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Count Common Multiples In A Range",
+      "inputs": ["numbers", "lowerBound", "upperBound"],
+      "outputs": ["commonMultipleCount"]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Smallest Common Multiple Greater Than A Threshold",
+      "inputs": ["numbers", "threshold"],
+      "outputs": ["smallestCommonMultipleAboveThreshold"]
+    }
+  ]
+}

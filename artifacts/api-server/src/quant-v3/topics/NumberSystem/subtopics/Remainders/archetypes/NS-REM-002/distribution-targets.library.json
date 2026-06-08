@@ -1,0 +1,52 @@
+{
+  "libraryId": "NS-REM-002-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-REM-002",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "difficultyDistribution": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 20
+  },
+  "questionLanguageDistribution": {
+    "mode": "Uniform",
+    "rule": "Runtime-eligible question language IDs should rotate uniformly within each CP."
+  },
+  "explanationDistribution": {
+    "mode": "Uniform",
+    "rule": "Runtime-eligible explanation style IDs should rotate uniformly within each explanation family."
+  },
+  "divisorDistribution": [
+    {
+      "bucket": "2-10",
+      "targetPercent": 30
+    },
+    {
+      "bucket": "11-30",
+      "targetPercent": 30
+    },
+    {
+      "bucket": "31-60",
+      "targetPercent": 25
+    },
+    {
+      "bucket": "61-100",
+      "targetPercent": 15
+    }
+  ],
+  "canonicalProblemDistribution": {
+    "mode": "Uniform",
+    "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006", "CP-007", "CP-008", "CP-009"],
+    "removedCanonicalProblems": ["CP-010", "CP-011"]
+  },
+  "auditRequirements": [
+    "Difficulty Distribution",
+    "Divisor Distribution",
+    "Question Language Distribution",
+    "Explanation Distribution",
+    "Most Used",
+    "Least Used",
+    "Unused",
+    "Coverage Gaps"
+  ]
+}

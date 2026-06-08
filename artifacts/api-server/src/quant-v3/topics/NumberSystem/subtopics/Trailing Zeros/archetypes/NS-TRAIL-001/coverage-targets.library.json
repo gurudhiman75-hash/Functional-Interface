@@ -1,0 +1,95 @@
+{
+  "libraryId": "NS-TRAIL-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-TRAIL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+  "targets": {
+    "canonicalProblemCoverage": {
+      "required": true,
+      "buckets": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"]
+    },
+    "difficultyCoverage": {
+      "required": true,
+      "buckets": ["Easy", "Medium", "Hard"]
+    },
+    "questionLanguageCoverage": {
+      "required": true,
+      "buckets": [
+        "QL-001",
+        "QL-002",
+        "QL-003",
+        "QL-004",
+        "QL-005",
+        "QL-006",
+        "QL-007",
+        "QL-008",
+        "QL-009",
+        "QL-010",
+        "QL-011",
+        "QL-012",
+        "QL-013",
+        "QL-014",
+        "QL-015",
+        "QL-016",
+        "QL-017",
+        "QL-018",
+        "QL-019",
+        "QL-020",
+        "QL-021",
+        "QL-022",
+        "QL-023",
+        "QL-024",
+        "QL-025",
+        "QL-026",
+        "QL-027",
+        "QL-028",
+        "QL-029",
+        "QL-030",
+        "QL-031",
+        "QL-032",
+        "QL-033",
+        "QL-034",
+        "QL-035",
+        "QL-036",
+        "QL-037",
+        "QL-038",
+        "QL-039"
+      ]
+    },
+    "explanationCoverage": {
+      "required": true,
+      "buckets": ["ES-001", "ES-002", "ES-003", "ES-004", "ES-005"]
+    },
+    "cp001FactorialSizeCoverage": {
+      "required": true,
+      "buckets": ["smallFactorial", "mediumFactorial", "largeFactorial", "multipleFivePowers", "crosses25", "crosses125", "crosses625"]
+    },
+    "cp002ExpressionCoverage": {
+      "required": true,
+      "buckets": ["numeratorOnly", "numeratorDenominator", "cancellationCase"]
+    },
+    "cp003SearchCoverage": {
+      "required": true,
+      "buckets": ["solutionExists", "smallZeroCount", "mediumZeroCount", "largeZeroCount"]
+    },
+    "cp004PowerCoverage": {
+      "required": true,
+      "buckets": ["balancedTwoFive", "excessTwos", "excessFives", "noTrailingZero"]
+    },
+    "cp005ProductCoverage": {
+      "required": true,
+      "buckets": ["productCreatesZeros", "productAddsZeros", "productNoZeroChange"]
+    },
+    "mathJaxPlaceholderCoverage": {
+      "required": true,
+      "buckets": [
+        "factorFiveCountLatex",
+        "factorialExpressionLatex",
+        "searchProcessLatex",
+        "powerFactorizationLatex",
+        "productFactorizationLatex"
+      ]
+    }
+  }
+}

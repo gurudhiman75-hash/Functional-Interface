@@ -1,0 +1,209 @@
+{
+  "libraryId": "NS-HCF-001-VARIABLE-RANGES",
+  "archetypeId": "NS-HCF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "globalRules": {
+    "operandPolicy": {
+      "minimum": 2,
+      "rule": "Generated operands must be positive integers greater than 1 unless a later review explicitly approves 1.",
+      "operandCounts": [2, 3]
+    },
+    "hcfSizeBuckets": {
+      "one": {
+        "value": 1
+      },
+      "small": {
+        "min": 2,
+        "max": 10
+      },
+      "medium": {
+        "min": 11,
+        "max": 50
+      },
+      "large": {
+        "min": 51
+      }
+    },
+    "coprimeStatus": ["coprime", "non_coprime"],
+    "hcfStructure": ["hcf_equals_1", "prime_power_hcf", "mixed_prime_hcf"],
+    "cp003ConstraintTypes": [
+      "candidate_set",
+      "closed_range",
+      "allowed_multiplier",
+      "divisibility_constraint",
+      "arithmetic_constraint"
+    ],
+    "cp004ContextTypes": [
+      "fruits",
+      "students",
+      "books",
+      "packets",
+      "boxes",
+      "bundles",
+      "rows",
+      "generic_equal_grouping"
+    ],
+    "mathJaxObjects": [
+      "operandFactorizationLatex",
+      "commonPrimeIntersectionLatex",
+      "minimumExponentSelectionLatex",
+      "hcfLatex",
+      "hcfFactorCountFormulaLatex",
+      "candidateEvaluationLatex",
+      "groupingInterpretationLatex"
+    ]
+  },
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "operandCount": [2],
+      "operandRange": {
+        "min": 2,
+        "max": 120
+      },
+      "hcfSizeBuckets": ["one", "small"],
+      "primeFactorComplexity": {
+        "commonPrimeBaseCount": {
+          "min": 0,
+          "max": 2
+        },
+        "maximumCommonExponent": {
+          "min": 0,
+          "max": 2
+        }
+      },
+      "cp003": {
+        "constraintTypes": ["candidate_set", "closed_range"],
+        "candidateSetSize": {
+          "min": 2,
+          "max": 5
+        },
+        "rangeWidth": {
+          "min": 5,
+          "max": 15
+        }
+      },
+      "cp004": {
+        "contextTypes": ["fruits", "students", "books", "packets", "generic_equal_grouping"],
+        "translationComplexity": "direct"
+      }
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "operandCount": [2, 3],
+      "operandRange": {
+        "min": 50,
+        "max": 1000
+      },
+      "hcfSizeBuckets": ["small", "medium"],
+      "primeFactorComplexity": {
+        "commonPrimeBaseCount": {
+          "min": 1,
+          "max": 3
+        },
+        "maximumCommonExponent": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "cp003": {
+        "constraintTypes": ["candidate_set", "closed_range", "allowed_multiplier", "divisibility_constraint"],
+        "candidateSetSize": {
+          "min": 4,
+          "max": 8
+        },
+        "rangeWidth": {
+          "min": 10,
+          "max": 40
+        }
+      },
+      "cp004": {
+        "contextTypes": ["fruits", "students", "books", "packets", "boxes", "bundles", "rows", "generic_equal_grouping"],
+        "translationComplexity": "moderate"
+      }
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "operandCount": [3],
+      "operandRange": {
+        "min": 500,
+        "max": 10000
+      },
+      "hcfSizeBuckets": ["medium", "large"],
+      "primeFactorComplexity": {
+        "commonPrimeBaseCount": {
+          "min": 2,
+          "max": 5
+        },
+        "maximumCommonExponent": {
+          "min": 2,
+          "max": 8
+        }
+      },
+      "cp003": {
+        "constraintTypes": ["closed_range", "allowed_multiplier", "divisibility_constraint", "arithmetic_constraint"],
+        "candidateSetSize": {
+          "min": 6,
+          "max": 12
+        },
+        "rangeWidth": {
+          "min": 20,
+          "max": 100
+        }
+      },
+      "cp004": {
+        "contextTypes": ["students", "books", "packets", "boxes", "bundles", "rows", "generic_equal_grouping"],
+        "translationComplexity": "indirect"
+      }
+    }
+  ],
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Direct HCF Computation",
+      "topology": "Direct HCF Computation",
+      "inputs": ["numbers"],
+      "outputs": ["hcf"],
+      "variableUniverse": {
+        "numbers": "two or three operands from approved difficulty bands"
+      }
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Count Common Divisors",
+      "topology": "Common Divisor Counting",
+      "inputs": ["numbers"],
+      "outputs": ["commonDivisorCount"],
+      "variableUniverse": {
+        "numbers": "two or three operands from approved difficulty bands"
+      }
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Missing Operand Using HCF",
+      "topology": "Missing-Value Reconstruction Under Target HCF",
+      "inputs": ["knownOperands", "targetHcf", "uniquenessConstraint"],
+      "outputs": ["missingNumber"],
+      "variableUniverse": {
+        "knownOperands": "one or more positive integer operands",
+        "targetHcf": "approved HCF value from hcf size buckets",
+        "uniquenessConstraint": "candidate set, closed range, allowed multiplier, divisibility constraint, or arithmetic constraint"
+      },
+      "uniquenessRule": "Future generation must prove exactly one missingNumber satisfies the rendered prompt."
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Maximum Equal Grouping / HCF Word Application",
+      "topology": "HCF Application Through Equal Partitioning",
+      "inputs": ["contextualQuantities"],
+      "outputs": ["maximumEqualGroupSize"],
+      "variableUniverse": {
+        "contextualQuantities": "two or three contextual quantities from an approved context family"
+      }
+    }
+  ]
+}

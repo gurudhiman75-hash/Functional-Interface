@@ -1,0 +1,4093 @@
+"Question ID","Canonical Problem","Difficulty","Topology","Question Language ID","Explanation Style ID","Question","Answer","Explanation","Divisor","Remainder","Quotient","Dividend","Lower Bound","Upper Bound"
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:0","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 8, the quotient is 28 and the remainder is 7. Find the number.","231","Apply the division formula.
+
+Answer:
+
+231","8","7","28","231","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:1","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 14, the quotient is 299 and the remainder is 0. Find the number.","4186","Apply the division formula.
+
+Answer:
+
+4186","14","0","299","4186","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:2","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 9
+
+Quotient = 40
+
+Remainder = 3","363","Apply the division formula.
+
+Answer:
+
+363","9","3","40","363","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:3","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 35, quotient = 280, and remainder = 0.","9800","Apply the division formula.
+
+Answer:
+
+9800","35","0","280","9800","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:4","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 79, quotient = 593, and remainder = 37.","46884","Apply the division formula.
+
+Answer:
+
+46884","79","37","593","46884","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:5","CP-001","Hard","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 30
+
+Quotient = 549
+
+Remainder = 4","16474","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+16474","30","4","549","16474","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:6","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 62
+
+Quotient = 945
+
+Remainder = 33","58623","Apply the division formula.
+
+Answer:
+
+58623","62","33","945","58623","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:7","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 19
+
+Quotient = 43
+
+Remainder = 2","819","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+819","19","2","43","819","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:8","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 27 gives quotient 404 and remainder 13. Find the number.","10921","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10921","27","13","404","10921","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:9","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 11
+
+Quotient = 47
+
+Remainder = 2","519","Apply the division formula.
+
+Answer:
+
+519","11","2","47","519","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:10","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 19, quotient = 480, and remainder = 8.","9128","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9128","19","8","480","9128","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:11","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 44 gives quotient 237 and remainder 5. Find the number.","10433","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10433","44","5","237","10433","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:12","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 20
+
+Quotient = 39
+
+Remainder = 16","796","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+796","20","16","39","796","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:13","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 5 gives quotient 24 and remainder 4. Find the number.","124","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+124","5","4","24","124","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:14","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 23, the quotient is 664 and the remainder is 21. Find the number.","15293","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+15293","23","21","664","15293","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:15","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 29 gives quotient 376 and remainder 18. Find the number.","10922","Apply the division formula.
+
+Answer:
+
+10922","29","18","376","10922","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:16","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 42, quotient = 221, and remainder = 26.","9308","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9308","42","26","221","9308","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:17","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 12
+
+Quotient = 16
+
+Remainder = 7","199","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+199","12","7","16","199","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:18","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 12
+
+Quotient = 179
+
+Remainder = 6","2154","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2154","12","6","179","2154","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:19","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 5 gives quotient 16 and remainder 4. Find the number.","84","Apply the division formula.
+
+Answer:
+
+84","5","4","16","84","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:20","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 8
+
+Quotient = 22
+
+Remainder = 1","177","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+177","8","1","22","177","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:21","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 18
+
+Quotient = 160
+
+Remainder = 12","2892","Apply the division formula.
+
+Answer:
+
+2892","18","12","160","2892","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:22","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 16 gives quotient 741 and remainder 15. Find the number.","11871","Apply the division formula.
+
+Answer:
+
+11871","16","15","741","11871","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:23","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 66 gives quotient 4310 and remainder 8. Find the number.","284468","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+284468","66","8","4310","284468","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:24","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 19, quotient = 48, and remainder = 3.","915","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+915","19","3","48","915","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:25","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 9 gives quotient 45 and remainder 6. Find the number.","411","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+411","9","6","45","411","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:26","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 24
+
+Quotient = 216
+
+Remainder = 11","5195","Apply the division formula.
+
+Answer:
+
+5195","24","11","216","5195","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:27","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 44, quotient = 198, and remainder = 8.","8720","Apply the division formula.
+
+Answer:
+
+8720","44","8","198","8720","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:28","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 18
+
+Quotient = 36
+
+Remainder = 5","653","Apply the division formula.
+
+Answer:
+
+653","18","5","36","653","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:29","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 33, the quotient is 4073 and the remainder is 23. Find the number.","134432","Apply the division formula.
+
+Answer:
+
+134432","33","23","4073","134432","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:30","CP-001","Hard","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 6
+
+Quotient = 491
+
+Remainder = 4","2950","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2950","6","4","491","2950","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:31","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 36, the quotient is 215 and the remainder is 3. Find the number.","7743","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7743","36","3","215","7743","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:32","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 17, the quotient is 9 and the remainder is 11. Find the number.","164","Apply the division formula.
+
+Answer:
+
+164","17","11","9","164","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:33","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 6
+
+Quotient = 48
+
+Remainder = 3","291","Apply the division formula.
+
+Answer:
+
+291","6","3","48","291","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:34","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 22, quotient = 377, and remainder = 14.","8308","Apply the division formula.
+
+Answer:
+
+8308","22","14","377","8308","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:35","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 5, quotient = 19, and remainder = 2.","97","Apply the division formula.
+
+Answer:
+
+97","5","2","19","97","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:36","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 47, the quotient is 406 and the remainder is 4. Find the number.","19086","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+19086","47","4","406","19086","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:37","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 17, quotient = 4, and remainder = 0.","68","Apply the division formula.
+
+Answer:
+
+68","17","0","4","68","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:38","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 9, quotient = 94, and remainder = 1.","847","Apply the division formula.
+
+Answer:
+
+847","9","1","94","847","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:39","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 14
+
+Quotient = 48
+
+Remainder = 7","679","Apply the division formula.
+
+Answer:
+
+679","14","7","48","679","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:40","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 27
+
+Quotient = 140
+
+Remainder = 11","3791","Apply the division formula.
+
+Answer:
+
+3791","27","11","140","3791","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:41","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 18
+
+Quotient = 7
+
+Remainder = 6","132","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+132","18","6","7","132","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:42","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 44 gives quotient 150 and remainder 13. Find the number.","6613","Apply the division formula.
+
+Answer:
+
+6613","44","13","150","6613","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:43","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 45
+
+Quotient = 426
+
+Remainder = 1","19171","Apply the division formula.
+
+Answer:
+
+19171","45","1","426","19171","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:44","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 37
+
+Quotient = 13
+
+Remainder = 13","494","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+494","37","13","13","494","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:45","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 3, quotient = 3858, and remainder = 2.","11576","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11576","3","2","3858","11576","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:46","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 18 gives quotient 50 and remainder 15. Find the number.","915","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+915","18","15","50","915","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:47","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 11
+
+Quotient = 251
+
+Remainder = 8","2769","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2769","11","8","251","2769","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:48","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 12
+
+Quotient = 14
+
+Remainder = 7","175","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+175","12","7","14","175","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:49","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 9 gives quotient 31 and remainder 6. Find the number.","285","Apply the division formula.
+
+Answer:
+
+285","9","6","31","285","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:50","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 7, quotient = 1078, and remainder = 1.","7547","Apply the division formula.
+
+Answer:
+
+7547","7","1","1078","7547","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:51","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 20, the quotient is 16 and the remainder is 17. Find the number.","337","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+337","20","17","16","337","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:52","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 32, quotient = 279, and remainder = 20.","8948","Apply the division formula.
+
+Answer:
+
+8948","32","20","279","8948","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:53","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 41 gives quotient 135 and remainder 7. Find the number.","5542","Apply the division formula.
+
+Answer:
+
+5542","41","7","135","5542","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:54","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 18, the quotient is 3234 and the remainder is 8. Find the number.","58220","Apply the division formula.
+
+Answer:
+
+58220","18","8","3234","58220","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:55","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 11
+
+Quotient = 32
+
+Remainder = 5","357","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+357","11","5","32","357","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:56","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 21
+
+Quotient = 255
+
+Remainder = 6","5361","Apply the division formula.
+
+Answer:
+
+5361","21","6","255","5361","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:57","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 17
+
+Quotient = 2
+
+Remainder = 15","49","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+49","17","15","2","49","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:58","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 19, quotient = 69, and remainder = 3.","1314","Apply the division formula.
+
+Answer:
+
+1314","19","3","69","1314","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:59","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 32 gives quotient 441 and remainder 5. Find the number.","14117","Apply the division formula.
+
+Answer:
+
+14117","32","5","441","14117","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:60","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 6, quotient = 329, and remainder = 1.","1975","Apply the division formula.
+
+Answer:
+
+1975","6","1","329","1975","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:61","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 13 gives quotient 37 and remainder 7. Find the number.","488","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+488","13","7","37","488","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:62","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 7 gives quotient 44 and remainder 4. Find the number.","312","Apply the division formula.
+
+Answer:
+
+312","7","4","44","312","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:63","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 29
+
+Quotient = 453
+
+Remainder = 10","13147","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13147","29","10","453","13147","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:64","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 21, the quotient is 190 and the remainder is 20. Find the number.","4010","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4010","21","20","190","4010","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:65","CP-001","Hard","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 41
+
+Quotient = 3595
+
+Remainder = 5","147400","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+147400","41","5","3595","147400","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:66","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 19 gives quotient 2 and remainder 13. Find the number.","51","Apply the division formula.
+
+Answer:
+
+51","19","13","2","51","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:67","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 15, quotient = 13, and remainder = 3.","198","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+198","15","3","13","198","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:68","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 17, the quotient is 6 and the remainder is 12. Find the number.","114","Apply the division formula.
+
+Answer:
+
+114","17","12","6","114","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:69","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 77, the quotient is 3095 and the remainder is 35. Find the number.","238350","Apply the division formula.
+
+Answer:
+
+238350","77","35","3095","238350","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:70","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 15, the quotient is 5 and the remainder is 12. Find the number.","87","Apply the division formula.
+
+Answer:
+
+87","15","12","5","87","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:71","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 11
+
+Quotient = 32
+
+Remainder = 10","362","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+362","11","10","32","362","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:72","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 35, quotient = 193, and remainder = 30.","6785","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+6785","35","30","193","6785","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:73","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 55, quotient = 3970, and remainder = 0.","218350","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+218350","55","0","3970","218350","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:74","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 82, quotient = 3074, and remainder = 46.","252114","Apply the division formula.
+
+Answer:
+
+252114","82","46","3074","252114","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:75","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 9
+
+Quotient = 50
+
+Remainder = 0","450","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+450","9","0","50","450","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:76","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 36, the quotient is 439 and the remainder is 30. Find the number.","15834","Apply the division formula.
+
+Answer:
+
+15834","36","30","439","15834","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:77","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 35, quotient = 450, and remainder = 6.","15756","Apply the division formula.
+
+Answer:
+
+15756","35","6","450","15756","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:78","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 41
+
+Quotient = 1628
+
+Remainder = 0","66748","Apply the division formula.
+
+Answer:
+
+66748","41","0","1628","66748","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:79","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 18, the quotient is 30 and the remainder is 9. Find the number.","549","Apply the division formula.
+
+Answer:
+
+549","18","9","30","549","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:80","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 11
+
+Quotient = 177
+
+Remainder = 10","1957","Apply the division formula.
+
+Answer:
+
+1957","11","10","177","1957","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:81","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 21
+
+Quotient = 416
+
+Remainder = 18","8754","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8754","21","18","416","8754","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:82","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 14 gives quotient 4 and remainder 7. Find the number.","63","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+63","14","7","4","63","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:83","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 13 gives quotient 444 and remainder 12. Find the number.","5784","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5784","13","12","444","5784","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:84","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 34, the quotient is 292 and the remainder is 29. Find the number.","9957","Apply the division formula.
+
+Answer:
+
+9957","34","29","292","9957","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:85","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 20, the quotient is 3387 and the remainder is 0. Find the number.","67740","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+67740","20","0","3387","67740","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:86","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 10 gives quotient 42 and remainder 7. Find the number.","427","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+427","10","7","42","427","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:87","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 6, the quotient is 15 and the remainder is 2. Find the number.","92","Apply the division formula.
+
+Answer:
+
+92","6","2","15","92","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:88","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 30, quotient = 2514, and remainder = 25.","75445","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+75445","30","25","2514","75445","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:89","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 9, the quotient is 45 and the remainder is 2. Find the number.","407","Apply the division formula.
+
+Answer:
+
+407","9","2","45","407","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:90","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 17, quotient = 19, and remainder = 1.","324","Apply the division formula.
+
+Answer:
+
+324","17","1","19","324","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:91","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 3 gives quotient 42 and remainder 1. Find the number.","127","Apply the division formula.
+
+Answer:
+
+127","3","1","42","127","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:92","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 2
+
+Quotient = 3832
+
+Remainder = 0","7664","Apply the division formula.
+
+Answer:
+
+7664","2","0","3832","7664","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:93","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 78, quotient = 2193, and remainder = 47.","171101","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+171101","78","47","2193","171101","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:94","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 6 gives quotient 25 and remainder 2. Find the number.","152","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+152","6","2","25","152","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:95","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 7, quotient = 22, and remainder = 0.","154","Apply the division formula.
+
+Answer:
+
+154","7","0","22","154","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:96","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 24
+
+Quotient = 201
+
+Remainder = 12","4836","Apply the division formula.
+
+Answer:
+
+4836","24","12","201","4836","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:97","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 34
+
+Quotient = 3193
+
+Remainder = 21","108583","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+108583","34","21","3193","108583","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:98","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 23 gives quotient 254 and remainder 16. Find the number.","5858","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5858","23","16","254","5858","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:99","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 7
+
+Quotient = 40
+
+Remainder = 2","282","Apply the division formula.
+
+Answer:
+
+282","7","2","40","282","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:100","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 18, quotient = 260, and remainder = 12.","4692","Apply the division formula.
+
+Answer:
+
+4692","18","12","260","4692","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:101","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 25
+
+Quotient = 303
+
+Remainder = 10","7585","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7585","25","10","303","7585","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:102","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 55, the quotient is 1622 and the remainder is 45. Find the number.","89255","Apply the division formula.
+
+Answer:
+
+89255","55","45","1622","89255","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:103","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 3, quotient = 439, and remainder = 2.","1319","Apply the division formula.
+
+Answer:
+
+1319","3","2","439","1319","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:104","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 2, the quotient is 21 and the remainder is 0. Find the number.","42","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+42","2","0","21","42","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:105","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 40
+
+Quotient = 410
+
+Remainder = 35","16435","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+16435","40","35","410","16435","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:106","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 96, quotient = 3289, and remainder = 62.","315806","Apply the division formula.
+
+Answer:
+
+315806","96","62","3289","315806","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:107","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 2, the quotient is 34 and the remainder is 1. Find the number.","69","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+69","2","1","34","69","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:108","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 20 gives quotient 467 and remainder 12. Find the number.","9352","Apply the division formula.
+
+Answer:
+
+9352","20","12","467","9352","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:109","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 15 gives quotient 30 and remainder 2. Find the number.","452","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+452","15","2","30","452","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:110","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 73, quotient = 3173, and remainder = 33.","231662","Apply the division formula.
+
+Answer:
+
+231662","73","33","3173","231662","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:111","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 45
+
+Quotient = 100
+
+Remainder = 41","4541","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4541","45","41","100","4541","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:112","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 12 gives quotient 232 and remainder 3. Find the number.","2787","Apply the division formula.
+
+Answer:
+
+2787","12","3","232","2787","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:113","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 24 gives quotient 44 and remainder 8. Find the number.","1064","Apply the division formula.
+
+Answer:
+
+1064","24","8","44","1064","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:114","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 25, the quotient is 3409 and the remainder is 14. Find the number.","85239","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+85239","25","14","3409","85239","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:115","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 55, the quotient is 1699 and the remainder is 36. Find the number.","93481","Apply the division formula.
+
+Answer:
+
+93481","55","36","1699","93481","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:116","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 3 gives quotient 386 and remainder 0. Find the number.","1158","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1158","3","0","386","1158","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:117","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 3
+
+Quotient = 47
+
+Remainder = 0","141","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+141","3","0","47","141","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:118","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 48, the quotient is 545 and the remainder is 9. Find the number.","26169","Apply the division formula.
+
+Answer:
+
+26169","48","9","545","26169","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:119","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 10
+
+Quotient = 39
+
+Remainder = 2","392","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+392","10","2","39","392","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:120","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 46, the quotient is 136 and the remainder is 14. Find the number.","6270","Apply the division formula.
+
+Answer:
+
+6270","46","14","136","6270","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:121","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 19
+
+Quotient = 10
+
+Remainder = 4","194","Apply the division formula.
+
+Answer:
+
+194","19","4","10","194","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:122","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 38
+
+Quotient = 103
+
+Remainder = 2","3916","Apply the division formula.
+
+Answer:
+
+3916","38","2","103","3916","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:123","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 5
+
+Quotient = 12
+
+Remainder = 1","61","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+61","5","1","12","61","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:124","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 48, quotient = 335, and remainder = 6.","16086","Apply the division formula.
+
+Answer:
+
+16086","48","6","335","16086","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:125","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 19 gives quotient 18 and remainder 16. Find the number.","358","Apply the division formula.
+
+Answer:
+
+358","19","16","18","358","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:126","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 49, quotient = 227, and remainder = 37.","11160","Apply the division formula.
+
+Answer:
+
+11160","49","37","227","11160","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:127","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 5 gives quotient 46 and remainder 4. Find the number.","234","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+234","5","4","46","234","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:128","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 8
+
+Quotient = 27
+
+Remainder = 2","218","Apply the division formula.
+
+Answer:
+
+218","8","2","27","218","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:129","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 16
+
+Quotient = 12
+
+Remainder = 1","193","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+193","16","1","12","193","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:130","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 15
+
+Quotient = 14
+
+Remainder = 7","217","Apply the division formula.
+
+Answer:
+
+217","15","7","14","217","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:131","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 20, the quotient is 39 and the remainder is 12. Find the number.","792","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+792","20","12","39","792","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:132","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 59 gives quotient 4991 and remainder 55. Find the number.","294524","Apply the division formula.
+
+Answer:
+
+294524","59","55","4991","294524","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:133","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 17
+
+Quotient = 37
+
+Remainder = 7","636","Apply the division formula.
+
+Answer:
+
+636","17","7","37","636","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:134","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 55
+
+Quotient = 3474
+
+Remainder = 43","191113","Apply the division formula.
+
+Answer:
+
+191113","55","43","3474","191113","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:135","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 318
+
+Remainder = 4","3184","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3184","10","4","318","3184","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:136","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 9
+
+Quotient = 50
+
+Remainder = 1","451","Apply the division formula.
+
+Answer:
+
+451","9","1","50","451","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:137","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 81
+
+Quotient = 1711
+
+Remainder = 61","138652","Apply the division formula.
+
+Answer:
+
+138652","81","61","1711","138652","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:138","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 4, the quotient is 225 and the remainder is 3. Find the number.","903","Apply the division formula.
+
+Answer:
+
+903","4","3","225","903","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:139","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 24
+
+Quotient = 486
+
+Remainder = 4","11668","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11668","24","4","486","11668","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:140","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 41
+
+Quotient = 238
+
+Remainder = 37","9795","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9795","41","37","238","9795","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:141","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 42, quotient = 4812, and remainder = 11.","202115","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+202115","42","11","4812","202115","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:142","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 16 gives quotient 488 and remainder 6. Find the number.","7814","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7814","16","6","488","7814","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:143","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 20, quotient = 26, and remainder = 5.","525","Apply the division formula.
+
+Answer:
+
+525","20","5","26","525","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:144","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 50
+
+Quotient = 459
+
+Remainder = 28","22978","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+22978","50","28","459","22978","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:145","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 5, quotient = 50, and remainder = 0.","250","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+250","5","0","50","250","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:146","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 12, quotient = 23, and remainder = 2.","278","Apply the division formula.
+
+Answer:
+
+278","12","2","23","278","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:147","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 31
+
+Quotient = 15
+
+Remainder = 21","486","Apply the division formula.
+
+Answer:
+
+486","31","21","15","486","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:148","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 13
+
+Quotient = 61
+
+Remainder = 3","796","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+796","13","3","61","796","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:149","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 12, the quotient is 398 and the remainder is 7. Find the number.","4783","Apply the division formula.
+
+Answer:
+
+4783","12","7","398","4783","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:150","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 8, quotient = 46, and remainder = 5.","373","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+373","8","5","46","373","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:151","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 52 gives quotient 598 and remainder 6. Find the number.","31102","Apply the division formula.
+
+Answer:
+
+31102","52","6","598","31102","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:152","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 48, quotient = 221, and remainder = 35.","10643","Apply the division formula.
+
+Answer:
+
+10643","48","35","221","10643","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:153","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 2, the quotient is 463 and the remainder is 0. Find the number.","926","Apply the division formula.
+
+Answer:
+
+926","2","0","463","926","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:154","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 14, quotient = 34, and remainder = 11.","487","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+487","14","11","34","487","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:155","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 23
+
+Quotient = 368
+
+Remainder = 7","8471","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8471","23","7","368","8471","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:156","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 19 gives quotient 40 and remainder 9. Find the number.","769","Apply the division formula.
+
+Answer:
+
+769","19","9","40","769","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:157","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 15
+
+Quotient = 335
+
+Remainder = 0","5025","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5025","15","0","335","5025","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:158","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 3, quotient = 42, and remainder = 0.","126","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+126","3","0","42","126","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:159","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 4 gives quotient 156 and remainder 2. Find the number.","626","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+626","4","2","156","626","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:160","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 11
+
+Quotient = 19
+
+Remainder = 2","211","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+211","11","2","19","211","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:161","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 47, the quotient is 646 and the remainder is 16. Find the number.","30378","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+30378","47","16","646","30378","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:162","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 8
+
+Quotient = 5
+
+Remainder = 4","44","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+44","8","4","5","44","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:163","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 17, quotient = 2, and remainder = 5.","39","Apply the division formula.
+
+Answer:
+
+39","17","5","2","39","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:164","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 2
+
+Quotient = 39
+
+Remainder = 0","78","Apply the division formula.
+
+Answer:
+
+78","2","0","39","78","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:165","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 54
+
+Quotient = 4121
+
+Remainder = 29","222563","Apply the division formula.
+
+Answer:
+
+222563","54","29","4121","222563","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:166","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 39 gives quotient 114 and remainder 8. Find the number.","4454","Apply the division formula.
+
+Answer:
+
+4454","39","8","114","4454","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:167","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 13
+
+Quotient = 46
+
+Remainder = 2","600","Apply the division formula.
+
+Answer:
+
+600","13","2","46","600","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:168","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 42
+
+Quotient = 344
+
+Remainder = 24","14472","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14472","42","24","344","14472","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:169","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 8, quotient = 42, and remainder = 5.","341","Apply the division formula.
+
+Answer:
+
+341","8","5","42","341","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:170","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 57 gives quotient 441 and remainder 32. Find the number.","25169","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+25169","57","32","441","25169","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:171","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 33
+
+Quotient = 402
+
+Remainder = 32","13298","Apply the division formula.
+
+Answer:
+
+13298","33","32","402","13298","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:172","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 4
+
+Quotient = 6
+
+Remainder = 1","25","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+25","4","1","6","25","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:173","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 15
+
+Quotient = 171
+
+Remainder = 2","2567","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2567","15","2","171","2567","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:174","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 18, quotient = 70, and remainder = 13.","1273","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1273","18","13","70","1273","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:175","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 7
+
+Quotient = 359
+
+Remainder = 1","2514","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2514","7","1","359","2514","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:176","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 48 gives quotient 12 and remainder 5. Find the number.","581","Apply the division formula.
+
+Answer:
+
+581","48","5","12","581","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:177","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 95
+
+Quotient = 699
+
+Remainder = 17","66422","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+66422","95","17","699","66422","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:178","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 19
+
+Quotient = 48
+
+Remainder = 16","928","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+928","19","16","48","928","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:179","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 91 gives quotient 4259 and remainder 16. Find the number.","387585","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+387585","91","16","4259","387585","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:180","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 33, the quotient is 86 and the remainder is 14. Find the number.","2852","Apply the division formula.
+
+Answer:
+
+2852","33","14","86","2852","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:181","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 43, quotient = 4718, and remainder = 19.","202893","Apply the division formula.
+
+Answer:
+
+202893","43","19","4718","202893","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:182","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 32, quotient = 144, and remainder = 26.","4634","Apply the division formula.
+
+Answer:
+
+4634","32","26","144","4634","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:183","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 26
+
+Remainder = 9","529","Apply the division formula.
+
+Answer:
+
+529","20","9","26","529","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:184","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 6 gives quotient 11 and remainder 2. Find the number.","68","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+68","6","2","11","68","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:185","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 20, quotient = 40, and remainder = 15.","815","Apply the division formula.
+
+Answer:
+
+815","20","15","40","815","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:186","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 3, the quotient is 13 and the remainder is 0. Find the number.","39","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+39","3","0","13","39","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:187","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 43
+
+Quotient = 1785
+
+Remainder = 18","76773","Apply the division formula.
+
+Answer:
+
+76773","43","18","1785","76773","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:188","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 8 gives quotient 81 and remainder 0. Find the number.","648","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+648","8","0","81","648","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:189","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 36
+
+Quotient = 82
+
+Remainder = 19","2971","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2971","36","19","82","2971","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:190","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 21
+
+Quotient = 185
+
+Remainder = 8","3893","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3893","21","8","185","3893","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:191","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 94 gives quotient 1376 and remainder 70. Find the number.","129414","Apply the division formula.
+
+Answer:
+
+129414","94","70","1376","129414","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:192","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 20, quotient = 46, and remainder = 15.","935","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+935","20","15","46","935","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:193","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 17
+
+Quotient = 23
+
+Remainder = 1","392","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+392","17","1","23","392","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:194","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 10, quotient = 10, and remainder = 9.","109","Apply the division formula.
+
+Answer:
+
+109","10","9","10","109","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:195","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 22
+
+Quotient = 125
+
+Remainder = 16","2766","Apply the division formula.
+
+Answer:
+
+2766","22","16","125","2766","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:196","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 19 gives quotient 14 and remainder 12. Find the number.","278","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+278","19","12","14","278","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:197","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 81, the quotient is 4814 and the remainder is 11. Find the number.","389945","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+389945","81","11","4814","389945","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:198","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 13
+
+Quotient = 22
+
+Remainder = 12","298","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+298","13","12","22","298","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:199","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 13
+
+Quotient = 198
+
+Remainder = 7","2581","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2581","13","7","198","2581","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:200","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 95
+
+Quotient = 4435
+
+Remainder = 94","421419","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+421419","95","94","4435","421419","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:201","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 43
+
+Quotient = 407
+
+Remainder = 18","17519","Apply the division formula.
+
+Answer:
+
+17519","43","18","407","17519","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:202","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 26, the quotient is 3713 and the remainder is 19. Find the number.","96557","Apply the division formula.
+
+Answer:
+
+96557","26","19","3713","96557","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:203","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 12, the quotient is 147 and the remainder is 8. Find the number.","1772","Apply the division formula.
+
+Answer:
+
+1772","12","8","147","1772","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:204","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 27
+
+Quotient = 248
+
+Remainder = 14","6710","Apply the division formula.
+
+Answer:
+
+6710","27","14","248","6710","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:205","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 64 gives quotient 3971 and remainder 22. Find the number.","254166","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+254166","64","22","3971","254166","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:206","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 36 gives quotient 306 and remainder 31. Find the number.","11047","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11047","36","31","306","11047","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:207","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 35 gives quotient 383 and remainder 28. Find the number.","13433","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13433","35","28","383","13433","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:208","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 23, quotient = 78, and remainder = 1.","1795","Apply the division formula.
+
+Answer:
+
+1795","23","1","78","1795","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:209","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 8
+
+Quotient = 394
+
+Remainder = 2","3154","Apply the division formula.
+
+Answer:
+
+3154","8","2","394","3154","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:210","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 15
+
+Quotient = 292
+
+Remainder = 1","4381","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4381","15","1","292","4381","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:211","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 96
+
+Quotient = 2636
+
+Remainder = 23","253079","Apply the division formula.
+
+Answer:
+
+253079","96","23","2636","253079","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:212","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 6, quotient = 47, and remainder = 4.","286","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+286","6","4","47","286","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:213","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 20
+
+Quotient = 38
+
+Remainder = 17","777","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+777","20","17","38","777","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:214","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 29, quotient = 2815, and remainder = 23.","81658","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+81658","29","23","2815","81658","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:215","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 15
+
+Quotient = 218
+
+Remainder = 2","3272","Apply the division formula.
+
+Answer:
+
+3272","15","2","218","3272","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:216","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 11
+
+Quotient = 89
+
+Remainder = 7","986","Apply the division formula.
+
+Answer:
+
+986","11","7","89","986","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:217","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 5, quotient = 24, and remainder = 2.","122","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+122","5","2","24","122","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:218","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 18, the quotient is 138 and the remainder is 2. Find the number.","2486","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2486","18","2","138","2486","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:219","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 10, the quotient is 28 and the remainder is 3. Find the number.","283","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+283","10","3","28","283","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:220","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 31 gives quotient 131 and remainder 7. Find the number.","4068","Apply the division formula.
+
+Answer:
+
+4068","31","7","131","4068","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:221","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 19, the quotient is 29 and the remainder is 14. Find the number.","565","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+565","19","14","29","565","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:222","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 93, the quotient is 1780 and the remainder is 91. Find the number.","165631","Apply the division formula.
+
+Answer:
+
+165631","93","91","1780","165631","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:223","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 26, quotient = 487, and remainder = 14.","12676","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+12676","26","14","487","12676","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:224","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 40
+
+Quotient = 468
+
+Remainder = 31","18751","Apply the division formula.
+
+Answer:
+
+18751","40","31","468","18751","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:225","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 3, the quotient is 68 and the remainder is 2. Find the number.","206","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+206","3","2","68","206","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:226","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 42, quotient = 1544, and remainder = 23.","64871","Apply the division formula.
+
+Answer:
+
+64871","42","23","1544","64871","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:227","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 14, quotient = 124, and remainder = 6.","1742","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1742","14","6","124","1742","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:228","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 74, quotient = 1825, and remainder = 9.","135059","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+135059","74","9","1825","135059","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:229","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 41
+
+Quotient = 48
+
+Remainder = 20","1988","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1988","41","20","48","1988","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:230","CP-001","Hard","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 20
+
+Quotient = 4894
+
+Remainder = 2","97882","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+97882","20","2","4894","97882","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:231","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 31
+
+Quotient = 184
+
+Remainder = 5","5709","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5709","31","5","184","5709","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:232","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 46, the quotient is 496 and the remainder is 8. Find the number.","22824","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+22824","46","8","496","22824","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:233","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 43, quotient = 48, and remainder = 3.","2067","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2067","43","3","48","2067","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:234","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 61 gives quotient 1660 and remainder 26. Find the number.","101286","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+101286","61","26","1660","101286","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:235","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 78, quotient = 900, and remainder = 9.","70209","Apply the division formula.
+
+Answer:
+
+70209","78","9","900","70209","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:236","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 5 gives quotient 3 and remainder 4. Find the number.","19","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+19","5","4","3","19","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:237","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 19
+
+Quotient = 155
+
+Remainder = 9","2954","Apply the division formula.
+
+Answer:
+
+2954","19","9","155","2954","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:238","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 15
+
+Quotient = 41
+
+Remainder = 13","628","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+628","15","13","41","628","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:239","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 4, quotient = 46, and remainder = 1.","185","Apply the division formula.
+
+Answer:
+
+185","4","1","46","185","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:240","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 13
+
+Quotient = 40
+
+Remainder = 0","520","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+520","13","0","40","520","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:241","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 77, quotient = 416, and remainder = 60.","32092","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+32092","77","60","416","32092","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:242","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 45, the quotient is 387 and the remainder is 15. Find the number.","17430","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+17430","45","15","387","17430","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:243","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 19
+
+Quotient = 31
+
+Remainder = 13","602","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+602","19","13","31","602","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:244","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 8, the quotient is 416 and the remainder is 1. Find the number.","3329","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3329","8","1","416","3329","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:245","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 3 gives quotient 43 and remainder 2. Find the number.","131","Apply the division formula.
+
+Answer:
+
+131","3","2","43","131","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:246","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 30 gives quotient 280 and remainder 19. Find the number.","8419","Apply the division formula.
+
+Answer:
+
+8419","30","19","280","8419","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:247","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 23 gives quotient 449 and remainder 1. Find the number.","10328","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10328","23","1","449","10328","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:248","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 58, the quotient is 4685 and the remainder is 49. Find the number.","271779","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+271779","58","49","4685","271779","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:249","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 9, the quotient is 11 and the remainder is 5. Find the number.","104","Apply the division formula.
+
+Answer:
+
+104","9","5","11","104","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:250","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 35
+
+Quotient = 344
+
+Remainder = 13","12053","Apply the division formula.
+
+Answer:
+
+12053","35","13","344","12053","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:251","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 20 gives quotient 10 and remainder 15. Find the number.","215","Apply the division formula.
+
+Answer:
+
+215","20","15","10","215","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:252","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 5
+
+Quotient = 49
+
+Remainder = 2","247","Apply the division formula.
+
+Answer:
+
+247","5","2","49","247","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:253","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 43 gives quotient 474 and remainder 42. Find the number.","20424","Apply the division formula.
+
+Answer:
+
+20424","43","42","474","20424","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:254","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 15
+
+Quotient = 31
+
+Remainder = 3","468","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+468","15","3","31","468","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:255","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 35, quotient = 327, and remainder = 11.","11456","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11456","35","11","327","11456","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:256","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 50 gives quotient 223 and remainder 4. Find the number.","11154","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11154","50","4","223","11154","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:257","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 41
+
+Quotient = 2386
+
+Remainder = 25","97851","Apply the division formula.
+
+Answer:
+
+97851","41","25","2386","97851","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:258","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 20, quotient = 298, and remainder = 0.","5960","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5960","20","0","298","5960","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:259","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 21, the quotient is 4380 and the remainder is 2. Find the number.","91982","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+91982","21","2","4380","91982","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:260","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 24
+
+Quotient = 107
+
+Remainder = 7","2575","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2575","24","7","107","2575","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:261","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 45
+
+Quotient = 106
+
+Remainder = 12","4782","Apply the division formula.
+
+Answer:
+
+4782","45","12","106","4782","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:262","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 23, quotient = 243, and remainder = 14.","5603","Apply the division formula.
+
+Answer:
+
+5603","23","14","243","5603","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:263","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 19, quotient = 21, and remainder = 4.","403","Apply the division formula.
+
+Answer:
+
+403","19","4","21","403","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:264","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 14, quotient = 34, and remainder = 7.","483","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+483","14","7","34","483","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:265","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 6
+
+Quotient = 37
+
+Remainder = 2","224","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+224","6","2","37","224","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:266","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 39
+
+Quotient = 3468
+
+Remainder = 17","135269","Apply the division formula.
+
+Answer:
+
+135269","39","17","3468","135269","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:267","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 97
+
+Quotient = 3072
+
+Remainder = 66","298050","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+298050","97","66","3072","298050","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:268","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 18, quotient = 81, and remainder = 13.","1471","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1471","18","13","81","1471","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:269","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 17 gives quotient 17 and remainder 4. Find the number.","293","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+293","17","4","17","293","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:270","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 44, quotient = 233, and remainder = 42.","10294","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10294","44","42","233","10294","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:271","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 4
+
+Quotient = 8
+
+Remainder = 1","33","Apply the division formula.
+
+Answer:
+
+33","4","1","8","33","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:272","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 10
+
+Quotient = 474
+
+Remainder = 6","4746","Apply the division formula.
+
+Answer:
+
+4746","10","6","474","4746","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:273","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 11, quotient = 3183, and remainder = 6.","35019","Apply the division formula.
+
+Answer:
+
+35019","11","6","3183","35019","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:274","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 15, the quotient is 5 and the remainder is 8. Find the number.","83","Apply the division formula.
+
+Answer:
+
+83","15","8","5","83","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:275","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 10
+
+Quotient = 251
+
+Remainder = 9","2519","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2519","10","9","251","2519","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:276","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 29, quotient = 204, and remainder = 27.","5943","Apply the division formula.
+
+Answer:
+
+5943","29","27","204","5943","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:277","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 2, the quotient is 32 and the remainder is 1. Find the number.","65","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+65","2","1","32","65","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:278","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 9 gives quotient 25 and remainder 7. Find the number.","232","Apply the division formula.
+
+Answer:
+
+232","9","7","25","232","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:279","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 21
+
+Quotient = 136
+
+Remainder = 1","2857","Apply the division formula.
+
+Answer:
+
+2857","21","1","136","2857","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:280","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 69 gives quotient 2297 and remainder 25. Find the number.","158518","Apply the division formula.
+
+Answer:
+
+158518","69","25","2297","158518","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:281","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 40, the quotient is 92 and the remainder is 34. Find the number.","3714","Apply the division formula.
+
+Answer:
+
+3714","40","34","92","3714","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:282","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 9, the quotient is 12 and the remainder is 1. Find the number.","109","Apply the division formula.
+
+Answer:
+
+109","9","1","12","109","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:283","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 32 gives quotient 258 and remainder 8. Find the number.","8264","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8264","32","8","258","8264","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:284","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 26, quotient = 375, and remainder = 11.","9761","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9761","26","11","375","9761","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:285","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 19 gives quotient 15 and remainder 13. Find the number.","298","Apply the division formula.
+
+Answer:
+
+298","19","13","15","298","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:286","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 9, quotient = 38, and remainder = 8.","350","Apply the division formula.
+
+Answer:
+
+350","9","8","38","350","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:287","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 16 gives quotient 31 and remainder 4. Find the number.","500","Apply the division formula.
+
+Answer:
+
+500","16","4","31","500","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:288","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 99, the quotient is 138 and the remainder is 57. Find the number.","13719","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13719","99","57","138","13719","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:289","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 10
+
+Quotient = 17
+
+Remainder = 6","176","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+176","10","6","17","176","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:290","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 9
+
+Quotient = 9
+
+Remainder = 8","89","Apply the division formula.
+
+Answer:
+
+89","9","8","9","89","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:291","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 42, quotient = 313, and remainder = 1.","13147","Apply the division formula.
+
+Answer:
+
+13147","42","1","313","13147","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:292","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 12
+
+Quotient = 23
+
+Remainder = 2","278","Apply the division formula.
+
+Answer:
+
+278","12","2","23","278","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:293","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 40
+
+Quotient = 198
+
+Remainder = 25","7945","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7945","40","25","198","7945","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:294","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 24, the quotient is 133 and the remainder is 4. Find the number.","3196","Apply the division formula.
+
+Answer:
+
+3196","24","4","133","3196","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:295","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 15 gives quotient 38 and remainder 9. Find the number.","579","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+579","15","9","38","579","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:296","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 18
+
+Quotient = 421
+
+Remainder = 2","7580","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7580","18","2","421","7580","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:297","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 4, the quotient is 184 and the remainder is 1. Find the number.","737","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+737","4","1","184","737","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:298","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 16, the quotient is 11 and the remainder is 0. Find the number.","176","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+176","16","0","11","176","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:299","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 18 gives quotient 3162 and remainder 9. Find the number.","56925","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+56925","18","9","3162","56925","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:300","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 20 gives quotient 5 and remainder 18. Find the number.","118","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+118","20","18","5","118","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:301","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 44
+
+Quotient = 169
+
+Remainder = 17","7453","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7453","44","17","169","7453","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:302","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 10, the quotient is 47 and the remainder is 6. Find the number.","476","Apply the division formula.
+
+Answer:
+
+476","10","6","47","476","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:303","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 46, the quotient is 131 and the remainder is 7. Find the number.","6033","Apply the division formula.
+
+Answer:
+
+6033","46","7","131","6033","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:304","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 37
+
+Quotient = 418
+
+Remainder = 6","15472","Apply the division formula.
+
+Answer:
+
+15472","37","6","418","15472","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:305","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 19, quotient = 18, and remainder = 13.","355","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+355","19","13","18","355","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:306","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 22
+
+Quotient = 116
+
+Remainder = 0","2552","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2552","22","0","116","2552","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:307","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 45, the quotient is 281 and the remainder is 11. Find the number.","12656","Apply the division formula.
+
+Answer:
+
+12656","45","11","281","12656","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:308","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 6
+
+Quotient = 4430
+
+Remainder = 0","26580","Apply the division formula.
+
+Answer:
+
+26580","6","0","4430","26580","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:309","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 8 gives quotient 40 and remainder 1. Find the number.","321","Apply the division formula.
+
+Answer:
+
+321","8","1","40","321","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:310","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 6
+
+Quotient = 8
+
+Remainder = 5","53","Apply the division formula.
+
+Answer:
+
+53","6","5","8","53","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:311","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 7, quotient = 45, and remainder = 2.","317","Apply the division formula.
+
+Answer:
+
+317","7","2","45","317","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:312","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 6
+
+Quotient = 18
+
+Remainder = 5","113","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+113","6","5","18","113","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:313","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 7 gives quotient 464 and remainder 5. Find the number.","3253","Apply the division formula.
+
+Answer:
+
+3253","7","5","464","3253","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:314","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 5, the quotient is 12 and the remainder is 3. Find the number.","63","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+63","5","3","12","63","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:315","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 8 gives quotient 373 and remainder 0. Find the number.","2984","Apply the division formula.
+
+Answer:
+
+2984","8","0","373","2984","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:316","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 2
+
+Quotient = 48
+
+Remainder = 1","97","Apply the division formula.
+
+Answer:
+
+97","2","1","48","97","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:317","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 25
+
+Quotient = 449
+
+Remainder = 6","11231","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11231","25","6","449","11231","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:318","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 6 gives quotient 22 and remainder 3. Find the number.","135","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+135","6","3","22","135","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:319","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 96, the quotient is 111 and the remainder is 44. Find the number.","10700","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10700","96","44","111","10700","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:320","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 43 gives quotient 917 and remainder 33. Find the number.","39464","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+39464","43","33","917","39464","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:321","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 12
+
+Quotient = 118
+
+Remainder = 7","1423","Apply the division formula.
+
+Answer:
+
+1423","12","7","118","1423","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:322","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 20, quotient = 37, and remainder = 18.","758","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+758","20","18","37","758","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:323","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 2 gives quotient 89 and remainder 1. Find the number.","179","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+179","2","1","89","179","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:324","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 4
+
+Quotient = 13
+
+Remainder = 0","52","Apply the division formula.
+
+Answer:
+
+52","4","0","13","52","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:325","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 38, the quotient is 57 and the remainder is 33. Find the number.","2199","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2199","38","33","57","2199","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:326","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 9
+
+Quotient = 47
+
+Remainder = 1","424","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+424","9","1","47","424","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:327","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 18, the quotient is 426 and the remainder is 9. Find the number.","7677","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7677","18","9","426","7677","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:328","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 12 gives quotient 37 and remainder 4. Find the number.","448","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+448","12","4","37","448","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:329","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 4
+
+Quotient = 1202
+
+Remainder = 3","4811","Apply the division formula.
+
+Answer:
+
+4811","4","3","1202","4811","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:330","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 50 gives quotient 380 and remainder 21. Find the number.","19021","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+19021","50","21","380","19021","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:331","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 5
+
+Quotient = 1
+
+Remainder = 4","9","Apply the division formula.
+
+Answer:
+
+9","5","4","1","9","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:332","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 15 gives quotient 14 and remainder 3. Find the number.","213","Apply the division formula.
+
+Answer:
+
+213","15","3","14","213","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:333","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 45 gives quotient 2123 and remainder 4. Find the number.","95539","Apply the division formula.
+
+Answer:
+
+95539","45","4","2123","95539","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:334","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 9 gives quotient 20 and remainder 2. Find the number.","182","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+182","9","2","20","182","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:335","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 32
+
+Quotient = 152
+
+Remainder = 6","4870","Apply the division formula.
+
+Answer:
+
+4870","32","6","152","4870","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:336","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 38
+
+Quotient = 462
+
+Remainder = 11","17567","Apply the division formula.
+
+Answer:
+
+17567","38","11","462","17567","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:337","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 48, quotient = 81, and remainder = 12.","3900","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3900","48","12","81","3900","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:338","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 38, the quotient is 239 and the remainder is 5. Find the number.","9087","Apply the division formula.
+
+Answer:
+
+9087","38","5","239","9087","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:339","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 5 gives quotient 15 and remainder 4. Find the number.","79","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+79","5","4","15","79","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:340","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 53, quotient = 4638, and remainder = 40.","245854","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+245854","53","40","4638","245854","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:341","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 7
+
+Quotient = 2974
+
+Remainder = 6","20824","Apply the division formula.
+
+Answer:
+
+20824","7","6","2974","20824","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:342","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 35 gives quotient 294 and remainder 29. Find the number.","10319","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+10319","35","29","294","10319","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:343","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 24
+
+Quotient = 376
+
+Remainder = 19","9043","Apply the division formula.
+
+Answer:
+
+9043","24","19","376","9043","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:344","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 43
+
+Quotient = 256
+
+Remainder = 25","11033","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+11033","43","25","256","11033","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:345","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 50 gives quotient 219 and remainder 25. Find the number.","10975","Apply the division formula.
+
+Answer:
+
+10975","50","25","219","10975","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:346","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 4, the quotient is 423 and the remainder is 0. Find the number.","1692","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1692","4","0","423","1692","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:347","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 11
+
+Quotient = 91
+
+Remainder = 9","1010","Apply the division formula.
+
+Answer:
+
+1010","11","9","91","1010","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:348","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 10, quotient = 47, and remainder = 6.","476","Apply the division formula.
+
+Answer:
+
+476","10","6","47","476","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:349","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 9 gives quotient 470 and remainder 4. Find the number.","4234","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+4234","9","4","470","4234","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:350","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 27
+
+Quotient = 505
+
+Remainder = 25","13660","Apply the division formula.
+
+Answer:
+
+13660","27","25","505","13660","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:351","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 50 gives quotient 2144 and remainder 24. Find the number.","107224","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+107224","50","24","2144","107224","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:352","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 11
+
+Quotient = 24
+
+Remainder = 9","273","Apply the division formula.
+
+Answer:
+
+273","11","9","24","273","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:353","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 6 gives quotient 1 and remainder 0. Find the number.","6","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+6","6","0","1","6","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:354","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 82, the quotient is 1956 and the remainder is 33. Find the number.","160425","Apply the division formula.
+
+Answer:
+
+160425","82","33","1956","160425","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:355","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 39, quotient = 346, and remainder = 22.","13516","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13516","39","22","346","13516","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:356","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 15, quotient = 4, and remainder = 4.","64","Apply the division formula.
+
+Answer:
+
+64","15","4","4","64","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:357","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 20
+
+Quotient = 7
+
+Remainder = 6","146","Apply the division formula.
+
+Answer:
+
+146","20","6","7","146","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:358","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 14, the quotient is 30 and the remainder is 3. Find the number.","423","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+423","14","3","30","423","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:359","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 3, quotient = 4325, and remainder = 2.","12977","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+12977","3","2","4325","12977","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:360","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 26 gives quotient 282 and remainder 10. Find the number.","7342","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7342","26","10","282","7342","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:361","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 26
+
+Quotient = 322
+
+Remainder = 25","8397","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8397","26","25","322","8397","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:362","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 28 gives quotient 310 and remainder 10. Find the number.","8690","Apply the division formula.
+
+Answer:
+
+8690","28","10","310","8690","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:363","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 3, quotient = 36, and remainder = 2.","110","Apply the division formula.
+
+Answer:
+
+110","3","2","36","110","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:364","CP-001","Hard","Direct Reconstruction","QL-001","ES-001","A number when divided by 68 gives quotient 1699 and remainder 36. Find the number.","115568","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+115568","68","36","1699","115568","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:365","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 49
+
+Quotient = 437
+
+Remainder = 12","21425","Apply the division formula.
+
+Answer:
+
+21425","49","12","437","21425","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:366","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 40
+
+Quotient = 304
+
+Remainder = 26","12186","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+12186","40","26","304","12186","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:367","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 5 gives quotient 24 and remainder 2. Find the number.","122","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+122","5","2","24","122","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:368","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 31, quotient = 134, and remainder = 1.","4155","Apply the division formula.
+
+Answer:
+
+4155","31","1","134","4155","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:369","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 78, the quotient is 1277 and the remainder is 77. Find the number.","99683","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+99683","78","77","1277","99683","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:370","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 33 gives quotient 181 and remainder 17. Find the number.","5990","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+5990","33","17","181","5990","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:371","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 14
+
+Quotient = 371
+
+Remainder = 2","5196","Apply the division formula.
+
+Answer:
+
+5196","14","2","371","5196","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:372","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 22
+
+Quotient = 234
+
+Remainder = 9","5157","Apply the division formula.
+
+Answer:
+
+5157","22","9","234","5157","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:373","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 9
+
+Quotient = 348
+
+Remainder = 4","3136","Apply the division formula.
+
+Answer:
+
+3136","9","4","348","3136","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:374","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 3, the quotient is 451 and the remainder is 2. Find the number.","1355","Apply the division formula.
+
+Answer:
+
+1355","3","2","451","1355","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:375","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 15 gives quotient 29 and remainder 6. Find the number.","441","Apply the division formula.
+
+Answer:
+
+441","15","6","29","441","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:376","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 33
+
+Quotient = 84
+
+Remainder = 6","2778","Apply the division formula.
+
+Answer:
+
+2778","33","6","84","2778","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:377","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 5, the quotient is 25 and the remainder is 3. Find the number.","128","Apply the division formula.
+
+Answer:
+
+128","5","3","25","128","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:378","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 12 gives quotient 8 and remainder 9. Find the number.","105","Apply the division formula.
+
+Answer:
+
+105","12","9","8","105","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:379","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 13
+
+Quotient = 17
+
+Remainder = 4","225","Apply the division formula.
+
+Answer:
+
+225","13","4","17","225","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:380","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 32, quotient = 92, and remainder = 26.","2970","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2970","32","26","92","2970","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:381","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 20
+
+Quotient = 26
+
+Remainder = 1","521","Apply the division formula.
+
+Answer:
+
+521","20","1","26","521","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:382","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 2 gives quotient 9 and remainder 0. Find the number.","18","Apply the division formula.
+
+Answer:
+
+18","2","0","9","18","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:383","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 2, the quotient is 278 and the remainder is 1. Find the number.","557","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+557","2","1","278","557","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:384","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 46, quotient = 1309, and remainder = 0.","60214","Apply the division formula.
+
+Answer:
+
+60214","46","0","1309","60214","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:385","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 44
+
+Quotient = 207
+
+Remainder = 25","9133","Apply the division formula.
+
+Answer:
+
+9133","44","25","207","9133","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:386","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 13, quotient = 3317, and remainder = 7.","43128","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+43128","13","7","3317","43128","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:387","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 20
+
+Quotient = 50
+
+Remainder = 7","1007","Apply the division formula.
+
+Answer:
+
+1007","20","7","50","1007","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:388","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 86, the quotient is 2442 and the remainder is 26. Find the number.","210038","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+210038","86","26","2442","210038","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:389","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 6, quotient = 194, and remainder = 3.","1167","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1167","6","3","194","1167","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:390","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 31 gives quotient 1087 and remainder 8. Find the number.","33705","Apply the division formula.
+
+Answer:
+
+33705","31","8","1087","33705","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:391","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 18, quotient = 37, and remainder = 12.","678","Apply the division formula.
+
+Answer:
+
+678","18","12","37","678","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:392","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 44
+
+Quotient = 167
+
+Remainder = 33","7381","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+7381","44","33","167","7381","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:393","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 4 gives quotient 21 and remainder 2. Find the number.","86","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+86","4","2","21","86","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:394","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 38, the quotient is 71 and the remainder is 21. Find the number.","2719","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+2719","38","21","71","2719","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:395","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 4, the quotient is 5 and the remainder is 0. Find the number.","20","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+20","4","0","5","20","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:396","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 28 gives quotient 321 and remainder 25. Find the number.","9013","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9013","28","25","321","9013","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:397","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 15
+
+Quotient = 15
+
+Remainder = 0","225","Apply the division formula.
+
+Answer:
+
+225","15","0","15","225","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:398","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 66
+
+Quotient = 4662
+
+Remainder = 43","307735","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+307735","66","43","4662","307735","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:399","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 32, quotient = 649, and remainder = 20.","20788","Apply the division formula.
+
+Answer:
+
+20788","32","20","649","20788","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:400","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 12
+
+Quotient = 40
+
+Remainder = 3","483","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+483","12","3","40","483","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:401","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 81, the quotient is 4955 and the remainder is 53. Find the number.","401408","Apply the division formula.
+
+Answer:
+
+401408","81","53","4955","401408","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:402","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 35
+
+Quotient = 417
+
+Remainder = 33","14628","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+14628","35","33","417","14628","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:403","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 33, the quotient is 275 and the remainder is 10. Find the number.","9085","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+9085","33","10","275","9085","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:404","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 3, quotient = 488, and remainder = 2.","1466","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1466","3","2","488","1466","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:405","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 12
+
+Quotient = 4424
+
+Remainder = 8","53096","Apply the division formula.
+
+Answer:
+
+53096","12","8","4424","53096","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:406","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 80
+
+Quotient = 4186
+
+Remainder = 9","334889","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+334889","80","9","4186","334889","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:407","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 33 gives quotient 90 and remainder 12. Find the number.","2982","Apply the division formula.
+
+Answer:
+
+2982","33","12","90","2982","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:408","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 36, quotient = 3025, and remainder = 11.","108911","Apply the division formula.
+
+Answer:
+
+108911","36","11","3025","108911","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:409","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 13, quotient = 13, and remainder = 7.","176","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+176","13","7","13","176","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:410","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 32, quotient = 449, and remainder = 10.","14378","Apply the division formula.
+
+Answer:
+
+14378","32","10","449","14378","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:411","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 14 gives quotient 4 and remainder 3. Find the number.","59","Apply the division formula.
+
+Answer:
+
+59","14","3","4","59","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:412","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 24, the quotient is 4761 and the remainder is 0. Find the number.","114264","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+114264","24","0","4761","114264","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:413","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 13
+
+Quotient = 42
+
+Remainder = 1","547","Apply the division formula.
+
+Answer:
+
+547","13","1","42","547","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:414","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 18
+
+Quotient = 7
+
+Remainder = 0","126","Apply the division formula.
+
+Answer:
+
+126","18","0","7","126","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:415","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 4 gives quotient 44 and remainder 1. Find the number.","177","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+177","4","1","44","177","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:416","CP-001","Easy","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 15, quotient = 43, and remainder = 14.","659","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+659","15","14","43","659","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:417","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 44
+
+Quotient = 3498
+
+Remainder = 27","153939","Apply the division formula.
+
+Answer:
+
+153939","44","27","3498","153939","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:418","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 39
+
+Quotient = 2292
+
+Remainder = 23","89411","Apply the division formula.
+
+Answer:
+
+89411","39","23","2292","89411","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:419","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 22, the quotient is 332 and the remainder is 9. Find the number.","7313","Apply the division formula.
+
+Answer:
+
+7313","22","9","332","7313","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:420","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 16, the quotient is 30 and the remainder is 1. Find the number.","481","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+481","16","1","30","481","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:421","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 39
+
+Quotient = 265
+
+Remainder = 3","10338","Apply the division formula.
+
+Answer:
+
+10338","39","3","265","10338","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:422","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 3
+
+Quotient = 46
+
+Remainder = 1","139","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+139","3","1","46","139","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:423","CP-001","Medium","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 50
+
+Quotient = 378
+
+Remainder = 34","18934","Apply the division formula.
+
+Answer:
+
+18934","50","34","378","18934","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:424","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 12, quotient = 10, and remainder = 5.","125","Apply the division formula.
+
+Answer:
+
+125","12","5","10","125","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:425","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 15, the quotient is 122 and the remainder is 8. Find the number.","1838","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1838","15","8","122","1838","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:426","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 21 gives quotient 470 and remainder 13. Find the number.","9883","Apply the division formula.
+
+Answer:
+
+9883","21","13","470","9883","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:427","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 37, quotient = 1924, and remainder = 23.","71211","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+71211","37","23","1924","71211","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:428","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 16, the quotient is 38 and the remainder is 9. Find the number.","617","Apply the division formula.
+
+Answer:
+
+617","16","9","38","617","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:429","CP-001","Hard","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 59
+
+Quotient = 3688
+
+Remainder = 24","217616","Apply the division formula.
+
+Answer:
+
+217616","59","24","3688","217616","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:430","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 34, the quotient is 360 and the remainder is 20. Find the number.","12260","Apply the division formula.
+
+Answer:
+
+12260","34","20","360","12260","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:431","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 17
+
+Quotient = 2386
+
+Remainder = 4","40566","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+40566","17","4","2386","40566","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:432","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 47, the quotient is 495 and the remainder is 8. Find the number.","23273","Apply the division formula.
+
+Answer:
+
+23273","47","8","495","23273","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:433","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 53, quotient = 3970, and remainder = 24.","210434","Apply the division formula.
+
+Answer:
+
+210434","53","24","3970","210434","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:434","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 24, the quotient is 321 and the remainder is 12. Find the number.","7716","Apply the division formula.
+
+Answer:
+
+7716","24","12","321","7716","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:435","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 4 gives quotient 60 and remainder 3. Find the number.","243","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+243","4","3","60","243","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:436","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 14 gives quotient 43 and remainder 4. Find the number.","606","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+606","14","4","43","606","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:437","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 5 gives quotient 42 and remainder 1. Find the number.","211","Apply the division formula.
+
+Answer:
+
+211","5","1","42","211","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:438","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 10
+
+Quotient = 153
+
+Remainder = 0","1530","Apply the division formula.
+
+Answer:
+
+1530","10","0","153","1530","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:439","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 8, the quotient is 2129 and the remainder is 7. Find the number.","17039","Apply the division formula.
+
+Answer:
+
+17039","8","7","2129","17039","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:440","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 14
+
+Quotient = 44
+
+Remainder = 9","625","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+625","14","9","44","625","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:441","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 87, quotient = 4719, and remainder = 11.","410564","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+410564","87","11","4719","410564","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:442","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 15
+
+Quotient = 36
+
+Remainder = 1","541","Apply the division formula.
+
+Answer:
+
+541","15","1","36","541","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:443","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 16, the quotient is 71 and the remainder is 10. Find the number.","1146","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+1146","16","10","71","1146","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:444","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 16, quotient = 26, and remainder = 3.","419","Apply the division formula.
+
+Answer:
+
+419","16","3","26","419","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:445","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 20 gives quotient 49 and remainder 12. Find the number.","992","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+992","20","12","49","992","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:446","CP-001","Medium","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 25
+
+Quotient = 464
+
+Remainder = 15","11615","Apply the division formula.
+
+Answer:
+
+11615","25","15","464","11615","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:447","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 12
+
+Quotient = 19
+
+Remainder = 10","238","Apply the division formula.
+
+Answer:
+
+238","12","10","19","238","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:448","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 8 gives quotient 899 and remainder 7. Find the number.","7199","Apply the division formula.
+
+Answer:
+
+7199","8","7","899","7199","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:449","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 31, quotient = 2538, and remainder = 15.","78693","Apply the division formula.
+
+Answer:
+
+78693","31","15","2538","78693","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:450","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 20, the quotient is 45 and the remainder is 10. Find the number.","910","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+910","20","10","45","910","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:451","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 14
+
+Quotient = 6
+
+Remainder = 11","95","Apply the division formula.
+
+Answer:
+
+95","14","11","6","95","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:452","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 2, the quotient is 142 and the remainder is 0. Find the number.","284","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+284","2","0","142","284","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:453","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 61, quotient = 3844, and remainder = 41.","234525","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+234525","61","41","3844","234525","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:454","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 10
+
+Quotient = 9
+
+Remainder = 0","90","Apply the division formula.
+
+Answer:
+
+90","10","0","9","90","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:455","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 46, quotient = 179, and remainder = 7.","8241","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8241","46","7","179","8241","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:456","CP-001","Hard","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 73
+
+Quotient = 333
+
+Remainder = 1","24310","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+24310","73","1","333","24310","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:457","CP-001","Hard","Direct Reconstruction","QL-002","ES-002","On dividing a number by 13, the quotient is 1291 and the remainder is 10. Find the number.","16793","Apply the division formula.
+
+Answer:
+
+16793","13","10","1291","16793","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:458","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 40 gives quotient 374 and remainder 38. Find the number.","14998","Apply the division formula.
+
+Answer:
+
+14998","40","38","374","14998","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:459","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 4 gives quotient 48 and remainder 1. Find the number.","193","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+193","4","1","48","193","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:460","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 12, the quotient is 22 and the remainder is 9. Find the number.","273","Apply the division formula.
+
+Answer:
+
+273","12","9","22","273","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:461","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 13 gives quotient 31 and remainder 0. Find the number.","403","Apply the division formula.
+
+Answer:
+
+403","13","0","31","403","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:462","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 5, the quotient is 10 and the remainder is 1. Find the number.","51","Apply the division formula.
+
+Answer:
+
+51","5","1","10","51","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:463","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 10 gives quotient 17 and remainder 6. Find the number.","176","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+176","10","6","17","176","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:464","CP-001","Easy","Direct Reconstruction","QL-002","ES-001","On dividing a number by 3, the quotient is 32 and the remainder is 2. Find the number.","98","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+98","3","2","32","98","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:465","CP-001","Hard","Direct Reconstruction","QL-001","ES-002","A number when divided by 3 gives quotient 3129 and remainder 0. Find the number.","9387","Apply the division formula.
+
+Answer:
+
+9387","3","0","3129","9387","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:466","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 2
+
+Quotient = 20
+
+Remainder = 1","41","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+41","2","1","20","41","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:467","CP-001","Hard","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 40
+
+Quotient = 3517
+
+Remainder = 32","140712","Apply the division formula.
+
+Answer:
+
+140712","40","32","3517","140712","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:468","CP-001","Easy","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 14, quotient = 10, and remainder = 7.","147","Apply the division formula.
+
+Answer:
+
+147","14","7","10","147","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:469","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 41 gives quotient 322 and remainder 36. Find the number.","13238","Apply the division formula.
+
+Answer:
+
+13238","41","36","322","13238","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:470","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 4 gives quotient 45 and remainder 0. Find the number.","180","Apply the division formula.
+
+Answer:
+
+180","4","0","45","180","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:471","CP-001","Hard","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 59
+
+Quotient = 1220
+
+Remainder = 51","72031","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+72031","59","51","1220","72031","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:472","CP-001","Hard","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 40, quotient = 1065, and remainder = 38.","42638","Apply the division formula.
+
+Answer:
+
+42638","40","38","1065","42638","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:473","CP-001","Medium","Direct Reconstruction","QL-001","ES-002","A number when divided by 35 gives quotient 452 and remainder 4. Find the number.","15824","Apply the division formula.
+
+Answer:
+
+15824","35","4","452","15824","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:474","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 20
+
+Quotient = 7
+
+Remainder = 8","148","Apply the division formula.
+
+Answer:
+
+148","20","8","7","148","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:475","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 5, the quotient is 46 and the remainder is 1. Find the number.","231","Apply the division formula.
+
+Answer:
+
+231","5","1","46","231","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:476","CP-001","Medium","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 25
+
+Quotient = 344
+
+Remainder = 4","8604","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8604","25","4","344","8604","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:477","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 50, quotient = 313, and remainder = 9.","15659","Apply the division formula.
+
+Answer:
+
+15659","50","9","313","15659","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:478","CP-001","Medium","Direct Reconstruction","QL-002","ES-001","On dividing a number by 4, the quotient is 233 and the remainder is 0. Find the number.","932","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+932","4","0","233","932","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:479","CP-001","Medium","Direct Reconstruction","QL-001","ES-001","A number when divided by 43 gives quotient 485 and remainder 34. Find the number.","20889","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+20889","43","34","485","20889","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:480","CP-001","Easy","Direct Reconstruction","QL-002","ES-002","On dividing a number by 6, the quotient is 30 and the remainder is 5. Find the number.","185","Apply the division formula.
+
+Answer:
+
+185","6","5","30","185","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:481","CP-001","Medium","Direct Reconstruction","QL-002","ES-002","On dividing a number by 23, the quotient is 326 and the remainder is 7. Find the number.","7505","Apply the division formula.
+
+Answer:
+
+7505","23","7","326","7505","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:482","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 5
+
+Quotient = 8
+
+Remainder = 2","42","Apply the division formula.
+
+Answer:
+
+42","5","2","8","42","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:483","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 11 gives quotient 3 and remainder 8. Find the number.","41","Apply the division formula.
+
+Answer:
+
+41","11","8","3","41","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:484","CP-001","Medium","Direct Reconstruction","QL-003","ES-002","Find the number if divisor = 47, quotient = 341, and remainder = 22.","16049","Apply the division formula.
+
+Answer:
+
+16049","47","22","341","16049","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:485","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 2
+
+Quotient = 37
+
+Remainder = 0","74","Apply the division formula.
+
+Answer:
+
+74","2","0","37","74","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:486","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 35, quotient = 379, and remainder = 18.","13283","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13283","35","18","379","13283","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:487","CP-001","Hard","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 27, quotient = 3536, and remainder = 23.","95495","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+95495","27","23","3536","95495","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:488","CP-001","Hard","Direct Reconstruction","QL-002","ES-001","On dividing a number by 28, the quotient is 4742 and the remainder is 15. Find the number.","132791","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+132791","28","15","4742","132791","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:489","CP-001","Hard","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 78
+
+Quotient = 4698
+
+Remainder = 34","366478","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+366478","78","34","4698","366478","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:490","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 11
+
+Quotient = 9
+
+Remainder = 6","105","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+105","11","6","9","105","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:491","CP-001","Easy","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 15
+
+Quotient = 36
+
+Remainder = 2","542","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+542","15","2","36","542","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:492","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 30, quotient = 439, and remainder = 20.","13190","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+13190","30","20","439","13190","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:493","CP-001","Easy","Direct Reconstruction","QL-005","ES-001","Dividend = ?
+
+Divisor = 3
+
+Quotient = 20
+
+Remainder = 1","61","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+61","3","1","20","61","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:494","CP-001","Medium","Direct Reconstruction","QL-003","ES-001","Find the number if divisor = 42, quotient = 76, and remainder = 26.","3218","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+3218","42","26","76","3218","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:495","CP-001","Easy","Direct Reconstruction","QL-005","ES-002","Dividend = ?
+
+Divisor = 19
+
+Quotient = 48
+
+Remainder = 13","925","Apply the division formula.
+
+Answer:
+
+925","19","13","48","925","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:496","CP-001","Easy","Direct Reconstruction","QL-004","ES-002","Find the dividend.
+
+Divisor = 17
+
+Quotient = 25
+
+Remainder = 0","425","Apply the division formula.
+
+Answer:
+
+425","17","0","25","425","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:497","CP-001","Easy","Direct Reconstruction","QL-001","ES-001","A number when divided by 7 gives quotient 26 and remainder 2. Find the number.","184","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+184","7","2","26","184","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:498","CP-001","Medium","Direct Reconstruction","QL-004","ES-001","Find the dividend.
+
+Divisor = 22
+
+Quotient = 371
+
+Remainder = 14","8176","Dividend = Divisor * Quotient + Remainder
+
+Substitute the values.
+
+Answer:
+
+8176","22","14","371","8176","",""
+"NS-REM-002:CP-001:NS-REM-002-HUMAN-REVIEW-500:CP-001:499","CP-001","Easy","Direct Reconstruction","QL-001","ES-002","A number when divided by 13 gives quotient 30 and remainder 0. Find the number.","390","Apply the division formula.
+
+Answer:
+
+390","13","0","30","390","",""

@@ -1,0 +1,227 @@
+{
+  "libraryId": "NS-FAC-001-VARIABLE-RANGES",
+  "archetypeId": "NS-FAC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "globalRules": {
+    "numberPolicy": {
+      "minimum": 2,
+      "rule": "Generated number must be a positive integer greater than 1.",
+      "primeInputsApproved": true,
+      "compositeInputsApproved": true
+    },
+    "kPolicy": {
+      "appliesTo": ["CP-006", "CP-007"],
+      "rule": "k must divide number.",
+      "minimum": 1
+    },
+    "positionPolicy": {
+      "appliesTo": ["CP-008", "CP-009"],
+      "rule": "position must be less than or equal to factorCount.",
+      "minimum": 1
+    },
+    "mathJaxObjects": [
+      "primeFactorizationLatex",
+      "factorCountFormulaLatex",
+      "factorSumFormulaLatex",
+      "factorProductFormulaLatex",
+      "factorListLatex",
+      "factorsIncreasingLatex",
+      "factorsDecreasingLatex",
+      "kPrimeFactorizationLatex",
+      "divisibleFactorConstraintLatex",
+      "complementFormulaLatex",
+      "selectedPositionFormulaLatex",
+      "greatestProperFactorFormulaLatex",
+      "perfectSquareRuleLatex"
+    ],
+    "productMagnitudePolicy": {
+      "appliesTo": ["CP-003"],
+      "rule": "factorProduct must be computed exactly and serialized as a decimal string.",
+      "internalRepresentation": "BigInt or equivalent exact integer arithmetic",
+      "externalRepresentation": "decimal string",
+      "requiredMetadata": ["productDigitCount"]
+    },
+    "ordinalRenderingPolicy": {
+      "appliesTo": ["CP-008", "CP-009"],
+      "rule": "Future runtime must render ordinalDisplay correctly and must not render malformed ordinals such as 1th, 2th, or 3th.",
+      "requiredPlaceholder": "ordinalDisplay"
+    },
+    "highlyCompositeNumberPolicy": {
+      "requiredCoverage": true,
+      "examples": [60, 120, 180, 240, 360, 720, 840]
+    },
+    "numberShapeCoverage": [
+      "prime_input",
+      "composite_input",
+      "prime_power",
+      "mixed_prime",
+      "perfect_square",
+      "non_perfect_square",
+      "highly_composite"
+    ]
+  },
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "numberRange": {
+        "min": 2,
+        "max": 300
+      },
+      "factorCountRange": {
+        "min": 2,
+        "max": 12
+      },
+      "kRange": {
+        "min": 1,
+        "max": 20
+      },
+      "positionRange": {
+        "min": 1,
+        "max": 6
+      },
+      "numberShapes": ["prime_input", "composite_input", "prime_power", "perfect_square", "non_perfect_square", "highly_composite"]
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "numberRange": {
+        "min": 301,
+        "max": 10000
+      },
+      "factorCountRange": {
+        "min": 6,
+        "max": 48
+      },
+      "kRange": {
+        "min": 2,
+        "max": 200
+      },
+      "positionRange": {
+        "min": 2,
+        "max": 24
+      },
+      "numberShapes": ["prime_input", "composite_input", "prime_power", "mixed_prime", "perfect_square", "non_perfect_square", "highly_composite"]
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "numberRange": {
+        "min": 10001,
+        "max": 200000
+      },
+      "factorCountRange": {
+        "min": 12,
+        "max": 120
+      },
+      "kRange": {
+        "min": 2,
+        "max": 5000
+      },
+      "positionRange": {
+        "min": 5,
+        "max": 120
+      },
+      "numberShapes": ["prime_input", "composite_input", "prime_power", "mixed_prime", "perfect_square", "non_perfect_square", "highly_composite"]
+    }
+  ],
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Total Number Of Factors",
+      "topology": "Factor Count Formula",
+      "inputs": ["number"],
+      "outputs": ["factorCount"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      }
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Sum Of Factors",
+      "topology": "Factor Sum Formula",
+      "inputs": ["number"],
+      "outputs": ["factorSum"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      }
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Product Of Factors",
+      "topology": "Factor Product Formula",
+      "inputs": ["number"],
+      "outputs": ["factorProductString", "productDigitCount"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      }
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Odd Or Even Number Of Factors",
+      "topology": "Perfect Square Factor Parity",
+      "inputs": ["number"],
+      "outputs": ["Odd", "Even"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      }
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Greatest Proper Factor",
+      "topology": "Proper Factor Maximum",
+      "inputs": ["number"],
+      "outputs": ["greatestProperFactor"],
+      "variableUniverse": {
+        "number": "difficulty band number range"
+      }
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Count Factors Divisible By K",
+      "topology": "Divisible Factor Count",
+      "inputs": ["number", "k"],
+      "outputs": ["count"],
+      "variableUniverse": {
+        "number": "difficulty band number range",
+        "k": "approved divisor of number within difficulty k range"
+      }
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Count Factors Not Divisible By K",
+      "topology": "Derived Complement Factor Count",
+      "inputs": ["number", "k"],
+      "outputs": ["count"],
+      "variableUniverse": {
+        "number": "difficulty band number range",
+        "k": "approved divisor of number within difficulty k range"
+      }
+    },
+    {
+      "cpId": "CP-008",
+      "name": "kth Smallest Factor",
+      "topology": "Ordered Factor Selection - Increasing",
+      "inputs": ["number", "position", "ordinalDisplay"],
+      "outputs": ["factor"],
+      "variableUniverse": {
+        "number": "difficulty band number range",
+        "position": "approved position with position <= factorCount",
+        "ordinalDisplay": "correctly rendered ordinal form of position"
+      }
+    },
+    {
+      "cpId": "CP-009",
+      "name": "kth Largest Factor",
+      "topology": "Ordered Factor Selection - Decreasing",
+      "inputs": ["number", "position", "ordinalDisplay"],
+      "outputs": ["factor"],
+      "variableUniverse": {
+        "number": "difficulty band number range",
+        "position": "approved position with position <= factorCount",
+        "ordinalDisplay": "correctly rendered ordinal form of position"
+      }
+    }
+  ]
+}

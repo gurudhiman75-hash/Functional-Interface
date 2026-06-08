@@ -1,0 +1,161 @@
+{
+  "libraryId": "NS-FAC-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-FAC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all variables required to solve the CP. No question may rely on hidden parameters.",
+    "requiredVariables": {
+      "CP-001": ["number"],
+      "CP-002": ["number"],
+      "CP-003": ["number"],
+      "CP-004": ["number"],
+      "CP-005": ["number"],
+      "CP-006": ["number", "k"],
+      "CP-007": ["number", "k"],
+      "CP-008": ["number", "ordinalDisplay"],
+      "CP-009": ["number", "ordinalDisplay"]
+    }
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Total Number Of Factors",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Find the total number of factors of {number}."
+        },
+        {
+          "id": "QL-002",
+          "text": "How many factors does {number} have?"
+        },
+        {
+          "id": "QL-003",
+          "text": "Count the factors of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Sum Of Factors",
+      "entries": [
+        {
+          "id": "QL-004",
+          "text": "Find the sum of all factors of {number}."
+        },
+        {
+          "id": "QL-005",
+          "text": "What is the sum of the factors of {number}?"
+        },
+        {
+          "id": "QL-006",
+          "text": "Add all factors of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Product Of Factors",
+      "entries": [
+        {
+          "id": "QL-007",
+          "text": "Find the product of all factors of {number}."
+        },
+        {
+          "id": "QL-008",
+          "text": "What is the product of the factors of {number}?"
+        },
+        {
+          "id": "QL-009",
+          "text": "Multiply all factors of {number}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Odd Or Even Number Of Factors",
+      "entries": [
+        {
+          "id": "QL-010",
+          "text": "Does {number} have an odd or even number of factors?"
+        },
+        {
+          "id": "QL-011",
+          "text": "Determine whether the number of factors of {number} is odd or even."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Greatest Proper Factor",
+      "entries": [
+        {
+          "id": "QL-012",
+          "text": "Find the greatest proper factor of {number}."
+        },
+        {
+          "id": "QL-013",
+          "text": "What is the largest factor of {number} excluding the number itself?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Count Factors Divisible By K",
+      "entries": [
+        {
+          "id": "QL-014",
+          "text": "How many factors of {number} are divisible by {k}?"
+        },
+        {
+          "id": "QL-015",
+          "text": "Count the factors of {number} that are divisible by {k}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Count Factors Not Divisible By K",
+      "entries": [
+        {
+          "id": "QL-016",
+          "text": "How many factors of {number} are not divisible by {k}?"
+        },
+        {
+          "id": "QL-017",
+          "text": "Count the factors of {number} that are not divisible by {k}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-008",
+      "name": "kth Smallest Factor",
+      "entries": [
+        {
+          "id": "QL-018",
+          "text": "Find the {ordinalDisplay} smallest factor of {number}."
+        },
+        {
+          "id": "QL-019",
+          "text": "What is the {ordinalDisplay} factor of {number} when factors are arranged in increasing order?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-009",
+      "name": "kth Largest Factor",
+      "entries": [
+        {
+          "id": "QL-020",
+          "text": "Find the {ordinalDisplay} largest factor of {number}."
+        },
+        {
+          "id": "QL-021",
+          "text": "What is the {ordinalDisplay} factor of {number} when factors are arranged in decreasing order?"
+        }
+      ]
+    }
+  ]
+}

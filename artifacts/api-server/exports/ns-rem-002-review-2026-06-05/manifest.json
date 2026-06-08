@@ -1,0 +1,27 @@
+{
+  "archetypeId": "NS-REM-002",
+  "generatedAt": "2026-06-05T14:48:41.832Z",
+  "humanReview": {
+    "countPerCp": 500,
+    "totalQuestions": 4500,
+    "files": [
+      "ns-rem-002-human-review-500-per-cp.csv",
+      "cp-001-human-review-500.csv",
+      "cp-002-human-review-500.csv",
+      "cp-003-human-review-500.csv",
+      "cp-004-human-review-500.csv",
+      "cp-005-human-review-500.csv",
+      "cp-006-human-review-500.csv",
+      "cp-007-human-review-500.csv",
+      "cp-008-human-review-500.csv",
+      "cp-009-human-review-500.csv"
+    ]
+  },
+  "coverageAudit": {
+    "countPerCp": 1000,
+    "files": [
+      "ns-rem-002-coverage-audit-1000-per-cp.json",
+      "ns-rem-002-coverage-audit-1000-per-cp.md"
+    ]
+  }
+}

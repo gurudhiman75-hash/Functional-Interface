@@ -1,0 +1,68 @@
+{
+  "libraryId": "NS-PRM-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-PRM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": {
+      "target": "Uniform",
+      "rule": "Rotate across approved question language entries for each CP."
+    },
+    "explanationStyles": {
+      "target": "Uniform",
+      "rule": "Rotate across approved explanation entries applicable to each CP."
+    },
+    "cp001AnswerDistribution": {
+      "answers": [
+        {
+          "answer": "Prime",
+          "targetPercent": 50
+        },
+        {
+          "answer": "Composite",
+          "targetPercent": 50
+        }
+      ],
+      "target": "50% Prime, 50% Composite",
+      "rule": "Prime and Composite answers should both appear in CP-001 audit batches. This is a coverage target, not a generation guarantee."
+    },
+    "rangeCoverage": {
+      "buckets": [
+        {
+          "bucket": "small",
+          "rangeWidth": {
+            "min": 5,
+            "max": 50
+          }
+        },
+        {
+          "bucket": "medium",
+          "rangeWidth": {
+            "min": 51,
+            "max": 250
+          }
+        },
+        {
+          "bucket": "large",
+          "rangeWidth": {
+            "min": 251,
+            "max": 1000
+          }
+        }
+      ]
+    }
+  },
+  "auditReporting": [
+    "Difficulty Distribution",
+    "Question Language Distribution",
+    "Explanation Style Distribution",
+    "CP-001 Prime/Composite Answer Distribution",
+    "Range Coverage",
+    "Position Coverage"
+  ]
+}

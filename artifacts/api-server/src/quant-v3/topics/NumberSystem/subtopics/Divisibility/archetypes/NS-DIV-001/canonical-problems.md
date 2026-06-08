@@ -30,7 +30,7 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 | Required Solver Capabilities | Must map to solver stages |
 | Required Graph Capabilities | Must map to graph node types |
 | Validation Requirements | Must map to validation specification |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ## Canonical Problem Specifications
 
@@ -45,7 +45,7 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 | Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate resolution; verification; answer production |
 | Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
 | Validation Requirements | Exactly one missing digit; approved canonical problem ownership; approved rule contract; single answer contract; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ### CP-002: Find Largest Valid Digit
 
@@ -58,7 +58,7 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 | Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate set resolution; ordered candidate selection; verification; answer production |
 | Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
 | Validation Requirements | Candidate set metadata present; largest-valid selection contract preserved; approved canonical problem ownership; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ### CP-003: Find Smallest Valid Digit
 
@@ -71,7 +71,7 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 | Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate set resolution; ordered candidate selection; verification; answer production |
 | Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
 | Validation Requirements | Candidate set metadata present; smallest-valid selection contract preserved; approved canonical problem ownership; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ### CP-004: Count Valid Digits
 
@@ -84,7 +84,7 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 | Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate set resolution; count aggregation; verification; answer production |
 | Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
 | Validation Requirements | Candidate set metadata present; count output contract preserved; approved canonical problem ownership; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ### CP-005: Sum Of Valid Digits
 
@@ -97,33 +97,33 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 | Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate set resolution; sum aggregation; verification; answer production |
 | Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
 | Validation Requirements | Candidate set metadata present; sum output contract preserved; approved canonical problem ownership; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
-### CP-006: Product Of Valid Digits
+### CP-006: Form Greatest Valid Number
 
 | Field | Value |
 | --- | --- |
 | ID | CP-006 |
-| Name | Product Of Valid Digits |
-| Mission | Determine the product of all digits that satisfy the reviewed single-missing-digit divisibility structure. |
-| Expected Output Type | Product |
-| Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate set resolution; product aggregation; verification; answer production |
-| Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
-| Validation Requirements | Candidate set metadata present; product output contract preserved; approved canonical problem ownership; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Name | Form Greatest Valid Number |
+| Mission | Form the greatest valid number by replacing x with the maximum digit from the valid digit set. |
+| Expected Output Type | Number |
+| Required Solver Capabilities | Problem recognition; divisor recognition; rule selection; candidate generation; valid digit identification; maximum selection; number formation |
+| Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Candidate Generation; Valid Digit Identification; Maximum Selection; Number Formation |
+| Validation Requirements | Answer equals number formed using Maximum(Valid Digit Set); approved canonical problem ownership; source trace preserved |
+| Review Status | IMPLEMENTED |
 
-### CP-007: Expression Value Using Missing Digit
+### CP-007: Form Smallest Valid Number
 
 | Field | Value |
 | --- | --- |
 | ID | CP-007 |
-| Name | Expression Value Using Missing Digit |
-| Mission | Determine the requested expression value after resolving the reviewed missing digit contract. |
-| Expected Output Type | Expression value |
-| Required Solver Capabilities | Problem recognition; constraint extraction; rule selection; condition construction; candidate resolution; expression output mapping; verification; answer production |
-| Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Condition Construction; Candidate Evaluation; Verification; Answer Production |
-| Validation Requirements | Missing digit resolution metadata present; expression output contract preserved; approved canonical problem ownership; source trace preserved |
-| Review Status | PENDING HUMAN REVIEW |
+| Name | Form Smallest Valid Number |
+| Mission | Form the smallest valid number by replacing x with the minimum digit from the valid digit set. |
+| Expected Output Type | Number |
+| Required Solver Capabilities | Problem recognition; divisor recognition; rule selection; candidate generation; valid digit identification; minimum selection; number formation |
+| Required Graph Capabilities | Problem Recognition; Divisor Recognition; Rule Selection; Candidate Generation; Valid Digit Identification; Minimum Selection; Number Formation |
+| Validation Requirements | Answer equals number formed using Minimum(Valid Digit Set); approved canonical problem ownership; source trace preserved |
+| Review Status | IMPLEMENTED |
 
 ## Cross-Component Interaction Contract
 
@@ -139,13 +139,13 @@ Every canonical problem in this file belongs only to NS-DIV-001 and must be impl
 
 | Check | Status | Reviewer Notes |
 | --- | --- | --- |
-| CP-001 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-002 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-003 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-004 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-005 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-006 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-007 is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
+| CP-001 is implemented | IMPLEMENTED | Runtime verified |
+| CP-002 is implemented | IMPLEMENTED | Runtime verified |
+| CP-003 is implemented | IMPLEMENTED | Runtime verified |
+| CP-004 is implemented | IMPLEMENTED | Runtime verified |
+| CP-005 is implemented | IMPLEMENTED | Runtime verified |
+| CP-006 is implemented | IMPLEMENTED | Runtime verified |
+| CP-007 is implemented | IMPLEMENTED | Runtime verified |
 | Solver mapping is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
 | Graph mapping is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
 | Validation mapping is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |

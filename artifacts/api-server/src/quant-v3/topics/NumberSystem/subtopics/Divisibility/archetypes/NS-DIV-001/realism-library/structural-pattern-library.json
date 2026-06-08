@@ -1,0 +1,148 @@
+{
+  "structuralPatterns": [
+    {
+      "patternId": "SP-3-1",
+      "length": 3,
+      "missingPosition": 1,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": []
+    },
+    {
+      "patternId": "SP-3-2",
+      "length": 3,
+      "missingPosition": 2,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-3-3",
+      "length": 3,
+      "missingPosition": 3,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-4-1",
+      "length": 4,
+      "missingPosition": 1,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": []
+    },
+    {
+      "patternId": "SP-4-2",
+      "length": 4,
+      "missingPosition": 2,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-4-3",
+      "length": 4,
+      "missingPosition": 3,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-4-4",
+      "length": 4,
+      "missingPosition": 4,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-5-1",
+      "length": 5,
+      "missingPosition": 1,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": []
+    },
+    {
+      "patternId": "SP-5-2",
+      "length": 5,
+      "missingPosition": 2,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-5-3",
+      "length": 5,
+      "missingPosition": 3,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-5-4",
+      "length": 5,
+      "missingPosition": 4,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-5-5",
+      "length": 5,
+      "missingPosition": 5,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-6-1",
+      "length": 6,
+      "missingPosition": 1,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": []
+    },
+    {
+      "patternId": "SP-6-2",
+      "length": 6,
+      "missingPosition": 2,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-6-3",
+      "length": 6,
+      "missingPosition": 3,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-6-4",
+      "length": 6,
+      "missingPosition": 4,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-6-5",
+      "length": 6,
+      "missingPosition": 5,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    },
+    {
+      "patternId": "SP-6-6",
+      "length": 6,
+      "missingPosition": 6,
+      "digitPool": "0-9",
+      "repetitionPolicy": "Allowed",
+      "fixedPositionConstraints": [{ "position": 1, "operator": "!=", "value": 0 }]
+    }
+  ]
+}

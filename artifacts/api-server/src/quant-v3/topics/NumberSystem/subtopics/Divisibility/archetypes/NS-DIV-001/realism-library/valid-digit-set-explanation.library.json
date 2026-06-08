@@ -1,0 +1,51 @@
+{
+  "styles": [
+    {
+      "id": "EX-001",
+      "template": [
+        "For divisibility by {divisor}, {ruleText}.",
+        "The valid digits are:",
+        "{validDigitList}",
+        "Therefore, {conclusion}."
+      ]
+    },
+    {
+      "id": "EX-002",
+      "template": [
+        "Applying the divisibility rule for {divisor}, we obtain the valid digits:",
+        "{validDigitList}",
+        "Hence, {conclusion}."
+      ]
+    },
+    {
+      "id": "EX-003",
+      "template": [
+        "The digits satisfying the divisibility condition are:",
+        "{validDigitList}",
+        "So, {conclusion}."
+      ]
+    }
+  ],
+  "conclusions": [
+    {
+      "canonicalProblemId": "CP-003",
+      "text": "The smallest valid digit is {answer}."
+    },
+    {
+      "canonicalProblemId": "CP-004",
+      "text": "The number of valid digits is {answer}."
+    },
+    {
+      "canonicalProblemId": "CP-005",
+      "text": "The sum of the valid digits is {answer}."
+    },
+    {
+      "canonicalProblemId": "CP-006",
+      "text": "The greatest valid number is {answer}."
+    },
+    {
+      "canonicalProblemId": "CP-007",
+      "text": "The smallest valid number is {answer}."
+    }
+  ]
+}

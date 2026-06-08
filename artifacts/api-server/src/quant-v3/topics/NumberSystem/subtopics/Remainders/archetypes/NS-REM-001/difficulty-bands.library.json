@@ -1,0 +1,54 @@
+{
+  "libraryId": "NS-REM-001-DIFFICULTY-BANDS",
+  "archetypeId": "NS-REM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "APPROVED",
+  "bands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "thresholds": {
+        "numberLengthMax": 4,
+        "divisorMax": 10,
+        "validSetSizeMax": 1,
+        "numberFormationRequired": false,
+        "targetRemainderComplexity": "LOW"
+      }
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "thresholds": {
+        "numberLengthMin": 4,
+        "numberLengthMax": 5,
+        "divisorMin": 6,
+        "divisorMax": 30,
+        "validSetSizeMin": 2,
+        "validSetSizeMax": 4,
+        "numberFormationRequired": false,
+        "targetRemainderComplexity": "MEDIUM"
+      }
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "thresholds": {
+        "numberLengthMin": 5,
+        "divisorMin": 20,
+        "validSetSizeMin": 2,
+        "numberFormationRequired": true,
+        "targetRemainderComplexity": "HIGH"
+      }
+    }
+  ],
+  "difficultyDrivers": [
+    "Number Length",
+    "Divisor Complexity",
+    "Target Remainder Complexity",
+    "Valid Set Size",
+    "Number Formation Requirement",
+    "Missing Position",
+    "Prime Divisor",
+    "Composite Divisor"
+  ]
+}

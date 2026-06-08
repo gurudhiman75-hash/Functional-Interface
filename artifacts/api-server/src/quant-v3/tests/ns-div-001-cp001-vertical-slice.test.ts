@@ -3,6 +3,7 @@ import {
   FORBIDDEN_EXPLANATION_LANGUAGE,
   FORBIDDEN_STEM_LANGUAGE,
   containsForbiddenLanguage,
+  isNsDiv001RenderedQuestionLanguage,
   runNsDiv001Cp001Pipeline,
 } from "../topics/NumberSystem/subtopics/Divisibility/archetypes/NS-DIV-001";
 
@@ -11,6 +12,7 @@ const questionPackage = runNsDiv001Cp001Pipeline({ seed: "phase-6-reference-slic
 assert.equal(questionPackage.archetypeId, "NS-DIV-001");
 assert.equal(questionPackage.canonicalProblemId, "CP-001");
 assert.ok(questionPackage.reasoningPatternId.startsWith("RP-"));
+assert.ok(questionPackage.questionLanguageId.startsWith("QL-"));
 assert.equal(questionPackage.validation.valid, true);
 assert.equal(questionPackage.solver.validCandidates.length, 1);
 assert.equal(questionPackage.answer, questionPackage.solver.answerDigit);
@@ -30,7 +32,17 @@ assert.deepEqual(
 );
 assert.equal(questionPackage.explanation.graphId, questionPackage.reasoningGraph.graphId);
 assert.ok(questionPackage.explanation.variantId.startsWith("Variant "));
-assert.ok(questionPackage.stem.includes(questionPackage.parameters.numberExpression));
+assert.ok(questionPackage.explanation.styleId.startsWith("ES-"));
+assert.equal(
+  isNsDiv001RenderedQuestionLanguage({
+    familyId: questionPackage.stemFamilyId,
+    questionLanguageId: questionPackage.questionLanguageId,
+    stem: questionPackage.stem,
+    number: questionPackage.parameters.numberExpression,
+    divisor: questionPackage.parameters.divisor,
+  }),
+  true,
+);
 assert.ok(questionPackage.explanation.lines.length > 0);
 assert.deepEqual(containsForbiddenLanguage(questionPackage.stem, FORBIDDEN_STEM_LANGUAGE), []);
 assert.deepEqual(containsForbiddenLanguage(questionPackage.explanation.lines.join("\n"), FORBIDDEN_EXPLANATION_LANGUAGE), []);

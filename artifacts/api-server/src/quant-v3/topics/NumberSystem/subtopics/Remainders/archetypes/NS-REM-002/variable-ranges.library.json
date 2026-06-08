@@ -1,0 +1,265 @@
+{
+  "libraryId": "NS-REM-002-VARIABLE-RANGES",
+  "archetypeId": "NS-REM-002",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "foundationalRelation": "Dividend = Divisor * Quotient + Remainder",
+  "globalRules": {
+    "divisor": {
+      "min": 2,
+      "max": 100
+    },
+    "remainder": {
+      "min": 0,
+      "maxRule": "divisor - 1"
+    },
+    "quotient": {
+      "min": 1,
+      "max": 5000
+    },
+    "dividend": {
+      "minRule": "divisor * quotient + remainder",
+      "maxRule": "derived from selected divisor, quotient, and remainder"
+    },
+    "lowerBound": {
+      "min": 10,
+      "max": 10000
+    },
+    "upperBound": {
+      "min": 50,
+      "max": 50000
+    },
+    "rangeValidity": {
+      "minimumGap": 10,
+      "rule": "upperBound > lowerBound"
+    }
+  },
+  "difficultyBands": [
+    {
+      "id": "DB-001",
+      "name": "Easy",
+      "divisorRange": {
+        "min": 2,
+        "max": 20
+      },
+      "quotientRange": {
+        "min": 1,
+        "max": 50
+      },
+      "dividendRange": {
+        "min": 2,
+        "max": 1050
+      },
+      "lowerBoundRange": {
+        "min": 10,
+        "max": 200
+      },
+      "upperBoundRange": {
+        "min": 50,
+        "max": 500
+      },
+      "remainderRangeRule": "0 to divisor - 1"
+    },
+    {
+      "id": "DB-002",
+      "name": "Medium",
+      "divisorRange": {
+        "min": 2,
+        "max": 50
+      },
+      "quotientRange": {
+        "min": 10,
+        "max": 500
+      },
+      "dividendRange": {
+        "min": 20,
+        "max": 25049
+      },
+      "lowerBoundRange": {
+        "min": 100,
+        "max": 2000
+      },
+      "upperBoundRange": {
+        "min": 500,
+        "max": 10000
+      },
+      "remainderRangeRule": "0 to divisor - 1"
+    },
+    {
+      "id": "DB-003",
+      "name": "Hard",
+      "divisorRange": {
+        "min": 2,
+        "max": 100
+      },
+      "quotientRange": {
+        "min": 100,
+        "max": 5000
+      },
+      "dividendRange": {
+        "min": 200,
+        "max": 500099
+      },
+      "lowerBoundRange": {
+        "min": 1000,
+        "max": 10000
+      },
+      "upperBoundRange": {
+        "min": 5000,
+        "max": 50000
+      },
+      "remainderRangeRule": "0 to divisor - 1"
+    }
+  ],
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Find Dividend",
+      "topology": "Direct Reconstruction",
+      "educationalObjective": "Recover the dividend from divisor, quotient, and remainder.",
+      "inputs": ["divisor", "quotient", "remainder"],
+      "outputs": ["dividend"],
+      "variableUniverse": {
+        "divisor": "difficulty band divisor range",
+        "quotient": "difficulty band quotient range",
+        "remainder": "0 to divisor - 1",
+        "dividend": "derived"
+      },
+      "difficultyDrivers": ["divisor size", "quotient size", "multiplication size"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "remainder exposure", "quotient range exposure"]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Find Smallest Number Satisfying Remainder Condition",
+      "topology": "Bounded Search",
+      "educationalObjective": "Find the first number above a lower bound that satisfies a remainder condition.",
+      "inputs": ["divisor", "remainder", "lowerBound"],
+      "outputs": ["smallestNumber"],
+      "variableUniverse": {
+        "divisor": "difficulty band divisor range",
+        "remainder": "0 to divisor - 1",
+        "lowerBound": "difficulty band lower bound range"
+      },
+      "difficultyDrivers": ["divisor size", "remainder value", "lower bound size", "distance to next valid number"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "remainder exposure", "lower bound exposure"]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Find Greatest Number Satisfying Remainder Condition",
+      "topology": "Bounded Search",
+      "educationalObjective": "Find the last number below an upper bound that satisfies a remainder condition.",
+      "inputs": ["divisor", "remainder", "upperBound"],
+      "outputs": ["greatestNumber"],
+      "variableUniverse": {
+        "divisor": "difficulty band divisor range",
+        "remainder": "0 to divisor - 1",
+        "upperBound": "difficulty band upper bound range"
+      },
+      "difficultyDrivers": ["divisor size", "remainder value", "upper bound size", "distance to previous valid number"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "remainder exposure", "upper bound exposure"]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Count Numbers Satisfying Remainder Condition",
+      "topology": "Range Counting",
+      "educationalObjective": "Count all numbers in a bounded range that satisfy a remainder condition.",
+      "inputs": ["divisor", "remainder", "lowerBound", "upperBound"],
+      "outputs": ["count"],
+      "variableUniverse": {
+        "divisor": "difficulty band divisor range",
+        "remainder": "0 to divisor - 1",
+        "lowerBound": "difficulty band lower bound range",
+        "upperBound": "difficulty band upper bound range"
+      },
+      "difficultyDrivers": ["range width", "divisor size", "first valid number", "last valid number"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "remainder exposure", "lower and upper bound exposure", "non-empty valid ranges"]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Sum Numbers Satisfying Remainder Condition",
+      "topology": "Range Summation",
+      "educationalObjective": "Sum all numbers in a bounded range that satisfy a remainder condition.",
+      "inputs": ["divisor", "remainder", "lowerBound", "upperBound"],
+      "outputs": ["sum"],
+      "variableUniverse": {
+        "divisor": "difficulty band divisor range",
+        "remainder": "0 to divisor - 1",
+        "lowerBound": "difficulty band lower bound range",
+        "upperBound": "difficulty band upper bound range"
+      },
+      "difficultyDrivers": ["range width", "divisor size", "term count", "arithmetic progression sum size"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "remainder exposure", "lower and upper bound exposure", "non-empty valid ranges"]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Find Missing Divisor",
+      "topology": "Missing Component",
+      "educationalObjective": "Recover the divisor from dividend, quotient, and remainder.",
+      "inputs": ["dividend", "quotient", "remainder"],
+      "outputs": ["divisor"],
+      "variableUniverse": {
+        "dividend": "derived from valid divisor, quotient, and remainder",
+        "quotient": "difficulty band quotient range",
+        "remainder": "0 to divisor - 1"
+      },
+      "difficultyDrivers": ["dividend size", "quotient size", "division exactness"],
+      "coverageRequirements": ["all difficulty bands", "divisor output bands", "quotient range exposure", "remainder exposure"]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Find Missing Quotient",
+      "topology": "Missing Component",
+      "educationalObjective": "Recover the quotient from dividend, divisor, and remainder.",
+      "inputs": ["dividend", "divisor", "remainder"],
+      "outputs": ["quotient"],
+      "variableUniverse": {
+        "dividend": "derived from valid divisor, quotient, and remainder",
+        "divisor": "difficulty band divisor range",
+        "remainder": "0 to divisor - 1"
+      },
+      "difficultyDrivers": ["dividend size", "divisor size", "division exactness"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "quotient output ranges", "remainder exposure"]
+    },
+    {
+      "cpId": "CP-008",
+      "name": "Find Missing Remainder",
+      "topology": "Missing Component",
+      "educationalObjective": "Recover the remainder from dividend, divisor, and quotient.",
+      "inputs": ["dividend", "divisor", "quotient"],
+      "outputs": ["remainder"],
+      "variableUniverse": {
+        "dividend": "derived from valid divisor, quotient, and remainder",
+        "divisor": "difficulty band divisor range",
+        "quotient": "difficulty band quotient range"
+      },
+      "difficultyDrivers": ["dividend size", "divisor size", "quotient size", "remainder validity"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "quotient range exposure", "remainder output exposure"]
+    },
+    {
+      "cpId": "CP-009",
+      "name": "Find Missing Dividend",
+      "topology": "Direct Reconstruction",
+      "educationalObjective": "Recover the dividend from divisor, quotient, and remainder.",
+      "inputs": ["divisor", "quotient", "remainder"],
+      "outputs": ["dividend"],
+      "variableUniverse": {
+        "divisor": "difficulty band divisor range",
+        "quotient": "difficulty band quotient range",
+        "remainder": "0 to divisor - 1",
+        "dividend": "derived"
+      },
+      "difficultyDrivers": ["divisor size", "quotient size", "multiplication size"],
+      "coverageRequirements": ["all difficulty bands", "divisor bands", "remainder exposure", "quotient range exposure"]
+    }
+  ],
+  "removedCanonicalProblems": [
+    {
+      "cpId": "CP-010",
+      "status": "REMOVED"
+    },
+    {
+      "cpId": "CP-011",
+      "status": "REMOVED"
+    }
+  ]
+}

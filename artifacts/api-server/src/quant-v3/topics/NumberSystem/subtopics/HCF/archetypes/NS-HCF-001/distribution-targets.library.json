@@ -1,0 +1,100 @@
+{
+  "libraryId": "NS-HCF-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-HCF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": {
+      "target": "Uniform",
+      "rule": "Rotate across approved question language entries for each CP."
+    },
+    "stemFamilies": {
+      "target": "Uniform",
+      "rule": "Rotate across approved stem families applicable to each CP so large human-review batches do not feel repetitive.",
+      "categories": [
+        "direct",
+        "alternative_terminology",
+        "statement_style",
+        "applied_numeric_style",
+        "exam_style",
+        "constraint_reconstruction",
+        "contextual_application"
+      ]
+    },
+    "explanationLanguage": {
+      "target": "Uniform",
+      "rule": "Rotate across approved explanation families applicable to each CP.",
+      "categories": [
+        "step_by_step",
+        "compact",
+        "formula_first",
+        "concept_first"
+      ]
+    },
+    "operandCount": {
+      "target": "Balanced",
+      "categories": ["two_number", "three_number"]
+    },
+    "contextFamilies": {
+      "target": "Balanced",
+      "appliesTo": ["CP-004"],
+      "categories": [
+        "fruits",
+        "students",
+        "books",
+        "notebooks",
+        "pencils",
+        "packets",
+        "boxes",
+        "bundles",
+        "rows",
+        "chairs",
+        "teams",
+        "classrooms",
+        "distribution",
+        "packing",
+        "grouping"
+      ]
+    },
+    "constraintFamilies": {
+      "target": "Balanced",
+      "appliesTo": ["CP-003"],
+      "categories": [
+        "candidate_set",
+        "closed_range",
+        "allowed_multiplier",
+        "divisibility_constraint",
+        "arithmetic_constraint"
+      ]
+    },
+    "hcfValueCoverage": {
+      "target": "Required",
+      "categories": ["hcf_equals_1", "hcf_greater_than_1"]
+    },
+    "hcfStructureCoverage": {
+      "target": "Required",
+      "categories": ["prime_power_hcf", "mixed_prime_hcf"]
+    }
+  },
+  "auditReporting": [
+    "Difficulty Distribution",
+    "Canonical Problem Distribution",
+    "Question Language Distribution",
+    "Stem Family Distribution",
+    "Explanation Language Distribution",
+    "Explanation Family Distribution",
+    "Operand Count Distribution",
+    "HCF Equals 1 Coverage",
+    "HCF Greater Than 1 Coverage",
+    "Prime-Power HCF Coverage",
+    "Mixed-Prime HCF Coverage",
+    "CP-003 Constraint Family Distribution",
+    "CP-004 Context Family Distribution",
+    "MathJax Object Coverage"
+  ]
+}

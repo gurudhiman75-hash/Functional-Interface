@@ -1,0 +1,109 @@
+{
+  "libraryId": "NS-HL-001-EXPLANATION",
+  "archetypeId": "NS-HL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "PHASE_B_READY_FOR_REVIEW",
+  "style": "SSC, Banking, Railway, CDS, CAPF and State PCS",
+  "runtimePolicy": {
+    "may": ["load", "validate", "select", "substitute", "render", "audit"],
+    "mayNot": ["generate educational wording", "invent explanations", "rewrite approved explanation text"]
+  },
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "productRelationLatex",
+      "divisibilityCheckLatex",
+      "productRelationCheckLatex",
+      "missingNumberFormulaLatex",
+      "hcfVerificationLatex",
+      "lcmVerificationLatex",
+      "quotientLatex",
+      "factorPairListLatex",
+      "coprimePairFilterLatex",
+      "conditionFilterLatex",
+      "reconstructedPairLatex",
+      "factorPairCountLatex",
+      "orderedPairPolicyLatex",
+      "unorderedPairPolicyLatex",
+      "ratioReductionLatex",
+      "ratioMultiplierLatex",
+      "hcfMultiplierLatex",
+      "lcmMultiplierLatex",
+      "consistencyCheckLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Product Relation Applications",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "For two numbers, the product of the numbers is equal to HCF multiplied by LCM.\n\n{productRelationLatex}\n\nSubstitute the given values and simplify.\n\nHence the product of the two numbers is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "HCF-LCM Validity Check",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "validityCase": "valid",
+          "text": "First check whether the HCF can divide the LCM exactly.\n\n{divisibilityCheckLatex}\n\nNow check the product relation, wherever it is required.\n\n{productRelationCheckLatex}\n\nThe given values satisfy all required conditions.\n\nTherefore, the combination is valid."
+        },
+        {
+          "id": "ES-003",
+          "validityCase": "invalid",
+          "text": "First check whether the HCF can divide the LCM exactly.\n\n{divisibilityCheckLatex}\n\nNow check the product relation, wherever it is required.\n\n{productRelationCheckLatex}\n\nThe given values do not satisfy the required condition.\n\nTherefore, the combination is invalid."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Missing Number From HCF, LCM And One Number",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "Use the relation between the two numbers, their HCF, and their LCM.\n\n{productRelationLatex}\n\nSince one number is known, divide the product by that number.\n\n{missingNumberFormulaLatex}\n\nNow verify the HCF and LCM of the two numbers.\n\n{hcfVerificationLatex}\n\n{lcmVerificationLatex}\n\nHence the required number is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Number Pair Reconstruction",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Divide the LCM by the HCF to get the product of the reduced multipliers.\n\n{quotientLatex}\n\nList the factor pairs of this value.\n\n{factorPairListLatex}\n\nKeep only those pairs whose two parts are co-prime.\n\n{coprimePairFilterLatex}\n\nNow apply the condition given in the question.\n\n{conditionFilterLatex}\n\nMultiply the selected reduced pair by the HCF.\n\n{reconstructedPairLatex}\n\nHence the required pair is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Count Possible Number Pairs",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "Divide the LCM by the HCF.\n\n{quotientLatex}\n\nNow count the factor pairs of this value.\n\n{factorPairCountLatex}\n\nOnly co-prime reduced pairs can give the required HCF and LCM.\n\n{coprimePairFilterLatex}\n\nApply the ordered-pair rule if the question asks for ordered pairs.\n\n{orderedPairPolicyLatex}\n\nApply the unordered-pair rule if the question asks for unordered pairs.\n\n{unorderedPairPolicyLatex}\n\nTherefore, the number of possible pairs is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Ratio-Based Number Reconstruction",
+      "appliesTo": ["CP-006"],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "First reduce the given ratio, if needed.\n\n{ratioReductionLatex}\n\nWrite the two numbers using a common multiplier.\n\n{ratioMultiplierLatex}\n\nUse the HCF information, if it is given.\n\n{hcfMultiplierLatex}\n\nUse the LCM information, if it is given.\n\n{lcmMultiplierLatex}\n\nCheck that the given HCF and LCM information agree.\n\n{consistencyCheckLatex}\n\nNow form the two numbers.\n\n{reconstructedPairLatex}\n\nHence the numbers are {answer}."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "libraryId": "NS-LCM-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-LCM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": {
+      "target": "Uniform"
+    },
+    "explanationLanguage": {
+      "target": "Uniform"
+    },
+    "cp002ContextFamilies": {
+      "target": "Uniform",
+      "categories": ["bells", "lights", "alarms", "runners", "machines", "buses", "trains", "traffic_signals", "sprinklers", "cleaning_schedules"]
+    },
+    "cp003UniquenessFamilies": {
+      "target": "Uniform",
+      "categories": ["candidate_list", "bounded_range", "divisibility_condition", "arithmetic_condition"]
+    },
+    "exactLcmMatch": {
+      "target": "Required for CP-003",
+      "rule": "Audit reporting must show whether candidate values exactly produce the required target LCM."
+    }
+  },
+  "auditReporting": [
+    "Difficulty Distribution",
+    "Question Language Distribution",
+    "Explanation Language Distribution",
+    "CP-002 Context Family Distribution",
+    "CP-003 Family Distribution",
+    "Exact LCM Match Coverage",
+    "Operand Count Coverage",
+    "LCM Size Coverage",
+    "Range Width Coverage",
+    "Threshold Multiple Coverage"
+  ]
+}

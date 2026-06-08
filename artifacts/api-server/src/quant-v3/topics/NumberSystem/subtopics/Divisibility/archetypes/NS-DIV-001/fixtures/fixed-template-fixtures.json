@@ -1,0 +1,32 @@
+{
+  "roles": ["Regression Fixtures", "Audit Fixtures", "Reference Examples", "Solver Validation Cases"],
+  "templates": [
+    "x24",
+    "2x4",
+    "24x",
+    "x724",
+    "7x24",
+    "72x4",
+    "724x",
+    "5x728",
+    "57x28",
+    "572x8",
+    "5728x",
+    "x7384",
+    "8x396",
+    "83x96",
+    "839x6",
+    "8396x",
+    "x2849",
+    "2x849",
+    "28x49",
+    "284x9",
+    "2849x",
+    "x72849",
+    "7x2849",
+    "72x849",
+    "728x49",
+    "7284x9",
+    "72849x"
+  ]
+}

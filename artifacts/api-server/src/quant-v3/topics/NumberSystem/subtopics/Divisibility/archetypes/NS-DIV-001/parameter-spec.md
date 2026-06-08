@@ -44,7 +44,7 @@ This document contains no values, generation logic, questions, stems, explanatio
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
 | Validation Constraints | Exactly one missing digit; single-digit output contract; source trace preserved; canonical ownership preserved |
 | Expected Output Type | Single digit |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ## CP-002: Find Largest Valid Digit
 
@@ -58,7 +58,7 @@ This document contains no values, generation logic, questions, stems, explanatio
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
 | Validation Constraints | Candidate set metadata present; largest-valid selection contract preserved; source trace preserved; canonical ownership preserved |
 | Expected Output Type | Single digit selected by largest-valid criterion |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ## CP-003: Find Smallest Valid Digit
 
@@ -72,7 +72,7 @@ This document contains no values, generation logic, questions, stems, explanatio
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
 | Validation Constraints | Candidate set metadata present; smallest-valid selection contract preserved; source trace preserved; canonical ownership preserved |
 | Expected Output Type | Single digit selected by smallest-valid criterion |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ## CP-004: Count Valid Digits
 
@@ -86,7 +86,7 @@ This document contains no values, generation logic, questions, stems, explanatio
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
 | Validation Constraints | Candidate set metadata present; count aggregation contract preserved; source trace preserved; canonical ownership preserved |
 | Expected Output Type | Count |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
 ## CP-005: Sum Of Valid Digits
 
@@ -100,35 +100,35 @@ This document contains no values, generation logic, questions, stems, explanatio
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
 | Validation Constraints | Candidate set metadata present; sum aggregation contract preserved; source trace preserved; canonical ownership preserved |
 | Expected Output Type | Sum |
-| Review Status | PENDING HUMAN REVIEW |
+| Review Status | IMPLEMENTED |
 
-## CP-006: Product Of Valid Digits
+## CP-006: Form Greatest Valid Number
 
 | Field | Specification |
 | --- | --- |
 | Canonical Problem ID | CP-006 |
-| Mission | Resolve the product of valid digits from the approved candidate set. |
-| Required Parameters | Missing digit slot metadata; number expression metadata; divisibility constraint metadata; candidate domain contract; aggregation contract; output request metadata; source reference IDs |
+| Mission | Resolve the greatest valid number by replacing x with the maximum digit from the valid digit set. |
+| Required Parameters | Missing digit slot metadata; number expression metadata; divisibility constraint metadata; candidate domain contract; valid digit set contract; number formation contract; source reference IDs |
 | Optional Parameters | Exam style profile; localization target; realism profile; difficulty control input |
-| Parameter Ownership Rules | Parameters belong to CP-006 and must preserve product output ownership |
+| Parameter Ownership Rules | Parameters belong to CP-006 and must preserve greatest valid number output ownership |
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
-| Validation Constraints | Candidate set metadata present; product aggregation contract preserved; source trace preserved; canonical ownership preserved |
-| Expected Output Type | Product |
-| Review Status | PENDING HUMAN REVIEW |
+| Validation Constraints | Candidate set metadata present; answer equals number formed using Maximum(Valid Digit Set); source trace preserved; canonical ownership preserved |
+| Expected Output Type | Number |
+| Review Status | IMPLEMENTED |
 
-## CP-007: Expression Value Using Missing Digit
+## CP-007: Form Smallest Valid Number
 
 | Field | Specification |
 | --- | --- |
 | Canonical Problem ID | CP-007 |
-| Mission | Resolve an expression value after the missing digit contract is approved by solver metadata. |
-| Required Parameters | Missing digit slot metadata; number expression metadata; divisibility constraint metadata; expression output contract; output request metadata; source reference IDs |
+| Mission | Resolve the smallest valid number by replacing x with the minimum digit from the valid digit set. |
+| Required Parameters | Missing digit slot metadata; number expression metadata; divisibility constraint metadata; candidate domain contract; valid digit set contract; number formation contract; source reference IDs |
 | Optional Parameters | Exam style profile; localization target; realism profile; difficulty control input |
-| Parameter Ownership Rules | Parameters belong to CP-007 and must preserve expression output ownership |
+| Parameter Ownership Rules | Parameters belong to CP-007 and must preserve smallest valid number output ownership |
 | Difficulty Control Inputs | PENDING HUMAN REVIEW |
-| Validation Constraints | Missing digit resolution metadata present; expression output contract preserved; source trace preserved; canonical ownership preserved |
-| Expected Output Type | Expression value |
-| Review Status | PENDING HUMAN REVIEW |
+| Validation Constraints | Candidate set metadata present; answer equals number formed using Minimum(Valid Digit Set); source trace preserved; canonical ownership preserved |
+| Expected Output Type | Number |
+| Review Status | IMPLEMENTED |
 
 ## Parameter Validation Contract
 
@@ -147,11 +147,11 @@ This document contains no values, generation logic, questions, stems, explanatio
 | Check | Status | Reviewer Notes |
 | --- | --- | --- |
 | Shared parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-001 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-002 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-003 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-004 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-005 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-006 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
-| CP-007 parameter contract is approved | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |
+| CP-001 parameter contract is implemented | IMPLEMENTED | Runtime verified |
+| CP-002 parameter contract is implemented | IMPLEMENTED | Runtime verified |
+| CP-003 parameter contract is implemented | IMPLEMENTED | Runtime verified |
+| CP-004 parameter contract is implemented | IMPLEMENTED | Runtime verified |
+| CP-005 parameter contract is implemented | IMPLEMENTED | Runtime verified |
+| CP-006 parameter contract is implemented | IMPLEMENTED | Runtime verified |
+| CP-007 parameter contract is implemented | IMPLEMENTED | Runtime verified |
 | Global parameter ownership is forbidden | PENDING HUMAN REVIEW | PENDING HUMAN REVIEW |

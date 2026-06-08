@@ -1,0 +1,85 @@
+{
+  "libraryId": "NS-REM-002-EXPLANATION",
+  "archetypeId": "NS-REM-002",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "style": "simple government-exam style",
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Direct Reconstruction",
+      "appliesTo": ["CP-001", "CP-009"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Dividend = Divisor * Quotient + Remainder\n\nSubstitute the values.\n\nAnswer:\n\n{answer}"
+        },
+        {
+          "id": "ES-002",
+          "text": "Apply the division formula.\n\nAnswer:\n\n{answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Missing Component",
+      "appliesTo": ["CP-006", "CP-007", "CP-008"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Use Dividend = Divisor * Quotient + Remainder.\n\nSubstitute the known values.\n\nAnswer:\n\n{answer}"
+        },
+        {
+          "id": "ES-004",
+          "text": "Rearrange the division formula and simplify.\n\nAnswer:\n\n{answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Bounded Search",
+      "appliesTo": ["CP-002", "CP-003"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Use the remainder condition and the given bound.\n\nThe required number is:\n\n{answer}"
+        },
+        {
+          "id": "ES-006",
+          "text": "Check numbers satisfying the remainder condition near the bound.\n\nAnswer:\n\n{answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Range Counting",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "Find the first and last numbers in the range that satisfy the remainder condition.\n\nCount them.\n\nAnswer:\n\n{answer}"
+        },
+        {
+          "id": "ES-008",
+          "text": "The valid numbers form an arithmetic sequence.\n\nCount the terms.\n\nAnswer:\n\n{answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Range Summation",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-009",
+          "text": "Find the valid numbers in the range.\n\nThey form an arithmetic sequence.\n\nSum the terms.\n\nAnswer:\n\n{answer}"
+        },
+        {
+          "id": "ES-010",
+          "text": "Use the first term, last term, and number of terms.\n\nRequired sum:\n\n{answer}"
+        }
+      ]
+    }
+  ],
+  "removedCanonicalProblems": ["CP-010", "CP-011"]
+}

@@ -1,0 +1,192 @@
+{
+  "libraryId": "NS-REM-002-QUESTION-LANGUAGE",
+  "archetypeId": "NS-REM-002",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "selfContainmentPolicy": {
+    "required": true,
+    "rule": "Every rendered question must display all givens needed to solve the CP."
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Find Dividend",
+      "topology": "Direct Reconstruction",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "A number when divided by {divisor} gives quotient {quotient} and remainder {remainder}. Find the number."
+        },
+        {
+          "id": "QL-002",
+          "text": "On dividing a number by {divisor}, the quotient is {quotient} and the remainder is {remainder}. Find the number."
+        },
+        {
+          "id": "QL-003",
+          "text": "Find the number if divisor = {divisor}, quotient = {quotient}, and remainder = {remainder}."
+        },
+        {
+          "id": "QL-004",
+          "text": "Find the dividend.\n\nDivisor = {divisor}\n\nQuotient = {quotient}\n\nRemainder = {remainder}"
+        },
+        {
+          "id": "QL-005",
+          "text": "Dividend = ?\n\nDivisor = {divisor}\n\nQuotient = {quotient}\n\nRemainder = {remainder}"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Find Smallest Number Satisfying Remainder Condition",
+      "topology": "Bounded Search",
+      "entries": [
+        {
+          "id": "QL-006",
+          "text": "A number leaves remainder {remainder} when divided by {divisor}. Find the smallest such number greater than {lowerBound}."
+        },
+        {
+          "id": "QL-007",
+          "text": "Find the least number greater than {lowerBound} that leaves remainder {remainder} on division by {divisor}."
+        },
+        {
+          "id": "QL-008",
+          "text": "Which is the smallest number above {lowerBound} that gives remainder {remainder} when divided by {divisor}?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Find Greatest Number Satisfying Remainder Condition",
+      "topology": "Bounded Search",
+      "entries": [
+        {
+          "id": "QL-009",
+          "text": "A number leaves remainder {remainder} when divided by {divisor}. Find the greatest such number less than {upperBound}."
+        },
+        {
+          "id": "QL-010",
+          "text": "Find the greatest number below {upperBound} that leaves remainder {remainder} on division by {divisor}."
+        },
+        {
+          "id": "QL-011",
+          "text": "Which is the largest number less than {upperBound} that gives remainder {remainder} when divided by {divisor}?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Count Numbers Satisfying Remainder Condition",
+      "topology": "Range Counting",
+      "entries": [
+        {
+          "id": "QL-012",
+          "text": "How many numbers between {lowerBound} and {upperBound} leave remainder {remainder} when divided by {divisor}?"
+        },
+        {
+          "id": "QL-013",
+          "text": "Count the numbers from {lowerBound} to {upperBound} that give remainder {remainder} on division by {divisor}."
+        },
+        {
+          "id": "QL-014",
+          "text": "Find the number of integers between {lowerBound} and {upperBound} that leave remainder {remainder} when divided by {divisor}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Sum Numbers Satisfying Remainder Condition",
+      "topology": "Range Summation",
+      "entries": [
+        {
+          "id": "QL-015",
+          "text": "Find the sum of all numbers between {lowerBound} and {upperBound} that leave remainder {remainder} when divided by {divisor}."
+        },
+        {
+          "id": "QL-016",
+          "text": "Add all integers from {lowerBound} to {upperBound} that give remainder {remainder} on division by {divisor}."
+        },
+        {
+          "id": "QL-017",
+          "text": "What is the sum of numbers between {lowerBound} and {upperBound} whose remainder is {remainder} when divided by {divisor}?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Find Missing Divisor",
+      "topology": "Missing Component",
+      "entries": [
+        {
+          "id": "QL-018",
+          "text": "Find the divisor if dividend = {dividend}, quotient = {quotient}, and remainder = {remainder}."
+        },
+        {
+          "id": "QL-019",
+          "text": "A dividend {dividend} gives quotient {quotient} and remainder {remainder}. Determine the divisor."
+        },
+        {
+          "id": "QL-020",
+          "text": "Divisor = ?\n\nDividend = {dividend}\n\nQuotient = {quotient}\n\nRemainder = {remainder}"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Find Missing Quotient",
+      "topology": "Missing Component",
+      "entries": [
+        {
+          "id": "QL-021",
+          "text": "Find the quotient if dividend = {dividend}, divisor = {divisor}, and remainder = {remainder}."
+        },
+        {
+          "id": "QL-022",
+          "text": "A dividend {dividend} is divided by {divisor} and leaves remainder {remainder}. Determine the quotient."
+        },
+        {
+          "id": "QL-023",
+          "text": "Quotient = ?\n\nDividend = {dividend}\n\nDivisor = {divisor}\n\nRemainder = {remainder}"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-008",
+      "name": "Find Missing Remainder",
+      "topology": "Missing Component",
+      "entries": [
+        {
+          "id": "QL-024",
+          "text": "Find the remainder if dividend = {dividend}, divisor = {divisor}, and quotient = {quotient}."
+        },
+        {
+          "id": "QL-025",
+          "text": "A dividend {dividend} is divided by {divisor} and gives quotient {quotient}. Determine the remainder."
+        },
+        {
+          "id": "QL-026",
+          "text": "Remainder = ?\n\nDividend = {dividend}\n\nDivisor = {divisor}\n\nQuotient = {quotient}"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-009",
+      "name": "Find Missing Dividend",
+      "topology": "Direct Reconstruction",
+      "entries": [
+        {
+          "id": "QL-027",
+          "text": "Find the dividend if divisor = {divisor}, quotient = {quotient}, and remainder = {remainder}."
+        },
+        {
+          "id": "QL-028",
+          "text": "Determine the missing dividend when divisor = {divisor}, quotient = {quotient}, and remainder = {remainder}."
+        },
+        {
+          "id": "QL-029",
+          "text": "Dividend = ?\n\nDivisor = {divisor}\n\nQuotient = {quotient}\n\nRemainder = {remainder}"
+        }
+      ]
+    }
+  ],
+  "removedCanonicalProblems": ["CP-010", "CP-011"]
+}

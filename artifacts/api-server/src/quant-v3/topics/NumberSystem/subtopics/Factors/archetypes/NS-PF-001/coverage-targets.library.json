@@ -1,0 +1,127 @@
+{
+  "libraryId": "NS-PF-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-PF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficultyCoverage": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20,
+      "rule": "No difficulty band may be unused in a production audit batch."
+    },
+    "primeInputCoverage": {
+      "required": true,
+      "rule": "Prime input numbers must be represented in audit reporting for all applicable CPs."
+    },
+    "compositeInputCoverage": {
+      "required": true,
+      "rule": "Composite input numbers must be represented in audit reporting for all applicable CPs."
+    },
+    "primeBaseCoverage": {
+      "buckets": [
+        {
+          "bucket": "small",
+          "primeRange": {
+            "min": 2,
+            "max": 13
+          }
+        },
+        {
+          "bucket": "medium",
+          "primeRange": {
+            "min": 17,
+            "max": 47
+          }
+        },
+        {
+          "bucket": "large",
+          "primeRange": {
+            "min": 53,
+            "max": 199
+          }
+        }
+      ],
+      "rule": "Prime bases must be visible in audit reporting, including selected primes for CP-006 and CP-007."
+    },
+    "largestPrimeFactorCoverage": {
+      "buckets": ["same_as_number_for_prime_input", "small", "medium", "large"],
+      "rule": "CP-004 must report largest prime factor coverage, including prime inputs where the largest prime factor equals the input number."
+    },
+    "smallestPrimeFactorCoverage": {
+      "buckets": ["same_as_number_for_prime_input", "2", "3_or_5", "7_or_more"],
+      "rule": "CP-005 must report smallest prime factor coverage, including prime inputs where the smallest prime factor equals the input number."
+    },
+    "selectedPrimeCoverage": {
+      "appliesTo": ["CP-006", "CP-007"],
+      "buckets": ["small", "medium", "large"],
+      "rule": "Selected prime values must be represented in audit reporting for CP-006 and CP-007."
+    },
+    "selectedExponentCoverage": {
+      "appliesTo": ["CP-006", "CP-007"],
+      "buckets": ["1", "2", "3", "4+"],
+      "exponentZeroPolicy": {
+        "approvedPolicy": "Option A",
+        "rule": "Selected prime must divide the number. Exponent is always positive. Exponent 0 cases are not active for NS-PF-001."
+      },
+      "rule": "Selected exponent values must be represented in audit reporting for CP-006 and CP-007."
+    },
+    "primePowerCoverage": {
+      "exponentBuckets": ["1", "2", "3", "4+"],
+      "rule": "Prime powers must include exponent 1 and repeated-prime cases over audit batches."
+    },
+    "distinctFactorCountCoverage": {
+      "buckets": ["1", "2", "3", "4+"],
+      "rule": "Distinct factor counts must be represented over audit batches."
+    },
+    "repeatedFactorCoverage": {
+      "required": true,
+      "rule": "Numbers with at least one repeated prime factor must appear in audit batches."
+    },
+    "numberShapeCoverage": {
+      "buckets": ["prime_input", "composite_input", "small_composite", "medium_composite", "large_composite", "prime_heavy", "repeated_prime", "mixed_prime"],
+      "rule": "Approved number shapes must be tracked in audit reporting."
+    },
+    "questionLanguageCoverage": {
+      "rule": "No runtime-eligible question language ID may be unused in a production audit batch."
+    },
+    "explanationCoverage": {
+      "rule": "No runtime-eligible explanation style ID may be unused in a production audit batch."
+    }
+  },
+  "deadZonePolicy": {
+    "noEducationalDeadZones": true,
+    "noUnusedMandatoryCategories": true,
+    "runtimeMustReportUnusedMandatoryCategories": true
+  },
+  "canonicalProblemCoverage": [
+    {
+      "cpId": "CP-001",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "primePowerCoverage", "distinctFactorCountCoverage", "repeatedFactorCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-002",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "primePowerCoverage", "repeatedFactorCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-003",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "distinctFactorCountCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-004",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "largestPrimeFactorCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-005",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "smallestPrimeFactorCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-006",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "selectedPrimeCoverage", "selectedExponentCoverage", "primePowerCoverage", "repeatedFactorCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    },
+    {
+      "cpId": "CP-007",
+      "requiredCoverage": ["difficultyCoverage", "primeInputCoverage", "compositeInputCoverage", "primeBaseCoverage", "selectedPrimeCoverage", "selectedExponentCoverage", "primePowerCoverage", "repeatedFactorCoverage", "questionLanguageCoverage", "explanationCoverage"]
+    }
+  ]
+}

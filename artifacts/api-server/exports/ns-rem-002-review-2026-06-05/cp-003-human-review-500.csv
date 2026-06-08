@@ -1,0 +1,2501 @@
+"Question ID","Canonical Problem","Difficulty","Topology","Question Language ID","Explanation Style ID","Question","Answer","Explanation","Divisor","Remainder","Quotient","Dividend","Lower Bound","Upper Bound"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:0","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 352 that gives remainder 1 when divided by 4?","349","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+349","4","1","","","","352"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:1","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 6716 that leaves remainder 8 on division by 29.","6707","Use the remainder condition and the given bound.
+
+The required number is:
+
+6707","29","8","","","","6716"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:2","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 419 that gives remainder 5 when divided by 10?","415","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+415","10","5","","","","419"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:3","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 4385 that gives remainder 8 when divided by 40?","4368","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4368","40","8","","","","4385"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:4","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 356 that leaves remainder 6 on division by 19.","348","Use the remainder condition and the given bound.
+
+The required number is:
+
+348","19","6","","","","356"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:5","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 4109 that leaves remainder 2 on division by 5.","4107","Use the remainder condition and the given bound.
+
+The required number is:
+
+4107","5","2","","","","4109"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:6","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 10 when divided by 11. Find the greatest such number less than 4173.","4168","Use the remainder condition and the given bound.
+
+The required number is:
+
+4168","11","10","","","","4173"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:7","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 1279 that gives remainder 8 when divided by 14?","1268","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1268","14","8","","","","1279"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:8","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 9 when divided by 84. Find the greatest such number less than 7176.","7149","Use the remainder condition and the given bound.
+
+The required number is:
+
+7149","84","9","","","","7176"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:9","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 24054 that leaves remainder 28 on division by 54.","24004","Use the remainder condition and the given bound.
+
+The required number is:
+
+24004","54","28","","","","24054"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:10","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 16. Find the greatest such number less than 340.","336","Use the remainder condition and the given bound.
+
+The required number is:
+
+336","16","0","","","","340"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:11","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 5677 that leaves remainder 17 on division by 47.","5657","Use the remainder condition and the given bound.
+
+The required number is:
+
+5657","47","17","","","","5677"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:12","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 238 that gives remainder 7 when divided by 17?","228","Use the remainder condition and the given bound.
+
+The required number is:
+
+228","17","7","","","","238"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:13","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 6. Find the greatest such number less than 128.","123","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+123","6","3","","","","128"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:14","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 298 that leaves remainder 8 on division by 11.","294","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+294","11","8","","","","298"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:15","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 10 when divided by 11. Find the greatest such number less than 9971.","9965","Use the remainder condition and the given bound.
+
+The required number is:
+
+9965","11","10","","","","9971"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:16","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 15824 that gives remainder 18 when divided by 21?","15810","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+15810","21","18","","","","15824"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:17","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 4032 that gives remainder 4 when divided by 15?","4024","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4024","15","4","","","","4032"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:18","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 23797 that leaves remainder 1 on division by 87.","23752","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+23752","87","1","","","","23797"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:19","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 11 when divided by 12. Find the greatest such number less than 499.","491","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+491","12","11","","","","499"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:20","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 6657 that gives remainder 3 when divided by 33?","6636","Use the remainder condition and the given bound.
+
+The required number is:
+
+6636","33","3","","","","6657"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:21","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 24 when divided by 62. Find the greatest such number less than 8174.","8146","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8146","62","24","","","","8174"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:22","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 13. Find the greatest such number less than 4065.","4060","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4060","13","4","","","","4065"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:23","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 2723 that leaves remainder 0 on division by 2.","2722","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2722","2","0","","","","2723"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:24","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 11 when divided by 15. Find the greatest such number less than 289.","281","Use the remainder condition and the given bound.
+
+The required number is:
+
+281","15","11","","","","289"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:25","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 175 that leaves remainder 8 on division by 10.","168","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+168","10","8","","","","175"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:26","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 86 that leaves remainder 1 on division by 3.","85","Use the remainder condition and the given bound.
+
+The required number is:
+
+85","3","1","","","","86"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:27","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 12. Find the greatest such number less than 5459.","5450","Use the remainder condition and the given bound.
+
+The required number is:
+
+5450","12","2","","","","5459"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:28","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 3980 that gives remainder 4 when divided by 15?","3979","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3979","15","4","","","","3980"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:29","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 3265 that leaves remainder 24 on division by 35.","3244","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3244","35","24","","","","3265"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:30","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 10 when divided by 12. Find the greatest such number less than 348.","346","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+346","12","10","","","","348"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:31","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 5726 that leaves remainder 1 on division by 8.","5721","Use the remainder condition and the given bound.
+
+The required number is:
+
+5721","8","1","","","","5726"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:32","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 17. Find the greatest such number less than 176.","171","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+171","17","1","","","","176"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:33","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 22302 that gives remainder 49 when divided by 67?","22293","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+22293","67","49","","","","22302"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:34","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 36852 that leaves remainder 8 on division by 67.","36791","Use the remainder condition and the given bound.
+
+The required number is:
+
+36791","67","8","","","","36852"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:35","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 9 when divided by 12. Find the greatest such number less than 212.","201","Use the remainder condition and the given bound.
+
+The required number is:
+
+201","12","9","","","","212"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:36","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 4074 that gives remainder 1 when divided by 15?","4066","Use the remainder condition and the given bound.
+
+The required number is:
+
+4066","15","1","","","","4074"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:37","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 2888 that leaves remainder 6 on division by 37.","2855","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2855","37","6","","","","2888"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:38","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 35646 that leaves remainder 20 on division by 35.","35615","Use the remainder condition and the given bound.
+
+The required number is:
+
+35615","35","20","","","","35646"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:39","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 1 when divided by 38. Find the greatest such number less than 1403.","1369","Use the remainder condition and the given bound.
+
+The required number is:
+
+1369","38","1","","","","1403"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:40","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 2 when divided by 7. Find the greatest such number less than 54.","51","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+51","7","2","","","","54"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:41","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 67 when divided by 83. Find the greatest such number less than 29438.","29366","Use the remainder condition and the given bound.
+
+The required number is:
+
+29366","83","67","","","","29438"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:42","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 27655 that gives remainder 15 when divided by 30?","27645","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+27645","30","15","","","","27655"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:43","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 73 when divided by 95. Find the greatest such number less than 38683.","38643","Use the remainder condition and the given bound.
+
+The required number is:
+
+38643","95","73","","","","38683"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:44","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 19 when divided by 34. Find the greatest such number less than 7938.","7907","Use the remainder condition and the given bound.
+
+The required number is:
+
+7907","34","19","","","","7938"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:45","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 190 that gives remainder 6 when divided by 20?","186","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+186","20","6","","","","190"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:46","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 14888 that leaves remainder 55 on division by 83.","14829","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+14829","83","55","","","","14888"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:47","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 55 that leaves remainder 0 on division by 12.","48","Use the remainder condition and the given bound.
+
+The required number is:
+
+48","12","0","","","","55"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:48","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 540 that leaves remainder 27 on division by 31.","523","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+523","31","27","","","","540"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:49","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 170 that gives remainder 1 when divided by 9?","163","Use the remainder condition and the given bound.
+
+The required number is:
+
+163","9","1","","","","170"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:50","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 7. Find the greatest such number less than 193.","186","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+186","7","4","","","","193"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:51","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 43689 that leaves remainder 0 on division by 35.","43680","Use the remainder condition and the given bound.
+
+The required number is:
+
+43680","35","0","","","","43689"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:52","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 10. Find the greatest such number less than 116.","112","Use the remainder condition and the given bound.
+
+The required number is:
+
+112","10","2","","","","116"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:53","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 482 that gives remainder 1 when divided by 6?","481","Use the remainder condition and the given bound.
+
+The required number is:
+
+481","6","1","","","","482"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:54","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6729 that gives remainder 15 when divided by 21?","6714","Use the remainder condition and the given bound.
+
+The required number is:
+
+6714","21","15","","","","6729"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:55","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 5. Find the greatest such number less than 436.","432","Use the remainder condition and the given bound.
+
+The required number is:
+
+432","5","2","","","","436"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:56","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 20 when divided by 38. Find the greatest such number less than 6832.","6822","Use the remainder condition and the given bound.
+
+The required number is:
+
+6822","38","20","","","","6832"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:57","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 274 that gives remainder 1 when divided by 2?","273","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+273","2","1","","","","274"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:58","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 6101 that leaves remainder 28 on division by 76.","6032","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6032","76","28","","","","6101"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:59","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 94 that gives remainder 5 when divided by 6?","89","Use the remainder condition and the given bound.
+
+The required number is:
+
+89","6","5","","","","94"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:60","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 2806 that leaves remainder 9 on division by 10.","2799","Use the remainder condition and the given bound.
+
+The required number is:
+
+2799","10","9","","","","2806"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:61","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 368 that gives remainder 0 when divided by 10?","360","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+360","10","0","","","","368"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:62","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 6691 that leaves remainder 1 on division by 8.","6689","Use the remainder condition and the given bound.
+
+The required number is:
+
+6689","8","1","","","","6691"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:63","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 32 when divided by 38. Find the greatest such number less than 20854.","20818","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+20818","38","32","","","","20854"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:64","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 2387 that gives remainder 7 when divided by 9?","2383","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2383","9","7","","","","2387"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:65","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 12 when divided by 35. Find the greatest such number less than 6070.","6067","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6067","35","12","","","","6070"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:66","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 342 that gives remainder 15 when divided by 19?","338","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+338","19","15","","","","342"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:67","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 5950 that gives remainder 38 when divided by 50?","5938","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+5938","50","38","","","","5950"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:68","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 7. Find the greatest such number less than 236.","235","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+235","7","4","","","","236"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:69","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 43056 that gives remainder 7 when divided by 23?","43040","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+43040","23","7","","","","43056"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:70","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 4498 that gives remainder 8 when divided by 18?","4490","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4490","18","8","","","","4498"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:71","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 11 when divided by 14. Find the greatest such number less than 327.","319","Use the remainder condition and the given bound.
+
+The required number is:
+
+319","14","11","","","","327"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:72","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 240 that leaves remainder 0 on division by 4.","236","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+236","4","0","","","","240"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:73","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 6311 that leaves remainder 17 on division by 19.","6306","Use the remainder condition and the given bound.
+
+The required number is:
+
+6306","19","17","","","","6311"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:74","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 40 when divided by 59. Find the greatest such number less than 15673.","15616","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+15616","59","40","","","","15673"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:75","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6637 that gives remainder 5 when divided by 18?","6629","Use the remainder condition and the given bound.
+
+The required number is:
+
+6629","18","5","","","","6637"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:76","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 16. Find the greatest such number less than 205.","192","Use the remainder condition and the given bound.
+
+The required number is:
+
+192","16","0","","","","205"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:77","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 9417 that leaves remainder 23 on division by 24.","9407","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9407","24","23","","","","9417"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:78","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 5277 that gives remainder 2 when divided by 5?","5272","Use the remainder condition and the given bound.
+
+The required number is:
+
+5272","5","2","","","","5277"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:79","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6764 that gives remainder 2 when divided by 21?","6743","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6743","21","2","","","","6764"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:80","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 124 that gives remainder 1 when divided by 5?","121","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+121","5","1","","","","124"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:81","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 10 when divided by 20. Find the greatest such number less than 221.","210","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+210","20","10","","","","221"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:82","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 12 when divided by 13. Find the greatest such number less than 8435.","8423","Use the remainder condition and the given bound.
+
+The required number is:
+
+8423","13","12","","","","8435"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:83","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 8 when divided by 48. Find the greatest such number less than 8729.","8696","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8696","48","8","","","","8729"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:84","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 2 when divided by 3. Find the greatest such number less than 89.","86","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+86","3","2","","","","89"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:85","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 1032 that leaves remainder 23 on division by 41.","1007","Use the remainder condition and the given bound.
+
+The required number is:
+
+1007","41","23","","","","1032"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:86","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 8254 that gives remainder 15 when divided by 29?","8251","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8251","29","15","","","","8254"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:87","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 39. Find the greatest such number less than 7171.","7153","Use the remainder condition and the given bound.
+
+The required number is:
+
+7153","39","16","","","","7171"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:88","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 3480 that gives remainder 9 when divided by 36?","3465","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3465","36","9","","","","3480"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:89","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 8604 that leaves remainder 0 on division by 11.","8602","Use the remainder condition and the given bound.
+
+The required number is:
+
+8602","11","0","","","","8604"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:90","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 31072 that gives remainder 8 when divided by 30?","31058","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+31058","30","8","","","","31072"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:91","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 32927 that leaves remainder 2 on division by 7.","32923","Use the remainder condition and the given bound.
+
+The required number is:
+
+32923","7","2","","","","32927"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:92","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 279 that gives remainder 0 when divided by 6?","276","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+276","6","0","","","","279"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:93","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 10 when divided by 11. Find the greatest such number less than 422.","417","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+417","11","10","","","","422"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:94","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 9245 that leaves remainder 1 on division by 3.","9244","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9244","3","1","","","","9245"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:95","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 33609 that leaves remainder 29 on division by 62.","33571","Use the remainder condition and the given bound.
+
+The required number is:
+
+33571","62","29","","","","33609"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:96","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 120 that gives remainder 6 when divided by 20?","106","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+106","20","6","","","","120"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:97","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 4 when divided by 15. Find the greatest such number less than 153.","139","Use the remainder condition and the given bound.
+
+The required number is:
+
+139","15","4","","","","153"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:98","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 39972 that leaves remainder 18 on division by 82.","39952","Use the remainder condition and the given bound.
+
+The required number is:
+
+39952","82","18","","","","39972"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:99","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 328 that leaves remainder 1 on division by 14.","323","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+323","14","1","","","","328"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:100","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 8437 that gives remainder 32 when divided by 37?","8431","Use the remainder condition and the given bound.
+
+The required number is:
+
+8431","37","32","","","","8437"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:101","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 287 that leaves remainder 7 on division by 10.","277","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+277","10","7","","","","287"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:102","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 5767 that leaves remainder 0 on division by 40.","5760","Use the remainder condition and the given bound.
+
+The required number is:
+
+5760","40","0","","","","5767"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:103","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 18662 that leaves remainder 2 on division by 11.","18658","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+18658","11","2","","","","18662"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:104","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 226 that gives remainder 2 when divided by 12?","218","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+218","12","2","","","","226"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:105","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 13830 that leaves remainder 3 on division by 15.","13818","Use the remainder condition and the given bound.
+
+The required number is:
+
+13818","15","3","","","","13830"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:106","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 228 that gives remainder 13 when divided by 15?","223","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+223","15","13","","","","228"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:107","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 313 that gives remainder 3 when divided by 10?","303","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+303","10","3","","","","313"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:108","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 2704 that gives remainder 10 when divided by 28?","2698","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2698","28","10","","","","2704"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:109","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 11 when divided by 19. Find the greatest such number less than 473.","467","Use the remainder condition and the given bound.
+
+The required number is:
+
+467","19","11","","","","473"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:110","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 59 that gives remainder 14 when divided by 15?","44","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+44","15","14","","","","59"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:111","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 197 that gives remainder 0 when divided by 2?","196","Use the remainder condition and the given bound.
+
+The required number is:
+
+196","2","0","","","","197"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:112","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 5 when divided by 32. Find the greatest such number less than 3727.","3717","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3717","32","5","","","","3727"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:113","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 29. Find the greatest such number less than 9724.","9702","Use the remainder condition and the given bound.
+
+The required number is:
+
+9702","29","16","","","","9724"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:114","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 68 that gives remainder 7 when divided by 16?","55","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+55","16","7","","","","68"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:115","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 239 that leaves remainder 6 on division by 7.","237","Use the remainder condition and the given bound.
+
+The required number is:
+
+237","7","6","","","","239"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:116","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 478 that gives remainder 9 when divided by 16?","473","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+473","16","9","","","","478"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:117","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 14. Find the greatest such number less than 174.","168","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+168","14","0","","","","174"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:118","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 9 when divided by 41. Find the greatest such number less than 9005.","8988","Use the remainder condition and the given bound.
+
+The required number is:
+
+8988","41","9","","","","9005"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:119","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 12 when divided by 36. Find the greatest such number less than 33825.","33816","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+33816","36","12","","","","33825"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:120","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 3774 that gives remainder 0 when divided by 5?","3770","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3770","5","0","","","","3774"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:121","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 1902 that gives remainder 11 when divided by 42?","1901","Use the remainder condition and the given bound.
+
+The required number is:
+
+1901","42","11","","","","1902"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:122","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 2975 that gives remainder 2 when divided by 16?","2962","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2962","16","2","","","","2975"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:123","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 6 when divided by 13. Find the greatest such number less than 479.","474","Use the remainder condition and the given bound.
+
+The required number is:
+
+474","13","6","","","","479"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:124","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 28 when divided by 43. Find the greatest such number less than 4486.","4457","Use the remainder condition and the given bound.
+
+The required number is:
+
+4457","43","28","","","","4486"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:125","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6181 that gives remainder 26 when divided by 33?","6164","Use the remainder condition and the given bound.
+
+The required number is:
+
+6164","33","26","","","","6181"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:126","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 37812 that leaves remainder 6 on division by 11.","37802","Use the remainder condition and the given bound.
+
+The required number is:
+
+37802","11","6","","","","37812"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:127","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 19295 that gives remainder 45 when divided by 80?","19245","Use the remainder condition and the given bound.
+
+The required number is:
+
+19245","80","45","","","","19295"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:128","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 11 when divided by 25. Find the greatest such number less than 7158.","7136","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7136","25","11","","","","7158"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:129","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 7854 that gives remainder 17 when divided by 30?","7847","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7847","30","17","","","","7854"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:130","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 15493 that gives remainder 3 when divided by 10?","15483","Use the remainder condition and the given bound.
+
+The required number is:
+
+15483","10","3","","","","15493"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:131","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 278 that gives remainder 2 when divided by 16?","274","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+274","16","2","","","","278"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:132","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 387 that gives remainder 7 when divided by 8?","383","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+383","8","7","","","","387"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:133","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 20. Find the greatest such number less than 8318.","8316","Use the remainder condition and the given bound.
+
+The required number is:
+
+8316","20","16","","","","8318"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:134","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 9210 that leaves remainder 0 on division by 3.","9207","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9207","3","0","","","","9210"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:135","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 6. Find the greatest such number less than 387.","382","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+382","6","4","","","","387"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:136","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 268 that leaves remainder 11 on division by 12.","263","Use the remainder condition and the given bound.
+
+The required number is:
+
+263","12","11","","","","268"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:137","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 335 that leaves remainder 2 on division by 3.","332","Use the remainder condition and the given bound.
+
+The required number is:
+
+332","3","2","","","","335"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:138","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 18. Find the greatest such number less than 308.","307","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+307","18","1","","","","308"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:139","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 2 when divided by 4. Find the greatest such number less than 259.","258","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+258","4","2","","","","259"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:140","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 14 when divided by 16. Find the greatest such number less than 264.","254","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+254","16","14","","","","264"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:141","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 7 when divided by 10. Find the greatest such number less than 278.","277","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+277","10","7","","","","278"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:142","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 57 that leaves remainder 2 on division by 6.","56","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+56","6","2","","","","57"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:143","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 180 that leaves remainder 2 on division by 17.","172","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+172","17","2","","","","180"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:144","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 2666 that leaves remainder 6 on division by 10.","2656","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2656","10","6","","","","2666"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:145","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6386 that gives remainder 3 when divided by 25?","6378","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6378","25","3","","","","6386"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:146","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 33 when divided by 47. Find the greatest such number less than 30818.","30771","Use the remainder condition and the given bound.
+
+The required number is:
+
+30771","47","33","","","","30818"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:147","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 9760 that gives remainder 34 when divided by 37?","9728","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9728","37","34","","","","9760"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:148","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 9223 that leaves remainder 1 on division by 51.","9181","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9181","51","1","","","","9223"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:149","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 29. Find the greatest such number less than 8456.","8442","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8442","29","3","","","","8456"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:150","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 346 that gives remainder 12 when divided by 19?","335","Use the remainder condition and the given bound.
+
+The required number is:
+
+335","19","12","","","","346"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:151","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 9485 that gives remainder 8 when divided by 31?","9463","Use the remainder condition and the given bound.
+
+The required number is:
+
+9463","31","8","","","","9485"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:152","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6056 that gives remainder 1 when divided by 12?","6049","Use the remainder condition and the given bound.
+
+The required number is:
+
+6049","12","1","","","","6056"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:153","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 123 that leaves remainder 6 on division by 13.","110","Use the remainder condition and the given bound.
+
+The required number is:
+
+110","13","6","","","","123"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:154","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 97. Find the greatest such number less than 21762.","21731","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+21731","97","3","","","","21762"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:155","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 4777 that gives remainder 4 when divided by 12?","4768","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4768","12","4","","","","4777"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:156","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 353 that gives remainder 1 when divided by 2?","351","Use the remainder condition and the given bound.
+
+The required number is:
+
+351","2","1","","","","353"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:157","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 8315 that leaves remainder 20 on division by 46.","8300","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8300","46","20","","","","8315"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:158","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 7774 that leaves remainder 7 on division by 12.","7771","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7771","12","7","","","","7774"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:159","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 32 when divided by 38. Find the greatest such number less than 6424.","6416","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6416","38","32","","","","6424"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:160","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 46244 that leaves remainder 38 on division by 53.","46201","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+46201","53","38","","","","46244"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:161","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 18 when divided by 19. Find the greatest such number less than 5421.","5414","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+5414","19","18","","","","5421"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:162","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 43915 that leaves remainder 2 on division by 4.","43914","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+43914","4","2","","","","43915"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:163","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 285 that leaves remainder 4 on division by 9.","283","Use the remainder condition and the given bound.
+
+The required number is:
+
+283","9","4","","","","285"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:164","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8293 that gives remainder 31 when divided by 35?","8291","Use the remainder condition and the given bound.
+
+The required number is:
+
+8291","35","31","","","","8293"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:165","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 312 that gives remainder 11 when divided by 14?","305","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+305","14","11","","","","312"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:166","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 27 when divided by 43. Find the greatest such number less than 9962.","9960","Use the remainder condition and the given bound.
+
+The required number is:
+
+9960","43","27","","","","9962"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:167","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 259 that leaves remainder 0 on division by 9.","252","Use the remainder condition and the given bound.
+
+The required number is:
+
+252","9","0","","","","259"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:168","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 5981 that leaves remainder 3 on division by 9.","5979","Use the remainder condition and the given bound.
+
+The required number is:
+
+5979","9","3","","","","5981"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:169","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 14 when divided by 31. Find the greatest such number less than 4795.","4788","Use the remainder condition and the given bound.
+
+The required number is:
+
+4788","31","14","","","","4795"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:170","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 274 that leaves remainder 8 on division by 19.","255","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+255","19","8","","","","274"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:171","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8291 that gives remainder 3 when divided by 13?","8284","Use the remainder condition and the given bound.
+
+The required number is:
+
+8284","13","3","","","","8291"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:172","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 155 that gives remainder 0 when divided by 5?","150","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+150","5","0","","","","155"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:173","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 10. Find the greatest such number less than 70.","60","Use the remainder condition and the given bound.
+
+The required number is:
+
+60","10","0","","","","70"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:174","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 129 that gives remainder 4 when divided by 5?","124","Use the remainder condition and the given bound.
+
+The required number is:
+
+124","5","4","","","","129"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:175","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 19169 that leaves remainder 13 on division by 53.","19146","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+19146","53","13","","","","19169"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:176","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 27. Find the greatest such number less than 29394.","29380","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+29380","27","4","","","","29394"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:177","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 7979 that leaves remainder 10 on division by 17.","7966","Use the remainder condition and the given bound.
+
+The required number is:
+
+7966","17","10","","","","7979"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:178","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 17 when divided by 19. Find the greatest such number less than 93.","74","Use the remainder condition and the given bound.
+
+The required number is:
+
+74","19","17","","","","93"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:179","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 140 that gives remainder 1 when divided by 9?","136","Use the remainder condition and the given bound.
+
+The required number is:
+
+136","9","1","","","","140"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:180","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 405 that leaves remainder 2 on division by 8.","402","Use the remainder condition and the given bound.
+
+The required number is:
+
+402","8","2","","","","405"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:181","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 80 that gives remainder 1 when divided by 3?","79","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+79","3","1","","","","80"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:182","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 4457 that leaves remainder 40 on division by 48.","4456","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4456","48","40","","","","4457"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:183","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8718 that gives remainder 5 when divided by 10?","8715","Use the remainder condition and the given bound.
+
+The required number is:
+
+8715","10","5","","","","8718"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:184","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 6058 that leaves remainder 5 on division by 21.","6053","Use the remainder condition and the given bound.
+
+The required number is:
+
+6053","21","5","","","","6058"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:185","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 8420 that leaves remainder 57 on division by 100.","8357","Use the remainder condition and the given bound.
+
+The required number is:
+
+8357","100","57","","","","8420"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:186","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 6. Find the greatest such number less than 1557.","1554","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1554","6","0","","","","1557"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:187","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 7630 that gives remainder 15 when divided by 28?","7603","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7603","28","15","","","","7630"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:188","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 5538 that gives remainder 2 when divided by 40?","5522","Use the remainder condition and the given bound.
+
+The required number is:
+
+5522","40","2","","","","5538"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:189","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 87 that leaves remainder 3 on division by 6.","81","Use the remainder condition and the given bound.
+
+The required number is:
+
+81","6","3","","","","87"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:190","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 5055 that gives remainder 33 when divided by 47?","5015","Use the remainder condition and the given bound.
+
+The required number is:
+
+5015","47","33","","","","5055"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:191","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 9751 that gives remainder 2 when divided by 18?","9740","Use the remainder condition and the given bound.
+
+The required number is:
+
+9740","18","2","","","","9751"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:192","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 409 that leaves remainder 13 on division by 16.","397","Use the remainder condition and the given bound.
+
+The required number is:
+
+397","16","13","","","","409"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:193","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 456 that leaves remainder 4 on division by 6.","454","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+454","6","4","","","","456"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:194","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 51 when divided by 99. Find the greatest such number less than 23318.","23316","Use the remainder condition and the given bound.
+
+The required number is:
+
+23316","99","51","","","","23318"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:195","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 28. Find the greatest such number less than 2404.","2384","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2384","28","4","","","","2404"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:196","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 33759 that leaves remainder 1 on division by 40.","33721","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+33721","40","1","","","","33759"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:197","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 2. Find the greatest such number less than 9993.","9992","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9992","2","0","","","","9993"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:198","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 2. Find the greatest such number less than 434.","433","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+433","2","1","","","","434"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:199","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 20. Find the greatest such number less than 349.","336","Use the remainder condition and the given bound.
+
+The required number is:
+
+336","20","16","","","","349"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:200","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 7. Find the greatest such number less than 172.","169","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+169","7","1","","","","172"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:201","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 8. Find the greatest such number less than 58.","56","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+56","8","0","","","","58"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:202","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 420 that leaves remainder 9 on division by 20.","409","Use the remainder condition and the given bound.
+
+The required number is:
+
+409","20","9","","","","420"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:203","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 6090 that gives remainder 5 when divided by 19?","6085","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6085","19","5","","","","6090"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:204","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 7288 that leaves remainder 3 on division by 40.","7283","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7283","40","3","","","","7288"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:205","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 8805 that gives remainder 18 when divided by 69?","8781","Use the remainder condition and the given bound.
+
+The required number is:
+
+8781","69","18","","","","8805"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:206","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 2. Find the greatest such number less than 4040.","4039","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4039","2","1","","","","4040"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:207","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 2698 that gives remainder 14 when divided by 40?","2694","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2694","40","14","","","","2698"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:208","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 481 that gives remainder 7 when divided by 18?","475","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+475","18","7","","","","481"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:209","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 36582 that gives remainder 0 when divided by 16?","36576","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+36576","16","0","","","","36582"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:210","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 7. Find the greatest such number less than 81.","78","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+78","7","1","","","","81"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:211","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 56 that leaves remainder 1 on division by 12.","49","Use the remainder condition and the given bound.
+
+The required number is:
+
+49","12","1","","","","56"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:212","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 7 when divided by 13. Find the greatest such number less than 141.","137","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+137","13","7","","","","141"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:213","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 7378 that gives remainder 15 when divided by 26?","7373","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7373","26","15","","","","7378"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:214","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 26 when divided by 32. Find the greatest such number less than 27396.","27386","Use the remainder condition and the given bound.
+
+The required number is:
+
+27386","32","26","","","","27396"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:215","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 214 that gives remainder 1 when divided by 13?","209","Use the remainder condition and the given bound.
+
+The required number is:
+
+209","13","1","","","","214"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:216","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 118 that gives remainder 16 when divided by 20?","116","Use the remainder condition and the given bound.
+
+The required number is:
+
+116","20","16","","","","118"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:217","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 46150 that gives remainder 8 when divided by 45?","46133","Use the remainder condition and the given bound.
+
+The required number is:
+
+46133","45","8","","","","46150"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:218","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 14 when divided by 16. Find the greatest such number less than 1005.","990","Use the remainder condition and the given bound.
+
+The required number is:
+
+990","16","14","","","","1005"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:219","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 1668 that gives remainder 1 when divided by 2?","1667","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1667","2","1","","","","1668"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:220","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 9 when divided by 36. Find the greatest such number less than 8173.","8145","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8145","36","9","","","","8173"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:221","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 4. Find the greatest such number less than 8604.","8602","Use the remainder condition and the given bound.
+
+The required number is:
+
+8602","4","2","","","","8604"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:222","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 224 that leaves remainder 3 on division by 8.","219","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+219","8","3","","","","224"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:223","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 37345 that leaves remainder 72 on division by 75.","37272","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+37272","75","72","","","","37345"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:224","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 243 that gives remainder 4 when divided by 19?","232","Use the remainder condition and the given bound.
+
+The required number is:
+
+232","19","4","","","","243"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:225","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 9 when divided by 21. Find the greatest such number less than 4898.","4881","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4881","21","9","","","","4898"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:226","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 74 that gives remainder 0 when divided by 5?","70","Use the remainder condition and the given bound.
+
+The required number is:
+
+70","5","0","","","","74"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:227","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 2. Find the greatest such number less than 106.","104","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+104","2","0","","","","106"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:228","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 6172 that leaves remainder 33 on division by 43.","6139","Use the remainder condition and the given bound.
+
+The required number is:
+
+6139","43","33","","","","6172"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:229","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 20077 that leaves remainder 10 on division by 53.","20044","Use the remainder condition and the given bound.
+
+The required number is:
+
+20044","53","10","","","","20077"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:230","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 8 when divided by 10. Find the greatest such number less than 112.","108","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+108","10","8","","","","112"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:231","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 47812 that leaves remainder 15 on division by 25.","47790","Use the remainder condition and the given bound.
+
+The required number is:
+
+47790","25","15","","","","47812"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:232","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 289 that leaves remainder 4 on division by 13.","277","Use the remainder condition and the given bound.
+
+The required number is:
+
+277","13","4","","","","289"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:233","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 7 when divided by 34. Find the greatest such number less than 2905.","2897","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2897","34","7","","","","2905"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:234","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 24428 that gives remainder 46 when divided by 94?","24392","Use the remainder condition and the given bound.
+
+The required number is:
+
+24392","94","46","","","","24428"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:235","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 4636 that leaves remainder 15 on division by 16.","4623","Use the remainder condition and the given bound.
+
+The required number is:
+
+4623","16","15","","","","4636"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:236","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 263 that leaves remainder 4 on division by 10.","254","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+254","10","4","","","","263"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:237","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 2096 that leaves remainder 9 on division by 44.","2077","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2077","44","9","","","","2096"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:238","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 181 that gives remainder 1 when divided by 3?","178","Use the remainder condition and the given bound.
+
+The required number is:
+
+178","3","1","","","","181"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:239","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 9946 that leaves remainder 8 on division by 49.","9906","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9906","49","8","","","","9946"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:240","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 362 that leaves remainder 1 on division by 3.","361","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+361","3","1","","","","362"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:241","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 474 that leaves remainder 4 on division by 8.","468","Use the remainder condition and the given bound.
+
+The required number is:
+
+468","8","4","","","","474"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:242","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 1 when divided by 33. Find the greatest such number less than 2285.","2278","Use the remainder condition and the given bound.
+
+The required number is:
+
+2278","33","1","","","","2285"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:243","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 798 that gives remainder 14 when divided by 17?","796","Use the remainder condition and the given bound.
+
+The required number is:
+
+796","17","14","","","","798"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:244","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 7 when divided by 20. Find the greatest such number less than 307.","287","Use the remainder condition and the given bound.
+
+The required number is:
+
+287","20","7","","","","307"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:245","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 11 when divided by 15. Find the greatest such number less than 355.","341","Use the remainder condition and the given bound.
+
+The required number is:
+
+341","15","11","","","","355"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:246","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 1643 that leaves remainder 12 on division by 41.","1611","Use the remainder condition and the given bound.
+
+The required number is:
+
+1611","41","12","","","","1643"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:247","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 12 when divided by 18. Find the greatest such number less than 490.","480","Use the remainder condition and the given bound.
+
+The required number is:
+
+480","18","12","","","","490"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:248","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 20 when divided by 31. Find the greatest such number less than 4074.","4050","Use the remainder condition and the given bound.
+
+The required number is:
+
+4050","31","20","","","","4074"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:249","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6080 that gives remainder 14 when divided by 22?","6064","Use the remainder condition and the given bound.
+
+The required number is:
+
+6064","22","14","","","","6080"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:250","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 2686 that leaves remainder 42 on division by 44.","2682","Use the remainder condition and the given bound.
+
+The required number is:
+
+2682","44","42","","","","2686"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:251","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 401 that gives remainder 4 when divided by 5?","399","Use the remainder condition and the given bound.
+
+The required number is:
+
+399","5","4","","","","401"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:252","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 227 that leaves remainder 0 on division by 7.","224","Use the remainder condition and the given bound.
+
+The required number is:
+
+224","7","0","","","","227"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:253","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 3 when divided by 10. Find the greatest such number less than 232.","223","Use the remainder condition and the given bound.
+
+The required number is:
+
+223","10","3","","","","232"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:254","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 4150 that leaves remainder 21 on division by 27.","4125","Use the remainder condition and the given bound.
+
+The required number is:
+
+4125","27","21","","","","4150"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:255","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 5961 that gives remainder 3 when divided by 10?","5953","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+5953","10","3","","","","5961"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:256","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 26613 that gives remainder 5 when divided by 59?","26555","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+26555","59","5","","","","26613"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:257","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 382 that gives remainder 0 when divided by 13?","377","Use the remainder condition and the given bound.
+
+The required number is:
+
+377","13","0","","","","382"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:258","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 26 when divided by 87. Find the greatest such number less than 38467.","38393","Use the remainder condition and the given bound.
+
+The required number is:
+
+38393","87","26","","","","38467"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:259","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 9133 that leaves remainder 37 on division by 39.","9124","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9124","39","37","","","","9133"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:260","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 39 when divided by 47. Find the greatest such number less than 2789.","2765","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2765","47","39","","","","2789"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:261","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 159 that leaves remainder 10 on division by 20.","150","Use the remainder condition and the given bound.
+
+The required number is:
+
+150","20","10","","","","159"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:262","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 4. Find the greatest such number less than 3025.","3023","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3023","4","3","","","","3025"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:263","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 290 that gives remainder 8 when divided by 13?","281","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+281","13","8","","","","290"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:264","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 4591 that leaves remainder 17 on division by 18.","4589","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4589","18","17","","","","4591"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:265","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 15. Find the greatest such number less than 7556.","7545","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7545","15","0","","","","7556"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:266","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 27. Find the greatest such number less than 4889.","4876","Use the remainder condition and the given bound.
+
+The required number is:
+
+4876","27","16","","","","4889"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:267","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 7585 that leaves remainder 12 on division by 16.","7580","Use the remainder condition and the given bound.
+
+The required number is:
+
+7580","16","12","","","","7585"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:268","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 160 that leaves remainder 1 on division by 4.","157","Use the remainder condition and the given bound.
+
+The required number is:
+
+157","4","1","","","","160"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:269","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 154 that gives remainder 2 when divided by 8?","146","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+146","8","2","","","","154"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:270","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 1088 that leaves remainder 4 on division by 6.","1084","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1084","6","4","","","","1088"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:271","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 8691 that gives remainder 3 when divided by 11?","8682","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8682","11","3","","","","8691"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:272","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 413 that leaves remainder 6 on division by 14.","412","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+412","14","6","","","","413"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:273","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 57 when divided by 75. Find the greatest such number less than 19602.","19557","Use the remainder condition and the given bound.
+
+The required number is:
+
+19557","75","57","","","","19602"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:274","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 4656 that gives remainder 6 when divided by 14?","4654","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4654","14","6","","","","4656"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:275","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 429 that gives remainder 2 when divided by 5?","427","Use the remainder condition and the given bound.
+
+The required number is:
+
+427","5","2","","","","429"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:276","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 290 that gives remainder 10 when divided by 11?","285","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+285","11","10","","","","290"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:277","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 33866 that leaves remainder 5 on division by 9.","33863","Use the remainder condition and the given bound.
+
+The required number is:
+
+33863","9","5","","","","33866"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:278","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 6. Find the greatest such number less than 199.","198","Use the remainder condition and the given bound.
+
+The required number is:
+
+198","6","0","","","","199"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:279","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 15 when divided by 32. Find the greatest such number less than 9312.","9295","Use the remainder condition and the given bound.
+
+The required number is:
+
+9295","32","15","","","","9312"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:280","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 605 that gives remainder 12 when divided by 13?","597","Use the remainder condition and the given bound.
+
+The required number is:
+
+597","13","12","","","","605"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:281","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 6. Find the greatest such number less than 6997.","6992","Use the remainder condition and the given bound.
+
+The required number is:
+
+6992","6","2","","","","6997"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:282","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 4479 that leaves remainder 2 on division by 3.","4478","Use the remainder condition and the given bound.
+
+The required number is:
+
+4478","3","2","","","","4479"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:283","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 8445 that leaves remainder 12 on division by 45.","8427","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8427","45","12","","","","8445"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:284","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 2657 that gives remainder 17 when divided by 26?","2643","Use the remainder condition and the given bound.
+
+The required number is:
+
+2643","26","17","","","","2657"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:285","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 7335 that leaves remainder 4 on division by 37.","7330","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7330","37","4","","","","7335"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:286","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 39 when divided by 93. Find the greatest such number less than 31178.","31101","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+31101","93","39","","","","31178"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:287","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 9041 that leaves remainder 22 on division by 40.","9022","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9022","40","22","","","","9041"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:288","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6848 that gives remainder 1 when divided by 3?","6847","Use the remainder condition and the given bound.
+
+The required number is:
+
+6847","3","1","","","","6848"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:289","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 18. Find the greatest such number less than 477.","472","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+472","18","4","","","","477"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:290","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 17. Find the greatest such number less than 7152.","7139","Use the remainder condition and the given bound.
+
+The required number is:
+
+7139","17","16","","","","7152"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:291","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 5 when divided by 28. Find the greatest such number less than 8494.","8489","Use the remainder condition and the given bound.
+
+The required number is:
+
+8489","28","5","","","","8494"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:292","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 188 that leaves remainder 0 on division by 9.","180","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+180","9","0","","","","188"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:293","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 10 when divided by 17. Find the greatest such number less than 343.","333","Use the remainder condition and the given bound.
+
+The required number is:
+
+333","17","10","","","","343"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:294","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 3. Find the greatest such number less than 465.","463","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+463","3","1","","","","465"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:295","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8257 that gives remainder 1 when divided by 40?","8241","Use the remainder condition and the given bound.
+
+The required number is:
+
+8241","40","1","","","","8257"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:296","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 351 that gives remainder 8 when divided by 16?","344","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+344","16","8","","","","351"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:297","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 51 that gives remainder 1 when divided by 2?","49","Use the remainder condition and the given bound.
+
+The required number is:
+
+49","2","1","","","","51"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:298","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 8571 that gives remainder 10 when divided by 34?","8544","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8544","34","10","","","","8571"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:299","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 7. Find the greatest such number less than 221.","220","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+220","7","3","","","","221"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:300","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 13 when divided by 45. Find the greatest such number less than 4708.","4693","Use the remainder condition and the given bound.
+
+The required number is:
+
+4693","45","13","","","","4708"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:301","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 450 that leaves remainder 11 on division by 12.","443","Use the remainder condition and the given bound.
+
+The required number is:
+
+443","12","11","","","","450"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:302","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6377 that gives remainder 2 when divided by 4?","6374","Use the remainder condition and the given bound.
+
+The required number is:
+
+6374","4","2","","","","6377"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:303","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 6 when divided by 7. Find the greatest such number less than 397.","391","Use the remainder condition and the given bound.
+
+The required number is:
+
+391","7","6","","","","397"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:304","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 46778 that leaves remainder 60 on division by 96.","46716","Use the remainder condition and the given bound.
+
+The required number is:
+
+46716","96","60","","","","46778"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:305","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 1836 that gives remainder 9 when divided by 19?","1833","Use the remainder condition and the given bound.
+
+The required number is:
+
+1833","19","9","","","","1836"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:306","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 44449 that gives remainder 21 when divided by 47?","44436","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+44436","47","21","","","","44449"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:307","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 423 that leaves remainder 0 on division by 7.","420","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+420","7","0","","","","423"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:308","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 19870 that gives remainder 10 when divided by 65?","19835","Use the remainder condition and the given bound.
+
+The required number is:
+
+19835","65","10","","","","19870"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:309","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 9557 that gives remainder 1 when divided by 23?","9546","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9546","23","1","","","","9557"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:310","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 267 that leaves remainder 9 on division by 16.","265","Use the remainder condition and the given bound.
+
+The required number is:
+
+265","16","9","","","","267"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:311","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 74 when divided by 92. Find the greatest such number less than 19703.","19670","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+19670","92","74","","","","19703"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:312","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 29928 that gives remainder 45 when divided by 66?","29877","Use the remainder condition and the given bound.
+
+The required number is:
+
+29877","66","45","","","","29928"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:313","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 4394 that gives remainder 12 when divided by 17?","4381","Use the remainder condition and the given bound.
+
+The required number is:
+
+4381","17","12","","","","4394"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:314","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 412 that gives remainder 16 when divided by 17?","407","Use the remainder condition and the given bound.
+
+The required number is:
+
+407","17","16","","","","412"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:315","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 4706 that leaves remainder 9 on division by 13.","4702","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4702","13","9","","","","4706"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:316","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 293 that leaves remainder 0 on division by 3.","291","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+291","3","0","","","","293"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:317","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 208 that leaves remainder 4 on division by 8.","204","Use the remainder condition and the given bound.
+
+The required number is:
+
+204","8","4","","","","208"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:318","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 453 that gives remainder 5 when divided by 6?","449","Use the remainder condition and the given bound.
+
+The required number is:
+
+449","6","5","","","","453"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:319","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 5. Find the greatest such number less than 3573.","3570","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+3570","5","0","","","","3573"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:320","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8582 that gives remainder 14 when divided by 20?","8574","Use the remainder condition and the given bound.
+
+The required number is:
+
+8574","20","14","","","","8582"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:321","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 25. Find the greatest such number less than 2801.","2800","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2800","25","0","","","","2801"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:322","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 31352 that gives remainder 26 when divided by 90?","31346","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+31346","90","26","","","","31352"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:323","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6175 that gives remainder 16 when divided by 37?","6158","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6158","37","16","","","","6175"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:324","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 8 when divided by 14. Find the greatest such number less than 402.","400","Use the remainder condition and the given bound.
+
+The required number is:
+
+400","14","8","","","","402"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:325","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 416 that leaves remainder 5 on division by 8.","413","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+413","8","5","","","","416"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:326","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 195 that gives remainder 0 when divided by 4?","192","Use the remainder condition and the given bound.
+
+The required number is:
+
+192","4","0","","","","195"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:327","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 318 that gives remainder 5 when divided by 9?","311","Use the remainder condition and the given bound.
+
+The required number is:
+
+311","9","5","","","","318"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:328","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 30 when divided by 45. Find the greatest such number less than 5954.","5925","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+5925","45","30","","","","5954"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:329","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 493 that leaves remainder 2 on division by 3.","491","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+491","3","2","","","","493"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:330","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 11 when divided by 42. Find the greatest such number less than 9875.","9839","Use the remainder condition and the given bound.
+
+The required number is:
+
+9839","42","11","","","","9875"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:331","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 20 when divided by 43. Find the greatest such number less than 2653.","2643","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2643","43","20","","","","2653"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:332","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 15 when divided by 23. Find the greatest such number less than 4190.","4178","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4178","23","15","","","","4190"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:333","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 153 that leaves remainder 3 on division by 5.","148","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+148","5","3","","","","153"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:334","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 4189 that leaves remainder 3 on division by 12.","4179","Use the remainder condition and the given bound.
+
+The required number is:
+
+4179","12","3","","","","4189"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:335","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 40 when divided by 48. Find the greatest such number less than 2839.","2824","Use the remainder condition and the given bound.
+
+The required number is:
+
+2824","48","40","","","","2839"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:336","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 7 when divided by 10. Find the greatest such number less than 311.","307","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+307","10","7","","","","311"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:337","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 16. Find the greatest such number less than 2942.","2930","Use the remainder condition and the given bound.
+
+The required number is:
+
+2930","16","2","","","","2942"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:338","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 22296 that leaves remainder 22 on division by 41.","22285","Use the remainder condition and the given bound.
+
+The required number is:
+
+22285","41","22","","","","22296"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:339","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 1192 that leaves remainder 0 on division by 12.","1188","Use the remainder condition and the given bound.
+
+The required number is:
+
+1188","12","0","","","","1192"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:340","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 5 when divided by 15. Find the greatest such number less than 315.","305","Use the remainder condition and the given bound.
+
+The required number is:
+
+305","15","5","","","","315"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:341","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 1 when divided by 5. Find the greatest such number less than 285.","281","Use the remainder condition and the given bound.
+
+The required number is:
+
+281","5","1","","","","285"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:342","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6643 that gives remainder 7 when divided by 19?","6638","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6638","19","7","","","","6643"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:343","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 20476 that leaves remainder 31 on division by 58.","20447","Use the remainder condition and the given bound.
+
+The required number is:
+
+20447","58","31","","","","20476"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:344","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6945 that gives remainder 42 when divided by 46?","6942","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6942","46","42","","","","6945"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:345","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 367 that leaves remainder 11 on division by 20.","351","Use the remainder condition and the given bound.
+
+The required number is:
+
+351","20","11","","","","367"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:346","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 295 that leaves remainder 4 on division by 9.","292","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+292","9","4","","","","295"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:347","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 198 that gives remainder 2 when divided by 13?","197","Use the remainder condition and the given bound.
+
+The required number is:
+
+197","13","2","","","","198"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:348","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 179 that gives remainder 4 when divided by 12?","172","Use the remainder condition and the given bound.
+
+The required number is:
+
+172","12","4","","","","179"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:349","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 4. Find the greatest such number less than 2015.","2011","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2011","4","3","","","","2015"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:350","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 3. Find the greatest such number less than 258.","255","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+255","3","0","","","","258"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:351","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 3. Find the greatest such number less than 244.","241","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+241","3","1","","","","244"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:352","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 160 that leaves remainder 3 on division by 4.","159","Use the remainder condition and the given bound.
+
+The required number is:
+
+159","4","3","","","","160"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:353","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 4392 that gives remainder 37 when divided by 39?","4366","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4366","39","37","","","","4392"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:354","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 5013 that leaves remainder 9 on division by 12.","5001","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+5001","12","9","","","","5013"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:355","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 40 when divided by 46. Find the greatest such number less than 3535.","3490","Use the remainder condition and the given bound.
+
+The required number is:
+
+3490","46","40","","","","3535"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:356","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 1128 that gives remainder 13 when divided by 14?","1119","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1119","14","13","","","","1128"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:357","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 10 when divided by 13. Find the greatest such number less than 284.","283","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+283","13","10","","","","284"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:358","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 33762 that gives remainder 31 when divided by 41?","33733","Use the remainder condition and the given bound.
+
+The required number is:
+
+33733","41","31","","","","33762"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:359","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 20489 that leaves remainder 4 on division by 7.","20486","Use the remainder condition and the given bound.
+
+The required number is:
+
+20486","7","4","","","","20489"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:360","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 8351 that leaves remainder 4 on division by 6.","8350","Use the remainder condition and the given bound.
+
+The required number is:
+
+8350","6","4","","","","8351"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:361","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 2354 that leaves remainder 17 on division by 19.","2335","Use the remainder condition and the given bound.
+
+The required number is:
+
+2335","19","17","","","","2354"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:362","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 10 when divided by 14. Find the greatest such number less than 214.","206","Use the remainder condition and the given bound.
+
+The required number is:
+
+206","14","10","","","","214"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:363","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 2. Find the greatest such number less than 76.","75","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+75","2","1","","","","76"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:364","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 18 when divided by 20. Find the greatest such number less than 154.","138","Use the remainder condition and the given bound.
+
+The required number is:
+
+138","20","18","","","","154"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:365","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 495 that leaves remainder 7 on division by 9.","493","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+493","9","7","","","","495"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:366","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 256 that gives remainder 5 when divided by 19?","252","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+252","19","5","","","","256"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:367","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 499 that leaves remainder 2 on division by 3.","497","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+497","3","2","","","","499"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:368","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 10 when divided by 22. Find the greatest such number less than 9810.","9800","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9800","22","10","","","","9810"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:369","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 315 that gives remainder 1 when divided by 5?","311","Use the remainder condition and the given bound.
+
+The required number is:
+
+311","5","1","","","","315"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:370","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 8 when divided by 19. Find the greatest such number less than 529.","521","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+521","19","8","","","","529"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:371","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 2401 that leaves remainder 1 on division by 31.","2388","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+2388","31","1","","","","2401"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:372","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 459 that gives remainder 3 when divided by 19?","440","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+440","19","3","","","","459"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:373","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 3. Find the greatest such number less than 1602.","1600","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1600","3","1","","","","1602"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:374","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 4808 that gives remainder 7 when divided by 10?","4807","Use the remainder condition and the given bound.
+
+The required number is:
+
+4807","10","7","","","","4808"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:375","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 20. Find the greatest such number less than 5355.","5340","Use the remainder condition and the given bound.
+
+The required number is:
+
+5340","20","0","","","","5355"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:376","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 30561 that leaves remainder 5 on division by 36.","30533","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+30533","36","5","","","","30561"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:377","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 49078 that gives remainder 64 when divided by 66?","49036","Use the remainder condition and the given bound.
+
+The required number is:
+
+49036","66","64","","","","49078"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:378","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 19120 that leaves remainder 1 on division by 85.","19041","Use the remainder condition and the given bound.
+
+The required number is:
+
+19041","85","1","","","","19120"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:379","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 2. Find the greatest such number less than 5785.","5784","Use the remainder condition and the given bound.
+
+The required number is:
+
+5784","2","0","","","","5785"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:380","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 40. Find the greatest such number less than 6972.","6936","Use the remainder condition and the given bound.
+
+The required number is:
+
+6936","40","16","","","","6972"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:381","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 7831 that gives remainder 11 when divided by 33?","7799","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7799","33","11","","","","7831"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:382","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 9303 that leaves remainder 19 on division by 39.","9301","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+9301","39","19","","","","9303"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:383","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 27905 that gives remainder 1 when divided by 83?","27889","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+27889","83","1","","","","27905"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:384","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 12 when divided by 24. Find the greatest such number less than 1624.","1620","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1620","24","12","","","","1624"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:385","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 4 when divided by 11. Find the greatest such number less than 4518.","4514","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4514","11","4","","","","4518"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:386","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6696 that gives remainder 0 when divided by 5?","6695","Use the remainder condition and the given bound.
+
+The required number is:
+
+6695","5","0","","","","6696"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:387","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 9 when divided by 12. Find the greatest such number less than 29390.","29385","Use the remainder condition and the given bound.
+
+The required number is:
+
+29385","12","9","","","","29390"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:388","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 17 when divided by 51. Find the greatest such number less than 25085.","25058","Use the remainder condition and the given bound.
+
+The required number is:
+
+25058","51","17","","","","25085"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:389","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 34678 that leaves remainder 1 on division by 5.","34676","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+34676","5","1","","","","34678"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:390","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8274 that gives remainder 21 when divided by 36?","8265","Use the remainder condition and the given bound.
+
+The required number is:
+
+8265","36","21","","","","8274"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:391","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 476 that leaves remainder 2 on division by 13.","470","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+470","13","2","","","","476"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:392","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 8890 that gives remainder 2 when divided by 9?","8885","Use the remainder condition and the given bound.
+
+The required number is:
+
+8885","9","2","","","","8890"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:393","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 33361 that gives remainder 17 when divided by 87?","33338","Use the remainder condition and the given bound.
+
+The required number is:
+
+33338","87","17","","","","33361"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:394","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 109 that leaves remainder 3 on division by 17.","105","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+105","17","3","","","","109"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:395","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 375 that leaves remainder 0 on division by 17.","374","Use the remainder condition and the given bound.
+
+The required number is:
+
+374","17","0","","","","375"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:396","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 3 when divided by 24. Find the greatest such number less than 1002.","987","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+987","24","3","","","","1002"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:397","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 277 that gives remainder 0 when divided by 4?","276","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+276","4","0","","","","277"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:398","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 8 when divided by 9. Find the greatest such number less than 252.","251","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+251","9","8","","","","252"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:399","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 471 that leaves remainder 12 on division by 14.","460","Use the remainder condition and the given bound.
+
+The required number is:
+
+460","14","12","","","","471"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:400","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 350 that gives remainder 5 when divided by 20?","345","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+345","20","5","","","","350"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:401","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 8621 that leaves remainder 29 on division by 35.","8604","Use the remainder condition and the given bound.
+
+The required number is:
+
+8604","35","29","","","","8621"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:402","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 13 when divided by 43. Find the greatest such number less than 5058.","5044","Use the remainder condition and the given bound.
+
+The required number is:
+
+5044","43","13","","","","5058"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:403","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 4 when divided by 20. Find the greatest such number less than 6499.","6484","Use the remainder condition and the given bound.
+
+The required number is:
+
+6484","20","4","","","","6499"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:404","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 25 when divided by 42. Find the greatest such number less than 9362.","9349","Use the remainder condition and the given bound.
+
+The required number is:
+
+9349","42","25","","","","9362"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:405","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 38568 that gives remainder 64 when divided by 94?","38510","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+38510","94","64","","","","38568"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:406","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 5477 that gives remainder 27 when divided by 44?","5439","Use the remainder condition and the given bound.
+
+The required number is:
+
+5439","44","27","","","","5477"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:407","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 376 that gives remainder 6 when divided by 11?","369","Use the remainder condition and the given bound.
+
+The required number is:
+
+369","11","6","","","","376"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:408","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 392 that leaves remainder 13 on division by 18.","391","Use the remainder condition and the given bound.
+
+The required number is:
+
+391","18","13","","","","392"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:409","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 495 that gives remainder 10 when divided by 19?","485","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+485","19","10","","","","495"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:410","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 407 that leaves remainder 3 on division by 13.","406","Use the remainder condition and the given bound.
+
+The required number is:
+
+406","13","3","","","","407"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:411","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 340 that leaves remainder 0 on division by 3.","339","Use the remainder condition and the given bound.
+
+The required number is:
+
+339","3","0","","","","340"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:412","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 26 when divided by 49. Find the greatest such number less than 8750.","8748","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8748","49","26","","","","8750"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:413","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 218 that leaves remainder 4 on division by 9.","211","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+211","9","4","","","","218"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:414","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 48 when divided by 88. Find the greatest such number less than 15711.","15624","Use the remainder condition and the given bound.
+
+The required number is:
+
+15624","88","48","","","","15711"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:415","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 459 that gives remainder 3 when divided by 12?","447","Use the remainder condition and the given bound.
+
+The required number is:
+
+447","12","3","","","","459"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:416","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 387 that gives remainder 1 when divided by 7?","386","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+386","7","1","","","","387"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:417","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 253 that gives remainder 9 when divided by 11?","251","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+251","11","9","","","","253"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:418","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 0 when divided by 4. Find the greatest such number less than 271.","268","Use the remainder condition and the given bound.
+
+The required number is:
+
+268","4","0","","","","271"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:419","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 27 when divided by 98. Find the greatest such number less than 20444.","20411","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+20411","98","27","","","","20444"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:420","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 21763 that leaves remainder 26 on division by 47.","21740","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+21740","47","26","","","","21763"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:421","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6750 that gives remainder 10 when divided by 22?","6742","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6742","22","10","","","","6750"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:422","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 100 that leaves remainder 16 on division by 17.","84","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+84","17","16","","","","100"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:423","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 6634 that gives remainder 18 when divided by 22?","6618","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6618","22","18","","","","6634"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:424","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 3. Find the greatest such number less than 40591.","40590","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+40590","3","0","","","","40591"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:425","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 7462 that gives remainder 2 when divided by 11?","7460","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7460","11","2","","","","7462"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:426","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 282 that gives remainder 1 when divided by 2?","281","Use the remainder condition and the given bound.
+
+The required number is:
+
+281","2","1","","","","282"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:427","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 286 that gives remainder 1 when divided by 7?","281","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+281","7","1","","","","286"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:428","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 457 that gives remainder 15 when divided by 20?","455","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+455","20","15","","","","457"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:429","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 46954 that leaves remainder 10 on division by 23.","46953","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+46953","23","10","","","","46954"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:430","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 34 when divided by 73. Find the greatest such number less than 15392.","15364","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+15364","73","34","","","","15392"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:431","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6703 that gives remainder 29 when divided by 49?","6693","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6693","49","29","","","","6703"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:432","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 306 that gives remainder 2 when divided by 6?","302","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+302","6","2","","","","306"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:433","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 27 when divided by 45. Find the greatest such number less than 899.","882","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+882","45","27","","","","899"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:434","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 6 when divided by 18. Find the greatest such number less than 246.","240","Use the remainder condition and the given bound.
+
+The required number is:
+
+240","18","6","","","","246"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:435","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 136 that gives remainder 13 when divided by 20?","133","Use the remainder condition and the given bound.
+
+The required number is:
+
+133","20","13","","","","136"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:436","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 348 that leaves remainder 6 on division by 11.","347","Use the remainder condition and the given bound.
+
+The required number is:
+
+347","11","6","","","","348"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:437","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 7 when divided by 32. Find the greatest such number less than 8348.","8327","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+8327","32","7","","","","8348"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:438","CP-003","Easy","Bounded Search","QL-011","ES-005","Which is the largest number less than 414 that gives remainder 14 when divided by 16?","398","Use the remainder condition and the given bound.
+
+The required number is:
+
+398","16","14","","","","414"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:439","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 407 that leaves remainder 13 on division by 16.","397","Use the remainder condition and the given bound.
+
+The required number is:
+
+397","16","13","","","","407"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:440","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 19 when divided by 22. Find the greatest such number less than 5769.","5761","Use the remainder condition and the given bound.
+
+The required number is:
+
+5761","22","19","","","","5769"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:441","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 6 when divided by 11. Find the greatest such number less than 446.","435","Use the remainder condition and the given bound.
+
+The required number is:
+
+435","11","6","","","","446"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:442","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 155 that leaves remainder 1 on division by 2.","153","Use the remainder condition and the given bound.
+
+The required number is:
+
+153","2","1","","","","155"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:443","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 35519 that leaves remainder 17 on division by 65.","35507","Use the remainder condition and the given bound.
+
+The required number is:
+
+35507","65","17","","","","35519"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:444","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 53 that gives remainder 1 when divided by 15?","46","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+46","15","1","","","","53"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:445","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 4. Find the greatest such number less than 9055.","9054","Use the remainder condition and the given bound.
+
+The required number is:
+
+9054","4","2","","","","9055"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:446","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 1 when divided by 10. Find the greatest such number less than 6651.","6641","Use the remainder condition and the given bound.
+
+The required number is:
+
+6641","10","1","","","","6651"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:447","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 16 when divided by 20. Find the greatest such number less than 5936.","5916","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+5916","20","16","","","","5936"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:448","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 4. Find the greatest such number less than 94.","93","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+93","4","1","","","","94"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:449","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 23173 that gives remainder 18 when divided by 64?","23122","Use the remainder condition and the given bound.
+
+The required number is:
+
+23122","64","18","","","","23173"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:450","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 15887 that leaves remainder 9 on division by 63.","15885","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+15885","63","9","","","","15887"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:451","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 91 that leaves remainder 3 on division by 4.","87","Use the remainder condition and the given bound.
+
+The required number is:
+
+87","4","3","","","","91"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:452","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 8359 that gives remainder 77 when divided by 91?","8358","Use the remainder condition and the given bound.
+
+The required number is:
+
+8358","91","77","","","","8359"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:453","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 4074 that leaves remainder 14 on division by 23.","4062","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4062","23","14","","","","4074"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:454","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 8 when divided by 10. Find the greatest such number less than 98.","88","Use the remainder condition and the given bound.
+
+The required number is:
+
+88","10","8","","","","98"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:455","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6185 that gives remainder 3 when divided by 10?","6183","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6183","10","3","","","","6185"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:456","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 299 that gives remainder 9 when divided by 15?","294","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+294","15","9","","","","299"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:457","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 999 that leaves remainder 37 on division by 39.","973","Use the remainder condition and the given bound.
+
+The required number is:
+
+973","39","37","","","","999"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:458","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 8 when divided by 18. Find the greatest such number less than 184.","170","Use the remainder condition and the given bound.
+
+The required number is:
+
+170","18","8","","","","184"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:459","CP-003","Hard","Bounded Search","QL-011","ES-006","Which is the largest number less than 21870 that gives remainder 7 when divided by 24?","21847","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+21847","24","7","","","","21870"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:460","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 32525 that gives remainder 39 when divided by 75?","32514","Use the remainder condition and the given bound.
+
+The required number is:
+
+32514","75","39","","","","32525"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:461","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 19286 that leaves remainder 33 on division by 71.","19274","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+19274","71","33","","","","19286"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:462","CP-003","Hard","Bounded Search","QL-011","ES-005","Which is the largest number less than 26289 that gives remainder 80 when divided by 83?","26225","Use the remainder condition and the given bound.
+
+The required number is:
+
+26225","83","80","","","","26289"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:463","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 245 that gives remainder 14 when divided by 16?","238","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+238","16","14","","","","245"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:464","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 47 when divided by 90. Find the greatest such number less than 24127.","24077","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+24077","90","47","","","","24127"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:465","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 4946 that leaves remainder 7 on division by 29.","4937","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4937","29","7","","","","4946"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:466","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 1 when divided by 8. Find the greatest such number less than 403.","401","Use the remainder condition and the given bound.
+
+The required number is:
+
+401","8","1","","","","403"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:467","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 7291 that leaves remainder 42 on division by 46.","7264","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7264","46","42","","","","7291"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:468","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 223 that gives remainder 7 when divided by 12?","211","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+211","12","7","","","","223"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:469","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 1 when divided by 3. Find the greatest such number less than 3299.","3298","Use the remainder condition and the given bound.
+
+The required number is:
+
+3298","3","1","","","","3299"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:470","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 16 when divided by 78. Find the greatest such number less than 27836.","27784","Use the remainder condition and the given bound.
+
+The required number is:
+
+27784","78","16","","","","27836"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:471","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 7150 that gives remainder 1 when divided by 16?","7137","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7137","16","1","","","","7150"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:472","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 8 when divided by 16. Find the greatest such number less than 83.","72","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+72","16","8","","","","83"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:473","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 1023 that leaves remainder 7 on division by 18.","1015","Use the remainder condition and the given bound.
+
+The required number is:
+
+1015","18","7","","","","1023"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:474","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 6409 that leaves remainder 5 on division by 9.","6404","Use the remainder condition and the given bound.
+
+The required number is:
+
+6404","9","5","","","","6409"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:475","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 6. Find the greatest such number less than 57.","55","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+55","6","1","","","","57"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:476","CP-003","Medium","Bounded Search","QL-010","ES-006","Find the greatest number below 4287 that leaves remainder 42 on division by 43.","4256","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+4256","43","42","","","","4287"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:477","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 0 when divided by 7. Find the greatest such number less than 410.","406","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+406","7","0","","","","410"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:478","CP-003","Medium","Bounded Search","QL-009","ES-006","A number leaves remainder 6 when divided by 26. Find the greatest such number less than 802.","786","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+786","26","6","","","","802"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:479","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 134 that leaves remainder 13 on division by 14.","125","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+125","14","13","","","","134"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:480","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 33 when divided by 42. Find the greatest such number less than 7249.","7215","Use the remainder condition and the given bound.
+
+The required number is:
+
+7215","42","33","","","","7249"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:481","CP-003","Hard","Bounded Search","QL-009","ES-005","A number leaves remainder 58 when divided by 82. Find the greatest such number less than 17991.","17934","Use the remainder condition and the given bound.
+
+The required number is:
+
+17934","82","58","","","","17991"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:482","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 395 that leaves remainder 1 on division by 2.","393","Use the remainder condition and the given bound.
+
+The required number is:
+
+393","2","1","","","","395"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:483","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 16401 that leaves remainder 44 on division by 49.","16361","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+16361","49","44","","","","16401"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:484","CP-003","Hard","Bounded Search","QL-009","ES-006","A number leaves remainder 41 when divided by 48. Find the greatest such number less than 28222.","28217","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+28217","48","41","","","","28222"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:485","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 6811 that gives remainder 2 when divided by 30?","6782","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+6782","30","2","","","","6811"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:486","CP-003","Medium","Bounded Search","QL-011","ES-005","Which is the largest number less than 6067 that gives remainder 1 when divided by 10?","6061","Use the remainder condition and the given bound.
+
+The required number is:
+
+6061","10","1","","","","6067"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:487","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 329 that gives remainder 1 when divided by 3?","328","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+328","3","1","","","","329"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:488","CP-003","Easy","Bounded Search","QL-010","ES-005","Find the greatest number below 332 that leaves remainder 7 on division by 15.","322","Use the remainder condition and the given bound.
+
+The required number is:
+
+322","15","7","","","","332"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:489","CP-003","Medium","Bounded Search","QL-009","ES-005","A number leaves remainder 8 when divided by 31. Find the greatest such number less than 2799.","2798","Use the remainder condition and the given bound.
+
+The required number is:
+
+2798","31","8","","","","2799"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:490","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 55 that gives remainder 2 when divided by 5?","52","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+52","5","2","","","","55"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:491","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 84 that gives remainder 1 when divided by 6?","79","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+79","6","1","","","","84"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:492","CP-003","Easy","Bounded Search","QL-010","ES-006","Find the greatest number below 337 that leaves remainder 4 on division by 14.","326","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+326","14","4","","","","337"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:493","CP-003","Easy","Bounded Search","QL-011","ES-006","Which is the largest number less than 234 that gives remainder 7 when divided by 13?","228","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+228","13","7","","","","234"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:494","CP-003","Hard","Bounded Search","QL-010","ES-005","Find the greatest number below 8355 that leaves remainder 31 on division by 91.","8312","Use the remainder condition and the given bound.
+
+The required number is:
+
+8312","91","31","","","","8355"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:495","CP-003","Easy","Bounded Search","QL-009","ES-005","A number leaves remainder 2 when divided by 3. Find the greatest such number less than 86.","83","Use the remainder condition and the given bound.
+
+The required number is:
+
+83","3","2","","","","86"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:496","CP-003","Hard","Bounded Search","QL-010","ES-006","Find the greatest number below 7872 that leaves remainder 50 on division by 54.","7826","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+7826","54","50","","","","7872"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:497","CP-003","Easy","Bounded Search","QL-009","ES-006","A number leaves remainder 1 when divided by 4. Find the greatest such number less than 306.","305","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+305","4","1","","","","306"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:498","CP-003","Medium","Bounded Search","QL-011","ES-006","Which is the largest number less than 1452 that gives remainder 6 when divided by 7?","1448","Check numbers satisfying the remainder condition near the bound.
+
+Answer:
+
+1448","7","6","","","","1452"
+"NS-REM-002:CP-003:NS-REM-002-HUMAN-REVIEW-500:CP-003:499","CP-003","Medium","Bounded Search","QL-010","ES-005","Find the greatest number below 9512 that leaves remainder 19 on division by 30.","9499","Use the remainder condition and the given bound.
+
+The required number is:
+
+9499","30","19","","","","9512"

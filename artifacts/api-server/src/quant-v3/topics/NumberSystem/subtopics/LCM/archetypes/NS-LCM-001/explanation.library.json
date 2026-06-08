@@ -1,0 +1,77 @@
+{
+  "libraryId": "NS-LCM-001-EXPLANATION",
+  "archetypeId": "NS-LCM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "style": "SSC, Banking, Railway, CDS, NDA, CAPF and State PCS",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "operandFactorizationLatex",
+      "primeUnionLatex",
+      "maximumExponentSelectionLatex",
+      "lcmLatex",
+      "synchronizationInterpretationLatex",
+      "candidateEvaluationLatex",
+      "rangeCountFormulaLatex",
+      "thresholdSelectionFormulaLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Direct LCM Computation",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Write the prime factorization of the given numbers.\n\n{operandFactorizationLatex}\n\nTake every prime factor that appears in any number and keep the highest exponent.\n\n{primeUnionLatex}\n\n{maximumExponentSelectionLatex}\n\nTherefore,\n\n{lcmLatex}\n\nHence the LCM is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Common Cycle Synchronization",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "When events repeat after fixed intervals, the first time they occur together again is the LCM of those intervals.\n\n{synchronizationInterpretationLatex}\n\nUsing LCM,\n\n{lcmLatex}\n\nTherefore, the events will occur together again after {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Missing Number Using LCM",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "The required value must make the LCM equal to {targetLcm}.\n\nCheck each permitted value.\n\n{candidateEvaluationLatex}\n\nReject the values that do not produce the required LCM.\n\nOnly one value satisfies all conditions.\n\nHence x = {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Count Common Multiples In A Range",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "First find the LCM of the given numbers.\n\n{lcmLatex}\n\nEvery common multiple is a multiple of this LCM.\n\nUse the counting formula.\n\n{rangeCountFormulaLatex}\n\nTherefore, the number of common multiples is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Smallest Common Multiple Greater Than A Threshold",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "First find the LCM of the given numbers.\n\n{lcmLatex}\n\nNow find the first multiple of the LCM that is greater than {threshold}.\n\n{thresholdSelectionFormulaLatex}\n\nTherefore, the required number is {answer}."
+        }
+      ]
+    }
+  ]
+}

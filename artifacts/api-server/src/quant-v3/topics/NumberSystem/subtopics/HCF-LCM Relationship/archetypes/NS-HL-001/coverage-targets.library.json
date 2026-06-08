@@ -1,0 +1,111 @@
+{
+  "libraryId": "NS-HL-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-HL-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "PHASE_B_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"],
+  "targets": {
+    "canonicalProblemCoverage": {
+      "required": true,
+      "buckets": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"]
+    },
+    "difficultyCoverage": {
+      "required": true,
+      "buckets": ["Easy", "Medium", "Hard"]
+    },
+    "questionLanguageCoverage": {
+      "required": true,
+      "buckets": [
+        "QL-001",
+        "QL-002",
+        "QL-003",
+        "QL-004",
+        "QL-005",
+        "QL-006",
+        "QL-007",
+        "QL-008",
+        "QL-009",
+        "QL-010",
+        "QL-011",
+        "QL-012",
+        "QL-013",
+        "QL-014",
+        "QL-015",
+        "QL-016",
+        "QL-017",
+        "QL-018",
+        "QL-019",
+        "QL-020",
+        "QL-021",
+        "QL-022",
+        "QL-023",
+        "QL-024",
+        "QL-025",
+        "QL-026",
+        "QL-027",
+        "QL-028",
+        "QL-029",
+        "QL-030",
+        "QL-031",
+        "QL-032",
+        "QL-033"
+      ]
+    },
+    "explanationCoverage": {
+      "required": true,
+      "buckets": ["ES-001", "ES-002", "ES-003", "ES-004", "ES-005", "ES-006", "ES-007"]
+    },
+    "cp002ValidityDistribution": {
+      "required": true,
+      "target": { "valid": 0.5, "invalid": 0.5 }
+    },
+    "cp002InvalidBucketCoverage": {
+      "required": true,
+      "buckets": ["hcfDoesNotDivideLcm", "productRelationFailure", "numberConsistencyFailure"]
+    },
+    "cp004ConditionCoverage": {
+      "required": true,
+      "buckets": ["sumCondition", "differenceCondition", "rangeCondition", "directPairCondition"]
+    },
+    "cp005PairPolicyCoverage": {
+      "required": true,
+      "buckets": ["orderedPairs", "unorderedPairs"]
+    },
+    "cp005PairCountCaseCoverage": {
+      "required": true,
+      "buckets": ["singlePairCase", "multiplePairCase"]
+    },
+    "cp006RatioFamilyCoverage": {
+      "required": true,
+      "buckets": ["ratioPlusHcf", "ratioPlusLcm", "ratioPlusHcfPlusLcm"]
+    },
+    "cp006RatioReductionCoverage": {
+      "required": true,
+      "buckets": ["alreadyReducedRatio", "reducibleRatio"]
+    },
+    "mathJaxPlaceholderCoverage": {
+      "required": true,
+      "buckets": [
+        "productRelationLatex",
+        "divisibilityCheckLatex",
+        "productRelationCheckLatex",
+        "missingNumberFormulaLatex",
+        "hcfVerificationLatex",
+        "lcmVerificationLatex",
+        "quotientLatex",
+        "factorPairListLatex",
+        "coprimePairFilterLatex",
+        "conditionFilterLatex",
+        "reconstructedPairLatex",
+        "factorPairCountLatex",
+        "orderedPairPolicyLatex",
+        "unorderedPairPolicyLatex",
+        "ratioReductionLatex",
+        "ratioMultiplierLatex",
+        "hcfMultiplierLatex",
+        "lcmMultiplierLatex",
+        "consistencyCheckLatex"
+      ]
+    }
+  }
+}

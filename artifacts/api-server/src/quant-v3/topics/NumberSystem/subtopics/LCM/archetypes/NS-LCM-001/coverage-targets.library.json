@@ -1,0 +1,94 @@
+{
+  "libraryId": "NS-LCM-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-LCM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficulty": {
+      "required": true,
+      "bands": ["Easy", "Medium", "Hard"]
+    },
+    "operandCount": {
+      "required": true
+    },
+    "pairwiseCoprime": {
+      "required": true
+    },
+    "nonCoprime": {
+      "required": true
+    },
+    "lcmSize": {
+      "required": true
+    },
+    "distinctPrimeBaseCount": {
+      "required": true
+    },
+    "maximumExponent": {
+      "required": true
+    },
+    "cycleContext": {
+      "appliesTo": ["CP-002"],
+      "families": ["bells", "lights", "alarms", "runners", "machines", "buses", "trains", "traffic_signals", "sprinklers", "cleaning_schedules"]
+    },
+    "cp003Family": {
+      "appliesTo": ["CP-003"],
+      "families": ["candidate_list", "bounded_range", "divisibility_condition", "arithmetic_condition"]
+    },
+    "exactLcmMatch": {
+      "appliesTo": ["CP-003"],
+      "required": true,
+      "definition": "Tracks whether a candidate exactly produces the required target LCM.",
+      "auditVisibility": "Required"
+    },
+    "rangeWidth": {
+      "appliesTo": ["CP-004"],
+      "required": true
+    },
+    "zeroCountCase": {
+      "appliesTo": ["CP-004"],
+      "required": true
+    },
+    "positiveCountCase": {
+      "appliesTo": ["CP-004"],
+      "required": true
+    },
+    "thresholdIsMultiple": {
+      "appliesTo": ["CP-005"],
+      "required": true
+    },
+    "thresholdNotMultiple": {
+      "appliesTo": ["CP-005"],
+      "required": true
+    },
+    "questionLanguageId": {
+      "required": true,
+      "rule": "No approved QL ID may be unused in a production audit batch."
+    },
+    "explanationId": {
+      "required": true,
+      "rule": "No approved ES ID may be unused in a production audit batch."
+    }
+  },
+  "canonicalProblemCoverage": [
+    {
+      "cpId": "CP-001",
+      "requiredCoverage": ["difficulty", "operandCount", "pairwiseCoprime", "nonCoprime", "lcmSize", "distinctPrimeBaseCount", "maximumExponent", "questionLanguageId", "explanationId"]
+    },
+    {
+      "cpId": "CP-002",
+      "requiredCoverage": ["difficulty", "cycleContext", "lcmSize", "questionLanguageId", "explanationId"]
+    },
+    {
+      "cpId": "CP-003",
+      "requiredCoverage": ["difficulty", "cp003Family", "exactLcmMatch", "lcmSize", "questionLanguageId", "explanationId"]
+    },
+    {
+      "cpId": "CP-004",
+      "requiredCoverage": ["difficulty", "rangeWidth", "zeroCountCase", "positiveCountCase", "questionLanguageId", "explanationId"]
+    },
+    {
+      "cpId": "CP-005",
+      "requiredCoverage": ["difficulty", "thresholdIsMultiple", "thresholdNotMultiple", "questionLanguageId", "explanationId"]
+    }
+  ]
+}

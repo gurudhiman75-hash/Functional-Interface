@@ -1,0 +1,73 @@
+{
+  "libraryId": "NS-PF-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-PF-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_APPROVAL",
+  "targets": {
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": {
+      "target": "Uniform",
+      "rule": "Rotate across approved question language entries for each CP."
+    },
+    "explanationStyles": {
+      "target": "Uniform",
+      "rule": "Rotate across approved explanation entries applicable to each CP."
+    },
+    "primeInputCoverage": {
+      "target": "Required",
+      "rule": "Prime input numbers must appear in audit reporting for applicable CPs."
+    },
+    "compositeInputCoverage": {
+      "target": "Required",
+      "rule": "Composite input numbers must appear in audit reporting for applicable CPs."
+    },
+    "primeBaseCoverage": {
+      "target": "Balanced by approved coverage buckets",
+      "rule": "Prime base buckets should be represented over audit batches where applicable."
+    },
+    "largestPrimeFactorCoverage": {
+      "target": "Required for CP-004",
+      "rule": "Largest prime factor buckets must be represented in audit reporting."
+    },
+    "smallestPrimeFactorCoverage": {
+      "target": "Required for CP-005",
+      "rule": "Smallest prime factor buckets must be represented in audit reporting."
+    },
+    "selectedPrimeCoverage": {
+      "target": "Required for CP-006 and CP-007",
+      "rule": "Selected prime buckets must be represented in audit reporting."
+    },
+    "selectedExponentCoverage": {
+      "target": "Required for CP-006 and CP-007",
+      "rule": "Selected exponent buckets must be represented in audit reporting. Exponent 0 is excluded by the approved Option A policy."
+    },
+    "primePowerCoverage": {
+      "target": "Balanced by approved exponent buckets",
+      "rule": "Exponent 1 and repeated-prime cases must both be visible over audit batches."
+    },
+    "numberShapeCoverage": {
+      "target": "Balanced by applicable difficulty band",
+      "rule": "Small composite, medium composite, large composite, prime-heavy, repeated-prime, and mixed-prime shapes must be auditable."
+    }
+  },
+  "auditReporting": [
+    "Difficulty Distribution",
+    "Question Language Distribution",
+    "Explanation Style Distribution",
+    "Prime Input Coverage",
+    "Composite Input Coverage",
+    "Prime Base Coverage",
+    "Largest Prime Factor Coverage",
+    "Smallest Prime Factor Coverage",
+    "Selected Prime Coverage",
+    "Selected Exponent Coverage",
+    "Prime Power Coverage",
+    "Distinct Factor Count Coverage",
+    "Repeated Factor Coverage",
+    "Number Shape Coverage"
+  ]
+}

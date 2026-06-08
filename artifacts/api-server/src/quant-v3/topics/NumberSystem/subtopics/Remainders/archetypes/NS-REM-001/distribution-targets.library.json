@@ -1,0 +1,34 @@
+{
+  "libraryId": "NS-REM-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-REM-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "APPROVED",
+  "targets": {
+    "patternDistribution": {
+      "rule": "No structural pattern should dominate a production batch.",
+      "maxFrequencyPercent": 15
+    },
+    "divisorDistribution": {
+      "rule": "Approved divisors should rotate across batches.",
+      "maxFrequencyPercent": 12
+    },
+    "targetRemainderDistribution": {
+      "rule": "Target remainders should rotate within each divisor; remainder 0 should not dominate.",
+      "maxFrequencyPercentPerDivisor": 25,
+      "maxZeroRemainderFrequencyPercent": 20
+    },
+    "difficultyDistribution": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguageDistribution": {
+      "rule": "After human wording is supplied, no stem slot should dominate.",
+      "maxFrequencyPercent": 10
+    },
+    "explanationDistribution": {
+      "rule": "After human explanations are supplied, no explanation slot should dominate.",
+      "maxFrequencyPercent": 15
+    }
+  }
+}

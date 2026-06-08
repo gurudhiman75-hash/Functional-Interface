@@ -1,0 +1,40 @@
+{
+  "styles": [
+    {
+      "id": "ES-001",
+      "name": "Teacher Style",
+      "defaultUsageTarget": "70%",
+      "renderingRules": [
+        "Explain the concept.",
+        "Apply the concept.",
+        "Show the key calculation.",
+        "Give the answer.",
+        "Normally 4-8 lines."
+      ]
+    },
+    {
+      "id": "ES-002",
+      "name": "Short Exam Style",
+      "defaultUsageTarget": "20%",
+      "renderingRules": [
+        "Skip unnecessary narration.",
+        "Show only essential calculation.",
+        "Give answer quickly.",
+        "Normally 2-5 lines."
+      ]
+    },
+    {
+      "id": "ES-003",
+      "name": "Detailed Teaching Style",
+      "defaultUsageTarget": "10%",
+      "renderingRules": [
+        "Explain the concept.",
+        "Explain why the concept applies.",
+        "Show the calculation.",
+        "Show intermediate reasoning.",
+        "Give answer.",
+        "Normally 6-12 lines."
+      ]
+    }
+  ]
+}
