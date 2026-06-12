@@ -1,0 +1,319 @@
+{
+  "libraryId": "NS-FRACDEC-001-COVERAGE-TARGETS",
+  "archetypeId": "NS-FRACDEC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP-001",
+    "CP-002",
+    "CP-003",
+    "CP-004",
+    "CP-005",
+    "CP-006",
+    "CP-007",
+    "CP-008",
+    "CP-009"
+  ],
+  "targets": {
+    "canonicalProblemCoverage": {
+      "required": true,
+      "buckets": [
+        "CP-001",
+        "CP-002",
+        "CP-003",
+        "CP-004",
+        "CP-005",
+        "CP-006",
+        "CP-007",
+        "CP-008",
+        "CP-009"
+      ]
+    },
+    "difficultyCoverage": {
+      "required": true,
+      "buckets": [
+        "Easy",
+        "Medium",
+        "Hard"
+      ]
+    },
+    "questionLanguageCoverage": {
+      "required": true,
+      "buckets": [
+        "QL-001",
+        "QL-002",
+        "QL-003",
+        "QL-004",
+        "QL-005",
+        "QL-006",
+        "QL-007",
+        "QL-008",
+        "QL-009",
+        "QL-010",
+        "QL-011",
+        "QL-012",
+        "QL-013",
+        "QL-014",
+        "QL-015",
+        "QL-016",
+        "QL-017",
+        "QL-018",
+        "QL-019",
+        "QL-020",
+        "QL-021",
+        "QL-022",
+        "QL-023",
+        "QL-024",
+        "QL-025",
+        "QL-026",
+        "QL-027",
+        "QL-028",
+        "QL-029",
+        "QL-030",
+        "QL-031",
+        "QL-032",
+        "QL-033",
+        "QL-034",
+        "QL-035",
+        "QL-036",
+        "QL-037",
+        "QL-038",
+        "QL-039",
+        "QL-040",
+        "QL-041",
+        "QL-042",
+        "QL-043",
+        "QL-044",
+        "QL-045",
+        "QL-046",
+        "QL-047",
+        "QL-048",
+        "QL-049",
+        "QL-050",
+        "QL-051",
+        "QL-052",
+        "QL-053",
+        "QL-054",
+        "QL-055",
+        "QL-056",
+        "QL-057",
+        "QL-058",
+        "QL-059",
+        "QL-060",
+        "QL-061",
+        "QL-062",
+        "QL-063",
+        "QL-064",
+        "QL-065",
+        "QL-066",
+        "QL-067",
+        "QL-068",
+        "QL-069",
+        "QL-070",
+        "QL-071",
+        "QL-072",
+        "QL-073",
+        "QL-074",
+        "QL-075",
+        "QL-076",
+        "QL-077",
+        "QL-078",
+        "QL-079",
+        "QL-080",
+        "QL-081",
+        "QL-082",
+        "QL-083",
+        "QL-084",
+        "QL-085",
+        "QL-086",
+        "QL-087",
+        "QL-088",
+        "QL-089",
+        "QL-090",
+        "QL-091",
+        "QL-092",
+        "QL-093",
+        "QL-094",
+        "QL-095",
+        "QL-096",
+        "QL-097",
+        "QL-098",
+        "QL-099",
+        "QL-100",
+        "QL-101",
+        "QL-102",
+        "QL-103",
+        "QL-104",
+        "QL-105",
+        "QL-106",
+        "QL-107",
+        "QL-108",
+        "QL-109",
+        "QL-110",
+        "QL-111",
+        "QL-112",
+        "QL-113",
+        "QL-114",
+        "QL-115",
+        "QL-116",
+        "QL-117",
+        "QL-118",
+        "QL-119",
+        "QL-120",
+        "QL-121",
+        "QL-122",
+        "QL-123",
+        "QL-124",
+        "QL-125",
+        "QL-126",
+        "QL-127",
+        "QL-128",
+        "QL-129",
+        "QL-130",
+        "QL-131",
+        "QL-132",
+        "QL-133",
+        "QL-134",
+        "QL-135",
+        "QL-136",
+        "QL-137",
+        "QL-138",
+        "QL-139",
+        "QL-140",
+        "QL-141",
+        "QL-142",
+        "QL-143",
+        "QL-144",
+        "QL-145",
+        "QL-146",
+        "QL-147",
+        "QL-148",
+        "QL-149",
+        "QL-150",
+        "QL-151",
+        "QL-152",
+        "QL-153",
+        "QL-154",
+        "QL-155",
+        "QL-156",
+        "QL-157",
+        "QL-158",
+        "QL-159",
+        "QL-160"
+      ]
+    },
+    "explanationCoverage": {
+      "required": true,
+      "buckets": [
+        "ES-001",
+        "ES-002",
+        "ES-003",
+        "ES-004",
+        "ES-005",
+        "ES-006",
+        "ES-007",
+        "ES-008",
+        "ES-009"
+      ]
+    },
+    "cp001Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-001"
+      ],
+      "buckets": [
+        "properFraction",
+        "improperFraction",
+        "reducibleFraction",
+        "alreadySimplified"
+      ]
+    },
+    "cp002Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-002"
+      ],
+      "buckets": [
+        "improperToMixed",
+        "mixedToImproper"
+      ]
+    },
+    "cp003Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-003"
+      ],
+      "buckets": [
+        "addition",
+        "subtraction",
+        "multiplication",
+        "division",
+        "mixedOperations"
+      ]
+    },
+    "cp004Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-004"
+      ],
+      "buckets": [
+        "pairComparison",
+        "ascendingOrder",
+        "descendingOrder",
+        "largestSelection",
+        "smallestSelection"
+      ]
+    },
+    "cp005Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-005"
+      ],
+      "buckets": [
+        "terminatingResult",
+        "recurringResult"
+      ]
+    },
+    "cp006Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-006"
+      ],
+      "buckets": [
+        "oneDecimalPlace",
+        "twoDecimalPlaces",
+        "threeDecimalPlaces"
+      ]
+    },
+    "cp007Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-007"
+      ],
+      "buckets": [
+        "singleDigitRecurring",
+        "multiDigitRecurring"
+      ]
+    },
+    "cp008Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-008"
+      ],
+      "buckets": [
+        "terminatingDecimal",
+        "recurringDecimal"
+      ]
+    },
+    "cp009Coverage": {
+      "required": true,
+      "appliesTo": [
+        "CP-009"
+      ],
+      "buckets": [
+        "hcfFractions",
+        "lcmFractions"
+      ]
+    }
+  }
+}

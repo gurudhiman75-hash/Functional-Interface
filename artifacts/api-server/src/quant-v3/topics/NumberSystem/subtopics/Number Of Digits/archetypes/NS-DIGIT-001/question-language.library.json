@@ -1,0 +1,124 @@
+{
+  "libraryId": "NS-DIGIT-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-DIGIT-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "runtimePolicy": {
+    "may": ["load", "validate", "select", "substitute", "render"],
+    "mayNot": ["invent question wording", "generate educational language", "create additional stems"]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Number Of Digits In A Given Number",
+      "entries": [
+        { "id": "QL-001", "text": "Find the number of digits in {number}." },
+        { "id": "QL-002", "text": "How many digits are there in {number}?" },
+        { "id": "QL-003", "text": "Count the digits in {number}." },
+        { "id": "QL-004", "text": "What is the digit count of {number}?" },
+        { "id": "QL-005", "text": "Determine the number of digits in {number}." },
+        { "id": "QL-006", "text": "How many digits does {number} contain?" },
+        { "id": "QL-007", "text": "Find the total number of digits in {number}." },
+        { "id": "QL-008", "text": "The number {number} contains how many digits?" },
+        { "id": "QL-009", "text": "Calculate the digit count of {number}." },
+        { "id": "QL-010", "text": "Identify the number of digits in {number}." },
+        { "id": "QL-011", "text": "Find how many digits are present in {number}." },
+        { "id": "QL-012", "text": "What is the total number of digits in {number}?" }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Number Of Digits In A Power",
+      "entries": [
+        { "id": "QL-013", "text": "Find the number of digits in {base}^{exponent}." },
+        { "id": "QL-014", "text": "How many digits are there in {base}^{exponent}?" },
+        { "id": "QL-015", "text": "Determine the digit count of {base}^{exponent}." },
+        { "id": "QL-016", "text": "Calculate the number of digits in {base}^{exponent}." },
+        { "id": "QL-017", "text": "What is the number of digits in {base}^{exponent}?" },
+        { "id": "QL-018", "text": "Find how many digits are present in {base}^{exponent}." },
+        { "id": "QL-019", "text": "The value {base}^{exponent} contains how many digits?" },
+        { "id": "QL-020", "text": "Identify the digit count of {base}^{exponent}." },
+        { "id": "QL-021", "text": "Find the total number of digits in {base}^{exponent}." },
+        { "id": "QL-022", "text": "How many digits does {base}^{exponent} have?" },
+        { "id": "QL-023", "text": "Calculate the total digits in {base}^{exponent}." },
+        { "id": "QL-024", "text": "Determine how many digits occur in {base}^{exponent}." },
+        { "id": "QL-025", "text": "What is the total digit count of {base}^{exponent}?" },
+        { "id": "QL-026", "text": "Find the digit length of {base}^{exponent}." },
+        { "id": "QL-027", "text": "Count the digits in {base}^{exponent}." }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Number Of Digits In A Product",
+      "entries": [
+        { "id": "QL-028", "text": "Find the number of digits in the product {expression}." },
+        { "id": "QL-029", "text": "How many digits are there in {expression}?" },
+        { "id": "QL-030", "text": "Determine the digit count of {expression}." },
+        { "id": "QL-031", "text": "Calculate the number of digits in {expression}." },
+        { "id": "QL-032", "text": "Find the total digits in {expression}." },
+        { "id": "QL-033", "text": "What is the digit count of {expression}?" },
+        { "id": "QL-034", "text": "Count the digits in the product {expression}." },
+        { "id": "QL-035", "text": "Identify the number of digits in {expression}." },
+        { "id": "QL-036", "text": "The product {expression} contains how many digits?" },
+        { "id": "QL-037", "text": "Find how many digits are present in {expression}." },
+        { "id": "QL-038", "text": "Determine the total digit count of {expression}." },
+        { "id": "QL-039", "text": "Calculate the digit length of {expression}." }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Smallest Or Largest N-Digit Number",
+      "entries": [
+        { "id": "QL-040", "text": "Find the smallest {digitCount}-digit number.", "boundType": "smallest" },
+        { "id": "QL-041", "text": "Find the largest {digitCount}-digit number.", "boundType": "largest" },
+        { "id": "QL-042", "text": "What is the smallest {digitCount}-digit number?", "boundType": "smallest" },
+        { "id": "QL-043", "text": "What is the largest {digitCount}-digit number?", "boundType": "largest" },
+        { "id": "QL-044", "text": "Determine the smallest {digitCount}-digit number.", "boundType": "smallest" },
+        { "id": "QL-045", "text": "Determine the largest {digitCount}-digit number.", "boundType": "largest" },
+        { "id": "QL-046", "text": "Identify the smallest {digitCount}-digit number.", "boundType": "smallest" },
+        { "id": "QL-047", "text": "Identify the largest {digitCount}-digit number.", "boundType": "largest" },
+        { "id": "QL-048", "text": "Calculate the smallest {digitCount}-digit number.", "boundType": "smallest" },
+        { "id": "QL-049", "text": "Calculate the largest {digitCount}-digit number.", "boundType": "largest" },
+        { "id": "QL-065", "text": "The smallest {digitCount}-digit number is:", "boundType": "smallest" },
+        { "id": "QL-066", "text": "The largest {digitCount}-digit number is:", "boundType": "largest" },
+        { "id": "QL-067", "text": "Which is the smallest {digitCount}-digit number?", "boundType": "smallest" },
+        { "id": "QL-068", "text": "Which is the largest {digitCount}-digit number?", "boundType": "largest" },
+        { "id": "QL-069", "text": "A number contains exactly {digitCount} digits. What is the smallest such number?", "boundType": "smallest" },
+        { "id": "QL-070", "text": "A number contains exactly {digitCount} digits. What is the largest such number?", "boundType": "largest" },
+        { "id": "QL-071", "text": "Find the least number having {digitCount} digits.", "boundType": "smallest" },
+        { "id": "QL-072", "text": "Find the greatest number having {digitCount} digits.", "boundType": "largest" },
+        { "id": "QL-073", "text": "Identify the least {digitCount}-digit number.", "boundType": "smallest" },
+        { "id": "QL-074", "text": "Identify the greatest {digitCount}-digit number.", "boundType": "largest" }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Missing Exponent From Digit Count",
+      "entries": [
+        { "id": "QL-050", "text": "If {base}^n contains {digitCount} digits, find n." },
+        { "id": "QL-051", "text": "The number {base}^n has {digitCount} digits. Find n." },
+        { "id": "QL-052", "text": "Find n if {base}^n contains {digitCount} digits." },
+        { "id": "QL-053", "text": "Determine n when {base}^n has {digitCount} digits." },
+        { "id": "QL-054", "text": "Calculate n if {base}^n contains {digitCount} digits." },
+        { "id": "QL-055", "text": "Find the value of n if {base}^n has {digitCount} digits." },
+        { "id": "QL-056", "text": "How many should n be so that {base}^n contains {digitCount} digits?" },
+        { "id": "QL-057", "text": "Identify n when {base}^n has {digitCount} digits." },
+        { "id": "QL-058", "text": "The digit count of {base}^n is {digitCount}. Find n." },
+        { "id": "QL-059", "text": "Find the exponent n if {base}^n contains {digitCount} digits." },
+        { "id": "QL-060", "text": "Determine the exponent n if {base}^n has {digitCount} digits." },
+        { "id": "QL-061", "text": "Calculate the exponent n when {base}^n contains {digitCount} digits." },
+        { "id": "QL-062", "text": "Find n from the given digit count of {base}^n." },
+        { "id": "QL-063", "text": "The value {base}^n contains {digitCount} digits. Find n." },
+        { "id": "QL-064", "text": "Identify the exponent n using the digit count of {base}^n." },
+        { "id": "QL-075", "text": "If {base}^n contains {digitCount} digits, find n from the given options." },
+        { "id": "QL-076", "text": "The number of digits in {base}^n is {digitCount}. Choose the value of n." },
+        { "id": "QL-077", "text": "If {base}^n has {digitCount} digits, identify n from the following options." },
+        { "id": "QL-078", "text": "Select the value of n for which {base}^n contains {digitCount} digits." },
+        { "id": "QL-079", "text": "Find the correct exponent n from the given options." },
+        { "id": "QL-080", "text": "Which of the following values of n gives {digitCount} digits in {base}^n?" },
+        { "id": "QL-081", "text": "Choose the exponent n if {base}^n contains {digitCount} digits." },
+        { "id": "QL-082", "text": "The expression {base}^n contains {digitCount} digits. Select n." }
+      ]
+    }
+  ]
+}

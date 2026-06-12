@@ -1,0 +1,73 @@
+{
+  "libraryId": "NS-DIGIT-001-EXPLANATION",
+  "archetypeId": "NS-DIGIT-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "digitCountFormulaLatex",
+      "logarithmExpansionLatex",
+      "productDigitFormulaLatex",
+      "nDigitNumberFormulaLatex",
+      "exponentDigitFormulaLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Number Of Digits In A Given Number",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Count the digits directly.\n\nA positive integer having value from 10^(d-1) to 10^d-1 contains d digits.\n\nHence the number of digits is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Number Of Digits In A Power",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Use the digit-count formula.\n\n{digitCountFormulaLatex}\n\nSubstitute the given values.\n\n{logarithmExpansionLatex}\n\nHence the number of digits is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Number Of Digits In A Product",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Use the product digit formula.\n\n{productDigitFormulaLatex}\n\nAdd the logarithms of all factors and apply the digit-count rule.\n\nHence the number of digits is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Smallest Or Largest N-Digit Number",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "For an n-digit number:\n\nSmallest n-digit number = 10^(n-1)\n\nLargest n-digit number = 10^n - 1\n\n{nDigitNumberFormulaLatex}\n\nHence the answer is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Missing Exponent From Digit Count",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Use the digit-count relation.\n\n{exponentDigitFormulaLatex}\n\nSolve for n.\n\nThe required exponent is {answer}."
+        }
+      ]
+    }
+  ]
+}

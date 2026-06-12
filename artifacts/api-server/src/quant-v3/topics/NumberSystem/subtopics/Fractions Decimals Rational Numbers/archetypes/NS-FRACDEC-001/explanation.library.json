@@ -1,0 +1,141 @@
+{
+  "libraryId": "NS-FRACDEC-001-EXPLANATION",
+  "archetypeId": "NS-FRACDEC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "sourceAuthority": "ns-fracdec-001-language-draft.md",
+  "runtimePolicy": {
+    "may": [
+      "load",
+      "validate",
+      "select",
+      "substitute",
+      "render"
+    ],
+    "mayNot": [
+      "invent explanations",
+      "generate educational language",
+      "create fallback wording",
+      "rewrite human-authored language"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Simplify Fraction",
+      "appliesTo": [
+        "CP-001"
+      ],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Find the HCF of the numerator and denominator.\n\nDivide both by this HCF.\n\nThe fraction is now in lowest terms.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Convert Improper And Mixed Fractions",
+      "appliesTo": [
+        "CP-002"
+      ],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "For an improper fraction, divide the numerator by the denominator.\n\nThe quotient becomes the whole part.\n\nThe remainder becomes the numerator.\n\nFor a mixed fraction, multiply the whole part by the denominator and add the numerator.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Evaluate Fraction Or Decimal Arithmetic Expression",
+      "appliesTo": [
+        "CP-003"
+      ],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Convert the terms to a common form if required.\n\nApply the given operations carefully.\n\nSimplify the result and reduce it to lowest terms.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Compare Or Order Rational Values",
+      "appliesTo": [
+        "CP-004"
+      ],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "Convert the given values to a common basis.\n\nCompare them using a common denominator or decimal form.\n\nArrange or identify the required value.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Convert Fraction To Decimal",
+      "appliesTo": [
+        "CP-005"
+      ],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Divide the numerator by the denominator.\n\nWrite the quotient in decimal form.\n\nIf the digits repeat, mark the recurring part.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Convert Decimal To Fraction",
+      "appliesTo": [
+        "CP-006"
+      ],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "Use the decimal place value.\n\nWrite the decimal over 10, 100, 1000 or the required power of 10.\n\nReduce the fraction to lowest terms.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-007",
+      "name": "Convert Recurring Decimal To Fraction",
+      "appliesTo": [
+        "CP-007"
+      ],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "Let the recurring decimal be x.\n\nMultiply by a suitable power of 10 to move the recurring part.\n\nSubtract the equations to remove the recurring part.\n\nSolve for x and reduce the fraction.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-008",
+      "name": "Determine Terminating Or Recurring Decimal",
+      "appliesTo": [
+        "CP-008"
+      ],
+      "entries": [
+        {
+          "id": "ES-008",
+          "text": "First reduce the fraction to lowest terms.\n\nCheck the denominator.\n\nIf the denominator has only factors 2 and 5, the decimal terminates.\n\nOtherwise, the decimal is recurring.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-009",
+      "name": "HCF Or LCM Of Fractions",
+      "appliesTo": [
+        "CP-009"
+      ],
+      "entries": [
+        {
+          "id": "ES-009",
+          "text": "First write all fractions in simplest form.\n\nFor HCF of fractions, use HCF of numerators divided by LCM of denominators.\n\nFor LCM of fractions, use LCM of numerators divided by HCF of denominators.\n\nApply the required rule.\n\nAnswer: {answer}"
+        }
+      ]
+    }
+  ]
+}

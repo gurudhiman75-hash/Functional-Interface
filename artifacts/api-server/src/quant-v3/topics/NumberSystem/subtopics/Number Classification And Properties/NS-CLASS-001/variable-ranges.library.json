@@ -1,0 +1,70 @@
+{
+  "libraryId": "NS-CLASS-001-VARIABLE-RANGES",
+  "archetypeId": "NS-CLASS-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP01",
+    "CP02",
+    "CP03",
+    "CP04",
+    "CP05",
+    "CP06"
+  ],
+  "ranges": {
+    "CP01": {
+      "name": "Parity Outcome Determination",
+      "categories": [
+        "additionParity",
+        "subtractionParity",
+        "multiplicationParity",
+        "powerParity"
+      ]
+    },
+    "CP02": {
+      "name": "Sign Outcome Determination",
+      "categories": [
+        "productSign",
+        "quotientSign",
+        "powerSign",
+        "zeroCases"
+      ]
+    },
+    "CP03": {
+      "name": "Consecutive Integer Property",
+      "categories": [
+        "consecutiveIntegers",
+        "consecutiveEvenIntegers",
+        "consecutiveOddIntegers",
+        "missingTerm"
+      ]
+    },
+    "CP04": {
+      "name": "Count Integers Satisfying A Property",
+      "categories": [
+        "rangeCount",
+        "listCount",
+        "parityFilter",
+        "signFilter"
+      ]
+    },
+    "CP05": {
+      "name": "Integer Classification From Conditions",
+      "categories": [
+        "parityClassification",
+        "signClassification",
+        "combinedClassification",
+        "conditionInference"
+      ]
+    },
+    "CP06": {
+      "name": "Missing Number From Property Conditions",
+      "categories": [
+        "parityConstraint",
+        "signConstraint",
+        "consecutiveConstraint",
+        "mixedConstraint"
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+﻿{
+    "packageId":  "NS-SURD-001",
+    "sourceAuthority":  "ns-surd-001-language-draft.md",
+    "ownership":  "HUMAN_OWNED",
+    "usage":  "Runtime Consumption Only",
+    "cps":  {
+                "CP01":  [
+                             "squareRootCases",
+                             "cubeRootCases",
+                             "mixedExtraction"
+                         ],
+                "CP02":  [
+                             "directCombination",
+                             "simplifyBeforeCombination",
+                             "multiTermCombination"
+                         ],
+                "CP03":  [
+                             "multiplicationCases",
+                             "divisionCases",
+                             "coefficientCases"
+                         ],
+                "CP04":  [
+                             "mixedOperations",
+                             "simplificationChains",
+                             "multiStepExpressions"
+                         ],
+                "CP05":  [
+                             "pairComparison",
+                             "ordering",
+                             "greatestSelection",
+                             "leastSelection"
+                         ],
+                "CP06":  [
+                             "squareRootRationalization",
+                             "cubeRootRationalization",
+                             "coefficientRationalization"
+                         ],
+                "CP07":  [
+                             "conjugateMethod",
+                             "surdBinomial",
+                             "mixedBinomial"
+                         ],
+                "CP08":  [
+                             "squareIdentity",
+                             "conjugateIdentity",
+                             "identitySimplification"
+                         ]
+            }
+}

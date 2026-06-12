@@ -1,0 +1,289 @@
+{
+  "libraryId": "NS-FRACDEC-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-FRACDEC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP-001",
+    "CP-002",
+    "CP-003",
+    "CP-004",
+    "CP-005",
+    "CP-006",
+    "CP-007",
+    "CP-008",
+    "CP-009"
+  ],
+  "distributionPolicy": {
+    "canonicalProblems": "balanced",
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": "balanced within each CP",
+    "explanation": "one approved explanation family per CP",
+    "coverageCategories": "balanced with no zero-allocation bucket"
+  },
+  "targets": {
+    "CP-001": {
+      "name": "Simplify Fraction",
+      "coverageBuckets": [
+        {
+          "bucket": "properFraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "improperFraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "reducibleFraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "alreadySimplified",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "proper fraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "improper fraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "reducible fraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "already simplified fraction",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-002": {
+      "name": "Convert Improper And Mixed Fractions",
+      "coverageBuckets": [
+        {
+          "bucket": "improperToMixed",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedToImproper",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "improper to mixed",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixed to improper",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-003": {
+      "name": "Evaluate Fraction Or Decimal Arithmetic Expression",
+      "coverageBuckets": [
+        {
+          "bucket": "addition",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "subtraction",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "multiplication",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "division",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedOperations",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "fraction arithmetic",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "decimal arithmetic",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixed arithmetic",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-004": {
+      "name": "Compare Or Order Rational Values",
+      "coverageBuckets": [
+        {
+          "bucket": "pairComparison",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "ascendingOrder",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "descendingOrder",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "largestSelection",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "smallestSelection",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "pair comparison",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "multi-value ordering",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-005": {
+      "name": "Convert Fraction To Decimal",
+      "coverageBuckets": [
+        {
+          "bucket": "terminatingResult",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "recurringResult",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "terminating decimal result",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "recurring decimal result",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-006": {
+      "name": "Convert Decimal To Fraction",
+      "coverageBuckets": [
+        {
+          "bucket": "oneDecimalPlace",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "twoDecimalPlaces",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "threeDecimalPlaces",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "one decimal place",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "two decimal places",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "three decimal places",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-007": {
+      "name": "Convert Recurring Decimal To Fraction",
+      "coverageBuckets": [
+        {
+          "bucket": "singleDigitRecurring",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "multiDigitRecurring",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "single repeating digit",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "multi-digit repeating block",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-008": {
+      "name": "Determine Terminating Or Recurring Decimal",
+      "coverageBuckets": [
+        {
+          "bucket": "terminatingDecimal",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "recurringDecimal",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "denominator factors only 2 and 5",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "denominator contains other prime factors",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP-009": {
+      "name": "HCF Or LCM Of Fractions",
+      "coverageBuckets": [
+        {
+          "bucket": "hcfFractions",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "lcmFractions",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "HCF",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "LCM",
+          "allocation": "required_nonzero"
+        }
+      ]
+    }
+  }
+}

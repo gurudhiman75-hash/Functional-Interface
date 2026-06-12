@@ -1,0 +1,74 @@
+{
+  "libraryId": "NS-LASTDIG-001-EXPLANATION",
+  "archetypeId": "NS-LASTDIG-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "style": "SSC, Banking, Railway, CAPF and State PCS",
+  "mathJaxSupport": {
+    "required": true,
+    "supportedPlaceholders": [
+      "cycleLatex",
+      "cyclePositionLatex",
+      "effectiveExponentLatex",
+      "productLastDigitLatex",
+      "towerReductionLatex"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Last Digit Of A Power",
+      "appliesTo": ["CP-001"],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Only the last digit of the base is needed.\n\nWrite the repeating cycle of unit digits.\n\n{cycleLatex}\n\nFind the position of the exponent in this cycle.\n\n{cyclePositionLatex}\n\nTherefore, the last digit is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Last Digit Of Product Of Powers",
+      "appliesTo": ["CP-002"],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Find the unit digit of each power separately.\n\n{cycleLatex}\n\nNow multiply only the unit digits obtained.\n\n{productLastDigitLatex}\n\nTherefore, the last digit of the product is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Last Digit Of Repeated Exponential Expression",
+      "appliesTo": ["CP-003"],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "First find the effective exponent.\n\n{towerReductionLatex}\n\nNow locate its position in the unit digit cycle.\n\n{effectiveExponentLatex}\n\nTherefore, the last digit is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Identify Cyclicity Pattern",
+      "appliesTo": ["CP-004"],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "Write the unit digits of the first few powers of the base.\n\n{cycleLatex}\n\nThe same pattern repeats after this.\n\nTherefore, the cyclicity pattern is {answer}."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Missing Exponent Using Last Digit",
+      "appliesTo": ["CP-005"],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Write the unit digit cycle of the base.\n\n{cycleLatex}\n\nFind which exponent positions give the required last digit.\n\n{cyclePositionLatex}\n\nCheck the given options using this cycle.\n\nTherefore, the correct exponent is {answer}."
+        }
+      ]
+    }
+  ]
+}

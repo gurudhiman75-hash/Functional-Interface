@@ -1,5 +1,5 @@
 import express, { type Express } from "express";
-import cors from "cors";
+import cors, { type CorsOptions } from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -31,17 +31,39 @@ app.use(
     },
   }),
 );
-const allowedOrigins = (process.env.CORS_ORIGINS ?? "")
+const localhostOriginPattern = /^https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?$/;
+const defaultAllowedOrigins = [
+  "https://examtree-new.onrender.com",
+  "https://sarbedutech.web.app",
+  "https://sarbedutech.firebaseapp.com",
+  "https://examtree.in",
+  "https://www.examtree.in",
+];
+const configuredAllowedOrigins = (process.env.CORS_ORIGINS ?? "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
+const allowedOrigins = new Set([
+  ...defaultAllowedOrigins,
+  ...configuredAllowedOrigins,
+]);
+const corsOptions: CorsOptions = {
+  origin(origin, callback) {
+    if (!origin || localhostOriginPattern.test(origin) || allowedOrigins.has(origin)) {
+      callback(null, true);
+      return;
+    }
 
-app.use(
-  cors({
-    origin: allowedOrigins.length ? allowedOrigins : true,
-    credentials: true,
-  }),
-);
+    callback(new Error(`Origin ${origin} is not allowed by CORS`));
+  },
+  credentials: true,
+  methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Examtree-Device"],
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+app.options("/api/{*splat}", cors(corsOptions));
 app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
 
 app.use(

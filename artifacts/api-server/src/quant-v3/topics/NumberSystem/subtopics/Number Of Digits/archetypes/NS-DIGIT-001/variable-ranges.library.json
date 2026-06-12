@@ -1,0 +1,48 @@
+{
+  "libraryId": "NS-DIGIT-001-VARIABLE-RANGES",
+  "archetypeId": "NS-DIGIT-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+  "variables": {
+    "number": {
+      "type": "positiveInteger",
+      "easy": { "min": 1, "max": 9999 },
+      "medium": { "min": 10000, "max": 999999999 },
+      "hard": { "min": 1000000000, "max": "largeIntegerString" }
+    },
+    "base": {
+      "type": "positiveInteger",
+      "easy": { "min": 2, "max": 20 },
+      "medium": { "min": 21, "max": 100 },
+      "hard": { "min": 101, "max": 10000 }
+    },
+    "exponent": {
+      "type": "positiveInteger",
+      "easy": { "min": 2, "max": 10 },
+      "medium": { "min": 11, "max": 100 },
+      "hard": { "min": 101, "max": 1000000 }
+    },
+    "expression": {
+      "type": "approvedProductExpression",
+      "factorCounts": ["twoFactors", "threeFactors", "manyFactors"]
+    },
+    "digitCount": {
+      "type": "positiveInteger",
+      "easy": { "min": 1, "max": 6 },
+      "medium": { "min": 7, "max": 20 },
+      "hard": { "min": 21, "max": 1000 }
+    },
+    "answer": {
+      "type": "positiveIntegerOrLargeIntegerString",
+      "rule": "Final answer for the active CP."
+    }
+  },
+  "canonicalProblemVariables": {
+    "CP-001": ["number"],
+    "CP-002": ["base", "exponent"],
+    "CP-003": ["expression"],
+    "CP-004": ["digitCount"],
+    "CP-005": ["base", "digitCount"]
+  }
+}

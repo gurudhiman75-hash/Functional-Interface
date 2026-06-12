@@ -1,0 +1,102 @@
+{
+  "libraryId": "NS-CLASS-001-EXPLANATION",
+  "archetypeId": "NS-CLASS-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "sourceAuthority": "ns-class-001-language-draft.md",
+  "runtimePolicy": {
+    "may": [
+      "load",
+      "validate",
+      "select",
+      "substitute",
+      "render"
+    ],
+    "mayNot": [
+      "invent explanations",
+      "generate educational language",
+      "create fallback wording",
+      "rewrite human-authored language"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Parity Outcome Determination",
+      "appliesTo": [
+        "CP01"
+      ],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "Check whether each number is even or odd.\n\nUse the parity rule for the operation given in the question.\n\nThen decide whether the final result is even or odd.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Sign Outcome Determination",
+      "appliesTo": [
+        "CP02"
+      ],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "Check the sign of each number first.\n\nFor multiplication or division, count how many negative factors are present.\n\nFor powers, check whether the exponent is even or odd.\n\nThen decide whether the result is positive, negative, or zero.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Consecutive Integer Property",
+      "appliesTo": [
+        "CP03"
+      ],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "Identify the type of consecutive numbers used in the question.\n\nUse the correct gap between terms.\n\nWrite the required terms and apply the given condition.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Count Integers Satisfying A Property",
+      "appliesTo": [
+        "CP04"
+      ],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "Identify the property that must be counted.\n\nCheck the given range or list carefully.\n\nCount only the integers that satisfy the required property.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Integer Classification From Conditions",
+      "appliesTo": [
+        "CP05"
+      ],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "Read the given condition carefully.\n\nConvert the condition into a number property.\n\nUse that property to classify the integer.\n\nAnswer: {answer}"
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Missing Number From Property Conditions",
+      "appliesTo": [
+        "CP06"
+      ],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "List the possible values from the given condition.\n\nCheck each value against all the required properties.\n\nOnly one value satisfies the condition.\n\nAnswer: {answer}\n\n## Verification Summary\n\nCP count: 6\n\nTotal stems: 140\n\nExplanation candidates: 6\n\nNo JSON libraries.\n\nNo runtime files.\n\nNo tests.\n\nNo audits."
+        }
+      ]
+    }
+  ]
+}

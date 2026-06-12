@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 // Plugins (e.g. 'esbuild-plugin-pino') may use `require` to resolve dependencies
 globalThis.require = createRequire(import.meta.url);
@@ -201,7 +201,71 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     ...commonConfig,
     entryPoints: [path.resolve(artifactDir, "stress-test-reasoning.ts")],
   });
-}
+
+  // Build NS-FRACDEC-001 runtime test harness
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/ns-fracdec-001.test.ts")],
+    outdir: path.resolve(distDir, "quant-v3"),
+    entryNames: "[name]",
+  });
+
+  // Build NS-EXP-001 runtime test harness
+  await esbuild({
+    ...commonConfig,
+    entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/ns-exp-001.test.ts")],
+    outdir: path.resolve(distDir, "quant-v3"),
+    entryNames: "[name]",
+  });
+
+  // Build NS-CLASS-001 runtime test harness
+    await esbuild({
+      ...commonConfig,
+      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/ns-class-001.test.ts")],
+      outdir: path.resolve(distDir, "quant-v3"),
+      entryNames: "[name]",
+    });
+
+    // Build NS-SURD-001 runtime test harness
+    await esbuild({
+      ...commonConfig,
+      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/ns-surd-001.test.ts")],
+      outdir: path.resolve(distDir, "quant-v3"),
+      entryNames: "[name]",
+    });
+    const nsSurdSourceDir = path.resolve(artifactDir, "src/quant-v3/topics/NumberSystem/subtopics/SurdsAndRationalization/NS-SURD-001");
+    const nsSurdDistDir = path.resolve(distDir, "quant-v3");
+    for (const fileName of [
+      "question-language.library.json",
+      "explanation.library.json",
+      "variable-ranges.library.json",
+      "coverage-targets.library.json",
+      "distribution-targets.library.json",
+    ]) {
+      const raw = await readFile(path.join(nsSurdSourceDir, fileName), "utf8");
+      await writeFile(path.join(nsSurdDistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+    }
+
+    // Build SIMPL-001 runtime test harness
+    await esbuild({
+      ...commonConfig,
+      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/simpl-001.test.ts")],
+      outdir: path.resolve(distDir, "quant-v3"),
+      entryNames: "[name]",
+    });
+    const simplSourceDir = path.resolve(artifactDir, "src/quant-v3/topics/SimplificationAndApproximation/SIMPL-001");
+    const simplDistDir = path.resolve(distDir, "quant-v3");
+    for (const fileName of [
+      "question-language.library.json",
+      "explanation.library.json",
+      "variable-ranges.library.json",
+      "coverage-targets.library.json",
+      "distribution-targets.library.json",
+    ]) {
+      const raw = await readFile(path.join(simplSourceDir, fileName), "utf8");
+      await writeFile(path.join(simplDistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+    }
+  }
 
 buildAll().catch((err) => {
   console.error(err);

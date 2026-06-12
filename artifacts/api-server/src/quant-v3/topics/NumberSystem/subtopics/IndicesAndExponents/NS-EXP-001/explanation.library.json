@@ -1,0 +1,128 @@
+{
+  "libraryId": "NS-EXP-001-EXPLANATION",
+  "archetypeId": "NS-EXP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "sourceAuthority": "ns-exp-001-language-draft.md",
+  "runtimePolicy": {
+    "may": [
+      "load",
+      "validate",
+      "select",
+      "substitute",
+      "render"
+    ],
+    "mayNot": [
+      "invent explanations",
+      "generate educational language",
+      "create fallback wording",
+      "rewrite human-authored language"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "EF-001",
+      "name": "Same-base exponent compression",
+      "appliesTo": [
+        "CP01"
+      ],
+      "entries": [
+        {
+          "id": "ES-001",
+          "text": "First check whether the base is the same in every term. If the base is the same, the calculation should be done on the exponents. For multiplication, add the exponents. For division, subtract the exponents. For a power raised to another power, multiply the exponents. After reducing the exponent, write the final power or calculate the value if it is small."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-002",
+      "name": "Same-base exponent equation",
+      "appliesTo": [
+        "CP02"
+      ],
+      "entries": [
+        {
+          "id": "ES-002",
+          "text": "When both sides have the same base, the exponents must be equal. So ignore the common base for a moment and write an equation using only the exponents. Solve that simple equation, then check that the exponent found gives the same power on both sides."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-003",
+      "name": "Common-base transformation and exponent solving",
+      "appliesTo": [
+        "CP03"
+      ],
+      "entries": [
+        {
+          "id": "ES-003",
+          "text": "When the visible bases are different, first check whether they can be written using one smaller base. After changing every term to the same base, use the normal exponent laws. The same method works for simplification, comparison, and exponent equations."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-004",
+      "name": "Negative exponent normalization",
+      "appliesTo": [
+        "CP04"
+      ],
+      "entries": [
+        {
+          "id": "ES-004",
+          "text": "A negative exponent does not make the answer negative. It means reciprocal. First move the term to its reciprocal form or combine the exponents carefully. After that, write the answer with a positive exponent wherever possible."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-005",
+      "name": "Fractional exponent to root",
+      "appliesTo": [
+        "CP05"
+      ],
+      "entries": [
+        {
+          "id": "ES-005",
+          "text": "A fractional exponent connects powers and roots. The denominator of the exponent shows the root, and the numerator shows the power. In most exam questions, take the root first because it keeps the numbers small. Then raise the result to the numerator power."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-006",
+      "name": "Mixed exponent expression simplification",
+      "appliesTo": [
+        "CP06"
+      ],
+      "entries": [
+        {
+          "id": "ES-006",
+          "text": "In a mixed expression, do not start by calculating large powers. First rewrite composite bases into a common base. Next handle negative or fractional exponents. Then combine same-base powers. This order keeps the expression short and avoids unnecessary arithmetic."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-007",
+      "name": "Exponential comparison by base alignment",
+      "appliesTo": [
+        "CP07"
+      ],
+      "entries": [
+        {
+          "id": "ES-007",
+          "text": "For comparison, make the expressions comparable first. If the bases can be made the same, compare the exponents. If the exponents become the same, compare the bases. Do not decide only from the visible base, because a smaller base with a larger exponent may be greater."
+        }
+      ]
+    },
+    {
+      "familyId": "EF-008",
+      "name": "Value substitution using a given power relation",
+      "appliesTo": [
+        "CP09"
+      ],
+      "entries": [
+        {
+          "id": "ES-008",
+          "text": "When a value such as \\(a^x\\) is already given, use it as a ready block. For \\(a^{x+k}\\), multiply the given value by \\(a^k\\). For \\(a^{x-k}\\), divide the given value by \\(a^k\\). For \\(a^{mx}\\), raise the given value to the power \\(m\\). This is faster than finding \\(x\\) every time.\n\n## Verification Summary\n\nCP count: 8\n\nTotal stems: 190\n\nExplanation candidates: 8\n\nNo JSON libraries.\n\nNo runtime files.\n\nNo tests.\n\nNo audits."
+        }
+      ]
+    }
+  ]
+}

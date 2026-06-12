@@ -1,0 +1,83 @@
+{
+  "libraryId": "NS-EXP-001-VARIABLE-RANGES",
+  "archetypeId": "NS-EXP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP01",
+    "CP02",
+    "CP03",
+    "CP04",
+    "CP05",
+    "CP06",
+    "CP07",
+    "CP09"
+  ],
+  "ranges": {
+    "CP01": {
+      "name": "Same-base exponent compression",
+      "categories": [
+        "multiplication only",
+        "division only",
+        "mixed operations",
+        "power of power"
+      ]
+    },
+    "CP02": {
+      "name": "Same-base exponent equation",
+      "categories": [
+        "linear exponent equation",
+        "coefficient exponent equation",
+        "fractional exponent equation"
+      ]
+    },
+    "CP03": {
+      "name": "Common-base transformation and exponent solving",
+      "categories": [
+        "simplification",
+        "comparison",
+        "exponent solving"
+      ]
+    },
+    "CP04": {
+      "name": "Negative exponent normalization",
+      "categories": [
+        "single negative exponent",
+        "mixed positive and negative exponents"
+      ]
+    },
+    "CP05": {
+      "name": "Fractional exponent to root",
+      "categories": [
+        "square roots",
+        "cube roots",
+        "higher roots"
+      ]
+    },
+    "CP06": {
+      "name": "Mixed exponent expression simplification",
+      "categories": [
+        "negative exponent mix",
+        "fractional exponent mix",
+        "composite mix"
+      ]
+    },
+    "CP07": {
+      "name": "Exponential comparison by base alignment",
+      "categories": [
+        "pair comparison",
+        "ordering",
+        "largest selection",
+        "smallest selection"
+      ]
+    },
+    "CP09": {
+      "name": "Value substitution using a given power relation",
+      "categories": [
+        "exponent increase",
+        "exponent decrease",
+        "exponent multiple"
+      ]
+    }
+  }
+}

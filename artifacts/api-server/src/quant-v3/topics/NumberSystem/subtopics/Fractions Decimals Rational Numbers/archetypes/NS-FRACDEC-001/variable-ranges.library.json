@@ -1,0 +1,86 @@
+{
+  "libraryId": "NS-FRACDEC-001-VARIABLE-RANGES",
+  "archetypeId": "NS-FRACDEC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP-001",
+    "CP-002",
+    "CP-003",
+    "CP-004",
+    "CP-005",
+    "CP-006",
+    "CP-007",
+    "CP-008",
+    "CP-009"
+  ],
+  "ranges": {
+    "CP-001": {
+      "name": "Simplify Fraction",
+      "categories": [
+        "proper fraction",
+        "improper fraction",
+        "reducible fraction",
+        "already simplified fraction"
+      ]
+    },
+    "CP-002": {
+      "name": "Convert Improper And Mixed Fractions",
+      "categories": [
+        "improper to mixed",
+        "mixed to improper"
+      ]
+    },
+    "CP-003": {
+      "name": "Evaluate Fraction Or Decimal Arithmetic Expression",
+      "categories": [
+        "fraction arithmetic",
+        "decimal arithmetic",
+        "mixed arithmetic"
+      ]
+    },
+    "CP-004": {
+      "name": "Compare Or Order Rational Values",
+      "categories": [
+        "pair comparison",
+        "multi-value ordering"
+      ]
+    },
+    "CP-005": {
+      "name": "Convert Fraction To Decimal",
+      "categories": [
+        "terminating decimal result",
+        "recurring decimal result"
+      ]
+    },
+    "CP-006": {
+      "name": "Convert Decimal To Fraction",
+      "categories": [
+        "one decimal place",
+        "two decimal places",
+        "three decimal places"
+      ]
+    },
+    "CP-007": {
+      "name": "Convert Recurring Decimal To Fraction",
+      "categories": [
+        "single repeating digit",
+        "multi-digit repeating block"
+      ]
+    },
+    "CP-008": {
+      "name": "Determine Terminating Or Recurring Decimal",
+      "categories": [
+        "denominator factors only 2 and 5",
+        "denominator contains other prime factors"
+      ]
+    },
+    "CP-009": {
+      "name": "HCF Or LCM Of Fractions",
+      "categories": [
+        "HCF",
+        "LCM"
+      ]
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "libraryId": "NS-LASTDIG-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-LASTDIG-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "runtimePolicy": {
+    "may": ["load", "validate", "select", "substitute", "render"],
+    "mayNot": ["invent question wording", "generate educational language", "create additional stems"]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Last Digit Of A Power",
+      "entries": [
+        { "id": "QL-001", "text": "Find the last digit of {base}^{exponent}." },
+        { "id": "QL-002", "text": "What is the unit digit of {base}^{exponent}?" },
+        { "id": "QL-003", "text": "Calculate the last digit in the value of {base}^{exponent}." },
+        { "id": "QL-004", "text": "Find the digit in the units place of {base}^{exponent}." },
+        { "id": "QL-005", "text": "Evaluate the unit digit of the power {base}^{exponent}." },
+        { "id": "QL-006", "text": "Find the last digit when {base} is raised to the power {exponent}." },
+        { "id": "QL-007", "text": "The number {base}^{exponent} is written in full. Find its last digit." },
+        { "id": "QL-008", "text": "Determine the unit digit in {base}^{exponent}." },
+        { "id": "QL-009", "text": "Find the last digit of the given power: {base}^{exponent}." },
+        { "id": "QL-010", "text": "What digit appears at the end of {base}^{exponent}?" },
+        { "id": "QL-045", "text": "Find the unit digit of {base}^{exponent}." },
+        { "id": "QL-046", "text": "What is the last digit of {base}^{exponent}?" },
+        { "id": "QL-047", "text": "Find the digit in the units place of {base}^{exponent}." },
+        { "id": "QL-048", "text": "What digit appears at the end of {base}^{exponent}?" },
+        { "id": "QL-049", "text": "Determine the last digit of {base}^{exponent}." }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Last Digit Of Product Of Powers",
+      "entries": [
+        { "id": "QL-011", "text": "Find the last digit of {powerProduct}." },
+        { "id": "QL-012", "text": "What is the unit digit of the product {powerProduct}?" },
+        { "id": "QL-013", "text": "Calculate the last digit in the value of {powerProduct}." },
+        { "id": "QL-014", "text": "Find the digit in the units place of {powerProduct}." },
+        { "id": "QL-015", "text": "Evaluate the unit digit of {powerProduct}." },
+        { "id": "QL-016", "text": "The product {powerProduct} is written in full. Find its last digit." },
+        { "id": "QL-017", "text": "Find the last digit after multiplying the powers in {powerProduct}." },
+        { "id": "QL-018", "text": "What digit appears at the end of the product {powerProduct}?" },
+        { "id": "QL-050", "text": "Find the last digit of {powerProduct}." },
+        { "id": "QL-051", "text": "What is the unit digit of {powerProduct}?" },
+        { "id": "QL-052", "text": "Determine the digit in the units place of {powerProduct}." }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Last Digit Of Repeated Exponential Expression",
+      "entries": [
+        { "id": "QL-019", "text": "Find the last digit of {towerExpression}." },
+        { "id": "QL-020", "text": "What is the unit digit of {towerExpression}?" },
+        { "id": "QL-021", "text": "Calculate the last digit in the value of {towerExpression}." },
+        { "id": "QL-022", "text": "Find the digit in the units place of {towerExpression}." },
+        { "id": "QL-023", "text": "Evaluate the unit digit of the repeated power {towerExpression}." },
+        { "id": "QL-024", "text": "The expression {towerExpression} is simplified. Find its last digit." },
+        { "id": "QL-025", "text": "Find the last digit of the exponential expression {towerExpression}." },
+        { "id": "QL-026", "text": "What digit appears at the end of {towerExpression}?" }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Identify Cyclicity Pattern",
+      "entries": [
+        { "id": "QL-027", "text": "Identify the unit digit cycle followed by powers of {base}." },
+        { "id": "QL-028", "text": "Find the repeating last-digit pattern for powers of {base}." },
+        { "id": "QL-029", "text": "What is the cyclicity pattern of the unit digit of {base}?" },
+        { "id": "QL-030", "text": "Write the last-digit cycle for successive powers of {base}." },
+        { "id": "QL-031", "text": "Find the cycle of unit digits obtained from powers of {base}." },
+        { "id": "QL-032", "text": "Identify the repeating sequence in the unit digits of {base}^1, {base}^2, {base}^3 and so on." },
+        { "id": "QL-033", "text": "Write the cyclic order of last digits for powers of {base}." },
+        { "id": "QL-034", "text": "Find the unit digit pattern used for powers of {base}." },
+        { "id": "QL-053", "text": "Which of the following is the unit digit cycle of powers of {base}?" },
+        { "id": "QL-054", "text": "Identify the repeating unit digit pattern of powers of {base}." },
+        { "id": "QL-055", "text": "Select the correct unit digit cycle for powers of {base}." }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Missing Exponent Using Last Digit",
+      "entries": [
+        { "id": "QL-035", "text": "{base}^n ends in {targetLastDigit}. From the options {options}, find n." },
+        { "id": "QL-036", "text": "The last digit of {base}^n is {targetLastDigit}. Choose the value of n from {options}." },
+        { "id": "QL-037", "text": "For which value of n from {options} does {base}^n have unit digit {targetLastDigit}?" },
+        { "id": "QL-038", "text": "Find n from {options} if {base}^n ends with the digit {targetLastDigit}." },
+        { "id": "QL-039", "text": "Choose the exponent n from {options} for which the unit digit of {base}^n is {targetLastDigit}." },
+        { "id": "QL-040", "text": "The power {base}^n has last digit {targetLastDigit}. Find the correct value of n from {options}." },
+        { "id": "QL-041", "text": "Using the unit digit cycle of {base}, find n from {options} when {base}^n ends in {targetLastDigit}." },
+        { "id": "QL-042", "text": "Find the exponent n from {options} such that the last digit of {base}^n is {targetLastDigit}." },
+        { "id": "QL-043", "text": "Which value of n in {options} gives {targetLastDigit} as the last digit of {base}^n?" },
+        { "id": "QL-044", "text": "Select n from {options} so that {base}^n has unit digit {targetLastDigit}." },
+        { "id": "QL-056", "text": "If the last digit of {base}^n is {targetLastDigit}, find n from {options}." },
+        { "id": "QL-057", "text": "The unit digit of {base}^n is {targetLastDigit}. Choose n from {options}." },
+        { "id": "QL-058", "text": "Which value of n from {options} gives last digit {targetLastDigit} in {base}^n?" }
+      ]
+    }
+  ]
+}

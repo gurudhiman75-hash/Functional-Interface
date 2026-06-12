@@ -1,0 +1,51 @@
+{
+  "libraryId": "NS-LASTDIG-001-VARIABLE-RANGES",
+  "archetypeId": "NS-LASTDIG-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005"],
+  "variables": {
+    "base": {
+      "type": "positiveInteger",
+      "easy": { "min": 2, "max": 50 },
+      "medium": { "min": 51, "max": 500 },
+      "hard": { "min": 501, "max": 100000 }
+    },
+    "exponent": {
+      "type": "positiveInteger",
+      "easy": { "min": 2, "max": 20 },
+      "medium": { "min": 21, "max": 500 },
+      "hard": { "min": 501, "max": 1000000000 },
+      "buckets": ["smallExponent", "mediumExponent", "largeExponent", "veryLargeExponent"]
+    },
+    "powerProduct": {
+      "type": "renderedPowerProduct",
+      "termCounts": ["twoPowers", "threePowers"],
+      "cycleMix": ["mixedCycles", "sameCycleFamily"]
+    },
+    "towerExpression": {
+      "type": "approvedRepeatedExponentialExpression",
+      "buckets": ["smallTower", "mediumTower", "largeTower", "towerReductionRequired"]
+    },
+    "targetLastDigit": {
+      "type": "digit",
+      "min": 0,
+      "max": 9
+    },
+    "options": {
+      "type": "approvedOptionList",
+      "rule": "Options must contain exactly one valid exponent unless explicitly reviewed later."
+    },
+    "answer": {
+      "type": "digitOrCycleOrExponent",
+      "rule": "Final answer for the active CP."
+    }
+  },
+  "canonicalProblemVariables": {
+    "CP-001": ["base", "exponent"],
+    "CP-002": ["powerProduct"],
+    "CP-003": ["towerExpression"],
+    "CP-004": ["base"],
+    "CP-005": ["base", "targetLastDigit", "options"]
+  }
+}

@@ -1,0 +1,620 @@
+{
+  "libraryId": "NS-CLASS-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-CLASS-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "sourceAuthority": "ns-class-001-language-draft.md",
+  "runtimePolicy": {
+    "may": [
+      "load",
+      "validate",
+      "select",
+      "substitute",
+      "render"
+    ],
+    "mayNot": [
+      "invent question wording",
+      "generate educational language",
+      "create fallback wording",
+      "rewrite human-authored language"
+    ]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP01",
+      "name": "Parity Outcome Determination",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Determine whether \\(37+49\\) is even or odd."
+        },
+        {
+          "id": "QL-002",
+          "text": "Find whether \\(28+35\\) is even or odd."
+        },
+        {
+          "id": "QL-003",
+          "text": "What is the parity of \\(43-18\\)?"
+        },
+        {
+          "id": "QL-004",
+          "text": "Determine whether \\(17 \\times 24\\) is even or odd."
+        },
+        {
+          "id": "QL-005",
+          "text": "Find whether the product of two odd numbers is even or odd."
+        },
+        {
+          "id": "QL-006",
+          "text": "What is the result type when an even number is added to an odd number?"
+        },
+        {
+          "id": "QL-007",
+          "text": "Determine whether \\(n^2\\) is even or odd if \\(n\\) is odd."
+        },
+        {
+          "id": "QL-008",
+          "text": "If \\(m\\) is even, find whether \\(m+7\\) is even or odd."
+        },
+        {
+          "id": "QL-009",
+          "text": "Find the parity of the product of three consecutive integers."
+        },
+        {
+          "id": "QL-010",
+          "text": "Determine whether the sum of three odd numbers is even or odd."
+        },
+        {
+          "id": "QL-011",
+          "text": "If \\(a\\) and \\(b\\) are odd integers, find whether \\(a+b\\) is even or odd."
+        },
+        {
+          "id": "QL-012",
+          "text": "If \\(x\\) is even, determine whether \\(x^2+x\\) is even or odd."
+        },
+        {
+          "id": "QL-013",
+          "text": "Find whether \\(12^5+9\\) is even or odd."
+        },
+        {
+          "id": "QL-014",
+          "text": "What is the parity of \\(5^3 \\times 8^2\\)?"
+        },
+        {
+          "id": "QL-015",
+          "text": "Determine whether \\(2n+1\\) is even or odd for any integer \\(n\\)."
+        },
+        {
+          "id": "QL-016",
+          "text": "If an integer is multiplied by an even number, what is the parity of the product?"
+        },
+        {
+          "id": "QL-017",
+          "text": "Find whether the square of an odd integer is even or odd."
+        },
+        {
+          "id": "QL-018",
+          "text": "Determine whether the difference of two odd integers is even or odd."
+        },
+        {
+          "id": "QL-019",
+          "text": "If \\(p\\) is odd and \\(q\\) is even, find whether \\(pq+p\\) is even or odd."
+        },
+        {
+          "id": "QL-020",
+          "text": "The sum of two consecutive integers is always:"
+        }
+      ]
+    },
+    {
+      "cpId": "CP02",
+      "name": "Sign Outcome Determination",
+      "entries": [
+        {
+          "id": "QL-021",
+          "text": "Determine the sign of \\((-4)\\times 7\\)."
+        },
+        {
+          "id": "QL-022",
+          "text": "Find whether \\((-3)\\times(-5)\\) is positive or negative."
+        },
+        {
+          "id": "QL-023",
+          "text": "What is the sign of \\((-2)\\times 6\\times(-7)\\)?"
+        },
+        {
+          "id": "QL-024",
+          "text": "Determine whether \\((-5)^2\\) is positive or negative."
+        },
+        {
+          "id": "QL-025",
+          "text": "Find the sign of \\((-3)^5\\)."
+        },
+        {
+          "id": "QL-026",
+          "text": "If \\(a<0\\) and \\(b>0\\), determine the sign of \\(ab\\)."
+        },
+        {
+          "id": "QL-027",
+          "text": "If \\(x<0\\), find whether \\(x^2\\) is positive or negative."
+        },
+        {
+          "id": "QL-028",
+          "text": "Determine the sign of \\(\\frac{-24}{6}\\)."
+        },
+        {
+          "id": "QL-029",
+          "text": "What is the sign of \\(\\frac{-18}{-3}\\)?"
+        },
+        {
+          "id": "QL-030",
+          "text": "Find whether \\((-6)^3\\) is positive or negative."
+        },
+        {
+          "id": "QL-031",
+          "text": "Determine whether \\((-8)^4\\) is positive or negative."
+        },
+        {
+          "id": "QL-032",
+          "text": "If two negative integers are multiplied, what is the sign of the result?"
+        },
+        {
+          "id": "QL-033",
+          "text": "If three negative integers are multiplied, what is the sign of the result?"
+        },
+        {
+          "id": "QL-034",
+          "text": "Determine the sign of \\(0 \\times (-15)\\)."
+        },
+        {
+          "id": "QL-035",
+          "text": "Find whether \\((-20)+5\\) is positive, negative, or zero."
+        },
+        {
+          "id": "QL-036",
+          "text": "Determine whether \\(12-20\\) is positive, negative, or zero."
+        },
+        {
+          "id": "QL-037",
+          "text": "What is the sign of \\((-2)^4 \\times (-3)\\)?"
+        },
+        {
+          "id": "QL-038",
+          "text": "If \\(a\\) is negative and \\(b\\) is negative, determine the sign of \\(a \\div b\\)."
+        },
+        {
+          "id": "QL-039",
+          "text": "Find whether \\((-7)^2-50\\) is positive, negative, or zero."
+        },
+        {
+          "id": "QL-040",
+          "text": "Determine the sign of \\((-1)^{25}\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP03",
+      "name": "Consecutive Integer Property",
+      "entries": [
+        {
+          "id": "QL-041",
+          "text": "The product of two consecutive integers is always divisible by which number?"
+        },
+        {
+          "id": "QL-042",
+          "text": "Find the HCF of two consecutive integers."
+        },
+        {
+          "id": "QL-043",
+          "text": "Three consecutive integers have sum 36. Find the middle integer."
+        },
+        {
+          "id": "QL-044",
+          "text": "Find three consecutive integers whose sum is 48."
+        },
+        {
+          "id": "QL-045",
+          "text": "Two consecutive integers are 23 and 24. Find their common factor greater than 1, if any."
+        },
+        {
+          "id": "QL-046",
+          "text": "The sum of two consecutive integers is 41. Find the integers."
+        },
+        {
+          "id": "QL-047",
+          "text": "Find the missing number in the consecutive integers 18, 19, \\(x\\)."
+        },
+        {
+          "id": "QL-048",
+          "text": "The product of three consecutive integers is always divisible by which number?"
+        },
+        {
+          "id": "QL-049",
+          "text": "Three consecutive even integers have sum 42. Find the integers."
+        },
+        {
+          "id": "QL-050",
+          "text": "Three consecutive odd integers have sum 45. Find the middle integer."
+        },
+        {
+          "id": "QL-051",
+          "text": "Find the next consecutive even integer after 38."
+        },
+        {
+          "id": "QL-052",
+          "text": "Find the previous consecutive odd integer before 51."
+        },
+        {
+          "id": "QL-053",
+          "text": "The sum of two consecutive even integers is 70. Find the smaller integer."
+        },
+        {
+          "id": "QL-054",
+          "text": "The sum of two consecutive odd integers is 64. Find the larger integer."
+        },
+        {
+          "id": "QL-055",
+          "text": "Four consecutive integers start with 11. Find their sum."
+        },
+        {
+          "id": "QL-056",
+          "text": "If \\(n\\) and \\(n+1\\) are consecutive integers, determine the parity of their product."
+        },
+        {
+          "id": "QL-057",
+          "text": "If three consecutive integers are \\(x-1\\), \\(x\\), and \\(x+1\\), find their sum."
+        },
+        {
+          "id": "QL-058",
+          "text": "Find the middle term of five consecutive integers whose sum is 125."
+        },
+        {
+          "id": "QL-059",
+          "text": "The product of any two consecutive even integers is divisible by which number?"
+        },
+        {
+          "id": "QL-060",
+          "text": "The product of any two consecutive odd integers is always odd or even?"
+        },
+        {
+          "id": "QL-061",
+          "text": "Find the missing integer in the consecutive odd integers 31, \\(x\\), 35."
+        },
+        {
+          "id": "QL-062",
+          "text": "Find the missing integer in the consecutive even integers 44, \\(x\\), 48."
+        },
+        {
+          "id": "QL-063",
+          "text": "Three consecutive integers have the middle term 27. Find the other two integers."
+        },
+        {
+          "id": "QL-064",
+          "text": "The sum of three consecutive even integers is 90. Find the largest integer."
+        },
+        {
+          "id": "QL-065",
+          "text": "The sum of three consecutive odd integers is 75. Find the smallest integer."
+        }
+      ]
+    },
+    {
+      "cpId": "CP04",
+      "name": "Count Integers Satisfying A Property",
+      "entries": [
+        {
+          "id": "QL-066",
+          "text": "How many even integers are there from 1 to 50?"
+        },
+        {
+          "id": "QL-067",
+          "text": "Count the odd integers from 20 to 40."
+        },
+        {
+          "id": "QL-068",
+          "text": "How many positive integers are there in \\(-3, 0, 4, 7, -8, 10\\)?"
+        },
+        {
+          "id": "QL-069",
+          "text": "Count the negative integers in \\(-12, 5, -7, 0, 9, -1\\)."
+        },
+        {
+          "id": "QL-070",
+          "text": "How many non-negative integers are there from \\(-5\\) to 5?"
+        },
+        {
+          "id": "QL-071",
+          "text": "Count the even numbers in the list 12, 15, 18, 21, 24."
+        },
+        {
+          "id": "QL-072",
+          "text": "How many odd numbers are there in the list 3, 8, 11, 16, 19, 22?"
+        },
+        {
+          "id": "QL-073",
+          "text": "Count the integers between 10 and 30 that are odd."
+        },
+        {
+          "id": "QL-074",
+          "text": "How many integers from 1 to 100 are even?"
+        },
+        {
+          "id": "QL-075",
+          "text": "Count the positive odd integers from 1 to 25."
+        },
+        {
+          "id": "QL-076",
+          "text": "How many negative even integers are there from \\(-20\\) to \\(-1\\)?"
+        },
+        {
+          "id": "QL-077",
+          "text": "Count the integers from \\(-10\\) to 10 that are less than zero."
+        },
+        {
+          "id": "QL-078",
+          "text": "How many integers in the list \\(-4, -2, 0, 2, 4, 6\\) are non-negative?"
+        },
+        {
+          "id": "QL-079",
+          "text": "Count the odd integers greater than 15 and less than 35."
+        },
+        {
+          "id": "QL-080",
+          "text": "How many even integers lie between 31 and 61?"
+        },
+        {
+          "id": "QL-081",
+          "text": "Count the positive integers in the list 0, 2, -5, 9, -11, 13."
+        },
+        {
+          "id": "QL-082",
+          "text": "How many integers from \\(-15\\) to 15 are divisible by 2?"
+        },
+        {
+          "id": "QL-083",
+          "text": "Count the odd negative integers from \\(-19\\) to \\(-1\\)."
+        },
+        {
+          "id": "QL-084",
+          "text": "How many two-digit positive integers are odd?"
+        },
+        {
+          "id": "QL-085",
+          "text": "Count the even integers in the first ten natural numbers."
+        },
+        {
+          "id": "QL-086",
+          "text": "How many integers in \\(-6, -5, -4, -3, -2, -1\\) are odd?"
+        },
+        {
+          "id": "QL-087",
+          "text": "Count the non-positive integers from \\(-8\\) to 4."
+        },
+        {
+          "id": "QL-088",
+          "text": "How many positive even integers are less than 30?"
+        },
+        {
+          "id": "QL-089",
+          "text": "Count the integers from 25 to 75 that are even."
+        },
+        {
+          "id": "QL-090",
+          "text": "How many odd integers are there from 101 to 151?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP05",
+      "name": "Integer Classification From Conditions",
+      "entries": [
+        {
+          "id": "QL-091",
+          "text": "If an integer is divisible by 2, classify it as even or odd."
+        },
+        {
+          "id": "QL-092",
+          "text": "If \\(n^2\\) is odd, what can be said about \\(n\\)?"
+        },
+        {
+          "id": "QL-093",
+          "text": "If an integer is less than zero, how is it classified?"
+        },
+        {
+          "id": "QL-094",
+          "text": "If an integer is greater than zero and divisible by 2, identify its class."
+        },
+        {
+          "id": "QL-095",
+          "text": "If \\(n\\) is an odd integer, classify \\(n+1\\)."
+        },
+        {
+          "id": "QL-096",
+          "text": "If \\(x\\) is even, classify \\(x^2\\) as even or odd."
+        },
+        {
+          "id": "QL-097",
+          "text": "If an integer is neither positive nor negative, identify the integer."
+        },
+        {
+          "id": "QL-098",
+          "text": "If a number is a positive integer and odd, classify it fully."
+        },
+        {
+          "id": "QL-099",
+          "text": "If \\(a\\) is negative and even, identify the class of \\(a\\)."
+        },
+        {
+          "id": "QL-100",
+          "text": "If \\(m\\) is odd, classify \\(m^3\\)."
+        },
+        {
+          "id": "QL-101",
+          "text": "If \\(p\\) is even, classify \\(p+3\\)."
+        },
+        {
+          "id": "QL-102",
+          "text": "If an integer is divisible by 2 and less than zero, identify its class."
+        },
+        {
+          "id": "QL-103",
+          "text": "If \\(n^2\\) is even, what can be said about \\(n\\)?"
+        },
+        {
+          "id": "QL-104",
+          "text": "If an integer is greater than zero but not divisible by 2, classify it."
+        },
+        {
+          "id": "QL-105",
+          "text": "If \\(x\\) is negative, classify \\(x^2\\) by sign."
+        },
+        {
+          "id": "QL-106",
+          "text": "If \\(y\\) is non-negative and not zero, classify its sign."
+        },
+        {
+          "id": "QL-107",
+          "text": "If an integer leaves remainder 1 when divided by 2, classify it as even or odd."
+        },
+        {
+          "id": "QL-108",
+          "text": "If an integer leaves remainder 0 when divided by 2, classify it."
+        },
+        {
+          "id": "QL-109",
+          "text": "If \\(a\\) is a positive odd integer, classify \\(a^2\\)."
+        },
+        {
+          "id": "QL-110",
+          "text": "If \\(b\\) is a negative odd integer, classify \\(b^3\\) by sign and parity."
+        },
+        {
+          "id": "QL-111",
+          "text": "If an integer is positive and even, which category does it belong to?"
+        },
+        {
+          "id": "QL-112",
+          "text": "If an integer is negative and odd, identify its classification."
+        },
+        {
+          "id": "QL-113",
+          "text": "If a whole number is not positive, which value must it be?"
+        },
+        {
+          "id": "QL-114",
+          "text": "If \\(n\\) is even, classify \\(2n+1\\)."
+        },
+        {
+          "id": "QL-115",
+          "text": "If \\(n\\) is odd, classify \\(n-1\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP06",
+      "name": "Missing Number From Property Conditions",
+      "entries": [
+        {
+          "id": "QL-116",
+          "text": "Find the missing integer in 12, 13, \\(x\\)."
+        },
+        {
+          "id": "QL-117",
+          "text": "Find \\(x\\) if \\(x\\) is odd and lies between 20 and 24."
+        },
+        {
+          "id": "QL-118",
+          "text": "Choose the value of \\(x\\) so that \\(x+5\\) is even."
+        },
+        {
+          "id": "QL-119",
+          "text": "Find the missing odd integer between 31 and 35."
+        },
+        {
+          "id": "QL-120",
+          "text": "Find the missing even integer between 46 and 50."
+        },
+        {
+          "id": "QL-121",
+          "text": "If \\(x\\) is a negative integer and \\(|x|=7\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-122",
+          "text": "Find \\(x\\) if \\(x\\) is positive and \\(x^2=36\\)."
+        },
+        {
+          "id": "QL-123",
+          "text": "Find the missing number in the consecutive even integers 18, \\(x\\), 22."
+        },
+        {
+          "id": "QL-124",
+          "text": "Find the missing number in the consecutive odd integers 41, \\(x\\), 45."
+        },
+        {
+          "id": "QL-125",
+          "text": "Find \\(x\\) if \\(x+3\\) is odd and \\(x\\) is positive."
+        },
+        {
+          "id": "QL-126",
+          "text": "Choose \\(x\\) from 4, 5, 6, 7 such that \\(x+2\\) is odd."
+        },
+        {
+          "id": "QL-127",
+          "text": "Find \\(x\\) if \\(x\\) is even and \\(10<x<14\\)."
+        },
+        {
+          "id": "QL-128",
+          "text": "Find the negative odd integer whose absolute value is 9."
+        },
+        {
+          "id": "QL-129",
+          "text": "Find the positive even integer between 15 and 19."
+        },
+        {
+          "id": "QL-130",
+          "text": "Find the missing integer in \\(x, 28, 29\\) if the numbers are consecutive."
+        },
+        {
+          "id": "QL-131",
+          "text": "Find \\(x\\) if \\(x\\) is odd and \\(x-1=24\\)."
+        },
+        {
+          "id": "QL-132",
+          "text": "Find \\(x\\) if \\(x\\) is even and \\(x+4=30\\)."
+        },
+        {
+          "id": "QL-133",
+          "text": "Find the integer \\(x\\) if \\(x\\) is negative and \\(x^2=16\\)."
+        },
+        {
+          "id": "QL-134",
+          "text": "Choose the value of \\(x\\) so that \\(3x\\) is odd."
+        },
+        {
+          "id": "QL-135",
+          "text": "Find the missing term in the consecutive integers 55, \\(x\\), 57."
+        },
+        {
+          "id": "QL-136",
+          "text": "Find \\(x\\) if \\(x\\) is a positive odd integer less than 5 and greater than 1."
+        },
+        {
+          "id": "QL-137",
+          "text": "Find the missing term in the consecutive even integers \\(x\\), 34, 36."
+        },
+        {
+          "id": "QL-138",
+          "text": "Find the missing term in the consecutive odd integers \\(x\\), 63, 65."
+        },
+        {
+          "id": "QL-139",
+          "text": "Choose \\(x\\) from \\(-4, -3, 2, 5\\) such that \\(x\\) is negative and odd."
+        },
+        {
+          "id": "QL-140",
+          "text": "Find \\(x\\) if \\(x\\) is non-negative and \\(x-2=-2\\)."
+        }
+      ]
+    }
+  ]
+}

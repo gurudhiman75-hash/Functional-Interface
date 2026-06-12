@@ -1,0 +1,98 @@
+﻿{
+    "packageId":  "NS-SURD-001",
+    "sourceAuthority":  "ns-surd-001-language-draft.md",
+    "ownership":  "HUMAN_OWNED",
+    "authority":  "Educational Authority",
+    "usage":  "Runtime Consumption Only",
+    "total":  8,
+    "items":  [
+                  {
+                      "id":  "ES-001",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP01",
+                      "cpTitle":  "Perfect-power extraction from a surd",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "First check whether the number under the radical has a perfect square or perfect cube factor. Take out that perfect-power part and keep the leftover inside the radical. This gives the simplest exact surd form without using decimals."
+                  },
+                  {
+                      "id":  "ES-002",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP02",
+                      "cpTitle":  "Like-surd addition and subtraction",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "Before adding or subtracting, simplify each surd. Only terms with the same radical part can be combined. Add or subtract their coefficients just like like terms in algebra, and leave unlike surds separate."
+                  },
+                  {
+                      "id":  "ES-003",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP03",
+                      "cpTitle":  "Surd multiplication and division simplification",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "For multiplication or division of compatible surds, combine the numbers under the radical first. Then simplify the resulting radical by taking out any perfect-power factor. This usually keeps the calculation shorter."
+                  },
+                  {
+                      "id":  "ES-004",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP04",
+                      "cpTitle":  "Mixed surd expression simplification",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "In a mixed surd expression, handle products or quotients first, then simplify each radical. After that, collect like surds. Do not convert to decimals because the exact surd form is expected in exams."
+                  },
+                  {
+                      "id":  "ES-005",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP05",
+                      "cpTitle":  "Surd comparison by normalization",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "For comparison, first simplify the surds if possible. If the radical parts match, compare the outside coefficients. If they do not match and all values are positive, square or cube both sides to compare rational numbers safely."
+                  },
+                  {
+                      "id":  "ES-006",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP06",
+                      "cpTitle":  "Monomial denominator rationalization",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "When the denominator has a single radical term, multiply the numerator and denominator by the factor that removes the radical from the denominator. Keep the value unchanged by multiplying both parts by the same factor."
+                  },
+                  {
+                      "id":  "ES-007",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP07",
+                      "cpTitle":  "Binomial denominator rationalization",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "When the denominator has two terms with a surd, use the conjugate. Change the sign between the two terms and multiply numerator and denominator by that conjugate. The denominator then becomes a difference of squares."
+                  },
+                  {
+                      "id":  "ES-008",
+                      "packageId":  "NS-SURD-001",
+                      "cpId":  "CP08",
+                      "cpTitle":  "Surd identity evaluation",
+                      "source":  "ns-surd-001-language-draft.md",
+                      "ownership":  "HUMAN_OWNED",
+                      "authority":  "Educational Authority",
+                      "usage":  "Runtime Consumption Only",
+                      "explanation":  "When the expression looks like \\((a+b)^2\\), \\((a-b)^2\\), or \\((a+b)(a-b)\\), use the identity first. Then simplify the square-root squares and combine the rational and surd terms. This avoids a long expansion and reduces mistakes."
+                  }
+              ]
+}

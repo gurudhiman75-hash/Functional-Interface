@@ -1,0 +1,37 @@
+﻿{
+    "packageId":  "PCT-001",
+    "sourceAuthority":  "pct-001-language-draft.md",
+    "ownership":  "HUMAN_OWNED",
+    "usage":  "Runtime Consumption Only",
+    "cps":  {
+                "CP01":  [
+                             "percentage values",
+                             "base quantities",
+                             "fractional percentages",
+                             "percentages above 100%"
+                         ],
+                "CP02":  [
+                             "part quantity",
+                             "reference quantity",
+                             "clean and non-clean ratios"
+                         ],
+                "CP03":  [
+                             "fraction denominators",
+                             "decimal precision",
+                             "values above 1",
+                             "terminating decimals"
+                         ],
+                "CP04":  [
+                             "number of values to compare",
+                             "ordering direction",
+                             "percentage complexity",
+                             "base quantity differences"
+                         ],
+                "CP05":  [
+                             "increase/decrease direction",
+                             "percentage values",
+                             "base quantities",
+                             "final value vs change amount"
+                         ]
+            }
+}

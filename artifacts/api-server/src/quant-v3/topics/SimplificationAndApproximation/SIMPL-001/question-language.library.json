@@ -1,0 +1,787 @@
+﻿{
+    "libraryId":  "SIMPL-001-QUESTION-LANGUAGE",
+    "archetypeId":  "SIMPL-001",
+    "ownership":  "HUMAN_OWNED",
+    "status":  "DESIGN_READY_FOR_REVIEW",
+    "sourceAuthority":  "simpl-001-language-draft.md",
+    "runtimePolicy":  {
+                          "may":  [
+                                      "load",
+                                      "validate",
+                                      "select",
+                                      "substitute",
+                                      "render"
+                                  ],
+                          "mayNot":  [
+                                         "invent question wording",
+                                         "generate educational language",
+                                         "create additional stems",
+                                         "rewrite approved stems",
+                                         "create fallback wording"
+                                     ]
+                      },
+    "canonicalProblems":  [
+                              {
+                                  "cpId":  "CP-001",
+                                  "name":  "BODMAS Exact Simplification",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-001",
+                                                      "text":  "Simplify 48 / 6 + 7 x 3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-002",
+                                                      "text":  "Find the value of 64 - 18 x 2 + 36 / 4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-003",
+                                                      "text":  "Evaluate 125 - (45 + 15) / 3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-004",
+                                                      "text":  "Simplify 72 / 8 x 5 - 16."
+                                                  },
+                                                  {
+                                                      "id":  "QL-005",
+                                                      "text":  "Find the value of 90 - 6 x 8 + 24 / 3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-006",
+                                                      "text":  "Simplify (35 + 25) / 5 + 18."
+                                                  },
+                                                  {
+                                                      "id":  "QL-007",
+                                                      "text":  "Evaluate 144 / 12 + 9 x 4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-008",
+                                                      "text":  "Find the result of 56 + 18 / 3 - 7 x 2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-009",
+                                                      "text":  "Simplify 100 - 48 / 6 + 11 x 3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-010",
+                                                      "text":  "What is the value of 81 / 9 + 15 x 2?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-011",
+                                                      "text":  "Simplify (72 - 24) / 6 + 13."
+                                                  },
+                                                  {
+                                                      "id":  "QL-012",
+                                                      "text":  "Find the value of 45 + 5 x 6 - 18 / 3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-013",
+                                                      "text":  "Evaluate 200 / 10 - 4 x 3 + 7."
+                                                  },
+                                                  {
+                                                      "id":  "QL-014",
+                                                      "text":  "Simplify 36 + 64 / 8 - 5 x 4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-015",
+                                                      "text":  "Find the result of (50 + 10) / 4 + 25."
+                                                  },
+                                                  {
+                                                      "id":  "QL-016",
+                                                      "text":  "Simplify 18 x 3 - 72 / 8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-017",
+                                                      "text":  "What is the value of 120 - 15 x 4 + 90 / 9?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-018",
+                                                      "text":  "Evaluate 96 / 6 + 14 x 2 - 19."
+                                                  },
+                                                  {
+                                                      "id":  "QL-019",
+                                                      "text":  "Simplify (84 / 7) + (9 x 5) - 16."
+                                                  },
+                                                  {
+                                                      "id":  "QL-020",
+                                                      "text":  "Find the value of 150 / 5 - 6 x 4 + 11."
+                                                  },
+                                                  {
+                                                      "id":  "QL-021",
+                                                      "text":  "Simplify 40 + 12 x 3 - 72 / 6."
+                                                  },
+                                                  {
+                                                      "id":  "QL-022",
+                                                      "text":  "Evaluate 180 / 9 + 7 x 8 - 32."
+                                                  },
+                                                  {
+                                                      "id":  "QL-023",
+                                                      "text":  "Find the result of 25 x 4 - 96 / 12."
+                                                  },
+                                                  {
+                                                      "id":  "QL-024",
+                                                      "text":  "Simplify (63 + 27) / 9 + 44."
+                                                  },
+                                                  {
+                                                      "id":  "QL-025",
+                                                      "text":  "What is the final value of 88 - 32 / 4 + 6 x 5?"
+                                                  }
+                                              ]
+                              },
+                              {
+                                  "cpId":  "CP-002",
+                                  "name":  "Fraction Expression Simplification",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-026",
+                                                      "text":  "Simplify 3/4 + 5/8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-027",
+                                                      "text":  "Find the value of 7/9 - 2/3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-028",
+                                                      "text":  "Evaluate 5/6 x 9/10."
+                                                  },
+                                                  {
+                                                      "id":  "QL-029",
+                                                      "text":  "Simplify 8/15 / 4/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-030",
+                                                      "text":  "Find the result of 2/3 + 7/12."
+                                                  },
+                                                  {
+                                                      "id":  "QL-031",
+                                                      "text":  "Simplify 11/18 - 5/12."
+                                                  },
+                                                  {
+                                                      "id":  "QL-032",
+                                                      "text":  "Evaluate 4/7 x 21/8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-033",
+                                                      "text":  "Find the value of 9/10 / 3/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-034",
+                                                      "text":  "Simplify 5/6 + 7/9."
+                                                  },
+                                                  {
+                                                      "id":  "QL-035",
+                                                      "text":  "Find the result of 13/20 - 1/4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-036",
+                                                      "text":  "Evaluate 6/11 x 22/9."
+                                                  },
+                                                  {
+                                                      "id":  "QL-037",
+                                                      "text":  "Simplify 15/16 / 5/8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-038",
+                                                      "text":  "Find the value of 3/5 + 4/15 - 1/3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-039",
+                                                      "text":  "Simplify 7/8 - 1/6 + 1/4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-040",
+                                                      "text":  "Evaluate 2/9 x 3/4 x 6/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-041",
+                                                      "text":  "Find the result of 5/12 + 7/18."
+                                                  },
+                                                  {
+                                                      "id":  "QL-042",
+                                                      "text":  "Simplify 11/15 - 2/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-043",
+                                                      "text":  "Evaluate 9/14 x 7/18."
+                                                  },
+                                                  {
+                                                      "id":  "QL-044",
+                                                      "text":  "Find the value of 3/4 / 9/16."
+                                                  },
+                                                  {
+                                                      "id":  "QL-045",
+                                                      "text":  "Simplify 2/3 of 15/16."
+                                                  },
+                                                  {
+                                                      "id":  "QL-046",
+                                                      "text":  "Evaluate 5/8 + 3/10 - 1/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-047",
+                                                      "text":  "Find the result of 7/12 x 18/21."
+                                                  },
+                                                  {
+                                                      "id":  "QL-048",
+                                                      "text":  "Simplify 4/9 / 8/27."
+                                                  },
+                                                  {
+                                                      "id":  "QL-049",
+                                                      "text":  "What is the value of 13/24 + 5/16?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-050",
+                                                      "text":  "Simplify 17/20 - 3/8."
+                                                  }
+                                              ]
+                              },
+                              {
+                                  "cpId":  "CP-003",
+                                  "name":  "Decimal Expression Simplification",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-051",
+                                                      "text":  "Simplify 12.5 + 4.75 - 3.2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-052",
+                                                      "text":  "Find the value of 6.4 x 2.5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-053",
+                                                      "text":  "Evaluate 45.6 / 1.2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-054",
+                                                      "text":  "Simplify 18.75 + 6.25."
+                                                  },
+                                                  {
+                                                      "id":  "QL-055",
+                                                      "text":  "Find the result of 25.5 - 8.75."
+                                                  },
+                                                  {
+                                                      "id":  "QL-056",
+                                                      "text":  "Evaluate 3.6 x 4.5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-057",
+                                                      "text":  "Simplify 72.8 / 0.8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-058",
+                                                      "text":  "Find the value of 10.25 + 5.5 - 2.75."
+                                                  },
+                                                  {
+                                                      "id":  "QL-059",
+                                                      "text":  "Evaluate 8.4 x 1.5 + 2.6."
+                                                  },
+                                                  {
+                                                      "id":  "QL-060",
+                                                      "text":  "Simplify 100.5 - 12.25 - 8.75."
+                                                  },
+                                                  {
+                                                      "id":  "QL-061",
+                                                      "text":  "Find the result of 48.6 / 0.6."
+                                                  },
+                                                  {
+                                                      "id":  "QL-062",
+                                                      "text":  "Evaluate 7.25 x 4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-063",
+                                                      "text":  "Simplify 9.9 + 0.99 + 0.09."
+                                                  },
+                                                  {
+                                                      "id":  "QL-064",
+                                                      "text":  "Find the value of 36.5 - 14.8 + 3.3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-065",
+                                                      "text":  "Evaluate 12.6 / 0.3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-066",
+                                                      "text":  "Simplify 5.75 + 2.5 x 4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-067",
+                                                      "text":  "Find the result of 60.6 / 6."
+                                                  },
+                                                  {
+                                                      "id":  "QL-068",
+                                                      "text":  "Evaluate 11.2 x 2.5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-069",
+                                                      "text":  "Simplify 80.8 - 16.4 / 2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-070",
+                                                      "text":  "What is the value of 4.8 x 3.5 - 2.6?"
+                                                  }
+                                              ]
+                              },
+                              {
+                                  "cpId":  "CP-004",
+                                  "name":  "Mixed Fraction And Decimal Simplification",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-071",
+                                                      "text":  "Simplify 2.5 + 3/4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-072",
+                                                      "text":  "Find the value of 1 1/2 + 0.75."
+                                                  },
+                                                  {
+                                                      "id":  "QL-073",
+                                                      "text":  "Evaluate 3/5 of 2.5 + 1.2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-074",
+                                                      "text":  "Simplify 4.5 - 7/4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-075",
+                                                      "text":  "Find the result of 2 1/3 + 0.5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-076",
+                                                      "text":  "Evaluate 1.25 x 4/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-077",
+                                                      "text":  "Simplify 3.6 / 3/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-078",
+                                                      "text":  "Find the value of 5/8 + 0.375."
+                                                  },
+                                                  {
+                                                      "id":  "QL-079",
+                                                      "text":  "Simplify 2 3/4 - 1.25."
+                                                  },
+                                                  {
+                                                      "id":  "QL-080",
+                                                      "text":  "Evaluate 0.6 x 5/9."
+                                                  },
+                                                  {
+                                                      "id":  "QL-081",
+                                                      "text":  "Find the result of 7.5 / 3/2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-082",
+                                                      "text":  "Simplify 1.2 + 2/5 + 0.8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-083",
+                                                      "text":  "Evaluate 4/5 of 7.5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-084",
+                                                      "text":  "Find the value of 3 1/2 - 0.75."
+                                                  },
+                                                  {
+                                                      "id":  "QL-085",
+                                                      "text":  "Simplify 2.25 + 5/6."
+                                                  },
+                                                  {
+                                                      "id":  "QL-086",
+                                                      "text":  "Evaluate 6.4 x 5/8."
+                                                  },
+                                                  {
+                                                      "id":  "QL-087",
+                                                      "text":  "Find the result of 9/10 + 0.45."
+                                                  },
+                                                  {
+                                                      "id":  "QL-088",
+                                                      "text":  "Simplify 5.5 - 2 1/4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-089",
+                                                      "text":  "Evaluate 1.5 x 2/3 + 0.25."
+                                                  },
+                                                  {
+                                                      "id":  "QL-090",
+                                                      "text":  "Find the value of 0.8 / 2/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-091",
+                                                      "text":  "Simplify 3/4 + 1.25 + 2/5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-092",
+                                                      "text":  "Evaluate 2 1/5 x 0.5."
+                                                  },
+                                                  {
+                                                      "id":  "QL-093",
+                                                      "text":  "Find the result of 4.2 - 7/10."
+                                                  },
+                                                  {
+                                                      "id":  "QL-094",
+                                                      "text":  "Simplify 1 3/4 + 2.25."
+                                                  },
+                                                  {
+                                                      "id":  "QL-095",
+                                                      "text":  "What is the value of 5/6 of 3.6?"
+                                                  }
+                                              ]
+                              },
+                              {
+                                  "cpId":  "CP-005",
+                                  "name":  "Root And Power Expression Simplification",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-096",
+                                                      "text":  "Simplify sqrt(144) + 2^3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-097",
+                                                      "text":  "Find the value of cube root of 125 + 5^2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-098",
+                                                      "text":  "Evaluate 3^3 - sqrt(81)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-099",
+                                                      "text":  "Simplify sqrt(196) - 2^4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-100",
+                                                      "text":  "Find the result of 4^2 + sqrt(225)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-101",
+                                                      "text":  "Evaluate cube root of 216 + 6^2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-102",
+                                                      "text":  "Simplify 5^3 - sqrt(400)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-103",
+                                                      "text":  "Find the value of sqrt(169) + 3^2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-104",
+                                                      "text":  "Evaluate 2^5 + cube root of 64."
+                                                  },
+                                                  {
+                                                      "id":  "QL-105",
+                                                      "text":  "Simplify sqrt(256) x 3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-106",
+                                                      "text":  "Find the result of 7^2 - sqrt(121)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-107",
+                                                      "text":  "Evaluate cube root of 343 + 4^3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-108",
+                                                      "text":  "Simplify 9^2 / sqrt(81)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-109",
+                                                      "text":  "Find the value of sqrt(625) - 5^2."
+                                                  },
+                                                  {
+                                                      "id":  "QL-110",
+                                                      "text":  "Evaluate 6^3 / cube root of 216."
+                                                  },
+                                                  {
+                                                      "id":  "QL-111",
+                                                      "text":  "Simplify sqrt(324) + cube root of 27."
+                                                  },
+                                                  {
+                                                      "id":  "QL-112",
+                                                      "text":  "Find the result of 8^2 - sqrt(256)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-113",
+                                                      "text":  "Evaluate cube root of 512 - 2^3."
+                                                  },
+                                                  {
+                                                      "id":  "QL-114",
+                                                      "text":  "Simplify sqrt(100) + sqrt(225)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-115",
+                                                      "text":  "Find the value of 10^2 - cube root of 1000."
+                                                  },
+                                                  {
+                                                      "id":  "QL-116",
+                                                      "text":  "Evaluate 3^4 - sqrt(49)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-117",
+                                                      "text":  "Simplify sqrt(441) / 3 + 2^4."
+                                                  },
+                                                  {
+                                                      "id":  "QL-118",
+                                                      "text":  "Find the result of cube root of 729 + sqrt(64)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-119",
+                                                      "text":  "Evaluate 12^2 - sqrt(144)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-120",
+                                                      "text":  "What is the value of sqrt(900) + 4^2?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-121",
+                                                      "text":  "Determine the value of sqrt(576) + 7²."
+                                                  },
+                                                  {
+                                                      "id":  "QL-122",
+                                                      "text":  "Compute the value of cube root of 1000 + 3³."
+                                                  },
+                                                  {
+                                                      "id":  "QL-123",
+                                                      "text":  "Simplify and find the value of sqrt(784) − 6²."
+                                                  },
+                                                  {
+                                                      "id":  "QL-124",
+                                                      "text":  "Evaluate cube root of 125 + sqrt(361)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-125",
+                                                      "text":  "Find the final value of 5³ + sqrt(324)."
+                                                  }
+                                              ]
+                              },
+                              {
+                                  "cpId":  "CP-006",
+                                  "name":  "Approximation By Rounding",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-126",
+                                                      "text":  "Find the approximate value of 498 x 21."
+                                                  },
+                                                  {
+                                                      "id":  "QL-127",
+                                                      "text":  "Approximate 7998 / 40."
+                                                  },
+                                                  {
+                                                      "id":  "QL-128",
+                                                      "text":  "Estimate 59.8% of 502."
+                                                  },
+                                                  {
+                                                      "id":  "QL-129",
+                                                      "text":  "Find the approximate value of 999 x 51."
+                                                  },
+                                                  {
+                                                      "id":  "QL-130",
+                                                      "text":  "Approximate 3025 / 49."
+                                                  },
+                                                  {
+                                                      "id":  "QL-131",
+                                                      "text":  "Estimate 24.9% of 804."
+                                                  },
+                                                  {
+                                                      "id":  "QL-132",
+                                                      "text":  "Find the approximate value of 198 x 32."
+                                                  },
+                                                  {
+                                                      "id":  "QL-133",
+                                                      "text":  "Approximate 6402 / 79."
+                                                  },
+                                                  {
+                                                      "id":  "QL-134",
+                                                      "text":  "Estimate 12.5% of 399."
+                                                  },
+                                                  {
+                                                      "id":  "QL-135",
+                                                      "text":  "Find the approximate result of 501 x 38."
+                                                  },
+                                                  {
+                                                      "id":  "QL-136",
+                                                      "text":  "Approximate 1198 / 24."
+                                                  },
+                                                  {
+                                                      "id":  "QL-137",
+                                                      "text":  "Estimate 75.2% of 396."
+                                                  },
+                                                  {
+                                                      "id":  "QL-138",
+                                                      "text":  "Find the approximate value of 248 x 19."
+                                                  },
+                                                  {
+                                                      "id":  "QL-139",
+                                                      "text":  "Approximate 4896 / 98."
+                                                  },
+                                                  {
+                                                      "id":  "QL-140",
+                                                      "text":  "Estimate 33.3% of 909."
+                                                  },
+                                                  {
+                                                      "id":  "QL-141",
+                                                      "text":  "Find the approximate result of 1499 x 12."
+                                                  },
+                                                  {
+                                                      "id":  "QL-142",
+                                                      "text":  "Approximate 2501 / 51."
+                                                  },
+                                                  {
+                                                      "id":  "QL-143",
+                                                      "text":  "Estimate 66.6% of 602."
+                                                  },
+                                                  {
+                                                      "id":  "QL-144",
+                                                      "text":  "Find the approximate value of 699 x 29."
+                                                  },
+                                                  {
+                                                      "id":  "QL-145",
+                                                      "text":  "Approximate 3605 / 61."
+                                                  },
+                                                  {
+                                                      "id":  "QL-146",
+                                                      "text":  "Estimate 9.8% of 1005."
+                                                  },
+                                                  {
+                                                      "id":  "QL-147",
+                                                      "text":  "Find the approximate result of 405 x 24."
+                                                  },
+                                                  {
+                                                      "id":  "QL-148",
+                                                      "text":  "Approximate 8991 / 30."
+                                                  },
+                                                  {
+                                                      "id":  "QL-149",
+                                                      "text":  "Estimate 49.7% of 1002."
+                                                  },
+                                                  {
+                                                      "id":  "QL-150",
+                                                      "text":  "Find the approximate value of 7502 / 25."
+                                                  }
+                                              ]
+                              },
+                              {
+                                  "cpId":  "CP-007",
+                                  "name":  "Closest Or Nearest Value Selection",
+                                  "entries":  [
+                                                  {
+                                                      "id":  "QL-151",
+                                                      "text":  "Which option is closest to 503 x 19?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-152",
+                                                      "text":  "Choose the nearest value of 3998 / 20."
+                                                  },
+                                                  {
+                                                      "id":  "QL-153",
+                                                      "text":  "Select the option closest to sqrt(1025)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-154",
+                                                      "text":  "Find the nearest value of 598 x 31."
+                                                  },
+                                                  {
+                                                      "id":  "QL-155",
+                                                      "text":  "Choose the closest answer for 2499 / 49."
+                                                  },
+                                                  {
+                                                      "id":  "QL-156",
+                                                      "text":  "Select the option nearest to 72.8 x 9.9."
+                                                  },
+                                                  {
+                                                      "id":  "QL-157",
+                                                      "text":  "Which value is closest to 19.8% of 401?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-158",
+                                                      "text":  "Find the closest value of 1002 x 48."
+                                                  },
+                                                  {
+                                                      "id":  "QL-159",
+                                                      "text":  "Choose the nearest answer for 7996 / 41."
+                                                  },
+                                                  {
+                                                      "id":  "QL-160",
+                                                      "text":  "Select the value closest to sqrt(2501)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-161",
+                                                      "text":  "Which option is nearest to 11.9 x 51?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-162",
+                                                      "text":  "Find the closest value of 1501 / 29."
+                                                  },
+                                                  {
+                                                      "id":  "QL-163",
+                                                      "text":  "Choose the nearest value of 33.2% of 601."
+                                                  },
+                                                  {
+                                                      "id":  "QL-164",
+                                                      "text":  "Select the option closest to 49.8 x 21."
+                                                  },
+                                                  {
+                                                      "id":  "QL-165",
+                                                      "text":  "Which answer is nearest to 4995 / 99?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-166",
+                                                      "text":  "Find the closest value of sqrt(3605)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-167",
+                                                      "text":  "Choose the option nearest to 89.7 x 11."
+                                                  },
+                                                  {
+                                                      "id":  "QL-168",
+                                                      "text":  "Select the closest answer for 1201 / 19."
+                                                  },
+                                                  {
+                                                      "id":  "QL-169",
+                                                      "text":  "Which value is nearest to 24.8% of 804?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-170",
+                                                      "text":  "Find the closest value of 701 x 39."
+                                                  },
+                                                  {
+                                                      "id":  "QL-171",
+                                                      "text":  "Choose the nearest answer for 6298 / 70."
+                                                  },
+                                                  {
+                                                      "id":  "QL-172",
+                                                      "text":  "Select the option closest to sqrt(8101)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-173",
+                                                      "text":  "Which option is closest to 14.9 x 202?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-174",
+                                                      "text":  "Find the nearest value of 2502 / 50."
+                                                  },
+                                                  {
+                                                      "id":  "QL-175",
+                                                      "text":  "Choose the closest answer for 66.4% of 299."
+                                                  },
+                                                  {
+                                                      "id":  "QL-176",
+                                                      "text":  "Choose the value closest to 899 × 11."
+                                                  },
+                                                  {
+                                                      "id":  "QL-177",
+                                                      "text":  "Select the nearest answer for sqrt(4901)."
+                                                  },
+                                                  {
+                                                      "id":  "QL-178",
+                                                      "text":  "Which option best represents 74.8% of 401?"
+                                                  },
+                                                  {
+                                                      "id":  "QL-179",
+                                                      "text":  "Find the value nearest to 2498 ÷ 51."
+                                                  },
+                                                  {
+                                                      "id":  "QL-180",
+                                                      "text":  "Choose the most appropriate value for 998 × 49."
+                                                  }
+                                              ]
+                              }
+                          ]
+}

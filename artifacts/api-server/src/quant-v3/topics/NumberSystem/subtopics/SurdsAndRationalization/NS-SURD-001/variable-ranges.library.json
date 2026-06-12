@@ -1,0 +1,51 @@
+﻿{
+    "packageId":  "NS-SURD-001",
+    "sourceAuthority":  "ns-surd-001-language-draft.md",
+    "ownership":  "HUMAN_OWNED",
+    "usage":  "Runtime Consumption Only",
+    "cps":  {
+                "CP01":  [
+                             "squareRootExtraction",
+                             "cubeRootExtraction",
+                             "perfectPowerRecognition"
+                         ],
+                "CP02":  [
+                             "directLikeSurds",
+                             "simplifyThenCombine",
+                             "coefficientCombination"
+                         ],
+                "CP03":  [
+                             "multiplication",
+                             "division",
+                             "mixedCoefficientOperations"
+                         ],
+                "CP04":  [
+                             "additionSubtractionMix",
+                             "multiplicationMix",
+                             "divisionMix",
+                             "multiStepSimplification"
+                         ],
+                "CP05":  [
+                             "pairComparison",
+                             "increasingOrder",
+                             "decreasingOrder",
+                             "greatestSelection",
+                             "leastSelection"
+                         ],
+                "CP06":  [
+                             "squareRootDenominator",
+                             "cubeRootDenominator",
+                             "coefficientDenominator"
+                         ],
+                "CP07":  [
+                             "simpleConjugate",
+                             "surdConjugate",
+                             "mixedBinomialDenominator"
+                         ],
+                "CP08":  [
+                             "squareExpansion",
+                             "conjugateProduct",
+                             "identityEvaluation"
+                         ]
+            }
+}

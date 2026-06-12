@@ -1,0 +1,285 @@
+{
+  "libraryId": "NS-EXP-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-EXP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP01",
+    "CP02",
+    "CP03",
+    "CP04",
+    "CP05",
+    "CP06",
+    "CP07",
+    "CP09"
+  ],
+  "distributionPolicy": {
+    "canonicalProblems": "balanced",
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": "balanced within each CP",
+    "explanation": "one approved explanation family per CP",
+    "coverageCategories": "balanced with no zero-allocation bucket"
+  },
+  "targets": {
+    "CP01": {
+      "name": "Same-base exponent compression",
+      "coverageBuckets": [
+        {
+          "bucket": "multiplicationLaw",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "divisionLaw",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "powerLaw",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedCompression",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "multiplication only",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "division only",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixed operations",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "power of power",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP02": {
+      "name": "Same-base exponent equation",
+      "coverageBuckets": [
+        {
+          "bucket": "directEquality",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "linearEquation",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "coefficientEquation",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "linear exponent equation",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "coefficient exponent equation",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "fractional exponent equation",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP03": {
+      "name": "Common-base transformation and exponent solving",
+      "coverageBuckets": [
+        {
+          "bucket": "baseConversionSimplification",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "baseConversionComparison",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "baseConversionEquation",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "simplification",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "comparison",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "exponent solving",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP04": {
+      "name": "Negative exponent normalization",
+      "coverageBuckets": [
+        {
+          "bucket": "reciprocalForm",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "exponentCombination",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "single negative exponent",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixed positive and negative exponents",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP05": {
+      "name": "Fractional exponent to root",
+      "coverageBuckets": [
+        {
+          "bucket": "squareRootConversion",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "cubeRootConversion",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "fractionalPowerEvaluation",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "square roots",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "cube roots",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "higher roots",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP06": {
+      "name": "Mixed exponent expression simplification",
+      "coverageBuckets": [
+        {
+          "bucket": "mixedNegative",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedFractional",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedComposite",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "negative exponent mix",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "fractional exponent mix",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "composite mix",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP07": {
+      "name": "Exponential comparison by base alignment",
+      "coverageBuckets": [
+        {
+          "bucket": "comparison",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "ordering",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "greatestSelection",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "leastSelection",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "pair comparison",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "ordering",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "largest selection",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "smallest selection",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP09": {
+      "name": "Value substitution using a given power relation",
+      "coverageBuckets": [
+        {
+          "bucket": "exponentIncrease",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "exponentDecrease",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "exponentMultiplication",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "exponent increase",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "exponent decrease",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "exponent multiple",
+          "allocation": "required_nonzero"
+        }
+      ]
+    }
+  }
+}

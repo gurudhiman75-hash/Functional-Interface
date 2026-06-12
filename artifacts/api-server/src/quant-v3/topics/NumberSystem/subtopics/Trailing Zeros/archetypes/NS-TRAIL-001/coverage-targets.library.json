@@ -65,21 +65,45 @@
       "required": true,
       "buckets": ["smallFactorial", "mediumFactorial", "largeFactorial", "multipleFivePowers", "crosses25", "crosses125", "crosses625"]
     },
+    "factorialMagnitudeCoverage": {
+      "required": true,
+      "buckets": ["below5", "between5And24", "between25And124", "between125And624", "above625"]
+    },
     "cp002ExpressionCoverage": {
       "required": true,
       "buckets": ["numeratorOnly", "numeratorDenominator", "cancellationCase"]
+    },
+    "factorialStructureCoverage": {
+      "required": true,
+      "buckets": ["twoFactorials", "threeFactorials", "largeGapFactorials", "closeFactorials"]
     },
     "cp003SearchCoverage": {
       "required": true,
       "buckets": ["solutionExists", "smallZeroCount", "mediumZeroCount", "largeZeroCount"]
     },
+    "targetZeroMagnitudeCoverage": {
+      "required": true,
+      "buckets": ["verySmallZeroCount", "smallZeroCount", "mediumZeroCount", "largeZeroCount", "veryLargeZeroCount"]
+    },
     "cp004PowerCoverage": {
       "required": true,
       "buckets": ["balancedTwoFive", "excessTwos", "excessFives", "noTrailingZero"]
     },
+    "baseFamilyCoverage": {
+      "required": true,
+      "buckets": ["powerOfTen", "powerOfTwo", "powerOfFive", "mixedBase"]
+    },
+    "exponentMagnitudeCoverage": {
+      "required": true,
+      "buckets": ["smallExponent", "mediumExponent", "largeExponent"]
+    },
     "cp005ProductCoverage": {
       "required": true,
       "buckets": ["productCreatesZeros", "productAddsZeros", "productNoZeroChange"]
+    },
+    "productStructureCoverage": {
+      "required": true,
+      "buckets": ["alreadyHasZeros", "oneSideProvidesTwos", "oneSideProvidesFives", "bothSidesProvidePairs", "largePrimeNoise"]
     },
     "mathJaxPlaceholderCoverage": {
       "required": true,

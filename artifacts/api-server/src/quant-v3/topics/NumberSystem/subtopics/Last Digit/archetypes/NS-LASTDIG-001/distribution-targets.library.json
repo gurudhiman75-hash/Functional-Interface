@@ -1,0 +1,30 @@
+{
+  "libraryId": "NS-LASTDIG-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-LASTDIG-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "difficulty": {
+    "Easy": 0.4,
+    "Medium": 0.4,
+    "Hard": 0.2
+  },
+  "questionLanguage": {
+    "policy": "uniform within each canonical problem",
+    "activeIds": ["QL-001", "QL-002", "QL-003", "QL-004", "QL-005", "QL-006", "QL-007", "QL-008", "QL-009", "QL-010", "QL-011", "QL-012", "QL-013", "QL-014", "QL-015", "QL-016", "QL-017", "QL-018", "QL-019", "QL-020", "QL-021", "QL-022", "QL-023", "QL-024", "QL-025", "QL-026", "QL-027", "QL-028", "QL-029", "QL-030", "QL-031", "QL-032", "QL-033", "QL-034", "QL-035", "QL-036", "QL-037", "QL-038", "QL-039", "QL-040", "QL-041", "QL-042", "QL-043", "QL-044", "QL-045", "QL-046", "QL-047", "QL-048", "QL-049", "QL-050", "QL-051", "QL-052", "QL-053", "QL-054", "QL-055", "QL-056", "QL-057", "QL-058"]
+  },
+  "explanationStyles": {
+    "policy": "one approved explanation family per CP",
+    "activeIds": ["ES-001", "ES-002", "ES-003", "ES-004", "ES-005"]
+  },
+  "coverageDistributions": {
+    "cp001CycleLength": "balanced",
+    "cp001ExponentMagnitude": "balanced",
+    "cp001FixedLastDigit": "tracked for lastDigit0, lastDigit1, lastDigit5 and lastDigit6",
+    "cp002TermCount": "balanced",
+    "cp002CycleMix": "balanced",
+    "cp003TowerSize": "balanced",
+    "cp004CyclePattern": "balanced",
+    "cp004RecognitionMode": "tracked for cycleRecognitionMCQ and cycleGeneration",
+    "cp005OptionDesign": "balanced"
+  }
+}

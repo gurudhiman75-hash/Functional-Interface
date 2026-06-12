@@ -7,26 +7,30 @@
   "variables": {
     "n": {
       "type": "positiveInteger",
-      "easy": { "min": 5, "max": 50 },
-      "medium": { "min": 50, "max": 500 },
-      "hard": { "min": 500, "max": 5000 }
+      "easy": { "min": 1, "max": 150 },
+      "medium": { "min": 151, "max": 1500 },
+      "hard": { "min": 1501, "max": 20000 },
+      "magnitudeBuckets": ["below5", "between5And24", "between25And124", "between125And624", "above625"]
     },
     "expression": {
       "type": "approvedFactorialExpression",
-      "buckets": ["numeratorOnly", "numeratorDenominator", "cancellationCase"]
+      "buckets": ["numeratorOnly", "numeratorDenominator", "cancellationCase"],
+      "structureBuckets": ["twoFactorials", "threeFactorials", "largeGapFactorials", "closeFactorials"]
     },
     "zeroCount": {
       "type": "nonNegativeInteger",
       "rule": "Target trailing-zero count for reverse factorial search. Future runtime must generate only attainable trailing-zero counts.",
-      "buckets": ["smallZeroCount", "mediumZeroCount", "largeZeroCount"]
+      "buckets": ["solutionExists", "verySmallZeroCount", "smallZeroCount", "mediumZeroCount", "largeZeroCount", "veryLargeZeroCount"]
     },
     "base": {
       "type": "positiveInteger",
-      "rule": "Base for power trailing-zero questions."
+      "rule": "Base for power trailing-zero questions.",
+      "families": ["powerOfTen", "powerOfTwo", "powerOfFive", "mixedBase"]
     },
     "exponent": {
       "type": "positiveInteger",
-      "rule": "Exponent for power trailing-zero questions."
+      "rule": "Exponent for power trailing-zero questions.",
+      "magnitudeBuckets": ["smallExponent", "mediumExponent", "largeExponent"]
     },
     "numberA": {
       "type": "positiveInteger",
@@ -49,10 +53,10 @@
     "CP-005": ["numberA", "numberB"]
   },
   "coverageBuckets": {
-    "CP-001": ["smallFactorial", "mediumFactorial", "largeFactorial", "multipleFivePowers", "crosses25", "crosses125", "crosses625"],
-    "CP-002": ["numeratorOnly", "numeratorDenominator", "cancellationCase"],
-    "CP-003": ["solutionExists", "smallZeroCount", "mediumZeroCount", "largeZeroCount"],
-    "CP-004": ["balancedTwoFive", "excessTwos", "excessFives", "noTrailingZero"],
-    "CP-005": ["productCreatesZeros", "productAddsZeros", "productNoZeroChange"]
+    "CP-001": ["smallFactorial", "mediumFactorial", "largeFactorial", "multipleFivePowers", "crosses25", "crosses125", "crosses625", "below5", "between5And24", "between25And124", "between125And624", "above625"],
+    "CP-002": ["numeratorOnly", "numeratorDenominator", "cancellationCase", "twoFactorials", "threeFactorials", "largeGapFactorials", "closeFactorials"],
+    "CP-003": ["solutionExists", "verySmallZeroCount", "smallZeroCount", "mediumZeroCount", "largeZeroCount", "veryLargeZeroCount"],
+    "CP-004": ["balancedTwoFive", "excessTwos", "excessFives", "noTrailingZero", "powerOfTen", "powerOfTwo", "powerOfFive", "mixedBase", "smallExponent", "mediumExponent", "largeExponent"],
+    "CP-005": ["productCreatesZeros", "productAddsZeros", "productNoZeroChange", "alreadyHasZeros", "oneSideProvidesTwos", "oneSideProvidesFives", "bothSidesProvidePairs", "largePrimeNoise"]
   }
 }

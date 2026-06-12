@@ -1,0 +1,718 @@
+{
+  "libraryId": "NS-FRACDEC-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-FRACDEC-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "sourceAuthority": "ns-fracdec-001-language-draft.md",
+  "runtimePolicy": {
+    "may": [
+      "load",
+      "validate",
+      "select",
+      "substitute",
+      "render"
+    ],
+    "mayNot": [
+      "invent question wording",
+      "generate educational language",
+      "create fallback wording",
+      "rewrite human-authored language"
+    ]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP-001",
+      "name": "Simplify Fraction",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Simplify {fraction}."
+        },
+        {
+          "id": "QL-002",
+          "text": "Reduce {fraction} to its lowest terms."
+        },
+        {
+          "id": "QL-003",
+          "text": "Express {fraction} in simplest form."
+        },
+        {
+          "id": "QL-004",
+          "text": "Write {fraction} in lowest form."
+        },
+        {
+          "id": "QL-005",
+          "text": "Find the simplified form of {fraction}."
+        },
+        {
+          "id": "QL-006",
+          "text": "Reduce the fraction {fraction}."
+        },
+        {
+          "id": "QL-007",
+          "text": "Simplify the given fraction: {fraction}."
+        },
+        {
+          "id": "QL-008",
+          "text": "Write {fraction} after cancelling common factors."
+        },
+        {
+          "id": "QL-009",
+          "text": "Find the lowest term form of {fraction}."
+        },
+        {
+          "id": "QL-010",
+          "text": "Express {fraction} as a simplified fraction."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-002",
+      "name": "Convert Improper And Mixed Fractions",
+      "entries": [
+        {
+          "id": "QL-011",
+          "text": "Convert {improperFraction} into a mixed fraction."
+        },
+        {
+          "id": "QL-012",
+          "text": "Express {improperFraction} as a mixed fraction."
+        },
+        {
+          "id": "QL-013",
+          "text": "Write {improperFraction} in mixed fraction form."
+        },
+        {
+          "id": "QL-014",
+          "text": "Convert {mixedFraction} into an improper fraction."
+        },
+        {
+          "id": "QL-015",
+          "text": "Express {mixedFraction} as an improper fraction."
+        },
+        {
+          "id": "QL-016",
+          "text": "Write {mixedFraction} in improper fraction form."
+        },
+        {
+          "id": "QL-017",
+          "text": "Change {improperFraction} into a mixed number."
+        },
+        {
+          "id": "QL-018",
+          "text": "Change {mixedFraction} into an improper fraction."
+        },
+        {
+          "id": "QL-019",
+          "text": "Convert the given fraction {improperFraction} into mixed form."
+        },
+        {
+          "id": "QL-020",
+          "text": "Convert the mixed fraction {mixedFraction} into improper form."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-003",
+      "name": "Evaluate Fraction Or Decimal Arithmetic Expression",
+      "entries": [
+        {
+          "id": "QL-021",
+          "text": "Simplify {expression}."
+        },
+        {
+          "id": "QL-022",
+          "text": "Evaluate {expression}."
+        },
+        {
+          "id": "QL-023",
+          "text": "Find the value of {expression}."
+        },
+        {
+          "id": "QL-024",
+          "text": "Calculate {expression}."
+        },
+        {
+          "id": "QL-025",
+          "text": "Solve {expression}."
+        },
+        {
+          "id": "QL-026",
+          "text": "Simplify the expression {expression}."
+        },
+        {
+          "id": "QL-027",
+          "text": "Evaluate the given expression: {expression}."
+        },
+        {
+          "id": "QL-028",
+          "text": "Find the simplified value of {expression}."
+        },
+        {
+          "id": "QL-029",
+          "text": "Calculate the value of {expression}."
+        },
+        {
+          "id": "QL-030",
+          "text": "Work out {expression}."
+        },
+        {
+          "id": "QL-031",
+          "text": "Find the final value of {expression}."
+        },
+        {
+          "id": "QL-032",
+          "text": "Simplify and find the value of {expression}."
+        },
+        {
+          "id": "QL-033",
+          "text": "Evaluate the fraction expression {expression}."
+        },
+        {
+          "id": "QL-034",
+          "text": "Evaluate the decimal expression {expression}."
+        },
+        {
+          "id": "QL-035",
+          "text": "Find the result of {expression}."
+        },
+        {
+          "id": "QL-036",
+          "text": "What is the value of {expression}?"
+        },
+        {
+          "id": "QL-037",
+          "text": "The value of {expression} is:"
+        },
+        {
+          "id": "QL-038",
+          "text": "Find the result of the following expression: {expression}."
+        },
+        {
+          "id": "QL-039",
+          "text": "Evaluate the following: {expression}."
+        },
+        {
+          "id": "QL-040",
+          "text": "On simplifying {expression}, we get:"
+        },
+        {
+          "id": "QL-041",
+          "text": "The simplified value of {expression} equals:"
+        },
+        {
+          "id": "QL-042",
+          "text": "Find the answer to {expression}."
+        },
+        {
+          "id": "QL-043",
+          "text": "What is obtained after simplifying {expression}?"
+        },
+        {
+          "id": "QL-044",
+          "text": "Compute the value of {expression}."
+        },
+        {
+          "id": "QL-045",
+          "text": "Determine the result of {expression}."
+        },
+        {
+          "id": "QL-046",
+          "text": "The value of the following expression is:\n    {expression}"
+        },
+        {
+          "id": "QL-047",
+          "text": "Simplify the following and choose the correct answer:\n    {expression}"
+        },
+        {
+          "id": "QL-048",
+          "text": "Find the value obtained from:\n    {expression}"
+        },
+        {
+          "id": "QL-049",
+          "text": "Evaluate and find the result:\n    {expression}"
+        },
+        {
+          "id": "QL-050",
+          "text": "The simplified result of the following expression is:\n    {expression}"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-004",
+      "name": "Compare Or Order Rational Values",
+      "entries": [
+        {
+          "id": "QL-051",
+          "text": "Which is greater: {valueA} or {valueB}?"
+        },
+        {
+          "id": "QL-052",
+          "text": "Which is smaller: {valueA} or {valueB}?"
+        },
+        {
+          "id": "QL-053",
+          "text": "Find the greater value between {valueA} and {valueB}."
+        },
+        {
+          "id": "QL-054",
+          "text": "Find the smaller value between {valueA} and {valueB}."
+        },
+        {
+          "id": "QL-055",
+          "text": "Arrange {values} in ascending order."
+        },
+        {
+          "id": "QL-056",
+          "text": "Arrange {values} in descending order."
+        },
+        {
+          "id": "QL-057",
+          "text": "Put {values} from smallest to greatest."
+        },
+        {
+          "id": "QL-058",
+          "text": "Put {values} from greatest to smallest."
+        },
+        {
+          "id": "QL-059",
+          "text": "Find the largest value among {values}."
+        },
+        {
+          "id": "QL-060",
+          "text": "Find the smallest value among {values}."
+        },
+        {
+          "id": "QL-061",
+          "text": "Identify the greatest number from {values}."
+        },
+        {
+          "id": "QL-062",
+          "text": "Identify the least number from {values}."
+        },
+        {
+          "id": "QL-063",
+          "text": "Order the values {values} in increasing order."
+        },
+        {
+          "id": "QL-064",
+          "text": "Order the values {values} in decreasing order."
+        },
+        {
+          "id": "QL-065",
+          "text": "Compare {valueA} and {valueB} and find the larger one."
+        },
+        {
+          "id": "QL-066",
+          "text": "Which of the following is the greatest: {values}?"
+        },
+        {
+          "id": "QL-067",
+          "text": "Which of the following is the least: {values}?"
+        },
+        {
+          "id": "QL-068",
+          "text": "Arrange the following in increasing order: {values}."
+        },
+        {
+          "id": "QL-069",
+          "text": "Arrange the following in decreasing order: {values}."
+        },
+        {
+          "id": "QL-070",
+          "text": "Find the second largest value among {values}."
+        },
+        {
+          "id": "QL-071",
+          "text": "Find the second smallest value among {values}."
+        },
+        {
+          "id": "QL-072",
+          "text": "Which value lies between the other two: {values}?"
+        },
+        {
+          "id": "QL-073",
+          "text": "Identify the largest rational value from {values}."
+        },
+        {
+          "id": "QL-074",
+          "text": "Identify the smallest rational value from {values}."
+        },
+        {
+          "id": "QL-075",
+          "text": "Choose the correct order of the following values: {values}."
+        },
+        {
+          "id": "QL-076",
+          "text": "Select the greatest among {values}."
+        },
+        {
+          "id": "QL-077",
+          "text": "Select the least among {values}."
+        },
+        {
+          "id": "QL-078",
+          "text": "Which value has the highest magnitude among {values}?"
+        },
+        {
+          "id": "QL-079",
+          "text": "Which value has the lowest magnitude among {values}?"
+        },
+        {
+          "id": "QL-080",
+          "text": "Arrange the values from least to greatest: {values}."
+        },
+        {
+          "id": "QL-081",
+          "text": "Which of the following is the smallest rational number?"
+        },
+        {
+          "id": "QL-082",
+          "text": "Which of the following is the largest rational number?"
+        },
+        {
+          "id": "QL-083",
+          "text": "Choose the correct increasing order of {values}."
+        },
+        {
+          "id": "QL-084",
+          "text": "Choose the correct decreasing order of {values}."
+        },
+        {
+          "id": "QL-085",
+          "text": "Arrange the following rational values from greatest to least:\n    {values}"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-005",
+      "name": "Convert Fraction To Decimal",
+      "entries": [
+        {
+          "id": "QL-086",
+          "text": "Convert {fraction} into decimal form."
+        },
+        {
+          "id": "QL-087",
+          "text": "Express {fraction} as a decimal."
+        },
+        {
+          "id": "QL-088",
+          "text": "Write {fraction} in decimal form."
+        },
+        {
+          "id": "QL-089",
+          "text": "Change {fraction} into a decimal."
+        },
+        {
+          "id": "QL-090",
+          "text": "Find the decimal form of {fraction}."
+        },
+        {
+          "id": "QL-091",
+          "text": "Convert the fraction {fraction} to decimal form."
+        },
+        {
+          "id": "QL-092",
+          "text": "Express the given fraction {fraction} as a decimal."
+        },
+        {
+          "id": "QL-093",
+          "text": "Write the decimal equivalent of {fraction}."
+        },
+        {
+          "id": "QL-094",
+          "text": "Find the decimal value of {fraction}."
+        },
+        {
+          "id": "QL-095",
+          "text": "Change the fraction {fraction} into decimal notation."
+        },
+        {
+          "id": "QL-096",
+          "text": "The decimal equivalent of {fraction} is:"
+        },
+        {
+          "id": "QL-097",
+          "text": "Write {fraction} as a decimal number."
+        },
+        {
+          "id": "QL-098",
+          "text": "Find the decimal representation of {fraction}."
+        },
+        {
+          "id": "QL-099",
+          "text": "Express {fraction} in decimal notation."
+        },
+        {
+          "id": "QL-100",
+          "text": "Determine the decimal form of {fraction}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-006",
+      "name": "Convert Decimal To Fraction",
+      "entries": [
+        {
+          "id": "QL-101",
+          "text": "Convert {decimal} into a fraction."
+        },
+        {
+          "id": "QL-102",
+          "text": "Express {decimal} as a fraction."
+        },
+        {
+          "id": "QL-103",
+          "text": "Write {decimal} in fraction form."
+        },
+        {
+          "id": "QL-104",
+          "text": "Change {decimal} into a fraction."
+        },
+        {
+          "id": "QL-105",
+          "text": "Find the fraction form of {decimal}."
+        },
+        {
+          "id": "QL-106",
+          "text": "Convert the decimal {decimal} to a fraction."
+        },
+        {
+          "id": "QL-107",
+          "text": "Express the given decimal {decimal} as a fraction."
+        },
+        {
+          "id": "QL-108",
+          "text": "Write the fractional equivalent of {decimal}."
+        },
+        {
+          "id": "QL-109",
+          "text": "Find the fraction equal to {decimal}."
+        },
+        {
+          "id": "QL-110",
+          "text": "Change {decimal} into a fraction in simplest form."
+        },
+        {
+          "id": "QL-111",
+          "text": "The fractional form of {decimal} is:"
+        },
+        {
+          "id": "QL-112",
+          "text": "Write {decimal} as a fraction in lowest terms."
+        },
+        {
+          "id": "QL-113",
+          "text": "Express {decimal} as a rational number."
+        },
+        {
+          "id": "QL-114",
+          "text": "Find the simplest fraction equivalent of {decimal}."
+        },
+        {
+          "id": "QL-115",
+          "text": "Determine the fraction form of {decimal}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-007",
+      "name": "Convert Recurring Decimal To Fraction",
+      "entries": [
+        {
+          "id": "QL-116",
+          "text": "Convert {recurringDecimal} into a fraction."
+        },
+        {
+          "id": "QL-117",
+          "text": "Express {recurringDecimal} as a fraction."
+        },
+        {
+          "id": "QL-118",
+          "text": "Write {recurringDecimal} in fraction form."
+        },
+        {
+          "id": "QL-119",
+          "text": "Change {recurringDecimal} into a fraction."
+        },
+        {
+          "id": "QL-120",
+          "text": "Find the fraction form of {recurringDecimal}."
+        },
+        {
+          "id": "QL-121",
+          "text": "Convert the recurring decimal {recurringDecimal} to a fraction."
+        },
+        {
+          "id": "QL-122",
+          "text": "Express the given recurring decimal {recurringDecimal} as a fraction."
+        },
+        {
+          "id": "QL-123",
+          "text": "Write the fractional equivalent of {recurringDecimal}."
+        },
+        {
+          "id": "QL-124",
+          "text": "Find the fraction equal to {recurringDecimal}."
+        },
+        {
+          "id": "QL-125",
+          "text": "Change {recurringDecimal} into a fraction in simplest form."
+        },
+        {
+          "id": "QL-126",
+          "text": "Find the rational form of {recurringDecimal}."
+        },
+        {
+          "id": "QL-127",
+          "text": "Write {recurringDecimal} as a rational number."
+        },
+        {
+          "id": "QL-128",
+          "text": "Determine the fraction equivalent of {recurringDecimal}."
+        },
+        {
+          "id": "QL-129",
+          "text": "Express {recurringDecimal} in rational form."
+        },
+        {
+          "id": "QL-130",
+          "text": "Find the simplest fraction for {recurringDecimal}."
+        }
+      ]
+    },
+    {
+      "cpId": "CP-008",
+      "name": "Determine Terminating Or Recurring Decimal",
+      "entries": [
+        {
+          "id": "QL-131",
+          "text": "State whether {fraction} is terminating or recurring in decimal form."
+        },
+        {
+          "id": "QL-132",
+          "text": "Identify the decimal nature of {fraction}."
+        },
+        {
+          "id": "QL-133",
+          "text": "Find the type of decimal obtained from {fraction}."
+        },
+        {
+          "id": "QL-134",
+          "text": "Determine the decimal form type of {fraction}."
+        },
+        {
+          "id": "QL-135",
+          "text": "Classify {fraction} as terminating or recurring in decimal form."
+        },
+        {
+          "id": "QL-136",
+          "text": "Find whether the decimal expansion of {fraction} terminates or repeats."
+        },
+        {
+          "id": "QL-137",
+          "text": "State the decimal expansion type of {fraction}."
+        },
+        {
+          "id": "QL-138",
+          "text": "Identify whether {fraction} has a terminating decimal expansion or a recurring one."
+        },
+        {
+          "id": "QL-139",
+          "text": "The decimal expansion of {fraction} is:"
+        },
+        {
+          "id": "QL-140",
+          "text": "{fraction} gives which type of decimal expansion?"
+        },
+        {
+          "id": "QL-141",
+          "text": "Identify the decimal nature of {fraction}."
+        },
+        {
+          "id": "QL-142",
+          "text": "Choose the correct decimal type for {fraction}."
+        },
+        {
+          "id": "QL-143",
+          "text": "Determine the decimal expansion category of {fraction}."
+        },
+        {
+          "id": "QL-144",
+          "text": "The decimal expansion of {fraction} is:"
+        },
+        {
+          "id": "QL-145",
+          "text": "The fraction {fraction} produces which type of decimal expansion?"
+        }
+      ]
+    },
+    {
+      "cpId": "CP-009",
+      "name": "HCF Or LCM Of Fractions",
+      "entries": [
+        {
+          "id": "QL-146",
+          "text": "Find the HCF of {fractions}."
+        },
+        {
+          "id": "QL-147",
+          "text": "Find the LCM of {fractions}."
+        },
+        {
+          "id": "QL-148",
+          "text": "Calculate the HCF of the fractions {fractions}."
+        },
+        {
+          "id": "QL-149",
+          "text": "Calculate the LCM of the fractions {fractions}."
+        },
+        {
+          "id": "QL-150",
+          "text": "Determine the HCF of {fractions}."
+        },
+        {
+          "id": "QL-151",
+          "text": "Determine the LCM of {fractions}."
+        },
+        {
+          "id": "QL-152",
+          "text": "Find the highest common factor of {fractions}."
+        },
+        {
+          "id": "QL-153",
+          "text": "Find the least common multiple of {fractions}."
+        },
+        {
+          "id": "QL-154",
+          "text": "Find the HCF of the given fractions: {fractions}."
+        },
+        {
+          "id": "QL-155",
+          "text": "Find the LCM of the given fractions: {fractions}."
+        },
+        {
+          "id": "QL-156",
+          "text": "The HCF of the fractions {fractions} is:"
+        },
+        {
+          "id": "QL-157",
+          "text": "The LCM of the fractions {fractions} is:"
+        },
+        {
+          "id": "QL-158",
+          "text": "Find the highest common factor among {fractions}."
+        },
+        {
+          "id": "QL-159",
+          "text": "Find the least common multiple among {fractions}."
+        },
+        {
+          "id": "QL-160",
+          "text": "Determine the HCF/LCM of {fractions}."
+        }
+      ]
+    }
+  ]
+}

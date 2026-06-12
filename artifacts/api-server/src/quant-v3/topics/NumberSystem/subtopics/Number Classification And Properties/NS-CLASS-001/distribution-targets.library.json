@@ -1,0 +1,249 @@
+{
+  "libraryId": "NS-CLASS-001-DISTRIBUTION-TARGETS",
+  "archetypeId": "NS-CLASS-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "activeCanonicalProblems": [
+    "CP01",
+    "CP02",
+    "CP03",
+    "CP04",
+    "CP05",
+    "CP06"
+  ],
+  "distributionPolicy": {
+    "canonicalProblems": "balanced",
+    "difficulty": {
+      "Easy": 40,
+      "Medium": 40,
+      "Hard": 20
+    },
+    "questionLanguage": "balanced within each CP",
+    "explanation": "one approved explanation family per CP",
+    "coverageCategories": "balanced with no zero-allocation bucket"
+  },
+  "targets": {
+    "CP01": {
+      "name": "Parity Outcome Determination",
+      "coverageBuckets": [
+        {
+          "bucket": "evenResult",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "oddResult",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedParityOperations",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "additionParity",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "subtractionParity",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "multiplicationParity",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "powerParity",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP02": {
+      "name": "Sign Outcome Determination",
+      "coverageBuckets": [
+        {
+          "bucket": "positiveResult",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "negativeResult",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "zeroResult",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "productSign",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "quotientSign",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "powerSign",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "zeroCases",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP03": {
+      "name": "Consecutive Integer Property",
+      "coverageBuckets": [
+        {
+          "bucket": "sequenceProperty",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "sumProperty",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "productProperty",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "missingElement",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "consecutiveIntegers",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "consecutiveEvenIntegers",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "consecutiveOddIntegers",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "missingTerm",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP04": {
+      "name": "Count Integers Satisfying A Property",
+      "coverageBuckets": [
+        {
+          "bucket": "countEven",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "countOdd",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "countPositive",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "countNegative",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "rangeCount",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "listCount",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "parityFilter",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "signFilter",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP05": {
+      "name": "Integer Classification From Conditions",
+      "coverageBuckets": [
+        {
+          "bucket": "parityBased",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "signBased",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "combinedProperty",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "indirectProperty",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "parityClassification",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "signClassification",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "combinedClassification",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "conditionInference",
+          "allocation": "required_nonzero"
+        }
+      ]
+    },
+    "CP06": {
+      "name": "Missing Number From Property Conditions",
+      "coverageBuckets": [
+        {
+          "bucket": "directMissingValue",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "eliminationMethod",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "multipleConstraints",
+          "allocation": "required_nonzero"
+        }
+      ],
+      "variableRangeBuckets": [
+        {
+          "bucket": "parityConstraint",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "signConstraint",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "consecutiveConstraint",
+          "allocation": "required_nonzero"
+        },
+        {
+          "bucket": "mixedConstraint",
+          "allocation": "required_nonzero"
+        }
+      ]
+    }
+  }
+}

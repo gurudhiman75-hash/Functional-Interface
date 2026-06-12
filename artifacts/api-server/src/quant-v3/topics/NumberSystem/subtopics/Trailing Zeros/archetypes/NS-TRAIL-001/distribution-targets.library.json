@@ -59,9 +59,15 @@
   "coverageDistributions": {
     "cp001FactorialSize": "uniform",
     "cp001FivePowerCrossing": "tracked",
+    "factorialMagnitudeCoverage": "tracked",
     "cp002ExpressionType": "uniform",
+    "factorialStructureCoverage": "tracked",
     "cp003AttainableZeroCount": "uniform among solutionExists, smallZeroCount, mediumZeroCount and largeZeroCount",
+    "targetZeroMagnitudeCoverage": "tracked",
     "cp004PowerCase": "uniform",
-    "cp005ProductCase": "uniform"
+    "baseFamilyCoverage": "tracked",
+    "exponentMagnitudeCoverage": "tracked",
+    "cp005ProductCase": "uniform",
+    "productStructureCoverage": "tracked"
   }
 }

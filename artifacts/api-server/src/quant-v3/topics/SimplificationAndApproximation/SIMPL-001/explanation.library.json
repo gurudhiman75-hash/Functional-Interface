@@ -1,0 +1,114 @@
+﻿{
+    "libraryId":  "SIMPL-001-EXPLANATION",
+    "archetypeId":  "SIMPL-001",
+    "ownership":  "HUMAN_OWNED",
+    "status":  "DESIGN_READY_FOR_REVIEW",
+    "sourceAuthority":  "simpl-001-language-draft.md",
+    "runtimePolicy":  {
+                          "may":  [
+                                      "load",
+                                      "validate",
+                                      "select",
+                                      "substitute",
+                                      "render"
+                                  ],
+                          "mayNot":  [
+                                         "invent explanation language",
+                                         "rewrite explanation language",
+                                         "create fallback explanation wording"
+                                     ]
+                      },
+    "families":  [
+                     {
+                         "familyId":  "EF-001",
+                         "name":  "BODMAS Exact Simplification",
+                         "appliesTo":  [
+                                           "CP-001"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-001",
+                                             "text":  "First solve the brackets, if any.\n\nThen apply division and multiplication.\n\nAfter that, apply addition and subtraction.\n\nThe simplified value is {answer}.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     },
+                     {
+                         "familyId":  "EF-002",
+                         "name":  "Fraction Expression Simplification",
+                         "appliesTo":  [
+                                           "CP-002"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-002",
+                                             "text":  "Convert the fractions to a suitable form.\n\nApply the given operation carefully.\n\nReduce the final fraction to lowest terms.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     },
+                     {
+                         "familyId":  "EF-003",
+                         "name":  "Decimal Expression Simplification",
+                         "appliesTo":  [
+                                           "CP-003"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-003",
+                                             "text":  "Apply the given operations in the correct order.\n\nKeep the decimal places carefully while calculating.\n\nThe simplified decimal value is {answer}.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     },
+                     {
+                         "familyId":  "EF-004",
+                         "name":  "Mixed Fraction And Decimal Simplification",
+                         "appliesTo":  [
+                                           "CP-004"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-004",
+                                             "text":  "Convert the mixed values to a common form.\n\nApply the required operations step by step.\n\nSimplify the final value.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     },
+                     {
+                         "familyId":  "EF-005",
+                         "name":  "Root And Power Expression Simplification",
+                         "appliesTo":  [
+                                           "CP-005"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-005",
+                                             "text":  "First evaluate the roots and powers.\n\nThen simplify the remaining arithmetic expression.\n\nThe final value is {answer}.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     },
+                     {
+                         "familyId":  "EF-006",
+                         "name":  "Approximation By Rounding",
+                         "appliesTo":  [
+                                           "CP-006"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-006",
+                                             "text":  "Round the given numbers to nearby convenient values.\n\nUse the rounded values to calculate quickly.\n\nThe approximate value is {answer}.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     },
+                     {
+                         "familyId":  "EF-007",
+                         "name":  "Closest Or Nearest Value Selection",
+                         "appliesTo":  [
+                                           "CP-007"
+                                       ],
+                         "entries":  [
+                                         {
+                                             "id":  "ES-007",
+                                             "text":  "First estimate or calculate the value of the expression.\n\nCompare it with the given options.\n\nChoose the option nearest to the value obtained.\n\nAnswer: {answer}"
+                                         }
+                                     ]
+                     }
+                 ]
+}
