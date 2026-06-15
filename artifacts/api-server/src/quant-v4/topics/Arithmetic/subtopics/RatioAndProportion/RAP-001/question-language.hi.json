@@ -1,0 +1,138 @@
+{
+  "RAP-CP-001": {
+    "families": {
+      "RAP-QL-001": {
+        "template": "यदि {personA}:{personB} का अनुपात {ratioA1}:{ratioB1} है और {personB}:{personC} का अनुपात {ratioB2}:{ratioC2} है, तो {personA}:{personB}:{personC} का संयुक्त अनुपात क्या होगा?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-002": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या है?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-003": {
+        "template": "यदि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} हो, तो {personA} और {personD} के बीच का अनुपात क्या होगा?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-004": {
+        "template": "किसी {groupName} में {personA} और {personB} का अनुपात {ratioA}:{ratioB} है। यदि वहाँ {valueA} {personA} हैं, तो {personB} की संख्या कितनी है?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-006": {
+        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या होगा?",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "RAP-CP-002": {
+    "families": {
+      "RAP-QL-007": {
+        "template": "Rs. {totalAmount} की राशि को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा गया है। {targetPerson} का हिस्सा कितना होगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-008": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {personA} को {personC} से कितने रुपये अधिक मिलते हैं?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-009": {
+        "template": "{personA}, {personB} और {personC} के हिस्से {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं। यदि {personA} को {personC} से Rs. {shareDifference} अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-011": {
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितने रुपये बचाता है?",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-003": {
+    "families": {
+      "RAP-QL-012": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} और {groupA} आ जाते हैं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में {groupA} की संख्या कितनी थी?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-013": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। {removedCount} {groupA} के चले जाने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में कुल कितने लोग थे?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-014": {
+        "template": "दो संख्याएँ {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-015": {
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है और उनके खर्चों का अनुपात {expRatioA}:{expRatioB} है। यदि दोनों Rs. {savingsAmount} की बचत करते हैं, तो {personA} की आय कितनी है?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-016": {
+        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-004": {
+    "families": {
+      "RAP-QL-017": {
+        "template": "{numA} और {numB} के बीच का मध्य अनुपाती क्या होगा?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-018": {
+        "template": "{numA} और {numB} का तीसरा अनुपाती क्या होगा?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-019": {
+        "template": "वह संख्या क्या होगी जो {numA}, {numB} और {numC} का चौथा अनुपाती है?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-020": {
+        "template": "यदि {varY}, {varX} के साथ सीधे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। जब {varX} का मान {varX2} होगा, तो {varY} कितना होगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-021": {
+        "template": "यदि {varY}, {varX} के उल्टा अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा?",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "RAP-CP-005": {
+    "families": {
+      "RAP-QL-022": {
+        "template": "एक बैग में {denom1}, {denom2} और {denom3} के सिक्के {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। यदि कुल मूल्य Rs. {totalValue} है, तो {targetDenom} के कितने सिक्के हैं?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-023": {
+        "template": "एक बॉक्स में {denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। यदि उनके मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है, तो {targetDenom} के सिक्कों की संख्या क्या है?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-024": {
+        "template": "{itemA}, {itemB} और {itemC} के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। यदि {countA} {itemA}, {countB} {itemB} और {countC} {itemC} का कुल वजन {totalWeight} kg है, तो एक {itemA} का वजन कितना है?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-026": {
+        "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार (weightage) क्रमशः {w1}, {w2} और {w3} है और कुल भारित स्कोर {totalScore} है, तो {sub1} में कितने अंक मिले?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-006": {
+    "families": {
+      "RAP-QL-027": {
+        "template": "एक मिश्रण में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। यदि इसमें {addedAmount} लीटर {liquid1} मिला दिया जाए, तो अनुपात {finalRatio1}:{finalRatio2} हो जाता है। शुरुआत में {liquid2} की मात्रा कितनी थी?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-028": {
+        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितना {liquid2} और मिलाना पड़ेगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-029": {
+        "template": "एक {mixtureType} में {liquid1}, {liquid2} और {liquid3} का अनुपात {ratio1}:{ratio2}:{ratio3} है। {addedAmount} लीटर {liquid2} मिलाने पर नया अनुपात {finalRatio1}:{finalRatio2}:{finalRatio3} हो जाता है। शुरुआत में कुल मात्रा कितनी थी?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-030": {
+        "template": "{initialVolume} लीटर {liquidA} में से {removedVolume1} लीटर निकालकर {liquidB} मिला दिया जाता है और फिर दोबारा {removedVolume2} लीटर निकालकर {liquidB} मिला दिया जाता है। अंत में {liquidA} और {liquidB} का अनुपात क्या होगा?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-032": {
+        "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा?",
+        "difficulty": "Easy"
+      }
+    }
+  }
+}

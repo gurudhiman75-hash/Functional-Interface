@@ -1,0 +1,18 @@
+{
+  "coverage": {
+    "difficulty_distribution": {
+      "Easy": 0.30,
+      "Medium": 0.50,
+      "Hard": 0.20
+    },
+    "logical_targets": [
+      "direct_calculation",
+      "reverse_reasoning",
+      "successive_multiplication",
+      "product_invariance",
+      "additive_partition",
+      "successive_partition",
+      "composition_shift"
+    ]
+  }
+}

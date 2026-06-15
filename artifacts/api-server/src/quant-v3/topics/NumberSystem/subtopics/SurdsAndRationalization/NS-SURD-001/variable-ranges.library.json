@@ -1,51 +1,93 @@
-﻿{
-    "packageId":  "NS-SURD-001",
-    "sourceAuthority":  "ns-surd-001-language-draft.md",
-    "ownership":  "HUMAN_OWNED",
-    "usage":  "Runtime Consumption Only",
-    "cps":  {
-                "CP01":  [
-                             "squareRootExtraction",
-                             "cubeRootExtraction",
-                             "perfectPowerRecognition"
-                         ],
-                "CP02":  [
-                             "directLikeSurds",
-                             "simplifyThenCombine",
-                             "coefficientCombination"
-                         ],
-                "CP03":  [
-                             "multiplication",
-                             "division",
-                             "mixedCoefficientOperations"
-                         ],
-                "CP04":  [
-                             "additionSubtractionMix",
-                             "multiplicationMix",
-                             "divisionMix",
-                             "multiStepSimplification"
-                         ],
-                "CP05":  [
-                             "pairComparison",
-                             "increasingOrder",
-                             "decreasingOrder",
-                             "greatestSelection",
-                             "leastSelection"
-                         ],
-                "CP06":  [
-                             "squareRootDenominator",
-                             "cubeRootDenominator",
-                             "coefficientDenominator"
-                         ],
-                "CP07":  [
-                             "simpleConjugate",
-                             "surdConjugate",
-                             "mixedBinomialDenominator"
-                         ],
-                "CP08":  [
-                             "squareExpansion",
-                             "conjugateProduct",
-                             "identityEvaluation"
-                         ]
-            }
+{
+  "packageId": "NS-SURD-001",
+  "sourceAuthority": "ns-surd-001-language-draft.md",
+  "ownership": "HUMAN_OWNED",
+  "usage": "Runtime Consumption Only",
+  "variableStructure": "CP-centric semantic variables",
+  "cps": {
+    "CP01": {
+      "title": "Simplification By Extracting Perfect Powers",
+      "variables": {
+        "radicand": { "type": "integer", "domain": "[8, 1000]" }
+      }
+    },
+    "CP02": {
+      "title": "Addition And Subtraction Of Like Surds",
+      "variables": {
+        "leftCoefficient": { "type": "integer", "domain": "[1, 20]" },
+        "rightCoefficient": { "type": "integer", "domain": "[1, 20]" },
+        "subtrahendCoefficient": { "type": "integer", "domain": "[1, 20]" },
+        "commonRadicand": { "type": "integer", "domain": "[2, 3, 5, 7, 10, 11]" },
+        "leftRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "rightRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "subtrahendRadicand": { "type": "integer", "domain": "[2, 100]" }
+      }
+    },
+    "CP03": {
+      "title": "Multiplication And Division Of Surds",
+      "variables": {
+        "leftRadicand": { "type": "integer", "domain": "[2, 50]" },
+        "rightRadicand": { "type": "integer", "domain": "[2, 50]" },
+        "leftCoefficient": { "type": "integer", "domain": "[1, 10]" },
+        "rightCoefficient": { "type": "integer", "domain": "[1, 10]" },
+        "numeratorRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "denominatorRadicand": { "type": "integer", "domain": "[2, 100]" }
+      }
+    },
+    "CP04": {
+      "title": "Multi-Step Surd Simplification",
+      "variables": {
+        "commonRadicand": { "type": "integer", "domain": "[2, 30]" },
+        "minuendRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "subtrahendRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "additionalRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "commonCoefficient": { "type": "integer", "domain": "[1, 10]" },
+        "leftCoefficient": { "type": "integer", "domain": "[1, 10]" },
+        "rightCoefficient": { "type": "integer", "domain": "[1, 10]" },
+        "additionalCoefficient": { "type": "integer", "domain": "[1, 10]" }
+      }
+    },
+    "CP05": {
+      "title": "Comparison And Ordering Of Surds",
+      "variables": {
+        "leftRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "middleRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "rightRadicand": { "type": "integer", "domain": "[2, 100]" },
+        "leftCoefficient": { "type": "integer", "domain": "[2, 10]" },
+        "middleCoefficient": { "type": "integer", "domain": "[2, 10]" },
+        "rightCoefficient": { "type": "integer", "domain": "[2, 10]" },
+        "comparisonDirection": { "type": "string", "domain": "['greater', 'smaller', 'largest', 'smallest']" },
+        "orderingDirection": { "type": "string", "domain": "['ascending', 'descending']" }
+      }
+    },
+    "CP06": {
+      "title": "Rationalization Of Monomial Denominators",
+      "variables": {
+        "numerator": { "type": "integer", "domain": "[1, 100]" },
+        "denominatorRadicand": { "type": "integer", "domain": "[2, 11]" },
+        "denominatorCoefficient": { "type": "integer", "domain": "[1, 5]" }
+      }
+    },
+    "CP07": {
+      "title": "Rationalization Of Binomial Denominators",
+      "variables": {
+        "numerator": { "type": "integer", "domain": "[1, 100]" },
+        "constantTerm": { "type": "integer", "domain": "[1, 20]" },
+        "denominatorRadicand": { "type": "integer", "domain": "[2, 20]" },
+        "leftRadicand": { "type": "integer", "domain": "[2, 20]" },
+        "rightRadicand": { "type": "integer", "domain": "[2, 20]" }
+      }
+    },
+    "CP08": {
+      "title": "Surd Identity Evaluation",
+      "variables": {
+        "constantTerm": { "type": "integer", "domain": "[1, 20]" },
+        "radicand": { "type": "integer", "domain": "[2, 20]" },
+        "leftRadicand": { "type": "integer", "domain": "[2, 20]" },
+        "rightRadicand": { "type": "integer", "domain": "[2, 20]" },
+        "leftCoefficient": { "type": "integer", "domain": "[1, 10]" },
+        "rightCoefficient": { "type": "integer", "domain": "[1, 10]" }
+      }
+    }
+  }
 }

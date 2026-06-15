@@ -2,7 +2,7 @@
   "libraryId": "NS-EXP-001-VARIABLE-RANGES",
   "archetypeId": "NS-EXP-001",
   "ownership": "HUMAN_OWNED",
-  "status": "DESIGN_READY_FOR_REVIEW",
+  "status": "LANGUAGE_ARCHITECTURE_REPAIRED",
   "activeCanonicalProblems": [
     "CP01",
     "CP02",
@@ -16,67 +16,427 @@
   "ranges": {
     "CP01": {
       "name": "Same-base exponent compression",
-      "categories": [
-        "multiplication only",
-        "division only",
-        "mixed operations",
-        "power of power"
+      "variables": [
+        {
+          "name": "base",
+          "type": "integer",
+          "domain": [2, 3, 5, 7, 11, 13],
+          "meaning": "Common base for all terms in expression",
+          "constraints": ["base > 1", "base is prime or commonly used"]
+        },
+        {
+          "name": "firstExponent",
+          "type": "integer",
+          "domain": [1, 12],
+          "meaning": "First exponent in a sequence of operations",
+          "constraints": ["firstExponent > 0"]
+        },
+        {
+          "name": "secondExponent",
+          "type": "integer",
+          "domain": [1, 12],
+          "meaning": "Second exponent in a sequence of operations",
+          "constraints": ["secondExponent > 0"]
+        },
+        {
+          "name": "thirdExponent",
+          "type": "integer",
+          "domain": [1, 10],
+          "meaning": "Third exponent in a sequence of operations",
+          "constraints": ["thirdExponent > 0"]
+        },
+        {
+          "name": "innerExponent",
+          "type": "integer",
+          "domain": [2, 5],
+          "meaning": "Exponent inside a power-of-power expression",
+          "constraints": ["innerExponent > 1"]
+        },
+        {
+          "name": "outerExponent",
+          "type": "integer",
+          "domain": [2, 4],
+          "meaning": "Exponent applied to an inner power",
+          "constraints": ["outerExponent > 1"]
+        },
+        {
+          "name": "resultExponent",
+          "type": "integer",
+          "domain": [1, 10],
+          "meaning": "Resulting exponent after power-of-power is applied",
+          "constraints": ["resultExponent > 0"]
+        }
       ]
     },
     "CP02": {
       "name": "Same-base exponent equation",
-      "categories": [
-        "linear exponent equation",
-        "coefficient exponent equation",
-        "fractional exponent equation"
+      "variables": [
+        {
+          "name": "base",
+          "type": "integer",
+          "domain": [2, 3, 5, 7, 11, 13, 17, 19],
+          "meaning": "Common base on both sides of equation",
+          "constraints": ["base > 1"]
+        },
+        {
+          "name": "targetExponent",
+          "type": "integer",
+          "domain": [2, 24],
+          "meaning": "Exponent on the right-hand side of the equation",
+          "constraints": ["targetExponent > 0"]
+        },
+        {
+          "name": "coefficient",
+          "type": "integer",
+          "domain": [2, 4],
+          "meaning": "Multiplicative coefficient applied to variable x",
+          "constraints": ["coefficient > 1", "targetExponent divisible by coefficient"]
+        },
+        {
+          "name": "constant",
+          "type": "integer",
+          "domain": [1, 5],
+          "meaning": "Additive or subtractive constant in x expression",
+          "constraints": ["constant > 0"]
+        },
+        {
+          "name": "divisor",
+          "type": "integer",
+          "domain": [2, 4],
+          "meaning": "Divisor in x/divisor fractional exponent form",
+          "constraints": ["divisor > 1"]
+        },
+        {
+          "name": "answerExponent",
+          "type": "integer",
+          "domain": [1, 12],
+          "meaning": "The solved value of x",
+          "constraints": ["answerExponent > 0"]
+        }
       ]
     },
     "CP03": {
       "name": "Common-base transformation and exponent solving",
-      "categories": [
-        "simplification",
-        "comparison",
-        "exponent solving"
+      "variables": [
+        {
+          "name": "commonBase",
+          "type": "integer",
+          "domain": [2, 3, 5],
+          "meaning": "Underlying common base for transformation",
+          "constraints": ["commonBase is prime"]
+        },
+        {
+          "name": "transformationPower1",
+          "type": "integer",
+          "domain": [2, 5],
+          "meaning": "Power applied to commonBase to produce visibleBase1",
+          "constraints": ["transformationPower1 > 1"]
+        },
+        {
+          "name": "transformationPower2",
+          "type": "integer",
+          "domain": [2, 5],
+          "meaning": "Power applied to commonBase to produce visibleBase2",
+          "constraints": ["transformationPower2 > 1", "transformationPower2 != transformationPower1"]
+        },
+        {
+          "name": "visibleBase1",
+          "type": "integer",
+          "domain": "computed",
+          "meaning": "First visible base in expression",
+          "constraints": ["visibleBase1 = commonBase^transformationPower1"]
+        },
+        {
+          "name": "visibleBase2",
+          "type": "integer",
+          "domain": "computed",
+          "meaning": "Second visible base in expression",
+          "constraints": ["visibleBase2 = commonBase^transformationPower2"]
+        },
+        {
+          "name": "visibleBase3",
+          "type": "integer",
+          "domain": "computed",
+          "meaning": "Third visible base for ordering",
+          "constraints": ["visibleBase3 = commonBase^k, k != transformationPower1, k != transformationPower2"]
+        },
+        {
+          "name": "firstExponent",
+          "type": "integer",
+          "domain": [1, 12],
+          "meaning": "Exponent on first visible base",
+          "constraints": ["firstExponent > 0"]
+        },
+        {
+          "name": "secondExponent",
+          "type": "integer",
+          "domain": [1, 12],
+          "meaning": "Exponent on second visible base",
+          "constraints": ["secondExponent > 0"]
+        },
+        {
+          "name": "thirdExponent",
+          "type": "integer",
+          "domain": [1, 12],
+          "meaning": "Exponent on third visible base",
+          "constraints": ["thirdExponent > 0"]
+        },
+        {
+          "name": "targetExponent",
+          "type": "integer",
+          "domain": [1, 24],
+          "meaning": "Target exponent in equation solving",
+          "constraints": ["targetExponent > 0"]
+        },
+        {
+          "name": "shift",
+          "type": "integer",
+          "domain": [1, 5],
+          "meaning": "Additive shift in x+shift forms",
+          "constraints": ["shift > 0"]
+        },
+        {
+          "name": "coefficient",
+          "type": "integer",
+          "domain": [2, 4],
+          "meaning": "Multiplicative coefficient applied to variable x",
+          "constraints": ["coefficient > 1"]
+        }
       ]
     },
     "CP04": {
       "name": "Negative exponent normalization",
-      "categories": [
-        "single negative exponent",
-        "mixed positive and negative exponents"
+      "variables": [
+        {
+          "name": "base",
+          "type": "integer",
+          "domain": [2, 3, 5, 7, 10],
+          "meaning": "Base with negative exponent",
+          "constraints": ["base > 1"]
+        },
+        {
+          "name": "negativeExponent",
+          "type": "integer",
+          "domain": [-5, -1],
+          "meaning": "Negative exponent value",
+          "constraints": ["negativeExponent < 0"]
+        },
+        {
+          "name": "positiveExponent",
+          "type": "integer",
+          "domain": [1, 6],
+          "meaning": "Positive exponent for mixed sign operations",
+          "constraints": ["positiveExponent > 0"]
+        },
+        {
+          "name": "firstNegativeExponent",
+          "type": "integer",
+          "domain": [-4, -1],
+          "meaning": "First negative exponent in a fraction",
+          "constraints": ["firstNegativeExponent < 0"]
+        },
+        {
+          "name": "secondNegativeExponent",
+          "type": "integer",
+          "domain": [-5, -2],
+          "meaning": "Second negative exponent in a fraction (more negative)",
+          "constraints": ["secondNegativeExponent < 0", "secondNegativeExponent < firstNegativeExponent"]
+        }
       ]
     },
     "CP05": {
       "name": "Fractional exponent to root",
-      "categories": [
-        "square roots",
-        "cube roots",
-        "higher roots"
+      "variables": [
+        {
+          "name": "base",
+          "type": "integer",
+          "domain": [4, 16, 25, 27, 32, 49, 64, 81, 125, 216, 243, 625],
+          "meaning": "Perfect power base for root evaluation",
+          "constraints": ["base is perfect square, cube, or higher power"]
+        },
+        {
+          "name": "fractionalExponentNumerator",
+          "type": "integer",
+          "domain": [1, 4],
+          "meaning": "Numerator of fractional exponent",
+          "constraints": ["fractionalExponentNumerator >= 1"]
+        },
+        {
+          "name": "fractionalExponentDenominator",
+          "type": "integer",
+          "domain": [2, 5],
+          "meaning": "Denominator of fractional exponent (root degree)",
+          "constraints": ["fractionalExponentDenominator >= 2", "base must be perfect denominator-th power"]
+        },
+        {
+          "name": "rootDegree",
+          "type": "integer",
+          "domain": [2, 5],
+          "meaning": "Degree of the root (same as denominator of fractional exponent)",
+          "constraints": ["rootDegree >= 2"]
+        }
       ]
     },
     "CP06": {
       "name": "Mixed exponent expression simplification",
-      "categories": [
-        "negative exponent mix",
-        "fractional exponent mix",
-        "composite mix"
+      "variables": [
+        {
+          "name": "base",
+          "type": "integer",
+          "domain": [2, 3, 5, 7],
+          "meaning": "Primary base in mixed expression",
+          "constraints": ["base > 1"]
+        },
+        {
+          "name": "positiveExponent",
+          "type": "integer",
+          "domain": [1, 8],
+          "meaning": "Positive integer exponent",
+          "constraints": ["positiveExponent > 0"]
+        },
+        {
+          "name": "negativeExponent",
+          "type": "integer",
+          "domain": [-5, -1],
+          "meaning": "Negative integer exponent",
+          "constraints": ["negativeExponent < 0"]
+        },
+        {
+          "name": "fractionalExponentNumerator",
+          "type": "integer",
+          "domain": [1, 4],
+          "meaning": "Numerator of fractional exponent in mixed expressions",
+          "constraints": ["fractionalExponentNumerator >= 1"]
+        },
+        {
+          "name": "fractionalExponentDenominator",
+          "type": "integer",
+          "domain": [2, 5],
+          "meaning": "Denominator of fractional exponent (root degree)",
+          "constraints": ["fractionalExponentDenominator >= 2"]
+        },
+        {
+          "name": "rootDegree",
+          "type": "integer",
+          "domain": [2, 4],
+          "meaning": "Degree of root in expression",
+          "constraints": ["rootDegree >= 2"]
+        },
+        {
+          "name": "divisorBase",
+          "type": "integer",
+          "domain": [2, 9],
+          "meaning": "Whole number base in denominator or as divider",
+          "constraints": ["divisorBase relates to base as composite"]
+        }
       ]
     },
     "CP07": {
       "name": "Exponential comparison by base alignment",
-      "categories": [
-        "pair comparison",
-        "ordering",
-        "largest selection",
-        "smallest selection"
+      "variables": [
+        {
+          "name": "commonBase",
+          "type": "integer",
+          "domain": [2, 3, 5, 7],
+          "meaning": "Underlying common base for comparison",
+          "constraints": ["commonBase is prime"]
+        },
+        {
+          "name": "visibleBase1",
+          "type": "integer",
+          "domain": "computed",
+          "meaning": "First visible base in comparison",
+          "constraints": ["visibleBase1 = commonBase^k1"]
+        },
+        {
+          "name": "visibleBase2",
+          "type": "integer",
+          "domain": "computed",
+          "meaning": "Second visible base in comparison",
+          "constraints": ["visibleBase2 = commonBase^k2"]
+        },
+        {
+          "name": "visibleBase3",
+          "type": "integer",
+          "domain": "computed",
+          "meaning": "Third visible base for ordering",
+          "constraints": ["visibleBase3 = commonBase^k3"]
+        },
+        {
+          "name": "firstExponent",
+          "type": "integer",
+          "domain": [1, 16],
+          "meaning": "Exponent on first visible base",
+          "constraints": ["firstExponent > 0"]
+        },
+        {
+          "name": "secondExponent",
+          "type": "integer",
+          "domain": [1, 16],
+          "meaning": "Exponent on second visible base",
+          "constraints": ["secondExponent > 0"]
+        },
+        {
+          "name": "thirdExponent",
+          "type": "integer",
+          "domain": [1, 16],
+          "meaning": "Exponent on third visible base for ordering",
+          "constraints": ["thirdExponent > 0"]
+        }
       ]
     },
     "CP09": {
       "name": "Value substitution using a given power relation",
-      "categories": [
-        "exponent increase",
-        "exponent decrease",
-        "exponent multiple"
+      "variables": [
+        {
+          "name": "base",
+          "type": "integer",
+          "domain": [2, 3, 4, 5, 7, 9, 11],
+          "meaning": "Base in given power relation",
+          "constraints": ["base > 1"]
+        },
+        {
+          "name": "knownValue",
+          "type": "integer",
+          "domain": [4, 625],
+          "meaning": "The known value of base^answerExponent",
+          "constraints": ["knownValue = base^answerExponent"]
+        },
+        {
+          "name": "answerExponent",
+          "type": "integer",
+          "domain": [2, 6],
+          "meaning": "Exponent that produces knownValue",
+          "constraints": ["answerExponent > 1", "base^answerExponent = knownValue"]
+        },
+        {
+          "name": "increment",
+          "type": "integer",
+          "domain": [1, 5],
+          "meaning": "Value added to exponent (x+k)",
+          "constraints": ["increment > 0"]
+        },
+        {
+          "name": "decrement",
+          "type": "integer",
+          "domain": [1, 4],
+          "meaning": "Value subtracted from exponent (x-k)",
+          "constraints": ["decrement > 0", "decrement < answerExponent"]
+        },
+        {
+          "name": "multiplier",
+          "type": "integer",
+          "domain": [2, 3],
+          "meaning": "Factor multiplied with exponent (m*x)",
+          "constraints": ["multiplier > 1"]
+        },
+        {
+          "name": "coefficient",
+          "type": "integer",
+          "domain": [2, 4],
+          "meaning": "Coefficient for more complex exponent operations",
+          "constraints": ["coefficient > 1"]
+        }
       ]
     }
   }

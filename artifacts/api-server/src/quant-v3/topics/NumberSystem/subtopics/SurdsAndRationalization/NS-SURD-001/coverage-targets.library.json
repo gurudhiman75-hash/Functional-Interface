@@ -1,49 +1,39 @@
-﻿{
-    "packageId":  "NS-SURD-001",
-    "sourceAuthority":  "ns-surd-001-language-draft.md",
-    "ownership":  "HUMAN_OWNED",
-    "usage":  "Runtime Consumption Only",
-    "cps":  {
-                "CP01":  [
-                             "squareRootCases",
-                             "cubeRootCases",
-                             "mixedExtraction"
-                         ],
-                "CP02":  [
-                             "directCombination",
-                             "simplifyBeforeCombination",
-                             "multiTermCombination"
-                         ],
-                "CP03":  [
-                             "multiplicationCases",
-                             "divisionCases",
-                             "coefficientCases"
-                         ],
-                "CP04":  [
-                             "mixedOperations",
-                             "simplificationChains",
-                             "multiStepExpressions"
-                         ],
-                "CP05":  [
-                             "pairComparison",
-                             "ordering",
-                             "greatestSelection",
-                             "leastSelection"
-                         ],
-                "CP06":  [
-                             "squareRootRationalization",
-                             "cubeRootRationalization",
-                             "coefficientRationalization"
-                         ],
-                "CP07":  [
-                             "conjugateMethod",
-                             "surdBinomial",
-                             "mixedBinomial"
-                         ],
-                "CP08":  [
-                             "squareIdentity",
-                             "conjugateIdentity",
-                             "identitySimplification"
-                         ]
-            }
+{
+  "packageId": "NS-SURD-001",
+  "sourceAuthority": "ns-surd-001-language-draft.md",
+  "ownership": "HUMAN_OWNED",
+  "authority": "Educational Authority",
+  "usage": "Runtime Consumption Only",
+  "buckets": [
+    {
+      "id": "B-001",
+      "name": "Radical Simplification",
+      "description": "Extracting perfect powers from square and cube roots.",
+      "cpIds": ["CP01"]
+    },
+    {
+      "id": "B-002",
+      "name": "Radical Arithmetic",
+      "description": "Addition, subtraction, multiplication, and division of surds.",
+      "cpIds": ["CP02", "CP03"]
+    },
+    {
+      "id": "B-003",
+      "name": "Advanced Simplification",
+      "description": "Multi-step expressions and algebraic identity evaluation.",
+      "cpIds": ["CP04", "CP08"]
+    },
+    {
+      "id": "B-004",
+      "name": "Radical Rationalization",
+      "description": "Rationalizing monomial and binomial denominators.",
+      "cpIds": ["CP06", "CP07"]
+    },
+    {
+      "id": "B-005",
+      "name": "Comparison and Ordering",
+      "description": "Determining numerical priority of radical values.",
+      "cpIds": ["CP05"]
+    }
+  ]
 }

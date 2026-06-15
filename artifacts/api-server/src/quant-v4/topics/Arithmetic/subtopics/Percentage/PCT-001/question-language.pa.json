@@ -1,0 +1,246 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "{baseValue} ਦਾ {percentageRate}% ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "{baseValue} ਦਾ {percentageRate}% ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-003": {
+        "template": "{percentageRate}% ਨੂੰ ਭਿੰਨ ਵਿੱਚ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "{value}, {baseValue} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-005": {
+        "template": "A, B ਦਾ {percentageRate}% ਹੈ। ਜੇ B = {baseValue}, ਤਾਂ A ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-007": {
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "ਜੇ A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ, ਤਾਂ A:B ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-009": {
+        "template": "ਕਿਸੇ ਸੰਖਿਆ ਦਾ {percentageRate}% = {value} ਹੈ। ਉਹ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-010": {
+        "template": "ਜੇਕਰ {baseValue} ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਕੀਤਾ ਜਾਵੇ, ਤਾਂ ਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-011": {
+        "template": "ਜੇਕਰ {baseValue} ਵਿੱਚ {percentageRate}% ਦੀ ਕਮੀ ਕੀਤੀ ਜਾਵੇ, ਤਾਂ ਨਵਾਂ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-012": {
+        "template": "ਕਿਸੇ ਸੰਖਿਆ ਵਿੱਚ ਉਸਦਾ {percentageRate}% ਜੋੜਨ ਤੇ {finalValue} ਮਿਲਦਾ ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-013": {
+        "template": "ਕਿਸੇ ਸੰਖਿਆ ਵਿਚੋਂ ਉਸਦਾ {percentageRate}% ਘਟਾਉਣ ਤੇ {finalValue} ਮਿਲਦਾ ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-014": {
+        "template": "{percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਇੱਕ ਸੰਖਿਆ {finalValue} ਹੋ ਜਾਂਦੀ ਹੈ। ਪੁਰਾਣੀ ਸੰਖਿਆ ਕੀ ਸੀ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-015": {
+        "template": "ਇੱਕ ਵਿਅਕਤੀ ਦੀ ਤਨਖਾਹ {percentageRate}% ਵੱਧ ਕੇ Rs. {finalValue} ਹੋ ਗਈ। ਪੁਰਾਣੀ ਤਨਖਾਹ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-016": {
+        "template": "ਕਿਸੇ ਸੰਖਿਆ ਵਿੱਚ {value} ਜੋੜਨਾ, ਉਸ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਦੇ ਬਰਾਬਰ ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-017": {
+        "template": "ਕਿਸੇ ਸੰਖਿਆ ਦਾ {rate1}% = {value1} ਹੈ। ਉਸੇ ਸੰਖਿਆ ਦਾ {rate2}% ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "ਕਿਸੇ ਸੰਖਿਆ ਦੇ {rate1}% ਅਤੇ {rate2}% ਦਾ ਫਰਕ {value} ਹੈ। ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-019": {
+        "template": "{percentageRate}% ਕਮੀ ਤੋਂ ਬਾਅਦ ਪੁਰਾਣੇ ਮੁੱਲ ਤੇ ਲਿਆਉਣ ਲਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਕਰਨਾ ਪਵੇਗਾ?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-020": {
+        "template": "{rate1}% ਅਤੇ {rate2}% ਦੇ ਦੋ ਲਗਾਤਾਰ ਵਾਧੇ ਕਿਸ ਇੱਕ ਵਾਧੇ ਦੇ ਬਰਾਬਰ ਹੋਣਗੇ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-021": {
+        "template": "ਇੱਕ ਸ਼ਹਿਰ ਦੀ ਆਬਾਦੀ ਪਹਿਲੇ ਸਾਲ {rate1}% ਅਤੇ ਦੂਜੇ ਸਾਲ {rate2}% ਵਧਦੀ ਹੈ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-022": {
+        "template": "ਇੱਕ ਸੰਖਿਆ ਨੂੰ ਪਹਿਲਾਂ {rate1}% ਵਧਾਇਆ ਗਿਆ ਅਤੇ ਫਿਰ {rate2}% ਘਟਾਇਆ ਗਿਆ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-023": {
+        "template": "ਕਿਸੇ ਚੀਜ਼ ਦਾ ਰੇਟ ਪਹਿਲਾਂ {rate1}% ਵਧਿਆ ਅਤੇ ਫਿਰ {rate2}% ਘਟਿਆ। ਕੁੱਲ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਹੋਇਆ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-024": {
+        "template": "ਇੱਕ ਸ਼ਹਿਰ ਦੀ ਆਬਾਦੀ {initialValue} ਹੈ। ਇਹ ਹਰ ਸਾਲ {percentageRate}% ਵਧਦੀ ਹੈ। 2 ਸਾਲ ਬਾਅਦ ਆਬਾਦੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-025": {
+        "template": "ਇੱਕ ਮਸ਼ੀਨ ਦੀ ਕੀਮਤ ਹਰ ਸਾਲ {percentageRate}% ਘਟਦੀ ਹੈ। ਹੁਣ ਕੀਮਤ Rs. {initialValue} ਹੈ। 2 ਸਾਲ ਬਾਅਦ ਕੀਮਤ ਕਿੰਨੀ ਹੋਵੇਗੀ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "ਇੱਕ ਆਇਤ ਦੀ ਲੰਬਾਈ {rate1}% ਅਤੇ ਚੌੜਾਈ {rate2}% ਵਧਾਈ ਗਈ। ਖੇਤਰਫਲ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "ਇੱਕ ਵਰਗ ਦੀ ਭੁਜਾ {percentageRate}% ਵਧਾ ਦਿੱਤੀ ਜਾਵੇ, ਤਾਂ ਖੇਤਰਫਲ ਵਿੱਚ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-028": {
+        "template": "ਖੰਡ ਦਾ ਰੇਟ {percentageRate}% ਵਧ ਜਾਵੇ, ਤਾਂ ਖਰਚਾ ਬਰਾਬਰ ਰੱਖਣ ਲਈ ਵਰਤੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "ਪੈਟਰੋਲ ਦਾ ਰੇਟ {percentageRate}% ਘਟ ਗਿਆ। ਉਹੀ ਖਰਚੇ ਵਿੱਚ ਵਰਤੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਧਾਈ ਜਾ ਸਕਦੀ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "ਇੱਕ ਆਇਤ ਦੀ ਲੰਬਾਈ {percentageRate}% ਵਧਦੀ ਹੈ। ਖੇਤਰਫਲ ਬਰਾਬਰ ਰੱਖਣ ਲਈ ਚੌੜਾਈ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "ਕਾਰ ਦੀ ਰਫਤਾਰ {percentageRate}% ਵਧ ਜਾਵੇ, ਤਾਂ ਉਹੀ ਦੂਰੀ ਲਈ ਸਮਾਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟੇਗਾ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-032": {
+        "template": "ਕਿਸੇ ਚੀਜ਼ ਦਾ ਰੇਟ {rate1}% ਵਧਾਇਆ ਗਿਆ। ਪੁਰਾਣੇ ਰੇਟ ਤੇ ਲਿਆਉਣ ਲਈ ਨਵਾਂ ਰੇਟ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣਾ ਪਵੇਗਾ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "ਟੈਕਸ {rate1}% ਘਟਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ {rate2}% ਵਧਦੀ ਹੈ। ਕੁੱਲ ਕਮਾਈ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-034": {
+        "template": "ਫੈਕਟਰੀ ਵਿੱਚ ਕੰਮ ਦੇ ਘੰਟੇ {percentageRate}% ਵਧ ਗਏ। ਕੁੱਲ ਬਿੱਲ ਬਰਾਬਰ ਰੱਖਣ ਲਈ ਘੰਟੇ ਦੀ ਮਜ਼ਦੂਰੀ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਉਣੀ ਪਵੇਗੀ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-035": {
+        "template": "ਚੱਕਰ ਦਾ ਅਰਧ-ਵਿਆਸ {percentageRate}% ਘਟਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਖੇਤਰਫਲ ਵਿੱਚ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਕਮੀ ਆਵੇਗੀ?",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-036": {
+        "template": "ਇੱਕ ਵਿਅਕਤੀ ਆਮਦਨ ਦਾ {rate1}% ਖਾਣ ਤੇ, {rate2}% ਕਿਰਾਏ ਤੇ ਅਤੇ {rate3}% ਹੋਰ ਖਰਚਿਆਂ ਤੇ ਲਗਾਉਂਦਾ ਹੈ। ਜੇ ਉਹ Rs. {value} ਬਚਾਉਂਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਆਮਦਨ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "ਇੱਕ ਵਿਅਕਤੀ ਤਨਖਾਹ ਦਾ {rate1}% ਖਾਣ ਤੇ ਅਤੇ ਬਚੀ ਰਕਮ ਦਾ {rate2}% ਕਿਰਾਏ ਤੇ ਖਰਚਦਾ ਹੈ। ਉਸ ਕੋਲ Rs. {value} ਬਚਦੇ ਹਨ। ਤਨਖਾਹ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "ਚੋਣ ਵਿੱਚ ਜੇਤੂ ਨੂੰ {percentageRate}% ਵੋਟਾਂ ਮਿਲੀਆਂ ਅਤੇ ਉਹ {voteDifference} ਵੋਟਾਂ ਨਾਲ ਜਿੱਤਿਆ। ਕੁੱਲ ਵੋਟਾਂ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ {rate1}% ਵੋਟਾਂ ਰੱਦ ਹੋਈਆਂ। ਜੇਤੂ ਨੂੰ ਸਹੀ ਵੋਟਾਂ ਦਾ {rate2}% ਮਿਲਿਆ ਅਤੇ ਉਹ {voteDifference} ਵੋਟਾਂ ਨਾਲ ਜਿੱਤਿਆ। ਕੁੱਲ ਵੋਟਾਂ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "ਇੱਕ ਵਿਦਿਆਰਥੀ ਨੂੰ ਪਾਸ ਹੋਣ ਲਈ {passRate}% ਅੰਕ ਚਾਹੀਦੇ ਹਨ। ਉਸਨੂੰ {marksObtained} ਅੰਕ ਮਿਲੇ ਅਤੇ ਉਹ {failMargin} ਅੰਕਾਂ ਨਾਲ ਫੇਲ ਹੋਇਆ। ਕੁੱਲ ਅੰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-041": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ {rate1}% ਵਿਦਿਆਰਥੀ ਮੁੰਡੇ ਹਨ। ਜੇ ਕੁੜੀਆਂ {value} ਹਨ, ਤਾਂ ਕੁੱਲ ਵਿਦਿਆਰਥੀ ਕਿੰਨੇ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-042": {
+        "template": "{totalPopulation} ਲੋਕਾਂ ਵਿੱਚੋਂ {percentageRate}% ਮਰਦ ਹਨ। ਔਰਤਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-043": {
+        "template": "ਪ੍ਰੀਖਿਆ ਵਿੱਚ A ਨੂੰ B ਨਾਲੋਂ {rate1}% ਵੱਧ ਅੰਕ ਮਿਲੇ। ਜੇ A ਨੂੰ {marks} ਅੰਕ ਮਿਲੇ, ਤਾਂ B ਦੇ ਅੰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "ਇੱਕ ਪਿੰਡ ਵਿੱਚ {rate1}% ਲੋਕ ਪੜ੍ਹੇ-ਲਿਖੇ ਹਨ ਅਤੇ {value} ਲੋਕ ਅਣਪੜ੍ਹ ਹਨ। ਕੁੱਲ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "ਇੱਕ ਵਿਅਕਤੀ ਨੇ ਆਪਣੀ ਰਕਮ ਦਾ {rate1}% ਪਤਨੀ ਨੂੰ, {rate2}% ਪੁੱਤਰ ਨੂੰ ਅਤੇ ਬਾਕੀ Rs. {value} ਧੀ ਨੂੰ ਦਿੱਤੇ। ਸ਼ੁਰੂ ਵਿੱਚ ਉਸ ਕੋਲ ਕਿੰਨੀ ਰਕਮ ਸੀ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-046": {
+        "template": "ਇੱਕ ਧਾਤੂ ਮਿਸ਼ਰਣ ਵਿੱਚ {rate1}% ਤਾਂਬਾ ਹੈ ਅਤੇ ਬਾਕੀ ਜ਼ਿੰਕ ਹੈ। ਜੇ ਜ਼ਿੰਕ {value} kg ਹੈ, ਤਾਂ ਕੁੱਲ ਭਾਰ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "ਦੋ ਉਮੀਦਵਾਰਾਂ ਵਿੱਚੋਂ ਇੱਕ ਨੂੰ {rate1}% ਵੋਟਾਂ ਮਿਲੀਆਂ ਅਤੇ ਉਹ {voteDifference} ਵੋਟਾਂ ਨਾਲ ਹਾਰ ਗਿਆ। ਕੁੱਲ ਵੋਟਾਂ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-048": {
+        "template": "{totalMixture} ਲੀਟਰ ਮਿਸ਼ਰਣ ਵਿੱਚ {percentageRate}% ਐਸਿਡ ਹੈ। ਇਸਨੂੰ {newRate}% ਐਸਿਡ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਪਾਣੀ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-049": {
+        "template": "{totalQuantity} kg ਤਾਜ਼ੇ ਫਲਾਂ ਵਿੱਚ {waterRate}% ਪਾਣੀ ਹੈ ਅਤੇ ਸੁੱਕੇ ਫਲਾਂ ਵਿੱਚ {dryWaterRate}% ਪਾਣੀ ਹੈ। ਕਿੰਨੇ kg ਸੁੱਕੇ ਫਲ ਮਿਲਣਗੇ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-050": {
+        "template": "{totalMixture} ਲੀਟਰ ਨਮਕ ਦੇ ਘੋਲ ਵਿੱਚ {percentageRate}% ਨਮਕ ਹੈ। ਇਸਨੂੰ {newRate}% ਘੋਲ ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਨਮਕ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-051": {
+        "template": "{totalMixture} ਲੀਟਰ ਦੇ {percentageRate}% ਅਲਕੋਹਲ ਘੋਲ ਵਿੱਚ {value} ਲੀਟਰ ਪਾਣੀ ਮਿਲਾਇਆ ਗਿਆ। ਹੁਣ ਅਲਕੋਹਲ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੋਵੇਗਾ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-052": {
+        "template": "ਤਾਜ਼ੇ ਅੰਗੂਰਾਂ ਵਿੱਚ {rate1}% ਪਾਣੀ ਅਤੇ ਸੁੱਕੇ ਅੰਗੂਰਾਂ ਵਿੱਚ {rate2}% ਪਾਣੀ ਹੁੰਦਾ ਹੈ। ਸੁੱਕੇ ਅੰਗੂਰ {value} kg ਹਨ। ਤਾਜ਼ੇ ਅੰਗੂਰਾਂ ਦਾ ਭਾਰ ਕਿੰਨਾ ਸੀ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-053": {
+        "template": "{totalMixture} mL ਦੇ {percentageRate}% ਘੋਲ ਨੂੰ {newRate}% ਬਣਾਉਣ ਲਈ ਕਿੰਨਾ ਸ਼ੁੱਧ ਅਲਕੋਹਲ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-054": {
+        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {percentageRate}% ਖੰਡ ਹੈ। {value} kg ਪਾਣੀ ਉੱਡਣ ਤੇ ਖੰਡ {newRate}% ਹੋ ਜਾਂਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਘੋਲ ਦਾ ਭਾਰ ਕਿੰਨਾ ਸੀ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-055": {
+        "template": "ਤਾਂਬਾ-ਜ਼ਿੰਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {percentageRate}% ਤਾਂਬਾ ਹੈ। {totalWeight} kg ਮਿਸ਼ਰਣ ਵਿੱਚ ਜ਼ਿੰਕ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      }
+    }
+  }
+}

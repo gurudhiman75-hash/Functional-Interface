@@ -1,0 +1,62 @@
+{
+  "RAP-CP-001": {
+    "explanationId": "RAP-ES-001",
+    "steps": [
+      "First, find the LCM of the common parts to connect the separate ratios.",
+      "Now, multiply the ratios so that the shared part becomes equal in both.",
+      "Then, write all the parts together in a single ratio chain like A:B:C.",
+      "Finally, use the value given in the question to scale the result to the actual number.",
+      "Hence the answer is {answer}."
+    ]
+  },
+  "RAP-CP-002": {
+    "explanationId": "RAP-ES-002",
+    "steps": [
+      "First, add all the ratio parts to see how many total units we have.",
+      "Now, find the value of one part by dividing the total amount by this sum.",
+      "Then, multiply this unit value by the ratio share of the required person or group.",
+      "Finally, simplify the calculation to get the required share or difference.",
+      "Hence the answer is {answer}."
+    ]
+  },
+  "RAP-CP-003": {
+    "explanationId": "RAP-ES-003",
+    "steps": [
+      "First, take the initial quantities as {ratioA}x and {ratioB}x based on the first ratio.",
+      "Now, add or subtract the numbers as mentioned in the problem.",
+      "Then, set this new expression equal to the final ratio and solve for x.",
+      "Finally, calculate the requested quantity using the value of x.",
+      "Hence the answer is {answer}."
+    ]
+  },
+  "RAP-CP-004": {
+    "explanationId": "RAP-ES-004",
+    "steps": [
+      "First, check if the question asks for mean, third, or fourth proportional.",
+      "Now, put the given numbers into the standard proportionality formula.",
+      "Then, solve the equation to find the value of the missing number.",
+      "Finally, reduce the result to its simplest form if needed.",
+      "Hence the answer is {answer}."
+    ]
+  },
+  "RAP-CP-005": {
+    "explanationId": "RAP-ES-005",
+    "steps": [
+      "First, list the ratio of quantities and their individual values (like coin denominations).",
+      "Now, multiply the quantity ratio by the value of each item to get the 'total value ratio'.",
+      "Then, divide the total sum according to this newly formed ratio.",
+      "Finally, find the actual number of items as requested in the question.",
+      "Hence the answer is {answer}."
+    ]
+  },
+  "RAP-CP-006": {
+    "explanationId": "RAP-ES-006",
+    "steps": [
+      "First, identify which part of the mixture is constant and not changing.",
+      "Now, scale the ratios so that this constant part has the same numerical value.",
+      "Then, find the difference in the units of the other part between the start and end.",
+      "Finally, map this unit difference to the actual quantity added or removed.",
+      "Hence the answer is {answer}."
+    ]
+  }
+}

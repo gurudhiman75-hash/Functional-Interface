@@ -1,0 +1,16 @@
+{
+  "archetypeId": "RAP-001",
+  "difficultyDistribution": {
+    "Easy": 0.2,
+    "Medium": 0.4,
+    "Hard": 0.4
+  },
+  "canonicalProblemDistribution": {
+    "RAP-CP-001": 0.15,
+    "RAP-CP-002": 0.20,
+    "RAP-CP-003": 0.20,
+    "RAP-CP-004": 0.10,
+    "RAP-CP-005": 0.15,
+    "RAP-CP-006": 0.20
+  }
+}

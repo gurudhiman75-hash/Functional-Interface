@@ -1,0 +1,50 @@
+{
+  "PCT-CP-001": {
+    "steps": [
+      "First, find the total value and the part you want to calculate.",
+      "Now, divide the part by the total value.",
+      "Then, multiply by 100 to get the percentage.",
+      "Finally, simplify your answer."
+    ]
+  },
+  "PCT-CP-002": {
+    "steps": [
+      "First, change the percentage into a fraction like (100+x)/100.",
+      "Now, multiply the starting value by this fraction.",
+      "If you need the old value, divide the result by the same fraction.",
+      "Finally, calculate the final answer."
+    ]
+  },
+  "PCT-CP-003": {
+    "steps": [
+      "First, find the change fraction for each percentage.",
+      "Now, multiply all these fractions together.",
+      "Then, apply this total change to the starting value.",
+      "Finally, you will get the final answer."
+    ]
+  },
+  "PCT-CP-004": {
+    "steps": [
+      "First, use this simple trick: [Change / (100 ± Change)] × 100.",
+      "Now, use '+' if something increased and '-' if it decreased.",
+      "Calculate the final percentage reduction or gain.",
+      "Finally, write down your answer."
+    ]
+  },
+  "PCT-CP-005": {
+    "steps": [
+      "First, see if the percentages apply to the total or the remaining part.",
+      "Now, match the given number to its percentage share.",
+      "Then, find 1% value by dividing the number by its percentage.",
+      "Finally, multiply by 100 to get the total."
+    ]
+  },
+  "PCT-CP-006": {
+    "steps": [
+      "First, find the amount of the component that does not change.",
+      "Now, set up this simple equation: Old Total × Old % = New Total × New %.",
+      "Then, solve for the new total value.",
+      "Finally, find the difference between the new and old totals."
+    ]
+  }
+}

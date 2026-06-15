@@ -1,142 +1,17 @@
-﻿{
-    "packageId":  "NS-SURD-001",
-    "sourceAuthority":  "ns-surd-001-language-draft.md",
-    "ownership":  "HUMAN_OWNED",
-    "usage":  "Runtime Consumption Only",
-    "policy":  "Balanced coverage. No coverage category may have zero allocation. All CPs must receive meaningful allocation.",
-    "cpAllocation":  {
-                         "CP01":  {
-                                      "stemRange":  "QL-001 to QL-020",
-                                      "stemCount":  20,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP02":  {
-                                      "stemRange":  "QL-021 to QL-040",
-                                      "stemCount":  20,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP03":  {
-                                      "stemRange":  "QL-041 to QL-060",
-                                      "stemCount":  20,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP04":  {
-                                      "stemRange":  "QL-061 to QL-085",
-                                      "stemCount":  25,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP05":  {
-                                      "stemRange":  "QL-086 to QL-120",
-                                      "stemCount":  35,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP06":  {
-                                      "stemRange":  "QL-121 to QL-135",
-                                      "stemCount":  15,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP07":  {
-                                      "stemRange":  "QL-136 to QL-155",
-                                      "stemCount":  20,
-                                      "minimumAllocation":  1
-                                  },
-                         "CP08":  {
-                                      "stemRange":  "QL-156 to QL-175",
-                                      "stemCount":  20,
-                                      "minimumAllocation":  1
-                                  }
-                     },
-    "coverageCategoryAllocation":  {
-                                       "CP01":  {
-                                                    "squareRootCases":  {
-                                                                            "minimumAllocation":  1
-                                                                        },
-                                                    "cubeRootCases":  {
-                                                                          "minimumAllocation":  1
-                                                                      },
-                                                    "mixedExtraction":  {
-                                                                            "minimumAllocation":  1
-                                                                        }
-                                                },
-                                       "CP02":  {
-                                                    "directCombination":  {
-                                                                              "minimumAllocation":  1
-                                                                          },
-                                                    "simplifyBeforeCombination":  {
-                                                                                      "minimumAllocation":  1
-                                                                                  },
-                                                    "multiTermCombination":  {
-                                                                                 "minimumAllocation":  1
-                                                                             }
-                                                },
-                                       "CP03":  {
-                                                    "multiplicationCases":  {
-                                                                                "minimumAllocation":  1
-                                                                            },
-                                                    "divisionCases":  {
-                                                                          "minimumAllocation":  1
-                                                                      },
-                                                    "coefficientCases":  {
-                                                                             "minimumAllocation":  1
-                                                                         }
-                                                },
-                                       "CP04":  {
-                                                    "mixedOperations":  {
-                                                                            "minimumAllocation":  1
-                                                                        },
-                                                    "simplificationChains":  {
-                                                                                 "minimumAllocation":  1
-                                                                             },
-                                                    "multiStepExpressions":  {
-                                                                                 "minimumAllocation":  1
-                                                                             }
-                                                },
-                                       "CP05":  {
-                                                    "pairComparison":  {
-                                                                           "minimumAllocation":  1
-                                                                       },
-                                                    "ordering":  {
-                                                                     "minimumAllocation":  1
-                                                                 },
-                                                    "greatestSelection":  {
-                                                                              "minimumAllocation":  1
-                                                                          },
-                                                    "leastSelection":  {
-                                                                           "minimumAllocation":  1
-                                                                       }
-                                                },
-                                       "CP06":  {
-                                                    "squareRootRationalization":  {
-                                                                                      "minimumAllocation":  1
-                                                                                  },
-                                                    "cubeRootRationalization":  {
-                                                                                    "minimumAllocation":  1
-                                                                                },
-                                                    "coefficientRationalization":  {
-                                                                                       "minimumAllocation":  1
-                                                                                   }
-                                                },
-                                       "CP07":  {
-                                                    "conjugateMethod":  {
-                                                                            "minimumAllocation":  1
-                                                                        },
-                                                    "surdBinomial":  {
-                                                                         "minimumAllocation":  1
-                                                                     },
-                                                    "mixedBinomial":  {
-                                                                          "minimumAllocation":  1
-                                                                      }
-                                                },
-                                       "CP08":  {
-                                                    "squareIdentity":  {
-                                                                           "minimumAllocation":  1
-                                                                       },
-                                                    "conjugateIdentity":  {
-                                                                              "minimumAllocation":  1
-                                                                          },
-                                                    "identitySimplification":  {
-                                                                                   "minimumAllocation":  1
-                                                                               }
-                                                }
-                                   }
+{
+  "packageId": "NS-SURD-001",
+  "sourceAuthority": "ns-surd-001-language-draft.md",
+  "ownership": "HUMAN_OWNED",
+  "authority": "Educational Authority",
+  "usage": "Runtime Consumption Only",
+  "distribution": {
+    "CP01": 0.15,
+    "CP02": 0.15,
+    "CP03": 0.10,
+    "CP04": 0.15,
+    "CP05": 0.10,
+    "CP06": 0.10,
+    "CP07": 0.15,
+    "CP08": 0.10
+  }
 }

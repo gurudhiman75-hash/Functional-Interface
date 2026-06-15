@@ -1,0 +1,246 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "What is {percentageRate}% of {baseValue}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "Find {percentageRate}% of {baseValue}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-003": {
+        "template": "Convert {percentageRate}% into a fraction.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "{value} is what percent of {baseValue}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-005": {
+        "template": "A is {percentageRate}% of B. If B is {baseValue}, find A.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "A is {percentageRate}% more than B. By what percent is B less than A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-007": {
+        "template": "A is {percentageRate}% less than B. By what percent is B more than A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "If {rate1}% of A is equal to {rate2}% of B, find the ratio A:B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-009": {
+        "template": "If {percentageRate}% of a number is {value}, find the number.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-010": {
+        "template": "If {baseValue} is increased by {percentageRate}%, find the new number.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-011": {
+        "template": "If {baseValue} is decreased by {percentageRate}%, find the new number.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-012": {
+        "template": "If {percentageRate}% is added to a number, it becomes {finalValue}. Find the number.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-013": {
+        "template": "If {percentageRate}% is subtracted from a number, it becomes {finalValue}. Find the number.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-014": {
+        "template": "After increasing a number by {percentageRate}%, it becomes {finalValue}. Find the old number.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-015": {
+        "template": "A man's salary is increased by {percentageRate}% and becomes Rs. {finalValue}. Find his original salary.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-016": {
+        "template": "Adding {value} to a number is the same as increasing it by {percentageRate}%. Find the number.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-017": {
+        "template": "If {rate1}% of a number is {value1}, find {rate2}% of that number.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "The difference between {rate1}% and {rate2}% of a number is {value}. Find the number.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-019": {
+        "template": "By what percent should a number be increased to bring it back to its original value after a {percentageRate}% decrease?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-020": {
+        "template": "Two successive increases of {rate1}% and {rate2}% are equal to a single increase of how much?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-021": {
+        "template": "The population of a town increases by {rate1}% in the first year and by {rate2}% in the second year. Find the total percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-022": {
+        "template": "A number is increased by {rate1}% and then decreased by {rate2}%. Find the total change percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-023": {
+        "template": "The price of an item is increased by {rate1}% and then decreased by {rate2}%. Find the net change in price percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-024": {
+        "template": "The population of a town is {initialValue}. If it grows at {percentageRate}% every year, what will it be after 2 years?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-025": {
+        "template": "A machine's value falls by {percentageRate}% every year. If it is Rs. {initialValue} now, find its value after 2 years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "The length and breadth of a rectangle are increased by {rate1}% and {rate2}% respectively. Find the percentage increase in area.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "If the side of a square is increased by {percentageRate}%, find the percentage increase in its area.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-028": {
+        "template": "If the price of sugar increases by {percentageRate}%, by how much percent should a family reduce its consumption to keep the expenditure same?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "The price of petrol falls by {percentageRate}%. By what percent can a person increase his consumption so that the total cost remains same?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "The length of a rectangle increases by {percentageRate}%. By what percent should the breadth be decreased to keep the area same?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "If a car's speed increases by {percentageRate}%, by what percent will the time taken decrease for the same distance?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-032": {
+        "template": "The price of an item is increased by {rate1}%. By what percent should the new price be reduced to bring it back to the original?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "If the tax on an item is reduced by {rate1}% and its sale increases by {rate2}%, find the total change in revenue percent.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-034": {
+        "template": "Working hours of a factory increased by {percentageRate}%. By what percent should the hourly wage be decreased to keep the total bill same?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-035": {
+        "template": "If the radius of a circle is decreased by {percentageRate}%, find the percentage decrease in its area.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-036": {
+        "template": "A man spends {rate1}% of his income on food, {rate2}% on rent and {rate3}% on other things. If he saves Rs. {value}, find his total income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "A person spends {rate1}% of his salary on food and {rate2}% of the remaining on rent. If he still has Rs. {value} left, find his salary.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "In an election between two candidates, the winner got {percentageRate}% votes and won by {voteDifference} votes. Find the total votes polled.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "In an election, {rate1}% votes were cancelled. The winner got {rate2}% of the valid votes and won by {voteDifference} votes. Find the total votes.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "A student needs {passRate}% marks to pass. He gets {marksObtained} marks and fails by {failMargin} marks. Find the maximum marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-041": {
+        "template": "In a school, {rate1}% students are boys. If there are {value} girls, find the total number of students.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-042": {
+        "template": "Out of {totalPopulation} people, {percentageRate}% are men. Find the number of women.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-043": {
+        "template": "In an exam, A gets {rate1}% more marks than B. If A gets {marks}, find the marks of B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "If {rate1}% people in a village are literate and {value} people are illiterate, find the total population.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "A man gave {rate1}% of his money to his wife, {rate2}% to his son and the remaining Rs. {value} to his daughter. How much did he have at first?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-046": {
+        "template": "An alloy contains {rate1}% copper and the rest is zinc. If there is {value} kg zinc, find the total weight of the alloy.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "Two candidates contested an election. One got {rate1}% votes and lost by {voteDifference} votes. Find the total number of votes.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-048": {
+        "template": "A mixture of {totalMixture} litres has {percentageRate}% acid. How much water should be added to make it {newRate}% acid?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-049": {
+        "template": "{totalQuantity} kg of fresh fruit has {waterRate}% water, and dry fruit has {dryWaterRate}% water. How many kg of dry fruit can be made from {totalQuantity} kg of fresh fruit?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-050": {
+        "template": "In {totalMixture} litres of salt solution, there is {percentageRate}% salt. How much salt should be added to make it a {newRate}% solution?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-051": {
+        "template": "If {value} litres of water is added to {totalMixture} litres of {percentageRate}% alcohol solution, what will be the percentage of alcohol now?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-052": {
+        "template": "Fresh grapes have {rate1}% water and dry grapes have {rate2}% water. If the dry grapes weigh {value} kg, what was their weight when fresh?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-053": {
+        "template": "How much pure alcohol should be added to {totalMixture} mL of {percentageRate}% solution to make it {newRate}% strong?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-054": {
+        "template": "A solution has {percentageRate}% sugar. If {value} kg water flies away, the sugar becomes {newRate}%. Find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-055": {
+        "template": "An alloy of copper and zinc has {percentageRate}% copper. Find the weight of zinc in {totalWeight} kg of the alloy.",
+        "difficulty": "Easy"
+      }
+    }
+  }
+}

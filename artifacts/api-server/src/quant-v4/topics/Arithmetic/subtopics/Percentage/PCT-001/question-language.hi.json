@@ -1,0 +1,246 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "{baseValue} का {percentageRate}% कितना होगा?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "{baseValue} का {percentageRate}% ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-003": {
+        "template": "{percentageRate}% को भिन्न में लिखिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "{value}, {baseValue} का कितने प्रतिशत है?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-005": {
+        "template": "A, B का {percentageRate}% है। यदि B = {baseValue}, तो A ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "A, B से {percentageRate}% अधिक है। B, A से कितने प्रतिशत कम है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-007": {
+        "template": "A, B से {percentageRate}% कम है। B, A से कितने प्रतिशत अधिक है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "यदि A का {rate1}%, B के {rate2}% के बराबर है, तो A:B ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-009": {
+        "template": "किसी संख्या का {percentageRate}% = {value} है। वह संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-010": {
+        "template": "यदि {baseValue} में {percentageRate}% की वृद्धि की जाए, तो नया मान ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-011": {
+        "template": "यदि {baseValue} में {percentageRate}% की कमी की जाए, तो नया मान ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-012": {
+        "template": "किसी संख्या में उसका {percentageRate}% जोड़ने पर {finalValue} मिलता है। संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-013": {
+        "template": "किसी संख्या में से उसका {percentageRate}% घटाने पर {finalValue} मिलता है। संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-014": {
+        "template": "{percentageRate}% बढ़ने के बाद एक संख्या {finalValue} हो जाती है। पुरानी संख्या क्या थी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-015": {
+        "template": "एक व्यक्ति का वेतन {percentageRate}% बढ़कर Rs. {finalValue} हो गया। पुराना वेतन ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-016": {
+        "template": "किसी संख्या में {value} जोड़ना, उसमें {percentageRate}% वृद्धि के बराबर है। संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-017": {
+        "template": "किसी संख्या का {rate1}% = {value1} है। उसी संख्या का {rate2}% कितना होगा?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "किसी संख्या के {rate1}% और {rate2}% का अंतर {value} है। संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-019": {
+        "template": "{percentageRate}% कमी के बाद पुराने मान पर लौटाने के लिए कितने प्रतिशत वृद्धि करनी होगी?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-020": {
+        "template": "{rate1}% और {rate2}% की दो लगातार वृद्धियां किस एक वृद्धि के बराबर होंगी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-021": {
+        "template": "एक शहर की जनसंख्या पहले साल {rate1}% और दूसरे साल {rate2}% बढ़ती है। कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-022": {
+        "template": "एक संख्या को पहले {rate1}% बढ़ाया गया और फिर {rate2}% घटाया गया। कुल प्रतिशत बदलाव ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-023": {
+        "template": "किसी वस्तु का दाम पहले {rate1}% बढ़ा और फिर {rate2}% घटा। दाम में कुल कितने प्रतिशत बदलाव हुआ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-024": {
+        "template": "एक शहर की जनसंख्या {initialValue} है। यह हर साल {percentageRate}% बढ़ती है। 2 साल बाद जनसंख्या कितनी होगी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-025": {
+        "template": "एक मशीन की कीमत हर साल {percentageRate}% घटती है। अभी कीमत Rs. {initialValue} है। 2 साल बाद कीमत कितनी होगी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "एक आयत की लंबाई {rate1}% और चौड़ाई {rate2}% बढ़ाई गई। क्षेत्रफल में प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "एक वर्ग की भुजा {percentageRate}% बढ़ा दी जाए, तो क्षेत्रफल में कितने प्रतिशत वृद्धि होगी?",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-028": {
+        "template": "चीनी का दाम {percentageRate}% बढ़ जाए, तो खर्च समान रखने के लिए खपत कितने प्रतिशत घटानी होगी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "पेट्रोल का दाम {percentageRate}% घट गया। समान खर्च में खपत कितने प्रतिशत बढ़ाई जा सकती है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "एक आयत की लंबाई {percentageRate}% बढ़ती है। क्षेत्रफल समान रखने के लिए चौड़ाई कितने प्रतिशत घटानी होगी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "कार की चाल {percentageRate}% बढ़ जाए, तो समान दूरी के लिए समय कितने प्रतिशत घटेगा?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-032": {
+        "template": "किसी वस्तु का दाम {rate1}% बढ़ाया गया। पुराने दाम पर लाने के लिए नया दाम कितने प्रतिशत घटाना होगा?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "टैक्स {rate1}% घटता है और बिक्री {rate2}% बढ़ती है। कुल कमाई में प्रतिशत बदलाव ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-034": {
+        "template": "कारखाने में काम के घंटे {percentageRate}% बढ़ गए। कुल बिल समान रखने के लिए प्रति घंटा मजदूरी कितने प्रतिशत घटानी होगी?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-035": {
+        "template": "वृत्त की त्रिज्या {percentageRate}% घटा दी जाए, तो क्षेत्रफल में कितने प्रतिशत कमी होगी?",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-036": {
+        "template": "एक व्यक्ति आय का {rate1}% खाने पर, {rate2}% किराए पर और {rate3}% अन्य खर्चों पर लगाता है। यदि वह Rs. {value} बचाता है, तो कुल आय ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "एक व्यक्ति वेतन का {rate1}% खाने पर और बचे हुए का {rate2}% किराए पर खर्च करता है। उसके पास Rs. {value} बचते हैं। वेतन ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "चुनाव में विजेता को {percentageRate}% वोट मिले और वह {voteDifference} वोटों से जीता। कुल वोट ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "एक चुनाव में {rate1}% वोट रद्द हुए। विजेता को सही वोटों का {rate2}% मिला और वह {voteDifference} वोटों से जीता। कुल वोट ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "एक छात्र को पास होने के लिए {passRate}% अंक चाहिए। उसे {marksObtained} अंक मिले और वह {failMargin} अंकों से फेल हुआ। कुल अंक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-041": {
+        "template": "एक स्कूल में {rate1}% विद्यार्थी लड़के हैं। यदि लड़कियां {value} हैं, तो कुल विद्यार्थी कितने हैं?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-042": {
+        "template": "{totalPopulation} लोगों में {percentageRate}% पुरुष हैं। महिलाओं की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-043": {
+        "template": "परीक्षा में A को B से {rate1}% अधिक अंक मिले। यदि A को {marks} अंक मिले, तो B के अंक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "एक गांव में {rate1}% लोग पढ़े-लिखे हैं और {value} लोग अनपढ़ हैं। कुल जनसंख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "एक व्यक्ति ने अपनी राशि का {rate1}% पत्नी को, {rate2}% बेटे को और बाकी Rs. {value} बेटी को दिए। शुरुआत में उसके पास कितनी राशि थी?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-046": {
+        "template": "एक मिश्रधातु में {rate1}% तांबा है और बाकी जस्ता है। यदि जस्ता {value} kg है, तो कुल भार ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "दो उम्मीदवारों में एक को {rate1}% वोट मिले और वह {voteDifference} वोटों से हार गया। कुल वोट ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-048": {
+        "template": "{totalMixture} लीटर मिश्रण में {percentageRate}% एसिड है। इसे {newRate}% एसिड बनाने के लिए कितना पानी मिलाना होगा?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-049": {
+        "template": "{totalQuantity} kg ताजे फल में {waterRate}% पानी है और सूखे फल में {dryWaterRate}% पानी है। कितने kg सूखे फल मिलेंगे?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-050": {
+        "template": "{totalMixture} लीटर नमक के घोल में {percentageRate}% नमक है। इसे {newRate}% घोल बनाने के लिए कितना नमक मिलाना होगा?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-051": {
+        "template": "{totalMixture} लीटर के {percentageRate}% अल्कोहल घोल में {value} लीटर पानी मिलाया गया। अब अल्कोहल कितने प्रतिशत होगा?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-052": {
+        "template": "ताजे अंगूरों में {rate1}% पानी और सूखे अंगूरों में {rate2}% पानी होता है। सूखे अंगूर {value} kg हैं। ताजे अंगूरों का भार कितना था?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-053": {
+        "template": "{totalMixture} mL के {percentageRate}% घोल को {newRate}% बनाने के लिए कितना शुद्ध अल्कोहल मिलाना होगा?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-054": {
+        "template": "एक घोल में {percentageRate}% चीनी है। {value} kg पानी उड़ने पर चीनी {newRate}% हो जाती है। शुरू में घोल का भार कितना था?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-055": {
+        "template": "तांबा-जस्ता मिश्रण में {percentageRate}% तांबा है। {totalWeight} kg मिश्रण में जस्ता कितना होगा?",
+        "difficulty": "Easy"
+      }
+    }
+  }
+}

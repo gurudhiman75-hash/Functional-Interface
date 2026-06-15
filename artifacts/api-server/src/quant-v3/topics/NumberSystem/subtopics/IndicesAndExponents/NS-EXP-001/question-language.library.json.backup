@@ -1,0 +1,832 @@
+{
+  "libraryId": "NS-EXP-001-QUESTION-LANGUAGE",
+  "archetypeId": "NS-EXP-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "DESIGN_READY_FOR_REVIEW",
+  "sourceAuthority": "ns-exp-001-language-draft.md",
+  "runtimePolicy": {
+    "may": [
+      "load",
+      "validate",
+      "select",
+      "substitute",
+      "render"
+    ],
+    "mayNot": [
+      "invent question wording",
+      "generate educational language",
+      "create fallback wording",
+      "rewrite human-authored language"
+    ]
+  },
+  "canonicalProblems": [
+    {
+      "cpId": "CP01",
+      "name": "Same-base exponent compression",
+      "entries": [
+        {
+          "id": "QL-001",
+          "text": "Simplify \\(2^5 \\times 2^3 \\div 2^4\\)."
+        },
+        {
+          "id": "QL-002",
+          "text": "Find the value of \\(\\frac{3^7 \\times 3^2}{3^5}\\)."
+        },
+        {
+          "id": "QL-003",
+          "text": "Simplify \\(5^4 \\times 5^2 \\div 5^3\\)."
+        },
+        {
+          "id": "QL-004",
+          "text": "What is the value of \\((7^2)^3 \\div 7^4\\)?"
+        },
+        {
+          "id": "QL-005",
+          "text": "Simplify \\(\\frac{11^6}{11^2 \\times 11}\\)."
+        },
+        {
+          "id": "QL-006",
+          "text": "Find the simplified form of \\(13^3 \\times 13^4\\)."
+        },
+        {
+          "id": "QL-007",
+          "text": "Simplify \\(2^8 \\div 2^3 \\times 2^2\\)."
+        },
+        {
+          "id": "QL-008",
+          "text": "What is the value of \\((3^3)^2 \\div 3^4\\)?"
+        },
+        {
+          "id": "QL-009",
+          "text": "Simplify \\(\\frac{5^9}{5^4 \\times 5^2}\\)."
+        },
+        {
+          "id": "QL-010",
+          "text": "Find the value of \\(10^5 \\div 10^2\\)."
+        },
+        {
+          "id": "QL-011",
+          "text": "Simplify \\(6^4 \\times 6 \\div 6^2\\)."
+        },
+        {
+          "id": "QL-012",
+          "text": "What is the simplified form of \\((2^4)^2 \\div 2^5\\)?"
+        },
+        {
+          "id": "QL-013",
+          "text": "Find the value of \\(\\frac{9^5 \\times 9^2}{9^6}\\)."
+        },
+        {
+          "id": "QL-014",
+          "text": "Simplify \\(4^3 \\times 4^2 \\times 4\\)."
+        },
+        {
+          "id": "QL-015",
+          "text": "What is the value of \\(\\frac{8^7}{8^3}\\)?"
+        },
+        {
+          "id": "QL-016",
+          "text": "The simplified form of \\(2^6 \\times 2^4 \\div 2^5\\) is:"
+        },
+        {
+          "id": "QL-017",
+          "text": "Evaluate the following expression: \\(3^8 \\div 3^3 \\times 3^2\\)."
+        },
+        {
+          "id": "QL-018",
+          "text": "On simplification, \\(5^7 \\div 5^2\\) becomes:"
+        },
+        {
+          "id": "QL-019",
+          "text": "Find the result of \\((4^2)^3 \\div 4^4\\)."
+        },
+        {
+          "id": "QL-020",
+          "text": "Determine the simplified value of \\(\\frac{7^9}{7^4 \\times 7^2}\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP02",
+      "name": "Same-base exponent equation",
+      "entries": [
+        {
+          "id": "QL-021",
+          "text": "If \\(2^x=2^9\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-022",
+          "text": "If \\(3^{x+2}=3^8\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-023",
+          "text": "If \\(5^{2x-1}=5^7\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-024",
+          "text": "If \\(7^{x-3}=7^4\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-025",
+          "text": "If \\(11^{3x}=11^{12}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-026",
+          "text": "If \\(2^{x+5}=2^{14}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-027",
+          "text": "If \\(3^{2x+1}=3^{11}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-028",
+          "text": "If \\(13^{x-2}=13^6\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-029",
+          "text": "If \\(5^{x+1}=5^{10}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-030",
+          "text": "If \\(2^{4x}=2^{20}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-031",
+          "text": "If \\(17^{x-5}=17^2\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-032",
+          "text": "If \\(3^{x/2}=3^6\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-033",
+          "text": "If \\(19^{2x-3}=19^9\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-034",
+          "text": "If \\(7^{x+4}=7^{15}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-035",
+          "text": "If \\(2^{3x+2}=2^{17}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-036",
+          "text": "If \\(5^{x-2}=5^6\\), the value of \\(x\\) is:"
+        },
+        {
+          "id": "QL-037",
+          "text": "If \\(3^{x+1}=3^{10}\\), find the missing exponent."
+        },
+        {
+          "id": "QL-038",
+          "text": "If \\(2^{2x}=2^{18}\\), determine \\(x\\)."
+        },
+        {
+          "id": "QL-039",
+          "text": "If \\(11^{x-4}=11^5\\), choose the correct value of \\(x\\)."
+        },
+        {
+          "id": "QL-040",
+          "text": "If \\(7^{3x}=7^{21}\\), solve for \\(x\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP03",
+      "name": "Common-base transformation and exponent solving",
+      "entries": [
+        {
+          "id": "QL-041",
+          "text": "Simplify \\(8^3 \\div 2^5\\)."
+        },
+        {
+          "id": "QL-042",
+          "text": "Find the value of \\(27^2 \\div 3^4\\)."
+        },
+        {
+          "id": "QL-043",
+          "text": "Simplify \\(16^3 \\div 4^2\\)."
+        },
+        {
+          "id": "QL-044",
+          "text": "Compare \\(4^5\\) and \\(2^{11}\\)."
+        },
+        {
+          "id": "QL-045",
+          "text": "Which is greater, \\(8^4\\) or \\(16^3\\)?"
+        },
+        {
+          "id": "QL-046",
+          "text": "Arrange \\(3^5\\), \\(9^3\\), and \\(27^2\\) in increasing order."
+        },
+        {
+          "id": "QL-047",
+          "text": "If \\(4^x=2^{10}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-048",
+          "text": "If \\(9^{x+1}=3^8\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-049",
+          "text": "If \\(8^{2x}=2^{12}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-050",
+          "text": "If \\(27^2=3^x\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-051",
+          "text": "Simplify \\(\\frac{32^2}{2^7}\\)."
+        },
+        {
+          "id": "QL-052",
+          "text": "Find the value of \\(\\frac{81^2}{3^6}\\)."
+        },
+        {
+          "id": "QL-053",
+          "text": "Compare \\(25^3\\) and \\(5^7\\)."
+        },
+        {
+          "id": "QL-054",
+          "text": "Which is smaller, \\(4^6\\) or \\(8^4\\)?"
+        },
+        {
+          "id": "QL-055",
+          "text": "If \\(16^{x-1}=2^{12}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-056",
+          "text": "If \\(125^2=5^x\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-057",
+          "text": "Simplify \\(64 \\times 2^3\\)."
+        },
+        {
+          "id": "QL-058",
+          "text": "Find the simplified form of \\(\\frac{9^4}{27^2}\\)."
+        },
+        {
+          "id": "QL-059",
+          "text": "If \\(25^{x+1}=5^{10}\\), find \\(x\\)."
+        },
+        {
+          "id": "QL-060",
+          "text": "Compare \\(32^2\\) and \\(4^5\\)."
+        },
+        {
+          "id": "QL-061",
+          "text": "Which of the following is greater: \\(8^3\\) or \\(2^8\\)?"
+        },
+        {
+          "id": "QL-062",
+          "text": "Which of the following is smaller: \\(27^2\\) or \\(3^7\\)?"
+        },
+        {
+          "id": "QL-063",
+          "text": "Arrange the following in increasing order: \\(2^{10}\\), \\(4^4\\), \\(8^3\\)."
+        },
+        {
+          "id": "QL-064",
+          "text": "Arrange the following in decreasing order: \\(3^6\\), \\(9^2\\), \\(27^2\\)."
+        },
+        {
+          "id": "QL-065",
+          "text": "If \\(32^x=2^{20}\\), the value of \\(x\\) is:"
+        },
+        {
+          "id": "QL-066",
+          "text": "If \\(81^x=3^{16}\\), find the missing exponent."
+        },
+        {
+          "id": "QL-067",
+          "text": "If \\(16^{x+1}=2^{12}\\), choose the correct value of \\(x\\)."
+        },
+        {
+          "id": "QL-068",
+          "text": "If \\(125^x=5^9\\), determine the exponent."
+        },
+        {
+          "id": "QL-069",
+          "text": "Identify the largest expression among \\(4^5\\), \\(8^3\\), and \\(2^{11}\\)."
+        },
+        {
+          "id": "QL-070",
+          "text": "Identify the smallest expression among \\(9^3\\), \\(27^2\\), and \\(3^7\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP04",
+      "name": "Negative exponent normalization",
+      "entries": [
+        {
+          "id": "QL-071",
+          "text": "Simplify \\(2^{-3}\\)."
+        },
+        {
+          "id": "QL-072",
+          "text": "Find the value of \\(5^{-2}\\)."
+        },
+        {
+          "id": "QL-073",
+          "text": "Simplify \\(3^4 \\times 3^{-2}\\)."
+        },
+        {
+          "id": "QL-074",
+          "text": "What is the value of \\(\\frac{2^{-1}}{2^{-4}}\\)?"
+        },
+        {
+          "id": "QL-075",
+          "text": "Simplify \\(7^3 \\times 7^{-1}\\)."
+        },
+        {
+          "id": "QL-076",
+          "text": "Find the value of \\(\\frac{5^{-2}}{5^{-4}}\\)."
+        },
+        {
+          "id": "QL-077",
+          "text": "Simplify \\(10^{-3} \\times 10^5\\)."
+        },
+        {
+          "id": "QL-078",
+          "text": "What is the simplified form of \\(4^{-2} \\times 4^5\\)?"
+        },
+        {
+          "id": "QL-079",
+          "text": "Simplify \\(\\frac{3^2}{3^{-1}}\\)."
+        },
+        {
+          "id": "QL-080",
+          "text": "Find the value of \\(2^{-4} \\times 2^6\\)."
+        },
+        {
+          "id": "QL-081",
+          "text": "Express the following with positive exponents: \\(5^{-3}\\)."
+        },
+        {
+          "id": "QL-082",
+          "text": "Rewrite \\(2^{-2} \\times 2^5\\) in simplest form."
+        },
+        {
+          "id": "QL-083",
+          "text": "Determine the value of \\(10^{-2}\\)."
+        },
+        {
+          "id": "QL-084",
+          "text": "Simplify and find the answer: \\(3^{-1} \\times 3^4\\)."
+        },
+        {
+          "id": "QL-085",
+          "text": "The simplified form of \\(7^{-2} \\times 7^5\\) is:"
+        }
+      ]
+    },
+    {
+      "cpId": "CP05",
+      "name": "Fractional exponent to root",
+      "entries": [
+        {
+          "id": "QL-086",
+          "text": "Simplify \\(16^{1/2}\\)."
+        },
+        {
+          "id": "QL-087",
+          "text": "Find the value of \\(27^{1/3}\\)."
+        },
+        {
+          "id": "QL-088",
+          "text": "Simplify \\(81^{1/2}\\)."
+        },
+        {
+          "id": "QL-089",
+          "text": "What is the value of \\(64^{1/3}\\)?"
+        },
+        {
+          "id": "QL-090",
+          "text": "Simplify \\(81^{3/4}\\)."
+        },
+        {
+          "id": "QL-091",
+          "text": "Find the value of \\(32^{2/5}\\)."
+        },
+        {
+          "id": "QL-092",
+          "text": "Simplify \\(125^{2/3}\\)."
+        },
+        {
+          "id": "QL-093",
+          "text": "What is the value of \\(16^{3/2}\\)?"
+        },
+        {
+          "id": "QL-094",
+          "text": "Simplify \\(49^{1/2}\\)."
+        },
+        {
+          "id": "QL-095",
+          "text": "Find the value of \\(216^{1/3}\\)."
+        },
+        {
+          "id": "QL-096",
+          "text": "Express \\(64^{1/2}\\) in radical form and evaluate."
+        },
+        {
+          "id": "QL-097",
+          "text": "Find the value of the following fractional exponent: \\(243^{1/5}\\)."
+        },
+        {
+          "id": "QL-098",
+          "text": "Rewrite \\(32^{3/5}\\) using roots and simplify."
+        },
+        {
+          "id": "QL-099",
+          "text": "Determine the value of \\(625^{1/4}\\)."
+        },
+        {
+          "id": "QL-100",
+          "text": "Evaluate the following expression: \\(27^{2/3}\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP06",
+      "name": "Mixed exponent expression simplification",
+      "entries": [
+        {
+          "id": "QL-101",
+          "text": "Simplify \\(\\frac{8^2 \\times 2^{-3}}{4}\\)."
+        },
+        {
+          "id": "QL-102",
+          "text": "Find the value of \\((9^{1/2})^3 \\div 3^2\\)."
+        },
+        {
+          "id": "QL-103",
+          "text": "Simplify \\(\\frac{16^{3/4}}{2^{-1}}\\)."
+        },
+        {
+          "id": "QL-104",
+          "text": "What is the value of \\(4^3 \\times 2^{-2} \\div 8\\)?"
+        },
+        {
+          "id": "QL-105",
+          "text": "Simplify \\(\\frac{27^{2/3} \\times 3^2}{9}\\)."
+        },
+        {
+          "id": "QL-106",
+          "text": "Find the value of \\(25^{1/2} \\times 5^{-1}\\)."
+        },
+        {
+          "id": "QL-107",
+          "text": "Simplify \\(\\frac{32^{2/5}}{2^{-2}}\\)."
+        },
+        {
+          "id": "QL-108",
+          "text": "What is the simplified form of \\((8^{1/3})^4 \\div 2\\)?"
+        },
+        {
+          "id": "QL-109",
+          "text": "Simplify \\(81^{1/2} \\times 3^{-2}\\)."
+        },
+        {
+          "id": "QL-110",
+          "text": "Find the value of \\(\\frac{64^{1/2}}{2^2}\\)."
+        },
+        {
+          "id": "QL-111",
+          "text": "Simplify \\(16^{1/4} \\times 2^3 \\div 2^{-1}\\)."
+        },
+        {
+          "id": "QL-112",
+          "text": "What is the value of \\(\\frac{125^{1/3} \\times 5^2}{25}\\)?"
+        },
+        {
+          "id": "QL-113",
+          "text": "Simplify \\((4^2)^3 \\times 2^{-5}\\)."
+        },
+        {
+          "id": "QL-114",
+          "text": "Find the simplified value of \\(\\frac{9^3}{3^{-1} \\times 27}\\)."
+        },
+        {
+          "id": "QL-115",
+          "text": "Simplify \\(8^{-1} \\times 2^6\\)."
+        },
+        {
+          "id": "QL-116",
+          "text": "What is the value of \\(\\frac{16^2}{4^{-1} \\times 2^5}\\)?"
+        },
+        {
+          "id": "QL-117",
+          "text": "Simplify \\(27^{1/3} \\times 3^4 \\div 9\\)."
+        },
+        {
+          "id": "QL-118",
+          "text": "Find the value of \\(\\frac{25^2 \\times 5^{-3}}{5}\\)."
+        },
+        {
+          "id": "QL-119",
+          "text": "Simplify \\(64^{2/3} \\div 2^3\\)."
+        },
+        {
+          "id": "QL-120",
+          "text": "What is the simplified form of \\(81^{3/4} \\times 3^{-1}\\)?"
+        },
+        {
+          "id": "QL-121",
+          "text": "Evaluate the following:\n    \\(\\frac{32^{2/5} \\times 2^{-1}}{4}\\)"
+        },
+        {
+          "id": "QL-122",
+          "text": "Find the value of:\n    \\((16^{1/2})^3 \\div 2^4\\)"
+        },
+        {
+          "id": "QL-123",
+          "text": "Simplify and find the answer:\n    \\(27^{1/3} \\times 3^{-2} \\times 9\\)"
+        },
+        {
+          "id": "QL-124",
+          "text": "What is the result of:\n    \\(\\frac{81^{3/4}}{3^{-1}}\\)"
+        },
+        {
+          "id": "QL-125",
+          "text": "Determine the value of:\n    \\(125^{2/3} \\times 5^{-1}\\)"
+        },
+        {
+          "id": "QL-126",
+          "text": "The simplified value of \\(64^{1/3} \\times 2^4 \\div 2^{-1}\\) is:"
+        },
+        {
+          "id": "QL-127",
+          "text": "On simplification, \\(25^{3/2} \\times 5^{-2}\\) becomes:"
+        },
+        {
+          "id": "QL-128",
+          "text": "Find the final value of:\n    \\(\\frac{8^2 \\times 2^{-4}}{2}\\)"
+        },
+        {
+          "id": "QL-129",
+          "text": "Simplify the following expression:\n    \\(49^{1/2} \\times 7^{-1} \\times 7^3\\)"
+        },
+        {
+          "id": "QL-130",
+          "text": "The value of the expression \\(16^{3/4} \\times 2^{-1}\\) is:"
+        }
+      ]
+    },
+    {
+      "cpId": "CP07",
+      "name": "Exponential comparison by base alignment",
+      "entries": [
+        {
+          "id": "QL-131",
+          "text": "Which is greater, \\(2^{10}\\) or \\(4^5\\)?"
+        },
+        {
+          "id": "QL-132",
+          "text": "Compare \\(3^6\\) and \\(9^3\\)."
+        },
+        {
+          "id": "QL-133",
+          "text": "Arrange \\(2^8\\), \\(4^3\\), and \\(8^2\\) in increasing order."
+        },
+        {
+          "id": "QL-134",
+          "text": "Which is smaller, \\(5^4\\) or \\(25^2\\)?"
+        },
+        {
+          "id": "QL-135",
+          "text": "Compare \\(8^5\\) and \\(32^3\\)."
+        },
+        {
+          "id": "QL-136",
+          "text": "Arrange \\(3^4\\), \\(9^2\\), and \\(27\\) in decreasing order."
+        },
+        {
+          "id": "QL-137",
+          "text": "Which is greater, \\(16^3\\) or \\(8^4\\)?"
+        },
+        {
+          "id": "QL-138",
+          "text": "Compare \\(4^7\\) and \\(2^{13}\\)."
+        },
+        {
+          "id": "QL-139",
+          "text": "Arrange \\(5^3\\), \\(25^2\\), and \\(125\\) in increasing order."
+        },
+        {
+          "id": "QL-140",
+          "text": "Which is smaller, \\(9^4\\) or \\(27^3\\)?"
+        },
+        {
+          "id": "QL-141",
+          "text": "Compare \\(32^2\\) and \\(2^9\\)."
+        },
+        {
+          "id": "QL-142",
+          "text": "Arrange \\(2^{12}\\), \\(4^5\\), and \\(16^3\\) in decreasing order."
+        },
+        {
+          "id": "QL-143",
+          "text": "Which is greater, \\(25^3\\) or \\(5^8\\)?"
+        },
+        {
+          "id": "QL-144",
+          "text": "Compare \\(81^2\\) and \\(3^9\\)."
+        },
+        {
+          "id": "QL-145",
+          "text": "Arrange \\(8^3\\), \\(4^5\\), and \\(2^{11}\\) in increasing order."
+        },
+        {
+          "id": "QL-146",
+          "text": "Which is smaller, \\(64^2\\) or \\(8^5\\)?"
+        },
+        {
+          "id": "QL-147",
+          "text": "Compare \\(27^2\\) and \\(3^7\\)."
+        },
+        {
+          "id": "QL-148",
+          "text": "Arrange \\(16^2\\), \\(4^4\\), and \\(2^9\\) in decreasing order."
+        },
+        {
+          "id": "QL-149",
+          "text": "Which is greater, \\(125^2\\) or \\(5^7\\)?"
+        },
+        {
+          "id": "QL-150",
+          "text": "Compare \\(49^3\\) and \\(7^7\\)."
+        },
+        {
+          "id": "QL-151",
+          "text": "Identify the largest expression among \\(2^{12}\\), \\(4^5\\), and \\(8^3\\)."
+        },
+        {
+          "id": "QL-152",
+          "text": "Identify the smallest expression among \\(3^8\\), \\(9^3\\), and \\(27^2\\)."
+        },
+        {
+          "id": "QL-153",
+          "text": "Choose the correct increasing order of \\(5^4\\), \\(25^2\\), and \\(125^2\\)."
+        },
+        {
+          "id": "QL-154",
+          "text": "Choose the correct decreasing order of \\(2^{15}\\), \\(4^7\\), and \\(8^5\\)."
+        },
+        {
+          "id": "QL-155",
+          "text": "Which expression has the highest value: \\(16^3\\), \\(8^4\\), or \\(2^{13}\\)?"
+        },
+        {
+          "id": "QL-156",
+          "text": "Which expression has the lowest value: \\(9^4\\), \\(27^3\\), or \\(3^{10}\\)?"
+        },
+        {
+          "id": "QL-157",
+          "text": "Select the greatest among the following: \\(4^6\\), \\(8^4\\), \\(2^{13}\\)."
+        },
+        {
+          "id": "QL-158",
+          "text": "Select the least among the following: \\(25^3\\), \\(5^8\\), \\(125^2\\)."
+        },
+        {
+          "id": "QL-159",
+          "text": "Arrange \\(3^9\\), \\(9^4\\), and \\(27^3\\) from greatest to least."
+        },
+        {
+          "id": "QL-160",
+          "text": "Arrange \\(2^{14}\\), \\(4^6\\), and \\(16^3\\) from least to greatest."
+        },
+        {
+          "id": "QL-161",
+          "text": "Which has the greatest value: \\(2^{16}\\), \\(4^7\\), or \\(8^5\\)?"
+        },
+        {
+          "id": "QL-162",
+          "text": "Which has the least value: \\(3^{10}\\), \\(9^4\\), or \\(27^3\\)?"
+        },
+        {
+          "id": "QL-163",
+          "text": "Choose the greatest among the following: \\(5^6\\), \\(25^3\\), \\(125^2\\)."
+        },
+        {
+          "id": "QL-164",
+          "text": "Choose the least among the following: \\(4^8\\), \\(8^5\\), \\(2^{17}\\)."
+        },
+        {
+          "id": "QL-165",
+          "text": "Arrange the following expressions correctly: \\(7^4\\), \\(49^2\\), \\(343\\)."
+        }
+      ]
+    },
+    {
+      "cpId": "CP09",
+      "name": "Value substitution using a given power relation",
+      "entries": [
+        {
+          "id": "QL-166",
+          "text": "If \\(2^x=8\\), find \\(2^{x+2}\\)."
+        },
+        {
+          "id": "QL-167",
+          "text": "If \\(3^a=9\\), find \\(3^{a-1}\\)."
+        },
+        {
+          "id": "QL-168",
+          "text": "If \\(5^x=25\\), find \\(5^{2x}\\)."
+        },
+        {
+          "id": "QL-169",
+          "text": "If \\(2^m=16\\), find \\(2^{m-1}\\)."
+        },
+        {
+          "id": "QL-170",
+          "text": "If \\(7^p=49\\), find \\(7^{p+1}\\)."
+        },
+        {
+          "id": "QL-171",
+          "text": "If \\(3^n=27\\), find \\(3^{n+2}\\)."
+        },
+        {
+          "id": "QL-172",
+          "text": "If \\(5^a=125\\), find \\(5^{a-2}\\)."
+        },
+        {
+          "id": "QL-173",
+          "text": "If \\(2^r=32\\), find \\(2^{2r}\\)."
+        },
+        {
+          "id": "QL-174",
+          "text": "If \\(11^x=121\\), find \\(11^{x-1}\\)."
+        },
+        {
+          "id": "QL-175",
+          "text": "If \\(4^m=64\\), find \\(4^{m+1}\\)."
+        },
+        {
+          "id": "QL-176",
+          "text": "If \\(3^p=81\\), find \\(3^{p/2}\\)."
+        },
+        {
+          "id": "QL-177",
+          "text": "If \\(2^a=4\\), find \\(2^{a+5}\\)."
+        },
+        {
+          "id": "QL-178",
+          "text": "If \\(5^n=625\\), find \\(5^{n-3}\\)."
+        },
+        {
+          "id": "QL-179",
+          "text": "If \\(9^x=81\\), find \\(9^{x+1}\\)."
+        },
+        {
+          "id": "QL-180",
+          "text": "If \\(2^k=64\\), find \\(2^{k-4}\\)."
+        },
+        {
+          "id": "QL-181",
+          "text": "Given that \\(2^x=16\\), evaluate \\(2^{x+3}\\)."
+        },
+        {
+          "id": "QL-182",
+          "text": "Using the given relation \\(3^a=27\\), determine \\(3^{a-2}\\)."
+        },
+        {
+          "id": "QL-183",
+          "text": "If \\(5^m=125\\), the value of \\(5^{m+1}\\) is:"
+        },
+        {
+          "id": "QL-184",
+          "text": "If \\(7^p=49\\), find the required value of \\(7^{p+2}\\) without solving for \\(p\\)."
+        },
+        {
+          "id": "QL-185",
+          "text": "Using the given information \\(2^r=32\\), find \\(2^{r-3}\\)."
+        },
+        {
+          "id": "QL-186",
+          "text": "If \\(3^n=81\\), evaluate the expression \\(3^{2n}\\) using the given power relation."
+        },
+        {
+          "id": "QL-187",
+          "text": "If \\(11^x=121\\), determine the value of \\(11^{x+2}\\) directly from the given relation."
+        },
+        {
+          "id": "QL-188",
+          "text": "If \\(5^a=25\\), find the answer using substitution for \\(5^{a+3}\\)."
+        },
+        {
+          "id": "QL-189",
+          "text": "If \\(4^m=16\\), the required value of \\(4^{m+2}\\) is:"
+        },
+        {
+          "id": "QL-190",
+          "text": "If \\(2^k=8\\), simplify \\(2^{k+4}\\) using the given exponential relation."
+        }
+      ]
+    }
+  ]
+}

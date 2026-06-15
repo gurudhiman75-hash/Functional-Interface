@@ -1,295 +1,389 @@
-import type { NsSurd001Parameters } from "./parameter-generator";
+import questionLanguageLibrary from "./question-language.library.json" assert { type: "json" };
+import { simplifySurd, formatSurd, formatFraction, formatSum, gcd } from "./formatter";
 
-export interface NsSurd001SolverResult {
-  answer: string;
-  answerLatex: string;
-  sourceExpression: string;
-  verification: {
-    inputValid: boolean;
-    answerRecomputed: boolean;
-    mathJaxValid: boolean;
-  };
+type Variables = Record<string, number | string>;
+
+function getStem(cpId: string, qlId: string): string {
+  const item = questionLanguageLibrary.items.find((entry) => entry.id === qlId);
+  if (!item) {
+    throw new Error(`Unknown question language id: ${qlId}`);
+  }
+  if (item.cpId !== cpId) {
+    throw new Error(`Question language id ${qlId} belongs to ${item.cpId}, not ${cpId}`);
+  }
+  return item.stem;
 }
 
-export function solveNsSurd001(parameters: NsSurd001Parameters): NsSurd001SolverResult {
-  const stem = parameters.stemItem.stem;
-  const answer = solveStem(parameters.canonicalProblemId, stem);
-  const answerLatex = `\\(${answer}\\)`;
-  return {
-    answer,
-    answerLatex,
-    sourceExpression: extractMath(stem).join(" | "),
-    verification: {
-      inputValid: stem.length > 0,
-      answerRecomputed: answer.length > 0,
-      mathJaxValid: hasBalancedMath(answerLatex),
-    },
-  };
+function extractPlaceholders(stem: string): Set<string> {
+  return new Set((stem.match(/\{\{\{([^}]+)\}\}\}/g) ?? []).map((match) => match.slice(3, -3)));
 }
 
-function solveStem(cpId: string, stem: string): string {
-  const expressions = extractMath(stem);
+function inferRootIndex(stem: string): number {
+  return stem.includes("\\sqrt[3]") ? 3 : 2;
+}
+
+function parseSigns(stem: string, termCount: number): number[] {
+  if (termCount <= 0) {
+    return [];
+  }
+  if (stem.includes("Subtract")) {
+    return [1, -1];
+  }
+  const operators = stem.match(/[+-]/g) ?? [];
+  const signs = [1];
+  for (let index = 0; index < termCount - 1; index += 1) {
+    signs.push(operators[index] === "-" ? -1 : 1);
+  }
+  return signs;
+}
+
+function renderOrderedTerms(
+  values: Array<{ value: number; text: string }>,
+  orderingDirection: string,
+): string {
+  const sorted = [...values].sort((left, right) => left.value - right.value);
+  if (orderingDirection === "descending") {
+    sorted.reverse();
+  }
+  return sorted.map((entry) => entry.text).join(", ");
+}
+
+function renderFractionWithNumeratorExpression(numerator: string, denominator: number): string {
+  if (denominator === 1) {
+    return numerator;
+  }
+  if (denominator === -1) {
+    return numerator.startsWith("-") ? numerator.slice(1) : `-${numerator}`;
+  }
+  return `\\frac{${numerator}}{${denominator}}`;
+}
+
+function renderConstantAndSurd(constantTerm: number, surdCoefficient: number, surdRadicand: number): string {
+  const terms: string[] = [];
+  if (constantTerm !== 0) {
+    terms.push(constantTerm.toString());
+  }
+  if (surdCoefficient !== 0) {
+    terms.push(formatSurd(surdCoefficient, surdRadicand));
+  }
+  return formatSum(terms);
+}
+
+function solveCp02OrCp04(stem: string, variables: Variables): string {
+  const placeholders = extractPlaceholders(stem);
+  const rootIndex = inferRootIndex(stem);
+  const terms: Array<{ coefficient: number; radicand: number }> = [];
+
+  if (placeholders.has("commonRadicand")) {
+    if (placeholders.has("leftCoefficient")) {
+      terms.push({
+        coefficient: Number(variables.leftCoefficient ?? 1),
+        radicand: Number(variables.commonRadicand),
+      });
+    } else {
+      terms.push({ coefficient: 1, radicand: Number(variables.commonRadicand) });
+    }
+  } else if (placeholders.has("minuendRadicand")) {
+    terms.push({
+      coefficient: Number(variables.leftCoefficient ?? 1),
+      radicand: Number(variables.minuendRadicand),
+    });
+  } else if (placeholders.has("leftRadicand")) {
+    terms.push({
+      coefficient: Number(variables.leftCoefficient ?? 1),
+      radicand: Number(variables.leftRadicand),
+    });
+  }
+
+  if (placeholders.has("subtrahendRadicand")) {
+    const secondCoefficient = Number(
+      variables.commonCoefficient ?? variables.rightCoefficient ?? 1,
+    );
+    terms.push({
+      coefficient: secondCoefficient,
+      radicand: Number(variables.subtrahendRadicand),
+    });
+  } else if (placeholders.has("rightRadicand")) {
+    terms.push({
+      coefficient: Number(variables.rightCoefficient ?? 1),
+      radicand: Number(variables.rightRadicand),
+    });
+  } else if (placeholders.has("rightCoefficient")) {
+    terms.push({
+      coefficient: Number(variables.rightCoefficient),
+      radicand: Number(variables.commonRadicand),
+    });
+  }
+
+  if (placeholders.has("additionalRadicand")) {
+    terms.push({
+      coefficient: Number(variables.additionalCoefficient ?? 1),
+      radicand: Number(variables.additionalRadicand),
+    });
+  } else if (placeholders.has("subtrahendCoefficient")) {
+    terms.push({
+      coefficient: Number(variables.subtrahendCoefficient),
+      radicand: Number(variables.commonRadicand),
+    });
+  } else if (placeholders.has("subtrahendRadicand") && stem.includes(" + \\sqrt")) {
+    terms.push({ coefficient: 1, radicand: Number(variables.subtrahendRadicand) });
+  }
+
+  const signs = parseSigns(stem, terms.length);
+  const collected = new Map<number, number>();
+  let rational = 0;
+
+  for (let index = 0; index < terms.length; index += 1) {
+    const sign = signs[index] ?? 1;
+    const simplified = simplifySurd(terms[index]!.radicand, rootIndex);
+    const coefficient = sign * terms[index]!.coefficient * simplified.coeff;
+    if (simplified.radicand === 1) {
+      rational += coefficient;
+    } else {
+      collected.set(
+        simplified.radicand,
+        (collected.get(simplified.radicand) ?? 0) + coefficient,
+      );
+    }
+  }
+
+  const parts: string[] = [];
+  if (rational !== 0) {
+    parts.push(rational.toString());
+  }
+  for (const [radicand, coefficient] of [...collected.entries()].sort((left, right) => left[0] - right[0])) {
+    if (coefficient !== 0) {
+      parts.push(formatSurd(coefficient, radicand, rootIndex));
+    }
+  }
+  return parts.length ? formatSum(parts) : "0";
+}
+
+function solveCp03(stem: string, variables: Variables): string {
+  const rootIndex = inferRootIndex(stem);
+  if (stem.includes("\\div") || stem.includes("\\frac") || stem.toLowerCase().includes("quotient")) {
+    const numeratorRadicand = Number(variables.numeratorRadicand);
+    const denominatorRadicand = Number(variables.denominatorRadicand);
+    const quotient = numeratorRadicand / denominatorRadicand;
+    const simplified = simplifySurd(quotient, rootIndex);
+    return formatSurd(simplified.coeff, simplified.radicand, rootIndex);
+  }
+
+  const coefficient =
+    Number(variables.leftCoefficient ?? 1) * Number(variables.rightCoefficient ?? 1);
+  const radicand = Number(variables.leftRadicand) * Number(variables.rightRadicand);
+  const simplified = simplifySurd(radicand, rootIndex);
+  return formatSurd(coefficient * simplified.coeff, simplified.radicand, rootIndex);
+}
+
+function solveCp05(stem: string, variables: Variables): string {
+  const placeholders = extractPlaceholders(stem);
+  const values: Array<{ value: number; text: string }> = [];
+
+  const pushValue = (coefficientKey: string | null, radicandKey: string) => {
+    const coefficient = coefficientKey ? Number(variables[coefficientKey]) : 1;
+    const radicand = Number(variables[radicandKey]);
+    values.push({
+      value: coefficient * Math.sqrt(radicand),
+      text: coefficientKey ? formatSurd(coefficient, radicand) : formatSurd(1, radicand),
+    });
+  };
+
+  pushValue(placeholders.has("leftCoefficient") ? "leftCoefficient" : null, "leftRadicand");
+  pushValue(placeholders.has("rightCoefficient") ? "rightCoefficient" : null, "rightRadicand");
+  if (placeholders.has("middleRadicand")) {
+    pushValue(placeholders.has("middleCoefficient") ? "middleCoefficient" : null, "middleRadicand");
+  }
+
+  if (placeholders.has("orderingDirection")) {
+    return renderOrderedTerms(values, String(variables.orderingDirection));
+  }
+
+  const sorted = [...values].sort((left, right) => left.value - right.value);
+  const comparisonDirection = String(variables.comparisonDirection);
+  if (comparisonDirection === "greater" || comparisonDirection === "largest") {
+    return sorted[sorted.length - 1]!.text;
+  }
+  return sorted[0]!.text;
+}
+
+function solveCp06(stem: string, variables: Variables): string {
+  const rootIndex = inferRootIndex(stem);
+  const numerator = Number(variables.numerator ?? 1);
+  const denominatorCoefficient = Number(variables.denominatorCoefficient ?? 1);
+  const denominatorRadicand = Number(variables.denominatorRadicand);
+
+  if (rootIndex === 3) {
+    const simplified = simplifySurd(denominatorRadicand * denominatorRadicand, 3);
+    return formatFraction(
+      numerator * simplified.coeff,
+      simplified.radicand,
+      denominatorCoefficient * denominatorRadicand,
+      3,
+    );
+  }
+
+  return formatFraction(
+    numerator,
+    denominatorRadicand,
+    denominatorCoefficient * denominatorRadicand,
+  );
+}
+
+function solveCp07(stem: string, variables: Variables): string {
+  const numerator = Number(variables.numerator ?? 1);
+
+  if (stem.includes("constantTerm") || stem.includes("\\pm")) {
+    const constantTerm = Number(variables.constantTerm);
+    const denominatorRadicand = Number(variables.denominatorRadicand);
+    const denominator = constantTerm * constantTerm - denominatorRadicand;
+    const divisor = gcd(numerator, Math.abs(denominator));
+    const scaledNumerator = numerator / divisor;
+    const scaledDenominator = denominator / divisor;
+
+    if (stem.includes("\\pm")) {
+      const numeratorText =
+        scaledNumerator === 1
+          ? `${constantTerm} \\mp \\sqrt{${denominatorRadicand}}`
+          : `${scaledNumerator}(${constantTerm} \\mp \\sqrt{${denominatorRadicand}})`;
+      return renderFractionWithNumeratorExpression(numeratorText, scaledDenominator);
+    }
+
+    const conjugateSign = stem.includes(" - \\sqrt") ? "+" : "-";
+    const numeratorText =
+      scaledNumerator === 1
+        ? `${constantTerm} ${conjugateSign} \\sqrt{${denominatorRadicand}}`
+        : `${scaledNumerator}(${constantTerm} ${conjugateSign} \\sqrt{${denominatorRadicand}})`;
+    return renderFractionWithNumeratorExpression(numeratorText, scaledDenominator);
+  }
+
+  const leftRadicand = Number(variables.leftRadicand);
+  const rightRadicand = Number(variables.rightRadicand);
+  const productSimplified = simplifySurd(leftRadicand * rightRadicand, 2);
+  const denominator = leftRadicand - rightRadicand;
+
+  if (stem.includes("\\frac{\\sqrt")) {
+    if (stem.includes("+ \\sqrt") && stem.includes("}{\\sqrt") && stem.includes(" - \\sqrt")) {
+      const numeratorText = renderConstantAndSurd(
+        leftRadicand + rightRadicand,
+        2 * productSimplified.coeff,
+        productSimplified.radicand,
+      );
+      return renderFractionWithNumeratorExpression(numeratorText, denominator);
+    }
+
+    const numeratorText = renderConstantAndSurd(
+      leftRadicand,
+      -productSimplified.coeff,
+      productSimplified.radicand,
+    );
+    return renderFractionWithNumeratorExpression(numeratorText, denominator);
+  }
+
+  const conjugateSign = stem.includes(" - \\sqrt") ? "+" : "-";
+  const divisor = gcd(numerator, Math.abs(denominator));
+  const scaledNumerator = numerator / divisor;
+  const scaledDenominator = denominator / divisor;
+  const numeratorText =
+    scaledNumerator === 1
+      ? `\\sqrt{${leftRadicand}} ${conjugateSign} \\sqrt{${rightRadicand}}`
+      : `${scaledNumerator}(\\sqrt{${leftRadicand}} ${conjugateSign} \\sqrt{${rightRadicand}})`;
+  return renderFractionWithNumeratorExpression(numeratorText, scaledDenominator);
+}
+
+function solveCp08(stem: string, variables: Variables): string {
+  if (stem.includes("({{{constantTerm}}} + \\sqrt{{{radicand}}})^2")) {
+    const constantTerm = Number(variables.constantTerm);
+    const radicand = Number(variables.radicand);
+    return renderConstantAndSurd(constantTerm * constantTerm + radicand, 2 * constantTerm, radicand);
+  }
+
+  if (stem.includes("(1 + \\sqrt")) {
+    const radicand = Number(variables.radicand);
+    return renderConstantAndSurd(1 + radicand, 2, radicand);
+  }
+
+  if (stem.includes("({{{constantTerm}}} + \\sqrt{{{radicand}}})({{{constantTerm}}} - \\sqrt{{{radicand}}})")) {
+    const constantTerm = Number(variables.constantTerm);
+    const radicand = Number(variables.radicand);
+    return (constantTerm * constantTerm - radicand).toString();
+  }
+
+  if (stem.includes("({{{leftCoefficient}}}\\sqrt")) {
+    const leftCoefficient = Number(variables.leftCoefficient);
+    const rightCoefficient = Number(variables.rightCoefficient);
+    const leftRadicand = Number(variables.leftRadicand);
+    const rightRadicand = Number(variables.rightRadicand);
+    const productSimplified = simplifySurd(leftRadicand * rightRadicand, 2);
+    return renderConstantAndSurd(
+      leftCoefficient * leftCoefficient * leftRadicand + rightCoefficient * rightCoefficient * rightRadicand,
+      2 * leftCoefficient * rightCoefficient * productSimplified.coeff,
+      productSimplified.radicand,
+    );
+  }
+
+  if (stem.includes("(\\sqrt{{{leftRadicand}}} + \\sqrt{{{rightRadicand}}})^2")) {
+    const leftRadicand = Number(variables.leftRadicand);
+    const rightRadicand = Number(variables.rightRadicand);
+    const productSimplified = simplifySurd(leftRadicand * rightRadicand, 2);
+    return renderConstantAndSurd(
+      leftRadicand + rightRadicand,
+      2 * productSimplified.coeff,
+      productSimplified.radicand,
+    );
+  }
+
+  if (stem.includes("(\\sqrt{{{leftRadicand}}} - \\sqrt{{{rightRadicand}}})^2")) {
+    const leftRadicand = Number(variables.leftRadicand);
+    const rightRadicand = Number(variables.rightRadicand);
+    const productSimplified = simplifySurd(leftRadicand * rightRadicand, 2);
+    return renderConstantAndSurd(
+      leftRadicand + rightRadicand,
+      -2 * productSimplified.coeff,
+      productSimplified.radicand,
+    );
+  }
+
+  if (stem.includes("(\\sqrt{{{leftRadicand}}} + \\sqrt{{{rightRadicand}}})(\\sqrt{{{leftRadicand}}} - \\sqrt{{{rightRadicand}}})")) {
+    return (Number(variables.leftRadicand) - Number(variables.rightRadicand)).toString();
+  }
+
+  return "0";
+}
+
+export function solve(question: { cpId: string; qlId: string; variables: Variables }): { answer: string } {
+  const { cpId, qlId, variables } = question;
+  const stem = getStem(cpId, qlId);
+
+  if (cpId === "CP01") {
+    const rootIndex = inferRootIndex(stem);
+    const simplified = simplifySurd(Number(variables.radicand), rootIndex);
+    return { answer: formatSurd(simplified.coeff, simplified.radicand, rootIndex) };
+  }
+
+  if (cpId === "CP02" || cpId === "CP04") {
+    return { answer: solveCp02OrCp04(stem, variables) };
+  }
+
+  if (cpId === "CP03") {
+    return { answer: solveCp03(stem, variables) };
+  }
+
   if (cpId === "CP05") {
-    return solveComparisonStem(stem, expressions);
+    return { answer: solveCp05(stem, variables) };
   }
-  const expression = expressions[0] ?? stem;
-  if (cpId === "CP01") return simplifySingleSurd(expression);
-  if (cpId === "CP02" || cpId === "CP04") return simplifyLinearExpression(expression);
-  if (cpId === "CP03") return simplifyProductOrQuotient(expression);
-  if (cpId === "CP06") return rationalizeMonomial(expression);
-  if (cpId === "CP07") return rationalizeBinomial(expression);
-  if (cpId === "CP08") return simplifyIdentity(expression);
-  return expression;
-}
 
-function extractMath(stem: string): string[] {
-  return [...stem.matchAll(/\\\((.*?)\\\)/g)].map((match) => match[1]!.trim());
-}
-
-function hasBalancedMath(value: string): boolean {
-  return (value.match(/\\\(/g)?.length ?? 0) === (value.match(/\\\)/g)?.length ?? 0);
-}
-
-type Linear = Map<string, number>;
-
-function simplifySingleSurd(expression: string): string {
-  const term = parseSingleTerm(expression);
-  return formatLinear(linearFromTerm(term));
-}
-
-function simplifyLinearExpression(expression: string): string {
-  const linear: Linear = new Map();
-  for (const token of splitTerms(expression)) {
-    addLinear(linear, linearFromTerm(parseSingleTerm(token)));
+  if (cpId === "CP06") {
+    return { answer: solveCp06(stem, variables) };
   }
-  return formatLinear(linear);
-}
 
-function simplifyProductOrQuotient(expression: string): string {
-  if (expression.includes("\\frac")) {
-    const frac = parseFrac(expression);
-    const n = parseSingleTerm(frac.num);
-    const d = parseSingleTerm(frac.den);
-    if (n.kind === d.kind && n.rad > 0 && d.rad > 0) {
-      return formatTerm({ coeff: n.coeff / d.coeff, kind: n.kind, rad: n.rad / d.rad });
-    }
-    return formatNumber(n.coeff / d.coeff);
+  if (cpId === "CP07") {
+    return { answer: solveCp07(stem, variables) };
   }
-  const parts = expression.split("\\times").map((part) => parseSingleTerm(part));
-  const kind = parts.find((part) => part.kind !== "rat")?.kind ?? "rat";
-  const coeff = parts.reduce((value, part) => value * part.coeff, 1);
-  const rad = parts.reduce((value, part) => value * (part.rad || 1), 1);
-  return formatTerm({ coeff, kind, rad: kind === "rat" ? 0 : rad });
-}
 
-function rationalizeMonomial(expression: string): string {
-  const frac = parseFrac(expression);
-  const numerator = parseSingleTerm(frac.num);
-  const denominator = parseSingleTerm(frac.den);
-  if (denominator.kind === "sqrt") {
-    return formatTerm({ coeff: numerator.coeff / denominator.coeff / denominator.rad, kind: "sqrt", rad: denominator.rad });
+  if (cpId === "CP08") {
+    return { answer: solveCp08(stem, variables) };
   }
-  if (denominator.kind === "cbrt") {
-    const missing = smallestCubeCompletion(denominator.rad);
-    const denValue = Math.cbrt(denominator.rad * missing);
-    return formatTerm({ coeff: numerator.coeff / denominator.coeff / denValue, kind: "cbrt", rad: missing });
-  }
-  return formatNumber(numerator.coeff / denominator.coeff);
-}
 
-function rationalizeBinomial(expression: string): string {
-  const frac = parseFrac(expression);
-  const numerator = parseSingleTerm(frac.num);
-  const denominator = normalize(frac.den);
-  const sign = denominator.includes("+") ? "+" : "-";
-  const [aRaw, bRaw] = denominator.split(sign).map((part) => part.trim());
-  const a = parseSingleTerm(aRaw!);
-  const b = parseSingleTerm(bRaw!);
-  const den = termNumeric(a) ** 2 - termNumeric(b) ** 2;
-  const conjugateSign = sign === "+" ? "-" : "+";
-  const leading = numerator.coeff === 1 ? "" : `${formatNumber(numerator.coeff)}`;
-  return `\\frac{${leading}(${formatTerm(a)}${conjugateSign}${formatTerm(b)})}{${formatNumber(den)}}`;
-}
-
-function simplifyIdentity(expression: string): string {
-  const normalized = normalize(expression);
-  if (normalized.includes(")^2")) {
-    const inside = normalized.slice(normalized.indexOf("(") + 1, normalized.indexOf(")"));
-    const sign = inside.includes("+") ? "+" : "-";
-    const [aRaw, bRaw] = inside.split(sign).map((part) => part.trim());
-    const a = parseSingleTerm(aRaw!);
-    const b = parseSingleTerm(bRaw!);
-    const rational = termNumeric(a) ** 2 + termNumeric(b) ** 2;
-    const middle = multiplyTerms(a, b, sign === "+" ? 2 : -2);
-    const linear = linearFromTerm(middle);
-    addLinear(linear, linearFromTerm({ coeff: rational, kind: "rat", rad: 0 }));
-    return formatLinear(linear);
-  }
-  if (normalized.includes(")-(")) {
-    const [left, right] = normalized.split("-");
-    return `${simplifyIdentity(left!)}-${simplifyIdentity(right!)}`;
-  }
-  const factors = [...normalized.matchAll(/\(([^)]+)\)/g)].map((match) => match[1]!);
-  if (factors.length === 2) {
-    const firstSign = factors[0]!.includes("+") ? "+" : "-";
-    const [aRaw, bRaw] = factors[0]!.split(firstSign).map((part) => part.trim());
-    const a = parseSingleTerm(aRaw!);
-    const b = parseSingleTerm(bRaw!);
-    return formatNumber(termNumeric(a) ** 2 - termNumeric(b) ** 2);
-  }
-  return simplifyLinearExpression(expression);
-}
-
-function solveComparisonStem(stem: string, expressions: string[]): string {
-  const values = expressions.map((expr) => ({ expr, value: numericExpression(expr) }));
-  if (stem.includes("in increasing order") || stem.includes("correct increasing order")) {
-    return values.sort((a, b) => a.value - b.value).map((item) => item.expr).join(", ");
-  }
-  if (stem.includes("in decreasing order") || stem.includes("correct decreasing order")) {
-    return values.sort((a, b) => b.value - a.value).map((item) => item.expr).join(", ");
-  }
-  if (stem.toLowerCase().includes("smaller") || stem.toLowerCase().includes("least") || stem.toLowerCase().includes("lowest") || stem.toLowerCase().includes("smallest")) {
-    return values.sort((a, b) => a.value - b.value)[0]!.expr;
-  }
-  return values.sort((a, b) => b.value - a.value)[0]!.expr;
-}
-
-interface Term {
-  coeff: number;
-  kind: "rat" | "sqrt" | "cbrt";
-  rad: number;
-}
-
-function parseSingleTerm(raw: string): Term {
-  let expr = normalize(raw);
-  let sign = 1;
-  if (expr.startsWith("-")) {
-    sign = -1;
-    expr = expr.slice(1);
-  }
-  const frac = expr.match(/^\\frac\{(.+)\}\{(.+)\}$/);
-  if (frac) {
-    const n = parseSingleTerm(frac[1]!);
-    const d = parseSingleTerm(frac[2]!);
-    return { coeff: termNumeric(n) / termNumeric(d), kind: "rat", rad: 0 };
-  }
-  const sqrt = expr.match(/^(\\d*)\\sqrt\{(\\d+)\}$/);
-  if (sqrt) return simplifyTerm({ coeff: sign * Number(sqrt[1] || 1), kind: "sqrt", rad: Number(sqrt[2]) });
-  const cbrt = expr.match(/^(\\d*)\\sqrt\[3\]\{(\\d+)\}$/);
-  if (cbrt) return simplifyTerm({ coeff: sign * Number(cbrt[1] || 1), kind: "cbrt", rad: Number(cbrt[2]) });
-  return { coeff: sign * Number(expr || 1), kind: "rat", rad: 0 };
-}
-
-function normalize(value: string): string {
-  return value.replaceAll(" ", "").replaceAll("\\left", "").replaceAll("\\right", "");
-}
-
-function splitTerms(expression: string): string[] {
-  return normalize(expression).replaceAll("-", "+-").split("+").filter(Boolean);
-}
-
-function parseFrac(expression: string): { num: string; den: string } {
-  const match = normalize(expression).match(/^\\frac\{(.+)\}\{(.+)\}$/);
-  if (!match) throw new Error(`Expected fraction expression: ${expression}`);
-  return { num: match[1]!, den: match[2]! };
-}
-
-function simplifyTerm(term: Term): Term {
-  if (term.kind === "rat") return term;
-  if (term.kind === "sqrt") {
-    let coeff = term.coeff;
-    let rad = term.rad;
-    for (let factor = Math.floor(Math.sqrt(rad)); factor >= 2; factor--) {
-      const square = factor * factor;
-      if (rad % square === 0) {
-        coeff *= factor;
-        rad /= square;
-        break;
-      }
-    }
-    return rad === 1 ? { coeff, kind: "rat", rad: 0 } : { coeff, kind: "sqrt", rad };
-  }
-  let coeff = term.coeff;
-  let rad = term.rad;
-  for (let factor = Math.floor(Math.cbrt(rad)); factor >= 2; factor--) {
-    const cube = factor * factor * factor;
-    if (rad % cube === 0) {
-      coeff *= factor;
-      rad /= cube;
-      break;
-    }
-  }
-  return rad === 1 ? { coeff, kind: "rat", rad: 0 } : { coeff, kind: "cbrt", rad };
-}
-
-function linearFromTerm(term: Term): Linear {
-  const simplified = simplifyTerm(term);
-  return new Map([[termKey(simplified), simplified.coeff]]);
-}
-
-function addLinear(target: Linear, source: Linear): void {
-  for (const [key, value] of source) {
-    target.set(key, (target.get(key) ?? 0) + value);
-  }
-}
-
-function termKey(term: Term): string {
-  return term.kind === "rat" ? "rat:0" : `${term.kind}:${term.rad}`;
-}
-
-function formatLinear(linear: Linear): string {
-  const terms = [...linear.entries()].filter(([, coeff]) => Math.abs(coeff) > 1e-9);
-  if (terms.length === 0) return "0";
-  return terms
-    .map(([key, coeff], index) => {
-      const [kind, rawRad] = key.split(":");
-      const term = formatTerm({ coeff: Math.abs(coeff), kind: kind as Term["kind"], rad: Number(rawRad) });
-      return `${coeff < 0 ? "-" : index === 0 ? "" : "+"}${term}`;
-    })
-    .join("");
-}
-
-function formatTerm(term: Term): string {
-  const simplified = simplifyTerm(term);
-  if (simplified.kind === "rat") return formatNumber(simplified.coeff);
-  const coeff = simplified.coeff === 1 ? "" : simplified.coeff === -1 ? "-" : formatNumber(simplified.coeff);
-  const radical = simplified.kind === "sqrt" ? `\\sqrt{${simplified.rad}}` : `\\sqrt[3]{${simplified.rad}}`;
-  return `${coeff}${radical}`;
-}
-
-function formatNumber(value: number): string {
-  if (Number.isInteger(value)) return String(value);
-  const rounded = Math.round(value * 1000) / 1000;
-  return String(rounded);
-}
-
-function termNumeric(term: Term): number {
-  const simplified = simplifyTerm(term);
-  if (simplified.kind === "rat") return simplified.coeff;
-  if (simplified.kind === "sqrt") return simplified.coeff * Math.sqrt(simplified.rad);
-  return simplified.coeff * Math.cbrt(simplified.rad);
-}
-
-function multiplyTerms(a: Term, b: Term, extraCoeff: number): Term {
-  if (a.kind === b.kind && a.kind !== "rat") {
-    return simplifyTerm({ coeff: extraCoeff * a.coeff * b.coeff, kind: a.kind, rad: a.rad * b.rad });
-  }
-  if (a.kind === "rat") return simplifyTerm({ coeff: extraCoeff * a.coeff * b.coeff, kind: b.kind, rad: b.rad });
-  if (b.kind === "rat") return simplifyTerm({ coeff: extraCoeff * a.coeff * b.coeff, kind: a.kind, rad: a.rad });
-  return { coeff: extraCoeff * termNumeric(a) * termNumeric(b), kind: "rat", rad: 0 };
-}
-
-function numericExpression(expr: string): number {
-  if (expr.includes("+") || normalize(expr).slice(1).includes("-")) {
-    return splitTerms(expr).reduce((sum, token) => sum + termNumeric(parseSingleTerm(token)), 0);
-  }
-  return termNumeric(parseSingleTerm(expr));
-}
-
-function smallestCubeCompletion(value: number): number {
-  for (let candidate = 1; candidate <= value * value; candidate++) {
-    const root = Math.cbrt(value * candidate);
-    if (Math.abs(root - Math.round(root)) < 1e-9) return candidate;
-  }
-  return value * value;
+  return { answer: "0" };
 }
