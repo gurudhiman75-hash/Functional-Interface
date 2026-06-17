@@ -8814,18 +8814,38 @@ export default function AdminGeneratorPage() {
   function setReviewFocus(
     item: ReviewableGeneratedItem,
   ) {
-    setCurrentQuestionIndex(
-      Math.max(
-        0,
-        visibleItems.findIndex(
-          (entry) =>
-            entry.fingerprint ===
-            item.fingerprint,
-        ),
-      ),
+    const nextIndex = visibleItems.findIndex(
+      (entry) =>
+        entry.fingerprint ===
+        item.fingerprint,
     );
+    focusQuestionAtIndex(
+      nextIndex >= 0 ? nextIndex : 0,
+    );
+  }
+
+  function focusQuestionAtIndex(
+    requestedIndex: number,
+  ) {
+    if (!visibleItems.length) {
+      setCurrentQuestionIndex(0);
+      setSelectedWorkspaceFingerprint(
+        null,
+      );
+      setWorkspaceEditMode(false);
+      return;
+    }
+
+    const nextIndex = Math.min(
+      Math.max(0, requestedIndex),
+      visibleItems.length - 1,
+    );
+    const nextItem =
+      visibleItems[nextIndex] ?? null;
+
+    setCurrentQuestionIndex(nextIndex);
     setSelectedWorkspaceFingerprint(
-      item.fingerprint,
+      nextItem?.fingerprint ?? null,
     );
     setWorkspaceEditMode(false);
   }
@@ -10407,27 +10427,14 @@ export default function AdminGeneratorPage() {
         ]
       : null;
   const focusPreviousQuestion = () => {
-    setCurrentQuestionIndex((index) => {
-      const nextIndex = Math.max(0, index - 1);
-      setSelectedWorkspaceFingerprint(
-        visibleItems[nextIndex]?.fingerprint ?? null,
-      );
-      return nextIndex;
-    });
-    setWorkspaceEditMode(false);
+    focusQuestionAtIndex(
+      currentQuestionIndex - 1,
+    );
   };
   const focusNextQuestion = () => {
-    setCurrentQuestionIndex((index) => {
-      const nextIndex = Math.min(
-        Math.max(0, visibleItems.length - 1),
-        index + 1,
-      );
-      setSelectedWorkspaceFingerprint(
-        visibleItems[nextIndex]?.fingerprint ?? null,
-      );
-      return nextIndex;
-    });
-    setWorkspaceEditMode(false);
+    focusQuestionAtIndex(
+      currentQuestionIndex + 1,
+    );
   };
   const selectedBatchItems =
     visibleItems.filter((item) =>
@@ -12869,6 +12876,7 @@ export default function AdminGeneratorPage() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
+                      type="button"
                       onClick={focusPreviousQuestion}
                       disabled={
                         !previousVisibleItem
@@ -12878,6 +12886,7 @@ export default function AdminGeneratorPage() {
                       Previous
                     </button>
                     <button
+                      type="button"
                       onClick={focusNextQuestion}
                       disabled={
                         !nextVisibleItem
