@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 
 // Plugins (e.g. 'esbuild-plugin-pino') may use `require` to resolve dependencies
 globalThis.require = createRequire(import.meta.url);
@@ -246,85 +246,95 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
       await writeFile(path.join(nsSurdDistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
     }
 
-    // Build SIMPL-001 runtime test harness
-    await esbuild({
-      ...commonConfig,
-      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/simpl-001.test.ts")],
-      outdir: path.resolve(distDir, "quant-v3"),
-      entryNames: "[name]",
-    });
     const simplSourceDir = path.resolve(artifactDir, "src/quant-v3/topics/SimplificationAndApproximation/SIMPL-001");
-    const simplDistDir = path.resolve(distDir, "quant-v3");
-    for (const fileName of [
-      "question-language.library.json",
-      "explanation.library.json",
-      "variable-ranges.library.json",
-      "coverage-targets.library.json",
-      "distribution-targets.library.json",
-    ]) {
-      const raw = await readFile(path.join(simplSourceDir, fileName), "utf8");
-      await writeFile(path.join(simplDistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+    const simplTestPath = path.resolve(artifactDir, "src/quant-v3/tests/simpl-001.test.ts");
+    const simplPackageExists = await access(simplSourceDir).then(() => true, () => false);
+    if (simplPackageExists) {
+      // Build SIMPL-001 runtime test harness
+      await esbuild({
+        ...commonConfig,
+        entryPoints: [simplTestPath],
+        outdir: path.resolve(distDir, "quant-v3"),
+        entryNames: "[name]",
+      });
+      const simplDistDir = path.resolve(distDir, "quant-v3");
+      for (const fileName of [
+        "question-language.library.json",
+        "explanation.library.json",
+        "variable-ranges.library.json",
+        "coverage-targets.library.json",
+        "distribution-targets.library.json",
+      ]) {
+        const raw = await readFile(path.join(simplSourceDir, fileName), "utf8");
+        await writeFile(path.join(simplDistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+      }
     }
 
-    // Build PCT-001 runtime test harness
-    await esbuild({
-      ...commonConfig,
-      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/pct-001.test.ts")],
-      outdir: path.resolve(distDir, "quant-v3"),
-      entryNames: "[name]",
-    });
     const pct001SourceDir = path.resolve(artifactDir, "src/quant-v3/topics/Percentage/subtopics/PercentageFundamentals/PCT-001");
-    const pct001DistDir = path.resolve(distDir, "quant-v3");
-    for (const fileName of [
-      "question-language.library.json",
-      "explanation.library.json",
-      "variable-ranges.library.json",
-      "coverage-targets.library.json",
-      "distribution-targets.library.json",
-    ]) {
-      const raw = await readFile(path.join(pct001SourceDir, fileName), "utf8");
-      await writeFile(path.join(pct001DistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+    if (await access(pct001SourceDir).then(() => true, () => false)) {
+      // Build PCT-001 runtime test harness
+      await esbuild({
+        ...commonConfig,
+        entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/pct-001.test.ts")],
+        outdir: path.resolve(distDir, "quant-v3"),
+        entryNames: "[name]",
+      });
+      const pct001DistDir = path.resolve(distDir, "quant-v3");
+      for (const fileName of [
+        "question-language.library.json",
+        "explanation.library.json",
+        "variable-ranges.library.json",
+        "coverage-targets.library.json",
+        "distribution-targets.library.json",
+      ]) {
+        const raw = await readFile(path.join(pct001SourceDir, fileName), "utf8");
+        await writeFile(path.join(pct001DistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+      }
     }
 
-    // Build PCT-002 runtime test harness
-    await esbuild({
-      ...commonConfig,
-      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/pct-002.test.ts")],
-      outdir: path.resolve(distDir, "quant-v3"),
-      entryNames: "[name]",
-    });
     const pct002SourceDir = path.resolve(artifactDir, "src/quant-v3/topics/Percentage/subtopics/PercentageChange/PCT-002");
-    const pct002DistDir = path.resolve(distDir, "quant-v3");
-    for (const fileName of [
-      "question-language.library.json",
-      "explanation.library.json",
-      "variable-ranges.library.json",
-      "coverage-targets.library.json",
-      "distribution-targets.library.json",
-    ]) {
-      const raw = await readFile(path.join(pct002SourceDir, fileName), "utf8");
-      await writeFile(path.join(pct002DistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+    if (await access(pct002SourceDir).then(() => true, () => false)) {
+      // Build PCT-002 runtime test harness
+      await esbuild({
+        ...commonConfig,
+        entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/pct-002.test.ts")],
+        outdir: path.resolve(distDir, "quant-v3"),
+        entryNames: "[name]",
+      });
+      const pct002DistDir = path.resolve(distDir, "quant-v3");
+      for (const fileName of [
+        "question-language.library.json",
+        "explanation.library.json",
+        "variable-ranges.library.json",
+        "coverage-targets.library.json",
+        "distribution-targets.library.json",
+      ]) {
+        const raw = await readFile(path.join(pct002SourceDir, fileName), "utf8");
+        await writeFile(path.join(pct002DistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+      }
     }
 
-    // Build PCT-004 runtime test harness
-    await esbuild({
-      ...commonConfig,
-      entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/pct-004.test.ts")],
-      outdir: path.resolve(distDir, "quant-v3"),
-      entryNames: "[name]",
-    });
     const pct004SourceDir = path.resolve(artifactDir, "src/quant-v3/topics/Percentage/subtopics/PercentageWordProblems/PCT-004");
-    const pct004DistDir = path.resolve(distDir, "quant-v3");
-    for (const fileName of [
-      "question-language.library.json",
-      "explanation.library.json",
-      "variable-ranges.library.json",
-      "coverage-targets.library.json",
-      "distribution-targets.library.json",
-      "library-authority-map.md",
-    ]) {
-      const raw = await readFile(path.join(pct004SourceDir, fileName), "utf8");
-      await writeFile(path.join(pct004DistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+    if (await access(pct004SourceDir).then(() => true, () => false)) {
+      // Build PCT-004 runtime test harness
+      await esbuild({
+        ...commonConfig,
+        entryPoints: [path.resolve(artifactDir, "src/quant-v3/tests/pct-004.test.ts")],
+        outdir: path.resolve(distDir, "quant-v3"),
+        entryNames: "[name]",
+      });
+      const pct004DistDir = path.resolve(distDir, "quant-v3");
+      for (const fileName of [
+        "question-language.library.json",
+        "explanation.library.json",
+        "variable-ranges.library.json",
+        "coverage-targets.library.json",
+        "distribution-targets.library.json",
+        "library-authority-map.md",
+      ]) {
+        const raw = await readFile(path.join(pct004SourceDir, fileName), "utf8");
+        await writeFile(path.join(pct004DistDir, fileName), raw.replace(/^\uFEFF/, ""), "utf8");
+      }
     }
   }
 
