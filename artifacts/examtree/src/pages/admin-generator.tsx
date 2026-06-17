@@ -10407,18 +10407,26 @@ export default function AdminGeneratorPage() {
         ]
       : null;
   const focusPreviousQuestion = () => {
-    setCurrentQuestionIndex((index) =>
-      Math.max(0, index - 1),
-    );
+    setCurrentQuestionIndex((index) => {
+      const nextIndex = Math.max(0, index - 1);
+      setSelectedWorkspaceFingerprint(
+        visibleItems[nextIndex]?.fingerprint ?? null,
+      );
+      return nextIndex;
+    });
     setWorkspaceEditMode(false);
   };
   const focusNextQuestion = () => {
-    setCurrentQuestionIndex((index) =>
-      Math.min(
+    setCurrentQuestionIndex((index) => {
+      const nextIndex = Math.min(
         Math.max(0, visibleItems.length - 1),
         index + 1,
-      ),
-    );
+      );
+      setSelectedWorkspaceFingerprint(
+        visibleItems[nextIndex]?.fingerprint ?? null,
+      );
+      return nextIndex;
+    });
     setWorkspaceEditMode(false);
   };
   const selectedBatchItems =
@@ -12926,7 +12934,10 @@ export default function AdminGeneratorPage() {
                 </div>
 
                 {selectedWorkspaceItem ? (
-                  <div className="space-y-3">
+                  <div
+                    key={`active-workspace-${selectedVisibleIndex}-${selectedWorkspaceItem.fingerprint}`}
+                    className="space-y-3"
+                  >
                     {renderQuestionWorkspace(
                       selectedWorkspaceItem,
                       qaNotes[
@@ -13948,7 +13959,10 @@ export default function AdminGeneratorPage() {
           </div>
 
           {selectedWorkspaceItem ? (
-            <div className="space-y-3">
+            <div
+              key={`generated-workspace-${selectedVisibleIndex}-${selectedWorkspaceItem.fingerprint}`}
+              className="space-y-3"
+            >
               {renderQuestionWorkspace(
                 selectedWorkspaceItem,
                 qaNotes[
@@ -14142,14 +14156,9 @@ export default function AdminGeneratorPage() {
                 (item) => (
                   <button
                     key={`tray-${item.fingerprint}`}
-                    onClick={() => {
-                      setSelectedWorkspaceFingerprint(
-                        item.fingerprint,
-                      );
-                      setWorkspaceEditMode(
-                        false,
-                      );
-                    }}
+                    onClick={() =>
+                      setReviewFocus(item)
+                    }
                     className={`rounded-lg border p-3 text-left ${selectedWorkspaceFingerprint ===
                       item.fingerprint
                       ? "border-slate-900 bg-white shadow-sm"
