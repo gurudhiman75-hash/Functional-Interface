@@ -25,6 +25,11 @@ import type {
 import MathText from "@/components/MathText";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
+import {
+  downloadQuestionExport,
+  type QuestionExportContent,
+  type QuestionExportFormat,
+} from "@/lib/export-engine";
 
 const API_BASE_URL =
   import.meta.env.DEV
@@ -7533,6 +7538,36 @@ export default function AdminGeneratorPage() {
   const [generated, setGenerated] =
     useState<GeneratedQuestion[]>([]);
   const [
+    exportFormat,
+    setExportFormat,
+  ] = useState<QuestionExportFormat>("pdf");
+  const [
+    exportContent,
+    setExportContent,
+  ] = useState<QuestionExportContent>(
+    "explanations",
+  );
+  const [
+    exportIncludeAnswers,
+    setExportIncludeAnswers,
+  ] = useState(true);
+  const [
+    exportIncludeExplanations,
+    setExportIncludeExplanations,
+  ] = useState(true);
+  const [
+    exportIncludeReasoning,
+    setExportIncludeReasoning,
+  ] = useState(false);
+  const [
+    exportIncludeTraceability,
+    setExportIncludeTraceability,
+  ] = useState(false);
+  const [
+    exportStatus,
+    setExportStatus,
+  ] = useState<string | null>(null);
+  const [
     filingDrawerOpen,
     setFilingDrawerOpen,
   ] = useState(false);
@@ -10445,6 +10480,56 @@ export default function AdminGeneratorPage() {
         item.fingerprint,
       ),
     );
+  const exportVisibleQuestions = () => {
+    if (!visibleItems.length) {
+      setExportStatus(
+        "Generate questions before exporting.",
+      );
+      return;
+    }
+
+    try {
+      const exportItems = visibleItems.map(
+        (item) =>
+          getPrimaryQuestion(
+            item.question,
+          ) as unknown as Parameters<
+            typeof downloadQuestionExport
+          >[0][number],
+      );
+      const result =
+        downloadQuestionExport(
+          exportItems,
+          {
+            format: exportFormat,
+            content: exportContent,
+            includeAnswers:
+              exportIncludeAnswers,
+            includeExplanations:
+              exportIncludeExplanations,
+            includeReasoningGraph:
+              exportIncludeReasoning,
+            includeTraceability:
+              exportIncludeTraceability,
+            includeMetadata: true,
+            language:
+              registryLanguages.join(
+                "+",
+              ),
+            title:
+              "Question Studio Export",
+          },
+        );
+      setExportStatus(
+        `Downloaded ${result.questionCount} question${result.questionCount === 1 ? "" : "s"} as ${exportFormat.toUpperCase()}.`,
+      );
+    } catch (error) {
+      console.error(error);
+      setExportStatus(
+        "Export failed. Check the console for details.",
+      );
+    }
+  };
 
   useEffect(() => {
     if (
@@ -12510,6 +12595,147 @@ export default function AdminGeneratorPage() {
                 <span className="rounded border border-indigo-300/30 px-2 py-1">
                   D duplicate filter
                 </span>
+              </div>
+            </div>
+
+            <div className="border-b border-slate-200 bg-white p-4">
+              <div className="flex flex-wrap items-end gap-3">
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                    Export Format
+                  </label>
+                  <select
+                    value={exportFormat}
+                    onChange={(event) =>
+                      setExportFormat(
+                        event.target
+                          .value as QuestionExportFormat,
+                      )
+                    }
+                    className="mt-1 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800"
+                  >
+                    <option value="pdf">
+                      PDF
+                    </option>
+                    <option value="docx">
+                      DOCX
+                    </option>
+                    <option value="json">
+                      JSON
+                    </option>
+                    <option value="csv">
+                      CSV
+                    </option>
+                    <option value="txt">
+                      TXT
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                    Content
+                  </label>
+                  <select
+                    value={exportContent}
+                    onChange={(event) =>
+                      setExportContent(
+                        event.target
+                          .value as QuestionExportContent,
+                      )
+                    }
+                    className="mt-1 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800"
+                  >
+                    <option value="questions">
+                      Questions only
+                    </option>
+                    <option value="answers">
+                      Questions + Answers
+                    </option>
+                    <option value="explanations">
+                      Questions + Answers + Explanations
+                    </option>
+                    <option value="reasoning">
+                      Questions + Answers + Explanations + Reasoning Graph
+                    </option>
+                    <option value="traceability">
+                      Questions + Full Traceability
+                    </option>
+                  </select>
+                </div>
+                <label className="flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={
+                      exportIncludeAnswers
+                    }
+                    onChange={(event) =>
+                      setExportIncludeAnswers(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Answers
+                </label>
+                <label className="flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={
+                      exportIncludeExplanations
+                    }
+                    onChange={(event) =>
+                      setExportIncludeExplanations(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Explanations
+                </label>
+                <label className="flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={
+                      exportIncludeReasoning
+                    }
+                    onChange={(event) =>
+                      setExportIncludeReasoning(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Reasoning graph
+                </label>
+                <label className="flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={
+                      exportIncludeTraceability
+                    }
+                    onChange={(event) =>
+                      setExportIncludeTraceability(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Traceability
+                </label>
+                <button
+                  type="button"
+                  onClick={
+                    exportVisibleQuestions
+                  }
+                  disabled={!visibleItems.length}
+                  className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                >
+                  Download
+                </button>
+              </div>
+              <div className="mt-2 text-xs text-slate-500">
+                Exports the current visible generated batch, up to 1000 questions, with topic, subtopic, archetype, CP, QL, task kind, difficulty, language, question ID, scenario, validation, seed, and timestamp metadata.
+                {exportStatus ? (
+                  <span className="ml-2 font-medium text-slate-700">
+                    {exportStatus}
+                  </span>
+                ) : null}
               </div>
             </div>
 
