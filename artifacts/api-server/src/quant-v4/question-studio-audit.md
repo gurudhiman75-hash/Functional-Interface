@@ -2,7 +2,7 @@
 
 ## Phase
 
-Phase Z.2 / Z.2A: Question Studio Emergency Repair and UI State Repair
+Phase Z.2 / Z.2A / Z.2B: Question Studio Emergency Repair, UI State Repair, and Batch Rendering Investigation
 
 ## Navigation Bugs Fixed
 
@@ -57,12 +57,34 @@ Question Studio diagnostics now display:
 - question index
 - question count
 - package source
+- per-item seed
+- scenarioId
+- package-owned answer
 
 Package source is reported as:
 
 ```text
 quant-v4-package-runtime
 ```
+
+## Phase Z.2B Batch Investigation
+
+- Quant V4 generation now assigns every batch item a concrete per-item seed.
+- When no seed is supplied by the UI, the engine creates one batch seed and appends the item index.
+- Package runtime receives that item seed directly, so a 5-question batch no longer calls the same deterministic default instance five times.
+- The engine logs each generated package before UI rendering with:
+  - questionId
+  - CP ID
+  - QL ID
+  - ES ID
+  - taskKind
+  - seed
+  - scenarioId
+  - stem
+  - answer
+  - explanation
+- Preview payloads now carry `questionId` and `seed` at the top level and in `debugMetadata`.
+- The Active Question Review diagnostics display question ID, seed, CP, QL, ES, task kind, scenario, archetype, package source, and answer.
 
 ## Verification Steps
 
@@ -75,17 +97,14 @@ quant-v4-package-runtime
 - Confirmed package discovery exposes PCT-001, PCT-002, and RAP-001.
 - Confirmed Quant V4 questions expose four options with exactly one correct answer.
 - Confirmed no active `genericExplanation`, `fallbackExplanation`, `sharedExplanation`, `defaultExplanation`, or `aiExplanation` identifiers remain in the Question Studio / Quant V4 scan.
+- Generated 5 questions each from PCT-001, PCT-002, and RAP-001 through `generateQuestion()` with no explicit seed.
+- Confirmed each 5-question batch produced 5 distinct question IDs and per-item seeds.
+- Confirmed stems, answers, and package-owned explanations varied across generated batches.
+- Confirmed the batch inspection log reports Q1, Q2, Q3, Q4, and Q5 before UI rendering.
 
 ## Build Note
 
-`pnpm --dir artifacts/api-server run build` was attempted. The build stopped on an existing Quant V3 Surds test import resolution error:
-
-```text
-src/quant-v3/tests/ns-surd-001.test.ts:18:7:
-Could not resolve "../topics/NumberSystem/subtopics/SurdsAndRationalization/NS-SURD-001"
-```
-
-The Phase Z.2 Quant V4 engine bundle and 100-question package smoke checks passed.
+`admin-generator.tsx` parsed successfully with the JSX/TypeScript parser during Phase Z.2B. The Quant V4 generation engine bundled successfully with esbuild.
 
 ## Final Verdict
 

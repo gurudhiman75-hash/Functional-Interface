@@ -525,6 +525,7 @@ type GenerationDebugMetadata = {
   scenarioId?: string;
   questionIndex?: number;
   questionCount?: number;
+  questionId?: string;
   packageSource?: string;
 };
 
@@ -561,6 +562,8 @@ type FormulaQuestion = {
   options: string[];
   correct: number;
   explanation: string;
+  questionId?: string | null;
+  seed?: string | null;
   answer?: string | null;
   packageSource?: string | null;
   packageId?: string | null;
@@ -12851,7 +12854,10 @@ export default function AdminGeneratorPage() {
                           Index: {selectedVisibleIndex + 1}/{visibleItems.length}
                         </span>
                         <span className="rounded border bg-white px-2 py-1">
-                          ID: {selectedPrimaryQuestion.debugMetadata?.seed ?? "none"}
+                          ID: {selectedPrimaryQuestion.questionId ?? selectedPrimaryQuestion.debugMetadata?.questionId ?? "none"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          Seed: {selectedPrimaryQuestion.seed ?? selectedPrimaryQuestion.debugMetadata?.seed ?? "none"}
                         </span>
                         <span className="rounded border bg-white px-2 py-1">
                           CP: {selectedPrimaryQuestion.canonicalProblemId ?? selectedPrimaryQuestion.debugMetadata?.canonicalProblemId ?? selectedWorkspaceItem.motif}
@@ -12866,10 +12872,16 @@ export default function AdminGeneratorPage() {
                           Task: {selectedPrimaryQuestion.taskKind ?? selectedPrimaryQuestion.debugMetadata?.taskKind ?? "none"}
                         </span>
                         <span className="rounded border bg-white px-2 py-1">
+                          Scenario: {selectedPrimaryQuestion.scenarioId ?? selectedPrimaryQuestion.debugMetadata?.scenarioId ?? "none"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
                           Archetype: {selectedPrimaryQuestion.packageId ?? selectedPrimaryQuestion.debugMetadata?.selectedArchetype ?? selectedWorkspaceItem.archetype}
                         </span>
                         <span className="rounded border bg-white px-2 py-1">
                           Source: {selectedPrimaryQuestion.packageSource ?? selectedPrimaryQuestion.debugMetadata?.packageSource ?? selectedPrimaryQuestion.debugSource ?? "unknown"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          Answer: {selectedPrimaryQuestion.answer ?? selectedPrimaryQuestion.options?.[selectedPrimaryQuestion.correct] ?? "none"}
                         </span>
                       </div>
                     ) : null}

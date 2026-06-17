@@ -372,6 +372,7 @@ export function toQuestionStudioPreview(
     packageDefinition?: QuantV4PackageDefinition;
     questionIndex?: number;
     questionCount?: number;
+    seed?: string;
   } = {},
 ) {
   const explanationLines = Array.isArray(pkg.explanation?.lines)
@@ -413,6 +414,8 @@ export function toQuestionStudioPreview(
     semanticMetadata: pkg.traceability,
     traceability: pkg.traceability,
     validation: pkg.validation,
+    questionId: pkg.questionId,
+    seed: context.seed ?? pkg.questionId,
     answer: pkg.answer,
     packageSource: "quant-v4-package-runtime",
     packageId: pkg.archetypeId,
@@ -437,8 +440,9 @@ export function toQuestionStudioPreview(
       scenarioId,
       questionIndex: context.questionIndex,
       questionCount: context.questionCount,
+      questionId: pkg.questionId,
       packageSource: "quant-v4-package-runtime",
-      seed: pkg.questionId,
+      seed: context.seed ?? pkg.questionId,
       reasoningGraph: pkg.reasoningGraph,
       semanticMetadata: pkg.traceability,
       validatorReports: pkg.validation,
@@ -460,18 +464,55 @@ export async function generateQuestion(
   );
   const language = request.language ?? "en";
   const difficultyBand = normalizeDifficulty(request.difficulty);
+  const canonicalProblemId = resolveCpId(pkg, request);
+  const batchSeed =
+    request.seed ??
+    [
+      "quant-v4",
+      pkg.packageId,
+      canonicalProblemId,
+      Date.now(),
+      Math.random().toString(36).slice(2),
+    ].join(":");
 
   const results = [];
   for (let i = 0; i < count; i++) {
     if (i > 0 && i % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
-    const seed = request.seed ? `${request.seed}:${i}` : undefined;
-    const questionPackage = await pkg.run(resolveCpId(pkg, request), {
+    const seed = `${batchSeed}:${i}`;
+    const questionPackage = await pkg.run(canonicalProblemId, {
       language,
       seed,
       questionLanguageId: request.questionLanguageId,
       difficulty: difficultyBand,
+    });
+    const explanationLines = Array.isArray(questionPackage.explanation?.lines)
+      ? questionPackage.explanation.lines
+      : [];
+    const traceability = questionPackage.traceability ?? {};
+    const parameters = questionPackage.parameters ?? {};
+    const scenarioId =
+      traceability.scenarioId ??
+      traceability.scenario ??
+      parameters.scenarioId ??
+      parameters.semanticContext?.scenario;
+    const taskKind = traceability.taskKind ?? parameters.taskKind;
+
+    console.info("[quant-v4:batch-item]", {
+      index: i + 1,
+      count,
+      packageId: pkg.packageId,
+      questionId: questionPackage.questionId,
+      canonicalProblemId: questionPackage.canonicalProblemId,
+      questionLanguageId: questionPackage.questionLanguageId,
+      explanationId: questionPackage.explanationId,
+      taskKind,
+      seed,
+      scenarioId,
+      stem: questionPackage.stem,
+      answer: questionPackage.answer,
+      explanation: explanationLines.join("\n"),
     });
 
     results.push({
@@ -481,6 +522,7 @@ export async function generateQuestion(
         packageDefinition: pkg,
         questionIndex: i + 1,
         questionCount: count,
+        seed,
       }),
     });
   }
@@ -488,7 +530,7 @@ export async function generateQuestion(
   return {
     generationContext: {
       generationDomain: "quant-v4",
-      seed: request.seed ?? "quant-v4",
+      seed: batchSeed,
       timestamp: Date.now(),
     },
     questionPackages: results.map((item) => item.questionPackage),
