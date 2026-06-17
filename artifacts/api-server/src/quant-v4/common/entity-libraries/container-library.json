@@ -1,0 +1,23 @@
+[
+  {"id": "water_bottle", "en": "Water Bottle", "hi": "पानी की बोतल", "pa": "ਪਾਣੀ ਦੀ ਬੋਤਲ"},
+  {"id": "tiffin_box", "en": "Tiffin Box", "hi": "टिफिन बॉक्स", "pa": "ਟਿਫਨ ਬਾਕਸ"},
+  {"id": "medicine_bottle", "en": "Medicine Bottle", "hi": "दवा की बोतल", "pa": "ਦਵਾਈ ਦੀ ਬੋਤਲ"},
+  {"id": "drip_bag", "en": "Drip Bag", "hi": "ड्रिप बैग", "pa": "ਡਰਿਪ ਬੈਗ"},
+  {"id": "cash_box", "en": "Cash Box", "hi": "नकद बॉक्स", "pa": "ਕੈਸ਼ ਬਾਕਸ"},
+  {"id": "wallet", "en": "Wallet", "hi": "बटुआ", "pa": "ਬਟੂਆ"},
+  {"id": "file_folder", "en": "File Folder", "hi": "फ़ाइल फ़ोल्डर", "pa": "ਫਾਈਲ ਫੋਲਡਰ"},
+  {"id": "briefcase", "en": "Briefcase", "hi": "ब्रीफकेस", "pa": "ਬ੍ਰੀਫਕੇਸ"},
+  {"id": "shopping_bag", "en": "Shopping Bag", "hi": "शॉपिंग बैग", "pa": "ਸ਼ਾਪਿੰਗ ਬੈਗ"},
+  {"id": "crate", "en": "Crate", "hi": "क्रेट", "pa": "ਕਰੇਟ"},
+  {"id": "box", "en": "Box", "hi": "डिब्बा", "pa": "ਡੱਬਾ"},
+  {"id": "cupboard", "en": "Cupboard", "hi": "अलमारी", "pa": "ਅਲਮਾਰੀ"},
+  {"id": "kit_bag", "en": "Kit Bag", "hi": "किट बैग", "pa": "ਕਿੱਟ ਬੈਗ"},
+  {"id": "suitcase", "en": "Suitcase", "hi": "सूटकेस", "pa": "ਸੂਟਕੇਸ"},
+  {"id": "trunk", "en": "Trunk", "hi": "ट्रंक", "pa": "ਟਰੰਕ"},
+  {"id": "container", "en": "Container", "hi": "कंटेनर", "pa": "ਕੰਟੇਨਰ"},
+  {"id": "sack", "en": "Sack", "hi": "बोरी", "pa": "ਬੋਰੀ"},
+  {"id": "basket", "en": "Basket", "hi": "टोकरी", "pa": "ਟੋਕਰੀ"},
+  {"id": "pitcher", "en": "Pitcher", "hi": "घड़ा", "pa": "ਘੜਾ"},
+  {"id": "drum", "en": "Drum", "hi": "ड्रम", "pa": "ਡਰੱਮ"},
+  {"id": "pallet", "en": "Pallet", "hi": "पैलेट", "pa": "ਪੈਲੇਟ"}
+]

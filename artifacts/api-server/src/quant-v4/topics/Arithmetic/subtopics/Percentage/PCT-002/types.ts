@@ -78,6 +78,21 @@ export interface Pct002ExplanationLibrary {
 
 export type Pct002Variables = Record<string, number | string>;
 
+export interface Pct002SemanticEntity {
+  id: string;
+  en: string;
+  hi: string;
+  pa: string;
+  gender?: string;
+  numberType?: string;
+  frequency?: string;
+}
+
+export interface Pct002SemanticContext {
+  scenario: string;
+  entities: Record<string, Pct002SemanticEntity>;
+}
+
 export interface Pct002Parameters {
   archetypeId: typeof PCT_002_ARCHETYPE_ID;
   canonicalProblemId: Pct002CanonicalProblemId;
@@ -90,10 +105,12 @@ export interface Pct002Parameters {
   answerType: Pct002AnswerType;
   requiredVariables: string[];
   variables: Pct002Variables;
+  semanticContext?: Pct002SemanticContext;
   sourceTrace: {
     questionLanguageSource: string;
     explanationSource: string;
     variableRangeSource: string;
+    semanticSource?: string;
   };
 }
 
@@ -140,7 +157,7 @@ export interface Pct002QuestionPackage {
   solver: Pct002SolverResult;
   reasoningGraph: Pct002ReasoningGraph;
   explanation: Pct002Explanation;
-  traceability: Record<string, string | number | boolean>;
+  traceability: Record<string, unknown>;
   validation: Pct002ValidationResult;
   mathJax: Record<string, string>;
 }

@@ -1,0 +1,17 @@
+{
+  "id": "factory",
+  "name": { "en": "Factory", "hi": "कारखाना", "pa": "ਫੈਕਟਰੀ" },
+  "allowedGroups": ["workers", "labourers", "supervisors", "engineers"],
+  "allowedProfessions": ["worker", "engineer", "supervisor", "manager", "mechanic"],
+  "allowedPlaces": ["assembly_line", "warehouse", "workshop", "loading_dock"],
+  "allowedObjects": ["machine", "tool", "gear", "helmet", "conveyor_belt"],
+  "allowedSubjects": ["engineering", "production"],
+  "allowedBuildings": ["factory_shed", "warehouse"],
+  "allowedAnimals": [],
+  "allowedContainers": ["drum", "crate", "pallet"],
+  "allowedVehicles": ["forklift", "truck"],
+  "allowedFoods": ["canteen_meals"],
+  "allowedCommodities": ["raw_material", "steel", "plastic"],
+  "forbiddenProfessions": ["doctor", "teacher", "farmer"],
+  "tags": ["industrial", "production"]
+}

@@ -1,5 +1,5 @@
 import { renderPct001Explanation } from "./explanation-renderer";
-import { getQuestionEntry, renderTemplate } from "./library";
+import { buildPct001SemanticTrace, getQuestionEntry, renderTemplate } from "./library";
 import { generatePct001Parameters, type Pct001ParameterInput } from "./parameter-generator";
 import { buildPct001ReasoningGraph } from "./reasoning-graph";
 import { solvePct001 } from "./solver";
@@ -12,6 +12,7 @@ export function runPct001Pipeline(cpId: Pct001CanonicalProblemId, input: Pct001P
   const reasoningGraph = buildPct001ReasoningGraph(parameters, solver);
   const explanation = renderPct001Explanation(parameters, solver, reasoningGraph);
   const stem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
+  const semanticTrace = buildPct001SemanticTrace(parameters.semanticContext);
   const basePackage = {
     archetypeId: PCT_001_ARCHETYPE_ID,
     canonicalProblemId: cpId,
@@ -34,6 +35,12 @@ export function runPct001Pipeline(cpId: Pct001CanonicalProblemId, input: Pct001P
       difficultyBand: parameters.difficultyBand,
       taskKind: parameters.taskKind,
       answerType: parameters.answerType,
+      scenario: semanticTrace.scenarioId,
+      scenarioId: semanticTrace.scenarioId,
+      semanticDomain: semanticTrace.semanticDomain,
+      entityIds: semanticTrace.entityIds,
+      frequencyMetadata: semanticTrace.frequencyMetadata,
+      grammarMetadata: semanticTrace.grammarMetadata,
       graphId: reasoningGraph.graphId,
       answer: solver.answer,
     },

@@ -1,0 +1,10 @@
+{
+  "allowed_pairings": {
+    "father": ["mother", "son", "daughter"],
+    "mother": ["father", "son", "daughter"],
+    "boys": ["girls", "teachers"],
+    "milk": ["water", "juice"],
+    "coin_1": ["coin_2", "coin_5", "coin_10"],
+    "men": ["women"]
+  }
+}

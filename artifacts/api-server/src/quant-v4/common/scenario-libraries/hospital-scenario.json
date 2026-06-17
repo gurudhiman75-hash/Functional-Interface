@@ -1,0 +1,17 @@
+{
+  "id": "hospital",
+  "name": { "en": "Hospital", "hi": "अस्पताल", "pa": "ਹਸਪਤਾਲ" },
+  "allowedGroups": ["patients", "doctors", "nurses", "staff", "ward_boys"],
+  "allowedProfessions": ["doctor", "nurse", "surgeon", "pharmacist", "radiologist"],
+  "allowedPlaces": ["ward", "operation_theater", "pharmacy", "reception", "clinic"],
+  "allowedObjects": ["medicine", "stretcher", "syringe", "thermometer", "bandage", "scalpel"],
+  "allowedSubjects": ["medicine", "surgery", "anatomy"],
+  "allowedBuildings": ["hospital_building", "clinic"],
+  "allowedAnimals": [],
+  "allowedContainers": ["medicine_bottle", "drip_bag"],
+  "allowedVehicles": ["ambulance"],
+  "allowedFoods": ["diet_food", "soup", "juice"],
+  "allowedCommodities": [],
+  "forbiddenProfessions": ["teacher", "farmer", "engineer", "clerk"],
+  "tags": ["healthcare", "medical"]
+}

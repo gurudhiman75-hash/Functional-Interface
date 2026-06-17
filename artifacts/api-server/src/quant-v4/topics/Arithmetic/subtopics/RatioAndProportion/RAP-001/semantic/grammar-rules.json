@@ -1,0 +1,30 @@
+{
+  "hi": {
+    "verbs": {
+      "save": {
+        "male_singular": "बचाता है",
+        "female_singular": "बचाती है",
+        "plural": "बचाते हैं"
+      },
+      "do": {
+        "male_singular": "करता है",
+        "female_singular": "करती है",
+        "plural": "करते हैं"
+      }
+    }
+  },
+  "pa": {
+    "verbs": {
+      "save": {
+        "male_singular": "ਬਚਾਉਂਦਾ ਹੈ",
+        "female_singular": "ਬਚਾਉਂਦੀ ਹੈ",
+        "plural": "ਬਚਾਉਂਦੇ ਹਨ"
+      },
+      "do": {
+        "male_singular": "ਕਰਦਾ ਹੈ",
+        "female_singular": "ਕਰਦੀ ਹੈ",
+        "plural": "ਕਰਦੇ ਹਨ"
+      }
+    }
+  }
+}

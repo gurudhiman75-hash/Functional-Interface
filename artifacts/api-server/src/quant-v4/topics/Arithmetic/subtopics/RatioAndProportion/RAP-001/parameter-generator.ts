@@ -1,6 +1,6 @@
 import distributionTargets from "./distribution-targets.library.json" assert { type: "json" };
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
-import { getAnswerType, getCommonQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind } from "./library";
+import { getAnswerType, getCommonQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, RAP_001_LIBRARY_REGISTRY } from "./library";
 import { gcdMany, ratioFromDecimals, ratioFromFractions, simplifyRatio, stableBucket } from "./math";
 import {
   RAP_001_ARCHETYPE_ID,
@@ -11,18 +11,13 @@ import {
   type Rap001Parameters,
   type Rap001TaskKind,
   type Rap001Variables,
+  type Rap001SemanticContext,
+  type Rap001SemanticEntity,
 } from "./types";
 
 type VariableRangeMap = typeof variableRanges.variables;
 type RangeEntry = VariableRangeMap[string];
 
-const PERSON_NAMES = ["Aman", "Bina", "Charu", "Deepak", "Esha", "Farhan", "Gita", "Harsh"];
-const GROUP_NAMES = ["class", "team", "hostel", "batch", "club", "group"];
-const CONTEXT_NAMES = ["class", "hostel", "team", "society", "section"];
-const SUBJECT_NAMES = ["Maths", "Science", "English", "History", "Physics", "Biology"];
-const ITEM_NAMES = ["apples", "oranges", "bananas", "bags", "boxes", "packets"];
-const LIQUID_NAMES = ["milk", "water", "juice", "oil", "acid", "syrup"];
-const MIXTURE_TYPES = ["mixture", "solution", "blend", "alloy"];
 const VARIABLE_SYMBOLS = ["x", "y", "z", "p", "q"];
 
 export interface Rap001ParameterInput {
@@ -34,6 +29,17 @@ export interface Rap001ParameterInput {
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
+}
+
+function pickWeighted<T>(items: readonly T[], getWeight: (item: T) => number, seed: string): T {
+  const weights = items.map(getWeight);
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  let threshold = (stableBucket(seed, 10000) / 10000) * totalWeight;
+  for (let i = 0; i < items.length; i++) {
+    threshold -= weights[i]!;
+    if (threshold <= 0) return items[i]!;
+  }
+  return items[0]!;
 }
 
 function pickInt(minValue: number, maxValue: number, seed: string, step = 1) {
@@ -57,34 +63,96 @@ function pickRangeValue(name: string, seed: string) {
   return Number((minValue + stableBucket(seed, slots) * step).toFixed(1));
 }
 
-function entityValue(name: string, seed: string): string {
-  if (name.startsWith("person")) return pick(PERSON_NAMES, `${seed}:${name}`);
-  if (name === "groupName") return pick(GROUP_NAMES, `${seed}:${name}`);
-  if (name === "contextName") return pick(CONTEXT_NAMES, `${seed}:${name}`);
-  if (name.startsWith("sub")) return pick(SUBJECT_NAMES, `${seed}:${name}`);
-  if (name.startsWith("item")) return pick(ITEM_NAMES, `${seed}:${name}`);
-  if (name.startsWith("liquid")) return pick(LIQUID_NAMES, `${seed}:${name}`);
-  if (name === "mixtureType") return pick(MIXTURE_TYPES, `${seed}:${name}`);
+function semanticDomainForVariable(name: string, scenario = "family") {
+  if (name.startsWith("liquid") || name === "liquidA" || name === "liquidB" || name === "mixtureType") return "mixtures";
+  if (name.startsWith("sub")) return "marks";
+  if (name.startsWith("group") || name === "contextName") return scenario === "mixtures" ? "mixtures" : scenario === "family" ? "school" : scenario;
+  if (name.startsWith("item")) return "coins";
+  if (name.startsWith("person") || name === "targetPerson") return scenario === "family" ? "family" : "school";
+  return scenario;
+}
+
+function semanticEntities(domainName: string): Rap001SemanticEntity[] {
+  const domain = RAP_001_LIBRARY_REGISTRY.semantic.library.domains[domainName as keyof typeof RAP_001_LIBRARY_REGISTRY.semantic.library.domains] as
+    | { entities: Rap001SemanticEntity[] }
+    | undefined;
+  return domain?.entities ?? [];
+}
+
+function findSemanticEntity(id: string): Rap001SemanticEntity | undefined {
+  for (const domainName of Object.keys(RAP_001_LIBRARY_REGISTRY.semantic.library.domains)) {
+    const found = semanticEntities(domainName).find((entity) => entity.id === id);
+    if (found) return found;
+  }
+  return undefined;
+}
+
+function attachVariableEntities(context: Rap001SemanticContext, variables: Rap001Variables): Rap001SemanticContext {
+  const entities: Record<string, Rap001SemanticEntity> = {};
+  for (const [name, value] of Object.entries(variables)) {
+    if (name === "targetPerson") continue;
+    if (typeof value !== "string") continue;
+    const entity = findSemanticEntity(value);
+    if (entity) entities[name] = entity;
+  }
+  return { ...context, entities: Object.keys(entities).length ? entities : context.entities };
+}
+
+function entityWeight(entity: Rap001SemanticEntity) {
+  const freq = RAP_001_LIBRARY_REGISTRY.semantic.frequencyModel.assignments[entity.id] ?? entity.frequency ?? "common";
+  return RAP_001_LIBRARY_REGISTRY.semantic.frequencyModel.probabilities[freq as keyof typeof RAP_001_LIBRARY_REGISTRY.semantic.frequencyModel.probabilities] ?? 0.1;
+}
+
+function compatibleEntities(domainName: string, primaryId: string, exclusions: readonly string[]) {
+  const candidates = semanticEntities(domainName).filter((entity) => entity.id !== primaryId && !exclusions.includes(entity.id));
+  const allowed = RAP_001_LIBRARY_REGISTRY.semantic.compatibilityMap.allowed_pairings[primaryId as keyof typeof RAP_001_LIBRARY_REGISTRY.semantic.compatibilityMap.allowed_pairings];
+  if (!allowed?.length) return candidates;
+  const preferred = candidates.filter((entity) => (allowed as readonly string[]).includes(entity.id));
+  return preferred.length ? preferred : candidates;
+}
+
+function semanticEntityValue(name: string, seed: string, scenario = "family", exclusions: readonly string[] = []): string {
+  const domainName = semanticDomainForVariable(name, scenario);
+  const entities = semanticEntities(domainName).filter((entity) => !exclusions.includes(entity.id));
+  if (entities.length) return pickWeighted(entities, entityWeight, `${seed}:${name}:${domainName}`).id;
+  if (name === "mixtureType") return "mixture";
   if (name === "varX" || name === "varY") return pick(VARIABLE_SYMBOLS, `${seed}:${name}`);
   return name;
 }
 
-function uniquePeople(count: number, seed: string) {
-  const names = [...PERSON_NAMES];
+function uniqueEntityIds(variableName: string, count: number, seed: string, scenario = "family") {
   const chosen: string[] = [];
   for (let index = 0; index < count; index += 1) {
-    const pickIndex = stableBucket(`${seed}:${index}`, names.length);
-    chosen.push(names.splice(pickIndex, 1)[0]!);
+    chosen.push(semanticEntityValue(variableName, `${seed}:${index}`, scenario, chosen));
   }
   return chosen;
 }
 
-function buildBaseVariables(requiredVariables: readonly string[], seed: string): Rap001Variables {
+function uniqueIdsForVariables(variableNames: readonly string[], seed: string, scenario = "family", initialExclusions: readonly string[] = []) {
+  const exclusionsByDomain = new Map<string, string[]>();
+  return variableNames.map((variableName, index) => {
+    const domain = semanticDomainForVariable(variableName, scenario);
+    const exclusions = exclusionsByDomain.get(domain) ?? [...initialExclusions];
+    let id = semanticEntityValue(variableName, `${seed}:${variableName}:${index}`, scenario, exclusions);
+    if (index > 0) {
+      const last = exclusions[exclusions.length - 1];
+      if (last) {
+        const compatible = compatibleEntities(domain, last, exclusions);
+        if (compatible.length) id = pickWeighted(compatible, entityWeight, `${seed}:${variableName}:compatible:${index}`).id;
+      }
+    }
+    exclusions.push(id);
+    exclusionsByDomain.set(domain, exclusions);
+    return id;
+  });
+}
+
+function buildBaseVariables(requiredVariables: readonly string[], seed: string, scenario = "family"): Rap001Variables {
   return Object.fromEntries(
     requiredVariables.map((name, index) => {
       const rangeValue = pickRangeValue(name, `${seed}:${index}:${name}`);
       if (rangeValue !== undefined) return [name, rangeValue];
-      return [name, entityValue(name, `${seed}:${index}`)];
+      return [name, semanticEntityValue(name, `${seed}:${index}`, scenario)];
     }),
   );
 }
@@ -118,7 +186,7 @@ function ratioUnits(seed: string, count: number, maxValue = 8) {
   return Array.from({ length: count }, (_value, index) => pickInt(1, maxValue, `${seed}:${index}`));
 }
 
-function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables, seed: string): Rap001Variables {
+function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables, seed: string, scenario = "family"): Rap001Variables {
   const output = { ...variables };
 
   if (taskKind === "simpleLinkage") {
@@ -127,7 +195,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.ratioB1 = simplifyRatio([a, b])[1];
     output.ratioB2 = simplifyRatio([b, c])[0];
     output.ratioC2 = simplifyRatio([b, c])[1];
-    const [personA, personB, personC] = uniquePeople(3, `${seed}:people`);
+    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, scenario);
     output.personA = personA;
     output.personB = personB;
     output.personC = personC;
@@ -146,7 +214,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
 
   if (taskKind === "ratioTreeLinkage") {
     const [a, b, c, d] = ratioUnits(`${seed}:tree`, 4);
-    const [personA, personB, personC, personD] = uniquePeople(4, `${seed}:people`);
+    const [personA, personB, personC, personD] = uniqueEntityIds("personA", 4, `${seed}:people`, scenario);
     const ab = simplifyRatio([a, b]);
     const bc = simplifyRatio([b, c]);
     const cd = simplifyRatio([c, d]);
@@ -168,8 +236,8 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.valueA = ratioA * unit;
-    output.groupName = pick(GROUP_NAMES, `${seed}:groupName`);
-    const [personA, personB] = pick([["boys", "girls"], ["cats", "dogs"], ["pens", "pencils"]], `${seed}:pair`);
+    output.groupName = semanticEntityValue("groupName", `${seed}:groupName`, scenario);
+    const [personA, personB] = uniqueIdsForVariables(["personA", "personB"], `${seed}:pair`, scenario, [String(output.groupName)]);
     output.personA = personA;
     output.personB = personB;
   }
@@ -185,7 +253,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const [ratioA, ratioB, ratioC] = ratioUnits(`${seed}:partition`, 3);
     const sum = ratioA + ratioB + ratioC;
     const unit = pickInt(20, 200, `${seed}:unit`, 10);
-    const [personA, personB, personC] = uniquePeople(3, `${seed}:people`);
+    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, scenario);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.ratioC = ratioC;
@@ -201,7 +269,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const ratioB = pickInt(2, 7, `${seed}:ratioB`);
     const ratioC = pickInt(1, ratioA - 1, `${seed}:ratioC`);
     const unit = pickInt(20, 200, `${seed}:unit`, 10);
-    const [personA, personB, personC] = uniquePeople(3, `${seed}:people`);
+    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, scenario);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.ratioC = ratioC;
@@ -216,7 +284,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const ratioB = pickInt(2, 7, `${seed}:ratioB`);
     const ratioC = pickInt(1, ratioA - 1, `${seed}:ratioC`);
     const unit = pickInt(20, 200, `${seed}:unit`, 10);
-    const [personA, personB, personC] = uniquePeople(3, `${seed}:people`);
+    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, scenario);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.ratioC = ratioC;
@@ -233,20 +301,19 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.ratioExp = ratioExp;
     output.ratioSav = ratioSav;
     output.totalSalary = (ratioExp + ratioSav) * unit;
-    output.personA = pick(PERSON_NAMES, `${seed}:personA`);
+    output.personA = semanticEntityValue("personA", `${seed}:personA`, scenario);
   }
 
   if (taskKind === "twoStateAddition") {
     const ratioA = pickInt(1, 6, `${seed}:ratioA`);
     const ratioB = pickInt(2, 7, `${seed}:ratioB`);
     const unit = pickInt(2, 10, `${seed}:unit`);
-    const addedCount = pickInt(1, 20, `${seed}:addedCount`);
+    const addedCount = pickInt(2, 20, `${seed}:addedCount`);
     const initialA = ratioA * unit;
     const initialB = ratioB * unit;
     const finalRatio = simplifyRatio([initialA + addedCount, initialB]);
-    output.contextName = pick(CONTEXT_NAMES, `${seed}:contextName`);
-    output.groupA = pick(["boys", "girls", "students", "workers"], `${seed}:groupA`);
-    output.groupB = pick(["girls", "boys", "teachers", "employees"], `${seed}:groupB`);
+    output.contextName = semanticEntityValue("contextName", `${seed}:contextName`, scenario);
+    [output.groupA, output.groupB] = uniqueIdsForVariables(["groupA", "groupB"], `${seed}:groups`, scenario, [String(output.contextName)]);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.addedCount = addedCount;
@@ -259,11 +326,10 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const ratioB = pickInt(2, 7, `${seed}:ratioB`);
     const unit = pickInt(3, 12, `${seed}:unit`);
     const maxRemoved = ratioA * unit - 1;
-    const removedCount = pickInt(1, Math.max(1, Math.min(20, maxRemoved)), `${seed}:removedCount`);
+    const removedCount = pickInt(2, Math.max(2, Math.min(20, maxRemoved)), `${seed}:removedCount`);
     const finalRatio = simplifyRatio([ratioA * unit - removedCount, ratioB * unit]);
-    output.contextName = pick(CONTEXT_NAMES, `${seed}:contextName`);
-    output.groupA = pick(["boys", "girls", "players", "workers"], `${seed}:groupA`);
-    output.groupB = pick(["girls", "boys", "coaches", "staff"], `${seed}:groupB`);
+    output.contextName = semanticEntityValue("contextName", `${seed}:contextName`, scenario);
+    [output.groupA, output.groupB] = uniqueIdsForVariables(["groupA", "groupB"], `${seed}:groups`, scenario, [String(output.contextName)]);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.removedCount = removedCount;
@@ -275,7 +341,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const ratioA = pickInt(2, 8, `${seed}:ratioA`);
     const ratioB = pickInt(ratioA + 1, 10, `${seed}:ratioB`);
     const unit = pickInt(2, 10, `${seed}:unit`);
-    const transferredCount = pickInt(1, 20, `${seed}:transferredCount`);
+    const transferredCount = pickInt(2, 20, `${seed}:transferredCount`);
     const finalRatio = simplifyRatio([ratioA * unit + transferredCount, ratioB * unit + transferredCount]);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
@@ -291,8 +357,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const expRatioB = pickInt(expRatioA + 1, 6, `${seed}:expRatioB`);
     const pxMinusQx = incomeRatioA * expRatioB - incomeRatioB * expRatioA;
     const savingsUnit = pickInt(100, 500, `${seed}:savingsUnit`, 100);
-    output.personA = pick(PERSON_NAMES, `${seed}:personA`);
-    output.personB = pick(PERSON_NAMES.filter((name) => name !== output.personA), `${seed}:personB`);
+    [output.personA, output.personB] = uniqueIdsForVariables(["personA", "personB"], `${seed}:people`, scenario);
     output.incomeRatioA = incomeRatioA;
     output.incomeRatioB = incomeRatioB;
     output.expRatioA = expRatioA;
@@ -304,8 +369,8 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const ratioA = pickInt(2, 7, `${seed}:ratioA`);
     const ratioB = pickInt(2, 7, `${seed}:ratioB`);
     const unit = pickInt(2, 10, `${seed}:unit`);
-    const addedCount = pickInt(1, 15, `${seed}:addedCount`);
-    const removedCount = pickInt(1, Math.max(1, ratioB * unit - 1), `${seed}:removedCount`);
+    const addedCount = pickInt(2, 15, `${seed}:addedCount`);
+    const removedCount = pickInt(2, Math.max(2, ratioB * unit - 1), `${seed}:removedCount`);
     const finalRatio = simplifyRatio([ratioA * unit + addedCount, ratioB * unit - removedCount]);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
@@ -401,9 +466,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const countB = pickInt(1, 5, `${seed}:countB`);
     const countC = pickInt(1, 5, `${seed}:countC`);
     const unit = pickInt(1, 10, `${seed}:unit`);
-    output.itemA = pick(ITEM_NAMES, `${seed}:itemA`);
-    output.itemB = pick(ITEM_NAMES.filter((item) => item !== output.itemA), `${seed}:itemB`);
-    output.itemC = pick(ITEM_NAMES.filter((item) => item !== output.itemA && item !== output.itemB), `${seed}:itemC`);
+    [output.itemA, output.itemB, output.itemC] = uniqueIdsForVariables(["itemA", "itemB", "itemC"], `${seed}:items`, scenario);
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.ratioC = ratioC;
@@ -419,9 +482,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const w2 = pickInt(1, 4, `${seed}:w2`);
     const w3 = pickInt(1, 4, `${seed}:w3`);
     const unit = pickInt(2, 12, `${seed}:unit`);
-    output.sub1 = "Maths";
-    output.sub2 = "Science";
-    output.sub3 = "English";
+    [output.sub1, output.sub2, output.sub3] = uniqueIdsForVariables(["sub1", "sub2", "sub3"], `${seed}:subjects`, scenario);
     output.ratio1 = ratio1;
     output.ratio2 = ratio2;
     output.ratio3 = ratio3;
@@ -436,8 +497,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const unit = pickInt(2, 10, `${seed}:unit`);
     const addedAmount = pickInt(1, 20, `${seed}:addedAmount`);
     const finalRatio = simplifyRatio([ratio1 * unit + addedAmount, ratio2 * unit]);
-    output.liquid1 = "milk";
-    output.liquid2 = "water";
+    [output.liquid1, output.liquid2] = uniqueIdsForVariables(["liquid1", "liquid2"], `${seed}:liquids`, scenario);
     output.ratio1 = ratio1;
     output.ratio2 = ratio2;
     output.addedAmount = addedAmount;
@@ -454,8 +514,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const initial2 = ratio2 * unit;
     const finalRatio = simplifyRatio([initial1, initial2 + extra]);
     output.totalVolume = totalVolume;
-    output.liquid1 = "acid";
-    output.liquid2 = "water";
+    [output.liquid1, output.liquid2] = uniqueIdsForVariables(["liquid1", "liquid2"], `${seed}:liquids`, scenario);
     output.ratio1 = ratio1;
     output.ratio2 = ratio2;
     output.finalRatio1 = finalRatio[0];
@@ -468,9 +527,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const addedAmount = pickInt(1, 20, `${seed}:addedAmount`);
     const finalRatio = simplifyRatio([ratio1 * unit, ratio2 * unit + addedAmount, ratio3 * unit]);
     output.mixtureType = "solution";
-    output.liquid1 = "acid";
-    output.liquid2 = "water";
-    output.liquid3 = "syrup";
+    [output.liquid1, output.liquid2, output.liquid3] = uniqueIdsForVariables(["liquid1", "liquid2", "liquid3"], `${seed}:liquids`, scenario);
     output.ratio1 = ratio1;
     output.ratio2 = ratio2;
     output.ratio3 = ratio3;
@@ -485,8 +542,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const removedVolume1 = pickInt(5, Math.floor(initialVolume / 3), `${seed}:removed1`, 5);
     const removedVolume2 = pickInt(5, Math.floor(initialVolume / 3), `${seed}:removed2`, 5);
     output.initialVolume = initialVolume;
-    output.liquidA = "milk";
-    output.liquidB = "water";
+    [output.liquidA, output.liquidB] = uniqueIdsForVariables(["liquidA", "liquidB"], `${seed}:liquids`, scenario);
     output.removedVolume1 = removedVolume1;
     output.removedVolume2 = removedVolume2;
   }
@@ -504,6 +560,44 @@ export function selectQuestionLanguageId(cpId: Rap001CanonicalProblemId, languag
   return selectQuestionLanguageIdForDifficulty(cpId, resolvedDifficulty, `${seed}:${language}`);
 }
 
+function selectSemanticContext(cpId: Rap001CanonicalProblemId, seed: string): Rap001SemanticContext {
+  const scenario = RAP_001_LIBRARY_REGISTRY.semantic.scenarioMap[cpId] || "family";
+  const domain = RAP_001_LIBRARY_REGISTRY.semantic.library.domains[scenario];
+  const freqModel = RAP_001_LIBRARY_REGISTRY.semantic.frequencyModel;
+
+  const getWeight = (entity: any) => {
+    const freq = freqModel.assignments[entity.id] || entity.frequency || "common";
+    return freqModel.probabilities[freq] || 0.1;
+  };
+
+  const entities: Record<string, any> = {};
+  const availableEntities = domain.entities;
+
+  // Pick primary entity
+  const primary = pickWeighted(availableEntities, getWeight, `${seed}:primary`);
+  entities.primary = primary;
+
+  // Pick secondary based on compatibility
+  const allowed = RAP_001_LIBRARY_REGISTRY.semantic.compatibilityMap.allowed_pairings[primary.id];
+  let secondaryCandidates = availableEntities.filter((e: any) => e.id !== primary.id);
+  if (allowed && allowed.length > 0) {
+    const preferred = secondaryCandidates.filter((e: any) => allowed.includes(e.id));
+    if (preferred.length > 0) secondaryCandidates = preferred;
+  }
+
+  if (secondaryCandidates.length > 0) {
+    entities.secondary = pickWeighted(secondaryCandidates, getWeight, `${seed}:secondary`);
+  }
+
+  // Pick third if needed (e.g. for three component mixtures or partition)
+  const others = availableEntities.filter((e: any) => e.id !== primary.id && e.id !== entities.secondary?.id);
+  if (others.length > 0) {
+    entities.third = pickWeighted(others, getWeight, `${seed}:third`);
+  }
+
+  return { scenario, entities };
+}
+
 export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001Parameters {
   const language = input.language ?? "en";
   const seed = input.seed ?? `RAP-001:${cpId}`;
@@ -511,9 +605,11 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, `${seed}:ql`, difficultyBand);
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
+  const semanticContext = selectSemanticContext(cpId, seed);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const baseVariables = buildBaseVariables(requiredVariables, seed);
-  const variables = constrainVariables(taskKind, baseVariables, seed);
+  const baseVariables = buildBaseVariables(requiredVariables, seed, semanticContext.scenario);
+  const variables = constrainVariables(taskKind, baseVariables, seed, semanticContext.scenario);
+  const enrichedSemanticContext = attachVariableEntities(semanticContext, variables);
 
   return {
     archetypeId: RAP_001_ARCHETYPE_ID,
@@ -527,10 +623,12 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
     answerType,
     requiredVariables,
     variables,
+    semanticContext: enrichedSemanticContext,
     sourceTrace: {
       questionLanguageSource: `question-language.${language}.json`,
       explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
+      semanticSource: "ratio-semantic-library.json",
     },
   };
 }

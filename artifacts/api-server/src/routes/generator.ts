@@ -72,6 +72,10 @@ import {
 import {
   parseSeatingGenerationBody,
 } from "../lib/parse-seating-generation";
+import {
+  generateQuestion as generateQuantV4Questions,
+  listQuantV4Packages,
+} from "../quant-v4/generation-engine";
 
 const router = Router();
 const REGISTERED_PATTERNS =
@@ -86,73 +90,68 @@ router.post(
     try {
       const {
         patternId,
+        packageId,
+        archetypeId,
+        canonicalProblemId,
+        cpId,
         count = 5,
         languages,
         seed,
-        examProfile,
+        difficulty,
         targetDifficulty,
-        difficultyTolerance,
-        difficultyDistribution,
-        targetAverageDifficulty,
-        setProfile,
+        questionLanguageId,
       } = req.body as {
         patternId?: string;
+        packageId?: string;
+        archetypeId?: string;
+        canonicalProblemId?: string;
+        cpId?: string;
         count?: number;
         languages?: unknown;
         seed?: string;
-        examProfile?: GeneratorOptions["examProfile"];
+        difficulty?: unknown;
         targetDifficulty?: number;
-        difficultyTolerance?: number;
-        difficultyDistribution?: GeneratorOptions["difficultyDistribution"];
-        targetAverageDifficulty?: number;
-        setProfile?: GeneratorOptions["setProfile"];
+        questionLanguageId?: string;
       };
 
-      if (!patternId) {
+      if (!(patternId || packageId || archetypeId)) {
         return res.status(400).json({
           error:
-            "patternId is required",
+            "patternId, packageId, or archetypeId is required",
         });
       }
 
       const safeCount = Math.min(
-        50,
+        1000,
         Math.max(
           1,
           Math.floor(Number(count) || 5),
         ),
       );
-      const result = await generateBatch(
+      const language =
+        Array.isArray(languages) &&
+        typeof languages[0] === "string"
+          ? languages[0]
+          : typeof languages === "string"
+            ? languages
+            : "en";
+      const result = await generateQuantV4Questions({
         patternId,
-        safeCount,
-        {
-          seed,
-          examProfile,
-          targetDifficulty,
-          difficultyTolerance,
-          difficultyDistribution,
-          targetAverageDifficulty,
-          setProfile,
-          seatingGeneration:
-            parseSeatingGenerationBody(
-              req.body,
-            ),
-        },
-      );
+        packageId: packageId as any,
+        archetypeId: archetypeId as any,
+        canonicalProblemId,
+        cpId,
+        count: safeCount,
+        language: language as any,
+        seed,
+        difficulty:
+          difficulty ?? targetDifficulty,
+        questionLanguageId,
+      });
 
       return res.json({
         ...result,
-        questions:
-          result.questions.map((question) =>
-            applyNativeRealizations(
-              question,
-              {
-                languages:
-                  languages ?? ["en"],
-                patternId,
-              },
-            ),
-          ),
+        generationSystem: "quant-v4",
       });
     } catch (error) {
       console.error(error);
@@ -784,38 +783,9 @@ router.get(
   "/patterns",
   async (_req, res) => {
     try {
-      const rows = await db
-        .select()
-        .from(patterns);
-
-      const mergedRows = [
-        ...rows.map((row) =>
-          mergePatternSources(
-            row as unknown as Record<
-              string,
-              unknown
-            >,
-            getRegisteredPattern(row.id),
-          ),
-        ),
-      ];
-
-      for (const pattern of REGISTERED_PATTERNS) {
-        if (
-          !mergedRows.some(
-            (row) => row.id === pattern.id,
-          )
-        ) {
-          mergedRows.push({
-            ...pattern,
-            name:
-              `${pattern.topic} - ${pattern.subtopic}`,
-          });
-        }
-      }
-
       return res.json({
-        patterns: mergedRows,
+        patterns: listQuantV4Packages(),
+        generationSystem: "quant-v4",
       });
     } catch (error) {
       console.error(error);
@@ -838,8 +808,8 @@ router.get(
   "/question-patterns",
   async (_req, res) => {
     return res.json({
-      patterns:
-        listQuestionPatterns(),
+      patterns: listQuantV4Packages(),
+      generationSystem: "quant-v4",
     });
   },
 );
@@ -1115,194 +1085,33 @@ router.post(
           });
       }
 
-      let pattern: Pattern | undefined;
-      const numericDifficulty =
-        typeof difficulty === "number" &&
-        Number.isFinite(difficulty)
-          ? difficulty
-          : undefined;
-      const requestDifficulty =
-        numericDifficulty !== undefined
-          ? numericDifficulty >= 6
-            ? "hard"
-            : numericDifficulty >= 3
-              ? "medium"
-              : "easy"
-          : difficulty;
-      const resolvedTargetDifficulty =
-        typeof targetDifficulty ===
-          "number" &&
-        Number.isFinite(targetDifficulty)
-          ? targetDifficulty
-          : numericDifficulty;
-
-      const registryPattern =
-        resolveQuestionPatternToPattern({
-          domain,
-          topic,
-          pattern: frontendPattern,
-          patternId,
-          difficulty: requestDifficulty,
-          examStyle,
+      const language =
+        Array.isArray(languages) &&
+        typeof languages[0] === "string"
+          ? languages[0]
+          : "en";
+      const quantV4Result =
+        await generateQuantV4Questions({
+          patternId:
+            patternId ?? String(frontendPattern ?? ""),
+          packageId:
+            typeof frontendPattern === "string"
+              ? (frontendPattern as any)
+              : undefined,
+          archetypeId:
+            typeof frontendPattern === "string"
+              ? (frontendPattern as any)
+              : undefined,
+          count,
+          language: language as any,
+          seed,
+          difficulty:
+            difficulty ?? targetDifficulty,
         });
 
-      if (registryPattern) {
-        pattern = registryPattern;
-      }
-
-      if (!pattern && patternId) {
-        const rows = await db
-          .select()
-          .from(patterns)
-          .where(
-            eq(
-              patterns.id,
-              patternId,
-            ),
-          );
-
-        const dbPattern = rows[0];
-        const registeredPattern =
-          getRegisteredPattern(patternId);
-
-        if (
-          dbPattern ||
-          registeredPattern
-        ) {
-          pattern =
-            normalizeStoredPattern(
-              (dbPattern ??
-                registeredPattern) as Record<
-                string,
-                unknown
-              >,
-            );
-        }
-      }
-
-      if (!pattern) {
-        return res
-          .status(404)
-          .json({
-            error:
-              "Pattern not found",
-          });
-      }
-
-      const isMigratedQuantV2Pattern =
-        Boolean(
-          resolveMigratedQuantV2Domain(
-            pattern,
-          ),
-        );
-
-      if (
-        pattern.type === "di" &&
-        !pattern.diPattern
-      ) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "DI pattern configuration is missing. Edit and save this pattern again with DI Pattern JSON.",
-          });
-      }
-
-      const seatingGeneration =
-        parseSeatingGenerationBody(
-          req.body,
-        );
-
-      const result =
-        await generateFromPattern(
-          pattern,
-          count,
-          {
-            seed,
-            examProfile:
-              examProfile ??
-              normalizeExamStyle(
-                examStyle,
-              ),
-            targetDifficulty:
-              resolvedTargetDifficulty,
-            difficultyTolerance,
-            difficultyDistribution,
-            targetAverageDifficulty,
-            setProfile,
-            enableNameClash:
-              Boolean(enableNameClash),
-            useScheduler:
-              Number(count) > 1 &&
-              (
-                Boolean(useScheduler) ||
-                isMigratedQuantV2Pattern
-              ),
-            schedulerProfile:
-              typeof schedulerProfile ===
-              "string"
-                ? schedulerProfile
-                : undefined,
-            distractorArchetypes:
-              enableNameClash
-                ? ["NameClash"]
-                : undefined,
-            seatingGeneration,
-          } satisfies GeneratorOptions,
-        );
-
       return res.json({
-        ...result,
-        questions:
-          result.questions.map((question) => {
-            const realized =
-              applyNativeRealizations(
-                question,
-                {
-                  languages:
-                    languages ?? ["en"],
-                  patternId:
-                    patternId ??
-                    frontendPattern ??
-                    pattern.id,
-                },
-              );
-            const motifId =
-              "questionType" in realized &&
-              realized.questionType === "di"
-                ? undefined
-                : realized.debugMetadata
-                    ?.selectedMotif;
-
-            if (
-              typeof motifId ===
-                "string" &&
-              motifId.startsWith(
-                "perc_",
-              )
-            ) {
-              console.info(
-                "[percentage-runtime] route response realized",
-                {
-                  motifId,
-                  requestedLanguages:
-                    languages ?? ["en"],
-                  explanationSource:
-                    realized.explanation?.includes(
-                      "Core Idea",
-                    )
-                      ? "examtree-minimalist"
-                      : "legacy-or-native-language",
-                  hasNativeRealization:
-                    Boolean(
-                      realized.nativeRealization,
-                    ),
-                },
-              );
-            }
-
-            return realized;
-          }),
+        ...quantV4Result,
+        generationSystem: "quant-v4",
       });
     } catch (error) {
       console.error(error);
@@ -1314,6 +1123,17 @@ router.post(
         });
     }
   },
+);
+
+router.post(
+  "/pattern/jobs",
+  async (_req: Request, res: Response) =>
+    res.status(410).json({
+      success: false,
+      error:
+        "Async legacy generation jobs have been removed from Question Studio. Use Quant V4 package runtime generation only.",
+      generationSystem: "quant-v4",
+    }),
 );
 
 router.post(
@@ -1594,6 +1414,17 @@ router.get(
         });
     }
   },
+);
+
+router.use(
+  "/corpus-audit",
+  async (_req: Request, res: Response) =>
+    res.status(410).json({
+      success: false,
+      error:
+        "Corpus generation infrastructure has been removed from Question Studio. Use Quant V4 package runtime generation only.",
+      generationSystem: "quant-v4",
+    }),
 );
 
 router.get(

@@ -82,6 +82,21 @@ export interface Rap001ExplanationLibrary {
 
 export type Rap001Variables = Record<string, string | number>;
 
+export interface Rap001SemanticEntity {
+  id: string;
+  en: string;
+  hi: string;
+  pa: string;
+  gender?: string;
+  numberType?: string;
+  frequency?: string;
+}
+
+export interface Rap001SemanticContext {
+  scenario: string;
+  entities: Record<string, Rap001SemanticEntity>;
+}
+
 export interface Rap001Parameters {
   archetypeId: typeof RAP_001_ARCHETYPE_ID;
   canonicalProblemId: Rap001CanonicalProblemId;
@@ -94,10 +109,12 @@ export interface Rap001Parameters {
   answerType: Rap001AnswerType;
   requiredVariables: string[];
   variables: Rap001Variables;
+  semanticContext?: Rap001SemanticContext;
   sourceTrace: {
     questionLanguageSource: string;
     explanationSource: string;
     variableRangeSource: string;
+    semanticSource?: string;
   };
 }
 
@@ -148,7 +165,7 @@ export interface Rap001QuestionPackage {
   solver: Rap001SolverResult;
   reasoningGraph: Rap001ReasoningGraph;
   explanation: Rap001Explanation;
-  traceability: Record<string, string | number | boolean>;
+  traceability: Record<string, unknown>;
   validation: Rap001ValidationResult;
   mathJax: Record<string, string>;
 }

@@ -1,5 +1,5 @@
 import { renderRap001Explanation } from "./explanation-renderer";
-import { getQuestionEntry, renderTemplate } from "./library";
+import { buildRap001SemanticTrace, getQuestionEntry, renderTemplate, resolveRap001EntityVariables } from "./library";
 import { generateRap001Parameters, type Rap001ParameterInput } from "./parameter-generator";
 import { buildRap001ReasoningGraph } from "./reasoning-graph";
 import { solveRap001 } from "./solver";
@@ -11,7 +11,9 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
   const solver = solveRap001(parameters);
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
   const explanation = renderRap001Explanation(parameters, solver, reasoningGraph);
-  const stem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
+  const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language);
+  const stem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, renderVariables);
+  const semanticTrace = buildRap001SemanticTrace(parameters.semanticContext);
   const basePackage = {
     archetypeId: RAP_001_ARCHETYPE_ID,
     canonicalProblemId: cpId,
@@ -34,6 +36,12 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
       difficultyBand: parameters.difficultyBand,
       taskKind: parameters.taskKind,
       answerType: parameters.answerType,
+      scenario: semanticTrace.scenarioId,
+      scenarioId: semanticTrace.scenarioId,
+      semanticDomain: semanticTrace.semanticDomain,
+      entityIds: semanticTrace.entityIds,
+      frequencyMetadata: semanticTrace.frequencyMetadata,
+      grammarMetadata: semanticTrace.grammarMetadata,
       graphId: reasoningGraph.graphId,
       answer: solver.answer,
     },

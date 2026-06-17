@@ -1,0 +1,17 @@
+{
+  "id": "transport",
+  "name": { "en": "Transport", "hi": "परिवहन", "pa": "ਆਵਾਜਾਈ" },
+  "allowedGroups": ["passengers", "drivers", "conductors", "commuters"],
+  "allowedProfessions": ["driver", "pilot", "captain", "conductor", "mechanic"],
+  "allowedPlaces": ["bus_stand", "railway_station", "airport", "harbor", "highway"],
+  "allowedObjects": ["ticket", "luggage", "steering_wheel", "engine"],
+  "allowedSubjects": ["logistics", "navigation"],
+  "allowedBuildings": ["terminal", "station", "garage"],
+  "allowedAnimals": ["horse", "bullock"],
+  "allowedContainers": ["suitcase", "trunk", "container"],
+  "allowedVehicles": ["bus", "train", "aeroplane", "ship", "car", "truck"],
+  "allowedFoods": ["travel_snacks", "water"],
+  "allowedCommodities": ["fuel", "goods"],
+  "forbiddenProfessions": ["teacher", "farmer", "doctor"],
+  "tags": ["movement", "logistics"]
+}

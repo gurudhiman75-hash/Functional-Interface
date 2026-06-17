@@ -19,6 +19,6 @@
 - placeholder failures = 0
 - unused QL IDs = 0
 - unused ES IDs = 0
-- duplicate rate = 7.20%
+- duplicate rate = 6.00%
 - verdict = READY FOR FREEZE REVIEW
 

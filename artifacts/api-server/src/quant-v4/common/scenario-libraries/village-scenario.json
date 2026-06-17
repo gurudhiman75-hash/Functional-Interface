@@ -1,0 +1,17 @@
+{
+  "id": "village",
+  "name": { "en": "Village", "hi": "गाँव", "pa": "ਪਿੰਡ" },
+  "allowedGroups": ["villagers", "farmers", "panchayat_members"],
+  "allowedProfessions": ["farmer", "potter", "blacksmith", "carpenter", "sarpanch"],
+  "allowedPlaces": ["panchayat_ghar", "well", "pond", "temple", "field"],
+  "allowedObjects": ["pot", "cart", "rope", "lamp"],
+  "allowedSubjects": [],
+  "allowedBuildings": ["hut", "cottage", "barn"],
+  "allowedAnimals": ["cow", "buffalo", "goat", "dog"],
+  "allowedContainers": ["pitcher", "sack"],
+  "allowedVehicles": ["bicycle", "bullock_cart", "tractor"],
+  "allowedFoods": ["local_cuisine", "milk", "curd"],
+  "allowedCommodities": ["grains", "wood"],
+  "forbiddenProfessions": ["software_engineer", "pilot", "astronaut"],
+  "tags": ["rural", "community"]
+}

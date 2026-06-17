@@ -5,6 +5,7 @@ import {
   generateRap001Batch,
   generateRap001CoverageAudit,
   renderRap001CoverageAuditMarkdown,
+  renderRap001EntityRenderingAuditMarkdown,
   renderRap001FreezeRecordMarkdown,
   renderRap001HumanReviewCsv,
   renderRap001MaturityAuditMarkdown,
@@ -90,6 +91,8 @@ for (let index = 0; index < 1000; index += 1) {
 
   assert.equal(en.answer, hi.answer);
   assert.equal(en.answer, pa.answer);
+  assert.deepEqual(en.parameters.variables, hi.parameters.variables);
+  assert.deepEqual(en.parameters.variables, pa.parameters.variables);
   assert.equal(runRap001Pipeline(cpId, { language: "en", seed: `rap-001-test:${index}`, questionLanguageId: en.questionLanguageId, difficultyBand: en.difficultyBand }).answer, en.answer);
 
   seenCp.add(en.canonicalProblemId);
@@ -135,5 +138,6 @@ fs.writeFileSync(path.join(packageDir, "rap-001-human-review-pa.csv"), `${render
 fs.writeFileSync(path.join(packageDir, "rap-001-pre-freeze-coverage-audit.md"), `${renderRap001CoverageAuditMarkdown(preFreeze.audit, "500 EN questions")}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-maturity-audit.md"), `${renderRap001MaturityAuditMarkdown(maturity.audit, "1000 EN questions")}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-freeze-record.md"), `${renderRap001FreezeRecordMarkdown(preFreeze.audit)}\n`, "utf8");
+fs.writeFileSync(path.join(packageDir, "entity-rendering-audit.md"), `${renderRap001EntityRenderingAuditMarkdown(100)}\n`, "utf8");
 
 console.log(`RAP-001 Phase C test passed. Duplicate rate: ${(duplicateRate * 100).toFixed(2)}%.`);

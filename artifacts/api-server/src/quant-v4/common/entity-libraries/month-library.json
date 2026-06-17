@@ -1,0 +1,14 @@
+[
+  { "id": "january", "en": "January", "hi": "जनवरी", "pa": "ਜਨਵਰੀ" },
+  { "id": "february", "en": "February", "hi": "फरवरी", "pa": "ਫਰਵਰੀ" },
+  { "id": "march", "en": "March", "hi": "मार्च", "pa": "ਮਾਰਚ" },
+  { "id": "april", "en": "April", "hi": "अप्रैल", "pa": "ਅਪ੍ਰੈਲ" },
+  { "id": "may", "en": "May", "hi": "मई", "pa": "ਮਈ" },
+  { "id": "june", "en": "June", "hi": "जून", "pa": "ਜੂਨ" },
+  { "id": "july", "en": "July", "hi": "जुलाई", "pa": "ਜੁਲਾਈ" },
+  { "id": "august", "en": "August", "hi": "अगस्त", "pa": "ਅਗਸਤ" },
+  { "id": "september", "en": "September", "hi": "सितंबर", "pa": "ਸਤੰਬਰ" },
+  { "id": "october", "en": "October", "hi": "अक्टूबर", "pa": "ਅਕਤੂਬਰ" },
+  { "id": "november", "en": "November", "hi": "नवंबर", "pa": "ਨਵੰਬਰ" },
+  { "id": "december", "en": "December", "hi": "दिसंबर", "pa": "ਦਸੰਬਰ" }
+]

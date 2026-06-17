@@ -30,9 +30,20 @@ export function generateRap001Batch(count: number, language: Rap001Language = "e
     return runRap001Pipeline(cpId, {
       language,
       questionLanguageId: qlId,
-      seed: `RAP-001:${language}:${index}`,
+      seed: `RAP-001:${index}`,
     });
   });
+}
+
+function entityVariableEntries(pkg: Rap001QuestionPackage) {
+  const semanticIds = new Set(Object.values(pkg.parameters.semanticContext?.entities ?? {}).map((entity) => entity.id));
+  return Object.entries(pkg.parameters.variables).filter(([_key, value]) => typeof value === "string" && semanticIds.has(value));
+}
+
+function sameEntityVariables(left: Rap001QuestionPackage, right: Rap001QuestionPackage) {
+  const leftEntries = entityVariableEntries(left);
+  const rightMap = new Map(entityVariableEntries(right).map(([key, value]) => [key, value]));
+  return leftEntries.every(([key, value]) => rightMap.get(key) === value);
 }
 
 export function auditRap001Packages(packages: readonly Rap001QuestionPackage[]): Rap001CoverageAudit {
@@ -58,7 +69,9 @@ export function auditRap001Packages(packages: readonly Rap001QuestionPackage[]):
       difficultyBand: pkg.difficultyBand,
     });
     const answers = new Set(triplet.map((item) => item.answer));
-    if (answers.size !== 1) crossLanguageFailures += 1;
+    if (answers.size !== 1 || !sameEntityVariables(triplet[0]!, triplet[1]!) || !sameEntityVariables(triplet[0]!, triplet[2]!)) {
+      crossLanguageFailures += 1;
+    }
   }
 
   return {
@@ -80,6 +93,64 @@ export function auditRap001Packages(packages: readonly Rap001QuestionPackage[]):
     unusedEsIds,
     libraryValidationFailures: validateRap001Libraries().failures,
   };
+}
+
+export function renderRap001EntityRenderingAuditMarkdown(sampleCount = 100) {
+  const sections: string[] = [
+    "# RAP-001 Entity Rendering Audit",
+    "",
+    `Sample count: ${sampleCount}`,
+    "",
+  ];
+  let failures = 0;
+
+  for (let index = 0; index < sampleCount; index += 1) {
+    const cpId = WEIGHTED_CP_SEQUENCE[index % WEIGHTED_CP_SEQUENCE.length] ?? pickRap001CanonicalProblemId(`RAP-001:${index}`);
+    const qlIds = getCommonQuestionLanguageIds(cpId);
+    const qlId = qlIds[index % qlIds.length]!;
+    const seed = `RAP-001:entity-audit:${index}`;
+    const triplet = runRap001ForLanguages(cpId, { seed, questionLanguageId: qlId });
+    const [en, hi, pa] = triplet;
+    const entityEntries = entityVariableEntries(en!);
+    const synced = sameEntityVariables(en!, hi!) && sameEntityVariables(en!, pa!);
+    if (!synced || triplet.some((pkg) => !pkg.validation.valid)) failures += 1;
+
+    sections.push("--------------------------------");
+    sections.push("");
+    sections.push(`Sample ${index + 1}`);
+    sections.push("");
+    sections.push("IDs");
+    sections.push("");
+    for (const [key, value] of entityEntries) {
+      sections.push(`${key}Id: ${value}`);
+    }
+    sections.push("");
+    sections.push("English rendering");
+    sections.push("");
+    sections.push(en!.stem);
+    sections.push("");
+    sections.push("Hindi rendering");
+    sections.push("");
+    sections.push(hi!.stem);
+    sections.push("");
+    sections.push("Punjabi rendering");
+    sections.push("");
+    sections.push(pa!.stem);
+    sections.push("");
+    sections.push(`Synchronized entity IDs: ${synced ? "yes" : "no"}`);
+    sections.push("");
+  }
+
+  sections.push("--------------------------------");
+  sections.push("");
+  sections.push("Verification");
+  sections.push("");
+  sections.push(`- Samples checked: ${sampleCount}`);
+  sections.push(`- Entity synchronization failures: ${failures}`);
+  sections.push(`- Verification status: ${failures === 0 ? "passed" : "failed"}`);
+  sections.push("");
+
+  return sections.join("\n");
 }
 
 export function generateRap001CoverageAudit(count: number, language: Rap001Language = "en") {

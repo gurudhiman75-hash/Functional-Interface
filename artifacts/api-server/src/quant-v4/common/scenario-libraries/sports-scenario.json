@@ -1,0 +1,17 @@
+{
+  "id": "sports",
+  "name": { "en": "Sports", "hi": "खेल", "pa": "ਖੇਡਾਂ" },
+  "allowedGroups": ["players", "athletes", "teams", "spectators", "coaches"],
+  "allowedProfessions": ["coach", "referee", "captain", "player", "umpire"],
+  "allowedPlaces": ["stadium", "ground", "court", "gym"],
+  "allowedObjects": ["ball", "bat", "racket", "net", "wicket", "jersey"],
+  "allowedSubjects": ["physical_education", "sports_science"],
+  "allowedBuildings": ["stadium", "club_house"],
+  "allowedAnimals": ["horse"],
+  "allowedContainers": ["kit_bag"],
+  "allowedVehicles": ["team_bus"],
+  "allowedFoods": ["energy_drink", "banana", "protein_shake"],
+  "allowedCommodities": [],
+  "forbiddenProfessions": ["clerk", "accountant", "farmer"],
+  "tags": ["activity", "competition"]
+}

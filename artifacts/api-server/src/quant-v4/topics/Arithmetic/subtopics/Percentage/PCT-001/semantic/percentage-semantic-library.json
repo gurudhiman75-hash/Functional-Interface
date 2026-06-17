@@ -1,0 +1,54 @@
+{
+  "domains": {
+    "school": {
+      "entities": [
+        { "id": "boys", "en": "boys", "hi": "लड़के", "pa": "ਮੁੰਡੇ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "girls", "en": "girls", "hi": "लड़कियां", "pa": "ਕੁੜੀਆਂ", "gender": "female", "numberType": "countable", "frequency": "common" },
+        { "id": "students", "en": "students", "hi": "छात्र", "pa": "ਵਿਦਿਆਰਥੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "mathematics", "en": "Mathematics", "hi": "गणित", "pa": "ਗਣਿਤ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "english", "en": "English", "hi": "अंग्रेजी", "pa": "ਅੰਗਰੇਜ਼ੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "science", "en": "Science", "hi": "विज्ञान", "pa": "ਵਿਗਿਆਨ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "history", "en": "History", "hi": "इतिहास", "pa": "ਇਤਿਹਾਸ", "gender": "neutral", "numberType": "uncountable", "frequency": "uncommon" }
+      ]
+    },
+    "election": {
+      "entities": [
+        { "id": "voters", "en": "voters", "hi": "मतदाता", "pa": "ਵੋਟਰ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "valid_votes", "en": "valid votes", "hi": "वैध मत", "pa": "ਵੈਧ ਵੋਟਾਂ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
+        { "id": "invalid_votes", "en": "invalid votes", "hi": "अवैध मत", "pa": "ਅਵੈਧ ਵੋਟਾਂ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
+        { "id": "winner", "en": "winner", "hi": "विजेता", "pa": "ਜੇਤੂ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "runner_up", "en": "runner-up", "hi": "उपविजेता", "pa": "ਉਪ-ਜੇਤੂ", "gender": "male", "numberType": "countable", "frequency": "common" }
+      ]
+    },
+    "population": {
+      "entities": [
+        { "id": "men", "en": "men", "hi": "पुरुष", "pa": "ਪੁਰਸ਼", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "women", "en": "women", "hi": "महिलाएं", "pa": "ਔਰਤਾਂ", "gender": "female", "numberType": "countable", "frequency": "common" },
+        { "id": "employees", "en": "employees", "hi": "कर्मचारी", "pa": "ਕਰਮਚਾਰੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "workers", "en": "workers", "hi": "मजदूर", "pa": "ਮਜ਼ਦੂਰ", "gender": "male", "numberType": "countable", "frequency": "common" }
+      ]
+    },
+    "finance": {
+      "entities": [
+        { "id": "salary", "en": "salary", "hi": "वेतन", "pa": "ਤਨਖਾਹ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "income", "en": "income", "hi": "आय", "pa": "ਆਮਦਨ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "expenditure", "en": "expenditure", "hi": "खर्च", "pa": "ਖਰਚ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "saving", "en": "saving", "hi": "बचत", "pa": "ਬਚਤ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+      ]
+    },
+    "production": {
+      "entities": [
+        { "id": "workers", "en": "workers", "hi": "मजदूर", "pa": "ਮਜ਼ਦੂਰ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "machines", "en": "machines", "hi": "मशीनें", "pa": "ਮਸ਼ੀਨਾਂ", "gender": "neutral", "numberType": "countable", "frequency": "uncommon" },
+        { "id": "output", "en": "output", "hi": "उत्पादन", "pa": "ਉਤਪਾਦਨ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+      ]
+    },
+    "agriculture": {
+      "entities": [
+        { "id": "farmers", "en": "farmers", "hi": "किसान", "pa": "ਕਿਸਾਨ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "crops", "en": "crops", "hi": "फसलें", "pa": "ਫਸਲਾਂ", "gender": "neutral", "numberType": "countable", "frequency": "uncommon" },
+        { "id": "yield", "en": "yield", "hi": "पैदावार", "pa": "ਝਾੜ", "gender": "neutral", "numberType": "uncountable", "frequency": "rare" }
+      ]
+    }
+  }
+}

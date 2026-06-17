@@ -1,0 +1,22 @@
+[
+  {"id": "gold", "en": "Gold", "hi": "सोना", "pa": "ਸੋਨਾ"},
+  {"id": "silver", "en": "Silver", "hi": "चाँदी", "pa": "ਚਾਂਦੀ"},
+  {"id": "iron", "en": "Iron", "hi": "लोहा", "pa": "ਲੋਹਾ"},
+  {"id": "copper", "en": "Copper", "hi": "ताँबा", "pa": "ਤਾਂਬਾ"},
+  {"id": "aluminum", "en": "Aluminum", "hi": "एल्युमिनियम", "pa": "ਐਲੂਮੀਨੀਅਮ"},
+  {"id": "lead", "en": "Lead", "hi": "सीसा", "pa": "ਸੀਸਾ"},
+  {"id": "tin", "en": "Tin", "hi": "टिन", "pa": "ਟਿਨ"},
+  {"id": "zinc", "en": "Zinc", "hi": "जस्ता", "pa": "ਜਸਤਾ"},
+  {"id": "mercury", "en": "Mercury", "hi": "पारा", "pa": "ਪਾਰਾ"},
+  {"id": "platinum", "en": "Platinum", "hi": "प्लैटिनम", "pa": "ਪਲੈਟੀਨਮ"},
+  {"id": "nickel", "en": "Nickel", "hi": "निकेल", "pa": "ਨਿਕਲ"},
+  {"id": "chromium", "en": "Chromium", "hi": "क्रोमियम", "pa": "ਕਰੋਮੀਅਮ"},
+  {"id": "tungsten", "en": "Tungsten", "hi": "टंगस्टन", "pa": "ਟੰਗਸਟਨ"},
+  {"id": "magnesium", "en": "Magnesium", "hi": "मैग्नीशियम", "pa": "ਮੈਗਨੀਸ਼ੀਅਮ"},
+  {"id": "titanium", "en": "Titanium", "hi": "टाइटेनियम", "pa": "ਟਾਈਟੇਨੀਅਮ"},
+  {"id": "sodium", "en": "Sodium", "hi": "सोडियम", "pa": "ਸੋਡੀਅਮ"},
+  {"id": "potassium", "en": "Potassium", "hi": "पोटैशियम", "pa": "ਪੋਟਾਸ਼ੀਅਮ"},
+  {"id": "calcium", "en": "Calcium", "hi": "कैल्शियम", "pa": "ਕੈਲਸ਼ੀਅਮ"},
+  {"id": "manganese", "en": "Manganese", "hi": "मैग्नीज", "pa": "ਮੈਂਗਨੀਜ਼"},
+  {"id": "cobalt", "en": "Cobalt", "hi": "कोबाल्ट", "pa": "ਕੋਬਾਲਟ"}
+]

@@ -252,24 +252,11 @@ const REQUIRED_REGISTRY_PATTERNS = [
 function mergeRequiredRegistryPatterns(
   registryPatterns: any[],
 ) {
-  const byId = new Map();
-
-  for (const pattern of registryPatterns) {
-    if (
-      pattern?.id &&
-      !byId.has(pattern.id)
-    ) {
-      byId.set(pattern.id, pattern);
-    }
-  }
-
-  for (const pattern of REQUIRED_REGISTRY_PATTERNS) {
-    if (!byId.has(pattern.id)) {
-      byId.set(pattern.id, pattern);
-    }
-  }
-
-  return [...byId.values()];
+  return registryPatterns.filter(
+    (pattern) =>
+      pattern?.generationDomain === "quant-v4" ||
+      pattern?.type === "quant-v4",
+  );
 }
 
 type DIDataRow = Record<
@@ -450,6 +437,7 @@ type GenerationDebugMetadata = {
   selectedPattern: string;
   generationDomain?:
     | "quant"
+    | "quant-v4"
     | "quant-v2-percentage"
     | "quant-v2-profit-loss"
     | "quant-v2-interest"
@@ -530,6 +518,14 @@ type GenerationDebugMetadata = {
     domain: string;
     subtype: string;
   };
+  canonicalProblemId?: string;
+  questionLanguageId?: string;
+  explanationId?: string;
+  taskKind?: string;
+  scenarioId?: string;
+  questionIndex?: number;
+  questionCount?: number;
+  packageSource?: string;
 };
 
 type DIQuestion = {
@@ -565,6 +561,16 @@ type FormulaQuestion = {
   options: string[];
   correct: number;
   explanation: string;
+  answer?: string | null;
+  packageSource?: string | null;
+  packageId?: string | null;
+  taskKind?: string | null;
+  scenarioId?: string | null;
+  questionIndex?: number | null;
+  questionCount?: number | null;
+  canonicalProblemId?: string | null;
+  questionLanguageId?: string | null;
+  explanationId?: string | null;
   textHi?: string | null;
   textPa?: string | null;
   optionsHi?: string[] | null;
@@ -2862,6 +2868,50 @@ function renderDifficultyAnalytics(
               {debugMetadata.selectedArchetype ??
                 "none"}
             </div>
+            {debugMetadata.canonicalProblemId ? (
+              <div>
+                CP ID:{" "}
+                {debugMetadata.canonicalProblemId}
+              </div>
+            ) : null}
+            {debugMetadata.questionLanguageId ? (
+              <div>
+                QL ID:{" "}
+                {debugMetadata.questionLanguageId}
+              </div>
+            ) : null}
+            {debugMetadata.explanationId ? (
+              <div>
+                ES ID:{" "}
+                {debugMetadata.explanationId}
+              </div>
+            ) : null}
+            {debugMetadata.taskKind ? (
+              <div>
+                Task Kind:{" "}
+                {debugMetadata.taskKind}
+              </div>
+            ) : null}
+            {debugMetadata.scenarioId ? (
+              <div>
+                Scenario:{" "}
+                {debugMetadata.scenarioId}
+              </div>
+            ) : null}
+            {debugMetadata.questionIndex &&
+            debugMetadata.questionCount ? (
+              <div>
+                Question Index:{" "}
+                {debugMetadata.questionIndex} of{" "}
+                {debugMetadata.questionCount}
+              </div>
+            ) : null}
+            {debugMetadata.packageSource ? (
+              <div>
+                Package Source:{" "}
+                {debugMetadata.packageSource}
+              </div>
+            ) : null}
             {debugMetadata.participantCount ? (
               <div>
                 Participants:{" "}
@@ -4365,17 +4415,25 @@ function prepareGeneratedQuestionForLanguages(
           ]
         : null),
   };
+  const isQuantV4Question =
+    prepared.generationBackend ===
+      "quant-v4" ||
+    prepared.debugMetadata
+      ?.generationDomain === "quant-v4";
 
   if (languages.includes("hi")) {
     prepared.textHi =
       prepared.textHi ?? "";
     prepared.optionsHi =
-      prepared.optionsHi ?? [
-        "",
-        "",
-        "",
-        "",
-      ];
+      prepared.optionsHi ??
+      (isQuantV4Question
+        ? []
+        : [
+            "",
+            "",
+            "",
+            "",
+          ]);
     prepared.explanationHi =
       prepared.explanationHi ?? "";
   }
@@ -4384,12 +4442,15 @@ function prepareGeneratedQuestionForLanguages(
     prepared.textPa =
       prepared.textPa ?? "";
     prepared.optionsPa =
-      prepared.optionsPa ?? [
-        "",
-        "",
-        "",
-        "",
-      ];
+      prepared.optionsPa ??
+      (isQuantV4Question
+        ? []
+        : [
+            "",
+            "",
+            "",
+            "",
+          ]);
     prepared.explanationPa =
       prepared.explanationPa ?? "";
   }
@@ -5582,57 +5643,61 @@ function renderQuestionWorkspace(
                     visual={vennVisualFromQuestion(question)!}
                   />
                 ) : null}
-                <div className="space-y-2">
-                  {question.options.map(
-                    (
-                      option,
-                      index,
-                    ) => (
-                      <div
-                        key={`${index}-${option}`}
-                        className={`rounded border px-3 py-2 text-sm ${question.correct ===
-                          index
-                          ? "border-emerald-300 bg-emerald-50"
-                          : "bg-white"
-                          }`}
-                      >
-                        <span className="mr-2 font-semibold text-slate-500">
-                          {String.fromCharCode(
-                            65 + index,
+                {question.options.length ? (
+                  <div className="space-y-2">
+                    {question.options.map(
+                      (
+                        option,
+                        index,
+                      ) => (
+                        <div
+                          key={`${index}-${option}`}
+                          className={`rounded border px-3 py-2 text-sm ${question.correct ===
+                            index
+                            ? "border-emerald-300 bg-emerald-50"
+                            : "bg-white"
+                            }`}
+                        >
+                          <span className="mr-2 font-semibold text-slate-500">
+                            {String.fromCharCode(
+                              65 + index,
+                            )}
+                          </span>
+                          {editMode ? (
+                            <input
+                              value={option}
+                              onChange={(
+                                event,
+                              ) =>
+                                onQuestionOptionChange(
+                                  index,
+                                  event.target.value,
+                                )
+                              }
+                              className="w-[calc(100%-1.5rem)] rounded border bg-white px-2 py-1"
+                            />
+                          ) : (
+                            <MathText
+                              content={option}
+                              inline
+                            />
                           )}
-                        </span>
-                        {editMode ? (
-                          <input
-                            value={option}
-                            onChange={(
-                              event,
-                            ) =>
-                              onQuestionOptionChange(
-                                index,
-                                event.target.value,
-                              )
-                            }
-                            className="w-[calc(100%-1.5rem)] rounded border bg-white px-2 py-1"
-                          />
-                        ) : (
-                          <MathText
-                            content={option}
-                            inline
-                          />
-                        )}
-                      </div>
-                    ),
-                  )}
-                </div>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                ) : null}
                 <div className="rounded border bg-white p-3 text-sm">
                   <div className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                     Answer
                   </div>
                   <MathText
                     content={
+                      question.answer ??
                       question.options[
                         question.correct
-                      ] ?? "NA"
+                      ] ??
+                      "NA"
                     }
                     inline
                   />
@@ -7331,7 +7396,7 @@ export default function AdminGeneratorPage() {
   const [
     generationMode,
     setGenerationMode,
-  ] = useState<"registry" | "legacy">(
+  ] = useState<"registry">(
     "registry",
   );
   const [
@@ -7515,6 +7580,10 @@ export default function AdminGeneratorPage() {
     null,
   );
   const [
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+  ] = useState(0);
+  const [
     workspaceEditMode,
     setWorkspaceEditMode,
   ] = useState(false);
@@ -7589,6 +7658,8 @@ export default function AdminGeneratorPage() {
     registryDomain,
     setRegistryDomain,
   ] = useState("all");
+  const [registryTopic, setRegistryTopic] = useState("all");
+  const [registrySubtopic, setRegistrySubtopic] = useState("all");
   const [
     registryDifficulty,
     setRegistryDifficulty,
@@ -7769,21 +7840,24 @@ export default function AdminGeneratorPage() {
         setQuestionPatterns(
           registryPatterns,
         );
-        setRegistryDomain(
+        const firstRegistryPattern =
           (
             registryPatterns.find(
               (pattern: any) =>
                 pattern.enabled !== false,
             ) ?? registryPatterns[0]
-          )?.domain ?? "all",
+          );
+        setRegistryDomain(
+          firstRegistryPattern?.domain ?? "all",
+        );
+        setRegistryTopic(
+          firstRegistryPattern?.topic ?? "all",
+        );
+        setRegistrySubtopic(
+          firstRegistryPattern?.subtopic ?? "all",
         );
         setRegistryPatternId(
-          (
-            registryPatterns.find(
-              (pattern: any) =>
-                pattern.enabled !== false,
-            ) ?? registryPatterns[0]
-          )?.id ?? "",
+          firstRegistryPattern?.id ?? "",
         );
 
         const [
@@ -8740,6 +8814,16 @@ export default function AdminGeneratorPage() {
   function setReviewFocus(
     item: ReviewableGeneratedItem,
   ) {
+    setCurrentQuestionIndex(
+      Math.max(
+        0,
+        visibleItems.findIndex(
+          (entry) =>
+            entry.fingerprint ===
+            item.fingerprint,
+        ),
+      ),
+    );
     setSelectedWorkspaceFingerprint(
       item.fingerprint,
     );
@@ -9019,33 +9103,8 @@ export default function AdminGeneratorPage() {
           selectedRegistryPattern.enabled !==
             false,
       );
-    const isProfitLossGeneration =
-      useRegistryPattern &&
-      isProfitLossRegistryPattern(
-        selectedRegistryPattern,
-      );
-    const isInterestGeneration =
-      useRegistryPattern &&
-      isInterestRegistryPattern(
-        selectedRegistryPattern,
-      );
-    const isRatioGeneration =
-      useRegistryPattern &&
-      isRatioProportionRegistryPattern(
-        selectedRegistryPattern,
-      );
-    const isMigratedQuantV2Generation =
-      isProfitLossGeneration ||
-      isInterestGeneration ||
-      isRatioGeneration;
     const effectiveRegistryLanguages =
-      isMigratedQuantV2Generation
-        ? (["en", "hi", "pa"] as RegistryLanguage[])
-        : registryLanguages;
-    const effectiveUseScheduler =
-      count > 1 &&
-      (useScheduler ||
-        isMigratedQuantV2Generation);
+      registryLanguages;
     const timeoutMs =
       useRegistryPattern
         ? 90_000
@@ -9065,13 +9124,6 @@ export default function AdminGeneratorPage() {
         getDifficultyRequestPayload(
           difficultySettings,
         );
-      const schedulerPayload =
-        effectiveUseScheduler
-          ? {
-              useScheduler: true,
-              schedulerProfile,
-            }
-          : {};
       const requestPayload =
         useRegistryPattern
           ? {
@@ -9095,7 +9147,6 @@ export default function AdminGeneratorPage() {
               quality:
                 seatingGenerationQuality,
             },
-            ...schedulerPayload,
             count,
           }
           : {
@@ -9107,7 +9158,6 @@ export default function AdminGeneratorPage() {
               quality:
                 seatingGenerationQuality,
             },
-            ...schedulerPayload,
             ...difficultyPayload,
           };
 
@@ -9193,10 +9243,11 @@ export default function AdminGeneratorPage() {
             ),
       );
 
-      setGenerated((prev) => [
-        ...prev,
-        ...nextQuestions,
-      ]);
+      setGenerated(nextQuestions);
+      setCurrentQuestionIndex(0);
+      setSelectedWorkspaceFingerprint(
+        null,
+      );
     } catch (error) {
       console.error(error);
 
@@ -9995,10 +10046,12 @@ export default function AdminGeneratorPage() {
   const reviewableItems: ReviewableGeneratedItem[] =
     generated.map(
       (question, index) => {
-        const fingerprint =
+        const baseFingerprint =
           getQuestionFingerprint(
             question,
           );
+        const fingerprint =
+          `${baseFingerprint}-${index}`;
         const structureSignature =
           getQuestionStructureSignature(
             question,
@@ -10286,8 +10339,8 @@ export default function AdminGeneratorPage() {
           case "newest":
           default:
             return (
-              right.index -
-              left.index
+              left.index -
+              right.index
             );
         }
       });
@@ -10297,42 +10350,47 @@ export default function AdminGeneratorPage() {
       setSelectedWorkspaceFingerprint(
         null,
       );
+      setCurrentQuestionIndex(0);
       setWorkspaceEditMode(false);
       return;
     }
 
-    if (
-      !selectedWorkspaceFingerprint ||
-      !visibleItems.some(
-        (item) =>
-          item.fingerprint ===
-          selectedWorkspaceFingerprint,
-      )
-    ) {
-      setSelectedWorkspaceFingerprint(
-        visibleItems[0]
-          ?.fingerprint ?? null,
+    if (currentQuestionIndex >= visibleItems.length) {
+      setCurrentQuestionIndex(
+        Math.max(0, visibleItems.length - 1),
       );
       setWorkspaceEditMode(false);
     }
   }, [
     visibleItems,
+    currentQuestionIndex,
+  ]);
+
+  useEffect(() => {
+    const activeItem =
+      visibleItems[currentQuestionIndex] ?? null;
+    const activeFingerprint =
+      activeItem?.fingerprint ?? null;
+
+    if (
+      selectedWorkspaceFingerprint !==
+      activeFingerprint
+    ) {
+      setSelectedWorkspaceFingerprint(
+        activeFingerprint,
+      );
+    }
+  }, [
+    visibleItems,
+    currentQuestionIndex,
     selectedWorkspaceFingerprint,
   ]);
 
   const selectedWorkspaceItem =
-    visibleItems.find(
-      (item) =>
-        item.fingerprint ===
-        selectedWorkspaceFingerprint,
-    ) ?? null;
+    visibleItems[currentQuestionIndex] ?? null;
   const selectedVisibleIndex =
     selectedWorkspaceItem
-      ? visibleItems.findIndex(
-          (item) =>
-            item.fingerprint ===
-            selectedWorkspaceItem.fingerprint,
-        )
+      ? currentQuestionIndex
       : -1;
   const previousVisibleItem =
     selectedVisibleIndex > 0
@@ -10349,14 +10407,19 @@ export default function AdminGeneratorPage() {
         ]
       : null;
   const focusPreviousQuestion = () => {
-    if (previousVisibleItem) {
-      setReviewFocus(previousVisibleItem);
-    }
+    setCurrentQuestionIndex((index) =>
+      Math.max(0, index - 1),
+    );
+    setWorkspaceEditMode(false);
   };
   const focusNextQuestion = () => {
-    if (nextVisibleItem) {
-      setReviewFocus(nextVisibleItem);
-    }
+    setCurrentQuestionIndex((index) =>
+      Math.min(
+        Math.max(0, visibleItems.length - 1),
+        index + 1,
+      ),
+    );
+    setWorkspaceEditMode(false);
   };
   const selectedBatchItems =
     visibleItems.filter((item) =>
@@ -10649,7 +10712,6 @@ export default function AdminGeneratorPage() {
     "reasoning",
     "english",
     "punjabi",
-    "knowledge",
     "computer",
     "di",
   ].filter((domain) =>
@@ -11498,26 +11560,9 @@ export default function AdminGeneratorPage() {
           >
             Pattern Registry
           </button>
-          <button
-            type="button"
-            onClick={() =>
-              setGenerationMode(
-                "legacy",
-              )
-            }
-            className={`rounded-full px-4 py-2 text-sm font-medium ${
-              generationMode ===
-              "legacy"
-                ? "bg-slate-900 text-white"
-                : "border border-slate-300 bg-white text-slate-700"
-            }`}
-          >
-            Legacy Template
-          </button>
         </div>
 
-        {generationMode ===
-        "registry" ? (
+        <>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
@@ -11537,167 +11582,149 @@ export default function AdminGeneratorPage() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Domain
-              </label>
-              <select
-                value={registryDomain}
-                onChange={(event) => {
-                  const nextDomain =
-                    event.target.value;
-                  const firstEnabled =
-                    questionPatterns.find(
-                      (pattern) =>
-                        (nextDomain ===
-                          "all" ||
-                          pattern.domain ===
-                            nextDomain) &&
-                        pattern.enabled !==
-                          false,
-                    );
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">
+                  Domain
+                </label>
+                <select
+                  value={registryDomain}
+                  onChange={(event) => {
+                    const nextDomain =
+                      event.target.value;
+                    setRegistryDomain(nextDomain);
+                    setRegistryTopic("all");
+                    setRegistrySubtopic("all");
+                    
+                    const firstEnabled =
+                      questionPatterns.find(
+                        (pattern) =>
+                          (nextDomain === "all" ||
+                            pattern.domain === nextDomain) &&
+                          pattern.enabled !== false,
+                      );
+                    if (firstEnabled) {
+                      setRegistryPatternId(firstEnabled.id);
+                    }
+                  }}
+                  className="border rounded p-2 w-full bg-white"
+                >
+                  <option value="all">All Domains</option>
+                  {registryDomains.map((domain) => (
+                    <option key={domain} value={domain}>
+                      {domain}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                  setRegistryDomain(
-                    nextDomain,
-                  );
-                  if (firstEnabled) {
-                    setRegistryPatternId(
-                      firstEnabled.id,
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">
+                  Topic
+                </label>
+                <select
+                  value={registryTopic}
+                  onChange={(event) => {
+                    setRegistryTopic(event.target.value);
+                    setRegistrySubtopic("all");
+                  }}
+                  className="border rounded p-2 w-full bg-white"
+                >
+                  <option value="all">All Topics</option>
+                  {[
+                    ...new Set(
+                      questionPatterns
+                        .filter(
+                          (p) =>
+                            registryDomain === "all" ||
+                            p.domain === registryDomain,
+                        )
+                        .map((p) => p.topic),
+                    ),
+                  ].map((topic) => (
+                    <option key={topic} value={topic}>
+                      {topic}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">
+                  Subtopic
+                </label>
+                <select
+                  value={registrySubtopic}
+                  onChange={(event) => setRegistrySubtopic(event.target.value)}
+                  className="border rounded p-2 w-full bg-white"
+                >
+                  <option value="all">All Subtopics</option>
+                  {[
+                    ...new Set(
+                      questionPatterns
+                        .filter(
+                          (p) =>
+                            (registryDomain === "all" ||
+                              p.domain === registryDomain) &&
+                            (registryTopic === "all" ||
+                              p.topic === registryTopic),
+                        )
+                        .map((p) => p.subtopic),
+                    ),
+                  ].map((subtopic) => (
+                    <option key={subtopic} value={subtopic}>
+                      {subtopic}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">
+                  Archetype (Package)
+                </label>
+                <select
+                  value={registryPatternId}
+                  onChange={(event) => {
+                    const nextPattern = questionPatterns.find(
+                      (pattern) => pattern.id === event.target.value,
                     );
+                    setRegistryPatternId(event.target.value);
                     if (
-                      firstEnabled
-                        .supportedDifficulties
-                        ?.length &&
-                      !firstEnabled.supportedDifficulties.includes(
+                      nextPattern?.supportedDifficulties?.length &&
+                      !nextPattern.supportedDifficulties.includes(
                         registryDifficulty,
                       )
                     ) {
                       setRegistryDifficulty(
-                        firstEnabled
-                          .supportedDifficulties[0],
+                        nextPattern.supportedDifficulties[0],
                       );
                     }
-                  }
-                }}
-                className="border rounded p-2 w-full bg-white"
-              >
-                <option value="all">
-                  All Domains
-                </option>
-                {registryDomains.map(
-                  (domain) => (
-                    <option
-                      key={domain}
-                      value={domain}
-                    >
-                      {domain}
-                    </option>
-                  ),
-                )}
+                  }}
+                  className="border rounded p-2 w-full bg-white"
+                >
+                  <option value="">Select Archetype</option>
+                  {questionPatterns
+                    .filter(
+                      (p) =>
+                        (registryDomain === "all" ||
+                          p.domain === registryDomain) &&
+                        (registryTopic === "all" ||
+                          p.topic === registryTopic) &&
+                        (registrySubtopic === "all" ||
+                          p.subtopic === registrySubtopic),
+                    )
+                    .map((pattern) => (
+                      <option
+                        key={pattern.id}
+                        value={pattern.id}
+                        disabled={pattern.enabled === false}
+                      >
+                        {pattern.packageId}: {pattern.label}
+                        {pattern.enabled === false ? " (Coming Soon)" : ""}
+                      </option>
+                    ))}
                 </select>
               </div>
-
-            <div className="space-y-2 xl:col-span-3">
-              <label className="block text-sm font-medium">
-                Topic / Pattern
-              </label>
-              <select
-                value={registryPatternId}
-                onChange={(event) => {
-                  const nextPattern =
-                    questionPatterns.find(
-                      (pattern) =>
-                        pattern.id ===
-                        event.target.value,
-                    );
-
-                  setRegistryPatternId(
-                    event.target.value,
-                  );
-                  if (
-                    nextPattern
-                      ?.supportedDifficulties
-                      ?.length &&
-                    !nextPattern.supportedDifficulties.includes(
-                      registryDifficulty,
-                    )
-                  ) {
-                    setRegistryDifficulty(
-                      nextPattern
-                        .supportedDifficulties[0],
-                    );
-                  }
-                }}
-                className="border rounded p-2 w-full bg-white"
-              >
-                <option value="">
-                  Select registry pattern
-                </option>
-                {registryDomains
-                  .filter(
-                    (domain) =>
-                      registryDomain ===
-                        "all" ||
-                      domain ===
-                        registryDomain,
-                  )
-                  .map(
-                  (domain) => {
-                    const domainPatterns =
-                      visibleRegistryPatterns.filter(
-                        (pattern) =>
-                          pattern.domain ===
-                          domain,
-                      );
-                    const topics = [
-                      ...new Set(
-                        domainPatterns.map(
-                          (pattern) =>
-                            pattern.topic,
-                        ),
-                      ),
-                    ];
-
-                    return topics.map(
-                      (topic) => (
-                        <optgroup
-                          key={`${domain}-${topic}`}
-                          label={`${domain.toUpperCase()} - ${topic}`}
-                        >
-                          {domainPatterns
-                            .filter(
-                              (pattern) =>
-                                pattern.topic ===
-                                topic,
-                            )
-                            .map(
-                              (pattern) => (
-                                <option
-                                  key={
-                                    pattern.id
-                                  }
-                                  value={
-                                    pattern.id
-                                  }
-                                  disabled={
-                                    pattern.enabled ===
-                                    false
-                                  }
-                                >
-                                  {pattern.label}
-                                  {pattern.enabled ===
-                                  false
-                                    ? " (Coming Soon)"
-                                    : ""}
-                                </option>
-                              ),
-                            )}
-                        </optgroup>
-                      ),
-                    );
-                  },
-                )}
-              </select>
             </div>
 
             <div className="space-y-2">
@@ -11903,8 +11930,6 @@ export default function AdminGeneratorPage() {
               </p>
             </div>
 
-          </div>
-
             {selectedRegistryPattern ? (
               <div className="text-xs text-slate-600">
                 {selectedRegistryPattern.domain} /{" "}
@@ -11932,941 +11957,7 @@ export default function AdminGeneratorPage() {
               </div>
             ) : null}
           </div>
-        ) : (
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900">
-                Legacy Saved Pattern
-              </h2>
-              <p className="text-sm text-slate-600">
-                Generate from the original pattern-template workflow using a stored editable pattern.
-              </p>
-            </div>
-
-            <div>
-              <label className="block mb-2 font-medium">
-                Saved Pattern
-              </label>
-
-              <select
-                value={patternId}
-                onChange={(e) =>
-                  setPatternId(
-                    e.target.value,
-                  )
-                }
-                className="border rounded p-2 w-full bg-white"
-              >
-                <option value="">
-                  Select Pattern
-                </option>
-
-                {patterns.map((p) => (
-                  <option
-                    key={p.id}
-                    value={p.id}
-                  >
-                    {p.name} (
-                    {p.topic})
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
-
-        <div className="rounded-lg border-2 border-amber-300 bg-amber-50/40 p-4 shadow-sm">
-          <button
-            type="button"
-            onClick={() =>
-              setCorpusAuditOpen(
-                (value) => !value,
-              )
-            }
-            className="flex w-full items-center justify-between text-left"
-          >
-            <span>
-              <span className="block text-lg font-semibold text-slate-900">
-                Corpus Audit Tools
-              </span>
-              <span className="mt-1 block text-sm text-slate-600">
-                Export large quant-v2 audit corpora in the background. This is separate from the normal 1-50 question editor workflow.
-              </span>
-            </span>
-            <span className="rounded border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-600">
-              {corpusAuditOpen
-                ? "Hide"
-                : "Show"}
-            </span>
-          </button>
-
-          {corpusAuditOpen ? (
-            <div className="mt-4 grid gap-4 rounded-md border border-amber-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Quant V2 Topic
-                </label>
-                <select
-                  value={corpusAuditTopicId}
-                  onChange={(event) =>
-                    setCorpusAuditTopicId(
-                      event.target
-                        .value as CorpusAuditTopicId,
-                    )
-                  }
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  {corpusAuditTopicOptions.map(
-                    (topic) => (
-                      <option
-                        key={topic.id}
-                        value={topic.id}
-                      >
-                        {topic.label}
-                      </option>
-                    ),
-                  )}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Audit Preset
-                </label>
-                <select
-                  value={corpusAuditPresetId}
-                  onChange={(event) => {
-                    const next =
-                      event.target.value;
-                    setCorpusAuditPresetId(next);
-                    const preset =
-                      corpusAuditPresets.find(
-                        (item) =>
-                          item.id === next,
-                      );
-                    if (preset) {
-                      setCorpusAuditTopicId(
-                        (preset.topicId as CorpusAuditTopicId | undefined) ??
-                          "percentage",
-                      );
-                      applyCorpusAuditPresetDefaults(
-                        preset,
-                        {
-                          setCount:
-                            setCorpusAuditCount,
-                          setTopology:
-                            setCorpusAuditTopology,
-                          setSchedulerProfile:
-                            setCorpusAuditSchedulerProfile,
-                        },
-                      );
-                    }
-                  }}
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  {corpusAuditPresetsForTopic.map(
-                    (preset) => (
-                      <option
-                        key={preset.id}
-                        value={preset.id}
-                      >
-                        {preset.label}
-                      </option>
-                    ),
-                  )}
-                </select>
-                <p className="mt-2 text-xs text-slate-500">
-                  {corpusAuditPresets.find(
-                    (preset) =>
-                      preset.id ===
-                      corpusAuditPresetId,
-                  )?.description ??
-                    "Large-scale offline corpus audit export."}
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Export Profile
-                </label>
-                <select
-                  value={corpusAuditExportProfile}
-                  onChange={(event) => {
-                    const next =
-                      event.target.value;
-                    setCorpusAuditExportProfile(
-                      next,
-                    );
-                    const profile =
-                      corpusAuditProfiles.find(
-                        (item) =>
-                          item.id === next,
-                      );
-                    setCorpusAuditIncludeMultilingualExplanations(
-                      Boolean(
-                        profile?.includeMultilingualExplanations,
-                      ),
-                    );
-                    if (profile?.id === "editorial_pdf") {
-                      setCorpusAuditIncludeSvg(true);
-                    }
-                  }}
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  {corpusAuditProfiles.map(
-                    (profile) => (
-                      <option
-                        key={profile.id}
-                        value={profile.id}
-                      >
-                        {profile.label}
-                      </option>
-                    ),
-                  )}
-                </select>
-                <p className="mt-2 text-xs text-slate-500">
-                  {corpusAuditProfiles.find(
-                    (profile) =>
-                      profile.id ===
-                      corpusAuditExportProfile,
-                  )?.description ??
-                    "Controls how much metadata and multilingual explanation content is exported."}
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Export Count
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  max="20000"
-                  step="100"
-                  value={corpusAuditCount}
-                  onChange={(event) =>
-                    setCorpusAuditCount(
-                      Math.min(
-                        20000,
-                        Math.max(
-                          1,
-                          Number(
-                            event.target.value,
-                          ) || 500,
-                        ),
-                      ),
-                    )
-                  }
-                  list="corpus-audit-counts"
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                />
-                <datalist id="corpus-audit-counts">
-                  <option value="500" />
-                  <option value="1000" />
-                  <option value="5000" />
-                  <option value="20000" />
-                </datalist>
-                <div className="mt-2 flex flex-wrap gap-1">
-                  {[500, 1000, 5000].map(
-                    (value) => (
-                      <button
-                        key={value}
-                        type="button"
-                        onClick={() =>
-                          setCorpusAuditCount(
-                            value,
-                          )
-                        }
-                        className="rounded border border-slate-200 px-2 py-1 text-xs text-slate-600"
-                      >
-                        {value}
-                      </button>
-                    ),
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Topology Selection
-                </label>
-                <select
-                  value={corpusAuditTopology}
-                  onChange={(event) =>
-                    setCorpusAuditTopology(
-                      event.target.value,
-                    )
-                  }
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  {corpusAuditTopologyOptions.map(
-                    (option) => (
-                      <option
-                        key={option.id}
-                        value={option.id}
-                      >
-                        {option.label}
-                      </option>
-                    ),
-                  )}
-                </select>
-                <p className="mt-2 text-xs text-slate-500">
-                  {corpusAuditTopologyOptions.find(
-                    (option) =>
-                      option.id ===
-                      corpusAuditTopology,
-                  )?.description ??
-                    "Topic-specific topology selection for this audit preset."}
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Realism Profile
-                </label>
-                <select
-                  value={corpusAuditRealismProfile}
-                  onChange={(event) =>
-                    setCorpusAuditRealismProfile(
-                      event.target
-                        .value as typeof corpusAuditRealismProfile,
-                    )
-                  }
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  <option value="balanced">
-                    Balanced
-                  </option>
-                  <option value="pyq">
-                    PYQ-style
-                  </option>
-                  <option value="stress">
-                    Stress audit
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Compactness Profile
-                </label>
-                <select
-                  value={corpusAuditCompactness}
-                  onChange={(event) =>
-                    setCorpusAuditCompactness(
-                      event.target
-                        .value as typeof corpusAuditCompactness,
-                    )
-                  }
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  <option value="compact">
-                    Compact
-                  </option>
-                  <option value="balanced">
-                    Balanced
-                  </option>
-                  <option value="ultra_compact">
-                    Ultra compact stress
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Difficulty Mix
-                </label>
-                <select
-                  value={corpusAuditDifficultyMix}
-                  onChange={(event) =>
-                    setCorpusAuditDifficultyMix(
-                      event.target
-                        .value as typeof corpusAuditDifficultyMix,
-                    )
-                  }
-                  className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                >
-                  <option value="balanced">
-                    Balanced
-                  </option>
-                  <option value="easy">
-                    Easy-heavy
-                  </option>
-                  <option value="medium">
-                    Medium-heavy
-                  </option>
-                  <option value="hard">
-                    Hard-heavy
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Languages
-                </label>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {(["en", "hi", "pa"] as const).map(
-                    (language) => (
-                      <label
-                        key={language}
-                        className="flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs uppercase text-slate-700"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={corpusAuditLanguages.includes(
-                            language,
-                          )}
-                          onChange={(event) =>
-                            setCorpusAuditLanguages(
-                              (current) =>
-                                event.target.checked
-                                  ? [
-                                      ...new Set([
-                                        ...current,
-                                        language,
-                                      ]),
-                                    ]
-                                  : current.filter(
-                                      (item) =>
-                                        item !==
-                                        language,
-                                    ),
-                            )
-                          }
-                        />
-                        {language}
-                      </label>
-                    ),
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-800">
-                  Export Format
-                </label>
-                <div className="mt-2 grid grid-cols-2 gap-2">
-                  {(["json", "txt", "summary", "pdf"] as const).map(
-                    (format) => (
-                      <label
-                        key={format}
-                        className="flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs uppercase text-slate-700"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={corpusAuditFormats.includes(
-                            format,
-                          )}
-                          disabled={format === "pdf"}
-                          onChange={(event) =>
-                            setCorpusAuditFormats(
-                              (current) =>
-                                event.target.checked
-                                  ? [
-                                      ...new Set([
-                                        ...current,
-                                        format,
-                                      ]),
-                                    ]
-                                  : current.filter(
-                                      (item) =>
-                                        item !==
-                                        format,
-                                    ),
-                            )
-                          }
-                        />
-                        {format}
-                      </label>
-                    ),
-                  )}
-                </div>
-                <label className="mt-3 flex items-center gap-2 text-xs text-slate-600">
-                  <input
-                    type="checkbox"
-                    checked={
-                      corpusAuditIncludeSvg
-                    }
-                    onChange={(event) =>
-                      setCorpusAuditIncludeSvg(
-                        event.target.checked,
-                      )
-                    }
-                  />
-                  Include SVG payloads
-                </label>
-                <label className="mt-2 flex items-center gap-2 text-xs text-slate-600">
-                  <input
-                    type="checkbox"
-                    checked={
-                      corpusAuditIncludeMultilingualExplanations
-                    }
-                    onChange={(event) =>
-                      setCorpusAuditIncludeMultilingualExplanations(
-                        event.target.checked,
-                      )
-                    }
-                  />
-                  Include multilingual explanations
-                </label>
-                <label className="mt-2 flex items-center gap-2 text-xs text-slate-600">
-                  <input
-                    type="checkbox"
-                    checked={
-                      corpusAuditUseScheduler
-                    }
-                    onChange={(event) =>
-                      setCorpusAuditUseScheduler(
-                        event.target.checked,
-                      )
-                    }
-                  />
-                  Use R7 corpus scheduler
-                </label>
-                <div className="mt-2">
-                  <label className="block text-xs font-medium text-slate-700">
-                    Scheduler profile
-                  </label>
-                  <select
-                    value={
-                      corpusAuditSchedulerProfile
-                    }
-                    onChange={(event) =>
-                      setCorpusAuditSchedulerProfile(
-                        event.target
-                          .value as SchedulerProfileId,
-                      )
-                    }
-                    disabled={
-                      !corpusAuditUseScheduler
-                    }
-                    className="mt-1 w-full rounded border border-slate-200 bg-white p-2 text-xs disabled:bg-slate-50 disabled:text-slate-400"
-                  >
-                    {corpusAuditSchedulerOptions.map(
-                      (profile) => (
-                        <option
-                          key={profile.id}
-                          value={profile.id}
-                        >
-                          {profile.label}
-                        </option>
-                      ),
-                    )}
-                  </select>
-                  <p className="mt-1 text-xs text-slate-500">
-                    {
-                      corpusAuditSchedulerOptions.find(
-                        (profile) =>
-                          profile.id ===
-                          corpusAuditSchedulerProfile,
-                      )?.description
-                    }
-                  </p>
-                </div>
-                <div className="mt-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-900">
-                  Estimated export size: ~
-                  {estimateCorpusAuditSizeMb()} MB
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 xl:col-span-4">
-                <button
-                  type="button"
-                  onClick={
-                    startCorpusAuditExport
-                  }
-                  disabled={corpusAuditLoading}
-                  className="rounded-md bg-slate-950 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50"
-                >
-                  {corpusAuditLoading
-                    ? "Starting..."
-                    : "Generate Audit Corpus"}
-                </button>
-                {corpusAuditJob ? (
-                  <div className="rounded border border-slate-200 bg-white p-3 text-xs text-slate-600">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div>
-                        <span className="font-semibold text-slate-900">
-                          Job status:
-                        </span>{" "}
-                        {corpusAuditJob.status}
-                      </div>
-                      <div>
-                        {corpusAuditJob.generatedCount}
-                        /
-                        {corpusAuditJob.requestedCount} generated
-                      </div>
-                      <div>
-                        {Math.round(
-                          (corpusAuditJob.progress ??
-                            0) * 100,
-                        )}
-                        % complete
-                      </div>
-                      {corpusAuditJob.startedAt ? (
-                        <div>
-                          Elapsed:{" "}
-                          {Math.max(
-                            0,
-                            Math.round(
-                              ((corpusAuditJob.completedAt
-                                ? new Date(
-                                    corpusAuditJob.completedAt,
-                                  ).getTime()
-                                : Date.now()) -
-                                new Date(
-                                  corpusAuditJob.startedAt,
-                                ).getTime()) /
-                                1000,
-                            ),
-                          )}
-                          s
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="mt-2 h-2 overflow-hidden rounded bg-slate-100">
-                      <div
-                        className="h-full bg-emerald-500"
-                        style={{
-                          width: `${Math.round(
-                            (corpusAuditJob.progress ??
-                              0) * 100,
-                          )}%`,
-                        }}
-                      />
-                    </div>
-                    {corpusAuditJob.outputDir ? (
-                      <div className="mt-2 break-all">
-                        Export location:{" "}
-                        {corpusAuditJob.outputDir}
-                      </div>
-                    ) : null}
-                    {corpusAuditJob.status ===
-                      "completed" &&
-                    corpusAuditJob.files ? (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {(["json", "txt", "summary", "preview"] as const).map(
-                          (artifact) => (
-                            <a
-                              key={artifact}
-                              href={`${API_BASE_URL}/api/generator/corpus-audit/exports/${corpusAuditJob.id}/download/${artifact}`}
-                              className="rounded border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800"
-                            >
-                              Download {artifact}
-                            </a>
-                          ),
-                        )}
-                      </div>
-                    ) : null}
-                    {corpusAuditJob.summary?.scheduler ? (
-                      <details className="mt-3 rounded border border-indigo-200 bg-indigo-50 p-3">
-                        <summary className="cursor-pointer font-semibold text-indigo-950">
-                          Scheduler Summary
-                          {corpusAuditJob.summary.corpusQuality
-                            ? ` - ${corpusAuditJob.summary.corpusQuality.score}/100 (${corpusAuditJob.summary.corpusQuality.tier})`
-                            : ""}
-                        </summary>
-                        <div className="mt-3 grid gap-2 md:grid-cols-2">
-                          {renderDistribution(
-                            "Topology Groups",
-                            corpusAuditJob.summary.scheduler
-                              .topologyGroupDistribution,
-                          )}
-                          {renderDistribution(
-                            "Examiner Intents",
-                            corpusAuditJob.summary.scheduler
-                              .examinerIntentDistribution,
-                          )}
-                          {renderDistribution(
-                            "Semantic Anchors",
-                            corpusAuditJob.summary.scheduler
-                              .semanticAnchorDistribution,
-                          )}
-                          {renderDistribution(
-                            "Distractor Traps",
-                            corpusAuditJob.summary.scheduler
-                              .distractorTrapDistribution,
-                          )}
-                        </div>
-                      </details>
-                    ) : null}
-                    {corpusAuditSamples.length ? (
-                      <div className="mt-4 grid gap-2 md:grid-cols-2">
-                        {corpusAuditSamples.map(
-                          (sample) => (
-                            <div
-                              key={sample.index}
-                              className="rounded border border-slate-200 bg-slate-50 p-2"
-                            >
-                              <div className="font-semibold text-slate-900">
-                                Q{sample.index + 1}.{" "}
-                                {sample.question}
-                              </div>
-                              <div className="mt-1 text-slate-700">
-                                Answer: {sample.answer}
-                              </div>
-                              <div className="mt-1 text-slate-500">
-                                {sample.difficulty} • Realism{" "}
-                                {sample.realismScore ?? 0}
-                              </div>
-                              {sample.multilingual?.hi?.question ? (
-                                <div className="mt-2 text-slate-600">
-                                  HI:{" "}
-                                  {sample.multilingual.hi.question}
-                                </div>
-                              ) : null}
-                              {sample.multilingual?.pa?.question ? (
-                                <div className="mt-1 text-slate-600">
-                                  PA:{" "}
-                                  {sample.multilingual.pa.question}
-                                </div>
-                              ) : null}
-                            </div>
-                          ),
-                        )}
-                      </div>
-                    ) : null}
-                    {corpusAuditJob.errorMessage ? (
-                      <div className="mt-2 text-red-700">
-                        {corpusAuditJob.errorMessage}
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          ) : null}
-        </div>
-
-        <div className="rounded-lg border border-indigo-200 bg-indigo-50/40 p-4 space-y-4">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900">
-                AI Fact Extraction Intake
-              </h2>
-              <p className="mt-1 text-sm text-slate-600">
-                Paste source text from GK/PYQ material. Extracted facts enter the staging queue as needs-review cards.
-              </p>
-            </div>
-            <span className="rounded border border-indigo-200 bg-white px-2 py-1 text-xs font-semibold text-indigo-700">
-              Human verification required
-            </span>
-          </div>
-
-          <div className="grid gap-3 md:grid-cols-[260px_minmax(0,1fr)]">
-            <div className="space-y-3">
-              <label className="block text-sm font-medium text-slate-800">
-                Source Name / Book
-              </label>
-              <input
-                value={extractionSourceName}
-                onChange={(event) =>
-                  setExtractionSourceName(
-                    event.target.value,
-                  )
-                }
-                placeholder="Lucent GK, Punjab GK PDF, PYQ Book..."
-                className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
-              />
-              <div className="grid grid-cols-2 gap-2">
-                <input
-                  value={
-                    extractionSourceChapter
-                  }
-                  onChange={(event) =>
-                    setExtractionSourceChapter(
-                      event.target.value,
-                    )
-                  }
-                  placeholder="Chapter"
-                  className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
-                />
-                <input
-                  value={
-                    extractionSourcePage
-                  }
-                  onChange={(event) =>
-                    setExtractionSourcePage(
-                      event.target.value,
-                    )
-                  }
-                  placeholder="Page"
-                  className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
-                />
-              </div>
-              <input
-                value={extractionSourceUrl}
-                onChange={(event) =>
-                  setExtractionSourceUrl(
-                    event.target.value,
-                  )
-                }
-                placeholder="Source URL (optional)"
-                className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
-              />
-              <div className="rounded-md border border-slate-200 bg-white p-3">
-                <div className="text-xs font-semibold text-slate-800">
-                  PDF Page Range
-                </div>
-                <p className="mt-1 text-xs text-slate-500">
-                  Optional for small PDFs. Required for large books so extraction stays safe and focused.
-                </p>
-                <div className="mt-2 grid grid-cols-2 gap-2">
-                  <input
-                    type="number"
-                    min="1"
-                    value={
-                      extractionStartPage
-                    }
-                    onChange={(event) =>
-                      setExtractionStartPage(
-                        event.target.value,
-                      )
-                    }
-                    placeholder="Start page"
-                    className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    value={
-                      extractionEndPage
-                    }
-                    onChange={(event) =>
-                      setExtractionEndPage(
-                        event.target.value,
-                      )
-                    }
-                    placeholder="End page"
-                    className="w-full rounded-md border border-slate-200 bg-white p-2 text-sm"
-                  />
-                </div>
-              </div>
-              <label className="block rounded-md border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-600">
-                <span className="font-semibold text-slate-800">
-                  Upload source file
-                </span>
-                <span className="mt-1 block">
-                  Supports PDF, .txt, .csv, .md, and .json. PDFs are extracted server-side with OCR fallback when needed.
-                </span>
-                <input
-                  type="file"
-                  accept=".pdf,.txt,.csv,.md,.json,application/pdf,text/*"
-                  className="mt-2 block w-full text-xs"
-                  onChange={(event) =>
-                    loadExtractionSourceFile(
-                      event.target
-                        .files?.[0] ??
-                        null,
-                    )
-                  }
-                />
-              </label>
-              {sourceIngestionLoading ? (
-                <div className="rounded-md border border-indigo-200 bg-indigo-50 p-3 text-xs font-medium text-indigo-800">
-                  Extracting text from source...
-                </div>
-              ) : null}
-              {sourceIngestionMetadata ? (
-                <div className="rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-600">
-                  <div className="font-semibold text-slate-800">
-                    Extracted Text Preview
-                  </div>
-                  <div className="mt-1 grid grid-cols-2 gap-1">
-                    <span>
-                      Type: {sourceIngestionMetadata.sourceType.toUpperCase()}
-                    </span>
-                    <span>
-                      Quality: {sourceIngestionMetadata.extractionQuality}
-                    </span>
-                    <span>
-                      Pages:{" "}
-                      {sourceIngestionMetadata.selectedStartPage &&
-                      sourceIngestionMetadata.selectedEndPage
-                        ? `${sourceIngestionMetadata.selectedStartPage}-${sourceIngestionMetadata.selectedEndPage}`
-                        : sourceIngestionMetadata.pageCount || "NA"}
-                      {sourceIngestionMetadata.totalPages
-                        ? ` of ${sourceIngestionMetadata.totalPages}`
-                        : ""}
-                    </span>
-                    <span>
-                      OCR: {sourceIngestionMetadata.ocrUsed ? "Used" : "Not used"}
-                    </span>
-                    <span>
-                      Words: {sourceIngestionMetadata.wordCount}
-                    </span>
-                    <span>
-                      Characters: {sourceIngestionMetadata.charCount}
-                    </span>
-                  </div>
-                  {sourceIngestionMetadata.warnings.length ? (
-                    <div className="mt-2 rounded border border-amber-200 bg-amber-50 p-2 text-amber-800">
-                      {sourceIngestionMetadata.warnings.join(" ")}
-                    </div>
-                  ) : null}
-                </div>
-              ) : null}
-              <button
-                onClick={
-                  extractKnowledgeFacts
-                }
-                disabled={
-                  extractionLoading ||
-                  sourceIngestionLoading ||
-                  !extractionSourceText.trim()
-                }
-                className="w-full rounded-md bg-blue-950 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
-              >
-                {extractionLoading
-                  ? "Extracting..."
-                  : "Extract Facts to Staging"}
-              </button>
-              <button
-                type="button"
-                onClick={clearExtractionWorkspace}
-                disabled={
-                  extractionLoading ||
-                  sourceIngestionLoading
-                }
-                className="w-full rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
-              >
-                Clear / Start Fresh
-              </button>
-              <div className="rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-600">
-                {import.meta.env.DEV
-                  ? "Uses the backend AI provider configured in .env (OpenAI, Gemini, or Claude); otherwise falls back to offline heuristic extraction."
-                  : "Uses the server-side configured extraction pipeline."}
-              </div>
-              {extractionCandidates.length ? (
-                <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-800">
-                  {extractionCandidates.length} candidate facts added to the moderation queue.
-                </div>
-              ) : null}
-              <button
-                onClick={loadExtractionQueue}
-                disabled={
-                  extractionQueueLoading
-                }
-                className="w-full rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:opacity-50"
-              >
-                {extractionQueueLoading
-                  ? "Loading Queue..."
-                  : "Load Persistent Queue"}
-              </button>
-            </div>
-            <textarea
-              value={extractionSourceText}
-              onChange={(event) =>
-                setExtractionSourceText(
-                  event.target.value,
-                )
-              }
-              placeholder="Paste source text here. Example: Article 17 - Abolition of Untouchability..."
-              className="min-h-[180px] w-full rounded-md border border-slate-200 bg-white p-3 text-sm leading-6"
-            />
-          </div>
-        </div>
+        </>
 
         <div>
           <label className="block mb-2 font-medium">
@@ -12877,11 +11968,11 @@ export default function AdminGeneratorPage() {
             type="number"
             value={count}
             min="1"
-            max="50"
+            max="1000"
             onChange={(e) =>
               setCount(
                 Math.min(
-                  50,
+                  1000,
                   Math.max(
                     1,
                     Number(
@@ -12893,90 +11984,19 @@ export default function AdminGeneratorPage() {
             }
             className="border rounded p-2 w-full"
           />
-        </div>
-
-        {count > 1 ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-semibold text-slate-900">
-                  Corpus Scheduler
-                </h2>
-                <p className="mt-1 text-sm text-slate-600">
-                  {schedulerIsMandatory
-                    ? "Required for migrated Quant V2 batches so family balance is applied. Single-question generation remains unchanged."
-                    : "Optional R7 set-level balancing for batches. Single-question generation remains unchanged."}
-                </p>
-                {selectedRegistryTopicLabel ? (
-                  <p className="mt-2 text-xs font-semibold text-indigo-700">
-                    Chapter:{" "}
-                    {selectedRegistryTopicLabel}
-                  </p>
-                ) : null}
-              </div>
-              <label className="flex items-center gap-2 rounded border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700">
-                <input
-                  type="checkbox"
-                  checked={
-                    useScheduler ||
-                    schedulerIsMandatory
-                  }
-                  disabled={
-                    schedulerIsMandatory
-                  }
-                  onChange={(event) =>
-                    setUseScheduler(
-                      event.target.checked,
-                    )
-                  }
-                />
-                {schedulerIsMandatory
-                  ? "Scheduler required"
-                  : "Use scheduler"}
-              </label>
-            </div>
-            {useScheduler ||
-            schedulerIsMandatory ? (
-              <div className="mt-4 grid gap-3 md:grid-cols-[260px_minmax(0,1fr)]">
-                <div>
-                  <label className="block text-sm font-medium text-slate-800">
-                    Scheduler profile
-                  </label>
-                  <select
-                    value={schedulerProfile}
-                    onChange={(event) =>
-                      setSchedulerProfile(
-                        event.target
-                          .value as SchedulerProfileId,
-                      )
-                    }
-                    className="mt-2 w-full rounded border border-slate-200 bg-white p-2 text-sm"
-                  >
-                    {schedulerProfileOptions.map(
-                      (profile) => (
-                        <option
-                          key={profile.id}
-                          value={profile.id}
-                        >
-                          {profile.label}
-                        </option>
-                      ),
-                    )}
-                  </select>
-                </div>
-                <div className="rounded border border-indigo-100 bg-indigo-50 p-3 text-sm text-indigo-900">
-                  {
-                    schedulerProfileOptions.find(
-                      (profile) =>
-                        profile.id ===
-                        schedulerProfile,
-                    )?.description
-                  }
-                </div>
-              </div>
-            ) : null}
+          <div className="mt-2 flex flex-wrap gap-2">
+            {[100, 250, 500, 1000].map((value) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setCount(value)}
+                className="rounded border border-slate-200 px-2 py-1 text-xs font-medium text-slate-600 hover:border-slate-300"
+              >
+                {value}
+              </button>
+            ))}
           </div>
-        ) : null}
+        </div>
 
         <div className="border rounded-lg p-4 space-y-4 bg-slate-50">
           <div className="flex items-center justify-between gap-4">
@@ -13371,108 +12391,6 @@ export default function AdminGeneratorPage() {
 
       {generated.length > 0 && (
         <div className="space-y-6">
-          {schedulerSummary ? (
-            <details className="rounded-md border border-indigo-200 bg-indigo-50/50 p-4">
-              <summary className="cursor-pointer text-sm font-semibold text-indigo-950">
-                Scheduler Summary
-                {corpusQuality
-                  ? ` - ${corpusQuality.score}/100 (${corpusQuality.tier})`
-                  : ""}
-              </summary>
-              <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                <div className="rounded border border-indigo-200 bg-white p-3 text-sm">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-                    Corpus Quality
-                  </div>
-                  <div className="mt-2 text-2xl font-bold text-slate-950">
-                    {corpusQuality?.score ?? "N/A"}
-                    <span className="ml-2 text-sm font-semibold text-slate-500">
-                      {corpusQuality?.tier ?? ""}
-                    </span>
-                  </div>
-                  <div className="mt-2 text-xs text-slate-600">
-                    Profile: {schedulerSummary.profileId} | Accepted{" "}
-                    {schedulerSummary.acceptedCount}/
-                    {schedulerSummary.targetCount}
-                  </div>
-                  {schedulerSummary.duplicateRisk ? (
-                    <div className="mt-2 text-xs text-slate-600">
-                      Duplicate risk:{" "}
-                      {Math.round(
-                        schedulerSummary.duplicateRisk
-                          .repeatedFingerprintShare * 100,
-                      )}
-                      % repeated fingerprints
-                    </div>
-                  ) : null}
-                </div>
-                {renderDistribution(
-                  "Topology Groups",
-                  schedulerSummary.topologyGroupDistribution,
-                )}
-                {renderDistribution(
-                  "Examiner Intents",
-                  schedulerSummary.examinerIntentDistribution,
-                )}
-                {renderDistribution(
-                  "Semantic Anchors",
-                  schedulerSummary.semanticAnchorDistribution,
-                )}
-                {renderDistribution(
-                  "Distractor Traps",
-                  schedulerSummary.distractorTrapDistribution,
-                )}
-                {renderDistribution(
-                  "Rejection Reasons",
-                  schedulerSummary.rejectionReasons,
-                )}
-              </div>
-              <div className="mt-3 grid gap-3 md:grid-cols-2">
-                <div className="rounded border border-slate-200 bg-white p-3">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Difficulty Pacing
-                  </div>
-                  <div className="mt-2 text-xs text-slate-600">
-                    Hard-streak limit:{" "}
-                    {schedulerSummary.pacingReport?.hardStreakLimit ?? "N/A"}
-                  </div>
-                  {schedulerSummary.pacingReport?.events?.length ? (
-                    <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-slate-600">
-                      {schedulerSummary.pacingReport.events
-                        .slice(0, 6)
-                        .map((event) => (
-                          <li key={event}>{event}</li>
-                        ))}
-                    </ul>
-                  ) : (
-                    <div className="mt-2 text-xs text-slate-500">
-                      No pacing warnings returned.
-                    </div>
-                  )}
-                </div>
-                <div className="rounded border border-slate-200 bg-white p-3">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Quality Notes
-                  </div>
-                  {[...(corpusQuality?.strengths ?? []), ...(corpusQuality?.risks ?? [])]
-                    .slice(0, 8)
-                    .map((note) => (
-                      <div
-                        key={note}
-                        className="mt-2 text-xs text-slate-600"
-                      >
-                        {note}
-                      </div>
-                    ))}
-                  {schedulerSummary.balanceWarnings?.length ? (
-                    <div className="mt-2 text-xs text-amber-700">
-                      {schedulerSummary.balanceWarnings.join(" | ")}
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-            </details>
-          ) : null}
           <section className="overflow-hidden rounded-md border border-slate-200 bg-slate-50 shadow-sm">
             <div className="border-b border-slate-200 bg-[#1e1b4b] px-5 py-4 text-white">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -13911,6 +12829,35 @@ export default function AdminGeneratorPage() {
                         ? `Question ${selectedVisibleIndex + 1} of ${visibleItems.length}`
                         : `${visibleItems.length} visible / ${reviewableItems.length} staged`}
                     </div>
+                    {selectedWorkspaceItem &&
+                    selectedPrimaryQuestion ? (
+                      <div className="mt-2 flex max-w-3xl flex-wrap gap-1.5 text-[11px] text-slate-600">
+                        <span className="rounded border bg-white px-2 py-1">
+                          Index: {selectedVisibleIndex + 1}/{visibleItems.length}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          ID: {selectedPrimaryQuestion.debugMetadata?.seed ?? "none"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          CP: {selectedPrimaryQuestion.canonicalProblemId ?? selectedPrimaryQuestion.debugMetadata?.canonicalProblemId ?? selectedWorkspaceItem.motif}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          QL: {selectedPrimaryQuestion.questionLanguageId ?? selectedPrimaryQuestion.debugMetadata?.questionLanguageId ?? "none"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          ES: {selectedPrimaryQuestion.explanationId ?? selectedPrimaryQuestion.debugMetadata?.explanationId ?? "none"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          Task: {selectedPrimaryQuestion.taskKind ?? selectedPrimaryQuestion.debugMetadata?.taskKind ?? "none"}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          Archetype: {selectedPrimaryQuestion.packageId ?? selectedPrimaryQuestion.debugMetadata?.selectedArchetype ?? selectedWorkspaceItem.archetype}
+                        </span>
+                        <span className="rounded border bg-white px-2 py-1">
+                          Source: {selectedPrimaryQuestion.packageSource ?? selectedPrimaryQuestion.debugMetadata?.packageSource ?? selectedPrimaryQuestion.debugSource ?? "unknown"}
+                        </span>
+                      </div>
+                    ) : null}
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
@@ -14621,7 +13568,7 @@ export default function AdminGeneratorPage() {
             </div>
           </section>
 
-          {false ? (
+          {generated.length > 0 ? (
           <>
           <div className="flex flex-wrap items-center gap-4">
             <h2 className="text-2xl font-semibold">
@@ -14966,7 +13913,7 @@ export default function AdminGeneratorPage() {
                 className="border rounded p-2"
               >
                 <option value="newest">
-                  Newest First
+                  Generated Order
                 </option>
                 <option value="difficulty-desc">
                   Difficulty High to Low

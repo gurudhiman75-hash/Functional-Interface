@@ -1,0 +1,20 @@
+{
+  "probabilities": {
+    "common": 0.8,
+    "uncommon": 0.18,
+    "rare": 0.02
+  },
+  "assignments": {
+    "father": "common",
+    "mother": "common",
+    "son": "common",
+    "daughter": "common",
+    "milk": "common",
+    "water": "common",
+    "coin_1": "common",
+    "coin_2": "common",
+    "coin_5": "uncommon",
+    "coin_10": "rare",
+    "teachers": "uncommon"
+  }
+}

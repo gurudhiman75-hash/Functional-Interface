@@ -1,0 +1,22 @@
+[
+  { "id": "sunny", "en": "Sunny", "hi": "धूप वाला", "pa": "ਧੁੱਪ ਵਾਲਾ" },
+  { "id": "rainy", "en": "Rainy", "hi": "वर्षा ऋतु", "pa": "ਵਰਖਾ" },
+  { "id": "winter", "en": "Winter", "hi": "शीत ऋतु", "pa": "ਸਰਦੀ" },
+  { "id": "summer", "en": "Summer", "hi": "ग्रीष्म ऋतु", "pa": "ਗਰਮੀ" },
+  { "id": "autumn", "en": "Autumn", "hi": "शरद ऋतु", "pa": "ਪਤਝੜ" },
+  { "id": "spring", "en": "Spring", "hi": "वसंत ऋतु", "pa": "ਬਸੰਤ" },
+  { "id": "cloudy", "en": "Cloudy", "hi": "बादल छाए रहना", "pa": "ਬੱਦਲਵਾਈ" },
+  { "id": "windy", "en": "Windy", "hi": "हवादार", "pa": "ਹਵਾਦਾਰ" },
+  { "id": "storm", "en": "Storm", "hi": "तूफान", "pa": "ਤੂਫ਼ਾਨ" },
+  { "id": "fog", "en": "Fog", "hi": "कोहरा", "pa": "ਧੁੰਦ" },
+  { "id": "mist", "en": "Mist", "hi": "धुंध", "pa": "ਗੁਬਾਰ" },
+  { "id": "hail", "en": "Hail", "hi": "ओले", "pa": "ਗੜ੍ਹੇਮਾਰੀ" },
+  { "id": "snow", "en": "Snow", "hi": "बर्फबारी", "pa": "ਬਰਫ਼ਬਾਰੀ" },
+  { "id": "thunder", "en": "Thunder", "hi": "गर्जन", "pa": "ਗਰਜ" },
+  { "id": "humidity", "en": "Humidity", "hi": "आर्द्रता", "pa": "ਨਮੀ" },
+  { "id": "drought", "en": "Drought", "hi": "सूखा", "pa": "ਸੋਕਾ" },
+  { "id": "monsoon", "en": "Monsoon", "hi": "मानसून", "pa": "ਮਾਨਸੂਨ" },
+  { "id": "cyclone", "en": "Cyclone", "hi": "चक्रवात", "pa": "ਚੱਕਰਵਾਤ" },
+  { "id": "heatwave", "en": "Heatwave", "hi": "लू", "pa": "ਲੂ" },
+  { "id": "blizzard", "en": "Blizzard", "hi": "बर्फानी तूफान", "pa": "ਬਰਫ਼ੀਲਾ ਤੂਫ਼ਾਨ" }
+]

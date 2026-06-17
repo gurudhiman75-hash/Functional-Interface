@@ -1,0 +1,53 @@
+{
+  "domains": {
+    "family": {
+      "entities": [
+        { "id": "father", "en": "father", "hi": "पिता", "pa": "ਪਿਤਾ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "mother", "en": "mother", "hi": "माता", "pa": "ਮਾਤਾ", "gender": "female", "numberType": "countable", "frequency": "common" },
+        { "id": "son", "en": "son", "hi": "बेटा", "pa": "ਬੇਟਾ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "daughter", "en": "daughter", "hi": "बेटी", "pa": "ਬੇਟੀ", "gender": "female", "numberType": "countable", "frequency": "common" },
+        { "id": "brother", "en": "brother", "hi": "भाई", "pa": "ਭਰਾ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "sister", "en": "sister", "hi": "बहन", "pa": "ਭੈਣ", "gender": "female", "numberType": "countable", "frequency": "common" }
+      ]
+    },
+    "school": {
+      "entities": [
+        { "id": "boys", "en": "boys", "hi": "लड़के", "pa": "ਮੁੰਡੇ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "girls", "en": "girls", "hi": "लड़कियां", "pa": "ਕੁੜੀਆਂ", "gender": "female", "numberType": "countable", "frequency": "common" },
+        { "id": "students", "en": "students", "hi": "छात्र", "pa": "ਵਿਦਿਆਰਥੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "teachers", "en": "teachers", "hi": "शिक्षक", "pa": "ਅਧਿਆਪਕ", "gender": "male", "numberType": "countable", "frequency": "common" }
+      ]
+    },
+    "marks": {
+      "entities": [
+        { "id": "mathematics", "en": "Mathematics", "hi": "गणित", "pa": "ਗਣਿਤ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "english", "en": "English", "hi": "अंग्रेजी", "pa": "ਅੰਗਰੇਜ਼ੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "science", "en": "Science", "hi": "विज्ञान", "pa": "ਵਿਗਿਆਨ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "history", "en": "History", "hi": "इतिहास", "pa": "ਇਤਿਹਾਸ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+      ]
+    },
+    "coins": {
+      "entities": [
+        { "id": "coin_1", "en": "Rs. 1 coin", "hi": "1 रुपये का सिक्का", "pa": "1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
+        { "id": "coin_2", "en": "Rs. 2 coin", "hi": "2 रुपये का सिक्का", "pa": "2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
+        { "id": "coin_5", "en": "Rs. 5 coin", "hi": "5 रुपये का सिक्का", "pa": "5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "uncommon" },
+        { "id": "coin_10", "en": "Rs. 10 coin", "hi": "10 रुपये का सिक्का", "pa": "10 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "rare" }
+      ]
+    },
+    "workers": {
+      "entities": [
+        { "id": "workers", "en": "workers", "hi": "मजदूर", "pa": "ਮਜ਼ਦੂਰ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "employees", "en": "employees", "hi": "कर्मचारी", "pa": "ਕਰਮਚਾਰੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "men", "en": "men", "hi": "पुरुष", "pa": "ਪੁਰਸ਼", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "women", "en": "women", "hi": "महिलाएं", "pa": "ਔਰਤਾਂ", "gender": "female", "numberType": "countable", "frequency": "common" }
+      ]
+    },
+    "mixtures": {
+      "entities": [
+        { "id": "milk", "en": "milk", "hi": "दूध", "pa": "ਦੁੱਧ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "water", "en": "water", "hi": "पानी", "pa": "ਪਾਣੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "juice", "en": "juice", "hi": "जूस", "pa": "ਜੂਸ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+      ]
+    }
+  }
+}

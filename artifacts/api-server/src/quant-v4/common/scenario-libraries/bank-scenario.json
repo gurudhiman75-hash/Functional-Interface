@@ -1,0 +1,17 @@
+{
+  "id": "bank",
+  "name": { "en": "Bank", "hi": "बैंक", "pa": "ਬੈਂਕ" },
+  "allowedGroups": ["customers", "staff", "clerks", "managers", "account_holders"],
+  "allowedProfessions": ["manager", "cashier", "clerk", "accountant", "security_guard"],
+  "allowedPlaces": ["counter", "vault", "office", "atm_room"],
+  "allowedObjects": ["passbook", "cheque_book", "ledger", "computer", "currency_note", "coin"],
+  "allowedSubjects": ["finance", "banking", "accounting"],
+  "allowedBuildings": ["bank_building"],
+  "allowedAnimals": [],
+  "allowedContainers": ["cash_box", "wallet"],
+  "allowedVehicles": ["cash_van"],
+  "allowedFoods": [],
+  "allowedCommodities": ["gold", "silver"],
+  "forbiddenProfessions": ["farmer", "doctor", "teacher", "pilot"],
+  "tags": ["finance", "banking"]
+}

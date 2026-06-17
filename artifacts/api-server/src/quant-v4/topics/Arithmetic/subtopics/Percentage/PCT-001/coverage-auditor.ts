@@ -1,7 +1,8 @@
-import { getCommonQuestionLanguageIds } from "./library";
+import { getActiveQuestionLanguageIds, getCommonQuestionLanguageIds, validatePct001Libraries } from "./library";
 import { getPct001ActiveCanonicalProblemIds } from "./parameter-generator";
-import { runPct001Pipeline } from "./pipeline";
+import { runPct001ForLanguages, runPct001Pipeline } from "./pipeline";
 import type { Pct001Language, Pct001QuestionPackage } from "./types";
+import { PCT_001_CP_IDS } from "./types";
 
 function countBy(values: readonly string[]) {
   return values.reduce<Record<string, number>>((acc, value) => {
@@ -33,6 +34,19 @@ export function auditPct001Packages(packages: readonly Pct001QuestionPackage[]) 
   const esCoverage = countBy(packages.map((pkg) => pkg.explanationId));
   const difficultyCoverage = countBy(packages.map((pkg) => pkg.difficultyBand));
   const unusedQlIds = getPct001ActiveCanonicalProblemIds().flatMap((cpId) => getCommonQuestionLanguageIds(cpId)).filter((id) => !qlCoverage[id]);
+  
+  let crossLanguageConsistencyFailures = 0;
+  for (let index = 0; index < Math.min(120, packages.length); index += 1) {
+    const pkg = packages[index]!;
+    const triplet = runPct001ForLanguages(pkg.canonicalProblemId, {
+      seed: `cross-language:${index}`,
+      questionLanguageId: pkg.questionLanguageId,
+      difficultyBand: pkg.difficultyBand,
+    });
+    const answers = new Set(triplet.map((item) => item.answer));
+    if (answers.size !== 1) crossLanguageConsistencyFailures += 1;
+  }
+
   return {
     questionCount: packages.length,
     generationFailures: 0,
@@ -46,10 +60,50 @@ export function auditPct001Packages(packages: readonly Pct001QuestionPackage[]) 
     difficultyCoverage,
     unusedQlIds,
     unusedEsIds: getPct001ActiveCanonicalProblemIds().map((cpId, index) => `PCT-ES-${String(index + 1).padStart(3, "0")}`).filter((id) => !esCoverage[id]),
+    crossLanguageConsistencyFailures,
+    libraryValidationFailures: validatePct001Libraries().failures,
   };
 }
 
 export function generatePct001CoverageAudit(count: number, language: Pct001Language = "en") {
   const packages = generatePct001Batch(count, language);
   return { packages, audit: auditPct001Packages(packages) };
+}
+
+export function renderPct001HumanReviewCsv(packages: readonly Pct001QuestionPackage[]) {
+  const header = ["language", "cpId", "qlId", "esId", "difficulty", "taskKind", "answerType", "question", "answer", "validation"];
+  const rows = packages.map((pkg) =>
+    [
+      pkg.language,
+      pkg.canonicalProblemId,
+      pkg.questionLanguageId,
+      pkg.explanationId,
+      pkg.difficultyBand,
+      pkg.parameters.taskKind,
+      pkg.parameters.answerType,
+      pkg.stem,
+      pkg.answer,
+      pkg.validation.valid ? "PASS" : "FAIL",
+    ]
+      .map((value) => `"${String(value).replaceAll('"', '""')}"`)
+      .join(","),
+  );
+  return [header.join(","), ...rows].join("\n");
+}
+
+export function renderPct001CoverageAuditMarkdown(audit: any, countLabel: string) {
+  return [
+    "# PCT-001 Pre-Freeze Coverage Audit",
+    "",
+    "## Summary",
+    "",
+    `- Question count: ${audit.questionCount}`,
+    `- Generation failures: ${audit.generationFailures}`,
+    `- Validation failures: ${audit.validationFailures}`,
+    `- Render failures: ${audit.renderFailures}`,
+    `- Solver failures: ${audit.solverFailures}`,
+    `- Duplicate rate: ${(audit.duplicateRate * 100).toFixed(2)}%`,
+    `- Sample profile: ${countLabel}`,
+    "",
+  ].join("\n");
 }

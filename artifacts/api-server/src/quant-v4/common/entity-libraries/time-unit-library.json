@@ -1,0 +1,22 @@
+[
+  {"id": "time_01", "en": "Second", "hi": "सेकंड", "pa": "ਸੈਕਿੰਡ"},
+  {"id": "time_02", "en": "Minute", "hi": "मिनट", "pa": "ਮਿੰਟ"},
+  {"id": "time_03", "en": "Hour", "hi": "घंटा", "pa": "ਘੰਟਾ"},
+  {"id": "time_04", "en": "Day", "hi": "दिन", "pa": "ਦਿਨ"},
+  {"id": "time_05", "en": "Week", "hi": "सप्ताह", "pa": "ਹਫ਼ਤਾ"},
+  {"id": "time_06", "en": "Fortnight", "hi": "पखवाड़ा", "pa": "ਪੰਦਰਵਾੜਾ"},
+  {"id": "time_07", "en": "Month", "hi": "महीना", "pa": "ਮਹੀਨਾ"},
+  {"id": "time_08", "en": "Year", "hi": "वर्ष", "pa": "ਸਾਲ"},
+  {"id": "time_09", "en": "Decade", "hi": "दशक", "pa": "ਦਹਾਕਾ"},
+  {"id": "time_10", "en": "Century", "hi": "शताब्दी", "pa": "ਸਦੀ"},
+  {"id": "time_11", "en": "Millennium", "hi": "सहस्राब्दी", "pa": "ਹਜ਼ਾਰ ਸਾਲ"},
+  {"id": "time_12", "en": "Quarter", "hi": "तिमाही", "pa": "ਤਿਮਾਹੀ"},
+  {"id": "time_13", "en": "Half-year", "hi": "छमाही", "pa": "ਛਿਮਾਹੀ"},
+  {"id": "time_14", "en": "Morning", "hi": "सुबह", "pa": "ਸਵੇਰ"},
+  {"id": "time_15", "en": "Afternoon", "hi": "दोपहर", "pa": "ਦੁਪਹਿਰ"},
+  {"id": "time_16", "en": "Evening", "hi": "शाम", "pa": "ਸ਼ਾਮ"},
+  {"id": "time_17", "en": "Night", "hi": "रात", "pa": "ਰਾਤ"},
+  {"id": "time_18", "en": "Midnight", "hi": "आधी रात", "pa": "ਅੱਧੀ ਰਾਤ"},
+  {"id": "time_19", "en": "Dawn", "hi": "भोर", "pa": "ਤੜਕਸਾਰ"},
+  {"id": "time_20", "en": "Dusk", "hi": "सांझ", "pa": "ਤਰਕਾਲਾਂ"}
+]

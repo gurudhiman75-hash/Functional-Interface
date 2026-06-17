@@ -1,0 +1,13 @@
+{
+  "allowed_mixtures": {
+    "milk": ["water", "cream"],
+    "petrol": ["diesel"],
+    "acid": ["alcohol"],
+    "water": ["milk"]
+  },
+  "forbidden_mixtures": {
+    "juice": ["mercury"],
+    "milk": ["petrol"],
+    "water": ["diesel"]
+  }
+}

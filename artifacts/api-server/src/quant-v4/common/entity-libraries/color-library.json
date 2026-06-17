@@ -1,0 +1,22 @@
+[
+  {"id": "color_001", "en": "Red", "hi": "लाल", "pa": "ਲਾਲ"},
+  {"id": "color_002", "en": "Blue", "hi": "नीला", "pa": "ਨੀਲਾ"},
+  {"id": "color_003", "en": "Green", "hi": "हरा", "pa": "ਹਰਾ"},
+  {"id": "color_004", "en": "Yellow", "hi": "पीला", "pa": "ਪੀਲਾ"},
+  {"id": "color_005", "en": "Black", "hi": "काला", "pa": "ਕਾਲਾ"},
+  {"id": "color_006", "en": "White", "hi": "सफेद", "pa": "ਚਿੱਟਾ"},
+  {"id": "color_007", "en": "Orange", "hi": "नारंगी", "pa": "ਸੰਤਰੀ"},
+  {"id": "color_008", "en": "Purple", "hi": "जामुनी", "pa": "ਜਾਮਣੀ"},
+  {"id": "color_009", "en": "Pink", "hi": "गुलाबी", "pa": "ਗੁਲਾਬੀ"},
+  {"id": "color_010", "en": "Brown", "hi": "भूरा", "pa": "ਭੂਰਾ"},
+  {"id": "color_011", "en": "Grey", "hi": "स्लेटी", "pa": "ਸਲੇਟੀ"},
+  {"id": "color_012", "en": "Violet", "hi": "बैंगनी", "pa": "ਬੈਂਗਣੀ"},
+  {"id": "color_013", "en": "Indigo", "hi": "नील", "pa": "ਨੀਲ"},
+  {"id": "color_014", "en": "Golden", "hi": "सुनहरा", "pa": "ਸੁਨਹਿਰੀ"},
+  {"id": "color_015", "en": "Silver", "hi": "रजत", "pa": "ਚਾਂਦੀ ਰੰਗਾ"},
+  {"id": "color_016", "en": "Bronze", "hi": "कांस्य", "pa": "ਕਾਂਸੀ ਰੰਗ"},
+  {"id": "color_017", "en": "Maroon", "hi": "गहरा लाल", "pa": "ਗੂੜ੍ਹਾ ਲਾਲ"},
+  {"id": "color_018", "en": "Turquoise", "hi": "फिरोजा", "pa": "ਫਿਰੋਜ਼ੀ"},
+  {"id": "color_019", "en": "Cyan", "hi": "स्यान", "pa": "ਸਿਆਨ"},
+  {"id": "color_020", "en": "Magenta", "hi": "मैजेंटा", "pa": "ਮੈਜੈਂਟਾ"}
+]

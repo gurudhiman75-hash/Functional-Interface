@@ -9,7 +9,7 @@
 - Solver failures: 0
 - Cross-language failures: 0
 - Placeholder failures: 0
-- Duplicate rate: 7.20%
+- Duplicate rate: 6.00%
 - Library validation failures: 0
 - Sample profile: 500 EN questions
 
@@ -113,9 +113,9 @@
 
 ```json
 {
-  "Medium": 201,
-  "Easy": 70,
-  "Hard": 229
+  "Easy": 67,
+  "Hard": 235,
+  "Medium": 198
 }
 ```
 

@@ -1,9 +1,9 @@
-import { getExplanationSteps, renderTemplate } from "./library";
+import { getExplanationSteps, renderTemplate, resolveRap001EntityVariables } from "./library";
 import type { Rap001Explanation, Rap001Parameters, Rap001ReasoningGraph, Rap001SolverResult, Rap001Variables } from "./types";
 
 export function renderRap001Explanation(parameters: Rap001Parameters, solver: Rap001SolverResult, _graph: Rap001ReasoningGraph): Rap001Explanation {
   const values: Rap001Variables = {
-    ...parameters.variables,
+    ...resolveRap001EntityVariables(parameters.variables, parameters.language),
     ...solver.workingValues,
     ...solver.evidence,
     ...solver.mathJax,

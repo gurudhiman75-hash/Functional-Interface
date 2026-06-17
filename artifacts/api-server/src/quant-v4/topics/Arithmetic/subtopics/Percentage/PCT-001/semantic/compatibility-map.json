@@ -1,0 +1,13 @@
+{
+  "allowed_pairings": {
+    "boys": ["girls", "mathematics", "english", "science", "history"],
+    "girls": ["boys", "mathematics", "english", "science", "history"],
+    "voters": ["valid_votes", "invalid_votes", "winner", "runner_up"],
+    "men": ["women", "employees", "workers"],
+    "women": ["men", "employees", "workers"],
+    "salary": ["expenditure", "saving"],
+    "income": ["expenditure", "saving"],
+    "workers": ["machines", "output"],
+    "farmers": ["crops", "yield"]
+  }
+}

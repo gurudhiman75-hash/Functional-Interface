@@ -2,54 +2,54 @@
   "PCT-CP-001": {
     "explanationId": "PCT-ES-001",
     "steps": [
-      "Use the required advanced percentage relation.",
-      "Apply the percentages on the correct changing base.",
-      "Simplify carefully.",
+      "Add the percentages of the two given groups.",
+      "Subtract the percentage that has been counted twice.",
+      "Apply the final percentage to the given total, if the question asks for a count.",
       "Answer: {answer}"
     ]
   },
   "PCT-CP-002": {
     "explanationId": "PCT-ES-002",
     "steps": [
-      "Use the required advanced percentage relation.",
-      "Apply the percentages on the correct changing base.",
-      "Simplify carefully.",
+      "First find the correct value and the wrongly calculated value.",
+      "Find the difference between the two values.",
+      "Take this difference as a percentage of the correct value.",
       "Answer: {answer}"
     ]
   },
   "PCT-CP-003": {
     "explanationId": "PCT-ES-003",
     "steps": [
-      "Use the required advanced percentage relation.",
-      "Apply the percentages on the correct changing base.",
-      "Simplify carefully.",
+      "Break the amount into the given slabs.",
+      "Apply the correct percentage rate to each slab separately.",
+      "Add the slab-wise values to get the final amount.",
       "Answer: {answer}"
     ]
   },
   "PCT-CP-004": {
     "explanationId": "PCT-ES-004",
     "steps": [
-      "Use the required advanced percentage relation.",
-      "Apply the percentages on the correct changing base.",
-      "Simplify carefully.",
+      "Separate the total group into the given sub-groups.",
+      "Apply the required percentage inside each sub-group.",
+      "Combine the required parts and compare with the original total.",
       "Answer: {answer}"
     ]
   },
   "PCT-CP-005": {
     "explanationId": "PCT-ES-005",
     "steps": [
-      "Use the required advanced percentage relation.",
-      "Apply the percentages on the correct changing base.",
-      "Simplify carefully.",
+      "In each replacement, only the remaining original quantity is reduced.",
+      "Keep multiplying by the remaining fraction after every replacement.",
+      "Use the final remaining quantity to find the required result.",
       "Answer: {answer}"
     ]
   },
   "PCT-CP-006": {
     "explanationId": "PCT-ES-006",
     "steps": [
-      "Use the required advanced percentage relation.",
-      "Apply the percentages on the correct changing base.",
-      "Simplify carefully.",
+      "Follow the percentage chain one level at a time.",
+      "Each percentage is applied on the value obtained in the previous step.",
+      "Use the final relation or difference to find the required value.",
       "Answer: {answer}"
     ]
   }

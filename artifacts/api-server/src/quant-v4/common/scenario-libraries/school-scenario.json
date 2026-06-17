@@ -1,0 +1,18 @@
+{
+  "id": "school",
+  "name": { "en": "School", "hi": "स्कूल", "pa": "ਸਕੂਲ" },
+  "allowedGroups": ["students", "boys", "girls", "teachers", "staff", "candidates"],
+  "allowedProfessions": ["teacher", "principal", "librarian", "clerk", "peon", "professor"],
+  "allowedPlaces": ["classroom", "library", "laboratory", "playground", "office", "auditorium"],
+  "allowedObjects": ["book", "pen", "pencil", "notebook", "desk", "blackboard", "chalk", "bag", "calculator"],
+  "allowedSubjects": ["mathematics", "science", "english", "hindi", "punjabi", "history", "geography"],
+  "allowedBuildings": ["school_building", "hostel", "canteen"],
+  "allowedAnimals": [],
+  "allowedContainers": ["water_bottle", "tiffin_box"],
+  "allowedVehicles": ["school_bus", "bicycle"],
+  "allowedFoods": ["lunch", "snacks", "apple", "banana"],
+  "allowedCommodities": [],
+  "forbiddenProfessions": ["driver", "farmer", "investor", "engineer", "doctor"],
+  "forbiddenGroups": ["voters", "investors", "farmers"],
+  "tags": ["education", "academic"]
+}

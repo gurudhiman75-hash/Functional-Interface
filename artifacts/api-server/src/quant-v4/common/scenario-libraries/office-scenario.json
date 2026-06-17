@@ -1,0 +1,17 @@
+{
+  "id": "office",
+  "name": { "en": "Office", "hi": "कार्यालय", "pa": "ਦਫ਼ਤਰ" },
+  "allowedGroups": ["employees", "managers", "staff", "executives", "workers"],
+  "allowedProfessions": ["manager", "developer", "accountant", "secretary", "clerk"],
+  "allowedPlaces": ["cubicle", "meeting_room", "cabin", "cafeteria"],
+  "allowedObjects": ["laptop", "file", "chair", "desk", "printer", "projector"],
+  "allowedSubjects": ["management", "it", "business"],
+  "allowedBuildings": ["office_building", "corporate_tower"],
+  "allowedAnimals": [],
+  "allowedContainers": ["file_folder", "briefcase"],
+  "allowedVehicles": ["car", "bus"],
+  "allowedFoods": ["coffee", "tea", "sandwich"],
+  "allowedCommodities": [],
+  "forbiddenProfessions": ["farmer", "pilot", "soldier"],
+  "tags": ["corporate", "work"]
+}

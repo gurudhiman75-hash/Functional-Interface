@@ -1,0 +1,17 @@
+{
+  "id": "family",
+  "name": { "en": "Family", "hi": "परिवार", "pa": "ਪਰਿਵਾਰ" },
+  "allowedGroups": ["family_members", "siblings", "relatives", "children", "elders"],
+  "allowedProfessions": ["father", "mother", "brother", "sister", "son", "daughter"],
+  "allowedPlaces": ["home", "living_room", "kitchen", "garden"],
+  "allowedObjects": ["furniture", "television", "utensils", "toys"],
+  "allowedSubjects": [],
+  "allowedBuildings": ["house", "apartment"],
+  "allowedAnimals": ["dog", "cat", "cow"],
+  "allowedContainers": ["box", "cupboard"],
+  "allowedVehicles": ["car", "scooter"],
+  "allowedFoods": ["dinner", "breakfast", "milk", "fruits"],
+  "allowedCommodities": [],
+  "forbiddenProfessions": [],
+  "tags": ["social", "personal"]
+}

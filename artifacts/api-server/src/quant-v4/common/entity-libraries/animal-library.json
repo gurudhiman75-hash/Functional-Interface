@@ -1,0 +1,10 @@
+[
+  {"id": "dog", "en": "Dog", "hi": "कुत्ता", "pa": "ਕੁੱਤਾ"},
+  {"id": "cat", "en": "Cat", "hi": "बिल्ली", "pa": "ਬਿੱਲੀ"},
+  {"id": "cow", "en": "Cow", "hi": "गाय", "pa": "ਗਾਂ"},
+  {"id": "buffalo", "en": "Buffalo", "hi": "भैंस", "pa": "ਮੱਝ"},
+  {"id": "ox", "en": "Ox", "hi": "बैल", "pa": "ਬਲਦ"},
+  {"id": "goat", "en": "Goat", "hi": "बकरी", "pa": "ਬੱਕਰੀ"},
+  {"id": "horse", "en": "Horse", "hi": "घोड़ा", "pa": "ਘੋੜਾ"},
+  {"id": "bullock", "en": "Bullock", "hi": "बैल", "pa": "ਬਲਦ"}
+]

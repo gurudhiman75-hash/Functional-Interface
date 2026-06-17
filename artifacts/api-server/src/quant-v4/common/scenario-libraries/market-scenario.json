@@ -1,0 +1,17 @@
+{
+  "id": "market",
+  "name": { "en": "Market", "hi": "बाज़ार", "pa": "ਬਾਜ਼ਾਰ" },
+  "allowedGroups": ["shopkeepers", "customers", "traders", "vendors", "buyers", "sellers"],
+  "allowedProfessions": ["merchant", "trader", "shopkeeper", "vendor", "retailer"],
+  "allowedPlaces": ["shop", "stall", "mall", "grocery_store"],
+  "allowedObjects": ["weighing_scale", "cart", "basket", "billing_machine"],
+  "allowedSubjects": ["commerce", "trade"],
+  "allowedBuildings": ["shop", "mall"],
+  "allowedAnimals": [],
+  "allowedContainers": ["shopping_bag", "crate"],
+  "allowedVehicles": ["delivery_truck", "tempo"],
+  "allowedFoods": ["vegetables", "fruits", "grains", "sweets"],
+  "allowedCommodities": ["sugar", "wheat", "rice", "oil", "cloth"],
+  "forbiddenProfessions": ["doctor", "teacher", "scientist"],
+  "tags": ["commerce", "trade"]
+}

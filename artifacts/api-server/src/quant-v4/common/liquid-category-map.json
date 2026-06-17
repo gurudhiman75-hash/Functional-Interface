@@ -1,0 +1,37 @@
+[
+  {
+    "id": "beverage",
+    "en": "beverage",
+    "hi": "पेय",
+    "pa": "ਪੀਣ ਵਾਲੇ ਪਦਾਰਥ",
+    "liquids": ["milk", "water", "tea", "coffee", "juice", "syrup", "honey", "lemonade"]
+  },
+  {
+    "id": "fuel",
+    "en": "fuel",
+    "hi": "ईंधन",
+    "pa": "ਬਾਲਣ",
+    "liquids": ["petrol", "diesel", "kerosene", "oil", "coal_tar"]
+  },
+  {
+    "id": "chemical",
+    "en": "chemical",
+    "hi": "रसायन",
+    "pa": "ਰਸਾਇਣ",
+    "liquids": ["acid", "ethanol", "methanol", "acetone", "solution", "mercury", "nitric_acid"]
+  },
+  {
+    "id": "oil",
+    "en": "oil",
+    "hi": "तेल",
+    "pa": "ਤੇਲ",
+    "liquids": ["mustard_oil", "refined_oil", "lubricant", "coconut_oil", "olive_oil"]
+  },
+  {
+    "id": "medicine",
+    "en": "medicine",
+    "hi": "दवा",
+    "pa": "ਦਵਾਈ",
+    "liquids": ["syrup", "mixture", "solution", "antiseptic"]
+  }
+]

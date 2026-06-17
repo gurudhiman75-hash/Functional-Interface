@@ -7,6 +7,7 @@ import {
   getQuestionEntry,
   getRequiredVariables,
   getTaskKind,
+  PCT_002_LIBRARY_REGISTRY,
 } from "./library";
 import { stableBucket } from "./math";
 import {
@@ -18,6 +19,7 @@ import {
   type Pct002Parameters,
   type Pct002TaskKind,
   type Pct002Variables,
+  type Pct002SemanticContext,
 } from "./types";
 
 type VariableRangeLibrary = typeof variableRanges;
@@ -32,6 +34,17 @@ export interface Pct002ParameterInput {
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
+}
+
+function pickWeighted<T>(items: readonly T[], getWeight: (item: T) => number, seed: string): T {
+  const weights = items.map(getWeight);
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  let threshold = (stableBucket(seed, 10000) / 10000) * totalWeight;
+  for (let i = 0; i < items.length; i++) {
+    threshold -= weights[i]!;
+    if (threshold <= 0) return items[i]!;
+  }
+  return items[0]!;
 }
 
 function uniqueSorted(values: readonly number[]) {
@@ -395,6 +408,52 @@ export function selectQuestionLanguageId(cpId: Pct002CanonicalProblemId, languag
   return selectQuestionLanguageIdForDifficulty(cpId, resolvedDifficulty, `${seed}:${language}`);
 }
 
+function selectSemanticContext(cpId: Pct002CanonicalProblemId, seed: string): Pct002SemanticContext {
+  const scenario = PCT_002_LIBRARY_REGISTRY.semantic.scenarioMap[cpId] || "setOverlap";
+  const domain = PCT_002_LIBRARY_REGISTRY.semantic.library.domains[scenario];
+  const freqModel = PCT_002_LIBRARY_REGISTRY.semantic.frequencyModel;
+  const compatibility = PCT_002_LIBRARY_REGISTRY.semantic.compatibilityMap;
+
+  const getWeight = (entity: any) => {
+    const freq = freqModel.assignments[entity.id] || entity.frequency || "common";
+    return freqModel.probabilities[freq] || 0.1;
+  };
+
+  const entities: Record<string, any> = {};
+  const availableEntities = domain.entities;
+
+  // Pick primary entity
+  const primary = pickWeighted(availableEntities, getWeight, `${seed}:primary`);
+  entities.primary = primary;
+
+  // For mixtures, enforce allowed/forbidden pairings
+  if (scenario === "mixtures") {
+    const allowed = compatibility.allowed_mixtures[primary.id];
+    const forbidden = compatibility.forbidden_mixtures[primary.id] || [];
+    
+    let secondaryCandidates = availableEntities.filter((e: any) => {
+      const reverseForbidden = compatibility.forbidden_mixtures[e.id] || [];
+      return e.id !== primary.id && !forbidden.includes(e.id) && !reverseForbidden.includes(primary.id);
+    });
+    if (allowed && allowed.length > 0) {
+      const preferred = secondaryCandidates.filter((e: any) => allowed.includes(e.id));
+      if (preferred.length > 0) secondaryCandidates = preferred;
+    }
+    
+    if (secondaryCandidates.length > 0) {
+      entities.secondary = pickWeighted(secondaryCandidates, getWeight, `${seed}:secondary`);
+    }
+  } else {
+    // Standard pick
+    const others = availableEntities.filter((e: any) => e.id !== primary.id);
+    if (others.length > 0) {
+      entities.secondary = pickWeighted(others, getWeight, `${seed}:secondary`);
+    }
+  }
+
+  return { scenario, entities };
+}
+
 export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: Pct002ParameterInput = {}): Pct002Parameters {
   const language = input.language ?? "en";
   const seed = input.seed ?? `PCT-002:${cpId}`;
@@ -404,6 +463,7 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const baseVariables = buildBaseVariables(requiredVariables, difficultyBand, seed);
+  const semanticContext = selectSemanticContext(cpId, seed);
   const variables = constrainVariables(taskKind, baseVariables, difficultyBand, seed);
 
   return {
@@ -418,10 +478,12 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
     answerType,
     requiredVariables,
     variables,
+    semanticContext,
     sourceTrace: {
       questionLanguageSource: `question-language.${language}.json`,
       explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
+      semanticSource: "advanced-percentage-semantic-library.json",
     },
   };
 }

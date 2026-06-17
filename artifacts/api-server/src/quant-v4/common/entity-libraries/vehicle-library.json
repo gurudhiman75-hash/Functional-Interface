@@ -1,0 +1,20 @@
+[
+  {"id": "school_bus", "en": "School Bus", "hi": "स्कूल बस", "pa": "ਸਕੂਲ ਬੱਸ"},
+  {"id": "bicycle", "en": "Bicycle", "hi": "साइकिल", "pa": "ਸਾਈਕਲ"},
+  {"id": "ambulance", "en": "Ambulance", "hi": "एम्बुलेंस", "pa": "ਐਂਬੂਲੈਂਸ"},
+  {"id": "cash_van", "en": "Cash Van", "hi": "कैश वैन", "pa": "ਕੈਸ਼ ਵੈਨ"},
+  {"id": "car", "en": "Car", "hi": "कार", "pa": "ਕਾਰ"},
+  {"id": "bus", "en": "Bus", "hi": "बस", "pa": "ਬੱਸ"},
+  {"id": "scooter", "en": "Scooter", "hi": "स्कूटर", "pa": "ਸਕੂਟਰ"},
+  {"id": "team_bus", "en": "Team Bus", "hi": "टीम बस", "pa": "ਟੀਮ ਬੱਸ"},
+  {"id": "train", "en": "Train", "hi": "ट्रेन", "pa": "ਰੇਲਗੱਡੀ"},
+  {"id": "aeroplane", "en": "Aeroplane", "hi": "हवाई जहाज", "pa": "ਹਵਾਈ ਜਹਾਜ਼"},
+  {"id": "ship", "en": "Ship", "hi": "जहाज", "pa": "ਜਹਾਜ਼"},
+  {"id": "truck", "en": "Truck", "hi": "ट्रक", "pa": "ਟਰੱਕ"},
+  {"id": "delivery_truck", "en": "Delivery Truck", "hi": "डिलीवरी ट्रक", "pa": "ਡਿਲੀਵਰੀ ਟਰੱਕ"},
+  {"id": "tempo", "en": "Tempo", "hi": "टेम्पो", "pa": "ਟੈਂਪੂ"},
+  {"id": "tractor", "en": "Tractor", "hi": "ट्रैक्टर", "pa": "ਟ੍ਰੈਕਟਰ"},
+  {"id": "trolley", "en": "Trolley", "hi": "ट्रॉली", "pa": "ਟਰਾਲੀ"},
+  {"id": "bullock_cart", "en": "Bullock Cart", "hi": "बैलगाड़ी", "pa": "ਬੈਲਗੱਡੀ"},
+  {"id": "forklift", "en": "Forklift", "hi": "फोर्कलिफ्ट", "pa": "ਫੋਰਕਲਿਫਟ"}
+]

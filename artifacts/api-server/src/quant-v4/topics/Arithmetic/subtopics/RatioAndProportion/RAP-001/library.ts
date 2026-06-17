@@ -8,6 +8,11 @@ import taskRegistry from "./task-registry.library.json" assert { type: "json" };
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
 import coverageTargets from "./coverage-targets.library.json" assert { type: "json" };
 import distributionTargets from "./distribution-targets.library.json" assert { type: "json" };
+import semanticLibrary from "./semantic/ratio-semantic-library.json" assert { type: "json" };
+import scenarioMap from "./semantic/scenario-map.json" assert { type: "json" };
+import compatibilityMap from "./semantic/compatibility-map.json" assert { type: "json" };
+import frequencyModel from "./semantic/frequency-model.json" assert { type: "json" };
+import grammarRules from "./semantic/grammar-rules.json" assert { type: "json" };
 import {
   RAP_001_ARCHETYPE_ID,
   RAP_001_CP_IDS,
@@ -19,6 +24,8 @@ import {
   type Rap001QuestionLanguageLibrary,
   type Rap001TaskRegistryLibrary,
   type Rap001Variables,
+  type Rap001SemanticContext,
+  type Rap001SemanticEntity,
 } from "./types";
 
 export const RAP_001_LIBRARY_REGISTRY = {
@@ -36,6 +43,13 @@ export const RAP_001_LIBRARY_REGISTRY = {
   variableRanges,
   coverageTargets,
   distributionTargets,
+  semantic: {
+    library: semanticLibrary,
+    scenarioMap: scenarioMap as Record<string, string>,
+    compatibilityMap,
+    frequencyModel,
+    grammarRules,
+  },
 } as const;
 
 export function extractPlaceholders(template: string) {
@@ -50,6 +64,60 @@ export function renderTemplate(template: string, values: Rap001Variables) {
     }
     return String(value);
   });
+}
+
+function semanticEntitiesById() {
+  const records = new Map<string, Rap001SemanticEntity>();
+  for (const domain of Object.values(RAP_001_LIBRARY_REGISTRY.semantic.library.domains)) {
+    for (const entity of (domain as { entities: Rap001SemanticEntity[] }).entities) {
+      records.set(entity.id, entity);
+    }
+  }
+  return records;
+}
+
+export function resolveRap001EntityVariables(values: Rap001Variables, language: Rap001Language): Rap001Variables {
+  const records = semanticEntitiesById();
+  return Object.fromEntries(
+    Object.entries(values).map(([key, value]) => {
+      if (typeof value !== "string") return [key, value];
+      const entity = records.get(value);
+      return [key, entity ? entity[language] : value];
+    }),
+  );
+}
+
+export function buildRap001SemanticTrace(context?: Rap001SemanticContext) {
+  if (!context) {
+    return {
+      scenarioId: "none",
+      semanticDomain: "none",
+      entityIds: {},
+      frequencyMetadata: {},
+      grammarMetadata: {},
+    };
+  }
+  const entityEntries = Object.entries(context.entities);
+  return {
+    scenarioId: context.scenario,
+    semanticDomain: context.scenario,
+    entityIds: Object.fromEntries(entityEntries.map(([role, entity]) => [`${role}Id`, entity.id])),
+    frequencyMetadata: Object.fromEntries(
+      entityEntries.map(([role, entity]) => [
+        role,
+        RAP_001_LIBRARY_REGISTRY.semantic.frequencyModel.assignments[entity.id] ?? entity.frequency ?? "common",
+      ]),
+    ),
+    grammarMetadata: Object.fromEntries(
+      entityEntries.map(([role, entity]) => [
+        role,
+        {
+          gender: entity.gender ?? "neutral",
+          numberType: entity.numberType ?? "unknown",
+        },
+      ]),
+    ),
+  };
 }
 
 export function getQuestionLanguageIds(cpId: Rap001CanonicalProblemId, language: Rap001Language) {

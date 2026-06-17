@@ -1,0 +1,22 @@
+[
+  { "id": "medical", "en": "Medical", "hi": "चिकित्सा", "pa": "ਡਾਕਟਰੀ" },
+  { "id": "engineering", "en": "Engineering", "hi": "अभियांत्रिकी", "pa": "ਇੰਜੀਨੀਅਰਿੰਗ" },
+  { "id": "teaching", "en": "Teaching", "hi": "शिक्षण", "pa": "ਅਧਿਆਪਨ" },
+  { "id": "business", "en": "Business", "hi": "व्यवसाय", "pa": "ਕਾਰੋਬਾਰ" },
+  { "id": "law", "en": "Law", "hi": "विधि", "pa": "ਕਾਨੂੰਨ" },
+  { "id": "agriculture", "en": "Agriculture", "hi": "कृषि", "pa": "ਖੇਤੀਬਾੜੀ" },
+  { "id": "defense", "en": "Defense", "hi": "रक्षा", "pa": "ਰੱਖਿਆ" },
+  { "id": "administration", "en": "Administration", "hi": "प्रशासन", "pa": "ਪ੍ਰਸ਼ਾਸਨ" },
+  { "id": "journalism", "en": "Journalism", "hi": "पत्रकारिता", "pa": "ਪੱਤਰਕਾਰੀ" },
+  { "id": "arts_culture", "en": "Arts & Culture", "hi": "कला और संस्कृति", "pa": "ਕਲਾ ਅਤੇ ਸੱਭਿਆਚਾਰ" },
+  { "id": "science", "en": "Science", "hi": "विज्ञान", "pa": "ਵਿਗਿਆਨ" },
+  { "id": "technology", "en": "Technology", "hi": "प्रौद्योगिकी", "pa": "ਤਕਨਾਲੋਜੀ" },
+  { "id": "finance", "en": "Finance", "hi": "वित्त", "pa": "ਵਿੱਤ" },
+  { "id": "hospitality", "en": "Hospitality", "hi": "आतिथ्य", "pa": "ਮਹਿਮਾਨਨਿਵਾਜ਼ੀ" },
+  { "id": "sports", "en": "Sports", "hi": "खेल", "pa": "ਖੇਡਾਂ" },
+  { "id": "entertainment", "en": "Entertainment", "hi": "मनोरंजन", "pa": "ਮਨੋਰੰਜਨ" },
+  { "id": "construction", "en": "Construction", "hi": "निर्माण", "pa": "ਨਿਰਮਾਣ" },
+  { "id": "transport", "en": "Transport", "hi": "परिवहन", "pa": "ਆਵਾਜਾਈ" },
+  { "id": "social_work", "en": "Social Work", "hi": "समाज सेवा", "pa": "ਸਮਾਜਿਕ ਕਾਰਜ" },
+  { "id": "research", "en": "Research", "hi": "अनुसंधान", "pa": "ਖੋਜ" }
+]

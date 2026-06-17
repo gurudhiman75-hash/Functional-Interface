@@ -1,0 +1,17 @@
+{
+  "id": "agriculture",
+  "name": { "en": "Agriculture", "hi": "कृषि", "pa": "ਖੇਤੀਬਾੜੀ" },
+  "allowedGroups": ["farmers", "labourers", "workers"],
+  "allowedProfessions": ["farmer", "gardener", "landlord", "worker"],
+  "allowedPlaces": ["field", "farm", "orchard", "nursery"],
+  "allowedObjects": ["plough", "tractor", "sickle", "seeds", "fertilizer"],
+  "allowedSubjects": ["agriculture", "botany"],
+  "allowedBuildings": ["barn", "granary", "shed"],
+  "allowedAnimals": ["cow", "buffalo", "ox", "goat"],
+  "allowedContainers": ["sack", "basket"],
+  "allowedVehicles": ["tractor", "trolley", "bullock_cart"],
+  "allowedFoods": ["grains", "vegetables", "milk"],
+  "allowedCommodities": ["wheat", "rice", "cotton", "sugarcane"],
+  "forbiddenProfessions": ["doctor", "engineer", "pilot", "clerk"],
+  "tags": ["rural", "production"]
+}

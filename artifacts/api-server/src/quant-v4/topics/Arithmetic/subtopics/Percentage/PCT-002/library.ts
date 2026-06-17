@@ -8,6 +8,11 @@ import variableRanges from "./variable-ranges.library.json" assert { type: "json
 import coverageTargets from "./coverage-targets.library.json" assert { type: "json" };
 import distributionTargets from "./distribution-targets.library.json" assert { type: "json" };
 import taskRegistry from "./task-registry.library.json" assert { type: "json" };
+import semanticLibrary from "./semantic/advanced-percentage-semantic-library.json" assert { type: "json" };
+import scenarioMap from "./semantic/scenario-map.json" assert { type: "json" };
+import compatibilityMap from "./semantic/compatibility-map.json" assert { type: "json" };
+import frequencyModel from "./semantic/frequency-model.json" assert { type: "json" };
+import grammarRules from "./semantic/grammar-rules.json" assert { type: "json" };
 import {
   PCT_002_ARCHETYPE_ID,
   PCT_002_CP_IDS,
@@ -19,6 +24,7 @@ import {
   type Pct002QuestionLanguageLibrary,
   type Pct002TaskRegistryLibrary,
   type Pct002Variables,
+  type Pct002SemanticContext,
 } from "./types";
 
 export const PCT_002_LIBRARY_REGISTRY = {
@@ -36,6 +42,13 @@ export const PCT_002_LIBRARY_REGISTRY = {
   coverageTargets,
   distributionTargets,
   taskRegistry: taskRegistry as Pct002TaskRegistryLibrary,
+  semantic: {
+    library: semanticLibrary,
+    scenarioMap: scenarioMap as Record<string, string>,
+    compatibilityMap,
+    frequencyModel,
+    grammarRules,
+  },
 } as const;
 
 export function extractPlaceholders(template: string) {
@@ -50,6 +63,39 @@ export function renderTemplate(template: string, values: Pct002Variables) {
     }
     return String(value);
   });
+}
+
+export function buildPct002SemanticTrace(context?: Pct002SemanticContext) {
+  if (!context) {
+    return {
+      scenarioId: "none",
+      semanticDomain: "none",
+      entityIds: {},
+      frequencyMetadata: {},
+      grammarMetadata: {},
+    };
+  }
+  const entityEntries = Object.entries(context.entities);
+  return {
+    scenarioId: context.scenario,
+    semanticDomain: context.scenario,
+    entityIds: Object.fromEntries(entityEntries.map(([role, entity]) => [`${role}Id`, entity.id])),
+    frequencyMetadata: Object.fromEntries(
+      entityEntries.map(([role, entity]) => [
+        role,
+        PCT_002_LIBRARY_REGISTRY.semantic.frequencyModel.assignments[entity.id] ?? entity.frequency ?? "common",
+      ]),
+    ),
+    grammarMetadata: Object.fromEntries(
+      entityEntries.map(([role, entity]) => [
+        role,
+        {
+          gender: entity.gender ?? "neutral",
+          numberType: entity.numberType ?? "unknown",
+        },
+      ]),
+    ),
+  };
 }
 
 export function getQuestionLanguageIds(cpId: Pct002CanonicalProblemId, language: Pct002Language) {

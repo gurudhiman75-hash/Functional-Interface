@@ -1,0 +1,18 @@
+[
+  {"id": "gold", "en": "Gold", "hi": "सोना", "pa": "ਸੋਨਾ"},
+  {"id": "silver", "en": "Silver", "hi": "चांदी", "pa": "ਚਾਂਦੀ"},
+  {"id": "sugar", "en": "Sugar", "hi": "चीनी", "pa": "ਖੰਡ"},
+  {"id": "wheat", "en": "Wheat", "hi": "गेहूं", "pa": "ਕਣਕ"},
+  {"id": "rice", "en": "Rice", "hi": "चावल", "pa": "ਚਾਵਲ"},
+  {"id": "oil", "en": "Oil", "hi": "तेल", "pa": "ਤੇਲ"},
+  {"id": "cloth", "en": "Cloth", "hi": "कपड़ा", "pa": "ਕੱਪੜਾ"},
+  {"id": "fuel", "en": "Fuel", "hi": "ईंधन", "pa": "ਬਾਲਣ"},
+  {"id": "goods", "en": "Goods", "hi": "माल", "pa": "ਮਾਲ"},
+  {"id": "cotton", "en": "Cotton", "hi": "कपास", "pa": "ਕਪਾਹ"},
+  {"id": "sugarcane", "en": "Sugarcane", "hi": "गन्ना", "pa": "ਗੰਨਾ"},
+  {"id": "wood", "en": "Wood", "hi": "लकड़ी", "pa": "ਲੱਕੜ"},
+  {"id": "raw_material", "en": "Raw Material", "hi": "कच्चा माल", "pa": "ਕੱਚਾ ਮਾਲ"},
+  {"id": "steel", "en": "Steel", "hi": "इस्पात", "pa": "ਸਟੀਲ"},
+  {"id": "plastic", "en": "Plastic", "hi": "प्लास्टिक", "pa": "ਪਲਾਸਟਿਕ"},
+  {"id": "grains", "en": "Grains", "hi": "अनाज", "pa": "ਅਨਾਜ"}
+]

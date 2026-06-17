@@ -1,0 +1,30 @@
+{
+  "hi": {
+    "verbs": {
+      "increase": {
+        "male_singular": "बढ़ता है",
+        "female_singular": "बढ़ती है",
+        "plural": "बढ़ते हैं"
+      },
+      "decrease": {
+        "male_singular": "घटता है",
+        "female_singular": "घटती है",
+        "plural": "घटते हैं"
+      }
+    }
+  },
+  "pa": {
+    "verbs": {
+      "increase": {
+        "male_singular": "ਵੱਧਦਾ ਹੈ",
+        "female_singular": "ਵੱਧਦੀ ਹੈ",
+        "plural": "ਵੱਧਦੇ ਹਨ"
+      },
+      "decrease": {
+        "male_singular": "ਘਟਦਾ ਹੈ",
+        "female_singular": "ਘਟਦੀ ਹੈ",
+        "plural": "ਘਟਦੇ ਹਨ"
+      }
+    }
+  }
+}
