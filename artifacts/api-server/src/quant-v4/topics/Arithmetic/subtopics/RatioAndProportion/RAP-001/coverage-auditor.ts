@@ -81,7 +81,7 @@ export function auditRap001Packages(packages: readonly Rap001QuestionPackage[]):
     renderFailures: packages.filter((pkg) => pkg.stem.includes("undefined") || pkg.stem.includes("NaN") || pkg.answer.includes("undefined") || pkg.answer.includes("NaN")).length,
     solverFailures: packages.filter((pkg) => pkg.answer.length === 0).length,
     crossLanguageFailures,
-    placeholderFailures: packages.filter((pkg) => pkg.explanation.lines.some((line) => line.includes("{"))).length,
+    placeholderFailures: packages.filter((pkg) => pkg.explanation.lines.some((line) => /\{[A-Za-z][A-Za-z0-9_]*\}/.test(line))).length,
     duplicateRate: packages.length ? duplicateCount / packages.length : 0,
     cpCoverage,
     taskKindCoverage,

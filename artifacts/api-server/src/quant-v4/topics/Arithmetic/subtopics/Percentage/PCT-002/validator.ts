@@ -107,7 +107,7 @@ export function validatePct002QuestionPackage(pkg: Pct002QuestionPackage): Pct00
     check("graph", pkg.reasoningGraph.nodes.some((node) => node.id === "answer"), "Graph must contain answer node."),
     check("explanation", pkg.explanation.lines.length > 0, "Explanation must render."),
     check("explanationMinimumSteps", pkg.explanation.lines.length >= 4, "Explanation must contain at least four teacher-style steps."),
-    check("explanationTaskSpecific", !pkg.explanation.lines.join("\n").includes("{") && !pkg.explanation.lines.join("\n").includes("}"), "Explanation placeholders must be resolved."),
+    check("explanationTaskSpecific", !/\{[A-Za-z][A-Za-z0-9_]*\}/.test(pkg.explanation.lines.join("\n")), "Explanation placeholders must be resolved."),
     check("noGenericExplanation", !/generic|fallback|default explanation|AI explanation|apply the formula|use the formula/i.test(pkg.explanation.lines.join("\n")), "Generic explanation path must not be used."),
     check("traceability", pkg.traceability.answer === pkg.answer, "Traceability answer must match."),
     check("traceScenarioId", typeof pkg.traceability.scenarioId === "string", "Traceability must include scenarioId."),
