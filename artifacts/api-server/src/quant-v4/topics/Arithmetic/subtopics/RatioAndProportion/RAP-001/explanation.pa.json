@@ -1,62 +1,1215 @@
 {
   "RAP-CP-001": {
     "explanationId": "RAP-ES-001",
-    "steps": [
-      "ਸਭ ਤੋਂ ਪਹਿਲਾਂ, ਸਾਂਝੇ ਹਿੱਸੇ (pivot) ਦਾ LCM ਕੱਢ ਕੇ ਵੱਖ-ਵੱਖ ਅਨੁਪਾਤਾਂ ਨੂੰ ਆਪਸ ਵਿੱਚ ਜੋੜੋ।",
-      "ਹੁਣ, ਅਨੁਪਾਤਾਂ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਗੁਣਾ ਕਰੋ ਕਿ ਸਾਂਝਾ ਹਿੱਸਾ ਦੋਵਾਂ ਵਿੱਚ ਬਰਾਬਰ ਹੋ ਜਾਵੇ।",
-      "ਫਿਰ, ਸਾਰੇ ਹਿੱਸਿਆਂ ਨੂੰ ਮਿਲਾ ਕੇ ਇੱਕ ਸਾਂਝੀ ਅਨੁਪਾਤ ਲੜੀ (ਜਿਵੇਂ A:B:C) ਵਜੋਂ ਲਿਖੋ।",
-      "ਅੰਤ ਵਿੱਚ, ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ਗਏ ਮੁੱਲ ਦੇ ਅਧਾਰ 'ਤੇ ਸਹੀ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
-      "ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ {answer} ਹੈ।"
-    ]
+    "taskExplanations": {
+      "ratioNormalization": {
+        "steps": [
+          "Convert both terms to whole-number form.",
+          "Integer terms become {normalizedLeft} and {normalizedRight}.",
+          "Required ratio = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Convert both terms to whole-number form.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "Required ratio = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "fractionRatio": {
+        "aliasOf": "ratioNormalization"
+      },
+      "decimalRatio": {
+        "aliasOf": "ratioNormalization"
+      },
+      "decimalNormalization": {
+        "aliasOf": "ratioNormalization"
+      },
+      "simpleLinkage": {
+        "steps": [
+          "Make the common middle term equal in both ratios.",
+          "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Make the common middle term equal in both ratios.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "ratioTreeLinkage": {
+        "steps": [
+          "Multiply the linked ratio terms step by step.",
+          "The required end ratio is {ratioPersonAToPersonD}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Multiply the linked ratio terms step by step.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "scalingByComponent": {
+        "steps": [
+          "One ratio part = {unitValue}.",
+          "Multiply this unit value by the required ratio part.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "One ratio part = {unitValue}.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Multiply this unit value by the required ratio part.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-002": {
     "explanationId": "RAP-ES-002",
-    "steps": [
-      "ਸਭ ਤੋਂ ਪਹਿਲਾਂ, ਅਨੁਪਾਤ ਦੇ ਸਾਰੇ ਹਿੱਸਿਆਂ ਨੂੰ ਜੋੜ ਕੇ ਦੇਖੋ ਕਿ ਕੁੱਲ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ (units) ਹਨ।",
-      "ਹੁਣ, ਕੁੱਲ ਰਾਸ਼ੀ ਨੂੰ ਇਸ ਜੋੜ ਨਾਲ ਭਾਗ ਕਰਕੇ ਇੱਕ ਹਿੱਸੇ ਦਾ ਮੁੱਲ ਕੱਢੋ।",
-      "ਫਿਰ, ਇਸ ਮੁੱਲ ਨੂੰ ਉਸ ਵਿਅਕਤੀ ਜਾਂ ਸਮੂਹ ਦੇ ਅਨੁਪਾਤ ਨਾਲ ਗੁਣਾ ਕਰੋ ਜਿਸਦਾ ਹਿੱਸਾ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।",
-      "ਅੰਤ ਵਿੱਚ, ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰਕੇ ਸਹੀ ਰਾਸ਼ੀ ਜਾਂ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
-      "ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ {answer} ਹੈ।"
-    ]
+    "taskExplanations": {
+      "basicPartition": {
+        "steps": [
+          "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+          "Sum of parts = {sumOfParts}.",
+          "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "divideAmount": {
+        "aliasOf": "basicPartition"
+      },
+      "shareDifference": {
+        "steps": [
+          "First find one part from the total ratio.",
+          "One part = {unitValue}.",
+          "Required difference = difference of ratio parts x one part = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "First find one part from the total ratio.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "reversePartition": {
+        "steps": [
+          "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+          "Total amount = sum of parts x one part = {answer}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Total amount = sum of parts x one part = {answer}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "salaryDistribution": {
+        "steps": [
+          "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+          "One part = {unitValue}.",
+          "Required saving = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "One part = {unitValue}.",
+            "Required saving = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "Required saving = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-003": {
     "explanationId": "RAP-ES-003",
-    "steps": [
-      "ਸਭ ਤੋਂ ਪਹਿਲਾਂ, ਸ਼ੁਰੂਆਤੀ ਮਾਤਰਾਵਾਂ ਨੂੰ ਪਹਿਲੇ ਅਨੁਪਾਤ ਅਨੁਸਾਰ {ratioA}x ਅਤੇ {ratioB}x ਮੰਨ ਲਓ।",
-      "ਹੁਣ, ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੀਆਂ ਜੋੜਨ ਜਾਂ ਘਟਾਉਣ ਦੀਆਂ ਸ਼ਰਤਾਂ ਨੂੰ ਲਾਗੂ ਕਰੋ।",
-      "ਫਿਰ, ਪ੍ਰਾਪਤ ਹੋਏ ਨਵੇਂ ਅਨੁਪਾਤ ਨੂੰ ਅੰਤਿਮ ਅਨੁਪਾਤ ਦੇ ਬਰਾਬਰ ਰੱਖ ਕੇ x ਦਾ ਮੁੱਲ ਕੱਢੋ।",
-      "ਅੰਤ ਵਿੱਚ, x ਦੇ ਮੁੱਲ ਦੀ ਮਦਦ ਨਾਲ ਪੁੱਛੀ ਗਈ ਅੰਤਿਮ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
-      "ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ {answer} ਹੈ।"
-    ]
+    "taskExplanations": {
+      "twoStateAddition": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "boysGirls": {
+        "aliasOf": "twoStateAddition"
+      },
+      "ages": {
+        "aliasOf": "twoStateAddition"
+      },
+      "twoStateSubtraction": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "twoStateTransfer": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "incomeExpenditure": {
+        "steps": [
+          "Set the incomes as ratio multiples and subtract expenses.",
+          "Both savings are {savingsAmount}.",
+          "Required income = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "Required income = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "Required income = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Both savings are {savingsAmount}.",
+            "Required income = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "Required income = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "incomeExpenditureSystem": {
+        "aliasOf": "incomeExpenditure"
+      },
+      "multiStageTransformation": {
+        "steps": [
+          "Apply both changes to the initial ratio terms.",
+          "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Apply both changes to the initial ratio terms.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-004": {
     "explanationId": "RAP-ES-004",
-    "steps": [
-      "ਸਭ ਤੋਂ ਪਹਿਲਾਂ, ਇਹ ਦੇਖੋ ਕਿ ਸਵਾਲ ਵਿੱਚ ਮੱਧ ਅਨੁਪਾਤੀ, ਤੀਜਾ ਜਾਂ ਚੌਥਾ ਅਨੁਪਾਤੀ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।",
-      "ਹੁਣ, ਦਿੱਤੀਆਂ ਗਈਆਂ ਸੰਖਿਆਵਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਫਾਰਮੂਲੇ ਵਿੱਚ ਰੱਖੋ।",
-      "ਫਿਰ, ਸਮੀਕਰਨ ਨੂੰ ਹੱਲ ਕਰਕੇ ਉਸ ਅਣਜਾਣ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੱਢੋ।",
-      "ਅੰਤ ਵਿੱਚ, ਜੇਕਰ ਲੋੜ ਹੋਵੇ ਤਾਂ ਜਵਾਬ ਨੂੰ ਉਸਦੇ ਸਭ ਤੋਂ ਸਰਲ ਰੂਪ ਵਿੱਚ ਬਦਲੋ।",
-      "ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ {answer} ਹੈ।"
-    ]
+    "taskExplanations": {
+      "proportional": {
+        "steps": [
+          "Use the proportional relation for the given numbers.",
+          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Use the proportional relation for the given numbers.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Use the proportional relation for the given numbers.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Use the proportional relation for the given numbers.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Use the proportional relation for the given numbers.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Use the proportional relation for the given numbers.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "meanProportional": {
+        "steps": [
+          "For mean proportional, x? = {numA} x {numB}.",
+          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "For mean proportional, x? = {numA} x {numB}.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "For mean proportional, x? = {numA} x {numB}.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "thirdProportional": {
+        "steps": [
+          "For third proportional, {numA}:{numB} = {numB}:x.",
+          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "fourthProportional": {
+        "steps": [
+          "For fourth proportional, {numA}:{numB} = {numC}:x.",
+          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "directVariation": {
+        "steps": [
+          "In direct variation, y/x remains constant.",
+          "Constant = {constant}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "In direct variation, y/x remains constant.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "inverseVariation": {
+        "steps": [
+          "In inverse variation, x x y remains constant.",
+          "Constant = {constant}.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "In inverse variation, x x y remains constant.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-005": {
     "explanationId": "RAP-ES-005",
-    "steps": [
-      "ਸਭ ਤੋਂ ਪਹਿਲਾਂ, ਵਸਤੂਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਅਤੇ ਉਹਨਾਂ ਦੇ ਵੱਖ-ਵੱਖ ਮੁੱਲ (ਜਿਵੇਂ ਕਿ ਸਿੱਕਿਆਂ ਦੀ ਕੀਮਤ) ਲਿਖੋ।",
-      "ਹੁਣ, 'ਕੁੱਲ ਮੁੱਲ ਅਨੁਪਾਤ' ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਗਿਣਤੀ ਨੂੰ ਉਹਨਾਂ ਦੀ ਕੀਮਤ ਨਾਲ ਗੁਣਾ ਕਰੋ।",
-      "ਫਿਰ, ਕੁੱਲ ਰਾਸ਼ੀ ਨੂੰ ਇਸ ਨਵੇਂ ਅਨੁਪਾਤ ਅਨੁਸਾਰ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡੋ।",
-      "ਅੰਤ ਵਿੱਚ, ਸਵਾਲ ਵਿੱਚ ਪੁੱਛੀ ਗਈ ਵਸਤੂ ਦੀ ਅਸਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
-      "ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ {answer} ਹੈ।"
-    ]
+    "taskExplanations": {
+      "coinCounting": {
+        "steps": [
+          "Value of one ratio unit = {valuePerUnit}.",
+          "Total units = {unit}.",
+          "Required number of coins = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "Required number of coins = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "multiDenominationMapping": {
+        "aliasOf": "coinCounting"
+      },
+      "weightedMapping": {
+        "steps": [
+          "Use the weighted contribution of each item.",
+          "One unit is found from the total weight.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Use the weighted contribution of each item.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "One unit is found from the total weight.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "weightedMarks": {
+        "steps": [
+          "Use the subject ratio and weights together.",
+          "Find one scoring unit from total score.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Use the subject ratio and weights together.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Find one scoring unit from total score.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-006": {
     "explanationId": "RAP-ES-006",
-    "steps": [
-      "ਸਭ ਤੋਂ ਪਹਿਲਾਂ, ਇਹ ਪਛਾਣੋ ਕਿ ਮਿਸ਼ਰਣ ਦਾ ਕਿਹੜਾ ਹਿੱਸਾ ਸਥਿਰ ਹੈ ਅਤੇ ਨਹੀਂ ਬਦਲ ਰਿਹਾ।",
-      "ਹੁਣ, ਅਨੁਪਾਤਾਂ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਸਕੇਲ ਕਰੋ ਕਿ ਸਥਿਰ ਹਿੱਸਾ ਦੋਵਾਂ ਥਾਵਾਂ 'ਤੇ ਬਰਾਬਰ ਹੋ ਜਾਵੇ।",
-      "ਫਿਰ, ਦੂਜੇ ਹਿੱਸੇ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਆਏ ਅੰਤਰ ਨੂੰ ਦੇਖੋ।",
-      "ਅੰਤ ਵਿੱਚ, ਅਨੁਪਾਤ ਦੇ ਇਸ ਅੰਤਰ ਨੂੰ ਅਸਲ ਵਿੱਚ ਮਿਲਾਏ ਗਏ ਜਾਂ ਕੱਢੇ ਗਏ ਘੋਲ ਨਾਲ ਜੋੜੋ।",
-      "ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ {answer} ਹੈ।"
-    ]
+    "taskExplanations": {
+      "mixtureRatio": {
+        "steps": [
+          "Use the unchanged component to connect old and new ratios.",
+          "After matching the unchanged part, calculate the changed component.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "After matching the unchanged part, calculate the changed component.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "binaryMixture": {
+        "aliasOf": "mixtureRatio"
+      },
+      "mixtureComponentFinding": {
+        "aliasOf": "mixtureRatio"
+      },
+      "threeComponentMixture": {
+        "aliasOf": "mixtureRatio"
+      },
+      "variableReplacementRatio": {
+        "steps": [
+          "Apply the two removals one after another.",
+          "Track the remaining original liquid after each removal.",
+          "Final ratio = {answer}.",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}.",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}.",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Apply the two removals one after another.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}.",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "Final ratio = {answer}.",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "acidConcentration": {
+        "steps": [
+          "Total mixture = acid + water.",
+          "Acid percentage = acid volume / total volume x 100.",
+          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "Total mixture = acid + water.",
+            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
+            "Acid percentage = acid volume / total volume x 100.",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+          ],
+          [
+            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "The calculation gives {answer}.",
+            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+          ],
+          [
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      }
+    }
   }
 }

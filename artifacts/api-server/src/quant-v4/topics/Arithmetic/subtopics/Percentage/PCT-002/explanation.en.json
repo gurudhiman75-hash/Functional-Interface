@@ -1,56 +1,866 @@
 {
   "PCT-CP-001": {
     "explanationId": "PCT-ES-001",
-    "steps": [
-      "Add the percentages of the two given groups.",
-      "Subtract the percentage that has been counted twice.",
-      "Apply the final percentage to the given total, if the question asks for a count.",
-      "Answer: {answer}"
-    ]
+    "taskExplanations": {
+      "inclusionExclusion": {
+        "steps": [
+          "Given, {groupAPercentage}% belong to the first group and {groupBPercentage}% belong to the second group.",
+          "{neitherPercentage}% belong to neither group, so {coveredPercentage}% belong to at least one group.",
+          "Both = {groupAPercentage} + {groupBPercentage} - {coveredPercentage} = {overlap}%.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Given, {groupAPercentage}% belong to the first group and {groupBPercentage}% belong to the second group.",
+            "{neitherPercentage}% belong to neither group, so {coveredPercentage}% belong to at least one group.",
+            "Both = {groupAPercentage} + {groupBPercentage} - {coveredPercentage} = {overlap}%.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Given, {groupAPercentage}% belong to the first group and {groupBPercentage}% belong to the second group.",
+            "{neitherPercentage}% belong to neither group, so {coveredPercentage}% belong to at least one group.",
+            "Both = {groupAPercentage} + {groupBPercentage} - {coveredPercentage} = {overlap}%.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Given, {groupAPercentage}% belong to the first group and {groupBPercentage}% belong to the second group.",
+            "Substitute the given numbers in the relation.",
+            "{neitherPercentage}% belong to neither group, so {coveredPercentage}% belong to at least one group.",
+            "Both = {groupAPercentage} + {groupBPercentage} - {coveredPercentage} = {overlap}%.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Given, {groupAPercentage}% belong to the first group and {groupBPercentage}% belong to the second group.",
+            "{neitherPercentage}% belong to neither group, so {coveredPercentage}% belong to at least one group.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Given, {groupAPercentage}% belong to the first group and {groupBPercentage}% belong to the second group.",
+            "{neitherPercentage}% belong to neither group, so {coveredPercentage}% belong to at least one group.",
+            "Keep the base quantity clear while simplifying.",
+            "Both = {groupAPercentage} + {groupBPercentage} - {coveredPercentage} = {overlap}%.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "tripleInclusionExclusion": {
+        "steps": [
+          "Add the three single percentages: {singleTotal}%.",
+          "Subtract the pair overlaps: {pairOverlapTotal}%.",
+          "Add the common part of all three: {groupABCPercentage}%.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Add the three single percentages: {singleTotal}%.",
+            "Subtract the pair overlaps: {pairOverlapTotal}%.",
+            "Add the common part of all three: {groupABCPercentage}%.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Add the three single percentages: {singleTotal}%.",
+            "Subtract the pair overlaps: {pairOverlapTotal}%.",
+            "Add the common part of all three: {groupABCPercentage}%.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Add the three single percentages: {singleTotal}%.",
+            "Substitute the given numbers in the relation.",
+            "Subtract the pair overlaps: {pairOverlapTotal}%.",
+            "Add the common part of all three: {groupABCPercentage}%.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Add the three single percentages: {singleTotal}%.",
+            "Subtract the pair overlaps: {pairOverlapTotal}%.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Add the three single percentages: {singleTotal}%.",
+            "Subtract the pair overlaps: {pairOverlapTotal}%.",
+            "Keep the base quantity clear while simplifying.",
+            "Add the common part of all three: {groupABCPercentage}%.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-002": {
     "explanationId": "PCT-ES-002",
-    "steps": [
-      "First find the correct value and the wrongly calculated value.",
-      "Find the difference between the two values.",
-      "Take this difference as a percentage of the correct value.",
-      "Answer: {answer}"
-    ]
+    "taskExplanations": {
+      "fractionalError": {
+        "steps": [
+          "Correct fraction = {correctNumerator}/{correctDenominator}.",
+          "Wrong fraction = {wrongNumerator}/{wrongDenominator}.",
+          "Percentage error = |wrong - correct| / correct x 100 = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Correct fraction = {correctNumerator}/{correctDenominator}.",
+            "Wrong fraction = {wrongNumerator}/{wrongDenominator}.",
+            "Percentage error = |wrong - correct| / correct x 100 = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Correct fraction = {correctNumerator}/{correctDenominator}.",
+            "Wrong fraction = {wrongNumerator}/{wrongDenominator}.",
+            "Percentage error = |wrong - correct| / correct x 100 = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Correct fraction = {correctNumerator}/{correctDenominator}.",
+            "Substitute the given numbers in the relation.",
+            "Wrong fraction = {wrongNumerator}/{wrongDenominator}.",
+            "Percentage error = |wrong - correct| / correct x 100 = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Correct fraction = {correctNumerator}/{correctDenominator}.",
+            "Wrong fraction = {wrongNumerator}/{wrongDenominator}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Correct fraction = {correctNumerator}/{correctDenominator}.",
+            "Wrong fraction = {wrongNumerator}/{wrongDenominator}.",
+            "Keep the base quantity clear while simplifying.",
+            "Percentage error = |wrong - correct| / correct x 100 = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "wrongMultiplier": {
+        "steps": [
+          "Correct multiplier = {correctMultiplier}.",
+          "Wrong multiplier = {wrongMultiplier}.",
+          "Percentage error = |{wrongMultiplier} - {correctMultiplier}| / {correctMultiplier} x 100 = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Correct multiplier = {correctMultiplier}.",
+            "Wrong multiplier = {wrongMultiplier}.",
+            "Percentage error = |{wrongMultiplier} - {correctMultiplier}| / {correctMultiplier} x 100 = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Correct multiplier = {correctMultiplier}.",
+            "Wrong multiplier = {wrongMultiplier}.",
+            "Percentage error = |{wrongMultiplier} - {correctMultiplier}| / {correctMultiplier} x 100 = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Correct multiplier = {correctMultiplier}.",
+            "Substitute the given numbers in the relation.",
+            "Wrong multiplier = {wrongMultiplier}.",
+            "Percentage error = |{wrongMultiplier} - {correctMultiplier}| / {correctMultiplier} x 100 = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Correct multiplier = {correctMultiplier}.",
+            "Wrong multiplier = {wrongMultiplier}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Correct multiplier = {correctMultiplier}.",
+            "Wrong multiplier = {wrongMultiplier}.",
+            "Keep the base quantity clear while simplifying.",
+            "Percentage error = |{wrongMultiplier} - {correctMultiplier}| / {correctMultiplier} x 100 = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "wrongDivisor": {
+        "steps": [
+          "Correct divisor = {correctDivisor}.",
+          "Wrong divisor = {wrongDivisor}.",
+          "Compare the wrong result with the correct result. Percentage error = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Correct divisor = {correctDivisor}.",
+            "Wrong divisor = {wrongDivisor}.",
+            "Compare the wrong result with the correct result. Percentage error = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Correct divisor = {correctDivisor}.",
+            "Wrong divisor = {wrongDivisor}.",
+            "Compare the wrong result with the correct result. Percentage error = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Correct divisor = {correctDivisor}.",
+            "Substitute the given numbers in the relation.",
+            "Wrong divisor = {wrongDivisor}.",
+            "Compare the wrong result with the correct result. Percentage error = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Correct divisor = {correctDivisor}.",
+            "Wrong divisor = {wrongDivisor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Correct divisor = {correctDivisor}.",
+            "Wrong divisor = {wrongDivisor}.",
+            "Keep the base quantity clear while simplifying.",
+            "Compare the wrong result with the correct result. Percentage error = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-003": {
     "explanationId": "PCT-ES-003",
-    "steps": [
-      "Break the amount into the given slabs.",
-      "Apply the correct percentage rate to each slab separately.",
-      "Add the slab-wise values to get the final amount.",
-      "Answer: {answer}"
-    ]
+    "taskExplanations": {
+      "tieredCommission": {
+        "steps": [
+          "Apply {baseCommissionRate}% up to {thresholdAmount}.",
+          "Apply {bonusCommissionRate}% on the amount above {thresholdAmount}.",
+          "Total commission = {commission}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Apply {baseCommissionRate}% up to {thresholdAmount}.",
+            "Apply {bonusCommissionRate}% on the amount above {thresholdAmount}.",
+            "Total commission = {commission}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Apply {baseCommissionRate}% up to {thresholdAmount}.",
+            "Apply {bonusCommissionRate}% on the amount above {thresholdAmount}.",
+            "Total commission = {commission}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Apply {baseCommissionRate}% up to {thresholdAmount}.",
+            "Substitute the given numbers in the relation.",
+            "Apply {bonusCommissionRate}% on the amount above {thresholdAmount}.",
+            "Total commission = {commission}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Apply {baseCommissionRate}% up to {thresholdAmount}.",
+            "Apply {bonusCommissionRate}% on the amount above {thresholdAmount}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Apply {baseCommissionRate}% up to {thresholdAmount}.",
+            "Apply {bonusCommissionRate}% on the amount above {thresholdAmount}.",
+            "Keep the base quantity clear while simplifying.",
+            "Total commission = {commission}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "tieredTax": {
+        "steps": [
+          "Taxable income = {grossIncome} - {exemptionAmount} = {taxableIncome}.",
+          "Tax = {taxableIncome} x {taxPercentage}/100 = {tax}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Taxable income = {grossIncome} - {exemptionAmount} = {taxableIncome}.",
+            "Tax = {taxableIncome} x {taxPercentage}/100 = {tax}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Taxable income = {grossIncome} - {exemptionAmount} = {taxableIncome}.",
+            "Tax = {taxableIncome} x {taxPercentage}/100 = {tax}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Taxable income = {grossIncome} - {exemptionAmount} = {taxableIncome}.",
+            "Substitute the given numbers in the relation.",
+            "Tax = {taxableIncome} x {taxPercentage}/100 = {tax}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Taxable income = {grossIncome} - {exemptionAmount} = {taxableIncome}.",
+            "Tax = {taxableIncome} x {taxPercentage}/100 = {tax}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Taxable income = {grossIncome} - {exemptionAmount} = {taxableIncome}.",
+            "Tax = {taxableIncome} x {taxPercentage}/100 = {tax}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "piecewiseRate": {
+        "steps": [
+          "Apply {baseChargeRate}% up to {thresholdAmount}.",
+          "Apply {extraChargeRate}% on the extra amount.",
+          "Total charge = {charge}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Apply {baseChargeRate}% up to {thresholdAmount}.",
+            "Apply {extraChargeRate}% on the extra amount.",
+            "Total charge = {charge}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Apply {baseChargeRate}% up to {thresholdAmount}.",
+            "Apply {extraChargeRate}% on the extra amount.",
+            "Total charge = {charge}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Apply {baseChargeRate}% up to {thresholdAmount}.",
+            "Substitute the given numbers in the relation.",
+            "Apply {extraChargeRate}% on the extra amount.",
+            "Total charge = {charge}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Apply {baseChargeRate}% up to {thresholdAmount}.",
+            "Apply {extraChargeRate}% on the extra amount.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Apply {baseChargeRate}% up to {thresholdAmount}.",
+            "Apply {extraChargeRate}% on the extra amount.",
+            "Keep the base quantity clear while simplifying.",
+            "Total charge = {charge}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "multiTierPiecewiseRate": {
+        "steps": [
+          "Break {totalBase} into three slabs using {tier1Limit} and {tier2Limit}.",
+          "Apply rates {tier1Rate}%, {tier2Rate}% and {tier3Rate}% slab-wise.",
+          "Total slab-wise result = {totalResult}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Break {totalBase} into three slabs using {tier1Limit} and {tier2Limit}.",
+            "Apply rates {tier1Rate}%, {tier2Rate}% and {tier3Rate}% slab-wise.",
+            "Total slab-wise result = {totalResult}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Break {totalBase} into three slabs using {tier1Limit} and {tier2Limit}.",
+            "Apply rates {tier1Rate}%, {tier2Rate}% and {tier3Rate}% slab-wise.",
+            "Total slab-wise result = {totalResult}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Break {totalBase} into three slabs using {tier1Limit} and {tier2Limit}.",
+            "Substitute the given numbers in the relation.",
+            "Apply rates {tier1Rate}%, {tier2Rate}% and {tier3Rate}% slab-wise.",
+            "Total slab-wise result = {totalResult}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Break {totalBase} into three slabs using {tier1Limit} and {tier2Limit}.",
+            "Apply rates {tier1Rate}%, {tier2Rate}% and {tier3Rate}% slab-wise.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Break {totalBase} into three slabs using {tier1Limit} and {tier2Limit}.",
+            "Apply rates {tier1Rate}%, {tier2Rate}% and {tier3Rate}% slab-wise.",
+            "Keep the base quantity clear while simplifying.",
+            "Total slab-wise result = {totalResult}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "reversePiecewiseRate": {
+        "steps": [
+          "The final slab result is {totalResult}.",
+          "First remove the result from the first slab.",
+          "Use the second slab rate {tier2Rate}% to recover the original total. Total value = {totalSales}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "The final slab result is {totalResult}.",
+            "First remove the result from the first slab.",
+            "Use the second slab rate {tier2Rate}% to recover the original total. Total value = {totalSales}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "The final slab result is {totalResult}.",
+            "First remove the result from the first slab.",
+            "Use the second slab rate {tier2Rate}% to recover the original total. Total value = {totalSales}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "The final slab result is {totalResult}.",
+            "Substitute the given numbers in the relation.",
+            "First remove the result from the first slab.",
+            "Use the second slab rate {tier2Rate}% to recover the original total. Total value = {totalSales}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "The final slab result is {totalResult}.",
+            "First remove the result from the first slab.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "The final slab result is {totalResult}.",
+            "First remove the result from the first slab.",
+            "Keep the base quantity clear while simplifying.",
+            "Use the second slab rate {tier2Rate}% to recover the original total. Total value = {totalSales}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-004": {
     "explanationId": "PCT-ES-004",
-    "steps": [
-      "Separate the total group into the given sub-groups.",
-      "Apply the required percentage inside each sub-group.",
-      "Combine the required parts and compare with the original total.",
-      "Answer: {answer}"
-    ]
+    "taskExplanations": {
+      "weightedSubgroup": {
+        "steps": [
+          "Male part = {malePercentage}% and female part = {femalePercentage}%.",
+          "Required percentage = male share x {maleTraitPercentage}% + female share x {femaleTraitPercentage}%.",
+          "Total required percentage = {totalPercentage}%.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Male part = {malePercentage}% and female part = {femalePercentage}%.",
+            "Required percentage = male share x {maleTraitPercentage}% + female share x {femaleTraitPercentage}%.",
+            "Total required percentage = {totalPercentage}%.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Male part = {malePercentage}% and female part = {femalePercentage}%.",
+            "Required percentage = male share x {maleTraitPercentage}% + female share x {femaleTraitPercentage}%.",
+            "Total required percentage = {totalPercentage}%.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Male part = {malePercentage}% and female part = {femalePercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "Required percentage = male share x {maleTraitPercentage}% + female share x {femaleTraitPercentage}%.",
+            "Total required percentage = {totalPercentage}%.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Male part = {malePercentage}% and female part = {femalePercentage}%.",
+            "Required percentage = male share x {maleTraitPercentage}% + female share x {femaleTraitPercentage}%.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Male part = {malePercentage}% and female part = {femalePercentage}%.",
+            "Required percentage = male share x {maleTraitPercentage}% + female share x {femaleTraitPercentage}%.",
+            "Keep the base quantity clear while simplifying.",
+            "Total required percentage = {totalPercentage}%.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "hierarchicalPopulation": {
+        "steps": [
+          "Total population = {totalPopulation}.",
+          "Find the weighted required percentage using male and female groups.",
+          "Required count = {employedCount}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Total population = {totalPopulation}.",
+            "Find the weighted required percentage using male and female groups.",
+            "Required count = {employedCount}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Total population = {totalPopulation}.",
+            "Find the weighted required percentage using male and female groups.",
+            "Required count = {employedCount}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Total population = {totalPopulation}.",
+            "Substitute the given numbers in the relation.",
+            "Find the weighted required percentage using male and female groups.",
+            "Required count = {employedCount}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Total population = {totalPopulation}.",
+            "Find the weighted required percentage using male and female groups.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Total population = {totalPopulation}.",
+            "Find the weighted required percentage using male and female groups.",
+            "Keep the base quantity clear while simplifying.",
+            "Required count = {employedCount}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "branchAggregation": {
+        "steps": [
+          "First branch has {groupAPercentage}% of the total.",
+          "Second branch has {groupBPercentage}% of the total.",
+          "Weighted required percentage = {totalPercentage}%.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "First branch has {groupAPercentage}% of the total.",
+            "Second branch has {groupBPercentage}% of the total.",
+            "Weighted required percentage = {totalPercentage}%.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "First branch has {groupAPercentage}% of the total.",
+            "Second branch has {groupBPercentage}% of the total.",
+            "Weighted required percentage = {totalPercentage}%.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "First branch has {groupAPercentage}% of the total.",
+            "Substitute the given numbers in the relation.",
+            "Second branch has {groupBPercentage}% of the total.",
+            "Weighted required percentage = {totalPercentage}%.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "First branch has {groupAPercentage}% of the total.",
+            "Second branch has {groupBPercentage}% of the total.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "First branch has {groupAPercentage}% of the total.",
+            "Second branch has {groupBPercentage}% of the total.",
+            "Keep the base quantity clear while simplifying.",
+            "Weighted required percentage = {totalPercentage}%.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-005": {
     "explanationId": "PCT-ES-005",
-    "steps": [
-      "In each replacement, only the remaining original quantity is reduced.",
-      "Keep multiplying by the remaining fraction after every replacement.",
-      "Use the final remaining quantity to find the required result.",
-      "Answer: {answer}"
-    ]
+    "taskExplanations": {
+      "repeatedReplacement": {
+        "steps": [
+          "Initial volume = {initialVolume}.",
+          "Each operation keeps the fraction {remainingFraction} of the original quantity.",
+          "After {numberOfOperations} operations, remaining percentage = {remainingPercent}%.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Initial volume = {initialVolume}.",
+            "Each operation keeps the fraction {remainingFraction} of the original quantity.",
+            "After {numberOfOperations} operations, remaining percentage = {remainingPercent}%.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Initial volume = {initialVolume}.",
+            "Each operation keeps the fraction {remainingFraction} of the original quantity.",
+            "After {numberOfOperations} operations, remaining percentage = {remainingPercent}%.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Initial volume = {initialVolume}.",
+            "Substitute the given numbers in the relation.",
+            "Each operation keeps the fraction {remainingFraction} of the original quantity.",
+            "After {numberOfOperations} operations, remaining percentage = {remainingPercent}%.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Initial volume = {initialVolume}.",
+            "Each operation keeps the fraction {remainingFraction} of the original quantity.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Initial volume = {initialVolume}.",
+            "Each operation keeps the fraction {remainingFraction} of the original quantity.",
+            "Keep the base quantity clear while simplifying.",
+            "After {numberOfOperations} operations, remaining percentage = {remainingPercent}%.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "iterativeDilution": {
+        "steps": [
+          "Initial volume = {initialVolume}.",
+          "Each operation leaves the fraction {remainingFraction}.",
+          "Remaining amount after {numberOfOperations} operations = {remainingAmount}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Initial volume = {initialVolume}.",
+            "Each operation leaves the fraction {remainingFraction}.",
+            "Remaining amount after {numberOfOperations} operations = {remainingAmount}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Initial volume = {initialVolume}.",
+            "Each operation leaves the fraction {remainingFraction}.",
+            "Remaining amount after {numberOfOperations} operations = {remainingAmount}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Initial volume = {initialVolume}.",
+            "Substitute the given numbers in the relation.",
+            "Each operation leaves the fraction {remainingFraction}.",
+            "Remaining amount after {numberOfOperations} operations = {remainingAmount}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Initial volume = {initialVolume}.",
+            "Each operation leaves the fraction {remainingFraction}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Initial volume = {initialVolume}.",
+            "Each operation leaves the fraction {remainingFraction}.",
+            "Keep the base quantity clear while simplifying.",
+            "Remaining amount after {numberOfOperations} operations = {remainingAmount}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "variableReplacement": {
+        "steps": [
+          "Successive remaining factors are {factor1}, {factor2} and {factor3}.",
+          "Multiply all remaining factors and convert to percent.",
+          "Remaining percentage = {remainingPercent}%.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Successive remaining factors are {factor1}, {factor2} and {factor3}.",
+            "Multiply all remaining factors and convert to percent.",
+            "Remaining percentage = {remainingPercent}%.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Successive remaining factors are {factor1}, {factor2} and {factor3}.",
+            "Multiply all remaining factors and convert to percent.",
+            "Remaining percentage = {remainingPercent}%.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Successive remaining factors are {factor1}, {factor2} and {factor3}.",
+            "Substitute the given numbers in the relation.",
+            "Multiply all remaining factors and convert to percent.",
+            "Remaining percentage = {remainingPercent}%.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Successive remaining factors are {factor1}, {factor2} and {factor3}.",
+            "Multiply all remaining factors and convert to percent.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Successive remaining factors are {factor1}, {factor2} and {factor3}.",
+            "Multiply all remaining factors and convert to percent.",
+            "Keep the base quantity clear while simplifying.",
+            "Remaining percentage = {remainingPercent}%.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-006": {
     "explanationId": "PCT-ES-006",
-    "steps": [
-      "Follow the percentage chain one level at a time.",
-      "Each percentage is applied on the value obtained in the previous step.",
-      "Use the final relation or difference to find the required value.",
-      "Answer: {answer}"
-    ]
+    "taskExplanations": {
+      "multiLevelChain": {
+        "steps": [
+          "Follow the percentage chain level by level.",
+          "After applying the given percentages, the final value is {answer}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Follow the percentage chain level by level.",
+            "After applying the given percentages, the final value is {answer}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Follow the percentage chain level by level.",
+            "After applying the given percentages, the final value is {answer}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Follow the percentage chain level by level.",
+            "Substitute the given numbers in the relation.",
+            "After applying the given percentages, the final value is {answer}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Follow the percentage chain level by level.",
+            "After applying the given percentages, the final value is {answer}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Follow the percentage chain level by level.",
+            "After applying the given percentages, the final value is {answer}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "electionMargin": {
+        "steps": [
+          "Valid votes are found after polling and invalid vote percentages.",
+          "Winner-loser gap is based on {winnerPercentage}% of valid votes.",
+          "Using the margin {voteMargin}, total voters = {totalVoters}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Valid votes are found after polling and invalid vote percentages.",
+            "Winner-loser gap is based on {winnerPercentage}% of valid votes.",
+            "Using the margin {voteMargin}, total voters = {totalVoters}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Valid votes are found after polling and invalid vote percentages.",
+            "Winner-loser gap is based on {winnerPercentage}% of valid votes.",
+            "Using the margin {voteMargin}, total voters = {totalVoters}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Valid votes are found after polling and invalid vote percentages.",
+            "Substitute the given numbers in the relation.",
+            "Winner-loser gap is based on {winnerPercentage}% of valid votes.",
+            "Using the margin {voteMargin}, total voters = {totalVoters}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Valid votes are found after polling and invalid vote percentages.",
+            "Winner-loser gap is based on {winnerPercentage}% of valid votes.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Valid votes are found after polling and invalid vote percentages.",
+            "Winner-loser gap is based on {winnerPercentage}% of valid votes.",
+            "Keep the base quantity clear while simplifying.",
+            "Using the margin {voteMargin}, total voters = {totalVoters}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "multiStageAttrition": {
+        "aliasOf": "multiLevelChain"
+      },
+      "shiftedBaseChain": {
+        "aliasOf": "multiLevelChain"
+      }
+    }
   }
 }

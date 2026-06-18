@@ -60,12 +60,75 @@ export function solvePct001(parameters: Pct001Parameters): Pct001SolverResult {
   else if (t === "alloyComplement") numericAnswer = value(parameters, "totalWeight") * (100 - value(parameters, "percentageRate")) / 100;
 
   if (!answer) answer = formatByAnswerType(parameters, numericAnswer ?? 0);
+  const percentageRate = value(parameters, "percentageRate");
+  const rate1 = value(parameters, "rate1");
+  const rate2 = value(parameters, "rate2");
+  const valueAmount = value(parameters, "value");
+  const baseValue = value(parameters, "baseValue");
+  const evidence: Record<string, string | number> = {
+    ...parameters.variables,
+    taskKind: t,
+    answerType: parameters.answerType,
+    answer,
+    percentageRate: Number.isFinite(percentageRate) ? percentageRate : rate1,
+    largerBase: roundTo(100 + percentageRate, 4),
+    smallerBase: roundTo(100 - percentageRate, 4),
+    changedBase: roundTo(
+      t === "reverseDecrease" || t === "decreaseNewValue"
+        ? 100 - percentageRate
+        : 100 + (Number.isFinite(percentageRate) ? percentageRate : rate1),
+      4,
+    ),
+    remainingBase: roundTo(100 - percentageRate, 4),
+    changeAmount: roundTo(percentOf(percentageRate, baseValue), 4),
+    percentDifference: roundTo(Math.abs(rate1 - rate2), 4),
+    firstFactor: roundTo(1 + rate1 / 100, 4),
+    secondFactor: roundTo(t === "successiveChange" || t === "revenueChange" ? 1 - rate2 / 100 : 1 + rate2 / 100, 4),
+    singleFactor: roundTo(t === "compoundDecay" || t === "circleAreaDecrease" ? 1 - percentageRate / 100 : 1 + percentageRate / 100, 4),
+    netFactor: roundTo(
+      (1 + rate1 / 100) *
+        (t === "successiveChange" || t === "revenueChange" ? 1 - rate2 / 100 : 1 + rate2 / 100),
+      4,
+    ),
+    knownPercentage: roundTo(
+      t === "partToTotal" || t === "moreMarksBase"
+        ? 100 - rate1
+        : t === "incomePartition"
+          ? 100 - rate1 - rate2 - value(parameters, "rate3")
+          : t === "twoShareRemainder"
+            ? 100 - rate1 - rate2
+            : t === "complementOfTotal"
+              ? 100 - percentageRate
+              : 100 - rate1,
+      4,
+    ),
+    loserPercentage: roundTo(100 - percentageRate, 4),
+    winnerPercentage: roundTo(100 - rate1, 4),
+    gapPercentage: roundTo(
+      t === "loserVotes"
+        ? 100 - 2 * rate1
+        : t === "winnerVotes"
+          ? 2 * percentageRate - 100
+          : Math.abs(rate1 - rate2),
+      4,
+    ),
+    validPercentage: roundTo(100 - rate1, 4),
+    effectiveGapPercentage: roundTo((1 - rate1 / 100) * (2 * rate2 - 100), 4),
+    passMarksValue: roundTo(value(parameters, "marksObtained") + value(parameters, "failMargin"), 4),
+    initialUnchangedAmount: roundTo(
+      value(parameters, "totalMixture") * percentageRate / 100 ||
+        value(parameters, "totalQuantity") * (100 - value(parameters, "waterRate")) / 100 ||
+        value(parameters, "totalWeight") * (100 - percentageRate) / 100,
+      4,
+    ),
+    value: Number.isFinite(valueAmount) ? valueAmount : "",
+  };
 
   return {
     answer,
     numericAnswer: numericAnswer === null ? null : roundTo(numericAnswer, 4),
     answerType: parameters.answerType,
-    evidence: { taskKind: t, answerType: parameters.answerType, answer },
+    evidence,
     mathJax: {
       setupLatex: mathJaxLine("setup", `${t}`),
       calculationLatex: mathJaxLine("answer", answer),

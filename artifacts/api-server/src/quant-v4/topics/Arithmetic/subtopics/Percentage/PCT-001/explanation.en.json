@@ -1,50 +1,1592 @@
 {
   "PCT-CP-001": {
-    "steps": [
-      "First, find the total value and the part you want to calculate.",
-      "Now, divide the part by the total value.",
-      "Then, multiply by 100 to get the percentage.",
-      "Finally, simplify your answer."
-    ]
+    "explanationId": "PCT-ES-001",
+    "taskExplanations": {
+      "percentOf": {
+        "steps": [
+          "We need {percentageRate}% of {baseValue}.",
+          "{percentageRate}% means {percentageRate}/100.",
+          "So, required value = {baseValue} x {percentageRate}/100 = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "We need {percentageRate}% of {baseValue}.",
+            "{percentageRate}% means {percentageRate}/100.",
+            "So, required value = {baseValue} x {percentageRate}/100 = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "We need {percentageRate}% of {baseValue}.",
+            "{percentageRate}% means {percentageRate}/100.",
+            "So, required value = {baseValue} x {percentageRate}/100 = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "We need {percentageRate}% of {baseValue}.",
+            "Substitute the given numbers in the relation.",
+            "{percentageRate}% means {percentageRate}/100.",
+            "So, required value = {baseValue} x {percentageRate}/100 = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "We need {percentageRate}% of {baseValue}.",
+            "{percentageRate}% means {percentageRate}/100.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "We need {percentageRate}% of {baseValue}.",
+            "{percentageRate}% means {percentageRate}/100.",
+            "Keep the base quantity clear while simplifying.",
+            "So, required value = {baseValue} x {percentageRate}/100 = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "directRelation": {
+        "aliasOf": "percentOf"
+      },
+      "reversePercent": {
+        "steps": [
+          "{percentageRate}% of the number is {value}.",
+          "So, 1% of the number = {value}/ {percentageRate}.",
+          "Therefore, 100% of the number = {value} x 100 / {percentageRate} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "{percentageRate}% of the number is {value}.",
+            "So, 1% of the number = {value}/ {percentageRate}.",
+            "Therefore, 100% of the number = {value} x 100 / {percentageRate} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "{percentageRate}% of the number is {value}.",
+            "So, 1% of the number = {value}/ {percentageRate}.",
+            "Therefore, 100% of the number = {value} x 100 / {percentageRate} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "{percentageRate}% of the number is {value}.",
+            "Substitute the given numbers in the relation.",
+            "So, 1% of the number = {value}/ {percentageRate}.",
+            "Therefore, 100% of the number = {value} x 100 / {percentageRate} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "{percentageRate}% of the number is {value}.",
+            "So, 1% of the number = {value}/ {percentageRate}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "{percentageRate}% of the number is {value}.",
+            "So, 1% of the number = {value}/ {percentageRate}.",
+            "Keep the base quantity clear while simplifying.",
+            "Therefore, 100% of the number = {value} x 100 / {percentageRate} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "moreToLess": {
+        "steps": [
+          "Let the smaller value be 100.",
+          "Then the larger value = 100 + {percentageRate} = {largerBase}.",
+          "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Let the smaller value be 100.",
+            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
+            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Let the smaller value be 100.",
+            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
+            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Let the smaller value be 100.",
+            "Substitute the given numbers in the relation.",
+            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
+            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Let the smaller value be 100.",
+            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Let the smaller value be 100.",
+            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
+            "Keep the base quantity clear while simplifying.",
+            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "lessToMore": {
+        "steps": [
+          "Let the larger value be 100.",
+          "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
+          "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Let the larger value be 100.",
+            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
+            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Let the larger value be 100.",
+            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
+            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Let the larger value be 100.",
+            "Substitute the given numbers in the relation.",
+            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
+            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Let the larger value be 100.",
+            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Let the larger value be 100.",
+            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
+            "Keep the base quantity clear while simplifying.",
+            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "ratioFromPercentEquality": {
+        "steps": [
+          "Given, {rate1}% of A = {rate2}% of B.",
+          "So, A/B = {rate2}/{rate1}.",
+          "After simplification, A:B = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Given, {rate1}% of A = {rate2}% of B.",
+            "So, A/B = {rate2}/{rate1}.",
+            "After simplification, A:B = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Given, {rate1}% of A = {rate2}% of B.",
+            "So, A/B = {rate2}/{rate1}.",
+            "After simplification, A:B = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Given, {rate1}% of A = {rate2}% of B.",
+            "Substitute the given numbers in the relation.",
+            "So, A/B = {rate2}/{rate1}.",
+            "After simplification, A:B = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Given, {rate1}% of A = {rate2}% of B.",
+            "So, A/B = {rate2}/{rate1}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Given, {rate1}% of A = {rate2}% of B.",
+            "So, A/B = {rate2}/{rate1}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, A:B = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "valueAsPercent": {
+        "steps": [
+          "We need to express {value} as a percentage of {baseValue}.",
+          "Percentage = {value} x 100 / {baseValue}.",
+          "Percentage = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "We need to express {value} as a percentage of {baseValue}.",
+            "Percentage = {value} x 100 / {baseValue}.",
+            "Percentage = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "We need to express {value} as a percentage of {baseValue}.",
+            "Percentage = {value} x 100 / {baseValue}.",
+            "Percentage = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "We need to express {value} as a percentage of {baseValue}.",
+            "Substitute the given numbers in the relation.",
+            "Percentage = {value} x 100 / {baseValue}.",
+            "Percentage = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "We need to express {value} as a percentage of {baseValue}.",
+            "Percentage = {value} x 100 / {baseValue}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "We need to express {value} as a percentage of {baseValue}.",
+            "Percentage = {value} x 100 / {baseValue}.",
+            "Keep the base quantity clear while simplifying.",
+            "Percentage = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "percentToFraction": {
+        "steps": [
+          "Write {percentageRate}% as {percentageRate}/100.",
+          "Reduce the fraction to lowest terms.",
+          "The simplified fraction is {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Write {percentageRate}% as {percentageRate}/100.",
+            "Reduce the fraction to lowest terms.",
+            "The simplified fraction is {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Write {percentageRate}% as {percentageRate}/100.",
+            "Reduce the fraction to lowest terms.",
+            "The simplified fraction is {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Write {percentageRate}% as {percentageRate}/100.",
+            "Substitute the given numbers in the relation.",
+            "Reduce the fraction to lowest terms.",
+            "The simplified fraction is {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Write {percentageRate}% as {percentageRate}/100.",
+            "Reduce the fraction to lowest terms.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Write {percentageRate}% as {percentageRate}/100.",
+            "Reduce the fraction to lowest terms.",
+            "Keep the base quantity clear while simplifying.",
+            "The simplified fraction is {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-002": {
-    "steps": [
-      "First, change the percentage into a fraction like (100+x)/100.",
-      "Now, multiply the starting value by this fraction.",
-      "If you need the old value, divide the result by the same fraction.",
-      "Finally, calculate the final answer."
-    ]
+    "explanationId": "PCT-ES-002",
+    "taskExplanations": {
+      "increaseNewValue": {
+        "steps": [
+          "Original value = {baseValue}.",
+          "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
+          "New value = {baseValue} + {changeAmount} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Original value = {baseValue}.",
+            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "New value = {baseValue} + {changeAmount} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Original value = {baseValue}.",
+            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "New value = {baseValue} + {changeAmount} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Original value = {baseValue}.",
+            "Substitute the given numbers in the relation.",
+            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "New value = {baseValue} + {changeAmount} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Original value = {baseValue}.",
+            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Original value = {baseValue}.",
+            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "Keep the base quantity clear while simplifying.",
+            "New value = {baseValue} + {changeAmount} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "decreaseNewValue": {
+        "steps": [
+          "Original value = {baseValue}.",
+          "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
+          "New value = {baseValue} - {changeAmount} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Original value = {baseValue}.",
+            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "New value = {baseValue} - {changeAmount} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Original value = {baseValue}.",
+            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "New value = {baseValue} - {changeAmount} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Original value = {baseValue}.",
+            "Substitute the given numbers in the relation.",
+            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "New value = {baseValue} - {changeAmount} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Original value = {baseValue}.",
+            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Original value = {baseValue}.",
+            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
+            "Keep the base quantity clear while simplifying.",
+            "New value = {baseValue} - {changeAmount} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "reverseIncrease": {
+        "steps": [
+          "After {percentageRate}% increase, the value becomes {finalValue}.",
+          "So, final value represents {changedBase}% of the original value.",
+          "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "After {percentageRate}% increase, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "After {percentageRate}% increase, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "After {percentageRate}% increase, the value becomes {finalValue}.",
+            "Substitute the given numbers in the relation.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "After {percentageRate}% increase, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "After {percentageRate}% increase, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Keep the base quantity clear while simplifying.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "reverseDecrease": {
+        "steps": [
+          "After {percentageRate}% decrease, the value becomes {finalValue}.",
+          "So, final value represents {changedBase}% of the original value.",
+          "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "After {percentageRate}% decrease, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "After {percentageRate}% decrease, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "After {percentageRate}% decrease, the value becomes {finalValue}.",
+            "Substitute the given numbers in the relation.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "After {percentageRate}% decrease, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "After {percentageRate}% decrease, the value becomes {finalValue}.",
+            "So, final value represents {changedBase}% of the original value.",
+            "Keep the base quantity clear while simplifying.",
+            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "increaseByAmount": {
+        "steps": [
+          "The increase amount is {value}, which is {percentageRate}% of the original value.",
+          "Original value = {value} x 100 / {percentageRate}.",
+          "Original value = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "The increase amount is {value}, which is {percentageRate}% of the original value.",
+            "Original value = {value} x 100 / {percentageRate}.",
+            "Original value = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "The increase amount is {value}, which is {percentageRate}% of the original value.",
+            "Original value = {value} x 100 / {percentageRate}.",
+            "Original value = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "The increase amount is {value}, which is {percentageRate}% of the original value.",
+            "Substitute the given numbers in the relation.",
+            "Original value = {value} x 100 / {percentageRate}.",
+            "Original value = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "The increase amount is {value}, which is {percentageRate}% of the original value.",
+            "Original value = {value} x 100 / {percentageRate}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "The increase amount is {value}, which is {percentageRate}% of the original value.",
+            "Original value = {value} x 100 / {percentageRate}.",
+            "Keep the base quantity clear while simplifying.",
+            "Original value = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "percentOfKnownNumber": {
+        "steps": [
+          "{rate1}% of the number is {value1}.",
+          "First find {rate2}% of the same number directly.",
+          "Required value = {value1} x {rate2} / {rate1} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "{rate1}% of the number is {value1}.",
+            "First find {rate2}% of the same number directly.",
+            "Required value = {value1} x {rate2} / {rate1} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "{rate1}% of the number is {value1}.",
+            "First find {rate2}% of the same number directly.",
+            "Required value = {value1} x {rate2} / {rate1} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "{rate1}% of the number is {value1}.",
+            "Substitute the given numbers in the relation.",
+            "First find {rate2}% of the same number directly.",
+            "Required value = {value1} x {rate2} / {rate1} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "{rate1}% of the number is {value1}.",
+            "First find {rate2}% of the same number directly.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "{rate1}% of the number is {value1}.",
+            "First find {rate2}% of the same number directly.",
+            "Keep the base quantity clear while simplifying.",
+            "Required value = {value1} x {rate2} / {rate1} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "differenceOfPercents": {
+        "steps": [
+          "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
+          "This difference equals {value}.",
+          "Original number = {value} x 100 / {percentDifference} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
+            "This difference equals {value}.",
+            "Original number = {value} x 100 / {percentDifference} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
+            "This difference equals {value}.",
+            "Original number = {value} x 100 / {percentDifference} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
+            "Substitute the given numbers in the relation.",
+            "This difference equals {value}.",
+            "Original number = {value} x 100 / {percentDifference} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
+            "This difference equals {value}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
+            "This difference equals {value}.",
+            "Keep the base quantity clear while simplifying.",
+            "Original number = {value} x 100 / {percentDifference} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "restoreAfterDecrease": {
+        "steps": [
+          "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
+          "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
+          "Required increase = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
+            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
+            "Required increase = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
+            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
+            "Required increase = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
+            "Substitute the given numbers in the relation.",
+            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
+            "Required increase = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
+            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
+            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
+            "Keep the base quantity clear while simplifying.",
+            "Required increase = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-003": {
-    "steps": [
-      "First, find the change fraction for each percentage.",
-      "Now, multiply all these fractions together.",
-      "Then, apply this total change to the starting value.",
-      "Finally, you will get the final answer."
-    ]
+    "explanationId": "PCT-ES-003",
+    "taskExplanations": {
+      "successiveChange": {
+        "steps": [
+          "First change factor = {firstFactor}.",
+          "Second change factor = {secondFactor}.",
+          "Net factor = {netFactor}. Net percentage change = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "First change factor = {firstFactor}.",
+            "Second change factor = {secondFactor}.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "First change factor = {firstFactor}.",
+            "Second change factor = {secondFactor}.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "First change factor = {firstFactor}.",
+            "Substitute the given numbers in the relation.",
+            "Second change factor = {secondFactor}.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "First change factor = {firstFactor}.",
+            "Second change factor = {secondFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "First change factor = {firstFactor}.",
+            "Second change factor = {secondFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "successiveIncrease": {
+        "aliasOf": "successiveChange"
+      },
+      "compoundGrowth": {
+        "steps": [
+          "Initial value = {initialValue}.",
+          "Growth factor for one step = {singleFactor}.",
+          "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Initial value = {initialValue}.",
+            "Growth factor for one step = {singleFactor}.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Initial value = {initialValue}.",
+            "Growth factor for one step = {singleFactor}.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Initial value = {initialValue}.",
+            "Substitute the given numbers in the relation.",
+            "Growth factor for one step = {singleFactor}.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Initial value = {initialValue}.",
+            "Growth factor for one step = {singleFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Initial value = {initialValue}.",
+            "Growth factor for one step = {singleFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "compoundDecay": {
+        "steps": [
+          "Initial value = {initialValue}.",
+          "Decay factor for one step = {singleFactor}.",
+          "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Initial value = {initialValue}.",
+            "Decay factor for one step = {singleFactor}.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Initial value = {initialValue}.",
+            "Decay factor for one step = {singleFactor}.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Initial value = {initialValue}.",
+            "Substitute the given numbers in the relation.",
+            "Decay factor for one step = {singleFactor}.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Initial value = {initialValue}.",
+            "Decay factor for one step = {singleFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Initial value = {initialValue}.",
+            "Decay factor for one step = {singleFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "areaChange": {
+        "aliasOf": "successiveChange"
+      },
+      "squareAreaChange": {
+        "steps": [
+          "Side changes by {percentageRate}%.",
+          "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
+          "Net percentage change = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Side changes by {percentageRate}%.",
+            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
+            "Net percentage change = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Side changes by {percentageRate}%.",
+            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
+            "Net percentage change = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Side changes by {percentageRate}%.",
+            "Substitute the given numbers in the relation.",
+            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
+            "Net percentage change = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Side changes by {percentageRate}%.",
+            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Side changes by {percentageRate}%.",
+            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "Net percentage change = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-004": {
-    "steps": [
-      "First, use this simple trick: [Change / (100 ± Change)] × 100.",
-      "Now, use '+' if something increased and '-' if it decreased.",
-      "Calculate the final percentage reduction or gain.",
-      "Finally, write down your answer."
-    ]
+    "explanationId": "PCT-ES-004",
+    "taskExplanations": {
+      "productInvariance": {
+        "steps": [
+          "The product remains constant.",
+          "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
+          "Required percentage = {percentageRate} x 100 / {changedBase} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "The product remains constant.",
+            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
+            "Required percentage = {percentageRate} x 100 / {changedBase} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "The product remains constant.",
+            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
+            "Required percentage = {percentageRate} x 100 / {changedBase} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "The product remains constant.",
+            "Substitute the given numbers in the relation.",
+            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
+            "Required percentage = {percentageRate} x 100 / {changedBase} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "The product remains constant.",
+            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "The product remains constant.",
+            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
+            "Keep the base quantity clear while simplifying.",
+            "Required percentage = {percentageRate} x 100 / {changedBase} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "invarianceDecrease": {
+        "aliasOf": "productInvariance"
+      },
+      "invarianceIncrease": {
+        "aliasOf": "productInvariance"
+      },
+      "restoreAfterIncrease": {
+        "aliasOf": "productInvariance"
+      },
+      "revenueChange": {
+        "steps": [
+          "Revenue depends on price and sales quantity.",
+          "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
+          "Net factor = {netFactor}. Net percentage change = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Revenue depends on price and sales quantity.",
+            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Revenue depends on price and sales quantity.",
+            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Revenue depends on price and sales quantity.",
+            "Substitute the given numbers in the relation.",
+            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Revenue depends on price and sales quantity.",
+            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Revenue depends on price and sales quantity.",
+            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "Net factor = {netFactor}. Net percentage change = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "circleAreaDecrease": {
+        "steps": [
+          "Area of a circle depends on radius squared.",
+          "New radius factor = {singleFactor}.",
+          "Area decrease = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Area of a circle depends on radius squared.",
+            "New radius factor = {singleFactor}.",
+            "Area decrease = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Area of a circle depends on radius squared.",
+            "New radius factor = {singleFactor}.",
+            "Area decrease = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Area of a circle depends on radius squared.",
+            "Substitute the given numbers in the relation.",
+            "New radius factor = {singleFactor}.",
+            "Area decrease = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Area of a circle depends on radius squared.",
+            "New radius factor = {singleFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Area of a circle depends on radius squared.",
+            "New radius factor = {singleFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "Area decrease = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-005": {
-    "steps": [
-      "First, see if the percentages apply to the total or the remaining part.",
-      "Now, match the given number to its percentage share.",
-      "Then, find 1% value by dividing the number by its percentage.",
-      "Finally, multiply by 100 to get the total."
-    ]
+    "explanationId": "PCT-ES-005",
+    "taskExplanations": {
+      "partToTotal": {
+        "steps": [
+          "The given part {value} represents {knownPercentage}% of the total.",
+          "Total = {value} x 100 / {knownPercentage}.",
+          "Total = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "The given part {value} represents {knownPercentage}% of the total.",
+            "Total = {value} x 100 / {knownPercentage}.",
+            "Total = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "The given part {value} represents {knownPercentage}% of the total.",
+            "Total = {value} x 100 / {knownPercentage}.",
+            "Total = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "The given part {value} represents {knownPercentage}% of the total.",
+            "Substitute the given numbers in the relation.",
+            "Total = {value} x 100 / {knownPercentage}.",
+            "Total = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "The given part {value} represents {knownPercentage}% of the total.",
+            "Total = {value} x 100 / {knownPercentage}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "The given part {value} represents {knownPercentage}% of the total.",
+            "Total = {value} x 100 / {knownPercentage}.",
+            "Keep the base quantity clear while simplifying.",
+            "Total = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "incomePartition": {
+        "steps": [
+          "Remaining percentage after all given parts = {knownPercentage}%.",
+          "This remaining part equals {value}.",
+          "Total = {value} x 100 / {knownPercentage} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Remaining percentage after all given parts = {knownPercentage}%.",
+            "This remaining part equals {value}.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Remaining percentage after all given parts = {knownPercentage}%.",
+            "This remaining part equals {value}.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Remaining percentage after all given parts = {knownPercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "This remaining part equals {value}.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Remaining percentage after all given parts = {knownPercentage}%.",
+            "This remaining part equals {value}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Remaining percentage after all given parts = {knownPercentage}%.",
+            "This remaining part equals {value}.",
+            "Keep the base quantity clear while simplifying.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "successiveExpense": {
+        "steps": [
+          "First remaining factor = {firstFactor}.",
+          "Second remaining factor = {secondFactor}.",
+          "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "First remaining factor = {firstFactor}.",
+            "Second remaining factor = {secondFactor}.",
+            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "First remaining factor = {firstFactor}.",
+            "Second remaining factor = {secondFactor}.",
+            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "First remaining factor = {firstFactor}.",
+            "Substitute the given numbers in the relation.",
+            "Second remaining factor = {secondFactor}.",
+            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "First remaining factor = {firstFactor}.",
+            "Second remaining factor = {secondFactor}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "First remaining factor = {firstFactor}.",
+            "Second remaining factor = {secondFactor}.",
+            "Keep the base quantity clear while simplifying.",
+            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "winnerVotes": {
+        "steps": [
+          "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
+          "Vote gap percentage = {gapPercentage}%.",
+          "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Keep the base quantity clear while simplifying.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "cancelledVotes": {
+        "steps": [
+          "Valid vote percentage = {validPercentage}%.",
+          "Winner-loser gap among valid votes = {gapPercentage}%.",
+          "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Valid vote percentage = {validPercentage}%.",
+            "Winner-loser gap among valid votes = {gapPercentage}%.",
+            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Valid vote percentage = {validPercentage}%.",
+            "Winner-loser gap among valid votes = {gapPercentage}%.",
+            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Valid vote percentage = {validPercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "Winner-loser gap among valid votes = {gapPercentage}%.",
+            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Valid vote percentage = {validPercentage}%.",
+            "Winner-loser gap among valid votes = {gapPercentage}%.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Valid vote percentage = {validPercentage}%.",
+            "Winner-loser gap among valid votes = {gapPercentage}%.",
+            "Keep the base quantity clear while simplifying.",
+            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "passMarks": {
+        "steps": [
+          "Passing marks = marks obtained + fail margin = {passMarksValue}.",
+          "This is {passRate}% of total marks.",
+          "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
+            "This is {passRate}% of total marks.",
+            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
+            "This is {passRate}% of total marks.",
+            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
+            "Substitute the given numbers in the relation.",
+            "This is {passRate}% of total marks.",
+            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
+            "This is {passRate}% of total marks.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
+            "This is {passRate}% of total marks.",
+            "Keep the base quantity clear while simplifying.",
+            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "complementOfTotal": {
+        "steps": [
+          "Required percentage = 100 - {percentageRate} = {knownPercentage}%.",
+          "Required value = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Required percentage = 100 - {percentageRate} = {knownPercentage}%.",
+            "Required value = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Required percentage = 100 - {percentageRate} = {knownPercentage}%.",
+            "Required value = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Required percentage = 100 - {percentageRate} = {knownPercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "Required value = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Required percentage = 100 - {percentageRate} = {knownPercentage}%.",
+            "Required value = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Required percentage = 100 - {percentageRate} = {knownPercentage}%.",
+            "Required value = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "moreMarksBase": {
+        "steps": [
+          "Given marks {marks} are {rate1}% more than the base.",
+          "So, {marks} represents {changedBase}% of the base.",
+          "Base marks = {marks} x 100 / {changedBase} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Given marks {marks} are {rate1}% more than the base.",
+            "So, {marks} represents {changedBase}% of the base.",
+            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Given marks {marks} are {rate1}% more than the base.",
+            "So, {marks} represents {changedBase}% of the base.",
+            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Given marks {marks} are {rate1}% more than the base.",
+            "Substitute the given numbers in the relation.",
+            "So, {marks} represents {changedBase}% of the base.",
+            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Given marks {marks} are {rate1}% more than the base.",
+            "So, {marks} represents {changedBase}% of the base.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Given marks {marks} are {rate1}% more than the base.",
+            "So, {marks} represents {changedBase}% of the base.",
+            "Keep the base quantity clear while simplifying.",
+            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "twoShareRemainder": {
+        "steps": [
+          "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
+          "This remaining value is {value}.",
+          "Total = {value} x 100 / {knownPercentage} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
+            "This remaining value is {value}.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
+            "This remaining value is {value}.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "This remaining value is {value}.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
+            "This remaining value is {value}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
+            "This remaining value is {value}.",
+            "Keep the base quantity clear while simplifying.",
+            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "loserVotes": {
+        "steps": [
+          "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
+          "Vote gap percentage = {gapPercentage}%.",
+          "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
+            "Substitute the given numbers in the relation.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
+            "Vote gap percentage = {gapPercentage}%.",
+            "Keep the base quantity clear while simplifying.",
+            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "PCT-CP-006": {
-    "steps": [
-      "First, find the amount of the component that does not change.",
-      "Now, set up this simple equation: Old Total × Old % = New Total × New %.",
-      "Then, solve for the new total value.",
-      "Finally, find the difference between the new and old totals."
-    ]
+    "explanationId": "PCT-ES-006",
+    "taskExplanations": {
+      "mixturePercent": {
+        "steps": [
+          "Use the unchanged component to form the percentage equation.",
+          "Initial unchanged amount = {initialUnchangedAmount}.",
+          "Final total or required change is found from the new percentage condition.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Use the unchanged component to form the percentage equation.",
+            "Initial unchanged amount = {initialUnchangedAmount}.",
+            "Final total or required change is found from the new percentage condition.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Use the unchanged component to form the percentage equation.",
+            "Initial unchanged amount = {initialUnchangedAmount}.",
+            "Final total or required change is found from the new percentage condition.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Use the unchanged component to form the percentage equation.",
+            "Substitute the given numbers in the relation.",
+            "Initial unchanged amount = {initialUnchangedAmount}.",
+            "Final total or required change is found from the new percentage condition.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Use the unchanged component to form the percentage equation.",
+            "Initial unchanged amount = {initialUnchangedAmount}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Use the unchanged component to form the percentage equation.",
+            "Initial unchanged amount = {initialUnchangedAmount}.",
+            "Keep the base quantity clear while simplifying.",
+            "Final total or required change is found from the new percentage condition.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "dilutionAddWater": {
+        "aliasOf": "mixturePercent"
+      },
+      "dryFromFresh": {
+        "aliasOf": "mixturePercent"
+      },
+      "addSolute": {
+        "aliasOf": "mixturePercent"
+      },
+      "dilutedPercent": {
+        "aliasOf": "mixturePercent"
+      },
+      "freshFromDry": {
+        "aliasOf": "mixturePercent"
+      },
+      "addPureComponent": {
+        "aliasOf": "mixturePercent"
+      },
+      "evaporationOriginal": {
+        "aliasOf": "mixturePercent"
+      },
+      "alloyComplement": {
+        "aliasOf": "mixturePercent"
+      }
+    }
   }
 }

@@ -69,7 +69,8 @@ export interface Pct002QuestionLanguageLibrary {
 
 export interface Pct002ExplanationEntry {
   explanationId: string;
-  steps: string[];
+  steps?: string[];
+  taskExplanations?: Record<string, { steps?: string[]; variants?: string[][]; aliasOf?: string }>;
 }
 
 export interface Pct002ExplanationLibrary {

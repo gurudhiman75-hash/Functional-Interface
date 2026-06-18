@@ -1,6 +1,6 @@
 import { PCT_001_ARCHETYPE_ID, PCT_001_CP_IDS, type Pct001Parameters, type Pct001QuestionPackage, type Pct001ValidationResult } from "./types";
 import { isFiniteNumber } from "./math";
-import { extractPlaceholders, getQuestionEntry, getTaskRegistryEntry, PCT_001_LIBRARY_REGISTRY } from "./library";
+import { extractPlaceholders, getExplanationSteps, getExplanationVariantCount, getQuestionEntry, getTaskRegistryEntry, PCT_001_LIBRARY_REGISTRY } from "./library";
 
 function check(name: string, passed: boolean, message: string) {
   return { name, passed, message };
@@ -46,6 +46,14 @@ export function validatePct001Parameters(parameters: Pct001Parameters): Pct001Va
     check("placeholderCrossLanguage", sameSet(enPlaceholders, hiPlaceholders) && sameSet(enPlaceholders, paPlaceholders), "EN/HI/PA placeholders must match."),
     check("semanticScenario", scenarioMatch, "Scenario must match CP mapping."),
   ];
+  try {
+    const explanationSteps = getExplanationSteps(parameters.canonicalProblemId, parameters.taskKind, parameters.language);
+    checks.push(check("taskExplanationFamily", explanationSteps.length > 0, "TaskKind-specific explanation family must exist."));
+    checks.push(check("explanationVariantCount", getExplanationVariantCount(parameters.canonicalProblemId, parameters.taskKind, parameters.language) > 1, "TaskKind explanation must provide multiple variants."));
+  } catch {
+    checks.push(check("taskExplanationFamily", false, "TaskKind-specific explanation family must exist."));
+    checks.push(check("explanationVariantCount", false, "TaskKind explanation must provide multiple variants."));
+  }
 
   if (semantic) {
     const entities = Object.values(semantic.entities);
@@ -96,6 +104,9 @@ export function validatePct001QuestionPackage(pkg: Pct001QuestionPackage): Pct00
     check("graph", pkg.reasoningGraph.nodes.some((node) => node.id === "answer"), "Graph must contain answer node."),
     check("graphAnswerType", pkg.reasoningGraph.nodes.some((node) => node.id === "answerType" && node.value === pkg.parameters.answerType), "Graph must contain answer type node."),
     check("explanation", pkg.explanation.lines.length > 0, "Explanation must render."),
+    check("explanationMinimumSteps", pkg.explanation.lines.length >= 4, "Explanation must contain at least four teacher-style steps."),
+    check("explanationTaskSpecific", !pkg.explanation.lines.join("\n").includes("{") && !pkg.explanation.lines.join("\n").includes("}"), "Explanation placeholders must be resolved."),
+    check("noGenericExplanation", !/generic|fallback|default explanation|AI explanation|apply the formula|use the formula/i.test(pkg.explanation.lines.join("\n")), "Generic explanation path must not be used."),
     check("traceability", pkg.traceability.answer === pkg.answer, "Traceability answer must match."),
     check("traceScenarioId", typeof pkg.traceability.scenarioId === "string", "Traceability must include scenarioId."),
     check("traceSemanticDomain", typeof pkg.traceability.semanticDomain === "string", "Traceability must include semanticDomain."),

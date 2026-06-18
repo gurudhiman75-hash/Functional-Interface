@@ -11,6 +11,11 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
   };
   return {
     explanationId: parameters.explanationId,
-    lines: getExplanationSteps(parameters.canonicalProblemId, parameters.language).map((line) => renderTemplate(line, values)),
+    lines: getExplanationSteps(
+      parameters.canonicalProblemId,
+      parameters.taskKind,
+      parameters.language,
+      [...`${parameters.questionLanguageId}:${parameters.taskKind}`].reduce((sum, char) => sum + char.charCodeAt(0), 0),
+    ).map((line) => renderTemplate(line, values)),
   };
 }

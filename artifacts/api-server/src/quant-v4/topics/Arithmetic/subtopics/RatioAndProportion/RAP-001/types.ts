@@ -73,7 +73,8 @@ export interface Rap001QuestionLanguageLibrary {
 
 export interface Rap001ExplanationEntry {
   explanationId: string;
-  steps: string[];
+  steps?: string[];
+  taskExplanations?: Record<string, { steps?: string[]; variants?: string[][]; aliasOf?: string }>;
 }
 
 export interface Rap001ExplanationLibrary {

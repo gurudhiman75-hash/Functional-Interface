@@ -260,11 +260,23 @@ export function solvePct002(parameters: Pct002Parameters): Pct002SolverResult {
 
   const roundedAnswer = parameters.answerType === "COUNT" ? Math.round(numericAnswer) : roundTo(numericAnswer, 4);
   const answer = formatAnswer(parameters.answerType, roundedAnswer);
+  const derivedEvidence = {
+    ...parameters.variables,
+    coveredPercentage: roundTo(100 - value(parameters, "neitherPercentage"), 4),
+    singleTotal: roundTo(value(parameters, "groupAPercentage") + value(parameters, "groupBPercentage") + value(parameters, "groupCPercentage"), 4),
+    pairOverlapTotal: roundTo(value(parameters, "groupABPercentage") + value(parameters, "groupBCPercentage") + value(parameters, "groupACPercentage"), 4),
+    femalePercentage: roundTo(100 - value(parameters, "malePercentage"), 4),
+    groupBPercentage: roundTo(100 - value(parameters, "groupAPercentage"), 4),
+    remainingFraction: roundTo(1 - value(parameters, "replacementVolume") / value(parameters, "initialVolume"), 4),
+    factor1: roundTo(1 - value(parameters, "replacementRate1") / 100, 4),
+    factor2: roundTo(1 - value(parameters, "replacementRate2") / 100, 4),
+    factor3: roundTo(1 - value(parameters, "replacementRate3") / 100, 4),
+  };
   return {
     answer,
     numericAnswer: roundedAnswer,
     answerType: parameters.answerType,
-    evidence: { ...evidence, answer },
+    evidence: { ...derivedEvidence, ...evidence, answer },
     mathJax,
   };
 }

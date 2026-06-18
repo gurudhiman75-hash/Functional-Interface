@@ -90,10 +90,14 @@ export interface Pct001QuestionLanguageLibrary {
   };
 }
 
+export interface Pct001ExplanationEntry {
+  explanationId: string;
+  steps?: string[];
+  taskExplanations?: Record<string, { steps?: string[]; variants?: string[][]; aliasOf?: string }>;
+}
+
 export interface Pct001ExplanationLibrary {
-  [cpId: string]: {
-    steps: string[];
-  };
+  [cpId: string]: Pct001ExplanationEntry;
 }
 
 export type Pct001Variables = Record<string, number | string>;

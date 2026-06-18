@@ -363,12 +363,31 @@ export function solveRap001(parameters: Rap001Parameters): Rap001SolverResult {
 
   const normalizedValue = typeof answerValue === "number" ? roundTo(answerValue, 4) : answerValue;
   const answer = formatAnswer(parameters.answerType, normalizedValue);
+  const sumOfParts = roundTo(value(parameters, "ratioA") + value(parameters, "ratioB") + value(parameters, "ratioC"), 4);
+  const ratioDifference = roundTo(Math.abs(value(parameters, "ratioA") - value(parameters, "ratioC")), 4);
+  const denomValues = [value(parameters, "denom1"), value(parameters, "denom2"), value(parameters, "denom3")];
+  const ratioValues = [value(parameters, "ratio1"), value(parameters, "ratio2"), value(parameters, "ratio3")];
+  const valuePerUnit = roundTo(ratioValues.reduce((sum, ratio, index) => sum + ratio * denomValues[index]!, 0), 4);
+  const derivedEvidence = {
+    ...parameters.variables,
+    sumOfParts,
+    ratioDifference,
+    valuePerUnit,
+    product: roundTo(value(parameters, "numA") * value(parameters, "numB"), 4),
+    unit: workingValues.unit ?? workingValues.unitValue ?? (Number.isFinite(valuePerUnit) && valuePerUnit !== 0 ? roundTo(value(parameters, "totalValue") / valuePerUnit, 4) : ""),
+    constant:
+      workingValues.constant ??
+      evidence.constant ??
+      (Number.isFinite(value(parameters, "varY1")) && Number.isFinite(value(parameters, "varX1")) && value(parameters, "varX1") !== 0
+        ? roundTo(value(parameters, "varY1") / value(parameters, "varX1"), 4)
+        : ""),
+  };
   return {
     answer,
     answerValue: normalizedValue,
     answerType: parameters.answerType,
     workingValues,
-    evidence: { ...evidence, answer },
+    evidence: { ...derivedEvidence, ...evidence, ...workingValues, answer },
     mathJax,
   };
 }

@@ -85,10 +85,23 @@ export function getRequiredVariables(cpId: Pct001CanonicalProblemId, questionLan
   return [...getTaskRegistryEntry(cpId, questionLanguageId).requiredVariables];
 }
 
-export function getExplanationSteps(cpId: Pct001CanonicalProblemId, language: Pct001Language) {
+export function getExplanationSteps(cpId: Pct001CanonicalProblemId, taskKind: string, language: Pct001Language, variantKey = 0) {
   const entry = PCT_001_LIBRARY_REGISTRY.explanation[language][cpId];
   if (!entry) throw new Error(`Missing explanation ${language}:${cpId}`);
-  return entry.steps;
+  const family = entry.taskExplanations?.[taskKind];
+  if (!family) throw new Error(`Missing task explanation ${language}:${cpId}:${taskKind}`);
+  const resolved = family.aliasOf ? entry.taskExplanations?.[family.aliasOf] : family;
+  const variants = resolved?.variants?.filter((variant) => variant.length > 0) ?? [];
+  if (variants.length > 0) return [...variants[Math.abs(variantKey) % variants.length]!];
+  if (!resolved?.steps?.length) throw new Error(`Missing task explanation steps ${language}:${cpId}:${taskKind}`);
+  return [...resolved.steps];
+}
+
+export function getExplanationVariantCount(cpId: Pct001CanonicalProblemId, taskKind: string, language: Pct001Language) {
+  const entry = PCT_001_LIBRARY_REGISTRY.explanation[language][cpId];
+  const family = entry?.taskExplanations?.[taskKind];
+  const resolved = family?.aliasOf ? entry?.taskExplanations?.[family.aliasOf] : family;
+  return resolved?.variants?.length ?? (resolved?.steps?.length ? 1 : 0);
 }
 
 export function getExplanationId(cpId: Pct001CanonicalProblemId) {

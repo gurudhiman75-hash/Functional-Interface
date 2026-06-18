@@ -1,62 +1,1215 @@
 {
   "RAP-CP-001": {
     "explanationId": "RAP-ES-001",
-    "steps": [
-      "First, find the LCM of the common parts to connect the separate ratios.",
-      "Now, multiply the ratios so that the shared part becomes equal in both.",
-      "Then, write all the parts together in a single ratio chain like A:B:C.",
-      "Finally, use the value given in the question to scale the result to the actual number.",
-      "Hence the answer is {answer}."
-    ]
+    "taskExplanations": {
+      "ratioNormalization": {
+        "steps": [
+          "Convert both terms to whole-number form.",
+          "Integer terms become {normalizedLeft} and {normalizedRight}.",
+          "Required ratio = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Convert both terms to whole-number form.",
+            "Substitute the given numbers in the relation.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Keep the base quantity clear while simplifying.",
+            "Required ratio = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "fractionRatio": {
+        "aliasOf": "ratioNormalization"
+      },
+      "decimalRatio": {
+        "aliasOf": "ratioNormalization"
+      },
+      "decimalNormalization": {
+        "aliasOf": "ratioNormalization"
+      },
+      "simpleLinkage": {
+        "steps": [
+          "Make the common middle term equal in both ratios.",
+          "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Make the common middle term equal in both ratios.",
+            "Substitute the given numbers in the relation.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "ratioTreeLinkage": {
+        "steps": [
+          "Multiply the linked ratio terms step by step.",
+          "The required end ratio is {ratioPersonAToPersonD}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Multiply the linked ratio terms step by step.",
+            "Substitute the given numbers in the relation.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "scalingByComponent": {
+        "steps": [
+          "One ratio part = {unitValue}.",
+          "Multiply this unit value by the required ratio part.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "One ratio part = {unitValue}.",
+            "Substitute the given numbers in the relation.",
+            "Multiply this unit value by the required ratio part.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-002": {
     "explanationId": "RAP-ES-002",
-    "steps": [
-      "First, add all the ratio parts to see how many total units we have.",
-      "Now, find the value of one part by dividing the total amount by this sum.",
-      "Then, multiply this unit value by the ratio share of the required person or group.",
-      "Finally, simplify the calculation to get the required share or difference.",
-      "Hence the answer is {answer}."
-    ]
+    "taskExplanations": {
+      "basicPartition": {
+        "steps": [
+          "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+          "Sum of parts = {sumOfParts}.",
+          "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Substitute the given numbers in the relation.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "Keep the base quantity clear while simplifying.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "divideAmount": {
+        "aliasOf": "basicPartition"
+      },
+      "shareDifference": {
+        "steps": [
+          "First find one part from the total ratio.",
+          "One part = {unitValue}.",
+          "Required difference = difference of ratio parts x one part = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "First find one part from the total ratio.",
+            "Substitute the given numbers in the relation.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Keep the base quantity clear while simplifying.",
+            "Required difference = difference of ratio parts x one part = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "reversePartition": {
+        "steps": [
+          "Given difference equals difference of ratio parts times one part.",
+          "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+          "Total amount = sum of parts x one part = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Given difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Given difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Given difference equals difference of ratio parts times one part.",
+            "Substitute the given numbers in the relation.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Given difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Given difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Keep the base quantity clear while simplifying.",
+            "Total amount = sum of parts x one part = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "salaryDistribution": {
+        "steps": [
+          "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+          "One part = {unitValue}.",
+          "Required saving = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "Substitute the given numbers in the relation.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Keep the base quantity clear while simplifying.",
+            "Required saving = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-003": {
     "explanationId": "RAP-ES-003",
-    "steps": [
-      "First, take the initial quantities as {ratioA}x and {ratioB}x based on the first ratio.",
-      "Now, add or subtract the numbers as mentioned in the problem.",
-      "Then, set this new expression equal to the final ratio and solve for x.",
-      "Finally, calculate the requested quantity using the value of x.",
-      "Hence the answer is {answer}."
-    ]
+    "taskExplanations": {
+      "twoStateAddition": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+          "Solving gives x = {x}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "Substitute the given numbers in the relation.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Keep the base quantity clear while simplifying.",
+            "Solving gives x = {x}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "boysGirls": {
+        "aliasOf": "twoStateAddition"
+      },
+      "ages": {
+        "aliasOf": "twoStateAddition"
+      },
+      "twoStateSubtraction": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+          "Solving gives x = {x}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "Substitute the given numbers in the relation.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "Keep the base quantity clear while simplifying.",
+            "Solving gives x = {x}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "twoStateTransfer": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+          "Solving gives x = {x}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "Substitute the given numbers in the relation.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "Keep the base quantity clear while simplifying.",
+            "Solving gives x = {x}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "incomeExpenditure": {
+        "steps": [
+          "Set the incomes as ratio multiples and subtract expenses.",
+          "Both savings are {savingsAmount}.",
+          "Solving the equations gives x = {x}. Required income = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "Solving the equations gives x = {x}. Required income = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "Solving the equations gives x = {x}. Required income = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Substitute the given numbers in the relation.",
+            "Both savings are {savingsAmount}.",
+            "Solving the equations gives x = {x}. Required income = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "Keep the base quantity clear while simplifying.",
+            "Solving the equations gives x = {x}. Required income = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "incomeExpenditureSystem": {
+        "aliasOf": "incomeExpenditure"
+      },
+      "multiStageTransformation": {
+        "steps": [
+          "Apply both changes to the initial ratio terms.",
+          "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+          "Solving gives x = {x}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Substitute the given numbers in the relation.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "Solving gives x = {x}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "Keep the base quantity clear while simplifying.",
+            "Solving gives x = {x}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-004": {
     "explanationId": "RAP-ES-004",
-    "steps": [
-      "First, check if the question asks for mean, third, or fourth proportional.",
-      "Now, put the given numbers into the standard proportionality formula.",
-      "Then, solve the equation to find the value of the missing number.",
-      "Finally, reduce the result to its simplest form if needed.",
-      "Hence the answer is {answer}."
-    ]
+    "taskExplanations": {
+      "proportional": {
+        "steps": [
+          "Use the proportional relation for the given numbers.",
+          "Required value is calculated from the product relation.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Use the proportional relation for the given numbers.",
+            "Required value is calculated from the product relation.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Use the proportional relation for the given numbers.",
+            "Required value is calculated from the product relation.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Use the proportional relation for the given numbers.",
+            "Substitute the given numbers in the relation.",
+            "Required value is calculated from the product relation.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Use the proportional relation for the given numbers.",
+            "Required value is calculated from the product relation.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Use the proportional relation for the given numbers.",
+            "Required value is calculated from the product relation.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "meanProportional": {
+        "steps": [
+          "For mean proportional, x? = {numA} x {numB}.",
+          "So x = sqrt({product}).",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "So x = sqrt({product}).",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "For mean proportional, x? = {numA} x {numB}.",
+            "So x = sqrt({product}).",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "Substitute the given numbers in the relation.",
+            "So x = sqrt({product}).",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "For mean proportional, x? = {numA} x {numB}.",
+            "So x = sqrt({product}).",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "So x = sqrt({product}).",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "thirdProportional": {
+        "steps": [
+          "For third proportional, {numA}:{numB} = {numB}:x.",
+          "So x = {numB}? / {numA}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "So x = {numB}? / {numA}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "So x = {numB}? / {numA}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "Substitute the given numbers in the relation.",
+            "So x = {numB}? / {numA}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "So x = {numB}? / {numA}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "So x = {numB}? / {numA}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "fourthProportional": {
+        "steps": [
+          "For fourth proportional, {numA}:{numB} = {numC}:x.",
+          "So x = {numB} x {numC} / {numA}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "So x = {numB} x {numC} / {numA}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "So x = {numB} x {numC} / {numA}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "Substitute the given numbers in the relation.",
+            "So x = {numB} x {numC} / {numA}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "So x = {numB} x {numC} / {numA}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "So x = {numB} x {numC} / {numA}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "directVariation": {
+        "steps": [
+          "In direct variation, y/x remains constant.",
+          "Constant = {constant}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "In direct variation, y/x remains constant.",
+            "Substitute the given numbers in the relation.",
+            "Constant = {constant}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "inverseVariation": {
+        "steps": [
+          "In inverse variation, x x y remains constant.",
+          "Constant = {constant}.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "In inverse variation, x x y remains constant.",
+            "Substitute the given numbers in the relation.",
+            "Constant = {constant}.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-005": {
     "explanationId": "RAP-ES-005",
-    "steps": [
-      "First, list the ratio of quantities and their individual values (like coin denominations).",
-      "Now, multiply the quantity ratio by the value of each item to get the 'total value ratio'.",
-      "Then, divide the total sum according to this newly formed ratio.",
-      "Finally, find the actual number of items as requested in the question.",
-      "Hence the answer is {answer}."
-    ]
+    "taskExplanations": {
+      "coinCounting": {
+        "steps": [
+          "Value of one ratio unit = {valuePerUnit}.",
+          "Total units = {unit}.",
+          "Required number of coins = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Substitute the given numbers in the relation.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Keep the base quantity clear while simplifying.",
+            "Required number of coins = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "multiDenominationMapping": {
+        "aliasOf": "coinCounting"
+      },
+      "weightedMapping": {
+        "steps": [
+          "Use the weighted contribution of each item.",
+          "One unit is found from the total weight.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Use the weighted contribution of each item.",
+            "Substitute the given numbers in the relation.",
+            "One unit is found from the total weight.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "weightedMarks": {
+        "steps": [
+          "Use the subject ratio and weights together.",
+          "Find one scoring unit from total score.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Use the subject ratio and weights together.",
+            "Substitute the given numbers in the relation.",
+            "Find one scoring unit from total score.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-006": {
     "explanationId": "RAP-ES-006",
-    "steps": [
-      "First, identify which part of the mixture is constant and not changing.",
-      "Now, scale the ratios so that this constant part has the same numerical value.",
-      "Then, find the difference in the units of the other part between the start and end.",
-      "Finally, map this unit difference to the actual quantity added or removed.",
-      "Hence the answer is {answer}."
-    ]
+    "taskExplanations": {
+      "mixtureRatio": {
+        "steps": [
+          "Use the unchanged component to connect old and new ratios.",
+          "After matching the unchanged part, calculate the changed component.",
+          "After simplification, we get the required result.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "After simplification, we get the required result.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "After simplification, we get the required result.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "Substitute the given numbers in the relation.",
+            "After matching the unchanged part, calculate the changed component.",
+            "After simplification, we get the required result.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "Keep the base quantity clear while simplifying.",
+            "After simplification, we get the required result.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "binaryMixture": {
+        "aliasOf": "mixtureRatio"
+      },
+      "mixtureComponentFinding": {
+        "aliasOf": "mixtureRatio"
+      },
+      "threeComponentMixture": {
+        "aliasOf": "mixtureRatio"
+      },
+      "variableReplacementRatio": {
+        "steps": [
+          "Apply the two removals one after another.",
+          "Track the remaining original liquid after each removal.",
+          "Final ratio = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Apply the two removals one after another.",
+            "Substitute the given numbers in the relation.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Keep the base quantity clear while simplifying.",
+            "Final ratio = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      },
+      "acidConcentration": {
+        "steps": [
+          "Total mixture = acid + water.",
+          "Acid percentage = acid volume / total volume x 100.",
+          "Required percentage = {answer}.",
+          "Now simplify the working carefully.",
+          "Therefore, the answer is {answer}."
+        ],
+        "variants": [
+          [
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "Required percentage = {answer}.",
+            "Now simplify the working carefully.",
+            "Therefore, the answer is {answer}."
+          ],
+          [
+            "Observe the given relation carefully.",
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "Required percentage = {answer}.",
+            "Hence, the required value is {answer}."
+          ],
+          [
+            "Total mixture = acid + water.",
+            "Substitute the given numbers in the relation.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "Required percentage = {answer}.",
+            "Thus, the value obtained is {answer}."
+          ],
+          [
+            "Now write the working with the given values.",
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "The calculation gives {answer}.",
+            "So, the required result is {answer}."
+          ],
+          [
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "Keep the base quantity clear while simplifying.",
+            "Required percentage = {answer}.",
+            "Accordingly, the final answer is {answer}."
+          ]
+        ]
+      }
+    }
   }
 }

@@ -1,62 +1,1215 @@
 {
   "RAP-CP-001": {
     "explanationId": "RAP-ES-001",
-    "steps": [
-      "सबसे पहले, साझा हिस्से (pivot) का LCM निकालकर अलग-अलग अनुपातों को जोड़ें।",
-      "अब, अनुपातों को इस तरह गुणा करें कि साझा हिस्सा दोनों में बराबर हो जाए।",
-      "फिर, सभी हिस्सों को मिलाकर एक संयुक्त अनुपात श्रृंखला (जैसे A:B:C) के रूप में लिखें।",
-      "अंत में, प्रश्न में दिए गए मान के आधार पर सही संख्या का पता लगाइए।",
-      "अतः सही उत्तर {answer} है।"
-    ]
+    "taskExplanations": {
+      "ratioNormalization": {
+        "steps": [
+          "Convert both terms to whole-number form.",
+          "Integer terms become {normalizedLeft} and {normalizedRight}.",
+          "Required ratio = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Convert both terms to whole-number form.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "Required ratio = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Convert both terms to whole-number form.",
+            "Integer terms become {normalizedLeft} and {normalizedRight}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "Required ratio = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "fractionRatio": {
+        "aliasOf": "ratioNormalization"
+      },
+      "decimalRatio": {
+        "aliasOf": "ratioNormalization"
+      },
+      "decimalNormalization": {
+        "aliasOf": "ratioNormalization"
+      },
+      "simpleLinkage": {
+        "steps": [
+          "Make the common middle term equal in both ratios.",
+          "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+          "आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Make the common middle term equal in both ratios.",
+            "दिए गए मानों को संबंध में रखें।",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Make the common middle term equal in both ratios.",
+            "After scaling, the linked ratio is {linkedA}:{linkedB}:{linkedC}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "ratioTreeLinkage": {
+        "steps": [
+          "Multiply the linked ratio terms step by step.",
+          "The required end ratio is {ratioPersonAToPersonD}.",
+          "आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Multiply the linked ratio terms step by step.",
+            "दिए गए मानों को संबंध में रखें।",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Multiply the linked ratio terms step by step.",
+            "The required end ratio is {ratioPersonAToPersonD}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "scalingByComponent": {
+        "steps": [
+          "One ratio part = {unitValue}.",
+          "Multiply this unit value by the required ratio part.",
+          "आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "One ratio part = {unitValue}.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Multiply this unit value by the required ratio part.",
+            "आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "One ratio part = {unitValue}.",
+            "Multiply this unit value by the required ratio part.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-002": {
     "explanationId": "RAP-ES-002",
-    "steps": [
-      "सबसे पहले, अनुपात के सभी हिस्सों को जोड़कर देखें कि कुल कितनी इकाइयाँ (units) हैं।",
-      "अब, कुल राशि को इस योग से भाग देकर एक हिस्से का मान निकालिए।",
-      "फिर, इस मान को उस व्यक्ति या समूह के अनुपात से गुणा करें जिसका हिस्सा पूछा गया है।",
-      "अंत में, गणना को सरल करके सही राशि या अंतर प्राप्त करें।",
-      "अतः सही उत्तर {answer} है।"
-    ]
+    "taskExplanations": {
+      "basicPartition": {
+        "steps": [
+          "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+          "Sum of parts = {sumOfParts}.",
+          "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Sum of parts = {sumOfParts}.",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Ratio parts are {ratioA}, {ratioB} and {ratioC}.",
+            "Sum of parts = {sumOfParts}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "One part = {totalAmount} / {sumOfParts} = {unitValue}. Required share = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "divideAmount": {
+        "aliasOf": "basicPartition"
+      },
+      "shareDifference": {
+        "steps": [
+          "First find one part from the total ratio.",
+          "One part = {unitValue}.",
+          "Required difference = difference of ratio parts x one part = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "First find one part from the total ratio.",
+            "दिए गए मानों को संबंध में रखें।",
+            "One part = {unitValue}.",
+            "Required difference = difference of ratio parts x one part = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "First find one part from the total ratio.",
+            "One part = {unitValue}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "Required difference = difference of ratio parts x one part = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "reversePartition": {
+        "steps": [
+          "आवश्यक मान: difference equals difference of ratio parts times one part.",
+          "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+          "Total amount = sum of parts x one part = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "आवश्यक मान: difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "आवश्यक मान: difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "आवश्यक मान: difference equals difference of ratio parts times one part.",
+            "दिए गए मानों को संबंध में रखें।",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "Total amount = sum of parts x one part = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "आवश्यक मान: difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "आवश्यक मान: difference equals difference of ratio parts times one part.",
+            "One part = {shareDifference} / {ratioDifference} = {unitValue}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "Total amount = sum of parts x one part = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "salaryDistribution": {
+        "steps": [
+          "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+          "One part = {unitValue}.",
+          "Required saving = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "Required saving = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "दिए गए मानों को संबंध में रखें।",
+            "One part = {unitValue}.",
+            "Required saving = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Expense and saving ratio parts are {ratioExp} and {ratioSav}.",
+            "One part = {unitValue}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "Required saving = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-003": {
     "explanationId": "RAP-ES-003",
-    "steps": [
-      "सबसे पहले, शुरुआती मात्राओं को पहले अनुपात के आधार पर {ratioA}x और {ratioB}x मान लें।",
-      "अब, प्रश्न में दी गई जोड़ या घटाव की शर्तों को लागू करें।",
-      "फिर, प्राप्त नए अनुपात को अंतिम अनुपात के बराबर रखकर x का मान निकालिए।",
-      "अंत में, x के मान की मदद से पूछी गई अंतिम संख्या का पता लगाइए।",
-      "अतः सही उत्तर {answer} है।"
-    ]
+    "taskExplanations": {
+      "twoStateAddition": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+          "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "दिए गए मानों को संबंध में रखें।",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After adding {addedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "boysGirls": {
+        "aliasOf": "twoStateAddition"
+      },
+      "ages": {
+        "aliasOf": "twoStateAddition"
+      },
+      "twoStateSubtraction": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+          "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "दिए गए मानों को संबंध में रखें।",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After removing {removedCount}, the ratio becomes {finalRatioA}:{finalRatioB}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "twoStateTransfer": {
+        "steps": [
+          "Take the original quantities as {ratioA}x and {ratioB}x.",
+          "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+          "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "दिए गए मानों को संबंध में रखें।",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Take the original quantities as {ratioA}x and {ratioB}x.",
+            "After transfer of {transferredCount}, the new ratio is {finalRatioA}:{finalRatioB}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "incomeExpenditure": {
+        "steps": [
+          "Set the incomes as ratio multiples and subtract expenses.",
+          "Both savings are {savingsAmount}.",
+          "इसलिए इसलिए इसलिए, the equations gives x = {x}. Required income = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "इसलिए इसलिए इसलिए, the equations gives x = {x}. Required income = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "इसलिए इसलिए इसलिए, the equations gives x = {x}. Required income = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Both savings are {savingsAmount}.",
+            "इसलिए इसलिए इसलिए, the equations gives x = {x}. Required income = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Set the incomes as ratio multiples and subtract expenses.",
+            "Both savings are {savingsAmount}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए इसलिए, the equations gives x = {x}. Required income = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "incomeExpenditureSystem": {
+        "aliasOf": "incomeExpenditure"
+      },
+      "multiStageTransformation": {
+        "steps": [
+          "Apply both changes to the initial ratio terms.",
+          "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+          "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Apply both changes to the initial ratio terms.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Apply both changes to the initial ratio terms.",
+            "Set the changed expression equal to {finalRatioA}:{finalRatioB}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए इसलिए, gives x = {x}. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-004": {
     "explanationId": "RAP-ES-004",
-    "steps": [
-      "सबसे पहले, यह देखिए कि प्रश्न में मध्य अनुपाती, तीसरा या चौथा अनुपाती पूछा गया है।",
-      "अब, दी गई संख्याओं को अनुपात के फॉर्मूले में रखिए।",
-      "फिर, समीकरण को हल करके उस अज्ञात संख्या का मान निकालिए।",
-      "अंत में, यदि जरूरी हो तो उत्तर को उसके सबसे सरल रूप में बदलें।",
-      "अतः सही उत्तर {answer} है।"
-    ]
+    "taskExplanations": {
+      "proportional": {
+        "steps": [
+          "Use the proportional relation for the given numbers.",
+          "इसलिए इसलिए is calculated from the product relation.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Use the proportional relation for the given numbers.",
+            "इसलिए इसलिए is calculated from the product relation.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Use the proportional relation for the given numbers.",
+            "इसलिए इसलिए is calculated from the product relation.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Use the proportional relation for the given numbers.",
+            "दिए गए मानों को संबंध में रखें।",
+            "इसलिए इसलिए is calculated from the product relation.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Use the proportional relation for the given numbers.",
+            "इसलिए इसलिए is calculated from the product relation.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Use the proportional relation for the given numbers.",
+            "इसलिए इसलिए is calculated from the product relation.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "meanProportional": {
+        "steps": [
+          "For mean proportional, x? = {numA} x {numB}.",
+          "इसलिए, x = sqrt({product}).",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "इसलिए, x = sqrt({product}).",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "For mean proportional, x? = {numA} x {numB}.",
+            "इसलिए, x = sqrt({product}).",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "दिए गए मानों को संबंध में रखें।",
+            "इसलिए, x = sqrt({product}).",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "For mean proportional, x? = {numA} x {numB}.",
+            "इसलिए, x = sqrt({product}).",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "For mean proportional, x? = {numA} x {numB}.",
+            "इसलिए, x = sqrt({product}).",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "thirdProportional": {
+        "steps": [
+          "For third proportional, {numA}:{numB} = {numB}:x.",
+          "इसलिए, x = {numB}^2 / {numA}.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "इसलिए, x = {numB}^2 / {numA}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "इसलिए, x = {numB}^2 / {numA}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "दिए गए मानों को संबंध में रखें।",
+            "इसलिए, x = {numB}^2 / {numA}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "इसलिए, x = {numB}^2 / {numA}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "For third proportional, {numA}:{numB} = {numB}:x.",
+            "इसलिए, x = {numB}^2 / {numA}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "fourthProportional": {
+        "steps": [
+          "For fourth proportional, {numA}:{numB} = {numC}:x.",
+          "इसलिए, x = {numB} x {numC} / {numA}.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "इसलिए, x = {numB} x {numC} / {numA}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "इसलिए, x = {numB} x {numC} / {numA}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "दिए गए मानों को संबंध में रखें।",
+            "इसलिए, x = {numB} x {numC} / {numA}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "इसलिए, x = {numB} x {numC} / {numA}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "For fourth proportional, {numA}:{numB} = {numC}:x.",
+            "इसलिए, x = {numB} x {numC} / {numA}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "directVariation": {
+        "steps": [
+          "In direct variation, y/x remains constant.",
+          "Constant = {constant}.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "In direct variation, y/x remains constant.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Constant = {constant}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "In direct variation, y/x remains constant.",
+            "Constant = {constant}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "inverseVariation": {
+        "steps": [
+          "In inverse variation, x x y remains constant.",
+          "Constant = {constant}.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "In inverse variation, x x y remains constant.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Constant = {constant}.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "In inverse variation, x x y remains constant.",
+            "Constant = {constant}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-005": {
     "explanationId": "RAP-ES-005",
-    "steps": [
-      "सबसे पहले, वस्तुओं की संख्या का अनुपात और उनके अलग-अलग मान (जैसे सिक्कों की कीमत) लिखें।",
-      "अब, 'कुल मूल्य अनुपात' प्राप्त करने के लिए संख्या को उनकी कीमत से गुणा करें।",
-      "फिर, कुल राशि को इस नए अनुपात के अनुसार हिस्सों में बाँटिए।",
-      "अंत में, प्रश्न में पूछी गई वस्तु की वास्तविक संख्या ज्ञात कीजिए।",
-      "अतः सही उत्तर {answer} है।"
-    ]
+    "taskExplanations": {
+      "coinCounting": {
+        "steps": [
+          "Value of one ratio unit = {valuePerUnit}.",
+          "Total units = {unit}.",
+          "Required number of coins = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Total units = {unit}.",
+            "Required number of coins = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Value of one ratio unit = {valuePerUnit}.",
+            "Total units = {unit}.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "Required number of coins = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "multiDenominationMapping": {
+        "aliasOf": "coinCounting"
+      },
+      "weightedMapping": {
+        "steps": [
+          "Use the weighted contribution of each item.",
+          "One unit is found from the total weight.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Use the weighted contribution of each item.",
+            "दिए गए मानों को संबंध में रखें।",
+            "One unit is found from the total weight.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Use the weighted contribution of each item.",
+            "One unit is found from the total weight.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "weightedMarks": {
+        "steps": [
+          "Use the subject ratio and weights together.",
+          "Find one scoring unit from total score.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Use the subject ratio and weights together.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Find one scoring unit from total score.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Use the subject ratio and weights together.",
+            "Find one scoring unit from total score.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      }
+    }
   },
   "RAP-CP-006": {
     "explanationId": "RAP-ES-006",
-    "steps": [
-      "सबसे पहले, यह पहचानें कि मिश्रण का कौन सा हिस्सा स्थिर है और नहीं बदल रहा।",
-      "अब, अनुपातों को इस तरह स्केल करें कि स्थिर हिस्सा दोनों जगह समान हो जाए।",
-      "फिर, दूसरे हिस्से के अनुपात में आए अंतर को देखिए।",
-      "अंत में, अनुपात के इस अंतर को वास्तव में मिलाई गई या निकाली गई मात्रा से जोड़िए।",
-      "अतः सही उत्तर {answer} है।"
-    ]
+    "taskExplanations": {
+      "mixtureRatio": {
+        "steps": [
+          "Use the unchanged component to connect old and new ratios.",
+          "After matching the unchanged part, calculate the changed component.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "दिए गए मानों को संबंध में रखें।",
+            "After matching the unchanged part, calculate the changed component.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Use the unchanged component to connect old and new ratios.",
+            "After matching the unchanged part, calculate the changed component.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "binaryMixture": {
+        "aliasOf": "mixtureRatio"
+      },
+      "mixtureComponentFinding": {
+        "aliasOf": "mixtureRatio"
+      },
+      "threeComponentMixture": {
+        "aliasOf": "mixtureRatio"
+      },
+      "variableReplacementRatio": {
+        "steps": [
+          "Apply the two removals one after another.",
+          "Track the remaining original liquid after each removal.",
+          "Final ratio = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Apply the two removals one after another.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Track the remaining original liquid after each removal.",
+            "Final ratio = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Apply the two removals one after another.",
+            "Track the remaining original liquid after each removal.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "Final ratio = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "acidConcentration": {
+        "steps": [
+          "Total mixture = acid + water.",
+          "Acid percentage = acid volume / total volume x 100.",
+          "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+          "अब गणना को ध्यान से सरल करें।",
+          "इसलिए, उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अब गणना को ध्यान से सरल करें।",
+            "इसलिए, उत्तर {answer} है।"
+          ],
+          [
+            "दिए गए संबंध को ध्यान से देखें।",
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः आवश्यक मान {answer} है।"
+          ],
+          [
+            "Total mixture = acid + water.",
+            "दिए गए मानों को संबंध में रखें।",
+            "Acid percentage = acid volume / total volume x 100.",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "इस प्रकार प्राप्त मान {answer} है।"
+          ],
+          [
+            "अब दिए गए मानों से गणना करें।",
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "The calculation gives {answer}.",
+            "इसलिए, अंतिम उत्तर {answer} है।"
+          ],
+          [
+            "Total mixture = acid + water.",
+            "Acid percentage = acid volume / total volume x 100.",
+            "सरल करते समय आधार मान को स्पष्ट रखें।",
+            "इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
+            "अतः सही उत्तर {answer} है।"
+          ]
+        ]
+      }
+    }
   }
 }

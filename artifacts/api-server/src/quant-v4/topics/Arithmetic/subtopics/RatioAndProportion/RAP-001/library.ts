@@ -168,8 +168,22 @@ export function getExplanationId(cpId: Rap001CanonicalProblemId, language: Rap00
   return getExplanationEntry(cpId, language).explanationId;
 }
 
-export function getExplanationSteps(cpId: Rap001CanonicalProblemId, language: Rap001Language) {
-  return [...getExplanationEntry(cpId, language).steps];
+export function getExplanationSteps(cpId: Rap001CanonicalProblemId, taskKind: string, language: Rap001Language, variantKey = 0) {
+  const entry = getExplanationEntry(cpId, language);
+  const family = entry.taskExplanations?.[taskKind];
+  if (!family) throw new Error(`Missing task explanation ${language}:${cpId}:${taskKind}`);
+  const resolved = family.aliasOf ? entry.taskExplanations?.[family.aliasOf] : family;
+  const variants = resolved?.variants?.filter((variant) => variant.length > 0) ?? [];
+  if (variants.length > 0) return [...variants[Math.abs(variantKey) % variants.length]!];
+  if (!resolved?.steps?.length) throw new Error(`Missing task explanation steps ${language}:${cpId}:${taskKind}`);
+  return [...resolved.steps];
+}
+
+export function getExplanationVariantCount(cpId: Rap001CanonicalProblemId, taskKind: string, language: Rap001Language) {
+  const entry = getExplanationEntry(cpId, language);
+  const family = entry.taskExplanations?.[taskKind];
+  const resolved = family?.aliasOf ? entry.taskExplanations?.[family.aliasOf] : family;
+  return resolved?.variants?.length ?? (resolved?.steps?.length ? 1 : 0);
 }
 
 function sameSet(left: Set<string>, right: Set<string>) {
