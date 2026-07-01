@@ -86,7 +86,7 @@ assert.equal(audit.validationFailures, 0);
 assert.equal(audit.renderFailures, 0);
 assert.equal(audit.solverFailures, 0);
 assert.equal(Object.keys(audit.cpCoverage).length, 10);
-assert.equal(Object.keys(audit.qlCoverage).length, 50);
+assert.equal(Object.keys(audit.qlCoverage).length, 150);
 assert.equal(Object.keys(audit.esCoverage).length, 10);
 assert.equal(audit.unusedQlIds.length, 0);
 assert.equal(audit.unusedEsIds.length, 0);

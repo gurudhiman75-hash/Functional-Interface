@@ -4,55 +4,1813 @@
   "authority": "task-registry.library.json",
   "usage": "Runtime Consumption Only",
   "entries": {
-    "PCT-QL-001": { "cpId": "PCT-CP-001", "taskKind": "wholeFromPart", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "wholeLabel", "partLabel"] },
-    "PCT-QL-002": { "cpId": "PCT-CP-001", "taskKind": "wholeFromPart", "answerType": "ABSOLUTE", "requiredVariables": ["knownRate", "knownValue", "wholeLabel", "partLabel"] },
-    "PCT-QL-003": { "cpId": "PCT-CP-002", "taskKind": "anotherPercentageFromKnownPercentage", "answerType": "ABSOLUTE", "requiredVariables": ["knownRate", "knownValue", "targetRate", "wholeLabel"] },
-    "PCT-QL-004": { "cpId": "PCT-CP-002", "taskKind": "anotherPercentageFromKnownPercentage", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "targetRate", "wholeLabel"] },
-    "PCT-QL-005": { "cpId": "PCT-CP-003", "taskKind": "percentageFromPartAndWhole", "answerType": "PERCENT", "requiredVariables": ["partValue", "wholeValue", "partLabel", "wholeLabel"] },
-    "PCT-QL-006": { "cpId": "PCT-CP-003", "taskKind": "percentageFromPartAndWhole", "answerType": "PERCENT", "requiredVariables": ["partValue", "wholeValue", "partLabel", "wholeLabel"] },
-    "PCT-QL-007": { "cpId": "PCT-CP-004", "taskKind": "reversePercentageMapping", "answerType": "PERCENT", "requiredVariables": ["knownRate", "knownValue", "targetValue", "wholeLabel"] },
-    "PCT-QL-008": { "cpId": "PCT-CP-004", "taskKind": "reversePercentageMapping", "answerType": "PERCENT", "requiredVariables": ["knownRate", "knownValue", "targetValue", "wholeLabel"] },
-    "PCT-QL-009": { "cpId": "PCT-CP-005", "taskKind": "ratioToPercentage", "answerType": "PERCENT", "requiredVariables": ["partA", "partB", "targetPartLabel"] },
-    "PCT-QL-010": { "cpId": "PCT-CP-005", "taskKind": "ratioToPercentage", "answerType": "PERCENT", "requiredVariables": ["partA", "partB", "targetPartLabel"] },
-    "PCT-QL-011": { "cpId": "PCT-CP-006", "taskKind": "complementaryPercentage", "answerType": "PERCENT", "requiredVariables": ["knownRate", "partLabel", "complementLabel"] },
-    "PCT-QL-012": { "cpId": "PCT-CP-006", "taskKind": "complementaryPercentage", "answerType": "PERCENT", "requiredVariables": ["knownRate", "partLabel", "complementLabel"] },
-    "PCT-QL-013": { "cpId": "PCT-CP-007", "taskKind": "differenceBetweenPercentageParts", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "partLabel", "otherLabel"] },
-    "PCT-QL-014": { "cpId": "PCT-CP-007", "taskKind": "differenceBetweenPercentageParts", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "partLabel", "otherLabel"] },
-    "PCT-QL-015": { "cpId": "PCT-CP-008", "taskKind": "percentagePartition", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "otherRate", "otherLabel", "thirdRate", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-016": { "cpId": "PCT-CP-008", "taskKind": "percentagePartition", "answerType": "ABSOLUTE", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "otherRate", "otherLabel", "thirdRate", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-017": { "cpId": "PCT-CP-009", "taskKind": "missingPercentage", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "rate3", "partLabel", "otherLabel", "thirdLabel", "complementLabel"] },
-    "PCT-QL-018": { "cpId": "PCT-CP-009", "taskKind": "missingPercentage", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "rate3", "partLabel", "otherLabel", "thirdLabel", "complementLabel"] },
-    "PCT-QL-019": { "cpId": "PCT-CP-010", "taskKind": "multiCategoryPercentageDistribution", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "rate1", "rate2", "otherLabel", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-020": { "cpId": "PCT-CP-010", "taskKind": "multiCategoryPercentageDistribution", "answerType": "ABSOLUTE", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "rate1", "rate2", "rate3", "otherLabel", "thirdLabel", "fourthLabel", "wholeLabel"] },
-    "PCT-QL-021": { "cpId": "PCT-CP-001", "taskKind": "wholeFromPart", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "wholeLabel", "partLabel"] },
-    "PCT-QL-022": { "cpId": "PCT-CP-001", "taskKind": "wholeFromPart", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "wholeLabel", "partLabel"] },
-    "PCT-QL-023": { "cpId": "PCT-CP-001", "taskKind": "wholeFromPart", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "wholeLabel", "partLabel"] },
-    "PCT-QL-024": { "cpId": "PCT-CP-002", "taskKind": "anotherPercentageFromKnownPercentage", "answerType": "ABSOLUTE", "requiredVariables": ["knownRate", "knownValue", "targetRate", "wholeLabel"] },
-    "PCT-QL-025": { "cpId": "PCT-CP-002", "taskKind": "anotherPercentageFromKnownPercentage", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "targetRate", "wholeLabel"] },
-    "PCT-QL-026": { "cpId": "PCT-CP-002", "taskKind": "anotherPercentageFromKnownPercentage", "answerType": "COUNT", "requiredVariables": ["knownRate", "knownValue", "targetRate", "wholeLabel"] },
-    "PCT-QL-027": { "cpId": "PCT-CP-003", "taskKind": "percentageFromPartAndWhole", "answerType": "PERCENT", "requiredVariables": ["partValue", "wholeValue", "partLabel", "wholeLabel"] },
-    "PCT-QL-028": { "cpId": "PCT-CP-003", "taskKind": "percentageFromPartAndWhole", "answerType": "PERCENT", "requiredVariables": ["partValue", "wholeValue", "partLabel", "wholeLabel"] },
-    "PCT-QL-029": { "cpId": "PCT-CP-003", "taskKind": "percentageFromPartAndWhole", "answerType": "PERCENT", "requiredVariables": ["partValue", "wholeValue", "partLabel", "wholeLabel"] },
-    "PCT-QL-030": { "cpId": "PCT-CP-004", "taskKind": "reversePercentageMapping", "answerType": "PERCENT", "requiredVariables": ["knownRate", "knownValue", "targetValue", "wholeLabel"] },
-    "PCT-QL-031": { "cpId": "PCT-CP-004", "taskKind": "reversePercentageMapping", "answerType": "PERCENT", "requiredVariables": ["knownRate", "knownValue", "targetValue", "wholeLabel"] },
-    "PCT-QL-032": { "cpId": "PCT-CP-004", "taskKind": "reversePercentageMapping", "answerType": "PERCENT", "requiredVariables": ["knownRate", "knownValue", "targetValue", "wholeLabel"] },
-    "PCT-QL-033": { "cpId": "PCT-CP-005", "taskKind": "ratioToPercentage", "answerType": "PERCENT", "requiredVariables": ["partA", "partB", "targetPartLabel"] },
-    "PCT-QL-034": { "cpId": "PCT-CP-005", "taskKind": "ratioToPercentage", "answerType": "PERCENT", "requiredVariables": ["partA", "partB", "targetPartLabel"] },
-    "PCT-QL-035": { "cpId": "PCT-CP-005", "taskKind": "ratioToPercentage", "answerType": "PERCENT", "requiredVariables": ["partA", "partB", "targetPartLabel"] },
-    "PCT-QL-036": { "cpId": "PCT-CP-006", "taskKind": "complementaryPercentage", "answerType": "PERCENT", "requiredVariables": ["knownRate", "partLabel", "complementLabel"] },
-    "PCT-QL-037": { "cpId": "PCT-CP-006", "taskKind": "complementaryPercentage", "answerType": "PERCENT", "requiredVariables": ["knownRate", "partLabel", "complementLabel"] },
-    "PCT-QL-038": { "cpId": "PCT-CP-006", "taskKind": "complementaryPercentage", "answerType": "PERCENT", "requiredVariables": ["knownRate", "partLabel", "complementLabel"] },
-    "PCT-QL-039": { "cpId": "PCT-CP-007", "taskKind": "differenceBetweenPercentageParts", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "partLabel", "otherLabel"] },
-    "PCT-QL-040": { "cpId": "PCT-CP-007", "taskKind": "differenceBetweenPercentageParts", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "partLabel", "otherLabel"] },
-    "PCT-QL-041": { "cpId": "PCT-CP-007", "taskKind": "differenceBetweenPercentageParts", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "partLabel", "otherLabel"] },
-    "PCT-QL-042": { "cpId": "PCT-CP-008", "taskKind": "percentagePartition", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "otherRate", "otherLabel", "thirdRate", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-043": { "cpId": "PCT-CP-008", "taskKind": "percentagePartition", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "otherRate", "otherLabel", "thirdRate", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-044": { "cpId": "PCT-CP-008", "taskKind": "percentagePartition", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "otherRate", "otherLabel", "thirdRate", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-045": { "cpId": "PCT-CP-009", "taskKind": "missingPercentage", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "rate3", "partLabel", "otherLabel", "thirdLabel", "complementLabel"] },
-    "PCT-QL-046": { "cpId": "PCT-CP-009", "taskKind": "missingPercentage", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "rate3", "partLabel", "otherLabel", "thirdLabel", "complementLabel"] },
-    "PCT-QL-047": { "cpId": "PCT-CP-009", "taskKind": "missingPercentage", "answerType": "PERCENT", "requiredVariables": ["rate1", "rate2", "rate3", "partLabel", "otherLabel", "thirdLabel", "complementLabel"] },
-    "PCT-QL-048": { "cpId": "PCT-CP-010", "taskKind": "multiCategoryPercentageDistribution", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "rate1", "rate2", "otherLabel", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-049": { "cpId": "PCT-CP-010", "taskKind": "multiCategoryPercentageDistribution", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "rate1", "rate2", "otherLabel", "thirdLabel", "wholeLabel"] },
-    "PCT-QL-050": { "cpId": "PCT-CP-010", "taskKind": "multiCategoryPercentageDistribution", "answerType": "COUNT", "requiredVariables": ["totalValue", "targetRate", "targetLabel", "rate1", "rate2", "rate3", "otherLabel", "thirdLabel", "fourthLabel", "wholeLabel"] }
+    "PCT-QL-001": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-002": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-003": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-004": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-005": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-006": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-007": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-008": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-009": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-010": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-011": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-012": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-013": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-014": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-015": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-016": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-017": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-018": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-019": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-020": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "rate3",
+        "otherLabel",
+        "thirdLabel",
+        "fourthLabel",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-021": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-022": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-023": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-024": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-025": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-026": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-027": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-028": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-029": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-030": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-031": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-032": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-033": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-034": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-035": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-036": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-037": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-038": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-039": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-040": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-041": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-042": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-043": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-044": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-045": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-046": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-047": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-048": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-049": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-050": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "rate3",
+        "otherLabel",
+        "thirdLabel",
+        "fourthLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-051": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-052": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-053": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-054": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-055": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-056": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-057": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-058": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-059": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-060": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "wholeFromPart",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "wholeLabel",
+        "partLabel"
+      ]
+    },
+    "PCT-QL-061": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-062": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-063": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-064": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-065": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-066": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-067": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-068": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-069": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-070": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "anotherPercentageFromKnownPercentage",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetRate",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-071": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-072": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-073": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-074": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-075": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-076": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-077": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-078": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-079": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-080": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "percentageFromPartAndWhole",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partValue",
+        "wholeValue",
+        "partLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-081": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-082": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-083": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-084": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-085": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-086": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-087": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-088": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-089": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-090": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "reversePercentageMapping",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "knownValue",
+        "targetValue",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-091": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-092": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-093": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-094": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-095": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-096": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-097": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-098": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-099": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-100": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioToPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "partA",
+        "partB",
+        "targetPartLabel"
+      ]
+    },
+    "PCT-QL-101": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-102": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-103": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-104": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-105": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-106": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-107": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-108": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-109": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-110": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "complementaryPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "knownRate",
+        "partLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-111": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-112": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-113": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-114": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-115": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-116": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-117": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-118": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-119": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-120": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "differenceBetweenPercentageParts",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "partLabel",
+        "otherLabel"
+      ]
+    },
+    "PCT-QL-121": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-122": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-123": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-124": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-125": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-126": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-127": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-128": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-129": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-130": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "percentagePartition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "otherRate",
+        "otherLabel",
+        "thirdRate",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-131": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-132": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-133": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-134": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-135": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-136": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-137": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-138": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-139": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-140": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "missingPercentage",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "rate1",
+        "rate2",
+        "rate3",
+        "partLabel",
+        "otherLabel",
+        "thirdLabel",
+        "complementLabel"
+      ]
+    },
+    "PCT-QL-141": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-142": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-143": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-144": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-145": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "rate3",
+        "otherLabel",
+        "thirdLabel",
+        "fourthLabel",
+        "wholeLabel",
+        "valuePrefix"
+      ]
+    },
+    "PCT-QL-146": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-147": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-148": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-149": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "otherLabel",
+        "thirdLabel",
+        "wholeLabel"
+      ]
+    },
+    "PCT-QL-150": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "multiCategoryPercentageDistribution",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalValue",
+        "targetRate",
+        "targetLabel",
+        "rate1",
+        "rate2",
+        "rate3",
+        "otherLabel",
+        "thirdLabel",
+        "fourthLabel",
+        "wholeLabel"
+      ]
+    }
   }
 }

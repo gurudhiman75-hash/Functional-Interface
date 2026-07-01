@@ -312,3 +312,40 @@ Do not mark PCT-002 ready for manual question-bank review yet.
   - Rendered unresolved placeholders: `0`
 - Final status:
   - `PCT-002 - Existing 50 English QLs polished; English generation covers all 50; ready for Stage 1 expansion decision`
+
+## Stage 1 English Expansion
+
+- Files changed:
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/question-language.en.json`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/task-registry.library.json`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/parameter-generator.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/coverage-auditor.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/pct-002.test.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-002-stage-1-expansion-report.md`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-002-ssc-realism-review.md`
+- New English QL ranges added:
+  - `PCT-QL-051` to `PCT-QL-150`
+- Final English shape:
+  - CP count: `10`
+  - English QL count: `150`
+  - Per-CP English QL count: `15` each
+- Static audit results:
+  - JSON parse: `passed`
+  - Exact duplicate English template groups: `0`
+  - Missing required placeholders: `0`
+  - Unregistered template placeholders: `0`
+- Runtime verification:
+  - Bundled build command:
+    - `C:\Users\gurbaj\Downloads\Functional-Interface\Functional-Interface\artifacts\api-server\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/pct-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-002.test.mjs`
+    - Result: `passed`
+  - Bundled runtime command:
+    - `node dist/quant-v4/pct-002.test.mjs`
+    - Result: `passed`
+  - Bundled audit implications from the passing runtime:
+    - English generation covers all `150` English QLs
+    - Rendered unresolved-placeholder audit: `0`
+    - Validation failures: `0`
+    - Solver failures: `0`
+    - Cross-language parity on shared/common QLs: `passed`
+- Final status:
+  - `PCT-002 - Stage 1 English expansion complete; English generation covers all 150; ready for Stage 2 expansion decision or manual review of the expanded English bank`

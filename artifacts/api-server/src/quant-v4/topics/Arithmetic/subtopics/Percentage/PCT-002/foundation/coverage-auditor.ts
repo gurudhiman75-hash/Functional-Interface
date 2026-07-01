@@ -114,12 +114,13 @@ export function renderPct002CoverageAuditMarkdown(audit: Pct002CoverageAudit, co
 }
 
 export function renderPct002MaturityAuditMarkdown(audit: Pct002CoverageAudit, countLabel: string) {
+  const totalSelectableQlCount = Object.keys(audit.qlCoverage).length + audit.unusedQlIds.length;
   return [
     "# PCT-002 Maturity Audit",
     "",
     `- Question count: ${audit.questionCount}`,
     `- CP coverage count: ${Object.keys(audit.cpCoverage).length}/10`,
-    `- QL coverage count: ${Object.keys(audit.qlCoverage).length}/20`,
+    `- QL coverage count: ${Object.keys(audit.qlCoverage).length}/${totalSelectableQlCount}`,
     `- ES coverage count: ${Object.keys(audit.esCoverage).length}/10`,
     `- Difficulty coverage: ${Object.keys(audit.difficultyCoverage).join(", ")}`,
     `- Duplicate rate: ${(audit.duplicateRate * 100).toFixed(2)}%`,

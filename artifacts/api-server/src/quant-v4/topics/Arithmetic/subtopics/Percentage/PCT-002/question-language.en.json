@@ -20,6 +20,46 @@
       "PCT-QL-023": {
         "template": "If {knownValue} {partLabel} make up {knownRate}% of the {wholeLabel}, find the total number of {wholeLabel}.",
         "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "In a survey, {knownRate}% of the {wholeLabel} selected {partLabel}. If {knownValue} respondents selected it, find the total number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "A warehouse report shows that {knownRate}% of the {wholeLabel} are {partLabel}. If {knownValue} items fall in this group, find the total number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "On a particular day, {knownRate}% of the enrolled {wholeLabel} were {partLabel}. If {knownValue} students were {partLabel}, find the total number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "In a train coach, {knownRate}% of the {wholeLabel} travelled in {partLabel}. If their number was {knownValue}, find the total number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "In a beneficiary list, {knownRate}% of the {wholeLabel} were {partLabel}. If {knownValue} applicants were {partLabel}, find the total number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "At a hospital, {knownRate}% of the {wholeLabel} had {partLabel}. If {knownValue} patients had {partLabel}, find the total number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "A candidate received {knownRate}% of the {wholeLabel}. If that share equals {knownValue} {partLabel}, find the total number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-058": {
+        "template": "A farmer sold {knownRate}% of the {wholeLabel}. If {knownValue} {partLabel} were sold, find the total number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-059": {
+        "template": "In a company, {knownRate}% of the {wholeLabel} work in {partLabel}. If {knownValue} employees work there, find the total number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "An office record shows that {knownRate}% of the {wholeLabel} are {partLabel}. If {knownValue} invoices are {partLabel}, find the total number of {wholeLabel}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -43,6 +83,46 @@
       },
       "PCT-QL-026": {
         "template": "If {knownRate}% of the yearly {wholeLabel} is {knownValue}, find the amount represented by {targetRate}% of the same total.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "If {knownRate}% of the monthly {wholeLabel} is {valuePrefix}{knownValue}, find the value of {targetRate}% of the same {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "In a school, {knownRate}% of the total {wholeLabel} is {knownValue}. Find the number represented by {targetRate}% of the same total.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "If {knownRate}% of the warehouse {wholeLabel} is {knownValue}, find the quantity corresponding to {targetRate}% of the same stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-064": {
+        "template": "If {knownRate}% of the monthly {wholeLabel} is {knownValue}, find the amount corresponding to {targetRate}% of the same total.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "If {knownRate}% of the season's {wholeLabel} is {knownValue}, find the amount corresponding to {targetRate}% of the same total.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "In a budget plan, {knownRate}% of the total {wholeLabel} is {valuePrefix}{knownValue}. Find {targetRate}% of the same {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "If {knownRate}% of the production {wholeLabel} is {knownValue}, find the quantity represented by {targetRate}% of the same target.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-068": {
+        "template": "If {knownRate}% of the route's {wholeLabel} is {knownValue}, find the number represented by {targetRate}% of the same total.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "If {knownRate}% of the total {wholeLabel} is {knownValue}, how many {wholeLabel} correspond to {targetRate}% of the same total?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "If {knownRate}% of the hospital {wholeLabel} is {knownValue}, find the number represented by {targetRate}% of the same total.",
         "difficulty": "Medium"
       }
     }
@@ -68,6 +148,46 @@
       "PCT-QL-029": {
         "template": "At a venue with {wholeValue} {wholeLabel}, {partValue} are {partLabel}. Find the percentage of {partLabel}.",
         "difficulty": "Medium"
+      },
+      "PCT-QL-071": {
+        "template": "A factory made {wholeValue} {wholeLabel}, of which {partValue} were {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-072": {
+        "template": "Out of {wholeValue} registered {wholeLabel}, {partValue} were {partLabel}. Find the attendance percentage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-073": {
+        "template": "Out of {wholeValue} total {wholeLabel}, {partValue} were {partLabel}. Find the percentage of booked seats.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-074": {
+        "template": "Out of {wholeValue} {wholeLabel}, {partValue} were {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-075": {
+        "template": "A storage yard had {wholeValue} {wholeLabel}, and {partValue} were found {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-076": {
+        "template": "A hospital treated {wholeValue} {wholeLabel}, and {partValue} of them {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-077": {
+        "template": "Out of {wholeValue} total {wholeLabel}, {partValue} were {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "Out of {wholeValue} {wholeLabel}, {partValue} were {partLabel}. Find the selection percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "A warehouse had {wholeValue} {wholeLabel}, and {partValue} were {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-080": {
+        "template": "Out of {wholeValue} submitted {wholeLabel}, {partValue} were {partLabel}. Find the percentage of {partLabel}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -92,6 +212,46 @@
       "PCT-QL-032": {
         "template": "If {knownValue} {wholeLabel} are {knownRate}% of the total, what percent of the total is {targetValue} {wholeLabel}?",
         "difficulty": "Hard"
+      },
+      "PCT-QL-081": {
+        "template": "If {valuePrefix}{knownValue} is {knownRate}% of the total {wholeLabel}, what percent of the same {wholeLabel} is {valuePrefix}{targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-082": {
+        "template": "If {knownRate}% of the warehouse {wholeLabel} is {knownValue}, what percent of the same total is {targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-083": {
+        "template": "If {knownRate}% of the hospital {wholeLabel} is {knownValue}, what percent of the same total is {targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-084": {
+        "template": "If {knownRate}% of the total {wholeLabel} is {knownValue}, find what percent of the same total is {targetValue} {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-085": {
+        "template": "If {knownRate}% of the {wholeLabel} is {valuePrefix}{knownValue}, find the percentage represented by {valuePrefix}{targetValue}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "If {knownRate}% of the {wholeLabel} is {valuePrefix}{knownValue}, then {valuePrefix}{targetValue} is what percent of the same total?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "If {knownRate}% of the production {wholeLabel} is {knownValue}, what percent of the same total is {targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "If {knownRate}% of the booking {wholeLabel} is {knownValue}, find the percentage represented by {targetValue}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-089": {
+        "template": "If {knownRate}% of the monthly {wholeLabel} is {valuePrefix}{knownValue}, what percent of the same {wholeLabel} is {valuePrefix}{targetValue}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-090": {
+        "template": "If {knownRate}% of the total {wholeLabel} is {knownValue}, find the percentage represented by {targetValue}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -115,6 +275,46 @@
       },
       "PCT-QL-035": {
         "template": "Two candidates got votes in the ratio {partA}:{partB}. Find the vote percentage of the {targetPartLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-091": {
+        "template": "In a class, the ratio of boys to girls is {partA}:{partB}. Find the percentage of the {targetPartLabel} in the class.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-092": {
+        "template": "The ratio of passed to failed candidates is {partA}:{partB}. Express the {targetPartLabel} as a percentage of the total candidates.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-093": {
+        "template": "In a godown, the ratio of wheat to rice bags is {partA}:{partB}. Find what percent of the stock is the {targetPartLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "The ratio of rural to urban population is {partA}:{partB}. Find the percentage share of the {targetPartLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-095": {
+        "template": "The ratio of online to offline applicants is {partA}:{partB}. Find the percentage of the {targetPartLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-096": {
+        "template": "Two candidates received votes in the ratio {partA}:{partB}. What percent of the total votes went to the {targetPartLabel}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "Land under wheat and paddy is in the ratio {partA}:{partB}. Find the percentage of area under the {targetPartLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "The budget split between food and transport is {partA}:{partB}. Find the percentage share of the {targetPartLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "The ratio of male to female employees is {partA}:{partB}. Find what percent of the staff is the {targetPartLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-100": {
+        "template": "Booked and vacant seats are in the ratio {partA}:{partB}. Find the percentage of the {targetPartLabel}.",
         "difficulty": "Medium"
       }
     }
@@ -140,6 +340,46 @@
       "PCT-QL-038": {
         "template": "If {knownRate}% of the stock is {partLabel}, find the percentage of {complementLabel}.",
         "difficulty": "Medium"
+      },
+      "PCT-QL-101": {
+        "template": "If {knownRate}% of the students are {partLabel}, what percentage of the students are {complementLabel}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-102": {
+        "template": "If {knownRate}% of the stock is {partLabel}, what percentage of the stock is {complementLabel}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-103": {
+        "template": "If {knownRate}% of the patients have {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-104": {
+        "template": "If {knownRate}% of the water supply is {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "If {knownRate}% of the candidates have {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-106": {
+        "template": "If {knownRate}% of the seats are {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-107": {
+        "template": "If {knownRate}% of the votes are {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-108": {
+        "template": "If {knownRate}% of the forms are {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-109": {
+        "template": "If {knownRate}% of the applicants are {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-110": {
+        "template": "If {knownRate}% of the parcels are {partLabel}, find the percentage of {complementLabel}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -163,6 +403,46 @@
       },
       "PCT-QL-041": {
         "template": "On a farm, {rate1}% of the area is under {partLabel} and {rate2}% is under {otherLabel}. Find the difference in percentage points between the two shares.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-111": {
+        "template": "A poll gives {rate1}% support to {partLabel} and {rate2}% to {otherLabel}. Find the difference in percentage points between the two shares.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-112": {
+        "template": "In a budget, {rate1}% goes to {partLabel} while {rate2}% goes to {otherLabel}. Find the difference between the two shares.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-113": {
+        "template": "Of the cultivated area, {rate1}% is under {partLabel} and {rate2}% is under {otherLabel}. Find the difference in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-114": {
+        "template": "In a hospital bed chart, {rate1}% of the beds are in {partLabel} and {rate2}% are in {otherLabel}. Find the difference in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-115": {
+        "template": "A production report shows {rate1}% in {partLabel} and {rate2}% in {otherLabel}. Find the difference in percentage points between these categories.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-116": {
+        "template": "In a school result, {rate1}% of the students are {partLabel} and {rate2}% are {otherLabel}. Find the difference between the two shares.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-117": {
+        "template": "On a bus route, {rate1}% of the passengers are {partLabel} and {rate2}% are {otherLabel}. Find the difference in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-118": {
+        "template": "A survey records {rate1}% responses for {partLabel} and {rate2}% for {otherLabel}. Find the difference between the two shares.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-119": {
+        "template": "In a warehouse, {rate1}% of the stock is {partLabel} and {rate2}% is {otherLabel}. Find the difference in percentage points between the two shares.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-120": {
+        "template": "A company has {rate1}% employees in {partLabel} and {rate2}% in {otherLabel}. Find the difference between the two shares.",
         "difficulty": "Medium"
       }
     }
@@ -188,6 +468,46 @@
       "PCT-QL-044": {
         "template": "A train has {totalValue} {wholeLabel}. If {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}, find the number of {targetLabel}.",
         "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "Out of a total {wholeLabel} of {valuePrefix}{totalValue}, {targetRate}% goes to {targetLabel}, {otherRate}% to {otherLabel}, and {thirdRate}% to {thirdLabel}. Find the amount allotted to {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-122": {
+        "template": "In a school of {totalValue} {wholeLabel}, {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}. Find the number of {targetLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-123": {
+        "template": "In a warehouse lot of {totalValue} {wholeLabel}, {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}. Find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-124": {
+        "template": "A bus service carries {totalValue} {wholeLabel}. If {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-125": {
+        "template": "Out of {totalValue} {wholeLabel}, {targetRate}% go to {targetLabel}, {otherRate}% to {otherLabel}, and {thirdRate}% to {thirdLabel}. Find the number of votes received by {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-126": {
+        "template": "A factory produced {totalValue} {wholeLabel}. If {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-127": {
+        "template": "In a hospital register of {totalValue} {wholeLabel}, {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}. Find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-128": {
+        "template": "Out of {totalValue} acres of {wholeLabel}, {targetRate}% are under {targetLabel}, {otherRate}% under {otherLabel}, and {thirdRate}% under {thirdLabel}. Find the area under {targetLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "A {wholeLabel} totals {valuePrefix}{totalValue}. If {targetRate}% is spent on {targetLabel}, {otherRate}% on {otherLabel}, and {thirdRate}% on {thirdLabel}, find the amount spent on {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-130": {
+        "template": "A survey covers {totalValue} {wholeLabel}. If {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -212,6 +532,46 @@
       "PCT-QL-047": {
         "template": "In an exam result, {rate1}% of the students are {partLabel}, {rate2}% are {otherLabel}, and {rate3}% are {thirdLabel}. Find the remaining percentage of {complementLabel}.",
         "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "In a survey, {rate1}% chose {partLabel}, {rate2}% chose {otherLabel}, and {rate3}% chose {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "In an election, {rate1}% of the votes went to {partLabel}, {rate2}% to {otherLabel}, and {rate3}% to {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "In a result list, {rate1}% are {partLabel}, {rate2}% are {otherLabel}, and {rate3}% are {thirdLabel}. Find the remaining percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "Of the cultivated land, {rate1}% is under {partLabel}, {rate2}% under {otherLabel}, and {rate3}% under {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "In a hospital outcome record, {rate1}% are {partLabel}, {rate2}% are {otherLabel}, and {rate3}% are {thirdLabel}. Find the missing percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "In a budget, {rate1}% goes to {partLabel}, {rate2}% to {otherLabel}, and {rate3}% to {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "A production split shows {rate1}% as {partLabel}, {rate2}% as {otherLabel}, and {rate3}% as {thirdLabel}. Find the missing percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-138": {
+        "template": "On a bus route, {rate1}% of passengers are {partLabel}, {rate2}% are {otherLabel}, and {rate3}% are {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "A stock summary shows {rate1}% as {partLabel}, {rate2}% as {otherLabel}, and {rate3}% as {thirdLabel}. Find the percentage of {complementLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "Among applicants, {rate1}% are {partLabel}, {rate2}% are {otherLabel}, and {rate3}% are {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "difficulty": "Easy"
       }
     }
   },
@@ -235,6 +595,46 @@
       },
       "PCT-QL-050": {
         "template": "A group has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, {rate3}% are {fourthLabel}, and the remaining {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "A district has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "An inventory ledger records {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "A route carries {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "A school has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-145": {
+        "template": "A family's {wholeLabel} is {valuePrefix}{totalValue}. If {rate1}% is spent on {otherLabel}, {rate2}% on {thirdLabel}, {rate3}% on {fourthLabel}, and the remaining {targetRate}% on {targetLabel}, find the amount spent on {targetLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "A production batch has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "In a hospital register of {totalValue} {wholeLabel}, {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}. Find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "A depot stores {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "A survey has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-150": {
+        "template": "A warehouse dispatch record has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, {rate3}% are {fourthLabel}, and the remaining {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
         "difficulty": "Hard"
       }
     }
