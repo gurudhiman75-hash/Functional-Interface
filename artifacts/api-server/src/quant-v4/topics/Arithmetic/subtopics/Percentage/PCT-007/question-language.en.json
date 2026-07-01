@@ -1606,7 +1606,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-395": {
-        "template": "A measurement is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-396": {

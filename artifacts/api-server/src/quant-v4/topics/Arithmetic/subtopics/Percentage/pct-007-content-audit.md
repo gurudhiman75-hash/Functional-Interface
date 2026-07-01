@@ -16,7 +16,7 @@ Audited:
 - Exact duplicate English template groups: `0`
 - Placeholder parity across English/Hindi/Punjabi: `0` failures
 - Representative unresolved-placeholder render audit: `0` failures
-- Content status: `Ready for manual question-bank review after bundled runtime test completes`
+- Content status: `Ready for SSC-realism editorial review`
 
 ## CP Count Audit
 
@@ -117,6 +117,7 @@ The repetition is acceptable for a 500-QL implementation package and does not vi
 
 - Some companion Hindi/Punjabi files are structurally copied from English and should not be treated as final localization quality.
 - CP-010 caselets are intentionally compact. Manual review can decide whether to add more situational variety later.
+- The weak English stem `A measurement is measured as...` was rewritten to `A measurement is recorded as...` while preserving placeholders, QL ID, CP mapping, and solve mode.
 
 ## Boundary Check
 
@@ -150,18 +151,27 @@ Result:
 
 Bundled runtime test:
 
-- Attempted but not completed because the local dependency tree has no runnable `esbuild` binary and `pnpm install` timed out before restoring it.
-
-## Recommended Next Action
-
-Restore `artifacts/api-server` dependencies, then run:
+- Dependency repair with `pnpm install` timed out after `300000 ms`.
+- Dependency repair with `pnpm install --config.confirmModulesPurge=false` timed out after `900000 ms`.
+- Narrow `pnpm dlx esbuild@0.27.3 ...` attempts failed with `UNABLE_TO_VERIFY_LEAF_SIGNATURE`.
+- Build succeeded using an already-installed local `esbuild.CMD` from a neighboring checkout:
 
 ```bash
-cd artifacts/api-server
-pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-007/pct-007.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-007.test.mjs
+C:\Users\gurbaj\Downloads\Functional-Interface\Functional-Interface\artifacts\api-server\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-007/pct-007.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-007.test.mjs
+```
+
+- Bundled test run succeeded:
+
+```bash
 node dist/quant-v4/pct-007.test.mjs
 ```
 
+- Result: `PCT-007 implementation test passed.`
+
+## Recommended Next Action
+
+Proceed to SSC-realism editorial review. The local `artifacts/api-server/node_modules` dependency tree still needs separate repair, but PCT-007's bundled runtime test passed using the available local esbuild binary.
+
 Publish-readiness call:
 
-`Needs bundled test after dependency restore`
+`PCT-007 - Ready for SSC-realism editorial review`
