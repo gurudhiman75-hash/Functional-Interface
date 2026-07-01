@@ -31,7 +31,7 @@ function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
 }
 
-function getSelectableQuestionLanguageIds(cpId: Pct003CanonicalProblemId, language: Pct003Language) {
+export function getSelectableQuestionLanguageIds(cpId: Pct003CanonicalProblemId, language: Pct003Language) {
   return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
 }
 
@@ -219,11 +219,47 @@ const SCENARIO_ALIASES: Record<string, string> = {
   "PCT-QL-050": "PCT-QL-020",
 };
 
+const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct003Variables>> = {
+  "PCT-QL-021": { wholeLabel: "electricity consumption", valuePrefix: "" },
+  "PCT-QL-022": { wholeLabel: "internet users" },
+  "PCT-QL-023": { wholeLabel: "crop production" },
+  "PCT-QL-024": { wholeLabel: "salary" },
+  "PCT-QL-025": { wholeLabel: "seating capacity" },
+  "PCT-QL-026": { wholeLabel: "milk production" },
+  "PCT-QL-027": { wholeLabel: "price" },
+  "PCT-QL-028": { wholeLabel: "stock" },
+  "PCT-QL-029": { wholeLabel: "number of internet users" },
+  "PCT-QL-030": { wholeLabel: "quantity" },
+  "PCT-QL-031": { wholeLabel: "price" },
+  "PCT-QL-032": { wholeLabel: "production" },
+  "PCT-QL-033": { wholeLabel: "number of students" },
+  "PCT-QL-034": { wholeLabel: "production" },
+  "PCT-QL-035": { wholeLabel: "number of mobile users" },
+  "PCT-QL-036": { wholeLabel: "sales" },
+  "PCT-QL-037": { wholeLabel: "number of visitors" },
+  "PCT-QL-038": { wholeLabel: "quantity" },
+  "PCT-QL-039": { labelA: "Branch A sales", labelB: "Branch B sales" },
+  "PCT-QL-040": { labelA: "population of Town A", labelB: "population of Town B" },
+  "PCT-QL-041": { labelA: "price of Product A", labelB: "price of Product B" },
+  "PCT-QL-042": { wholeLabel: "employees", partLabel: "trained employees", otherLabel: "untrained employees" },
+  "PCT-QL-043": { wholeLabel: "respondents", partLabel: "yes responses", otherLabel: "no responses" },
+  "PCT-QL-044": { wholeLabel: "passengers", partLabel: "adult passengers", otherLabel: "student passengers" },
+  "PCT-QL-045": { wholeLabel: "sales" },
+  "PCT-QL-046": { wholeLabel: "production" },
+  "PCT-QL-047": { wholeLabel: "internet users" },
+  "PCT-QL-048": { wholeLabel: "number of mobile users" },
+  "PCT-QL-049": { wholeLabel: "cattle population" },
+  "PCT-QL-050": { wholeLabel: "machine output", valuePrefix: "" },
+};
+
 function createVariables(questionLanguageId: string, difficultyBand: Pct003DifficultyBand, seed: string) {
   const builderId = SCENARIO_ALIASES[questionLanguageId] ?? questionLanguageId;
   const builder = SCENARIO_BUILDERS[builderId];
   if (!builder) throw new Error(`Missing scenario builder for ${questionLanguageId}`);
-  return builder(difficultyBand, seed);
+  return {
+    ...builder(difficultyBand, seed),
+    ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
+  };
 }
 
 export function selectQuestionLanguageId(
