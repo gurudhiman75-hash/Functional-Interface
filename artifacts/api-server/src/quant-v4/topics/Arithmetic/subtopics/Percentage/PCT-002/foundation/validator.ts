@@ -2,16 +2,17 @@ import {
   PCT_002_ARCHETYPE_ID,
   PCT_002_CP_IDS,
   type Pct002Parameters,
+  type Pct002Language,
   type Pct002QuestionPackage,
   type Pct002ValidationResult,
 } from "./types";
-import { extractPlaceholders, getCommonQuestionLanguageIds, getQuestionEntry, getTaskRegistryEntry, validatePct002Libraries } from "./library";
+import { extractPlaceholders, getCommonQuestionLanguageIds, getQuestionEntry, getQuestionLanguageIds, getTaskRegistryEntry, validatePct002Libraries } from "./library";
 
 function check(name: string, passed: boolean, message: string) {
   return { name, passed, message };
 }
 
-function placeholderSet(parameters: Pct002Parameters, language: "en" | "hi" | "pa") {
+function placeholderSet(parameters: Pct002Parameters, language: Pct002Language) {
   return new Set(extractPlaceholders(getQuestionEntry(parameters.canonicalProblemId, parameters.questionLanguageId, language).template));
 }
 
@@ -33,9 +34,10 @@ const FORBIDDEN_EXPLANATION = /formula|let x|substitut|apply the formula|notice 
 
 export function validatePct002Parameters(parameters: Pct002Parameters): Pct002ValidationResult {
   const registryEntry = getTaskRegistryEntry(parameters.canonicalProblemId, parameters.questionLanguageId);
+  const isSharedQuestionLanguage = getCommonQuestionLanguageIds(parameters.canonicalProblemId).includes(parameters.questionLanguageId);
   const enPlaceholders = placeholderSet(parameters, "en");
-  const hiPlaceholders = placeholderSet(parameters, "hi");
-  const paPlaceholders = placeholderSet(parameters, "pa");
+  const hiPlaceholders = isSharedQuestionLanguage ? placeholderSet(parameters, "hi") : null;
+  const paPlaceholders = isSharedQuestionLanguage ? placeholderSet(parameters, "pa") : null;
 
   const checks = [
     check("archetype", parameters.archetypeId === PCT_002_ARCHETYPE_ID, "Archetype ID must match."),
@@ -50,13 +52,13 @@ export function validatePct002Parameters(parameters: Pct002Parameters): Pct002Va
     ),
     check(
       "placeholderCrossLanguage",
-      sameSet(enPlaceholders, hiPlaceholders) && sameSet(enPlaceholders, paPlaceholders),
-      "EN/HI/PA placeholders must match.",
+      !isSharedQuestionLanguage || (sameSet(enPlaceholders, hiPlaceholders!) && sameSet(enPlaceholders, paPlaceholders!)),
+      "EN/HI/PA placeholders must match for shared question-language IDs.",
     ),
     check(
       "questionLanguageRegistered",
-      getCommonQuestionLanguageIds(parameters.canonicalProblemId).includes(parameters.questionLanguageId),
-      "Question language must be registered for the CP.",
+      getQuestionLanguageIds(parameters.canonicalProblemId, parameters.language).includes(parameters.questionLanguageId),
+      "Question language must be available for the package language.",
     ),
   ];
 

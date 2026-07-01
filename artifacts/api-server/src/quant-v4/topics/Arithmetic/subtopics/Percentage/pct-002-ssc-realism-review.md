@@ -277,3 +277,38 @@ Do not mark PCT-002 ready for manual question-bank review yet.
     - Hindi/Punjabi files were explicitly out of scope for this task, so this was not changed here.
 - Final status:
   - `PCT-002 - Existing 50 QLs polished; ready for Stage 1 expansion decision`
+
+## Runtime Selection Fix
+
+- Files changed:
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/coverage-auditor.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/parameter-generator.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/pipeline.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/validator.ts`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-002-ssc-realism-review.md`
+- English-vs-common QL selection:
+  - English generation now uses all QLs available in `question-language.en.json` for the selected CP.
+  - Hindi and Punjabi generation continue to use only shared/common QLs.
+  - `runPct002ForLanguages` now explicitly preserves shared-only parity selection.
+  - `getCommonQuestionLanguageIds(cpId)` remains unchanged and still returns only shared QLs.
+  - Verified CP-level availability after the fix:
+    - Every CP has `en=5` and `common=2`.
+- Bundled build result:
+  - Command:
+    - `C:\Users\gurbaj\Downloads\Functional-Interface\Functional-Interface\artifacts\api-server\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/pct-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-002.test.mjs`
+  - Result: `passed`
+- Bundled runtime test result:
+  - Command:
+    - `node dist/quant-v4/pct-002.test.mjs`
+  - Result: `passed`
+  - Output:
+    - `PCT-002 foundational recovery test passed.`
+- Static audit results:
+  - JSON parse: `passed`
+  - English QL count: `50`
+  - Per-CP count: `5` each across all 10 CPs
+  - Exact duplicate English template groups: `0`
+  - Required-placeholder audit: `0` missing
+  - Rendered unresolved placeholders: `0`
+- Final status:
+  - `PCT-002 - Existing 50 English QLs polished; English generation covers all 50; ready for Stage 1 expansion decision`

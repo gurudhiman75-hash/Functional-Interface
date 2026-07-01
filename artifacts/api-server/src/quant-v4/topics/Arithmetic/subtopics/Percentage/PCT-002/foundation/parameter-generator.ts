@@ -37,7 +37,7 @@ function percentBase(seed: string, rates: readonly number[], totals: readonly nu
   return { rate, total };
 }
 
-function getSelectableQuestionLanguageIds(cpId: Pct002CanonicalProblemId, language: Pct002Language) {
+export function getSelectableQuestionLanguageIds(cpId: Pct002CanonicalProblemId, language: Pct002Language) {
   return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
 }
 
