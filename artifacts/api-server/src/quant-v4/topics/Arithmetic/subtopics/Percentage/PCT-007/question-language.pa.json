@@ -1,0 +1,2042 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "A clerk spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "A teacher spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-003": {
+        "template": "A tailor spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "A driver spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-005": {
+        "template": "A shopkeeper spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "A nurse spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-007": {
+        "template": "An electrician spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-008": {
+        "template": "A school employee spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-009": {
+        "template": "A farmer spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-010": {
+        "template": "A tutor spends {percentageRate}% of monthly income of Rs. {baseValue}. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-011": {
+        "template": "A clerk saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-012": {
+        "template": "A teacher saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-013": {
+        "template": "A tailor saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-014": {
+        "template": "A driver saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-015": {
+        "template": "A shopkeeper saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-016": {
+        "template": "A nurse saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-017": {
+        "template": "An electrician saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "A school employee saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-019": {
+        "template": "A farmer saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-020": {
+        "template": "A tutor saves {percentageRate}% of monthly income of Rs. {baseValue}. Find the expenditure.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "A clerk saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-022": {
+        "template": "A teacher saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-023": {
+        "template": "A tailor saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-024": {
+        "template": "A driver saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-025": {
+        "template": "A shopkeeper saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "A nurse saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "An electrician saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-028": {
+        "template": "A school employee saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "A farmer saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "A tutor saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "A clerk spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-032": {
+        "template": "A teacher spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "A tailor spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-034": {
+        "template": "A driver spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-035": {
+        "template": "A shopkeeper spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-036": {
+        "template": "A nurse spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "An electrician spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-038": {
+        "template": "A school employee spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "A farmer spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-040": {
+        "template": "A tutor spends {percentageRate}% of monthly income. If the expenditure is Rs. {value1}, find the income.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-041": {
+        "template": "A clerk saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-042": {
+        "template": "A teacher saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-043": {
+        "template": "A tailor saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "A driver saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "A shopkeeper saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-046": {
+        "template": "A nurse saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "An electrician saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-048": {
+        "template": "A school employee saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "A farmer saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "A tutor saves {percentageRate}% of monthly income. If the savings are Rs. {value1}, find the expenditure.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-051": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a school examination. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a board examination. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a recruitment test. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a scholarship test. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-055": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a qualifying examination. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-056": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in an entrance test. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a written examination. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a class test. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-059": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a competitive examination. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-060": {
+        "template": "A candidate scores {percentageRate}% of {totalMarks} marks in a screening test. Find the marks obtained.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-061": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a school examination. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-062": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a board examination. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-063": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a recruitment test. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-064": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a scholarship test. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a qualifying examination. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in an entrance test. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-067": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a written examination. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-068": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a class test. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a competitive examination. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "A candidate obtains {marksObtained} marks, which is {percentageRate}% of the total, in a screening test. Find the total marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-071": {
+        "template": "In a school examination, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-072": {
+        "template": "In a board examination, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-073": {
+        "template": "In a recruitment test, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-074": {
+        "template": "In a scholarship test, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-075": {
+        "template": "In a qualifying examination, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-076": {
+        "template": "In an entrance test, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-077": {
+        "template": "In a written examination, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-078": {
+        "template": "In a class test, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-079": {
+        "template": "In a competitive examination, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-080": {
+        "template": "In a screening test, pass marks are {passRate}% of {totalMarks}. Find the pass marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-081": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a school examination and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-082": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a board examination and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-083": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a recruitment test and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-084": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a scholarship test and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-085": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a qualifying examination and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-086": {
+        "template": "A candidate secures {percentageRate}% of the total marks in an entrance test and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-087": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a written examination and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-088": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a class test and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-089": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a competitive examination and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-090": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a screening test and fails by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-091": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a school examination and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-092": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a board examination and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-093": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a recruitment test and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-094": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a scholarship test and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-095": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a qualifying examination and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-096": {
+        "template": "A candidate secures {percentageRate}% of the total marks in an entrance test and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-097": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a written examination and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-098": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a class test and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-099": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a competitive examination and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-100": {
+        "template": "A candidate secures {percentageRate}% of the total marks in a screening test and passes by {value1} marks. If pass marks are {passRate}% of the total, find the total marks.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-101": {
+        "template": "In a municipal election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-102": {
+        "template": "In a ward election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-103": {
+        "template": "In a panchayat election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-104": {
+        "template": "In a cooperative election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-105": {
+        "template": "In a union election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-106": {
+        "template": "In a colony election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-107": {
+        "template": "In a market committee election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-108": {
+        "template": "In a resident welfare election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-109": {
+        "template": "In a college union election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-110": {
+        "template": "In a block-level election, {turnoutRate}% of {totalVoters} registered voters cast their votes. Find the number of votes polled.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-111": {
+        "template": "In a municipal election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-112": {
+        "template": "In a ward election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-113": {
+        "template": "In a panchayat election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-114": {
+        "template": "In a cooperative election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-115": {
+        "template": "In a union election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-116": {
+        "template": "In a colony election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-117": {
+        "template": "In a market committee election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-118": {
+        "template": "In a resident welfare election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-119": {
+        "template": "In a college union election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-120": {
+        "template": "In a block-level election, {turnoutRate}% of {totalVoters} voters cast their votes and {invalidRate}% of the polled votes were invalid. Find the number of valid votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-121": {
+        "template": "In a municipal election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-122": {
+        "template": "In a ward election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-123": {
+        "template": "In a panchayat election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-124": {
+        "template": "In a cooperative election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-125": {
+        "template": "In a union election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-126": {
+        "template": "In a colony election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-127": {
+        "template": "In a market committee election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-128": {
+        "template": "In a resident welfare election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-129": {
+        "template": "In a college union election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-130": {
+        "template": "In a block-level election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes were invalid and a candidate got {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "In a municipal election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-132": {
+        "template": "In a ward election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-133": {
+        "template": "In a panchayat election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-134": {
+        "template": "In a cooperative election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-135": {
+        "template": "In a union election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-136": {
+        "template": "In a colony election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-137": {
+        "template": "In a market committee election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-138": {
+        "template": "In a resident welfare election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-139": {
+        "template": "In a college union election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-140": {
+        "template": "In a block-level election, {turnoutRate}% of {totalVoters} voters cast votes and {invalidRate}% of the polled votes were invalid. If Candidate A gets {rate1}% of the valid votes and Candidate B gets {rate2}% of the valid votes, find the winning margin.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "In a municipal election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "In a ward election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "In a panchayat election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "In a cooperative election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-145": {
+        "template": "In a union election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-146": {
+        "template": "In a colony election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "In a market committee election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "In a resident welfare election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "In a college union election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-150": {
+        "template": "In a block-level election, {turnoutRate}% of the registered voters cast their votes. If {value1} votes were polled, find the total number of registered voters.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-151": {
+        "template": "The population of a town is {totalValue} people. If it increases by {percentageRate}%, find the new population.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-152": {
+        "template": "The production of a factory is {totalValue} units. If it increases by {percentageRate}%, find the new production.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-153": {
+        "template": "The electricity consumption of a block is {totalValue} units. If it increases by {percentageRate}%, find the new consumption.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-154": {
+        "template": "The stock of a warehouse is {totalValue} items. If it increases by {percentageRate}%, find the new stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-155": {
+        "template": "The daily water supply of a village is {totalValue} litres. If it increases by {percentageRate}%, find the new supply.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-156": {
+        "template": "The strength of a school is {totalValue} students. If it increases by {percentageRate}%, find the new strength.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-157": {
+        "template": "The crop output of a farm is {totalValue} quintals. If it increases by {percentageRate}%, find the new output.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-158": {
+        "template": "The milk supply of a booth is {totalValue} litres. If it increases by {percentageRate}%, find the new supply.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-159": {
+        "template": "The passenger count on a route is {totalValue} passengers. If it increases by {percentageRate}%, find the new passenger count.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-160": {
+        "template": "The grain stock of a depot is {totalValue} bags. If it increases by {percentageRate}%, find the new stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-161": {
+        "template": "The population of a town becomes {value1} people after an increase of {percentageRate}%. Find the original population.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-162": {
+        "template": "The production of a factory becomes {value1} units after an increase of {percentageRate}%. Find the original production.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-163": {
+        "template": "The electricity consumption of a block becomes {value1} units after an increase of {percentageRate}%. Find the original consumption.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-164": {
+        "template": "The stock of a warehouse becomes {value1} items after an increase of {percentageRate}%. Find the original stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-165": {
+        "template": "The daily water supply of a village becomes {value1} litres after an increase of {percentageRate}%. Find the original supply.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-166": {
+        "template": "The strength of a school becomes {value1} students after an increase of {percentageRate}%. Find the original strength.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-167": {
+        "template": "The crop output of a farm becomes {value1} quintals after an increase of {percentageRate}%. Find the original output.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-168": {
+        "template": "The milk supply of a booth becomes {value1} litres after an increase of {percentageRate}%. Find the original supply.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-169": {
+        "template": "The passenger count on a route becomes {value1} passengers after an increase of {percentageRate}%. Find the original passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-170": {
+        "template": "The grain stock of a depot becomes {value1} bags after an increase of {percentageRate}%. Find the original stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-171": {
+        "template": "The population of a town is {totalValue} people. If it decreases by {percentageRate}%, find the new population.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-172": {
+        "template": "The production of a factory is {totalValue} units. If it decreases by {percentageRate}%, find the new production.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-173": {
+        "template": "The electricity consumption of a block is {totalValue} units. If it decreases by {percentageRate}%, find the new consumption.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-174": {
+        "template": "The stock of a warehouse is {totalValue} items. If it decreases by {percentageRate}%, find the new stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-175": {
+        "template": "The daily water supply of a village is {totalValue} litres. If it decreases by {percentageRate}%, find the new supply.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-176": {
+        "template": "The strength of a school is {totalValue} students. If it decreases by {percentageRate}%, find the new strength.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-177": {
+        "template": "The crop output of a farm is {totalValue} quintals. If it decreases by {percentageRate}%, find the new output.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-178": {
+        "template": "The milk supply of a booth is {totalValue} litres. If it decreases by {percentageRate}%, find the new supply.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-179": {
+        "template": "The passenger count on a route is {totalValue} passengers. If it decreases by {percentageRate}%, find the new passenger count.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-180": {
+        "template": "The grain stock of a depot is {totalValue} bags. If it decreases by {percentageRate}%, find the new stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-181": {
+        "template": "The population of a town is {totalValue} people. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-182": {
+        "template": "The production of a factory is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-183": {
+        "template": "The electricity consumption of a block is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-184": {
+        "template": "The stock of a warehouse is {totalValue} items. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-185": {
+        "template": "The daily water supply of a village is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-186": {
+        "template": "The strength of a school is {totalValue} students. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-187": {
+        "template": "The crop output of a farm is {totalValue} quintals. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-188": {
+        "template": "The milk supply of a booth is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-189": {
+        "template": "The passenger count on a route is {totalValue} passengers. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-190": {
+        "template": "The grain stock of a depot is {totalValue} bags. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-191": {
+        "template": "The population of a town is {totalValue} people. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-192": {
+        "template": "The production of a factory is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-193": {
+        "template": "The electricity consumption of a block is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-194": {
+        "template": "The stock of a warehouse is {totalValue} items. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-195": {
+        "template": "The daily water supply of a village is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-196": {
+        "template": "The strength of a school is {totalValue} students. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-197": {
+        "template": "The crop output of a farm is {totalValue} quintals. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-198": {
+        "template": "The milk supply of a booth is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-199": {
+        "template": "The passenger count on a route is {totalValue} passengers. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-200": {
+        "template": "The grain stock of a depot is {totalValue} bags. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-201": {
+        "template": "A salt solution contains {componentRate}% salt. Find the quantity of salt in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-202": {
+        "template": "A sugar solution contains {componentRate}% sugar. Find the quantity of sugar in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-203": {
+        "template": "A milk-water mixture contains {componentRate}% milk. Find the quantity of milk in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-204": {
+        "template": "An acid solution contains {componentRate}% acid. Find the quantity of acid in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-205": {
+        "template": "An alcohol solution contains {componentRate}% alcohol. Find the quantity of alcohol in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-206": {
+        "template": "A paint mixture contains {componentRate}% paint. Find the quantity of paint in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-207": {
+        "template": "A syrup mixture contains {componentRate}% syrup. Find the quantity of syrup in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-208": {
+        "template": "A fertilizer mix contains {componentRate}% fertilizer. Find the quantity of fertilizer in {totalValue} kg of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-209": {
+        "template": "A metal blend contains {componentRate}% copper. Find the quantity of copper in {totalValue} kg of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-210": {
+        "template": "A chemical solution contains {componentRate}% solute. Find the quantity of solute in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-211": {
+        "template": "A salt solution contains {componentRate}% salt. Find the quantity of water in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-212": {
+        "template": "A sugar solution contains {componentRate}% sugar. Find the quantity of water in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-213": {
+        "template": "A milk-water mixture contains {componentRate}% milk. Find the quantity of water in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-214": {
+        "template": "An acid solution contains {componentRate}% acid. Find the quantity of water in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-215": {
+        "template": "An alcohol solution contains {componentRate}% alcohol. Find the quantity of water in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-216": {
+        "template": "A paint mixture contains {componentRate}% paint. Find the quantity of thinner in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-217": {
+        "template": "A syrup mixture contains {componentRate}% syrup. Find the quantity of water in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-218": {
+        "template": "A fertilizer mix contains {componentRate}% fertilizer. Find the quantity of base material in {totalValue} kg of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-219": {
+        "template": "A metal blend contains {componentRate}% copper. Find the quantity of other metal in {totalValue} kg of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-220": {
+        "template": "A chemical solution contains {componentRate}% solute. Find the quantity of solvent in {totalValue} litres of the mixture.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-221": {
+        "template": "A salt solution contains {componentRate}% salt. If the salt present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-222": {
+        "template": "A sugar solution contains {componentRate}% sugar. If the sugar present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-223": {
+        "template": "A milk-water mixture contains {componentRate}% milk. If the milk present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-224": {
+        "template": "An acid solution contains {componentRate}% acid. If the acid present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-225": {
+        "template": "An alcohol solution contains {componentRate}% alcohol. If the alcohol present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-226": {
+        "template": "A paint mixture contains {componentRate}% paint. If the paint present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-227": {
+        "template": "A syrup mixture contains {componentRate}% syrup. If the syrup present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-228": {
+        "template": "A fertilizer mix contains {componentRate}% fertilizer. If the fertilizer present is {value1} kg, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-229": {
+        "template": "A metal blend contains {componentRate}% copper. If the copper present is {value1} kg, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-230": {
+        "template": "A chemical solution contains {componentRate}% solute. If the solute present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-231": {
+        "template": "In a salt solution, {value1} litres is salt out of {totalValue} litres. Find the percentage of salt.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-232": {
+        "template": "In a sugar solution, {value1} litres is sugar out of {totalValue} litres. Find the percentage of sugar.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-233": {
+        "template": "In a milk-water mixture, {value1} litres is milk out of {totalValue} litres. Find the percentage of milk.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-234": {
+        "template": "In an acid solution, {value1} litres is acid out of {totalValue} litres. Find the percentage of acid.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-235": {
+        "template": "In an alcohol solution, {value1} litres is alcohol out of {totalValue} litres. Find the percentage of alcohol.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-236": {
+        "template": "In a paint mixture, {value1} litres is paint out of {totalValue} litres. Find the percentage of paint.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-237": {
+        "template": "In a syrup mixture, {value1} litres is syrup out of {totalValue} litres. Find the percentage of syrup.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-238": {
+        "template": "In a fertilizer mix, {value1} kg is fertilizer out of {totalValue} kg. Find the percentage of fertilizer.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-239": {
+        "template": "In a metal blend, {value1} kg is copper out of {totalValue} kg. Find the percentage of copper.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-240": {
+        "template": "In a chemical solution, {value1} litres is solute out of {totalValue} litres. Find the percentage of solute.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-241": {
+        "template": "A salt solution contains {componentRate}% salt. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-242": {
+        "template": "A sugar solution contains {componentRate}% sugar. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-243": {
+        "template": "A milk-water mixture contains {componentRate}% milk. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-244": {
+        "template": "An acid solution contains {componentRate}% acid. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-245": {
+        "template": "An alcohol solution contains {componentRate}% alcohol. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-246": {
+        "template": "A paint mixture contains {componentRate}% paint. If the thinner present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-247": {
+        "template": "A syrup mixture contains {componentRate}% syrup. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-248": {
+        "template": "A fertilizer mix contains {componentRate}% fertilizer. If the base material present is {value1} kg, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-249": {
+        "template": "A metal blend contains {componentRate}% copper. If the other metal present is {value1} kg, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-250": {
+        "template": "A chemical solution contains {componentRate}% solute. If the solvent present is {value1} litres, find the total quantity of the mixture.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-251": {
+        "template": "Fresh grapes contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-252": {
+        "template": "Fresh apples contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-253": {
+        "template": "Fresh tomatoes contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-254": {
+        "template": "Fresh plums contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-255": {
+        "template": "Fresh apricots contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-256": {
+        "template": "Fresh berries contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-257": {
+        "template": "Wet grain contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-258": {
+        "template": "Fresh dates contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-259": {
+        "template": "Fresh figs contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-260": {
+        "template": "Fresh chillies contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-261": {
+        "template": "Fresh grapes contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-262": {
+        "template": "Fresh apples contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-263": {
+        "template": "Fresh tomatoes contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-264": {
+        "template": "Fresh plums contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-265": {
+        "template": "Fresh apricots contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-266": {
+        "template": "Fresh berries contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-267": {
+        "template": "Wet grain contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-268": {
+        "template": "Fresh dates contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-269": {
+        "template": "Fresh figs contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-270": {
+        "template": "Fresh chillies contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-271": {
+        "template": "A sugar solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-272": {
+        "template": "A salt solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-273": {
+        "template": "An acid solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-274": {
+        "template": "An ink solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-275": {
+        "template": "A medicine solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-276": {
+        "template": "A chemical solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-277": {
+        "template": "A laboratory sample is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-278": {
+        "template": "A syrup solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-279": {
+        "template": "A dye solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-280": {
+        "template": "A glucose solution is {oldRate}% solute. After some water evaporates, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the final quantity of the solution.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-281": {
+        "template": "A sugar solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-282": {
+        "template": "A salt solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-283": {
+        "template": "An acid solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-284": {
+        "template": "An ink solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-285": {
+        "template": "A medicine solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-286": {
+        "template": "A chemical solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-287": {
+        "template": "A laboratory sample is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-288": {
+        "template": "A syrup solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-289": {
+        "template": "A dye solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-290": {
+        "template": "A glucose solution is {oldRate}% solute. After evaporation, it becomes {newRate}% solute. If the initial solution is {baseValue} litres, find the quantity evaporated.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-291": {
+        "template": "After drying, fresh grapes weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-292": {
+        "template": "After drying, fresh apples weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-293": {
+        "template": "After drying, fresh tomatoes weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-294": {
+        "template": "After drying, fresh plums weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-295": {
+        "template": "After drying, fresh apricots weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-296": {
+        "template": "After drying, fresh berries weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-297": {
+        "template": "After drying, wet grain weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-298": {
+        "template": "After drying, fresh dates weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-299": {
+        "template": "After drying, fresh figs weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-300": {
+        "template": "After drying, fresh chillies weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-301": {
+        "template": "An article in a shop is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-302": {
+        "template": "A showroom bill is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-303": {
+        "template": "A garment purchase is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-304": {
+        "template": "An appliance bill is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-305": {
+        "template": "A book purchase is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-306": {
+        "template": "A furniture bill is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-307": {
+        "template": "A mobile accessory bill is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-308": {
+        "template": "A grocery bill is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-309": {
+        "template": "A sports goods bill is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-310": {
+        "template": "A stationery purchase is priced at Rs. {baseValue} and carries {discountRate}% discount. Find the discount amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-311": {
+        "template": "An article in a shop is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-312": {
+        "template": "A showroom bill is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-313": {
+        "template": "A garment purchase is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-314": {
+        "template": "An appliance bill is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-315": {
+        "template": "A book purchase is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-316": {
+        "template": "A furniture bill is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-317": {
+        "template": "A mobile accessory bill is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-318": {
+        "template": "A grocery bill is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-319": {
+        "template": "A sports goods bill is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-320": {
+        "template": "A stationery purchase is priced at Rs. {baseValue} and gets {discountRate}% discount. Find the amount payable after discount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-321": {
+        "template": "A hotel bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-322": {
+        "template": "A restaurant bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-323": {
+        "template": "An electricity bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-324": {
+        "template": "A service bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-325": {
+        "template": "A maintenance bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-326": {
+        "template": "A utility bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-327": {
+        "template": "A cinema booking bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-328": {
+        "template": "A courier bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-329": {
+        "template": "A repair bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-330": {
+        "template": "A club bill is Rs. {baseValue} and attracts a {percentageRate}% tax or charge. Find the tax or charge amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-331": {
+        "template": "A hotel bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-332": {
+        "template": "A restaurant bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-333": {
+        "template": "An electricity bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-334": {
+        "template": "A service bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-335": {
+        "template": "A maintenance bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-336": {
+        "template": "A utility bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-337": {
+        "template": "A cinema booking bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-338": {
+        "template": "A courier bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-339": {
+        "template": "A repair bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-340": {
+        "template": "A club bill is Rs. {baseValue}. After a {rate1}% discount, a {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-341": {
+        "template": "A sales agent earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-342": {
+        "template": "An insurance agent earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-343": {
+        "template": "A property broker earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-344": {
+        "template": "A commission agent earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-345": {
+        "template": "A booking agent earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-346": {
+        "template": "A tour agent earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-347": {
+        "template": "A vehicle salesperson earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-348": {
+        "template": "A wholesale representative earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-349": {
+        "template": "A ticketing agent earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-350": {
+        "template": "A product promoter earns {commissionRate}% commission on sales of Rs. {baseValue}. Find the commission amount.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-351": {
+        "template": "A value is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-352": {
+        "template": "A bill amount is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-353": {
+        "template": "A weight entry is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-354": {
+        "template": "A population figure is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-355": {
+        "template": "A measurement is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-356": {
+        "template": "A marks entry is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-357": {
+        "template": "A stock figure is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-358": {
+        "template": "A salary entry is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-359": {
+        "template": "A fee amount is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-360": {
+        "template": "A production figure is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-361": {
+        "template": "A value is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-362": {
+        "template": "A bill amount is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-363": {
+        "template": "A weight entry is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-364": {
+        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-365": {
+        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-366": {
+        "template": "A marks entry is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-367": {
+        "template": "A stock figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-368": {
+        "template": "A salary entry is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-369": {
+        "template": "A fee amount is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-370": {
+        "template": "A production figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-371": {
+        "template": "A value is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-372": {
+        "template": "A bill amount is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-373": {
+        "template": "A weight entry is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-374": {
+        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-375": {
+        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-376": {
+        "template": "A marks entry is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-377": {
+        "template": "A stock figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-378": {
+        "template": "A salary entry is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-379": {
+        "template": "A fee amount is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-380": {
+        "template": "A production figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-381": {
+        "template": "A bill based on a value is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-382": {
+        "template": "A bill based on a bill amount is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-383": {
+        "template": "A bill based on a weight entry is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-384": {
+        "template": "A bill based on a population figure is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-385": {
+        "template": "A bill based on a measurement is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-386": {
+        "template": "A bill based on a marks entry is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-387": {
+        "template": "A bill based on a stock figure is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-388": {
+        "template": "A bill based on a salary entry is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-389": {
+        "template": "A bill based on a fee amount is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-390": {
+        "template": "A bill based on a production figure is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-391": {
+        "template": "A value is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-392": {
+        "template": "A bill amount is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-393": {
+        "template": "A weight entry is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-394": {
+        "template": "A population figure is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-395": {
+        "template": "A measurement is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-396": {
+        "template": "A marks entry is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-397": {
+        "template": "A stock figure is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-398": {
+        "template": "A salary entry is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-399": {
+        "template": "A fee amount is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-400": {
+        "template": "A production figure is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-401": {
+        "template": "A water tank contains {totalValue} litres. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-402": {
+        "template": "A warehouse stock contains {totalValue} items. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-403": {
+        "template": "A grain store contains {totalValue} bags. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-404": {
+        "template": "A battery pack contains {totalValue} units. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-405": {
+        "template": "A fuel reserve contains {totalValue} litres. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-406": {
+        "template": "A paper stock contains {totalValue} reams. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-407": {
+        "template": "A ration stock contains {totalValue} kg. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-408": {
+        "template": "A medicine stock contains {totalValue} boxes. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-409": {
+        "template": "A fruit stock contains {totalValue} crates. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-410": {
+        "template": "A library stock contains {totalValue} books. If {percentageRate}% of it is used, find the quantity left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-411": {
+        "template": "A water tank contains {totalValue} litres. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-412": {
+        "template": "A warehouse stock contains {totalValue} items. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-413": {
+        "template": "A grain store contains {totalValue} bags. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-414": {
+        "template": "A battery pack contains {totalValue} units. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-415": {
+        "template": "A fuel reserve contains {totalValue} litres. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-416": {
+        "template": "A paper stock contains {totalValue} reams. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-417": {
+        "template": "A ration stock contains {totalValue} kg. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-418": {
+        "template": "A medicine stock contains {totalValue} boxes. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-419": {
+        "template": "A fruit stock contains {totalValue} crates. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-420": {
+        "template": "A library stock contains {totalValue} books. If it is reduced by {percentageRate}% and again by the same percentage, find the quantity left.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-421": {
+        "template": "A water tank contains {totalValue} litres. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-422": {
+        "template": "A warehouse stock contains {totalValue} items. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-423": {
+        "template": "A grain store contains {totalValue} bags. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-424": {
+        "template": "A battery pack contains {totalValue} units. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-425": {
+        "template": "A fuel reserve contains {totalValue} litres. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-426": {
+        "template": "A paper stock contains {totalValue} reams. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-427": {
+        "template": "A ration stock contains {totalValue} kg. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-428": {
+        "template": "A medicine stock contains {totalValue} boxes. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-429": {
+        "template": "A fruit stock contains {totalValue} crates. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-430": {
+        "template": "A library stock contains {totalValue} books. If it is reduced by {percentageRate}% three times in succession, find the remaining quantity.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-431": {
+        "template": "A water tank contains {totalValue} litres. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-432": {
+        "template": "A warehouse stock contains {totalValue} items. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-433": {
+        "template": "A grain store contains {totalValue} bags. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-434": {
+        "template": "A battery pack contains {totalValue} units. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-435": {
+        "template": "A fuel reserve contains {totalValue} litres. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-436": {
+        "template": "A paper stock contains {totalValue} reams. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-437": {
+        "template": "A ration stock contains {totalValue} kg. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-438": {
+        "template": "A medicine stock contains {totalValue} boxes. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-439": {
+        "template": "A fruit stock contains {totalValue} crates. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-440": {
+        "template": "A library stock contains {totalValue} books. If it is reduced by {rate1}% and then by {rate2}%, find the quantity left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-441": {
+        "template": "A water tank contains {totalValue} litres. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-442": {
+        "template": "A warehouse stock contains {totalValue} items. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-443": {
+        "template": "A grain store contains {totalValue} bags. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-444": {
+        "template": "A battery pack contains {totalValue} units. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-445": {
+        "template": "A fuel reserve contains {totalValue} litres. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-446": {
+        "template": "A paper stock contains {totalValue} reams. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-447": {
+        "template": "A ration stock contains {totalValue} kg. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-448": {
+        "template": "A medicine stock contains {totalValue} boxes. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-449": {
+        "template": "A fruit stock contains {totalValue} crates. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-450": {
+        "template": "A library stock contains {totalValue} books. If {rate1}% is used first and {rate2}% of the remainder is used next, find the total quantity used.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-451": {
+        "template": "A clerk earns Rs. {baseValue} per month and spends {percentageRate}% of it. Find the monthly savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-452": {
+        "template": "A teacher has monthly income of Rs. {baseValue}. If {percentageRate}% is spent, find the amount saved.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-453": {
+        "template": "A tailor earns Rs. {baseValue} in a month and spends {percentageRate}% on expenses. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-454": {
+        "template": "A driver receives Rs. {baseValue} per month. If {percentageRate}% goes towards expenses, find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-455": {
+        "template": "A shopkeeper earns Rs. {baseValue} in a month and uses {percentageRate}% for expenditure. Find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-456": {
+        "template": "A nurse gets Rs. {baseValue} as monthly salary. If {percentageRate}% is spent, find the amount left as savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-457": {
+        "template": "An electrician earns Rs. {baseValue} per month. If {percentageRate}% is used for expenses, find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-458": {
+        "template": "A school employee earns Rs. {baseValue} monthly. If expenditure is {percentageRate}% of income, find the savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-459": {
+        "template": "A farmer has monthly income of Rs. {baseValue}. If {percentageRate}% is spent, find the amount saved.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-460": {
+        "template": "A tutor earns Rs. {baseValue} in a month and spends {percentageRate}% of it. Find the monthly savings.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-461": {
+        "template": "In a ward election, {turnoutRate}% of {totalVoters} voters cast their votes. If {invalidRate}% of the polled votes are invalid and a candidate gets {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-462": {
+        "template": "In a panchayat election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes are invalid and one candidate secures {candidateRate}% of the valid votes, find that candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-463": {
+        "template": "In a municipal election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes are invalid and Candidate A receives {candidateRate}% of the valid votes, find Candidate A's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-464": {
+        "template": "In a cooperative election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of these votes are invalid and a candidate gets {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-465": {
+        "template": "In a college union election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes are invalid and one candidate gets {candidateRate}% of the valid votes, find the votes obtained by that candidate.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-466": {
+        "template": "In a colony election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the votes are invalid and Candidate B secures {candidateRate}% of the valid votes, find Candidate B's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-467": {
+        "template": "In a resident welfare election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% are invalid and a candidate obtains {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-468": {
+        "template": "In a market committee election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes are invalid and one candidate gets {candidateRate}% of the valid votes, find that candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-469": {
+        "template": "In a block-level election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% are invalid and Candidate C receives {candidateRate}% of the valid votes, find Candidate C's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-470": {
+        "template": "In a union election, {turnoutRate}% of {totalVoters} voters cast votes. If {invalidRate}% of the polled votes are invalid and a candidate gets {candidateRate}% of the valid votes, find the candidate's votes.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-471": {
+        "template": "A bill of Rs. {baseValue} gets {rate1}% discount and then {rate2}% tax is added. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-472": {
+        "template": "An article marked at Rs. {baseValue} is sold after {rate1}% discount and then {rate2}% tax is charged. Find the final amount payable.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-473": {
+        "template": "A hotel bill of Rs. {baseValue} is reduced by {rate1}% discount and then increased by {rate2}% tax. Find the final bill.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-474": {
+        "template": "A restaurant bill of Rs. {baseValue} gets {rate1}% discount, after which {rate2}% tax is added. Find the final amount payable.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-475": {
+        "template": "A showroom bill of Rs. {baseValue} receives {rate1}% discount and then {rate2}% tax. Find the final amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-476": {
+        "template": "A furniture bill of Rs. {baseValue} is billed after {rate1}% discount and {rate2}% tax. Find the final amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-477": {
+        "template": "A garment purchase of Rs. {baseValue} gets {rate1}% discount and then attracts {rate2}% tax. Find the final bill.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-478": {
+        "template": "A grocery bill of Rs. {baseValue} receives {rate1}% discount before {rate2}% tax is added. Find the final bill.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-479": {
+        "template": "A cinema booking bill of Rs. {baseValue} gets {rate1}% discount and then {rate2}% tax. Find the final amount payable.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-480": {
+        "template": "A service bill of Rs. {baseValue} is reduced by {rate1}% and then taxed at {rate2}%. Find the final bill.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-481": {
+        "template": "A factory produces {totalValue} units. If {percentageRate}% are defective and {rate1}% of the good units are sold, find the good units left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-482": {
+        "template": "A plant makes {totalValue} units. If {percentageRate}% are defective and {rate1}% of the good units are dispatched, find the good units left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-483": {
+        "template": "A workshop produces {totalValue} pieces. If {percentageRate}% are rejected and {rate1}% of the good pieces are supplied, find the good pieces left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-484": {
+        "template": "A unit manufactures {totalValue} items. If {percentageRate}% are defective and {rate1}% of the good items are sold, find the good items left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-485": {
+        "template": "A packaging unit prepares {totalValue} boxes. If {percentageRate}% are damaged and {rate1}% of the good boxes are issued, find the good boxes left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-486": {
+        "template": "A printer produces {totalValue} copies. If {percentageRate}% are spoiled and {rate1}% of the usable copies are sent out, find the usable copies left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-487": {
+        "template": "A dairy packs {totalValue} pouches. If {percentageRate}% are rejected and {rate1}% of the good pouches are sold, find the good pouches left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-488": {
+        "template": "A bottling unit fills {totalValue} bottles. If {percentageRate}% are defective and {rate1}% of the good bottles are dispatched, find the good bottles left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-489": {
+        "template": "A bakery prepares {totalValue} packets. If {percentageRate}% are damaged and {rate1}% of the good packets are sold, find the good packets left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-490": {
+        "template": "A warehouse processes {totalValue} cartons. If {percentageRate}% are defective and {rate1}% of the good cartons are shipped, find the good cartons left.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-491": {
+        "template": "{subjectA} scores {rate1}% of {baseValue1} marks, while {subjectB} scores {rate2}% of {baseValue2} marks. Who scores more in actual marks, and by how much?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-492": {
+        "template": "{subjectA} records {rate1}% attendance out of {baseValue1} students, while {subjectB} records {rate2}% attendance out of {baseValue2} students. Which section has higher actual attendance, and by how much?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-493": {
+        "template": "{subjectA} has {rate1}% literate people out of {baseValue1}, while {subjectB} has {rate2}% literate people out of {baseValue2}. Which place has more literate people, and by how much?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-494": {
+        "template": "{subjectA} sells {rate1}% of {baseValue1} units, while {subjectB} sells {rate2}% of {baseValue2} units. Which unit sells more actual units, and by how much?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-495": {
+        "template": "{subjectA} records sales equal to {rate1}% of Rs. {baseValue1}, while {subjectB} records sales equal to {rate2}% of Rs. {baseValue2}. Which store records higher actual sales, and by how much?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-496": {
+        "template": "{subjectA} carries {rate1}% of {baseValue1} passengers, while {subjectB} carries {rate2}% of {baseValue2} passengers. Which route carries more passengers, and by how many?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-497": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} valid votes, while {subjectB} secures {rate2}% of {baseValue2} valid votes. Who gets more votes, and by how many?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-498": {
+        "template": "{subjectA} sells {rate1}% of {baseValue1} items, while {subjectB} sells {rate2}% of {baseValue2} items. Which warehouse sells more items, and by how many?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-499": {
+        "template": "{subjectA} uses {rate1}% of {baseValue1} units, while {subjectB} uses {rate2}% of {baseValue2} units. Which block uses more units, and by how many?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-500": {
+        "template": "{subjectA} reports {rate1}% good output out of {baseValue1} units, while {subjectB} reports {rate2}% good output out of {baseValue2} units. Which factory has higher good output, and by how many units?",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

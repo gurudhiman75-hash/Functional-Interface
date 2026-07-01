@@ -264,17 +264,25 @@ Required concepts:
 
 Core idea:
 
-Handle repeated removal/replacement or repeated percentage application in practical contexts.
+Handle repeated percentage removal, reduction, or use of a quantity in practical contexts.
 
 Typical stems:
 
-- `{percentageRate}%` of a tank/stock is used and replaced.
+- `{percentageRate}%` of a tank/stock is used.
 - A quantity is reduced by `{rate1}%` and then again by `{rate2}%`.
 - Stock is replenished after a percentage sale.
 
 Boundary:
 
 This CP may include light repeated application but should not become PCT-005 successive-change theory or full mixture replacement/alligation. Stems must stay contextual and percentage-application driven.
+
+Stricter CP-009 boundary:
+
+- Focus on repeated percentage removal, reduction, sale, use, or depletion of a quantity.
+- Do not implement composition-changing milk-water, salt-water, or solution replacement unless it is explicitly a direct one-step percentage application.
+- Avoid classic mixture replacement and alligation-style reasoning.
+- If a replacement problem changes concentration, keep it out of CP-009 unless the solve mode is explicitly scoped, deterministic, and validated.
+- Repeated replacement should not require tracking changing component concentration unless the implementation has a dedicated, documented solve mode for that narrow case.
 
 ### `PCT-CP-010 - Mini DI / Mixed Percentage Caselets`
 
@@ -291,6 +299,16 @@ Typical stems:
 Boundary:
 
 This is mini DI only. Do not implement full DI sets, multi-question passages, chart interpretation, or long tables.
+
+Stricter CP-010 boundary:
+
+- CP-010 must remain single-question mini caselets only.
+- Do not create multi-question DI sets.
+- Do not create a shared DI-set object reused across several QLs.
+- Do not use large tables, charts, or graph-style prompts.
+- No caselet should require more than 2-4 facts.
+- Each QL must be independently solvable from its own stem.
+- If a stem needs an external shared passage to make sense, it does not belong in CP-010.
 
 ---
 
@@ -377,13 +395,15 @@ For contextual replacement where the same percentage is removed from current qua
 
 - `remainingAfterN = total * ((100 - rate) / 100)^n`
 
-If replacement restores total but changes composition, use only simple two-step cases and avoid alligation-style reasoning unless explicitly scoped.
+If replacement restores total but changes composition, keep it out of CP-009 unless the solve mode is explicitly scoped and deterministic. Do not use classic mixture replacement or alligation-style reasoning in CP-009.
 
 ### CP-010 formulas
 
 Use formulas from CP-001 to CP-009 depending on caselet type.
 
 Each generated caselet must declare its solve mode so solver logic remains deterministic.
+
+Each CP-010 QL must be independently solvable from its own stem. Do not rely on a shared DI-set object, shared passage, large chart, or multi-question caselet state.
 
 ---
 
@@ -640,8 +660,8 @@ Recommended contexts by CP:
 - CP-006: fruit drying, grapes/raisins, water evaporation, sugar solution concentration, dry matter
 - CP-007: bill, tax, GST-like tax, discount, service charge, commission, brokerage-like fee
 - CP-008: wrong bill, incorrect measurement, misread marks, wrong population entry, overcount/undercount
-- CP-009: stock sold and replenished, tank emptied, quantity used twice, repeated consumption, repeated reduction
-- CP-010: compact school/election/shop/factory/public-utility caselets
+- CP-009: stock sold, tank emptied, quantity used twice, repeated consumption, repeated reduction, repeated depletion
+- CP-010: compact single-question school/election/shop/factory/public-utility caselets with 2-4 facts
 
 Avoid context dominance. No CP should have all 50 stems from one setting.
 
@@ -685,6 +705,8 @@ Requirements:
 Do not use one generic percentage solver for all CPs if that hides business rules or direction.
 
 For CP-010 mini caselets, solve mode must identify which formula family is active.
+
+CP-010 solver logic must treat every QL as a standalone single-question caselet. Do not depend on shared DI-set state or multi-question passage objects.
 
 ---
 
@@ -1007,4 +1029,3 @@ Use one of:
 - `Ready for manual review`
 - `Needs tiny patch`
 - `Needs another implementation pass`
-
