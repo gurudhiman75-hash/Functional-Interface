@@ -216,3 +216,64 @@ Run:
 `PCT-002 - Needs tiny English editorial polish before Stage 1 expansion or manual review.`
 
 Do not mark PCT-002 ready for manual question-bank review yet.
+
+## Final Editorial Polish
+
+- Files changed:
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/question-language.en.json`
+  - `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-002-ssc-realism-review.md`
+- QL IDs patched:
+  - Editorial polish targets:
+    - `PCT-QL-003`
+    - `PCT-QL-004`
+    - `PCT-QL-014`
+    - `PCT-QL-036`
+    - `PCT-QL-041`
+    - `PCT-QL-045`
+    - `PCT-QL-046`
+    - `PCT-QL-047`
+    - `PCT-QL-049`
+    - `PCT-QL-050`
+  - Additional in-file placeholder repairs needed to rerun the bundled test:
+    - `PCT-QL-016`
+    - `PCT-QL-020`
+    - `PCT-QL-028`
+    - `PCT-QL-029`
+    - `PCT-QL-032`
+    - `PCT-QL-037`
+    - `PCT-QL-038`
+    - `PCT-QL-044`
+- Audit results:
+  - JSON parse: `passed`
+  - English QL count: `50`
+  - Per-CP count: `5` for each of `PCT-CP-001` to `PCT-CP-010`
+  - Exact duplicate English template groups: `0`
+  - Required-placeholder audit: `0` missing required placeholders after the patch
+  - Extra placeholders not present in the registry: `6`
+    - Remaining extra `valuePrefix` placeholders are pre-existing registry/content mismatches in:
+      - `PCT-QL-002`
+      - `PCT-QL-003`
+      - `PCT-QL-006`
+      - `PCT-QL-007`
+      - `PCT-QL-016`
+      - `PCT-QL-020`
+  - Cross-language placeholder mismatch audit: `60`
+    - This reflects existing Hindi/Punjabi coverage mismatch outside this English-only polish scope
+  - Rendered-stem unresolved-placeholder audit: `0`
+- Test result:
+  - Bundled test build command:
+    - `C:\Users\gurbaj\Downloads\Functional-Interface\Functional-Interface\artifacts\api-server\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/pct-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-002.test.mjs`
+    - Result: `passed`
+  - Bundled test run command:
+    - `node dist/quant-v4/pct-002.test.mjs`
+    - Result: `failed`
+  - Runtime failure reached:
+    - `20 !== 50`
+  - Cause identified:
+    - The current non-English baseline is incomplete for the test's cross-language expectations:
+      - `question-language.en.json = 50`
+      - `question-language.hi.json = 20`
+      - `question-language.pa.json = 20`
+    - Hindi/Punjabi files were explicitly out of scope for this task, so this was not changed here.
+- Final status:
+  - `PCT-002 - Existing 50 QLs polished; ready for Stage 1 expansion decision`

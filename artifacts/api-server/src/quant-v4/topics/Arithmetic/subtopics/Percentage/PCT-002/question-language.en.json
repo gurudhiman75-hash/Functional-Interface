@@ -26,11 +26,11 @@
   "PCT-CP-002": {
     "families": {
       "PCT-QL-003": {
-        "template": "A bank statement says {knownRate}% of the {wholeLabel} is {valuePrefix}{knownValue}. Find {targetRate}% of the same {wholeLabel}.",
+        "template": "If {knownRate}% of the {wholeLabel} is {valuePrefix}{knownValue}, find the value of {targetRate}% of the same {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "A telecom usage note says {knownRate}% of the {wholeLabel} is {knownValue}. What is {targetRate}% of the same {wholeLabel}?",
+        "template": "If {knownRate}% of the {wholeLabel} is {knownValue}, what is {targetRate}% of the same {wholeLabel}?",
         "difficulty": "Medium"
       },
       "PCT-QL-024": {
@@ -62,11 +62,11 @@
         "difficulty": "Easy"
       },
       "PCT-QL-028": {
-        "template": "Out of {wholeValue} {wholeLabel}, {partValue} are present. Find the attendance percentage.",
+        "template": "In a class of {wholeValue} {wholeLabel}, {partValue} are {partLabel}. Find the attendance percentage.",
         "difficulty": "Easy"
       },
       "PCT-QL-029": {
-        "template": "Out of {wholeValue} seats, {partValue} were booked. Find the percentage of booked seats.",
+        "template": "At a venue with {wholeValue} {wholeLabel}, {partValue} are {partLabel}. Find the percentage of {partLabel}.",
         "difficulty": "Medium"
       }
     }
@@ -90,7 +90,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-032": {
-        "template": "If {knownValue} votes are {knownRate}% of the total votes, what percent of the total is {targetValue} votes?",
+        "template": "If {knownValue} {wholeLabel} are {knownRate}% of the total, what percent of the total is {targetValue} {wholeLabel}?",
         "difficulty": "Hard"
       }
     }
@@ -130,15 +130,15 @@
         "difficulty": "Easy"
       },
       "PCT-QL-036": {
-        "template": "If {knownRate}% students are {partLabel}, find the percentage of {complementLabel}.",
+        "template": "If {knownRate}% of the students are {partLabel}, find the percentage of {complementLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-037": {
-        "template": "A battery has used {knownRate}% of its charge. Find the percentage still left.",
+        "template": "If {knownRate}% of the battery charge is {partLabel}, find the percentage of {complementLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-038": {
-        "template": "A shop has sold {knownRate}% of its stock. Find the percentage left unsold.",
+        "template": "If {knownRate}% of the stock is {partLabel}, find the percentage of {complementLabel}.",
         "difficulty": "Medium"
       }
     }
@@ -150,7 +150,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-014": {
-        "template": "{rate1}% of the monthly budget goes to {partLabel} and {rate2}% goes to {otherLabel}. Find the percentage difference.",
+        "template": "{rate1}% of the monthly budget goes to {partLabel} and {rate2}% goes to {otherLabel}. Find the difference in percentage points between the two shares.",
         "difficulty": "Medium"
       },
       "PCT-QL-039": {
@@ -162,7 +162,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-041": {
-        "template": "In a crop report, {rate1}% of the area is under {partLabel} and {rate2}% under {otherLabel}. Find the percentage difference.",
+        "template": "On a farm, {rate1}% of the area is under {partLabel} and {rate2}% is under {otherLabel}. Find the difference in percentage points between the two shares.",
         "difficulty": "Medium"
       }
     }
@@ -174,7 +174,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-016": {
-        "template": "Out of {valuePrefix}{totalValue}, {targetRate}% is spent on {targetLabel}, {otherRate}% on {otherLabel}, and {thirdRate}% on {thirdLabel}. Find the amount spent on {targetLabel}.",
+        "template": "Out of a total {wholeLabel} of {valuePrefix}{totalValue}, {targetRate}% is spent on {targetLabel}, {otherRate}% on {otherLabel}, and {thirdRate}% on {thirdLabel}. Find the amount spent on {targetLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-042": {
@@ -186,7 +186,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-044": {
-        "template": "Out of {totalValue} passengers, {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}. Find the number of {targetLabel}.",
+        "template": "A train has {totalValue} {wholeLabel}. If {targetRate}% are {targetLabel}, {otherRate}% are {otherLabel}, and {thirdRate}% are {thirdLabel}, find the number of {targetLabel}.",
         "difficulty": "Hard"
       }
     }
@@ -202,15 +202,15 @@
         "difficulty": "Medium"
       },
       "PCT-QL-045": {
-        "template": "A survey shows {rate1}% for {partLabel}, {rate2}% for {otherLabel}, and {rate3}% for {thirdLabel}. Find the missing percentage for {complementLabel}.",
+        "template": "In a survey, {rate1}% prefer {partLabel}, {rate2}% prefer {otherLabel}, and {rate3}% prefer {thirdLabel}. Find the remaining percentage for {complementLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-046": {
-        "template": "In an election report, {rate1}% belongs to {partLabel}, {rate2}% to {otherLabel}, and {rate3}% to {thirdLabel}. Find the remaining percentage for {complementLabel}.",
+        "template": "In an election, {rate1}% of the votes go to {partLabel}, {rate2}% go to {otherLabel}, and {rate3}% go to {thirdLabel}. Find the remaining percentage for {complementLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-047": {
-        "template": "A result summary shows {rate1}% {partLabel}, {rate2}% {otherLabel}, and {rate3}% {thirdLabel}. Find the missing percentage of {complementLabel}.",
+        "template": "In an exam result, {rate1}% of the students are {partLabel}, {rate2}% are {otherLabel}, and {rate3}% are {thirdLabel}. Find the remaining percentage of {complementLabel}.",
         "difficulty": "Medium"
       }
     }
@@ -222,7 +222,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-020": {
-        "template": "Out of {valuePrefix}{totalValue}, {rate1}% is spent on {otherLabel}, {rate2}% on {thirdLabel}, {rate3}% on {fourthLabel}, and the remaining {targetRate}% on {targetLabel}. Find the amount spent on {targetLabel}.",
+        "template": "Out of a total {wholeLabel} of {valuePrefix}{totalValue}, {rate1}% is spent on {otherLabel}, {rate2}% on {thirdLabel}, {rate3}% on {fourthLabel}, and the remaining {targetRate}% on {targetLabel}. Find the amount spent on {targetLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-048": {
@@ -230,11 +230,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-049": {
-        "template": "A district summary lists {totalValue} {wholeLabel}. It records {rate1}% {otherLabel}, {rate2}% {thirdLabel}, and {targetRate}% {targetLabel}. Find the number of {targetLabel}.",
+        "template": "In a district, there are {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-050": {
-        "template": "Out of {totalValue} {wholeLabel}, {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, {rate3}% are {fourthLabel}, and the remaining {targetRate}% are {targetLabel}. Find the value of {targetLabel}.",
+        "template": "A group has {totalValue} {wholeLabel}. If {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, {rate3}% are {fourthLabel}, and the remaining {targetRate}% are {targetLabel}, find the number of {targetLabel}.",
         "difficulty": "Hard"
       }
     }
